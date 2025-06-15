@@ -445,9 +445,14 @@ const Index = () => {
                 <Target className="w-10 h-10 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
-              <p className="text-gray-300 leading-relaxed font-light">
+              <p className="text-gray-300 leading-relaxed font-light mb-4">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
+              <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 backdrop-blur-sm rounded-xl p-4 border border-pink-300/20">
+                <p className="text-pink-200 text-sm font-light leading-relaxed">
+                  <strong className="text-pink-100">Pro tip:</strong> Connect your calendar and we'll know when your partner has that big presentation coming up, so we can suggest the perfect way to support them—before they even mention feeling stressed.
+                </p>
+              </div>
             </Card>
             
             <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
