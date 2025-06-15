@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -131,8 +130,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="px-6 py-6 relative z-10">
+      {/* Navigation - Pink/Coral Theme */}
+      <nav className="px-6 py-6 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
@@ -153,13 +152,14 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative px-6 py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto">
+      {/* Hero Section - Coral/Pink Theme with enhanced background */}
+      <section className="relative px-6 py-16 lg:py-24 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-pink-300/20 shadow-lg transition-transform duration-300"
+                className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30 shadow-lg transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
@@ -282,29 +282,30 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Visual Break */}
-      <section className="px-6 py-16 relative">
+      {/* Visual Break - Cyan/Blue Theme */}
+      <section className="px-6 py-16 relative bg-gradient-to-r from-cyan-900/20 via-blue-900/10 to-cyan-900/20 backdrop-blur-sm border-y border-cyan-400/10">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-pink-400/30 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"></div>
             {/* Center icon */}
-            <div className="absolute bg-black px-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <Heart className="w-6 h-6 text-pink-400" />
+            <div className="absolute bg-gradient-to-r from-cyan-900/50 to-blue-900/50 px-6 backdrop-blur-sm rounded-full">
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-cyan-300/30">
+                <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Real Talk Section - Differentiated */}
-      <section className="px-6 py-24 relative">
-        <div className="max-w-6xl mx-auto">
+      {/* Real Talk Section - Purple/Violet Theme */}
+      <section className="px-6 py-24 relative bg-gradient-to-br from-purple-900/30 via-violet-900/20 to-purple-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-violet-500/10 to-purple-500/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Problem Setup Section */}
           <div className="relative mb-20">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-orange-500/5 to-red-500/5 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-red-900/10 via-orange-900/5 to-red-900/10 rounded-3xl p-12 border border-red-500/20 backdrop-blur-sm">
+            <div className="relative bg-gradient-to-br from-red-900/20 via-orange-900/10 to-red-900/20 rounded-3xl p-12 border border-red-500/30 backdrop-blur-sm">
               <div className="text-center">
                 <h2 className="text-4xl lg:text-5xl font-light text-white mb-8 leading-tight">
                   Dating apps taught us how to swipe.
@@ -389,19 +390,23 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Actually Works */}
-      <section className="px-6 py-24 relative">
-        <div className="max-w-6xl mx-auto">
+      {/* How It Actually Works - Green/Emerald Theme */}
+      <section className="px-6 py-24 relative bg-gradient-to-br from-emerald-900/30 via-green-900/20 to-emerald-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-green-500/10 to-emerald-500/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-20">
+            <div className="w-16 h-16 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-emerald-300/30">
+              <Target className="w-8 h-8 text-white" />
+            </div>
             <h2 className="text-4xl lg:text-5xl font-thin text-white mb-6">
               How It Actually Works
             </h2>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-white/5 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-white/20">
-                <Brain className="w-10 h-10 text-cyan-400" />
+            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-emerald-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
+                <Brain className="w-10 h-10 text-emerald-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -409,8 +414,8 @@ const Index = () => {
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-white/5 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-white/20">
+            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
                 <Target className="w-10 h-10 text-purple-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Insights That Don't Suck</h3>
@@ -419,8 +424,8 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-white/5 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-white/20">
+            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
                 <MessageCircle className="w-10 h-10 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
@@ -429,8 +434,8 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-white/5 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-cyan-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-white/20">
+            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-cyan-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
                 <Sparkles className="w-10 h-10 text-coral-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions, Zero Effort</h3>
@@ -442,12 +447,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Examples Section */}
-      <section className="px-6 py-24 relative">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-white/10">
+      {/* Real Examples Section - Indigo/Purple Theme */}
+      <section className="px-6 py-24 relative bg-gradient-to-br from-indigo-900/30 via-purple-900/20 to-indigo-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/10 to-indigo-500/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="bg-indigo-500/10 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-indigo-400/20">
             <div className="bg-black/50 backdrop-blur-md rounded-3xl p-12">
               <div className="text-center mb-12">
+                <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-indigo-300/30">
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </div>
                 <h2 className="text-4xl font-light text-white mb-6">
                   Real Examples (Because Generic Advice Is Trash)
                 </h2>
@@ -494,35 +503,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Different Section */}
-      <section className="px-6 py-24 relative">
-        <div className="max-w-6xl mx-auto">
+      {/* Why Different Section - Teal/Cyan Theme */}
+      <section className="px-6 py-24 relative bg-gradient-to-br from-teal-900/30 via-cyan-900/20 to-teal-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-500/5 via-cyan-500/10 to-teal-500/5"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
+            <div className="w-16 h-16 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-teal-300/30">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
             <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8">
               Why This Isn't Just Another App
             </h2>
-            <h3 className="text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-12">
+            <h3 className="text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400 mb-12">
               We're Built Different
             </h3>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10">
+            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
               <h4 className="text-xl font-light text-white mb-4">No toxic positivity</h4>
               <p className="text-gray-300 leading-relaxed font-light">Real relationships have rough patches, and that's normal</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10">
+            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
               <h4 className="text-xl font-light text-white mb-4">Actually personalized</h4>
               <p className="text-gray-300 leading-relaxed font-light">Not horoscope-level generic advice</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10">
+            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
               <h4 className="text-xl font-light text-white mb-4">Designed for busy humans</h4>
               <p className="text-gray-300 leading-relaxed font-light">Quick daily insights that fit into your actual life</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10">
+            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
               <h4 className="text-xl font-light text-white mb-4">Privacy first</h4>
               <p className="text-gray-300 leading-relaxed font-light">Your relationship details stay between you, your partner, and our very secure servers</p>
             </Card>
@@ -530,13 +543,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="px-6 py-24 relative">
-        <div className="max-w-5xl mx-auto text-center">
+      {/* Final CTA Section - Gradient Rainbow Theme */}
+      <section className="px-6 py-24 relative bg-gradient-to-br from-pink-900/20 via-purple-900/20 via-cyan-900/20 to-emerald-900/20 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-purple-500/5 via-cyan-500/5 to-emerald-500/5"></div>
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="w-20 h-20 bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-emerald-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-pink-300/30 shadow-2xl">
+            <Heart className="w-10 h-10 text-white" />
+          </div>
           <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8 leading-tight">
             For People Who Actually Want to
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400"> Get Better at Love</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-emerald-400"> Get Better at Love</span>
           </h2>
+          
           <div className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light space-y-4">
             <p>
               Look, we could promise you'll never fight again or that this will "save your relationship." But that's not real life.
@@ -562,7 +580,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="bg-white/5 backdrop-blur-lg p-8 rounded-3xl border border-white/10">
+          <div className="bg-gradient-to-r from-pink-500/10 via-purple-500/10 via-cyan-500/10 to-emerald-500/10 backdrop-blur-lg p-8 rounded-3xl border border-white/10">
             <h4 className="text-xl font-light text-white mb-4">The Fine Print (But Make It Friendly)</h4>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-300 font-light">
               <p>Free to start, always</p>
