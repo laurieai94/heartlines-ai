@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,55 +12,81 @@ import { toast } from "sonner";
 
 interface ProfileData {
   name: string;
-  communicationStyle: string;
-  conflictApproach: string;
-  loveLanguage: string;
-  qualityTimeMeans: string;
-  stressResponse: string;
-  stressHelp: string;
-  coreValues: string[];
-  decisionMaking: string;
-  attachmentStyle: string;
-  growthArea: string;
-  // Deep dive fields
-  upsetBehavior?: string;
-  howHeard?: string;
-  apologyStyle?: string;
-  overwhelmSigns?: string;
-  communicationTriggers?: string;
-  affirmationExamples?: string;
-  touchPreferences?: string;
-  serviceIdeas?: string;
-  giftPreferences?: string;
-  qualityTimeDetails?: string;
-  stressTriggers?: string;
-  warningSignsStress?: string;
-  stressWorsen?: string;
-  anxietyPatterns?: string;
-  energyMoods?: string;
-  moneyMindset?: string;
-  workLife?: string;
-  socialEnergy?: string;
-  routinePrefs?: string;
-  householdStyle?: string;
-  pastPatterns?: string;
-  familyInfluence?: string;
-  therapyExperience?: string;
-  relationshipTriggers?: string;
-  intimacyPatterns?: string;
+  // Communication & Conflict
+  directCommunication: string;
+  gentleApproach: string;
+  needTimeToProcess: string;
+  // Deep dive communication
+  goSilentWhenUpset?: string;
+  needToTalkImmediately?: string;
+  feelHeardWithValidation?: string;
+  needChangedBehaviorApology?: string;
+  workDeadlineStress?: string;
+  // Love Languages
+  wordsOfAffirmation: string;
+  qualityTime: string;
+  physicalTouch: string;
+  // Deep dive love languages
+  qualityTimeUndividedAttention?: string;
+  proudOfYouAffirmations?: string;
+  casualTouchThroughoutDay?: string;
+  householdChoresService?: string;
+  thoughtfulVsExpensiveGifts?: string;
+  // Stress & Support
+  talkThroughStressImmediately: string;
+  needSpaceToProcess: string;
+  physicalComfortHelps: string;
+  // Deep dive stress
+  socialSituationsAnxious?: string;
+  showStressThroughCommunication?: string;
+  beingRushedMakesWorse?: string;
+  practicalHelpRelieves?: string;
+  withdrawWhenOverwhelmed?: string;
+  // Values & Daily Life
+  familyRelationshipsImportance: string;
+  careerSuccessImportance: string;
+  financialSecurityImportance: string;
+  quickGutDecisions: string;
+  // Deep dive values
+  personalFreedomImportant?: string;
+  needTimeToResearch?: string;
+  saverFocusedSecurity?: string;
+  socialInteractionsEnergize?: string;
+  preferStructuredRoutines?: string;
+  // Relationship Patterns
+  comfortableClosenessIndependence: string;
+  worryRelationshipSecurity: string;
+  improvingCommunicationFocus: string;
+  // Deep dive patterns
+  wantClosenessButFearHurt?: string;
+  boundariesFocus?: string;
+  loseMyselfInRelationships?: string;
+  learnedHealthyFromFamily?: string;
+  workingOnPersonalDevelopment?: string;
 }
 
-const RATING_SCALE = [
-  "Strongly Agree",
-  "Agree", 
+const AGREEMENT_SCALE = [
+  "Strongly Disagree",
+  "Disagree", 
   "Neutral",
-  "Disagree",
-  "Strongly Disagree"
+  "Agree",
+  "Strongly Agree"
 ];
 
-const CORE_VALUES = [
-  "Family/relationships", "Career", "Adventure", "Security", 
-  "Creativity", "Health", "Freedom", "Growth", "Community", "Authenticity"
+const IMPORTANCE_SCALE = [
+  "Not Important",
+  "Slightly Important",
+  "Moderately Important", 
+  "Very Important",
+  "Extremely Important"
+];
+
+const FOCUS_SCALE = [
+  "Not working on",
+  "A little",
+  "Somewhat",
+  "Quite a bit",
+  "Actively working on this"
 ];
 
 const ProfileBuilder = () => {
@@ -76,21 +101,27 @@ const ProfileBuilder = () => {
   
   const [currentProfile, setCurrentProfile] = useState<ProfileData>({
     name: "",
-    communicationStyle: "",
-    conflictApproach: "",
-    loveLanguage: "",
-    qualityTimeMeans: "",
-    stressResponse: "",
-    stressHelp: "",
-    coreValues: [],
-    decisionMaking: "",
-    attachmentStyle: "",
-    growthArea: ""
+    directCommunication: "",
+    gentleApproach: "",
+    needTimeToProcess: "",
+    wordsOfAffirmation: "",
+    qualityTime: "",
+    physicalTouch: "",
+    talkThroughStressImmediately: "",
+    needSpaceToProcess: "",
+    physicalComfortHelps: "",
+    familyRelationshipsImportance: "",
+    careerSuccessImportance: "",
+    financialSecurityImportance: "",
+    quickGutDecisions: "",
+    comfortableClosenessIndependence: "",
+    worryRelationshipSecurity: "",
+    improvingCommunicationFocus: ""
   });
 
   const handleSaveProfile = () => {
-    if (!currentProfile.name || !currentProfile.communicationStyle || !currentProfile.loveLanguage) {
-      toast.error("Please complete the core questions for at least one section");
+    if (!currentProfile.name || !currentProfile.directCommunication || !currentProfile.wordsOfAffirmation) {
+      toast.error("Please complete at least the core questions in each section");
       return;
     }
 
@@ -99,36 +130,29 @@ const ProfileBuilder = () => {
       [activeProfileType]: [...prev[activeProfileType], { ...currentProfile, id: Date.now() }]
     }));
     
+    // Reset form
     setCurrentProfile({
       name: "",
-      communicationStyle: "",
-      conflictApproach: "",
-      loveLanguage: "",
-      qualityTimeMeans: "",
-      stressResponse: "",
-      stressHelp: "",
-      coreValues: [],
-      decisionMaking: "",
-      attachmentStyle: "",
-      growthArea: ""
+      directCommunication: "",
+      gentleApproach: "",
+      needTimeToProcess: "",
+      wordsOfAffirmation: "",
+      qualityTime: "",
+      physicalTouch: "",
+      talkThroughStressImmediately: "",
+      needSpaceToProcess: "",
+      physicalComfortHelps: "",
+      familyRelationshipsImportance: "",
+      careerSuccessImportance: "",
+      financialSecurityImportance: "",
+      quickGutDecisions: "",
+      comfortableClosenessIndependence: "",
+      worryRelationshipSecurity: "",
+      improvingCommunicationFocus: ""
     });
     setShowForm(false);
     setExpandedSections({});
     toast.success(`${activeProfileType === 'your' ? 'Your' : 'Partner'} profile created successfully!`);
-  };
-
-  const handleValueChange = (value: string, checked: boolean) => {
-    if (checked) {
-      setCurrentProfile(prev => ({
-        ...prev,
-        coreValues: [...prev.coreValues, value]
-      }));
-    } else {
-      setCurrentProfile(prev => ({
-        ...prev,
-        coreValues: prev.coreValues.filter(v => v !== value)
-      }));
-    }
   };
 
   const toggleExpanded = (section: string) => {
@@ -139,7 +163,13 @@ const ProfileBuilder = () => {
   };
 
   const getCoreCompletion = () => {
-    const coreFields = ['communicationStyle', 'conflictApproach', 'loveLanguage', 'qualityTimeMeans', 'stressResponse', 'stressHelp', 'decisionMaking', 'attachmentStyle', 'growthArea'];
+    const coreFields = [
+      'directCommunication', 'gentleApproach', 'needTimeToProcess',
+      'wordsOfAffirmation', 'qualityTime', 'physicalTouch',
+      'talkThroughStressImmediately', 'needSpaceToProcess', 'physicalComfortHelps',
+      'familyRelationshipsImportance', 'careerSuccessImportance', 'financialSecurityImportance', 'quickGutDecisions',
+      'comfortableClosenessIndependence', 'worryRelationshipSecurity', 'improvingCommunicationFocus'
+    ];
     const completed = coreFields.filter(field => currentProfile[field as keyof ProfileData]).length;
     return Math.round((completed / coreFields.length) * 100);
   };
@@ -147,26 +177,23 @@ const ProfileBuilder = () => {
   const RatingQuestion = ({ 
     label, 
     field, 
-    description 
+    scale = AGREEMENT_SCALE
   }: { 
     label: string; 
     field: keyof ProfileData; 
-    description: string;
+    scale?: string[];
   }) => (
     <div className="space-y-3">
-      <div>
-        <Label className="text-sm font-medium">{label}</Label>
-        <p className="text-xs text-gray-500 mt-1">{description}</p>
-      </div>
+      <Label className="text-sm font-medium">{label}</Label>
       <RadioGroup 
         value={currentProfile[field] as string || ''}
         onValueChange={(value) => setCurrentProfile({...currentProfile, [field]: value})}
-        className="space-y-2"
+        className="flex flex-wrap gap-4"
       >
-        {RATING_SCALE.map((rating) => (
+        {scale.map((rating) => (
           <div key={rating} className="flex items-center space-x-2">
             <RadioGroupItem value={rating} id={`${field}-${rating}`} />
-            <Label htmlFor={`${field}-${rating}`} className="text-sm">{rating}</Label>
+            <Label htmlFor={`${field}-${rating}`} className="text-xs">{rating}</Label>
           </div>
         ))}
       </RadioGroup>
@@ -178,7 +205,7 @@ const ProfileBuilder = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Relationship Profiles</h2>
-          <p className="text-gray-600">Complete the basics in 5 minutes, expand sections anytime for better insights</p>
+          <p className="text-gray-600">Complete the core questions in 3-4 minutes, expand sections for deeper insights</p>
         </div>
       </div>
 
@@ -236,9 +263,9 @@ const ProfileBuilder = () => {
               </div>
             </div>
             <div className="space-y-2 text-sm">
-              <p><span className="font-medium">Communication:</span> {profile.communicationStyle}</p>
-              <p><span className="font-medium">Love Language:</span> {profile.loveLanguage}</p>
-              <p><span className="font-medium">Growth Focus:</span> {profile.growthArea}</p>
+              <p><span className="font-medium">Communication:</span> {profile.directCommunication ? 'Direct' : 'Gentle'}</p>
+              <p><span className="font-medium">Love Language:</span> {profile.wordsOfAffirmation === 'Strongly Agree' ? 'Words' : profile.qualityTime === 'Strongly Agree' ? 'Quality Time' : 'Physical Touch'}</p>
+              <p><span className="font-medium">Focus:</span> Communication Growth</p>
             </div>
           </Card>
         ))}
@@ -274,266 +301,324 @@ const ProfileBuilder = () => {
               <TabsTrigger value="love">Love Languages</TabsTrigger>
               <TabsTrigger value="stress">Stress & Support</TabsTrigger>
               <TabsTrigger value="values">Values & Life</TabsTrigger>
-              <TabsTrigger value="patterns">Relationship</TabsTrigger>
+              <TabsTrigger value="patterns">Patterns</TabsTrigger>
             </TabsList>
 
             <TabsContent value="communication" className="space-y-6">
-              <RatingQuestion
-                label="I prefer direct and straightforward communication *"
-                field="communicationStyle"
-                description="How this helps: Better conversation suggestions"
-              />
+              <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-blue-800"><strong>Why this matters:</strong> Helps AI suggest better ways to approach difficult conversations and resolve disagreements</p>
+              </div>
+              
+              <div className="space-y-6">
+                <h4 className="font-semibold text-gray-900">Core Questions (Required)</h4>
+                
+                <RatingQuestion
+                  label="I am direct and straightforward in my communication"
+                  field="directCommunication"
+                />
 
-              <RatingQuestion
-                label="I like to address conflicts immediately *"
-                field="conflictApproach"
-                description="Understanding your conflict approach"
-              />
+                <RatingQuestion
+                  label="I prefer gentle and diplomatic approaches"
+                  field="gentleApproach"
+                />
+
+                <RatingQuestion
+                  label="I need time to process before discussing conflicts"
+                  field="needTimeToProcess"
+                />
+              </div>
 
               <Collapsible open={expandedSections.communicationDeep} onOpenChange={() => toggleExpanded('communicationDeep')}>
                 <CollapsibleTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    <span>☐ Want more specific insights?</span>
+                    <span>☐ Want more specific communication insights? Unlocks: Personalized conflict scripts and timing suggestions</span>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-6 mt-4">
+                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
+                  
                   <RatingQuestion
-                    label="I shut down when someone raises their voice"
-                    field="upsetBehavior"
-                    description="Understanding upset behavior patterns"
+                    label="When upset, I go silent/withdraw"
+                    field="goSilentWhenUpset"
                   />
+                  
                   <RatingQuestion
-                    label="I feel heard when someone repeats back what I said"
-                    field="howHeard"
-                    description="What makes you feel understood"
+                    label="When upset, I need to talk it out immediately"
+                    field="needToTalkImmediately"
                   />
+                  
                   <RatingQuestion
-                    label="I prefer specific apologies that acknowledge what went wrong"
-                    field="apologyStyle"
-                    description="Your apology preferences"
+                    label="I feel heard when someone validates my emotions"
+                    field="feelHeardWithValidation"
                   />
+                  
                   <RatingQuestion
-                    label="I get overwhelmed when too many topics are discussed at once"
-                    field="overwhelmSigns"
-                    description="Recognizing overwhelm patterns"
+                    label="I need to see changed behavior as an apology"
+                    field="needChangedBehaviorApology"
                   />
+                  
                   <RatingQuestion
-                    label="Interrupting during conversations really bothers me"
-                    field="communicationTriggers"
-                    description="Communication triggers to avoid"
+                    label="Work deadlines trigger my stress responses"
+                    field="workDeadlineStress"
                   />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
 
             <TabsContent value="love" className="space-y-6">
-              <RatingQuestion
-                label="Words of affirmation are my primary love language *"
-                field="loveLanguage"
-                description="Understanding your primary love language"
-              />
+              <div className="bg-pink-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-pink-800"><strong>Why this matters:</strong> Helps AI suggest specific ways to show and receive love that actually resonate</p>
+              </div>
+              
+              <div className="space-y-6">
+                <h4 className="font-semibold text-gray-900">Core Questions (Required)</h4>
+                
+                <RatingQuestion
+                  label="Words of Affirmation make me feel most loved"
+                  field="wordsOfAffirmation"
+                />
 
-              <RatingQuestion
-                label="Quality time means undivided attention to me *"
-                field="qualityTimeMeans"
-                description="What quality time means to you"
-              />
+                <RatingQuestion
+                  label="Quality Time is my primary love language"
+                  field="qualityTime"
+                />
+
+                <RatingQuestion
+                  label="Physical Touch is how I best receive love"
+                  field="physicalTouch"
+                />
+              </div>
 
               <Collapsible open={expandedSections.loveDeep} onOpenChange={() => toggleExpanded('loveDeep')}>
                 <CollapsibleTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    <span>☐ Get personalized suggestions?</span>
+                    <span>☐ Get personalized love language suggestions? Unlocks: Specific daily actions and romantic gesture ideas</span>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-6 mt-4">
+                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
+                  
                   <RatingQuestion
-                    label="I prefer compliments about my character over my appearance"
-                    field="affirmationExamples"
-                    description="Words of affirmation preferences"
+                    label="Quality time means having undivided attention"
+                    field="qualityTimeUndividedAttention"
                   />
+                  
                   <RatingQuestion
-                    label="I enjoy casual physical touch throughout the day"
-                    field="touchPreferences"
-                    description="Physical touch comfort level"
+                    label="I prefer 'I'm proud of you' style affirmations"
+                    field="proudOfYouAffirmations"
                   />
+                  
                   <RatingQuestion
-                    label="Small daily acts of service mean more to me than grand gestures"
-                    field="serviceIdeas"
-                    description="Acts of service preferences"
+                    label="I like casual touch throughout the day"
+                    field="casualTouchThroughoutDay"
                   />
+                  
                   <RatingQuestion
-                    label="I prefer thoughtful gifts over expensive ones"
-                    field="giftPreferences"
-                    description="Gift-giving philosophy"
+                    label="Household chores are meaningful acts of service"
+                    field="householdChoresService"
                   />
+                  
                   <RatingQuestion
-                    label="Phone-free time together is essential for me to feel connected"
-                    field="qualityTimeDetails"
-                    description="Quality time specifics"
+                    label="Thoughtful gifts matter more than expensive ones"
+                    field="thoughtfulVsExpensiveGifts"
                   />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
 
             <TabsContent value="stress" className="space-y-6">
-              <RatingQuestion
-                label="When stressed, I usually want to talk it out *"
-                field="stressResponse"
-                description="Understanding your stress response"
-              />
+              <div className="bg-orange-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-orange-800"><strong>Why this matters:</strong> Helps your partner know exactly how to support you during tough times</p>
+              </div>
+              
+              <div className="space-y-6">
+                <h4 className="font-semibold text-gray-900">Core Questions (Required)</h4>
+                
+                <RatingQuestion
+                  label="I want to talk through my stress immediately"
+                  field="talkThroughStressImmediately"
+                />
 
-              <RatingQuestion
-                label="Physical comfort helps me when I'm stressed *"
-                field="stressHelp"
-                description="What helps when you're stressed"
-              />
+                <RatingQuestion
+                  label="I need space to process stress alone first"
+                  field="needSpaceToProcess"
+                />
+
+                <RatingQuestion
+                  label="Physical comfort helps me feel better when stressed"
+                  field="physicalComfortHelps"
+                />
+              </div>
 
               <Collapsible open={expandedSections.stressDeep} onOpenChange={() => toggleExpanded('stressDeep')}>
                 <CollapsibleTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    <span>☐ Help your partner support you better?</span>
+                    <span>☐ Help your partner support you better? Unlocks: Early warning signs recognition and specific support strategies</span>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-6 mt-4">
+                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
+                  
                   <RatingQuestion
-                    label="Work deadlines are my biggest stress trigger"
-                    field="stressTriggers"
-                    description="Common stress triggers"
+                    label="Social situations make me anxious"
+                    field="socialSituationsAnxious"
                   />
+                  
                   <RatingQuestion
-                    label="I get quiet and withdrawn when stress builds up"
-                    field="warningSignsStress"
-                    description="Early warning signs"
+                    label="I show stress through shorter responses/communication"
+                    field="showStressThroughCommunication"
                   />
+                  
                   <RatingQuestion
-                    label="Talking about my problems when I'm stressed makes it worse"
-                    field="stressWorsen"
-                    description="What makes stress worse"
+                    label="Being rushed makes my stress worse"
+                    field="beingRushedMakesWorse"
                   />
+                  
                   <RatingQuestion
-                    label="I tend to overthink situations when I'm anxious"
-                    field="anxietyPatterns"
-                    description="Anxiety response patterns"
+                    label="Practical help with tasks relieves my stress"
+                    field="practicalHelpRelieves"
                   />
+                  
                   <RatingQuestion
-                    label="My energy levels greatly affect my mood"
-                    field="energyMoods"
-                    description="Energy and mood connection"
+                    label="I withdraw from others when overwhelmed"
+                    field="withdrawWhenOverwhelmed"
                   />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
 
             <TabsContent value="values" className="space-y-6">
-              <div>
-                <Label className="text-base font-semibold">Top 3 Core Values *</Label>
-                <p className="text-sm text-gray-600 mb-3">Select your most important values</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {CORE_VALUES.map((value) => (
-                    <div key={value} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={value}
-                        checked={currentProfile.coreValues.includes(value)}
-                        onCheckedChange={(checked) => handleValueChange(value, !!checked)}
-                        disabled={!currentProfile.coreValues.includes(value) && currentProfile.coreValues.length >= 3}
-                      />
-                      <Label htmlFor={value} className="text-sm">{value}</Label>
-                    </div>
-                  ))}
-                </div>
+              <div className="bg-green-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-green-800"><strong>Why this matters:</strong> Ensures relationship advice aligns with what actually matters to you</p>
               </div>
+              
+              <div className="space-y-6">
+                <h4 className="font-semibold text-gray-900">Core Questions (Required)</h4>
+                
+                <RatingQuestion
+                  label="Family and close relationships"
+                  field="familyRelationshipsImportance"
+                  scale={IMPORTANCE_SCALE}
+                />
 
-              <RatingQuestion
-                label="I prefer to make quick gut decisions *"
-                field="decisionMaking"
-                description="Understanding your decision making style"
-              />
+                <RatingQuestion
+                  label="Career success and achievement"
+                  field="careerSuccessImportance"
+                  scale={IMPORTANCE_SCALE}
+                />
+
+                <RatingQuestion
+                  label="Financial security and stability"
+                  field="financialSecurityImportance"
+                  scale={IMPORTANCE_SCALE}
+                />
+
+                <RatingQuestion
+                  label="I make quick, gut-instinct decisions"
+                  field="quickGutDecisions"
+                />
+              </div>
 
               <Collapsible open={expandedSections.valuesDeep} onOpenChange={() => toggleExpanded('valuesDeep')}>
                 <CollapsibleTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    <span>☐ More personalized daily insights?</span>
+                    <span>☐ More personalized daily insights? Unlocks: Lifestyle-specific relationship advice and compatibility insights</span>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-6 mt-4">
+                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
+                  
                   <RatingQuestion
-                    label="I prefer to save money rather than spend on experiences"
-                    field="moneyMindset"
-                    description="Financial values and approach"
+                    label="Personal freedom and independence are extremely important to me"
+                    field="personalFreedomImportant"
                   />
+                  
                   <RatingQuestion
-                    label="I need clear boundaries between work and personal time"
-                    field="workLife"
-                    description="Work-life balance preferences"
+                    label="I need time to research before making decisions"
+                    field="needTimeToResearch"
                   />
+                  
                   <RatingQuestion
-                    label="I recharge better with alone time than social activities"
-                    field="socialEnergy"
-                    description="Social energy preferences"
+                    label="I'm a saver focused on financial security"
+                    field="saverFocusedSecurity"
                   />
+                  
                   <RatingQuestion
-                    label="I function better with consistent daily routines"
-                    field="routinePrefs"
-                    description="Routine and structure needs"
+                    label="Social interactions energize me"
+                    field="socialInteractionsEnergize"
                   />
+                  
                   <RatingQuestion
-                    label="I prefer a tidy, organized living space"
-                    field="householdStyle"
-                    description="Household and lifestyle preferences"
+                    label="I prefer highly structured routines"
+                    field="preferStructuredRoutines"
                   />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
 
             <TabsContent value="patterns" className="space-y-6">
-              <RatingQuestion
-                label="I am comfortable with both closeness and independence *"
-                field="attachmentStyle"
-                description="No judgment - helps understand patterns"
-              />
+              <div className="bg-purple-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-purple-800"><strong>Why this matters:</strong> Helps AI understand your relationship history to give better guidance for growth</p>
+              </div>
+              
+              <div className="space-y-6">
+                <h4 className="font-semibold text-gray-900">Core Questions (Required)</h4>
+                
+                <RatingQuestion
+                  label="I'm comfortable with both closeness and independence"
+                  field="comfortableClosenessIndependence"
+                />
 
-              <RatingQuestion
-                label="I am focused on improving my communication skills *"
-                field="growthArea"
-                description="Current growth area focus"
-              />
+                <RatingQuestion
+                  label="I sometimes worry about relationship security"
+                  field="worryRelationshipSecurity"
+                />
+
+                <RatingQuestion
+                  label="Improving communication during conflict (Rate current focus)"
+                  field="improvingCommunicationFocus"
+                  scale={FOCUS_SCALE}
+                />
+              </div>
 
               <Collapsible open={expandedSections.patternsDeep} onOpenChange={() => toggleExpanded('patternsDeep')}>
                 <CollapsibleTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    <span>☐ Deeper relationship insights?</span>
+                    <span>☐ Deeper relationship insights? Unlocks: Attachment-aware advice and personalized growth recommendations</span>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-6 mt-4">
+                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
+                  
                   <RatingQuestion
-                    label="I tend to repeat the same relationship patterns"
-                    field="pastPatterns"
-                    description="Past relationship patterns"
+                    label="I want closeness but sometimes fear getting hurt"
+                    field="wantClosenessButFearHurt"
                   />
+                  
                   <RatingQuestion
-                    label="My family background strongly influences my relationship style"
-                    field="familyInfluence"
-                    description="Family background influence"
+                    label="Setting and maintaining boundaries (Rate current focus)"
+                    field="boundariesFocus"
+                    scale={FOCUS_SCALE}
                   />
+                  
                   <RatingQuestion
-                    label="I'm actively working on personal development and growth"
-                    field="therapyExperience"
-                    description="Personal development engagement"
+                    label="I tend to lose myself in relationships"
+                    field="loseMyselfInRelationships"
                   />
+                  
                   <RatingQuestion
-                    label="Certain topics or situations trigger strong emotional reactions in relationships"
-                    field="relationshipTriggers"
-                    description="Relationship triggers awareness"
+                    label="I learned healthy relationship patterns from my family"
+                    field="learnedHealthyFromFamily"
                   />
+                  
                   <RatingQuestion
-                    label="I'm comfortable with emotional and physical intimacy"
-                    field="intimacyPatterns"
-                    description="Intimacy comfort level"
+                    label="I'm currently working on personal development"
+                    field="workingOnPersonalDevelopment"
                   />
                 </CollapsibleContent>
               </Collapsible>
