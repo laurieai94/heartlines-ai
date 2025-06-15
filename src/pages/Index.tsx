@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -297,52 +298,93 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Cleaned Up */}
+      {/* Real Talk Section - Differentiated */}
       <section className="px-6 py-24 relative">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl lg:text-6xl font-light text-white mb-16 leading-tight">
-            Dating apps taught us how to swipe.
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
-              Now what?
-            </span>
-          </h2>
-
-          <div className="space-y-12 mb-16">
-            <p className="text-2xl text-gray-300 leading-relaxed font-light">
-              Nobody prepared us for the actual relationship part. You know—the daily stuff.
-            </p>
-            
-            <p className="text-lg text-gray-400 leading-relaxed font-light max-w-3xl mx-auto">
-              Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
-            </p>
-          </div>
-
-          <div className="mb-16">
-            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto">
-              <Sparkles className="w-8 h-8 text-white" />
+        <div className="max-w-6xl mx-auto">
+          {/* Problem Setup Section */}
+          <div className="relative mb-20">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-orange-500/5 to-red-500/5 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-red-900/10 via-orange-900/5 to-red-900/10 rounded-3xl p-12 border border-red-500/20 backdrop-blur-sm">
+              <div className="text-center">
+                <h2 className="text-4xl lg:text-5xl font-light text-white mb-8 leading-tight">
+                  Dating apps taught us how to swipe.
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400 mt-2">
+                    Now what?
+                  </span>
+                </h2>
+              </div>
             </div>
-            <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-8">
-              That's where we come in.
-            </h3>
           </div>
 
-          <div className="space-y-8 mb-16">
-            <p className="text-2xl text-gray-300 leading-relaxed font-light">
-              We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-            </p>
-            
-            <p className="text-lg text-gray-400 leading-relaxed font-light max-w-3xl mx-auto">
-              Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-            </p>
+          {/* Problem Details Section */}
+          <div className="relative mb-20">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500/5 via-slate-500/5 to-gray-500/5 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-gray-900/20 via-slate-900/10 to-gray-900/20 rounded-3xl p-10 border border-gray-500/20 backdrop-blur-sm">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <p className="text-xl text-gray-300 leading-relaxed font-light mb-6">
+                    Nobody prepared us for the actual relationship part. You know—the daily stuff.
+                  </p>
+                  <p className="text-lg text-gray-400 leading-relaxed font-light">
+                    Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <div className="w-32 h-32 bg-gradient-to-br from-gray-400/20 to-slate-400/20 rounded-full flex items-center justify-center border border-gray-400/30">
+                    <MessageCircle className="w-16 h-16 text-gray-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
-            <p className="text-2xl font-light text-white leading-relaxed">
-              Because the best relationships aren't about finding someone perfect—
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium">
-                they're about two people who keep choosing to understand each other better.
-              </span>
-            </p>
+          {/* Transition Moment Section */}
+          <div className="relative mb-20">
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 via-pink-400/10 to-coral-400/10 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 rounded-3xl p-12 border border-coral-400/30 backdrop-blur-sm">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto shadow-2xl">
+                  <Sparkles className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-6">
+                  That's where we come in.
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          {/* Solution Section */}
+          <div className="relative mb-16">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-blue-900/10 rounded-3xl p-12 border border-blue-500/20 backdrop-blur-sm">
+              <div className="text-center space-y-8">
+                <p className="text-2xl text-gray-300 leading-relaxed font-light">
+                  We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+                </p>
+                
+                <p className="text-lg text-gray-400 leading-relaxed font-light max-w-4xl mx-auto">
+                  Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Final Quote Section */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 via-emerald-500/5 to-green-500/5 rounded-3xl blur-3xl"></div>
+            <div className="relative bg-gradient-to-br from-green-900/15 via-emerald-900/10 to-green-900/15 rounded-3xl p-10 border border-green-500/30 backdrop-blur-sm">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-2xl font-light text-white leading-relaxed max-w-4xl mx-auto">
+                  Because the best relationships aren't about finding someone perfect—
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400 font-medium mt-2">
+                    they're about two people who keep choosing to understand each other better.
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
