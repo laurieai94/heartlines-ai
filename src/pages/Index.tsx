@@ -546,9 +546,6 @@ const Index = () => {
                 <ArrowRight className="w-6 h-6 ml-3" />
               </Button>
             </Link>
-            <p className="text-lg text-gray-300 font-light">
-              The basic stuff is always free because good relationships shouldn't be a luxury. Ready to see what happens when an app actually understands your relationship?
-            </p>
           </div>
           
           {/* Fine Print Section - Visual Grid */}
