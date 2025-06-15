@@ -305,7 +305,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Lightened */}
+      {/* Real Talk Section - Enhanced with combined content */}
       <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
         {/* Dramatic Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
@@ -352,36 +352,55 @@ const Index = () => {
           </div>
 
           {/* Solution Section - Enhanced Design */}
-          <div className="bg-gradient-to-br from-coral-500/10 via-pink-500/5 to-coral-500/10 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl mb-16">
-            <div className="text-center mb-10">
-              <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-8">
-                That's where we come in.
-              </h3>
-              
-              <div className="space-y-6 max-w-4xl mx-auto">
-                <p className="text-xl text-gray-200 leading-relaxed font-light">
-                  We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed font-light">
-                  Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-                </p>
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* Left Column - Solution Text */}
+            <div className="space-y-8">
+              <div className="bg-gradient-to-br from-coral-500/10 via-pink-500/5 to-coral-500/10 backdrop-blur-xl rounded-3xl p-8 border border-coral-300/20 shadow-2xl">
+                <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-6">
+                  That's where we come in.
+                </h3>
+                
+                <div className="space-y-4">
+                  <p className="text-lg text-gray-200 leading-relaxed font-light">
+                    We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+                  </p>
+                  <p className="text-lg text-gray-300 leading-relaxed font-light">
+                    Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Visual Element */}
+            <div className="flex items-center justify-center">
+              <div className="relative">
+                {/* Central Heart with Pulse Effect */}
+                <div className="w-32 h-32 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-2xl border border-coral-300/30 animate-pulse">
+                  <Heart className="w-16 h-16 text-white" />
+                </div>
+                
+                {/* Orbiting Elements */}
+                <div className="absolute -top-4 -right-4 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse" style={{ animationDelay: '0.5s' }}>
+                  <Brain className="w-6 h-6 text-pink-400" />
+                </div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
+                  <MessageCircle className="w-6 h-6 text-coral-400" />
+                </div>
+                <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 w-12 h-12 bg-pink-300/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse" style={{ animationDelay: '1.5s' }}>
+                  <Users className="w-5 h-5 text-pink-300" />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Final Quote - Standout Design */}
+          {/* Final Quote */}
           <div className="relative">
-            {/* Quote Background */}
             <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 via-pink-400/15 to-coral-400/10 rounded-3xl transform rotate-1"></div>
-            <div className="relative bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-10 border border-coral-400/30 shadow-2xl">
+            <div className="relative bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 border border-coral-400/30 shadow-2xl">
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-xl">
-                  <Heart className="w-8 h-8 text-white" />
-                </div>
-                
-                <blockquote className="text-2xl font-light text-white leading-relaxed">
+                <blockquote className="text-xl font-light text-white leading-relaxed">
                   Because the best relationships aren't about finding someone perfect—
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-4 text-3xl">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-3 text-2xl">
                     they're about two people who keep choosing to understand each other better.
                   </span>
                 </blockquote>
@@ -499,7 +518,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
+      {/* Final CTA Section - Reorganized with Better Visual Flow */}
       <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/25 via-coral-900/25 to-pink-900/25 backdrop-blur-sm">
         {/* Accent - radiating circles */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
@@ -510,28 +529,48 @@ const Index = () => {
         
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-coral-300/30 shadow-2xl">
-            <Heart className="w-10 h-10 text-white" />
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8 leading-tight">
-            For People Who Actually Want to
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400"> Get Better at Love</span>
-          </h2>
-          
-          <div className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light space-y-4">
-            <p>
-              Look, we could promise you'll never fight again or that this will "save your relationship." But that's not real life.
-            </p>
-            <p>
-              What we will do is help you understand each other better, communicate more clearly, and show love in ways that actually land.
-            </p>
-            <p className="font-medium text-white">
-              Because the best relationships aren't perfect—they're just two people who keep choosing to understand each other better.
-            </p>
-          </div>
-          
+          {/* Header with Icon */}
           <div className="mb-12">
-            <h3 className="text-3xl font-light text-white mb-6">Ready to Stop Guessing?</h3>
+            <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-coral-300/30 shadow-2xl">
+              <Heart className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8 leading-tight">
+              For People Who Actually Want to
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400"> Get Better at Love</span>
+            </h2>
+          </div>
+
+          {/* Main Content in Cards */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+            {/* Left Card - Reality Check */}
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+              <div className="w-16 h-16 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
+                <Target className="w-8 h-8 text-coral-400" />
+              </div>
+              <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
+              <p className="text-gray-300 leading-relaxed font-light mb-4">
+                Look, we could promise you'll never fight again or that this will "save your relationship." But that's not real life.
+              </p>
+              <p className="text-gray-300 leading-relaxed font-light">
+                What we will do is help you understand each other better, communicate more clearly, and show love in ways that actually land.
+              </p>
+            </Card>
+
+            {/* Right Card - What We Believe */}
+            <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20">
+              <div className="w-16 h-16 bg-gradient-to-r from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-pink-300/30">
+                <Sparkles className="w-8 h-8 text-pink-400" />
+              </div>
+              <h3 className="text-2xl font-light text-white mb-4">Our Philosophy</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-lg">
+                Because the best relationships aren't perfect—they're just two people who keep choosing to understand each other better.
+              </p>
+            </Card>
+          </div>
+
+          {/* CTA Section */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-light text-white mb-8">Ready to Stop Guessing?</h3>
             <Link to="/dashboard">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
                 Create Your Profile
@@ -543,13 +582,43 @@ const Index = () => {
             </p>
           </div>
           
+          {/* Fine Print Section - Visual Grid */}
           <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 backdrop-blur-lg p-8 rounded-3xl border border-coral-300/20">
-            <h4 className="text-xl font-light text-white mb-4">The Fine Print (But Make It Friendly)</h4>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-300 font-light">
-              <p>Free to start, always</p>
-              <p>Premium features for when you want to go deeper</p>
-              <p>Built by people who are also figuring out love</p>
-              <p>No judgment, just better tools</p>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400/30 to-pink-400/30 rounded-full flex items-center justify-center border border-coral-300/30">
+                <Heart className="w-4 h-4 text-coral-400" />
+              </div>
+              <h4 className="text-xl font-light text-white">The Fine Print (But Make It Friendly)</h4>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-coral-400/20 rounded-full flex items-center justify-center mb-3 mx-auto border border-coral-300/30">
+                  <span className="text-coral-400 font-bold">$</span>
+                </div>
+                <p className="text-gray-300 font-light">Free to start, always</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-pink-400/20 rounded-full flex items-center justify-center mb-3 mx-auto border border-pink-300/30">
+                  <Sparkles className="w-5 h-5 text-pink-400" />
+                </div>
+                <p className="text-gray-300 font-light">Premium features for when you want to go deeper</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-coral-400/20 rounded-full flex items-center justify-center mb-3 mx-auto border border-coral-300/30">
+                  <Users className="w-5 h-5 text-coral-400" />
+                </div>
+                <p className="text-gray-300 font-light">Built by people who are also figuring out love</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-pink-400/20 rounded-full flex items-center justify-center mb-3 mx-auto border border-pink-300/30">
+                  <Heart className="w-5 h-5 text-pink-400" />
+                </div>
+                <p className="text-gray-300 font-light">No judgment, just better tools</p>
+              </div>
             </div>
           </div>
         </div>
