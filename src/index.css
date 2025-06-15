@@ -41,20 +41,21 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom coral colors */
+    --coral-50: 16 100% 97%;
+    --coral-100: 16 92% 91%;
+    --coral-200: 16 88% 82%;
+    --coral-300: 16 84% 72%;
+    --coral-400: 16 80% 62%;
+    --coral-500: 16 76% 52%;
   }
 
   .dark {
@@ -132,5 +133,21 @@
 
   .shadow-3xl {
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Coral color utilities */
+  .from-coral-50 {
+    --tw-gradient-from: hsl(var(--coral-50)) !important;
+    --tw-gradient-to: hsl(var(--coral-50) / 0) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  }
+
+  .to-coral-50 {
+    --tw-gradient-to: hsl(var(--coral-50)) !important;
+  }
+
+  .via-coral-50 {
+    --tw-gradient-to: hsl(var(--coral-50) / 0) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--coral-50)), var(--tw-gradient-to) !important;
   }
 }
