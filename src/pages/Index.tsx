@@ -12,46 +12,46 @@ const Index = () => {
 
   const datingProfiles = [
     { 
-      name: "Alex", 
-      age: 32, 
+      name: "Emma", 
+      age: 28, 
+      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face", 
+      bio: "Photographer & dog mom" 
+    },
+    { 
+      name: "Jake", 
+      age: 31, 
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face", 
+      bio: "Chef & weekend surfer" 
+    },
+    { 
+      name: "Zoe", 
+      age: 24, 
+      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face", 
+      bio: "Designer & music lover" 
+    },
+    { 
+      name: "Chris", 
+      age: 33, 
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face", 
-      bio: "Love hiking and code" 
+      bio: "Teacher & rock climber" 
+    },
+    { 
+      name: "Lily", 
+      age: 27, 
+      photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=400&fit=crop&crop=face", 
+      bio: "Writer & coffee enthusiast" 
+    },
+    { 
+      name: "Alex", 
+      age: 30, 
+      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face", 
+      bio: "Engineer & marathon runner" 
     },
     { 
       name: "Maya", 
-      age: 26, 
+      age: 25, 
       photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face", 
-      bio: "Artist seeking adventure" 
-    },
-    { 
-      name: "Jordan", 
-      age: 29, 
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face", 
-      bio: "Yoga instructor & foodie" 
-    },
-    { 
-      name: "Riley", 
-      age: 23, 
-      photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face", 
-      bio: "Book lover & traveler" 
-    },
-    { 
-      name: "Casey", 
-      age: 35, 
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face", 
-      bio: "Musician & coffee addict" 
-    },
-    { 
-      name: "Sam", 
-      age: 21, 
-      photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face", 
-      bio: "Designer & plant parent" 
-    },
-    { 
-      name: "Taylor", 
-      age: 38, 
-      photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face", 
-      bio: "Chef & weekend hiker" 
+      bio: "Artist & yoga instructor" 
     }
   ];
 
@@ -137,7 +137,7 @@ const Index = () => {
             <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white font-sans">LoveBetter</span>
+            <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">Home</span>
@@ -181,7 +181,7 @@ const Index = () => {
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-                We're tired of relationship advice that sounds like it was written in 1995. LoveBetter gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
+                We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
@@ -212,7 +212,7 @@ const Index = () => {
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-coral-400">LoveSwipe</h2>
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-coral-400">RealSwipe</h2>
                         <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
@@ -358,7 +358,7 @@ const Index = () => {
             <div className="space-y-8 flex items-center">
               <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
                 <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
-                  Enter BetterLove.
+                  Enter RealTalk.
                 </h3>
               </div>
             </div>
@@ -540,7 +540,7 @@ const Index = () => {
 
           {/* CTA Section */}
           <div className="mb-12">
-            <h3 className="text-3xl font-light text-white mb-8">Ready to Stop Guessing?</h3>
+            <h3 className="text-3xl font-light text-white mb-8">Ready to Love Smarter?</h3>
             <Link to="/dashboard">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
                 Create Your Profile
@@ -610,7 +610,7 @@ const Index = () => {
             <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-coral-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-light text-white">LoveBetter</span>
+            <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
