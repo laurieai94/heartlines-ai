@@ -154,6 +154,10 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
+        {/* Accent decoration - floating orbs */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -282,12 +286,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Visual Break */}
+      {/* Visual Break with Accent */}
       <section className="px-6 py-8 relative bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
-            {/* Gradient line */}
+            {/* Gradient line with floating dots */}
             <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+            {/* Accent dots */}
+            <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
+            <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             {/* Center icon */}
             <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
               <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
@@ -298,8 +305,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Optimized with tighter spacing */}
-      <section className="px-6 py-16 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm">
+      {/* Real Talk Section */}
+      <section className="px-6 py-16 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm border-b border-pink-400/5">
+        {/* Accent - subtle geometric pattern */}
+        <div className="absolute top-10 right-10 w-16 h-16 border border-coral-300/10 rotate-45 animate-spin" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute bottom-10 left-10 w-12 h-12 border border-pink-300/10 rotate-12 animate-spin" style={{ animationDuration: '15s' }}></div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
@@ -351,7 +362,13 @@ const Index = () => {
       </section>
 
       {/* How It Actually Works */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5">
+        {/* Accent - connecting lines */}
+        <div className="absolute inset-0 overflow-hidden opacity-20">
+          <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
+          <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-300/30 to-transparent"></div>
+        </div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -408,7 +425,13 @@ const Index = () => {
       </section>
 
       {/* Real Examples Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/35 via-coral-900/25 to-pink-900/35 backdrop-blur-sm border-b border-pink-400/5">
+        {/* Accent - message bubble decorations */}
+        <div className="absolute top-20 left-10 w-8 h-8 bg-coral-400/10 rounded-full"></div>
+        <div className="absolute top-32 left-16 w-4 h-4 bg-coral-400/15 rounded-full"></div>
+        <div className="absolute bottom-20 right-10 w-6 h-6 bg-pink-400/10 rounded-full"></div>
+        <div className="absolute bottom-32 right-16 w-3 h-3 bg-pink-400/15 rounded-full"></div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="bg-coral-500/10 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-coral-400/20">
@@ -464,7 +487,12 @@ const Index = () => {
       </section>
 
       {/* Why Different Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/35 via-pink-900/25 to-coral-900/35 backdrop-blur-sm border-b border-coral-400/5">
+        {/* Accent - grid pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        </div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -504,7 +532,14 @@ const Index = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/20 via-coral-900/20 to-pink-900/20 backdrop-blur-sm">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/25 via-coral-900/25 to-pink-900/25 backdrop-blur-sm">
+        {/* Accent - radiating circles */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-10">
+          <div className="w-96 h-96 border border-coral-300/30 rounded-full animate-pulse"></div>
+          <div className="absolute w-80 h-80 border border-pink-300/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute w-64 h-64 border border-coral-300/10 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+        
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-coral-300/30 shadow-2xl">
