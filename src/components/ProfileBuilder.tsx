@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,7 @@ interface ProfileData {
   decisionMaking: string;
   attachmentStyle: string;
   growthArea: string;
-  // Deep dive fields - now using rating scales
+  // Deep dive fields
   upsetBehavior?: string;
   howHeard?: string;
   apologyStyle?: string;
@@ -52,88 +51,17 @@ interface ProfileData {
   intimacyPatterns?: string;
 }
 
-const COMMUNICATION_STYLES = [
-  "Direct and straightforward",
-  "Gentle and diplomatic", 
-  "Emotional and expressive",
-  "Analytical and detailed",
-  "Context-dependent"
-];
-
-const CONFLICT_APPROACHES = [
-  "Address immediately",
-  "Need processing time",
-  "Avoid when possible",
-  "Seek compromise",
-  "Varies by situation"
-];
-
-const LOVE_LANGUAGES = [
-  "Words of Affirmation",
-  "Quality Time",
-  "Physical Touch", 
-  "Acts of Service",
-  "Receiving Gifts",
-  "Combination"
-];
-
-const QUALITY_TIME_OPTIONS = [
-  "Undivided attention",
-  "Shared activities",
-  "Deep conversations",
-  "Comfortable silence together"
-];
-
-const STRESS_RESPONSES = [
-  "Want to talk it out",
-  "Need space to process",
-  "Seek physical comfort",
-  "Get busy with tasks",
-  "Withdraw from others"
-];
-
-const STRESS_HELP = [
-  "Physical comfort",
-  "Verbal reassurance", 
-  "Practical help",
-  "Alone time",
-  "Distraction/activities"
-];
-
-const CORE_VALUES = [
-  "Family/relationships", "Career", "Adventure", "Security", 
-  "Creativity", "Health", "Freedom", "Growth", "Community", "Authenticity"
-];
-
-const DECISION_STYLES = [
-  "Quick gut decisions",
-  "Need time to research",
-  "Prefer collaborative decisions", 
-  "Avoid decisions when possible"
-];
-
-const ATTACHMENT_STYLES = [
-  "Comfortable with closeness and independence",
-  "Sometimes worry about relationship security",
-  "Highly value independence",
-  "Want closeness but sometimes fear getting hurt",
-  "Still figuring it out"
-];
-
-const GROWTH_AREAS = [
-  "Better communication",
-  "Setting boundaries",
-  "Being more vulnerable",
-  "Managing relationship anxiety",
-  "Balancing independence with partnership"
-];
-
 const RATING_SCALE = [
   "Strongly Agree",
   "Agree", 
   "Neutral",
   "Disagree",
   "Strongly Disagree"
+];
+
+const CORE_VALUES = [
+  "Family/relationships", "Career", "Adventure", "Security", 
+  "Creativity", "Health", "Freedom", "Growth", "Community", "Authenticity"
 ];
 
 const ProfileBuilder = () => {
@@ -350,37 +278,17 @@ const ProfileBuilder = () => {
             </TabsList>
 
             <TabsContent value="communication" className="space-y-6">
-              <div>
-                <Label className="text-base font-semibold">Communication Style *</Label>
-                <p className="text-sm text-gray-600 mb-3">How this helps: Better conversation suggestions</p>
-                <RadioGroup 
-                  value={currentProfile.communicationStyle}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, communicationStyle: value})}
-                >
-                  {COMMUNICATION_STYLES.map((style) => (
-                    <div key={style} className="flex items-center space-x-2">
-                      <RadioGroupItem value={style} id={style} />
-                      <Label htmlFor={style}>{style}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="I prefer direct and straightforward communication *"
+                field="communicationStyle"
+                description="How this helps: Better conversation suggestions"
+              />
 
-              <div>
-                <Label className="text-base font-semibold">Conflict Approach *</Label>
-                <RadioGroup 
-                  value={currentProfile.conflictApproach}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, conflictApproach: value})}
-                  className="mt-3"
-                >
-                  {CONFLICT_APPROACHES.map((approach) => (
-                    <div key={approach} className="flex items-center space-x-2">
-                      <RadioGroupItem value={approach} id={approach} />
-                      <Label htmlFor={approach}>{approach}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="I like to address conflicts immediately *"
+                field="conflictApproach"
+                description="Understanding your conflict approach"
+              />
 
               <Collapsible open={expandedSections.communicationDeep} onOpenChange={() => toggleExpanded('communicationDeep')}>
                 <CollapsibleTrigger asChild>
@@ -420,37 +328,17 @@ const ProfileBuilder = () => {
             </TabsContent>
 
             <TabsContent value="love" className="space-y-6">
-              <div>
-                <Label className="text-base font-semibold">Primary Love Language *</Label>
-                <RadioGroup 
-                  value={currentProfile.loveLanguage}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, loveLanguage: value})}
-                  className="mt-3"
-                >
-                  {LOVE_LANGUAGES.map((language) => (
-                    <div key={language} className="flex items-center space-x-2">
-                      <RadioGroupItem value={language} id={language} />
-                      <Label htmlFor={language}>{language}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="Words of affirmation are my primary love language *"
+                field="loveLanguage"
+                description="Understanding your primary love language"
+              />
 
-              <div>
-                <Label className="text-base font-semibold">Quality Time Means... *</Label>
-                <RadioGroup 
-                  value={currentProfile.qualityTimeMeans}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, qualityTimeMeans: value})}
-                  className="mt-3"
-                >
-                  {QUALITY_TIME_OPTIONS.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={option} />
-                      <Label htmlFor={option}>{option}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="Quality time means undivided attention to me *"
+                field="qualityTimeMeans"
+                description="What quality time means to you"
+              />
 
               <Collapsible open={expandedSections.loveDeep} onOpenChange={() => toggleExpanded('loveDeep')}>
                 <CollapsibleTrigger asChild>
@@ -490,37 +378,17 @@ const ProfileBuilder = () => {
             </TabsContent>
 
             <TabsContent value="stress" className="space-y-6">
-              <div>
-                <Label className="text-base font-semibold">When Stressed, I Usually... *</Label>
-                <RadioGroup 
-                  value={currentProfile.stressResponse}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, stressResponse: value})}
-                  className="mt-3"
-                >
-                  {STRESS_RESPONSES.map((response) => (
-                    <div key={response} className="flex items-center space-x-2">
-                      <RadioGroupItem value={response} id={response} />
-                      <Label htmlFor={response}>{response}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="When stressed, I usually want to talk it out *"
+                field="stressResponse"
+                description="Understanding your stress response"
+              />
 
-              <div>
-                <Label className="text-base font-semibold">What Helps When I'm Stressed *</Label>
-                <RadioGroup 
-                  value={currentProfile.stressHelp}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, stressHelp: value})}
-                  className="mt-3"
-                >
-                  {STRESS_HELP.map((help) => (
-                    <div key={help} className="flex items-center space-x-2">
-                      <RadioGroupItem value={help} id={help} />
-                      <Label htmlFor={help}>{help}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="Physical comfort helps me when I'm stressed *"
+                field="stressHelp"
+                description="What helps when you're stressed"
+              />
 
               <Collapsible open={expandedSections.stressDeep} onOpenChange={() => toggleExpanded('stressDeep')}>
                 <CollapsibleTrigger asChild>
@@ -578,21 +446,11 @@ const ProfileBuilder = () => {
                 </div>
               </div>
 
-              <div>
-                <Label className="text-base font-semibold">Decision Making Style *</Label>
-                <RadioGroup 
-                  value={currentProfile.decisionMaking}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, decisionMaking: value})}
-                  className="mt-3"
-                >
-                  {DECISION_STYLES.map((style) => (
-                    <div key={style} className="flex items-center space-x-2">
-                      <RadioGroupItem value={style} id={style} />
-                      <Label htmlFor={style}>{style}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="I prefer to make quick gut decisions *"
+                field="decisionMaking"
+                description="Understanding your decision making style"
+              />
 
               <Collapsible open={expandedSections.valuesDeep} onOpenChange={() => toggleExpanded('valuesDeep')}>
                 <CollapsibleTrigger asChild>
@@ -632,37 +490,17 @@ const ProfileBuilder = () => {
             </TabsContent>
 
             <TabsContent value="patterns" className="space-y-6">
-              <div>
-                <Label className="text-base font-semibold">My Attachment Style *</Label>
-                <p className="text-sm text-gray-600 mb-3">No judgment - helps understand patterns</p>
-                <RadioGroup 
-                  value={currentProfile.attachmentStyle}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, attachmentStyle: value})}
-                >
-                  {ATTACHMENT_STYLES.map((style) => (
-                    <div key={style} className="flex items-center space-x-2">
-                      <RadioGroupItem value={style} id={style} />
-                      <Label htmlFor={style} className="text-sm">{style}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="I am comfortable with both closeness and independence *"
+                field="attachmentStyle"
+                description="No judgment - helps understand patterns"
+              />
 
-              <div>
-                <Label className="text-base font-semibold">Current Growth Area *</Label>
-                <RadioGroup 
-                  value={currentProfile.growthArea}
-                  onValueChange={(value) => setCurrentProfile({...currentProfile, growthArea: value})}
-                  className="mt-3"
-                >
-                  {GROWTH_AREAS.map((area) => (
-                    <div key={area} className="flex items-center space-x-2">
-                      <RadioGroupItem value={area} id={area} />
-                      <Label htmlFor={area}>{area}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
+              <RatingQuestion
+                label="I am focused on improving my communication skills *"
+                field="growthArea"
+                description="Current growth area focus"
+              />
 
               <Collapsible open={expandedSections.patternsDeep} onOpenChange={() => toggleExpanded('patternsDeep')}>
                 <CollapsibleTrigger asChild>

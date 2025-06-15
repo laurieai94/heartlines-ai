@@ -22,7 +22,7 @@ const Dashboard = () => {
               <Heart className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">LoveBetter</h1>
+              <h1 className="text-3xl font-bold text-gray-900">RealTalk</h1>
               <p className="text-gray-600">Your relationship intelligence companion</p>
             </div>
           </div>
