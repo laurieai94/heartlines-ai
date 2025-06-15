@@ -357,7 +357,7 @@ const Index = () => {
             <div className="space-y-8 flex items-center">
               <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
                 <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
-                  That's where we come in.
+                  Enter BetterLove.
                 </h3>
               </div>
             </div>
@@ -367,13 +367,13 @@ const Index = () => {
               <div className="bg-gradient-to-br from-pink-500/10 via-coral-500/5 to-pink-500/10 backdrop-blur-xl rounded-3xl p-8 border border-pink-300/20 shadow-2xl">
                 <div className="space-y-6">
                   <p className="text-lg text-gray-200 leading-relaxed font-light">
-                    We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+                    We built this because most relationship tools just tell you what's wrong without teaching you how to actually fix it.
                   </p>
                   <p className="text-lg text-gray-300 leading-relaxed font-light">
-                    Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+                    Our AI helps you do the real work—having those conversations you've been avoiding, understanding why you both react the way you do, and building new patterns that actually stick.
                   </p>
                   <p className="text-lg text-gray-300 leading-relaxed font-light">
-                    Because the best relationships aren't about finding someone perfect—they're about two people who keep choosing to understand each other better.
+                    Because great relationships aren't built on hoping things get easier. They're built on two people who get better at doing the hard things together.
                   </p>
                 </div>
               </div>
@@ -521,7 +521,7 @@ const Index = () => {
               </div>
               <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
               <p className="text-gray-300 leading-relaxed font-light">
-                Let's be honest—relationships today are **complicated as hell**. We're dealing with **dating apps** that make everyone feel replaceable, **social media** that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect. Add in different **love languages**, **attachment styles**, and the fact that **nobody taught us** how to actually do relationships, and it's no wonder so many couples feel lost.
+                Let's be honest—relationships today are <strong>complicated as hell</strong>. We're dealing with <strong>dating apps</strong> that make everyone feel replaceable, <strong>social media</strong> that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect. Add in different <strong>love languages</strong>, <strong>attachment styles</strong>, and the fact that <strong>nobody taught us</strong> how to actually do relationships, and it's no wonder so many couples feel lost.
               </p>
             </Card>
 
@@ -532,7 +532,7 @@ const Index = () => {
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Our Philosophy</h3>
               <p className="text-gray-300 leading-relaxed font-light">
-                We believe the best relationships aren't about **perfection**—they're about **two people** who keep choosing to understand each other better while building something that works for your actual lives. Not **Instagram perfect**, but **real-life strong**. Not **conflict-free**, but **conflict-smart**. Not always easy, but always **worth it**.
+                We believe the best relationships aren't about <strong>perfection</strong>—they're about <strong>two people</strong> who keep choosing to understand each other better while building something that works for your actual lives. Not <strong>Instagram perfect</strong>, but <strong>real-life strong</strong>. Not <strong>conflict-free</strong>, but <strong>conflict-smart</strong>. Not always easy, but always <strong>worth it</strong>.
               </p>
             </Card>
           </div>
