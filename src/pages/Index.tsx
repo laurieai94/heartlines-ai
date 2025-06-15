@@ -26,7 +26,7 @@ const Index = () => {
             <span className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer">Contact</span>
             <Link to="/dashboard">
               <Button variant="outline" className="border-pink-200 text-pink-600 hover:bg-pink-50">
-                Launch App
+                Get Started - It's Free
               </Button>
             </Link>
           </div>
@@ -40,21 +40,21 @@ const Index = () => {
             <div>
               <div className="inline-flex items-center gap-3 bg-white/60 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-pink-200/50 shadow-lg">
                 <div className="w-2 h-2 bg-gradient-to-r from-pink-500 to-fuchsia-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-pink-700 tracking-wide">01 Purpose</span>
+                <span className="text-sm font-medium text-pink-700 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight font-sans">
-                Where Understanding
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> Meets Connection</span>
+                Your love deserves
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> better than guesswork</span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-700 mb-12 leading-relaxed font-light">
-                The relationship companion that learns who you are, understands your partner, and guides you both toward deeper emotional intelligence.
+                We're tired of relationship advice that sounds like it was written in 1995. LoveBetter gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
                 <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0">
-                  Launch App
+                  Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
               </Link>
@@ -68,9 +68,9 @@ const Index = () => {
                     <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                       <Brain className="w-12 h-12 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">AI That Knows You</h3>
+                    <h3 className="text-2xl font-bold text-white mb-4">AI That Actually Gets You</h3>
                     <p className="text-white/90 text-lg leading-relaxed">
-                      Personalized insights based on your unique relationship profile
+                      No more generic advice that doesn't fit real people
                     </p>
                   </div>
                 </div>
@@ -80,105 +80,103 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Real Talk Section */}
       <section className="px-6 py-24 relative">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 font-sans">
-              Built on Deep Understanding
+              Dating apps taught us how to swipe. Now what?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-              Our AI creates detailed profiles that capture your communication style, love languages, and emotional patterns—then provides guidance that's uniquely yours.
-            </p>
+            <div className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light space-y-6">
+              <p>
+                Nobody prepared us for the actual relationship part. You know—the daily stuff. Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+              </p>
+              <p className="font-medium text-gray-900">That's where we come in.</p>
+              <p>
+                We built LoveBetter because we got tired of generic advice that doesn't fit real people. Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Actually Works */}
+      <section className="px-6 py-24 relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 font-sans">
+              How It Actually Works
+            </h2>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform">
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="p-8 border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform">
                 <Brain className="w-10 h-10 text-pink-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 font-sans">Profile Building</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">🧠 We Get to Know You (For Real)</h3>
               <p className="text-gray-600 leading-relaxed font-light">
-                Create rich profiles capturing your love languages, communication preferences, and what makes you feel most supported.
+                Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, what makes you feel loved, and yes, even your weird quirks. The more honest you are, the better we can help.
               </p>
             </Card>
 
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
-              <div className="w-20 h-20 bg-gradient-to-br from-fuchsia-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform">
+            <Card className="p-8 border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
+              <div className="w-20 h-20 bg-gradient-to-br from-fuchsia-100 to-pink-100 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform">
                 <Target className="w-10 h-10 text-fuchsia-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 font-sans">Personalized Insights</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">💡 Daily Insights That Don't Suck</h3>
               <p className="text-gray-600 leading-relaxed font-light">
-                Receive daily suggestions tailored to your partner's needs, mood, and current life circumstances.
+                Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform">
+            <Card className="p-8 border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform">
                 <MessageCircle className="w-10 h-10 text-pink-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 font-sans">Conversation Practice</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">🗣️ Practice Makes Progress</h3>
               <p className="text-gray-600 leading-relaxed font-light">
-                Practice difficult conversations with AI that understands both your communication styles.
+                Scared to bring up that thing? Practice the conversation with our AI first. It knows both your communication styles, so you can figure out the best approach without the drama.
               </p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
-              <div className="w-20 h-20 bg-gradient-to-br from-rose-100 to-fuchsia-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform">
+            <Card className="p-8 border-0 shadow-xl bg-white/60 backdrop-blur-md hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group">
+              <div className="w-20 h-20 bg-gradient-to-br from-rose-100 to-fuchsia-100 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform">
                 <Sparkles className="w-10 h-10 text-rose-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 font-sans">Thoughtful Actions</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">💝 Thoughtful Actions, Zero Effort</h3>
               <p className="text-gray-600 leading-relaxed font-light">
-                Get specific, meaningful suggestions based on your partner's current mood and preferences.
+                Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
               </p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Example Section */}
+      {/* Real Examples Section */}
       <section className="px-6 py-24 relative">
         <div className="max-w-6xl mx-auto">
           <div className="bg-gradient-to-br from-pink-500 via-fuchsia-500 to-rose-600 rounded-3xl p-1 shadow-2xl">
             <div className="bg-white/95 backdrop-blur-md rounded-3xl p-12">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6 font-sans">
-                    Personal AI Guidance
-                  </h2>
-                  <p className="text-xl text-gray-600 mb-8 leading-relaxed font-light">
-                    See how our AI provides insights based on your unique relationship profiles.
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-gray-900 mb-6 font-sans">
+                  Real Examples (Because We're Not About That Vague Life)
+                </h2>
+              </div>
+              
+              <div className="space-y-8">
+                <div className="bg-gradient-to-r from-pink-50 to-fuchsia-50 p-8 rounded-2xl border border-pink-200/50">
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl">For Sarah (who thrives on words of affirmation)</h4>
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    "Sarah's been anxious about her presentation all week. Instead of just saying 'you'll do great,' try something specific: 'I love watching you tackle challenges—you always find creative solutions I never would have thought of.'"
                   </p>
-                  
-                  <div className="space-y-6">
-                    <div className="bg-gradient-to-r from-pink-50 to-fuchsia-50 p-6 rounded-2xl border border-pink-200/50">
-                      <h4 className="font-bold text-gray-900 mb-3 text-lg">For Sarah (Words of Affirmation)</h4>
-                      <p className="text-gray-700 leading-relaxed">
-                        "Since Sarah mentioned her big presentation today, she'd appreciate hearing specific praise about her preparation and hard work. Try: 'I'm so proud of how thoroughly you prepared for today.'"
-                      </p>
-                    </div>
-                    
-                    <div className="bg-gradient-to-r from-fuchsia-50 to-pink-50 p-6 rounded-2xl border border-fuchsia-200/50">
-                      <h4 className="font-bold text-gray-900 mb-3 text-lg">For Alex (Quality Time)</h4>
-                      <p className="text-gray-700 leading-relaxed">
-                        "Alex has been working late this week. Tonight, suggest a phone-free dinner together. Even 30 minutes of undivided attention will help them feel connected."
-                      </p>
-                    </div>
-                  </div>
                 </div>
                 
-                <div className="relative">
-                  <div className="bg-gradient-to-br from-pink-100 to-fuchsia-100 rounded-2xl p-8 shadow-xl">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-fuchsia-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <Heart className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Relationship Intelligence</h3>
-                      <p className="text-gray-700 leading-relaxed">
-                        Every suggestion is personalized based on your detailed profiles, current circumstances, and relationship history.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gradient-to-r from-fuchsia-50 to-pink-50 p-8 rounded-2xl border border-fuchsia-200/50">
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl">For Jamie (quality time is their jam)</h4>
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    "Jamie mentioned feeling disconnected this week. Tonight, suggest putting phones in another room and just existing together. Even 20 minutes of actual attention will help them feel seen."
+                  </p>
                 </div>
               </div>
             </div>
@@ -186,25 +184,83 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Why Different Section */}
+      <section className="px-6 py-24 relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 font-sans">
+              Why This Isn't Just Another App
+            </h2>
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500 mb-12">
+              We're Built Different
+            </h3>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md rounded-3xl">
+              <h4 className="text-xl font-bold text-gray-900 mb-4">No toxic positivity</h4>
+              <p className="text-gray-600 leading-relaxed">Real relationships have rough patches, and that's normal</p>
+            </Card>
+            
+            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md rounded-3xl">
+              <h4 className="text-xl font-bold text-gray-900 mb-4">Actually personalized</h4>
+              <p className="text-gray-600 leading-relaxed">Not horoscope-level generic advice</p>
+            </Card>
+            
+            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md rounded-3xl">
+              <h4 className="text-xl font-bold text-gray-900 mb-4">Designed for busy humans</h4>
+              <p className="text-gray-600 leading-relaxed">Quick daily insights that fit into your actual life</p>
+            </Card>
+            
+            <Card className="p-8 text-center border-0 shadow-xl bg-white/60 backdrop-blur-md rounded-3xl">
+              <h4 className="text-xl font-bold text-gray-900 mb-4">Privacy first</h4>
+              <p className="text-gray-600 leading-relaxed">Your relationship details stay between you, your partner, and our very secure servers</p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
       <section className="px-6 py-24 relative">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 font-sans leading-tight">
-            Ready for AI that truly
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> understands your relationship?</span>
+            For People Who Actually Want to
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> Get Better at Love</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-            Start building your profiles today. The more we learn about you both, the better we can help you love with intention.
-          </p>
+          <div className="text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light space-y-4">
+            <p>
+              Look, we could promise you'll never fight again or that this will "save your relationship." But that's not real life.
+            </p>
+            <p>
+              What we will do is help you understand each other better, communicate more clearly, and show love in ways that actually land.
+            </p>
+            <p className="font-medium text-gray-900">
+              Because the best relationships aren't perfect—they're just two people who keep choosing to understand each other better.
+            </p>
+          </div>
           
-          <Link to="/dashboard">
-            <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-8">
-              Begin Your Journey
-              <ArrowRight className="w-6 h-6 ml-3" />
-            </Button>
-          </Link>
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">Ready to Stop Guessing?</h3>
+            <Link to="/dashboard">
+              <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6">
+                Create Your Profile
+                <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </Link>
+            <p className="text-lg text-gray-600 font-light">
+              The basic stuff is always free because good relationships shouldn't be a luxury. Ready to see what happens when an app actually understands your relationship?
+            </p>
+          </div>
           
-          <p className="text-sm text-gray-500 font-light">Free to start • Built for real relationships</p>
+          <div className="bg-gradient-to-r from-pink-50 to-fuchsia-50 p-8 rounded-2xl border border-pink-200/50">
+            <h4 className="text-xl font-bold text-gray-900 mb-4">The Fine Print (But Make It Friendly)</h4>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-600">
+              <p>✓ Free to start, always</p>
+              <p>✓ Premium features for when you want to go deeper</p>
+              <p>✓ Built by people who are also figuring out love</p>
+              <p>✓ No judgment, just better tools</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -217,7 +273,7 @@ const Index = () => {
             </div>
             <span className="text-2xl font-bold text-gray-900 font-sans">LoveBetter</span>
           </div>
-          <p className="text-gray-600 font-light text-lg">Where understanding meets connection.</p>
+          <p className="text-gray-600 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
       </footer>
     </div>
