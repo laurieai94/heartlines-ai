@@ -1,8 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone } from "lucide-react";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -518,28 +517,22 @@ const Index = () => {
             {/* Left Card - Reality Check */}
             <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
               <div className="w-16 h-16 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
-                <Target className="w-8 h-8 text-coral-400" />
+                <MessageSquare className="w-8 h-8 text-coral-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
-              <p className="text-gray-300 leading-relaxed font-light mb-4">
-                Let's be honest—relationships today are complicated as hell. We're dealing with dating apps that make everyone feel replaceable, social media that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect.
-              </p>
               <p className="text-gray-300 leading-relaxed font-light">
-                Add in different love languages, attachment styles, and the fact that nobody taught us how to actually do relationships, and it's no wonder so many couples feel lost.
+                Let's be honest—relationships today are **complicated as hell**. We're dealing with **dating apps** that make everyone feel replaceable, **social media** that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect. Add in different **love languages**, **attachment styles**, and the fact that **nobody taught us** how to actually do relationships, and it's no wonder so many couples feel lost.
               </p>
             </Card>
 
             {/* Right Card - What We Believe */}
             <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-pink-300/30">
-                <Sparkles className="w-8 h-8 text-pink-400" />
+                <Users className="w-8 h-8 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Our Philosophy</h3>
-              <p className="text-gray-300 leading-relaxed font-light mb-4">
-                We believe the best relationships aren't about perfection—they're about two people who keep choosing to understand each other better while building something that works for your actual lives.
-              </p>
               <p className="text-gray-300 leading-relaxed font-light">
-                Not Instagram perfect, but real-life strong. Not conflict-free, but conflict-smart. Not always easy, but always worth it.
+                We believe the best relationships aren't about **perfection**—they're about **two people** who keep choosing to understand each other better while building something that works for your actual lives. Not **Instagram perfect**, but **real-life strong**. Not **conflict-free**, but **conflict-smart**. Not always easy, but always **worth it**.
               </p>
             </Card>
           </div>
