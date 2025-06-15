@@ -173,9 +173,10 @@ const Index = () => {
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
-                Relationships are hard.<br />
+                Your relationship isn't a rom-com.
+                <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                  You don't have to wing it.
+                  Real growth needs real tools.
                 </span>
               </h1>
               
@@ -402,7 +403,7 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Brain className="w-10 h-10 text-coral-400" />
               </div>
@@ -412,7 +413,7 @@ const Index = () => {
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:-rotate-1 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Target className="w-10 h-10 text-pink-400" />
               </div>
@@ -422,7 +423,7 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <MessageCircle className="w-10 h-10 text-pink-400" />
               </div>
@@ -432,7 +433,7 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:-rotate-1 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Sparkles className="w-10 h-10 text-coral-400" />
               </div>
@@ -515,7 +516,7 @@ const Index = () => {
           {/* Main Content in Cards */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* Left Card - Reality Check */}
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 hover:rotate-1">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3">
               <div className="w-16 h-16 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
                 <MessageSquare className="w-8 h-8 text-coral-400" />
               </div>
@@ -526,7 +527,7 @@ const Index = () => {
             </Card>
 
             {/* Right Card - What We Believe */}
-            <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 hover:-rotate-1">
+            <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-pink-300/30">
                 <Users className="w-8 h-8 text-pink-400" />
               </div>
