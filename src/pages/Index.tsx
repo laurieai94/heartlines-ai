@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -351,21 +352,21 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Solution Section - Two Column Layout */}
+          {/* Solution Section - Balanced Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* Left Column */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-coral-500/10 via-pink-500/5 to-coral-500/10 backdrop-blur-xl rounded-3xl p-8 border border-coral-300/20 shadow-2xl">
-                <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-6">
+            {/* Left Column - Better balanced */}
+            <div className="space-y-8 flex items-center">
+              <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
+                <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
                   That's where we come in.
                 </h3>
               </div>
             </div>
 
             {/* Right Column */}
-            <div className="space-y-8">
+            <div className="space-y-8 flex items-center">
               <div className="bg-gradient-to-br from-pink-500/10 via-coral-500/5 to-pink-500/10 backdrop-blur-xl rounded-3xl p-8 border border-pink-300/20 shadow-2xl">
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <p className="text-lg text-gray-200 leading-relaxed font-light">
                     We built LoveBetter because we got tired of generic advice that doesn't fit real people.
                   </p>
@@ -521,10 +522,10 @@ const Index = () => {
               </div>
               <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
               <p className="text-gray-300 leading-relaxed font-light mb-4">
-                Look, we could promise you'll never fight again or that this will "save your relationship." But that's not real life.
+                Let's be honest—relationships today are complicated as hell. We're dealing with dating apps that make everyone feel replaceable, social media that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect.
               </p>
               <p className="text-gray-300 leading-relaxed font-light">
-                What we will do is help you understand each other better, communicate more clearly, and show love in ways that actually land.
+                Add in different love languages, attachment styles, and the fact that nobody taught us how to actually do relationships, and it's no wonder so many couples feel lost.
               </p>
             </Card>
 
@@ -534,8 +535,11 @@ const Index = () => {
                 <Sparkles className="w-8 h-8 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Our Philosophy</h3>
-              <p className="text-gray-300 leading-relaxed font-light text-lg">
-                Because the best relationships aren't perfect—they're just two people who keep choosing to understand each other better.
+              <p className="text-gray-300 leading-relaxed font-light mb-4">
+                We believe the best relationships aren't about perfection—they're about two people who keep choosing to understand each other better while building something that works for your actual lives.
+              </p>
+              <p className="text-gray-300 leading-relaxed font-light">
+                Not Instagram perfect, but real-life strong. Not conflict-free, but conflict-smart. Not always easy, but always worth it.
               </p>
             </Card>
           </div>
