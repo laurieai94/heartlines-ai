@@ -297,44 +297,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Enhanced */}
-      <section className="px-6 py-32 relative">
-        <div className="max-w-7xl mx-auto">
-          {/* Main Section Header */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-pink-300/20 shadow-lg">
-              <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-light text-white/90 tracking-wide">The Real Talk</span>
+      {/* Real Talk Section - Simplified */}
+      <section className="px-6 py-24 relative">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-pink-300/20">
+              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-light text-white/90">The Real Talk</span>
             </div>
             
-            <h2 className="text-5xl lg:text-6xl font-thin text-white mb-12 leading-tight max-w-5xl mx-auto">
+            <h2 className="text-5xl lg:text-6xl font-light text-white mb-8 leading-tight">
               Dating apps taught us how to swipe.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-light">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
                 Now what?
               </span>
             </h2>
           </div>
 
           {/* Two Column Layout */}
-          <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             {/* Problem Side */}
-            <div className="space-y-8">
-              <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-xl">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-red-400/30 flex-shrink-0">
-                    <Heart className="w-6 h-6 text-red-400" />
-                  </div>
-                  <h3 className="text-2xl font-light text-white leading-tight">The Problem</h3>
-                </div>
-                <p className="text-xl text-gray-300 leading-relaxed font-light mb-6">
-                  Nobody prepared us for the actual relationship part. You know—the daily stuff.
-                </p>
-                <p className="text-lg text-gray-400 leading-relaxed font-light">
-                  Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-lg rounded-2xl p-6 border border-gray-600/20">
+            <div className="space-y-6">
+              <h3 className="text-3xl font-light text-white mb-6">The Problem</h3>
+              <p className="text-xl text-gray-300 leading-relaxed font-light">
+                Nobody prepared us for the actual relationship part. You know—the daily stuff.
+              </p>
+              <p className="text-lg text-gray-400 leading-relaxed font-light">
+                Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+              </p>
+              <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-600/20">
                 <p className="text-gray-300 italic font-light text-center">
                   "We got really good at swiping, but nobody taught us how to actually... relate."
                 </p>
@@ -342,43 +334,30 @@ const Index = () => {
             </div>
 
             {/* Solution Side */}
-            <div className="space-y-8">
-              {/* Transition Callout */}
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 to-pink-400 rounded-3xl blur opacity-20"></div>
-                <div className="relative bg-black/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-lg">
-                      <Sparkles className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-4">
-                      That's where we come in.
-                    </h3>
-                  </div>
+            <div className="space-y-6">
+              {/* Transition */}
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <Sparkles className="w-8 h-8 text-white" />
                 </div>
+                <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
+                  That's where we come in.
+                </h3>
               </div>
 
-              {/* Solution Content */}
-              <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-xl">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-green-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-green-400/30 flex-shrink-0">
-                    <Brain className="w-6 h-6 text-green-400" />
-                  </div>
-                  <h3 className="text-2xl font-light text-white leading-tight">Our Approach</h3>
-                </div>
-                <p className="text-xl text-gray-300 leading-relaxed font-light mb-6">
-                  We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-                </p>
-                <p className="text-lg text-gray-400 leading-relaxed font-light">
-                  Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-                </p>
-              </div>
+              <h3 className="text-3xl font-light text-white mb-6">Our Approach</h3>
+              <p className="text-xl text-gray-300 leading-relaxed font-light">
+                We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+              </p>
+              <p className="text-lg text-gray-400 leading-relaxed font-light">
+                Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+              </p>
             </div>
           </div>
 
           {/* Bottom Highlight */}
           <div className="text-center">
-            <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-lg rounded-2xl p-8 border border-white/10 max-w-4xl mx-auto">
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 max-w-4xl mx-auto">
               <p className="text-2xl font-light text-white leading-relaxed">
                 Because the best relationships aren't about finding someone perfect—
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-medium">
