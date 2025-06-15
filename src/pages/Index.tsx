@@ -338,7 +338,7 @@ const Index = () => {
                 Nobody prepared us for the actual relationship part. You know—the daily stuff.
               </p>
               <p className="text-xl text-gray-400 leading-relaxed font-light">
-                Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+                Like how to fight without losing your minds—or expecting mind-reading.
               </p>
             </div>
           </div>
@@ -402,7 +402,7 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Brain className="w-10 h-10 text-coral-400" />
               </div>
@@ -412,7 +412,7 @@ const Index = () => {
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:-rotate-1 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Target className="w-10 h-10 text-pink-400" />
               </div>
@@ -422,7 +422,7 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <MessageCircle className="w-10 h-10 text-pink-400" />
               </div>
@@ -432,7 +432,7 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:-rotate-1 rounded-3xl group border border-coral-400/20">
               <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Sparkles className="w-10 h-10 text-coral-400" />
               </div>
@@ -467,22 +467,22 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">No toxic positivity</h4>
               <p className="text-gray-300 leading-relaxed font-light">Real relationships have rough patches, and that's normal</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Actually personalized</h4>
               <p className="text-gray-300 leading-relaxed font-light">Not horoscope-level generic advice</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Designed for busy humans</h4>
               <p className="text-gray-300 leading-relaxed font-light">Quick daily insights that fit into your actual life</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Privacy first</h4>
               <p className="text-gray-300 leading-relaxed font-light">Your relationship details stay between you, your partner, and our very secure servers</p>
             </Card>
@@ -515,18 +515,18 @@ const Index = () => {
           {/* Main Content in Cards */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* Left Card - Reality Check */}
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 hover:rotate-1">
               <div className="w-16 h-16 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
                 <MessageSquare className="w-8 h-8 text-coral-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
               <p className="text-gray-300 leading-relaxed font-light">
-                Let's be honest—relationships today are <strong>complicated as hell</strong>. We're dealing with <strong>dating apps</strong> that make everyone feel replaceable, <strong>social media</strong> that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect. Add in different <strong>love languages</strong>, <strong>attachment styles</strong>, and the fact that <strong>nobody taught us</strong> how to actually do relationships, and it's no wonder so many couples feel lost.
+                Let's be honest. Relationships today are <strong>complicated as hell</strong>. We're dealing with <strong>dating apps</strong> that make everyone feel replaceable, <strong>social media</strong> that shows us everyone else's highlight reel, and a world that moves so fast we barely have time to actually connect. Add in different <strong>love languages</strong>, <strong>attachment styles</strong>, and the fact that <strong>nobody taught us</strong> how to actually do relationships, and it's no wonder so many couples feel lost.
               </p>
             </Card>
 
             {/* Right Card - What We Believe */}
-            <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20">
+            <Card className="p-8 border-0 shadow-xl bg-pink-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 hover:-rotate-1">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-pink-300/30">
                 <Users className="w-8 h-8 text-pink-400" />
               </div>
