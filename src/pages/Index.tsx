@@ -29,16 +29,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Animated Holographic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-pink-900/20 to-blue-900/30 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-purple-500/10 to-pink-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/10 via-purple-600/10 to-coral-500/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -54,7 +54,7 @@ const Index = () => {
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-20 h-20 border border-white/10 rounded-lg animate-spin"
+            className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -67,13 +67,13 @@ const Index = () => {
 
       {/* Code-like Background Elements */}
       <div className="absolute inset-0 overflow-hidden opacity-5">
-        <div className="absolute top-20 left-10 font-mono text-xs text-white">
+        <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
           {`const love = { understanding: true, growth: infinite }`}
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-white">
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
           {`if (relationship.status === 'complicated') { ai.help() }`}
         </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-white">
+        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
           {`return personalized.advice.filter(advice => advice.isRelevant)`}
         </div>
       </div>
@@ -82,17 +82,17 @@ const Index = () => {
       <nav className="px-6 py-6 relative z-10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-white/20">
+            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white font-sans">LoveBetter</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <span className="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer font-thin">Home</span>
-            <span className="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer font-thin">About</span>
-            <span className="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer font-thin">Contact</span>
+            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">Home</span>
+            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">About</span>
+            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">Contact</span>
             <Link to="/dashboard">
-              <Button variant="outline" className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 rounded-full font-thin backdrop-blur-sm">
+              <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
                 Get Started - It's Free
               </Button>
             </Link>
@@ -106,25 +106,28 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-white/20 shadow-lg transition-transform duration-300"
+                className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-pink-300/20 shadow-lg transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
                 <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
-                AI That Actually Gets You
+                Relationships are hard.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
+                  You don't have to wing it.
+                </span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-                No more generic advice that doesn't fit real people
+                We're tired of relationship advice that sounds like it was written in 1995. LoveBetter gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
-                <Button className="bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
@@ -135,7 +138,7 @@ const Index = () => {
             <div className="relative flex items-center justify-center">
               <div className="relative w-96 h-96">
                 {/* Central Brain Node */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-white/30 hover:scale-110 transition-transform duration-300 cursor-pointer group">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/30 hover:scale-110 transition-transform duration-300 cursor-pointer group">
                   <Brain className="w-8 h-8 text-white group-hover:animate-pulse" />
                 </div>
 
@@ -149,7 +152,7 @@ const Index = () => {
                   return (
                     <div
                       key={i}
-                      className="absolute w-4 h-4 bg-white/20 rounded-full animate-pulse backdrop-blur-sm"
+                      className="absolute w-4 h-4 bg-pink-300/20 rounded-full animate-pulse backdrop-blur-sm"
                       style={{
                         left: `calc(50% + ${x}px)`,
                         top: `calc(50% + ${y}px)`,
@@ -175,7 +178,7 @@ const Index = () => {
                         y1="192"
                         x2={x}
                         y2={y}
-                        stroke="url(#gradient)"
+                        stroke="url(#gradientPink)"
                         strokeWidth="1"
                         className="animate-pulse"
                         style={{ animationDelay: `${i * 0.1}s` }}
@@ -183,9 +186,9 @@ const Index = () => {
                     );
                   })}
                   <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.3" />
+                    <linearGradient id="gradientPink" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#fb7185" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#f97316" stopOpacity="0.3" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -409,7 +412,7 @@ const Index = () => {
       {showFloatingButton && (
         <div className="fixed bottom-8 right-8 z-50 animate-fade-in">
           <Link to="/dashboard">
-            <Button className="bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-white/20">
+            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-pink-300/20">
               Try It Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
@@ -418,10 +421,10 @@ const Index = () => {
       )}
 
       {/* Footer */}
-      <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-white/10">
+      <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-pink-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-white/20">
+            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-light text-white">LoveBetter</span>
