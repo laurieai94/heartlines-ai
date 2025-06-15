@@ -1,7 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain } from "lucide-react";
+import AnimatedBrain3D from "@/components/AnimatedBrain3D";
 
 const Index = () => {
   return (
@@ -65,38 +65,10 @@ const Index = () => {
               </Button>
             </div>
             
-            {/* Visual Element */}
+            {/* 3D Visual Element */}
             <div className="relative">
-              <div className="relative">
-                {/* Flowing decorative lines */}
-                <svg className="absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400">
-                  <path
-                    d="M50,200 Q200,50 350,200 Q200,350 50,200"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeDasharray="10,5"
-                  />
-                  <path
-                    d="M100,150 Q250,100 300,250"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="1"
-                    strokeDasharray="5,5"
-                  />
-                </svg>
-                
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 h-96 flex items-center justify-center border border-white/20">
-                  <div className="text-center">
-                    <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border border-white/30">
-                      <Brain className="w-12 h-12 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">AI That Knows You</h3>
-                    <p className="text-white/90 text-lg leading-relaxed">
-                      Personalized insights based on your unique relationship profile
-                    </p>
-                  </div>
-                </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl">
+                <AnimatedBrain3D />
               </div>
             </div>
           </div>
