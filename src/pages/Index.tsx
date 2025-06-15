@@ -351,15 +351,20 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Solution Section - Enhanced Design */}
+          {/* Solution Section - Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* Left Column - Solution Text */}
+            {/* Left Column */}
             <div className="space-y-8">
               <div className="bg-gradient-to-br from-coral-500/10 via-pink-500/5 to-coral-500/10 backdrop-blur-xl rounded-3xl p-8 border border-coral-300/20 shadow-2xl">
                 <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-6">
                   That's where we come in.
                 </h3>
-                
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-8">
+              <div className="bg-gradient-to-br from-pink-500/10 via-coral-500/5 to-pink-500/10 backdrop-blur-xl rounded-3xl p-8 border border-pink-300/20 shadow-2xl">
                 <div className="space-y-4">
                   <p className="text-lg text-gray-200 leading-relaxed font-light">
                     We built LoveBetter because we got tired of generic advice that doesn't fit real people.
@@ -367,43 +372,10 @@ const Index = () => {
                   <p className="text-lg text-gray-300 leading-relaxed font-light">
                     Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
                   </p>
+                  <p className="text-lg text-gray-300 leading-relaxed font-light">
+                    Because the best relationships aren't about finding someone perfect—they're about two people who keep choosing to understand each other better.
+                  </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Right Column - Visual Element */}
-            <div className="flex items-center justify-center">
-              <div className="relative">
-                {/* Central Heart with Pulse Effect */}
-                <div className="w-32 h-32 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-2xl border border-coral-300/30 animate-pulse">
-                  <Heart className="w-16 h-16 text-white" />
-                </div>
-                
-                {/* Orbiting Elements */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                  <Brain className="w-6 h-6 text-pink-400" />
-                </div>
-                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-6 h-6 text-coral-400" />
-                </div>
-                <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 w-12 h-12 bg-pink-300/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse" style={{ animationDelay: '1.5s' }}>
-                  <Users className="w-5 h-5 text-pink-300" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Final Quote */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 via-pink-400/15 to-coral-400/10 rounded-3xl transform rotate-1"></div>
-            <div className="relative bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 border border-coral-400/30 shadow-2xl">
-              <div className="text-center">
-                <blockquote className="text-xl font-light text-white leading-relaxed">
-                  Because the best relationships aren't about finding someone perfect—
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-3 text-2xl">
-                    they're about two people who keep choosing to understand each other better.
-                  </span>
-                </blockquote>
               </div>
             </div>
           </div>
@@ -445,14 +417,9 @@ const Index = () => {
                 <Target className="w-10 h-10 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
-              <p className="text-gray-300 leading-relaxed font-light mb-4">
+              <p className="text-gray-300 leading-relaxed font-light">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
-              <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 backdrop-blur-sm rounded-xl p-4 border border-pink-300/20">
-                <p className="text-pink-200 text-sm font-light leading-relaxed">
-                  <strong className="text-pink-100">Pro tip:</strong> Connect your calendar and we'll know when your partner has that big presentation coming up, so we can suggest the perfect way to support them—before they even mention feeling stressed.
-                </p>
-              </div>
             </Card>
             
             <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
