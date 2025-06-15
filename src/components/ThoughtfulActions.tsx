@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Heart, Sparkles, Calendar, Coffee, Gift, MessageHeart } from "lucide-react";
+import { Heart, Sparkles, Calendar, Coffee, Gift, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 
 const ACTION_CATEGORIES = [
@@ -14,7 +14,7 @@ const ACTION_CATEGORIES = [
   { value: "special", label: "Special Occasions", icon: Gift },
   { value: "support", label: "Emotional Support", icon: Heart },
   { value: "quality-time", label: "Quality Time", icon: Calendar },
-  { value: "communication", label: "Communication", icon: MessageHeart }
+  { value: "communication", label: "Communication", icon: MessageSquare }
 ];
 
 const ThoughtfulActions = () => {
