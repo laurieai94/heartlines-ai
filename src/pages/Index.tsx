@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone } from "lucide-react";
@@ -12,43 +13,43 @@ const Index = () => {
   const datingProfiles = [
     { 
       name: "Alex", 
-      age: 28, 
+      age: 32, 
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face", 
       bio: "Love hiking and code" 
     },
     { 
       name: "Maya", 
-      age: 25, 
+      age: 26, 
       photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face", 
       bio: "Artist seeking adventure" 
     },
     { 
       name: "Jordan", 
-      age: 30, 
+      age: 29, 
       photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face", 
       bio: "Yoga instructor & foodie" 
     },
     { 
       name: "Riley", 
-      age: 27, 
+      age: 23, 
       photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face", 
       bio: "Book lover & traveler" 
     },
     { 
       name: "Casey", 
-      age: 29, 
+      age: 35, 
       photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face", 
       bio: "Musician & coffee addict" 
     },
     { 
       name: "Sam", 
-      age: 26, 
+      age: 21, 
       photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face", 
       bio: "Designer & plant parent" 
     },
     { 
       name: "Taylor", 
-      age: 31, 
+      age: 38, 
       photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face", 
       bio: "Chef & weekend hiker" 
     }
