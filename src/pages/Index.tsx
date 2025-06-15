@@ -289,7 +289,7 @@ const Index = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-pink-400/30 to-transparent"></div>
             {/* Center icon */}
             <div className="absolute bg-black px-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30">
+              <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <Heart className="w-6 h-6 text-pink-400" />
               </div>
             </div>
@@ -297,74 +297,52 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Simplified */}
+      {/* Real Talk Section - Cleaned Up */}
       <section className="px-6 py-24 relative">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-pink-300/20">
-              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-light text-white/90">The Real Talk</span>
-            </div>
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl lg:text-6xl font-light text-white mb-16 leading-tight">
+            Dating apps taught us how to swipe.
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
+              Now what?
+            </span>
+          </h2>
+
+          <div className="space-y-12 mb-16">
+            <p className="text-2xl text-gray-300 leading-relaxed font-light">
+              Nobody prepared us for the actual relationship part. You know—the daily stuff.
+            </p>
             
-            <h2 className="text-5xl lg:text-6xl font-light text-white mb-8 leading-tight">
-              Dating apps taught us how to swipe.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
-                Now what?
+            <p className="text-lg text-gray-400 leading-relaxed font-light max-w-3xl mx-auto">
+              Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+            </p>
+          </div>
+
+          <div className="mb-16">
+            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-8">
+              That's where we come in.
+            </h3>
+          </div>
+
+          <div className="space-y-8 mb-16">
+            <p className="text-2xl text-gray-300 leading-relaxed font-light">
+              We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+            </p>
+            
+            <p className="text-lg text-gray-400 leading-relaxed font-light max-w-3xl mx-auto">
+              Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+            </p>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+            <p className="text-2xl font-light text-white leading-relaxed">
+              Because the best relationships aren't about finding someone perfect—
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium">
+                they're about two people who keep choosing to understand each other better.
               </span>
-            </h2>
-          </div>
-
-          {/* Two Column Layout */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-            {/* Problem Side */}
-            <div className="space-y-6">
-              <h3 className="text-3xl font-light text-white mb-6">The Problem</h3>
-              <p className="text-xl text-gray-300 leading-relaxed font-light">
-                Nobody prepared us for the actual relationship part. You know—the daily stuff.
-              </p>
-              <p className="text-lg text-gray-400 leading-relaxed font-light">
-                Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
-              </p>
-              <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-600/20">
-                <p className="text-gray-300 italic font-light text-center">
-                  "We got really good at swiping, but nobody taught us how to actually... relate."
-                </p>
-              </div>
-            </div>
-
-            {/* Solution Side */}
-            <div className="space-y-6">
-              {/* Transition */}
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <Sparkles className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                  That's where we come in.
-                </h3>
-              </div>
-
-              <h3 className="text-3xl font-light text-white mb-6">Our Approach</h3>
-              <p className="text-xl text-gray-300 leading-relaxed font-light">
-                We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-              </p>
-              <p className="text-lg text-gray-400 leading-relaxed font-light">
-                Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom Highlight */}
-          <div className="text-center">
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 max-w-4xl mx-auto">
-              <p className="text-2xl font-light text-white leading-relaxed">
-                Because the best relationships aren't about finding someone perfect—
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-medium">
-                  they're about two people who keep choosing to understand each other better.
-                </span>
-              </p>
-            </div>
+            </p>
           </div>
         </div>
       </section>
