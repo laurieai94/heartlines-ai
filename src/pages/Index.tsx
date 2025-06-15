@@ -10,11 +10,36 @@ const Index = () => {
   const [currentProfile, setCurrentProfile] = useState(0);
 
   const datingProfiles = [
-    { name: "Alex", age: 28, photo: "👨‍💻", bio: "Love hiking and code" },
-    { name: "Maya", age: 25, photo: "🎨", bio: "Artist seeking adventure" },
-    { name: "Jordan", age: 30, photo: "🏃‍♀️", bio: "Yoga instructor & foodie" },
-    { name: "Riley", age: 27, photo: "📚", bio: "Book lover & traveler" },
-    { name: "Casey", age: 29, photo: "🎵", bio: "Musician & coffee addict" }
+    { 
+      name: "Alex", 
+      age: 28, 
+      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face", 
+      bio: "Love hiking and code" 
+    },
+    { 
+      name: "Maya", 
+      age: 25, 
+      photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face", 
+      bio: "Artist seeking adventure" 
+    },
+    { 
+      name: "Jordan", 
+      age: 30, 
+      photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face", 
+      bio: "Yoga instructor & foodie" 
+    },
+    { 
+      name: "Riley", 
+      age: 27, 
+      photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face", 
+      bio: "Book lover & traveler" 
+    },
+    { 
+      name: "Casey", 
+      age: 29, 
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face", 
+      bio: "Musician & coffee addict" 
+    }
   ];
 
   useEffect(() => {
@@ -182,8 +207,12 @@ const Index = () => {
                         className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl flex items-center justify-center text-6xl mb-4 border border-white/10">
-                          {datingProfiles[currentProfile].photo}
+                        <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
+                          <img 
+                            src={datingProfiles[currentProfile].photo} 
+                            alt={datingProfiles[currentProfile].name}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
 
                         {/* Profile Info */}
