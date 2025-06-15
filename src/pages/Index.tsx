@@ -161,22 +161,43 @@ const Index = () => {
             <div className="bg-white/95 backdrop-blur-md rounded-3xl p-12">
               <div className="text-center mb-12">
                 <h2 className="text-4xl font-bold text-gray-900 mb-6 font-serif">
-                  Real Examples (Because We're Not About That Vague Life)
+                  Real Examples (Because Generic Advice Is Trash)
                 </h2>
               </div>
               
               <div className="space-y-8">
                 <div className="bg-gradient-to-r from-coral-50 to-pink-50 p-8 rounded-2xl border border-coral-200/50">
-                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Sarah (who thrives on words of affirmation)</h4>
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Maya (words of affirmation)</h4>
                   <p className="text-gray-700 leading-relaxed text-lg font-serif">
-                    "Sarah's been anxious about her presentation all week. Instead of just saying 'you'll do great,' try something specific: 'I love watching you tackle challenges—you always find creative solutions I never would have thought of.'"
+                    "Maya texted you at 11:47 PM: 'Do you think I talked too much at dinner tonight? I feel like I was being weird.' Don't just say 'no you weren't.' Try: 'Babe, you literally made that whole table laugh when you told the story about your landlord. You have this gift for making people feel comfortable—I watched everyone relax the second you started talking.'"
                   </p>
                 </div>
                 
                 <div className="bg-gradient-to-r from-pink-50 to-coral-50 p-8 rounded-2xl border border-pink-200/50">
-                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Jamie (quality time is their jam)</h4>
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Alex (acts of service)</h4>
                   <p className="text-gray-700 leading-relaxed text-lg font-serif">
-                    "Jamie mentioned feeling disconnected this week. Tonight, suggest putting phones in another room and just existing together. Even 20 minutes of actual attention will help them feel seen."
+                    "Alex has been working 12-hour days trying to get their freelance business off the ground while their washing machine has been broken for two weeks. They keep saying 'I'll figure it out' when you ask what they need. Stop asking. Show up Saturday morning with quarters and detergent. Text: 'Laundromat date? I'm buying coffee and we're getting your life together.'"
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-coral-50 to-orange-50 p-8 rounded-2xl border border-coral-200/50">
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For River (quality time)</h4>
+                  <p className="text-gray-700 leading-relaxed text-lg font-serif">
+                    "River's been different since their best friend moved across the country last month. They keep saying they're 'adjusting fine' but they've been rewatching The Office for the third time and ordering way too much takeout. Don't suggest they 'get out more.' Instead: 'Want to sit in my car and eat gas station snacks while we figure out why we're both avoiding being adults right now?'"
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-orange-50 to-pink-50 p-8 rounded-2xl border border-orange-200/50">
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Jordan (physical touch)</h4>
+                  <p className="text-gray-700 leading-relaxed text-lg font-serif">
+                    "Jordan's anxiety has been through the roof since they started the new job. They're not sleeping well and keep apologizing for being 'clingy.' Stop telling them they're not clingy. Next time you're watching Netflix, just pull them over so their head's on your chest. Don't make it A Thing. Just let them exist in your space until their breathing slows down."
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-pink-50 to-coral-50 p-8 rounded-2xl border border-pink-200/50">
+                  <h4 className="font-bold text-gray-900 mb-4 text-xl font-serif">For Casey (gifts)</h4>
+                  <p className="text-gray-700 leading-relaxed text-lg font-serif">
+                    "Casey mentioned their therapist told them to start journaling but they hate the idea of writing in some basic notebook. You remember they're obsessed with that one pen at Target they always test but never buy. Get the pen. Get a notebook that doesn't look like homework. Leave it on their kitchen counter with a note: 'For all the thoughts that keep you up at night.'"
                   </p>
                 </div>
               </div>
