@@ -25,7 +25,7 @@ const Index = () => {
     { 
       name: "Jordan", 
       age: 30, 
-      photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face", 
+      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face", 
       bio: "Yoga instructor & foodie" 
     },
     { 
@@ -37,8 +37,20 @@ const Index = () => {
     { 
       name: "Casey", 
       age: 29, 
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face", 
+      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face", 
       bio: "Musician & coffee addict" 
+    },
+    { 
+      name: "Sam", 
+      age: 26, 
+      photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face", 
+      bio: "Designer & plant parent" 
+    },
+    { 
+      name: "Taylor", 
+      age: 31, 
+      photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face", 
+      bio: "Chef & weekend hiker" 
     }
   ];
 
