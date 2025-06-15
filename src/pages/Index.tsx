@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain } from "lucide-react";
@@ -44,8 +43,8 @@ const Index = () => {
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight font-sans">
-                Your love deserves
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> better than guesswork</span>
+                Relationships are hard.
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-500"> You don't have to wing it.</span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-700 mb-12 leading-relaxed font-light">
