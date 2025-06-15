@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ interface ProfileData {
   decisionMaking: string;
   attachmentStyle: string;
   growthArea: string;
-  // Deep dive fields
+  // Deep dive fields - now using rating scales
   upsetBehavior?: string;
   howHeard?: string;
   apologyStyle?: string;
@@ -127,6 +128,14 @@ const GROWTH_AREAS = [
   "Balancing independence with partnership"
 ];
 
+const RATING_SCALE = [
+  "Strongly Agree",
+  "Agree", 
+  "Neutral",
+  "Disagree",
+  "Strongly Disagree"
+];
+
 const ProfileBuilder = () => {
   const [profiles, setProfiles] = useState<{your: ProfileData[], partner: ProfileData[]}>({
     your: [],
@@ -206,6 +215,35 @@ const ProfileBuilder = () => {
     const completed = coreFields.filter(field => currentProfile[field as keyof ProfileData]).length;
     return Math.round((completed / coreFields.length) * 100);
   };
+
+  const RatingQuestion = ({ 
+    label, 
+    field, 
+    description 
+  }: { 
+    label: string; 
+    field: keyof ProfileData; 
+    description: string;
+  }) => (
+    <div className="space-y-3">
+      <div>
+        <Label className="text-sm font-medium">{label}</Label>
+        <p className="text-xs text-gray-500 mt-1">{description}</p>
+      </div>
+      <RadioGroup 
+        value={currentProfile[field] as string || ''}
+        onValueChange={(value) => setCurrentProfile({...currentProfile, [field]: value})}
+        className="space-y-2"
+      >
+        {RATING_SCALE.map((rating) => (
+          <div key={rating} className="flex items-center space-x-2">
+            <RadioGroupItem value={rating} id={`${field}-${rating}`} />
+            <Label htmlFor={`${field}-${rating}`} className="text-sm">{rating}</Label>
+          </div>
+        ))}
+      </RadioGroup>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -351,34 +389,32 @@ const ProfileBuilder = () => {
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-4 mt-4">
-                  <div>
-                    <Label htmlFor="upsetBehavior">When upset behavior patterns</Label>
-                    <Textarea
-                      id="upsetBehavior"
-                      value={currentProfile.upsetBehavior || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, upsetBehavior: e.target.value})}
-                      placeholder="Describe behavior patterns when upset..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="howHeard">How they feel heard</Label>
-                    <Textarea
-                      id="howHeard"
-                      value={currentProfile.howHeard || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, howHeard: e.target.value})}
-                      placeholder="What makes them feel heard and understood..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="apologyStyle">Apology styles (giving/receiving)</Label>
-                    <Textarea
-                      id="apologyStyle"
-                      value={currentProfile.apologyStyle || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, apologyStyle: e.target.value})}
-                      placeholder="How they give and receive apologies..."
-                    />
-                  </div>
+                <CollapsibleContent className="space-y-6 mt-4">
+                  <RatingQuestion
+                    label="I shut down when someone raises their voice"
+                    field="upsetBehavior"
+                    description="Understanding upset behavior patterns"
+                  />
+                  <RatingQuestion
+                    label="I feel heard when someone repeats back what I said"
+                    field="howHeard"
+                    description="What makes you feel understood"
+                  />
+                  <RatingQuestion
+                    label="I prefer specific apologies that acknowledge what went wrong"
+                    field="apologyStyle"
+                    description="Your apology preferences"
+                  />
+                  <RatingQuestion
+                    label="I get overwhelmed when too many topics are discussed at once"
+                    field="overwhelmSigns"
+                    description="Recognizing overwhelm patterns"
+                  />
+                  <RatingQuestion
+                    label="Interrupting during conversations really bothers me"
+                    field="communicationTriggers"
+                    description="Communication triggers to avoid"
+                  />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
@@ -423,25 +459,32 @@ const ProfileBuilder = () => {
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-4 mt-4">
-                  <div>
-                    <Label htmlFor="affirmationExamples">Specific words of affirmation examples</Label>
-                    <Textarea
-                      id="affirmationExamples"
-                      value={currentProfile.affirmationExamples || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, affirmationExamples: e.target.value})}
-                      placeholder="What words or phrases mean the most..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="touchPreferences">Physical touch preferences</Label>
-                    <Textarea
-                      id="touchPreferences"
-                      value={currentProfile.touchPreferences || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, touchPreferences: e.target.value})}
-                      placeholder="Preferred types of physical affection..."
-                    />
-                  </div>
+                <CollapsibleContent className="space-y-6 mt-4">
+                  <RatingQuestion
+                    label="I prefer compliments about my character over my appearance"
+                    field="affirmationExamples"
+                    description="Words of affirmation preferences"
+                  />
+                  <RatingQuestion
+                    label="I enjoy casual physical touch throughout the day"
+                    field="touchPreferences"
+                    description="Physical touch comfort level"
+                  />
+                  <RatingQuestion
+                    label="Small daily acts of service mean more to me than grand gestures"
+                    field="serviceIdeas"
+                    description="Acts of service preferences"
+                  />
+                  <RatingQuestion
+                    label="I prefer thoughtful gifts over expensive ones"
+                    field="giftPreferences"
+                    description="Gift-giving philosophy"
+                  />
+                  <RatingQuestion
+                    label="Phone-free time together is essential for me to feel connected"
+                    field="qualityTimeDetails"
+                    description="Quality time specifics"
+                  />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
@@ -486,25 +529,32 @@ const ProfileBuilder = () => {
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-4 mt-4">
-                  <div>
-                    <Label htmlFor="stressTriggers">Common stress triggers</Label>
-                    <Textarea
-                      id="stressTriggers"
-                      value={currentProfile.stressTriggers || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, stressTriggers: e.target.value})}
-                      placeholder="What typically causes stress..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="warningSignsStress">Early warning signs</Label>
-                    <Textarea
-                      id="warningSignsStress"
-                      value={currentProfile.warningSignsStress || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, warningSignsStress: e.target.value})}
-                      placeholder="Signs that stress is building up..."
-                    />
-                  </div>
+                <CollapsibleContent className="space-y-6 mt-4">
+                  <RatingQuestion
+                    label="Work deadlines are my biggest stress trigger"
+                    field="stressTriggers"
+                    description="Common stress triggers"
+                  />
+                  <RatingQuestion
+                    label="I get quiet and withdrawn when stress builds up"
+                    field="warningSignsStress"
+                    description="Early warning signs"
+                  />
+                  <RatingQuestion
+                    label="Talking about my problems when I'm stressed makes it worse"
+                    field="stressWorsen"
+                    description="What makes stress worse"
+                  />
+                  <RatingQuestion
+                    label="I tend to overthink situations when I'm anxious"
+                    field="anxietyPatterns"
+                    description="Anxiety response patterns"
+                  />
+                  <RatingQuestion
+                    label="My energy levels greatly affect my mood"
+                    field="energyMoods"
+                    description="Energy and mood connection"
+                  />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
@@ -551,25 +601,32 @@ const ProfileBuilder = () => {
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-4 mt-4">
-                  <div>
-                    <Label htmlFor="moneyMindset">Money mindset and financial values</Label>
-                    <Textarea
-                      id="moneyMindset"
-                      value={currentProfile.moneyMindset || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, moneyMindset: e.target.value})}
-                      placeholder="Approach to money and financial decisions..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="workLife">Work-life balance preferences</Label>
-                    <Textarea
-                      id="workLife"
-                      value={currentProfile.workLife || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, workLife: e.target.value})}
-                      placeholder="How you prefer to balance work and personal life..."
-                    />
-                  </div>
+                <CollapsibleContent className="space-y-6 mt-4">
+                  <RatingQuestion
+                    label="I prefer to save money rather than spend on experiences"
+                    field="moneyMindset"
+                    description="Financial values and approach"
+                  />
+                  <RatingQuestion
+                    label="I need clear boundaries between work and personal time"
+                    field="workLife"
+                    description="Work-life balance preferences"
+                  />
+                  <RatingQuestion
+                    label="I recharge better with alone time than social activities"
+                    field="socialEnergy"
+                    description="Social energy preferences"
+                  />
+                  <RatingQuestion
+                    label="I function better with consistent daily routines"
+                    field="routinePrefs"
+                    description="Routine and structure needs"
+                  />
+                  <RatingQuestion
+                    label="I prefer a tidy, organized living space"
+                    field="householdStyle"
+                    description="Household and lifestyle preferences"
+                  />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
@@ -614,25 +671,32 @@ const ProfileBuilder = () => {
                     <ChevronDown className="w-4 h-4" />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-4 mt-4">
-                  <div>
-                    <Label htmlFor="pastPatterns">Past relationship patterns</Label>
-                    <Textarea
-                      id="pastPatterns"
-                      value={currentProfile.pastPatterns || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, pastPatterns: e.target.value})}
-                      placeholder="Patterns you've noticed in past relationships..."
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="familyInfluence">Family background influence</Label>
-                    <Textarea
-                      id="familyInfluence"
-                      value={currentProfile.familyInfluence || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, familyInfluence: e.target.value})}
-                      placeholder="How family background influences your relationships..."
-                    />
-                  </div>
+                <CollapsibleContent className="space-y-6 mt-4">
+                  <RatingQuestion
+                    label="I tend to repeat the same relationship patterns"
+                    field="pastPatterns"
+                    description="Past relationship patterns"
+                  />
+                  <RatingQuestion
+                    label="My family background strongly influences my relationship style"
+                    field="familyInfluence"
+                    description="Family background influence"
+                  />
+                  <RatingQuestion
+                    label="I'm actively working on personal development and growth"
+                    field="therapyExperience"
+                    description="Personal development engagement"
+                  />
+                  <RatingQuestion
+                    label="Certain topics or situations trigger strong emotional reactions in relationships"
+                    field="relationshipTriggers"
+                    description="Relationship triggers awareness"
+                  />
+                  <RatingQuestion
+                    label="I'm comfortable with emotional and physical intimacy"
+                    field="intimacyPatterns"
+                    description="Intimacy comfort level"
+                  />
                 </CollapsibleContent>
               </Collapsible>
             </TabsContent>
