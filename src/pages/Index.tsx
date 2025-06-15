@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -23,6 +24,11 @@ const Index = () => {
             <span className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer">Home</span>
             <span className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer">About</span>
             <span className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer">Contact</span>
+            <Link to="/dashboard">
+              <Button variant="outline" className="border-pink-200 text-pink-600 hover:bg-pink-50">
+                Launch App
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -46,10 +52,12 @@ const Index = () => {
                 The relationship companion that learns who you are, understands your partner, and guides you both toward deeper emotional intelligence.
               </p>
               
-              <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0">
-                Request Access
-                <ArrowRight className="w-6 h-6 ml-3" />
-              </Button>
+              <Link to="/dashboard">
+                <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0">
+                  Launch App
+                  <ArrowRight className="w-6 h-6 ml-3" />
+                </Button>
+              </Link>
             </div>
             
             {/* Visual Element */}
@@ -189,10 +197,12 @@ const Index = () => {
             Start building your profiles today. The more we learn about you both, the better we can help you love with intention.
           </p>
           
-          <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-8">
-            Begin Your Journey
-            <ArrowRight className="w-6 h-6 ml-3" />
-          </Button>
+          <Link to="/dashboard">
+            <Button className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-8">
+              Begin Your Journey
+              <ArrowRight className="w-6 h-6 ml-3" />
+            </Button>
+          </Link>
           
           <p className="text-sm text-gray-500 font-light">Free to start • Built for real relationships</p>
         </div>
