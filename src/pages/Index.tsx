@@ -305,58 +305,88 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section */}
-      <section className="px-6 py-16 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm border-b border-pink-400/5">
-        {/* Accent - subtle geometric pattern */}
-        <div className="absolute top-10 right-10 w-16 h-16 border border-coral-300/10 rotate-45 animate-spin" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute bottom-10 left-10 w-12 h-12 border border-pink-300/10 rotate-12 animate-spin" style={{ animationDuration: '15s' }}></div>
+      {/* Real Talk Section - Enhanced Visual Design */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-black via-gray-900 to-black border-y border-coral-400/20">
+        {/* Dramatic Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),transparent_50%)]"></div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
+        {/* Accent Lines */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"></div>
+        
+        {/* Side Accent Elements */}
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
+        
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-light text-white mb-6 leading-tight">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-gradient-to-r from-coral-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-coral-300/30">
+              <span className="text-coral-300 font-light tracking-wide">The Real Talk</span>
+            </div>
+            
+            <h2 className="text-5xl lg:text-6xl font-thin text-white mb-8 leading-tight">
               Dating apps taught us how to swipe.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-3 text-4xl lg:text-5xl">
                 Now what?
               </span>
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed font-light mb-4">
-              Nobody prepared us for the actual relationship part. You know—the daily stuff.
-            </p>
-            <p className="text-lg text-gray-400 leading-relaxed font-light">
-              Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
-            </p>
+            
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-2xl text-gray-300 leading-relaxed font-light">
+                Nobody prepared us for the actual relationship part. You know—the daily stuff.
+              </p>
+              <p className="text-xl text-gray-400 leading-relaxed font-light">
+                Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+              </p>
+            </div>
           </div>
 
-          {/* Transition Moment */}
-          <div className="text-center mb-12">
-            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-2xl">
+          {/* Visual Separator with Icon */}
+          <div className="relative flex items-center justify-center mb-16">
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+            <div className="absolute bg-gradient-to-r from-coral-400 to-pink-400 rounded-full p-4 shadow-2xl border border-coral-300/30">
               <Sparkles className="w-8 h-8 text-white" />
             </div>
-            <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-4">
-              That's where we come in.
-            </h3>
           </div>
 
-          {/* Solution Section */}
-          <div className="text-center mb-10">
-            <p className="text-xl text-gray-300 leading-relaxed font-light mb-4">
-              We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-            </p>
-            <p className="text-lg text-gray-400 leading-relaxed font-light mb-8">
-              Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-            </p>
+          {/* Solution Section - Enhanced Design */}
+          <div className="bg-gradient-to-br from-coral-500/10 via-pink-500/5 to-coral-500/10 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl mb-16">
+            <div className="text-center mb-10">
+              <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-8">
+                That's where we come in.
+              </h3>
+              
+              <div className="space-y-6 max-w-4xl mx-auto">
+                <p className="text-xl text-gray-200 leading-relaxed font-light">
+                  We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed font-light">
+                  Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Final Quote */}
-          <div className="text-center bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 rounded-2xl p-8 border border-coral-400/20 backdrop-blur-sm">
-            <p className="text-xl font-light text-white leading-relaxed">
-              Because the best relationships aren't about finding someone perfect—
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-2">
-                they're about two people who keep choosing to understand each other better.
-              </span>
-            </p>
+          {/* Final Quote - Standout Design */}
+          <div className="relative">
+            {/* Quote Background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 via-pink-400/15 to-coral-400/10 rounded-3xl transform rotate-1"></div>
+            <div className="relative bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-10 border border-coral-400/30 shadow-2xl">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-xl">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                
+                <blockquote className="text-2xl font-light text-white leading-relaxed">
+                  Because the best relationships aren't about finding someone perfect—
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-4 text-3xl">
+                    they're about two people who keep choosing to understand each other better.
+                  </span>
+                </blockquote>
+              </div>
+            </div>
           </div>
         </div>
       </section>
