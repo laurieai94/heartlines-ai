@@ -1,6 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -281,6 +281,22 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Visual Break */}
+      <section className="px-6 py-16 relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative flex items-center justify-center">
+            {/* Gradient line */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-pink-400/30 to-transparent"></div>
+            {/* Center icon */}
+            <div className="absolute bg-black px-6">
+              <div className="w-12 h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30">
+                <Heart className="w-6 h-6 text-pink-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Real Talk Section */}
       <section className="px-6 py-24 relative">
         <div 
@@ -362,7 +378,7 @@ const Index = () => {
       {/* Real Examples Section */}
       <section className="px-6 py-24 relative">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-white/20">
+          <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-white/10">
             <div className="bg-black/50 backdrop-blur-md rounded-3xl p-12">
               <div className="text-center mb-12">
                 <h2 className="text-4xl font-light text-white mb-6">
