@@ -305,11 +305,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Enhanced Visual Design */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-black via-gray-900 to-black border-y border-coral-400/20">
+      {/* Real Talk Section - Lightened */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
         {/* Dramatic Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
         
         {/* Accent Lines */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
@@ -425,7 +425,7 @@ const Index = () => {
               <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Target className="w-10 h-10 text-pink-400" />
               </div>
-              <h3 className="text-2xl font-light text-white mb-4">Daily Insights That Don't Suck</h3>
+              <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
               <p className="text-gray-300 leading-relaxed font-light">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
@@ -445,73 +445,11 @@ const Index = () => {
               <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Sparkles className="w-10 h-10 text-coral-400" />
               </div>
-              <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions, Zero Effort</h3>
+              <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions Made Easy</h3>
               <p className="text-gray-300 leading-relaxed font-light">
                 Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
               </p>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Real Examples Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/35 via-coral-900/25 to-pink-900/35 backdrop-blur-sm border-b border-pink-400/5">
-        {/* Accent - message bubble decorations */}
-        <div className="absolute top-20 left-10 w-8 h-8 bg-coral-400/10 rounded-full"></div>
-        <div className="absolute top-32 left-16 w-4 h-4 bg-coral-400/15 rounded-full"></div>
-        <div className="absolute bottom-20 right-10 w-6 h-6 bg-pink-400/10 rounded-full"></div>
-        <div className="absolute bottom-32 right-16 w-3 h-3 bg-pink-400/15 rounded-full"></div>
-        
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="bg-coral-500/10 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-coral-400/20">
-            <div className="bg-black/50 backdrop-blur-md rounded-3xl p-12">
-              <div className="text-center mb-12">
-                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
-                  <MessageCircle className="w-8 h-8 text-white" />
-                </div>
-                <h2 className="text-4xl font-light text-white mb-6">
-                  Real Examples (Because Generic Advice Is Trash)
-                </h2>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-3 text-lg">For Maya (words of affirmation)</h4>
-                  <p className="text-gray-300 leading-relaxed font-light">
-                    "Maya texted you at 11:47 PM: 'Do you think I talked too much at dinner tonight? I feel like I was being weird.' Don't just say 'no you weren't.' Try: 'Babe, you literally made that whole table laugh when you told the story about your landlord. You have this gift for making people feel comfortable—I watched everyone relax the second you started talking.'"
-                  </p>
-                </div>
-                
-                <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-3 text-lg">For Alex (acts of service)</h4>
-                  <p className="text-gray-300 leading-relaxed font-light">
-                    "Alex has been working 12-hour days trying to get their freelance business off the ground while their washing machine has been broken for two weeks. They keep saying 'I'll figure it out' when you ask what they need. Stop asking. Show up Saturday morning with quarters and detergent. Text: 'Laundromat date? I'm buying coffee and we're getting your life together.'"
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-3 text-lg">For River (quality time)</h4>
-                  <p className="text-gray-300 leading-relaxed font-light">
-                    "River's been different since their best friend moved across the country last month. They keep saying they're 'adjusting fine' but they've been rewatching The Office for the third time and ordering way too much takeout. Don't suggest they 'get out more.' Instead: 'Want to sit in my car and eat gas station snacks while we figure out why we're both avoiding being adults right now?'"
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-3 text-lg">For Jordan (physical touch)</h4>
-                  <p className="text-gray-300 leading-relaxed font-light">
-                    "Jordan's anxiety has been through the roof since they started the new job. They're not sleeping well and keep apologizing for being 'clingy.' Stop telling them they're not clingy. Next time you're watching Netflix, just pull them over so their head's on your chest. Don't make it A Thing. Just let them exist in your space until their breathing slows down."
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-3 text-lg">For Casey (gifts)</h4>
-                  <p className="text-gray-300 leading-relaxed font-light">
-                    "Casey mentioned their therapist told them to start journaling but they hate the idea of writing in some basic notebook. You remember they're obsessed with that one pen at Target they always test but never buy. Get the pen. Get a notebook that doesn't look like homework. Leave it on their kitchen counter with a note: 'For all the thoughts that keep you up at night.'"
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
