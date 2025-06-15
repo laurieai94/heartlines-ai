@@ -130,8 +130,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Navigation - Pink/Coral Theme */}
-      <nav className="px-6 py-6 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
+      {/* Navigation */}
+      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
@@ -152,8 +152,8 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section - Coral/Pink Theme with enhanced background */}
-      <section className="relative px-6 py-16 lg:py-24 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
+      {/* Hero Section */}
+      <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -282,15 +282,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Visual Break - Cyan/Blue Theme */}
-      <section className="px-6 py-16 relative bg-gradient-to-r from-cyan-900/20 via-blue-900/10 to-cyan-900/20 backdrop-blur-sm border-y border-cyan-400/10">
+      {/* Visual Break */}
+      <section className="px-6 py-8 relative bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
             {/* Center icon */}
-            <div className="absolute bg-gradient-to-r from-cyan-900/50 to-blue-900/50 px-6 backdrop-blur-sm rounded-full">
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-cyan-300/30">
+            <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
+              <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
                 <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -298,104 +298,64 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Purple/Violet Theme */}
-      <section className="px-6 py-24 relative bg-gradient-to-br from-purple-900/30 via-violet-900/20 to-purple-900/30 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-violet-500/10 to-purple-500/5"></div>
-        <div className="max-w-6xl mx-auto relative z-10">
+      {/* Real Talk Section - Optimized with tighter spacing */}
+      <section className="px-6 py-16 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
+        <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
-          <div className="relative mb-20">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-orange-500/5 to-red-500/5 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-red-900/20 via-orange-900/10 to-red-900/20 rounded-3xl p-12 border border-red-500/30 backdrop-blur-sm">
-              <div className="text-center">
-                <h2 className="text-4xl lg:text-5xl font-light text-white mb-8 leading-tight">
-                  Dating apps taught us how to swipe.
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400 mt-2">
-                    Now what?
-                  </span>
-                </h2>
-              </div>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-light text-white mb-6 leading-tight">
+              Dating apps taught us how to swipe.
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-2">
+                Now what?
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 leading-relaxed font-light mb-4">
+              Nobody prepared us for the actual relationship part. You know—the daily stuff.
+            </p>
+            <p className="text-lg text-gray-400 leading-relaxed font-light">
+              Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
+            </p>
           </div>
 
-          {/* Problem Details Section */}
-          <div className="relative mb-20">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-500/5 via-slate-500/5 to-gray-500/5 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-gray-900/20 via-slate-900/10 to-gray-900/20 rounded-3xl p-10 border border-gray-500/20 backdrop-blur-sm">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <p className="text-xl text-gray-300 leading-relaxed font-light mb-6">
-                    Nobody prepared us for the actual relationship part. You know—the daily stuff.
-                  </p>
-                  <p className="text-lg text-gray-400 leading-relaxed font-light">
-                    Like how to fight without losing your minds, or remembering that your partner's love language isn't mind-reading.
-                  </p>
-                </div>
-                <div className="flex justify-center">
-                  <div className="w-32 h-32 bg-gradient-to-br from-gray-400/20 to-slate-400/20 rounded-full flex items-center justify-center border border-gray-400/30">
-                    <MessageCircle className="w-16 h-16 text-gray-400" />
-                  </div>
-                </div>
-              </div>
+          {/* Transition Moment */}
+          <div className="text-center mb-12">
+            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-2xl">
+              <Sparkles className="w-8 h-8 text-white" />
             </div>
-          </div>
-
-          {/* Transition Moment Section */}
-          <div className="relative mb-20">
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-400/10 via-pink-400/10 to-coral-400/10 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 rounded-3xl p-12 border border-coral-400/30 backdrop-blur-sm">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto shadow-2xl">
-                  <Sparkles className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-6">
-                  That's where we come in.
-                </h3>
-              </div>
-            </div>
+            <h3 className="text-3xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-4">
+              That's where we come in.
+            </h3>
           </div>
 
           {/* Solution Section */}
-          <div className="relative mb-16">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-blue-900/10 rounded-3xl p-12 border border-blue-500/20 backdrop-blur-sm">
-              <div className="text-center space-y-8">
-                <p className="text-2xl text-gray-300 leading-relaxed font-light">
-                  We built LoveBetter because we got tired of generic advice that doesn't fit real people.
-                </p>
-                
-                <p className="text-lg text-gray-400 leading-relaxed font-light max-w-4xl mx-auto">
-                  Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
-                </p>
-              </div>
-            </div>
+          <div className="text-center mb-10">
+            <p className="text-xl text-gray-300 leading-relaxed font-light mb-4">
+              We built LoveBetter because we got tired of generic advice that doesn't fit real people.
+            </p>
+            <p className="text-lg text-gray-400 leading-relaxed font-light mb-8">
+              Our AI actually learns who you are (both of you) and gives you the kind of personalized insights your therapist would—if you could afford to see them twice a week.
+            </p>
           </div>
 
-          {/* Final Quote Section */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 via-emerald-500/5 to-green-500/5 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-green-900/15 via-emerald-900/10 to-green-900/15 rounded-3xl p-10 border border-green-500/30 backdrop-blur-sm">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <Heart className="w-8 h-8 text-white" />
-                </div>
-                <p className="text-2xl font-light text-white leading-relaxed max-w-4xl mx-auto">
-                  Because the best relationships aren't about finding someone perfect—
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400 font-medium mt-2">
-                    they're about two people who keep choosing to understand each other better.
-                  </span>
-                </p>
-              </div>
-            </div>
+          {/* Final Quote */}
+          <div className="text-center bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 rounded-2xl p-8 border border-coral-400/20 backdrop-blur-sm">
+            <p className="text-xl font-light text-white leading-relaxed">
+              Because the best relationships aren't about finding someone perfect—
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 font-medium mt-2">
+                they're about two people who keep choosing to understand each other better.
+              </span>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* How It Actually Works - Green/Emerald Theme */}
-      <section className="px-6 py-24 relative bg-gradient-to-br from-emerald-900/30 via-green-900/20 to-emerald-900/30 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-green-500/10 to-emerald-500/5"></div>
+      {/* How It Actually Works */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-20">
-            <div className="w-16 h-16 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-emerald-300/30">
+          <div className="text-center mb-16">
+            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
               <Target className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-4xl lg:text-5xl font-thin text-white mb-6">
@@ -404,9 +364,9 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-emerald-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
-                <Brain className="w-10 h-10 text-emerald-400" />
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
+                <Brain className="w-10 h-10 text-coral-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -414,9 +374,9 @@ const Index = () => {
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
-                <Target className="w-10 h-10 text-purple-400" />
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
+                <Target className="w-10 h-10 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Insights That Don't Suck</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -424,8 +384,8 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <MessageCircle className="w-10 h-10 text-pink-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
@@ -434,8 +394,8 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-emerald-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-emerald-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-cyan-400/20 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-emerald-300/30">
+            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 rounded-3xl group border border-coral-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
                 <Sparkles className="w-10 h-10 text-coral-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions, Zero Effort</h3>
@@ -447,14 +407,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Examples Section - Indigo/Purple Theme */}
-      <section className="px-6 py-24 relative bg-gradient-to-br from-indigo-900/30 via-purple-900/20 to-indigo-900/30 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/10 to-indigo-500/5"></div>
+      {/* Real Examples Section */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/30 via-coral-900/20 to-pink-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/10 to-pink-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="bg-indigo-500/10 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-indigo-400/20">
+          <div className="bg-coral-500/10 backdrop-blur-lg rounded-3xl p-1 shadow-2xl border border-coral-400/20">
             <div className="bg-black/50 backdrop-blur-md rounded-3xl p-12">
               <div className="text-center mb-12">
-                <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-indigo-300/30">
+                <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
                   <MessageCircle className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-4xl font-light text-white mb-6">
@@ -462,38 +422,38 @@ const Index = () => {
                 </h2>
               </div>
               
-              <div className="space-y-8">
-                <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-4 text-xl">For Maya (words of affirmation)</h4>
-                  <p className="text-gray-300 leading-relaxed text-lg font-light">
+              <div className="space-y-6">
+                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-light text-white mb-3 text-lg">For Maya (words of affirmation)</h4>
+                  <p className="text-gray-300 leading-relaxed font-light">
                     "Maya texted you at 11:47 PM: 'Do you think I talked too much at dinner tonight? I feel like I was being weird.' Don't just say 'no you weren't.' Try: 'Babe, you literally made that whole table laugh when you told the story about your landlord. You have this gift for making people feel comfortable—I watched everyone relax the second you started talking.'"
                   </p>
                 </div>
                 
-                <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-4 text-xl">For Alex (acts of service)</h4>
-                  <p className="text-gray-300 leading-relaxed text-lg font-light">
+                <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-light text-white mb-3 text-lg">For Alex (acts of service)</h4>
+                  <p className="text-gray-300 leading-relaxed font-light">
                     "Alex has been working 12-hour days trying to get their freelance business off the ground while their washing machine has been broken for two weeks. They keep saying 'I'll figure it out' when you ask what they need. Stop asking. Show up Saturday morning with quarters and detergent. Text: 'Laundromat date? I'm buying coffee and we're getting your life together.'"
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-4 text-xl">For River (quality time)</h4>
-                  <p className="text-gray-300 leading-relaxed text-lg font-light">
+                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-light text-white mb-3 text-lg">For River (quality time)</h4>
+                  <p className="text-gray-300 leading-relaxed font-light">
                     "River's been different since their best friend moved across the country last month. They keep saying they're 'adjusting fine' but they've been rewatching The Office for the third time and ordering way too much takeout. Don't suggest they 'get out more.' Instead: 'Want to sit in my car and eat gas station snacks while we figure out why we're both avoiding being adults right now?'"
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-coral-500/10 to-cyan-500/10 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-4 text-xl">For Jordan (physical touch)</h4>
-                  <p className="text-gray-300 leading-relaxed text-lg font-light">
+                <div className="bg-gradient-to-r from-pink-500/10 to-coral-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-light text-white mb-3 text-lg">For Jordan (physical touch)</h4>
+                  <p className="text-gray-300 leading-relaxed font-light">
                     "Jordan's anxiety has been through the roof since they started the new job. They're not sleeping well and keep apologizing for being 'clingy.' Stop telling them they're not clingy. Next time you're watching Netflix, just pull them over so their head's on your chest. Don't make it A Thing. Just let them exist in your space until their breathing slows down."
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-light text-white mb-4 text-xl">For Casey (gifts)</h4>
-                  <p className="text-gray-300 leading-relaxed text-lg font-light">
+                <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-light text-white mb-3 text-lg">For Casey (gifts)</h4>
+                  <p className="text-gray-300 leading-relaxed font-light">
                     "Casey mentioned their therapist told them to start journaling but they hate the idea of writing in some basic notebook. You remember they're obsessed with that one pen at Target they always test but never buy. Get the pen. Get a notebook that doesn't look like homework. Leave it on their kitchen counter with a note: 'For all the thoughts that keep you up at night.'"
                   </p>
                 </div>
@@ -503,56 +463,56 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Different Section - Teal/Cyan Theme */}
-      <section className="px-6 py-24 relative bg-gradient-to-br from-teal-900/30 via-cyan-900/20 to-teal-900/30 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-500/5 via-cyan-500/10 to-teal-500/5"></div>
+      {/* Why Different Section */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <div className="w-16 h-16 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-teal-300/30">
+            <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
               <Sparkles className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8">
               Why This Isn't Just Another App
             </h2>
-            <h3 className="text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400 mb-12">
+            <h3 className="text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mb-12">
               We're Built Different
             </h3>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
-              <h4 className="text-xl font-light text-white mb-4">No toxic positivity</h4>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+              <h4 className="text-xl font-light text-white mb-3">No toxic positivity</h4>
               <p className="text-gray-300 leading-relaxed font-light">Real relationships have rough patches, and that's normal</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
-              <h4 className="text-xl font-light text-white mb-4">Actually personalized</h4>
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+              <h4 className="text-xl font-light text-white mb-3">Actually personalized</h4>
               <p className="text-gray-300 leading-relaxed font-light">Not horoscope-level generic advice</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
-              <h4 className="text-xl font-light text-white mb-4">Designed for busy humans</h4>
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+              <h4 className="text-xl font-light text-white mb-3">Designed for busy humans</h4>
               <p className="text-gray-300 leading-relaxed font-light">Quick daily insights that fit into your actual life</p>
             </Card>
             
-            <Card className="p-8 text-center border-0 shadow-xl bg-teal-500/10 backdrop-blur-lg rounded-3xl border border-teal-400/20">
-              <h4 className="text-xl font-light text-white mb-4">Privacy first</h4>
+            <Card className="p-6 text-center border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg rounded-3xl border border-coral-400/20">
+              <h4 className="text-xl font-light text-white mb-3">Privacy first</h4>
               <p className="text-gray-300 leading-relaxed font-light">Your relationship details stay between you, your partner, and our very secure servers</p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section - Gradient Rainbow Theme */}
-      <section className="px-6 py-24 relative bg-gradient-to-br from-pink-900/20 via-purple-900/20 via-cyan-900/20 to-emerald-900/20 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-purple-500/5 via-cyan-500/5 to-emerald-500/5"></div>
+      {/* Final CTA Section */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/20 via-coral-900/20 to-pink-900/20 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="w-20 h-20 bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-emerald-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-pink-300/30 shadow-2xl">
+          <div className="w-20 h-20 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-8 mx-auto border border-coral-300/30 shadow-2xl">
             <Heart className="w-10 h-10 text-white" />
           </div>
           <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8 leading-tight">
             For People Who Actually Want to
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-emerald-400"> Get Better at Love</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400"> Get Better at Love</span>
           </h2>
           
           <div className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light space-y-4">
@@ -570,7 +530,7 @@ const Index = () => {
           <div className="mb-12">
             <h3 className="text-3xl font-light text-white mb-6">Ready to Stop Guessing?</h3>
             <Link to="/dashboard">
-              <Button className="bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
+              <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
                 Create Your Profile
                 <ArrowRight className="w-6 h-6 ml-3" />
               </Button>
@@ -580,7 +540,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-pink-500/10 via-purple-500/10 via-cyan-500/10 to-emerald-500/10 backdrop-blur-lg p-8 rounded-3xl border border-white/10">
+          <div className="bg-gradient-to-r from-coral-500/10 to-pink-500/10 backdrop-blur-lg p-8 rounded-3xl border border-coral-300/20">
             <h4 className="text-xl font-light text-white mb-4">The Fine Print (But Make It Friendly)</h4>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-300 font-light">
               <p>Free to start, always</p>
@@ -605,10 +565,10 @@ const Index = () => {
       )}
 
       {/* Footer */}
-      <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-pink-300/10">
+      <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
+            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-coral-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-light text-white">LoveBetter</span>
