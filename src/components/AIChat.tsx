@@ -18,9 +18,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
 
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
+  
+  // Check if we have sufficient profile data
+  const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
   const sendMessage = async (userMessage: string) => {
-    // Add user message to chat
     const newUserMessage: ChatMessage = {
       id: Date.now(),
       type: 'user',
@@ -31,7 +33,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     setChatHistory([...chatHistory, newUserMessage]);
     setLoading(true);
 
-    // Simulate thinking time
     setTimeout(() => {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       const aiResponse = AICoachEngine.getAIResponse(userMessage, context, chatHistory);
@@ -61,12 +62,15 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
             'The relationship coach millennials actually want to talk to'
           }
         </p>
-        {(profiles.your.length > 0 || profiles.partner.length > 0) && (
-          <p className="text-sm text-coral-600 mt-1">
-            💡 {userName && partnerName ? 
-              `Personalized coaching using ${userName} and ${partnerName}'s profiles - I actually know your dynamic` :
-              'Coaching that knows your actual relationship patterns, not generic advice'
-            }
+        
+        {/* Profile Status Indicator */}
+        {hasProfiles ? (
+          <p className="text-sm text-green-600 mt-1">
+            ✅ Personalized coaching active - I know {userName} and {partnerName}'s actual dynamic
+          </p>
+        ) : (
+          <p className="text-sm text-amber-600 mt-1">
+            ⚠️ Limited profile data - complete your profiles for personalized advice
           </p>
         )}
       </div>
@@ -78,21 +82,31 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
             {chatHistory.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 <Heart className="w-12 h-12 mx-auto mb-3 text-coral-400" />
-                <p className="font-medium">
-                  {userName ? 
-                    `Hey ${userName}! I'm your AI relationship coach - think of me as that friend who went to therapy, read all the books, and actually has their shit together.` :
-                    'Hey! I\'m your AI relationship coach - the one millennials actually want to talk to.'
-                  }
-                </p>
-                <p className="text-sm mt-2">
-                  {userName && partnerName ?
-                    `I know about ${userName} and ${partnerName}'s dynamic, and I'm here to give you real, actionable advice that actually works for your situation.` :
-                    'I have access to your relationship profiles, so this isn\'t generic advice - it\'s tailored to your actual patterns and needs.'
-                  }
-                </p>
-                <p className="text-xs text-coral-600 mt-3">
-                  Evidence-based coaching that doesn't feel like reading a psychology textbook
-                </p>
+                {hasProfiles ? (
+                  <>
+                    <p className="font-medium">
+                      Hey {userName}! I'm your AI relationship coach, and I actually know you and {partnerName}'s dynamic.
+                    </p>
+                    <p className="text-sm mt-2">
+                      I have access to your communication styles, attachment patterns, and relationship background - so this isn't generic advice, it's tailored specifically for how you two work together.
+                    </p>
+                    <p className="text-xs text-coral-600 mt-3">
+                      Try asking about a specific situation you're dealing with right now
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-medium">
+                      Hey! I'm your AI relationship coach - but I'll need to learn about you and your partner first.
+                    </p>
+                    <p className="text-sm mt-2">
+                      Complete your profiles in the Profile Building tab so I can give you advice that actually fits your specific relationship dynamic.
+                    </p>
+                    <p className="text-xs text-coral-600 mt-3">
+                      Generic advice sucks - let's make this personal
+                    </p>
+                  </>
+                )}
               </div>
             )}
             
@@ -107,7 +121,12 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                    <span className="text-sm text-gray-600 ml-2">Getting real about your situation...</span>
+                    <span className="text-sm text-gray-600 ml-2">
+                      {hasProfiles ? 
+                        `Thinking about ${userName} and ${partnerName}'s situation...` :
+                        'Getting real about your situation...'
+                      }
+                    </span>
                   </div>
                 </div>
               </div>
