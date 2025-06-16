@@ -17,8 +17,6 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
     conflictResponse: initialData.conflictResponse || '',
     stressSpaceNeed: initialData.stressSpaceNeed || '',
     stressSupportNeed: initialData.stressSupportNeed || '',
-    
-    // Deep dive conflict questions
     goSilentWhenUpset: initialData.goSilentWhenUpset || '',
     needToTalkImmediately: initialData.needToTalkImmediately || '',
     beingRushedMakesWorse: initialData.beingRushedMakesWorse || '',
@@ -46,9 +44,14 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-6">
-          Conflict & Stress Patterns
-        </h3>
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            Conflict & Stress Patterns
+          </h3>
+          <p className="text-sm text-gray-600">
+            <span className="text-red-500">*</span> indicates required questions
+          </p>
+        </div>
         
         <ConflictStyles 
           profileType={profileType}

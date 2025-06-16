@@ -19,12 +19,8 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     comfortableClosenessIndependence: initialData.comfortableClosenessIndependence || '',
     worryRelationshipSecurity: initialData.worryRelationshipSecurity || '',
     wantClosenessButFearHurt: initialData.wantClosenessButFearHurt || '',
-    
-    // Core relationship questions  
     relationshipLength: initialData.relationshipLength || '',
     relationshipType: initialData.relationshipType || '',
-    
-    // Optional deeper questions
     improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
     workingOnPersonalDevelopment: initialData.workingOnPersonalDevelopment || '',
     learnedHealthyFromFamily: initialData.learnedHealthyFromFamily || '',
@@ -64,9 +60,14 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-6">
-          Attachment Style & Growth Areas
-        </h3>
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            Attachment Style & Growth Areas
+          </h3>
+          <p className="text-sm text-gray-600">
+            <span className="text-red-500">*</span> indicates required questions
+          </p>
+        </div>
         
         {/* Core Attachment Style Questions */}
         <AttachmentQuestions 

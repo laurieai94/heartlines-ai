@@ -42,12 +42,9 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
   };
 
   const handleBackToPage = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+    // Only allow navigation to pages that have been visited or current page
+    if (pageNumber <= currentPage) {
+      setCurrentPage(pageNumber);
     }
   };
 
@@ -72,7 +69,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
           <ProfileFormPage2 
             profileType={profileType}
             onComplete={handlePage2Complete}
-            onBack={() => handleBackToPage(1)}
+            onBack={handlePrevPage}
             initialData={page2Data}
           />
         );
@@ -81,7 +78,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
           <ProfileFormPage3 
             profileType={profileType}
             onComplete={handlePage3Complete}
-            onBack={() => handleBackToPage(2)}
+            onBack={handlePrevPage}
             initialData={page3Data}
           />
         );
@@ -157,29 +154,32 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
                 <button
                   key={i}
                   onClick={() => handleBackToPage(i + 1)}
+                  disabled={i + 1 > currentPage}
                   className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
                     i + 1 === currentPage 
                       ? 'bg-purple-500 text-white shadow-lg' 
                       : i + 1 < currentPage 
-                        ? 'bg-green-500 text-white hover:bg-green-600' 
-                        : 'bg-gray-200 text-gray-500 hover:bg-gray-300'
+                        ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
+                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   }`}
-                  disabled={i + 1 > currentPage}
                 >
                   {i + 1 < currentPage ? <Check className="w-4 h-4" /> : i + 1}
                 </button>
               ))}
             </div>
 
-            {/* Next Button */}
-            <Button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="flex items-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-700"
-            >
-              Next
-              <ArrowRight className="w-4 h-4" />
-            </Button>
+            {/* Next Button - Hidden on last page since form handles submission */}
+            <div className="w-24">
+              {currentPage < totalPages && (
+                <Button
+                  disabled
+                  className="flex items-center gap-2 px-6 py-2 bg-gray-300 cursor-not-allowed"
+                >
+                  Next
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

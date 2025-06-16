@@ -27,8 +27,6 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     physicalTouchDeep: initialData.physicalTouchDeep || '',
     giftsDeep: initialData.giftsDeep || '',
     actsOfServiceDeep: initialData.actsOfServiceDeep || '',
-    
-    // Deep dive communication questions
     needTimeToProcessDeep: initialData.needTimeToProcessDeep || '',
     directCommunicationDeep: initialData.directCommunicationDeep || '',
     gentleApproachDeep: initialData.gentleApproachDeep || '',
@@ -64,9 +62,14 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-6">
-          Communication & Love Languages
-        </h3>
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            Communication & Love Languages
+          </h3>
+          <p className="text-sm text-gray-600">
+            <span className="text-red-500">*</span> indicates required questions
+          </p>
+        </div>
         
         <CommunicationStyles 
           profileType={profileType}
