@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send } from "lucide-react";
+import { Send, ArrowLeft } from "lucide-react";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -15,6 +15,7 @@ interface AIChatInputProps {
 const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistory = [] }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -35,19 +36,52 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
     setIsTyping(e.target.value.length > 0);
   };
 
-  const quickStarters = [
-    "I miss how we used to connect",
-    "We love each other, but something's off",
-    "I want to fight for us—but I'm tired",
-    "We keep having the same fight",
-    "I feel disconnected lately",
-    "How do I bring up a difficult topic?"
-  ];
+  const conversationCategories = {
+    "Distance & Disconnection": [
+      "I don't feel like myself in this relationship lately",
+      "We're close, but I still feel alone sometimes",
+      "I crave deeper connection, not just routine"
+    ],
+    "Stuckness & Repetition": [
+      "We're caught in the same loop, and I don't know how to break it",
+      "I don't know if we're growing together or growing apart"
+    ],
+    "Love & Effort": [
+      "I love them deeply, but we've lost our rhythm",
+      "I'm showing up, but I don't know if it's landing"
+    ],
+    "Conflict & Communication": [
+      "We argue about little things, but it feels bigger than that",
+      "I want to talk without it turning into a fight"
+    ],
+    "Unspoken Needs": [
+      "I don't feel fully seen or heard",
+      "I'm scared to ask for what I really need"
+    ],
+    "Hopeful & Curious": [
+      "I want us to understand each other better",
+      "We're good… but I know we could be great",
+      "I just want to feel close again"
+    ],
+    "Worry & Insecurity": [
+      "I feel like I'm the only one trying",
+      "I'm worried I'm not enough for them"
+    ]
+  };
 
   const handleQuickStarter = (starter: string) => {
     // Immediately send the message instead of just setting it in the input
     onSendMessage(starter);
     setIsTyping(false);
+    setSelectedCategory(null); // Reset category selection after sending
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  const handleBackToCategories = () => {
+    setSelectedCategory(null);
   };
 
   // Only show conversation starters if there are no messages in chat history
@@ -58,20 +92,59 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
       {/* Quick Starters - only show when conversation hasn't started */}
       {showQuickStarters && (
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg animate-fade-in">
-          <div className="flex gap-2 flex-wrap justify-center">
-            {quickStarters.map((starter, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                size="sm"
-                onClick={() => handleQuickStarter(starter)}
-                className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md hover:glow"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {starter}
-              </Button>
-            ))}
-          </div>
+          {!selectedCategory ? (
+            // Show categories
+            <div className="space-y-3">
+              <h3 className="text-center text-sm font-medium text-purple-700 mb-3">
+                What's on your mind?
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {Object.keys(conversationCategories).map((category, index) => (
+                  <Button
+                    key={category}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCategorySelect(category)}
+                    className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            // Show conversation starters for selected category
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 mb-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleBackToCategories}
+                  className="text-purple-600 hover:text-purple-700 p-1"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </Button>
+                <h3 className="text-sm font-medium text-purple-700">
+                  {selectedCategory}
+                </h3>
+              </div>
+              <div className="space-y-2">
+                {conversationCategories[selectedCategory].map((starter, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleQuickStarter(starter)}
+                    className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal w-full"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    {starter}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
