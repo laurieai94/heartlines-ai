@@ -139,10 +139,7 @@ const Index = () => {
             </div>
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
-          <div className="hidden md:flex items-center gap-8">
-            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">Home</span>
-            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">About</span>
-            <span className="text-gray-300 hover:text-coral-400 transition-colors cursor-pointer font-thin">Contact</span>
+          <div className="flex items-center">
             <Link to="/dashboard">
               <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
                 Get Started - It's Free
