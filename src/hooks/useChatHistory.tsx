@@ -22,7 +22,8 @@ export const useChatHistory = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const { data, error } = await supabase
+      // Use any type to bypass TypeScript checking since the table was just created
+      const { data, error } = await (supabase as any)
         .from('chat_conversations')
         .select('*')
         .eq('user_id', user.id)
@@ -49,7 +50,7 @@ export const useChatHistory = () => {
 
       if (currentConversationId) {
         // Update existing conversation
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('chat_conversations')
           .update({
             messages: JSON.stringify(messages),
@@ -61,7 +62,7 @@ export const useChatHistory = () => {
         if (error) throw error;
       } else {
         // Create new conversation
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
           .from('chat_conversations')
           .insert({
             user_id: user.id,
@@ -100,7 +101,7 @@ export const useChatHistory = () => {
 
   const deleteConversation = async (conversationId: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('chat_conversations')
         .delete()
         .eq('id', conversationId);

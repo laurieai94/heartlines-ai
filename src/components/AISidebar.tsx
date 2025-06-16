@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { User, Lightbulb, Heart, MessageCircle, Plus, Settings, Eye } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
+import { ChatConversation } from "@/hooks/useChatHistory";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 
@@ -18,6 +19,10 @@ interface AISidebarProps {
   onSupabaseConfigured: (configured: boolean) => void;
   onOpenProfileForm?: (profileType: 'your' | 'partner') => void;
   onStartConversation?: (starter: string) => void;
+  conversations: ChatConversation[];
+  currentConversationId: string | null;
+  onLoadConversation: (conversationId: string) => void;
+  onNewConversation: () => void;
 }
 
 const AISidebar = ({ 
@@ -27,7 +32,11 @@ const AISidebar = ({
   isConfigured, 
   onSupabaseConfigured, 
   onOpenProfileForm,
-  onStartConversation
+  onStartConversation,
+  conversations,
+  currentConversationId,
+  onLoadConversation,
+  onNewConversation
 }: AISidebarProps) => {
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -117,6 +126,44 @@ const AISidebar = ({
             Built on the expertise of PhD-level clinical psychology—trained on 15+ years of insights to deliver real, effective advice for modern relationships.
           </p>
         </Card>
+
+        {/* Conversation History */}
+        {conversations.length > 0 && (
+          <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 text-coral-600" />
+                <h3 className="font-medium text-gray-900">Past Conversations</h3>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={onNewConversation}
+                className="text-xs hover:scale-105 transition-transform duration-200"
+              >
+                <Plus className="w-3 h-3" />
+              </Button>
+            </div>
+            <div className="space-y-2 max-h-32 overflow-y-auto">
+              {conversations.slice(0, 5).map((conversation) => (
+                <button
+                  key={conversation.id}
+                  onClick={() => onLoadConversation(conversation.id)}
+                  className={`w-full text-left p-2 rounded text-xs transition-all duration-200 hover:scale-105 ${
+                    currentConversationId === conversation.id 
+                      ? 'bg-coral-100 border border-coral-200' 
+                      : 'bg-gray-50 hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="truncate font-medium">{conversation.title}</div>
+                  <div className="text-gray-500 text-xs">
+                    {new Date(conversation.updated_at).toLocaleDateString()}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </Card>
+        )}
 
         {/* Profile Completion Status with animated progress */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
