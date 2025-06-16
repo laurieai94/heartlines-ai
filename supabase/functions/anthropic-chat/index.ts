@@ -11,10 +11,14 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Edge function called, checking API key...')
+    
     if (!anthropicApiKey) {
+      console.error('ANTHROPIC_API_KEY not found in environment variables')
       throw new Error('ANTHROPIC_API_KEY not found in environment variables')
     }
 
+    console.log('API key found, parsing request body...')
     const { userMessage, systemPrompt, conversationHistory = [] } = await req.json()
 
     if (!userMessage || !systemPrompt) {
@@ -28,6 +32,7 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ]
 
+    console.log('Calling Anthropic API with Claude 4...')
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -43,6 +48,8 @@ serve(async (req) => {
         system: systemPrompt
       })
     })
+
+    console.log('Anthropic API response status:', response.status)
 
     if (!response.ok) {
       const errorText = await response.text()
@@ -71,6 +78,7 @@ serve(async (req) => {
         },
       )
     } else {
+      console.error('Invalid response format from Anthropic API:', data)
       throw new Error('Invalid response format from Anthropic API')
     }
 
