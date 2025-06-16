@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -150,7 +149,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    I'm Kai, your relationship coach. Let's work together to understand what's going on and find a way forward.
+                    I'm Kai, your relationship coach!
+                    <br />
+                    Let's work together to understand what's going on and find a way forward.
                   </h3>
                   <p className="text-gray-600 text-lg mb-6">
                     What brings you here today?

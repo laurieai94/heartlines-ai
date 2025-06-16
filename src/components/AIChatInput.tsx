@@ -47,7 +47,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
 
   return (
     <div className="space-y-4">
-      {/* Quick Starters with microinteractions */}
+      {/* Quick Starters with reduced microinteractions */}
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg animate-fade-in">
         <div className="flex gap-2 flex-wrap justify-center">
           {quickStarters.map((starter, index) => (
@@ -56,7 +56,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
               variant="outline"
               size="sm"
               onClick={() => handleQuickStarter(starter)}
-              className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md hover:glow animate-bounce-gentle"
+              className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md hover:glow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {starter}
