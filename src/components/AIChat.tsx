@@ -186,7 +186,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                           key={index}
                           className="p-4 cursor-pointer bg-white/60 border-coral-200/50 hover:bg-coral-50 hover:border-coral-300 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
                           onClick={() => handleStarterClick(starter)}
-                          disabled={!isConfigured}
                         >
                           <div className="flex items-center justify-between">
                             <p className="text-sm font-medium text-gray-700 group-hover:text-coral-700 transition-colors text-left">
