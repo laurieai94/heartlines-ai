@@ -45,6 +45,18 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
     setCurrentPage(pageNumber);
   };
 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 1:
@@ -131,12 +143,12 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
             {/* Back Button */}
             <Button
               variant="outline"
-              onClick={() => handleBackToPage(currentPage - 1)}
+              onClick={handlePrevPage}
               disabled={currentPage === 1}
               className="flex items-center gap-2 px-6 py-2"
             >
               <ArrowLeft className="w-4 h-4" />
-              {currentPage > 1 ? `Back to Page ${currentPage - 1}` : 'Back'}
+              Previous
             </Button>
             
             {/* Page Indicators */}
@@ -145,7 +157,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
                 <button
                   key={i}
                   onClick={() => handleBackToPage(i + 1)}
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
                     i + 1 === currentPage 
                       ? 'bg-purple-500 text-white shadow-lg' 
                       : i + 1 < currentPage 
@@ -159,8 +171,15 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
               ))}
             </div>
 
-            {/* Next/Complete Button Placeholder */}
-            <div className="w-32"></div>
+            {/* Next Button */}
+            <Button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-700"
+            >
+              Next
+              <ArrowRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>

@@ -15,10 +15,23 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   const [formData, setFormData] = useState({
     // Communication preferences
     importantTalkPreference: initialData.importantTalkPreference || '',
+    communicationDirectness: initialData.communicationDirectness || '',
     emotionExpression: initialData.emotionExpression || '',
     
     // Love languages
     loveLanguages: initialData.loveLanguages || [],
+    
+    // Deep dive love language questions
+    wordsOfAffirmationDeep: initialData.wordsOfAffirmationDeep || '',
+    qualityTimeDeep: initialData.qualityTimeDeep || '',
+    physicalTouchDeep: initialData.physicalTouchDeep || '',
+    giftsDeep: initialData.giftsDeep || '',
+    actsOfServiceDeep: initialData.actsOfServiceDeep || '',
+    
+    // Deep dive communication questions
+    needTimeToProcessDeep: initialData.needTimeToProcessDeep || '',
+    directCommunicationDeep: initialData.directCommunicationDeep || '',
+    gentleApproachDeep: initialData.gentleApproachDeep || '',
     
     ...initialData
   });
@@ -44,6 +57,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
 
   // Basic validation - at least one field from each main section
   const isFormValid = formData.importantTalkPreference && 
+                     formData.communicationDirectness &&
                      formData.emotionExpression && 
                      formData.loveLanguages?.length > 0;
 
@@ -65,6 +79,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
             profileType={profileType}
             formData={formData}
             handleMultiSelect={handleMultiSelect}
+            updateField={updateField}
           />
         </div>
       </div>

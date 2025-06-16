@@ -18,6 +18,12 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
     stressSpaceNeed: initialData.stressSpaceNeed || '',
     stressSupportNeed: initialData.stressSupportNeed || '',
     
+    // Deep dive conflict questions
+    goSilentWhenUpset: initialData.goSilentWhenUpset || '',
+    needToTalkImmediately: initialData.needToTalkImmediately || '',
+    beingRushedMakesWorse: initialData.beingRushedMakesWorse || '',
+    feelHeardWithValidation: initialData.feelHeardWithValidation || '',
+    
     ...initialData
   });
 

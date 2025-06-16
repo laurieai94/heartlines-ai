@@ -1,6 +1,10 @@
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useState } from "react";
 
 interface CommunicationStylesProps {
   profileType: 'your' | 'partner';
@@ -9,8 +13,16 @@ interface CommunicationStylesProps {
 }
 
 const CommunicationStyles = ({ profileType, formData, updateField }: CommunicationStylesProps) => {
+  const [expandedSections, setExpandedSections] = useState({
+    deepDive: false
+  });
+
   const isPersonal = profileType === 'your';
   const pronoun = isPersonal ? 'you' : 'they';
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
 
   const scaleOptions = [
     { value: '1', label: 'Never' },
@@ -26,6 +38,14 @@ const CommunicationStyles = ({ profileType, formData, updateField }: Communicati
     { value: '3', label: 'Balanced' },
     { value: '4', label: 'Somewhat direct' },
     { value: '5', label: 'Very direct' }
+  ];
+
+  const agreementOptions = [
+    { value: '1', label: 'Strongly Disagree' },
+    { value: '2', label: 'Disagree' },
+    { value: '3', label: 'Neutral' },
+    { value: '4', label: 'Agree' },
+    { value: '5', label: 'Strongly Agree' }
   ];
 
   return (
@@ -99,6 +119,77 @@ const CommunicationStyles = ({ profileType, formData, updateField }: Communicati
           ))}
         </RadioGroup>
       </div>
+
+      {/* Deep Dive Optional Questions */}
+      <Collapsible open={expandedSections.deepDive} onOpenChange={() => toggleSection('deepDive')}>
+        <CollapsibleTrigger asChild>
+          <Button variant="ghost" className="w-full justify-between p-0 h-auto font-normal text-gray-600 hover:text-gray-800">
+            <span className="text-sm">Want to dive deeper into communication patterns? (Optional)</span>
+            {expandedSections.deepDive ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="space-y-6 mt-4 pt-4 border-t border-gray-200">
+          <div>
+            <Label className="text-base font-medium text-gray-700 mb-3 block">
+              {isPersonal ? 'You need' : 'They need'} time to process thoughts before discussing important topics
+            </Label>
+            <RadioGroup 
+              value={formData.needTimeToProcessDeep} 
+              onValueChange={(value) => updateField('needTimeToProcessDeep', value)}
+              className="grid grid-cols-5 gap-2"
+            >
+              {agreementOptions.map((option) => (
+                <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+                  <RadioGroupItem value={option.value} id={`process-${option.value}`} />
+                  <Label htmlFor={`process-${option.value}`} className="text-center text-sm">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+
+          <div>
+            <Label className="text-base font-medium text-gray-700 mb-3 block">
+              {isPersonal ? 'You prefer' : 'They prefer'} direct, straightforward communication even if it might be uncomfortable
+            </Label>
+            <RadioGroup 
+              value={formData.directCommunicationDeep} 
+              onValueChange={(value) => updateField('directCommunicationDeep', value)}
+              className="grid grid-cols-5 gap-2"
+            >
+              {agreementOptions.map((option) => (
+                <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+                  <RadioGroupItem value={option.value} id={`direct-${option.value}`} />
+                  <Label htmlFor={`direct-${option.value}`} className="text-center text-sm">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+
+          <div>
+            <Label className="text-base font-medium text-gray-700 mb-3 block">
+              {isPersonal ? 'You respond' : 'They respond'} better to gentle approaches rather than direct confrontation
+            </Label>
+            <RadioGroup 
+              value={formData.gentleApproachDeep} 
+              onValueChange={(value) => updateField('gentleApproachDeep', value)}
+              className="grid grid-cols-5 gap-2"
+            >
+              {agreementOptions.map((option) => (
+                <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+                  <RadioGroupItem value={option.value} id={`gentle-${option.value}`} />
+                  <Label htmlFor={`gentle-${option.value}`} className="text-center text-sm">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };
