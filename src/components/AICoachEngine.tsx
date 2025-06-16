@@ -6,6 +6,7 @@ export class AICoachEngine {
 
   static setAPIKey(apiKey: string) {
     this.aiService = new AIService({ apiKey });
+    console.log('AI Service configured with API key');
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -53,27 +54,37 @@ export class AICoachEngine {
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
+    console.log('Getting AI response...');
+    console.log('AI Service available:', !!this.aiService);
+    console.log('User message:', userMessage);
+
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
       return this.generateDebugResponse(context);
     }
 
     // Check if we have AI service available
-    if (this.aiService && this.hasProfileData(context)) {
+    if (this.aiService) {
+      console.log('AI service is available, attempting real AI response...');
       try {
-        return await this.generateRealAIResponse(userMessage, context, chatHistory);
+        const response = await this.generateRealAIResponse(userMessage, context, chatHistory);
+        console.log('Real AI response generated successfully');
+        return response;
       } catch (error) {
         console.error('AI API Error:', error);
-        // Fallback to local response
         return this.generateFallbackResponse();
       }
     }
 
+    console.log('No AI service available, using fallback logic...');
+    
     // Fallback to local responses
-    if (!this.hasProfileData(context)) {
+    if (!this.hasBasicProfileData(context)) {
+      console.log('Missing basic profile data, generating profile request');
       return this.generateProfileMissingResponse(context);
     }
 
+    console.log('Using personalized local response');
     return this.generatePersonalizedResponse(userMessage, context, chatHistory);
   }
 
@@ -82,13 +93,21 @@ export class AICoachEngine {
     context: PersonContext, 
     chatHistory: ChatMessage[]
   ): Promise<string> {
+    console.log('Building system prompt...');
     const systemPrompt = this.buildSystemPrompt(context);
+    console.log('System prompt built, length:', systemPrompt.length);
+
     const conversationHistory = chatHistory.slice(-6).map(msg => ({
       role: msg.type === 'user' ? 'user' as const : 'assistant' as const,
       content: msg.content
     }));
 
-    return await this.aiService!.generateResponse(userMessage, systemPrompt, conversationHistory);
+    console.log('Conversation history prepared, length:', conversationHistory.length);
+    console.log('Making API call to Anthropic...');
+
+    const response = await this.aiService!.generateResponse(userMessage, systemPrompt, conversationHistory);
+    console.log('API response received, length:', response.length);
+    return response;
   }
 
   private static buildSystemPrompt(context: PersonContext): string {
@@ -138,12 +157,13 @@ Never give generic relationship advice. Every response must be personalized to $
     return "I'm having trouble connecting to the AI service right now, but I'm still here to help. Could you rephrase your question or try again in a moment?";
   }
 
-  private static hasProfileData(context: PersonContext): boolean {
+  private static hasBasicProfileData(context: PersonContext): boolean {
     const hasUserName = !!context.yourTraits.name;
     const hasPartnerName = !!context.partnerTraits.name;
-    const hasBasicTraits = !!(context.yourTraits.communicationStyle || context.yourTraits.attachmentStyle);
     
-    return hasUserName && hasPartnerName && hasBasicTraits;
+    console.log('Profile check - User name:', hasUserName, 'Partner name:', hasPartnerName);
+    
+    return hasUserName && hasPartnerName;
   }
 
   private static generateProfileMissingResponse(context: PersonContext): string {
