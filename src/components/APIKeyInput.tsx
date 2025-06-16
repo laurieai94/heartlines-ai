@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Key, ExternalLink } from "lucide-react";
+import { Key, ExternalLink, Zap } from "lucide-react";
 
 interface APIKeyInputProps {
   onApiKeySet: (apiKey: string) => void;
@@ -26,22 +26,22 @@ const APIKeyInput = ({ onApiKeySet, hasApiKey }: APIKeyInputProps) => {
     return (
       <Card className="p-4 bg-green-50 border-green-200">
         <div className="flex items-center gap-2 text-green-700">
-          <Key className="w-4 h-4" />
-          <span className="text-sm font-medium">✅ AI API connected - Real coaching active</span>
+          <Zap className="w-4 h-4" />
+          <span className="text-sm font-medium">✅ Anthropic AI connected - Real coaching active</span>
         </div>
       </Card>
     );
   }
 
   return (
-    <Card className="p-4 bg-amber-50 border-amber-200">
+    <Card className="p-4 bg-blue-50 border-blue-200">
       <div className="flex items-center gap-2 mb-3">
-        <Key className="w-4 h-4 text-amber-600" />
-        <h3 className="font-medium text-amber-800">Connect AI for Real Coaching</h3>
+        <Key className="w-4 h-4 text-blue-600" />
+        <h3 className="font-medium text-blue-800">Connect Anthropic AI for Coaching</h3>
       </div>
       
-      <p className="text-sm text-amber-700 mb-3">
-        Currently using simulated responses. Add your Anthropic API key for genuine AI coaching.
+      <p className="text-sm text-blue-700 mb-3">
+        This app uses Anthropic's Claude AI for personalized relationship coaching. Add your API key to get started.
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -65,7 +65,7 @@ const APIKeyInput = ({ onApiKeySet, hasApiKey }: APIKeyInputProps) => {
         
         <div className="flex gap-2">
           <Button type="submit" size="sm" disabled={!apiKey.trim()}>
-            Connect AI
+            Connect Anthropic AI
           </Button>
           <Button
             type="button"
@@ -79,7 +79,7 @@ const APIKeyInput = ({ onApiKeySet, hasApiKey }: APIKeyInputProps) => {
         </div>
       </form>
       
-      <p className="text-xs text-amber-600 mt-2">
+      <p className="text-xs text-blue-600 mt-2">
         Your API key is stored locally and only used for your coaching sessions.
       </p>
     </Card>

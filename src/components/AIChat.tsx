@@ -85,12 +85,12 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       {/* Chat Header */}
       <div className="mb-6 relative z-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          {userName ? `${userName}'s Relationship Coach (Available 24/7)` : 'Your Relationship Coach (Available 24/7)'}
+          {userName ? `${userName}'s AI Relationship Coach` : 'Your AI Relationship Coach'}
         </h2>
         <p className="text-gray-600">
           {userName && partnerName ? 
-            `Real talk relationship coaching for ${userName} and ${partnerName}` :
-            'The relationship coach millennials actually want to talk to'
+            `Anthropic AI coaching for ${userName} and ${partnerName}` :
+            'Personalized relationship coaching powered by Anthropic AI'
           }
         </p>
         
@@ -120,20 +120,17 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                 <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-pink-400 to-coral-500 rounded-full flex items-center justify-center shadow-lg">
                   <Heart className="w-10 h-10 text-white" />
                 </div>
-                {hasProfiles ? (
+                {hasProfiles && apiKey ? (
                   <div className="space-y-4">
                     <h3 className="text-xl font-semibold text-gray-900">
                       Hey {userName}! 👋
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
-                      I'm your AI relationship coach, and I actually know you and {partnerName}'s dynamic.
+                      I'm your AI relationship coach powered by Anthropic, and I actually know you and {partnerName}'s dynamic.
                     </p>
                     <div className="bg-gradient-to-r from-pink-50 to-coral-50 rounded-xl p-4 border border-pink-100">
                       <p className="text-sm text-gray-600 leading-relaxed">
-                        {apiKey ? 
-                          "I'm powered by real AI and have access to your communication styles, attachment patterns, and relationship background - so this isn't generic advice, it's tailored specifically for how you two work together." :
-                          "Connect your AI for personalized responses, or use the simulated coach for basic guidance."
-                        }
+                        I have access to your communication styles, attachment patterns, and relationship background - so this isn't generic advice, it's tailored specifically for how you two work together.
                       </p>
                     </div>
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full">
@@ -141,22 +138,32 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                       <span className="text-xs text-pink-600">Try asking about a specific situation you're dealing with right now</span>
                     </div>
                   </div>
-                ) : (
+                ) : apiKey && !hasProfiles ? (
                   <div className="space-y-4">
                     <h3 className="text-xl font-semibold text-gray-900">
-                      Hey! Welcome to your relationship coach 🌟
+                      Hey! Welcome to your AI relationship coach 🌟
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
-                      I'll need to learn about you and your partner first to give you personalized advice.
+                      I'm powered by Anthropic AI, but I'll need to learn about you and your partner first to give you personalized advice.
                     </p>
                     <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-100">
                       <p className="text-sm text-gray-600 leading-relaxed">
                         Complete your profiles in the Profile Building tab so I can give you advice that actually fits your specific relationship dynamic.
                       </p>
                     </div>
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-coral-100 rounded-full">
-                      <span className="text-sm font-medium text-coral-700">💭 Remember:</span>
-                      <span className="text-xs text-coral-600">Generic advice sucks - let's make this personal</span>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      Welcome to AI Relationship Coaching 🤖💕
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      This app uses Anthropic's Claude AI for personalized relationship advice.
+                    </p>
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Add your Anthropic API key above to start receiving AI-powered coaching tailored to your relationship.
+                      </p>
                     </div>
                   </div>
                 )}
@@ -175,15 +182,9 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                     <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                     <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                     <span className="text-sm text-gray-600 ml-2">
-                      {apiKey ? 
-                        (hasProfiles ? 
-                          `AI is thinking about ${userName} and ${partnerName}'s situation...` :
-                          'AI is analyzing your situation...'
-                        ) :
-                        (hasProfiles ? 
-                          `Thinking about ${userName} and ${partnerName}'s situation...` :
-                          'Getting real about your situation...'
-                        )
+                      {hasProfiles ? 
+                        `Anthropic AI is analyzing ${userName} and ${partnerName}'s situation...` :
+                        'Anthropic AI is analyzing your situation...'
                       }
                     </span>
                   </div>
@@ -198,10 +199,15 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       <div className="relative z-10">
         <AIChatInput 
           onSendMessage={sendMessage} 
-          loading={loading} 
+          loading={loading || !apiKey} 
           userName={userName} 
           partnerName={partnerName} 
         />
+        {!apiKey && (
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            Add your Anthropic API key above to send messages
+          </p>
+        )}
       </div>
     </div>
   );

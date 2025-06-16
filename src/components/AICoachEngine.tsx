@@ -1,3 +1,4 @@
+
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -6,7 +7,7 @@ export class AICoachEngine {
 
   static setAPIKey(apiKey: string) {
     this.aiService = new AIService({ apiKey });
-    console.log('AI Service configured with multiple CORS proxy fallbacks');
+    console.log('AI Service configured for Anthropic API only');
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -54,53 +55,50 @@ export class AICoachEngine {
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
-    console.log('Getting AI response...');
-    console.log('AI Service available:', !!this.aiService);
-    console.log('User message:', userMessage);
+    console.log('Getting Anthropic AI response...');
 
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
       return this.generateDebugResponse(context);
     }
 
-    // If API key is available, ALWAYS use the API - no fallbacks
-    if (this.aiService) {
-      console.log('AI service is available, attempting real AI response...');
-      try {
-        const response = await this.generateRealAIResponse(userMessage, context, chatHistory);
-        console.log('Real AI response generated successfully');
-        return response;
-      } catch (error) {
-        console.error('AI API Error:', error);
-        
-        // Provide specific error messages based on the error type
-        if (error.message.includes('Invalid API key')) {
-          throw new Error(`🔑 **Invalid API Key**\n\n${error.message}\n\nPlease check your API key at: https://console.anthropic.com/account/keys`);
-        }
-        
-        if (error.message.includes('Rate limit')) {
-          throw new Error(`⏱️ **Rate Limit Exceeded**\n\n${error.message}\n\nPlease wait a moment before sending another message.`);
-        }
-        
-        if (error.message.includes('CORS proxy access denied') || error.message.includes('corsdemo')) {
-          throw new Error(`🚫 **CORS Proxy Unavailable**\n\nThe public CORS proxy services are currently restricting access. This is a temporary issue with the proxy services, not your API key.\n\n**What you can try:**\n1. Wait a few minutes and try again\n2. Refresh the page and try again\n3. The issue usually resolves itself within an hour\n\n**For a permanent solution:** Consider running this app through a backend server to avoid CORS limitations entirely.`);
-        }
-        
-        if (error.message.includes('All connection methods failed')) {
-          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis appears to be a temporary issue with multiple proxy services. Please try again in a few minutes.`);
-        }
-        
-        if (error.message.includes('Network error')) {
-          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. Proxy services being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
-        }
-        
-        // For any other API error, throw it instead of falling back
-        throw new Error(`❌ **API Error**\n\n${error.message}\n\nIf this persists, please check the Anthropic service status.`);
-      }
+    // Require API key - no fallbacks
+    if (!this.aiService) {
+      throw new Error(`🔑 **API Key Required**\n\nPlease add your Anthropic API key to use the AI coach.\n\nGet your key at: https://console.anthropic.com/account/keys`);
     }
 
-    // If no API key is set, require it
-    throw new Error(`🔑 **API Key Required**\n\nNo API key has been configured. Please add your Anthropic API key to use the AI coach.\n\nGet your key at: https://console.anthropic.com/account/keys`);
+    console.log('Making Anthropic API call...');
+    try {
+      const response = await this.generateRealAIResponse(userMessage, context, chatHistory);
+      console.log('Anthropic AI response generated successfully');
+      return response;
+    } catch (error) {
+      console.error('Anthropic API Error:', error);
+      
+      // Provide specific error messages based on the error type
+      if (error.message.includes('Invalid API key')) {
+        throw new Error(`🔑 **Invalid API Key**\n\n${error.message}\n\nPlease check your API key at: https://console.anthropic.com/account/keys`);
+      }
+      
+      if (error.message.includes('Rate limit')) {
+        throw new Error(`⏱️ **Rate Limit Exceeded**\n\n${error.message}\n\nPlease wait a moment before sending another message.`);
+      }
+      
+      if (error.message.includes('CORS proxy access denied') || error.message.includes('corsdemo')) {
+        throw new Error(`🚫 **CORS Proxy Unavailable**\n\nThe public CORS proxy services are currently restricting access. This is a temporary issue with the proxy services, not your API key.\n\n**What you can try:**\n1. Wait a few minutes and try again\n2. Refresh the page and try again\n3. The issue usually resolves itself within an hour\n\n**For a permanent solution:** Consider running this app through a backend server to avoid CORS limitations entirely.`);
+      }
+      
+      if (error.message.includes('All connection methods failed')) {
+        throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis appears to be a temporary issue with multiple proxy services. Please try again in a few minutes.`);
+      }
+      
+      if (error.message.includes('Network error')) {
+        throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. Proxy services being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
+      }
+      
+      // For any other API error, throw it
+      throw new Error(`❌ **API Error**\n\n${error.message}\n\nIf this persists, please check the Anthropic service status.`);
+    }
   }
 
   private static async generateRealAIResponse(
@@ -188,184 +186,8 @@ Never give generic relationship advice. Every response must be personalized to $
 - Love language: ${context.partnerTraits.loveLanguage || "Not specified"}
 - Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
 
-**AI Service Status:** ${this.aiService ? "Connected - API ONLY MODE" : "Not connected"}
+**AI Service Status:** ${this.aiService ? "Connected - Anthropic API Only" : "Not connected"}
 
 If any of this is wrong or missing, there's a profile access issue.`;
-  }
-
-  private static generatePersonalizedResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[]): string {
-    const userName = context.yourTraits.name!;
-    const partnerName = context.partnerTraits.name!;
-    
-    // Analyze the user's message
-    const messageAnalysis = this.analyzeUserMessage(userMessage);
-    const conversationContext = this.getConversationContext(chatHistory);
-    
-    // Build personalized response using the template
-    let response = "";
-    
-    // 1. Personal Validation
-    response += this.generatePersonalValidation(messageAnalysis, context);
-    response += "\n\n";
-    
-    // 2. Pattern Recognition
-    response += this.generatePatternRecognition(messageAnalysis, context);
-    response += "\n\n";
-    
-    // 3. Psychological Insight
-    response += this.generatePsychologicalInsight(messageAnalysis, context);
-    response += "\n\n";
-    
-    // 4. Tailored Strategy
-    response += this.generateTailoredStrategy(userMessage, messageAnalysis, context);
-    response += "\n\n";
-    
-    // 5. Next Steps
-    response += this.generateNextSteps(userMessage, messageAnalysis, context);
-    
-    return response;
-  }
-
-  private static analyzeUserMessage(message: string) {
-    const lowerMessage = message.toLowerCase();
-    
-    return {
-      topic: {
-        communication: /talk|conversation|discuss|said|told/.test(lowerMessage),
-        conflict: /fight|argument|disagree|angry|mad/.test(lowerMessage),
-        intimacy: /close|distant|affection|love|romance/.test(lowerMessage),
-        support: /support|help|there for|care/.test(lowerMessage),
-        money: /money|spending|budget|financial/.test(lowerMessage),
-        time: /time|schedule|busy|priorities/.test(lowerMessage),
-        family: /family|parents|kids|children/.test(lowerMessage)
-      },
-      emotion: {
-        frustrated: /frustrated|annoyed|irritated/.test(lowerMessage),
-        hurt: /hurt|upset|sad|disappointed/.test(lowerMessage),
-        confused: /confused|lost|unclear/.test(lowerMessage),
-        anxious: /anxious|worried|nervous|scared/.test(lowerMessage),
-        defensive: /defensive|attack|blame/.test(lowerMessage)
-      },
-      timing: {
-        recent: /yesterday|today|last night|this morning|just/.test(lowerMessage),
-        ongoing: /always|never|constantly|keeps/.test(lowerMessage),
-        future: /should|will|going to|plan/.test(lowerMessage)
-      }
-    };
-  }
-
-  private static getConversationContext(chatHistory: ChatMessage[]) {
-    return {
-      previousMessages: chatHistory.slice(-3),
-      isFollowUp: chatHistory.length > 0
-    };
-  }
-
-  private static generatePersonalValidation(analysis: any, context: PersonContext): string {
-    const userName = context.yourTraits.name!;
-    const userAttachment = context.yourTraits.attachmentStyle;
-    
-    if (analysis.emotion.frustrated) {
-      if (userAttachment === "anxious") {
-        return `I can see why this is so frustrating for you, ${userName}, especially with your anxious attachment style - when things feel uncertain or disconnected, it hits differently for you than it might for others.`;
-      }
-      return `I can see why this is frustrating for you, ${userName}. When you care this much about making things work, feeling stuck is maddening.`;
-    }
-    
-    if (analysis.emotion.hurt) {
-      return `That hurt you're feeling is completely valid, ${userName}. Don't minimize it - when someone matters this much to you, these moments cut deep.`;
-    }
-    
-    if (analysis.emotion.confused) {
-      return `${userName}, that confusion makes total sense. When you're trying to figure out relationship dynamics, especially with everything else going on, it's like trying to solve a puzzle with missing pieces.`;
-    }
-    
-    return `I hear you, ${userName}. This is clearly weighing on you, and that makes sense given how much you care about this relationship.`;
-  }
-
-  private static generatePatternRecognition(analysis: any, context: PersonContext): string {
-    const userName = context.yourTraits.name!;
-    const partnerName = context.partnerTraits.name!;
-    const userComm = context.yourTraits.communicationStyle;
-    const partnerComm = context.partnerTraits.communicationStyle;
-    
-    if (analysis.topic.conflict && userComm && partnerComm) {
-      return `This sounds like the classic dynamic where you (${userComm} communication style) and ${partnerName} (${partnerComm} style) are basically speaking different languages when stress hits.`;
-    }
-    
-    if (analysis.topic.communication) {
-      return `Based on what I know about how you and ${partnerName} typically navigate conversations, this feels like one of those moments where your different approaches are creating friction instead of connection.`;
-    }
-    
-    return `This fits the pattern I see with you and ${partnerName} - you both care deeply but are approaching this from your own default modes.`;
-  }
-
-  private static generatePsychologicalInsight(analysis: any, context: PersonContext): string {
-    const partnerName = context.partnerTraits.name!;
-    const userAttachment = context.yourTraits.attachmentStyle;
-    const partnerAttachment = context.partnerTraits.attachmentStyle;
-    
-    if (userAttachment && partnerAttachment) {
-      if (userAttachment === "anxious" && partnerAttachment === "avoidant") {
-        return `Here's what's happening psychologically: Your anxious attachment is seeking connection and reassurance, while ${partnerName}'s avoidant style is creating space when they feel pressured. You're both trying to feel safe, just in opposite ways.`;
-      }
-      
-      if (userAttachment === "secure" && partnerAttachment === "anxious") {
-        return `Based on your secure attachment and ${partnerName}'s anxious style, they might be reading into things that aren't there while you're operating from a place of natural stability. The gap is in emotional intensity, not actual care.`;
-      }
-    }
-    
-    if (analysis.emotion.defensive) {
-      return `When ${partnerName} gets defensive, it's usually because they feel criticized or misunderstood, not because they don't care. Their ${context.partnerTraits.conflictStyle || "defensive"} response is protection, not rejection.`;
-    }
-    
-    return `What's happening underneath is that you both want the same thing - to feel valued and understood - but your approaches are creating distance instead of connection.`;
-  }
-
-  private static generateTailoredStrategy(userMessage: string, analysis: any, context: PersonContext): string {
-    const partnerName = context.partnerTraits.name!;
-    const partnerComm = context.partnerTraits.communicationStyle;
-    const partnerLove = context.partnerTraits.loveLanguage;
-    
-    if (analysis.topic.conflict && partnerComm) {
-      if (partnerComm === "avoidant") {
-        return `Given ${partnerName}'s avoidant communication style, try this approach: Give them space to process first, then come back with something like "I want to understand your perspective on this" rather than diving straight into solutions.`;
-      }
-      
-      if (partnerComm === "direct") {
-        return `Since ${partnerName} appreciates direct communication, be straightforward: "I'm feeling [specific emotion] about [specific situation]. Can we talk through this together?"`;
-      }
-    }
-    
-    if (analysis.topic.support && partnerLove) {
-      if (partnerLove === "acts_of_service") {
-        return `Knowing ${partnerName}'s love language is acts of service, look for something they usually handle and quietly take care of it. Don't announce it - just do it.`;
-      }
-      
-      if (partnerLove === "words_of_affirmation") {
-        return `Since ${partnerName} receives love through words of affirmation, tell them something specific you noticed and appreciated about them recently. Be concrete, not generic.`;
-      }
-    }
-    
-    return `Given what I know about ${partnerName}'s patterns, try approaching this from a place of curiosity rather than frustration. Ask questions to understand their perspective before sharing your own.`;
-  }
-
-  private static generateNextSteps(userMessage: string, analysis: any, context: PersonContext): string {
-    const partnerName = context.partnerTraits.name!;
-    const lowerMessage = userMessage.toLowerCase();
-    
-    if (analysis.topic.conflict) {
-      return `Your next move: Text ${partnerName} something like "I care about us and I want to understand what happened from your perspective. When's a good time to talk?" Then actually listen to their answer.`;
-    }
-    
-    if (analysis.topic.communication) {
-      return `Tonight, try this: Ask ${partnerName} "What's one thing I could do differently to make you feel more heard?" Then do that thing, even if it feels small.`;
-    }
-    
-    if (lowerMessage.includes("help") || lowerMessage.includes("support")) {
-      return `Here's what I'd do if I were you: Ask ${partnerName} directly "What would actually be helpful for you right now?" and then follow through on whatever they say.`;
-    }
-    
-    return `Your immediate next step: Have a conversation with ${partnerName} about this specific situation, not relationship issues in general. Start with "I want to understand..." and mean it.`;
   }
 }
