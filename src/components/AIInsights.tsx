@@ -4,10 +4,13 @@ import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
 import AISidebar from "./AISidebar";
+import ProfileForm from "./ProfileForm";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isConfigured, setIsConfigured] = useState(true);
+  const [showProfileForm, setShowProfileForm] = useState(false);
+  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -18,6 +21,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
+  };
+
+  const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
+    setActiveProfileType(profileType);
+    setShowProfileForm(true);
+  };
+
+  const handleProfileComplete = (profileData: any) => {
+    // Handle profile completion - this would typically update the profiles state
+    setShowProfileForm(false);
   };
 
   return (
@@ -35,7 +48,17 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         chatHistory={chatHistory}
         isConfigured={isConfigured}
         onSupabaseConfigured={handleSupabaseConfigured}
+        onOpenProfileForm={handleOpenProfileForm}
       />
+      
+      {/* Profile Form Modal */}
+      {showProfileForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowProfileForm(false)}
+          onComplete={handleProfileComplete}
+        />
+      )}
     </div>
   );
 };

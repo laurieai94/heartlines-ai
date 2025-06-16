@@ -1,7 +1,9 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Lightbulb, Heart, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { User, Lightbulb, Heart, MessageCircle, Plus, Settings } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import APIKeyInput from "./APIKeyInput";
@@ -12,12 +14,31 @@ interface AISidebarProps {
   chatHistory: any[];
   isConfigured: boolean;
   onSupabaseConfigured: (configured: boolean) => void;
+  onOpenProfileForm?: (profileType: 'your' | 'partner') => void;
 }
 
-const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSupabaseConfigured }: AISidebarProps) => {
+const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSupabaseConfigured, onOpenProfileForm }: AISidebarProps) => {
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
+
+  // Calculate profile completion percentages
+  const calculateProfileCompletion = (profileData: any[], demographicsData: any) => {
+    const totalQuestions = 15; // Approximate total questions across all forms
+    let answeredQuestions = 0;
+    
+    if (demographicsData) answeredQuestions += 3; // Demographics questions
+    if (profileData.length > 0) {
+      const profile = profileData[0];
+      const fields = Object.keys(profile);
+      answeredQuestions += fields.filter(field => profile[field] && profile[field] !== '').length;
+    }
+    
+    return Math.min(Math.round((answeredQuestions / totalQuestions) * 100), 100);
+  };
+
+  const yourCompletion = calculateProfileCompletion(profiles.your, demographicsData.your);
+  const partnerCompletion = calculateProfileCompletion(profiles.partner, demographicsData.partner);
 
   // Sort topics by frequency and recency
   const sortedTopics = topics.sort((a, b) => {
@@ -32,34 +53,59 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
       {/* API Configuration */}
       <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
 
-      {/* Profile Status */}
-      {(profiles.your.length > 0 || profiles.partner.length > 0) && (
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-          <div className="flex items-center gap-3 mb-3">
-            <User className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">Your Profiles</h3>
+      {/* Profile Completion Status */}
+      <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <div className="flex items-center gap-3 mb-4">
+          <User className="w-4 h-4 text-coral-600" />
+          <h3 className="font-medium text-gray-900">Your Profiles</h3>
+        </div>
+        
+        {/* Your Profile */}
+        <div className="space-y-3 mb-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">
+              {userName || 'Your'} Profile
+            </span>
+            <span className="text-sm text-gray-500">{yourCompletion}%</span>
           </div>
-          <div className="space-y-2 text-sm text-gray-600">
-            {profiles.your.length > 0 && (
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span>{userName || 'Your'} profile loaded</span>
-              </div>
-            )}
-            {profiles.partner.length > 0 && (
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span>{partnerName || 'Partner'} profile loaded</span>
-              </div>
-            )}
+          <Progress value={yourCompletion} className="h-2" />
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full text-xs"
+            onClick={() => onOpenProfileForm?.('your')}
+          >
+            <Plus className="w-3 h-3 mr-1" />
+            {yourCompletion > 0 ? 'Add More Details' : 'Start Profile'}
+          </Button>
+        </div>
+
+        {/* Partner Profile */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">
+              {partnerName || 'Partner'} Profile
+            </span>
+            <span className="text-sm text-gray-500">{partnerCompletion}%</span>
           </div>
-          {userName && partnerName && (
-            <div className="mt-3 p-2 bg-coral-50 rounded text-xs text-coral-700">
-              <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
-            </div>
-          )}
-        </Card>
-      )}
+          <Progress value={partnerCompletion} className="h-2" />
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full text-xs"
+            onClick={() => onOpenProfileForm?.('partner')}
+          >
+            <Plus className="w-3 h-3 mr-1" />
+            {partnerCompletion > 0 ? 'Add More Details' : 'Start Profile'}
+          </Button>
+        </div>
+
+        {userName && partnerName && (yourCompletion > 50 || partnerCompletion > 50) && (
+          <div className="mt-4 p-2 bg-coral-50 rounded text-xs text-coral-700">
+            <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
+          </div>
+        )}
+      </Card>
 
       {/* Coach Vibe */}
       <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
@@ -70,19 +116,6 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
         <p className="text-sm text-gray-600">
           Built on the expertise of PhD-level clinical psychology—trained on 15+ years of insights to deliver real, effective advice for modern relationships.
         </p>
-      </Card>
-
-      {/* Safe Space */}
-      <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-        <div className="flex items-center gap-2 mb-2">
-          <Heart className="w-4 h-4 text-coral-600" />
-          <h3 className="font-medium text-gray-900">Safe Space</h3>
-        </div>
-        <div className="text-sm text-gray-600 space-y-1">
-          <p>• No judgment, just support</p>
-          <p>• Your feelings are valid</p>
-          <p>• Messy is normal</p>
-        </div>
       </Card>
 
       {/* What We've Covered - Enhanced */}
@@ -129,6 +162,19 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
           ) : (
             <p className="text-xs text-gray-500">Keep chatting and I'll identify conversation themes</p>
           )}
+        </div>
+      </Card>
+
+      {/* Safe Space - Moved to bottom */}
+      <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <div className="flex items-center gap-2 mb-2">
+          <Heart className="w-4 h-4 text-coral-600" />
+          <h3 className="font-medium text-gray-900">Safe Space</h3>
+        </div>
+        <div className="text-sm text-gray-600 space-y-1">
+          <p>• No judgment, just support</p>
+          <p>• Your feelings are valid</p>
+          <p>• Messy is normal</p>
         </div>
       </Card>
     </div>

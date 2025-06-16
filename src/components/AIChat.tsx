@@ -7,7 +7,6 @@ import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
-import ChatHeader from "./ChatHeader";
 import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
@@ -99,16 +98,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   return (
     <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
       <BubbleBackground />
-      
-      {/* Chat Header */}
-      <div className="relative z-10 mb-6">
-        <ChatHeader 
-          userName={userName}
-          partnerName={partnerName}
-          userAvatarUrl={profile?.avatar_url || undefined}
-          hasProfiles={hasProfiles}
-        />
-      </div>
 
       {/* Main Chat Area */}
       <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col">
@@ -121,10 +110,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    Hey {userName || 'there'}! 👋
+                    I'm Kai, your relationship coach. Let's work together to understand what's going on and find a way forward.
                   </h3>
-                  <p className="text-gray-600">
-                    I'm Kai, your relationship coach. I'm here to help you navigate whatever you're experiencing with {partnerName || 'your partner'}.
+                  <p className="text-gray-600 text-lg">
+                    What brings you here today?
                   </p>
                 </div>
               )}

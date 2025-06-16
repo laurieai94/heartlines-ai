@@ -12,6 +12,14 @@ const ConflictStyles = ({ profileType, formData, updateField }: ConflictStylesPr
   const isPersonal = profileType === 'your';
   const pronoun = isPersonal ? 'you' : 'they';
 
+  const scaleOptions = [
+    { value: '1', label: 'Never' },
+    { value: '2', label: 'Rarely' },
+    { value: '3', label: 'Sometimes' },
+    { value: '4', label: 'Often' },
+    { value: '5', label: 'Always' }
+  ];
+
   return (
     <div className="space-y-6">
       <h4 className="text-lg font-medium text-gray-800 mb-4">Conflict & Stress Patterns</h4>
@@ -23,6 +31,7 @@ const ConflictStyles = ({ profileType, formData, updateField }: ConflictStylesPr
         <RadioGroup 
           value={formData.conflictResponse} 
           onValueChange={(value) => updateField('conflictResponse', value)}
+          className="space-y-2"
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Address it directly and quickly" id="conflict-direct" />
@@ -49,32 +58,41 @@ const ConflictStyles = ({ profileType, formData, updateField }: ConflictStylesPr
 
       <div>
         <Label className="text-base font-medium text-gray-700 mb-3 block">
-          When stressed, {pronoun} tend to:
+          How often {pronoun === 'you' ? 'do you' : 'do they'} need space when stressed?
         </Label>
         <RadioGroup 
-          value={formData.stressResponse} 
-          onValueChange={(value) => updateField('stressResponse', value)}
+          value={formData.stressSpaceNeed} 
+          onValueChange={(value) => updateField('stressSpaceNeed', value)}
+          className="grid grid-cols-5 gap-2"
         >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Want extra support and closeness" id="stress-support" />
-            <Label htmlFor="stress-support">Want extra support and closeness</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Need space to handle it alone" id="stress-space" />
-            <Label htmlFor="stress-space">Need space to handle it alone</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Get more irritable or sensitive" id="stress-irritable" />
-            <Label htmlFor="stress-irritable">Get more irritable or sensitive</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Become very focused on solutions" id="stress-solutions" />
-            <Label htmlFor="stress-solutions">Become very focused on solutions</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Shut down emotionally" id="stress-shutdown" />
-            <Label htmlFor="stress-shutdown">Shut down emotionally</Label>
-          </div>
+          {scaleOptions.map((option) => (
+            <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+              <RadioGroupItem value={option.value} id={`stress-space-${option.value}`} />
+              <Label htmlFor={`stress-space-${option.value}`} className="text-center text-sm">
+                {option.label}
+              </Label>
+            </div>
+          ))}
+        </RadioGroup>
+      </div>
+
+      <div>
+        <Label className="text-base font-medium text-gray-700 mb-3 block">
+          How often {pronoun === 'you' ? 'do you' : 'do they'} want extra support when stressed?
+        </Label>
+        <RadioGroup 
+          value={formData.stressSupportNeed} 
+          onValueChange={(value) => updateField('stressSupportNeed', value)}
+          className="grid grid-cols-5 gap-2"
+        >
+          {scaleOptions.map((option) => (
+            <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+              <RadioGroupItem value={option.value} id={`stress-support-${option.value}`} />
+              <Label htmlFor={`stress-support-${option.value}`} className="text-center text-sm">
+                {option.label}
+              </Label>
+            </div>
+          ))}
         </RadioGroup>
       </div>
     </div>

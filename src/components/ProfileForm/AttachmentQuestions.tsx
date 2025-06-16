@@ -12,12 +12,12 @@ const AttachmentQuestions = ({ profileType, formData, updateField }: AttachmentQ
   const isPersonal = profileType === 'your';
   const possessive = isPersonal ? 'your' : 'their';
 
-  const radioOptions = [
-    'Strongly Agree',
-    'Agree', 
-    'Neutral',
-    'Disagree',
-    'Strongly Disagree'
+  const agreementOptions = [
+    { value: '1', label: 'Strongly Disagree' },
+    { value: '2', label: 'Disagree' },
+    { value: '3', label: 'Neutral' },
+    { value: '4', label: 'Agree' },
+    { value: '5', label: 'Strongly Agree' }
   ];
 
   return (
@@ -31,11 +31,14 @@ const AttachmentQuestions = ({ profileType, formData, updateField }: AttachmentQ
         <RadioGroup 
           value={formData.comfortableClosenessIndependence} 
           onValueChange={(value) => updateField('comfortableClosenessIndependence', value)}
+          className="grid grid-cols-5 gap-2"
         >
-          {radioOptions.map((option) => (
-            <div key={option} className="flex items-center space-x-2">
-              <RadioGroupItem value={option} id={`closeness-${option.replace(' ', '-').toLowerCase()}`} />
-              <Label htmlFor={`closeness-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+          {agreementOptions.map((option) => (
+            <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+              <RadioGroupItem value={option.value} id={`closeness-${option.value}`} />
+              <Label htmlFor={`closeness-${option.value}`} className="text-center text-sm">
+                {option.label}
+              </Label>
             </div>
           ))}
         </RadioGroup>
@@ -48,11 +51,14 @@ const AttachmentQuestions = ({ profileType, formData, updateField }: AttachmentQ
         <RadioGroup 
           value={formData.worryRelationshipSecurity} 
           onValueChange={(value) => updateField('worryRelationshipSecurity', value)}
+          className="grid grid-cols-5 gap-2"
         >
-          {radioOptions.map((option) => (
-            <div key={option} className="flex items-center space-x-2">
-              <RadioGroupItem value={option} id={`worry-${option.replace(' ', '-').toLowerCase()}`} />
-              <Label htmlFor={`worry-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+          {agreementOptions.map((option) => (
+            <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+              <RadioGroupItem value={option.value} id={`worry-${option.value}`} />
+              <Label htmlFor={`worry-${option.value}`} className="text-center text-sm">
+                {option.label}
+              </Label>
             </div>
           ))}
         </RadioGroup>
@@ -65,11 +71,14 @@ const AttachmentQuestions = ({ profileType, formData, updateField }: AttachmentQ
         <RadioGroup 
           value={formData.wantClosenessButFearHurt} 
           onValueChange={(value) => updateField('wantClosenessButFearHurt', value)}
+          className="grid grid-cols-5 gap-2"
         >
-          {radioOptions.map((option) => (
-            <div key={option} className="flex items-center space-x-2">
-              <RadioGroupItem value={option} id={`fear-${option.replace(' ', '-').toLowerCase()}`} />
-              <Label htmlFor={`fear-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+          {agreementOptions.map((option) => (
+            <div key={option.value} className="flex flex-col items-center space-y-2 p-2 border rounded-lg hover:bg-gray-50">
+              <RadioGroupItem value={option.value} id={`fear-${option.value}`} />
+              <Label htmlFor={`fear-${option.value}`} className="text-center text-sm">
+                {option.label}
+              </Label>
             </div>
           ))}
         </RadioGroup>
