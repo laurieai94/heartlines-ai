@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -98,7 +99,7 @@ const ProfileBuilder = ({
           {userName ? `Let's Get to Know the Real You, ${userName}` : 'Let\'s Get to Know the Real You'}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          {userName ? `Build your relationship profiles in just 5 minutes, ${userName}` : 'Build your relationship profiles in just 5 minutes'}
+          Build your relationship profiles in just 5 minutes
         </p>
         
         {/* Quick Progress Overview */}
