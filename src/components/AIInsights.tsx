@@ -17,8 +17,8 @@ interface DemographicsData {
 }
 
 interface AIInsightsProps {
-  profiles: { your: any[]; partner: any[] };
-  demographicsData: { your: any; partner: any };
+  profiles?: ProfileData;
+  demographicsData?: DemographicsData;
 }
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {

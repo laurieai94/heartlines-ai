@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,11 +9,6 @@ import { MessageCircle, Send, RefreshCw, Heart, Lightbulb, CheckCircle, AlertTri
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
-interface ConversationPracticeProps {
-  profiles: {your: any[], partner: any[]};
-  demographicsData: {your: any, partner: any};
-}
-
 const SCENARIO_STARTERS = [
   { emoji: "💰", title: "Money conversation", description: "bringing up the budget" },
   { emoji: "🏠", title: "Household responsibilities", description: "dishes are piling up again" },
@@ -22,7 +18,7 @@ const SCENARIO_STARTERS = [
   { emoji: "🔄", title: "Recurring issue", description: "that thing you always fight about" }
 ];
 
-const ConversationPractice = ({ profiles, demographicsData }: ConversationPracticeProps) => {
+const ConversationPractice = () => {
   const [selectedScenario, setSelectedScenario] = useState("");
   const [customScenario, setCustomScenario] = useState("");
   const [conversation, setConversation] = useState([]);
