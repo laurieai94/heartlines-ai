@@ -15,7 +15,7 @@ export class AIService {
   
   // Multiple CORS proxy options to try
   private corsProxies = [
-    'https://api.allorigins.win/raw?url=',
+    'https://api.allorigins.win/get?url=',
     'https://corsproxy.io/?',
     'https://cors-anywhere.herokuapp.com/'
   ];
@@ -83,48 +83,68 @@ export class AIService {
   }
 
   private async makeProxyRequest(messages: ChatMessage[], systemPrompt: string, proxyUrl: string): Promise<string> {
-    let finalUrl: string;
-    let headers: Record<string, string>;
-
-    if (proxyUrl.includes('allorigins.win')) {
-      // AllOrigins expects the full URL as a parameter
-      finalUrl = `${proxyUrl}${encodeURIComponent(this.baseUrl)}`;
-      headers = {
-        'Content-Type': 'application/json'
-      };
-    } else {
-      // Other proxies expect to be prepended
-      finalUrl = `${proxyUrl}${this.baseUrl}`;
-      headers = {
-        'Content-Type': 'application/json',
-        'x-api-key': this.apiKey,
-        'anthropic-version': '2023-06-01',
-        'Accept': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      };
-    }
-
-    const requestBody = JSON.stringify({
+    const requestBody = {
       model: this.model,
       max_tokens: 1000,
       messages: messages,
-      system: systemPrompt,
-      // Add API key to body for AllOrigins
-      ...(proxyUrl.includes('allorigins.win') && {
+      system: systemPrompt
+    };
+
+    if (proxyUrl.includes('allorigins.win')) {
+      // AllOrigins requires a different approach - we need to construct the full request
+      const fullRequest = {
+        url: this.baseUrl,
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'x-api-key': this.apiKey,
           'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify(requestBody)
+      };
+
+      const allOriginsUrl = `${proxyUrl}${encodeURIComponent(this.baseUrl)}&method=POST&headers=${encodeURIComponent(JSON.stringify(fullRequest.headers))}&body=${encodeURIComponent(fullRequest.body)}`;
+      
+      console.log('Making AllOrigins request...');
+      const response = await fetch(allOriginsUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
         }
-      })
-    });
+      });
 
-    const response = await fetch(finalUrl, {
-      method: 'POST',
-      headers,
-      body: requestBody
-    });
+      if (!response.ok) {
+        throw new Error(`AllOrigins proxy failed: ${response.status}`);
+      }
 
-    return this.handleResponse(response);
+      const data = await response.json();
+      if (data.contents) {
+        const anthropicResponse = JSON.parse(data.contents);
+        if (anthropicResponse.content && anthropicResponse.content[0] && anthropicResponse.content[0].text) {
+          return anthropicResponse.content[0].text;
+        } else {
+          throw new Error('Invalid response format from Anthropic API');
+        }
+      } else {
+        throw new Error('AllOrigins proxy returned invalid format');
+      }
+    } else {
+      // Other proxies expect to be prepended
+      const finalUrl = `${proxyUrl}${this.baseUrl}`;
+      const response = await fetch(finalUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': this.apiKey,
+          'anthropic-version': '2023-06-01',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      return this.handleResponse(response);
+    }
   }
 
   private async handleResponse(response: Response): Promise<string> {
