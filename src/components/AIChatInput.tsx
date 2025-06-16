@@ -183,7 +183,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
                 value={currentMessage}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                placeholder="Tell me what's going on."
+                placeholder="Start wherever you want..."
                 disabled={loading}
                 className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200"
               />
