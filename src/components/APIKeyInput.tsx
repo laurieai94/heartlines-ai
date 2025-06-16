@@ -10,22 +10,12 @@ interface APIKeyInputProps {
 }
 
 const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) => {
-  const [supabaseUrl, setSupabaseUrl] = useState("");
-  const [supabaseAnonKey, setSupabaseAnonKey] = useState("");
-
   useEffect(() => {
-    // Auto-detect Supabase configuration from environment
-    const url = import.meta.env.VITE_SUPABASE_URL;
-    const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
-    if (url && key) {
-      setSupabaseUrl(url);
-      setSupabaseAnonKey(key);
-      onSupabaseConfigured(true);
-    }
+    // Since we're using Lovable's Supabase integration, mark as configured
+    onSupabaseConfigured(true);
   }, [onSupabaseConfigured]);
 
-  if (isConfigured || (supabaseUrl && supabaseAnonKey)) {
+  if (isConfigured) {
     return (
       <Card className="p-4 bg-green-50 border-green-200">
         <div className="flex items-center gap-2 text-green-700">

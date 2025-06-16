@@ -32,26 +32,14 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
 
-  // Configure Supabase on mount
+  // Auto-configure Supabase on mount
   useEffect(() => {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
-    if (supabaseUrl && supabaseAnonKey) {
-      AICoachEngine.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
-      setIsConfigured(true);
-    }
+    const configured = AICoachEngine.initializeSupabase();
+    setIsConfigured(configured);
   }, []);
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
-    if (configured) {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-      if (supabaseUrl && supabaseAnonKey) {
-        AICoachEngine.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
-      }
-    }
   };
 
   const sendMessage = async (userMessage: string) => {
