@@ -1,3 +1,4 @@
+
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -23,40 +24,110 @@ export class AICoachEngine {
     console.log('Processed yourDemographics:', yourDemographics);
     console.log('Processed partnerDemographics:', partnerDemographics);
 
+    // Helper function to derive communication style from profile responses
+    const deriveCommunicationStyle = (profile: any) => {
+      if (profile.directCommunication === "Strongly Agree") return "Direct";
+      if (profile.gentleApproach === "Strongly Agree") return "Gentle";
+      if (profile.needTimeToProcess === "Strongly Agree") return "Thoughtful";
+      return undefined;
+    };
+
+    // Helper function to derive love language from profile responses
+    const deriveLoveLanguage = (profile: any) => {
+      const scores = {
+        'Words of Affirmation': (profile.wordsOfAffirmation === "Strongly Agree" ? 2 : profile.wordsOfAffirmation === "Agree" ? 1 : 0) +
+                               (profile.proudOfYouAffirmations === "Strongly Agree" ? 2 : profile.proudOfYouAffirmations === "Agree" ? 1 : 0),
+        'Quality Time': (profile.qualityTime === "Strongly Agree" ? 2 : profile.qualityTime === "Agree" ? 1 : 0) +
+                       (profile.qualityTimeUndividedAttention === "Strongly Agree" ? 2 : profile.qualityTimeUndividedAttention === "Agree" ? 1 : 0),
+        'Physical Touch': (profile.physicalTouch === "Strongly Agree" ? 2 : profile.physicalTouch === "Agree" ? 1 : 0) +
+                         (profile.casualTouchThroughoutDay === "Strongly Agree" ? 2 : profile.casualTouchThroughoutDay === "Agree" ? 1 : 0),
+        'Acts of Service': (profile.householdChoresService === "Strongly Agree" ? 2 : profile.householdChoresService === "Agree" ? 1 : 0) +
+                          (profile.practicalHelpRelieves === "Strongly Agree" ? 2 : profile.practicalHelpRelieves === "Agree" ? 1 : 0),
+        'Receiving Gifts': (profile.thoughtfulVsExpensiveGifts === "Strongly Agree" ? 2 : profile.thoughtfulVsExpensiveGifts === "Agree" ? 1 : 0)
+      };
+      
+      const maxScore = Math.max(...Object.values(scores));
+      if (maxScore === 0) return undefined;
+      
+      return Object.keys(scores).find(key => scores[key] === maxScore);
+    };
+
+    // Helper function to derive stress response
+    const deriveStressResponse = (profile: any) => {
+      if (profile.talkThroughStressImmediately === "Strongly Agree") return "Talk it out immediately";
+      if (profile.needSpaceToProcess === "Strongly Agree") return "Need space to process";
+      if (profile.withdrawWhenOverwhelmed === "Strongly Agree") return "Withdraw when overwhelmed";
+      if (profile.physicalComfortHelps === "Strongly Agree") return "Seek physical comfort";
+      return undefined;
+    };
+
+    // Helper function to derive attachment style
+    const deriveAttachmentStyle = (profile: any) => {
+      if (profile.comfortableClosenessIndependence === "Strongly Agree") return "Secure";
+      if (profile.worryRelationshipSecurity === "Strongly Agree") return "Anxious";
+      if (profile.wantClosenessButFearHurt === "Strongly Agree") return "Fearful-Avoidant";
+      return undefined;
+    };
+
+    // Helper function to derive conflict style
+    const deriveConflictStyle = (profile: any) => {
+      if (profile.needToTalkImmediately === "Strongly Agree") return "Direct confrontation";
+      if (profile.goSilentWhenUpset === "Strongly Agree") return "Withdrawal";
+      if (profile.feelHeardWithValidation === "Strongly Agree") return "Collaborative";
+      return undefined;
+    };
+
+    // Helper function to extract triggers
+    const extractTriggers = (profile: any) => {
+      const triggers = [];
+      if (profile.beingRushedMakesWorse === "Strongly Agree") triggers.push("Being rushed");
+      if (profile.socialSituationsAnxious === "Strongly Agree") triggers.push("Social situations");
+      return triggers;
+    };
+
+    // Helper function to extract strengths
+    const extractStrengths = (profile: any) => {
+      const strengths = [];
+      if (profile.improvingCommunicationFocus === "Strongly Agree") strengths.push("Focused on improving communication");
+      if (profile.workingOnPersonalDevelopment === "Strongly Agree") strengths.push("Committed to personal growth");
+      if (profile.learnedHealthyFromFamily === "Strongly Agree") strengths.push("Learned healthy patterns from family");
+      return strengths;
+    };
+
     const context = {
       relationship: {
-        length: yourDemographics.relationshipLength || undefined,
+        length: yourProfile.relationshipLength || partnerProfile.relationshipLength || undefined,
         livingTogether: yourDemographics.livingTogether || false,
-        stage: yourDemographics.relationshipStage || undefined
+        stage: yourProfile.relationshipType || partnerProfile.relationshipType || undefined
       },
       yourTraits: {
         name: yourDemographics.name || undefined,
-        loveLanguage: yourProfile.loveLanguage || undefined,
-        communicationStyle: yourProfile.communicationStyle || undefined,
-        conflictStyle: yourProfile.conflictStyle || undefined,
-        stressResponse: yourProfile.stressResponse || undefined,
-        attachmentStyle: yourProfile.attachmentStyle || undefined,
-        triggers: yourProfile.triggers || [],
-        strengths: yourProfile.strengths || [],
-        growthAreas: yourProfile.growthAreas || []
+        loveLanguage: deriveLoveLanguage(yourProfile),
+        communicationStyle: deriveCommunicationStyle(yourProfile),
+        conflictStyle: deriveConflictStyle(yourProfile),
+        stressResponse: deriveStressResponse(yourProfile),
+        attachmentStyle: deriveAttachmentStyle(yourProfile),
+        triggers: extractTriggers(yourProfile),
+        strengths: extractStrengths(yourProfile),
+        growthAreas: []
       },
       partnerTraits: {
         name: partnerDemographics.name || undefined,
-        loveLanguage: partnerProfile.loveLanguage || undefined,
-        communicationStyle: partnerProfile.communicationStyle || undefined,
-        conflictStyle: partnerProfile.conflictStyle || undefined,
-        stressResponse: partnerProfile.stressResponse || undefined,
-        attachmentStyle: partnerProfile.attachmentStyle || undefined,
-        triggers: partnerProfile.triggers || [],
-        strengths: partnerProfile.strengths || [],
-        growthAreas: partnerProfile.growthAreas || []
+        loveLanguage: deriveLoveLanguage(partnerProfile),
+        communicationStyle: deriveCommunicationStyle(partnerProfile),
+        conflictStyle: deriveConflictStyle(partnerProfile),
+        stressResponse: deriveStressResponse(partnerProfile),
+        attachmentStyle: deriveAttachmentStyle(partnerProfile),
+        triggers: extractTriggers(partnerProfile),
+        strengths: extractStrengths(partnerProfile),
+        growthAreas: []
       },
       dynamics: {
-        loveLanguageMatch: yourProfile.loveLanguage === partnerProfile.loveLanguage,
-        loveLanguageGap: yourProfile.loveLanguage !== partnerProfile.loveLanguage,
-        communicationMatch: yourProfile.communicationStyle === partnerProfile.communicationStyle,
-        conflictDynamic: yourProfile.conflictStyle && partnerProfile.conflictStyle ? 
-          `${yourProfile.conflictStyle}-${partnerProfile.conflictStyle}` : undefined
+        loveLanguageMatch: deriveLoveLanguage(yourProfile) === deriveLoveLanguage(partnerProfile),
+        loveLanguageGap: deriveLoveLanguage(yourProfile) !== deriveLoveLanguage(partnerProfile),
+        communicationMatch: deriveCommunicationStyle(yourProfile) === deriveCommunicationStyle(partnerProfile),
+        conflictDynamic: deriveConflictStyle(yourProfile) && deriveConflictStyle(partnerProfile) ? 
+          `${deriveConflictStyle(yourProfile)}-${deriveConflictStyle(partnerProfile)}` : undefined
       }
     };
 
