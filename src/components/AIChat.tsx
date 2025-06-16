@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -149,52 +150,41 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-coral-50/30 via-peach-50/20 to-pink-50/30 rounded-3xl p-6">
+    <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
       <BubbleBackground />
 
       {/* Main Chat Area */}
-      <div className="flex-1 bg-white/70 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col">
-        <div className="flex-1 p-8 flex flex-col">
+      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col">
+        <div className="flex-1 p-6 flex flex-col">
           <ScrollArea className="flex-1 mb-6">
-            <div className="space-y-3 pr-4">
+            <div className="space-y-2 pr-4">
               {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                <div className="text-center py-12 max-w-xl mx-auto">
-                  {/* Enhanced Hero Section */}
-                  <div className="relative mb-8">
-                    <div className="w-20 h-20 mx-auto bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-xl relative">
-                      <Heart className="w-10 h-10 text-white animate-pulse" />
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-coral-400 to-pink-500 animate-pulse opacity-30"></div>
-                    </div>
+                <div className="text-center py-8 max-w-xl mx-auto">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Heart className="w-8 h-8 text-white" />
                   </div>
-                  
-                  <div className="bg-gradient-to-r from-coral-50 via-peach-50 to-pink-50 rounded-2xl p-8 mb-8 shadow-lg">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                      Hey! I'm Kai. Tell me what's happening with you two, and let's figure this out together.
-                    </h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                      What's on your mind about your relationship?
-                    </p>
-                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    I'm Kai, your relationship coach. Let's work together to understand what's going on and find a way forward.
+                  </h3>
+                  <p className="text-gray-600 text-lg mb-6">
+                    What brings you here today?
+                  </p>
                   
                   {/* Conversation Starters */}
-                  <div className="space-y-4">
-                    <p className="text-sm text-gray-500 mb-4">Or start with one of these:</p>
-                    <div className="grid gap-3">
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-500 mb-3">Or start with one of these:</p>
+                    <div className="flex flex-wrap gap-2 justify-center">
                       {conversationStarters.map((starter, index) => (
-                        <Card
+                        <Button
                           key={index}
-                          className={`p-4 cursor-pointer bg-white/60 border-coral-200/50 hover:bg-coral-50 hover:border-coral-300 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group ${!isConfigured ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          variant="outline"
+                          size="sm"
+                          className="text-xs hover:bg-coral-50 hover:text-coral-700 hover:border-coral-200 transition-colors"
                           onClick={() => handleStarterClick(starter)}
+                          disabled={!isConfigured}
                         >
-                          <div className="flex items-center justify-between">
-                            <p className="text-sm font-medium text-gray-700 group-hover:text-coral-700 transition-colors text-left">
-                              "{starter}"
-                            </p>
-                            <div className="w-8 h-8 bg-coral-100 rounded-full flex items-center justify-center group-hover:bg-coral-200 transition-colors">
-                              <Heart className="w-4 h-4 text-coral-600" />
-                            </div>
-                          </div>
-                        </Card>
+                          "{starter}"
+                        </Button>
                       ))}
                     </div>
                   </div>
@@ -212,18 +202,18 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               
               {loading && (
                 <div className="flex justify-start">
-                  <div className="flex gap-4 mb-6 animate-fade-in">
-                    <Avatar className="w-12 h-12 bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg">
+                  <div className="flex gap-3 mb-6 animate-fade-in">
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
                       <AvatarImage 
                         src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
                         alt="Kai" 
                         className="object-cover"
                       />
                       <AvatarFallback className="text-white border-0">
-                        <Bot className="w-6 h-6" />
+                        <Bot className="w-5 h-5" />
                       </AvatarFallback>
                     </Avatar>
-                    <div className="bg-gradient-to-br from-coral-500 to-pink-500 text-white rounded-3xl rounded-bl-lg px-6 py-4 shadow-xl max-w-[75%]">
+                    <div className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-3xl rounded-bl-lg px-6 py-4 shadow-lg max-w-[75%]">
                       <div className="flex items-center gap-3">
                         <div className="flex gap-1">
                           <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
@@ -243,7 +233,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
             </div>
           </ScrollArea>
 
-          {/* Enhanced Chat Input */}
+          {/* Chat Input */}
           <div className="relative z-10">
             <AIChatInput 
               onSendMessage={sendMessage} 
@@ -252,7 +242,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               partnerName={partnerName} 
             />
             {!isConfigured && (
-              <p className="text-sm text-gray-500 mt-4 text-center bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 mx-auto w-fit shadow-lg">
+              <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit">
                 Complete the setup in the sidebar to start chatting
               </p>
             )}

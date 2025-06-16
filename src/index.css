@@ -49,7 +49,7 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Enhanced warm colors */
+    /* Custom warm colors */
     --coral-50: 16 100% 97%;
     --coral-100: 16 92% 91%;
     --coral-200: 16 88% 82%;
@@ -57,7 +57,6 @@
     --coral-400: 16 80% 62%;
     --coral-500: 16 76% 52%;
     --coral-600: 16 72% 42%;
-    --coral-700: 16 68% 32%;
     
     --peach-50: 25 100% 97%;
     --peach-100: 25 92% 91%;
@@ -180,16 +179,6 @@
     }
   }
 
-  /* Enhanced hover effects */
-  .hover-lift {
-    transition: all 0.3s ease;
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
   .shadow-3xl {
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
   }
@@ -205,7 +194,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Enhanced Coral color utilities */
+  /* Coral color utilities */
   .from-coral-50 { --tw-gradient-from: hsl(var(--coral-50)) !important; }
   .to-coral-50 { --tw-gradient-to: hsl(var(--coral-50)) !important; }
   .via-coral-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--coral-50)), var(--tw-gradient-to) !important; }
@@ -223,39 +212,21 @@
   .bg-coral-50 { background-color: hsl(var(--coral-50)) !important; }
   .bg-coral-100 { background-color: hsl(var(--coral-100)) !important; }
   .bg-coral-200 { background-color: hsl(var(--coral-200)) !important; }
-  .bg-coral-300 { background-color: hsl(var(--coral-300)) !important; }
   .bg-coral-400 { background-color: hsl(var(--coral-400)) !important; }
   .bg-coral-500 { background-color: hsl(var(--coral-500)) !important; }
   .bg-coral-600 { background-color: hsl(var(--coral-600)) !important; }
   
-  .text-coral-400 { color: hsl(var(--coral-400)) !important; }
-  .text-coral-500 { color: hsl(var(--coral-500)) !important; }
   .text-coral-600 { color: hsl(var(--coral-600)) !important; }
   .text-coral-700 { color: hsl(var(--coral-700)) !important; }
-  .text-coral-800 { color: hsl(var(--coral-800)) !important; }
   
   .border-coral-200 { border-color: hsl(var(--coral-200)) !important; }
-  .border-coral-300 { border-color: hsl(var(--coral-300)) !important; }
-  .border-coral-400 { border-color: hsl(var(--coral-400)) !important; }
   
   .hover\:bg-coral-50:hover { background-color: hsl(var(--coral-50)) !important; }
-  .hover\:bg-coral-100:hover { background-color: hsl(var(--coral-100)) !important; }
   .hover\:text-coral-600:hover { color: hsl(var(--coral-600)) !important; }
-  .hover\:text-coral-700:hover { color: hsl(var(--coral-700)) !important; }
-  .hover\:border-coral-300:hover { border-color: hsl(var(--coral-300)) !important; }
-  .hover\:border-coral-400:hover { border-color: hsl(var(--coral-400)) !important; }
-  .hover\:border-coral-500:hover { border-color: hsl(var(--coral-500)) !important; }
   .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--coral-500)) !important; }
   .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--coral-500)) !important; }
 
-  /* Enhanced Peach color utilities */
-  .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
-  .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
-  .from-peach-100 { --tw-gradient-from: hsl(var(--peach-100)) !important; }
-  .to-peach-100 { --tw-gradient-to: hsl(var(--peach-100)) !important; }
+  /* Peach color utilities */
   .from-peach-200 { --tw-gradient-from: hsl(var(--peach-200)) !important; }
   .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
-  
-  .bg-peach-50 { background-color: hsl(var(--peach-50)) !important; }
-  .bg-peach-100 { background-color: hsl(var(--peach-100)) !important; }
 }
