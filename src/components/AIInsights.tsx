@@ -3,28 +3,48 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Lightbulb, Sparkles, Heart, MessageCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Send, Shield, MessageCircle, Heart, Lightbulb, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const AIInsights = () => {
   const [apiKey, setApiKey] = useState("");
-  const [situation, setSituation] = useState("");
-  const [insights, setInsights] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const generateInsights = async () => {
+  const quickStarters = [
+    "How can I support my partner better?",
+    "We keep having the same argument...",
+    "I'm feeling anxious about us..."
+  ];
+
+  const recentTopics = [
+    "Communication patterns",
+    "Supporting each other", 
+    "Managing stress together"
+  ];
+
+  const sendMessage = async () => {
     if (!apiKey) {
-      toast.error("Please enter your Anthropic API key");
+      toast.error("Please set your API key first");
       return;
     }
 
-    if (!situation) {
-      toast.error("Please describe the situation");
-      return;
-    }
+    if (!currentMessage.trim()) return;
 
+    const userMessage = currentMessage.trim();
+    setCurrentMessage("");
+    
+    // Add user message to chat
+    const newUserMessage = {
+      id: Date.now(),
+      type: 'user',
+      content: userMessage,
+      timestamp: new Date().toLocaleString()
+    };
+
+    setChatHistory(prev => [...prev, newUserMessage]);
     setLoading(true);
 
     try {
@@ -40,172 +60,220 @@ const AIInsights = () => {
           max_tokens: 1000,
           messages: [{
             role: 'user',
-            content: `As a relationship counselor, analyze this situation and provide personalized insights: ${situation}
+            content: `As a warm, empathetic relationship coach, respond to: ${userMessage}
 
-Please provide:
-1. Understanding of the emotional dynamics
-2. Specific actionable suggestions
-3. Communication strategies
-4. Ways to show love and support
+Provide guidance that is:
+- Supportive and understanding
+- Practical and actionable
+- Personalized to their situation
+- Encouraging yet realistic
 
-Format your response as structured advice that's empathetic and practical.`
+Keep your response conversational and caring, like a trusted friend who's also a professional counselor.`
           }]
         })
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate insights');
+        throw new Error('Failed to get response');
       }
 
       const data = await response.json();
-      const newInsight = {
-        id: Date.now(),
-        situation,
-        advice: data.content[0].text,
+      const aiMessage = {
+        id: Date.now() + 1,
+        type: 'ai',
+        content: data.content[0].text,
         timestamp: new Date().toLocaleString()
       };
 
-      setInsights([newInsight, ...insights]);
-      setSituation("");
-      toast.success("AI insights generated successfully!");
+      setChatHistory(prev => [...prev, aiMessage]);
     } catch (error) {
-      console.error('Error generating insights:', error);
-      toast.error("Failed to generate insights. Please check your API key and try again.");
+      console.error('Error:', error);
+      toast.error("Sorry, I couldn't respond right now. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">AI-Powered Relationship Insights</h2>
-        <p className="text-gray-600">Get personalized advice based on your unique situation and relationship profiles</p>
-      </div>
+  const handleQuickStarter = (starter) => {
+    setCurrentMessage(starter);
+  };
 
-      {/* API Key Input */}
-      <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-        <div className="flex items-center gap-3 mb-4">
-          <Sparkles className="w-6 h-6 text-pink-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Anthropic API Configuration</h3>
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  return (
+    <div className="flex gap-6 h-[calc(100vh-200px)]">
+      {/* Main Chat Interface - 75% */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat Header */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Relationship Coach (Available 24/7)</h2>
+          <p className="text-gray-600">Here to listen, understand, and guide</p>
         </div>
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="apiKey">Anthropic API Key</Label>
-            <Input
-              id="apiKey"
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="Enter your Anthropic API key"
-            />
-            <p className="text-sm text-gray-500 mt-1">
-              Get your API key from{" "}
-              <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">
+
+        {/* API Key Setup */}
+        {!apiKey && (
+          <Card className="p-4 mb-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200">
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="w-5 h-5 text-coral-600" />
+              <h3 className="font-medium text-gray-900">Set up your private coach</h3>
+            </div>
+            <div className="flex gap-2">
+              <Input
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                placeholder="Enter your Anthropic API key"
+                className="flex-1"
+              />
+              <Button 
+                onClick={() => apiKey && toast.success("Coach ready!")}
+                disabled={!apiKey}
+                className="bg-coral-500 hover:bg-coral-600"
+              >
+                Connect
+              </Button>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Get your key from{" "}
+              <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-coral-600 hover:underline">
                 Anthropic Console
               </a>
             </p>
-          </div>
-        </div>
-      </Card>
+          </Card>
+        )}
 
-      {/* Situation Input */}
-      <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-        <div className="flex items-center gap-3 mb-4">
-          <Lightbulb className="w-6 h-6 text-fuchsia-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Describe Your Situation</h3>
-        </div>
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="situation">What's happening in your relationship?</Label>
-            <Textarea
-              id="situation"
-              value={situation}
-              onChange={(e) => setSituation(e.target.value)}
-              placeholder="Describe the situation, challenge, or question you'd like guidance on..."
-              rows={4}
-            />
+        {/* Chat Messages */}
+        <Card className="flex-1 p-4 mb-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg overflow-hidden">
+          <div className="h-full flex flex-col">
+            <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+              {chatHistory.length === 0 && apiKey && (
+                <div className="text-center py-8 text-gray-500">
+                  <Heart className="w-12 h-12 mx-auto mb-3 text-coral-400" />
+                  <p>Your relationship coach is here and ready to listen.</p>
+                  <p className="text-sm">Share what's on your mind about your relationship.</p>
+                </div>
+              )}
+              
+              {chatHistory.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.type === 'user'
+                        ? 'bg-gradient-to-r from-coral-500 to-coral-600 text-white'
+                        : 'bg-gradient-to-r from-gray-50 to-gray-100 text-gray-800'
+                    }`}
+                  >
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    <p className={`text-xs mt-1 ${
+                      message.type === 'user' ? 'text-coral-100' : 'text-gray-500'
+                    }`}>
+                      {message.timestamp}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                      <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <Button 
-            onClick={generateInsights}
-            disabled={loading}
-            className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600"
+        </Card>
+
+        {/* Quick Starters */}
+        {chatHistory.length === 0 && apiKey && (
+          <div className="mb-4">
+            <div className="flex gap-2 flex-wrap">
+              {quickStarters.map((starter, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleQuickStarter(starter)}
+                  className="text-coral-700 border-coral-200 hover:bg-coral-50 hover:text-coral-800"
+                >
+                  {starter}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Chat Input */}
+        <div className="flex gap-2">
+          <Input
+            value={currentMessage}
+            onChange={(e) => setCurrentMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="What's on your mind about your relationship?"
+            disabled={!apiKey || loading}
+            className="flex-1"
+          />
+          <Button
+            onClick={sendMessage}
+            disabled={!apiKey || !currentMessage.trim() || loading}
+            className="bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-600 hover:to-coral-700"
           >
-            {loading ? "Generating Insights..." : "Get AI Insights"}
+            <Send className="w-4 h-4" />
           </Button>
         </div>
-      </Card>
+      </div>
 
-      {/* Generated Insights */}
-      {insights.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-gray-900">Your Personalized Insights</h3>
-          {insights.map((insight) => (
-            <Card key={insight.id} className="p-6 bg-white/80 backdrop-blur-md border-0 shadow-lg">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Heart className="w-6 h-6 text-pink-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-semibold text-gray-900">AI Relationship Guidance</h4>
-                    <span className="text-sm text-gray-500">{insight.timestamp}</span>
-                  </div>
-                  <div className="bg-gradient-to-r from-pink-50 to-fuchsia-50 p-4 rounded-lg mb-4">
-                    <p className="text-sm text-gray-700 italic">"{insight.situation}"</p>
-                  </div>
-                  <div className="prose prose-sm max-w-none text-gray-700">
-                    <pre className="whitespace-pre-wrap font-sans">{insight.advice}</pre>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
+      {/* Minimal Sidebar - 25% */}
+      <div className="w-80 space-y-4">
+        {/* Status Check */}
+        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+          <div className="flex items-center gap-3 mb-2">
+            <div className={`w-3 h-3 rounded-full ${apiKey ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+            <h3 className="font-medium text-gray-900">Your AI Coach Status</h3>
+          </div>
+          <p className="text-sm text-gray-600">
+            {apiKey ? "Ready to chat" : "Complete setup to get started"}
+          </p>
+        </Card>
 
-      {/* Example Scenarios */}
-      <Card className="p-6 bg-gradient-to-r from-pink-50 to-fuchsia-50 border-pink-200/50">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Example Scenarios to Try:</h3>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Button
-              variant="outline"
-              onClick={() => setSituation("My partner has been stressed about work lately and seems distant. How can I best support them without being overwhelming?")}
-              className="w-full text-left justify-start h-auto py-3 px-4"
-            >
-              <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">Supporting a stressed partner</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setSituation("We've been having the same argument repeatedly about household chores. How can we break this cycle and find a better solution?")}
-              className="w-full text-left justify-start h-auto py-3 px-4"
-            >
-              <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">Resolving recurring conflicts</span>
-            </Button>
+        {/* Trust Signal */}
+        <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="w-4 h-4 text-coral-600" />
+            <h3 className="font-medium text-gray-900">Private & Secure</h3>
           </div>
-          <div className="space-y-2">
-            <Button
-              variant="outline"
-              onClick={() => setSituation("I want to plan something special for my partner's birthday that really shows I understand and appreciate them. What would be meaningful?")}
-              className="w-full text-left justify-start h-auto py-3 px-4"
-            >
-              <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">Planning meaningful gestures</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setSituation("We're going through a long-distance period and struggling to maintain intimacy and connection. What are some strategies to stay close?")}
-              className="w-full text-left justify-start h-auto py-3 px-4"
-            >
-              <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-sm">Long-distance relationship tips</span>
-            </Button>
-          </div>
-        </div>
-      </Card>
+          <p className="text-sm text-gray-600">
+            Your conversations stay between you and your AI coach
+          </p>
+        </Card>
+
+        {/* Recent Topics */}
+        {chatHistory.length > 0 && (
+          <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+            <h3 className="font-medium text-gray-900 mb-3">We've talked about</h3>
+            <div className="space-y-2">
+              {recentTopics.slice(0, 3).map((topic, index) => (
+                <Badge key={index} variant="outline" className="w-full justify-start border-coral-200 text-coral-700">
+                  <MessageCircle className="w-3 h-3 mr-1" />
+                  {topic}
+                </Badge>
+              ))}
+            </div>
+          </Card>
+        )}
+      </div>
     </div>
   );
 };
