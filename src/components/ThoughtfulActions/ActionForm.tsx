@@ -8,11 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sparkles } from "lucide-react";
 
 const ACTION_CATEGORIES = [
-  { value: "daily", label: "Daily Gestures" },
-  { value: "special", label: "Special Occasions" },
-  { value: "support", label: "Emotional Support" },
-  { value: "quality-time", label: "Quality Time" },
-  { value: "communication", label: "Communication" }
+  { value: "acts_of_service", label: "Acts of Service" },
+  { value: "quality_time", label: "Quality Time" },
+  { value: "physical_touch", label: "Physical Touch" },
+  { value: "words_of_affirmation", label: "Words of Affirmation" },
+  { value: "gifts", label: "Gifts" }
 ];
 
 interface ActionFormProps {
@@ -26,6 +26,8 @@ interface ActionFormProps {
   setContext: (value: string) => void;
   loading: boolean;
   onGenerateSuggestions: () => void;
+  partnerName: string;
+  partnerProfile: any;
 }
 
 const ActionForm = ({
@@ -38,7 +40,9 @@ const ActionForm = ({
   context,
   setContext,
   loading,
-  onGenerateSuggestions
+  onGenerateSuggestions,
+  partnerName,
+  partnerProfile
 }: ActionFormProps) => {
   return (
     <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
@@ -66,7 +70,7 @@ const ActionForm = ({
               id="partnerMood"
               value={partnerMood}
               onChange={(e) => setPartnerMood(e.target.value)}
-              placeholder="e.g., stressed, excited, tired, celebrating"
+              placeholder={`e.g., stressed, excited, tired, celebrating${partnerName !== 'your partner' ? ` (for ${partnerName})` : ''}`}
             />
           </div>
 
@@ -88,7 +92,7 @@ const ActionForm = ({
               id="context"
               value={context}
               onChange={(e) => setContext(e.target.value)}
-              placeholder="Any other details about your partner's preferences, current situation, or what you're hoping to achieve..."
+              placeholder={`Any other details about ${partnerName !== 'your partner' ? `${partnerName}'s` : 'your partner\'s'} preferences, current situation, or what you're hoping to achieve...`}
               rows={4}
             />
           </div>
