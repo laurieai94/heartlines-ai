@@ -41,7 +41,8 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
   ];
 
   const handleQuickStarter = (starter: string) => {
-    setCurrentMessage(starter);
+    // Immediately send the message instead of just setting it in the input
+    onSendMessage(starter);
     setIsTyping(false);
   };
 
