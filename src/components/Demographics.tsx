@@ -16,11 +16,11 @@ interface DemographicsProps {
 
 const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: DemographicsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [page1Data, setPage1Data] = useState(initialData);
-  const [page2Data, setPage2Data] = useState(initialData);
+  const [page1Data, setPage1Data] = useState(initialData || {});
+  const [page2Data, setPage2Data] = useState(initialData || {});
   const [hasVisited, setHasVisited] = useState({ 
     page1: true, 
-    page2: Object.keys(initialData).length > 0 
+    page2: initialData && Object.keys(initialData).length > 0 
   });
 
   const totalPages = 2;
