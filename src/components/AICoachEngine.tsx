@@ -1,4 +1,3 @@
-
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -22,18 +21,19 @@ export class AICoachEngine {
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
-    console.log('Raw profiles data:', profiles);
-    console.log('Raw demographics data:', demographicsData);
+    console.log('🔄 BUILDING FRESH CONTEXT FOR KAI');
+    console.log('📊 Raw profiles data received:', JSON.stringify(profiles, null, 2));
+    console.log('👤 Raw demographics data received:', JSON.stringify(demographicsData, null, 2));
     
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
     const yourDemographics = demographicsData.your || {};
     const partnerDemographics = demographicsData.partner || {};
 
-    console.log('Processed yourProfile:', yourProfile);
-    console.log('Processed partnerProfile:', partnerProfile);
-    console.log('Processed yourDemographics:', yourDemographics);
-    console.log('Processed partnerDemographics:', partnerDemographics);
+    console.log('✅ Processed yourProfile:', yourProfile);
+    console.log('✅ Processed partnerProfile:', partnerProfile);
+    console.log('✅ Processed yourDemographics:', yourDemographics);
+    console.log('✅ Processed partnerDemographics:', partnerDemographics);
 
     // Helper function to derive communication style from profile responses
     const deriveCommunicationStyle = (profile: any) => {
@@ -142,13 +142,13 @@ export class AICoachEngine {
       }
     };
 
-    console.log('Final context built:', context);
+    console.log('🎯 FINAL CONTEXT BUILT FOR KAI:', JSON.stringify(context, null, 2));
     return context;
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = [], enhancedPrompt?: string): Promise<string> {
-    console.log('Getting AI response via Supabase...');
-    console.log('Context being used:', context);
+    console.log('🤖 Getting AI response via Supabase...');
+    console.log('📋 Context being used by Kai:', context);
 
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
@@ -163,13 +163,13 @@ export class AICoachEngine {
       }
     }
 
-    console.log('Making Supabase Edge Function call...');
+    console.log('📡 Making Supabase Edge Function call...');
     try {
       const response = await this.generateRealAIResponse(userMessage, context, chatHistory, enhancedPrompt);
-      console.log('AI response generated successfully via Supabase');
+      console.log('✅ AI response generated successfully via Supabase');
       return response;
     } catch (error) {
-      console.error('Supabase AI Error:', error);
+      console.error('❌ Supabase AI Error:', error);
       throw error;
     }
   }

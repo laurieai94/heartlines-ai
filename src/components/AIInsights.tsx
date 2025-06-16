@@ -16,7 +16,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   
+  // Local state to track the most current profile data
+  const [currentProfiles, setCurrentProfiles] = useState(profiles);
+  const [currentDemographics, setCurrentDemographics] = useState(demographicsData);
+  
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
+
+  // Update local state when props change (from Dashboard updates)
+  useEffect(() => {
+    setCurrentProfiles(profiles);
+    setCurrentDemographics(demographicsData);
+    console.log('AIInsights received updated profiles:', profiles);
+    console.log('AIInsights received updated demographics:', demographicsData);
+  }, [profiles, demographicsData]);
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -41,7 +53,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // If no demographics data exists for this profile type, show demographics first
-    if (!demographicsData[profileType]) {
+    if (!currentDemographics[profileType]) {
       setShowDemographics(true);
     } else {
       setShowProfileForm(true);
@@ -49,14 +61,47 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleProfileComplete = (profileData: any) => {
-    // Handle profile completion - this would typically update the profiles state
+    console.log('Profile completed with data:', profileData);
+    
+    // Update local profiles state immediately
+    const updatedProfiles = {
+      ...currentProfiles,
+      [activeProfileType]: [profileData]
+    };
+    setCurrentProfiles(updatedProfiles);
+    
+    // Also update demographics if it was included in the profile data
+    if (profileData.name || profileData.age || profileData.location) {
+      const updatedDemographics = {
+        ...currentDemographics,
+        [activeProfileType]: {
+          ...currentDemographics[activeProfileType],
+          name: profileData.name || currentDemographics[activeProfileType]?.name,
+          age: profileData.age || currentDemographics[activeProfileType]?.age,
+          location: profileData.location || currentDemographics[activeProfileType]?.location,
+        }
+      };
+      setCurrentDemographics(updatedDemographics);
+    }
+    
     setShowProfileForm(false);
+    console.log('Updated profiles for Kai:', updatedProfiles);
   };
 
   const handleDemographicsComplete = (demographicsData: any) => {
+    console.log('Demographics completed with data:', demographicsData);
+    
+    // Update local demographics state immediately
+    const updatedDemographics = {
+      ...currentDemographics,
+      [activeProfileType]: demographicsData
+    };
+    setCurrentDemographics(updatedDemographics);
+    
     // Handle demographics completion and move to profile form
     setShowDemographics(false);
     setShowProfileForm(true);
+    console.log('Updated demographics for Kai:', updatedDemographics);
   };
 
   const handleStartConversation = (starter: string) => {
@@ -81,16 +126,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
       <AIChat 
-        profiles={profiles}
-        demographicsData={demographicsData}
+        profiles={currentProfiles}
+        demographicsData={currentDemographics}
         chatHistory={chatHistory}
         setChatHistory={setChatHistory}
         isConfigured={isConfigured}
         conversationStarter={conversationStarter}
       />
       <AISidebar 
-        profiles={profiles}
-        demographicsData={demographicsData}
+        profiles={currentProfiles}
+        demographicsData={currentDemographics}
         chatHistory={chatHistory}
         isConfigured={isConfigured}
         onSupabaseConfigured={handleSupabaseConfigured}
@@ -108,7 +153,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           profileType={activeProfileType}
           onClose={() => setShowDemographics(false)}
           onComplete={handleDemographicsComplete}
-          initialData={demographicsData[activeProfileType]}
+          initialData={currentDemographics[activeProfileType]}
         />
       )}
       
@@ -119,8 +164,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
           onBackToDemographics={handleBackToDemographics}
-          initialProfiles={profiles}
-          initialDemographics={demographicsData}
+          initialProfiles={currentProfiles}
+          initialDemographics={currentDemographics}
         />
       )}
     </div>
