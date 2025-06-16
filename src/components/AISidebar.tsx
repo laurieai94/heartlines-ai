@@ -50,9 +50,6 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
 
   return (
     <div className="w-80 space-y-4">
-      {/* API Configuration */}
-      <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
-
       {/* Profile Completion Status */}
       <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
         <div className="flex items-center gap-3 mb-4">
@@ -177,6 +174,9 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
           <p>• Messy is normal</p>
         </div>
       </Card>
+
+      {/* API Configuration - Moved to bottom and made minimal */}
+      <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
     </div>
   );
 };
