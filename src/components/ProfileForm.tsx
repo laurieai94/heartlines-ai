@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,18 +29,12 @@ const ProfileForm = ({
   const existingProfile = initialProfiles[profileType]?.[0] || {};
   const existingDemographics = initialDemographics[profileType] || {};
   
-  const [page1Data, setPage1Data] = useState({
+  // Single state object to maintain all form data across pages
+  const [formData, setFormData] = useState({
     ...existingProfile,
     ...existingDemographics
   });
-  const [page2Data, setPage2Data] = useState({
-    ...existingProfile,
-    ...existingDemographics
-  });
-  const [page3Data, setPage3Data] = useState({
-    ...existingProfile,
-    ...existingDemographics
-  });
+  
   const [hasVisited, setHasVisited] = useState({ 
     page1: true, 
     page2: Object.keys(existingProfile).length > 0, 
@@ -52,24 +45,23 @@ const ProfileForm = ({
   const isPersonal = profileType === 'your';
   
   const handlePage1Complete = (data: any) => {
-    const updatedData = { ...page1Data, ...data };
-    setPage1Data(updatedData);
+    const updatedData = { ...formData, ...data };
+    setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page2: true }));
     setCurrentPage(2);
   };
 
   const handlePage2Complete = (data: any) => {
-    const updatedData = { ...page2Data, ...data };
-    setPage2Data(updatedData);
+    const updatedData = { ...formData, ...data };
+    setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page3: true }));
     setCurrentPage(3);
   };
 
   const handlePage3Complete = (data: any) => {
-    const updatedData = { ...page3Data, ...data };
-    setPage3Data(updatedData);
-    const combinedData = { ...page1Data, ...page2Data, ...updatedData };
-    onComplete(combinedData);
+    const updatedData = { ...formData, ...data };
+    setFormData(updatedData);
+    onComplete(updatedData);
     toast.success(`${isPersonal ? 'Your' : 'Partner'} profile completed successfully!`);
   };
 
@@ -93,7 +85,7 @@ const ProfileForm = ({
           <ProfileFormPage1 
             profileType={profileType}
             onComplete={handlePage1Complete}
-            initialData={page1Data}
+            initialData={formData}
           />
         );
       case 2:
@@ -102,7 +94,7 @@ const ProfileForm = ({
             profileType={profileType}
             onComplete={handlePage2Complete}
             onBack={handlePrevPage}
-            initialData={page2Data}
+            initialData={formData}
           />
         );
       case 3:
@@ -111,7 +103,7 @@ const ProfileForm = ({
             profileType={profileType}
             onComplete={handlePage3Complete}
             onBack={handlePrevPage}
-            initialData={page3Data}
+            initialData={formData}
           />
         );
       default:
@@ -178,7 +170,11 @@ const ProfileForm = ({
                   <span className="text-sm font-semibold text-gray-700">Step {currentPage} of {totalPages}</span>
                   <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
                 </div>
-                <span className="text-sm text-purple-600 font-medium">{getPageTitle()}</span>
+                <span className="text-sm text-purple-600 font-medium">
+                  {currentPage === 1 ? 'Communication & Love Languages' : 
+                   currentPage === 2 ? 'Conflict & Stress Patterns' : 
+                   'Attachment & Growth Areas'}
+                </span>
               </div>
               <Progress value={(currentPage / totalPages) * 100} className="h-3 bg-gray-200" />
               <div className="text-xs text-gray-500 mt-2 text-center">
