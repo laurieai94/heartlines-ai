@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Check, X, Sparkles, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X, Sparkles, Heart, User } from "lucide-react";
 import { toast } from "sonner";
 import ProfileFormPage1 from "./ProfileForm/ProfileFormPage1";
 import ProfileFormPage2 from "./ProfileForm/ProfileFormPage2";
@@ -12,6 +12,7 @@ interface ProfileFormProps {
   profileType: 'your' | 'partner';
   onComplete: (profileData: any) => void;
   onClose: () => void;
+  onBackToDemographics?: () => void;
   initialProfiles?: {your: any[], partner: any[]};
   initialDemographics?: {your: any, partner: any};
 }
@@ -20,6 +21,7 @@ const ProfileForm = ({
   profileType, 
   onComplete, 
   onClose, 
+  onBackToDemographics,
   initialProfiles = { your: [], partner: [] }, 
   initialDemographics = { your: null, partner: null } 
 }: ProfileFormProps) => {
@@ -82,6 +84,12 @@ const ProfileForm = ({
     if (currentPage > 1) {
       console.log(`Going back to page ${currentPage - 1}`);
       setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleBackToDemographics = () => {
+    if (onBackToDemographics) {
+      onBackToDemographics();
     }
   };
 
@@ -198,15 +206,30 @@ const ProfileForm = ({
         <div className="p-6 border-t bg-gray-50/80 backdrop-blur-sm">
           <div className="flex justify-between items-center">
             {/* Back Button */}
-            <Button
-              variant="outline"
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className="flex items-center gap-2 px-6 py-2 rounded-xl border-gray-300 hover:bg-gray-100"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Previous
-            </Button>
+            <div className="flex gap-2">
+              {/* Back to Demographics Button - only show if onBackToDemographics is provided */}
+              {onBackToDemographics && (
+                <Button
+                  variant="outline"
+                  onClick={handleBackToDemographics}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl border-blue-300 text-blue-600 hover:bg-blue-50"
+                >
+                  <User className="w-4 h-4" />
+                  Demographics
+                </Button>
+              )}
+              
+              {/* Previous Page Button */}
+              <Button
+                variant="outline"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className="flex items-center gap-2 px-6 py-2 rounded-xl border-gray-300 hover:bg-gray-100"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Previous
+              </Button>
+            </div>
             
             {/* Enhanced Page Indicators */}
             <div className="flex gap-2 items-center">

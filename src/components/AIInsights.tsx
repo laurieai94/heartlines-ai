@@ -5,11 +5,13 @@ import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
 import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
+import Demographics from "./Demographics";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isConfigured, setIsConfigured] = useState(true);
   const [showProfileForm, setShowProfileForm] = useState(false);
+  const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
 
@@ -26,7 +28,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
-    setShowProfileForm(true);
+    // If no demographics data exists for this profile type, show demographics first
+    if (!demographicsData[profileType]) {
+      setShowDemographics(true);
+    } else {
+      setShowProfileForm(true);
+    }
   };
 
   const handleProfileComplete = (profileData: any) => {
@@ -34,8 +41,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setShowProfileForm(false);
   };
 
+  const handleDemographicsComplete = (demographicsData: any) => {
+    // Handle demographics completion and move to profile form
+    setShowDemographics(false);
+    setShowProfileForm(true);
+  };
+
   const handleStartConversation = (starter: string) => {
     setConversationStarter(starter);
+  };
+
+  const handleBackToDemographics = () => {
+    setShowProfileForm(false);
+    setShowDemographics(true);
   };
 
   return (
@@ -58,12 +76,23 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         onStartConversation={handleStartConversation}
       />
       
+      {/* Demographics Modal */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType}
+          onClose={() => setShowDemographics(false)}
+          onComplete={handleDemographicsComplete}
+          initialData={demographicsData[activeProfileType]}
+        />
+      )}
+      
       {/* Profile Form Modal */}
       {showProfileForm && (
         <ProfileForm 
           profileType={activeProfileType}
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
+          onBackToDemographics={handleBackToDemographics}
           initialProfiles={profiles}
           initialDemographics={demographicsData}
         />
