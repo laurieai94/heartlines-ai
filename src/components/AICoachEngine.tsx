@@ -6,7 +6,7 @@ export class AICoachEngine {
 
   static setAPIKey(apiKey: string) {
     this.aiService = new AIService({ apiKey });
-    console.log('AI Service configured with API key and CORS proxy');
+    console.log('AI Service configured with multiple CORS proxy fallbacks');
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -82,8 +82,16 @@ export class AICoachEngine {
           throw new Error(`⏱️ **Rate Limit Exceeded**\n\n${error.message}\n\nPlease wait a moment before sending another message.`);
         }
         
+        if (error.message.includes('CORS proxy access denied') || error.message.includes('corsdemo')) {
+          throw new Error(`🚫 **CORS Proxy Unavailable**\n\nThe public CORS proxy services are currently restricting access. This is a temporary issue with the proxy services, not your API key.\n\n**What you can try:**\n1. Wait a few minutes and try again\n2. Refresh the page and try again\n3. The issue usually resolves itself within an hour\n\n**For a permanent solution:** Consider running this app through a backend server to avoid CORS limitations entirely.`);
+        }
+        
+        if (error.message.includes('All connection methods failed')) {
+          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis appears to be a temporary issue with multiple proxy services. Please try again in a few minutes.`);
+        }
+        
         if (error.message.includes('Network error')) {
-          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. CORS proxy being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
+          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. Proxy services being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
         }
         
         // For any other API error, throw it instead of falling back
