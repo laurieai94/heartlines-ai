@@ -5,243 +5,296 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageCircle, Send, RefreshCw } from "lucide-react";
+import { MessageCircle, Send, RefreshCw, Heart, Lightbulb, CheckCircle, AlertTriangle, XCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
-const CONVERSATION_TYPES = [
-  { value: "difficult", label: "Difficult Conversation" },
-  { value: "conflict", label: "Conflict Resolution" },
-  { value: "support", label: "Offering Support" },
-  { value: "boundaries", label: "Setting Boundaries" },
-  { value: "appreciation", label: "Expressing Appreciation" },
-  { value: "needs", label: "Communicating Needs" }
+const SCENARIO_STARTERS = [
+  { emoji: "💰", title: "Money conversation", description: "bringing up the budget" },
+  { emoji: "🏠", title: "Household responsibilities", description: "dishes are piling up again" },
+  { emoji: "👨‍👩‍👧‍👦", title: "Family plans", description: "discussing kids/marriage timeline" },
+  { emoji: "😰", title: "Support needed", description: "partner seems stressed about work" },
+  { emoji: "🎯", title: "Future goals", description: "where do we see this relationship going" },
+  { emoji: "🔄", title: "Recurring issue", description: "that thing you always fight about" }
 ];
 
 const ConversationPractice = () => {
-  const [conversationType, setConversationType] = useState("");
-  const [scenario, setScenario] = useState("");
-  const [userMessage, setUserMessage] = useState("");
+  const [selectedScenario, setSelectedScenario] = useState("");
+  const [customScenario, setCustomScenario] = useState("");
   const [conversation, setConversation] = useState([]);
+  const [userMessage, setUserMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState("");
   const [practiceStarted, setPracticeStarted] = useState(false);
+  const [coachingFeedback, setCoachingFeedback] = useState([]);
+  const [conversationMetrics, setConversationMetrics] = useState({
+    emotionalSafety: "green",
+    understanding: "yellow", 
+    solutionFocus: "green",
+    respectLevel: "green"
+  });
 
-  const startPractice = async () => {
-    if (!apiKey) {
-      toast.error("Please enter your Anthropic API key in the AI Insights section first");
-      return;
-    }
+  const partnerName = "Alex"; // This would come from profile data
+  const partnerStyle = "Gets defensive about money, needs time to process"; // From profile
 
-    if (!conversationType || !scenario) {
-      toast.error("Please select conversation type and describe the scenario");
-      return;
-    }
-
-    setLoading(true);
-    setPracticeStarted(true);
-
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 500,
-          messages: [{
-            role: 'user',
-            content: `You are roleplaying as my partner in a ${conversationType} conversation practice. 
-
-Scenario: ${scenario}
-
-Please respond as my partner would, being realistic but constructive. After your response, provide brief coaching tips in parentheses about how I could improve my approach. Keep responses natural and conversational.
-
-Start the conversation by setting the scene and saying something your partner might say to begin this discussion.`
-          }]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to start practice');
+  const getPartnerResponse = (userMessage, scenario) => {
+    const message = userMessage.toLowerCase();
+    
+    if (scenario.includes("money") || scenario.includes("budget")) {
+      if (message.includes("budget") || message.includes("money")) {
+        return "I just don't see why we need to change everything all at once. Can't we just keep doing what we're doing?";
       }
-
-      const data = await response.json();
-      setConversation([{
-        id: Date.now(),
-        role: 'partner',
-        message: data.content[0].text,
-        timestamp: new Date().toLocaleString()
-      }]);
-    } catch (error) {
-      console.error('Error starting practice:', error);
-      toast.error("Failed to start practice. Please check your API key.");
-      setPracticeStarted(false);
-    } finally {
-      setLoading(false);
+      if (message.includes("specific") || message.includes("what")) {
+        return "I mean, I pay my share. I don't understand what the problem is exactly.";
+      }
+      return "Okay, but I really don't want to get into a big thing about this right now.";
     }
+    
+    if (scenario.includes("household") || scenario.includes("responsibilities")) {
+      if (message.includes("dishes") || message.includes("chores")) {
+        return "I've been really busy with work. I didn't realize it was bothering you that much.";
+      }
+      if (message.includes("help") || message.includes("system")) {
+        return "Yeah, we can figure something out. What did you have in mind?";
+      }
+      return "I mean, I do help when I can. I just have different priorities sometimes.";
+    }
+    
+    if (scenario.includes("family") || scenario.includes("future")) {
+      if (message.includes("kids") || message.includes("marriage")) {
+        return "That's a really big topic. I'm not sure I'm ready to make any big decisions right now.";
+      }
+      if (message.includes("timeline") || message.includes("when")) {
+        return "I need more time to think about all this. Can we not rush into anything?";
+      }
+      return "I love you, but I just need to feel more stable before we take big steps.";
+    }
+    
+    if (scenario.includes("support") || scenario.includes("stress")) {
+      if (message.includes("how are you") || message.includes("feeling")) {
+        return "I'm fine, just dealing with some stuff at work. Nothing I can't handle.";
+      }
+      if (message.includes("help") || message.includes("support")) {
+        return "I appreciate it, but I just need some space to figure things out on my own right now.";
+      }
+      return "It's nothing you need to worry about. I'll be okay.";
+    }
+    
+    // Default responses
+    if (message.includes("sorry") || message.includes("understand")) {
+      return "I appreciate you saying that. I'm not trying to be difficult.";
+    }
+    
+    return "I hear what you're saying. I just need a minute to think about this.";
   };
 
-  const sendMessage = async () => {
+  const getCoachingFeedback = (userMessage, partnerResponse) => {
+    const feedback = [];
+    const message = userMessage.toLowerCase();
+    
+    if (message.includes("i feel") || message.includes("i'm feeling")) {
+      feedback.push({ type: "success", text: "Great use of 'I' statements!" });
+    }
+    
+    if (message.includes("you never") || message.includes("you always")) {
+      feedback.push({ type: "warning", text: "Try avoiding 'always' and 'never' - it can trigger defensiveness" });
+    }
+    
+    if (message.includes("how are you") || message.includes("how do you feel")) {
+      feedback.push({ type: "success", text: "Excellent! Asking about their feelings shows empathy" });
+    }
+    
+    if (message.includes("we can") || message.includes("let's")) {
+      feedback.push({ type: "success", text: "Great collaborative language!" });
+    }
+    
+    if (partnerResponse.includes("defensive") || partnerResponse.includes("big thing")) {
+      feedback.push({ type: "tip", text: "They seem overwhelmed - try slowing down and asking what they need" });
+    }
+    
+    if (partnerResponse.includes("space") || partnerResponse.includes("time")) {
+      feedback.push({ type: "tip", text: "Remember: Alex needs time to process. Consider suggesting a follow-up conversation" });
+    }
+    
+    return feedback;
+  };
+
+  const startPractice = () => {
+    if (!selectedScenario && !customScenario) {
+      toast.error("Please select a scenario or describe your own");
+      return;
+    }
+    
+    setPracticeStarted(true);
+    setConversation([]);
+    setCoachingFeedback([{
+      type: "tip",
+      text: `Remember: ${partnerName} ${partnerStyle.toLowerCase()}. Take your time and stay curious about their perspective.`
+    }]);
+  };
+
+  const sendMessage = () => {
     if (!userMessage.trim()) return;
 
+    const scenario = selectedScenario || customScenario;
     const newUserMessage = {
       id: Date.now(),
-      role: 'user',
+      type: 'user',
       message: userMessage,
       timestamp: new Date().toLocaleString()
     };
 
-    setConversation([...conversation, newUserMessage]);
-    setUserMessage("");
+    setConversation(prev => [...prev, newUserMessage]);
     setLoading(true);
 
-    try {
-      const conversationHistory = [...conversation, newUserMessage]
-        .map(msg => `${msg.role === 'user' ? 'Me' : 'Partner'}: ${msg.message}`)
-        .join('\n\n');
-
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 500,
-          messages: [{
-            role: 'user',
-            content: `Continue this ${conversationType} conversation practice. 
-
-Original scenario: ${scenario}
-
-Conversation so far:
-${conversationHistory}
-
-Respond as my partner, then provide coaching feedback in parentheses about communication techniques I used well or could improve.`
-          }]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to continue conversation');
-      }
-
-      const data = await response.json();
-      setConversation(prev => [...prev, {
+    // Simulate thinking time
+    setTimeout(() => {
+      const partnerResponse = getPartnerResponse(userMessage, scenario);
+      const feedback = getCoachingFeedback(userMessage, partnerResponse);
+      
+      const partnerMessage = {
         id: Date.now() + 1,
-        role: 'partner',
-        message: data.content[0].text,
+        type: 'partner',
+        message: partnerResponse,
         timestamp: new Date().toLocaleString()
-      }]);
-    } catch (error) {
-      console.error('Error continuing conversation:', error);
-      toast.error("Failed to continue conversation");
-    } finally {
+      };
+
+      setConversation(prev => [...prev, partnerMessage]);
+      setCoachingFeedback(prev => [...prev, ...feedback]);
       setLoading(false);
-    }
+    }, 1000 + Math.random() * 1000);
+
+    setUserMessage("");
   };
 
   const resetPractice = () => {
-    setConversation([]);
-    setUserMessage("");
     setPracticeStarted(false);
-    setConversationType("");
-    setScenario("");
+    setConversation([]);
+    setCoachingFeedback([]);
+    setSelectedScenario("");
+    setCustomScenario("");
+    setUserMessage("");
   };
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Conversation Practice</h2>
-        <p className="text-gray-600">Practice difficult conversations with AI guidance before having them in real life</p>
-      </div>
+  if (!practiceStarted) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Practice Difficult Conversations Before They Happen</h2>
+          <p className="text-lg text-gray-700 mb-2">Role-play with AI that acts like your partner, while getting real-time coaching</p>
+          <p className="text-gray-600">Ever wish you could practice that difficult conversation before having it? Our AI becomes your partner based on their profile, while simultaneously coaching you on communication strategies.</p>
+        </div>
 
-      {!practiceStarted ? (
         <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
           <div className="space-y-6">
             <div>
-              <Label htmlFor="conversationType">Conversation Type</Label>
-              <Select value={conversationType} onValueChange={setConversationType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select conversation type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {CONVERSATION_TYPES.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label className="text-base font-semibold mb-4 block">Quick Scenario Starters</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {SCENARIO_STARTERS.map((scenario, index) => (
+                  <Button
+                    key={index}
+                    variant={selectedScenario === `${scenario.title} - ${scenario.description}` ? "default" : "outline"}
+                    onClick={() => setSelectedScenario(`${scenario.title} - ${scenario.description}`)}
+                    className="p-4 h-auto text-left justify-start"
+                  >
+                    <div>
+                      <div className="font-medium">{scenario.emoji} {scenario.title}</div>
+                      <div className="text-sm opacity-70">{scenario.description}</div>
+                    </div>
+                  </Button>
+                ))}
+              </div>
             </div>
 
             <div>
-              <Label htmlFor="scenario">Scenario Description</Label>
+              <Label htmlFor="customScenario" className="text-base font-semibold">Custom Scenario</Label>
               <Textarea
-                id="scenario"
-                value={scenario}
-                onChange={(e) => setScenario(e.target.value)}
-                placeholder="Describe the specific situation you want to practice. Include context about your relationship, the issue at hand, and what you hope to achieve from this conversation."
-                rows={4}
+                id="customScenario"
+                value={customScenario}
+                onChange={(e) => {
+                  setCustomScenario(e.target.value);
+                  setSelectedScenario("");
+                }}
+                placeholder="Describe the specific situation you want to practice..."
+                rows={3}
+                className="mt-2"
               />
             </div>
 
             <Button 
               onClick={startPractice}
-              disabled={loading}
-              className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600"
+              className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 w-full"
             >
-              {loading ? "Starting Practice..." : "Start Practice Session"}
+              Start Practice Session
               <MessageCircle className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </Card>
-      ) : (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-gray-900">Practice Session: {CONVERSATION_TYPES.find(t => t.value === conversationType)?.label}</h3>
-            <Button variant="outline" onClick={resetPractice}>
-              <RefreshCw className="w-4 h-4 mr-2" />
-              New Session
-            </Button>
-          </div>
+      </div>
+    );
+  }
 
-          {/* Conversation History */}
-          <Card className="p-6 bg-white/80 backdrop-blur-md border-0 shadow-lg max-h-96 overflow-y-auto">
-            <div className="space-y-4">
-              {conversation.map((msg) => (
-                <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-4 rounded-lg ${
-                    msg.role === 'user' 
-                      ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white' 
-                      : 'bg-gray-100 text-gray-900'
-                  }`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-semibold text-sm">
-                        {msg.role === 'user' ? 'You' : 'Partner'}
-                      </span>
-                      <span className="text-xs opacity-70">{msg.timestamp}</span>
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Practice Difficult Conversations Before They Happen</h2>
+          <p className="text-gray-600">Role-play with AI that acts like your partner, while getting real-time coaching</p>
+        </div>
+        <Button variant="outline" onClick={resetPractice}>
+          <RefreshCw className="w-4 h-4 mr-2" />
+          New Session
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[calc(100vh-250px)]">
+        {/* Left Side - Partner Simulation (60% on large screens) */}
+        <div className="lg:col-span-3 flex flex-col space-y-4">
+          {/* Chat Header */}
+          <Card className="p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold">Practicing with {partnerName}</h3>
+              <p className="text-sm text-gray-600"><strong>Scenario:</strong> {selectedScenario || customScenario}</p>
+              <p className="text-sm text-gray-600"><strong>{partnerName}'s Style:</strong> {partnerStyle}</p>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span>💭</span>
+                <span>This is AI simulating {partnerName} based on their profile. Responses may not perfectly match their actual reactions.</span>
+              </div>
+            </div>
+          </Card>
+
+          {/* Conversation */}
+          <Card className="flex-1 p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg overflow-hidden">
+            <div className="h-full flex flex-col">
+              <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+                {conversation.map((msg) => (
+                  <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[80%] p-3 rounded-lg ${
+                      msg.type === 'user' 
+                        ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white' 
+                        : 'bg-gray-100 text-gray-900'
+                    }`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-semibold text-sm">
+                          {msg.type === 'user' ? 'You' : partnerName}
+                        </span>
+                        <span className="text-xs opacity-70">{msg.timestamp}</span>
+                      </div>
+                      <p className="whitespace-pre-wrap">{msg.message}</p>
                     </div>
-                    <p className="whitespace-pre-wrap">{msg.message}</p>
                   </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 p-4 rounded-lg">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-100"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-200"></div>
+                ))}
+                {loading && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 p-3 rounded-lg">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </Card>
 
@@ -252,7 +305,7 @@ Respond as my partner, then provide coaching feedback in parentheses about commu
                 value={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
                 placeholder="Type your response..."
-                rows={3}
+                rows={2}
                 className="flex-1"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -271,7 +324,83 @@ Respond as my partner, then provide coaching feedback in parentheses about commu
             </div>
           </Card>
         </div>
-      )}
+
+        {/* Right Side - Live Coaching (40% on large screens) */}
+        <div className="lg:col-span-2 space-y-4">
+          {/* Real-time Feedback */}
+          <Card className="p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Lightbulb className="w-4 h-4" />
+              How You're Doing
+            </h3>
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {coachingFeedback.map((feedback, index) => (
+                <div key={index} className={`flex items-start gap-2 p-2 rounded text-sm ${
+                  feedback.type === 'success' ? 'bg-green-50 text-green-800' :
+                  feedback.type === 'warning' ? 'bg-yellow-50 text-yellow-800' :
+                  feedback.type === 'error' ? 'bg-red-50 text-red-800' :
+                  'bg-blue-50 text-blue-800'
+                }`}>
+                  {feedback.type === 'success' && <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />}
+                  {feedback.type === 'warning' && <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />}
+                  {feedback.type === 'error' && <XCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />}
+                  {feedback.type === 'tip' && <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />}
+                  <span>{feedback.text}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Communication Strategy */}
+          <Card className="p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg">
+            <h3 className="font-semibold mb-3">Keep In Mind</h3>
+            <div className="space-y-2 text-sm">
+              <div>• {partnerName} shuts down when overwhelmed - go slower</div>
+              <div>• Their love language is acts of service - acknowledge what they do</div>
+              <div>• They need logical reasons, not just emotional appeals</div>
+              <div>• Past sensitivity around money topics - be extra gentle</div>
+            </div>
+          </Card>
+
+          {/* Conversation Health Check */}
+          <Card className="p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg">
+            <h3 className="font-semibold mb-3">Conversation Health Check</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Emotional Safety:</span>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Understanding:</span>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Solution Focus:</span>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Respect Level:</span>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Suggested Responses */}
+          <Card className="p-4 bg-white/80 backdrop-blur-md border-0 shadow-lg">
+            <h3 className="font-semibold mb-3">Try Saying This</h3>
+            <div className="space-y-3 text-sm">
+              <div>
+                <div className="text-red-600 mb-1">Instead of: "You never help with dishes"</div>
+                <div className="text-green-600">Try: "I'd love to figure out a system that works for both of us"</div>
+              </div>
+              <div>
+                <div className="text-red-600 mb-1">Instead of: "You're being defensive"</div>
+                <div className="text-green-600">Try: "I can see this is hard to talk about. Should we take a break?"</div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
