@@ -72,6 +72,12 @@ export class AICoachEngine {
         return response;
       } catch (error) {
         console.error('AI API Error:', error);
+        
+        // Check if it's a CORS error
+        if (error.message.includes('CORS_ERROR')) {
+          return this.generateCORSErrorResponse();
+        }
+        
         return this.generateFallbackResponse();
       }
     }
@@ -155,6 +161,25 @@ Never give generic relationship advice. Every response must be personalized to $
 
   private static generateFallbackResponse(): string {
     return "I'm having trouble connecting to the AI service right now, but I'm still here to help. Could you rephrase your question or try again in a moment?";
+  }
+
+  private static generateCORSErrorResponse(): string {
+    return `**Browser Security Limitation Detected** 🔒
+
+Unfortunately, your browser is blocking the direct connection to Anthropic's API due to CORS (Cross-Origin Resource Sharing) security policies. This is a common limitation when calling AI APIs directly from web browsers.
+
+**Here are your options:**
+
+1. **Use the Smart Local Coach** (Available now)
+   - I can still provide personalized advice using your profile data
+   - Responses are tailored to your specific relationship dynamic
+   - Just continue chatting - I'll use your communication styles, attachment patterns, etc.
+
+2. **For Full AI Power, you'll need:**
+   - A backend server or proxy to handle API calls
+   - Or use this app through a CORS-enabled environment
+
+**Don't worry though** - the local coach is pretty smart and knows all about your relationship patterns! Want to try asking your question again? I'll give you personalized advice based on your profiles.`;
   }
 
   private static hasBasicProfileData(context: PersonContext): boolean {
