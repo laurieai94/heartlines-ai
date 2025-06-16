@@ -14,10 +14,12 @@ interface ProfileFormPage2Props {
 
 const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage2Props) => {
   const [formData, setFormData] = useState({
-    // Conflict and stress patterns (all required) - preserve existing values
+    // Conflict and stress patterns (core required fields only)
     conflictResponse: initialData.conflictResponse || '',
     stressSpaceNeed: initialData.stressSpaceNeed || '',
     stressSupportNeed: initialData.stressSupportNeed || '',
+    
+    // Deep dive questions (optional - should NOT be validated)
     goSilentWhenUpset: initialData.goSilentWhenUpset || '',
     needToTalkImmediately: initialData.needToTalkImmediately || '',
     beingRushedMakesWorse: initialData.beingRushedMakesWorse || '',
@@ -32,7 +34,7 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields
+    // Validate ONLY core required fields - exclude deep dive questions
     if (!validateRequired()) return;
     
     console.log('Page 2 form data being submitted:', formData);
@@ -40,14 +42,23 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const validateRequired = () => {
-    const required = ['conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately', 'beingRushedMakesWorse', 'feelHeardWithValidation'];
+    // ONLY validate core conflict and stress questions - deep dive questions are optional
+    const required = ['conflictResponse', 'stressSpaceNeed', 'stressSupportNeed'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
     console.log('Page 2 validation - missing required fields:', missing);
     console.log('Page 2 current form data:', formData);
     
     if (missing.length > 0) {
-      toast.error('Please answer all required questions before continuing');
+      const fieldNames = missing.map(field => {
+        switch (field) {
+          case 'conflictResponse': return 'Conflict Response';
+          case 'stressSpaceNeed': return 'Need for Space When Stressed';
+          case 'stressSupportNeed': return 'Need for Support When Stressed';
+          default: return field;
+        }
+      });
+      toast.error(`Please answer these required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;
@@ -66,7 +77,7 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
             Conflict & Stress Patterns
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> All questions in this section are required
+            <span className="text-red-500">*</span> Only core questions are required. Deep dive questions are completely optional.
           </p>
         </div>
         
