@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -160,7 +159,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-gray-900">
-                      <strong>Hey, it's Kai.</strong> <Handshake className="inline w-5 h-5" />
+                      <strong>Hey, it's Kai.</strong> 👋
                     </h3>
                     
                     <p className="text-gray-600 text-lg leading-relaxed">
