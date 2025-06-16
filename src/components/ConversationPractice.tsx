@@ -1,9 +1,9 @@
+
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageCircle, Heart, DollarSign, Home, Users, Target, RotateCcw, Lightbulb, User } from "lucide-react";
+import { DollarSign, Home, Users, Target, RotateCcw, Heart, Lightbulb } from "lucide-react";
+import ScenarioCard from "./ConversationPractice/ScenarioCard";
+import PartnerProfileSelector from "./ConversationPractice/PartnerProfileSelector";
+import CustomScenarioForm from "./ConversationPractice/CustomScenarioForm";
 
 interface ProfileData {
   your: any[];
@@ -86,9 +86,12 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
     setCustomScenario("");
   };
 
-  const handleCustomScenario = () => {
-    setIsCustom(true);
-    setSelectedScenario("");
+  const handleCustomScenarioChange = (value: string) => {
+    setCustomScenario(value);
+    if (value) {
+      setIsCustom(true);
+      setSelectedScenario("");
+    }
   };
 
   const handleStartPractice = () => {
@@ -100,6 +103,21 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
 
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0;
   const hasPartnerProfiles = profiles.partner.length > 0;
+
+  const canStartPractice = (!selectedScenario && !customScenario.trim() || (hasPartnerProfiles && !selectedPartnerProfile)) ? false : true;
+  
+  const getStatusMessage = () => {
+    if (!(selectedScenario || customScenario)) {
+      return "Select a scenario or describe a custom situation to get started";
+    }
+    if (hasProfiles && selectedPartnerProfile) {
+      return `✅ Ready to simulate conversation with ${partnerName}`;
+    }
+    if (hasProfiles && !selectedPartnerProfile) {
+      return `⚠️ Select ${partnerName}'s profile above for realistic simulation`;
+    }
+    return `⚠️ Complete profiles for realistic ${partnerName} simulation`;
+  };
 
   return (
     <div className="space-y-6">
@@ -121,122 +139,39 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         )}
       </div>
 
-      {/* Partner Profile Selection */}
-      {hasPartnerProfiles && (
-        <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-              <User className="w-4 h-4 text-blue-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">Partner Profile for Role-Play</h3>
-              <p className="text-sm text-gray-600">Select which partner profile the AI should use to simulate {partnerName}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-3">
-            <Select value={selectedPartnerProfile} onValueChange={setSelectedPartnerProfile}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder={`Select ${partnerName}'s profile for simulation`} />
-              </SelectTrigger>
-              <SelectContent>
-                {profiles.partner.map((profile, index) => (
-                  <SelectItem key={index} value={index.toString()}>
-                    {partnerName}'s Profile {profiles.partner.length > 1 ? `#${index + 1}` : ''}
-                    {profile.relationshipLength && (
-                      <span className="text-xs text-gray-500 ml-2">
-                        ({profile.relationshipLength} relationship)
-                      </span>
-                    )}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            {selectedPartnerProfile && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-lg border border-green-200">
-                ✅ AI will role-play as {partnerName} using their selected profile traits and communication style
-              </div>
-            )}
-          </div>
-        </Card>
-      )}
+      <PartnerProfileSelector
+        partnerProfiles={profiles.partner}
+        partnerName={partnerName}
+        selectedPartnerProfile={selectedPartnerProfile}
+        onProfileSelect={setSelectedPartnerProfile}
+      />
 
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Scenario Starters</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {scenarios.map((scenario) => {
-            const IconComponent = scenario.icon;
-            const isSelected = selectedScenario === scenario.id;
-            
-            return (
-              <Card 
-                key={scenario.id}
-                className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                  isSelected ? 'ring-2 ring-coral-500 bg-coral-50' : 'bg-white/60 backdrop-blur-md'
-                }`}
-                onClick={() => handleScenarioSelect(scenario.id)}
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    isSelected ? 'bg-coral-500 text-white' : 'bg-coral-100 text-coral-600'
-                  }`}>
-                    <IconComponent className="w-4 h-4" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 mb-1">{scenario.title}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{scenario.subtitle}</p>
-                    <p className="text-xs text-gray-500">{scenario.description}</p>
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
+          {scenarios.map((scenario) => (
+            <ScenarioCard
+              key={scenario.id}
+              id={scenario.id}
+              icon={scenario.icon}
+              title={scenario.title}
+              subtitle={scenario.subtitle}
+              description={scenario.description}
+              isSelected={selectedScenario === scenario.id}
+              onSelect={handleScenarioSelect}
+            />
+          ))}
         </div>
       </div>
 
-      <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Custom Scenario</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Describe the specific situation you want to practice...
-        </p>
-        <Textarea
-          placeholder={`Describe the conversation you want to practice with ${partnerName}. Be as specific as possible about the context, your concerns, and what outcome you're hoping for.`}
-          value={customScenario}
-          onChange={(e) => {
-            setCustomScenario(e.target.value);
-            if (e.target.value) {
-              handleCustomScenario();
-            }
-          }}
-          className="min-h-[100px] mb-4"
-        />
-        
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-500">
-            {(selectedScenario || customScenario) ? (
-              hasProfiles && selectedPartnerProfile ? (
-                <span className="text-green-600">✅ Ready to simulate conversation with {partnerName}</span>
-              ) : hasProfiles && !selectedPartnerProfile ? (
-                <span className="text-amber-600">⚠️ Select {partnerName}'s profile above for realistic simulation</span>
-              ) : (
-                <span className="text-amber-600">⚠️ Complete profiles for realistic {partnerName} simulation</span>
-              )
-            ) : (
-              "Select a scenario or describe a custom situation to get started"
-            )}
-          </div>
-          
-          <Button 
-            onClick={handleStartPractice}
-            disabled={!selectedScenario && !customScenario.trim() || (hasPartnerProfiles && !selectedPartnerProfile)}
-            className="bg-coral-500 hover:bg-coral-600 text-white"
-          >
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Start Practice Session
-          </Button>
-        </div>
-      </Card>
+      <CustomScenarioForm
+        customScenario={customScenario}
+        partnerName={partnerName}
+        onCustomScenarioChange={handleCustomScenarioChange}
+        onStartPractice={handleStartPractice}
+        canStartPractice={canStartPractice}
+        statusMessage={getStatusMessage()}
+      />
     </div>
   );
 };
