@@ -2,6 +2,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import AvatarUpload from "../AvatarUpload";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 interface PersonalIdentityProps {
   profileType: 'your' | 'partner';
@@ -12,6 +14,20 @@ interface PersonalIdentityProps {
 
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
+  const { updateProfile } = useUserProfile();
+
+  const handleAvatarUpdate = async (url: string) => {
+    updateFormData('avatar_url', url);
+    
+    // If this is the personal profile, also update the user profile
+    if (isPersonal) {
+      try {
+        await updateProfile({ avatar_url: url });
+      } catch (error) {
+        console.error('Error updating profile avatar:', error);
+      }
+    }
+  };
 
   const pronounOptions = [
     'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'ze/zir', 'Other', 'Prefer not to share'
@@ -35,6 +51,17 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         About {isPersonal ? 'You' : 'Your Partner'}
         {isPersonal && <span className="text-red-500 text-sm">*Required</span>}
       </h3>
+
+      {/* Avatar Upload - only for personal profile */}
+      {isPersonal && (
+        <div className="flex justify-center mb-8">
+          <AvatarUpload
+            currentAvatarUrl={formData.avatar_url}
+            onAvatarUpdate={handleAvatarUpdate}
+            userName={formData.name}
+          />
+        </div>
+      )}
 
       {/* Name */}
       <div>
