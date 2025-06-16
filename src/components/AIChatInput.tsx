@@ -38,10 +38,10 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Quick Starters */}
-      <div>
-        <p className="text-sm text-gray-600 mb-2">Start with something that's actually on your mind:</p>
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+        <p className="text-sm text-gray-600 mb-3 font-medium">Quick conversation starters:</p>
         <div className="flex gap-2 flex-wrap">
           {quickStarters.map((starter, index) => (
             <Button
@@ -49,7 +49,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
               variant="outline"
               size="sm"
               onClick={() => handleQuickStarter(starter)}
-              className="text-coral-700 border-coral-200 hover:bg-coral-50 hover:text-coral-800"
+              className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-xs font-medium transition-all duration-200 hover:scale-105"
             >
               {starter}
             </Button>
@@ -58,25 +58,29 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
       </div>
 
       {/* Chat Input */}
-      <div className="flex gap-2">
-        <Input
-          value={currentMessage}
-          onChange={(e) => setCurrentMessage(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder={userName && partnerName ? 
-            `What's actually happening with you and ${partnerName}?` :
-            "What's going on in your relationship that you want to talk through?"
-          }
-          disabled={loading}
-          className="flex-1"
-        />
-        <Button
-          onClick={sendMessage}
-          disabled={!currentMessage.trim() || loading}
-          className="bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-600 hover:to-coral-700"
-        >
-          <Send className="w-4 h-4" />
-        </Button>
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl">
+        <div className="flex gap-3 items-end">
+          <div className="flex-1">
+            <Input
+              value={currentMessage}
+              onChange={(e) => setCurrentMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder={userName && partnerName ? 
+                `What's on your mind about you and ${partnerName}?` :
+                "Share what's happening in your relationship..."
+              }
+              disabled={loading}
+              className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200"
+            />
+          </div>
+          <Button
+            onClick={sendMessage}
+            disabled={!currentMessage.trim() || loading}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full w-12 h-12 p-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+          >
+            <Send className="w-5 h-5" />
+          </Button>
+        </div>
       </div>
     </div>
   );
