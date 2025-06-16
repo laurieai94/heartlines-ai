@@ -3,162 +3,179 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, User, Heart, HelpCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { toast } from "sonner";
-import DemographicsPage1 from "@/components/Demographics/DemographicsPage1";
-import DemographicsPage2 from "@/components/Demographics/DemographicsPage2";
-import AvatarUpload from "@/components/AvatarUpload";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import DemographicsPage1 from "./Demographics/DemographicsPage1";
+import DemographicsPage2 from "./Demographics/DemographicsPage2";
 
 interface DemographicsProps {
   profileType: 'your' | 'partner';
-  onComplete: (demographics: any) => void;
+  onComplete: (demographicsData: any) => void;
   onClose: () => void;
+  initialData?: any;
 }
 
-const Demographics = ({ profileType, onComplete, onClose }: DemographicsProps) => {
-  const [currentPage, setCurrentPage] = useState(profileType === 'your' ? 0 : 1); // Start with avatar page for 'your' profile
-  const [page1Data, setPage1Data] = useState({});
-  const [page2Data, setPage2Data] = useState({});
-  const { profile, updateProfile } = useUserProfile();
+const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: DemographicsProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [page1Data, setPage1Data] = useState(initialData);
+  const [page2Data, setPage2Data] = useState(initialData);
+  const [hasVisited, setHasVisited] = useState({ 
+    page1: true, 
+    page2: Object.keys(initialData).length > 0 
+  });
 
+  const totalPages = 2;
   const isPersonal = profileType === 'your';
-  const totalPages = isPersonal ? 3 : 2; // Add avatar page for personal profile
   
-  const handleAvatarComplete = () => {
-    setCurrentPage(1);
-  };
-
-  const handleAvatarUpdate = async (avatarUrl: string) => {
-    try {
-      await updateProfile({ avatar_url: avatarUrl });
-      toast.success('Avatar uploaded successfully!');
-      handleAvatarComplete();
-    } catch (error) {
-      toast.error('Failed to update avatar');
-    }
-  };
-
   const handlePage1Complete = (data: any) => {
-    setPage1Data(data);
-    setCurrentPage(isPersonal ? 2 : 2);
+    const updatedData = { ...page1Data, ...data };
+    setPage1Data(updatedData);
+    setHasVisited(prev => ({ ...prev, page2: true }));
+    setCurrentPage(2);
   };
 
   const handlePage2Complete = (data: any) => {
-    setPage2Data(data);
-    const combinedData = { ...page1Data, ...data };
+    const updatedData = { ...page2Data, ...data };
+    setPage2Data(updatedData);
+    const combinedData = { ...page1Data, ...updatedData };
     onComplete(combinedData);
-    toast.success(`${isPersonal ? 'Your' : 'Partner'} demographics saved successfully!`);
+    toast.success(`${isPersonal ? 'Your' : 'Partner'} demographics completed successfully!`);
   };
 
-  const handleSkipToProfile = () => {
-    const combinedData = { ...page1Data, ...page2Data };
-    onComplete(combinedData);
+  const handleNavigateToPage = (pageNumber: number) => {
+    if (hasVisited[`page${pageNumber}` as keyof typeof hasVisited]) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const renderCurrentPage = () => {
-    if (isPersonal && currentPage === 0) {
-      return (
-        <div className="space-y-6">
-          <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Let's add your profile photo
-            </h3>
-            <p className="text-gray-600 mb-6">
-              This helps personalize your chat experience (optional)
-            </p>
-          </div>
-          
-          <div className="flex justify-center">
-            <AvatarUpload
-              currentAvatarUrl={profile?.avatar_url || undefined}
-              onAvatarUpdate={handleAvatarUpdate}
-              userName={profile?.name || undefined}
-            />
-          </div>
-
-          <div className="flex justify-center gap-3 pt-6">
-            <Button variant="outline" onClick={handleAvatarComplete}>
-              Skip for now
-            </Button>
-          </div>
-        </div>
-      );
-    }
-
-    const pageNumber = isPersonal ? currentPage : currentPage;
-    
-    if (pageNumber === 1 || (!isPersonal && pageNumber === 1)) {
-      return (
-        <DemographicsPage1 
-          profileType={profileType}
-          onComplete={handlePage1Complete}
-          initialData={page1Data}
-        />
-      );
-    } else {
-      return (
-        <DemographicsPage2 
-          profileType={profileType}
-          onComplete={handlePage2Complete}
-          onBack={() => setCurrentPage(isPersonal ? 1 : 1)}
-          onSkip={handleSkipToProfile}
-          initialData={page2Data}
-        />
-      );
+    switch (currentPage) {
+      case 1:
+        return (
+          <DemographicsPage1 
+            profileType={profileType}
+            onComplete={handlePage1Complete}
+            initialData={page1Data}
+          />
+        );
+      case 2:
+        return (
+          <DemographicsPage2 
+            profileType={profileType}
+            onComplete={handlePage2Complete}
+            onBack={handlePrevPage}
+            initialData={page2Data}
+          />
+        );
+      default:
+        return null;
     }
   };
 
   const getPageTitle = () => {
-    if (isPersonal && currentPage === 0) return 'Profile Photo';
-    if (currentPage === 1 || (!isPersonal && currentPage === 1)) return 'Basic Info';
-    return 'Family Background';
+    switch (currentPage) {
+      case 1:
+        return 'Personal Identity';
+      case 2:
+        return 'Background & Lifestyle';
+      default:
+        return '';
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="p-6 border-b bg-gradient-to-r from-pink-50 to-fuchsia-50">
+        <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                isPersonal 
-                  ? 'bg-gradient-to-r from-pink-500 to-fuchsia-500' 
-                  : 'bg-gradient-to-r from-rose-400 to-pink-400'
-              }`}>
-                {isPersonal ? <User className="w-6 h-6 text-white" /> : <Heart className="w-6 h-6 text-white" />}
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">
-                  A Few Quick Details About {isPersonal ? 'You' : 'Your Partner'}
-                </h2>
-                <p className="text-gray-600">
-                  {isPersonal 
-                    ? "Help us personalize your RealTalk experience (2 minutes)"
-                    : "Help us understand your partner for better insights (2 minutes)"
-                  }
-                </p>
-              </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">
+                {isPersonal ? 'Your' : 'Partner'} Demographics
+              </h2>
+              <p className="text-gray-600">
+                Help us understand {isPersonal ? 'your' : 'their'} background and context
+              </p>
             </div>
             <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700">
-              ✕
+              <X className="w-5 h-5" />
             </Button>
           </div>
 
           {/* Progress */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-700">Step {currentPage + 1} of {totalPages}</span>
+              <span className="text-sm font-medium text-gray-700">Page {currentPage} of {totalPages}</span>
               <span className="text-sm text-gray-500">{getPageTitle()}</span>
             </div>
-            <Progress value={((currentPage + 1) / totalPages) * 100} className="h-2" />
+            <Progress value={(currentPage / totalPages) * 100} className="h-3" />
           </div>
         </div>
 
         {/* Content */}
         <div className="p-6">
           {renderCurrentPage()}
+        </div>
+
+        {/* Navigation Footer */}
+        <div className="p-6 border-t bg-gray-50">
+          <div className="flex justify-between items-center">
+            {/* Back Button */}
+            <Button
+              variant="outline"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 px-6 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Previous
+            </Button>
+            
+            {/* Page Indicators */}
+            <div className="flex gap-3 items-center">
+              {Array.from({ length: totalPages }, (_, i) => {
+                const pageNum = i + 1;
+                const isVisited = hasVisited[`page${pageNum}` as keyof typeof hasVisited];
+                const isCurrent = pageNum === currentPage;
+                const isCompleted = pageNum < currentPage;
+                
+                return (
+                  <button
+                    key={i}
+                    onClick={() => handleNavigateToPage(pageNum)}
+                    disabled={!isVisited}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                      isCurrent 
+                        ? 'bg-blue-500 text-white shadow-lg' 
+                        : isCompleted 
+                          ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
+                          : isVisited
+                            ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {isCompleted ? <Check className="w-4 h-4" /> : pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Placeholder for symmetry */}
+            <div className="w-[100px]"></div>
+          </div>
+          
+          {/* Help text */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-gray-500">
+              You can navigate between completed sections using the page indicators above
+            </p>
+          </div>
         </div>
       </div>
     </div>

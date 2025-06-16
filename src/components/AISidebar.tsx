@@ -36,15 +36,6 @@ const AISidebar = ({
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  const conversationStarters = [
-    "I feel like we're not connecting lately",
-    "We keep having the same fight over and over",
-    "I want to improve our communication",
-    "Are we growing apart?",
-    "I miss how we used to be",
-    "How can we be more supportive of each other?"
-  ];
-
   // Calculate profile completion percentages
   const calculateProfileCompletion = (profileData: any[], demographicsData: any) => {
     let totalFields = 0;
@@ -57,12 +48,20 @@ const AISidebar = ({
       completedFields += demographicsFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
     }
 
+    // Background & lifestyle fields (now required)
+    const backgroundFields = ['familyBackground', 'parentsRelationship', 'personalityType', 'healthWellness'];
+    totalFields += backgroundFields.length;
+    if (demographicsData) {
+      completedFields += backgroundFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
+    }
+
     // Profile fields (core required fields)
     const profileFields = [
       'importantTalkPreference', 'communicationDirectness', 'emotionExpression', 'loveLanguages',
-      'conflictResponse', 'stressSpaceNeed', 'stressSupportNeed',
+      'conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately',
+      'beingRushedMakesWorse', 'feelHeardWithValidation',
       'comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt',
-      'relationshipLength', 'relationshipType'
+      'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'
     ];
     totalFields += profileFields.length;
     
@@ -88,12 +87,6 @@ const AISidebar = ({
   const handleEditProfile = () => {
     setShowProfileViewer(false);
     onOpenProfileForm?.(viewingProfileType);
-  };
-
-  const handleStartConversation = (starter: string) => {
-    if (onStartConversation) {
-      onStartConversation(starter);
-    }
   };
 
   // Sort topics by frequency and recency
@@ -194,28 +187,6 @@ const AISidebar = ({
               <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
             </div>
           )}
-        </Card>
-
-        {/* Conversation Starters */}
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-          <div className="flex items-center gap-2 mb-3">
-            <MessageCircle className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">Quick Start</h3>
-          </div>
-          <div className="space-y-2">
-            {conversationStarters.map((starter, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start text-left h-auto py-2 px-3 text-xs hover:bg-coral-50 hover:text-coral-700"
-                onClick={() => handleStartConversation(starter)}
-                disabled={!isConfigured}
-              >
-                "{starter}"
-              </Button>
-            ))}
-          </div>
         </Card>
 
         {/* What We've Covered */}

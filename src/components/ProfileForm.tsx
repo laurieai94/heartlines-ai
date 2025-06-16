@@ -13,33 +13,62 @@ interface ProfileFormProps {
   profileType: 'your' | 'partner';
   onComplete: (profileData: any) => void;
   onClose: () => void;
+  initialProfiles?: {your: any[], partner: any[]};
+  initialDemographics?: {your: any, partner: any};
 }
 
-const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => {
+const ProfileForm = ({ 
+  profileType, 
+  onComplete, 
+  onClose, 
+  initialProfiles = { your: [], partner: [] }, 
+  initialDemographics = { your: null, partner: null } 
+}: ProfileFormProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [page1Data, setPage1Data] = useState({});
-  const [page2Data, setPage2Data] = useState({});
-  const [page3Data, setPage3Data] = useState({});
-  const [hasVisited, setHasVisited] = useState({ page1: true, page2: false, page3: false });
+  
+  // Initialize form data with existing profile data if available
+  const existingProfile = initialProfiles[profileType]?.[0] || {};
+  const existingDemographics = initialDemographics[profileType] || {};
+  
+  const [page1Data, setPage1Data] = useState({
+    ...existingProfile,
+    ...existingDemographics
+  });
+  const [page2Data, setPage2Data] = useState({
+    ...existingProfile,
+    ...existingDemographics
+  });
+  const [page3Data, setPage3Data] = useState({
+    ...existingProfile,
+    ...existingDemographics
+  });
+  const [hasVisited, setHasVisited] = useState({ 
+    page1: true, 
+    page2: Object.keys(existingProfile).length > 0, 
+    page3: Object.keys(existingProfile).length > 0 
+  });
 
   const totalPages = 3;
   const isPersonal = profileType === 'your';
   
   const handlePage1Complete = (data: any) => {
-    setPage1Data(data);
+    const updatedData = { ...page1Data, ...data };
+    setPage1Data(updatedData);
     setHasVisited(prev => ({ ...prev, page2: true }));
     setCurrentPage(2);
   };
 
   const handlePage2Complete = (data: any) => {
-    setPage2Data(data);
+    const updatedData = { ...page2Data, ...data };
+    setPage2Data(updatedData);
     setHasVisited(prev => ({ ...prev, page3: true }));
     setCurrentPage(3);
   };
 
   const handlePage3Complete = (data: any) => {
-    setPage3Data(data);
-    const combinedData = { ...page1Data, ...page2Data, ...data };
+    const updatedData = { ...page3Data, ...data };
+    setPage3Data(updatedData);
+    const combinedData = { ...page1Data, ...page2Data, ...updatedData };
     onComplete(combinedData);
     toast.success(`${isPersonal ? 'Your' : 'Partner'} profile completed successfully!`);
   };

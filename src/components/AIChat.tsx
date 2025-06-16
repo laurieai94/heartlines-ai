@@ -11,6 +11,7 @@ import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
+import { Button } from "@/components/ui/button";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -32,6 +33,17 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const partnerName = demographicsData.partner?.name || '';
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
+
+  // Conversation starters - moved from sidebar to chat interface
+  const conversationStarters = [
+    "I feel like we're not connecting lately",
+    "We keep having the same fight over and over",
+    "I want to improve our communication",
+    "Are we growing apart?",
+    "I miss how we used to be",
+    "I want to get back what we had.",
+    "How can we be more supportive of each other?"
+  ];
 
   // Auto-scroll to bottom when chat history changes
   useEffect(() => {
@@ -131,6 +143,12 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     }
   };
 
+  const handleStarterClick = (starter: string) => {
+    if (isConfigured) {
+      sendMessage(starter);
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
       <BubbleBackground />
@@ -148,9 +166,28 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     I'm Kai, your relationship coach. Let's work together to understand what's going on and find a way forward.
                   </h3>
-                  <p className="text-gray-600 text-lg">
+                  <p className="text-gray-600 text-lg mb-6">
                     What brings you here today?
                   </p>
+                  
+                  {/* Conversation Starters */}
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-500 mb-3">Or start with one of these:</p>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {conversationStarters.map((starter, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          size="sm"
+                          className="text-xs hover:bg-coral-50 hover:text-coral-700 hover:border-coral-200 transition-colors"
+                          onClick={() => handleStarterClick(starter)}
+                          disabled={!isConfigured}
+                        >
+                          "{starter}"
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
               
