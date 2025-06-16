@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -92,7 +91,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       {/* Chat Header */}
       <div className="mb-6 relative z-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          {userName ? `${userName}'s AI Relationship Coach` : 'Your AI Relationship Coach'}
+          {userName ? `${userName}'s Relationship Coach (Available 24/7)` : 'Your Relationship Coach (Available 24/7)'}
         </h2>
         <p className="text-gray-600">
           {userName && partnerName ? 
