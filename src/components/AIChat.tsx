@@ -18,7 +18,7 @@ interface AIChatProps {
 
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState<string | null>(null);
+  const [isConfigured, setIsConfigured] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const userName = demographicsData.your?.name || '';
@@ -32,19 +32,26 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
 
-  // Load API key from localStorage on mount
+  // Configure Supabase on mount
   useEffect(() => {
-    const savedApiKey = localStorage.getItem('anthropic_api_key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-      AICoachEngine.setAPIKey(savedApiKey);
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    
+    if (supabaseUrl && supabaseAnonKey) {
+      AICoachEngine.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
+      setIsConfigured(true);
     }
   }, []);
 
-  const handleApiKeySet = (newApiKey: string) => {
-    setApiKey(newApiKey);
-    localStorage.setItem('anthropic_api_key', newApiKey);
-    AICoachEngine.setAPIKey(newApiKey);
+  const handleSupabaseConfigured = (configured: boolean) => {
+    setIsConfigured(configured);
+    if (configured) {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      if (supabaseUrl && supabaseAnonKey) {
+        AICoachEngine.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
+      }
+    }
   };
 
   const sendMessage = async (userMessage: string) => {
@@ -95,8 +102,8 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
         </h2>
         <p className="text-gray-600">
           {userName && partnerName ? 
-            `Anthropic AI coaching for ${userName} and ${partnerName}` :
-            'Personalized relationship coaching powered by Anthropic AI'
+            `Secure AI coaching for ${userName} and ${partnerName} via Supabase backend` :
+            'Personalized relationship coaching powered by secure Supabase backend'
           }
         </p>
         
@@ -112,9 +119,9 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
         )}
       </div>
 
-      {/* API Key Input */}
+      {/* API Configuration */}
       <div className="mb-4 relative z-10">
-        <APIKeyInput onApiKeySet={handleApiKeySet} hasApiKey={!!apiKey} />
+        <APIKeyInput onSupabaseConfigured={handleSupabaseConfigured} isConfigured={isConfigured} />
       </div>
 
       {/* Chat Messages */}
@@ -127,7 +134,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                   <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-pink-400 to-coral-500 rounded-full flex items-center justify-center shadow-lg">
                     <Heart className="w-10 h-10 text-white" />
                   </div>
-                  {hasProfiles && apiKey ? (
+                  {hasProfiles && isConfigured ? (
                     <div className="space-y-4">
                       <h3 className="text-xl font-semibold text-gray-900">
                         Hey {userName}! 👋
@@ -145,7 +152,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                         <span className="text-xs text-pink-600">Try asking about a specific situation you're dealing with right now</span>
                       </div>
                     </div>
-                  ) : apiKey && !hasProfiles ? (
+                  ) : isConfigured && !hasProfiles ? (
                     <div className="space-y-4">
                       <h3 className="text-xl font-semibold text-gray-900">
                         Hey! Welcome to your AI relationship coach 🌟
@@ -210,13 +217,13 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       <div className="relative z-10">
         <AIChatInput 
           onSendMessage={sendMessage} 
-          loading={loading || !apiKey} 
+          loading={loading || !isConfigured} 
           userName={userName} 
           partnerName={partnerName} 
         />
-        {!apiKey && (
+        {!isConfigured && (
           <p className="text-xs text-gray-500 mt-2 text-center">
-            Add your Anthropic API key above to send messages
+            Complete the Supabase backend setup above to send messages
           </p>
         )}
       </div>

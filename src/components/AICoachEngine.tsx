@@ -1,13 +1,12 @@
-
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
 export class AICoachEngine {
   private static aiService: AIService | null = null;
 
-  static setAPIKey(apiKey: string) {
-    this.aiService = new AIService({ apiKey });
-    console.log('AI Service configured for Anthropic API only');
+  static setSupabaseConfig(supabaseUrl: string, supabaseAnonKey: string) {
+    this.aiService = new AIService({ supabaseUrl, supabaseAnonKey });
+    console.log('AI Service configured for Supabase backend');
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -136,7 +135,7 @@ export class AICoachEngine {
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
-    console.log('Getting Anthropic AI response...');
+    console.log('Getting AI response via Supabase...');
     console.log('Context being used:', context);
 
     // Debug command
@@ -144,42 +143,19 @@ export class AICoachEngine {
       return this.generateDebugResponse(context);
     }
 
-    // Require API key - no fallbacks
+    // Require Supabase configuration
     if (!this.aiService) {
-      throw new Error(`🔑 **API Key Required**\n\nPlease add your Anthropic API key to use the AI coach.\n\nGet your key at: https://console.anthropic.com/account/keys`);
+      throw new Error(`🔧 **Backend Configuration Required**\n\nThe AI service needs to be configured with your Supabase connection.\n\nPlease ensure your Anthropic API key is set in Supabase Edge Function Secrets.`);
     }
 
-    console.log('Making Anthropic API call...');
+    console.log('Making Supabase Edge Function call...');
     try {
       const response = await this.generateRealAIResponse(userMessage, context, chatHistory);
-      console.log('Anthropic AI response generated successfully');
+      console.log('AI response generated successfully via Supabase');
       return response;
     } catch (error) {
-      console.error('Anthropic API Error:', error);
-      
-      // Provide specific error messages based on the error type
-      if (error.message.includes('Invalid API key')) {
-        throw new Error(`🔑 **Invalid API Key**\n\n${error.message}\n\nPlease check your API key at: https://console.anthropic.com/account/keys`);
-      }
-      
-      if (error.message.includes('Rate limit')) {
-        throw new Error(`⏱️ **Rate Limit Exceeded**\n\n${error.message}\n\nPlease wait a moment before sending another message.`);
-      }
-      
-      if (error.message.includes('CORS proxy access denied') || error.message.includes('corsdemo')) {
-        throw new Error(`🚫 **CORS Proxy Unavailable**\n\nThe public CORS proxy services are currently restricting access. This is a temporary issue with the proxy services, not your API key.\n\n**What you can try:**\n1. Wait a few minutes and try again\n2. Refresh the page and try again\n3. The issue usually resolves itself within an hour\n\n**For a permanent solution:** Consider running this app through a backend server to avoid CORS limitations entirely.`);
-      }
-      
-      if (error.message.includes('All connection methods failed')) {
-        throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis appears to be a temporary issue with multiple proxy services. Please try again in a few minutes.`);
-      }
-      
-      if (error.message.includes('Network error')) {
-        throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. Proxy services being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
-      }
-      
-      // For any other API error, throw it
-      throw new Error(`❌ **API Error**\n\n${error.message}\n\nIf this persists, please check the Anthropic service status.`);
+      console.error('Supabase AI Error:', error);
+      throw error;
     }
   }
 
@@ -198,7 +174,7 @@ export class AICoachEngine {
     }));
 
     console.log('Conversation history prepared, length:', conversationHistory.length);
-    console.log('Making API call to Anthropic...');
+    console.log('Making API call to Supabase...');
 
     const response = await this.aiService!.generateResponse(userMessage, systemPrompt, conversationHistory);
     console.log('API response received, length:', response.length);
@@ -268,7 +244,7 @@ Never give generic relationship advice. Every response must be personalized to $
 - Love language: ${context.partnerTraits.loveLanguage || "Not specified"}
 - Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
 
-**AI Service Status:** ${this.aiService ? "Connected - Anthropic API Only" : "Not connected"}
+**AI Service Status:** ${this.aiService ? "Connected - Supabase Backend" : "Not connected"}
 
 If any of this is wrong or missing, there's a profile access issue.`;
   }
