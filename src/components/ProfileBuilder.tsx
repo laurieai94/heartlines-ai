@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -125,18 +126,17 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
         />
       )}
 
-        {/* Profile Form Modal */}
-        {showProfileForm && (
-          <ProfileForm 
-            profileType={activeProfileType}
-            onClose={() => setShowProfileForm(false)}
-            onComplete={handleProfileComplete}
-            onBackToDemographics={handleBackToDemographics}
-            initialProfiles={profiles}
-            initialDemographics={demographicsData}
-          />
-        )}
-      </div>
+      {/* Profile Form Modal */}
+      {showProfileForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowProfileForm(false)}
+          onComplete={handleProfileComplete}
+          onBackToDemographics={handleBackToDemographics}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
+        />
+      )}
     </div>
   );
 };
