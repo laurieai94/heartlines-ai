@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
@@ -68,7 +67,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       const errorMessage: ChatMessage = {
         id: Date.now() + 1,
         type: 'ai',
-        content: "I'm having trouble responding right now. Could you try again in a moment?",
+        content: error.message || "An unexpected error occurred. Please try again.",
         timestamp: new Date().toLocaleString()
       };
       setChatHistory(prev => [...prev, errorMessage]);

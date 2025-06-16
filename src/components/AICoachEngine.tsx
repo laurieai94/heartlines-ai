@@ -63,7 +63,7 @@ export class AICoachEngine {
       return this.generateDebugResponse(context);
     }
 
-    // Check if we have AI service available
+    // If API key is available, ALWAYS use the API - no fallbacks
     if (this.aiService) {
       console.log('AI service is available, attempting real AI response...');
       try {
@@ -75,23 +75,16 @@ export class AICoachEngine {
         
         // Check if it's a CORS error
         if (error.message.includes('CORS_ERROR')) {
-          return this.generateCORSErrorResponse();
+          throw new Error(`🔒 **Browser Security Issue**\n\nYour browser is blocking direct API calls to Anthropic due to CORS policies. This is a common browser security limitation.\n\n**Solutions:**\n1. Use a CORS proxy service\n2. Run this app through a backend server\n3. Use a browser extension that disables CORS (not recommended for security)\n\nThe API key is valid, but your browser environment doesn't allow direct API calls.`);
         }
         
-        return this.generateFallbackResponse();
+        // For any other API error, throw it instead of falling back
+        throw new Error(`❌ **API Error**\n\n${error.message}\n\nPlease check your API key and try again. If the problem persists, there may be an issue with the Anthropic service.`);
       }
     }
 
-    console.log('No AI service available, using fallback logic...');
-    
-    // Fallback to local responses
-    if (!this.hasBasicProfileData(context)) {
-      console.log('Missing basic profile data, generating profile request');
-      return this.generateProfileMissingResponse(context);
-    }
-
-    console.log('Using personalized local response');
-    return this.generatePersonalizedResponse(userMessage, context, chatHistory);
+    // If no API key is set, require it
+    throw new Error(`🔑 **API Key Required**\n\nNo API key has been configured. Please add your Anthropic API key to use the AI coach.\n\nGet your key at: https://console.anthropic.com/account/keys`);
   }
 
   private static async generateRealAIResponse(
@@ -159,52 +152,6 @@ RESPONSE REQUIREMENTS:
 Never give generic relationship advice. Every response must be personalized to ${userName} and ${partnerName}'s specific situation.`;
   }
 
-  private static generateFallbackResponse(): string {
-    return "I'm having trouble connecting to the AI service right now, but I'm still here to help. Could you rephrase your question or try again in a moment?";
-  }
-
-  private static generateCORSErrorResponse(): string {
-    return `**Browser Security Limitation Detected** 🔒
-
-Unfortunately, your browser is blocking the direct connection to Anthropic's API due to CORS (Cross-Origin Resource Sharing) security policies. This is a common limitation when calling AI APIs directly from web browsers.
-
-**Here are your options:**
-
-1. **Use the Smart Local Coach** (Available now)
-   - I can still provide personalized advice using your profile data
-   - Responses are tailored to your specific relationship dynamic
-   - Just continue chatting - I'll use your communication styles, attachment patterns, etc.
-
-2. **For Full AI Power, you'll need:**
-   - A backend server or proxy to handle API calls
-   - Or use this app through a CORS-enabled environment
-
-**Don't worry though** - the local coach is pretty smart and knows all about your relationship patterns! Want to try asking your question again? I'll give you personalized advice based on your profiles.`;
-  }
-
-  private static hasBasicProfileData(context: PersonContext): boolean {
-    const hasUserName = !!context.yourTraits.name;
-    const hasPartnerName = !!context.partnerTraits.name;
-    
-    console.log('Profile check - User name:', hasUserName, 'Partner name:', hasPartnerName);
-    
-    return hasUserName && hasPartnerName;
-  }
-
-  private static generateProfileMissingResponse(context: PersonContext): string {
-    const userName = context.yourTraits.name || "you";
-    const partnerName = context.partnerTraits.name || "your partner";
-
-    return `I want to give you the most helpful advice possible, but I need to understand your specific situation better. Can you tell me:
-
-- What's ${partnerName}'s communication style when stressed?
-- How do you typically handle conflict?
-- What are your main triggers in the relationship?
-- What's your partner's background that affects how they show love?
-
-Once I know more about ${userName} and ${partnerName}'s specific dynamic, I can give you advice that actually fits your relationship instead of generic tips.`;
-  }
-
   private static generateDebugResponse(context: PersonContext): string {
     const userName = context.yourTraits.name || "Unknown";
     const partnerName = context.partnerTraits.name || "Unknown";
@@ -225,7 +172,7 @@ Once I know more about ${userName} and ${partnerName}'s specific dynamic, I can 
 - Love language: ${context.partnerTraits.loveLanguage || "Not specified"}
 - Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
 
-**AI Service Status:** ${this.aiService ? "Connected" : "Not connected"}
+**AI Service Status:** ${this.aiService ? "Connected - API ONLY MODE" : "Not connected"}
 
 If any of this is wrong or missing, there's a profile access issue.`;
   }
