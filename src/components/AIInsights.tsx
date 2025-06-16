@@ -4,11 +4,10 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Send, Shield, MessageCircle, Heart, Lightbulb, CheckCircle } from "lucide-react";
+import { Send, MessageCircle, Heart, Lightbulb } from "lucide-react";
 import { toast } from "sonner";
 
 const AIInsights = () => {
-  const [apiKey, setApiKey] = useState("");
   const [currentMessage, setCurrentMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,12 +24,43 @@ const AIInsights = () => {
     "Managing stress together"
   ];
 
-  const sendMessage = async () => {
-    if (!apiKey) {
-      toast.error("Please set your API key first");
-      return;
+  // Native response system
+  const getAIResponse = (userMessage) => {
+    const message = userMessage.toLowerCase();
+    
+    if (message.includes("support") || message.includes("help")) {
+      return "Supporting your partner starts with active listening and showing genuine interest in their feelings. Try asking open-ended questions like 'How can I better support you?' and really listen to their response without trying to fix everything immediately.";
     }
+    
+    if (message.includes("argument") || message.includes("fight") || message.includes("conflict")) {
+      return "Recurring arguments often happen when underlying needs aren't being met. Try the 'pause and reflect' approach: when you feel tension rising, take a moment to ask yourself what you really need in this situation, then express that need calmly rather than focusing on what your partner is doing wrong.";
+    }
+    
+    if (message.includes("anxious") || message.includes("worried") || message.includes("stress")) {
+      return "Relationship anxiety is very common and shows you care deeply. Try sharing your feelings with your partner using 'I' statements like 'I feel anxious when...' rather than 'You make me feel...' This opens up conversation rather than creating defensiveness.";
+    }
+    
+    if (message.includes("communication") || message.includes("talk") || message.includes("communicate")) {
+      return "Great communication happens when both people feel heard and understood. Try the 'reflect back' technique: after your partner shares something, repeat back what you heard in your own words before responding. This shows you're really listening and helps prevent misunderstandings.";
+    }
+    
+    if (message.includes("love") || message.includes("appreciate")) {
+      return "Expressing appreciation is one of the most powerful relationship tools. Try being specific about what you appreciate - instead of 'thanks for helping,' try 'I really appreciated how you took care of the dishes without me asking. It made me feel supported and cared for.'";
+    }
+    
+    if (message.includes("time") || message.includes("quality time")) {
+      return "Quality time is about being fully present with each other. Try putting away phones and distractions for even 15 minutes a day to really connect. Ask about each other's day, share something you're grateful for, or just enjoy being together without any agenda.";
+    }
+    
+    if (message.includes("boundaries") || message.includes("space")) {
+      return "Healthy boundaries actually strengthen relationships by helping each person maintain their individual identity. It's okay to need alone time or to say no to things that don't feel right. Communicate your boundaries kindly but clearly, and respect your partner's boundaries too.";
+    }
+    
+    // Default response
+    return "That sounds like something important to you. Relationships thrive on understanding, patience, and open communication. What feels most challenging about this situation right now? Remember, every relationship has ups and downs - what matters is how you navigate them together.";
+  };
 
+  const sendMessage = async () => {
     if (!currentMessage.trim()) return;
 
     const userMessage = currentMessage.trim();
@@ -47,51 +77,19 @@ const AIInsights = () => {
     setChatHistory(prev => [...prev, newUserMessage]);
     setLoading(true);
 
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `As a warm, empathetic relationship coach, respond to: ${userMessage}
-
-Provide guidance that is:
-- Supportive and understanding
-- Practical and actionable
-- Personalized to their situation
-- Encouraging yet realistic
-
-Keep your response conversational and caring, like a trusted friend who's also a professional counselor.`
-          }]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to get response');
-      }
-
-      const data = await response.json();
+    // Simulate thinking time
+    setTimeout(() => {
+      const aiResponse = getAIResponse(userMessage);
       const aiMessage = {
         id: Date.now() + 1,
         type: 'ai',
-        content: data.content[0].text,
+        content: aiResponse,
         timestamp: new Date().toLocaleString()
       };
 
       setChatHistory(prev => [...prev, aiMessage]);
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error("Sorry, I couldn't respond right now. Please try again.");
-    } finally {
       setLoading(false);
-    }
+    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
   };
 
   const handleQuickStarter = (starter) => {
@@ -115,43 +113,11 @@ Keep your response conversational and caring, like a trusted friend who's also a
           <p className="text-gray-600">Here to listen, understand, and guide</p>
         </div>
 
-        {/* API Key Setup */}
-        {!apiKey && (
-          <Card className="p-4 mb-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200">
-            <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-5 h-5 text-coral-600" />
-              <h3 className="font-medium text-gray-900">Set up your private coach</h3>
-            </div>
-            <div className="flex gap-2">
-              <Input
-                type="password"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder="Enter your Anthropic API key"
-                className="flex-1"
-              />
-              <Button 
-                onClick={() => apiKey && toast.success("Coach ready!")}
-                disabled={!apiKey}
-                className="bg-coral-500 hover:bg-coral-600"
-              >
-                Connect
-              </Button>
-            </div>
-            <p className="text-xs text-gray-500 mt-2">
-              Get your key from{" "}
-              <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-coral-600 hover:underline">
-                Anthropic Console
-              </a>
-            </p>
-          </Card>
-        )}
-
         {/* Chat Messages */}
         <Card className="flex-1 p-4 mb-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg overflow-hidden">
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto space-y-4 mb-4">
-              {chatHistory.length === 0 && apiKey && (
+              {chatHistory.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
                   <Heart className="w-12 h-12 mx-auto mb-3 text-coral-400" />
                   <p>Your relationship coach is here and ready to listen.</p>
@@ -197,7 +163,7 @@ Keep your response conversational and caring, like a trusted friend who's also a
         </Card>
 
         {/* Quick Starters */}
-        {chatHistory.length === 0 && apiKey && (
+        {chatHistory.length === 0 && (
           <div className="mb-4">
             <div className="flex gap-2 flex-wrap">
               {quickStarters.map((starter, index) => (
@@ -222,12 +188,12 @@ Keep your response conversational and caring, like a trusted friend who's also a
             onChange={(e) => setCurrentMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="What's on your mind about your relationship?"
-            disabled={!apiKey || loading}
+            disabled={loading}
             className="flex-1"
           />
           <Button
             onClick={sendMessage}
-            disabled={!apiKey || !currentMessage.trim() || loading}
+            disabled={!currentMessage.trim() || loading}
             className="bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-600 hover:to-coral-700"
           >
             <Send className="w-4 h-4" />
@@ -240,18 +206,16 @@ Keep your response conversational and caring, like a trusted friend who's also a
         {/* Status Check */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
           <div className="flex items-center gap-3 mb-2">
-            <div className={`w-3 h-3 rounded-full ${apiKey ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
             <h3 className="font-medium text-gray-900">Your AI Coach Status</h3>
           </div>
-          <p className="text-sm text-gray-600">
-            {apiKey ? "Ready to chat" : "Complete setup to get started"}
-          </p>
+          <p className="text-sm text-gray-600">Ready to chat</p>
         </Card>
 
         {/* Trust Signal */}
         <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
           <div className="flex items-center gap-2 mb-2">
-            <Shield className="w-4 h-4 text-coral-600" />
+            <Heart className="w-4 h-4 text-coral-600" />
             <h3 className="font-medium text-gray-900">Private & Secure</h3>
           </div>
           <p className="text-sm text-gray-600">
