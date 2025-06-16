@@ -143,7 +143,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                         Hey {userName}! 👋
                       </h3>
                       <p className="text-gray-700 leading-relaxed text-lg">
-                        I'm Kai, your relationship coach. I know you and {partnerName}'s dynamic, so let's dive into what's on your mind.
+                        What brings you here today?
                       </p>
                       <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
                         <p className="text-gray-600 leading-relaxed">
@@ -154,10 +154,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   ) : (
                     <div className="space-y-6">
                       <h3 className="text-2xl font-bold text-gray-900">
-                        Welcome! I'm Kai, your relationship coach 🌟
+                        Welcome! I'm Kai, your relationship coach 💝
                       </h3>
                       <p className="text-gray-700 leading-relaxed text-lg">
-                        I'm a PhD-level clinical psychologist with 15+ years of experience, powered by advanced AI and ready to help.
+                        What brings you here today?
                       </p>
                       <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
                         <p className="text-gray-600 leading-relaxed">

@@ -54,7 +54,7 @@ const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) 
           <h3 className="font-medium text-gray-900">Meet Kai</h3>
         </div>
         <p className="text-sm text-gray-600">
-          PhD-level clinical psychologist with 15+ years experience. Real advice that actually works for modern relationships.
+          Built on the expertise of PhD-level clinical psychology—trained on 15+ years of insights to deliver real, effective advice for modern relationships.
         </p>
       </Card>
 
