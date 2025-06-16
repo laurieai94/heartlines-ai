@@ -38,9 +38,9 @@ const ProfileBuilder = () => {
     <div className="space-y-8">
       {/* Simplified Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900">Build Your Relationship Profiles</h1>
+        <h1 className="text-4xl font-bold text-gray-900">Let's Get to Know the Real You</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Get personalized relationship insights in just 3-4 minutes
+          Build your relationship profiles in just 5 minutes
         </p>
         
         {/* Quick Progress Overview */}
