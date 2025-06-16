@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface ProfileFormPage3Props {
   profileType: 'your' | 'partner';
@@ -14,16 +15,28 @@ interface ProfileFormPage3Props {
 
 const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage3Props) => {
   const [formData, setFormData] = useState({
+    // Core attachment questions
     comfortableClosenessIndependence: initialData.comfortableClosenessIndependence || '',
     worryRelationshipSecurity: initialData.worryRelationshipSecurity || '',
     wantClosenessButFearHurt: initialData.wantClosenessButFearHurt || '',
+    
+    // Core relationship questions  
+    relationshipLength: initialData.relationshipLength || '',
+    relationshipType: initialData.relationshipType || '',
+    
+    // Optional deeper questions
     improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
     workingOnPersonalDevelopment: initialData.workingOnPersonalDevelopment || '',
     learnedHealthyFromFamily: initialData.learnedHealthyFromFamily || '',
     socialSituationsAnxious: initialData.socialSituationsAnxious || '',
-    relationshipLength: initialData.relationshipLength || '',
-    relationshipType: initialData.relationshipType || '',
+    
     ...initialData
+  });
+
+  const [expandedSections, setExpandedSections] = useState({
+    attachment: false,
+    growth: false,
+    background: false
   });
 
   const isPersonal = profileType === 'your';
@@ -39,10 +52,15 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const isFormValid = formData.comfortableClosenessIndependence && formData.worryRelationshipSecurity && 
-                     formData.wantClosenessButFearHurt && formData.improvingCommunicationFocus && 
-                     formData.workingOnPersonalDevelopment && formData.learnedHealthyFromFamily && 
-                     formData.socialSituationsAnxious && formData.relationshipLength && 
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  // Core required fields for form validation
+  const isFormValid = formData.comfortableClosenessIndependence && 
+                     formData.worryRelationshipSecurity && 
+                     formData.wantClosenessButFearHurt && 
+                     formData.relationshipLength && 
                      formData.relationshipType;
 
   return (
@@ -52,7 +70,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
           Attachment Style & Growth Areas
         </h3>
         
-        {/* Attachment Style Questions */}
+        {/* Core Attachment Style Questions */}
         <div className="space-y-6">
           <h4 className="text-lg font-medium text-gray-800 mb-4">Attachment Patterns</h4>
           
@@ -148,140 +166,82 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
               </div>
             </RadioGroup>
           </div>
+
+          {/* Optional Deeper Attachment Questions */}
+          <Collapsible open={expandedSections.attachment} onOpenChange={() => toggleSection('attachment')}>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" className="w-full justify-between p-0 h-auto font-normal text-gray-600 hover:text-gray-800">
+                <span className="text-sm">Want to dive deeper into attachment patterns? (Optional)</span>
+                {expandedSections.attachment ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="space-y-6 mt-4 pt-4 border-t border-gray-200">
+              <div>
+                <Label className="text-base font-medium text-gray-700 mb-3 block">
+                  {isPersonal ? 'You' : 'They'} learned healthy relationship patterns from {possessive} family
+                </Label>
+                <RadioGroup 
+                  value={formData.learnedHealthyFromFamily} 
+                  onValueChange={(value) => updateField('learnedHealthyFromFamily', value)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Agree" id="family-sa" />
+                    <Label htmlFor="family-sa">Strongly Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Agree" id="family-a" />
+                    <Label htmlFor="family-a">Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Neutral" id="family-n" />
+                    <Label htmlFor="family-n">Neutral</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Disagree" id="family-d" />
+                    <Label htmlFor="family-d">Disagree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Disagree" id="family-sd" />
+                    <Label htmlFor="family-sd">Strongly Disagree</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div>
+                <Label className="text-base font-medium text-gray-700 mb-3 block">
+                  Social situations make {pronoun} feel anxious
+                </Label>
+                <RadioGroup 
+                  value={formData.socialSituationsAnxious} 
+                  onValueChange={(value) => updateField('socialSituationsAnxious', value)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Agree" id="social-sa" />
+                    <Label htmlFor="social-sa">Strongly Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Agree" id="social-a" />
+                    <Label htmlFor="social-a">Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Neutral" id="social-n" />
+                    <Label htmlFor="social-n">Neutral</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Disagree" id="social-d" />
+                    <Label htmlFor="social-d">Disagree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Disagree" id="social-sd" />
+                    <Label htmlFor="social-sd">Strongly Disagree</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
 
-        {/* Growth Areas */}
-        <div className="mt-8">
-          <h4 className="text-lg font-medium text-gray-800 mb-4">Strengths & Growth</h4>
-          
-          <div className="space-y-6">
-            <div>
-              <Label className="text-base font-medium text-gray-700 mb-3 block">
-                {isPersonal ? 'You are' : 'They are'} actively focused on improving communication skills
-              </Label>
-              <RadioGroup 
-                value={formData.improvingCommunicationFocus} 
-                onValueChange={(value) => updateField('improvingCommunicationFocus', value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Agree" id="communication-sa" />
-                  <Label htmlFor="communication-sa">Strongly Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Agree" id="communication-a" />
-                  <Label htmlFor="communication-a">Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Neutral" id="communication-n" />
-                  <Label htmlFor="communication-n">Neutral</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Disagree" id="communication-d" />
-                  <Label htmlFor="communication-d">Disagree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Disagree" id="communication-sd" />
-                  <Label htmlFor="communication-sd">Strongly Disagree</Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="text-base font-medium text-gray-700 mb-3 block">
-                {isPersonal ? 'You are' : 'They are'} committed to personal development and growth
-              </Label>
-              <RadioGroup 
-                value={formData.workingOnPersonalDevelopment} 
-                onValueChange={(value) => updateField('workingOnPersonalDevelopment', value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Agree" id="development-sa" />
-                  <Label htmlFor="development-sa">Strongly Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Agree" id="development-a" />
-                  <Label htmlFor="development-a">Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Neutral" id="development-n" />
-                  <Label htmlFor="development-n">Neutral</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Disagree" id="development-d" />
-                  <Label htmlFor="development-d">Disagree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Disagree" id="development-sd" />
-                  <Label htmlFor="development-sd">Strongly Disagree</Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="text-base font-medium text-gray-700 mb-3 block">
-                {isPersonal ? 'You' : 'They'} learned healthy relationship patterns from {possessive} family
-              </Label>
-              <RadioGroup 
-                value={formData.learnedHealthyFromFamily} 
-                onValueChange={(value) => updateField('learnedHealthyFromFamily', value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Agree" id="family-sa" />
-                  <Label htmlFor="family-sa">Strongly Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Agree" id="family-a" />
-                  <Label htmlFor="family-a">Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Neutral" id="family-n" />
-                  <Label htmlFor="family-n">Neutral</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Disagree" id="family-d" />
-                  <Label htmlFor="family-d">Disagree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Disagree" id="family-sd" />
-                  <Label htmlFor="family-sd">Strongly Disagree</Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="text-base font-medium text-gray-700 mb-3 block">
-                Social situations make {pronoun} feel anxious
-              </Label>
-              <RadioGroup 
-                value={formData.socialSituationsAnxious} 
-                onValueChange={(value) => updateField('socialSituationsAnxious', value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Agree" id="social-sa" />
-                  <Label htmlFor="social-sa">Strongly Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Agree" id="social-a" />
-                  <Label htmlFor="social-a">Agree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Neutral" id="social-n" />
-                  <Label htmlFor="social-n">Neutral</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Disagree" id="social-d" />
-                  <Label htmlFor="social-d">Disagree</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Strongly Disagree" id="social-sd" />
-                  <Label htmlFor="social-sd">Strongly Disagree</Label>
-                </div>
-              </RadioGroup>
-            </div>
-          </div>
-        </div>
-
-        {/* Relationship Context */}
+        {/* Core Relationship Context */}
         <div className="mt-8">
           <h4 className="text-lg font-medium text-gray-800 mb-4">Relationship Context</h4>
           
@@ -348,6 +308,83 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
               </RadioGroup>
             </div>
           </div>
+        </div>
+
+        {/* Optional Growth Areas */}
+        <div className="mt-8">
+          <Collapsible open={expandedSections.growth} onOpenChange={() => toggleSection('growth')}>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" className="w-full justify-between p-0 h-auto font-normal text-gray-600 hover:text-gray-800">
+                <span className="text-sm">Tell us about growth and development focus? (Optional)</span>
+                {expandedSections.growth ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="space-y-6 mt-4 pt-4 border-t border-gray-200">
+              <h4 className="text-lg font-medium text-gray-800">Strengths & Growth</h4>
+              
+              <div>
+                <Label className="text-base font-medium text-gray-700 mb-3 block">
+                  {isPersonal ? 'You are' : 'They are'} actively focused on improving communication skills
+                </Label>
+                <RadioGroup 
+                  value={formData.improvingCommunicationFocus} 
+                  onValueChange={(value) => updateField('improvingCommunicationFocus', value)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Agree" id="communication-sa" />
+                    <Label htmlFor="communication-sa">Strongly Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Agree" id="communication-a" />
+                    <Label htmlFor="communication-a">Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Neutral" id="communication-n" />
+                    <Label htmlFor="communication-n">Neutral</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Disagree" id="communication-d" />
+                    <Label htmlFor="communication-d">Disagree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Disagree" id="communication-sd" />
+                    <Label htmlFor="communication-sd">Strongly Disagree</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div>
+                <Label className="text-base font-medium text-gray-700 mb-3 block">
+                  {isPersonal ? 'You are' : 'They are'} committed to personal development and growth
+                </Label>
+                <RadioGroup 
+                  value={formData.workingOnPersonalDevelopment} 
+                  onValueChange={(value) => updateField('workingOnPersonalDevelopment', value)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Agree" id="development-sa" />
+                    <Label htmlFor="development-sa">Strongly Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Agree" id="development-a" />
+                    <Label htmlFor="development-a">Agree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Neutral" id="development-n" />
+                    <Label htmlFor="development-n">Neutral</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Disagree" id="development-d" />
+                    <Label htmlFor="development-d">Disagree</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Strongly Disagree" id="development-sd" />
+                    <Label htmlFor="development-sd">Strongly Disagree</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </div>
 
