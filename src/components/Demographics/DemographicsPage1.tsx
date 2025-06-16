@@ -44,8 +44,25 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     if (isPersonal) {
       const required = ['name', 'pronouns', 'age', 'education', 'workSituation'];
       const missing = required.filter(field => !formData[field]);
+      
+      // Check for required multi-select fields
+      if (!formData.sexualOrientation || formData.sexualOrientation.length === 0) {
+        missing.push('sexualOrientation');
+      }
+      if (!formData.genderIdentity || formData.genderIdentity.length === 0) {
+        missing.push('genderIdentity');
+      }
+      
       if (missing.length > 0) {
-        toast.error(`Please fill in all required fields: ${missing.join(', ')}`);
+        const fieldNames = missing.map(field => {
+          switch (field) {
+            case 'sexualOrientation': return 'Sexual Orientation';
+            case 'genderIdentity': return 'Gender Identity';
+            case 'workSituation': return 'Work Situation';
+            default: return field;
+          }
+        });
+        toast.error(`Please fill in all required fields: ${fieldNames.join(', ')}`);
         return false;
       }
     } else {
@@ -63,10 +80,22 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     onComplete(formData);
   };
 
-  // Calculate progress for engagement
+  // Calculate progress for engagement - updated to include new required fields
   const requiredFields = isPersonal ? ['name', 'pronouns', 'age', 'education', 'workSituation'] : ['name'];
   const completedFields = requiredFields.filter(field => formData[field]);
-  const progressPercentage = (completedFields.length / requiredFields.length) * 100;
+  
+  // Add progress for multi-select required fields for personal profiles
+  if (isPersonal) {
+    if (formData.sexualOrientation && formData.sexualOrientation.length > 0) {
+      completedFields.push('sexualOrientation');
+    }
+    if (formData.genderIdentity && formData.genderIdentity.length > 0) {
+      completedFields.push('genderIdentity');
+    }
+  }
+  
+  const totalRequiredFields = isPersonal ? requiredFields.length + 2 : requiredFields.length; // +2 for the multi-select fields
+  const progressPercentage = (completedFields.length / totalRequiredFields) * 100;
 
   return (
     <div className="space-y-6">
@@ -163,7 +192,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       {/* Enhanced Continue Button */}
       <div className="flex justify-between items-center pt-4">
         <div className="text-sm text-gray-500">
-          {completedFields.length} of {requiredFields.length} required fields completed
+          {completedFields.length} of {totalRequiredFields} required fields completed
         </div>
         <Button
           onClick={handleContinue}

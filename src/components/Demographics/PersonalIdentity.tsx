@@ -127,10 +127,10 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Sexual Orientation - Optional */}
+      {/* Sexual Orientation - Now Required */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Sexual Orientation <span className="text-gray-500 text-sm">(Optional)</span>
+          Sexual Orientation {isPersonal && <span className="text-red-500">*</span>}
         </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -149,10 +149,10 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Gender Identity - Optional */}
+      {/* Gender Identity - Now Required */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Gender Identity <span className="text-gray-500 text-sm">(Optional)</span>
+          Gender Identity {isPersonal && <span className="text-red-500">*</span>}
         </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
