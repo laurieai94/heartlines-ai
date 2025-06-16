@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,9 +26,14 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
   const [isCustom, setIsCustom] = useState<boolean>(false);
   const [selectedPartnerProfile, setSelectedPartnerProfile] = useState<string>("");
 
-  // Get user and partner names from demographics
+  // Get user and partner names from demographics with better fallbacks
   const userName = demographicsData.your?.name || 'You';
-  const partnerName = demographicsData.partner?.name || 'your partner';
+  const partnerName = demographicsData.partner?.name && demographicsData.partner.name.length > 1 
+    ? demographicsData.partner.name 
+    : 'your partner';
+
+  console.log('Demographics data:', demographicsData);
+  console.log('Partner name extracted:', partnerName);
 
   const scenarios = [
     {
@@ -91,6 +95,7 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
     // This will be implemented to start the AI practice session
     console.log('Starting practice session with scenario:', selectedScenario || customScenario);
     console.log('Using partner profile:', selectedPartnerProfile);
+    console.log('Partner name being used:', partnerName);
   };
 
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0;
