@@ -6,6 +6,7 @@ import AIChat from "./AIChat";
 import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
+import { useChatHistory } from "@/hooks/useChatHistory";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -14,6 +15,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
+  
+  const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -21,6 +24,15 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     const configured = AICoachEngine.initializeSupabase();
     setIsConfigured(configured);
   }, []);
+
+  // Load the most recent conversation on mount
+  useEffect(() => {
+    if (conversations.length > 0 && !currentConversationId) {
+      const latestConversation = conversations[0];
+      const messages = loadConversation(latestConversation.id);
+      setChatHistory(messages);
+    }
+  }, [conversations, currentConversationId, loadConversation]);
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
@@ -56,6 +68,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setShowDemographics(true);
   };
 
+  const handleLoadConversation = (conversationId: string) => {
+    const messages = loadConversation(conversationId);
+    setChatHistory(messages);
+  };
+
+  const handleNewConversation = () => {
+    const messages = startNewConversation();
+    setChatHistory(messages);
+  };
+
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
       <AIChat 
@@ -74,6 +96,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         onSupabaseConfigured={handleSupabaseConfigured}
         onOpenProfileForm={handleOpenProfileForm}
         onStartConversation={handleStartConversation}
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        onLoadConversation={handleLoadConversation}
+        onNewConversation={handleNewConversation}
       />
       
       {/* Demographics Modal */}

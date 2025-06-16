@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,6 +11,7 @@ import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
+import { useChatHistory } from "@/hooks/useChatHistory";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -25,6 +27,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
+  const { saveConversation } = useChatHistory();
   const processedStarters = useRef(new Set<string>());
 
   const userName = demographicsData.your?.name || profile?.name || '';
@@ -44,6 +47,17 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       sendMessage(conversationStarter);
     }
   }, [conversationStarter, isConfigured]);
+
+  // Save conversation whenever chat history changes (with debouncing)
+  useEffect(() => {
+    if (chatHistory.length > 0) {
+      const timeoutId = setTimeout(() => {
+        saveConversation(chatHistory);
+      }, 1000); // Save after 1 second of inactivity
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [chatHistory, saveConversation]);
 
   const sendMessage = async (userMessage: string) => {
     const newUserMessage: ChatMessage = {
