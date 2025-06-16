@@ -14,12 +14,12 @@ interface ProfileFormPage1Props {
 
 const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormPage1Props) => {
   const [formData, setFormData] = useState({
-    // Communication preferences
+    // Communication preferences (required)
     importantTalkPreference: initialData.importantTalkPreference || '',
     communicationDirectness: initialData.communicationDirectness || '',
     emotionExpression: initialData.emotionExpression || '',
     
-    // Love languages
+    // Love languages (required)
     loveLanguages: initialData.loveLanguages || [],
     
     // Deep dive love language questions (optional)
@@ -40,13 +40,14 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields
+    // Only validate required fields - deep dive questions are optional
     if (!validateRequired()) return;
     
     onComplete(formData);
   };
 
   const validateRequired = () => {
+    // Only check core required fields, not deep dive questions
     const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
     const missing = required.filter(field => !formData[field]);
     
@@ -82,7 +83,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
             Communication & Love Languages
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional.
+            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional and help provide more personalized insights.
           </p>
         </div>
         

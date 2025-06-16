@@ -43,7 +43,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </Label>
         <Input
           id="name"
-          value={formData.name}
+          value={formData.name || ''}
           onChange={(e) => updateFormData('name', e.target.value)}
           placeholder="Enter name or preferred name"
           className="mt-1"
@@ -100,16 +100,18 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Sexual Orientation */}
+      {/* Sexual Orientation - Optional */}
       <div>
-        <Label className="text-base font-medium mb-3 block">Sexual Orientation</Label>
+        <Label className="text-base font-medium mb-3 block">
+          Sexual Orientation <span className="text-gray-500 text-sm">(Optional)</span>
+        </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {orientationOptions.map((orientation) => (
             <div key={orientation} className="flex items-center space-x-2">
               <Checkbox
                 id={`orientation-${orientation}`}
-                checked={formData.sexualOrientation?.includes(orientation)}
+                checked={formData.sexualOrientation?.includes(orientation) || false}
                 onCheckedChange={() => handleMultiSelect('sexualOrientation', orientation)}
               />
               <Label htmlFor={`orientation-${orientation}`} className="text-sm">
@@ -120,16 +122,18 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Gender Identity */}
+      {/* Gender Identity - Optional */}
       <div>
-        <Label className="text-base font-medium mb-3 block">Gender Identity</Label>
+        <Label className="text-base font-medium mb-3 block">
+          Gender Identity <span className="text-gray-500 text-sm">(Optional)</span>
+        </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {genderOptions.map((gender) => (
             <div key={gender} className="flex items-center space-x-2">
               <Checkbox
                 id={`gender-${gender}`}
-                checked={formData.genderIdentity?.includes(gender)}
+                checked={formData.genderIdentity?.includes(gender) || false}
                 onCheckedChange={() => handleMultiSelect('genderIdentity', gender)}
               />
               <Label htmlFor={`gender-${gender}`} className="text-sm">

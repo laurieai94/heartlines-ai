@@ -17,7 +17,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         <div className="relative">
           <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-500 border-4 border-white shadow-lg">
             <AvatarImage 
-              src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+              src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
               alt="Kai" 
               className="object-cover"
             />
@@ -34,10 +34,10 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         {/* Coach Info */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-gray-900 mb-1">
-            {userName ? `${userName}'s Relationship Coach` : 'Your Relationship Coach'}
+            Kai - Your Relationship Coach
           </h2>
           <p className="text-gray-600 font-medium mb-2">
-            Always here to help • Powered by Kai, your AI coach
+            PhD Clinical Psychologist • Always here to help
           </p>
           
           {/* Profile Status */}

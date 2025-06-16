@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -145,17 +146,23 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
             <div className="space-y-2 pr-4">
               {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                 <div className="text-center py-8 max-w-xl mx-auto animate-fade-in">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                    <Heart className="w-8 h-8 text-white" />
+                  <div className="w-20 h-20 mx-auto mb-6 relative">
+                    <Avatar className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 border-4 border-white shadow-xl">
+                      <AvatarImage 
+                        src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+                        alt="Kai" 
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="text-white border-0">
+                        <Heart className="w-10 h-10" />
+                      </AvatarFallback>
+                    </Avatar>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    I'm Kai, your Relationship Coach!
-                    <br />
-                    <br />
-                    Let's work together to understand what's going on and find a way forward.
+                    Hi! I'm Kai, your relationship coach 👋
                   </h3>
                   <p className="text-gray-600 text-lg mb-6">
-                    What brings you here today?
+                    I'm here to help you navigate your relationship with understanding and care. What's on your mind today?
                   </p>
                 </div>
               )}
@@ -175,7 +182,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   <div className="flex gap-3 mb-6">
                     <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
                       <AvatarImage 
-                        src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+                        src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                         alt="Kai" 
                         className="object-cover"
                       />
