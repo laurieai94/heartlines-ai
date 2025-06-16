@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -54,6 +53,16 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
     }
   };
 
+  const handleSkip = () => {
+    // Handle skip functionality - for now just go to next page or complete
+    if (currentPage === 2) {
+      handlePage2Complete({});
+    } else {
+      setCurrentPage(currentPage + 1);
+      setHasVisited(prev => ({ ...prev, page2: true }));
+    }
+  };
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 1:
@@ -70,6 +79,7 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
             profileType={profileType}
             onComplete={handlePage2Complete}
             onBack={handlePrevPage}
+            onSkip={handleSkip}
             initialData={page2Data}
           />
         );

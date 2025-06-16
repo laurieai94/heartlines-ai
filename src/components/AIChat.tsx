@@ -172,7 +172,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   
                   {/* Conversation Starters */}
                   <div className="space-y-2">
-                    <p className="text-sm text-gray-500 mb-3">Or start with one of these:</p>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {conversationStarters.map((starter, index) => (
                         <Button
