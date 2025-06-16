@@ -165,10 +165,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                     <p className="text-gray-600 text-lg leading-relaxed">
                       Here to help you reconnect, reflect, and reset — one convo at a time.
                     </p>
-                    
-                    <p className="text-gray-700 text-lg font-medium">
-                      Let's dive in!
-                    </p>
                   </div>
                 </div>
               )}
