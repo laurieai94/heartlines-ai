@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb } from "lucide-react";
 import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
+import Demographics from "@/components/Demographics";
 
 interface ProfileStats {
   completion: number;
@@ -18,9 +18,14 @@ const ProfileBuilder = () => {
     your: [],
     partner: []
   });
+  const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
+  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
+    your: null,
+    partner: null
+  });
 
   const yourProfileStats: ProfileStats = {
     completion: profiles.your.length > 0 ? 75 : 0,
@@ -32,6 +37,29 @@ const ProfileBuilder = () => {
     completion: profiles.partner.length > 0 ? 50 : 0,
     sectionsComplete: profiles.partner.length > 0 ? 2 : 0,
     totalSections: 5
+  };
+
+  const handleStartProfile = (profileType: 'your' | 'partner') => {
+    setActiveProfileType(profileType);
+    // Start with demographics if not completed yet
+    if (!demographicsData[profileType]) {
+      setShowDemographics(true);
+    } else {
+      setShowForm(true);
+    }
+  };
+
+  const handleDemographicsComplete = (demographics: any) => {
+    setDemographicsData(prev => ({
+      ...prev,
+      [activeProfileType]: demographics
+    }));
+    setShowDemographics(false);
+    setShowForm(true);
+  };
+
+  const handleDemographicsClose = () => {
+    setShowDemographics(false);
   };
 
   return (
@@ -93,10 +121,7 @@ const ProfileBuilder = () => {
 
             <div className="space-y-3">
               <Button 
-                onClick={() => {
-                  setActiveProfileType('your');
-                  setShowForm(true);
-                }}
+                onClick={() => handleStartProfile('your')}
                 className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-lg py-3"
               >
                 {yourProfileStats.completion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
@@ -144,10 +169,7 @@ const ProfileBuilder = () => {
             <div className="space-y-3">
               <Button 
                 variant="outline"
-                onClick={() => {
-                  setActiveProfileType('partner');
-                  setShowForm(true);
-                }}
+                onClick={() => handleStartProfile('partner')}
                 className="w-full border-pink-200 hover:bg-pink-50 text-lg py-3"
               >
                 {partnerProfileStats.completion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
@@ -211,14 +233,14 @@ const ProfileBuilder = () => {
         </div>
       </Card>
 
-      {/* Expandable Details Section */}
+      {/* Expandable Tips Section */}
       <div className="max-w-4xl mx-auto">
         <Button 
           variant="ghost" 
           onClick={() => setShowDetails(!showDetails)}
           className="w-full text-gray-600 hover:text-gray-900"
         >
-          {showDetails ? 'Hide' : 'Show'} detailed information
+          {showDetails ? 'Hide' : 'Show'} Tips
           <ArrowRight className={`w-4 h-4 ml-2 transition-transform ${showDetails ? 'rotate-90' : ''}`} />
         </Button>
         
@@ -275,6 +297,15 @@ const ProfileBuilder = () => {
           </div>
         )}
       </div>
+
+      {/* Demographics Modal */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType}
+          onComplete={handleDemographicsComplete}
+          onClose={handleDemographicsClose}
+        />
+      )}
 
       {/* Profile Form Modal */}
       {showForm && (
