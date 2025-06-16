@@ -176,24 +176,29 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
 
       {/* Chat Input */}
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl">
-        <div className="flex gap-3 items-end">
-          <div className="flex-1">
-            <Input
-              value={currentMessage}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              placeholder="Share what's happening in your relationship..."
-              disabled={loading}
-              className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200"
-            />
+        <div className="space-y-2">
+          <div className="flex gap-3 items-end">
+            <div className="flex-1">
+              <Input
+                value={currentMessage}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                placeholder="Tell me what's going on."
+                disabled={loading}
+                className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200"
+              />
+            </div>
+            <Button
+              onClick={sendMessage}
+              disabled={!currentMessage.trim() || loading}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full w-12 h-12 p-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+            >
+              <Send className="w-5 h-5" />
+            </Button>
           </div>
-          <Button
-            onClick={sendMessage}
-            disabled={!currentMessage.trim() || loading}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full w-12 h-12 p-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
-          >
-            <Send className="w-5 h-5" />
-          </Button>
+          <p className="text-xs text-gray-500 px-2">
+            Say as much or as little as you want
+          </p>
         </div>
       </div>
     </div>
