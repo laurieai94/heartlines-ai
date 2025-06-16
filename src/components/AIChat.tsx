@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
@@ -11,7 +10,7 @@ interface AIChatProps {
   profiles: ProfileData;
   demographicsData: DemographicsData;
   chatHistory: ChatMessage[];
-  setChatHistory: (history: ChatMessage[]) => void;
+  setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
 }
 
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIChatProps) => {
