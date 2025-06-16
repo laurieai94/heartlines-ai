@@ -1,7 +1,13 @@
-
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
+import { AIService } from "@/services/aiService";
 
 export class AICoachEngine {
+  private static aiService: AIService | null = null;
+
+  static setAPIKey(apiKey: string) {
+    this.aiService = new AIService({ apiKey });
+  }
+
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
@@ -46,19 +52,90 @@ export class AICoachEngine {
     };
   }
 
-  static getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): string {
-    // First, validate that we have profile data
-    if (!this.hasProfileData(context)) {
-      return this.generateProfileMissingResponse(context);
-    }
-
+  static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
       return this.generateDebugResponse(context);
     }
 
-    // Generate personalized response
+    // Check if we have AI service available
+    if (this.aiService && this.hasProfileData(context)) {
+      try {
+        return await this.generateRealAIResponse(userMessage, context, chatHistory);
+      } catch (error) {
+        console.error('AI API Error:', error);
+        // Fallback to local response
+        return this.generateFallbackResponse();
+      }
+    }
+
+    // Fallback to local responses
+    if (!this.hasProfileData(context)) {
+      return this.generateProfileMissingResponse(context);
+    }
+
     return this.generatePersonalizedResponse(userMessage, context, chatHistory);
+  }
+
+  private static async generateRealAIResponse(
+    userMessage: string, 
+    context: PersonContext, 
+    chatHistory: ChatMessage[]
+  ): Promise<string> {
+    const systemPrompt = this.buildSystemPrompt(context);
+    const conversationHistory = chatHistory.slice(-6).map(msg => ({
+      role: msg.type === 'user' ? 'user' as const : 'assistant' as const,
+      content: msg.content
+    }));
+
+    return await this.aiService!.generateResponse(userMessage, systemPrompt, conversationHistory);
+  }
+
+  private static buildSystemPrompt(context: PersonContext): string {
+    const userName = context.yourTraits.name || "the user";
+    const partnerName = context.partnerTraits.name || "their partner";
+
+    return `You are a relationship coach specializing in millennial relationships. You provide personalized advice based on detailed profiles.
+
+CRITICAL: You MUST reference specific details from both user and partner profiles in EVERY response.
+
+USER PROFILE - ${userName}:
+- Communication style: ${context.yourTraits.communicationStyle || "Unknown"}
+- Attachment style: ${context.yourTraits.attachmentStyle || "Unknown"}
+- Conflict style: ${context.yourTraits.conflictStyle || "Unknown"}
+- Love language: ${context.yourTraits.loveLanguage || "Unknown"}
+- Stress response: ${context.yourTraits.stressResponse || "Unknown"}
+- Triggers: ${context.yourTraits.triggers?.join(", ") || "None listed"}
+- Strengths: ${context.yourTraits.strengths?.join(", ") || "None listed"}
+
+PARTNER PROFILE - ${partnerName}:
+- Communication style: ${context.partnerTraits.communicationStyle || "Unknown"}
+- Attachment style: ${context.partnerTraits.attachmentStyle || "Unknown"}
+- Conflict style: ${context.partnerTraits.conflictStyle || "Unknown"}
+- Love language: ${context.partnerTraits.loveLanguage || "Unknown"}
+- Stress response: ${context.partnerTraits.stressResponse || "Unknown"}
+- Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
+- Strengths: ${context.partnerTraits.strengths?.join(", ") || "None listed"}
+
+RELATIONSHIP CONTEXT:
+- Length: ${context.relationship.length || "Unknown"}
+- Living together: ${context.relationship.livingTogether ? "Yes" : "No"}
+- Stage: ${context.relationship.stage || "Unknown"}
+
+RESPONSE REQUIREMENTS:
+1. Use both partners' actual names naturally throughout
+2. Reference their specific communication and attachment styles
+3. Connect advice to their known triggers and patterns
+4. Make advice specific to their dynamic, not generic
+5. Sound like you've known them for years
+6. Keep responses conversational and supportive
+7. Provide actionable, tailored strategies
+
+Never give generic relationship advice. Every response must be personalized to ${userName} and ${partnerName}'s specific situation.`;
+  }
+
+  private static generateFallbackResponse(): string {
+    return "I'm having trouble connecting to the AI service right now, but I'm still here to help. Could you rephrase your question or try again in a moment?";
   }
 
   private static hasProfileData(context: PersonContext): boolean {
@@ -102,6 +179,8 @@ Once I know more about ${userName} and ${partnerName}'s specific dynamic, I can 
 - Conflict style: ${context.partnerTraits.conflictStyle || "Not specified"}
 - Love language: ${context.partnerTraits.loveLanguage || "Not specified"}
 - Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
+
+**AI Service Status:** ${this.aiService ? "Connected" : "Not connected"}
 
 If any of this is wrong or missing, there's a profile access issue.`;
   }

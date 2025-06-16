@@ -1,10 +1,12 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
+import APIKeyInput from "./APIKeyInput";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -15,12 +17,28 @@ interface AIChatProps {
 
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
+  const [apiKey, setApiKey] = useState<string | null>(null);
 
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   
   // Check if we have sufficient profile data
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
+
+  // Load API key from localStorage on mount
+  useEffect(() => {
+    const savedApiKey = localStorage.getItem('anthropic_api_key');
+    if (savedApiKey) {
+      setApiKey(savedApiKey);
+      AICoachEngine.setAPIKey(savedApiKey);
+    }
+  }, []);
+
+  const handleApiKeySet = (newApiKey: string) => {
+    setApiKey(newApiKey);
+    localStorage.setItem('anthropic_api_key', newApiKey);
+    AICoachEngine.setAPIKey(newApiKey);
+  };
 
   const sendMessage = async (userMessage: string) => {
     const newUserMessage: ChatMessage = {
@@ -33,9 +51,9 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     setChatHistory([...chatHistory, newUserMessage]);
     setLoading(true);
 
-    setTimeout(() => {
+    try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
-      const aiResponse = AICoachEngine.getAIResponse(userMessage, context, chatHistory);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory);
       
       const aiMessage: ChatMessage = {
         id: Date.now() + 1,
@@ -45,8 +63,18 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       };
 
       setChatHistory(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      const errorMessage: ChatMessage = {
+        id: Date.now() + 1,
+        type: 'ai',
+        content: "I'm having trouble responding right now. Could you try again in a moment?",
+        timestamp: new Date().toLocaleString()
+      };
+      setChatHistory(prev => [...prev, errorMessage]);
+    } finally {
       setLoading(false);
-    }, 1000 + Math.random() * 1000);
+    }
   };
 
   return (
@@ -75,6 +103,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
         )}
       </div>
 
+      {/* API Key Input */}
+      <div className="mb-4">
+        <APIKeyInput onApiKeySet={handleApiKeySet} hasApiKey={!!apiKey} />
+      </div>
+
       {/* Chat Messages */}
       <Card className="flex-1 p-4 mb-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg overflow-hidden">
         <div className="h-full flex flex-col">
@@ -88,7 +121,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                       Hey {userName}! I'm your AI relationship coach, and I actually know you and {partnerName}'s dynamic.
                     </p>
                     <p className="text-sm mt-2">
-                      I have access to your communication styles, attachment patterns, and relationship background - so this isn't generic advice, it's tailored specifically for how you two work together.
+                      {apiKey ? 
+                        "I'm powered by real AI and have access to your communication styles, attachment patterns, and relationship background - so this isn't generic advice, it's tailored specifically for how you two work together." :
+                        "Connect your AI for personalized responses, or use the simulated coach for basic guidance."
+                      }
                     </p>
                     <p className="text-xs text-coral-600 mt-3">
                       Try asking about a specific situation you're dealing with right now
@@ -122,9 +158,15 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                     <span className="text-sm text-gray-600 ml-2">
-                      {hasProfiles ? 
-                        `Thinking about ${userName} and ${partnerName}'s situation...` :
-                        'Getting real about your situation...'
+                      {apiKey ? 
+                        (hasProfiles ? 
+                          `AI is thinking about ${userName} and ${partnerName}'s situation...` :
+                          'AI is analyzing your situation...'
+                        ) :
+                        (hasProfiles ? 
+                          `Thinking about ${userName} and ${partnerName}'s situation...` :
+                          'Getting real about your situation...'
+                        )
                       }
                     </span>
                   </div>
