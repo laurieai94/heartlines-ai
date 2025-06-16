@@ -52,7 +52,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
-    // Check for love languages (at least one selection)
+    // Check for love languages (at least one selection) - this is required
     if (!formData.loveLanguages || formData.loveLanguages.length === 0) {
       missing.push('loveLanguages');
     }
@@ -61,7 +61,16 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     console.log('Current form data:', formData);
     
     if (missing.length > 0) {
-      toast.error('Please answer all required questions before continuing');
+      const fieldNames = missing.map(field => {
+        switch (field) {
+          case 'importantTalkPreference': return 'Important Talk Preference';
+          case 'communicationDirectness': return 'Communication Directness';
+          case 'emotionExpression': return 'Emotion Expression';
+          case 'loveLanguages': return 'Love Languages';
+          default: return field;
+        }
+      });
+      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;

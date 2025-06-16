@@ -52,14 +52,17 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         {isPersonal && <span className="text-red-500 text-sm">*Required</span>}
       </h3>
 
-      {/* Avatar Upload - only for personal profile */}
+      {/* Avatar Upload - only for personal profile and now optional */}
       {isPersonal && (
         <div className="flex justify-center mb-8">
-          <AvatarUpload
-            currentAvatarUrl={formData.avatar_url}
-            onAvatarUpdate={handleAvatarUpdate}
-            userName={formData.name}
-          />
+          <div className="text-center">
+            <AvatarUpload
+              currentAvatarUrl={formData.avatar_url}
+              onAvatarUpdate={handleAvatarUpdate}
+              userName={formData.name}
+            />
+            <p className="text-xs text-gray-500 mt-2">Optional - add a photo to personalize your profile</p>
+          </div>
         </div>
       )}
 

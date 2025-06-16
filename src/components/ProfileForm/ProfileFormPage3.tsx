@@ -22,9 +22,9 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     wantClosenessButFearHurt: initialData.wantClosenessButFearHurt || '',
     relationshipLength: initialData.relationshipLength || '',
     relationshipType: initialData.relationshipType || '',
-    improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
     
-    // Optional fields
+    // Optional fields - these should NOT be required for validation
+    improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
     workingOnPersonalDevelopment: initialData.workingOnPersonalDevelopment || '',
     learnedHealthyFromFamily: initialData.learnedHealthyFromFamily || '',
     socialSituationsAnxious: initialData.socialSituationsAnxious || '',
@@ -52,14 +52,24 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
 
   const validateRequired = () => {
     // Only core attachment and relationship context questions are required
-    const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'];
+    const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
     console.log('Page 3 validation - missing required fields:', missing);
     console.log('Page 3 current form data:', formData);
     
     if (missing.length > 0) {
-      toast.error('Please answer all required questions before continuing');
+      const fieldNames = missing.map(field => {
+        switch (field) {
+          case 'comfortableClosenessIndependence': return 'Comfortable with Closeness/Independence';
+          case 'worryRelationshipSecurity': return 'Worry about Relationship Security';
+          case 'wantClosenessButFearHurt': return 'Want Closeness but Fear Hurt';
+          case 'relationshipLength': return 'Relationship Length';
+          case 'relationshipType': return 'Relationship Type';
+          default: return field;
+        }
+      });
+      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;

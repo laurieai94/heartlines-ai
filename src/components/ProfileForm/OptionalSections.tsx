@@ -86,7 +86,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
           
           <div>
             <Label className="text-base font-medium text-gray-700 mb-3 block">
-              {isPersonal ? 'You are' : 'They are'} actively focused on improving communication skills
+              {isPersonal ? 'You are' : 'They are'} actively focused on improving communication skills (Optional)
             </Label>
             <RadioGroup 
               value={formData.improvingCommunicationFocus} 
@@ -103,7 +103,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
 
           <div>
             <Label className="text-base font-medium text-gray-700 mb-3 block">
-              {isPersonal ? 'You are' : 'They are'} committed to personal development and growth
+              {isPersonal ? 'You are' : 'They are'} committed to personal development and growth (Optional)
             </Label>
             <RadioGroup 
               value={formData.workingOnPersonalDevelopment} 
