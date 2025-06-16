@@ -6,7 +6,7 @@ export class AICoachEngine {
 
   static setAPIKey(apiKey: string) {
     this.aiService = new AIService({ apiKey });
-    console.log('AI Service configured with API key');
+    console.log('AI Service configured with API key and CORS proxy');
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -73,13 +73,21 @@ export class AICoachEngine {
       } catch (error) {
         console.error('AI API Error:', error);
         
-        // Check if it's a CORS error
-        if (error.message.includes('CORS_ERROR')) {
-          throw new Error(`🔒 **Browser Security Issue**\n\nYour browser is blocking direct API calls to Anthropic due to CORS policies. This is a common browser security limitation.\n\n**Solutions:**\n1. Use a CORS proxy service\n2. Run this app through a backend server\n3. Use a browser extension that disables CORS (not recommended for security)\n\nThe API key is valid, but your browser environment doesn't allow direct API calls.`);
+        // Provide specific error messages based on the error type
+        if (error.message.includes('Invalid API key')) {
+          throw new Error(`🔑 **Invalid API Key**\n\n${error.message}\n\nPlease check your API key at: https://console.anthropic.com/account/keys`);
+        }
+        
+        if (error.message.includes('Rate limit')) {
+          throw new Error(`⏱️ **Rate Limit Exceeded**\n\n${error.message}\n\nPlease wait a moment before sending another message.`);
+        }
+        
+        if (error.message.includes('Network error')) {
+          throw new Error(`🌐 **Connection Issue**\n\n${error.message}\n\nThis could be due to:\n1. Internet connectivity issues\n2. CORS proxy being temporarily unavailable\n3. Anthropic service maintenance\n\nPlease try again in a moment.`);
         }
         
         // For any other API error, throw it instead of falling back
-        throw new Error(`❌ **API Error**\n\n${error.message}\n\nPlease check your API key and try again. If the problem persists, there may be an issue with the Anthropic service.`);
+        throw new Error(`❌ **API Error**\n\n${error.message}\n\nIf this persists, please check the Anthropic service status.`);
       }
     }
 
