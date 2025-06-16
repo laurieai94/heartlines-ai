@@ -164,11 +164,11 @@ const ProfileBuilder = () => {
       {/* Quick Value Proposition */}
       <Card className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 border-0 shadow-lg max-w-4xl mx-auto">
         <div className="text-center space-y-4">
-          <h3 className="text-2xl font-bold text-gray-900">We Get to Know You (For Real)</h3>
+          <h3 className="text-2xl font-bold text-gray-900">The Questions That Actually Matter</h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Not just "what's your sign?" but the real stuff—how you communicate when stressed, 
-            what makes you feel loved, and your relationship patterns. The more honest you are, 
-            the better we can help.
+            How do you really act when you're stressed? What makes you feel most loved? 
+            What toxic patterns are you definitely not repeating from your last relationship? 
+            (Spoiler: you probably are.) The more honest you are, the less we'll sound like a generic self-help book.
           </p>
           
           <div className="grid md:grid-cols-2 gap-6 mt-6">
