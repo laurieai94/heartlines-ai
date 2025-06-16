@@ -41,6 +41,7 @@ const AISidebar = ({
     "We keep having the same fight over and over",
     "I want to improve our communication",
     "Are we growing apart?",
+    "I miss how we used to be",
     "How can we be more supportive of each other?"
   ];
 
@@ -87,6 +88,12 @@ const AISidebar = ({
   const handleEditProfile = () => {
     setShowProfileViewer(false);
     onOpenProfileForm?.(viewingProfileType);
+  };
+
+  const handleStartConversation = (starter: string) => {
+    if (onStartConversation) {
+      onStartConversation(starter);
+    }
   };
 
   // Sort topics by frequency and recency
@@ -202,7 +209,8 @@ const AISidebar = ({
                 variant="ghost"
                 size="sm"
                 className="w-full justify-start text-left h-auto py-2 px-3 text-xs hover:bg-coral-50 hover:text-coral-700"
-                onClick={() => onStartConversation?.(starter)}
+                onClick={() => handleStartConversation(starter)}
+                disabled={!isConfigured}
               >
                 "{starter}"
               </Button>

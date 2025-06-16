@@ -26,7 +26,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
-  const hasProcessedStarter = useRef(false);
+  const processedStarters = useRef(new Set<string>());
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -38,13 +38,13 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
 
-  // Handle conversation starter
+  // Handle conversation starter - improved to avoid duplicates
   useEffect(() => {
-    if (conversationStarter && !hasProcessedStarter.current && chatHistory.length === 0) {
-      hasProcessedStarter.current = true;
+    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured) {
+      processedStarters.current.add(conversationStarter);
       sendMessage(conversationStarter);
     }
-  }, [conversationStarter]);
+  }, [conversationStarter, isConfigured]);
 
   const sendMessage = async (userMessage: string) => {
     const newUserMessage: ChatMessage = {
@@ -54,7 +54,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       timestamp: new Date().toLocaleString()
     };
 
-    setChatHistory([...chatHistory, newUserMessage]);
+    setChatHistory(prev => [...prev, newUserMessage]);
     setLoading(true);
 
     // Extract and track topics from user message

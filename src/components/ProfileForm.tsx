@@ -20,17 +20,20 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
   const [page1Data, setPage1Data] = useState({});
   const [page2Data, setPage2Data] = useState({});
   const [page3Data, setPage3Data] = useState({});
+  const [hasVisited, setHasVisited] = useState({ page1: true, page2: false, page3: false });
 
   const totalPages = 3;
   const isPersonal = profileType === 'your';
   
   const handlePage1Complete = (data: any) => {
     setPage1Data(data);
+    setHasVisited(prev => ({ ...prev, page2: true }));
     setCurrentPage(2);
   };
 
   const handlePage2Complete = (data: any) => {
     setPage2Data(data);
+    setHasVisited(prev => ({ ...prev, page3: true }));
     setCurrentPage(3);
   };
 
@@ -41,9 +44,9 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
     toast.success(`${isPersonal ? 'Your' : 'Partner'} profile completed successfully!`);
   };
 
-  const handleBackToPage = (pageNumber: number) => {
-    // Only allow navigation to pages that have been visited or current page
-    if (pageNumber <= currentPage) {
+  const handleNavigateToPage = (pageNumber: number) => {
+    // Allow navigation to any visited page
+    if (hasVisited[`page${pageNumber}` as keyof typeof hasVisited]) {
       setCurrentPage(pageNumber);
     }
   };
@@ -150,36 +153,42 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
             
             {/* Page Indicators */}
             <div className="flex gap-3 items-center">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleBackToPage(i + 1)}
-                  disabled={i + 1 > currentPage}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
-                    i + 1 === currentPage 
-                      ? 'bg-purple-500 text-white shadow-lg' 
-                      : i + 1 < currentPage 
-                        ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  {i + 1 < currentPage ? <Check className="w-4 h-4" /> : i + 1}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => {
+                const pageNum = i + 1;
+                const isVisited = hasVisited[`page${pageNum}` as keyof typeof hasVisited];
+                const isCurrent = pageNum === currentPage;
+                const isCompleted = pageNum < currentPage;
+                
+                return (
+                  <button
+                    key={i}
+                    onClick={() => handleNavigateToPage(pageNum)}
+                    disabled={!isVisited}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                      isCurrent 
+                        ? 'bg-purple-500 text-white shadow-lg' 
+                        : isCompleted 
+                          ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
+                          : isVisited
+                            ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {isCompleted ? <Check className="w-4 h-4" /> : pageNum}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Next Button - Hidden on last page since form handles submission */}
-            <div className="w-24">
-              {currentPage < totalPages && (
-                <Button
-                  disabled
-                  className="flex items-center gap-2 px-6 py-2 bg-gray-300 cursor-not-allowed"
-                >
-                  Next
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
+            {/* Placeholder for symmetry */}
+            <div className="w-[100px]"></div>
+          </div>
+          
+          {/* Help text */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-gray-500">
+              You can navigate between completed sections using the page indicators above
+            </p>
           </div>
         </div>
       </div>
