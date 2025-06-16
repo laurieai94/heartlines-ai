@@ -1,0 +1,146 @@
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+interface PersonalIdentityProps {
+  profileType: 'your' | 'partner';
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
+  handleMultiSelect: (field: string, value: string) => void;
+}
+
+const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
+  const isPersonal = profileType === 'your';
+
+  const pronounOptions = [
+    'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'ze/zir', 'Other', 'Prefer not to share'
+  ];
+
+  const ageOptions = [
+    '18-22', '23-27', '28-32', '33-37', '38-42', '43-47', '48-52', '53-57', '58-62', '63+', 'Prefer not to share'
+  ];
+
+  const orientationOptions = [
+    'Straight/Heterosexual', 'Gay/Lesbian', 'Bisexual', 'Pansexual', 'Queer', 'Asexual', 'Demisexual', 'Questioning/Exploring', 'Other', 'Prefer not to share'
+  ];
+
+  const genderOptions = [
+    'Woman', 'Man', 'Non-binary', 'Genderfluid', 'Transgender woman', 'Transgender man', 'Agender', 'Two-Spirit', 'Other', 'Prefer not to share'
+  ];
+
+  return (
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+        About {isPersonal ? 'You' : 'Your Partner'}
+        {isPersonal && <span className="text-red-500 text-sm">*Required</span>}
+      </h3>
+
+      {/* Name */}
+      <div>
+        <Label htmlFor="name" className="text-base font-medium">
+          What should we call {isPersonal ? 'you' : 'them'}? {isPersonal && <span className="text-red-500">*</span>}
+        </Label>
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) => updateFormData('name', e.target.value)}
+          placeholder="Enter name or preferred name"
+          className="mt-1"
+        />
+      </div>
+
+      {/* Pronouns */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">
+          Pronouns {isPersonal && <span className="text-red-500">*</span>}
+        </Label>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {pronounOptions.map((pronoun) => (
+            <div key={pronoun} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id={`pronoun-${pronoun}`}
+                name="pronouns"
+                value={pronoun}
+                checked={formData.pronouns === pronoun}
+                onChange={(e) => updateFormData('pronouns', e.target.value)}
+                className="w-4 h-4 text-pink-600"
+              />
+              <Label htmlFor={`pronoun-${pronoun}`} className="text-sm">
+                {pronoun}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Age */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">
+          Age Range {isPersonal && <span className="text-red-500">*</span>}
+        </Label>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {ageOptions.map((age) => (
+            <div key={age} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id={`age-${age}`}
+                name="age"
+                value={age}
+                checked={formData.age === age}
+                onChange={(e) => updateFormData('age', e.target.value)}
+                className="w-4 h-4 text-pink-600"
+              />
+              <Label htmlFor={`age-${age}`} className="text-sm">
+                {age}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sexual Orientation */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">Sexual Orientation</Label>
+        <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {orientationOptions.map((orientation) => (
+            <div key={orientation} className="flex items-center space-x-2">
+              <Checkbox
+                id={`orientation-${orientation}`}
+                checked={formData.sexualOrientation?.includes(orientation)}
+                onCheckedChange={() => handleMultiSelect('sexualOrientation', orientation)}
+              />
+              <Label htmlFor={`orientation-${orientation}`} className="text-sm">
+                {orientation}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Gender Identity */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">Gender Identity</Label>
+        <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {genderOptions.map((gender) => (
+            <div key={gender} className="flex items-center space-x-2">
+              <Checkbox
+                id={`gender-${gender}`}
+                checked={formData.genderIdentity?.includes(gender)}
+                onCheckedChange={() => handleMultiSelect('genderIdentity', gender)}
+              />
+              <Label htmlFor={`gender-${gender}`} className="text-sm">
+                {gender}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PersonalIdentity;

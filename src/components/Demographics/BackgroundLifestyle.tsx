@@ -1,0 +1,99 @@
+
+import { Label } from "@/components/ui/label";
+
+interface BackgroundLifestyleProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
+}
+
+const BackgroundLifestyle = ({ formData, updateFormData }: BackgroundLifestyleProps) => {
+  const educationOptions = [
+    'High school or equivalent', 'Some college/university', "Associate's degree", "Bachelor's degree", "Master's degree", 'Doctoral degree', 'Trade/vocational training', 'Other', 'Prefer not to share'
+  ];
+
+  const workOptions = [
+    'Student', 'Working full-time', 'Working part-time', 'Freelance/Contract work', 'Entrepreneur/Business owner', 'Stay-at-home parent', 'Between jobs', 'Retired', 'Unable to work', 'Other', 'Prefer not to share'
+  ];
+
+  const incomeOptions = [
+    'Under $30,000', '$30,000 - $50,000', '$50,000 - $75,000', '$75,000 - $100,000', '$100,000 - $150,000', '$150,000 - $250,000', 'Over $250,000', 'Prefer not to share'
+  ];
+
+  return (
+    <div className="space-y-6">
+      <h3 className="text-xl font-semibold text-gray-900 mb-6">Background & Lifestyle</h3>
+
+      {/* Education */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">Education Level</Label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {educationOptions.map((education) => (
+            <div key={education} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id={`education-${education}`}
+                name="education"
+                value={education}
+                checked={formData.education === education}
+                onChange={(e) => updateFormData('education', e.target.value)}
+                className="w-4 h-4 text-pink-600"
+              />
+              <Label htmlFor={`education-${education}`} className="text-sm">
+                {education}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Work Situation */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">Work Situation</Label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {workOptions.map((work) => (
+            <div key={work} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id={`work-${work}`}
+                name="work"
+                value={work}
+                checked={formData.workSituation === work}
+                onChange={(e) => updateFormData('workSituation', e.target.value)}
+                className="w-4 h-4 text-pink-600"
+              />
+              <Label htmlFor={`work-${work}`} className="text-sm">
+                {work}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Income */}
+      <div>
+        <Label className="text-base font-medium mb-3 block">Household Income (Optional)</Label>
+        <p className="text-sm text-gray-600 mb-3">Help us understand your financial context for relevant advice</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {incomeOptions.map((income) => (
+            <div key={income} className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id={`income-${income}`}
+                name="income"
+                value={income}
+                checked={formData.income === income}
+                onChange={(e) => updateFormData('income', e.target.value)}
+                className="w-4 h-4 text-pink-600"
+              />
+              <Label htmlFor={`income-${income}`} className="text-sm">
+                {income}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BackgroundLifestyle;
