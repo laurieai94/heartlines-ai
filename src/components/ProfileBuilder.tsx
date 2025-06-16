@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,15 +18,15 @@ interface ProfileBuilderProps {
 const ProfileBuilder: React.FC<ProfileBuilderProps> = ({ onProfileUpdate, initialProfiles, initialDemographics }) => {
   const [yourName, setYourName] = useState(initialDemographics?.your?.name || "");
   const [partnerName, setPartnerName] = useState(initialDemographics?.partner?.name || "");
-  const [yourProfile, setYourProfile] = useState(initialProfiles?.your[0] || {});
-  const [partnerProfile, setPartnerProfile] = useState(initialProfiles?.partner[0] || {});
+  const [yourProfile, setYourProfile] = useState(initialProfiles?.your?.[0] || {});
+  const [partnerProfile, setPartnerProfile] = useState(initialProfiles?.partner?.[0] || {});
 
   useEffect(() => {
     // Initialize state from props
     setYourName(initialDemographics?.your?.name || "");
     setPartnerName(initialDemographics?.partner?.name || "");
-    setYourProfile(initialProfiles?.your[0] || {});
-    setPartnerProfile(initialProfiles?.partner[0] || {});
+    setYourProfile(initialProfiles?.your?.[0] || {});
+    setPartnerProfile(initialProfiles?.partner?.[0] || {});
   }, [initialDemographics, initialProfiles]);
 
   const handleInputChange = (event: any, profileType: string) => {
