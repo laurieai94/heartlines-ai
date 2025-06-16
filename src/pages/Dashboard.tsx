@@ -11,6 +11,23 @@ import ThoughtfulActions from "@/components/ThoughtfulActions";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("profile");
+  
+  // Profile state management
+  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
+    your: [],
+    partner: []
+  });
+  
+  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
+    your: null,
+    partner: null
+  });
+
+  // Function to handle profile updates from ProfileBuilder
+  const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
+    setProfiles(newProfiles);
+    setDemographicsData(newDemographics);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 p-6">
@@ -50,19 +67,32 @@ const Dashboard = () => {
           </TabsList>
 
           <TabsContent value="profile">
-            <ProfileBuilder />
+            <ProfileBuilder 
+              onProfileUpdate={handleProfileUpdate}
+              initialProfiles={profiles}
+              initialDemographics={demographicsData}
+            />
           </TabsContent>
 
           <TabsContent value="insights">
-            <AIInsights />
+            <AIInsights 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
           </TabsContent>
 
           <TabsContent value="conversation">
-            <ConversationPractice />
+            <ConversationPractice 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
           </TabsContent>
 
           <TabsContent value="actions">
-            <ThoughtfulActions />
+            <ThoughtfulActions 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
           </TabsContent>
         </Tabs>
       </div>
