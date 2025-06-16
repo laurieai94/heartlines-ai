@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -199,6 +200,17 @@ const Demographics = ({ profileType, onClose, onComplete }: DemographicsProps) =
   };
 
   const handleNextPage = () => {
+    // Check if required fields are filled for page 1
+    if (currentPage === 1) {
+      const requiredFields = ['name', 'pronouns', 'age'];
+      const hasEmptyRequired = requiredFields.some(field => !formData[field as keyof typeof formData]);
+      
+      if (hasEmptyRequired) {
+        // Could add toast notification here for better UX
+        return;
+      }
+    }
+    
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
@@ -279,23 +291,33 @@ const Demographics = ({ profileType, onClose, onComplete }: DemographicsProps) =
                 {/* Personal Identity Section */}
                 <div className="space-y-6">
                   <h3 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                    About {isPartner ? 'Them' : 'You'} <span className="text-sm font-normal text-gray-500">(All Optional)</span>
+                    About {isPartner ? 'Them' : 'You'} {!isPartner && <span className="text-sm font-normal text-red-500">(Required)</span>}
+                    {isPartner && <span className="text-sm font-normal text-gray-500">(All Optional)</span>}
                   </h3>
                   
                   {/* Name */}
                   <div className="space-y-2">
-                    <Label htmlFor="name">What should we call {isPartner ? 'them' : 'you'}? <span className="text-gray-500">(Optional)</span></Label>
+                    <Label htmlFor="name">
+                      What should we call {isPartner ? 'them' : 'you'}? 
+                      {!isPartner && <span className="text-red-500 ml-1">*</span>}
+                      {isPartner && <span className="text-gray-500">(Optional)</span>}
+                    </Label>
                     <Input
                       id="name"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       placeholder={`Enter ${isPartner ? 'their' : 'your'} name or preferred name`}
+                      required={!isPartner}
                     />
                   </div>
 
                   {/* Pronouns */}
                   <div className="space-y-3">
-                    <Label>Pronouns <span className="text-gray-500">(Optional)</span></Label>
+                    <Label>
+                      Pronouns 
+                      {!isPartner && <span className="text-red-500 ml-1">*</span>}
+                      {isPartner && <span className="text-gray-500">(Optional)</span>}
+                    </Label>
                     <Select value={formData.pronouns} onValueChange={(value) => setFormData({...formData, pronouns: value})}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select pronouns" />
@@ -317,7 +339,11 @@ const Demographics = ({ profileType, onClose, onComplete }: DemographicsProps) =
 
                   {/* Age */}
                   <div className="space-y-3">
-                    <Label>Age <span className="text-gray-500">(Optional)</span></Label>
+                    <Label>
+                      Age 
+                      {!isPartner && <span className="text-red-500 ml-1">*</span>}
+                      {isPartner && <span className="text-gray-500">(Optional)</span>}
+                    </Label>
                     <Select value={formData.age} onValueChange={(value) => setFormData({...formData, age: value})}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select age range" />
@@ -465,6 +491,7 @@ const Demographics = ({ profileType, onClose, onComplete }: DemographicsProps) =
                 <Button 
                   onClick={handleNextPage}
                   className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                  disabled={!isPartner && (!formData.name || !formData.pronouns || !formData.age)}
                 >
                   Continue to Family Background
                   <ArrowRight className="w-4 h-4 ml-2" />

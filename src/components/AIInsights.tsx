@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -245,18 +244,22 @@ const AIInsights = () => {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900">Your Personal Relationship Therapist</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Get insights from AI that actually knows you, your partner, and your unique situation
-        </p>
-        <p className="text-lg text-gray-500 max-w-4xl mx-auto">
-          Like having a therapist who's studied your relationship for months—except it's available 24/7, 
-          knows all your patterns, and never judges your 3am relationship anxiety spirals.
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white py-20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h1 className="text-5xl font-bold mb-6">
+            Your Relationship Coach <span className="text-blue-200">(Available 24/7)</span>
+          </h1>
+          <p className="text-xl mb-8 text-blue-100">
+            Get insights from AI that actually knows you, your partner, and your unique situation
+          </p>
+          <p className="text-lg text-blue-100 max-w-3xl mx-auto">
+            Like having a therapist who's studied your relationship for months—except it's available 24/7, 
+            knows all your patterns, and never judges your 3am relationship anxiety spirals.
+          </p>
+        </div>
+      </section>
 
       {/* Current Status */}
       <Card className="max-w-4xl mx-auto">
