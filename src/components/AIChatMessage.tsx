@@ -1,13 +1,15 @@
 
 import { ChatMessage } from "@/types/AIInsights";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 
 interface AIChatMessageProps {
   message: ChatMessage;
+  userAvatarUrl?: string;
+  userName?: string;
 }
 
-const AIChatMessage = ({ message }: AIChatMessageProps) => {
+const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   
   return (
@@ -15,9 +17,17 @@ const AIChatMessage = ({ message }: AIChatMessageProps) => {
       {/* Avatar */}
       <div className="flex-shrink-0">
         <Avatar className={`w-10 h-10 ${isUser ? 'bg-gradient-to-br from-pink-400 to-coral-500' : 'bg-gradient-to-br from-purple-400 to-blue-500'}`}>
-          <AvatarFallback className="text-white border-0">
-            {isUser ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
-          </AvatarFallback>
+          {isUser && userAvatarUrl ? (
+            <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
+          ) : (
+            <AvatarFallback className="text-white border-0">
+              {isUser ? (
+                userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />
+              ) : (
+                <Bot className="w-5 h-5" />
+              )}
+            </AvatarFallback>
+          )}
         </Avatar>
       </div>
 

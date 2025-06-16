@@ -1,14 +1,15 @@
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bot, Circle } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bot, Circle, User } from "lucide-react";
 
 interface ChatHeaderProps {
   userName?: string;
   partnerName?: string;
+  userAvatarUrl?: string;
   hasProfiles: boolean;
 }
 
-const ChatHeader = ({ userName, partnerName, hasProfiles }: ChatHeaderProps) => {
+const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatHeaderProps) => {
   return (
     <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 mb-6 border border-white/20 shadow-xl">
       <div className="flex items-center gap-4">
@@ -28,10 +29,10 @@ const ChatHeader = ({ userName, partnerName, hasProfiles }: ChatHeaderProps) => 
         {/* Coach Info */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-gray-900 mb-1">
-            {userName ? `${userName}'s AI Coach` : 'Your AI Relationship Coach'}
+            {userName ? `${userName}'s Relationship Coach` : 'Your Relationship Coach'}
           </h2>
           <p className="text-gray-600 font-medium mb-2">
-            Always here to help • Powered by Anthropic AI
+            Always here to help • Powered by Kai, your AI coach
           </p>
           
           {/* Profile Status */}
@@ -51,6 +52,18 @@ const ChatHeader = ({ userName, partnerName, hasProfiles }: ChatHeaderProps) => 
             </div>
           )}
         </div>
+
+        {/* User Avatar */}
+        {userName && (
+          <div className="relative">
+            <Avatar className="w-12 h-12 border-3 border-white shadow-lg">
+              <AvatarImage src={userAvatarUrl || undefined} alt={userName} />
+              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white">
+                {userName.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+        )}
       </div>
     </div>
   );

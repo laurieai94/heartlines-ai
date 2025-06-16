@@ -11,6 +11,8 @@ import APIKeyInput from "./APIKeyInput";
 import ChatHeader from "./ChatHeader";
 import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useUserProfile } from "@/hooks/useUserProfile";
+import { useConversationTopics } from "@/hooks/useConversationTopics";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -23,8 +25,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
   const [loading, setLoading] = useState(false);
   const [isConfigured, setIsConfigured] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { profile } = useUserProfile();
+  const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
 
-  const userName = demographicsData.your?.name || '';
+  const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
@@ -56,9 +60,31 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     setChatHistory([...chatHistory, newUserMessage]);
     setLoading(true);
 
+    // Extract and track topics from user message
+    const topics = extractTopicsFromMessage(userMessage);
+    topics.forEach(topic => addOrUpdateTopic(topic));
+
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory);
+      
+      // Enhanced AI prompt for Kai
+      const enhancedPrompt = `You are Kai, a PhD-level clinical psychologist and certified life coach with 15+ years of experience specializing in cognitive behavioral therapy, mindfulness-based interventions, and strengths-based coaching.
+
+Your personality: Speak like a trusted friend who happens to be a brilliant psychologist. Use casual, conversational language while maintaining professional insight. Be genuinely curious about the user's experience and show empathy through your word choices and questions.
+
+Your approach - Always Ask Before You Tell:
+- Lead with Questions: Always explore before advising
+- Listen First: Acknowledge what they've shared before offering perspectives
+- Collaborative Discovery: Help users find their own insights rather than prescribing solutions
+- Check Understanding: "Does that resonate with you?" "How does that land?"
+
+For this conversation with ${userName || 'the user'}, remember they are seeking guidance about their relationship${partnerName ? ` with ${partnerName}` : ''}. Focus on asking thoughtful, open-ended questions that help them reflect and discover their own wisdom.`;
+
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, enhancedPrompt);
+      
+      // Extract topics from AI response as well
+      const aiTopics = extractTopicsFromMessage(aiResponse);
+      aiTopics.forEach(topic => addOrUpdateTopic(topic));
       
       const aiMessage: ChatMessage = {
         id: Date.now() + 1,
@@ -91,6 +117,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
         <ChatHeader 
           userName={userName}
           partnerName={partnerName}
+          userAvatarUrl={profile?.avatar_url || undefined}
           hasProfiles={hasProfiles}
         />
       </div>
@@ -116,7 +143,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                         Hey {userName}! 👋
                       </h3>
                       <p className="text-gray-700 leading-relaxed text-lg">
-                        I'm here and ready to help with your relationship. I know you and {partnerName}'s dynamic, so let's dive into what's on your mind.
+                        I'm Kai, your relationship coach. I know you and {partnerName}'s dynamic, so let's dive into what's on your mind.
                       </p>
                       <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
                         <p className="text-gray-600 leading-relaxed">
@@ -127,10 +154,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                   ) : (
                     <div className="space-y-6">
                       <h3 className="text-2xl font-bold text-gray-900">
-                        Welcome! I'm your AI relationship coach 🌟
+                        Welcome! I'm Kai, your relationship coach 🌟
                       </h3>
                       <p className="text-gray-700 leading-relaxed text-lg">
-                        I'm powered by advanced AI and ready to help, but I'll need to learn about you first.
+                        I'm a PhD-level clinical psychologist with 15+ years of experience, powered by advanced AI and ready to help.
                       </p>
                       <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
                         <p className="text-gray-600 leading-relaxed">
@@ -143,7 +170,12 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
               )}
               
               {chatHistory.map((message) => (
-                <AIChatMessage key={message.id} message={message} />
+                <AIChatMessage 
+                  key={message.id} 
+                  message={message} 
+                  userAvatarUrl={profile?.avatar_url || undefined}
+                  userName={userName}
+                />
               ))}
               
               {loading && (
@@ -162,7 +194,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
                           <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                         </div>
                         <span className="text-sm font-medium">
-                          Thinking about your situation...
+                          Kai is thinking about your situation...
                         </span>
                       </div>
                     </div>

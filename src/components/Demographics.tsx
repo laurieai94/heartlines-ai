@@ -7,6 +7,8 @@ import { ArrowLeft, ArrowRight, User, Heart, HelpCircle } from "lucide-react";
 import { toast } from "sonner";
 import DemographicsPage1 from "@/components/Demographics/DemographicsPage1";
 import DemographicsPage2 from "@/components/Demographics/DemographicsPage2";
+import AvatarUpload from "@/components/AvatarUpload";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 interface DemographicsProps {
   profileType: 'your' | 'partner';
@@ -15,15 +17,31 @@ interface DemographicsProps {
 }
 
 const Demographics = ({ profileType, onComplete, onClose }: DemographicsProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(profileType === 'your' ? 0 : 1); // Start with avatar page for 'your' profile
   const [page1Data, setPage1Data] = useState({});
   const [page2Data, setPage2Data] = useState({});
+  const { profile, updateProfile } = useUserProfile();
 
   const isPersonal = profileType === 'your';
+  const totalPages = isPersonal ? 3 : 2; // Add avatar page for personal profile
   
+  const handleAvatarComplete = () => {
+    setCurrentPage(1);
+  };
+
+  const handleAvatarUpdate = async (avatarUrl: string) => {
+    try {
+      await updateProfile({ avatar_url: avatarUrl });
+      toast.success('Avatar uploaded successfully!');
+      handleAvatarComplete();
+    } catch (error) {
+      toast.error('Failed to update avatar');
+    }
+  };
+
   const handlePage1Complete = (data: any) => {
     setPage1Data(data);
-    setCurrentPage(2);
+    setCurrentPage(isPersonal ? 2 : 2);
   };
 
   const handlePage2Complete = (data: any) => {
@@ -36,6 +54,65 @@ const Demographics = ({ profileType, onComplete, onClose }: DemographicsProps) =
   const handleSkipToProfile = () => {
     const combinedData = { ...page1Data, ...page2Data };
     onComplete(combinedData);
+  };
+
+  const renderCurrentPage = () => {
+    if (isPersonal && currentPage === 0) {
+      return (
+        <div className="space-y-6">
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Let's add your profile photo
+            </h3>
+            <p className="text-gray-600 mb-6">
+              This helps personalize your chat experience (optional)
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <AvatarUpload
+              currentAvatarUrl={profile?.avatar_url || undefined}
+              onAvatarUpdate={handleAvatarUpdate}
+              userName={profile?.name || undefined}
+            />
+          </div>
+
+          <div className="flex justify-center gap-3 pt-6">
+            <Button variant="outline" onClick={handleAvatarComplete}>
+              Skip for now
+            </Button>
+          </div>
+        </div>
+      );
+    }
+
+    const pageNumber = isPersonal ? currentPage : currentPage;
+    
+    if (pageNumber === 1 || (!isPersonal && pageNumber === 1)) {
+      return (
+        <DemographicsPage1 
+          profileType={profileType}
+          onComplete={handlePage1Complete}
+          initialData={page1Data}
+        />
+      );
+    } else {
+      return (
+        <DemographicsPage2 
+          profileType={profileType}
+          onComplete={handlePage2Complete}
+          onBack={() => setCurrentPage(isPersonal ? 1 : 1)}
+          onSkip={handleSkipToProfile}
+          initialData={page2Data}
+        />
+      );
+    }
+  };
+
+  const getPageTitle = () => {
+    if (isPersonal && currentPage === 0) return 'Profile Photo';
+    if (currentPage === 1 || (!isPersonal && currentPage === 1)) return 'Basic Info';
+    return 'Family Background';
   };
 
   return (
@@ -72,30 +149,16 @@ const Demographics = ({ profileType, onComplete, onClose }: DemographicsProps) =
           {/* Progress */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-700">Step {currentPage} of 2</span>
-              <span className="text-sm text-gray-500">{currentPage === 1 ? 'Basic Info' : 'Family Background'}</span>
+              <span className="text-sm font-medium text-gray-700">Step {currentPage + 1} of {totalPages}</span>
+              <span className="text-sm text-gray-500">{getPageTitle()}</span>
             </div>
-            <Progress value={currentPage === 1 ? 50 : 100} className="h-2" />
+            <Progress value={((currentPage + 1) / totalPages) * 100} className="h-2" />
           </div>
         </div>
 
         {/* Content */}
         <div className="p-6">
-          {currentPage === 1 ? (
-            <DemographicsPage1 
-              profileType={profileType}
-              onComplete={handlePage1Complete}
-              initialData={page1Data}
-            />
-          ) : (
-            <DemographicsPage2 
-              profileType={profileType}
-              onComplete={handlePage2Complete}
-              onBack={() => setCurrentPage(1)}
-              onSkip={handleSkipToProfile}
-              initialData={page2Data}
-            />
-          )}
+          {renderCurrentPage()}
         </div>
       </div>
     </div>

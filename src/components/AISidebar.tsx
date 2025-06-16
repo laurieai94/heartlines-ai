@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Lightbulb, Heart, MessageCircle } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
+import { useConversationTopics } from "@/hooks/useConversationTopics";
 
 interface AISidebarProps {
   profiles: ProfileData;
@@ -13,12 +14,7 @@ interface AISidebarProps {
 const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) => {
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
-
-  const recentTopics = [
-    "Communication patterns",
-    "Supporting each other", 
-    "Managing stress together"
-  ];
+  const { topics, loading } = useConversationTopics();
 
   return (
     <div className="w-80 space-y-4">
@@ -55,10 +51,10 @@ const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) 
       <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
         <div className="flex items-center gap-2 mb-2">
           <Lightbulb className="w-4 h-4 text-coral-600" />
-          <h3 className="font-medium text-gray-900">Your Coach</h3>
+          <h3 className="font-medium text-gray-900">Meet Kai</h3>
         </div>
         <p className="text-sm text-gray-600">
-          Real advice that actually works for millennials navigating modern relationships
+          PhD-level clinical psychologist with 15+ years experience. Real advice that actually works for modern relationships.
         </p>
       </Card>
 
@@ -75,16 +71,23 @@ const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) 
         </div>
       </Card>
 
-      {chatHistory.length > 0 && (
+      {/* Dynamic Topics */}
+      {(chatHistory.length > 0 || topics.length > 0) && (
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
           <h3 className="font-medium text-gray-900 mb-3">What We've Covered</h3>
           <div className="space-y-2">
-            {recentTopics.slice(0, 3).map((topic, index) => (
-              <Badge key={index} variant="outline" className="w-full justify-start border-coral-200 text-coral-700">
-                <MessageCircle className="w-3 h-3 mr-1" />
-                {topic}
-              </Badge>
-            ))}
+            {loading ? (
+              <p className="text-xs text-gray-500">Loading topics...</p>
+            ) : topics.length > 0 ? (
+              topics.slice(0, 5).map((topic, index) => (
+                <Badge key={topic.id} variant="outline" className="w-full justify-start border-coral-200 text-coral-700 text-xs">
+                  <MessageCircle className="w-3 h-3 mr-1" />
+                  {topic.topic} {topic.frequency > 1 && `(${topic.frequency}x)`}
+                </Badge>
+              ))
+            ) : chatHistory.length > 0 ? (
+              <p className="text-xs text-gray-500">Keep chatting and I'll track our conversation themes</p>
+            ) : null}
           </div>
         </Card>
       )}
