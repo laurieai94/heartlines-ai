@@ -14,7 +14,7 @@ interface ProfileFormPage2Props {
 
 const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage2Props) => {
   const [formData, setFormData] = useState({
-    // Conflict and stress patterns (all required)
+    // Conflict and stress patterns (all required) - preserve existing values
     conflictResponse: initialData.conflictResponse || '',
     stressSpaceNeed: initialData.stressSpaceNeed || '',
     stressSupportNeed: initialData.stressSupportNeed || '',
@@ -23,6 +23,7 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
     beingRushedMakesWorse: initialData.beingRushedMakesWorse || '',
     feelHeardWithValidation: initialData.feelHeardWithValidation || '',
     
+    // Include ALL initial data to preserve everything from previous pages
     ...initialData
   });
 
