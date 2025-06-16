@@ -133,39 +133,13 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
           <ScrollArea className="flex-1 mb-6">
             <div className="space-y-2 pr-4">
               {chatHistory.length === 0 && isConfigured && (
-                <div className="text-center py-12 max-w-2xl mx-auto">
-                  <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
-                    <Heart className="w-12 h-12 text-white" />
+                <div className="text-center py-8 max-w-xl mx-auto">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Heart className="w-8 h-8 text-white" />
                   </div>
-                  {hasProfiles ? (
-                    <div className="space-y-6">
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        Hey {userName}! 👋
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed text-lg">
-                        What brings you here today?
-                      </p>
-                      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
-                        <p className="text-gray-600 leading-relaxed">
-                          💝 I understand your communication styles, attachment patterns, and relationship background - so this is personalized advice just for you two.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-6">
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        Welcome! I'm Kai, your relationship coach 💝
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed text-lg">
-                        What brings you here today?
-                      </p>
-                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
-                        <p className="text-gray-600 leading-relaxed">
-                          Complete your profiles in the Profile Building tab so I can give you advice that truly fits your relationship.
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    Hey {userName || 'there'}! 👋
+                  </h3>
                 </div>
               )}
               
@@ -194,7 +168,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                           <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                         </div>
                         <span className="text-sm font-medium">
-                          Kai is thinking about your situation...
+                          Kai is thinking...
                         </span>
                       </div>
                     </div>
