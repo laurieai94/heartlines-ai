@@ -36,9 +36,9 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
   };
 
   const quickStarters = [
-    "We keep having the same fight",
-    "I feel disconnected lately",
-    "How do I bring up a difficult topic?"
+    "I miss how we used to connect",
+    "We love each other, but something's off",
+    "I want to fight for us—but I'm tired"
   ];
 
   const handleQuickStarter = (starter: string) => {

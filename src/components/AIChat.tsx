@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heart, Bot } from "lucide-react";
+import { Heart, Bot, Handshake } from "lucide-react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
@@ -158,12 +158,19 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                       </AvatarFallback>
                     </Avatar>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    Hi! I'm Kai, your relationship coach 👋
-                  </h3>
-                  <p className="text-gray-600 text-lg mb-6">
-                    I'm here to help you navigate your relationship with understanding and care. What's on your mind today?
-                  </p>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      <strong>Hey, it's Kai.</strong> <Handshake className="inline w-5 h-5" />
+                    </h3>
+                    
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Here to help you reconnect, reflect, and reset — one convo at a time.
+                    </p>
+                    
+                    <p className="text-gray-700 text-lg font-medium">
+                      What's on your mind today?
+                    </p>
+                  </div>
                 </div>
               )}
               
