@@ -64,6 +64,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           profileType={activeProfileType}
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
         />
       )}
     </div>

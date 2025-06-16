@@ -43,18 +43,22 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     // Only validate required fields - deep dive questions are optional
     if (!validateRequired()) return;
     
+    console.log('Page 1 form data being submitted:', formData);
     onComplete(formData);
   };
 
   const validateRequired = () => {
     // Only check core required fields, not deep dive questions
     const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
-    const missing = required.filter(field => !formData[field]);
+    const missing = required.filter(field => !formData[field] || formData[field] === '');
     
     // Check for love languages (at least one selection)
     if (!formData.loveLanguages || formData.loveLanguages.length === 0) {
       missing.push('loveLanguages');
     }
+    
+    console.log('Validation check - missing required fields:', missing);
+    console.log('Current form data:', formData);
     
     if (missing.length > 0) {
       toast.error('Please answer all required questions before continuing');
@@ -64,6 +68,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   };
 
   const updateField = (field: string, value: string) => {
+    console.log(`Updating field ${field} with value:`, value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -72,6 +77,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     const updated = current.includes(value) 
       ? current.filter(item => item !== value)
       : [...current, value];
+    console.log(`Multi-select update for ${field}:`, updated);
     setFormData(prev => ({ ...prev, [field]: updated }));
   };
 

@@ -35,16 +35,19 @@ const ProfileForm = ({
     ...existingDemographics
   });
   
+  // Allow navigation to any page once we have existing data or user has visited
+  const hasExistingData = Object.keys(existingProfile).length > 0;
   const [hasVisited, setHasVisited] = useState({ 
     page1: true, 
-    page2: Object.keys(existingProfile).length > 0, 
-    page3: Object.keys(existingProfile).length > 0 
+    page2: hasExistingData, 
+    page3: hasExistingData 
   });
 
   const totalPages = 3;
   const isPersonal = profileType === 'your';
   
   const handlePage1Complete = (data: any) => {
+    console.log('Page 1 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page2: true }));
@@ -52,6 +55,7 @@ const ProfileForm = ({
   };
 
   const handlePage2Complete = (data: any) => {
+    console.log('Page 2 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page3: true }));
@@ -59,6 +63,7 @@ const ProfileForm = ({
   };
 
   const handlePage3Complete = (data: any) => {
+    console.log('Page 3 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     onComplete(updatedData);
@@ -68,12 +73,14 @@ const ProfileForm = ({
   const handleNavigateToPage = (pageNumber: number) => {
     // Allow navigation to any visited page
     if (hasVisited[`page${pageNumber}` as keyof typeof hasVisited]) {
+      console.log(`Navigating to page ${pageNumber}`);
       setCurrentPage(pageNumber);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
+      console.log(`Going back to page ${currentPage - 1}`);
       setCurrentPage(currentPage - 1);
     }
   };
@@ -171,9 +178,7 @@ const ProfileForm = ({
                   <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
                 </div>
                 <span className="text-sm text-purple-600 font-medium">
-                  {currentPage === 1 ? 'Communication & Love Languages' : 
-                   currentPage === 2 ? 'Conflict & Stress Patterns' : 
-                   'Attachment & Growth Areas'}
+                  {getPageTitle()}
                 </span>
               </div>
               <Progress value={(currentPage / totalPages) * 100} className="h-3 bg-gray-200" />

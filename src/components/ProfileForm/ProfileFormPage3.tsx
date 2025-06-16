@@ -16,13 +16,15 @@ interface ProfileFormPage3Props {
 
 const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage3Props) => {
   const [formData, setFormData] = useState({
-    // Core attachment questions
+    // Core attachment questions (required)
     comfortableClosenessIndependence: initialData.comfortableClosenessIndependence || '',
     worryRelationshipSecurity: initialData.worryRelationshipSecurity || '',
     wantClosenessButFearHurt: initialData.wantClosenessButFearHurt || '',
     relationshipLength: initialData.relationshipLength || '',
     relationshipType: initialData.relationshipType || '',
     improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
+    
+    // Optional fields
     workingOnPersonalDevelopment: initialData.workingOnPersonalDevelopment || '',
     learnedHealthyFromFamily: initialData.learnedHealthyFromFamily || '',
     socialSituationsAnxious: initialData.socialSituationsAnxious || '',
@@ -41,15 +43,20 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields
+    // Validate required fields only
     if (!validateRequired()) return;
     
+    console.log('Page 3 form data being submitted:', formData);
     onComplete(formData);
   };
 
   const validateRequired = () => {
+    // Only core attachment and relationship context questions are required
     const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'];
-    const missing = required.filter(field => !formData[field]);
+    const missing = required.filter(field => !formData[field] || formData[field] === '');
+    
+    console.log('Page 3 validation - missing required fields:', missing);
+    console.log('Page 3 current form data:', formData);
     
     if (missing.length > 0) {
       toast.error('Please answer all required questions before continuing');
@@ -59,6 +66,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const updateField = (field: string, value: string) => {
+    console.log(`Page 3 updating field ${field} with value:`, value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

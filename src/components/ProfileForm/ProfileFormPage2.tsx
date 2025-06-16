@@ -14,7 +14,7 @@ interface ProfileFormPage2Props {
 
 const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage2Props) => {
   const [formData, setFormData] = useState({
-    // Conflict and stress patterns
+    // Conflict and stress patterns (all required)
     conflictResponse: initialData.conflictResponse || '',
     stressSpaceNeed: initialData.stressSpaceNeed || '',
     stressSupportNeed: initialData.stressSupportNeed || '',
@@ -34,12 +34,16 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
     // Validate required fields
     if (!validateRequired()) return;
     
+    console.log('Page 2 form data being submitted:', formData);
     onComplete(formData);
   };
 
   const validateRequired = () => {
     const required = ['conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately', 'beingRushedMakesWorse', 'feelHeardWithValidation'];
-    const missing = required.filter(field => !formData[field]);
+    const missing = required.filter(field => !formData[field] || formData[field] === '');
+    
+    console.log('Page 2 validation - missing required fields:', missing);
+    console.log('Page 2 current form data:', formData);
     
     if (missing.length > 0) {
       toast.error('Please answer all required questions before continuing');
@@ -49,6 +53,7 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const updateField = (field: string, value: string) => {
+    console.log(`Page 2 updating field ${field} with value:`, value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
