@@ -167,7 +167,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                     </p>
                     
                     <p className="text-gray-700 text-lg font-medium">
-                      What's on your mind today?
+                      Let's dive in!
                     </p>
                   </div>
                 </div>
