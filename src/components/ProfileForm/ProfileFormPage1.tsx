@@ -22,7 +22,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     // Love languages (required)
     loveLanguages: initialData.loveLanguages || [],
     
-    // Deep dive love language questions (optional)
+    // Deep dive love language questions (optional - these should NOT be validated)
     wordsOfAffirmationDeep: initialData.wordsOfAffirmationDeep || '',
     qualityTimeDeep: initialData.qualityTimeDeep || '',
     physicalTouchDeep: initialData.physicalTouchDeep || '',
@@ -48,7 +48,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   };
 
   const validateRequired = () => {
-    // Only check core required fields, not deep dive questions
+    // ONLY check core required fields - exclude all deep dive questions
     const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
@@ -66,11 +66,11 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
           case 'importantTalkPreference': return 'Important Talk Preference';
           case 'communicationDirectness': return 'Communication Directness';
           case 'emotionExpression': return 'Emotion Expression';
-          case 'loveLanguages': return 'Love Languages';
+          case 'loveLanguages': return 'Love Languages (select at least one)';
           default: return field;
         }
       });
-      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
+      toast.error(`Please answer these required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;
@@ -98,7 +98,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
             Communication & Love Languages
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional and help provide more personalized insights.
+            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are completely optional and can be skipped.
           </p>
         </div>
         

@@ -43,7 +43,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields only
+    // Validate ONLY required fields
     if (!validateRequired()) return;
     
     console.log('Page 3 form data being submitted:', formData);
@@ -51,7 +51,8 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const validateRequired = () => {
-    // Only core attachment and relationship context questions are required
+    // ONLY core attachment and relationship context questions are required
+    // Optional sections should NOT block progression
     const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
@@ -69,7 +70,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
           default: return field;
         }
       });
-      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
+      toast.error(`Please answer these required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;
@@ -92,7 +93,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
             Attachment Style & Growth Areas
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions. Optional sections are clearly marked.
+            <span className="text-red-500">*</span> indicates required questions. All other sections are completely optional.
           </p>
         </div>
         
