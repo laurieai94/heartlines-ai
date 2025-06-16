@@ -104,7 +104,7 @@ const ProfileBuilder = () => {
               </Button>
               <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                 <Clock className="w-4 h-4" />
-                <span>3-4 minutes to get started</span>
+                <span>5 minutes for core insights</span>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@ const ProfileBuilder = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm text-gray-600">3-4 minutes for core insights</span>
+                  <span className="text-sm text-gray-600">5 minutes for core insights</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { X, ChevronDown, Check, Clock } from "lucide-react";
 
 interface ProfileFormProps {
@@ -21,6 +23,7 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
   const [currentProfile, setCurrentProfile] = useState<any>({
     name: "",
     relationshipType: "",
+    relationshipTypeOther: "",
     relationshipLength: "",
     directCommunication: "",
     gentleApproach: "",
@@ -118,6 +121,23 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
     "Not sure yet"
   ];
 
+  const RELATIONSHIP_OPTIONS = [
+    "Just started dating (still googling their last name)",
+    "Dating multiple people (honestly)",
+    "Dating exclusively (deleted the apps)",
+    "Long-distance relationship (airport anxiety is real)",
+    "Living together (their stuff is everywhere)",
+    "Engaged (planning a wedding during inflation, help)",
+    "Married (we made it past year one)",
+    "Married with kids (sleep is a myth)",
+    "Committed life partners (marriage feels outdated)",
+    "It's complicated (aren't they all?)",
+    "Polyamorous/consensually non-monogamous",
+    "On a break but working on things",
+    "Co-parenting our way through this",
+    "None of these"
+  ];
+
   const toggleExpanded = (section: string) => {
     setExpandedSections(prev => ({
       ...prev,
@@ -192,24 +212,37 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
                   />
                 </div>
 
-                <div>
+                <div className="space-y-4">
                   <Label>Your Relationship</Label>
-                  <RadioGroup 
-                    value={currentProfile.relationshipType || ''}
-                    onValueChange={(value) => setCurrentProfile({...currentProfile, relationshipType: value})}
-                    className="flex flex-wrap gap-4 mt-2"
-                  >
-                    {['Dating', 'Engaged', 'Married', 'Long-term partnership'].map((type) => (
-                      <div key={type} className="flex items-center space-x-2">
-                        <RadioGroupItem value={type} id={`relationship-${type}`} />
-                        <Label htmlFor={`relationship-${type}`} className="text-sm">{type}</Label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-60 overflow-y-auto border rounded-lg p-4">
+                    {RELATIONSHIP_OPTIONS.map((option) => (
+                      <div key={option} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`relationship-${option}`}
+                          checked={currentProfile.relationshipType === option}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setCurrentProfile({...currentProfile, relationshipType: option});
+                            }
+                          }}
+                        />
+                        <Label htmlFor={`relationship-${option}`} className="text-sm leading-relaxed">
+                          {option}
+                        </Label>
                       </div>
                     ))}
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Other" id="relationship-other" />
-                      <Label htmlFor="relationship-other" className="text-sm">Other:</Label>
+                  </div>
+                  
+                  {currentProfile.relationshipType === "None of these" && (
+                    <div className="mt-3">
+                      <Input
+                        value={currentProfile.relationshipTypeOther || ''}
+                        onChange={(e) => setCurrentProfile({...currentProfile, relationshipTypeOther: e.target.value})}
+                        placeholder="Please describe your relationship"
+                        className="mt-1"
+                      />
                     </div>
-                  </RadioGroup>
+                  )}
                 </div>
 
                 <div>
