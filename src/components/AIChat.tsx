@@ -11,7 +11,6 @@ import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
-import { Button } from "@/components/ui/button";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -143,12 +142,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     }
   };
 
-  const handleStarterClick = (starter: string) => {
-    if (isConfigured) {
-      sendMessage(starter);
-    }
-  };
-
   return (
     <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
       <BubbleBackground />
@@ -169,24 +162,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   <p className="text-gray-600 text-lg mb-6">
                     What brings you here today?
                   </p>
-                  
-                  {/* Conversation Starters */}
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {conversationStarters.map((starter, index) => (
-                        <Button
-                          key={index}
-                          variant="outline"
-                          size="sm"
-                          className="text-xs hover:bg-coral-50 hover:text-coral-700 hover:border-coral-200 transition-colors"
-                          onClick={() => handleStarterClick(starter)}
-                          disabled={!isConfigured}
-                        >
-                          "{starter}"
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               )}
               
