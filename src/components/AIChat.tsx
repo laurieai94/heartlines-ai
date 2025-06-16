@@ -149,7 +149,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    I'm Kai, your relationship coach!
+                    I'm Kai, your Relationship Coach!
                     <br />
                     <br />
                     Let's work together to understand what's going on and find a way forward.
@@ -209,7 +209,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               onSendMessage={sendMessage} 
               loading={loading || !isConfigured} 
               userName={userName} 
-              partnerName={partnerName} 
+              partnerName={partnerName}
+              chatHistory={chatHistory}
             />
             {!isConfigured && (
               <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit animate-fade-in">
