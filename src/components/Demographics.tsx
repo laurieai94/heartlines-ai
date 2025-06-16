@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -70,6 +69,7 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
             profileType={profileType}
             onComplete={handlePage2Complete}
             onBack={handlePrevPage}
+            onSkip={() => handlePage2Complete(page2Data)}
             initialData={page2Data}
           />
         );
