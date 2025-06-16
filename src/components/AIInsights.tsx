@@ -42,26 +42,84 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || 'your partner';
 
-  // Enhanced response system that uses profile data
+  // Enhanced response system that deeply uses profile data
   const getAIResponse = (userMessage) => {
     const message = userMessage.toLowerCase();
     
-    // Get profile insights for personalized responses
+    // Get comprehensive profile insights for personalized responses
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
+    const yourDemographics = demographicsData.your || {};
+    const partnerDemographics = demographicsData.partner || {};
     
-    // Use profile data to personalize responses
-    const getPersonalizedResponse = (baseResponse, profileContext = '') => {
+    // Build comprehensive context from all available data
+    const buildPersonalizedContext = () => {
+      let context = [];
+      
+      // Your profile insights
+      if (yourProfile.loveLanguage) {
+        context.push(`Your love language is ${yourProfile.loveLanguage}`);
+      }
+      if (yourProfile.communicationStyle) {
+        context.push(`You communicate in a ${yourProfile.communicationStyle} style`);
+      }
+      if (yourProfile.conflictStyle) {
+        context.push(`During conflicts, you tend to be ${yourProfile.conflictStyle}`);
+      }
+      if (yourProfile.stressResponse) {
+        context.push(`When stressed, you typically ${yourProfile.stressResponse}`);
+      }
+      if (yourProfile.attachmentStyle) {
+        context.push(`Your attachment style is ${yourProfile.attachmentStyle}`);
+      }
+      
+      // Partner profile insights
+      if (partnerProfile.loveLanguage) {
+        context.push(`${partnerName}'s love language is ${partnerProfile.loveLanguage}`);
+      }
+      if (partnerProfile.communicationStyle) {
+        context.push(`${partnerName} communicates in a ${partnerProfile.communicationStyle} style`);
+      }
+      if (partnerProfile.conflictStyle) {
+        context.push(`During conflicts, ${partnerName} tends to be ${partnerProfile.conflictStyle}`);
+      }
+      if (partnerProfile.stressResponse) {
+        context.push(`When stressed, ${partnerName} typically ${partnerProfile.stressResponse}`);
+      }
+      if (partnerProfile.attachmentStyle) {
+        context.push(`${partnerName}'s attachment style is ${partnerProfile.attachmentStyle}`);
+      }
+      
+      // Demographics context
+      if (yourDemographics.relationshipLength) {
+        context.push(`You've been together for ${yourDemographics.relationshipLength}`);
+      }
+      if (yourDemographics.livingTogether) {
+        context.push(`You ${yourDemographics.livingTogether ? 'live together' : 'don\'t live together yet'}`);
+      }
+      
+      return context;
+    };
+    
+    const personalContext = buildPersonalizedContext();
+    
+    // Generate highly personalized responses based on context
+    const getPersonalizedResponse = (baseResponse, specificContext = '') => {
       let response = baseResponse;
       
-      // Add personalized context if we have profile data
-      if (profileContext && (yourProfile || partnerProfile)) {
-        response += `\n\n${profileContext}`;
+      // Add specific profile-based advice
+      if (specificContext) {
+        response += `\n\n${specificContext}`;
+      }
+      
+      // Add general profile context if we have it
+      if (personalContext.length > 0) {
+        response += `\n\n**Based on your profiles:** ${personalContext.slice(0, 2).join(', ')}.`;
       }
       
       // Add name personalization
       if (userName) {
-        response = response.replace(/you/g, userName);
+        response = response.replace(/\byou\b/g, userName);
       }
       
       if (partnerName && partnerName !== 'your partner') {
@@ -71,73 +129,119 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       return response;
     };
     
+    // Highly contextual responses based on message content and profiles
     if (message.includes("support") || message.includes("help")) {
-      let profileContext = '';
+      let specificContext = '';
+      
       if (partnerProfile.loveLanguage) {
-        profileContext = `Based on what you've shared, ${partnerName}'s love language is ${partnerProfile.loveLanguage}. Try expressing support through that language.`;
+        if (partnerProfile.loveLanguage === 'acts_of_service') {
+          specificContext = `Since ${partnerName}'s love language is acts of service, the most supportive thing you can do is take care of tasks that matter to them without being asked.`;
+        } else if (partnerProfile.loveLanguage === 'words_of_affirmation') {
+          specificContext = `Since ${partnerName}'s love language is words of affirmation, verbal encouragement and specific appreciation will be most supportive.`;
+        } else if (partnerProfile.loveLanguage === 'quality_time') {
+          specificContext = `Since ${partnerName}'s love language is quality time, being fully present and engaged when together is the best support.`;
+        } else if (partnerProfile.loveLanguage === 'physical_touch') {
+          specificContext = `Since ${partnerName}'s love language is physical touch, appropriate physical comfort and affection will be most supportive.`;
+        } else if (partnerProfile.loveLanguage === 'receiving_gifts') {
+          specificContext = `Since ${partnerName}'s love language is receiving gifts, thoughtful tokens of care will be most meaningful.`;
+        }
       } else if (partnerProfile.stressResponse) {
-        profileContext = `Remember that ${partnerName} tends to ${partnerProfile.stressResponse} when stressed. Adjust your support approach accordingly.`;
+        specificContext = `When ${partnerName} is stressed, they tend to ${partnerProfile.stressResponse}. Adjust your support approach to match this pattern.`;
       }
       
       return getPersonalizedResponse(
-        "Supporting your partner starts with active listening and showing genuine interest in their feelings. Try asking open-ended questions like 'How can I better support you?' and really listen to their response without trying to fix everything immediately.",
-        profileContext
+        "Supporting your partner effectively means understanding their unique needs and communication style. Start by asking them directly what kind of support would be most helpful right now, then listen without trying to fix everything immediately.",
+        specificContext
       );
     }
     
     if (message.includes("argument") || message.includes("fight") || message.includes("conflict")) {
-      let profileContext = '';
+      let specificContext = '';
+      
       if (yourProfile.conflictStyle && partnerProfile.conflictStyle) {
-        profileContext = `Your conflict styles are ${yourProfile.conflictStyle} and ${partnerName} is ${partnerProfile.conflictStyle}. Understanding these differences can help you approach conflicts more effectively.`;
-      } else if (partnerProfile.triggers) {
-        profileContext = `Be mindful that ${partnerName} is particularly sensitive about ${partnerProfile.triggers}. Approach these topics with extra care.`;
+        if (yourProfile.conflictStyle === 'confrontational' && partnerProfile.conflictStyle === 'avoidant') {
+          specificContext = `Your conflict styles are very different - you're confrontational while ${partnerName} is avoidant. Try approaching discussions more gently and give them time to process before expecting responses.`;
+        } else if (yourProfile.conflictStyle === 'avoidant' && partnerProfile.conflictStyle === 'confrontational') {
+          specificContext = `${partnerName} is confrontational while you're avoidant. They likely need to talk things through immediately while you need processing time. Try setting a specific time to discuss after you've had time to think.`;
+        } else if (yourProfile.conflictStyle === partnerProfile.conflictStyle) {
+          specificContext = `You both have a ${yourProfile.conflictStyle} conflict style, which can amplify tensions. Be aware of this similarity and take turns stepping back to break the cycle.`;
+        }
+      } else if (partnerProfile.triggers && partnerProfile.triggers.length > 0) {
+        specificContext = `Be especially mindful that ${partnerName} is sensitive about ${partnerProfile.triggers}. Approach these topics with extra care and validation.`;
       }
       
       return getPersonalizedResponse(
-        "Recurring arguments often happen when underlying needs aren't being met. Try the 'pause and reflect' approach: when you feel tension rising, take a moment to ask yourself what you really need in this situation, then express that need calmly rather than focusing on what your partner is doing wrong.",
-        profileContext
+        "Recurring arguments often signal unmet needs or different communication styles. Try the 'pause and reflect' approach: when tension rises, ask yourself what you really need in this moment, then express that need calmly rather than focusing on what went wrong.",
+        specificContext
       );
     }
     
     if (message.includes("anxious") || message.includes("worried") || message.includes("stress")) {
-      let profileContext = '';
-      if (yourProfile.anxietyTriggers) {
-        profileContext = `You've mentioned that ${yourProfile.anxietyTriggers} tends to trigger anxiety for you. It's normal to feel this way, and sharing these specific concerns with ${partnerName} can help them understand and support you better.`;
+      let specificContext = '';
+      
+      if (yourProfile.attachmentStyle) {
+        if (yourProfile.attachmentStyle === 'anxious') {
+          specificContext = `With an anxious attachment style, it's normal to need extra reassurance. Consider sharing this with ${partnerName} so they can provide the specific comfort you need.`;
+        } else if (yourProfile.attachmentStyle === 'avoidant') {
+          specificContext = `Your avoidant attachment style might make you withdraw when anxious. Try to communicate your needs to ${partnerName} rather than pulling away.`;
+        }
+      } else if (yourProfile.stressResponse) {
+        specificContext = `When you're stressed, you tend to ${yourProfile.stressResponse}. Recognizing this pattern can help you communicate your needs more clearly to ${partnerName}.`;
       }
       
       return getPersonalizedResponse(
-        "Relationship anxiety is very common and shows you care deeply. Try sharing your feelings with your partner using 'I' statements like 'I feel anxious when...' rather than 'You make me feel...' This opens up conversation rather than creating defensiveness.",
-        profileContext
+        "Relationship anxiety shows you care deeply about your connection. Share your specific worries with your partner using 'I' statements like 'I feel anxious when...' This opens dialogue rather than creating defensiveness.",
+        specificContext
       );
     }
     
     if (message.includes("communication") || message.includes("talk") || message.includes("communicate")) {
-      let profileContext = '';
+      let specificContext = '';
+      
       if (yourProfile.communicationStyle && partnerProfile.communicationStyle) {
-        profileContext = `Your communication styles are ${yourProfile.communicationStyle} and ${partnerName} is ${partnerProfile.communicationStyle}. Recognizing these differences can help you adapt your approach for better understanding.`;
+        if (yourProfile.communicationStyle !== partnerProfile.communicationStyle) {
+          specificContext = `Your communication styles differ - you're ${yourProfile.communicationStyle} while ${partnerName} is ${partnerProfile.communicationStyle}. Try adapting to their style occasionally for better understanding.`;
+        } else {
+          specificContext = `You both have a ${yourProfile.communicationStyle} communication style, which can be great for understanding but watch for blind spots that come with similarity.`;
+        }
+      } else if (partnerProfile.communicationPreferences) {
+        specificContext = `${partnerName} prefers ${partnerProfile.communicationPreferences} when communicating. Adapting to this can improve your conversations significantly.`;
       }
       
       return getPersonalizedResponse(
-        "Great communication happens when both people feel heard and understood. Try the 'reflect back' technique: after your partner shares something, repeat back what you heard in your own words before responding. This shows you're really listening and helps prevent misunderstandings.",
-        profileContext
+        "Effective communication happens when both people feel heard and understood. Try the 'reflect back' technique: after your partner shares something, repeat what you heard in your own words before responding.",
+        specificContext
       );
     }
     
-    if (message.includes("love") || message.includes("appreciate")) {
-      let profileContext = '';
-      if (partnerProfile.loveLanguage) {
-        profileContext = `Since ${partnerName}'s love language is ${partnerProfile.loveLanguage}, try expressing appreciation through that language for maximum impact.`;
+    if (message.includes("love") || message.includes("appreciate") || message.includes("affection")) {
+      let specificContext = '';
+      
+      if (partnerProfile.loveLanguage && yourProfile.loveLanguage) {
+        if (partnerProfile.loveLanguage === yourProfile.loveLanguage) {
+          specificContext = `You both share the same love language (${partnerProfile.loveLanguage}), which makes expressing love easier once you both understand this strength.`;
+        } else {
+          specificContext = `Your love languages are different - yours is ${yourProfile.loveLanguage} while ${partnerName}'s is ${partnerProfile.loveLanguage}. Try expressing love in their language for maximum impact.`;
+        }
+      } else if (partnerProfile.loveLanguage) {
+        specificContext = `Focus on ${partnerName}'s love language (${partnerProfile.loveLanguage}) when showing appreciation for the greatest emotional impact.`;
       }
       
       return getPersonalizedResponse(
-        "Expressing appreciation is one of the most powerful relationship tools. Try being specific about what you appreciate - instead of 'thanks for helping,' try 'I really appreciated how you took care of the dishes without me asking. It made me feel supported and cared for.'",
-        profileContext
+        "Expressing appreciation effectively means being specific about what you value. Instead of 'thanks for helping,' try 'I really appreciated how you handled that situation. It made me feel supported and cared for.'",
+        specificContext
       );
     }
     
-    // Default response with personalization
+    // Default response with comprehensive personalization
+    let defaultContext = '';
+    if (personalContext.length > 0) {
+      defaultContext = `Given what I know about you both - ${personalContext.slice(0, 3).join(', ')} - I'd suggest focusing on understanding each other's perspectives first.`;
+    }
+    
     return getPersonalizedResponse(
-      "That sounds like something important to you. Relationships thrive on understanding, patience, and open communication. What feels most challenging about this situation right now? Remember, every relationship has ups and downs - what matters is how you navigate them together."
+      "That sounds important to you. Every relationship has its unique challenges and strengths. What feels most difficult about this situation right now? Remember, growth happens when both people feel safe to be vulnerable.",
+      defaultContext
     );
   };
 

@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +25,8 @@ interface ActionFormProps {
   setContext: (value: string) => void;
   loading: boolean;
   onGenerateSuggestions: () => void;
+  partnerName?: string;
+  partnerProfile?: any;
 }
 
 const ActionForm = ({
@@ -38,7 +39,9 @@ const ActionForm = ({
   context,
   setContext,
   loading,
-  onGenerateSuggestions
+  onGenerateSuggestions,
+  partnerName,
+  partnerProfile
 }: ActionFormProps) => {
   return (
     <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">

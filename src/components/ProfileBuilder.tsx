@@ -13,19 +13,23 @@ interface ProfileStats {
   totalSections: number;
 }
 
-const ProfileBuilder = () => {
-  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
-    your: [],
-    partner: []
-  });
+interface ProfileBuilderProps {
+  onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
+  initialProfiles?: {your: any[], partner: any[]};
+  initialDemographics?: {your: any, partner: any};
+}
+
+const ProfileBuilder = ({ 
+  onProfileUpdate, 
+  initialProfiles = { your: [], partner: [] }, 
+  initialDemographics = { your: null, partner: null } 
+}: ProfileBuilderProps) => {
+  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>(initialProfiles);
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
-  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
-    your: null,
-    partner: null
-  });
+  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
 
   // Get user's name for personalization
   const userName = demographicsData.your?.name || '';
@@ -53,16 +57,37 @@ const ProfileBuilder = () => {
   };
 
   const handleDemographicsComplete = (demographics: any) => {
-    setDemographicsData(prev => ({
-      ...prev,
+    const newDemographics = {
+      ...demographicsData,
       [activeProfileType]: demographics
-    }));
+    };
+    setDemographicsData(newDemographics);
     setShowDemographics(false);
     setShowForm(true);
+    
+    // Call the callback if provided
+    if (onProfileUpdate) {
+      onProfileUpdate(profiles, newDemographics);
+    }
   };
 
   const handleDemographicsClose = () => {
     setShowDemographics(false);
+  };
+
+  const handleProfileSave = (profile: any) => {
+    const newProfiles = {
+      ...profiles,
+      [activeProfileType]: [...profiles[activeProfileType], profile]
+    };
+    setProfiles(newProfiles);
+    setShowForm(false);
+    toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
+    
+    // Call the callback if provided
+    if (onProfileUpdate) {
+      onProfileUpdate(newProfiles, demographicsData);
+    }
   };
 
   return (
@@ -324,14 +349,7 @@ const ProfileBuilder = () => {
         <ProfileForm 
           profileType={activeProfileType}
           onClose={() => setShowForm(false)}
-          onSave={(profile) => {
-            setProfiles(prev => ({
-              ...prev,
-              [activeProfileType]: [...prev[activeProfileType], profile]
-            }));
-            setShowForm(false);
-            toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
-          }}
+          onSave={handleProfileSave}
           demographicsData={demographicsData[activeProfileType]}
         />
       )}
