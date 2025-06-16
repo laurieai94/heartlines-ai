@@ -10,23 +10,14 @@ export class AICoachEngine {
   }
 
   static initializeSupabase() {
-    // Try to get Supabase config from environment variables (Lovable integration)
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    // Use the hardcoded Supabase config from the client file
+    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
     
-    console.log('Checking Supabase environment variables:', { 
-      hasUrl: !!supabaseUrl, 
-      hasKey: !!supabaseAnonKey,
-      url: supabaseUrl ? 'Found' : 'Missing'
-    });
+    console.log('Using hardcoded Supabase configuration');
     
-    if (supabaseUrl && supabaseAnonKey) {
-      this.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
-      return true;
-    } else {
-      console.error('Missing Supabase environment variables. Please ensure Supabase integration is properly configured.');
-      return false;
-    }
+    this.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
+    return true;
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {

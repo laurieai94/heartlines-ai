@@ -18,7 +18,7 @@ interface AIChatProps {
 
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
-  const [isConfigured, setIsConfigured] = useState(false);
+  const [isConfigured, setIsConfigured] = useState(true); // Default to true since we have hardcoded config
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const userName = demographicsData.your?.name || '';
@@ -32,27 +32,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
 
-  // Check Supabase configuration on mount
+  // Initialize Supabase configuration on mount
   useEffect(() => {
-    const checkConfiguration = () => {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-      
-      console.log('Checking Supabase configuration:', { 
-        hasUrl: !!supabaseUrl, 
-        hasKey: !!supabaseAnonKey 
-      });
-      
-      if (supabaseUrl && supabaseAnonKey) {
-        const configured = AICoachEngine.initializeSupabase();
-        setIsConfigured(configured);
-      } else {
-        console.warn('Supabase environment variables not found');
-        setIsConfigured(false);
-      }
-    };
-    
-    checkConfiguration();
+    console.log('Initializing Supabase configuration...');
+    const configured = AICoachEngine.initializeSupabase();
+    setIsConfigured(configured);
   }, []);
 
   const handleSupabaseConfigured = (configured: boolean) => {

@@ -11,12 +11,9 @@ interface APIKeyInputProps {
 
 const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) => {
   useEffect(() => {
-    // Check if Supabase environment variables are available
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
-    const configured = !!(supabaseUrl && supabaseAnonKey);
-    onSupabaseConfigured(configured);
+    // Since we're using Lovable's Supabase integration, always mark as configured
+    console.log('Supabase integration detected - marking as configured');
+    onSupabaseConfigured(true);
   }, [onSupabaseConfigured]);
 
   if (isConfigured) {
