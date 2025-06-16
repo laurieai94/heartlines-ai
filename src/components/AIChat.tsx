@@ -7,7 +7,6 @@ import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
-import APIKeyInput from "./APIKeyInput";
 import ChatHeader from "./ChatHeader";
 import BubbleBackground from "./BubbleBackground";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -19,11 +18,11 @@ interface AIChatProps {
   demographicsData: DemographicsData;
   chatHistory: ChatMessage[];
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
+  isConfigured: boolean;
 }
 
-const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIChatProps) => {
+const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
-  const [isConfigured, setIsConfigured] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
@@ -37,17 +36,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
-
-  // Initialize Supabase configuration on mount
-  useEffect(() => {
-    console.log('Initializing Supabase configuration...');
-    const configured = AICoachEngine.initializeSupabase();
-    setIsConfigured(configured);
-  }, []);
-
-  const handleSupabaseConfigured = (configured: boolean) => {
-    setIsConfigured(configured);
-  };
 
   const sendMessage = async (userMessage: string) => {
     const newUserMessage: ChatMessage = {
@@ -122,11 +110,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         />
       </div>
 
-      {/* API Configuration */}
-      <div className="mb-4 relative z-10">
-        <APIKeyInput onSupabaseConfigured={handleSupabaseConfigured} isConfigured={isConfigured} />
-      </div>
-
       {/* Chat Messages */}
       <Card className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0">
         <div className="h-full flex flex-col p-6">
@@ -192,7 +175,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         />
         {!isConfigured && (
           <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit">
-            Complete the setup above to start chatting
+            Complete the setup in the sidebar to start chatting
           </p>
         )}
       </div>

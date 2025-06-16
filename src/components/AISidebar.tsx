@@ -4,20 +4,26 @@ import { Badge } from "@/components/ui/badge";
 import { User, Lightbulb, Heart, MessageCircle } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
+import APIKeyInput from "./APIKeyInput";
 
 interface AISidebarProps {
   profiles: ProfileData;
   demographicsData: DemographicsData;
   chatHistory: any[];
+  isConfigured: boolean;
+  onSupabaseConfigured: (configured: boolean) => void;
 }
 
-const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) => {
+const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSupabaseConfigured }: AISidebarProps) => {
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
 
   return (
     <div className="w-80 space-y-4">
+      {/* API Configuration */}
+      <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
+
       {/* Profile Status */}
       {(profiles.your.length > 0 || profiles.partner.length > 0) && (
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
