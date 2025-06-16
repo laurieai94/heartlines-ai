@@ -99,7 +99,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
                 What's on your mind?
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {Object.keys(conversationCategories).map((category, index) => (
+                {Object.keys(conversationCategories).slice(0, 6).map((category, index) => (
                   <Button
                     key={category}
                     variant="outline"
@@ -111,6 +111,18 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
                     {category}
                   </Button>
                 ))}
+              </div>
+              {/* Center the last category */}
+              <div className="flex justify-center">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleCategorySelect("Worry & Insecurity")}
+                  className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal max-w-md"
+                  style={{ animationDelay: `0.6s` }}
+                >
+                  Worry & Insecurity
+                </Button>
               </div>
             </div>
           ) : (
