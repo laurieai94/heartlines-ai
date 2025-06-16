@@ -27,6 +27,9 @@ const ProfileBuilder = () => {
     partner: null
   });
 
+  // Get user's name for personalization
+  const userName = demographicsData.your?.name || '';
+
   const yourProfileStats: ProfileStats = {
     completion: profiles.your.length > 0 ? 75 : 0,
     sectionsComplete: profiles.your.length > 0 ? 4 : 0,
@@ -64,11 +67,13 @@ const ProfileBuilder = () => {
 
   return (
     <div className="space-y-8">
-      {/* Simplified Header */}
+      {/* Personalized Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900">Let's Get to Know the Real You</h1>
+        <h1 className="text-4xl font-bold text-gray-900">
+          {userName ? `Let's Get to Know the Real You, ${userName}` : 'Let\'s Get to Know the Real You'}
+        </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Build your relationship profiles in just 5 minutes
+          {userName ? `Build your relationship profiles in just 5 minutes, ${userName}` : 'Build your relationship profiles in just 5 minutes'}
         </p>
         
         {/* Quick Progress Overview */}
@@ -76,7 +81,9 @@ const ProfileBuilder = () => {
           <div className="flex items-center justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
               <Progress value={yourProfileStats.completion} className="w-20" />
-              <span className="text-sm text-gray-600">Your Profile: {yourProfileStats.completion}%</span>
+              <span className="text-sm text-gray-600">
+                {userName ? `${userName}'s Profile: ${yourProfileStats.completion}%` : `Your Profile: ${yourProfileStats.completion}%`}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <Progress value={partnerProfileStats.completion} className="w-20" />
@@ -96,7 +103,9 @@ const ProfileBuilder = () => {
                 <User className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Your Personal Profile</h3>
+                <h3 className="text-xl font-bold text-gray-900">
+                  {userName ? `${userName}'s Personal Profile` : 'Your Personal Profile'}
+                </h3>
                 <p className="text-sm text-gray-600">
                   {yourProfileStats.completion > 0 ? `${yourProfileStats.completion}% Complete` : 'Not started'}
                 </p>
@@ -124,7 +133,10 @@ const ProfileBuilder = () => {
                 onClick={() => handleStartProfile('your')}
                 className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-lg py-3"
               >
-                {yourProfileStats.completion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
+                {yourProfileStats.completion > 0 ? 
+                  (userName ? `Continue ${userName}'s Profile` : 'Continue Your Profile') : 
+                  (userName ? `Start ${userName}'s Profile` : 'Start Your Profile')
+                }
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
@@ -188,7 +200,7 @@ const ProfileBuilder = () => {
         <div className="text-center space-y-4">
           <h3 className="text-2xl font-bold text-gray-900">The Questions That Actually Matter</h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            How do you really act when you're stressed? What makes you feel most loved? 
+            {userName ? `${userName}, how do you really act when you're stressed?` : 'How do you really act when you\'re stressed?'} What makes you feel most loved? 
             What toxic patterns are you definitely not repeating from your last relationship? 
             (Spoiler: you probably are.) The more honest you are, the less we'll sound like a generic self-help book.
           </p>
@@ -318,8 +330,9 @@ const ProfileBuilder = () => {
               [activeProfileType]: [...prev[activeProfileType], profile]
             }));
             setShowForm(false);
-            toast.success(`${activeProfileType === 'your' ? 'Your' : 'Partner'} profile saved successfully!`);
+            toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
           }}
+          demographicsData={demographicsData[activeProfileType]}
         />
       )}
     </div>

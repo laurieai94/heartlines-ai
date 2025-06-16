@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,13 +14,14 @@ interface ProfileFormProps {
   profileType: 'your' | 'partner';
   onClose: () => void;
   onSave: (profile: any) => void;
+  demographicsData?: any;
 }
 
-const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
+const ProfileForm = ({ profileType, onClose, onSave, demographicsData }: ProfileFormProps) => {
   const [activeTab, setActiveTab] = useState("communication");
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
   const [currentProfile, setCurrentProfile] = useState<any>({
-    name: "",
+    name: demographicsData?.name || "",
     relationshipType: "",
     relationshipTypeOther: "",
     relationshipLength: "",
@@ -69,6 +69,7 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
   });
 
   const isPartnerProfile = profileType === 'partner';
+  const userName = demographicsData?.name || '';
 
   const AGREEMENT_SCALE = [
     "Strongly Disagree",
@@ -186,7 +187,7 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
         <div className="p-8">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-bold text-gray-900">
-              {isPartnerProfile ? 'Create Partner Profile for RealTalk' : 'Create Your Profile'}
+              {isPartnerProfile ? 'Create Partner Profile for RealTalk' : `Create ${userName ? userName + "'s" : 'Your'} Profile`}
             </h3>
             <Button variant="ghost" size="sm" onClick={onClose}>
               <X className="w-4 h-4" />
@@ -264,6 +265,14 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
             </div>
           )}
 
+          {!isPartnerProfile && userName && (
+            <div className="mb-6 bg-gradient-to-r from-pink-50 to-fuchsia-50 p-4 rounded-lg">
+              <p className="text-pink-800">
+                <strong>Hi {userName}!</strong> Let's build your relationship profile. This will help us give you personalized advice and insights.
+              </p>
+            </div>
+          )}
+
           {!isPartnerProfile && (
             <div className="mb-6">
               <Label htmlFor="name">Name *</Label>
@@ -273,7 +282,11 @@ const ProfileForm = ({ profileType, onClose, onSave }: ProfileFormProps) => {
                 onChange={(e) => setCurrentProfile({...currentProfile, name: e.target.value})}
                 placeholder="Your name"
                 className="mt-1"
+                readOnly={!!userName}
               />
+              {userName && (
+                <p className="text-xs text-gray-500 mt-1">Name populated from your demographics</p>
+              )}
             </div>
           )}
           
