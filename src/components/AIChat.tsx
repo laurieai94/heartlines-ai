@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -184,7 +183,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                       {conversationStarters.map((starter, index) => (
                         <Card
                           key={index}
-                          className="p-4 cursor-pointer bg-white/60 border-coral-200/50 hover:bg-coral-50 hover:border-coral-300 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
+                          className={`p-4 cursor-pointer bg-white/60 border-coral-200/50 hover:bg-coral-50 hover:border-coral-300 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group ${!isConfigured ? 'opacity-50 cursor-not-allowed' : ''}`}
                           onClick={() => handleStarterClick(starter)}
                         >
                           <div className="flex items-center justify-between">
