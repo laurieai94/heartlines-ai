@@ -23,7 +23,7 @@ export const useConversationTopics = () => {
         .select('*')
         .eq('user_id', user.id)
         .order('mentioned_at', { ascending: false })
-        .limit(10);
+        .limit(20);
 
       if (error) throw error;
       setTopics(data || []);
@@ -79,13 +79,16 @@ export const useConversationTopics = () => {
   };
 
   const extractTopicsFromMessage = (message: string) => {
-    // Simple topic extraction - look for key relationship themes
+    // Enhanced topic extraction with more relationship themes
     const topicKeywords = [
       'communication', 'fighting', 'argument', 'love language', 'trust',
       'intimacy', 'support', 'stress', 'anxiety', 'future', 'family',
       'money', 'career', 'boundaries', 'respect', 'appreciation',
       'quality time', 'physical touch', 'words of affirmation',
-      'acts of service', 'gifts', 'conflict', 'listening'
+      'acts of service', 'gifts', 'conflict', 'listening', 'understanding',
+      'jealousy', 'insecurity', 'commitment', 'independence', 'space',
+      'romance', 'passion', 'friendship', 'connection', 'distance',
+      'expectations', 'goals', 'values', 'priorities', 'compromise'
     ];
 
     const lowerMessage = message.toLowerCase();
@@ -97,18 +100,30 @@ export const useConversationTopics = () => {
       }
     });
 
-    // Also look for phrases like "feeling..." or "worried about..."
-    const feelingMatch = lowerMessage.match(/feeling\s+(\w+)/);
-    if (feelingMatch) {
-      foundTopics.push(`feeling ${feelingMatch[1]}`);
-    }
+    // Enhanced phrase extraction
+    const feelingPatterns = [
+      /feeling\s+(\w+)/g,
+      /feel\s+(\w+)/g,
+      /worried about\s+([\w\s]{1,20})/g,
+      /struggling with\s+([\w\s]{1,20})/g,
+      /confused about\s+([\w\s]{1,20})/g,
+      /upset about\s+([\w\s]{1,20})/g
+    ];
 
-    const worriedMatch = lowerMessage.match(/worried about\s+(\w+(?:\s+\w+)?)/);
-    if (worriedMatch) {
-      foundTopics.push(`worried about ${worriedMatch[1]}`);
-    }
+    feelingPatterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(lowerMessage)) !== null) {
+        if (match[1] && match[1].trim().length > 2) {
+          foundTopics.push(match[1].trim());
+        }
+      }
+    });
 
-    return foundTopics;
+    // Remove duplicates and filter out very short or common words
+    return [...new Set(foundTopics)].filter(topic => 
+      topic.length > 2 && 
+      !['the', 'and', 'but', 'for', 'with', 'you', 'are', 'that', 'this'].includes(topic)
+    );
   };
 
   useEffect(() => {

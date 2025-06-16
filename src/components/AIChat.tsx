@@ -97,11 +97,11 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col relative min-h-0">
+    <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
       <BubbleBackground />
       
       {/* Chat Header */}
-      <div className="relative z-10">
+      <div className="relative z-10 mb-6">
         <ChatHeader 
           userName={userName}
           partnerName={partnerName}
@@ -110,9 +110,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         />
       </div>
 
-      {/* Chat Messages */}
-      <Card className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0">
-        <div className="h-full flex flex-col p-6">
+      {/* Main Chat Area */}
+      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col">
+        <div className="flex-1 p-6 flex flex-col">
           <ScrollArea className="flex-1 mb-6">
             <div className="space-y-2 pr-4">
               {chatHistory.length === 0 && isConfigured && (
@@ -123,6 +123,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     Hey {userName || 'there'}! 👋
                   </h3>
+                  <p className="text-gray-600">
+                    I'm Kai, your relationship coach. I'm here to help you navigate whatever you're experiencing with {partnerName || 'your partner'}.
+                  </p>
                 </div>
               )}
               
@@ -162,22 +165,22 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
-        </div>
-      </Card>
 
-      {/* Chat Input */}
-      <div className="relative z-10 mt-6">
-        <AIChatInput 
-          onSendMessage={sendMessage} 
-          loading={loading || !isConfigured} 
-          userName={userName} 
-          partnerName={partnerName} 
-        />
-        {!isConfigured && (
-          <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit">
-            Complete the setup in the sidebar to start chatting
-          </p>
-        )}
+          {/* Chat Input */}
+          <div className="relative z-10">
+            <AIChatInput 
+              onSendMessage={sendMessage} 
+              loading={loading || !isConfigured} 
+              userName={userName} 
+              partnerName={partnerName} 
+            />
+            {!isConfigured && (
+              <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit">
+                Complete the setup in the sidebar to start chatting
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

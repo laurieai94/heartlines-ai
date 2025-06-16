@@ -19,6 +19,14 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
 
+  // Sort topics by frequency and recency
+  const sortedTopics = topics.sort((a, b) => {
+    if (a.frequency !== b.frequency) {
+      return b.frequency - a.frequency; // Higher frequency first
+    }
+    return new Date(b.mentioned_at).getTime() - new Date(a.mentioned_at).getTime(); // More recent first
+  });
+
   return (
     <div className="w-80 space-y-4">
       {/* API Configuration */}
@@ -77,29 +85,52 @@ const AISidebar = ({ profiles, demographicsData, chatHistory, isConfigured, onSu
         </div>
       </Card>
 
-      {/* What We've Covered */}
-      {(chatHistory.length > 0 || topics.length > 0) && (
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-          <div className="flex items-center gap-2 mb-3">
-            <MessageCircle className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">What We've Covered</h3>
-          </div>
-          <div className="space-y-2">
-            {loading ? (
-              <p className="text-xs text-gray-500">Loading topics...</p>
-            ) : topics.length > 0 ? (
-              topics.slice(0, 5).map((topic, index) => (
-                <Badge key={topic.id} variant="outline" className="w-full justify-start border-coral-200 text-coral-700 text-xs">
-                  <MessageCircle className="w-3 h-3 mr-1" />
-                  {topic.topic} {topic.frequency > 1 && `(${topic.frequency}x)`}
-                </Badge>
-              ))
-            ) : chatHistory.length > 0 ? (
-              <p className="text-xs text-gray-500">Keep chatting and I'll track our conversation themes</p>
-            ) : null}
-          </div>
-        </Card>
-      )}
+      {/* What We've Covered - Enhanced */}
+      <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <div className="flex items-center gap-2 mb-3">
+          <MessageCircle className="w-4 h-4 text-coral-600" />
+          <h3 className="font-medium text-gray-900">What We've Covered</h3>
+        </div>
+        <div className="space-y-2">
+          {loading ? (
+            <p className="text-xs text-gray-500">Loading topics...</p>
+          ) : chatHistory.length === 0 ? (
+            <p className="text-xs text-gray-500">Start chatting and I'll track our conversation themes</p>
+          ) : sortedTopics.length > 0 ? (
+            <>
+              <div className="space-y-2">
+                {sortedTopics.slice(0, 8).map((topic) => (
+                  <Badge 
+                    key={topic.id} 
+                    variant="outline" 
+                    className="w-full justify-between border-coral-200 text-coral-700 text-xs hover:bg-coral-50 transition-colors"
+                  >
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3" />
+                      <span className="truncate">{topic.topic}</span>
+                    </div>
+                    {topic.frequency > 1 && (
+                      <span className="bg-coral-100 text-coral-700 px-1.5 py-0.5 rounded-full text-xs font-medium">
+                        {topic.frequency}x
+                      </span>
+                    )}
+                  </Badge>
+                ))}
+              </div>
+              {sortedTopics.length > 8 && (
+                <p className="text-xs text-gray-500 mt-2">
+                  +{sortedTopics.length - 8} more topics discussed
+                </p>
+              )}
+              <div className="mt-3 p-2 bg-gradient-to-r from-purple-50 to-pink-50 rounded text-xs text-gray-600">
+                <strong>Patterns emerging:</strong> I'm learning about your relationship dynamics as we talk
+              </div>
+            </>
+          ) : (
+            <p className="text-xs text-gray-500">Keep chatting and I'll identify conversation themes</p>
+          )}
+        </div>
+      </Card>
     </div>
   );
 };
