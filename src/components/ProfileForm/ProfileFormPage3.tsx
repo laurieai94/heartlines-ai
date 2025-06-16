@@ -43,7 +43,14 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate ONLY required fields
+    // For partner profiles, skip validation entirely
+    if (profileType === 'partner') {
+      console.log('Partner profile - skipping validation');
+      onComplete(formData);
+      return;
+    }
+    
+    // Validate ONLY required fields for 'your' profile
     if (!validateRequired()) return;
     
     console.log('Page 3 form data being submitted:', formData);
@@ -93,7 +100,13 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
             Attachment Style & Growth Areas
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions. All other sections are completely optional.
+            {profileType === 'partner' ? (
+              'All partner profile questions are optional. Fill out what you know.'
+            ) : (
+              <>
+                <span className="text-red-500">*</span> indicates required questions. All other sections are completely optional.
+              </>
+            )}
           </p>
         </div>
         

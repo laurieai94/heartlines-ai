@@ -40,7 +40,14 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Only validate required fields - deep dive questions are optional
+    // For partner profiles, skip validation entirely
+    if (profileType === 'partner') {
+      console.log('Partner profile - skipping validation');
+      onComplete(formData);
+      return;
+    }
+    
+    // Only validate required fields for 'your' profile
     if (!validateRequired()) return;
     
     console.log('Page 1 form data being submitted:', formData);
@@ -98,7 +105,13 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
             Communication & Love Languages
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are completely optional and can be skipped.
+            {profileType === 'partner' ? (
+              'All partner profile questions are optional. Fill out what you know.'
+            ) : (
+              <>
+                <span className="text-red-500">*</span> indicates required questions. Deep dive questions are completely optional and can be skipped.
+              </>
+            )}
           </p>
         </div>
         

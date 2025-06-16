@@ -34,7 +34,14 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate ONLY core required fields - exclude deep dive questions
+    // For partner profiles, skip validation entirely
+    if (profileType === 'partner') {
+      console.log('Partner profile - skipping validation');
+      onComplete(formData);
+      return;
+    }
+    
+    // Validate ONLY core required fields for 'your' profile - exclude deep dive questions
     if (!validateRequired()) return;
     
     console.log('Page 2 form data being submitted:', formData);
@@ -77,7 +84,13 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
             Conflict & Stress Patterns
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> Only core questions are required. Deep dive questions are completely optional.
+            {profileType === 'partner' ? (
+              'All partner profile questions are optional. Fill out what you know.'
+            ) : (
+              <>
+                <span className="text-red-500">*</span> Only core questions are required. Deep dive questions are completely optional.
+              </>
+            )}
           </p>
         </div>
         
