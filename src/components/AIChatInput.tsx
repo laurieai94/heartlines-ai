@@ -13,11 +13,13 @@ interface AIChatInputProps {
 
 const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
+    setIsTyping(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -25,6 +27,11 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentMessage(e.target.value);
+    setIsTyping(e.target.value.length > 0);
   };
 
   const quickStarters = [
@@ -35,12 +42,13 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
 
   const handleQuickStarter = (starter: string) => {
     setCurrentMessage(starter);
+    setIsTyping(false);
   };
 
   return (
     <div className="space-y-4">
-      {/* Quick Starters - Only show when no conversation started */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+      {/* Quick Starters with microinteractions */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg animate-fade-in">
         <div className="flex gap-2 flex-wrap justify-center">
           {quickStarters.map((starter, index) => (
             <Button
@@ -48,7 +56,8 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
               variant="outline"
               size="sm"
               onClick={() => handleQuickStarter(starter)}
-              className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-105"
+              className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md hover:glow animate-bounce-gentle"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               {starter}
             </Button>
@@ -56,13 +65,27 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName }: AIChatIn
         </div>
       </div>
 
+      {/* Typing indicator */}
+      {isTyping && !loading && (
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-white/20 shadow-md animate-fade-in">
+          <div className="flex items-center gap-2 text-purple-600">
+            <div className="flex gap-1">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+            </div>
+            <span className="text-sm font-medium">Kai is listening...</span>
+          </div>
+        </div>
+      )}
+
       {/* Chat Input */}
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl">
         <div className="flex gap-3 items-end">
           <div className="flex-1">
             <Input
               value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
+              onChange={handleInputChange}
               onKeyPress={handleKeyPress}
               placeholder="Share what's happening in your relationship..."
               disabled={loading}

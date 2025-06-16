@@ -33,17 +33,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
-  // Conversation starters - moved from sidebar to chat interface
-  const conversationStarters = [
-    "I feel like we're not connecting lately",
-    "We keep having the same fight over and over",
-    "I want to improve our communication",
-    "Are we growing apart?",
-    "I miss how we used to be",
-    "I want to get back what we had.",
-    "How can we be more supportive of each other?"
-  ];
-
   // Auto-scroll to bottom when chat history changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -143,17 +132,21 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col relative min-h-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 rounded-3xl p-6">
+    <div className="flex-1 flex flex-col relative min-h-0 rounded-3xl p-6 overflow-hidden">
+      {/* Dynamic gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 animate-gradient-shift"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/30 via-transparent to-coral-50/30 animate-gradient-shift-reverse"></div>
+      
       <BubbleBackground />
 
       {/* Main Chat Area */}
-      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col">
+      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col animate-fade-in">
         <div className="flex-1 p-6 flex flex-col">
           <ScrollArea className="flex-1 mb-6">
             <div className="space-y-2 pr-4">
               {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                <div className="text-center py-8 max-w-xl mx-auto">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                <div className="text-center py-8 max-w-xl mx-auto animate-fade-in">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
@@ -165,18 +158,19 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 </div>
               )}
               
-              {chatHistory.map((message) => (
-                <AIChatMessage 
-                  key={message.id} 
-                  message={message} 
-                  userAvatarUrl={profile?.avatar_url || undefined}
-                  userName={userName}
-                />
+              {chatHistory.map((message, index) => (
+                <div key={message.id} className="animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+                  <AIChatMessage 
+                    message={message} 
+                    userAvatarUrl={profile?.avatar_url || undefined}
+                    userName={userName}
+                  />
+                </div>
               ))}
               
               {loading && (
-                <div className="flex justify-start">
-                  <div className="flex gap-3 mb-6 animate-fade-in">
+                <div className="flex justify-start animate-fade-in">
+                  <div className="flex gap-3 mb-6">
                     <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
                       <AvatarImage 
                         src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
@@ -194,7 +188,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                           <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                           <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                         </div>
-                        <span className="text-sm font-medium">
+                        <span className="text-sm font-medium animate-pulse">
                           Kai is thinking...
                         </span>
                       </div>
@@ -216,7 +210,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               partnerName={partnerName} 
             />
             {!isConfigured && (
-              <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit">
+              <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit animate-fade-in">
                 Complete the setup in the sidebar to start chatting
               </p>
             )}

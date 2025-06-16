@@ -100,19 +100,26 @@ const AISidebar = ({
   return (
     <>
       <div className="w-80 space-y-4">
-        {/* Meet Kai */}
-        <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
-          <div className="flex items-center gap-2 mb-2">
-            <Lightbulb className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">Meet Kai</h3>
+        {/* Meet Kai with avatar */}
+        <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50 animate-fade-in hover:shadow-lg transition-all duration-300">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+              <Heart className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-900 flex items-center gap-2">
+                <Lightbulb className="w-4 h-4 text-coral-600" />
+                Meet Kai
+              </h3>
+            </div>
           </div>
           <p className="text-sm text-gray-600">
             Built on the expertise of PhD-level clinical psychology—trained on 15+ years of insights to deliver real, effective advice for modern relationships.
           </p>
         </Card>
 
-        {/* Profile Completion Status */}
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        {/* Profile Completion Status with animated progress */}
+        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />
             <h3 className="font-medium text-gray-900">Your Profiles</h3>
@@ -121,27 +128,34 @@ const AISidebar = ({
           {/* Your Profile */}
           <div className="space-y-3 mb-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <User className="w-4 h-4 text-purple-500" />
                 {userName || 'Your'} Profile
               </span>
               <span className="text-sm text-gray-500">{yourCompletion}%</span>
             </div>
-            <Progress value={yourCompletion} className="h-2" />
+            <div className="relative">
+              <Progress 
+                value={yourCompletion} 
+                className="h-3 transition-all duration-1000 ease-out hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
+            </div>
             <div className="flex gap-2">
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-xs"
+                className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
                 onClick={() => onOpenProfileForm?.('your')}
               >
                 <Plus className="w-3 h-3 mr-1" />
-                {yourCompletion > 0 ? 'Add More' : 'Start'}
+                {yourCompletion > 0 ? 'Keep Going' : 'Start'}
               </Button>
               {yourCompletion > 0 && (
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-xs"
+                  className="text-xs hover:scale-105 transition-transform duration-200"
                   onClick={() => handleViewProfile('your')}
                 >
                   <Eye className="w-3 h-3" />
@@ -153,27 +167,34 @@ const AISidebar = ({
           {/* Partner Profile */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Heart className="w-4 h-4 text-pink-500" />
                 {partnerName || 'Partner'} Profile
               </span>
               <span className="text-sm text-gray-500">{partnerCompletion}%</span>
             </div>
-            <Progress value={partnerCompletion} className="h-2" />
+            <div className="relative">
+              <Progress 
+                value={partnerCompletion} 
+                className="h-3 transition-all duration-1000 ease-out hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full opacity-20 animate-pulse"></div>
+            </div>
             <div className="flex gap-2">
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-xs"
+                className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
                 onClick={() => onOpenProfileForm?.('partner')}
               >
                 <Plus className="w-3 h-3 mr-1" />
-                {partnerCompletion > 0 ? 'Add More' : 'Start'}
+                {partnerCompletion > 0 ? 'Keep Going' : 'Start'}
               </Button>
               {partnerCompletion > 0 && (
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-xs"
+                  className="text-xs hover:scale-105 transition-transform duration-200"
                   onClick={() => handleViewProfile('partner')}
                 >
                   <Eye className="w-3 h-3" />
@@ -183,14 +204,14 @@ const AISidebar = ({
           </div>
 
           {userName && partnerName && (yourCompletion > 50 || partnerCompletion > 50) && (
-            <div className="mt-4 p-2 bg-coral-50 rounded text-xs text-coral-700">
+            <div className="mt-4 p-2 bg-coral-50 rounded text-xs text-coral-700 animate-fade-in">
               <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
             </div>
           )}
         </Card>
 
-        {/* What We've Covered */}
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        {/* What We've Covered with fade-in animation */}
+        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
           <div className="flex items-center gap-2 mb-3">
             <MessageCircle className="w-4 h-4 text-coral-600" />
             <h3 className="font-medium text-gray-900">What We've Covered</h3>
@@ -203,11 +224,12 @@ const AISidebar = ({
             ) : sortedTopics.length > 0 ? (
               <>
                 <div className="space-y-2">
-                  {sortedTopics.slice(0, 8).map((topic) => (
+                  {sortedTopics.slice(0, 8).map((topic, index) => (
                     <Badge 
                       key={topic.id} 
                       variant="outline" 
-                      className="w-full justify-between border-coral-200 text-coral-700 text-xs hover:bg-coral-50 transition-colors"
+                      className="w-full justify-between border-coral-200 text-coral-700 text-xs hover:bg-coral-50 transition-all duration-200 hover:scale-105 animate-fade-in"
+                      style={{animationDelay: `${index * 0.1}s`}}
                     >
                       <div className="flex items-center gap-1">
                         <MessageCircle className="w-3 h-3" />
@@ -226,7 +248,7 @@ const AISidebar = ({
                     +{sortedTopics.length - 8} more topics discussed
                   </p>
                 )}
-                <div className="mt-3 p-2 bg-gradient-to-r from-purple-50 to-pink-50 rounded text-xs text-gray-600">
+                <div className="mt-3 p-2 bg-gradient-to-r from-purple-50 to-pink-50 rounded text-xs text-gray-600 animate-fade-in">
                   <strong>Patterns emerging:</strong> I'm learning about your relationship dynamics as we talk
                 </div>
               </>
@@ -236,10 +258,10 @@ const AISidebar = ({
           </div>
         </Card>
 
-        {/* Safe Space */}
-        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        {/* Safe Space with fade-in */}
+        <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300" style={{animationDelay: '0.4s'}}>
           <div className="flex items-center gap-2 mb-2">
-            <Heart className="w-4 h-4 text-coral-600" />
+            <Heart className="w-4 h-4 text-coral-600 animate-pulse" />
             <h3 className="font-medium text-gray-900">Safe Space</h3>
           </div>
           <div className="text-sm text-gray-600 space-y-1">
@@ -250,7 +272,9 @@ const AISidebar = ({
         </Card>
 
         {/* API Configuration */}
-        <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
+        <div className="animate-slide-up" style={{animationDelay: '0.6s'}}>
+          <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
+        </div>
       </div>
 
       {/* Profile Viewer Modal */}
