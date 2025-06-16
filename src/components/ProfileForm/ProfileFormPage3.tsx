@@ -100,18 +100,18 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
           type="button"
           variant="outline"
           onClick={onBack}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-6 py-3"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Page 2
+          Back to Conflict & Stress
         </Button>
         
         <Button 
           type="submit" 
           disabled={!isFormValid}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-3 text-lg"
         >
-          <Check className="w-4 h-4" />
+          <Check className="w-5 h-5" />
           Complete Profile
         </Button>
       </div>

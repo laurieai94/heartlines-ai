@@ -15,17 +15,13 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   const [formData, setFormData] = useState({
     // Conflict and stress patterns
     conflictResponse: initialData.conflictResponse || '',
-    stressResponse: initialData.stressResponse || '',
-    
-    // Additional conflict-related fields
-    conflictResolution: initialData.conflictResolution || '',
-    apologyStyle: initialData.apologyStyle || '',
+    stressSpaceNeed: initialData.stressSpaceNeed || '',
+    stressSupportNeed: initialData.stressSupportNeed || '',
     
     ...initialData
   });
 
   const isPersonal = profileType === 'your';
-  const pronoun = isPersonal ? 'you' : 'they';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +33,9 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   // Validation for required fields
-  const isFormValid = formData.conflictResponse && formData.stressResponse;
+  const isFormValid = formData.conflictResponse && 
+                     formData.stressSpaceNeed && 
+                     formData.stressSupportNeed;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -58,19 +56,19 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
           type="button"
           variant="outline"
           onClick={onBack}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-6 py-3"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Page 1
+          Back to Communication
         </Button>
         
         <Button 
           type="submit" 
           disabled={!isFormValid}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-8 py-3 text-lg"
         >
-          Continue to Page 3
-          <ArrowRight className="w-4 h-4" />
+          Continue to Attachment
+          <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
     </form>

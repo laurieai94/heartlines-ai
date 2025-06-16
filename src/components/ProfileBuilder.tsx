@@ -31,7 +31,7 @@ const ProfileBuilder = ({
   const [showDetails, setShowDetails] = useState(false);
   const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
 
-  // Get user's name for personalization
+  // Get user's name for personalization - only use in specific places, not the main header
   const userName = demographicsData.your?.name || '';
 
   const yourProfileStats: ProfileStats = {
@@ -92,10 +92,10 @@ const ProfileBuilder = ({
 
   return (
     <div className="space-y-8">
-      {/* Personalized Header */}
+      {/* Main Header - Remove personalized name */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold text-gray-900">
-          {userName ? `Let's Get to Know the Real You, ${userName}` : 'Let\'s Get to Know the Real You'}
+          Let's Get to Know the Real You
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Build your relationship profiles in just 5 minutes
@@ -107,7 +107,7 @@ const ProfileBuilder = ({
             <div className="flex items-center gap-2">
               <Progress value={yourProfileStats.completion} className="w-20" />
               <span className="text-sm text-gray-600">
-                {userName ? `${userName}'s Profile: ${yourProfileStats.completion}%` : `Your Profile: ${yourProfileStats.completion}%`}
+                Your Profile: {yourProfileStats.completion}%
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ const ProfileBuilder = ({
         )}
       </div>
 
-      {/* Main Action Cards - Simplified */}
+      {/* Main Action Cards - Keep personalization in card content only */}
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {/* Your Profile Card */}
         <Card className="p-6 bg-gradient-to-br from-pink-50 to-fuchsia-50 border-2 border-pink-200 shadow-lg">
@@ -129,7 +129,7 @@ const ProfileBuilder = ({
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900">
-                  {userName ? `${userName}'s Personal Profile` : 'Your Personal Profile'}
+                  Your Personal Profile
                 </h3>
                 <p className="text-sm text-gray-600">
                   {yourProfileStats.completion > 0 ? `${yourProfileStats.completion}% Complete` : 'Not started'}
@@ -158,10 +158,7 @@ const ProfileBuilder = ({
                 onClick={() => handleStartProfile('your')}
                 className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-lg py-3"
               >
-                {yourProfileStats.completion > 0 ? 
-                  (userName ? `Continue ${userName}'s Profile` : 'Continue Your Profile') : 
-                  (userName ? `Start ${userName}'s Profile` : 'Start Your Profile')
-                }
+                {yourProfileStats.completion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <div className="flex items-center justify-center gap-2 text-sm text-gray-500">

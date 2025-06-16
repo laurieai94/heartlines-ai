@@ -73,10 +73,10 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
         <Button 
           type="submit" 
           disabled={!isFormValid}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-8 py-3 text-lg"
         >
-          Continue to Page 2
-          <ArrowRight className="w-4 h-4" />
+          Continue to Conflict & Stress
+          <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
     </form>

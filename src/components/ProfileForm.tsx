@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { toast } from "sonner";
 import ProfileFormPage1 from "./ProfileForm/ProfileFormPage1";
 import ProfileFormPage2 from "./ProfileForm/ProfileFormPage2";
@@ -41,10 +41,8 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
     toast.success(`${isPersonal ? 'Your' : 'Partner'} profile completed successfully!`);
   };
 
-  const handleBack = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  const handleBackToPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   const renderCurrentPage = () => {
@@ -62,7 +60,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
           <ProfileFormPage2 
             profileType={profileType}
             onComplete={handlePage2Complete}
-            onBack={handleBack}
+            onBack={() => handleBackToPage(1)}
             initialData={page2Data}
           />
         );
@@ -71,7 +69,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
           <ProfileFormPage3 
             profileType={profileType}
             onComplete={handlePage3Complete}
-            onBack={handleBack}
+            onBack={() => handleBackToPage(2)}
             initialData={page3Data}
           />
         );
@@ -108,7 +106,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
               </p>
             </div>
             <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700">
-              ✕
+              <X className="w-5 h-5" />
             </Button>
           </div>
 
@@ -118,7 +116,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
               <span className="text-sm font-medium text-gray-700">Page {currentPage} of {totalPages}</span>
               <span className="text-sm text-gray-500">{getPageTitle()}</span>
             </div>
-            <Progress value={(currentPage / totalPages) * 100} className="h-2" />
+            <Progress value={(currentPage / totalPages) * 100} className="h-3" />
           </div>
         </div>
 
@@ -127,28 +125,42 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
           {renderCurrentPage()}
         </div>
 
-        {/* Navigation Footer */}
-        <div className="p-6 border-t bg-gray-50 flex justify-between">
-          <Button
-            variant="outline"
-            onClick={handleBack}
-            disabled={currentPage === 1}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-          
-          <div className="flex gap-2">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <div
-                key={i}
-                className={`w-2 h-2 rounded-full ${
-                  i + 1 === currentPage ? 'bg-purple-500' : 
-                  i + 1 < currentPage ? 'bg-green-500' : 'bg-gray-300'
-                }`}
-              />
-            ))}
+        {/* Enhanced Navigation Footer */}
+        <div className="p-6 border-t bg-gray-50">
+          <div className="flex justify-between items-center">
+            {/* Back Button */}
+            <Button
+              variant="outline"
+              onClick={() => handleBackToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 px-6 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {currentPage > 1 ? `Back to Page ${currentPage - 1}` : 'Back'}
+            </Button>
+            
+            {/* Page Indicators */}
+            <div className="flex gap-3 items-center">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleBackToPage(i + 1)}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                    i + 1 === currentPage 
+                      ? 'bg-purple-500 text-white shadow-lg' 
+                      : i + 1 < currentPage 
+                        ? 'bg-green-500 text-white hover:bg-green-600' 
+                        : 'bg-gray-200 text-gray-500 hover:bg-gray-300'
+                  }`}
+                  disabled={i + 1 > currentPage}
+                >
+                  {i + 1 < currentPage ? <Check className="w-4 h-4" /> : i + 1}
+                </button>
+              ))}
+            </div>
+
+            {/* Next/Complete Button Placeholder */}
+            <div className="w-32"></div>
           </div>
         </div>
       </div>
