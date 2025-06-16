@@ -19,14 +19,12 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         <Avatar className={`w-10 h-10 ${isUser ? 'bg-gradient-to-br from-pink-400 to-coral-500' : 'bg-gradient-to-br from-purple-400 to-blue-500'}`}>
           {isUser && userAvatarUrl ? (
             <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
-          ) : (
+          ) : isUser ? (
             <AvatarFallback className="text-white border-0">
-              {isUser ? (
-                userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />
-              ) : (
-                <Bot className="w-5 h-5" />
-              )}
+              {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
             </AvatarFallback>
+          ) : (
+            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
           )}
         </Avatar>
       </div>

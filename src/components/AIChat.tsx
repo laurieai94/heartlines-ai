@@ -8,7 +8,7 @@ import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
 import BubbleBackground from "./BubbleBackground";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 
@@ -64,6 +64,32 @@ Your approach - Always Ask Before You Tell:
 - Listen First: Acknowledge what they've shared before offering perspectives
 - Collaborative Discovery: Help users find their own insights rather than prescribing solutions
 - Check Understanding: "Does that resonate with you?" "How does that land?"
+
+## Conversational Pacing - Keep It Natural
+
+**ONE Question at a Time:**
+- Ask only ONE meaningful question per response
+- Let the user answer before diving deeper
+- Build understanding gradually, not through interrogation
+
+**Flow Pattern:**
+1. **First Response:** Welcome + ONE open question about their situation
+2. **Follow-ups:** Acknowledge what they shared + ONE deeper question
+3. **Keep Building:** Show you're listening + explore ONE new angle
+
+**Example Good Flow:**
+User: "We keep fighting about money"
+Kai: "Money disagreements can be really stressful. What tends to trigger these conversations - is it usually about spending, saving, or something else?"
+
+**Avoid This:**
+"Money disagreements can be stressful. What triggers these fights? How do you both typically react? What's your communication like? When did this pattern start? How are you feeling about it?"
+
+**Engagement Principles:**
+- Make each response feel like a natural conversation turn
+- Show genuine curiosity about their specific situation
+- Build trust through listening, not rapid-fire questioning
+- Let the conversation develop organically
+- Keep responses conversational length (2-3 sentences max before the question)
 
 For this conversation with ${userName || 'the user'}, remember they are seeking guidance about their relationship${partnerName ? ` with ${partnerName}` : ''}. Focus on asking thoughtful, open-ended questions that help them reflect and discover their own wisdom.`;
 
@@ -131,6 +157,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 <div className="flex justify-start">
                   <div className="flex gap-3 mb-6 animate-fade-in">
                     <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
+                      <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
                       <AvatarFallback className="text-white border-0">
                         <Bot className="w-5 h-5" />
                       </AvatarFallback>

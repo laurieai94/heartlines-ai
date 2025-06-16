@@ -16,6 +16,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         {/* AI Coach Avatar */}
         <div className="relative">
           <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-500 border-4 border-white shadow-lg">
+            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
             <AvatarFallback className="text-white border-0 text-lg">
               <Bot className="w-8 h-8" />
             </AvatarFallback>
