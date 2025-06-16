@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb } from "lucide-react";
 import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
+import Demographics from "@/components/Demographics";
 
 interface ProfileStats {
   completion: number;
@@ -19,8 +20,13 @@ const ProfileBuilder = () => {
     partner: []
   });
   const [showForm, setShowForm] = useState(false);
+  const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
+  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
+    your: null,
+    partner: null
+  });
 
   const yourProfileStats: ProfileStats = {
     completion: profiles.your.length > 0 ? 75 : 0,
@@ -32,6 +38,20 @@ const ProfileBuilder = () => {
     completion: profiles.partner.length > 0 ? 50 : 0,
     sectionsComplete: profiles.partner.length > 0 ? 2 : 0,
     totalSections: 5
+  };
+
+  const handleStartProfile = (profileType: 'your' | 'partner') => {
+    setActiveProfileType(profileType);
+    setShowDemographics(true);
+  };
+
+  const handleDemographicsComplete = (data: any) => {
+    setDemographicsData(prev => ({
+      ...prev,
+      [activeProfileType]: data
+    }));
+    setShowDemographics(false);
+    setShowForm(true);
   };
 
   return (
@@ -93,10 +113,7 @@ const ProfileBuilder = () => {
 
             <div className="space-y-3">
               <Button 
-                onClick={() => {
-                  setActiveProfileType('your');
-                  setShowForm(true);
-                }}
+                onClick={() => handleStartProfile('your')}
                 className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-lg py-3"
               >
                 {yourProfileStats.completion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
@@ -144,10 +161,7 @@ const ProfileBuilder = () => {
             <div className="space-y-3">
               <Button 
                 variant="outline"
-                onClick={() => {
-                  setActiveProfileType('partner');
-                  setShowForm(true);
-                }}
+                onClick={() => handleStartProfile('partner')}
                 className="w-full border-pink-200 hover:bg-pink-50 text-lg py-3"
               >
                 {partnerProfileStats.completion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
@@ -275,6 +289,15 @@ const ProfileBuilder = () => {
           </div>
         )}
       </div>
+
+      {/* Demographics Modal */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType}
+          onClose={() => setShowDemographics(false)}
+          onComplete={handleDemographicsComplete}
+        />
+      )}
 
       {/* Profile Form Modal */}
       {showForm && (
