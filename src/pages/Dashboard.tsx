@@ -54,7 +54,7 @@ const Dashboard = () => {
             </TabsTrigger>
             <TabsTrigger value="insights" className="flex items-center gap-2">
               <Lightbulb className="w-4 h-4" />
-              AI Insights
+              Coach
             </TabsTrigger>
             <TabsTrigger value="conversation" className="flex items-center gap-2">
               <MessageCircle className="w-4 h-4" />
