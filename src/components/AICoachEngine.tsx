@@ -145,7 +145,7 @@ export class AICoachEngine {
     return context;
   }
 
-  static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
+  static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = [], enhancedPrompt?: string): Promise<string> {
     console.log('Getting AI response via Supabase...');
     console.log('Context being used:', context);
 
@@ -164,7 +164,7 @@ export class AICoachEngine {
 
     console.log('Making Supabase Edge Function call...');
     try {
-      const response = await this.generateRealAIResponse(userMessage, context, chatHistory);
+      const response = await this.generateRealAIResponse(userMessage, context, chatHistory, enhancedPrompt);
       console.log('AI response generated successfully via Supabase');
       return response;
     } catch (error) {
@@ -176,10 +176,11 @@ export class AICoachEngine {
   private static async generateRealAIResponse(
     userMessage: string, 
     context: PersonContext, 
-    chatHistory: ChatMessage[]
+    chatHistory: ChatMessage[],
+    enhancedPrompt?: string
   ): Promise<string> {
     console.log('Building system prompt...');
-    const systemPrompt = this.buildSystemPrompt(context);
+    const systemPrompt = enhancedPrompt || this.buildSystemPrompt(context);
     console.log('System prompt built, length:', systemPrompt.length);
 
     const conversationHistory = chatHistory.slice(-6).map(msg => ({
