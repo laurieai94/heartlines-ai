@@ -1,4 +1,3 @@
-
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -11,12 +10,20 @@ export class AICoachEngine {
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
+    console.log('Raw profiles data:', profiles);
+    console.log('Raw demographics data:', demographicsData);
+    
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
     const yourDemographics = demographicsData.your || {};
     const partnerDemographics = demographicsData.partner || {};
 
-    return {
+    console.log('Processed yourProfile:', yourProfile);
+    console.log('Processed partnerProfile:', partnerProfile);
+    console.log('Processed yourDemographics:', yourDemographics);
+    console.log('Processed partnerDemographics:', partnerDemographics);
+
+    const context = {
       relationship: {
         length: yourDemographics.relationshipLength || undefined,
         livingTogether: yourDemographics.livingTogether || false,
@@ -52,10 +59,14 @@ export class AICoachEngine {
           `${yourProfile.conflictStyle}-${partnerProfile.conflictStyle}` : undefined
       }
     };
+
+    console.log('Final context built:', context);
+    return context;
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): Promise<string> {
     console.log('Getting Anthropic AI response...');
+    console.log('Context being used:', context);
 
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
