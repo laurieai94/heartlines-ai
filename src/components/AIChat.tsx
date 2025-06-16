@@ -146,16 +146,17 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                 <div className="text-center py-8 max-w-xl mx-auto animate-fade-in">
                   <div className="w-20 h-20 mx-auto mb-6 relative">
-                    <Avatar className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 border-4 border-white shadow-xl">
+                    <Avatar className="w-20 h-20 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 border-4 border-white shadow-2xl ring-4 ring-purple-200/50">
                       <AvatarImage 
                         src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                         alt="Kai" 
                         className="object-cover"
                       />
-                      <AvatarFallback className="text-white border-0">
+                      <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
                         <Heart className="w-10 h-10" />
                       </AvatarFallback>
                     </Avatar>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg"></div>
                   </div>
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-gray-900">
@@ -182,13 +183,13 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               {loading && (
                 <div className="flex justify-start animate-fade-in">
                   <div className="flex gap-3 mb-6">
-                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 ring-4 ring-white shadow-xl">
                       <AvatarImage 
                         src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                         alt="Kai" 
                         className="object-cover"
                       />
-                      <AvatarFallback className="text-white border-0">
+                      <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
                         <Bot className="w-5 h-5" />
                       </AvatarFallback>
                     </Avatar>

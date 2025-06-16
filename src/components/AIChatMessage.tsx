@@ -16,19 +16,28 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
     <div className={`flex gap-3 mb-6 animate-fade-in ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
       {/* Avatar */}
       <div className="flex-shrink-0">
-        <Avatar className={`w-10 h-10 ${isUser ? 'bg-gradient-to-br from-pink-400 to-coral-500' : 'bg-gradient-to-br from-purple-400 to-blue-500'}`}>
+        <Avatar className={`w-10 h-10 ring-4 ring-white shadow-xl ${
+          isUser 
+            ? 'bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500' 
+            : 'bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600'
+        }`}>
           {isUser && userAvatarUrl ? (
             <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
           ) : isUser ? (
-            <AvatarFallback className="text-white border-0 text-lg font-semibold">
+            <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white border-0 text-lg font-bold shadow-inner">
               {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
             </AvatarFallback>
           ) : (
-            <AvatarImage 
-              src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
-              alt="Kai" 
-              className="object-cover"
-            />
+            <>
+              <AvatarImage 
+                src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+                alt="Kai" 
+                className="object-cover"
+              />
+              <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 text-lg font-bold shadow-inner">
+                <Bot className="w-5 h-5" />
+              </AvatarFallback>
+            </>
           )}
         </Avatar>
       </div>
