@@ -61,16 +61,64 @@ const ProfileForm = ({
       return;
     }
 
-    // Add metadata to help with debugging
-    const finalProfileData = {
-      ...profileData,
+    // Structure the data in a way that's easy for Kai to access
+    const structuredProfile = {
+      // Core identity
+      name: initialDemographics[profileType]?.name || '',
+      age: initialDemographics[profileType]?.age || '',
+      pronouns: initialDemographics[profileType]?.pronouns || '',
+      
+      // Communication patterns
+      communicationStyle: profileData.communicationDirectness || '',
+      emotionExpression: profileData.emotionExpression || '',
+      importantTalkPreference: profileData.importantTalkPreference || '',
+      
+      // Love languages
+      primaryLoveLanguage: Array.isArray(profileData.loveLanguages) ? profileData.loveLanguages[0] : '',
+      allLoveLanguages: profileData.loveLanguages || [],
+      
+      // Conflict and stress responses
+      conflictStyle: profileData.conflictResponse || '',
+      stressResponse: profileData.stressSupportNeed || '',
+      needsSpaceWhenStressed: profileData.stressSpaceNeed || '',
+      
+      // Attachment patterns
+      attachmentSecurity: {
+        comfortableWithCloseness: profileData.comfortableClosenessIndependence || '',
+        relationshipWorries: profileData.worryRelationshipSecurity || '',
+        fearOfHurt: profileData.wantClosenessButFearHurt || ''
+      },
+      
+      // Relationship context
+      relationshipLength: profileData.relationshipLength || '',
+      relationshipType: profileData.relationshipType || '',
+      
+      // Growth areas and strengths
+      focusAreas: {
+        improvingCommunication: profileData.improvingCommunicationFocus || '',
+        personalDevelopment: profileData.workingOnPersonalDevelopment || '',
+        familyInfluence: profileData.learnedHealthyFromFamily || ''
+      },
+      
+      // Triggers and patterns
+      commonTriggers: [
+        profileData.beingRushedMakesWorse === 'Strongly Agree' ? 'Being rushed' : null,
+        profileData.socialSituationsAnxious === 'Strongly Agree' ? 'Social situations' : null
+      ].filter(Boolean),
+      
+      // Deep insights (all the granular data for Kai's analysis)
+      detailedResponses: {
+        ...profileData
+      },
+      
+      // Metadata
       profileType,
       completedAt: new Date().toISOString(),
       dataSource: 'ProfileForm'
     };
 
-    console.log('ProfileForm sending final profile data to parent:', finalProfileData);
-    onComplete(finalProfileData);
+    console.log('ProfileForm sending structured profile data to parent:', structuredProfile);
+    onComplete(structuredProfile);
   };
 
   return (
@@ -97,7 +145,7 @@ const ProfileForm = ({
           {currentPage === 1 && (
             <ProfileFormPage1
               profileType={profileType}
-              onNext={(data) => {
+              onComplete={(data) => {
                 handlePageData(data);
                 setCurrentPage(2);
               }}
@@ -109,7 +157,7 @@ const ProfileForm = ({
           {currentPage === 2 && (
             <ProfileFormPage2
               profileType={profileType}
-              onNext={(data) => {
+              onComplete={(data) => {
                 handlePageData(data);
                 setCurrentPage(3);
               }}
