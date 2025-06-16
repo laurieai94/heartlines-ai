@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { MessageCircle, Heart, DollarSign, Home, Users, Target, RotateCcw, Lightbulb } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MessageCircle, Heart, DollarSign, Home, Users, Target, RotateCcw, Lightbulb, User } from "lucide-react";
 
 interface ProfileData {
   your: any[];
@@ -24,6 +25,7 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
   const [selectedScenario, setSelectedScenario] = useState<string>("");
   const [customScenario, setCustomScenario] = useState<string>("");
   const [isCustom, setIsCustom] = useState<boolean>(false);
+  const [selectedPartnerProfile, setSelectedPartnerProfile] = useState<string>("");
 
   // Get user and partner names from demographics
   const userName = demographicsData.your?.name || 'You';
@@ -88,9 +90,11 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
   const handleStartPractice = () => {
     // This will be implemented to start the AI practice session
     console.log('Starting practice session with scenario:', selectedScenario || customScenario);
+    console.log('Using partner profile:', selectedPartnerProfile);
   };
 
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0;
+  const hasPartnerProfiles = profiles.partner.length > 0;
 
   return (
     <div className="space-y-6">
@@ -111,6 +115,47 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
           </div>
         )}
       </div>
+
+      {/* Partner Profile Selection */}
+      {hasPartnerProfiles && (
+        <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <User className="w-4 h-4 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Partner Profile for Role-Play</h3>
+              <p className="text-sm text-gray-600">Select which partner profile the AI should use to simulate {partnerName}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <Select value={selectedPartnerProfile} onValueChange={setSelectedPartnerProfile}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={`Select ${partnerName}'s profile for simulation`} />
+              </SelectTrigger>
+              <SelectContent>
+                {profiles.partner.map((profile, index) => (
+                  <SelectItem key={index} value={index.toString()}>
+                    {partnerName}'s Profile {profiles.partner.length > 1 ? `#${index + 1}` : ''}
+                    {profile.relationshipLength && (
+                      <span className="text-xs text-gray-500 ml-2">
+                        ({profile.relationshipLength} relationship)
+                      </span>
+                    )}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            {selectedPartnerProfile && (
+              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-lg border border-green-200">
+                ✅ AI will role-play as {partnerName} using their selected profile traits and communication style
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
 
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Scenario Starters</h3>
@@ -165,8 +210,10 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-500">
             {(selectedScenario || customScenario) ? (
-              hasProfiles ? (
+              hasProfiles && selectedPartnerProfile ? (
                 <span className="text-green-600">✅ Ready to simulate conversation with {partnerName}</span>
+              ) : hasProfiles && !selectedPartnerProfile ? (
+                <span className="text-amber-600">⚠️ Select {partnerName}'s profile above for realistic simulation</span>
               ) : (
                 <span className="text-amber-600">⚠️ Complete profiles for realistic {partnerName} simulation</span>
               )
@@ -177,7 +224,7 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
           
           <Button 
             onClick={handleStartPractice}
-            disabled={!selectedScenario && !customScenario.trim()}
+            disabled={!selectedScenario && !customScenario.trim() || (hasPartnerProfiles && !selectedPartnerProfile)}
             className="bg-coral-500 hover:bg-coral-600 text-white"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
