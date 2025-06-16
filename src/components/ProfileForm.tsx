@@ -104,7 +104,7 @@ const ProfileForm = ({ profileType, onComplete, onClose }: ProfileFormProps) => 
                 {isPersonal ? 'Your' : 'Partner'} Relationship Profile
               </h2>
               <p className="text-gray-600">
-                Help Dr. Sam understand {isPersonal ? 'your' : 'their'} patterns and preferences
+                Help Kai understand {isPersonal ? 'your' : 'their'} patterns and preferences
               </p>
             </div>
             <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700">

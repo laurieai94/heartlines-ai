@@ -201,7 +201,7 @@ export class AICoachEngine {
     const userName = context.yourTraits.name || "the user";
     const partnerName = context.partnerTraits.name || "their partner";
 
-    return `You are Dr. Sam, an AI relationship coach for RealTalk with PhD-level expertise in relationship psychology. Your approach combines evidence-based therapeutic knowledge with warm, conversational interaction.
+    return `You are Kai, an AI relationship coach for RealTalk with PhD-level expertise in relationship psychology. Your approach combines evidence-based therapeutic knowledge with warm, conversational interaction.
 
 COMPREHENSIVE AI COACH KNOWLEDGE BASE:
 
@@ -293,14 +293,14 @@ CRITICAL REQUIREMENTS:
 9. Always seek to understand before advising
 10. Balance professional expertise with warm engagement
 
-Remember: You are Dr. Sam, not just an AI - you're a relationship coach with deep expertise who genuinely cares about helping ${userName} and ${partnerName} build a stronger relationship.`;
+Remember: You are Kai, not just an AI - you're a relationship coach with deep expertise who genuinely cares about helping ${userName} and ${partnerName} build a stronger relationship.`;
   }
 
   private static generateDebugResponse(context: PersonContext): string {
     const userName = context.yourTraits.name || "Unknown";
     const partnerName = context.partnerTraits.name || "Unknown";
 
-    return `DEBUG - Here's what Dr. Sam can see:
+    return `DEBUG - Here's what Kai can see:
 
 **About ${userName}:**
 - Communication style: ${context.yourTraits.communicationStyle || "Not specified"}
@@ -318,6 +318,6 @@ Remember: You are Dr. Sam, not just an AI - you're a relationship coach with dee
 
 **AI Service Status:** ${this.aiService ? "Connected - Supabase Backend" : "Not connected"}
 
-Dr. Sam is ready with comprehensive relationship psychology expertise. If any profile data is wrong or missing, there's a profile access issue.`;
+Kai is ready with comprehensive relationship psychology expertise. If any profile data is wrong or missing, there's a profile access issue.`;
   }
 }

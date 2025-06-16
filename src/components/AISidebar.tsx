@@ -71,10 +71,13 @@ const AISidebar = ({ profiles, demographicsData, chatHistory }: AISidebarProps) 
         </div>
       </Card>
 
-      {/* Dynamic Topics */}
+      {/* What We've Covered */}
       {(chatHistory.length > 0 || topics.length > 0) && (
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-          <h3 className="font-medium text-gray-900 mb-3">What We've Covered</h3>
+          <div className="flex items-center gap-2 mb-3">
+            <MessageCircle className="w-4 h-4 text-coral-600" />
+            <h3 className="font-medium text-gray-900">What We've Covered</h3>
+          </div>
           <div className="space-y-2">
             {loading ? (
               <p className="text-xs text-gray-500">Loading topics...</p>

@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -77,7 +75,7 @@ const ProfileBuilder = ({
     setShowDemographics(false);
   };
 
-  const handleProfileSave = (profile: any) => {
+  const handleProfileComplete = (profile: any) => {
     const newProfiles = {
       ...profiles,
       [activeProfileType]: [...profiles[activeProfileType], profile]
@@ -351,8 +349,7 @@ const ProfileBuilder = ({
         <ProfileForm 
           profileType={activeProfileType}
           onClose={() => setShowForm(false)}
-          onSave={handleProfileSave}
-          demographicsData={demographicsData[activeProfileType]}
+          onComplete={handleProfileComplete}
         />
       )}
     </div>
@@ -360,4 +357,3 @@ const ProfileBuilder = ({
 };
 
 export default ProfileBuilder;
-
