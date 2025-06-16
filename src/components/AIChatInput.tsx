@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Send, ArrowLeft } from "lucide-react";
 
 interface AIChatInputProps {
@@ -30,7 +30,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentMessage(e.target.value);
     setIsTyping(e.target.value.length > 0);
   };
@@ -177,13 +177,14 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl">
         <div className="flex gap-3 items-end">
           <div className="flex-1">
-            <Input
+            <Textarea
               value={currentMessage}
               onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Start wherever you want..."
               disabled={loading}
-              className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200"
+              className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200 resize-none min-h-[60px] max-h-[200px]"
+              rows={1}
             />
           </div>
           <Button
