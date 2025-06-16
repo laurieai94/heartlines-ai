@@ -18,13 +18,15 @@ interface AIChatProps {
   chatHistory: ChatMessage[];
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   isConfigured: boolean;
+  conversationStarter?: string;
 }
 
-const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured }: AIChatProps) => {
+const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
+  const hasProcessedStarter = useRef(false);
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -35,6 +37,14 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
+
+  // Handle conversation starter
+  useEffect(() => {
+    if (conversationStarter && !hasProcessedStarter.current && chatHistory.length === 0) {
+      hasProcessedStarter.current = true;
+      sendMessage(conversationStarter);
+    }
+  }, [conversationStarter]);
 
   const sendMessage = async (userMessage: string) => {
     const newUserMessage: ChatMessage = {
@@ -130,7 +140,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         <div className="flex-1 p-6 flex flex-col">
           <ScrollArea className="flex-1 mb-6">
             <div className="space-y-2 pr-4">
-              {chatHistory.length === 0 && isConfigured && (
+              {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                 <div className="text-center py-8 max-w-xl mx-auto">
                   <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                     <Heart className="w-8 h-8 text-white" />
@@ -157,7 +167,11 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 <div className="flex justify-start">
                   <div className="flex gap-3 mb-6 animate-fade-in">
                     <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500">
-                      <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
+                      <AvatarImage 
+                        src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+                        alt="Kai" 
+                        className="object-cover"
+                      />
                       <AvatarFallback className="text-white border-0">
                         <Bot className="w-5 h-5" />
                       </AvatarFallback>

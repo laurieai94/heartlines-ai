@@ -20,11 +20,15 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           {isUser && userAvatarUrl ? (
             <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
           ) : isUser ? (
-            <AvatarFallback className="text-white border-0">
+            <AvatarFallback className="text-white border-0 text-lg font-semibold">
               {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
             </AvatarFallback>
           ) : (
-            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
+            <AvatarImage 
+              src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+              alt="Kai" 
+              className="object-cover"
+            />
           )}
         </Avatar>
       </div>

@@ -16,7 +16,11 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         {/* AI Coach Avatar */}
         <div className="relative">
           <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-500 border-4 border-white shadow-lg">
-            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" />
+            <AvatarImage 
+              src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+              alt="Kai" 
+              className="object-cover"
+            />
             <AvatarFallback className="text-white border-0 text-lg">
               <Bot className="w-8 h-8" />
             </AvatarFallback>
@@ -59,7 +63,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
           <div className="relative">
             <Avatar className="w-12 h-12 border-3 border-white shadow-lg">
               <AvatarImage src={userAvatarUrl || undefined} alt={userName} />
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white">
+              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white text-lg font-semibold">
                 {userName.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>

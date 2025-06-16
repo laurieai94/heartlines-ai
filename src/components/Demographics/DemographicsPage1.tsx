@@ -42,10 +42,16 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
 
   const validateRequired = () => {
     if (isPersonal) {
-      const required = ['name', 'pronouns', 'age'];
+      const required = ['name', 'pronouns', 'age', 'education', 'workSituation'];
       const missing = required.filter(field => !formData[field]);
       if (missing.length > 0) {
         toast.error(`Please fill in all required fields: ${missing.join(', ')}`);
+        return false;
+      }
+    } else {
+      // For partner, only name is required
+      if (!formData.name) {
+        toast.error('Please provide your partner\'s name');
         return false;
       }
     }
@@ -82,7 +88,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
           <div className="flex items-center gap-2">
             <HelpCircle className="w-5 h-5 text-amber-600" />
             <p className="text-sm text-amber-800">
-              <strong>Just met this person?</strong> No worries! All questions are optional. Answer what you know and skip the rest.
+              <strong>Just met this person?</strong> No worries! Most questions are optional except name. Answer what you know and skip the rest.
             </p>
           </div>
         </Card>
@@ -101,6 +107,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       {/* Background & Lifestyle Section */}
       <Card className="p-6">
         <BackgroundLifestyle 
+          profileType={profileType}
           formData={formData}
           updateFormData={updateFormData}
         />

@@ -11,6 +11,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [isConfigured, setIsConfigured] = useState(true);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
+  const [conversationStarter, setConversationStarter] = useState<string>('');
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -33,6 +34,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setShowProfileForm(false);
   };
 
+  const handleStartConversation = (starter: string) => {
+    setConversationStarter(starter);
+  };
+
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
       <AIChat 
@@ -41,6 +46,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         chatHistory={chatHistory}
         setChatHistory={setChatHistory}
         isConfigured={isConfigured}
+        conversationStarter={conversationStarter}
       />
       <AISidebar 
         profiles={profiles}
@@ -49,6 +55,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         isConfigured={isConfigured}
         onSupabaseConfigured={handleSupabaseConfigured}
         onOpenProfileForm={handleOpenProfileForm}
+        onStartConversation={handleStartConversation}
       />
       
       {/* Profile Form Modal */}

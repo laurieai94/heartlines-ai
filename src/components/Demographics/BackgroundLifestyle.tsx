@@ -2,11 +2,14 @@
 import { Label } from "@/components/ui/label";
 
 interface BackgroundLifestyleProps {
+  profileType?: 'your' | 'partner';
   formData: any;
   updateFormData: (field: string, value: any) => void;
 }
 
-const BackgroundLifestyle = ({ formData, updateFormData }: BackgroundLifestyleProps) => {
+const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }: BackgroundLifestyleProps) => {
+  const isPersonal = profileType === 'your';
+  
   const educationOptions = [
     'High school or equivalent', 'Some college/university', "Associate's degree", "Bachelor's degree", "Master's degree", 'Doctoral degree', 'Trade/vocational training', 'Other', 'Prefer not to share'
   ];
@@ -21,11 +24,16 @@ const BackgroundLifestyle = ({ formData, updateFormData }: BackgroundLifestylePr
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-gray-900 mb-6">Background & Lifestyle</h3>
+      <h3 className="text-xl font-semibold text-gray-900 mb-6">
+        Background & Lifestyle
+        {isPersonal && <span className="text-red-500 text-sm ml-2">*Required</span>}
+      </h3>
 
       {/* Education */}
       <div>
-        <Label className="text-base font-medium mb-3 block">Education Level</Label>
+        <Label className="text-base font-medium mb-3 block">
+          Education Level {isPersonal && <span className="text-red-500">*</span>}
+        </Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {educationOptions.map((education) => (
             <div key={education} className="flex items-center space-x-2">
@@ -48,7 +56,9 @@ const BackgroundLifestyle = ({ formData, updateFormData }: BackgroundLifestylePr
 
       {/* Work Situation */}
       <div>
-        <Label className="text-base font-medium mb-3 block">Work Situation</Label>
+        <Label className="text-base font-medium mb-3 block">
+          Work Situation {isPersonal && <span className="text-red-500">*</span>}
+        </Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {workOptions.map((work) => (
             <div key={work} className="flex items-center space-x-2">
