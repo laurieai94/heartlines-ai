@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
@@ -6,6 +7,7 @@ import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
 import APIKeyInput from "./APIKeyInput";
+import BubbleBackground from "./BubbleBackground";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -77,9 +79,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
   };
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col relative">
+      <BubbleBackground />
+      
       {/* Chat Header */}
-      <div className="mb-6">
+      <div className="mb-6 relative z-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
           {userName ? `${userName}'s Relationship Coach (Available 24/7)` : 'Your Relationship Coach (Available 24/7)'}
         </h2>
@@ -103,17 +107,19 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       </div>
 
       {/* API Key Input */}
-      <div className="mb-4">
+      <div className="mb-4 relative z-10">
         <APIKeyInput onApiKeySet={handleApiKeySet} hasApiKey={!!apiKey} />
       </div>
 
       {/* Chat Messages */}
-      <Card className="flex-1 p-4 mb-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg overflow-hidden">
+      <Card className="flex-1 p-6 mb-4 bg-white/70 backdrop-blur-lg border-0 shadow-xl overflow-hidden relative z-10">
         <div className="h-full flex flex-col">
           <div className="flex-1 overflow-y-auto space-y-4 mb-4">
             {chatHistory.length === 0 && (
               <div className="text-center py-8 text-gray-500">
-                <Heart className="w-12 h-12 mx-auto mb-3 text-coral-400" />
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-coral-200 to-peach-200 rounded-full flex items-center justify-center">
+                  <Heart className="w-8 h-8 text-coral-600" />
+                </div>
                 {hasProfiles ? (
                   <>
                     <p className="font-medium">
@@ -151,7 +157,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
             
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg">
+                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl rounded-bl-md border border-coral-100 shadow-lg">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -177,12 +183,14 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       </Card>
 
       {/* Chat Input */}
-      <AIChatInput 
-        onSendMessage={sendMessage} 
-        loading={loading} 
-        userName={userName} 
-        partnerName={partnerName} 
-      />
+      <div className="relative z-10">
+        <AIChatInput 
+          onSendMessage={sendMessage} 
+          loading={loading} 
+          userName={userName} 
+          partnerName={partnerName} 
+        />
+      </div>
     </div>
   );
 };
