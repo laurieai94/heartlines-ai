@@ -21,6 +21,42 @@ interface AIInsightsProps {
   demographicsData?: DemographicsData;
 }
 
+interface PersonContext {
+  relationship: {
+    length?: string;
+    livingTogether?: boolean;
+    stage?: string;
+  };
+  yourTraits: {
+    name?: string;
+    loveLanguage?: string;
+    communicationStyle?: string;
+    conflictStyle?: string;
+    stressResponse?: string;
+    attachmentStyle?: string;
+    triggers?: string[];
+    strengths?: string[];
+    growthAreas?: string[];
+  };
+  partnerTraits: {
+    name?: string;
+    loveLanguage?: string;
+    communicationStyle?: string;
+    conflictStyle?: string;
+    stressResponse?: string;
+    attachmentStyle?: string;
+    triggers?: string[];
+    strengths?: string[];
+    growthAreas?: string[];
+  };
+  dynamics: {
+    loveLanguageMatch?: boolean;
+    loveLanguageGap?: boolean;
+    communicationMatch?: boolean;
+    conflictDynamic?: string;
+  };
+}
+
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
@@ -47,8 +83,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const partnerDemographics = demographicsData.partner || {};
 
   // Build comprehensive person-specific context
-  const buildPersonContext = () => {
-    let context = {
+  const buildPersonContext = (): PersonContext => {
+    let context: PersonContext = {
       relationship: {},
       yourTraits: {},
       partnerTraits: {},
@@ -110,7 +146,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   // Enhanced response system with deep personalization
-  const getAIResponse = (userMessage) => {
+  const getAIResponse = (userMessage: string) => {
     const message = userMessage.toLowerCase();
     const context = buildPersonContext();
     
@@ -118,7 +154,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     const youName = userName || 'you';
     const theirName = partnerName || 'your partner';
     
-    const buildPersonalizedResponse = (baseResponse, specificAdvice = '') => {
+    const buildPersonalizedResponse = (baseResponse: string, specificAdvice = '') => {
       let response = baseResponse;
       
       // Add specific advice based on their unique profiles
@@ -302,11 +338,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }, 1000 + Math.random() * 1000);
   };
 
-  const handleQuickStarter = (starter) => {
+  const handleQuickStarter = (starter: string) => {
     setCurrentMessage(starter);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -364,7 +400,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
               )}
               
               {/* ... keep existing code (chat history rendering and loading indicator) */}
-              {chatHistory.map((message) => (
+              {chatHistory.map((message: any) => (
                 <div
                   key={message.id}
                   className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
