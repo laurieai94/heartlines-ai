@@ -32,10 +32,27 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatHistory, loading]);
 
-  // Auto-configure Supabase on mount
+  // Check Supabase configuration on mount
   useEffect(() => {
-    const configured = AICoachEngine.initializeSupabase();
-    setIsConfigured(configured);
+    const checkConfiguration = () => {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      
+      console.log('Checking Supabase configuration:', { 
+        hasUrl: !!supabaseUrl, 
+        hasKey: !!supabaseAnonKey 
+      });
+      
+      if (supabaseUrl && supabaseAnonKey) {
+        const configured = AICoachEngine.initializeSupabase();
+        setIsConfigured(configured);
+      } else {
+        console.warn('Supabase environment variables not found');
+        setIsConfigured(false);
+      }
+    };
+    
+    checkConfiguration();
   }, []);
 
   const handleSupabaseConfigured = (configured: boolean) => {

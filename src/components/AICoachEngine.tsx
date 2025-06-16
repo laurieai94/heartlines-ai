@@ -10,18 +10,23 @@ export class AICoachEngine {
   }
 
   static initializeSupabase() {
-    // Auto-configure with Lovable's Supabase integration
-    // The Supabase URL and anon key are available through the integration
-    const supabaseUrl = window.location.origin.includes('lovable.app') 
-      ? `${window.location.protocol}//${window.location.hostname.replace('.lovable.app', '')}.supabase.co`
-      : 'https://your-project.supabase.co'; // fallback
+    // Try to get Supabase config from environment variables (Lovable integration)
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     
-    // For Lovable integration, we'll use a default anon key pattern
-    // The actual values will be injected by the Supabase integration
-    const supabaseAnonKey = 'supabase-anon-key'; // This will be replaced by the integration
+    console.log('Checking Supabase environment variables:', { 
+      hasUrl: !!supabaseUrl, 
+      hasKey: !!supabaseAnonKey,
+      url: supabaseUrl ? 'Found' : 'Missing'
+    });
     
-    this.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
-    return true;
+    if (supabaseUrl && supabaseAnonKey) {
+      this.setSupabaseConfig(supabaseUrl, supabaseAnonKey);
+      return true;
+    } else {
+      console.error('Missing Supabase environment variables. Please ensure Supabase integration is properly configured.');
+      return false;
+    }
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -160,7 +165,10 @@ export class AICoachEngine {
 
     // Initialize Supabase if not already configured
     if (!this.aiService) {
-      this.initializeSupabase();
+      const configured = this.initializeSupabase();
+      if (!configured) {
+        throw new Error(`🔧 **Backend Configuration Required**\n\nSupabase integration is not properly configured. Please:\n\n1. Ensure you're connected to Supabase via the green button in the top right\n2. Check that your Supabase project is active\n3. Verify the integration is working\n\nIf the issue persists, try refreshing the page.`);
+      }
     }
 
     console.log('Making Supabase Edge Function call...');

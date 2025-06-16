@@ -11,8 +11,12 @@ interface APIKeyInputProps {
 
 const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) => {
   useEffect(() => {
-    // Since we're using Lovable's Supabase integration, mark as configured
-    onSupabaseConfigured(true);
+    // Check if Supabase environment variables are available
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    
+    const configured = !!(supabaseUrl && supabaseAnonKey);
+    onSupabaseConfigured(configured);
   }, [onSupabaseConfigured]);
 
   if (isConfigured) {
@@ -33,23 +37,21 @@ const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) =
     <Card className="p-4 bg-blue-50 border-blue-200">
       <div className="flex items-center gap-2 mb-3">
         <Settings className="w-4 h-4 text-blue-600" />
-        <h3 className="font-medium text-blue-800">Configure Anthropic AI Backend</h3>
+        <h3 className="font-medium text-blue-800">Configure Supabase Backend</h3>
       </div>
       
       <div className="space-y-3 text-sm text-blue-700">
         <p>
-          Your AI coaching now runs through a secure Supabase backend. To complete the setup:
+          Your Supabase integration needs to be properly configured for AI coaching to work.
         </p>
         
         <div className="bg-blue-100 rounded-lg p-3 space-y-2">
-          <p className="font-medium">Required Steps:</p>
+          <p className="font-medium">Troubleshooting Steps:</p>
           <ol className="list-decimal list-inside space-y-1 text-xs">
-            <li>Get your Anthropic API key from the link below</li>
-            <li>Go to your Supabase project dashboard</li>
-            <li>Navigate to Edge Functions → Secrets</li>
-            <li>Add a new secret: <code className="bg-blue-200 px-1 rounded">ANTHROPIC_API_KEY</code></li>
-            <li>Paste your API key as the value</li>
-            <li>Deploy the edge function (if not auto-deployed)</li>
+            <li>Check that the green Supabase button (top right) shows "Connected"</li>
+            <li>Try refreshing the page</li>
+            <li>If still not working, disconnect and reconnect Supabase</li>
+            <li>Ensure your Supabase project is active and deployed</li>
           </ol>
         </div>
         
@@ -58,10 +60,9 @@ const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) =
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => window.open('https://console.anthropic.com/account/keys', '_blank')}
+            onClick={() => window.location.reload()}
           >
-            <ExternalLink className="w-3 h-3 mr-1" />
-            Get Anthropic API Key
+            Refresh Page
           </Button>
           <Button
             type="button"
@@ -76,7 +77,7 @@ const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) =
       </div>
       
       <p className="text-xs text-blue-600 mt-3">
-        This secure setup eliminates CORS issues and keeps your API key safe on the backend.
+        The Supabase integration should automatically provide the necessary environment variables.
       </p>
     </Card>
   );
