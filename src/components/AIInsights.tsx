@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,9 +15,10 @@ import {
   Heart,
   Brain,
   Users,
-  Lightbulb
+  Lightbulb,
+  ArrowRight,
+  Star
 } from "lucide-react";
-import { toast } from "sonner";
 
 const AIInsights = () => {
   const [showChat, setShowChat] = useState(false);
@@ -32,67 +34,42 @@ const AIInsights = () => {
       return {
         status: "complete",
         icon: <CheckCircle className="w-5 h-5 text-green-500" />,
-        title: "✓ Ready to chat - Your AI knows you both",
+        title: "Ready to chat - Your AI knows you both",
         description: "Get personalized insights about your relationship dynamics",
         primaryCTA: "Start Your First Conversation",
-        secondaryCTA: null
+        secondaryCTA: null,
+        badgeColor: "text-green-500 bg-green-50 border-green-200"
       };
     } else if (profilesComplete.your && !profilesComplete.partner) {
       return {
         status: "partial",
-        icon: <AlertTriangle className="w-5 h-5 text-yellow-500" />,
-        title: "⚠ AI knows you, but not your partner yet",
+        icon: <AlertTriangle className="w-5 h-5 text-blue-500" />,
+        title: "AI knows you, but not your partner yet",
         description: "Add your partner's profile for relationship insights, or chat about personal growth and self-awareness",
         primaryCTA: "Chat About Yourself",
-        secondaryCTA: "Add Partner Profile First"
+        secondaryCTA: "Add Partner Profile First",
+        badgeColor: "text-blue-500 bg-blue-50 border-blue-200"
       };
     } else {
       return {
         status: "incomplete",
-        icon: <X className="w-5 h-5 text-red-500" />,
-        title: "❌ Complete your profile first",
+        icon: <Clock className="w-5 h-5 text-gray-500" />,
+        title: "Complete your profile first",
         description: "The AI needs to understand you before it can give personalized insights",
         primaryCTA: "Build Your Profile First",
-        secondaryCTA: null
+        secondaryCTA: null,
+        badgeColor: "text-gray-500 bg-gray-100 border-gray-200"
       };
     }
   };
 
   const statusInfo = getStatusInfo();
 
-  const sampleQuestions = [
-    {
-      category: "Daily Relationship Stuff",
-      examples: [
-        "How do I bring up that they never do dishes without starting a fight?",
-        "They seem stressed about work—how should I support them?",
-        "Is it normal that we haven't had sex in three weeks?"
-      ]
-    },
-    {
-      category: "Communication Breakdowns",
-      examples: [
-        "We keep having the same fight about money. How do we break this cycle?",
-        "They shut down when I try to talk about serious stuff. What do I do?",
-        "I said something hurtful during our last fight. How do I fix this?"
-      ]
-    },
-    {
-      category: "Big Life Decisions",
-      examples: [
-        "Should we move in together? We've been dating for 8 months.",
-        "They want kids, I'm unsure. How do we navigate this?",
-        "Is couple's therapy worth it, or are we too far gone?"
-      ]
-    },
-    {
-      category: "The Messy Reality",
-      examples: [
-        "I think I'm falling out of love. Is this normal?",
-        "I snooped through their phone and found something. Now what?",
-        "My anxiety is ruining our relationship. How do I stop it?"
-      ]
-    }
+  const quickStartQuestions = [
+    "How can I better support my partner when they're stressed?",
+    "We keep fighting about the same things. How do we break this cycle?",
+    "I'm feeling anxious about our relationship. Is this normal?",
+    "How do I bring up difficult topics without starting a fight?"
   ];
 
   const realQuestions = [
@@ -102,7 +79,7 @@ const AIInsights = () => {
     },
     {
       title: "Life Transition",
-      question: "I just got a job offer across the country. My partner is supportive but I can tell they're scared. How do we make this decision together?"
+      question: "I just got job offer across the country. My partner is supportive but I can tell they're scared. How do we make this decision together?"
     },
     {
       title: "Intimacy Issues",
@@ -112,13 +89,6 @@ const AIInsights = () => {
       title: "Family Drama",
       question: "My partner's family is toxic and they don't see it. Every holiday becomes a nightmare. How do I support them without losing my mind?"
     }
-  ];
-
-  const quickStartQuestions = [
-    "How can I better support my partner when they're stressed?",
-    "We keep fighting about the same things. How do we break this cycle?",
-    "I'm feeling anxious about our relationship. Is this normal?",
-    "How do I bring up difficult topics without starting a fight?"
   ];
 
   const handleSendMessage = async () => {
@@ -146,7 +116,7 @@ const AIInsights = () => {
 
   if (showChat) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="space-y-6">
         {/* Chat Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -244,78 +214,82 @@ const AIInsights = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            Your Relationship Coach <span className="text-blue-200">(Available 24/7)</span>
-          </h1>
-          <p className="text-xl mb-8 text-blue-100">
-            Get insights from AI that actually knows you, your partner, and your unique situation
-          </p>
-          <p className="text-lg text-blue-100 max-w-3xl mx-auto">
-            Like having a therapist who's studied your relationship for months—except it's available 24/7, 
-            knows all your patterns, and never judges your 3am relationship anxiety spirals.
-          </p>
-        </div>
-      </section>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold">Your Relationship Coach (Available 24/7)</h2>
+        <p className="text-gray-500">
+          Get insights from AI that actually knows you, your partner, and your unique situation.
+        </p>
+      </div>
 
-      {/* Current Status */}
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-4 mb-4">
-            {statusInfo.icon}
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold">{statusInfo.title}</h3>
-              <p className="text-gray-600">{statusInfo.description}</p>
+      {/* Current Status Card */}
+      <Card className="bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="p-6 space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+              <Brain className="w-6 h-6 text-blue-500" />
             </div>
+            <h3 className="text-xl font-semibold text-gray-900">AI Relationship Assistant</h3>
           </div>
-          <div className="flex gap-3">
+
+          <div className="space-y-2">
+            <Badge variant="outline" className={statusInfo.badgeColor}>
+              {statusInfo.icon}
+              {statusInfo.title}
+            </Badge>
+            <p className="text-gray-600 text-sm">{statusInfo.description}</p>
+          </div>
+
+          <div className="flex justify-end gap-2">
             <Button 
-              onClick={() => statusInfo.status === 'complete' || statusInfo.status === 'partial' ? setShowChat(true) : null}
+              onClick={() => statusInfo.status !== 'incomplete' ? setShowChat(true) : null}
               disabled={statusInfo.status === 'incomplete'}
+              className="bg-blue-500 hover:bg-blue-600 text-white"
             >
               {statusInfo.primaryCTA}
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
             {statusInfo.secondaryCTA && (
-              <Button variant="outline">
+              <Button variant="outline" className="text-gray-700">
                 {statusInfo.secondaryCTA}
               </Button>
             )}
           </div>
-        </CardContent>
+        </div>
       </Card>
 
       {/* What Makes This Different */}
-      <Card className="max-w-4xl mx-auto">
+      <Card className="bg-white shadow-md rounded-lg overflow-hidden">
         <CardHeader>
-          <CardTitle className="text-2xl">AI That Actually Gets Your Relationship</CardTitle>
+          <CardTitle className="text-2xl flex items-center gap-2">
+            <Star className="w-6 h-6 text-yellow-500" />
+            AI That Actually Gets Your Relationship
+          </CardTitle>
           <p className="text-gray-600">
             This isn't generic relationship advice. Our AI has read your profiles, understands your communication styles, 
-            knows your stress triggers, and remembers that thing you mentioned about your ex three conversations ago. 
-            It's like talking to someone who's been taking notes on your relationship this whole time.
+            knows your stress triggers, and remembers your conversation history.
           </p>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <Users className="w-5 h-5 text-blue-500 mt-1" />
+                <Users className="w-5 h-5 text-blue-500 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold">Knows your communication styles</h4>
                   <p className="text-sm text-gray-600">Understands how you both fight, make up, and everything in between</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-green-500 mt-1" />
+                <Clock className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold">Remembers your patterns</h4>
-                  <p className="text-sm text-gray-600">Tracks what you've tried, what worked, what spectacularly didn't</p>
+                  <p className="text-sm text-gray-600">Tracks what you've tried, what worked, what didn't</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Brain className="w-5 h-5 text-purple-500 mt-1" />
+                <Brain className="w-5 h-5 text-purple-500 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold">Contextual advice</h4>
                   <p className="text-sm text-gray-600">Considers your life situation, stress levels, and relationship history</p>
@@ -324,160 +298,24 @@ const AIInsights = () => {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <Heart className="w-5 h-5 text-pink-500 mt-1" />
+                <Heart className="w-5 h-5 text-pink-500 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold">No judgment zone</h4>
                   <p className="text-sm text-gray-600">Ask about the messy, complicated, embarrassing stuff</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <MessageCircle className="w-5 h-5 text-blue-500 mt-1" />
+                <MessageCircle className="w-5 h-5 text-blue-500 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold">Available 24/7</h4>
                   <p className="text-sm text-gray-600">3am relationship crisis? We're here for it</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* What You Can Ask About */}
-      <Card className="max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl">Bring Us Your Relationship Questions (All of Them)</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-2 gap-6">
-            {sampleQuestions.map((category, index) => (
-              <div key={index} className="space-y-3">
-                <h4 className="font-semibold text-lg text-gray-900">{category.category}</h4>
-                <div className="space-y-2">
-                  {category.examples.map((example, exIndex) => (
-                    <div 
-                      key={exIndex}
-                      className="p-3 bg-gray-50 rounded-lg text-sm text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors"
-                      onClick={() => handleQuestionClick(example)}
-                    >
-                      "{example}"
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* How It Works */}
-      <Card className="max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl">Your Personal Relationship Intelligence</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                <MessageCircle className="w-6 h-6 text-blue-500" />
-              </div>
-              <h4 className="font-semibold">You ask anything</h4>
-              <p className="text-sm text-gray-600">Type your question like you're texting a wise friend</p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                <Brain className="w-6 h-6 text-purple-500" />
-              </div>
-              <h4 className="font-semibold">AI considers everything</h4>
-              <p className="text-sm text-gray-600">Your profiles, relationship history, communication styles, current situation</p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <Lightbulb className="w-6 h-6 text-green-500" />
-              </div>
-              <h4 className="font-semibold">Get personalized insights</h4>
-              <p className="text-sm text-gray-600">Specific advice that fits your actual relationship, not generic tips</p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto">
-                <Heart className="w-6 h-6 text-pink-500" />
-              </div>
-              <h4 className="font-semibold">Remember & adapt</h4>
-              <p className="text-sm text-gray-600">Each conversation builds on the last, getting smarter about your relationship</p>
-            </div>
-          </div>
-
-          {/* Sample Conversation */}
-          <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-            <h4 className="font-semibold text-lg">Sample Conversation Preview</h4>
-            <div className="space-y-3">
-              <div className="flex justify-end">
-                <div className="bg-blue-500 text-white px-4 py-2 rounded-lg max-w-md">
-                  "We had another fight about his ex and I don't know if I'm being crazy or if this is actually a problem"
-                </div>
-              </div>
-              <div className="flex justify-start">
-                <div className="bg-white px-4 py-2 rounded-lg max-w-md shadow-sm">
-                  "Based on what you've shared about your attachment style and how conflicts usually go between you two, let's break this down. You mentioned feeling insecure when he talks about past relationships, and he tends to get defensive when you bring up concerns. This isn't about being 'crazy'—it's about getting on the same page about boundaries..."
-                </div>
-              </div>
-            </div>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowChat(true)}
-              disabled={statusInfo.status === 'incomplete'}
-            >
-              Try it yourself
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Privacy & Trust */}
-      <Card className="max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl flex items-center gap-2">
-            <Shield className="w-6 h-6 text-green-500" />
-            Your Relationship Secrets Stay Secret
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <Lock className="w-5 h-5 text-green-500 mt-1" />
+                <Shield className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold">End-to-end privacy</h4>
+                  <h4 className="font-semibold">Completely private</h4>
                   <p className="text-sm text-gray-600">Your conversations stay between you and the AI</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold">No judgment algorithms</h4>
-                  <p className="text-sm text-gray-600">We don't flag, report, or share your relationship details</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Users className="w-5 h-5 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold">You control sharing</h4>
-                  <p className="text-sm text-gray-600">Choose what to share with your partner (or don't)</p>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <X className="w-5 h-5 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold">Delete anytime</h4>
-                  <p className="text-sm text-gray-600">Clear conversation history whenever you want</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Lock className="w-5 h-5 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold">Secure & encrypted</h4>
-                  <p className="text-sm text-gray-600">Bank-level security for your relationship data</p>
                 </div>
               </div>
             </div>
@@ -486,7 +324,7 @@ const AIInsights = () => {
       </Card>
 
       {/* Real Questions from Real Relationships */}
-      <Card className="max-w-4xl mx-auto">
+      <Card className="bg-white shadow-md rounded-lg overflow-hidden">
         <CardHeader>
           <CardTitle className="text-2xl">Real Questions from Real Relationships</CardTitle>
           <p className="text-gray-600">(Anonymous examples from our community)</p>
@@ -494,7 +332,11 @@ const AIInsights = () => {
         <CardContent>
           <div className="grid md:grid-cols-2 gap-4">
             {realQuestions.map((item, index) => (
-              <Card key={index} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleQuestionClick(item.question)}>
+              <Card 
+                key={index} 
+                className="cursor-pointer hover:shadow-lg transition-shadow bg-gray-50 border-gray-200" 
+                onClick={() => handleQuestionClick(item.question)}
+              >
                 <CardContent className="p-4">
                   <h4 className="font-semibold text-gray-900 mb-2">{item.title}</h4>
                   <p className="text-sm text-gray-600">"{item.question}"</p>
@@ -502,16 +344,43 @@ const AIInsights = () => {
               </Card>
             ))}
           </div>
-          <div className="text-center mt-6">
+          <div className="mt-6 text-center">
             <Button 
               onClick={() => setShowChat(true)}
               disabled={statusInfo.status === 'incomplete'}
+              className="bg-blue-500 hover:bg-blue-600 text-white"
             >
-              Ask your own question
+              Ask Your Own Question
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </CardContent>
       </Card>
+
+      {/* Quick Start Questions */}
+      {statusInfo.status !== 'incomplete' && (
+        <Card className="bg-white shadow-md rounded-lg overflow-hidden">
+          <CardHeader>
+            <CardTitle className="text-xl">Quick Start Questions</CardTitle>
+            <p className="text-gray-600">Jump right in with these conversation starters</p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3">
+              {quickStartQuestions.map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="justify-start text-left h-auto py-4 px-4 hover:bg-blue-50 hover:border-blue-300"
+                  onClick={() => handleQuestionClick(question)}
+                >
+                  <MessageCircle className="w-4 h-4 mr-3 flex-shrink-0" />
+                  "{question}"
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };
