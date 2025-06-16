@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -232,7 +231,7 @@ const ProfileBuilder = () => {
           onClick={() => setShowDetails(!showDetails)}
           className="w-full text-gray-600 hover:text-gray-900"
         >
-          {showDetails ? 'Hide' : 'Show'} detailed information
+          {showDetails ? 'Hide' : 'Show'} Tips
           <ArrowRight className={`w-4 h-4 ml-2 transition-transform ${showDetails ? 'rotate-90' : ''}`} />
         </Button>
         
