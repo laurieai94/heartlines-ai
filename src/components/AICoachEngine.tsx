@@ -1,5 +1,5 @@
 
-import { PersonContext } from "@/types/AIInsights";
+import { PersonContext, ChatMessage } from "@/types/AIInsights";
 
 export class AICoachEngine {
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
@@ -46,128 +46,367 @@ export class AICoachEngine {
     };
   }
 
-  static getAIResponse(userMessage: string, context: PersonContext): string {
+  static getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = []): string {
     const message = userMessage.toLowerCase();
     const youName = context.yourTraits.name || 'you';
     const theirName = context.partnerTraits.name || 'your partner';
+    
+    // Analyze conversation history for context
+    const conversationContext = this.analyzeConversationHistory(chatHistory, userMessage);
+    
+    // Generate dynamic response based on message content and context
+    return this.generateDynamicResponse(userMessage, context, conversationContext);
+  }
 
-    // Support and care responses
-    if (message.includes("support") || message.includes("help")) {
-      let response = `Okay, first - I love that you're thinking about how to show up better for ${theirName}. That already says so much about who you are.\n\n`;
+  private static analyzeConversationHistory(chatHistory: ChatMessage[], currentMessage: string) {
+    const recentMessages = chatHistory.slice(-6); // Last 3 exchanges
+    const topics = new Set<string>();
+    const emotions = new Set<string>();
+    const isFollowUp = recentMessages.length > 0;
+    
+    // Extract themes from recent conversation
+    recentMessages.forEach(msg => {
+      const content = msg.content.toLowerCase();
       
-      response += `Here's what I'm seeing: `;
-      if (context.dynamics.loveLanguageMatch) {
-        response += `You both speak ${context.partnerTraits.loveLanguage} as your love language, which is honestly such a gift. You naturally get how to love each other.`;
-      } else if (context.dynamics.loveLanguageGap && context.partnerTraits.loveLanguage) {
-        response += `${theirName}'s love language is ${context.partnerTraits.loveLanguage} while yours is ${context.yourTraits.loveLanguage}. So you might be loving them in your language instead of theirs - super common, and totally fixable.`;
-      } else {
-        response += `support isn't one-size-fits-all, and what feels good to you might not be what ${theirName} needs most right now.`;
-      }
-
-      response += `\n\nReal talk: when ${theirName} is stressed, they tend to ${context.partnerTraits.stressResponse}. So your support needs to account for that pattern, not fight against it.\n\n`;
-
-      response += `**Try this:**\n`;
+      // Detect topics
+      if (content.includes('communication') || content.includes('talk')) topics.add('communication');
+      if (content.includes('fight') || content.includes('argument')) topics.add('conflict');
+      if (content.includes('support') || content.includes('help')) topics.add('support');
+      if (content.includes('anxious') || content.includes('worry')) topics.add('anxiety');
+      if (content.includes('love') || content.includes('affection')) topics.add('love');
+      if (content.includes('space') || content.includes('distance')) topics.add('distance');
       
-      if (context.partnerTraits.loveLanguage === 'acts_of_service') {
-        response += `• **Handle the stuff that stresses them out** - Look for tasks they usually do and just... do them. No announcement needed.\n`;
-        response += `• **Ask specifically**: "${theirName}, what would actually make your day easier right now?" Then do that thing.\n`;
-      } else if (context.partnerTraits.loveLanguage === 'words_of_affirmation') {
-        response += `• **Get specific with your words** - Instead of "you're great," try "${theirName}, I really love how you handled [specific thing]."\n`;
-        response += `• **Text them something real** - Send them something appreciative in the middle of their day.\n`;
-      } else if (context.partnerTraits.loveLanguage === 'quality_time') {
-        response += `• **Phone away, full attention** - Even 15 minutes of being completely present beats hours of distracted hanging out.\n`;
-        response += `• **Ask what they want to do together** - Let them pick the activity and follow their lead.\n`;
-      } else {
-        response += `• **Pay attention to how they show love** - That's probably how they want to receive it too.\n`;
-        response += `• **Ask directly**: "${theirName}, I want to support you better. What would feel most helpful right now?"\n`;
-      }
+      // Detect emotional tone
+      if (content.includes('frustrated') || content.includes('angry')) emotions.add('frustrated');
+      if (content.includes('sad') || content.includes('hurt')) emotions.add('hurt');
+      if (content.includes('confused') || content.includes('lost')) emotions.add('confused');
+      if (content.includes('hopeful') || content.includes('better')) emotions.add('hopeful');
+    });
 
-      response += `\n**Your next move:** Pick one specific thing that would make ${theirName}'s day easier and handle it without being asked.\n\n`;
-      response += `You've got this. The fact that you're asking shows you're already on the right track.`;
+    return {
+      isFollowUp,
+      recentTopics: Array.from(topics),
+      recentEmotions: Array.from(emotions),
+      conversationDepth: recentMessages.length
+    };
+  }
 
-      return response;
+  private static generateDynamicResponse(userMessage: string, context: PersonContext, convContext: any): string {
+    const message = userMessage.toLowerCase();
+    const youName = context.yourTraits.name || 'you';
+    const theirName = context.partnerTraits.name || 'your partner';
+    
+    // Generate varied conversation starters
+    const dynamicOpenings = this.getDynamicOpening(message, context, convContext);
+    
+    // Main response logic with much more variety
+    if (this.isAboutCommunication(message)) {
+      return this.generateCommunicationResponse(userMessage, context, convContext, dynamicOpenings);
     }
-
-    // Conflict and argument responses
-    if (message.includes("argument") || message.includes("fight") || message.includes("conflict")) {
-      let response = `Oof, yeah. Recurring arguments are exhausting as hell, and I bet you're both feeling frustrated about this cycle you're stuck in.\n\n`;
-
-      response += `Here's what I think is really happening: `;
-      if (context.dynamics.conflictDynamic) {
-        const yourStyle = context.yourTraits.conflictStyle;
-        const theirStyle = context.partnerTraits.conflictStyle;
-        
-        if (yourStyle === 'confrontational' && theirStyle === 'avoidant') {
-          response += `You want to hash things out immediately, and ${theirName} needs to retreat and process. So you chase, they withdraw, you chase harder, they shut down more. It's like a really shitty dance nobody enjoys.`;
-        } else if (yourStyle === 'avoidant' && theirStyle === 'confrontational') {
-          response += `${theirName} wants to talk it out right now, and you need time to think. They see your need for space as rejection, and you see their urgency as pressure. Classic mismatch.`;
-        } else if (yourStyle === theirStyle && yourStyle === 'confrontational') {
-          response += `You're both wanting to be heard RIGHT NOW. Which means you're talking over each other instead of actually listening. Both valid, but the timing is all wrong.`;
-        } else {
-          response += `there's a pattern here that goes deeper than whatever you're actually arguing about.`;
-        }
-      } else {
-        response += `most fights aren't really about the thing you're fighting about. They're about the feelings underneath - feeling unheard, unvalued, misunderstood, or disconnected.`;
-      }
-
-      response += `\n\n**Real talk:** The content of your arguments probably changes, but the emotional pattern stays the same. `;
-      
-      if (context.yourTraits.attachmentStyle || context.partnerTraits.attachmentStyle) {
-        response += `This is your attachment stuff showing up - the deep fears about safety, connection, and being enough.\n\n`;
-      }
-
-      response += `**Here's what to try differently:**\n`;
-      response += `• **Pause the pattern**: When you feel it escalating, try "I can feel us getting into that thing we do. Can we take 20 minutes?"\n`;
-      response += `• **Get to the feelings first**: Before diving into the issue, each person says "What I really need right now is..."\n`;
-      response += `• **Focus on the need, not being right**: Ask yourself "What is each of us trying to get our needs met here?"\n\n`;
-
-      response += `**Your next step:** The next time you feel an argument building, pause and ask yourself: "What am I actually needing right now?" Then share that instead of the complaint.\n\n`;
-      response += `This shit is hard, but you can absolutely learn to fight better. It just takes practice.`;
-
-      return response;
+    
+    if (this.isAboutConflict(message)) {
+      return this.generateConflictResponse(userMessage, context, convContext, dynamicOpenings);
     }
-
-    // Anxiety and relationship security
-    if (message.includes("anxious") || message.includes("worried") || message.includes("stress")) {
-      let response = `First of all, take a breath. What you're feeling makes total sense, and you're not being dramatic or needy for feeling this way.\n\n`;
-
-      if (context.yourTraits.attachmentStyle === 'anxious') {
-        response += `I know you mentioned your attachment style is anxious, so your nervous system is literally wired to be more sensitive to relationship threats. This isn't your fault - it's how your brain learned to keep you safe.\n\n`;
-      }
-
-      response += `The key is figuring out if this is about something ${theirName} actually did/said, or if it's your brain spiraling.\n\n`;
-
-      response += `**Let's reality-check this:**\n`;
-      response += `• What specifically happened that triggered this feeling?\n`;
-      response += `• Is this based on ${theirName}'s actual behavior or your interpretation of it?\n`;
-      response += `• What story is your brain telling you right now?\n\n`;
-
-      response += `**What to do right now:**\n`;
-      response += `• Write down exactly what you're worried about - get it out of your head\n`;
-      response += `• Ask yourself: "What would help me feel more secure right now?"\n`;
-      response += `• Share that specific need with ${theirName} instead of the anxiety spiral\n\n`;
-
-      response += `**Your next step:** Be specific about what you need. Instead of "I'm anxious about us," try "${theirName}, I'm feeling disconnected and would love to spend some focused time together tonight."\n\n`;
-      response += `Your feelings are valid, AND you have more control over this than it feels like right now. You've got this.`;
-
-      return response;
+    
+    if (this.isAboutSupport(message)) {
+      return this.generateSupportResponse(userMessage, context, convContext, dynamicOpenings);
     }
-
-    // Default response
-    let response = `Thanks for sharing what's going on with you and ${theirName}. I can tell this matters a lot to you, which honestly says everything about who you are as a partner.\n\n`;
-
-    if (context.yourTraits.strengths && context.yourTraits.strengths.length > 0) {
-      response += `I know you bring ${context.yourTraits.strengths.join(', ')} to this relationship, and those are real assets. `;
+    
+    if (this.isAboutAnxiety(message)) {
+      return this.generateAnxietyResponse(userMessage, context, convContext, dynamicOpenings);
     }
+    
+    if (this.isAboutIntimacy(message)) {
+      return this.generateIntimacyResponse(userMessage, context, convContext, dynamicOpenings);
+    }
+    
+    // Default response with high variety
+    return this.generateOpenEndedResponse(userMessage, context, convContext, dynamicOpenings);
+  }
 
-    response += `**Here's what I want you to remember:**\n`;
-    response += `• Every relationship has its unique rhythm and challenges - that's not a bug, it's a feature\n`;
-    response += `• You two are on the same team, even when it doesn't feel like it\n`;
-    response += `• Working on your relationship doesn't mean it's broken - it means you want it to be great\n\n`;
+  private static getDynamicOpening(message: string, context: PersonContext, convContext: any): string {
+    const openings = [];
+    
+    if (convContext.isFollowUp) {
+      openings.push(
+        "I've been thinking about what you shared...",
+        "Building on what we talked about...",
+        "So this is still on your mind, huh?",
+        "Okay, let's dig deeper into this...",
+        "I hear you - this is really weighing on you."
+      );
+    } else {
+      openings.push(
+        "Alright, let's talk about this.",
+        "I can feel the weight of this in your message.",
+        "Okay, I want to really understand what's happening here.",
+        "This sounds like it's been building up for a while.",
+        "I can tell this matters a lot to you."
+      );
+    }
+    
+    if (convContext.recentEmotions.includes('frustrated')) {
+      openings.push(
+        "I can sense the frustration here, and honestly? That makes complete sense.",
+        "Yeah, this would be driving me up the wall too."
+      );
+    }
+    
+    return openings[Math.floor(Math.random() * openings.length)];
+  }
 
-    response += `**Tell me more:** What specific situation or feeling brought you here today? The more context you give me about what's actually happening, the more personalized guidance I can offer.\n\n`;
-    response += `You've got this. Seriously.`;
-
+  private static generateCommunicationResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    const youName = context.yourTraits.name || 'you';
+    const theirName = context.partnerTraits.name || 'your partner';
+    
+    const communicationStyles = {
+      direct: "straight-forward, no-bullshit conversations",
+      gentle: "softer, more feeling-focused talks",
+      analytical: "logical, step-by-step discussions"
+    };
+    
+    const yourStyle = context.yourTraits.communicationStyle || 'direct';
+    const theirStyle = context.partnerTraits.communicationStyle || 'gentle';
+    
+    let response = `${opening}\n\n`;
+    
+    if (convContext.isFollowUp && convContext.recentTopics.includes('communication')) {
+      response += `So we've been working on the communication thing, and it sounds like you're still hitting some walls. `;
+    }
+    
+    response += `Here's what I'm noticing: you tend to go for ${communicationStyles[yourStyle] || 'your usual approach'}, `;
+    response += `while ${theirName} is more about ${communicationStyles[theirStyle] || 'their own style'}. `;
+    
+    if (yourStyle !== theirStyle) {
+      response += `That's not wrong - it's just different languages, and right now you're both speaking your native tongue instead of learning each other's.\n\n`;
+    } else {
+      response += `You're actually pretty aligned in style, which is great - this might be more about timing or emotional state than approach.\n\n`;
+    }
+    
+    // Specific advice based on their exact situation
+    const specificAdvice = this.getSpecificCommunicationAdvice(userMessage, context);
+    response += specificAdvice;
+    
+    response += `\n\nTry this tonight: ${this.getActionableStep(context, 'communication')}`;
+    
     return response;
+  }
+
+  private static generateConflictResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    const conflictPatterns = {
+      'confrontational-avoidant': "You want to hash it out, they want to retreat. Classic chase-withdraw dance.",
+      'avoidant-confrontational': "They want to talk now, you need time to process. Pressure meets withdrawal.",
+      'confrontational-confrontational': "You're both coming in hot, trying to be heard at the same time.",
+      'avoidant-avoidant': "You're both dancing around the issue instead of addressing it directly."
+    };
+    
+    const pattern = context.dynamics.conflictDynamic || 'mixed';
+    
+    let response = `${opening}\n\n`;
+    
+    if (userMessage.includes('same') || userMessage.includes('again')) {
+      response += `Ugh, the same fight again? I get it. Nothing makes you feel more helpless than being stuck in that loop where you both know exactly how this is going to go.\n\n`;
+    }
+    
+    if (conflictPatterns[pattern]) {
+      response += `${conflictPatterns[pattern]} `;
+    }
+    
+    response += `The thing is, underneath this surface-level stuff, there's usually something else going on. `;
+    
+    // Personalized based on attachment styles
+    if (context.yourTraits.attachmentStyle === 'anxious') {
+      response += `And I know with your anxious attachment, conflict probably feels like a threat to the whole relationship, right? Like every fight could be "the one" that ends everything.`;
+    } else if (context.yourTraits.attachmentStyle === 'avoidant') {
+      response += `With your avoidant tendencies, conflict probably feels overwhelming and you just want space to think, but that can feel like rejection to ${context.partnerTraits.name || 'your partner'}.`;
+    }
+    
+    response += `\n\nWhat if, next time you feel this building, you tried: "${this.getPersonalizedConflictScript(context)}"`;
+    
+    return response;
+  }
+
+  private static generateSupportResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    const theirName = context.partnerTraits.name || 'your partner';
+    
+    let response = `${opening}\n\n`;
+    
+    if (userMessage.includes('don\'t know how') || userMessage.includes('not sure')) {
+      response += `First off - the fact that you're asking this question already shows you care deeply. Most people just assume they know how to support their partner, but you're actually thinking about what THEY need, not just what feels natural to you.\n\n`;
+    }
+    
+    // Highly specific based on love languages
+    if (context.partnerTraits.loveLanguage) {
+      response += `Since ${theirName}'s love language is ${context.partnerTraits.loveLanguage}, `;
+      
+      switch (context.partnerTraits.loveLanguage) {
+        case 'acts_of_service':
+          response += `support for them looks like handling stuff they normally worry about. Not grand gestures - just noticing what's on their mental load and quietly taking care of it.`;
+          break;
+        case 'words_of_affirmation':
+          response += `they need to hear specifically what you appreciate about them. Not just "you're great" but "I love how you always remember to text me when you get home safe."`;
+          break;
+        case 'quality_time':
+          response += `being fully present with them - phone away, distractions off - matters more than doing anything fancy together.`;
+          break;
+        case 'physical_touch':
+          response += `physical connection is how they feel most supported. Even just holding their hand while they vent can be huge.`;
+          break;
+        case 'receiving_gifts':
+          response += `thoughtful little things that show you were thinking of them. Not expensive stuff - just "saw this and thought of you" moments.`;
+          break;
+      }
+    } else {
+      response += `since I don't know their love language yet, pay attention to how they naturally show love to you - that's probably how they want to receive it too.`;
+    }
+    
+    response += `\n\n**Right now, try this:** ${this.getImmediateAction(context, userMessage)}`;
+    
+    return response;
+  }
+
+  private static generateAnxietyResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    let response = `${opening}\n\n`;
+    
+    if (context.yourTraits.attachmentStyle === 'anxious') {
+      response += `Okay, so your anxious attachment is doing that thing where it turns every small worry into "OH GOD WHAT IF EVERYTHING IS FALLING APART." I see you, and this makes total sense given how your brain is wired.\n\n`;
+    }
+    
+    if (userMessage.includes('overthinking') || userMessage.includes('spiraling')) {
+      response += `The overthinking spiral is real, and it's exhausting. Your brain is trying to solve problems that might not even exist, but it FEELS so real when you're in it.\n\n`;
+    }
+    
+    response += `Let's reality-check this: `;
+    
+    // Personalized reality check based on their specific situation
+    if (context.partnerTraits.communicationStyle === 'avoidant') {
+      response += `${context.partnerTraits.name || 'Your partner'} tends to need processing time, which your anxious brain probably interprets as withdrawal or rejection. But for them, space isn't rejection - it's how they show up better.`;
+    } else {
+      response += `what specific thing happened that triggered this feeling? Not the story your anxiety is telling you, but what actually occurred?`;
+    }
+    
+    response += `\n\n**Try this right now:** ${this.getAnxietyTechnique(context, userMessage)}`;
+    
+    return response;
+  }
+
+  private static generateIntimacyResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    let response = `${opening}\n\n`;
+    
+    response += `Intimacy stuff is vulnerable as hell to talk about, so I'm glad you brought this up. `;
+    
+    if (userMessage.includes('disconnect') || userMessage.includes('distant')) {
+      response += `Feeling disconnected from your partner is one of the loneliest feelings in the world, especially when you're literally sharing a life with them.\n\n`;
+    }
+    
+    // Different approaches based on love languages and communication styles
+    const approachAdvice = this.getIntimacyAdvice(context, userMessage);
+    response += approachAdvice;
+    
+    return response;
+  }
+
+  private static generateOpenEndedResponse(userMessage: string, context: PersonContext, convContext: any, opening: string): string {
+    const theirName = context.partnerTraits.name || 'your partner';
+    
+    let response = `${opening}\n\n`;
+    
+    response += `I can tell this is weighing on you, and the fact that you're here working on your relationship says everything about who you are as a partner.\n\n`;
+    
+    if (context.yourTraits.strengths && context.yourTraits.strengths.length > 0) {
+      const randomStrength = context.yourTraits.strengths[Math.floor(Math.random() * context.yourTraits.strengths.length)];
+      response += `I know you bring ${randomStrength} to this relationship, and that's not nothing. `;
+    }
+    
+    response += `Help me understand what's really going on here. What's the thing that's keeping you up at night or making you feel stuck?\n\n`;
+    
+    response += `The more specific you can be about what's actually happening (not just how you feel about it), the better I can help you figure out your next move.`;
+    
+    return response;
+  }
+
+  // Helper methods for generating specific advice
+  private static isAboutCommunication(message: string): boolean {
+    return message.includes('talk') || message.includes('communication') || message.includes('conversation') || message.includes('discuss');
+  }
+
+  private static isAboutConflict(message: string): boolean {
+    return message.includes('fight') || message.includes('argument') || message.includes('conflict') || message.includes('disagree');
+  }
+
+  private static isAboutSupport(message: string): boolean {
+    return message.includes('support') || message.includes('help') || message.includes('there for');
+  }
+
+  private static isAboutAnxiety(message: string): boolean {
+    return message.includes('anxious') || message.includes('worry') || message.includes('stress') || message.includes('overthink');
+  }
+
+  private static isAboutIntimacy(message: string): boolean {
+    return message.includes('intimacy') || message.includes('disconnect') || message.includes('distant') || message.includes('close');
+  }
+
+  private static getSpecificCommunicationAdvice(userMessage: string, context: PersonContext): string {
+    // Generate specific advice based on the exact message content and context
+    const adviceOptions = [
+      `Instead of "we need to talk" (which sends everyone into fight-or-flight), try "I've been thinking about something and would love your perspective when you have a few minutes."`,
+      `Ask them when they're most receptive to important conversations. Some people are morning people, some need to decompress after work first.`,
+      `Try the 24-hour rule: when something bothers you, sit with it for a day. If it still matters, bring it up. If not, let it go.`
+    ];
+    
+    return adviceOptions[Math.floor(Math.random() * adviceOptions.length)];
+  }
+
+  private static getPersonalizedConflictScript(context: PersonContext): string {
+    const scripts = [
+      `"I can feel us getting into that pattern again. Can we take a step back and figure out what we both actually need here?"`,
+      `"I'm feeling [emotion] about [specific thing], and I want to understand how you're experiencing this too."`,
+      `"Let's pause this for 20 minutes and come back when we're both a little calmer."`
+    ];
+    
+    return scripts[Math.floor(Math.random() * scripts.length)];
+  }
+
+  private static getActionableStep(context: PersonContext, topic: string): string {
+    const steps = {
+      communication: [
+        `Ask ${context.partnerTraits.name || 'them'} what time of day they feel most ready for important conversations.`,
+        `Share one specific thing you appreciated about them today, not just "thanks for being you."`,
+        `Try having a 10-minute check-in about how you're both feeling, no problem-solving allowed.`
+      ]
+    };
+    
+    const topicSteps = steps[topic] || steps.communication;
+    return topicSteps[Math.floor(Math.random() * topicSteps.length)];
+  }
+
+  private static getImmediateAction(context: PersonContext, userMessage: string): string {
+    const actions = [
+      `Text them something specific you appreciate about them right now.`,
+      `Ask them directly: "What would make your day easier?" Then do that thing.`,
+      `Notice one small stress in their life and quietly handle it without announcing it.`
+    ];
+    
+    return actions[Math.floor(Math.random() * actions.length)];
+  }
+
+  private static getAnxietyTechnique(context: PersonContext, userMessage: string): string {
+    const techniques = [
+      `Write down exactly what you're worried about, then ask yourself: "Is this based on what actually happened, or what I'm afraid might happen?"`,
+      `Text ${context.partnerTraits.name || 'your partner'} one specific thing you need right now. Not "I'm anxious about us," but "I'd love to spend 20 minutes together tonight."`,
+      `Set a timer for 10 minutes and let yourself fully spiral. When it goes off, you're done catastrophizing for today.`
+    ];
+    
+    return techniques[Math.floor(Math.random() * techniques.length)];
+  }
+
+  private static getIntimacyAdvice(context: PersonContext, userMessage: string): string {
+    const advice = [
+      `Start small: instead of trying to fix all the connection stuff at once, focus on one tiny moment of real presence together each day.`,
+      `Ask them: "What makes you feel most connected to me?" Their answer might surprise you.`,
+      `Create a weekly 15-minute check-in where you both share one thing you're excited about and one thing you're worried about. No advice, just listening.`
+    ];
+    
+    return advice[Math.floor(Math.random() * advice.length)];
   }
 }

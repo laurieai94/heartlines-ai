@@ -34,7 +34,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
     // Simulate thinking time
     setTimeout(() => {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
-      const aiResponse = AICoachEngine.getAIResponse(userMessage, context);
+      const aiResponse = AICoachEngine.getAIResponse(userMessage, context, chatHistory);
       
       const aiMessage: ChatMessage = {
         id: Date.now() + 1,
@@ -117,21 +117,12 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
       </Card>
 
       {/* Chat Input */}
-      {chatHistory.length === 0 ? (
-        <AIChatInput 
-          onSendMessage={sendMessage} 
-          loading={loading} 
-          userName={userName} 
-          partnerName={partnerName} 
-        />
-      ) : (
-        <AIChatInput 
-          onSendMessage={sendMessage} 
-          loading={loading} 
-          userName={userName} 
-          partnerName={partnerName} 
-        />
-      )}
+      <AIChatInput 
+        onSendMessage={sendMessage} 
+        loading={loading} 
+        userName={userName} 
+        partnerName={partnerName} 
+      />
     </div>
   );
 };
