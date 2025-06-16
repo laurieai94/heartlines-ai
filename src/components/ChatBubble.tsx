@@ -12,14 +12,14 @@ const ChatBubble = ({ children, isUser = false, className = '' }: ChatBubbleProp
         className={`
           max-w-[80%] p-4 rounded-2xl shadow-lg backdrop-blur-sm
           ${isUser
-            ? 'bg-gradient-to-r from-coral-400 to-coral-500 text-white rounded-br-md'
-            : 'bg-white/90 text-gray-800 border border-coral-100 rounded-bl-md'
+            ? 'bg-gradient-to-r from-pink-400 to-coral-500 text-white rounded-br-md'
+            : 'bg-white/90 text-gray-800 border border-pink-100 rounded-bl-md'
           }
           ${className}
         `}
         style={{
           boxShadow: isUser 
-            ? '0 4px 15px rgba(255, 127, 80, 0.3)' 
+            ? '0 4px 15px rgba(236, 72, 153, 0.3)' 
             : '0 4px 15px rgba(0, 0, 0, 0.1)'
         }}
       >

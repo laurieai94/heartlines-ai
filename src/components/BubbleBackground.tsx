@@ -20,13 +20,18 @@ const BubbleBackground = () => {
     'hsl(var(--peach-100))',
     'hsl(var(--peach-200))',
     'hsl(var(--coral-50))',
-    'hsl(var(--peach-50))'
+    'hsl(var(--peach-50))',
+    'hsl(330, 100%, 95%)', // light pink
+    'hsl(320, 85%, 90%)',  // soft pink
+    'hsl(340, 90%, 92%)',  // rose pink
+    'hsl(310, 80%, 88%)',  // magenta pink
+    'hsl(350, 95%, 94%)'   // blush pink
   ];
 
   useEffect(() => {
     const generateBubbles = () => {
       const newBubbles: Bubble[] = [];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 15; i++) {
         newBubbles.push({
           id: i,
           x: Math.random() * 100,
@@ -48,7 +53,7 @@ const BubbleBackground = () => {
       {bubbles.map((bubble) => (
         <div
           key={bubble.id}
-          className="absolute rounded-full opacity-20 animate-float"
+          className="absolute rounded-full opacity-25 animate-float"
           style={{
             left: `${bubble.x}%`,
             top: `${bubble.y}%`,

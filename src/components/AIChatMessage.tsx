@@ -13,7 +13,7 @@ const AIChatMessage = ({ message }: AIChatMessageProps) => {
     <ChatBubble isUser={isUser}>
       <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</div>
       <p className={`text-xs mt-2 ${
-        isUser ? 'text-coral-100' : 'text-gray-500'
+        isUser ? 'text-pink-100' : 'text-pink-500'
       }`}>
         {message.timestamp}
       </p>

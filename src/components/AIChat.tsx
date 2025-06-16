@@ -157,11 +157,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory }: AIC
             
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl rounded-bl-md border border-coral-100 shadow-lg">
+                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl rounded-bl-md border border-pink-100 shadow-lg">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                     <span className="text-sm text-gray-600 ml-2">
                       {apiKey ? 
                         (hasProfiles ? 
