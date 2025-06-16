@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, User, MessageCircle, Lightbulb, ArrowRight } from "lucide-react";
+import { Heart, User, MessageCircle, Lightbulb, ArrowRight, Search } from "lucide-react";
 import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
 import ConversationPractice from "@/components/ConversationPractice";

@@ -2,834 +2,337 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Heart, User, Plus, ChevronDown, Check, Clock } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import ProfileForm from "@/components/ProfileForm";
 
-interface ProfileData {
-  name: string;
-  // Partner-specific fields
-  relationshipType?: string;
-  relationshipLength?: string;
-  customRelationshipType?: string;
-  // Communication & Conflict
-  directCommunication: string;
-  gentleApproach: string;
-  needTimeToProcess: string;
-  // Deep dive communication
-  goSilentWhenUpset?: string;
-  needToTalkImmediately?: string;
-  feelHeardWithValidation?: string;
-  needChangedBehaviorApology?: string;
-  workDeadlineStress?: string;
-  // Love Languages
-  wordsOfAffirmation: string;
-  qualityTime: string;
-  physicalTouch: string;
-  // Deep dive love languages
-  qualityTimeUndividedAttention?: string;
-  proudOfYouAffirmations?: string;
-  casualTouchThroughoutDay?: string;
-  householdChoresService?: string;
-  thoughtfulVsExpensiveGifts?: string;
-  // Stress & Support
-  talkThroughStressImmediately: string;
-  needSpaceToProcess: string;
-  physicalComfortHelps: string;
-  // Deep dive stress
-  socialSituationsAnxious?: string;
-  showStressThroughCommunication?: string;
-  beingRushedMakesWorse?: string;
-  practicalHelpRelieves?: string;
-  withdrawWhenOverwhelmed?: string;
-  // Values & Daily Life
-  familyRelationshipsImportance: string;
-  careerSuccessImportance: string;
-  financialSecurityImportance: string;
-  quickGutDecisions: string;
-  // Deep dive values
-  personalFreedomImportant?: string;
-  needTimeToResearch?: string;
-  saverFocusedSecurity?: string;
-  socialInteractionsEnergize?: string;
-  preferStructuredRoutines?: string;
-  // Relationship Patterns
-  comfortableClosenessIndependence: string;
-  worryRelationshipSecurity: string;
-  improvingCommunicationFocus: string;
-  // Deep dive patterns
-  wantClosenessButFearHurt?: string;
-  boundariesFocus?: string;
-  loseMyselfInRelationships?: string;
-  learnedHealthyFromFamily?: string;
-  workingOnPersonalDevelopment?: string;
+interface ProfileStats {
+  completion: number;
+  sectionsComplete: number;
+  totalSections: number;
 }
 
-const AGREEMENT_SCALE = [
-  "Strongly Disagree",
-  "Disagree", 
-  "Neutral",
-  "Agree",
-  "Strongly Agree"
-];
-
-const AGREEMENT_SCALE_WITH_UNSURE = [
-  "Strongly Disagree",
-  "Disagree", 
-  "Neutral",
-  "Agree",
-  "Strongly Agree",
-  "Not sure yet"
-];
-
-const IMPORTANCE_SCALE = [
-  "Not Important",
-  "Slightly Important",
-  "Moderately Important", 
-  "Very Important",
-  "Extremely Important"
-];
-
-const IMPORTANCE_SCALE_WITH_UNSURE = [
-  "Not Important to Them",
-  "Slightly Important",
-  "Moderately Important", 
-  "Very Important",
-  "Extremely Important",
-  "Not sure yet"
-];
-
-const FOCUS_SCALE = [
-  "Not working on",
-  "A little",
-  "Somewhat",
-  "Quite a bit",
-  "Actively working on this"
-];
-
-const FOCUS_SCALE_PARTNER = [
-  "Not at all",
-  "A little",
-  "Somewhat",
-  "Quite a bit",
-  "Very actively",
-  "Not sure yet"
-];
-
 const ProfileBuilder = () => {
-  const [profiles, setProfiles] = useState<{your: ProfileData[], partner: ProfileData[]}>({
+  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
     your: [],
     partner: []
   });
-  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showForm, setShowForm] = useState(false);
-  const [activeTab, setActiveTab] = useState("communication");
-  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
-  
-  const [currentProfile, setCurrentProfile] = useState<ProfileData>({
-    name: "",
-    directCommunication: "",
-    gentleApproach: "",
-    needTimeToProcess: "",
-    wordsOfAffirmation: "",
-    qualityTime: "",
-    physicalTouch: "",
-    talkThroughStressImmediately: "",
-    needSpaceToProcess: "",
-    physicalComfortHelps: "",
-    familyRelationshipsImportance: "",
-    careerSuccessImportance: "",
-    financialSecurityImportance: "",
-    quickGutDecisions: "",
-    comfortableClosenessIndependence: "",
-    worryRelationshipSecurity: "",
-    improvingCommunicationFocus: ""
-  });
+  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
-  const handleSaveProfile = () => {
-    if (!currentProfile.name || !currentProfile.directCommunication || !currentProfile.wordsOfAffirmation) {
-      toast.error("Please complete at least the core questions in each section");
-      return;
-    }
-
-    setProfiles(prev => ({
-      ...prev,
-      [activeProfileType]: [...prev[activeProfileType], { ...currentProfile, id: Date.now() }]
-    }));
-    
-    // Reset form
-    setCurrentProfile({
-      name: "",
-      directCommunication: "",
-      gentleApproach: "",
-      needTimeToProcess: "",
-      wordsOfAffirmation: "",
-      qualityTime: "",
-      physicalTouch: "",
-      talkThroughStressImmediately: "",
-      needSpaceToProcess: "",
-      physicalComfortHelps: "",
-      familyRelationshipsImportance: "",
-      careerSuccessImportance: "",
-      financialSecurityImportance: "",
-      quickGutDecisions: "",
-      comfortableClosenessIndependence: "",
-      worryRelationshipSecurity: "",
-      improvingCommunicationFocus: ""
-    });
-    setShowForm(false);
-    setExpandedSections({});
-    toast.success(`${activeProfileType === 'your' ? 'Your' : 'Partner'} profile created successfully!`);
+  const yourProfileStats: ProfileStats = {
+    completion: profiles.your.length > 0 ? 75 : 0,
+    sectionsComplete: profiles.your.length > 0 ? 4 : 0,
+    totalSections: 5
   };
 
-  const toggleExpanded = (section: string) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
+  const partnerProfileStats: ProfileStats = {
+    completion: profiles.partner.length > 0 ? 50 : 0,
+    sectionsComplete: profiles.partner.length > 0 ? 2 : 0,
+    totalSections: 5
   };
 
-  const getCoreCompletion = () => {
-    const coreFields = [
-      'directCommunication', 'gentleApproach', 'needTimeToProcess',
-      'wordsOfAffirmation', 'qualityTime', 'physicalTouch',
-      'talkThroughStressImmediately', 'needSpaceToProcess', 'physicalComfortHelps',
-      'familyRelationshipsImportance', 'careerSuccessImportance', 'financialSecurityImportance', 'quickGutDecisions',
-      'comfortableClosenessIndependence', 'worryRelationshipSecurity', 'improvingCommunicationFocus'
-    ];
-    const completed = coreFields.filter(field => currentProfile[field as keyof ProfileData]).length;
-    return Math.round((completed / coreFields.length) * 100);
-  };
-
-  const RatingQuestion = ({ 
-    label, 
-    field, 
-    scale = AGREEMENT_SCALE,
-    isPartner = false
-  }: { 
-    label: string; 
-    field: keyof ProfileData; 
-    scale?: string[];
-    isPartner?: boolean;
-  }) => (
-    <div className="space-y-3">
-      <Label className="text-sm font-medium">{label}</Label>
-      <RadioGroup 
-        value={currentProfile[field] as string || ''}
-        onValueChange={(value) => setCurrentProfile({...currentProfile, [field]: value})}
-        className="flex flex-wrap gap-4"
-      >
-        {scale.map((rating) => (
-          <div key={rating} className="flex items-center space-x-2">
-            <RadioGroupItem value={rating} id={`${field}-${rating}`} />
-            <Label htmlFor={`${field}-${rating}`} className="text-xs">{rating}</Label>
-          </div>
-        ))}
-      </RadioGroup>
-    </div>
-  );
-
-  const isPartnerProfile = activeProfileType === 'partner';
+  const profileSections = [
+    { name: "Communication & Conflict Style", complete: true },
+    { name: "Love Languages & Appreciation", complete: true },
+    { name: "Stress Response & Support Needs", complete: false },
+    { name: "Values & Daily Life Preferences", complete: false },
+    { name: "Relationship Patterns & Growth Areas", complete: false }
+  ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Relationship Profiles</h2>
-          <p className="text-gray-600">Complete the core questions in 3-4 minutes, expand sections for deeper insights</p>
+    <div className="space-y-12">
+      {/* Header Section */}
+      <div className="text-center space-y-4">
+        <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-2">
+          <span>Profile Building</span>
+        </div>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Build Your Relationship Profiles</h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Complete the core questions in 3-4 minutes, expand sections for deeper insights
+        </p>
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <div className="flex items-center gap-2">
+            <Progress value={yourProfileStats.completion} className="w-20" />
+            <span className="text-sm text-gray-600">Your Profile: {yourProfileStats.completion}%</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Progress value={partnerProfileStats.completion} className="w-20" />
+            <span className="text-sm text-gray-600">Partner: {partnerProfileStats.completion}%</span>
+          </div>
         </div>
       </div>
 
-      {/* Profile Type Selector */}
-      <div className="grid grid-cols-2 gap-4">
-        <Card 
-          className={`p-6 cursor-pointer transition-all ${activeProfileType === 'your' ? 'ring-2 ring-pink-500 bg-pink-50' : 'bg-white/60 hover:bg-white/80'}`}
-          onClick={() => setActiveProfileType('your')}
-        >
-          <div className="flex items-center gap-3">
-            <User className="w-6 h-6 text-pink-600" />
-            <div>
-              <h3 className="font-bold">Your Profile</h3>
-              <p className="text-sm text-gray-600">{profiles.your.length} profile(s)</p>
+      {/* How Profile Building Works */}
+      <Card className="p-8 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <div className="text-center space-y-6">
+          <h2 className="text-3xl font-bold text-gray-900">We Get to Know You (For Real)</h2>
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+            Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, 
+            what makes you feel loved, and yes, even your weird quirks. The more honest you are, 
+            the better we can help.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mt-12">
+          {/* Profile Building Process */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-gray-900">Profile Building Process</h3>
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-sm">1</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Start with the essentials</h4>
+                  <p className="text-gray-600 text-sm">Core questions take just 3-4 minutes and unlock basic AI insights</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-sm">2</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Go deeper when ready</h4>
+                  <p className="text-gray-600 text-sm">Each optional section adds 1-2 minutes but unlocks powerful features like personalized conflict scripts</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-sm">3</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Build both profiles</h4>
+                  <p className="text-gray-600 text-sm">Understanding your partner's patterns helps you support them better</p>
+                </div>
+              </div>
             </div>
           </div>
-        </Card>
-        
-        <Card 
-          className={`p-6 cursor-pointer transition-all ${activeProfileType === 'partner' ? 'ring-2 ring-pink-500 bg-pink-50' : 'bg-white/60 hover:bg-white/80'}`}
-          onClick={() => setActiveProfileType('partner')}
-        >
-          <div className="flex items-center gap-3">
-            <Heart className="w-6 h-6 text-pink-600" />
-            <div>
-              <h3 className="font-bold">Partner Profile</h3>
-              <p className="text-sm text-gray-600">{profiles.partner.length} profile(s)</p>
+
+          {/* What Profiles Unlock */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-gray-900">What Your Profiles Unlock</h3>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                <p className="text-gray-600 text-sm">Why you both react differently to stress (and what actually helps)</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                <p className="text-gray-600 text-sm">The specific words and actions that make each of you feel most loved</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                <p className="text-gray-600 text-sm">How to approach difficult conversations based on your communication styles</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                <p className="text-gray-600 text-sm">Your compatibility patterns and growth opportunities</p>
+              </div>
             </div>
           </div>
-        </Card>
-      </div>
+        </div>
 
-      {/* Add Profile Button */}
-      <div className="text-center">
-        <Button 
-          onClick={() => setShowForm(true)}
-          className="bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add {activeProfileType === 'your' ? 'Your' : 'Partner'} Profile
-        </Button>
-      </div>
+        <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-2">
+            <Search className="w-4 h-4 text-gray-500" />
+            <p className="text-sm text-gray-600">
+              <strong>Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
+            </p>
+          </div>
+        </div>
+      </Card>
 
-      {/* Existing Profiles */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {profiles[activeProfileType].map((profile: any) => (
-          <Card key={profile.id} className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center">
-                {activeProfileType === 'your' ? <User className="w-6 h-6 text-pink-600" /> : <Heart className="w-6 h-6 text-pink-600" />}
+      {/* Profile Creation Dashboard */}
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Your Personal Profile */}
+        <Card className="p-8 bg-white/80 backdrop-blur-md border-2 border-pink-200 shadow-xl">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center">
+                <User className="w-8 h-8 text-pink-600" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900">{profile.name}</h3>
-                <p className="text-sm text-gray-600">{activeProfileType === 'your' ? 'Your Profile' : 'Partner Profile'}</p>
-                {profile.relationshipType && (
-                  <p className="text-xs text-gray-500">{profile.relationshipType} • {profile.relationshipLength}</p>
-                )}
-              </div>
-            </div>
-            <div className="space-y-2 text-sm">
-              <p><span className="font-medium">Communication:</span> {profile.directCommunication ? 'Direct' : 'Gentle'}</p>
-              <p><span className="font-medium">Love Language:</span> {profile.wordsOfAffirmation === 'Strongly Agree' ? 'Words' : profile.qualityTime === 'Strongly Agree' ? 'Quality Time' : 'Physical Touch'}</p>
-              <p><span className="font-medium">Focus:</span> Communication Growth</p>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {/* Profile Form */}
-      {showForm && (
-        <Card className="p-8 bg-white/90 backdrop-blur-md border-0 shadow-xl">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-bold text-gray-900">
-              {isPartnerProfile ? 'Create Partner Profile for RealTalk' : 'Create Your Profile'}
-            </h3>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Clock className="w-4 h-4" />
-              Core completion: {getCoreCompletion()}%
-            </div>
-          </div>
-
-          {isPartnerProfile && (
-            <div className="mb-8">
-              <h4 className="text-lg font-semibold mb-4 text-gray-900">Getting Started</h4>
-              <p className="text-gray-600 mb-6">Help us understand {currentProfile.name || '[Partner\'s Name]'} so we can give you better relationship insights</p>
-              
-              <div className="space-y-6">
-                <h5 className="font-semibold text-gray-900">Basic Info</h5>
-                
-                <div>
-                  <Label htmlFor="name">Partner's Name *</Label>
-                  <Input
-                    id="name"
-                    value={currentProfile.name}
-                    onChange={(e) => setCurrentProfile({...currentProfile, name: e.target.value})}
-                    placeholder="Partner's name"
-                    className="mt-1"
-                  />
-                </div>
-
-                <div>
-                  <Label>Your Relationship</Label>
-                  <RadioGroup 
-                    value={currentProfile.relationshipType || ''}
-                    onValueChange={(value) => setCurrentProfile({...currentProfile, relationshipType: value})}
-                    className="flex flex-wrap gap-4 mt-2"
-                  >
-                    {['Dating', 'Engaged', 'Married', 'Long-term partnership'].map((type) => (
-                      <div key={type} className="flex items-center space-x-2">
-                        <RadioGroupItem value={type} id={`relationship-${type}`} />
-                        <Label htmlFor={`relationship-${type}`} className="text-sm">{type}</Label>
-                      </div>
-                    ))}
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Other" id="relationship-other" />
-                      <Label htmlFor="relationship-other" className="text-sm">Other:</Label>
-                    </div>
-                  </RadioGroup>
-                  {currentProfile.relationshipType === 'Other' && (
-                    <Input
-                      value={currentProfile.customRelationshipType || ''}
-                      onChange={(e) => setCurrentProfile({...currentProfile, customRelationshipType: e.target.value})}
-                      placeholder="Specify relationship type"
-                      className="mt-2"
-                    />
-                  )}
-                </div>
-
-                <div>
-                  <Label>How long together</Label>
-                  <Select value={currentProfile.relationshipLength || ''} onValueChange={(value) => setCurrentProfile({...currentProfile, relationshipLength: value})}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select duration" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Less than 6 months">Less than 6 months</SelectItem>
-                      <SelectItem value="6 months-1 year">6 months-1 year</SelectItem>
-                      <SelectItem value="1-2 years">1-2 years</SelectItem>
-                      <SelectItem value="2-5 years">2-5 years</SelectItem>
-                      <SelectItem value="5+ years">5+ years</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <h3 className="text-xl font-bold text-gray-900">Your Personal Profile</h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Progress value={yourProfileStats.completion} className="w-24" />
+                  <span className="text-sm font-medium text-gray-600">
+                    {yourProfileStats.completion > 0 ? `${yourProfileStats.sectionsComplete}/${yourProfileStats.totalSections} sections` : '0% Complete'}
+                  </span>
                 </div>
               </div>
             </div>
-          )}
 
-          {!isPartnerProfile && (
-            <div className="mb-6">
-              <Label htmlFor="name">Name *</Label>
-              <Input
-                id="name"
-                value={currentProfile.name}
-                onChange={(e) => setCurrentProfile({...currentProfile, name: e.target.value})}
-                placeholder="Your name"
-                className="mt-1"
-              />
+            <p className="text-gray-600">
+              Build your personal relationship profile to unlock AI insights about your communication style, 
+              love language, and relationship patterns
+            </p>
+
+            <div className="space-y-2">
+              <h4 className="font-semibold text-gray-900">Features Unlocked:</h4>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Personalized relationship advice</li>
+                <li>• Communication coaching</li>
+                <li>• Self-awareness insights</li>
+              </ul>
             </div>
-          )}
-          
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6">
-              <TabsTrigger value="communication">Communication</TabsTrigger>
-              <TabsTrigger value="love">Love Languages</TabsTrigger>
-              <TabsTrigger value="stress">Stress & Support</TabsTrigger>
-              <TabsTrigger value="values">Values & Life</TabsTrigger>
-              <TabsTrigger value="patterns">Patterns</TabsTrigger>
-            </TabsList>
 
-            <TabsContent value="communication" className="space-y-6">
-              <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-blue-800">
-                  <strong>Why this matters:</strong> {isPartnerProfile ? 'Helps you navigate conversations and disagreements more effectively' : 'Helps AI suggest better ways to approach difficult conversations and resolve disagreements'}
-                </p>
+            <div className="space-y-3">
+              <Button 
+                onClick={() => {
+                  setActiveProfileType('your');
+                  setShowForm(true);
+                }}
+                className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600"
+              >
+                {yourProfileStats.completion > 0 ? 'Continue Building' : 'Start Your Profile'}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <Clock className="w-4 h-4" />
+                <span>3-4 minutes for core questions</span>
               </div>
-              
-              <div className="space-y-6">
-                <h4 className="font-semibold text-gray-900">Core Questions {isPartnerProfile ? '(Based on what you\'ve observed)' : '(Required)'}</h4>
-                
-                <RatingQuestion
-                  label={isPartnerProfile ? "They are direct and straightforward in communication" : "I am direct and straightforward in my communication"}
-                  field="directCommunication"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They prefer gentle and diplomatic approaches" : "I prefer gentle and diplomatic approaches"}
-                  field="gentleApproach"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They need time to process before discussing conflicts" : "I need time to process before discussing conflicts"}
-                  field="needTimeToProcess"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-              </div>
-
-              <Collapsible open={expandedSections.communicationDeep} onOpenChange={() => toggleExpanded('communicationDeep')}>
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>☐ {isPartnerProfile ? 'Want better conflict navigation tips?' : 'Want more specific communication insights?'} Unlocks: {isPartnerProfile ? 'How to approach them during disagreements, timing suggestions' : 'Personalized conflict scripts and timing suggestions'}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-6 mt-4">
-                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "When upset, they go silent/withdraw" : "When upset, I go silent/withdraw"}
-                    field="goSilentWhenUpset"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "When upset, they need to talk it out immediately" : "When upset, I need to talk it out immediately"}
-                    field="needToTalkImmediately"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They feel heard when I validate their emotions" : "I feel heard when someone validates my emotions"}
-                    field="feelHeardWithValidation"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They need to see changed behavior as an apology" : "I need to see changed behavior as an apology"}
-                    field="needChangedBehaviorApology"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Work deadlines trigger their stress responses" : "Work deadlines trigger my stress responses"}
-                    field="workDeadlineStress"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
-            </TabsContent>
-
-            <TabsContent value="love" className="space-y-6">
-              <div className="bg-pink-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-pink-800">
-                  <strong>Why this matters:</strong> {isPartnerProfile ? 'Get specific suggestions for making them feel appreciated and valued' : 'Helps AI suggest specific ways to show and receive love that actually resonate'}
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <h4 className="font-semibold text-gray-900">Core Questions {isPartnerProfile ? '(Based on what you\'ve noticed)' : '(Required)'}</h4>
-                
-                <RatingQuestion
-                  label={isPartnerProfile ? "Words of Affirmation make them feel most loved" : "Words of Affirmation make me feel most loved"}
-                  field="wordsOfAffirmation"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "Quality Time is their primary love language" : "Quality Time is my primary love language"}
-                  field="qualityTime"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "Physical Touch is how they best receive love" : "Physical Touch is how I best receive love"}
-                  field="physicalTouch"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-              </div>
-
-              <Collapsible open={expandedSections.loveDeep} onOpenChange={() => toggleExpanded('loveDeep')}>
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>☐ {isPartnerProfile ? 'Get specific ways to make their day?' : 'Get personalized love language suggestions?'} Unlocks: {isPartnerProfile ? 'Personalized romantic gestures and daily appreciation ideas' : 'Specific daily actions and romantic gesture ideas'}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-6 mt-4">
-                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Quality time means having my undivided attention" : "Quality time means having undivided attention"}
-                    field="qualityTimeUndividedAttention"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They prefer 'I'm proud of you' style affirmations" : "I prefer 'I'm proud of you' style affirmations"}
-                    field="proudOfYouAffirmations"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They like casual touch throughout the day" : "I like casual touch throughout the day"}
-                    field="casualTouchThroughoutDay"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Household chores are meaningful acts of service to them" : "Household chores are meaningful acts of service"}
-                    field="householdChoresService"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Thoughtful gifts matter more than expensive ones to them" : "Thoughtful gifts matter more than expensive ones"}
-                    field="thoughtfulVsExpensiveGifts"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
-            </TabsContent>
-
-            <TabsContent value="stress" className="space-y-6">
-              <div className="bg-orange-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-orange-800">
-                  <strong>Why this matters:</strong> {isPartnerProfile ? 'Know exactly how to support them during difficult times' : 'Helps your partner know exactly how to support you during tough times'}
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <h4 className="font-semibold text-gray-900">Core Questions {isPartnerProfile ? '(Based on what you\'ve observed)' : '(Required)'}</h4>
-                
-                <RatingQuestion
-                  label={isPartnerProfile ? "They want to talk through stress immediately" : "I want to talk through my stress immediately"}
-                  field="talkThroughStressImmediately"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They need space to process stress alone first" : "I need space to process stress alone first"}
-                  field="needSpaceToProcess"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "Physical comfort helps them feel better when stressed" : "Physical comfort helps me feel better when stressed"}
-                  field="physicalComfortHelps"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-              </div>
-
-              <Collapsible open={expandedSections.stressDeep} onOpenChange={() => toggleExpanded('stressDeep')}>
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>☐ {isPartnerProfile ? 'Learn to recognize when they need support?' : 'Help your partner support you better?'} Unlocks: {isPartnerProfile ? 'Their stress warning signs and what helps vs. what makes it worse' : 'Early warning signs recognition and specific support strategies'}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-6 mt-4">
-                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Social situations make them anxious" : "Social situations make me anxious"}
-                    field="socialSituationsAnxious"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They show stress through shorter responses/communication" : "I show stress through shorter responses/communication"}
-                    field="showStressThroughCommunication"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Being rushed makes their stress worse" : "Being rushed makes my stress worse"}
-                    field="beingRushedMakesWorse"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Practical help with tasks relieves their stress" : "Practical help with tasks relieves my stress"}
-                    field="practicalHelpRelieves"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They withdraw from others when overwhelmed" : "I withdraw from others when overwhelmed"}
-                    field="withdrawWhenOverwhelmed"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
-            </TabsContent>
-
-            <TabsContent value="values" className="space-y-6">
-              <div className="bg-green-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-green-800">
-                  <strong>Why this matters:</strong> {isPartnerProfile ? 'Understand what drives their decisions and daily preferences' : 'Ensures relationship advice aligns with what actually matters to you'}
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <h4 className="font-semibold text-gray-900">Core Questions {isPartnerProfile ? '(Based on what you know)' : '(Required)'}</h4>
-                
-                <RatingQuestion
-                  label="Family and close relationships"
-                  field="familyRelationshipsImportance"
-                  scale={isPartnerProfile ? IMPORTANCE_SCALE_WITH_UNSURE : IMPORTANCE_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label="Career success and achievement"
-                  field="careerSuccessImportance"
-                  scale={isPartnerProfile ? IMPORTANCE_SCALE_WITH_UNSURE : IMPORTANCE_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label="Financial security and stability"
-                  field="financialSecurityImportance"
-                  scale={isPartnerProfile ? IMPORTANCE_SCALE_WITH_UNSURE : IMPORTANCE_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They make quick, gut-instinct decisions" : "I make quick, gut-instinct decisions"}
-                  field="quickGutDecisions"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-              </div>
-
-              <Collapsible open={expandedSections.valuesDeep} onOpenChange={() => toggleExpanded('valuesDeep')}>
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>☐ {isPartnerProfile ? 'Better understand their daily preferences?' : 'More personalized daily insights?'} Unlocks: {isPartnerProfile ? 'How to work with their decision-making style and energy patterns' : 'Lifestyle-specific relationship advice and compatibility insights'}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-6 mt-4">
-                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Personal freedom and independence are extremely important to them" : "Personal freedom and independence are extremely important to me"}
-                    field="personalFreedomImportant"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They need time to research before making decisions" : "I need time to research before making decisions"}
-                    field="needTimeToResearch"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They're a saver focused on financial security" : "I'm a saver focused on financial security"}
-                    field="saverFocusedSecurity"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "Social interactions energize them" : "Social interactions energize me"}
-                    field="socialInteractionsEnergize"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They prefer highly structured routines" : "I prefer highly structured routines"}
-                    field="preferStructuredRoutines"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
-            </TabsContent>
-
-            <TabsContent value="patterns" className="space-y-6">
-              <div className="bg-purple-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-purple-800">
-                  <strong>Why this matters:</strong> {isPartnerProfile ? 'Navigate their attachment style and support their growth' : 'Helps AI understand your relationship history to give better guidance for growth'}
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <h4 className="font-semibold text-gray-900">Core Questions {isPartnerProfile ? '(Based on what you\'ve noticed)' : '(Required)'}</h4>
-                
-                <RatingQuestion
-                  label={isPartnerProfile ? "They're comfortable with both closeness and independence" : "I'm comfortable with both closeness and independence"}
-                  field="comfortableClosenessIndependence"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They sometimes worry about relationship security" : "I sometimes worry about relationship security"}
-                  field="worryRelationshipSecurity"
-                  scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-
-                <RatingQuestion
-                  label={isPartnerProfile ? "They're actively working on improving communication during conflict" : "Improving communication during conflict (Rate current focus)"}
-                  field="improvingCommunicationFocus"
-                  scale={isPartnerProfile ? FOCUS_SCALE_PARTNER : FOCUS_SCALE}
-                  isPartner={isPartnerProfile}
-                />
-              </div>
-
-              <Collapsible open={expandedSections.patternsDeep} onOpenChange={() => toggleExpanded('patternsDeep')}>
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>☐ {isPartnerProfile ? 'Understand their relationship needs better?' : 'Deeper relationship insights?'} Unlocks: {isPartnerProfile ? 'How to support their growth and navigate their attachment style' : 'Attachment-aware advice and personalized growth recommendations'}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-6 mt-4">
-                  <h4 className="font-semibold text-gray-900">Optional Deep Dive:</h4>
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They want closeness but sometimes fear getting hurt" : "I want closeness but sometimes fear getting hurt"}
-                    field="wantClosenessButFearHurt"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They're actively working on setting and maintaining boundaries" : "Setting and maintaining boundaries (Rate current focus)"}
-                    field="boundariesFocus"
-                    scale={isPartnerProfile ? FOCUS_SCALE_PARTNER : FOCUS_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They tend to lose themselves in relationships" : "I tend to lose myself in relationships"}
-                    field="loseMyselfInRelationships"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They learned healthy relationship patterns from their family" : "I learned healthy relationship patterns from my family"}
-                    field="learnedHealthyFromFamily"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                  
-                  <RatingQuestion
-                    label={isPartnerProfile ? "They're currently working on personal development" : "I'm currently working on personal development"}
-                    field="workingOnPersonalDevelopment"
-                    scale={isPartnerProfile ? AGREEMENT_SCALE_WITH_UNSURE : AGREEMENT_SCALE}
-                    isPartner={isPartnerProfile}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
-            </TabsContent>
-          </Tabs>
-
-          <div className="flex gap-4 mt-8">
-            <Button onClick={handleSaveProfile} className="bg-gradient-to-r from-pink-500 to-fuchsia-500">
-              <Check className="w-4 h-4 mr-2" />
-              Save Profile
-            </Button>
-            <Button variant="outline" onClick={() => setShowForm(false)}>
-              Cancel
-            </Button>
+            </div>
           </div>
         </Card>
+
+        {/* Partner Profile */}
+        <Card className="p-8 bg-white/60 backdrop-blur-md border shadow-lg">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-rose-100 to-pink-100 rounded-full flex items-center justify-center">
+                <Heart className="w-8 h-8 text-rose-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Your Partner's Profile</h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Progress value={partnerProfileStats.completion} className="w-24" />
+                  <span className="text-sm font-medium text-gray-600">
+                    {partnerProfileStats.completion > 0 ? `${partnerProfileStats.sectionsComplete}/${partnerProfileStats.totalSections} sections` : '0% Complete'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-gray-600">
+              Help the AI understand your partner's patterns to get specific advice on supporting them 
+              and improving your relationship
+            </p>
+
+            <div className="space-y-2">
+              <h4 className="font-semibold text-gray-900">Features Unlocked:</h4>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Specific ways to support them</li>
+                <li>• Conversation scripts tailored to their style</li>
+                <li>• Compatibility analysis</li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setActiveProfileType('partner');
+                  setShowForm(true);
+                }}
+                className="w-full border-pink-200 hover:bg-pink-50"
+              >
+                {partnerProfileStats.completion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <p className="text-xs text-gray-500">
+                Based on your observations - they can create their own profile later
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Profile Building Quick Start */}
+      <Card className="p-8 bg-gradient-to-r from-blue-50 to-cyan-50 border-0 shadow-lg">
+        <div className="space-y-6">
+          <h3 className="text-xl font-semibold text-gray-900">Profile Building Tips</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Be honest</h4>
+                  <p className="text-sm text-gray-600">The AI only works with real data, not aspirational answers</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">"Not sure yet" is okay</h4>
+                  <p className="text-sm text-gray-600">Profiles improve as you learn more about each other</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Start with core questions</h4>
+                  <p className="text-sm text-gray-600">You'll get immediate value, then expand sections over time</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Update as you grow</h4>
+                  <p className="text-sm text-gray-600">Relationships evolve, and so should your profiles</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center pt-4">
+            <p className="text-lg text-gray-700 mb-4">
+              Ready to build your relationship intelligence? Start with your personal profile to unlock AI insights.
+            </p>
+            <Button 
+              onClick={() => {
+                setActiveProfileType('your');
+                setShowForm(true);
+              }}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+            >
+              Get Started Now
+            </Button>
+          </div>
+        </div>
+      </Card>
+
+      {/* Profile Building Progress Overview */}
+      <Card className="p-8 bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <h3 className="text-xl font-semibold text-gray-900 mb-6">Available Profile Sections</h3>
+        <div className="space-y-4">
+          {profileSections.map((section, index) => (
+            <div key={index} className="flex items-center justify-between p-4 bg-white/40 rounded-lg">
+              <div className="flex items-center gap-3">
+                <CheckCircle className={`w-5 h-5 ${section.complete ? 'text-green-500' : 'text-gray-300'}`} />
+                <div>
+                  <h4 className="font-medium text-gray-900">{section.name}</h4>
+                  <p className="text-sm text-gray-600">Core questions (required) + Optional deep dive (enhanced features)</p>
+                </div>
+              </div>
+              <span className={`text-sm px-2 py-1 rounded ${section.complete ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                {section.complete ? 'Complete' : 'Available'}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* Profile Form Modal */}
+      {showForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowForm(false)}
+          onSave={(profile) => {
+            setProfiles(prev => ({
+              ...prev,
+              [activeProfileType]: [...prev[activeProfileType], profile]
+            }));
+            setShowForm(false);
+            toast.success(`${activeProfileType === 'your' ? 'Your' : 'Partner'} profile saved successfully!`);
+          }}
+        />
       )}
     </div>
   );
