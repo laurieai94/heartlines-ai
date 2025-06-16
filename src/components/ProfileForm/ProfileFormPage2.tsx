@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 import ConflictStyles from "./ConflictStyles";
 
 interface ProfileFormPage2Props {
@@ -29,17 +30,27 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!validateRequired()) return;
+    
     onComplete(formData);
+  };
+
+  const validateRequired = () => {
+    const required = ['conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately', 'beingRushedMakesWorse', 'feelHeardWithValidation'];
+    const missing = required.filter(field => !formData[field]);
+    
+    if (missing.length > 0) {
+      toast.error('Please answer all required questions before continuing');
+      return false;
+    }
+    return true;
   };
 
   const updateField = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
-
-  // Validation for required fields
-  const isFormValid = formData.conflictResponse && 
-                     formData.stressSpaceNeed && 
-                     formData.stressSupportNeed;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -49,7 +60,7 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
             Conflict & Stress Patterns
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions
+            <span className="text-red-500">*</span> All questions in this section are required
           </p>
         </div>
         
@@ -73,7 +84,6 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
         
         <Button 
           type="submit" 
-          disabled={!isFormValid}
           className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-8 py-3 text-lg"
         >
           Continue to Attachment

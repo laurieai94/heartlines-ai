@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, HelpCircle, Heart } from "lucide-react";
+import { toast } from "sonner";
 
 interface DemographicsPage2Props {
   profileType: 'your' | 'partner';
@@ -103,7 +103,24 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
     updateFormData(field, updated);
   };
 
+  const validateRequired = () => {
+    const required = ['familyStructure', 'conflictStyle', 'familyRelationship', 'familyPriorities'];
+    const missing = required.filter(field => !formData[field]);
+    
+    // Check for family influence (at least one selection)
+    if (!formData.familyInfluence || formData.familyInfluence.length === 0) {
+      missing.push('familyInfluence');
+    }
+    
+    if (missing.length > 0) {
+      toast.error('Please answer all required questions before continuing');
+      return false;
+    }
+    return true;
+  };
+
   const handleComplete = () => {
+    if (!validateRequired()) return;
     onComplete(formData);
   };
 
@@ -121,10 +138,13 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
               {isPersonal ? 'Your' : 'Your partner\'s'} family background shapes how {isPersonal ? 'you' : 'they'} approach relationships. 
               These insights help our AI give you more relevant advice about communication, conflict, and connection patterns.
             </p>
+            <p className="text-sm text-red-600 font-medium">
+              <span className="text-red-500">*</span> All questions in this section are required
+            </p>
             {!isPersonal && (
-              <div className="flex items-center gap-2 text-sm text-purple-700">
+              <div className="flex items-center gap-2 text-sm text-purple-700 mt-2">
                 <HelpCircle className="w-4 h-4" />
-                <span className="font-medium">Don't know much about their family? That's totally fine - skip what you don't know!</span>
+                <span className="font-medium">Don't know much about their family? Choose "Prefer not to share" for questions you can't answer.</span>
               </div>
             )}
           </div>
@@ -139,7 +159,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
           {/* Family Structure */}
           <div>
             <Label className="text-base font-medium mb-3 block">
-              {isPersonal ? 'Your' : 'Their'} family growing up
+              {isPersonal ? 'Your' : 'Their'} family growing up <span className="text-red-500">*</span>
             </Label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {familyStructureOptions.map((option) => (
@@ -164,7 +184,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
           {/* Conflict Style */}
           <div>
             <Label className="text-base font-medium mb-3 block">
-              How {isPersonal ? 'your' : 'their'} parents handled conflict
+              How {isPersonal ? 'your' : 'their'} parents handled conflict <span className="text-red-500">*</span>
             </Label>
             <p className="text-sm text-gray-600 mb-3">This helps us understand how {isPersonal ? 'you' : 'they'} might handle disagreements</p>
             <div className="grid grid-cols-1 gap-3">
@@ -197,7 +217,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
           {/* Current Relationship */}
           <div>
             <Label className="text-base font-medium mb-3 block">
-              {isPersonal ? 'Your' : 'Their'} current relationship with family
+              {isPersonal ? 'Your' : 'Their'} current relationship with family <span className="text-red-500">*</span>
             </Label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {familyRelationshipOptions.map((option) => (
@@ -222,9 +242,9 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
           {/* Family Influence */}
           <div>
             <Label className="text-base font-medium mb-3 block">
-              How has {isPersonal ? 'your' : 'their'} family influenced relationships?
+              How has {isPersonal ? 'your' : 'their'} family influenced relationships? <span className="text-red-500">*</span>
             </Label>
-            <p className="text-sm text-gray-600 mb-3">Knowing family patterns helps us give better relationship advice (choose up to 2)</p>
+            <p className="text-sm text-gray-600 mb-3">Knowing family patterns helps us give better relationship advice (choose at least 1)</p>
             <div className="grid grid-cols-1 gap-3">
               {familyInfluenceOptions.map((option) => (
                 <div key={option} className="flex items-center space-x-2">
@@ -232,7 +252,6 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
                     id={`influence-${option}`}
                     checked={formData.familyInfluence?.includes(option)}
                     onCheckedChange={() => handleMultiSelect('familyInfluence', option)}
-                    disabled={formData.familyInfluence?.length >= 2 && !formData.familyInfluence?.includes(option)}
                   />
                   <Label htmlFor={`influence-${option}`} className="text-sm">
                     {option}
@@ -252,7 +271,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
           {/* Family Priorities */}
           <div>
             <Label className="text-base font-medium mb-3 block">
-              What did {isPersonal ? 'your' : 'their'} family prioritize most?
+              What did {isPersonal ? 'your' : 'their'} family prioritize most? <span className="text-red-500">*</span>
             </Label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {familyPrioritiesOptions.map((option) => (
@@ -338,13 +357,6 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
         </Button>
 
         <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={onSkip}
-            className="text-lg px-6 py-3"
-          >
-            Skip and Start Profile
-          </Button>
           <Button
             onClick={handleComplete}
             className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg px-8 py-3"

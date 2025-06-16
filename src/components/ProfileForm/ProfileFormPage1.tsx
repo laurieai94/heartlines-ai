@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 import CommunicationStyles from "./CommunicationStyles";
 import LoveLanguages from "./LoveLanguages";
 
@@ -21,7 +22,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     // Love languages
     loveLanguages: initialData.loveLanguages || [],
     
-    // Deep dive love language questions
+    // Deep dive love language questions (optional)
     wordsOfAffirmationDeep: initialData.wordsOfAffirmationDeep || '',
     qualityTimeDeep: initialData.qualityTimeDeep || '',
     physicalTouchDeep: initialData.physicalTouchDeep || '',
@@ -38,7 +39,27 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!validateRequired()) return;
+    
     onComplete(formData);
+  };
+
+  const validateRequired = () => {
+    const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
+    const missing = required.filter(field => !formData[field]);
+    
+    // Check for love languages (at least one selection)
+    if (!formData.loveLanguages || formData.loveLanguages.length === 0) {
+      missing.push('loveLanguages');
+    }
+    
+    if (missing.length > 0) {
+      toast.error('Please answer all required questions before continuing');
+      return false;
+    }
+    return true;
   };
 
   const updateField = (field: string, value: string) => {
@@ -53,12 +74,6 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     setFormData(prev => ({ ...prev, [field]: updated }));
   };
 
-  // Basic validation - at least one field from each main section
-  const isFormValid = formData.importantTalkPreference && 
-                     formData.communicationDirectness &&
-                     formData.emotionExpression && 
-                     formData.loveLanguages?.length > 0;
-
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
@@ -67,7 +82,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
             Communication & Love Languages
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions
+            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional.
           </p>
         </div>
         
@@ -90,7 +105,6 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
       <div className="flex justify-end pt-6">
         <Button 
           type="submit" 
-          disabled={!isFormValid}
           className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-8 py-3 text-lg"
         >
           Continue to Conflict & Stress

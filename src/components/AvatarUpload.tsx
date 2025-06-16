@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Upload, User } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 interface AvatarUploadProps {
@@ -24,28 +23,20 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUplo
       }
 
       const file = event.target.files[0];
-      const fileExt = file.name.split('.').pop();
-      const { data: { user } } = await supabase.auth.getUser();
       
-      if (!user) {
-        throw new Error('User not authenticated');
+      // Simple file validation
+      if (!file.type.startsWith('image/')) {
+        throw new Error('Please select an image file.');
+      }
+      
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        throw new Error('Image size should be less than 5MB.');
       }
 
-      const fileName = `${user.id}/avatar.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file, { upsert: true });
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      const { data } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      onAvatarUpdate(data.publicUrl);
+      // Create a local URL for immediate preview
+      const localUrl = URL.createObjectURL(file);
+      onAvatarUpdate(localUrl);
+      
       toast.success('Avatar updated successfully!');
     } catch (error) {
       console.error('Error uploading avatar:', error);
@@ -60,7 +51,7 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUplo
       <div className="relative group">
         <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
           <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} />
-          <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white text-2xl">
+          <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white text-2xl font-semibold">
             {userName ? userName.charAt(0).toUpperCase() : <User className="w-8 h-8" />}
           </AvatarFallback>
         </Avatar>

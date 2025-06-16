@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check } from "lucide-react";
+import { toast } from "sonner";
 import AttachmentQuestions from "./AttachmentQuestions";
 import RelationshipContext from "./RelationshipContext";
 import OptionalSections from "./OptionalSections";
@@ -39,7 +40,22 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!validateRequired()) return;
+    
     onComplete(formData);
+  };
+
+  const validateRequired = () => {
+    const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'];
+    const missing = required.filter(field => !formData[field]);
+    
+    if (missing.length > 0) {
+      toast.error('Please answer all required questions before continuing');
+      return false;
+    }
+    return true;
   };
 
   const updateField = (field: string, value: string) => {
@@ -50,13 +66,6 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Core required fields for form validation
-  const isFormValid = formData.comfortableClosenessIndependence && 
-                     formData.worryRelationshipSecurity && 
-                     formData.wantClosenessButFearHurt && 
-                     formData.relationshipLength && 
-                     formData.relationshipType;
-
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
@@ -65,7 +74,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
             Attachment Style & Growth Areas
           </h3>
           <p className="text-sm text-gray-600">
-            <span className="text-red-500">*</span> indicates required questions
+            <span className="text-red-500">*</span> indicates required questions. Optional sections are clearly marked.
           </p>
         </div>
         
@@ -109,7 +118,6 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
         
         <Button 
           type="submit" 
-          disabled={!isFormValid}
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-3 text-lg"
         >
           <Check className="w-5 h-5" />
