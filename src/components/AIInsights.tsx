@@ -84,265 +84,230 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   // Build comprehensive person-specific context
   const buildPersonContext = (): PersonContext => {
-    let context: PersonContext = {
-      relationship: {},
-      yourTraits: {},
-      partnerTraits: {},
-      dynamics: {}
+    return {
+      relationship: {
+        length: yourDemographics.relationshipLength,
+        livingTogether: yourDemographics.livingTogether,
+        stage: yourDemographics.relationshipStage
+      },
+      yourTraits: {
+        name: userName,
+        loveLanguage: yourProfile.loveLanguage,
+        communicationStyle: yourProfile.communicationStyle,
+        conflictStyle: yourProfile.conflictStyle,
+        stressResponse: yourProfile.stressResponse,
+        attachmentStyle: yourProfile.attachmentStyle,
+        triggers: yourProfile.triggers || [],
+        strengths: yourProfile.strengths || [],
+        growthAreas: yourProfile.growthAreas || []
+      },
+      partnerTraits: {
+        name: partnerName,
+        loveLanguage: partnerProfile.loveLanguage,
+        communicationStyle: partnerProfile.communicationStyle,
+        conflictStyle: partnerProfile.conflictStyle,
+        stressResponse: partnerProfile.stressResponse,
+        attachmentStyle: partnerProfile.attachmentStyle,
+        triggers: partnerProfile.triggers || [],
+        strengths: partnerProfile.strengths || [],
+        growthAreas: partnerProfile.growthAreas || []
+      },
+      dynamics: {
+        loveLanguageMatch: yourProfile.loveLanguage === partnerProfile.loveLanguage,
+        loveLanguageGap: yourProfile.loveLanguage !== partnerProfile.loveLanguage,
+        communicationMatch: yourProfile.communicationStyle === partnerProfile.communicationStyle,
+        conflictDynamic: yourProfile.conflictStyle && partnerProfile.conflictStyle ? `${yourProfile.conflictStyle}-${partnerProfile.conflictStyle}` : undefined
+      }
     };
-
-    // Relationship context
-    if (yourDemographics.relationshipLength) {
-      context.relationship.length = yourDemographics.relationshipLength;
-    }
-    if (yourDemographics.livingTogether !== undefined) {
-      context.relationship.livingTogether = yourDemographics.livingTogether;
-    }
-    if (yourDemographics.relationshipStage) {
-      context.relationship.stage = yourDemographics.relationshipStage;
-    }
-
-    // Your specific traits
-    context.yourTraits = {
-      name: userName,
-      loveLanguage: yourProfile.loveLanguage,
-      communicationStyle: yourProfile.communicationStyle,
-      conflictStyle: yourProfile.conflictStyle,
-      stressResponse: yourProfile.stressResponse,
-      attachmentStyle: yourProfile.attachmentStyle,
-      triggers: yourProfile.triggers || [],
-      strengths: yourProfile.strengths || [],
-      growthAreas: yourProfile.growthAreas || []
-    };
-
-    // Partner specific traits
-    context.partnerTraits = {
-      name: partnerName,
-      loveLanguage: partnerProfile.loveLanguage,
-      communicationStyle: partnerProfile.communicationStyle,
-      conflictStyle: partnerProfile.conflictStyle,
-      stressResponse: partnerProfile.stressResponse,
-      attachmentStyle: partnerProfile.attachmentStyle,
-      triggers: partnerProfile.triggers || [],
-      strengths: partnerProfile.strengths || [],
-      growthAreas: partnerProfile.growthAreas || []
-    };
-
-    // Analyze dynamics between specific people
-    if (yourProfile.loveLanguage && partnerProfile.loveLanguage) {
-      context.dynamics.loveLanguageMatch = yourProfile.loveLanguage === partnerProfile.loveLanguage;
-      context.dynamics.loveLanguageGap = yourProfile.loveLanguage !== partnerProfile.loveLanguage;
-    }
-
-    if (yourProfile.communicationStyle && partnerProfile.communicationStyle) {
-      context.dynamics.communicationMatch = yourProfile.communicationStyle === partnerProfile.communicationStyle;
-    }
-
-    if (yourProfile.conflictStyle && partnerProfile.conflictStyle) {
-      context.dynamics.conflictDynamic = `${yourProfile.conflictStyle}-${partnerProfile.conflictStyle}`;
-    }
-
-    return context;
   };
 
-  // Professional AI Relationship Coach Response System
+  // Millennial-friendly AI Relationship Coach Response System
   const getAIResponse = (userMessage: string) => {
     const message = userMessage.toLowerCase();
     const context = buildPersonContext();
     
-    // Use actual names when available
     const youName = userName || 'you';
     const theirName = partnerName || 'your partner';
     
-    // Professional coaching response framework
-    const buildCoachingResponse = (
-      acknowledgment: string,
-      patternAnalysis: string,
-      insight: string,
-      strategies: string[],
-      nextSteps: string
-    ) => {
-      let response = `**Acknowledgment & Validation:**\n${acknowledgment}\n\n`;
-      response += `**Pattern Analysis:**\n${patternAnalysis}\n\n`;
-      response += `**Insight:**\n${insight}\n\n`;
-      response += `**Strategies:**\n`;
-      strategies.forEach((strategy, index) => {
-        response += `${index + 1}. ${strategy}\n`;
-      });
-      response += `\n**Next Steps:**\n${nextSteps}`;
-      
-      return response;
-    };
-
     // Support and care responses
     if (message.includes("support") || message.includes("help")) {
-      const acknowledgment = `I can see you want to be the best partner possible for ${theirName}, which shows how much you care about your relationship.`;
+      let response = `Okay, first - I love that you're thinking about how to show up better for ${theirName}. That already says so much about who you are.\n\n`;
       
-      let patternAnalysis = `Based on what I know about both of you, `;
-      if (context.partnerTraits.loveLanguage && context.yourTraits.loveLanguage) {
-        if (context.dynamics.loveLanguageMatch) {
-          patternAnalysis += `you both share ${context.partnerTraits.loveLanguage} as your love language, which is a real strength. You naturally understand how to love each other.`;
-        } else {
-          patternAnalysis += `${theirName}'s love language is ${context.partnerTraits.loveLanguage} while yours is ${context.yourTraits.loveLanguage}. This difference means you might be showing love in your language instead of theirs.`;
-        }
+      response += `Here's what I'm seeing: `;
+      if (context.dynamics.loveLanguageMatch) {
+        response += `You both speak ${context.partnerTraits.loveLanguage} as your love language, which is honestly such a gift. You naturally get how to love each other.`;
+      } else if (context.dynamics.loveLanguageGap && context.partnerTraits.loveLanguage) {
+        response += `${theirName}'s love language is ${context.partnerTraits.loveLanguage} while yours is ${context.yourTraits.loveLanguage}. So you might be loving them in your language instead of theirs - super common, and totally fixable.`;
       } else {
-        patternAnalysis += `understanding each person's unique needs is key to providing effective support.`;
+        response += `support isn't one-size-fits-all, and what feels good to you might not be what ${theirName} needs most right now.`;
       }
 
-      let insight = `Support isn't one-size-fits-all. What feels supportive to you might not be what ${theirName} needs most. `;
+      response += `\n\n`;
+      
       if (context.partnerTraits.stressResponse) {
-        insight += `When stressed, ${theirName} tends to ${context.partnerTraits.stressResponse}, so your support approach should account for this pattern.`;
+        response += `Real talk: when ${theirName} is stressed, they tend to ${context.partnerTraits.stressResponse}. So your support needs to account for that pattern, not fight against it.\n\n`;
       }
 
-      const strategies = [];
-      if (context.partnerTraits.loveLanguage === 'acts_of_service') {
-        strategies.push(`**Acts of Service Focus:** Look for tasks that ${theirName} finds stressful or time-consuming and handle them without being asked. Pay attention to what they do for others and reciprocate.`);
-      } else if (context.partnerTraits.loveLanguage === 'words_of_affirmation') {
-        strategies.push(`**Verbal Affirmation:** Be specific with your appreciation. Instead of "you're great," try "${theirName}, I really admire how you handled [specific situation]. It showed your [specific quality]."`);
-      } else if (context.partnerTraits.loveLanguage === 'quality_time') {
-        strategies.push(`**Focused Attention:** Put away distractions and be fully present. Even 15 minutes of undivided attention will mean more than hours of distracted togetherness.`);
-      } else {
-        strategies.push(`**Learn Their Language:** Pay attention to how ${theirName} naturally shows love to others - that's likely how they want to receive it too.`);
-      }
-
-      strategies.push(`**Ask Directly:** "${theirName}, I want to support you better. What would feel most helpful to you right now?" This shows care while gathering important information.`);
+      response += `**Try this:**\n`;
       
-      if (context.partnerTraits.communicationStyle) {
-        strategies.push(`**Match Their Style:** Since ${theirName} is ${context.partnerTraits.communicationStyle}, adapt your approach accordingly. Direct communicators appreciate straightforward offers, while indirect communicators might prefer gentle observations.`);
+      if (context.partnerTraits.loveLanguage === 'acts_of_service') {
+        response += `• **Handle the stuff that stresses them out** - Look for tasks they usually do and just... do them. No announcement needed. The dishes, their laundry, that thing they've been putting off.\n`;
+        response += `• **Ask specifically**: "${theirName}, what would actually make your day easier right now?" Then do that thing.\n`;
+      } else if (context.partnerTraits.loveLanguage === 'words_of_affirmation') {
+        response += `• **Get specific with your words** - Instead of "you're great," try "${theirName}, I really love how you handled [specific thing]. It showed me [specific quality]."\n`;
+        response += `• **Text them something real** - Send them something appreciative in the middle of their day, not just when you want something.\n`;
+      } else if (context.partnerTraits.loveLanguage === 'quality_time') {
+        response += `• **Phone away, full attention** - Even 15 minutes of being completely present beats hours of distracted hanging out.\n`;
+        response += `• **Ask what they want to do together** - Let them pick the activity and follow their lead.\n`;
+      } else {
+        response += `• **Pay attention to how they show love** - That's probably how they want to receive it too.\n`;
+        response += `• **Ask directly**: "${theirName}, I want to support you better. What would feel most helpful right now?"\n`;
       }
 
-      const nextSteps = `Today, observe one thing that seems to stress ${theirName} and either handle it for them or ask specifically how you can help with it. Notice their reaction and adjust your approach based on what you learn.`;
+      response += `\n**Your next move:** Pick one specific thing that would make ${theirName}'s day easier and handle it without being asked. Notice how they respond and adjust from there.\n\n`;
+      response += `You've got this. The fact that you're asking shows you're already on the right track.`;
 
-      return buildCoachingResponse(acknowledgment, patternAnalysis, insight, strategies, nextSteps);
+      return response;
     }
 
     // Conflict and argument responses
     if (message.includes("argument") || message.includes("fight") || message.includes("conflict")) {
-      let acknowledgment = `Recurring arguments are frustrating and emotionally draining. It makes sense that you're looking for a way to break this cycle with ${theirName}.`;
+      let response = `Oof, yeah. Recurring arguments are exhausting as hell, and I bet you're both feeling frustrated about this cycle you're stuck in.\n\n`;
 
-      let patternAnalysis = `From what I know about you both, `;
+      response += `Here's what I think is really happening: `;
       if (context.dynamics.conflictDynamic) {
         const yourStyle = context.yourTraits.conflictStyle;
         const theirStyle = context.partnerTraits.conflictStyle;
         
         if (yourStyle === 'confrontational' && theirStyle === 'avoidant') {
-          patternAnalysis += `you tend to be confrontational while ${theirName} is avoidant. This creates a classic pursue-withdraw cycle where your directness triggers their need to retreat, which then increases your urgency to resolve things.`;
+          response += `You want to hash things out immediately, and ${theirName} needs to retreat and process. So you chase, they withdraw, you chase harder, they shut down more. It's like a really shitty dance nobody enjoys.`;
         } else if (yourStyle === 'avoidant' && theirStyle === 'confrontational') {
-          patternAnalysis += `${theirName} is confrontational while you're avoidant. They need to process out loud while you need time to think, creating tension when timing doesn't align.`;
+          response += `${theirName} wants to talk it out right now, and you need time to think. They see your need for space as rejection, and you see their urgency as pressure. Classic mismatch.`;
         } else if (yourStyle === theirStyle && yourStyle === 'confrontational') {
-          patternAnalysis += `you're both confrontational, which means you both want to be heard immediately. This can escalate quickly when you're both activated.`;
+          response += `You're both wanting to be heard RIGHT NOW. Which means you're talking over each other instead of actually listening. Both valid, but the timing is all wrong.`;
         } else {
-          patternAnalysis += `your conflict styles create a specific dynamic that we can work with once we understand the underlying pattern.`;
+          response += `there's a pattern here that goes deeper than whatever you're actually arguing about.`;
         }
       } else {
-        patternAnalysis += `there's likely an underlying pattern to these arguments that goes beyond the surface topic.`;
+        response += `most fights aren't really about the thing you're fighting about. They're about the feelings underneath - feeling unheard, unvalued, misunderstood, or disconnected.`;
       }
 
-      const insight = `Most recurring arguments aren't really about the topic you're discussing - they're about unmet underlying needs. The content changes, but the emotional pattern stays the same. Understanding your attachment styles and triggers can help break this cycle.`;
+      response += `\n\n`;
+      response += `**Real talk:** The content of your arguments probably changes, but the emotional pattern stays the same. `;
+      
+      if (context.yourTraits.attachmentStyle || context.partnerTraits.attachmentStyle) {
+        response += `This is your attachment stuff showing up - the deep fears about safety, connection, and being enough.\n\n`;
+      }
 
-      const strategies = [];
+      response += `**Here's what to try differently:**\n`;
       
       if (context.yourTraits.conflictStyle === 'confrontational' && context.partnerTraits.conflictStyle === 'avoidant') {
-        strategies.push(`**Gentle Approach:** Try: "${theirName}, I'd like to understand your perspective on something when you're ready to talk about it. No rush, but it's important to me." This reduces their defensive response.`);
-        strategies.push(`**Time Buffer:** Give ${theirName} advance notice about difficult conversations. "I'd like to discuss [topic] sometime this week. When would feel good for you?"`);
+        response += `• **Give them a heads up**: "${theirName}, there's something I'd like to talk through with you. When would feel good for you? No rush, but it matters to me."\n`;
+        response += `• **When they retreat, don't chase**: "I can see you need some space. I'm here when you're ready."\n`;
       } else if (context.yourTraits.conflictStyle === 'avoidant' && context.partnerTraits.conflictStyle === 'confrontational') {
-        strategies.push(`**Bridge Statement:** "This is important to me too, and I want to give it the attention it deserves. Can we set a time to discuss this after I've had some time to process?"`);
-        strategies.push(`**Reassurance:** Let ${theirName} know that your need for time isn't rejection: "I need to think about this, but that doesn't mean I don't care or that I'm dismissing your concerns."`);
+        response += `• **Bridge the gap**: "This matters to me too. Can I have [specific time] to process, and then we can talk about it?"\n`;
+        response += `• **Reassure them**: "I need time to think, but that doesn't mean I don't care or that I'm dismissing what you're saying."\n`;
       } else {
-        strategies.push(`**Pause Pattern:** When you feel the familiar escalation, try: "I can feel us getting into our usual pattern. Can we take a 20-minute break and come back to this?"`);
+        response += `• **Pause the pattern**: When you feel it escalating, try "I can feel us getting into that thing we do. Can we take 20 minutes and come back to this?"\n`;
       }
 
-      strategies.push(`**Underlying Needs:** Before discussing the topic, each person shares: "What I really need right now is..." This addresses the emotion behind the content.`);
+      response += `• **Get to the feelings first**: Before diving into the issue, each person says "What I really need right now is..." Address that first.\n`;
+      response += `• **Focus on the need, not being right**: Ask yourself "What is each of us trying to get our needs met here?"\n\n`;
 
-      const nextSteps = `The next time you feel an argument starting, try to identify what need each of you is trying to meet. Focus on that need rather than being "right" about the surface issue.`;
+      response += `**Your next step:** The next time you feel an argument building, pause and ask yourself: "What am I actually needing right now?" Then share that instead of the complaint.\n\n`;
+      response += `This shit is hard, but you can absolutely learn to fight better. It just takes practice.`;
 
-      return buildCoachingResponse(acknowledgment, patternAnalysis, insight, strategies, nextSteps);
+      return response;
     }
 
     // Anxiety and relationship security
     if (message.includes("anxious") || message.includes("worried") || message.includes("stress")) {
-      const acknowledgment = `Feeling anxious about your relationship with ${theirName} shows how much this relationship means to you. These feelings are valid and worth addressing.`;
+      let response = `First of all, take a breath. What you're feeling makes total sense, and you're not being dramatic or needy for feeling this way.\n\n`;
 
-      let patternAnalysis = `Based on your profiles, `;
-      if (context.yourTraits.attachmentStyle) {
-        if (context.yourTraits.attachmentStyle === 'anxious') {
-          patternAnalysis += `your anxious attachment style means you're naturally more sensitive to relationship threats and need more reassurance than ${theirName} might naturally think to provide.`;
-        } else if (context.yourTraits.attachmentStyle === 'avoidant') {
-          patternAnalysis += `your avoidant attachment style means you might be feeling anxious because intimacy itself feels threatening, even when the relationship is actually secure.`;
-        } else {
-          patternAnalysis += `your attachment patterns influence how you interpret ${theirName}'s behavior and what you need to feel secure.`;
-        }
-      } else {
-        patternAnalysis += `relationship anxiety often stems from attachment needs not being clearly communicated or met.`;
-      }
-
-      const insight = `Anxiety in relationships usually signals either a real issue that needs addressing or an attachment wound being triggered. The key is distinguishing between the two and responding appropriately.`;
-
-      const strategies = [];
-      
       if (context.yourTraits.attachmentStyle === 'anxious') {
-        strategies.push(`**Direct Communication:** Try: "${theirName}, I'm feeling insecure about us right now and could use some reassurance. Could you help me understand [specific concern]?"`);
-        strategies.push(`**Reality Check:** Before assuming the worst, ask yourself: "Is this about something ${theirName} actually did, or is this my anxiety talking?"`);
+        response += `I know you mentioned your attachment style is anxious, so your nervous system is literally wired to be more sensitive to relationship threats. This isn't your fault - it's how your brain learned to keep you safe.\n\n`;
+        response += `The tricky thing is that sometimes your anxiety is picking up on real issues, and sometimes it's just... anxiety being anxiety. `;
+      } else {
+        response += `Relationship anxiety can hit anyone, especially when something matters this much to you. `;
       }
 
-      strategies.push(`**Anxiety Mapping:** Write down specifically what's triggering your anxiety. Often it's not the relationship itself but external stressors affecting how secure you feel.`);
-      strategies.push(`**Partner Insight:** Share your anxiety pattern with ${theirName}: "When I get anxious about us, I tend to [behavior]. It's not about you, but here's how you can help..."`);
+      response += `The key is figuring out if this is about something ${theirName} actually did/said, or if it's your brain spiraling.\n\n`;
 
-      const nextSteps = `Identify one specific thing that would help you feel more secure right now, and communicate that clearly to ${theirName}. Focus on what you need rather than what they're doing wrong.`;
+      response += `**Let's reality-check this:**\n`;
+      response += `• What specifically happened that triggered this feeling?\n`;
+      response += `• Is this based on ${theirName}'s actual behavior or your interpretation of it?\n`;
+      response += `• What story is your brain telling you right now?\n\n`;
 
-      return buildCoachingResponse(acknowledgment, patternAnalysis, insight, strategies, nextSteps);
+      if (context.yourTraits.attachmentStyle === 'anxious') {
+        response += `**For your anxious attachment brain:**\n`;
+        response += `• **Name it**: "My attachment system is activated right now, and I'm feeling scared about us."\n`;
+        response += `• **Ask directly**: "${theirName}, I'm feeling insecure and could use some reassurance. Can you help me understand [specific concern]?"\n`;
+        response += `• **Ground yourself**: What evidence do you have that your relationship is actually solid?\n\n`;
+      }
+
+      response += `**What to do right now:**\n`;
+      response += `• Write down exactly what you're worried about - get it out of your head\n`;
+      response += `• Ask yourself: "What would help me feel more secure right now?"\n`;
+      response += `• Share that specific need with ${theirName} instead of the anxiety spiral\n\n`;
+
+      response += `**Your next step:** Be specific about what you need. Instead of "I'm anxious about us," try "${theirName}, I'm feeling disconnected and would love to spend some focused time together tonight."\n\n`;
+      response += `Your feelings are valid, AND you have more control over this than it feels like right now. You've got this.`;
+
+      return response;
     }
 
     // Communication improvement
     if (message.includes("communication") || message.includes("talk")) {
-      const acknowledgment = `Good communication is the foundation of strong relationships, and wanting to improve how you and ${theirName} connect shows real relationship wisdom.`;
+      let response = `Yes! Honestly, the fact that you want to improve how you two connect is already huge. Most people just accept shitty communication as "normal."\n\n`;
 
-      let patternAnalysis = `Looking at both your communication styles, `;
       if (context.dynamics.communicationMatch === false) {
-        patternAnalysis += `you and ${theirName} have different natural communication styles. You're ${context.yourTraits.communicationStyle} while ${theirName} is ${context.partnerTraits.communicationStyle}. This difference can create misunderstandings if not navigated thoughtfully.`;
+        response += `So here's the thing - you're ${context.yourTraits.communicationStyle} and ${theirName} is ${context.partnerTraits.communicationStyle}. `;
+        response += `This isn't good or bad, but it means you're basically speaking different dialects of the same language. `;
+        response += `You can learn to translate between your styles without losing yourselves.\n\n`;
       } else if (context.dynamics.communicationMatch === true) {
-        patternAnalysis += `you both share a ${context.yourTraits.communicationStyle} communication style, which creates natural understanding but might also create blind spots.`;
-      } else {
-        patternAnalysis += `understanding each other's communication needs is key to deeper connection.`;
+        response += `You both have a ${context.yourTraits.communicationStyle} communication style, which creates natural understanding but might also create some blind spots.\n\n`;
       }
 
-      const insight = `Great communication isn't about speaking the same language - it's about learning to translate between your natural styles while staying true to yourselves.`;
+      response += `**Here's what actually works:**\n`;
+      response += `• **Meta-communication** - Talk about how you talk: "${theirName}, when I [your pattern], I mean [your intention]. How does that land for you?"\n`;
+      response += `• **Style flexibility** - Occasionally adapt to their style. If they need details and you prefer brevity, give more context. If they're direct and you're indirect, try being more straightforward.\n`;
+      response += `• **Check understanding** - End important convos with "What did you hear me say?" and "What's most important for me to understand about your perspective?"\n\n`;
 
-      const strategies = [
-        `**Style Flexibility:** Occasionally adapt to ${theirName}'s style. If they're direct and you're indirect, try being more straightforward. If they need details and you prefer brevity, provide more context.`,
-        `**Meta-Communication:** Talk about how you communicate: "${theirName}, when I [communication pattern], I mean [intention]. How does that land for you?"`,
-        `**Check Understanding:** End important conversations with: "What did you hear me say?" and "What's most important for me to understand about your perspective?"`
-      ];
+      response += `**Real talk:** Good communication isn't about never misunderstanding each other. It's about catching misunderstandings quickly and fixing them together.\n\n`;
 
-      const nextSteps = `Choose one conversation this week where you consciously adapt your communication style to better match ${theirName}'s needs. Notice how it affects the quality of your connection.`;
+      response += `**Your next step:** Pick one conversation this week where you consciously try communicating more like ${theirName} does. Notice what happens to the quality of your connection.\n\n`;
+      response += `You're already doing the work just by thinking about this. Communication is a skill, not a talent - and you can absolutely get better at it.`;
 
-      return buildCoachingResponse(acknowledgment, patternAnalysis, insight, strategies, nextSteps);
+      return response;
     }
 
-    // Default professional response
-    let acknowledgment = `Thank you for sharing what's on your mind about your relationship with ${theirName}. Every relationship challenge is an opportunity for deeper understanding and connection.`;
+    // Default millennial-friendly response
+    let response = `Thanks for sharing what's going on with you and ${theirName}. I can tell this matters a lot to you, which honestly says everything about who you are as a partner.\n\n`;
 
-    let patternAnalysis = `Based on your unique dynamic as a couple, `;
     if (context.yourTraits.strengths && context.yourTraits.strengths.length > 0) {
-      patternAnalysis += `you bring strengths like ${context.yourTraits.strengths.join(', ')} to this relationship. `;
+      response += `I know you bring ${context.yourTraits.strengths.join(', ')} to this relationship, and those are real assets. `;
     }
+
     if (context.relationship.length) {
-      patternAnalysis += `After ${context.relationship.length} together, you've built a foundation that can support working through challenges.`;
+      response += `After ${context.relationship.length} together, you've built something real - something worth investing in and figuring out together.\n\n`;
     } else {
-      patternAnalysis += `you're building something meaningful together that's worth investing in.`;
+      response += `You're building something meaningful together, and that's worth investing in.\n\n`;
     }
 
-    const insight = `Every relationship has its unique rhythm and challenges. The key is approaching difficulties as a team rather than adversaries, using your individual strengths to support your shared goals.`;
+    response += `**Here's what I want you to remember:**\n`;
+    response += `• Every relationship has its unique rhythm and challenges - that's not a bug, it's a feature\n`;
+    response += `• You two are on the same team, even when it doesn't feel like it\n`;
+    response += `• Working on your relationship doesn't mean it's broken - it means you want it to be great\n\n`;
 
-    const strategies = [
-      `**Curiosity Over Judgment:** When issues arise, get curious about ${theirName}'s perspective rather than defending your own position.`,
-      `**Regular Check-ins:** Schedule weekly 15-minute relationship check-ins to address small issues before they become big ones.`,
-      `**Appreciation Practice:** Share one specific thing you appreciate about ${theirName} each day, focusing on their actions or character rather than general qualities.`
-    ];
+    response += `**Some things to try:**\n`;
+    response += `• **Get curious instead of defensive** - When stuff comes up, ask "${theirName}, help me understand your perspective here"\n`;
+    response += `• **Weekly check-ins** - 15 minutes every week to address small stuff before it becomes big stuff\n`;
+    response += `• **Daily appreciation** - One specific thing you appreciate about ${theirName} each day (focus on what they do, not just who they are)\n\n`;
 
-    const nextSteps = `Share more about what specific situation or feeling brought you here today. The more context you provide, the more personalized guidance I can offer based on your unique relationship dynamic.`;
+    response += `**Tell me more:** What specific situation or feeling brought you here today? The more context you give me about what's actually happening, the more personalized guidance I can offer based on your unique dynamic.\n\n`;
+    response += `You've got this. Seriously.`;
 
-    return buildCoachingResponse(acknowledgment, patternAnalysis, insight, strategies, nextSteps);
+    return response;
   };
 
   const sendMessage = async () => {
@@ -399,15 +364,15 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           </h2>
           <p className="text-gray-600">
             {userName && partnerName ? 
-              `Expert relationship coaching for ${userName} and ${partnerName}` :
-              'Professional relationship guidance tailored to your unique dynamic'
+              `Real talk relationship coaching for ${userName} and ${partnerName}` :
+              'The relationship coach millennials actually want to talk to'
             }
           </p>
           {(profiles.your.length > 0 || profiles.partner.length > 0) && (
             <p className="text-sm text-coral-600 mt-1">
               💡 {userName && partnerName ? 
-                `Evidence-based coaching using ${userName} and ${partnerName}'s relationship profiles` :
-                'Professional coaching based on your detailed relationship profiles'
+                `Personalized coaching using ${userName} and ${partnerName}'s profiles - I actually know your dynamic` :
+                'Coaching that knows your actual relationship patterns, not generic advice'
               }
             </p>
           )}
@@ -422,18 +387,18 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
                   <Heart className="w-12 h-12 mx-auto mb-3 text-coral-400" />
                   <p className="font-medium">
                     {userName ? 
-                      `Hello ${userName}, I'm your AI relationship coach with expertise in couples therapy, attachment theory, and evidence-based interventions.` :
-                      'Hello, I\'m your AI relationship coach with professional training in relationship psychology.'
+                      `Hey ${userName}! I'm your AI relationship coach - think of me as that friend who went to therapy, read all the books, and actually has their shit together.` :
+                      'Hey! I\'m your AI relationship coach - the one millennials actually want to talk to.'
                     }
                   </p>
                   <p className="text-sm mt-2">
                     {userName && partnerName ?
-                      `I know about ${userName} and ${partnerName}'s unique relationship dynamic and I'm here to provide personalized, research-backed guidance.` :
-                      'I have access to your relationship profiles and can provide personalized, professional guidance.'
+                      `I know about ${userName} and ${partnerName}'s dynamic, and I'm here to give you real, actionable advice that actually works for your situation.` :
+                      'I have access to your relationship profiles, so this isn\'t generic advice - it\'s tailored to your actual patterns and needs.'
                     }
                   </p>
                   <p className="text-xs text-coral-600 mt-3">
-                    Drawing from Gottman Method, EFT, Attachment Theory, and other evidence-based approaches
+                    Evidence-based coaching that doesn't feel like reading a psychology textbook
                   </p>
                 </div>
               )}
@@ -467,7 +432,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
                       <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                       <div className="w-2 h-2 bg-coral-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      <span className="text-sm text-gray-600 ml-2">Analyzing your relationship dynamic...</span>
+                      <span className="text-sm text-gray-600 ml-2">Getting real about your situation...</span>
                     </div>
                   </div>
                 </div>
@@ -479,7 +444,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         {/* Quick Starters */}
         {chatHistory.length === 0 && (
           <div className="mb-4">
-            <p className="text-sm text-gray-600 mb-2">Start with a common relationship topic:</p>
+            <p className="text-sm text-gray-600 mb-2">Start with something that's actually on your mind:</p>
             <div className="flex gap-2 flex-wrap">
               {quickStarters.map((starter, index) => (
                 <Button
@@ -503,8 +468,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             onChange={(e) => setCurrentMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={userName && partnerName ? 
-              `Tell me about what's happening with you and ${partnerName}...` :
-              "What's happening in your relationship that you'd like guidance on?"
+              `What's actually happening with you and ${partnerName}?` :
+              "What's going on in your relationship that you want to talk through?"
             }
             disabled={loading}
             className="flex-1"
@@ -519,64 +484,64 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         </div>
       </div>
 
-      {/* Professional Sidebar - 25% */}
+      {/* Sidebar */}
       <div className="w-80 space-y-4">
         {/* Profile Status */}
         {(profiles.your.length > 0 || profiles.partner.length > 0) && (
           <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
             <div className="flex items-center gap-3 mb-3">
               <User className="w-4 h-4 text-coral-600" />
-              <h3 className="font-medium text-gray-900">Relationship Profiles</h3>
+              <h3 className="font-medium text-gray-900">Your Profiles</h3>
             </div>
             <div className="space-y-2 text-sm text-gray-600">
               {profiles.your.length > 0 && (
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                  <span>{userName || 'Your'} profile active</span>
+                  <span>{userName || 'Your'} profile loaded</span>
                 </div>
               )}
               {profiles.partner.length > 0 && (
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                  <span>{partnerName || 'Partner'} profile active</span>
+                  <span>{partnerName || 'Partner'} profile loaded</span>
                 </div>
               )}
             </div>
             {userName && partnerName && (
               <div className="mt-3 p-2 bg-coral-50 rounded text-xs text-coral-700">
-                <strong>Coaching Focus:</strong> Using {userName} and {partnerName}'s attachment styles, communication patterns, and relationship dynamics
+                <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
               </div>
             )}
           </Card>
         )}
 
-        {/* Expertise Badge */}
+        {/* Coach Vibe */}
         <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50">
           <div className="flex items-center gap-2 mb-2">
             <Lightbulb className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">Expert Guidance</h3>
+            <h3 className="font-medium text-gray-900">Your Coach</h3>
           </div>
           <p className="text-sm text-gray-600">
-            Evidence-based coaching from Gottman Method, EFT, and Attachment Theory
+            Real advice that actually works for millennials navigating modern relationships
           </p>
         </Card>
 
-        {/* Privacy & Trust */}
+        {/* Safe Space */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
           <div className="flex items-center gap-2 mb-2">
             <Heart className="w-4 h-4 text-coral-600" />
-            <h3 className="font-medium text-gray-900">Professional Standards</h3>
+            <h3 className="font-medium text-gray-900">Safe Space</h3>
           </div>
           <div className="text-sm text-gray-600 space-y-1">
-            <p>• Confidential and secure</p>
-            <p>• Non-judgmental approach</p>
-            <p>• Culturally sensitive guidance</p>
+            <p>• No judgment, just support</p>
+            <p>• Your feelings are valid</p>
+            <p>• Messy is normal</p>
           </div>
         </Card>
 
         {chatHistory.length > 0 && (
           <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-            <h3 className="font-medium text-gray-900 mb-3">Session Topics</h3>
+            <h3 className="font-medium text-gray-900 mb-3">What We've Covered</h3>
             <div className="space-y-2">
               {recentTopics.slice(0, 3).map((topic, index) => (
                 <Badge key={index} variant="outline" className="w-full justify-start border-coral-200 text-coral-700">
