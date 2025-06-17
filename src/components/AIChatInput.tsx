@@ -87,20 +87,24 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
           {!selectedCategory ? (
             /* Category Selection */
             <>
-              <h3 className="text-base font-medium text-gray-700 mb-4 leading-relaxed">
+              <h3 className="text-base font-medium text-gray-700 mb-6 leading-relaxed">
                 What's on your mind?
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.keys(conversationCategories).map((category, index) => (
-                  <Button
+                  <div
                     key={index}
-                    variant="ghost"
-                    size="sm"
                     onClick={() => setSelectedCategory(category)}
-                    className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-4 py-3 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
+                    className="group cursor-pointer bg-white rounded-xl p-5 border-2 border-coral-200/30 hover:border-coral-300 transition-all duration-300 hover:shadow-lg hover:scale-[1.02] transform hover:bg-gradient-to-br hover:from-white hover:to-coral-50/30"
                   >
-                    <span className="leading-relaxed font-medium">{category}</span>
-                  </Button>
+                    <h4 className="font-semibold text-gray-800 text-sm mb-2 group-hover:text-coral-600 transition-colors">
+                      {category}
+                    </h4>
+                    <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">
+                      Click to explore topics
+                    </p>
+                    <div className="mt-3 w-8 h-1 bg-coral-200 rounded-full group-hover:bg-coral-400 transition-colors"></div>
+                  </div>
                 ))}
               </div>
             </>
