@@ -13,19 +13,19 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const isUser = message.type === 'user';
   
   return (
-    <div className={`flex gap-3 mb-6 animate-fade-in ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-      {/* Avatar */}
+    <div className={`flex gap-3 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+      {/* Smaller Avatar */}
       <div className="flex-shrink-0">
-        <Avatar className={`w-10 h-10 ring-4 ring-white shadow-xl ${
+        <Avatar className={`w-8 h-8 ${
           isUser 
-            ? 'bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500' 
-            : 'bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600'
+            ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
+            : 'bg-gradient-to-br from-purple-500 to-blue-500'
         }`}>
           {isUser && userAvatarUrl ? (
             <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
           ) : isUser ? (
-            <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white border-0 text-lg font-bold shadow-inner">
-              {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
+            <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm font-medium">
+              {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
             </AvatarFallback>
           ) : (
             <>
@@ -34,45 +34,32 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
                 alt="Kai" 
                 className="object-cover"
               />
-              <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 text-lg font-bold shadow-inner">
-                <Bot className="w-5 h-5" />
+              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white text-sm font-medium">
+                <Bot className="w-4 h-4" />
               </AvatarFallback>
             </>
           )}
         </Avatar>
       </div>
 
-      {/* Message Bubble */}
-      <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
+      {/* Clean Message Bubble */}
+      <div className={`flex flex-col max-w-[80%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            relative px-6 py-4 rounded-3xl shadow-lg transition-all duration-300 hover:shadow-xl
+            px-4 py-3 rounded-2xl shadow-sm
             ${isUser
-              ? 'bg-gradient-to-br from-pink-500 to-coral-500 text-white rounded-br-lg'
-              : 'bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-bl-lg'
+              ? 'bg-purple-500 text-white rounded-br-md'
+              : 'bg-gray-100 text-gray-800 rounded-bl-md'
             }
           `}
         >
-          {/* Message tail */}
-          <div
-            className={`
-              absolute w-4 h-4 transform rotate-45 -z-10
-              ${isUser
-                ? 'bg-coral-500 right-1 bottom-1'
-                : 'bg-purple-500 left-1 bottom-1'
-              }
-            `}
-          />
-          
-          <div className="relative z-10">
-            <div className="text-sm leading-relaxed font-medium whitespace-pre-wrap">
-              {message.content}
-            </div>
+          <div className="text-sm leading-relaxed whitespace-pre-wrap">
+            {message.content}
           </div>
         </div>
         
-        {/* Timestamp */}
-        <p className={`text-xs text-gray-400 mt-2 px-2 ${isUser ? 'text-right' : 'text-left'}`}>
+        {/* Minimal Timestamp */}
+        <p className={`text-xs text-gray-400 mt-1 px-1 ${isUser ? 'text-right' : 'text-left'}`}>
           {message.timestamp}
         </p>
       </div>

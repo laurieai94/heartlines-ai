@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -145,57 +144,50 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      {/* Main Chat Container - Centered and Prominent */}
-      <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-4xl h-full flex flex-col bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0 bg-white">
+      {/* Main Chat Container - Proportionate and Clean */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-2xl h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           
           {/* Chat Messages Area */}
           <div className="flex-1 flex flex-col min-h-0">
-            <ScrollArea className="flex-1 p-8">
-              <div className="space-y-6 max-w-3xl mx-auto">
+            <ScrollArea className="flex-1 p-6">
+              <div className="space-y-4 max-w-full mx-auto">
                 
-                {/* Kai's Welcome Section - Only when no chat history */}
+                {/* Kai's Welcome Section - Minimal */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                  <div className="text-center py-12 animate-fade-in">
-                    {/* Large Kai Avatar */}
-                    <div className="w-24 h-24 mx-auto mb-8 relative">
-                      <Avatar className="w-24 h-24 bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 border-4 border-white shadow-2xl ring-4 ring-purple-100">
+                  <div className="text-center py-8 animate-fade-in">
+                    {/* Smaller Kai Avatar */}
+                    <div className="w-16 h-16 mx-auto mb-6 relative">
+                      <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 border-2 border-white shadow-lg">
                         <AvatarImage 
                           src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                           alt="Kai" 
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 text-white border-0 shadow-inner">
-                          <Heart className="w-12 h-12" />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                          <Heart className="w-8 h-8" />
                         </AvatarFallback>
                       </Avatar>
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg border-3 border-white"></div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white"></div>
                     </div>
                     
-                    {/* Welcome Message */}
-                    <div className="space-y-6 max-w-2xl mx-auto">
-                      <h2 className="text-3xl font-bold text-gray-900">
+                    {/* Minimal Welcome Message */}
+                    <div className="space-y-4 max-w-lg mx-auto">
+                      <h2 className="text-xl font-semibold text-gray-900">
                         Hey, I'm Kai 👋
                       </h2>
                       
-                      <p className="text-xl text-gray-700 leading-relaxed">
-                        I'm here to help you reconnect, reflect, and reset — one conversation at a time.
+                      <p className="text-gray-600">
+                        I'm here to help you navigate your relationship with thoughtful conversation.
                       </p>
-                      
-                      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
-                        <p className="text-gray-600 leading-relaxed">
-                          Whether you're navigating a specific challenge or just want to strengthen your connection, 
-                          I'm here to listen and help you discover what works best for your relationship.
-                        </p>
-                      </div>
                     </div>
                   </div>
                 )}
                 
                 {/* Chat Messages */}
                 {chatHistory.map((message, index) => (
-                  <div key={message.id} className="animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div key={message.id} className="animate-fade-in">
                     <AIChatMessage 
                       message={message} 
                       userAvatarUrl={profile?.avatar_url || undefined}
@@ -204,30 +196,25 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 ))}
                 
-                {/* Typing Indicator */}
+                {/* Minimal Typing Indicator */}
                 {loading && (
                   <div className="flex justify-start animate-fade-in">
-                    <div className="flex gap-4 items-end">
-                      <Avatar className="w-12 h-12 bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 ring-4 ring-white shadow-xl">
+                    <div className="flex gap-3 items-end">
+                      <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500">
                         <AvatarImage 
                           src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                           alt="Kai" 
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 text-white border-0 shadow-inner">
-                          <Bot className="w-6 h-6" />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                          <Bot className="w-4 h-4" />
                         </AvatarFallback>
                       </Avatar>
-                      <div className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-3xl rounded-bl-lg px-8 py-6 shadow-lg max-w-[75%]">
-                        <div className="flex items-center gap-4">
-                          <div className="flex gap-1">
-                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce"></div>
-                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                          </div>
-                          <span className="text-lg font-medium animate-pulse">
-                            Kai is thinking...
-                          </span>
+                      <div className="bg-gray-100 rounded-2xl px-4 py-2 shadow-sm">
+                        <div className="flex gap-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                         </div>
                       </div>
                     </div>
@@ -238,9 +225,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               </div>
             </ScrollArea>
 
-            {/* Chat Input Section - Large and Prominent */}
-            <div className="p-8 bg-gradient-to-t from-white to-transparent">
-              <div className="max-w-3xl mx-auto">
+            {/* Minimal Chat Input */}
+            <div className="p-6 border-t border-gray-100">
+              <div className="max-w-full mx-auto">
                 <AIChatInput 
                   onSendMessage={sendMessage} 
                   loading={loading || !isConfigured} 
@@ -249,8 +236,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   chatHistory={chatHistory}
                 />
                 {!isConfigured && (
-                  <p className="text-sm text-gray-500 mt-4 text-center bg-amber-50 rounded-full px-6 py-3 mx-auto w-fit animate-fade-in border border-amber-200">
-                    Complete the setup in the sidebar to start chatting
+                  <p className="text-sm text-gray-500 mt-3 text-center">
+                    Complete setup to start chatting
                   </p>
                 )}
               </div>
