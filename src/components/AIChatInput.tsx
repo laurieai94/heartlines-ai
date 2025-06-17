@@ -34,9 +34,9 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
   };
 
   const conversationStarters = [
-    "I don't feel like myself in this relationship lately",
-    "We're close, but I still feel alone sometimes", 
-    "I want us to understand each other better",
+    "Something feels off between us",
+    "I feel disconnected even when we're together", 
+    "We keep missing each other somehow",
     "We argue about little things, but it feels bigger than that",
     "I love them deeply, but we've lost our rhythm",
     "I just want to feel close again"
@@ -49,48 +49,48 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
   const showQuickStarters = chatHistory.length === 0;
 
   return (
-    <div className="space-y-4">
-      {/* Minimal Quick Starters */}
+    <div className="space-y-6">
+      {/* Warm Quick Starters */}
       {showQuickStarters && (
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">
+        <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-6 border border-orange-100/50 shadow-lg">
+          <h3 className="text-base font-medium text-gray-700 mb-4 leading-relaxed">
             What's on your mind?
           </h3>
-          <div className="grid grid-cols-1 gap-2">
+          <div className="grid grid-cols-1 gap-3">
             {conversationStarters.slice(0, 3).map((starter, index) => (
               <Button
                 key={index}
                 variant="ghost"
                 size="sm"
                 onClick={() => handleQuickStarter(starter)}
-                className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-md px-3 py-2 text-sm text-left justify-start h-auto whitespace-normal"
+                className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-4 py-3 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
               >
-                {starter}
+                <span className="leading-relaxed">{starter}</span>
               </Button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Clean Chat Input */}
-      <div className="flex gap-3 items-end">
+      {/* Enhanced Chat Input */}
+      <div className="flex gap-4 items-end">
         <div className="flex-1">
           <Textarea
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
-            placeholder={chatHistory.length === 0 ? "What's going on? I'm here to listen..." : "Continue the conversation..."}
+            placeholder={chatHistory.length === 0 ? "Tell me what's happening... I'm here for you" : "Continue the conversation..."}
             disabled={loading}
-            className="border border-gray-200 rounded-lg px-4 py-3 text-sm resize-none min-h-[60px] max-h-[120px] focus:ring-1 focus:ring-purple-300 focus:border-purple-300"
+            className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-6 py-4 text-base resize-none min-h-[70px] max-h-[140px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
             rows={2}
           />
         </div>
         <Button
           onClick={sendMessage}
           disabled={!currentMessage.trim() || loading}
-          className="bg-purple-500 hover:bg-purple-600 rounded-lg w-12 h-12 p-0 shadow-sm"
+          className="bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 rounded-2xl w-14 h-14 p-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:scale-100"
         >
-          <Send className="w-4 h-4" />
+          <Send className="w-5 h-5" />
         </Button>
       </div>
     </div>

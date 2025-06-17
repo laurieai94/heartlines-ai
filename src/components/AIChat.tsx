@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -144,42 +145,47 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-white">
-      {/* Main Chat Container - Proportionate and Clean */}
-      <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-2xl h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
+      {/* Soft Background Pattern */}
+      <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ff6b8a" fill-opacity="0.1"%3E%3Ccircle cx="7" cy="7" r="2"/%3E%3Ccircle cx="27" cy="27" r="2"/%3E%3Ccircle cx="47" cy="47" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] pointer-events-none" />
+      
+      {/* Main Chat Container */}
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
           
           {/* Chat Messages Area */}
           <div className="flex-1 flex flex-col min-h-0">
-            <ScrollArea className="flex-1 p-6">
-              <div className="space-y-4 max-w-full mx-auto">
+            <ScrollArea className="flex-1 p-8">
+              <div className="space-y-6 max-w-full mx-auto">
                 
-                {/* Kai's Welcome Section - Minimal */}
+                {/* Kai's Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                  <div className="text-center py-8 animate-fade-in">
-                    {/* Smaller Kai Avatar */}
-                    <div className="w-16 h-16 mx-auto mb-6 relative">
-                      <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 border-2 border-white shadow-lg">
+                  <div className="text-center py-12 animate-fade-in">
+                    {/* Kai Avatar with Glow */}
+                    <div className="w-20 h-20 mx-auto mb-8 relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
+                      <Avatar className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-white shadow-2xl relative z-10">
                         <AvatarImage 
                           src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                           alt="Kai" 
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                          <Heart className="w-8 h-8" />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                          <Heart className="w-10 h-10" />
                         </AvatarFallback>
                       </Avatar>
-                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white"></div>
+                      {/* Animated online indicator */}
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full border-3 border-white animate-bounce-gentle shadow-lg"></div>
                     </div>
                     
-                    {/* Minimal Welcome Message */}
-                    <div className="space-y-4 max-w-lg mx-auto">
-                      <h2 className="text-xl font-semibold text-gray-900">
+                    {/* Warm Welcome Message */}
+                    <div className="space-y-6 max-w-xl mx-auto">
+                      <h2 className="text-2xl font-medium text-gray-800 leading-relaxed">
                         Hey, I'm Kai 👋
                       </h2>
                       
-                      <p className="text-gray-600">
-                        I'm here to help you navigate your relationship with thoughtful conversation.
+                      <p className="text-lg text-gray-600 leading-relaxed font-light">
+                        Here to help you figure out the messy, meaningful, and everything-in-between parts of your relationship. What's going on today?
                       </p>
                     </div>
                   </div>
@@ -196,22 +202,25 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 ))}
                 
-                {/* Minimal Typing Indicator */}
+                {/* Typing Indicator */}
                 {loading && (
                   <div className="flex justify-start animate-fade-in">
-                    <div className="flex gap-3 items-end">
-                      <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500">
-                        <AvatarImage 
-                          src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
-                          alt="Kai" 
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                          <Bot className="w-4 h-4" />
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="bg-gray-100 rounded-2xl px-4 py-2 shadow-sm">
-                        <div className="flex gap-1">
+                    <div className="flex gap-4 items-end">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full blur-md opacity-60"></div>
+                        <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10">
+                          <AvatarImage 
+                            src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+                            alt="Kai" 
+                            className="object-cover"
+                          />
+                          <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                            <Bot className="w-5 h-5" />
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl px-6 py-4 shadow-lg border border-gray-100">
+                        <div className="flex gap-2">
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
@@ -225,8 +234,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               </div>
             </ScrollArea>
 
-            {/* Minimal Chat Input */}
-            <div className="p-6 border-t border-gray-100">
+            {/* Chat Input */}
+            <div className="p-8 border-t border-white/20 bg-white/40 backdrop-blur-sm">
               <div className="max-w-full mx-auto">
                 <AIChatInput 
                   onSendMessage={sendMessage} 
@@ -236,7 +245,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   chatHistory={chatHistory}
                 />
                 {!isConfigured && (
-                  <p className="text-sm text-gray-500 mt-3 text-center">
+                  <p className="text-sm text-gray-500 mt-4 text-center font-light">
                     Complete setup to start chatting
                   </p>
                 )}

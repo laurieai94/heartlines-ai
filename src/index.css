@@ -115,6 +115,7 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
+    line-height: 1.6;
   }
 
   .font-sans {
@@ -152,7 +153,7 @@
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.8s ease-out forwards;
   }
 
   @keyframes fadeIn {
@@ -176,6 +177,22 @@
     }
     50% {
       transform: translateY(-20px);
+    }
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 3s ease-in-out infinite;
+  }
+
+  @keyframes bounceGentle {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    40% {
+      transform: translateY(-4px) scale(1.05);
+    }
+    60% {
+      transform: translateY(-2px) scale(1.02);
     }
   }
 
@@ -220,13 +237,21 @@
   .text-coral-700 { color: hsl(var(--coral-700)) !important; }
   
   .border-coral-200 { border-color: hsl(var(--coral-200)) !important; }
+  .border-coral-300 { border-color: hsl(var(--coral-300)) !important; }
+  .focus\:border-coral-300:focus { border-color: hsl(var(--coral-300)) !important; }
+  .focus\:ring-coral-200\/30:focus { --tw-ring-color: hsl(var(--coral-200) / 0.3) !important; }
   
   .hover\:bg-coral-50:hover { background-color: hsl(var(--coral-50)) !important; }
   .hover\:text-coral-600:hover { color: hsl(var(--coral-600)) !important; }
   .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--coral-500)) !important; }
   .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--coral-500)) !important; }
 
+  /* Shadow colors for coral */
+  .shadow-coral-200\/50 { --tw-shadow-color: hsl(var(--coral-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+
   /* Peach color utilities */
   .from-peach-200 { --tw-gradient-from: hsl(var(--peach-200)) !important; }
   .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
+  .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
+  .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
 }
