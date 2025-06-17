@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -24,6 +25,7 @@ interface AIChatProps {
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { saveConversation } = useChatHistory();
@@ -52,7 +54,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     if (chatHistory.length > 0) {
       const timeoutId = setTimeout(() => {
         saveConversation(chatHistory);
-      }, 1000); // Save after 1 second of inactivity
+      }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
@@ -63,7 +65,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       id: Date.now(),
       type: 'user',
       content: userMessage,
-      timestamp: new Date().toLocaleString()
+      timestamp: new Date().toISOString()
     };
 
     setChatHistory(prev => [...prev, newUserMessage]);
@@ -125,22 +127,31 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         id: Date.now() + 1,
         type: 'ai',
         content: aiResponse,
-        timestamp: new Date().toLocaleString()
+        timestamp: new Date().toISOString()
       };
 
       setChatHistory(prev => [...prev, aiMessage]);
+
+      // Automatically speak Kai's response if voice function is available
+      if (speakResponseRef.current) {
+        speakResponseRef.current(aiResponse);
+      }
     } catch (error) {
       console.error('Error generating AI response:', error);
       const errorMessage: ChatMessage = {
         id: Date.now() + 1,
         type: 'ai',
         content: error.message || "An unexpected error occurred. Please try again.",
-        timestamp: new Date().toLocaleString()
+        timestamp: new Date().toISOString()
       };
       setChatHistory(prev => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSpeakResponse = (speakFunction: (text: string) => void) => {
+    speakResponseRef.current = speakFunction;
   };
 
   // Background pattern as a style object to avoid JSX quote issues
@@ -251,6 +262,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   userName={userName} 
                   partnerName={partnerName}
                   chatHistory={chatHistory}
+                  onSpeakResponse={handleSpeakResponse}
                 />
                 {!isConfigured && (
                   <p className="text-sm text-gray-500 mt-4 text-center font-light">

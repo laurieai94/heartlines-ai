@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, ArrowLeft } from "lucide-react";
+import VoiceInterface from "./VoiceInterface";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -10,9 +11,17 @@ interface AIChatInputProps {
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
+  onSpeakResponse?: (speakFunction: (text: string) => void) => void;
 }
 
-const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistory = [] }: AIChatInputProps) => {
+const AIChatInput = ({ 
+  onSendMessage, 
+  loading, 
+  userName, 
+  partnerName, 
+  chatHistory = [],
+  onSpeakResponse 
+}: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -31,6 +40,10 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentMessage(e.target.value);
+  };
+
+  const handleVoiceMessage = (message: string) => {
+    onSendMessage(message);
   };
 
   const conversationCategories = {
@@ -74,7 +87,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
 
   const handleQuickStarter = (starter: string) => {
     onSendMessage(starter);
-    setSelectedCategory(null); // Reset after sending
+    setSelectedCategory(null);
   };
 
   const showQuickStarters = chatHistory.length === 0;
@@ -85,7 +98,6 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
       {showQuickStarters && (
         <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-4 border border-orange-100/50 shadow-lg">
           {!selectedCategory ? (
-            /* Category Selection */
             <>
               <h3 className="text-sm font-medium text-gray-700 mb-3 leading-relaxed">
                 What's on your mind?
@@ -95,7 +107,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
                   <div
                     key={index}
                     onClick={() => setSelectedCategory(category)}
-                    className="group cursor-pointer bg-white rounded-lg p-3 border border-coral-200/30 hover:border-coral-300 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+                    className="group cursor-pointer bg-white rounded-lg p-2 border border-coral-200/30 hover:border-coral-300 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
                   >
                     <h4 className="font-medium text-gray-800 text-xs group-hover:text-coral-600 transition-colors">
                       {category}
@@ -105,7 +117,6 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
               </div>
             </>
           ) : (
-            /* Conversation Starters for Selected Category */
             <>
               <div className="flex items-center gap-3 mb-4">
                 <Button
@@ -138,7 +149,7 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
         </div>
       )}
 
-      {/* Enhanced Chat Input */}
+      {/* Enhanced Chat Input with Voice */}
       <div className="flex gap-4 items-end">
         <div className="flex-1">
           <Textarea
@@ -151,6 +162,14 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
             rows={2}
           />
         </div>
+        
+        {/* Voice Interface */}
+        <VoiceInterface
+          onVoiceMessage={handleVoiceMessage}
+          onSpeakResponse={onSpeakResponse || (() => {})}
+          disabled={loading}
+        />
+        
         <Button
           onClick={sendMessage}
           disabled={!currentMessage.trim() || loading}

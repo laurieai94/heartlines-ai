@@ -12,6 +12,16 @@ interface AIChatMessageProps {
 const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   
+  // Format time to show only hours and minutes
+  const formatTime = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+  };
+  
   return (
     <div className={`flex gap-4 mb-6 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Enhanced Avatar */}
@@ -65,9 +75,9 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           </div>
         </div>
         
-        {/* Subtle Timestamp */}
+        {/* Time Only */}
         <p className={`text-xs text-gray-400 mt-2 px-2 font-light ${isUser ? 'text-right' : 'text-left'}`}>
-          {message.timestamp}
+          {formatTime(message.timestamp)}
         </p>
       </div>
     </div>
