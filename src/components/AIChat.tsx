@@ -8,6 +8,7 @@ import { AICoachEngine } from "./AICoachEngine";
 import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
 import BubbleBackground from "./BubbleBackground";
+import ChatHeader from "./ChatHeader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
@@ -145,47 +146,59 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col relative min-h-0 rounded-3xl p-6 overflow-hidden">
+    <div className="flex-1 flex flex-col relative min-h-0 overflow-hidden">
       {/* Dynamic gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 animate-gradient-shift"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/30 via-transparent to-coral-50/30 animate-gradient-shift-reverse"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/30 via-transparent to-coral-50/30"></div>
       
       <BubbleBackground />
 
-      {/* Main Chat Area */}
-      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col animate-fade-in">
-        <div className="flex-1 p-6 flex flex-col">
+      {/* Chat Header */}
+      <ChatHeader 
+        userName={userName}
+        partnerName={partnerName}
+        userAvatarUrl={profile?.avatar_url}
+        hasProfiles={hasProfiles}
+      />
+
+      {/* Main Chat Container */}
+      <Card className="flex-1 bg-white/80 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 flex flex-col min-h-0">
+        <div className="flex-1 p-6 flex flex-col min-h-0">
           <ScrollArea className="flex-1 mb-6">
-            <div className="space-y-2 pr-4">
+            <div className="space-y-6 pr-4">
+              {/* Kai's Welcome Message - only show when no chat history */}
               {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                <div className="text-center py-8 max-w-xl mx-auto animate-fade-in">
-                  <div className="w-20 h-20 mx-auto mb-6 relative">
-                    <Avatar className="w-20 h-20 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 border-4 border-white shadow-2xl ring-4 ring-purple-200/50">
-                      <AvatarImage 
-                        src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
-                        alt="Kai" 
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
-                        <Heart className="w-10 h-10" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg"></div>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      <strong>Hey, it's Kai.</strong> 👋
-                    </h3>
-                    
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                      Here to help you reconnect, reflect, and reset — one convo at a time.
-                    </p>
+                <div className="flex gap-4 mb-6">
+                  <Avatar className="w-12 h-12 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 border-4 border-white shadow-xl">
+                    <AvatarImage 
+                      src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+                      alt="Kai" 
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
+                      <Heart className="w-6 h-6" />
+                    </AvatarFallback>
+                  </Avatar>
+                  
+                  <div className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-3xl rounded-bl-lg px-6 py-4 shadow-lg max-w-[75%]">
+                    <div className="space-y-3">
+                      <div className="text-lg font-semibold">
+                        Hey there! I'm Kai 👋
+                      </div>
+                      <div className="text-sm leading-relaxed">
+                        I'm a relationship coach here to help you navigate whatever's on your mind. Whether you want to talk through something specific or just explore what's happening in your relationship, I'm here to listen and help you find your own insights.
+                      </div>
+                      <div className="text-sm leading-relaxed">
+                        What's bringing you here today?
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
               
+              {/* Chat Messages */}
               {chatHistory.map((message, index) => (
-                <div key={message.id} className="animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+                <div key={message.id} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
                   <AIChatMessage 
                     message={message} 
                     userAvatarUrl={profile?.avatar_url || undefined}
@@ -194,10 +207,11 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 </div>
               ))}
               
+              {/* Loading indicator */}
               {loading && (
                 <div className="flex justify-start animate-fade-in">
                   <div className="flex gap-3 mb-6">
-                    <Avatar className="w-10 h-10 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 ring-4 ring-white shadow-xl">
+                    <Avatar className="w-12 h-12 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 ring-4 ring-white shadow-xl">
                       <AvatarImage 
                         src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                         alt="Kai" 
@@ -243,7 +257,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
             )}
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
