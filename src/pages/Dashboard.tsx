@@ -10,7 +10,7 @@ import ConversationPractice from "@/components/ConversationPractice";
 import ThoughtfulActions from "@/components/ThoughtfulActions";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("profile");
+  const [activeTab, setActiveTab] = useState("insights");
   
   // Profile state management
   const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
@@ -30,43 +30,44 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 p-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <div className="max-w-7xl mx-auto">
+        {/* Minimal Header */}
+        <div className="flex items-center justify-between p-6 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-fuchsia-500 rounded-xl flex items-center justify-center shadow-lg">
-              <Heart className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
+              <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">RealTalk</h1>
-              <p className="text-gray-600">Your relationship support system</p>
+              <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8 bg-white/60 backdrop-blur-md">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Profile Building
-            </TabsTrigger>
-            <TabsTrigger value="insights" className="flex items-center gap-2">
-              <Lightbulb className="w-4 h-4" />
-              Coach
-            </TabsTrigger>
-            <TabsTrigger value="conversation" className="flex items-center gap-2">
-              <MessageCircle className="w-4 h-4" />
-              Practice
-            </TabsTrigger>
-            <TabsTrigger value="actions" className="flex items-center gap-2">
-              <Heart className="w-4 h-4" />
-              Actions
-            </TabsTrigger>
-          </TabsList>
+          <div className="px-6">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-6 bg-white/80 backdrop-blur-md shadow-lg rounded-2xl">
+              <TabsTrigger value="profile" className="flex items-center gap-2 rounded-xl">
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">Profile</span>
+              </TabsTrigger>
+              <TabsTrigger value="insights" className="flex items-center gap-2 rounded-xl">
+                <Lightbulb className="w-4 h-4" />
+                <span className="hidden sm:inline">Coach</span>
+              </TabsTrigger>
+              <TabsTrigger value="conversation" className="flex items-center gap-2 rounded-xl">
+                <MessageCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">Practice</span>
+              </TabsTrigger>
+              <TabsTrigger value="actions" className="flex items-center gap-2 rounded-xl">
+                <Heart className="w-4 h-4" />
+                <span className="hidden sm:inline">Actions</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-          <TabsContent value="profile">
+          <TabsContent value="profile" className="px-6">
             <ProfileBuilder 
               onProfileUpdate={handleProfileUpdate}
               initialProfiles={profiles}
@@ -74,21 +75,21 @@ const Dashboard = () => {
             />
           </TabsContent>
 
-          <TabsContent value="insights">
+          <TabsContent value="insights" className="h-[calc(100vh-140px)]">
             <AIInsights 
               profiles={profiles}
               demographicsData={demographicsData}
             />
           </TabsContent>
 
-          <TabsContent value="conversation">
+          <TabsContent value="conversation" className="px-6">
             <ConversationPractice 
               profiles={profiles}
               demographicsData={demographicsData}
             />
           </TabsContent>
 
-          <TabsContent value="actions">
+          <TabsContent value="actions" className="px-6">
             <ThoughtfulActions 
               profiles={profiles}
               demographicsData={demographicsData}

@@ -145,102 +145,116 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
   };
 
   return (
-    <div className="flex-1 flex flex-col relative min-h-0 rounded-3xl p-6 overflow-hidden">
-      {/* Dynamic gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 animate-gradient-shift"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/30 via-transparent to-coral-50/30 animate-gradient-shift-reverse"></div>
-      
-      <BubbleBackground />
-
-      {/* Main Chat Area */}
-      <div className="flex-1 bg-white/60 backdrop-blur-lg border-0 shadow-2xl overflow-hidden relative z-10 rounded-3xl min-h-0 flex flex-col animate-fade-in">
-        <div className="flex-1 p-6 flex flex-col">
-          <ScrollArea className="flex-1 mb-6">
-            <div className="space-y-2 pr-4">
-              {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                <div className="text-center py-8 max-w-xl mx-auto animate-fade-in">
-                  <div className="w-20 h-20 mx-auto mb-6 relative">
-                    <Avatar className="w-20 h-20 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 border-4 border-white shadow-2xl ring-4 ring-purple-200/50">
-                      <AvatarImage 
-                        src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
-                        alt="Kai" 
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
-                        <Heart className="w-10 h-10" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg"></div>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      <strong>Hey, it's Kai.</strong> 👋
-                    </h3>
+    <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      {/* Main Chat Container - Centered and Prominent */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-4xl h-full flex flex-col bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          
+          {/* Chat Messages Area */}
+          <div className="flex-1 flex flex-col min-h-0">
+            <ScrollArea className="flex-1 p-8">
+              <div className="space-y-6 max-w-3xl mx-auto">
+                
+                {/* Kai's Welcome Section - Only when no chat history */}
+                {chatHistory.length === 0 && isConfigured && !conversationStarter && (
+                  <div className="text-center py-12 animate-fade-in">
+                    {/* Large Kai Avatar */}
+                    <div className="w-24 h-24 mx-auto mb-8 relative">
+                      <Avatar className="w-24 h-24 bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 border-4 border-white shadow-2xl ring-4 ring-purple-100">
+                        <AvatarImage 
+                          src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+                          alt="Kai" 
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 text-white border-0 shadow-inner">
+                          <Heart className="w-12 h-12" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg border-3 border-white"></div>
+                    </div>
                     
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                      Here to help you reconnect, reflect, and reset — one convo at a time.
-                    </p>
-                  </div>
-                </div>
-              )}
-              
-              {chatHistory.map((message, index) => (
-                <div key={message.id} className="animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
-                  <AIChatMessage 
-                    message={message} 
-                    userAvatarUrl={profile?.avatar_url || undefined}
-                    userName={userName}
-                  />
-                </div>
-              ))}
-              
-              {loading && (
-                <div className="flex justify-start animate-fade-in">
-                  <div className="flex gap-3 mb-6">
-                    <Avatar className="w-10 h-10 bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 ring-4 ring-white shadow-xl">
-                      <AvatarImage 
-                        src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
-                        alt="Kai" 
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-gradient-to-br from-cyan-300 via-purple-400 to-blue-600 text-white border-0 shadow-inner">
-                        <Bot className="w-5 h-5" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-3xl rounded-bl-lg px-6 py-4 shadow-lg max-w-[75%]">
-                      <div className="flex items-center gap-3">
-                        <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
-                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                        </div>
-                        <span className="text-sm font-medium animate-pulse">
-                          Kai is thinking...
-                        </span>
+                    {/* Welcome Message */}
+                    <div className="space-y-6 max-w-2xl mx-auto">
+                      <h2 className="text-3xl font-bold text-gray-900">
+                        Hey, I'm Kai 👋
+                      </h2>
+                      
+                      <p className="text-xl text-gray-700 leading-relaxed">
+                        I'm here to help you reconnect, reflect, and reset — one conversation at a time.
+                      </p>
+                      
+                      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
+                        <p className="text-gray-600 leading-relaxed">
+                          Whether you're navigating a specific challenge or just want to strengthen your connection, 
+                          I'm here to listen and help you discover what works best for your relationship.
+                        </p>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-              
-              <div ref={messagesEndRef} />
-            </div>
-          </ScrollArea>
+                )}
+                
+                {/* Chat Messages */}
+                {chatHistory.map((message, index) => (
+                  <div key={message.id} className="animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+                    <AIChatMessage 
+                      message={message} 
+                      userAvatarUrl={profile?.avatar_url || undefined}
+                      userName={userName}
+                    />
+                  </div>
+                ))}
+                
+                {/* Typing Indicator */}
+                {loading && (
+                  <div className="flex justify-start animate-fade-in">
+                    <div className="flex gap-4 items-end">
+                      <Avatar className="w-12 h-12 bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 ring-4 ring-white shadow-xl">
+                        <AvatarImage 
+                          src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+                          alt="Kai" 
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-600 text-white border-0 shadow-inner">
+                          <Bot className="w-6 h-6" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-3xl rounded-bl-lg px-8 py-6 shadow-lg max-w-[75%]">
+                        <div className="flex items-center gap-4">
+                          <div className="flex gap-1">
+                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce"></div>
+                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                            <div className="w-3 h-3 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                          </div>
+                          <span className="text-lg font-medium animate-pulse">
+                            Kai is thinking...
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                <div ref={messagesEndRef} />
+              </div>
+            </ScrollArea>
 
-          {/* Chat Input */}
-          <div className="relative z-10">
-            <AIChatInput 
-              onSendMessage={sendMessage} 
-              loading={loading || !isConfigured} 
-              userName={userName} 
-              partnerName={partnerName}
-              chatHistory={chatHistory}
-            />
-            {!isConfigured && (
-              <p className="text-xs text-gray-500 mt-3 text-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mx-auto w-fit animate-fade-in">
-                Complete the setup in the sidebar to start chatting
-              </p>
-            )}
+            {/* Chat Input Section - Large and Prominent */}
+            <div className="p-8 bg-gradient-to-t from-white to-transparent">
+              <div className="max-w-3xl mx-auto">
+                <AIChatInput 
+                  onSendMessage={sendMessage} 
+                  loading={loading || !isConfigured} 
+                  userName={userName} 
+                  partnerName={partnerName}
+                  chatHistory={chatHistory}
+                />
+                {!isConfigured && (
+                  <p className="text-sm text-gray-500 mt-4 text-center bg-amber-50 rounded-full px-6 py-3 mx-auto w-fit animate-fade-in border border-amber-200">
+                    Complete the setup in the sidebar to start chatting
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

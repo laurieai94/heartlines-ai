@@ -96,10 +96,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         onSupabaseConfigured={handleSupabaseConfigured}
         onOpenProfileForm={handleOpenProfileForm}
         onStartConversation={handleStartConversation}
-        conversations={conversations}
-        currentConversationId={currentConversationId}
-        onLoadConversation={handleLoadConversation}
-        onNewConversation={handleNewConversation}
       />
       
       {/* Demographics Modal */}

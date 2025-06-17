@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +9,7 @@ interface AIChatInputProps {
   loading: boolean;
   userName?: string;
   partnerName?: string;
-  chatHistory?: any[]; // Add chat history to track if conversation has started
+  chatHistory?: any[];
 }
 
 const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistory = [] }: AIChatInputProps) => {
@@ -69,10 +70,9 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
   };
 
   const handleQuickStarter = (starter: string) => {
-    // Immediately send the message instead of just setting it in the input
     onSendMessage(starter);
     setIsTyping(false);
-    setSelectedCategory(null); // Reset category selection after sending
+    setSelectedCategory(null);
   };
 
   const handleCategorySelect = (category: string) => {
@@ -83,41 +83,43 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
     setSelectedCategory(null);
   };
 
-  // Only show conversation starters if there are no messages in chat history
   const showQuickStarters = chatHistory.length === 0;
 
   return (
-    <div className="space-y-4">
-      {/* Quick Starters - only show when conversation hasn't started */}
+    <div className="space-y-8">
+      {/* Quick Starters - Prominent when conversation hasn't started */}
       {showQuickStarters && (
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg animate-fade-in">
+        <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl p-8 border border-purple-100 shadow-lg animate-fade-in">
           {!selectedCategory ? (
-            // Show categories
-            <div className="space-y-3">
-              <h3 className="text-center text-sm font-medium text-purple-700 mb-3">
-                What's on your mind?
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="space-y-6">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-purple-900 mb-2">
+                  What's on your mind?
+                </h3>
+                <p className="text-purple-700 text-lg">
+                  Choose a topic to get started, or type your own message below
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.keys(conversationCategories).slice(0, 6).map((category, index) => (
                   <Button
                     key={category}
                     variant="outline"
-                    size="sm"
+                    size="lg"
                     onClick={() => handleCategorySelect(category)}
-                    className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal"
+                    className="text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800 rounded-2xl px-6 py-4 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-left justify-start h-auto whitespace-normal min-h-[60px]"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {category}
                   </Button>
                 ))}
               </div>
-              {/* Center the last category */}
               <div className="flex justify-center">
                 <Button
                   variant="outline"
-                  size="sm"
+                  size="lg"
                   onClick={() => handleCategorySelect("Worry & Insecurity")}
-                  className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal max-w-md"
+                  className="text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800 rounded-2xl px-6 py-4 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-left justify-start h-auto whitespace-normal max-w-md min-h-[60px]"
                   style={{ animationDelay: `0.6s` }}
                 >
                   Worry & Insecurity
@@ -125,29 +127,28 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
               </div>
             </div>
           ) : (
-            // Show conversation starters for selected category
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 mb-3">
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 mb-6">
                 <Button
                   variant="ghost"
-                  size="sm"
+                  size="lg"
                   onClick={handleBackToCategories}
-                  className="text-purple-600 hover:text-purple-700 p-1"
+                  className="text-purple-600 hover:text-purple-700 p-3 rounded-xl hover:bg-purple-100"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-5 h-5" />
                 </Button>
-                <h3 className="text-sm font-medium text-purple-700">
+                <h3 className="text-xl font-bold text-purple-900">
                   {selectedCategory}
                 </h3>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {conversationCategories[selectedCategory].map((starter, index) => (
                   <Button
                     key={index}
                     variant="outline"
-                    size="sm"
+                    size="lg"
                     onClick={() => handleQuickStarter(starter)}
-                    className="text-purple-700 border-purple-200 hover:bg-purple-50 hover:text-purple-800 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-102 hover:shadow-md text-left justify-start h-auto whitespace-normal w-full"
+                    className="text-purple-700 border-purple-200 hover:bg-purple-100 hover:text-purple-800 rounded-2xl px-6 py-4 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-left justify-start h-auto whitespace-normal w-full min-h-[60px]"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {starter}
@@ -161,8 +162,8 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
 
       {/* Typing indicator */}
       {isTyping && !loading && (
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-white/20 shadow-md animate-fade-in">
-          <div className="flex items-center gap-2 text-purple-600">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-purple-100 shadow-md animate-fade-in">
+          <div className="flex items-center gap-3 text-purple-600">
             <div className="flex gap-1">
               <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
               <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
@@ -173,26 +174,26 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
         </div>
       )}
 
-      {/* Chat Input */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl">
-        <div className="flex gap-3 items-end">
+      {/* Main Chat Input - Large and Prominent */}
+      <div className="bg-white rounded-3xl p-6 border border-gray-200 shadow-xl">
+        <div className="flex gap-4 items-end">
           <div className="flex-1">
             <Textarea
               value={currentMessage}
               onChange={handleInputChange}
               onKeyDown={handleKeyPress}
-              placeholder="Start wherever you want..."
+              placeholder={chatHistory.length === 0 ? "What's going on in your relationship? I'm here to listen..." : "Continue the conversation..."}
               disabled={loading}
-              className="border-0 bg-gray-50/50 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200 resize-none min-h-[60px] max-h-[200px]"
-              rows={1}
+              className="border-0 bg-gray-50 rounded-2xl px-6 py-4 text-lg text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-purple-300 transition-all duration-200 resize-none min-h-[80px] max-h-[200px] leading-relaxed"
+              rows={2}
             />
           </div>
           <Button
             onClick={sendMessage}
             disabled={!currentMessage.trim() || loading}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full w-12 h-12 p-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-2xl w-16 h-16 p-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-6 h-6" />
           </Button>
         </div>
       </div>
