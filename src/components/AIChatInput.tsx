@@ -33,42 +33,108 @@ const AIChatInput = ({ onSendMessage, loading, userName, partnerName, chatHistor
     setCurrentMessage(e.target.value);
   };
 
-  const conversationStarters = [
-    "Something feels off between us",
-    "I feel disconnected even when we're together", 
-    "We keep missing each other somehow",
-    "We argue about little things, but it feels bigger than that",
-    "I love them deeply, but we've lost our rhythm",
-    "I just want to feel close again"
-  ];
+  const conversationCategories = {
+    "Conflict & Repeating Patterns": [
+      "We keep having the same fight",
+      "Why do small things turn into big fights?",
+      "It's hard to talk without it turning into an argument",
+      "We're stuck in the same cycle"
+    ],
+    "Disconnection & Distance": [
+      "I feel disconnected lately",
+      "We're not on the same page",
+      "I miss how we used to be",
+      "Are we growing apart?"
+    ],
+    "Hard-to-Say Feelings": [
+      "I don't know how to say this…",
+      "I'm scared to be honest",
+      "I don't feel heard",
+      "How do I bring up a difficult topic?"
+    ],
+    "Growth & Understanding": [
+      "I want us to understand each other better",
+      "How can we communicate more clearly?",
+      "What are we not saying out loud?",
+      "Can we try to reset things?"
+    ],
+    "Intimacy & Closeness": [
+      "I want to feel closer to you",
+      "I miss being emotionally connected",
+      "When did we stop being affectionate?",
+      "How do we bring the spark back?"
+    ],
+    "Partnership & Fairness": [
+      "I feel like I carry more of the emotional load",
+      "Do you feel like we're a team?",
+      "I need more support, but I don't know how to ask",
+      "Are we both putting in the same effort?"
+    ]
+  };
 
   const handleQuickStarter = (starter: string) => {
     onSendMessage(starter);
+    setSelectedCategory(null); // Reset after sending
   };
 
   const showQuickStarters = chatHistory.length === 0;
 
   return (
     <div className="space-y-6">
-      {/* Warm Quick Starters */}
+      {/* Category Selection or Conversation Starters */}
       {showQuickStarters && (
         <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-6 border border-orange-100/50 shadow-lg">
-          <h3 className="text-base font-medium text-gray-700 mb-4 leading-relaxed">
-            What's on your mind?
-          </h3>
-          <div className="grid grid-cols-1 gap-3">
-            {conversationStarters.slice(0, 3).map((starter, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                size="sm"
-                onClick={() => handleQuickStarter(starter)}
-                className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-4 py-3 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
-              >
-                <span className="leading-relaxed">{starter}</span>
-              </Button>
-            ))}
-          </div>
+          {!selectedCategory ? (
+            /* Category Selection */
+            <>
+              <h3 className="text-base font-medium text-gray-700 mb-4 leading-relaxed">
+                What's on your mind?
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {Object.keys(conversationCategories).map((category, index) => (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedCategory(category)}
+                    className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-4 py-3 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
+                  >
+                    <span className="leading-relaxed font-medium">{category}</span>
+                  </Button>
+                ))}
+              </div>
+            </>
+          ) : (
+            /* Conversation Starters for Selected Category */
+            <>
+              <div className="flex items-center gap-3 mb-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedCategory(null)}
+                  className="p-2 hover:bg-coral-100 rounded-lg transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </Button>
+                <h3 className="text-base font-medium text-gray-700 leading-relaxed">
+                  {selectedCategory}
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                {conversationCategories[selectedCategory].map((starter, index) => (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleQuickStarter(starter)}
+                    className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-4 py-3 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
+                  >
+                    <span className="leading-relaxed">{starter}</span>
+                  </Button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 
