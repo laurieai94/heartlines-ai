@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -9,10 +8,11 @@ import LoveLanguages from "./LoveLanguages";
 interface ProfileFormPage1Props {
   profileType: 'your' | 'partner';
   onComplete: (data: any) => void;
+  onBack: () => void;
   initialData: any;
 }
 
-const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormPage1Props) => {
+const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage1Props) => {
   const [formData, setFormData] = useState({
     // Communication preferences (required)
     importantTalkPreference: initialData.importantTalkPreference || '',
