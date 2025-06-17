@@ -97,7 +97,7 @@ const ProfileForm = ({
           {currentPage === 1 && (
             <ProfileFormPage1
               profileType={profileType}
-              onNext={(data) => {
+              onComplete={(data) => {
                 handlePageData(data);
                 setCurrentPage(2);
               }}
@@ -109,7 +109,7 @@ const ProfileForm = ({
           {currentPage === 2 && (
             <ProfileFormPage2
               profileType={profileType}
-              onNext={(data) => {
+              onComplete={(data) => {
                 handlePageData(data);
                 setCurrentPage(3);
               }}
