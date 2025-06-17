@@ -22,39 +22,29 @@ export class AICoachEngine {
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
-    console.log('🔄 BUILDING FRESH CONTEXT FOR KAI');
-    console.log('📊 Raw profiles data received:', JSON.stringify(profiles, null, 2));
-    console.log('👤 Raw demographics data received:', JSON.stringify(demographicsData, null, 2));
+    console.log('Raw profiles data:', profiles);
+    console.log('Raw demographics data:', demographicsData);
     
-    const yourProfile = profiles.your?.[0] || {};
-    const partnerProfile = profiles.partner?.[0] || {};
+    const yourProfile = profiles.your[0] || {};
+    const partnerProfile = profiles.partner[0] || {};
     const yourDemographics = demographicsData.your || {};
     const partnerDemographics = demographicsData.partner || {};
 
-    console.log('✅ Processed yourProfile:', yourProfile);
-    console.log('✅ Processed partnerProfile:', partnerProfile);
-    console.log('✅ Processed yourDemographics:', yourDemographics);
-    console.log('✅ Processed partnerDemographics:', partnerDemographics);
+    console.log('Processed yourProfile:', yourProfile);
+    console.log('Processed partnerProfile:', partnerProfile);
+    console.log('Processed yourDemographics:', yourDemographics);
+    console.log('Processed partnerDemographics:', partnerDemographics);
 
-    // Improved helper functions with better logging
+    // Helper function to derive communication style from profile responses
     const deriveCommunicationStyle = (profile: any) => {
-      console.log('Deriving communication style from:', profile);
-      if (profile.communicationDirectness === "Very Direct") return "Direct";
-      if (profile.communicationDirectness === "Gentle and Indirect") return "Gentle";
-      if (profile.communicationDirectness === "Depends on the Situation") return "Adaptive";
-      // Legacy field support
       if (profile.directCommunication === "Strongly Agree") return "Direct";
       if (profile.gentleApproach === "Strongly Agree") return "Gentle";
       if (profile.needTimeToProcess === "Strongly Agree") return "Thoughtful";
       return undefined;
     };
 
+    // Helper function to derive love language from profile responses
     const deriveLoveLanguage = (profile: any) => {
-      console.log('Deriving love language from:', profile);
-      if (profile.loveLanguages && Array.isArray(profile.loveLanguages)) {
-        return profile.loveLanguages[0]; // Take the first selected love language
-      }
-      // Legacy scoring system
       const scores = {
         'Words of Affirmation': (profile.wordsOfAffirmation === "Strongly Agree" ? 2 : profile.wordsOfAffirmation === "Agree" ? 1 : 0) +
                                (profile.proudOfYouAffirmations === "Strongly Agree" ? 2 : profile.proudOfYouAffirmations === "Agree" ? 1 : 0),
@@ -73,12 +63,8 @@ export class AICoachEngine {
       return Object.keys(scores).find(key => scores[key] === maxScore);
     };
 
+    // Helper function to derive stress response
     const deriveStressResponse = (profile: any) => {
-      console.log('Deriving stress response from:', profile);
-      if (profile.stressSupportNeed === "Talk it through immediately") return "Talk it out immediately";
-      if (profile.stressSupportNeed === "Space to process alone first") return "Need space to process";
-      if (profile.stressSupportNeed === "Physical comfort and presence") return "Seek physical comfort";
-      // Legacy field support
       if (profile.talkThroughStressImmediately === "Strongly Agree") return "Talk it out immediately";
       if (profile.needSpaceToProcess === "Strongly Agree") return "Need space to process";
       if (profile.withdrawWhenOverwhelmed === "Strongly Agree") return "Withdraw when overwhelmed";
@@ -86,26 +72,23 @@ export class AICoachEngine {
       return undefined;
     };
 
+    // Helper function to derive attachment style
     const deriveAttachmentStyle = (profile: any) => {
-      console.log('Deriving attachment style from:', profile);
       if (profile.comfortableClosenessIndependence === "Strongly Agree") return "Secure";
       if (profile.worryRelationshipSecurity === "Strongly Agree") return "Anxious";
       if (profile.wantClosenessButFearHurt === "Strongly Agree") return "Fearful-Avoidant";
       return undefined;
     };
 
+    // Helper function to derive conflict style
     const deriveConflictStyle = (profile: any) => {
-      console.log('Deriving conflict style from:', profile);
-      if (profile.conflictResponse === "Address it directly and immediately") return "Direct confrontation";
-      if (profile.conflictResponse === "Take time to cool down first") return "Withdrawal";
-      if (profile.conflictResponse === "Try to understand their perspective") return "Collaborative";
-      // Legacy field support
       if (profile.needToTalkImmediately === "Strongly Agree") return "Direct confrontation";
       if (profile.goSilentWhenUpset === "Strongly Agree") return "Withdrawal";
       if (profile.feelHeardWithValidation === "Strongly Agree") return "Collaborative";
       return undefined;
     };
 
+    // Helper function to extract triggers
     const extractTriggers = (profile: any) => {
       const triggers = [];
       if (profile.beingRushedMakesWorse === "Strongly Agree") triggers.push("Being rushed");
@@ -113,6 +96,7 @@ export class AICoachEngine {
       return triggers;
     };
 
+    // Helper function to extract strengths
     const extractStrengths = (profile: any) => {
       const strengths = [];
       if (profile.improvingCommunicationFocus === "Strongly Agree") strengths.push("Focused on improving communication");
@@ -158,13 +142,13 @@ export class AICoachEngine {
       }
     };
 
-    console.log('🎯 FINAL CONTEXT BUILT FOR KAI:', JSON.stringify(context, null, 2));
+    console.log('Final context built:', context);
     return context;
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = [], enhancedPrompt?: string): Promise<string> {
-    console.log('🤖 Getting AI response via Supabase...');
-    console.log('📋 Context being used by Kai:', context);
+    console.log('Getting AI response via Supabase...');
+    console.log('Context being used:', context);
 
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
@@ -179,13 +163,13 @@ export class AICoachEngine {
       }
     }
 
-    console.log('📡 Making Supabase Edge Function call...');
+    console.log('Making Supabase Edge Function call...');
     try {
       const response = await this.generateRealAIResponse(userMessage, context, chatHistory, enhancedPrompt);
-      console.log('✅ AI response generated successfully via Supabase');
+      console.log('AI response generated successfully via Supabase');
       return response;
     } catch (error) {
-      console.error('❌ Supabase AI Error:', error);
+      console.error('Supabase AI Error:', error);
       throw error;
     }
   }

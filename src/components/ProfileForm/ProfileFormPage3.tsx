@@ -43,14 +43,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // For partner profiles, skip validation entirely
-    if (profileType === 'partner') {
-      console.log('Partner profile - skipping validation');
-      onComplete(formData);
-      return;
-    }
-    
-    // Validate ONLY required fields for 'your' profile
+    // Validate required fields only
     if (!validateRequired()) return;
     
     console.log('Page 3 form data being submitted:', formData);
@@ -58,8 +51,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const validateRequired = () => {
-    // ONLY core attachment and relationship context questions are required
-    // Optional sections should NOT block progression
+    // Only core attachment and relationship context questions are required
     const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
@@ -77,7 +69,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
           default: return field;
         }
       });
-      toast.error(`Please answer these required questions: ${fieldNames.join(', ')}`);
+      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;
@@ -100,13 +92,7 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
             Attachment Style & Growth Areas
           </h3>
           <p className="text-sm text-gray-600">
-            {profileType === 'partner' ? (
-              'All partner profile questions are optional. Fill out what you know.'
-            ) : (
-              <>
-                <span className="text-red-500">*</span> indicates required questions. All other sections are completely optional.
-              </>
-            )}
+            <span className="text-red-500">*</span> indicates required questions. Optional sections are clearly marked.
           </p>
         </div>
         

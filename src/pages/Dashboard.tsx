@@ -25,8 +25,6 @@ const Dashboard = () => {
 
   // Function to handle profile updates from ProfileBuilder
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
-    console.log('Dashboard updating profiles:', newProfiles);
-    console.log('Dashboard updating demographics:', newDemographics);
     setProfiles(newProfiles);
     setDemographicsData(newDemographics);
   };

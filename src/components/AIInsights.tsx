@@ -16,19 +16,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   
-  // Local state to track the most current profile data
-  const [currentProfiles, setCurrentProfiles] = useState(profiles);
-  const [currentDemographics, setCurrentDemographics] = useState(demographicsData);
-  
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
-
-  // Update local state when props change (from Dashboard updates)
-  useEffect(() => {
-    console.log('AIInsights received updated profiles:', profiles);
-    console.log('AIInsights received updated demographics:', demographicsData);
-    setCurrentProfiles(profiles);
-    setCurrentDemographics(demographicsData);
-  }, [profiles, demographicsData]);
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -53,7 +41,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // If no demographics data exists for this profile type, show demographics first
-    if (!currentDemographics[profileType]) {
+    if (!demographicsData[profileType]) {
       setShowDemographics(true);
     } else {
       setShowProfileForm(true);
@@ -61,61 +49,14 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleProfileComplete = (profileData: any) => {
-    console.log('AIInsights: Profile completed with data:', profileData);
-    
-    // Create a properly structured profile object
-    const structuredProfile = {
-      ...profileData,
-      id: Date.now().toString(), // Add an ID for tracking
-      profileType: activeProfileType,
-      completedAt: new Date().toISOString()
-    };
-    
-    // Update local profiles state immediately - replace the entire array with the new profile
-    const updatedProfiles = {
-      ...currentProfiles,
-      [activeProfileType]: [structuredProfile]
-    };
-    
-    console.log('AIInsights: Updated profiles structure:', updatedProfiles);
-    setCurrentProfiles(updatedProfiles);
-    
-    // Also update demographics if it was included in the profile data
-    if (profileData.name || profileData.age || profileData.location) {
-      const updatedDemographics = {
-        ...currentDemographics,
-        [activeProfileType]: {
-          ...currentDemographics[activeProfileType],
-          name: profileData.name || currentDemographics[activeProfileType]?.name,
-          age: profileData.age || currentDemographics[activeProfileType]?.age,
-          location: profileData.location || currentDemographics[activeProfileType]?.location,
-        }
-      };
-      setCurrentDemographics(updatedDemographics);
-    }
-    
+    // Handle profile completion - this would typically update the profiles state
     setShowProfileForm(false);
-    
-    // Force a re-render by updating the conversation starter to trigger AI context rebuild
-    setConversationStarter(`Profile updated for ${activeProfileType} at ${Date.now()}`);
-    
-    console.log('AIInsights: Profile update complete, new profiles available to Kai');
   };
 
   const handleDemographicsComplete = (demographicsData: any) => {
-    console.log('AIInsights: Demographics completed with data:', demographicsData);
-    
-    // Update local demographics state immediately
-    const updatedDemographics = {
-      ...currentDemographics,
-      [activeProfileType]: demographicsData
-    };
-    setCurrentDemographics(updatedDemographics);
-    
     // Handle demographics completion and move to profile form
     setShowDemographics(false);
     setShowProfileForm(true);
-    console.log('AIInsights: Updated demographics, moving to profile form');
   };
 
   const handleStartConversation = (starter: string) => {
@@ -140,16 +81,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
       <AIChat 
-        profiles={currentProfiles}
-        demographicsData={currentDemographics}
+        profiles={profiles}
+        demographicsData={demographicsData}
         chatHistory={chatHistory}
         setChatHistory={setChatHistory}
         isConfigured={isConfigured}
         conversationStarter={conversationStarter}
       />
       <AISidebar 
-        profiles={currentProfiles}
-        demographicsData={currentDemographics}
+        profiles={profiles}
+        demographicsData={demographicsData}
         chatHistory={chatHistory}
         isConfigured={isConfigured}
         onSupabaseConfigured={handleSupabaseConfigured}
@@ -167,7 +108,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           profileType={activeProfileType}
           onClose={() => setShowDemographics(false)}
           onComplete={handleDemographicsComplete}
-          initialData={currentDemographics[activeProfileType]}
+          initialData={demographicsData[activeProfileType]}
         />
       )}
       
@@ -178,8 +119,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
           onBackToDemographics={handleBackToDemographics}
-          initialProfiles={currentProfiles}
-          initialDemographics={currentDemographics}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
         />
       )}
     </div>

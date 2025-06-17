@@ -9,11 +9,10 @@ import LoveLanguages from "./LoveLanguages";
 interface ProfileFormPage1Props {
   profileType: 'your' | 'partner';
   onComplete: (data: any) => void;
-  onBack: () => void;
   initialData: any;
 }
 
-const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage1Props) => {
+const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormPage1Props) => {
   const [formData, setFormData] = useState({
     // Communication preferences (required)
     importantTalkPreference: initialData.importantTalkPreference || '',
@@ -23,7 +22,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: Prof
     // Love languages (required)
     loveLanguages: initialData.loveLanguages || [],
     
-    // Deep dive love language questions (optional - these should NOT be validated)
+    // Deep dive love language questions (optional)
     wordsOfAffirmationDeep: initialData.wordsOfAffirmationDeep || '',
     qualityTimeDeep: initialData.qualityTimeDeep || '',
     physicalTouchDeep: initialData.physicalTouchDeep || '',
@@ -41,14 +40,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: Prof
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // For partner profiles, skip validation entirely
-    if (profileType === 'partner') {
-      console.log('Partner profile - skipping validation');
-      onComplete(formData);
-      return;
-    }
-    
-    // Only validate required fields for 'your' profile
+    // Only validate required fields - deep dive questions are optional
     if (!validateRequired()) return;
     
     console.log('Page 1 form data being submitted:', formData);
@@ -56,7 +48,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const validateRequired = () => {
-    // ONLY check core required fields - exclude all deep dive questions
+    // Only check core required fields, not deep dive questions
     const required = ['importantTalkPreference', 'communicationDirectness', 'emotionExpression'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
     
@@ -74,11 +66,11 @@ const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: Prof
           case 'importantTalkPreference': return 'Important Talk Preference';
           case 'communicationDirectness': return 'Communication Directness';
           case 'emotionExpression': return 'Emotion Expression';
-          case 'loveLanguages': return 'Love Languages (select at least one)';
+          case 'loveLanguages': return 'Love Languages';
           default: return field;
         }
       });
-      toast.error(`Please answer these required questions: ${fieldNames.join(', ')}`);
+      toast.error(`Please answer all required questions: ${fieldNames.join(', ')}`);
       return false;
     }
     return true;
@@ -106,13 +98,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, onBack, initialData }: Prof
             Communication & Love Languages
           </h3>
           <p className="text-sm text-gray-600">
-            {profileType === 'partner' ? (
-              'All partner profile questions are optional. Fill out what you know.'
-            ) : (
-              <>
-                <span className="text-red-500">*</span> indicates required questions. Deep dive questions are completely optional and can be skipped.
-              </>
-            )}
+            <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional and help provide more personalized insights.
           </p>
         </div>
         
