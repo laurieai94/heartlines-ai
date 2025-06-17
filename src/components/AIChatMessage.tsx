@@ -53,10 +53,10 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
       <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            px-6 py-4 rounded-3xl shadow-lg transition-all duration-300 group-hover:shadow-xl
+            px-6 py-4 rounded-3xl transition-all duration-300 group-hover:shadow-xl
             ${isUser
               ? 'bg-gradient-to-br from-coral-400 to-pink-400 text-white rounded-br-lg shadow-coral-200/50'
-              : 'bg-gradient-to-br from-white to-gray-50 text-gray-800 rounded-bl-lg border border-gray-100/50 shadow-gray-200/50'
+              : 'bg-gradient-to-br from-orange-50 to-peach-50 text-gray-800 rounded-bl-lg border border-orange-100/60 shadow-lg'
             }
           `}
         >
