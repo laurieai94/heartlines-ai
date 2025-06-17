@@ -144,10 +144,18 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     }
   };
 
+  // Background pattern as a style object to avoid JSX quote issues
+  const backgroundPatternStyle = {
+    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b8a' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3Ccircle cx='27' cy='27' r='2'/%3E%3Ccircle cx='47' cy='47' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+  };
+
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
       {/* Soft Background Pattern */}
-      <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ff6b8a" fill-opacity="0.1"%3E%3Ccircle cx="7" cy="7" r="2"/%3E%3Ccircle cx="27" cy="27" r="2"/%3E%3Ccircle cx="47" cy="47" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] pointer-events-none" />
+      <div 
+        className="absolute inset-0 opacity-30 pointer-events-none" 
+        style={backgroundPatternStyle}
+      />
       
       {/* Main Chat Container */}
       <div className="flex-1 flex items-center justify-center p-8">
