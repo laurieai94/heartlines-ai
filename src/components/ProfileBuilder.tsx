@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,59 +61,61 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6">
-      <div className="md:w-1/3">
-        {/* Your Profile Card */}
-        <Card className="mb-6 p-4">
-          <div className="flex items-center gap-3 mb-4">
-            <User className="w-5 h-5 text-blue-500" />
-            <h2 className="text-lg font-semibold">Your Profile</h2>
-          </div>
-          {demographicsData.your ? (
-            <>
-              <p>Name: {demographicsData.your.name}</p>
-              <p>Age: {demographicsData.your.age}</p>
-              <Button onClick={() => handleOpenProfileForm('your')} className="w-full">
-                Edit Your Profile
+    <>
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="md:w-1/3">
+          {/* Your Profile Card */}
+          <Card className="mb-6 p-4">
+            <div className="flex items-center gap-3 mb-4">
+              <User className="w-5 h-5 text-blue-500" />
+              <h2 className="text-lg font-semibold">Your Profile</h2>
+            </div>
+            {demographicsData.your ? (
+              <>
+                <p>Name: {demographicsData.your.name}</p>
+                <p>Age: {demographicsData.your.age}</p>
+                <Button onClick={() => handleOpenProfileForm('your')} className="w-full">
+                  Edit Your Profile
+                </Button>
+              </>
+            ) : (
+              <Button onClick={() => handleOpenDemographics('your')} className="w-full">
+                Create Your Profile
               </Button>
-            </>
-          ) : (
-            <Button onClick={() => handleOpenDemographics('your')} className="w-full">
-              Create Your Profile
-            </Button>
-          )}
-        </Card>
+            )}
+          </Card>
 
-        {/* Partner's Profile Card */}
-        <Card className="p-4">
-          <div className="flex items-center gap-3 mb-4">
-            <Heart className="w-5 h-5 text-red-500" />
-            <h2 className="text-lg font-semibold">Partner's Profile</h2>
-          </div>
-          {demographicsData.partner ? (
-            <>
-              <p>Name: {demographicsData.partner.name}</p>
-               <p>Age: {demographicsData.partner.age}</p>
-              <Button onClick={() => handleOpenProfileForm('partner')} className="w-full">
-                Edit Partner's Profile
+          {/* Partner's Profile Card */}
+          <Card className="p-4">
+            <div className="flex items-center gap-3 mb-4">
+              <Heart className="w-5 h-5 text-red-500" />
+              <h2 className="text-lg font-semibold">Partner's Profile</h2>
+            </div>
+            {demographicsData.partner ? (
+              <>
+                <p>Name: {demographicsData.partner.name}</p>
+                <p>Age: {demographicsData.partner.age}</p>
+                <Button onClick={() => handleOpenProfileForm('partner')} className="w-full">
+                  Edit Partner's Profile
+                </Button>
+              </>
+            ) : (
+              <Button onClick={() => handleOpenDemographics('partner')} className="w-full">
+                Create Partner's Profile
               </Button>
-            </>
-          ) : (
-            <Button onClick={() => handleOpenDemographics('partner')} className="w-full">
-              Create Partner's Profile
-            </Button>
-          )}
-        </Card>
-      </div>
+            )}
+          </Card>
+        </div>
 
-      <div className="md:w-2/3">
-        <Card className="p-6">
-          <h2 className="text-2xl font-bold mb-4">Relationship Insights</h2>
-          <p>
-            Once you and your partner have created your profiles, this section will provide personalized insights
-            and recommendations to improve your relationship.
-          </p>
-        </Card>
+        <div className="md:w-2/3">
+          <Card className="p-6">
+            <h2 className="text-2xl font-bold mb-4">Relationship Insights</h2>
+            <p>
+              Once you and your partner have created your profiles, this section will provide personalized insights
+              and recommendations to improve your relationship.
+            </p>
+          </Card>
+        </div>
       </div>
 
       {/* Demographics Modal */}
@@ -125,19 +128,18 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
         />
       )}
 
-        {/* Profile Form Modal */}
-        {showProfileForm && (
-          <ProfileForm 
-            profileType={activeProfileType}
-            onClose={() => setShowProfileForm(false)}
-            onComplete={handleProfileComplete}
-            onBackToDemographics={handleBackToDemographics}
-            initialProfiles={profiles}
-            initialDemographics={demographicsData}
-          />
-        )}
-      </div>
-    </div>
+      {/* Profile Form Modal */}
+      {showProfileForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowProfileForm(false)}
+          onComplete={handleProfileComplete}
+          onBackToDemographics={handleBackToDemographics}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
+        />
+      )}
+    </>
   );
 };
 
