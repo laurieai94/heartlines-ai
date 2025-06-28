@@ -166,7 +166,7 @@ const AIChatInput = ({
         {/* Voice Interface */}
         <VoiceInterface
           onVoiceMessage={handleVoiceMessage}
-          onSpeakResponse={onSpeakResponse || (() => {})}
+          onSpeakResponse={onSpeakResponse}
           disabled={loading}
         />
         
