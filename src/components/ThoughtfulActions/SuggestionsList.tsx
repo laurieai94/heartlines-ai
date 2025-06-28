@@ -10,6 +10,16 @@ const ACTION_CATEGORIES = [
   { value: "communication", label: "Communication", icon: MessageSquare }
 ];
 
+interface ProfileData {
+  your: any[];
+  partner: any[];
+}
+
+interface DemographicsData {
+  your: any;
+  partner: any;
+}
+
 interface Suggestion {
   id: number;
   category: string;
@@ -21,17 +31,29 @@ interface Suggestion {
 }
 
 interface SuggestionsListProps {
-  suggestions: Suggestion[];
+  profiles: ProfileData;
+  demographicsData: DemographicsData;
 }
 
-const SuggestionsList = ({ suggestions }: SuggestionsListProps) => {
+const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) => {
   const getCategoryIcon = (categoryValue: string) => {
     const category = ACTION_CATEGORIES.find(cat => cat.value === categoryValue);
     return category ? category.icon : Heart;
   };
 
+  // For now, return empty state - this would be populated with actual suggestions
+  const suggestions: Suggestion[] = [];
+
   if (suggestions.length === 0) {
-    return null;
+    return (
+      <Card className="p-8 text-center bg-white/60 backdrop-blur-md border-0 shadow-lg">
+        <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">No suggestions yet</h3>
+        <p className="text-gray-600">
+          Create custom actions to get personalized suggestions based on your profiles.
+        </p>
+      </Card>
+    );
   }
 
   return (
