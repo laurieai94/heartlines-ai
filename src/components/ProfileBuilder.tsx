@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, Star, Target, Sparkles } from "lucide-react";
+import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, Star, Target, Sparkles, Brain, Users, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
@@ -152,81 +151,24 @@ const ProfileBuilder = ({
         </p>
       </div>
 
-      {/* NEW: Personal Profile Questionnaire CTA */}
-      <Card className="p-8 bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 border-2 border-purple-200/50 shadow-lg max-w-5xl mx-auto">
-        <div className="text-center space-y-6">
-          <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
-            <Sparkles className="w-10 h-10 text-white" />
-          </div>
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Personal Profile Questionnaire</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Take our comprehensive questionnaire to give Kai deep insights into your emotional patterns, 
-              relationship history, and what you're hoping to achieve. This is the fastest way to get personalized advice.
-            </p>
-          </div>
-          
-          <div className="bg-white/70 rounded-xl p-6 border border-purple-200/50">
-            <div className="grid md:grid-cols-3 gap-6 text-left">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-purple-700">
-                  <Heart className="w-5 h-5" />
-                  <span className="font-semibold">Deep Understanding</span>
-                </div>
-                <p className="text-sm text-gray-600">Emotional patterns, attachment styles, and relationship history</p>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-purple-700">
-                  <Target className="w-5 h-5" />
-                  <span className="font-semibold">Personalized Insights</span>
-                </div>
-                <p className="text-sm text-gray-600">Tailored advice based on your unique situation and goals</p>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-purple-700">
-                  <Clock className="w-5 h-5" />
-                  <span className="font-semibold">10-15 Minutes</span>
-                </div>
-                <p className="text-sm text-gray-600">Comprehensive yet quick to complete</p>
-              </div>
-            </div>
-          </div>
-
-          <Button 
-            onClick={openQuestionnaire}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-xl py-6 px-12 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          >
-            Start Personal Profile
-            <ArrowRight className="w-6 h-6 ml-2" />
-          </Button>
-        </div>
-      </Card>
-
-      {/* Divider */}
-      <div className="flex items-center justify-center my-8">
-        <div className="flex-1 border-t border-gray-300"></div>
-        <span className="px-4 text-gray-500 font-medium">or build profiles step by step</span>
-        <div className="flex-1 border-t border-gray-300"></div>
-      </div>
-
-      {/* Main Action Cards */}
+      {/* Streamlined Two-Card Layout */}
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {/* Your Profile Card */}
-        <Card className="group p-8 bg-gradient-to-br from-coral-50 via-rose-50 to-pink-50 border-2 border-coral-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-coral-300">
+        {/* Card 1: Build Your RealTalk Profile */}
+        <Card className="group p-8 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 border-2 border-purple-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-purple-300">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-coral-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <User className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Brain className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  Your Personal Profile
+                  Build Your RealTalk Profile
                 </h3>
                 <div className="flex items-center gap-3 mt-2">
                   <div className="flex-1">
                     <Progress value={yourProfileStats.completion} className="h-3 bg-white/60" />
                   </div>
-                  <span className="text-lg font-semibold text-coral-600">
+                  <span className="text-lg font-semibold text-purple-600">
                     {yourProfileStats.completion}%
                   </span>
                 </div>
@@ -234,47 +176,47 @@ const ProfileBuilder = ({
             </div>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              Share your communication style, love language, and relationship patterns to get personalized insights.
+              This is where it starts. Answer a few quick questions to help RealTalk understand you—how you love, what shaped you, and what matters most. The more you share, the smarter your guidance becomes.
             </p>
 
-            <div className="bg-white/70 rounded-xl p-4 border border-coral-200/50">
-              <div className="flex items-center gap-3 text-coral-700 mb-3">
+            <div className="bg-white/70 rounded-xl p-4 border border-purple-200/50">
+              <div className="flex items-center gap-3 text-purple-700 mb-3">
                 <Target className="w-5 h-5" />
-                <span className="font-semibold">What you'll unlock:</span>
+                <span className="font-semibold">What You'll Unlock:</span>
               </div>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-coral-500" />
-                  Personalized conversation scripts
+                  <Star className="w-4 h-4 text-purple-500" />
+                  Psychologist-level insights
                 </li>
                 <li className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-coral-500" />
-                  Love language insights
+                  <Star className="w-4 h-4 text-purple-500" />
+                  Personalized daily support
                 </li>
                 <li className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-coral-500" />
-                  Stress support strategies
+                  <Star className="w-4 h-4 text-purple-500" />
+                  Better advice built around you
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
               <Button 
-                onClick={() => handleStartProfile('your')}
-                className="w-full bg-gradient-to-r from-coral-500 to-pink-500 hover:from-coral-600 hover:to-pink-600 text-white text-lg py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                onClick={openQuestionnaire}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-lg py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
               >
-                {yourProfileStats.completion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
+                Begin My Profile
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <div className="flex items-center justify-center gap-2 text-gray-500">
                 <Clock className="w-4 h-4" />
-                <span>5 minutes for core insights</span>
+                <span>Just 5 minutes to start, with deep dives if you're up for it</span>
               </div>
             </div>
           </div>
         </Card>
 
-        {/* Partner Profile Card */}
+        {/* Card 2: Add Their Side Too? (Keep as-is) */}
         <Card className="group p-8 bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-2 border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-rose-300">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
@@ -295,13 +237,13 @@ const ProfileBuilder = ({
             </div>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              Understanding your partner's patterns creates even better advice for both of you.
+              You know them best. Share what you've observed about their style, needs, and reactions so RealTalk can offer insights that work for both of you.
             </p>
 
             <div className="bg-white/70 rounded-xl p-4 border border-rose-200/50">
               <div className="flex items-center gap-3 text-rose-700 mb-3">
                 <Lightbulb className="w-5 h-5" />
-                <span className="font-semibold">What you'll unlock:</span>
+                <span className="font-semibold">What You'll Unlock:</span>
               </div>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
@@ -310,11 +252,11 @@ const ProfileBuilder = ({
                 </li>
                 <li className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-rose-500" />
-                  Conversation scripts for their style
+                  Scripts tuned to their communication style
                 </li>
                 <li className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-rose-500" />
-                  Compatibility insights
+                  Compatibility insights based on patterns
                 </li>
               </ul>
             </div>
@@ -324,11 +266,11 @@ const ProfileBuilder = ({
                 onClick={() => handleStartProfile('partner')}
                 className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-lg py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
               >
-                {partnerProfileStats.completion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
+                Add Partner Profile
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <p className="text-sm text-center text-gray-500">
-                Based on your observations
+                Based on your observations (or fill it out together!)
               </p>
             </div>
           </div>
