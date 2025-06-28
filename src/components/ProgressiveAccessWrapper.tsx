@@ -6,21 +6,26 @@ import { toast } from "sonner";
 
 interface ProgressiveAccessWrapperProps {
   children: ReactNode;
-  action: string;
+  action?: string;
   fallbackTab?: string;
   className?: string;
+  onGoToProfile?: () => void;
 }
 
 const ProgressiveAccessWrapper = ({ 
   children, 
   action, 
   fallbackTab = "profile",
-  className = ""
+  className = "",
+  onGoToProfile
 }: ProgressiveAccessWrapperProps) => {
   const { accessLevel, checkInteractionPermission } = useProgressiveAccess();
   const navigate = useNavigate();
 
   const handleInteraction = (e: React.MouseEvent) => {
+    // Only prevent default if we have an action to check
+    if (!action) return;
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -31,15 +36,15 @@ const ProgressiveAccessWrapper = ({
         e.preventDefault();
         e.stopPropagation();
         
-        // Find and click the profile tab trigger
-        const profileTrigger = document.querySelector('[value="profile"]') as HTMLButtonElement;
-        if (profileTrigger) {
-          profileTrigger.click();
-          // Small delay to ensure tab switch completes
-          setTimeout(() => {
-            toast.dismiss();
-          }, 100);
+        // Use the passed function to navigate to profile
+        if (onGoToProfile) {
+          onGoToProfile();
         }
+        
+        // Small delay to ensure tab switch completes
+        setTimeout(() => {
+          toast.dismiss();
+        }, 100);
       };
 
       // Show clickable toast message to go to profile
@@ -71,8 +76,8 @@ const ProgressiveAccessWrapper = ({
       onClick={handleInteraction}
     >
       {children}
-      {/* Invisible overlay to catch clicks */}
-      <div className="absolute inset-0 z-10 cursor-pointer bg-transparent" />
+      {/* Invisible overlay to catch clicks only if we have an action */}
+      {action && <div className="absolute inset-0 z-10 cursor-pointer bg-transparent" />}
     </div>
   );
 };

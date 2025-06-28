@@ -11,6 +11,7 @@ import ThoughtfulActions from "@/components/ThoughtfulActions";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import SignUpModal from "@/components/SignUpModal";
+import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -26,6 +27,10 @@ const Dashboard = () => {
 
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
     updateTemporaryProfile(newProfiles, newDemographics);
+  };
+
+  const handleGoToProfile = () => {
+    setActiveTab("profile");
   };
 
   return (
@@ -50,59 +55,61 @@ const Dashboard = () => {
         </div>
 
         {/* Main Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="flex justify-center mb-10">
-            <TabsList className="grid grid-cols-4 w-full max-w-2xl bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-2 gap-2">
-              <TabsTrigger value="profile" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
-                <User className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium text-base">Profile</span>
-              </TabsTrigger>
-              <TabsTrigger value="insights" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
-                <Lightbulb className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium text-base">Coach</span>
-              </TabsTrigger>
-              <TabsTrigger value="conversation" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
-                <MessageCircle className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium text-base">Practice</span>
-              </TabsTrigger>
-              <TabsTrigger value="actions" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
-                <Heart className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium text-base">Actions</span>
-              </TabsTrigger>
-            </TabsList>
-          </div>
+        <ProgressiveAccessWrapper onGoToProfile={handleGoToProfile}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="flex justify-center mb-10">
+              <TabsList className="grid grid-cols-4 w-full max-w-2xl bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-2 gap-2">
+                <TabsTrigger value="profile" className="flex items-center gap-2 rounded-xl py-4 px-4 transition-all duration-200">
+                  <User className="w-5 h-5" />
+                  <span className="hidden sm:inline font-medium text-base">Profile</span>
+                </TabsTrigger>
+                <TabsTrigger value="insights" className="flex items-center gap-2 rounded-xl py-4 px-4 transition-all duration-200">
+                  <Lightbulb className="w-5 h-5" />
+                  <span className="hidden sm:inline font-medium text-base">Coach</span>
+                </TabsTrigger>
+                <TabsTrigger value="conversation" className="flex items-center gap-2 rounded-xl py-4 px-4 transition-all duration-200">
+                  <MessageCircle className="w-5 h-5" />
+                  <span className="hidden sm:inline font-medium text-base">Practice</span>
+                </TabsTrigger>
+                <TabsTrigger value="actions" className="flex items-center gap-2 rounded-xl py-4 px-4 transition-all duration-200">
+                  <Heart className="w-5 h-5" />
+                  <span className="hidden sm:inline font-medium text-base">Actions</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
-          <div className="max-w-6xl mx-auto">
-            <TabsContent value="profile" className="mt-0">
-              <ProfileBuilder 
-                onProfileUpdate={handleProfileUpdate}
-                initialProfiles={temporaryProfiles}
-                initialDemographics={temporaryDemographics}
-              />
-            </TabsContent>
+            <div className="max-w-6xl mx-auto">
+              <TabsContent value="profile" className="mt-0">
+                <ProfileBuilder 
+                  onProfileUpdate={handleProfileUpdate}
+                  initialProfiles={temporaryProfiles}
+                  initialDemographics={temporaryDemographics}
+                />
+              </TabsContent>
 
-            <TabsContent value="insights" className="mt-0 h-[calc(100vh-200px)]">
-              <AIInsights 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </TabsContent>
+              <TabsContent value="insights" className="mt-0 h-[calc(100vh-200px)]">
+                <AIInsights 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </TabsContent>
 
-            <TabsContent value="conversation" className="mt-0">
-              <ConversationPractice 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </TabsContent>
+              <TabsContent value="conversation" className="mt-0">
+                <ConversationPractice 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </TabsContent>
 
-            <TabsContent value="actions" className="mt-0">
-              <ThoughtfulActions 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </TabsContent>
-          </div>
-        </Tabs>
+              <TabsContent value="actions" className="mt-0">
+                <ThoughtfulActions 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </ProgressiveAccessWrapper>
 
         {/* Sign-up Modal */}
         <SignUpModal
