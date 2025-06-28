@@ -1,0 +1,102 @@
+
+import { useState } from 'react';
+import { useTemporaryProfile } from './useTemporaryProfile';
+import { toast } from 'sonner';
+
+export const usePersonalProfileQuestionnaire = () => {
+  const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  const { updateTemporaryProfile, temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+
+  const handleQuestionnaireComplete = (questionnaireData: any) => {
+    console.log('Personal profile questionnaire completed:', questionnaireData);
+    
+    // Transform questionnaire data into the existing profile structure
+    const profileData = {
+      // Basic demographics
+      name: questionnaireData.name,
+      pronouns: questionnaireData.pronouns,
+      customPronouns: questionnaireData.customPronouns,
+      gender: questionnaireData.gender,
+      customGender: questionnaireData.customGender,
+      orientation: questionnaireData.orientation,
+      customOrientation: questionnaireData.customOrientation,
+      age: questionnaireData.age,
+      relationshipStatus: questionnaireData.relationshipStatus,
+      
+      // Emotional blueprint
+      stressReactions: questionnaireData.stressReactions,
+      attachmentStyles: questionnaireData.attachmentStyles,
+      conflictNeeds: questionnaireData.conflictNeeds,
+      loveLanguages: questionnaireData.showLove,
+      receiveLove: questionnaireData.receiveLove,
+      
+      // Past & foundations
+      familyDynamics: questionnaireData.familyDynamics,
+      professionalSupport: questionnaireData.professionalSupport,
+      relationshipInfluences: questionnaireData.relationshipInfluences,
+      relationshipPatterns: questionnaireData.relationshipPatterns,
+      
+      // Current relationship
+      partnerName: questionnaireData.partnerName,
+      relationshipType: questionnaireData.relationshipType,
+      relationshipDuration: questionnaireData.relationshipDuration,
+      relationshipPositives: questionnaireData.relationshipPositives,
+      otherPositives: questionnaireData.otherPositives,
+      relationshipChallenges: questionnaireData.relationshipChallenges,
+      livingArrangement: questionnaireData.livingArrangement,
+      emotionalConnection: questionnaireData.emotionalConnection,
+      
+      // Hopes and goals
+      hopingFor: questionnaireData.hopingFor,
+      readiness: questionnaireData.readiness,
+      healthyRelationship: questionnaireData.healthyRelationship,
+      otherHealthy: questionnaireData.otherHealthy,
+      additionalInfo: questionnaireData.additionalInfo,
+      
+      // Metadata
+      completedAt: new Date().toISOString(),
+      profileSource: 'personal-questionnaire'
+    };
+
+    // Create demographics data
+    const demographicsData = {
+      name: questionnaireData.name,
+      pronouns: questionnaireData.pronouns?.[0] || questionnaireData.customPronouns,
+      age: questionnaireData.age,
+      gender: questionnaireData.gender?.[0] || questionnaireData.customGender,
+      orientation: questionnaireData.orientation?.[0] || questionnaireData.customOrientation,
+      relationshipStatus: questionnaireData.relationshipStatus?.[0]
+    };
+
+    // Update the temporary profile system
+    const newProfiles = {
+      ...temporaryProfiles,
+      your: [profileData]
+    };
+
+    const newDemographics = {
+      ...temporaryDemographics,
+      your: demographicsData
+    };
+
+    updateTemporaryProfile(newProfiles, newDemographics);
+    setShowQuestionnaire(false);
+    
+    toast.success("Personal profile completed! Kai now has much better context to help you.");
+  };
+
+  const handleQuestionnaireClose = () => {
+    setShowQuestionnaire(false);
+  };
+
+  const openQuestionnaire = () => {
+    setShowQuestionnaire(true);
+  };
+
+  return {
+    showQuestionnaire,
+    openQuestionnaire,
+    handleQuestionnaireComplete,
+    handleQuestionnaireClose
+  };
+};

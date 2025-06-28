@@ -3,10 +3,12 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, Star, Target } from "lucide-react";
+import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, Star, Target, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
+import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
 
 interface ProfileStats {
   completion: number;
@@ -31,6 +33,13 @@ const ProfileBuilder = ({
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
   const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
+
+  const { 
+    showQuestionnaire, 
+    openQuestionnaire, 
+    handleQuestionnaireComplete, 
+    handleQuestionnaireClose 
+  } = usePersonalProfileQuestionnaire();
 
   // Get user's name for personalization
   const userName = demographicsData.your?.name || '';
@@ -141,6 +150,63 @@ const ProfileBuilder = ({
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Build your relationship profiles in just 5 minutes
         </p>
+      </div>
+
+      {/* NEW: Personal Profile Questionnaire CTA */}
+      <Card className="p-8 bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 border-2 border-purple-200/50 shadow-lg max-w-5xl mx-auto">
+        <div className="text-center space-y-6">
+          <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+            <Sparkles className="w-10 h-10 text-white" />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Personal Profile Questionnaire</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Take our comprehensive questionnaire to give Kai deep insights into your emotional patterns, 
+              relationship history, and what you're hoping to achieve. This is the fastest way to get personalized advice.
+            </p>
+          </div>
+          
+          <div className="bg-white/70 rounded-xl p-6 border border-purple-200/50">
+            <div className="grid md:grid-cols-3 gap-6 text-left">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-purple-700">
+                  <Heart className="w-5 h-5" />
+                  <span className="font-semibold">Deep Understanding</span>
+                </div>
+                <p className="text-sm text-gray-600">Emotional patterns, attachment styles, and relationship history</p>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-purple-700">
+                  <Target className="w-5 h-5" />
+                  <span className="font-semibold">Personalized Insights</span>
+                </div>
+                <p className="text-sm text-gray-600">Tailored advice based on your unique situation and goals</p>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-purple-700">
+                  <Clock className="w-5 h-5" />
+                  <span className="font-semibold">10-15 Minutes</span>
+                </div>
+                <p className="text-sm text-gray-600">Comprehensive yet quick to complete</p>
+              </div>
+            </div>
+          </div>
+
+          <Button 
+            onClick={openQuestionnaire}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-xl py-6 px-12 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          >
+            Start Personal Profile
+            <ArrowRight className="w-6 h-6 ml-2" />
+          </Button>
+        </div>
+      </Card>
+
+      {/* Divider */}
+      <div className="flex items-center justify-center my-8">
+        <div className="flex-1 border-t border-gray-300"></div>
+        <span className="px-4 text-gray-500 font-medium">or build profiles step by step</span>
+        <div className="flex-1 border-t border-gray-300"></div>
       </div>
 
       {/* Main Action Cards */}
@@ -402,6 +468,14 @@ const ProfileBuilder = ({
           onComplete={handleProfileComplete}
           initialProfiles={profiles}
           initialDemographics={demographicsData}
+        />
+      )}
+
+      {/* Personal Profile Questionnaire Modal */}
+      {showQuestionnaire && (
+        <PersonalProfileQuestionnaire
+          onComplete={handleQuestionnaireComplete}
+          onClose={handleQuestionnaireClose}
         />
       )}
     </div>
