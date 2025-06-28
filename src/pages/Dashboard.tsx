@@ -8,25 +8,24 @@ import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
 import ConversationPractice from "@/components/ConversationPractice";
 import ThoughtfulActions from "@/components/ThoughtfulActions";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import SignUpModal from "@/components/SignUpModal";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("insights");
+  const [activeTab, setActiveTab] = useState("profile");
+  const { 
+    shouldShowSignUpModal, 
+    blockingAction, 
+    closeSignUpModal,
+    accessLevel 
+  } = useProgressiveAccess();
   
-  // Profile state management
-  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
-    your: [],
-    partner: []
-  });
-  
-  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
-    your: null,
-    partner: null
-  });
+  // Use temporary profiles for non-authenticated users
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
 
-  // Function to handle profile updates from ProfileBuilder
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
-    setProfiles(newProfiles);
-    setDemographicsData(newDemographics);
+    updateTemporaryProfile(newProfiles, newDemographics);
   };
 
   return (
@@ -40,6 +39,11 @@ const Dashboard = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
+              {accessLevel !== 'full-access' && (
+                <p className="text-xs text-gray-500">
+                  {accessLevel === 'profile-required' ? 'Start by building your profile' : 'One step away from full access'}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -70,32 +74,39 @@ const Dashboard = () => {
           <TabsContent value="profile" className="px-6">
             <ProfileBuilder 
               onProfileUpdate={handleProfileUpdate}
-              initialProfiles={profiles}
-              initialDemographics={demographicsData}
+              initialProfiles={temporaryProfiles}
+              initialDemographics={temporaryDemographics}
             />
           </TabsContent>
 
           <TabsContent value="insights" className="h-[calc(100vh-140px)]">
             <AIInsights 
-              profiles={profiles}
-              demographicsData={demographicsData}
+              profiles={temporaryProfiles}
+              demographicsData={temporaryDemographics}
             />
           </TabsContent>
 
           <TabsContent value="conversation" className="px-6">
             <ConversationPractice 
-              profiles={profiles}
-              demographicsData={demographicsData}
+              profiles={temporaryProfiles}
+              demographicsData={temporaryDemographics}
             />
           </TabsContent>
 
           <TabsContent value="actions" className="px-6">
             <ThoughtfulActions 
-              profiles={profiles}
-              demographicsData={demographicsData}
+              profiles={temporaryProfiles}
+              demographicsData={temporaryDemographics}
             />
           </TabsContent>
         </Tabs>
+
+        {/* Sign-up Modal */}
+        <SignUpModal
+          isOpen={shouldShowSignUpModal}
+          onClose={closeSignUpModal}
+          blockingAction={blockingAction}
+        />
       </div>
     </div>
   );

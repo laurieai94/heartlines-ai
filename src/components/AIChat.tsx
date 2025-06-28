@@ -12,6 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useChatHistory } from "@/hooks/useChatHistory";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -29,6 +31,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { saveConversation } = useChatHistory();
+  const { accessLevel, canInteract } = useProgressiveAccess();
   const processedStarters = useRef(new Set<string>());
 
   const userName = demographicsData.your?.name || profile?.name || '';
@@ -43,24 +46,26 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
   // Handle conversation starter - improved to avoid duplicates
   useEffect(() => {
-    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured) {
+    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && canInteract) {
       processedStarters.current.add(conversationStarter);
       sendMessage(conversationStarter);
     }
-  }, [conversationStarter, isConfigured]);
+  }, [conversationStarter, isConfigured, canInteract]);
 
   // Save conversation whenever chat history changes (with debouncing)
   useEffect(() => {
-    if (chatHistory.length > 0) {
+    if (chatHistory.length > 0 && canInteract) {
       const timeoutId = setTimeout(() => {
         saveConversation(chatHistory);
       }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [chatHistory, saveConversation]);
+  }, [chatHistory, saveConversation, canInteract]);
 
   const sendMessage = async (userMessage: string) => {
+    if (!canInteract) return;
+
     const newUserMessage: ChatMessage = {
       id: Date.now(),
       type: 'user',
@@ -163,13 +168,13 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
       {/* Soft Background Pattern */}
       <div 
-        className="absolute inset-0 opacity-30 pointer-events-none" 
+        className={`absolute inset-0 opacity-30 pointer-events-none ${!canInteract ? 'blur-sm' : ''}`}
         style={backgroundPatternStyle}
       />
       
       {/* Main Chat Container */}
       <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
+        <div className={`w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden ${!canInteract ? 'blur-sm' : ''}`}>
           
           {/* Chat Messages Area */}
           <div className="flex-1 flex flex-col min-h-0">
@@ -256,15 +261,17 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
             {/* Chat Input */}
             <div className="p-8 border-t border-white/20 bg-white/40 backdrop-blur-sm">
               <div className="max-w-full mx-auto">
-                <AIChatInput 
-                  onSendMessage={sendMessage} 
-                  loading={loading || !isConfigured} 
-                  userName={userName} 
-                  partnerName={partnerName}
-                  chatHistory={chatHistory}
-                  onSpeakResponse={handleSpeakResponse}
-                />
-                {!isConfigured && (
+                <ProgressiveAccessWrapper action="chat">
+                  <AIChatInput 
+                    onSendMessage={sendMessage} 
+                    loading={loading || !isConfigured || !canInteract} 
+                    userName={userName} 
+                    partnerName={partnerName}
+                    chatHistory={chatHistory}
+                    onSpeakResponse={handleSpeakResponse}
+                  />
+                </ProgressiveAccessWrapper>
+                {!isConfigured && accessLevel === 'full-access' && (
                   <p className="text-sm text-gray-500 mt-4 text-center font-light">
                     Complete setup to start chatting
                   </p>

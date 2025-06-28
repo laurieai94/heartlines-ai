@@ -4,6 +4,7 @@ import { DollarSign, Home, Users, Target, RotateCcw, Heart, Lightbulb } from "lu
 import ScenarioCard from "./ConversationPractice/ScenarioCard";
 import PartnerProfileSelector from "./ConversationPractice/PartnerProfileSelector";
 import CustomScenarioForm from "./ConversationPractice/CustomScenarioForm";
+import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 interface ProfileData {
   your: any[];
@@ -150,28 +151,31 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Scenario Starters</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {scenarios.map((scenario) => (
-            <ScenarioCard
-              key={scenario.id}
-              id={scenario.id}
-              icon={scenario.icon}
-              title={scenario.title}
-              subtitle={scenario.subtitle}
-              description={scenario.description}
-              isSelected={selectedScenario === scenario.id}
-              onSelect={handleScenarioSelect}
-            />
+            <ProgressiveAccessWrapper key={scenario.id} action="practice">
+              <ScenarioCard
+                id={scenario.id}
+                icon={scenario.icon}
+                title={scenario.title}
+                subtitle={scenario.subtitle}
+                description={scenario.description}
+                isSelected={selectedScenario === scenario.id}
+                onSelect={handleScenarioSelect}
+              />
+            </ProgressiveAccessWrapper>
           ))}
         </div>
       </div>
 
-      <CustomScenarioForm
-        customScenario={customScenario}
-        partnerName={partnerName}
-        onCustomScenarioChange={handleCustomScenarioChange}
-        onStartPractice={handleStartPractice}
-        canStartPractice={canStartPractice}
-        statusMessage={getStatusMessage()}
-      />
+      <ProgressiveAccessWrapper action="practice">
+        <CustomScenarioForm
+          customScenario={customScenario}
+          partnerName={partnerName}
+          onCustomScenarioChange={handleCustomScenarioChange}
+          onStartPractice={handleStartPractice}
+          canStartPractice={canStartPractice}
+          statusMessage={getStatusMessage()}
+        />
+      </ProgressiveAccessWrapper>
     </div>
   );
 };
