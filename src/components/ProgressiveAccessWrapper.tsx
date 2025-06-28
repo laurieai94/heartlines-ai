@@ -27,16 +27,22 @@ const ProgressiveAccessWrapper = ({
     const canProceed = checkInteractionPermission(action);
     
     if (!canProceed && accessLevel === 'profile-required') {
-      const handleProfileClick = () => {
-        // If we're on dashboard, switch to profile tab
-        if (window.location.pathname === '/dashboard') {
-          const tabsElement = document.querySelector('[data-state="active"]')?.closest('[role="tablist"]');
-          const profileTab = tabsElement?.querySelector('[value="profile"]') as HTMLButtonElement;
-          profileTab?.click();
+      const handleProfileClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Direct tab switching without URL manipulation
+        const profileTab = document.querySelector('[data-state="inactive"][value="profile"]') as HTMLButtonElement;
+        if (profileTab) {
+          profileTab.click();
         } else {
-          // Navigate to dashboard with profile tab
-          navigate('/dashboard');
+          // Fallback: try to find any profile tab
+          const allTabs = document.querySelectorAll('[value="profile"]') as NodeListOf<HTMLButtonElement>;
+          if (allTabs.length > 0) {
+            allTabs[0].click();
+          }
         }
+        
         toast.dismiss();
       };
 
