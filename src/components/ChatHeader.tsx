@@ -10,6 +10,10 @@ interface ChatHeaderProps {
 }
 
 const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatHeaderProps) => {
+  const getUserInitials = () => {
+    return userName ? userName.charAt(0).toUpperCase() : 'U';
+  };
+
   return (
     <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 mb-6 border border-white/20 shadow-xl">
       <div className="flex items-center gap-4">
@@ -64,7 +68,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
             <Avatar className="w-12 h-12 border-3 border-white shadow-lg">
               <AvatarImage src={userAvatarUrl || undefined} alt={userName} />
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-coral-500 text-white text-lg font-semibold">
-                {userName.charAt(0).toUpperCase()}
+                {getUserInitials()}
               </AvatarFallback>
             </Avatar>
           </div>
