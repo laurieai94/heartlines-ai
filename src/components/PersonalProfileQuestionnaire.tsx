@@ -10,6 +10,40 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ArrowLeft, ArrowRight, Heart, User, Brain, Home, Users, Target, MessageSquare, X, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
+interface FormData {
+  name?: string;
+  pronouns?: string[];
+  customPronouns?: string;
+  gender?: string[];
+  customGender?: string;
+  orientation?: string[];
+  customOrientation?: string;
+  age?: string;
+  relationshipStatus?: string[];
+  stressReactions?: string[];
+  attachmentStyles?: string[];
+  conflictNeeds?: string[];
+  showLove?: string[];
+  receiveLove?: string[];
+  familyDynamics?: string[];
+  professionalSupport?: string[];
+  relationshipInfluences?: string[];
+  relationshipPatterns?: string[];
+  partnerName?: string;
+  relationshipType?: string[];
+  relationshipDuration?: string[];
+  relationshipPositives?: string[];
+  otherPositives?: string;
+  relationshipChallenges?: string[];
+  livingArrangement?: string[];
+  emotionalConnection?: string;
+  hopingFor?: string[];
+  readiness?: string[];
+  healthyRelationship?: string[];
+  otherHealthy?: string;
+  additionalInfo?: string;
+}
+
 interface PersonalProfileQuestionnaireProps {
   onComplete: (data: any) => void;
   onClose: () => void;
@@ -17,7 +51,7 @@ interface PersonalProfileQuestionnaireProps {
 
 const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQuestionnaireProps) => {
   const [currentSection, setCurrentSection] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<FormData>({});
   const [showAgeRestriction, setShowAgeRestriction] = useState(false);
   
   const totalSections = 6;
@@ -39,7 +73,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
     setFormData(prev => {
-      const currentValues = prev[field] || [];
+      const currentValues = prev[field as keyof FormData] as string[] || [];
       if (checked) {
         return { ...prev, [field]: [...currentValues, value] };
       } else {
@@ -93,8 +127,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={pronoun} className="flex items-center space-x-2">
               <Checkbox
                 id={`pronoun-${pronoun}`}
-                checked={formData.pronouns?.includes(pronoun)}
-                onCheckedChange={(checked) => handleCheckboxChange("pronouns", pronoun, checked)}
+                checked={formData.pronouns?.includes(pronoun) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("pronouns", pronoun, checked as boolean)}
               />
               <Label htmlFor={`pronoun-${pronoun}`} className="text-sm">{pronoun}</Label>
             </div>
@@ -118,8 +152,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={gender} className="flex items-center space-x-2">
               <Checkbox
                 id={`gender-${gender}`}
-                checked={formData.gender?.includes(gender)}
-                onCheckedChange={(checked) => handleCheckboxChange("gender", gender, checked)}
+                checked={formData.gender?.includes(gender) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("gender", gender, checked as boolean)}
               />
               <Label htmlFor={`gender-${gender}`} className="text-sm">{gender}</Label>
             </div>
@@ -143,8 +177,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={orientation} className="flex items-center space-x-2">
               <Checkbox
                 id={`orientation-${orientation}`}
-                checked={formData.orientation?.includes(orientation)}
-                onCheckedChange={(checked) => handleCheckboxChange("orientation", orientation, checked)}
+                checked={formData.orientation?.includes(orientation) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("orientation", orientation, checked as boolean)}
               />
               <Label htmlFor={`orientation-${orientation}`} className="text-sm">{orientation}</Label>
             </div>
@@ -188,8 +222,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={status} className="flex items-center space-x-2">
               <Checkbox
                 id={`status-${status}`}
-                checked={formData.relationshipStatus?.includes(status)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipStatus", status, checked)}
+                checked={formData.relationshipStatus?.includes(status) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipStatus", status, checked as boolean)}
               />
               <Label htmlFor={`status-${status}`} className="text-sm">{status}</Label>
             </div>
@@ -217,8 +251,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={reaction} className="flex items-center space-x-2">
               <Checkbox
                 id={`stress-${reaction}`}
-                checked={formData.stressReactions?.includes(reaction)}
-                onCheckedChange={(checked) => handleCheckboxChange("stressReactions", reaction, checked)}
+                checked={formData.stressReactions?.includes(reaction) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("stressReactions", reaction, checked as boolean)}
               />
               <Label htmlFor={`stress-${reaction}`} className="text-sm">{reaction}</Label>
             </div>
@@ -241,8 +275,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={style} className="flex items-center space-x-2">
               <Checkbox
                 id={`attachment-${style}`}
-                checked={formData.attachmentStyles?.includes(style)}
-                onCheckedChange={(checked) => handleCheckboxChange("attachmentStyles", style, checked)}
+                checked={formData.attachmentStyles?.includes(style) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("attachmentStyles", style, checked as boolean)}
               />
               <Label htmlFor={`attachment-${style}`} className="text-sm">{style}</Label>
             </div>
@@ -266,8 +300,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={need} className="flex items-center space-x-2">
               <Checkbox
                 id={`conflict-${need}`}
-                checked={formData.conflictNeeds?.includes(need)}
-                onCheckedChange={(checked) => handleCheckboxChange("conflictNeeds", need, checked)}
+                checked={formData.conflictNeeds?.includes(need) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("conflictNeeds", need, checked as boolean)}
               />
               <Label htmlFor={`conflict-${need}`} className="text-sm">{need}</Label>
             </div>
@@ -291,8 +325,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={way} className="flex items-center space-x-2">
               <Checkbox
                 id={`show-love-${way}`}
-                checked={formData.showLove?.includes(way)}
-                onCheckedChange={(checked) => handleCheckboxChange("showLove", way, checked)}
+                checked={formData.showLove?.includes(way) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("showLove", way, checked as boolean)}
               />
               <Label htmlFor={`show-love-${way}`} className="text-sm">{way}</Label>
             </div>
@@ -316,8 +350,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={way} className="flex items-center space-x-2">
               <Checkbox
                 id={`receive-love-${way}`}
-                checked={formData.receiveLove?.includes(way)}
-                onCheckedChange={(checked) => handleCheckboxChange("receiveLove", way, checked)}
+                checked={formData.receiveLove?.includes(way) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("receiveLove", way, checked as boolean)}
               />
               <Label htmlFor={`receive-love-${way}`} className="text-sm">{way}</Label>
             </div>
@@ -347,8 +381,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={dynamic} className="flex items-center space-x-2">
               <Checkbox
                 id={`family-${dynamic}`}
-                checked={formData.familyDynamics?.includes(dynamic)}
-                onCheckedChange={(checked) => handleCheckboxChange("familyDynamics", dynamic, checked)}
+                checked={formData.familyDynamics?.includes(dynamic) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("familyDynamics", dynamic, checked as boolean)}
               />
               <Label htmlFor={`family-${dynamic}`} className="text-sm">{dynamic}</Label>
             </div>
@@ -369,8 +403,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={support} className="flex items-center space-x-2">
               <Checkbox
                 id={`support-${support}`}
-                checked={formData.professionalSupport?.includes(support)}
-                onCheckedChange={(checked) => handleCheckboxChange("professionalSupport", support, checked)}
+                checked={formData.professionalSupport?.includes(support) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("professionalSupport", support, checked as boolean)}
               />
               <Label htmlFor={`support-${support}`} className="text-sm">{support}</Label>
             </div>
@@ -394,8 +428,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={influence} className="flex items-center space-x-2">
               <Checkbox
                 id={`influence-${influence}`}
-                checked={formData.relationshipInfluences?.includes(influence)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipInfluences", influence, checked)}
+                checked={formData.relationshipInfluences?.includes(influence) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipInfluences", influence, checked as boolean)}
               />
               <Label htmlFor={`influence-${influence}`} className="text-sm">{influence}</Label>
             </div>
@@ -420,8 +454,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={pattern} className="flex items-center space-x-2">
               <Checkbox
                 id={`pattern-${pattern}`}
-                checked={formData.relationshipPatterns?.includes(pattern)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipPatterns", pattern, checked)}
+                checked={formData.relationshipPatterns?.includes(pattern) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipPatterns", pattern, checked as boolean)}
               />
               <Label htmlFor={`pattern-${pattern}`} className="text-sm">{pattern}</Label>
             </div>
@@ -464,8 +498,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={type} className="flex items-center space-x-2">
               <Checkbox
                 id={`relationship-type-${type}`}
-                checked={formData.relationshipType?.includes(type)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipType", type, checked)}
+                checked={formData.relationshipType?.includes(type) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipType", type, checked as boolean)}
               />
               <Label htmlFor={`relationship-type-${type}`} className="text-sm">{type}</Label>
             </div>
@@ -487,8 +521,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={duration} className="flex items-center space-x-2">
               <Checkbox
                 id={`duration-${duration}`}
-                checked={formData.relationshipDuration?.includes(duration)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipDuration", duration, checked)}
+                checked={formData.relationshipDuration?.includes(duration) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipDuration", duration, checked as boolean)}
               />
               <Label htmlFor={`duration-${duration}`} className="text-sm">{duration}</Label>
             </div>
@@ -511,8 +545,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={positive} className="flex items-center space-x-2">
               <Checkbox
                 id={`positive-${positive}`}
-                checked={formData.relationshipPositives?.includes(positive)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipPositives", positive, checked)}
+                checked={formData.relationshipPositives?.includes(positive) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipPositives", positive, checked as boolean)}
               />
               <Label htmlFor={`positive-${positive}`} className="text-sm">{positive}</Label>
             </div>
@@ -546,8 +580,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={challenge} className="flex items-center space-x-2">
               <Checkbox
                 id={`challenge-${challenge}`}
-                checked={formData.relationshipChallenges?.includes(challenge)}
-                onCheckedChange={(checked) => handleCheckboxChange("relationshipChallenges", challenge, checked)}
+                checked={formData.relationshipChallenges?.includes(challenge) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("relationshipChallenges", challenge, checked as boolean)}
               />
               <Label htmlFor={`challenge-${challenge}`} className="text-sm">{challenge}</Label>
             </div>
@@ -568,8 +602,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={living} className="flex items-center space-x-2">
               <Checkbox
                 id={`living-${living}`}
-                checked={formData.livingArrangement?.includes(living)}
-                onCheckedChange={(checked) => handleCheckboxChange("livingArrangement", living, checked)}
+                checked={formData.livingArrangement?.includes(living) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("livingArrangement", living, checked as boolean)}
               />
               <Label htmlFor={`living-${living}`} className="text-sm">{living}</Label>
             </div>
@@ -621,8 +655,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={hope} className="flex items-center space-x-2">
               <Checkbox
                 id={`hope-${hope}`}
-                checked={formData.hopingFor?.includes(hope)}
-                onCheckedChange={(checked) => handleCheckboxChange("hopingFor", hope, checked)}
+                checked={formData.hopingFor?.includes(hope) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("hopingFor", hope, checked as boolean)}
               />
               <Label htmlFor={`hope-${hope}`} className="text-sm">{hope}</Label>
             </div>
@@ -644,8 +678,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={readiness} className="flex items-center space-x-2">
               <Checkbox
                 id={`readiness-${readiness}`}
-                checked={formData.readiness?.includes(readiness)}
-                onCheckedChange={(checked) => handleCheckboxChange("readiness", readiness, checked)}
+                checked={formData.readiness?.includes(readiness) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("readiness", readiness, checked as boolean)}
               />
               <Label htmlFor={`readiness-${readiness}`} className="text-sm">{readiness}</Label>
             </div>
@@ -670,8 +704,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div key={healthy} className="flex items-center space-x-2">
               <Checkbox
                 id={`healthy-${healthy}`}
-                checked={formData.healthyRelationship?.includes(healthy)}
-                onCheckedChange={(checked) => handleCheckboxChange("healthyRelationship", healthy, checked)}
+                checked={formData.healthyRelationship?.includes(healthy) || false}
+                onCheckedChange={(checked) => handleCheckboxChange("healthyRelationship", healthy, checked as boolean)}
               />
               <Label htmlFor={`healthy-${healthy}`} className="text-sm">{healthy}</Label>
             </div>
