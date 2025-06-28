@@ -60,6 +60,36 @@ export type Database = {
         }
         Relationships: []
       }
+      onboarding_status: {
+        Row: {
+          created_at: string
+          id: string
+          onboarding_completed: boolean
+          partner_profile_completed: boolean
+          profile_completed: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          onboarding_completed?: boolean
+          partner_profile_completed?: boolean
+          profile_completed?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          onboarding_completed?: boolean
+          partner_profile_completed?: boolean
+          profile_completed?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -82,6 +112,36 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          created_at: string
+          demographics_data: Json
+          id: string
+          profile_data: Json
+          profile_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          demographics_data?: Json
+          id?: string
+          profile_data?: Json
+          profile_type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          demographics_data?: Json
+          id?: string
+          profile_data?: Json
+          profile_type?: string
           updated_at?: string
           user_id?: string
         }

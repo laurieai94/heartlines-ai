@@ -7,8 +7,11 @@ import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
+import { useUserProfiles } from "@/hooks/useUserProfiles";
+import { useAuth } from "@/contexts/AuthContext";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
+  const { user } = useAuth();
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isConfigured, setIsConfigured] = useState(true);
   const [showProfileForm, setShowProfileForm] = useState(false);
@@ -16,7 +19,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   
-  const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
+  const { conversations, currentConversationId, loadConversation, startNewConversation, saveConversation } = useChatHistory();
+  const { saveProfile } = useUserProfiles();
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -34,6 +38,13 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, [conversations, currentConversationId, loadConversation]);
 
+  // Auto-save chat history
+  useEffect(() => {
+    if (chatHistory.length > 0 && user) {
+      saveConversation(chatHistory);
+    }
+  }, [chatHistory, saveConversation, user]);
+
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
   };
@@ -48,15 +59,23 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   };
 
-  const handleProfileComplete = (profileData: any) => {
-    // Handle profile completion - this would typically update the profiles state
-    setShowProfileForm(false);
+  const handleProfileComplete = async (profileData: any) => {
+    try {
+      await saveProfile(activeProfileType, profileData, demographicsData[activeProfileType] || {});
+      setShowProfileForm(false);
+    } catch (error) {
+      console.error('Error saving profile:', error);
+    }
   };
 
-  const handleDemographicsComplete = (demographicsData: any) => {
-    // Handle demographics completion and move to profile form
-    setShowDemographics(false);
-    setShowProfileForm(true);
+  const handleDemographicsComplete = async (demographicsData: any) => {
+    try {
+      await saveProfile(activeProfileType, {}, demographicsData);
+      setShowDemographics(false);
+      setShowProfileForm(true);
+    } catch (error) {
+      console.error('Error saving demographics:', error);
+    }
   };
 
   const handleStartConversation = (starter: string) => {
