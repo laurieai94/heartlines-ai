@@ -85,8 +85,8 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-xl border-0 shadow-2xl">
-        <div className="text-center space-y-6 p-6">
+      <DialogContent className="sm:max-w-lg max-w-[95vw] bg-white/95 backdrop-blur-xl border-0 shadow-2xl mx-auto">
+        <div className="text-center space-y-6 p-4 lg:p-6">
           {/* Kai Avatar */}
           <div className="w-16 h-16 mx-auto mb-6 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
@@ -100,7 +100,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
             <h2 className="text-2xl font-bold text-gray-900">
               {isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed text-base">
               {getActionMessage()}
             </p>
           </div>
@@ -109,7 +109,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
           <Button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-sm"
+            className="w-full bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-sm h-12 text-base font-medium"
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -132,7 +132,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
           {/* Email Form */}
           <form onSubmit={handleEmailAuth} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-left block">Email</Label>
+              <Label htmlFor="email" className="text-left block text-sm font-medium">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
@@ -140,7 +140,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-12 text-base"
                   placeholder="Enter your email"
                   required
                 />
@@ -148,14 +148,14 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-left block">Password</Label>
+              <Label htmlFor="password" className="text-left block text-sm font-medium">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10"
+                  className="pr-10 h-12 text-base"
                   placeholder="Enter your password"
                   required
                 />
@@ -172,7 +172,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold h-12 text-base"
             >
               {loading ? "Creating Account..." : (isSignUp ? "Create Free Account" : "Sign In")}
             </Button>

@@ -43,73 +43,75 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
   };
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Turn Insights Into Action</h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Small, thoughtful actions that strengthen your connection with {partnerName}
-        </p>
-      </div>
-
-      {/* Relationship Alerts */}
-      <ProgressiveAccessWrapper action="actions">
-        <RelationshipAlerts 
-          profiles={profiles}
-          demographicsData={demographicsData}
-        />
-      </ProgressiveAccessWrapper>
-
-      {/* Quick Actions */}
-      <ProgressiveAccessWrapper action="actions">
-        <QuickActions 
-          profiles={profiles}
-          demographicsData={demographicsData}
-          onSelectAction={handleQuickAction}
-        />
-      </ProgressiveAccessWrapper>
-
-      {/* Personalized Suggestions */}
-      <ProgressiveAccessWrapper action="actions">
-        <SuggestionsList 
-          profiles={profiles}
-          demographicsData={demographicsData}
-        />
-      </ProgressiveAccessWrapper>
-
-      {/* Custom Action Creator */}
-      <Card className="p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg">
-        <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto shadow-lg">
-            <Lightbulb className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Create Your Own Action</h3>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
-            </p>
-          </div>
-          <ProgressiveAccessWrapper action="actions">
-            <Button
-              onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Plan Custom Action
-              <Heart className="w-5 h-5 ml-2" />
-            </Button>
-          </ProgressiveAccessWrapper>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-4">
+          <h2 className="text-3xl font-bold text-gray-900">Turn Insights Into Action</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Small, thoughtful actions that strengthen your connection with {partnerName}
+          </p>
         </div>
-      </Card>
 
-      {/* Custom Action Form Modal */}
-      {showCustomForm && (
-        <ActionForm
-          profiles={profiles}
-          demographicsData={demographicsData}
-          onClose={() => setShowCustomForm(false)}
-          onSubmit={handleCustomAction}
-        />
-      )}
+        {/* Relationship Alerts */}
+        <ProgressiveAccessWrapper action="actions">
+          <RelationshipAlerts 
+            profiles={profiles}
+            demographicsData={demographicsData}
+          />
+        </ProgressiveAccessWrapper>
+
+        {/* Quick Actions */}
+        <ProgressiveAccessWrapper action="actions">
+          <QuickActions 
+            profiles={profiles}
+            demographicsData={demographicsData}
+            onSelectAction={handleQuickAction}
+          />
+        </ProgressiveAccessWrapper>
+
+        {/* Personalized Suggestions */}
+        <ProgressiveAccessWrapper action="actions">
+          <SuggestionsList 
+            profiles={profiles}
+            demographicsData={demographicsData}
+          />
+        </ProgressiveAccessWrapper>
+
+        {/* Custom Action Creator */}
+        <Card className="p-6 lg:p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg">
+          <div className="text-center space-y-6">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto shadow-lg">
+              <Lightbulb className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Create Your Own Action</h3>
+              <p className="text-gray-600 max-w-xl mx-auto">
+                Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
+              </p>
+            </div>
+            <ProgressiveAccessWrapper action="actions">
+              <Button
+                onClick={() => setShowCustomForm(true)}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Plan Custom Action
+                <Heart className="w-5 h-5 ml-2" />
+              </Button>
+            </ProgressiveAccessWrapper>
+          </div>
+        </Card>
+
+        {/* Custom Action Form Modal */}
+        {showCustomForm && (
+          <ActionForm
+            profiles={profiles}
+            demographicsData={demographicsData}
+            onClose={() => setShowCustomForm(false)}
+            onSubmit={handleCustomAction}
+          />
+        )}
+      </div>
     </div>
   );
 };

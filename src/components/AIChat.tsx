@@ -172,14 +172,14 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         style={backgroundPatternStyle}
       />
       
-      {/* Main Chat Container */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
+      {/* Main Chat Container - Optimized for Desktop */}
+      <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
+        <div className="w-full max-w-4xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
           
           {/* Chat Messages Area */}
           <div className="flex-1 flex flex-col min-h-0">
-            <ScrollArea className="flex-1 p-8">
-              <div className="space-y-6 max-w-full mx-auto">
+            <ScrollArea className="flex-1 p-4 lg:p-8">
+              <div className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
@@ -258,9 +258,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               </div>
             </ScrollArea>
 
-            {/* Chat Input */}
-            <div className="p-8 border-t border-white/20 bg-white/40 backdrop-blur-sm">
-              <div className="max-w-full mx-auto">
+            {/* Chat Input - Desktop Optimized */}
+            <div className="p-4 lg:p-8 border-t border-white/20 bg-white/40 backdrop-blur-sm">
+              <div className="max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
                     onSendMessage={sendMessage} 
