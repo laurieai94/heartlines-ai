@@ -33,7 +33,7 @@ const Dashboard = () => {
       {/* Centered Container for Desktop */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Minimal Header */}
-        <div className="flex items-center justify-between py-6 pb-4">
+        <div className="flex items-center justify-between py-8 pb-6">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
               <Heart className="w-5 h-5 text-white" />
@@ -51,23 +51,23 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="flex justify-center mb-8">
-            <TabsList className="grid grid-cols-4 w-full max-w-md bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-1">
-              <TabsTrigger value="profile" className="flex items-center gap-2 rounded-xl py-3 px-4">
-                <User className="w-4 h-4" />
-                <span className="hidden sm:inline font-medium">Profile</span>
+          <div className="flex justify-center mb-10">
+            <TabsList className="grid grid-cols-4 w-full max-w-2xl bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-2 gap-2">
+              <TabsTrigger value="profile" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
+                <User className="w-5 h-5" />
+                <span className="hidden sm:inline font-medium text-base">Profile</span>
               </TabsTrigger>
-              <TabsTrigger value="insights" className="flex items-center gap-2 rounded-xl py-3 px-4">
-                <Lightbulb className="w-4 h-4" />
-                <span className="hidden sm:inline font-medium">Coach</span>
+              <TabsTrigger value="insights" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
+                <Lightbulb className="w-5 h-5" />
+                <span className="hidden sm:inline font-medium text-base">Coach</span>
               </TabsTrigger>
-              <TabsTrigger value="conversation" className="flex items-center gap-2 rounded-xl py-3 px-4">
-                <MessageCircle className="w-4 h-4" />
-                <span className="hidden sm:inline font-medium">Practice</span>
+              <TabsTrigger value="conversation" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
+                <MessageCircle className="w-5 h-5" />
+                <span className="hidden sm:inline font-medium text-base">Practice</span>
               </TabsTrigger>
-              <TabsTrigger value="actions" className="flex items-center gap-2 rounded-xl py-3 px-4">
-                <Heart className="w-4 h-4" />
-                <span className="hidden sm:inline font-medium">Actions</span>
+              <TabsTrigger value="actions" className="flex items-center gap-3 rounded-xl py-4 px-6 transition-all duration-200">
+                <Heart className="w-5 h-5" />
+                <span className="hidden sm:inline font-medium text-base">Actions</span>
               </TabsTrigger>
             </TabsList>
           </div>

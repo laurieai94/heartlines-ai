@@ -27,21 +27,29 @@ const ProgressiveAccessWrapper = ({
     const canProceed = checkInteractionPermission(action);
     
     if (!canProceed && accessLevel === 'profile-required') {
+      const handleProfileClick = () => {
+        // If we're on dashboard, switch to profile tab
+        if (window.location.pathname === '/dashboard') {
+          const tabsElement = document.querySelector('[data-state="active"]')?.closest('[role="tablist"]');
+          const profileTab = tabsElement?.querySelector('[value="profile"]') as HTMLButtonElement;
+          profileTab?.click();
+        } else {
+          // Navigate to dashboard with profile tab
+          navigate('/dashboard');
+        }
+        toast.dismiss();
+      };
+
       // Show clickable toast message to go to profile
       toast.info(
-        <div className="cursor-pointer" onClick={() => {
-          // If we're on dashboard, switch to profile tab
-          if (window.location.pathname === '/dashboard') {
-            const tabsElement = document.querySelector('[data-state="active"]')?.closest('[role="tablist"]');
-            const profileTab = tabsElement?.querySelector('[value="profile"]') as HTMLButtonElement;
-            profileTab?.click();
-          } else {
-            // Navigate to dashboard with profile tab
-            navigate('/dashboard');
-          }
-          toast.dismiss();
-        }}>
-          Let's build your profile first—RealTalk works best when it knows you. Click here to get started.
+        <div className="text-sm">
+          RealTalk works best when it knows you.{' '}
+          <button 
+            onClick={handleProfileClick}
+            className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
+          >
+            Let's build your profile first.
+          </button>
         </div>,
         {
           duration: 6000,
