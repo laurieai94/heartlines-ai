@@ -168,13 +168,13 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
       {/* Soft Background Pattern */}
       <div 
-        className={`absolute inset-0 opacity-30 pointer-events-none ${!canInteract ? 'blur-sm' : ''}`}
+        className="absolute inset-0 opacity-30 pointer-events-none"
         style={backgroundPatternStyle}
       />
       
       {/* Main Chat Container */}
       <div className="flex-1 flex items-center justify-center p-8">
-        <div className={`w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden ${!canInteract ? 'blur-sm' : ''}`}>
+        <div className="w-full max-w-3xl h-full flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
           
           {/* Chat Messages Area */}
           <div className="flex-1 flex flex-col min-h-0">

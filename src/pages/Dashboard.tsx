@@ -29,7 +29,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
       <div className="max-w-7xl mx-auto">
         {/* Minimal Header */}
         <div className="flex items-center justify-between p-6 pb-4">
