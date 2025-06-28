@@ -7,6 +7,7 @@ import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
+import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -80,14 +81,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
-      <AIChat 
-        profiles={profiles}
-        demographicsData={demographicsData}
-        chatHistory={chatHistory}
-        setChatHistory={setChatHistory}
-        isConfigured={isConfigured}
-        conversationStarter={conversationStarter}
-      />
+      <ProgressiveAccessWrapper action="chat">
+        <AIChat 
+          profiles={profiles}
+          demographicsData={demographicsData}
+          chatHistory={chatHistory}
+          setChatHistory={setChatHistory}
+          isConfigured={isConfigured}
+          conversationStarter={conversationStarter}
+        />
+      </ProgressiveAccessWrapper>
       <AISidebar 
         profiles={profiles}
         demographicsData={demographicsData}

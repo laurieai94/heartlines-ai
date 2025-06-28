@@ -151,7 +151,7 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Scenario Starters</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {scenarios.map((scenario) => (
-            <ProgressiveAccessWrapper key={scenario.id} action="practice">
+            <ProgressiveAccessWrapper key={scenario.id} action="practice-scenario">
               <ScenarioCard
                 id={scenario.id}
                 icon={scenario.icon}
@@ -166,7 +166,7 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         </div>
       </div>
 
-      <ProgressiveAccessWrapper action="practice">
+      <ProgressiveAccessWrapper action="practice-custom">
         <CustomScenarioForm
           customScenario={customScenario}
           partnerName={partnerName}

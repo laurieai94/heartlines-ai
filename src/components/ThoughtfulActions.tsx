@@ -54,29 +54,23 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         </div>
 
         {/* Relationship Alerts */}
-        <ProgressiveAccessWrapper action="actions">
-          <RelationshipAlerts 
-            profiles={profiles}
-            demographicsData={demographicsData}
-          />
-        </ProgressiveAccessWrapper>
+        <RelationshipAlerts 
+          profiles={profiles}
+          demographicsData={demographicsData}
+        />
 
         {/* Quick Actions */}
-        <ProgressiveAccessWrapper action="actions">
-          <QuickActions 
-            profiles={profiles}
-            demographicsData={demographicsData}
-            onSelectAction={handleQuickAction}
-          />
-        </ProgressiveAccessWrapper>
+        <QuickActions 
+          profiles={profiles}
+          demographicsData={demographicsData}
+          onSelectAction={handleQuickAction}
+        />
 
         {/* Personalized Suggestions */}
-        <ProgressiveAccessWrapper action="actions">
-          <SuggestionsList 
-            profiles={profiles}
-            demographicsData={demographicsData}
-          />
-        </ProgressiveAccessWrapper>
+        <SuggestionsList 
+          profiles={profiles}
+          demographicsData={demographicsData}
+        />
 
         {/* Custom Action Creator */}
         <Card className="p-6 lg:p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg">
@@ -90,15 +84,13 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
-            <ProgressiveAccessWrapper action="actions">
-              <Button
-                onClick={() => setShowCustomForm(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Plan Custom Action
-                <Heart className="w-5 h-5 ml-2" />
-              </Button>
-            </ProgressiveAccessWrapper>
+            <Button
+              onClick={() => setShowCustomForm(true)}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Plan Custom Action
+              <Heart className="w-5 h-5 ml-2" />
+            </Button>
           </div>
         </Card>
 

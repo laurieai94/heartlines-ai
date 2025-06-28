@@ -12,6 +12,7 @@ import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import SignUpModal from "@/components/SignUpModal";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
+import { NavigationProvider } from "@/contexts/NavigationContext";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -30,32 +31,33 @@ const Dashboard = () => {
   };
 
   const handleGoToProfile = () => {
+    console.log('Navigating to profile tab');
     setActiveTab("profile");
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
-      {/* Centered Container for Desktop */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Minimal Header */}
-        <div className="flex items-center justify-between py-8 pb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
-              <Heart className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
-              {accessLevel !== 'full-access' && (
-                <p className="text-xs text-gray-500">
-                  {accessLevel === 'profile-required' ? 'Start by building your profile' : 'One step away from full access'}
-                </p>
-              )}
+    <NavigationProvider goToProfile={handleGoToProfile}>
+      <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
+        {/* Centered Container for Desktop */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Minimal Header */}
+          <div className="flex items-center justify-between py-8 pb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
+                <Heart className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
+                {accessLevel !== 'full-access' && (
+                  <p className="text-xs text-gray-500">
+                    {accessLevel === 'profile-required' ? 'Start by building your profile' : 'One step away from full access'}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Main Content */}
-        <ProgressiveAccessWrapper onGoToProfile={handleGoToProfile}>
+          {/* Main Content */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <div className="flex justify-center mb-10">
               <TabsList className="grid grid-cols-4 w-full max-w-2xl bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-2 gap-2">
@@ -88,37 +90,43 @@ const Dashboard = () => {
               </TabsContent>
 
               <TabsContent value="insights" className="mt-0 h-[calc(100vh-200px)]">
-                <AIInsights 
-                  profiles={temporaryProfiles}
-                  demographicsData={temporaryDemographics}
-                />
+                <ProgressiveAccessWrapper action="insights">
+                  <AIInsights 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
+                </ProgressiveAccessWrapper>
               </TabsContent>
 
               <TabsContent value="conversation" className="mt-0">
-                <ConversationPractice 
-                  profiles={temporaryProfiles}
-                  demographicsData={temporaryDemographics}
-                />
+                <ProgressiveAccessWrapper action="practice">
+                  <ConversationPractice 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
+                </ProgressiveAccessWrapper>
               </TabsContent>
 
               <TabsContent value="actions" className="mt-0">
-                <ThoughtfulActions 
-                  profiles={temporaryProfiles}
-                  demographicsData={temporaryDemographics}
-                />
+                <ProgressiveAccessWrapper action="actions">
+                  <ThoughtfulActions 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
+                </ProgressiveAccessWrapper>
               </TabsContent>
             </div>
           </Tabs>
-        </ProgressiveAccessWrapper>
 
-        {/* Sign-up Modal */}
-        <SignUpModal
-          isOpen={shouldShowSignUpModal}
-          onClose={closeSignUpModal}
-          blockingAction={blockingAction}
-        />
+          {/* Sign-up Modal */}
+          <SignUpModal
+            isOpen={shouldShowSignUpModal}
+            onClose={closeSignUpModal}
+            blockingAction={blockingAction}
+          />
+        </div>
       </div>
-    </div>
+    </NavigationProvider>
   );
 };
 

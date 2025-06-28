@@ -1,7 +1,7 @@
 
 import { ReactNode } from "react";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "@/contexts/NavigationContext";
 import { toast } from "sonner";
 
 interface ProgressiveAccessWrapperProps {
@@ -9,18 +9,16 @@ interface ProgressiveAccessWrapperProps {
   action?: string;
   fallbackTab?: string;
   className?: string;
-  onGoToProfile?: () => void;
 }
 
 const ProgressiveAccessWrapper = ({ 
   children, 
   action, 
   fallbackTab = "profile",
-  className = "",
-  onGoToProfile
+  className = ""
 }: ProgressiveAccessWrapperProps) => {
   const { accessLevel, checkInteractionPermission } = useProgressiveAccess();
-  const navigate = useNavigate();
+  const { goToProfile } = useNavigation();
 
   const handleInteraction = (e: React.MouseEvent) => {
     // Only prevent default if we have an action to check
@@ -36,10 +34,8 @@ const ProgressiveAccessWrapper = ({
         e.preventDefault();
         e.stopPropagation();
         
-        // Use the passed function to navigate to profile
-        if (onGoToProfile) {
-          onGoToProfile();
-        }
+        // Use navigation context to switch to profile
+        goToProfile();
         
         // Small delay to ensure tab switch completes
         setTimeout(() => {
