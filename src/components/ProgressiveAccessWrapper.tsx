@@ -31,19 +31,15 @@ const ProgressiveAccessWrapper = ({
         e.preventDefault();
         e.stopPropagation();
         
-        // Direct tab switching without URL manipulation
-        const profileTab = document.querySelector('[data-state="inactive"][value="profile"]') as HTMLButtonElement;
-        if (profileTab) {
-          profileTab.click();
-        } else {
-          // Fallback: try to find any profile tab
-          const allTabs = document.querySelectorAll('[value="profile"]') as NodeListOf<HTMLButtonElement>;
-          if (allTabs.length > 0) {
-            allTabs[0].click();
-          }
+        // Find and click the profile tab trigger
+        const profileTrigger = document.querySelector('[value="profile"]') as HTMLButtonElement;
+        if (profileTrigger) {
+          profileTrigger.click();
+          // Small delay to ensure tab switch completes
+          setTimeout(() => {
+            toast.dismiss();
+          }, 100);
         }
-        
-        toast.dismiss();
       };
 
       // Show clickable toast message to go to profile
