@@ -119,7 +119,7 @@ const ProfileBuilder = ({
   const handleProfileComplete = (profile: any) => {
     const newProfiles = {
       ...profiles,
-      [activeProfileType]: [...profiles[activeProfileType], profile]
+      [activeProfileType]: [profile] // Replace with new profile data
     };
     setProfiles(newProfiles);
     setShowForm(false);
@@ -139,7 +139,7 @@ const ProfileBuilder = ({
           Let's Get to Know the Real You
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Build your relationship profiles in just 5 minutes
+          Build your relationship profiles in just 5 minutes - no account needed yet
         </p>
       </div>
 
@@ -168,13 +168,13 @@ const ProfileBuilder = ({
             </div>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              Share your communication style, love language, and relationship patterns to get personalized insights.
+              Share your communication style, love language, and relationship patterns to see what personalized insights look like.
             </p>
 
             <div className="bg-white/70 rounded-xl p-4 border border-coral-200/50">
               <div className="flex items-center gap-3 text-coral-700 mb-3">
                 <Target className="w-5 h-5" />
-                <span className="font-semibold">What you'll unlock:</span>
+                <span className="font-semibold">What you'll preview:</span>
               </div>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
@@ -235,7 +235,7 @@ const ProfileBuilder = ({
             <div className="bg-white/70 rounded-xl p-4 border border-rose-200/50">
               <div className="flex items-center gap-3 text-rose-700 mb-3">
                 <Lightbulb className="w-5 h-5" />
-                <span className="font-semibold">What you'll unlock:</span>
+                <span className="font-semibold">What you'll preview:</span>
               </div>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">

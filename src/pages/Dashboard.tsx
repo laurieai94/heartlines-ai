@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useOnboardingStatus } from "@/hooks/useOnboardingStatus";
 import { useUserProfiles } from "@/hooks/useUserProfiles";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { Button } from "@/components/ui/button";
 import { LogOut, Settings } from "lucide-react";
 import AIInsights from "@/components/AIInsights";
@@ -14,13 +15,17 @@ const Dashboard = () => {
   const { user, signOut } = useAuth();
   const { status, loading: statusLoading } = useOnboardingStatus();
   const { profiles, loading: profilesLoading } = useUserProfiles();
+  const { clearTemporaryProfile } = useTemporaryProfile();
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
+    // Clear any temporary profile data when user reaches dashboard
+    clearTemporaryProfile();
+    
     if (!statusLoading && status && !status.onboarding_completed) {
       setShowOnboarding(true);
     }
-  }, [status, statusLoading]);
+  }, [status, statusLoading, clearTemporaryProfile]);
 
   const handleSignOut = async () => {
     try {
