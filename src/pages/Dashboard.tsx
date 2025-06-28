@@ -1,115 +1,101 @@
 
-import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import { useOnboardingStatus } from "@/hooks/useOnboardingStatus";
-import { useUserProfiles } from "@/hooks/useUserProfiles";
-import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LogOut, Settings } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Heart, User, MessageCircle, Lightbulb, ArrowRight, Search } from "lucide-react";
+import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
-import OnboardingFlow from "@/components/OnboardingFlow";
-import BubbleBackground from "@/components/BubbleBackground";
-import { toast } from "sonner";
+import ConversationPractice from "@/components/ConversationPractice";
+import ThoughtfulActions from "@/components/ThoughtfulActions";
 
 const Dashboard = () => {
-  const { user, signOut } = useAuth();
-  const { status, loading: statusLoading } = useOnboardingStatus();
-  const { profiles, loading: profilesLoading } = useUserProfiles();
-  const { clearTemporaryProfile } = useTemporaryProfile();
-  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [activeTab, setActiveTab] = useState("insights");
+  
+  // Profile state management
+  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>({
+    your: [],
+    partner: []
+  });
+  
+  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>({
+    your: null,
+    partner: null
+  });
 
-  useEffect(() => {
-    // Clear any temporary profile data when user reaches dashboard
-    clearTemporaryProfile();
-    
-    if (!statusLoading && status && !status.onboarding_completed) {
-      setShowOnboarding(true);
-    }
-  }, [status, statusLoading, clearTemporaryProfile]);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      toast.success("Signed out successfully!");
-    } catch (error) {
-      toast.error("Error signing out");
-    }
-  };
-
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
-  };
-
-  if (statusLoading || profilesLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-coral-50 via-peach-50 to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coral-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (showOnboarding) {
-    return <OnboardingFlow onComplete={handleOnboardingComplete} />;
-  }
-
-  // Transform profiles data to match expected format
-  const transformedProfiles = {
-    your: profiles.your ? [profiles.your.profile_data] : [],
-    partner: profiles.partner ? [profiles.partner.profile_data] : []
-  };
-
-  const transformedDemographics = {
-    your: profiles.your?.demographics_data || null,
-    partner: profiles.partner?.demographics_data || null
+  // Function to handle profile updates from ProfileBuilder
+  const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
+    setProfiles(newProfiles);
+    setDemographicsData(newDemographics);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coral-50 via-peach-50 to-purple-50 relative">
-      <BubbleBackground />
-      
-      {/* Header */}
-      <div className="relative z-10 border-b border-white/20 bg-white/10 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
-            {user && (
-              <span className="text-sm text-gray-600">
-                Welcome back, {user.user_metadata?.name || user.email}
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowOnboarding(true)}
-              className="text-gray-700 hover:text-gray-900"
-            >
-              <Settings className="w-4 h-4 mr-2" />
-              Settings
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSignOut}
-              className="text-gray-700 hover:text-gray-900"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <div className="max-w-7xl mx-auto">
+        {/* Minimal Header */}
+        <div className="flex items-center justify-between p-6 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
+              <Heart className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        <AIInsights 
-          profiles={transformedProfiles}
-          demographicsData={transformedDemographics}
-        />
+        {/* Main Content */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="px-6">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-6 bg-white/80 backdrop-blur-md shadow-lg rounded-2xl">
+              <TabsTrigger value="profile" className="flex items-center gap-2 rounded-xl">
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">Profile</span>
+              </TabsTrigger>
+              <TabsTrigger value="insights" className="flex items-center gap-2 rounded-xl">
+                <Lightbulb className="w-4 h-4" />
+                <span className="hidden sm:inline">Coach</span>
+              </TabsTrigger>
+              <TabsTrigger value="conversation" className="flex items-center gap-2 rounded-xl">
+                <MessageCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">Practice</span>
+              </TabsTrigger>
+              <TabsTrigger value="actions" className="flex items-center gap-2 rounded-xl">
+                <Heart className="w-4 h-4" />
+                <span className="hidden sm:inline">Actions</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
+
+          <TabsContent value="profile" className="px-6">
+            <ProfileBuilder 
+              onProfileUpdate={handleProfileUpdate}
+              initialProfiles={profiles}
+              initialDemographics={demographicsData}
+            />
+          </TabsContent>
+
+          <TabsContent value="insights" className="h-[calc(100vh-140px)]">
+            <AIInsights 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
+          </TabsContent>
+
+          <TabsContent value="conversation" className="px-6">
+            <ConversationPractice 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
+          </TabsContent>
+
+          <TabsContent value="actions" className="px-6">
+            <ThoughtfulActions 
+              profiles={profiles}
+              demographicsData={demographicsData}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
