@@ -20,30 +20,47 @@ export const useProgressiveAccess = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
-  // Calculate profile completion percentage
+  // Calculate profile completion percentage based on questionnaire data
   const calculateProfileCompletion = () => {
     let totalFields = 0;
     let completedFields = 0;
 
-    // Check demographics completion
-    const demographics = temporaryDemographics.your;
-    if (demographics) {
-      const demographicsFields = ['name', 'pronouns', 'age'];
-      totalFields += demographicsFields.length;
-      completedFields += demographicsFields.filter(field => 
-        demographics[field] && demographics[field] !== ''
-      ).length;
+    // Check personal profile completion (your profile)
+    const yourProfile = temporaryProfiles.your[0];
+    const yourDemographics = temporaryDemographics.your;
+    
+    if (yourProfile || yourDemographics) {
+      // Count key fields from personal questionnaire
+      const personalFields = [
+        'name', 'pronouns', 'age', 'stressReactions', 'attachmentStyles', 
+        'loveLanguages', 'receiveLove', 'familyDynamics', 'relationshipStatus'
+      ];
+      
+      totalFields += personalFields.length;
+      
+      // Check demographics completion
+      if (yourDemographics) {
+        completedFields += personalFields.filter(field => {
+          const value = yourDemographics[field] || yourProfile?.[field];
+          return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
+        }).length;
+      }
     }
 
-    // Check profile completion
-    const profile = temporaryProfiles.your[0];
-    if (profile) {
-      const profileFields = ['communicationDirectness', 'emotionExpression', 'loveLanguages'];
-      totalFields += profileFields.length;
-      completedFields += profileFields.filter(field => {
-        const value = profile[field];
-        return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
-      }).length;
+    // Check partner profile completion
+    const partnerProfile = temporaryProfiles.partner[0];
+    const partnerDemographics = temporaryDemographics.partner;
+    
+    if (partnerProfile || partnerDemographics) {
+      const partnerFields = ['name', 'communicationStyle', 'loveLanguages', 'conflictStyle'];
+      totalFields += partnerFields.length;
+      
+      if (partnerDemographics || partnerProfile) {
+        completedFields += partnerFields.filter(field => {
+          const value = partnerDemographics?.[field] || partnerProfile?.[field];
+          return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
+        }).length;
+      }
     }
 
     return totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
@@ -55,8 +72,7 @@ export const useProgressiveAccess = () => {
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
     if (profileCompletion > 0) return 'signup-required';
-    if (profileCompletion === 0) return 'profile-required';
-    return 'preview';
+    return 'profile-required';
   };
 
   const accessLevel = getAccessLevel();

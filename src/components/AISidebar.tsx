@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { User, Lightbulb, Heart, MessageCircle, Plus, Settings, Eye } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 
@@ -32,52 +32,49 @@ const AISidebar = ({
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
+  const { profileCompletion } = useProgressiveAccess();
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate profile completion percentages
-  const calculateProfileCompletion = (profileData: any[], demographicsData: any) => {
-    let totalFields = 0;
-    let completedFields = 0;
-
-    // Demographics fields (required for completion)
-    const demographicsFields = ['name', 'pronouns', 'age', 'education', 'workSituation'];
-    totalFields += demographicsFields.length;
-    if (demographicsData) {
-      completedFields += demographicsFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
-    }
-
-    // Background & lifestyle fields (now required)
-    const backgroundFields = ['familyBackground', 'parentsRelationship', 'personalityType', 'healthWellness'];
-    totalFields += backgroundFields.length;
-    if (demographicsData) {
-      completedFields += backgroundFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
-    }
-
-    // Profile fields (core required fields)
-    const profileFields = [
-      'importantTalkPreference', 'communicationDirectness', 'emotionExpression', 'loveLanguages',
-      'conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately',
-      'beingRushedMakesWorse', 'feelHeardWithValidation',
-      'comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt',
-      'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'
-    ];
-    totalFields += profileFields.length;
+  // Calculate individual profile completion percentages
+  const calculateYourCompletion = () => {
+    const yourProfile = profiles.your[0];
+    const yourDemo = demographicsData.your;
     
-    if (profileData.length > 0) {
-      const profile = profileData[0];
-      completedFields += profileFields.filter(field => {
-        const value = profile[field];
-        return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
-      }).length;
-    }
+    if (!yourProfile && !yourDemo) return 0;
     
-    return Math.round((completedFields / totalFields) * 100);
+    let completed = 0;
+    let total = 5; // Key fields
+    
+    if (yourDemo?.name) completed++;
+    if (yourDemo?.age) completed++;
+    if (yourProfile?.loveLanguages?.length > 0) completed++;
+    if (yourProfile?.stressReactions?.length > 0) completed++;
+    if (yourProfile?.familyDynamics?.length > 0) completed++;
+    
+    return Math.round((completed / total) * 100);
   };
 
-  const yourCompletion = calculateProfileCompletion(profiles.your, demographicsData.your);
-  const partnerCompletion = calculateProfileCompletion(profiles.partner, demographicsData.partner);
+  const calculatePartnerCompletion = () => {
+    const partnerProfile = profiles.partner[0];
+    const partnerDemo = demographicsData.partner;
+    
+    if (!partnerProfile && !partnerDemo) return 0;
+    
+    let completed = 0;
+    let total = 4; // Key fields
+    
+    if (partnerDemo?.name) completed++;
+    if (partnerProfile?.communicationStyle) completed++;
+    if (partnerProfile?.loveLanguages?.length > 0) completed++;
+    if (partnerProfile?.conflictStyle) completed++;
+    
+    return Math.round((completed / total) * 100);
+  };
+
+  const yourCompletion = calculateYourCompletion();
+  const partnerCompletion = calculatePartnerCompletion();
 
   const handleViewProfile = (profileType: 'your' | 'partner') => {
     setViewingProfileType(profileType);
@@ -118,11 +115,12 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Profile Completion Status with animated progress */}
+        {/* Profile Completion Status with real-time updates */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />
             <h3 className="font-medium text-gray-900">Your Profiles</h3>
+            <div className="ml-auto text-xs text-gray-500">{profileCompletion}% overall</div>
           </div>
           
           {/* Your Profile */}

@@ -2,10 +2,12 @@
 import { useState } from 'react';
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export const usePersonalProfileQuestionnaire = () => {
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
   const { updateTemporaryProfile, temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const navigate = useNavigate();
 
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal profile questionnaire completed:', questionnaireData);
@@ -55,7 +57,8 @@ export const usePersonalProfileQuestionnaire = () => {
       
       // Metadata
       completedAt: new Date().toISOString(),
-      profileSource: 'personal-questionnaire'
+      profileSource: 'personal-questionnaire',
+      avatarUrl: questionnaireData.avatarUrl
     };
 
     // Create demographics data
@@ -65,7 +68,8 @@ export const usePersonalProfileQuestionnaire = () => {
       age: questionnaireData.age,
       gender: questionnaireData.gender?.[0] || questionnaireData.customGender,
       orientation: questionnaireData.orientation?.[0] || questionnaireData.customOrientation,
-      relationshipStatus: questionnaireData.relationshipStatus?.[0]
+      relationshipStatus: questionnaireData.relationshipStatus?.[0],
+      avatarUrl: questionnaireData.avatarUrl
     };
 
     // Update the temporary profile system
@@ -82,7 +86,12 @@ export const usePersonalProfileQuestionnaire = () => {
     updateTemporaryProfile(newProfiles, newDemographics);
     setShowQuestionnaire(false);
     
-    toast.success("Personal profile completed! Kai now has much better context to help you.");
+    toast.success("Personal profile completed! Redirecting you to chat with Kai...");
+    
+    // Redirect to coach page after completion
+    setTimeout(() => {
+      navigate('/dashboard', { state: { activeTab: 'insights' } });
+    }, 1500);
   };
 
   const handleQuestionnaireClose = () => {

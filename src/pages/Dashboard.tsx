@@ -1,5 +1,5 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,16 +15,25 @@ import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 
 const Dashboard = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("profile");
   const { 
     shouldShowSignUpModal, 
     blockingAction, 
     closeSignUpModal,
-    accessLevel 
+    accessLevel,
+    profileCompletion
   } = useProgressiveAccess();
   
   // Use temporary profiles for non-authenticated users
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+
+  // Handle redirect from profile completion
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location.state]);
 
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
     updateTemporaryProfile(newProfiles, newDemographics);
@@ -50,7 +59,8 @@ const Dashboard = () => {
                 <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
                 {accessLevel !== 'full-access' && (
                   <p className="text-xs text-gray-500">
-                    {accessLevel === 'profile-required' ? 'Start by building your profile' : 'One step away from full access'}
+                    {accessLevel === 'profile-required' ? 'Start by building your profile' : 
+                     profileCompletion > 0 ? `${profileCompletion}% complete - one step away from full access` : 'One step away from full access'}
                   </p>
                 )}
               </div>
