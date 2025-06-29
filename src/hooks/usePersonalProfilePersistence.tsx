@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 export const usePersonalProfilePersistence = () => {
   const { user } = useAuth();
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
 
@@ -18,7 +18,7 @@ export const usePersonalProfilePersistence = () => {
         if (localData) {
           const parsed = JSON.parse(localData);
           console.log('Loaded personal profile from localStorage:', parsed);
-          setProfileData(parsed);
+          setProfileData(parsed || {});
         }
 
         // If user is authenticated, also try to load from database
@@ -32,7 +32,7 @@ export const usePersonalProfilePersistence = () => {
 
           if (data && !error) {
             console.log('Loaded personal profile from database:', data.demographics_data);
-            setProfileData(prev => ({ ...prev, ...data.demographics_data }));
+            setProfileData(prev => ({ ...(prev || {}), ...(data.demographics_data || {}) }));
           }
         }
       } catch (error) {
@@ -47,10 +47,10 @@ export const usePersonalProfilePersistence = () => {
   }, [user]);
 
   // Save data function
-  const saveData = async (newData) => {
+  const saveData = async (newData: Record<string, any>) => {
     console.log('Saving personal profile data:', newData);
     
-    const updatedData = { ...profileData, ...newData };
+    const updatedData = { ...(profileData || {}), ...(newData || {}) };
     setProfileData(updatedData);
 
     // Save to localStorage immediately
@@ -76,16 +76,16 @@ export const usePersonalProfilePersistence = () => {
   };
 
   // Update single field
-  const updateField = (field, value) => {
+  const updateField = (field: string, value: any) => {
     const updatedData = { [field]: value };
     saveData(updatedData);
   };
 
   // Handle multi-select fields
-  const handleMultiSelect = (field, value) => {
-    const current = profileData[field] || [];
+  const handleMultiSelect = (field: string, value: string) => {
+    const current = (profileData || {})[field] || [];
     const updated = current.includes(value) 
-      ? current.filter(item => item !== value)
+      ? current.filter((item: string) => item !== value)
       : [...current, value];
     updateField(field, updated);
   };
