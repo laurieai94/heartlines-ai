@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -207,9 +206,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                         Hey, I'm Kai 👋
                       </h2>
                       
-                      <div className="text-sm text-gray-600 leading-relaxed font-light space-y-1">
+                      <div className="text-sm text-gray-600 leading-relaxed font-light">
                         <p>Here to help you figure out the messy, meaningful, and everything-in-between parts of your relationship.</p>
-                        <p>What's going on today?</p>
                       </div>
                     </div>
                   </div>

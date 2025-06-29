@@ -156,7 +156,7 @@ const AIChatInput = ({
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
-            placeholder={chatHistory.length === 0 ? "Tell me what's happening... I'm here for you" : "Continue the conversation..."}
+            placeholder={chatHistory.length === 0 ? "Ready to dive in?" : "Continue the conversation..."}
             disabled={loading}
             className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
             rows={1}
