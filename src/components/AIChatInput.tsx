@@ -94,50 +94,54 @@ const AIChatInput = ({
 
   return (
     <div className="space-y-3">
-      {/* Compact Category Selection - Only show when no chat history */}
+      {/* Compact Category Selection or Conversation Starters */}
       {showQuickStarters && (
-        <div className="bg-gray-50 rounded-xl p-3 border border-gray-200">
+        <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-3 border border-orange-100/50 shadow-lg">
           {!selectedCategory ? (
             <>
-              <h3 className="text-xs font-medium text-gray-700 mb-2">
+              <h3 className="text-xs font-medium text-gray-700 mb-2 leading-relaxed">
                 What's on your mind?
               </h3>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                 {Object.keys(conversationCategories).map((category, index) => (
-                  <button
+                  <div
                     key={index}
                     onClick={() => setSelectedCategory(category)}
-                    className="text-left p-2 bg-white rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-colors"
+                    className="group cursor-pointer bg-white rounded-lg p-1.5 border border-coral-200/30 hover:border-coral-300 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
                   >
-                    <span className="text-xs font-medium text-gray-800">{category}</span>
-                  </button>
+                    <h4 className="font-medium text-gray-800 text-xs group-hover:text-coral-600 transition-colors">
+                      {category}
+                    </h4>
+                  </div>
                 ))}
               </div>
             </>
           ) : (
             <>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-3">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setSelectedCategory(null)}
-                  className="p-1 h-6 w-6"
+                  className="p-1.5 hover:bg-coral-100 rounded-lg transition-colors"
                 >
                   <ArrowLeft className="w-3 h-3" />
                 </Button>
-                <h3 className="text-xs font-medium text-gray-700">
+                <h3 className="text-sm font-medium text-gray-700 leading-relaxed">
                   {selectedCategory}
                 </h3>
               </div>
-              <div className="space-y-1">
+              <div className="grid grid-cols-1 gap-2">
                 {conversationCategories[selectedCategory].map((starter, index) => (
-                  <button
+                  <Button
                     key={index}
+                    variant="ghost"
+                    size="sm"
                     onClick={() => handleQuickStarter(starter)}
-                    className="w-full text-left p-2 text-xs text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="group text-gray-600 hover:text-gray-800 hover:bg-gradient-to-r hover:from-coral-50 hover:to-peach-50 rounded-xl px-3 py-2 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.02] border border-transparent hover:border-coral-200"
                   >
-                    {starter}
-                  </button>
+                    <span className="leading-relaxed">{starter}</span>
+                  </Button>
                 ))}
               </div>
             </>
@@ -145,36 +149,34 @@ const AIChatInput = ({
         </div>
       )}
 
-      {/* Main Input Area - ChatGPT style */}
-      <div className="relative">
-        <div className="flex items-end gap-2 p-3 border border-gray-300 rounded-2xl bg-white shadow-sm focus-within:border-purple-400 focus-within:shadow-md transition-all">
+      {/* Compact Chat Input with Voice */}
+      <div className="flex gap-3 items-end">
+        <div className="flex-1">
           <Textarea
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
-            placeholder={chatHistory.length === 0 ? "Tell me what's happening... I'm here for you" : "Message Kai..."}
+            placeholder={chatHistory.length === 0 ? "Tell me what's happening... I'm here for you" : "Continue the conversation..."}
             disabled={loading}
-            className="flex-1 border-0 p-0 resize-none min-h-[20px] max-h-[120px] focus-visible:ring-0 focus-visible:ring-offset-0 text-sm leading-relaxed"
+            className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
             rows={1}
           />
-          
-          <div className="flex items-center gap-1">
-            <VoiceInterface
-              onVoiceMessage={handleVoiceMessage}
-              onSpeakResponse={onSpeakResponse}
-              disabled={loading}
-            />
-            
-            <Button
-              onClick={sendMessage}
-              disabled={!currentMessage.trim() || loading}
-              size="sm"
-              className="h-8 w-8 p-0 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-50"
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
         </div>
+        
+        {/* Voice Interface - Compact */}
+        <VoiceInterface
+          onVoiceMessage={handleVoiceMessage}
+          onSpeakResponse={onSpeakResponse}
+          disabled={loading}
+        />
+        
+        <Button
+          onClick={sendMessage}
+          disabled={!currentMessage.trim() || loading}
+          className="bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 rounded-2xl w-12 h-12 p-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:scale-100"
+        >
+          <Send className="w-4 h-4" />
+        </Button>
       </div>
     </div>
   );
