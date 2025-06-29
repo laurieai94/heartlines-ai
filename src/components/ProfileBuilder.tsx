@@ -24,6 +24,8 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
   const location = useLocation();
   const [showDemographics, setShowDemographics] = useState(false);
   const [showProfileForm, setShowProfileForm] = useState(false);
+  const [showProfileViewer, setShowProfileViewer] = useState(false);
+  const [viewerProfileType, setViewerProfileType] = useState<'your' | 'partner'>('your');
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
   const { profileCompletion } = useProgressiveAccess();
@@ -65,6 +67,20 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
     } else {
       setShowProfileForm(true);
     }
+  };
+
+  const handleViewProfile = (profileType: 'your' | 'partner') => {
+    setViewerProfileType(profileType);
+    setShowProfileViewer(true);
+  };
+
+  const handleEditProfile = () => {
+    setShowProfileViewer(false);
+    handleOpenProfileForm(viewerProfileType);
+  };
+
+  const handleCloseViewer = () => {
+    setShowProfileViewer(false);
   };
 
   const handleProfileComplete = (profileData: any) => {
@@ -134,18 +150,23 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
 
           {hasYourProfile ? (
             <div className="space-y-4">
-              <ProfileViewer 
-                profileType="your" 
-                profiles={temporaryProfiles} 
-                demographics={temporaryDemographics} 
-              />
-              <Button 
-                variant="outline" 
-                onClick={() => handleOpenProfileForm('your')}
-                className="w-full"
-              >
-                Edit Your Profile
-              </Button>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-600 mb-2">Profile created successfully!</p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleViewProfile('your')}
+                  className="w-full mb-2"
+                >
+                  View Your Profile
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleOpenProfileForm('your')}
+                  className="w-full"
+                >
+                  Edit Your Profile
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-4">
@@ -198,18 +219,23 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
 
           {hasPartnerProfile ? (
             <div className="space-y-4">
-              <ProfileViewer 
-                profileType="partner" 
-                profiles={temporaryProfiles} 
-                demographics={temporaryDemographics} 
-              />
-              <Button 
-                variant="outline" 
-                onClick={() => handleOpenProfileForm('partner')}
-                className="w-full"
-              >
-                Edit Partner Profile
-              </Button>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-600 mb-2">Partner profile created successfully!</p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleViewProfile('partner')}
+                  className="w-full mb-2"
+                >
+                  View Partner Profile
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleOpenProfileForm('partner')}
+                  className="w-full"
+                >
+                  Edit Partner Profile
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-4">
@@ -269,6 +295,16 @@ const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics 
           onAddPartnerProfile={handleAddPartnerProfile}
           onStartChatting={handleStartChatting}
           onClose={handleCloseCompletionOptions}
+        />
+      )}
+
+      {showProfileViewer && (
+        <ProfileViewer
+          profileType={viewerProfileType}
+          profileData={temporaryProfiles[viewerProfileType] || []}
+          demographicsData={temporaryDemographics[viewerProfileType] || {}}
+          onEdit={handleEditProfile}
+          onClose={handleCloseViewer}
         />
       )}
       
