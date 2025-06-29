@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const usePersonalProfileQuestionnaire = () => {
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  const [showCompletionOptions, setShowCompletionOptions] = useState(false);
   const { updateTemporaryProfile, temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
   const navigate = useNavigate();
 
@@ -100,12 +101,10 @@ export const usePersonalProfileQuestionnaire = () => {
     updateTemporaryProfile(newProfiles, newDemographics);
     setShowQuestionnaire(false);
     
-    toast.success("Personal profile completed! You can now chat with Kai about your relationship.");
+    toast.success("Personal profile completed!");
     
-    // Redirect to chat page after completion
-    setTimeout(() => {
-      navigate('/dashboard', { state: { activeTab: 'insights' } });
-    }, 1500);
+    // Show completion options instead of immediately navigating
+    setShowCompletionOptions(true);
   };
 
   const handleQuestionnaireClose = () => {
@@ -116,10 +115,32 @@ export const usePersonalProfileQuestionnaire = () => {
     setShowQuestionnaire(true);
   };
 
+  const handleAddPartnerProfile = () => {
+    setShowCompletionOptions(false);
+    // Navigate to dashboard profile tab to add partner profile
+    navigate('/dashboard', { state: { activeTab: 'profile', addPartnerProfile: true } });
+  };
+
+  const handleStartChatting = () => {
+    setShowCompletionOptions(false);
+    // Navigate to chat interface
+    navigate('/dashboard', { state: { activeTab: 'insights' } });
+  };
+
+  const handleCloseCompletionOptions = () => {
+    setShowCompletionOptions(false);
+    // Navigate to dashboard without specific tab
+    navigate('/dashboard');
+  };
+
   return {
     showQuestionnaire,
+    showCompletionOptions,
     openQuestionnaire,
     handleQuestionnaireComplete,
-    handleQuestionnaireClose
+    handleQuestionnaireClose,
+    handleAddPartnerProfile,
+    handleStartChatting,
+    handleCloseCompletionOptions
   };
 };

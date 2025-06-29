@@ -3,427 +3,292 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, Star, Target, Sparkles, Brain, Users, MessageSquare, Play, Zap, Shield } from "lucide-react";
-import { toast } from "sonner";
-import ProfileForm from "@/components/ProfileForm";
-import Demographics from "@/components/Demographics";
-import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import { User, Users, Sparkles, MessageCircle, ArrowRight, Plus } from "lucide-react";
+import ProfileViewer from "./ProfileViewer";
+import Demographics from "./Demographics";
+import ProfileForm from "./ProfileForm";
+import PersonalProfileQuestionnaire from "./PersonalProfileQuestionnaire";
+import ProfileCompletionOptions from "./ProfileCompletionOptions";
 import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
-import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-
-interface ProfileStats {
-  completion: number;
-  sectionsComplete: number;
-  totalSections: number;
-}
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useLocation } from "react-router-dom";
 
 interface ProfileBuilderProps {
-  onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
-  initialProfiles?: {your: any[], partner: any[]};
-  initialDemographics?: {your: any, partner: any};
+  onProfileUpdate: (profiles: any, demographics: any) => void;
+  initialProfiles: any;
+  initialDemographics: any;
 }
 
-const ProfileBuilder = ({ 
-  onProfileUpdate, 
-  initialProfiles = { your: [], partner: [] }, 
-  initialDemographics = { your: null, partner: null } 
-}: ProfileBuilderProps) => {
-  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>(initialProfiles);
+const ProfileBuilder = ({ onProfileUpdate, initialProfiles, initialDemographics }: ProfileBuilderProps) => {
+  const location = useLocation();
   const [showDemographics, setShowDemographics] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [showProfileForm, setShowProfileForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
-  const [showDetails, setShowDetails] = useState(false);
-  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
-
-  const { 
-    showQuestionnaire, 
-    openQuestionnaire, 
-    handleQuestionnaireComplete, 
-    handleQuestionnaireClose 
+  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const { profileCompletion } = useProgressiveAccess();
+  
+  const {
+    showQuestionnaire,
+    showCompletionOptions,
+    openQuestionnaire,
+    handleQuestionnaireComplete,
+    handleQuestionnaireClose,
+    handleAddPartnerProfile,
+    handleStartChatting,
+    handleCloseCompletionOptions
   } = usePersonalProfileQuestionnaire();
 
-  // Use centralized progress tracking and temporary profile data
-  const { profileCompletion } = useProgressiveAccess();
-  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
+  // Check if we should auto-open partner profile creation
+  useEffect(() => {
+    if (location.state?.addPartnerProfile) {
+      handleOpenProfileForm('partner');
+    }
+  }, [location.state]);
 
-  // Get user's name for personalization
-  const userName = temporaryDemographics.your?.name || '';
-
-  // Calculate individual profile completion percentages
-  const calculateYourCompletion = () => {
-    if (!isLoaded) return 0;
-    
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemo = temporaryDemographics.your;
-    
-    if (!yourProfile && !yourDemo) return 0;
-    
-    let completed = 0;
-    let total = 8;
-    
-    // Basic info
-    if (yourDemo?.name) completed++;
-    if (yourDemo?.age) completed++;
-    
-    // Emotional blueprint - check both profile and demographics
-    if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
-    if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
-    if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
-    if (yourProfile?.receiveLove?.length > 0 || yourDemo?.receiveLove?.length > 0) completed++;
-    
-    // Background
-    if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
-    if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
-    
-    const completion = Math.round((completed / total) * 100);
-    console.log('ProfileBuilder - Your profile completion:', { completed, total, completion });
-    return completion;
+  const getProfileCount = () => {
+    let count = 0;
+    if (temporaryProfiles.your?.length > 0) count++;
+    if (temporaryProfiles.partner?.length > 0) count++;
+    return count;
   };
 
-  const calculatePartnerCompletion = () => {
-    if (!isLoaded) return 0;
-    
-    const partnerProfile = temporaryProfiles.partner[0];
-    const partnerDemo = temporaryDemographics.partner;
-    
-    if (!partnerProfile && !partnerDemo) return 0;
-    
-    let completed = 0;
-    let total = 4;
-    
-    if (partnerDemo?.name) completed++;
-    if (partnerProfile?.communicationStyle) completed++;
-    if (partnerProfile?.loveLanguages?.length > 0) completed++;
-    if (partnerProfile?.conflictStyle) completed++;
-    
-    const completion = Math.round((completed / total) * 100);
-    console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion });
-    return completion;
-  };
+  const hasYourProfile = temporaryProfiles.your?.length > 0;
+  const hasPartnerProfile = temporaryProfiles.partner?.length > 0;
 
-  const yourProfileCompletion = calculateYourCompletion();
-  const partnerProfileCompletion = calculatePartnerCompletion();
-
-  const handleStartProfile = (profileType: 'your' | 'partner') => {
+  const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
-    // Start with demographics if not completed yet
-    if (!demographicsData[profileType]) {
+    
+    // If no demographics data exists for this profile type, show demographics first
+    if (!temporaryDemographics[profileType]) {
       setShowDemographics(true);
     } else {
-      setShowForm(true);
+      setShowProfileForm(true);
     }
   };
 
-  const handleDemographicsComplete = (demographics: any) => {
-    const newDemographics = {
-      ...demographicsData,
-      [activeProfileType]: demographics
-    };
-    setDemographicsData(newDemographics);
+  const handleProfileComplete = (profileData: any) => {
+    setShowProfileForm(false);
+    onProfileUpdate(temporaryProfiles, temporaryDemographics);
+  };
+
+  const handleDemographicsComplete = (demographicsData: any) => {
     setShowDemographics(false);
-    setShowForm(true);
-    
-    // Call the callback if provided
-    if (onProfileUpdate) {
-      onProfileUpdate(profiles, newDemographics);
-    }
+    setShowProfileForm(true);
   };
 
-  const handleDemographicsClose = () => {
-    setShowDemographics(false);
-  };
-
-  const handleProfileComplete = (profile: any) => {
-    const newProfiles = {
-      ...profiles,
-      [activeProfileType]: [...profiles[activeProfileType], profile]
-    };
-    setProfiles(newProfiles);
-    setShowForm(false);
-    toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
-    
-    // Call the callback if provided
-    if (onProfileUpdate) {
-      onProfileUpdate(newProfiles, demographicsData);
-    }
+  const handleBackToDemographics = () => {
+    setShowProfileForm(false);
+    setShowDemographics(true);
   };
 
   return (
-    <div className="space-y-6">
-      {/* Main Header */}
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Let's Get to Know the Real You
-        </h1>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">Build Your Relationship Profile</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Build your relationship profiles in just 5 minutes
+          The more RealTalk knows about you and your relationship dynamics, the better it can support your journey.
         </p>
-        {/* Real-time overall progress indicator */}
-        {profileCompletion > 0 && (
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-            <span>Overall Progress:</span>
-            <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 ease-out"
-                style={{ width: `${profileCompletion}%` }}
-              />
-            </div>
-            <span className="font-semibold text-purple-600">{profileCompletion}%</span>
-          </div>
-        )}
       </div>
 
-      {/* Compact Two-Card Layout */}
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {/* Card 1: Your Profile */}
-        <Card className="group p-6 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 border-2 border-purple-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-purple-300">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900">
-                  Your Profile
-                </h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex-1">
-                    <Progress value={yourProfileCompletion} className="h-2 bg-white/60" />
-                  </div>
-                  <span className="text-sm font-semibold text-purple-600">
-                    {yourProfileCompletion}%
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-gray-700 text-sm leading-relaxed">
-              This is where we truly get you. Answer a few quick questions about how you love, what shaped you, and what truly matters. Honesty powers more intentional conversations.
-            </p>
-
-            <div className="bg-white/70 rounded-lg p-3 border border-purple-200/50">
-              <div className="flex items-center gap-2 text-purple-700 mb-2">
-                <Target className="w-4 h-4" />
-                <span className="font-semibold text-sm">What You'll Unlock:</span>
-              </div>
-              <ul className="space-y-1 text-gray-700 text-sm">
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-purple-500" />
-                  Psychologist-level insights
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-purple-500" />
-                  Personalized daily support
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-purple-500" />
-                  Better advice built around you
-                </li>
-              </ul>
-            </div>
-
-            <Button 
-              onClick={openQuestionnaire}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-            >
-              {yourProfileCompletion > 0 ? 'Continue My Profile' : 'Begin My Profile'}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        </Card>
-
-        {/* Card 2: Unlock Their Perspective Too */}
-        <Card className="group p-6 bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-2 border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-rose-300">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900">Unlock Their Perspective Too</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex-1">
-                    <Progress value={partnerProfileCompletion} className="h-2 bg-white/60" />
-                  </div>
-                  <span className="text-sm font-semibold text-rose-600">
-                    {partnerProfileCompletion}%
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-gray-700 text-sm leading-relaxed">
-              Share what you've observed about your partner's style, needs, and reactions. This isn't about spilling tea; it's about giving RealTalk the insights to bridge the gap between you two truly.
-            </p>
-
-            <div className="bg-white/70 rounded-lg p-3 border border-rose-200/50">
-              <div className="flex items-center gap-2 text-rose-700 mb-2">
-                <Lightbulb className="w-4 h-4" />
-                <span className="font-semibold text-sm">What You'll Unlock:</span>
-              </div>
-              <ul className="space-y-1 text-gray-700 text-sm">
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-rose-500" />
-                  The power to build lasting, authentic connection
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-rose-500" />
-                  Deep, actionable insights (think therapy, but on your schedule)
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="w-3 h-3 text-rose-500" />
-                  Smarter advice that just gets you and your partner
-                </li>
-              </ul>
-            </div>
-
-            <Button 
-              onClick={() => handleStartProfile('partner')}
-              className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-            >
-              {partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        </Card>
-      </div>
-
-      {/* Compact Value Proposition */}
-      <Card className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 border-0 shadow-lg max-w-4xl mx-auto">
-        <div className="text-center space-y-4">
-          <h3 className="text-2xl font-bold text-gray-900">The Questions That Actually Matter</h3>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            How do you really act when you're stressed? What makes you feel most loved? 
-            What toxic patterns are you definitely not repeating from your last relationship? 
-            (Spoiler: you probably are.) The more honest you are, the less we'll sound like a generic self-help book.
-          </p>
-          
-          <div className="grid md:grid-cols-2 gap-6 mt-6">
-            <div className="text-left space-y-3">
-              <h4 className="text-lg font-semibold text-gray-900">Simple Process:</h4>
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <Play className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-600">Build your profile to capture your unique relationship vibe</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-600">Connect with Kai for AI-powered clarity that just gets it</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Target className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-600">Take real action, leveling up your bond with smart advice</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-left space-y-3">
-              <h4 className="text-lg font-semibold text-gray-900">You Get:</h4>
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <MessageSquare className="w-4 h-4 text-blue-500" />
-                  <span className="text-gray-600">Mastering the 'We need to talk'</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Shield className="w-4 h-4 text-blue-500" />
-                  <span className="text-gray-600">Turning arguments into wins</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Heart className="w-4 h-4 text-blue-500" />
-                  <span className="text-gray-600">Making your actions actually count</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Progress Overview */}
+      <Card className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">Profile Completion</h3>
+          <span className="text-sm text-purple-600 font-medium">{profileCompletion}% Complete</span>
         </div>
+        <Progress value={profileCompletion} className="h-3 mb-2" />
+        <p className="text-sm text-gray-600">
+          {profileCompletion < 50 
+            ? "Start with your personal profile to unlock RealTalk's features"
+            : profileCompletion < 100
+            ? "Great progress! Consider adding your partner's profile for deeper insights"
+            : "Amazing! You've completed both profiles and unlocked all features"
+          }
+        </p>
       </Card>
 
-      <div className="max-w-4xl mx-auto">
-        <Button 
-          variant="ghost" 
-          onClick={() => setShowDetails(!showDetails)}
-          className="w-full text-gray-600 hover:text-gray-900 text-base py-2"
-        >
-          {showDetails ? 'Hide' : 'Show'} Tips
-          <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
-        </Button>
-        
-        {showDetails && (
-          <div className="mt-6 space-y-4 animate-fade-in">
-            <Card className="p-4 bg-gray-50 border-l-4 border-blue-400">
-              <div className="flex items-center gap-3">
-                <Search className="w-4 h-4 text-gray-500" />
-                <p className="text-gray-600 text-sm">
-                  <strong>Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
-                </p>
+      {/* Profile Cards */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Your Profile Card */}
+        <Card className="p-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full -translate-y-10 translate-x-10"></div>
+          
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <User className="w-6 h-6 text-white" />
               </div>
-            </Card>
-
-            <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Profile Building Tips</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Be honest</h4>
-                      <p className="text-gray-600 text-sm">The AI only works with real data, not aspirational answers</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">"Not sure yet" is okay</h4>
-                      <p className="text-gray-600 text-sm">Profiles improve as you learn more about each other</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Start with core questions</h4>
-                      <p className="text-gray-600 text-sm">Get immediate value, then expand sections over time</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Update as you grow</h4>
-                      <p className="text-gray-600 text-sm">Relationships evolve, and so should your profiles</p>
-                    </div>
-                  </div>
-                </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Your Profile</h3>
+                <p className="text-sm text-gray-600">Personal insights & preferences</p>
               </div>
-            </Card>
+            </div>
+            {hasYourProfile && (
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+            )}
           </div>
-        )}
+
+          {hasYourProfile ? (
+            <div className="space-y-4">
+              <ProfileViewer 
+                profileType="your" 
+                profiles={temporaryProfiles} 
+                demographics={temporaryDemographics} 
+              />
+              <Button 
+                variant="outline" 
+                onClick={() => handleOpenProfileForm('your')}
+                className="w-full"
+              >
+                Edit Your Profile
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <p className="text-gray-600 leading-relaxed">
+                Share your communication style, attachment patterns, and relationship goals to get personalized insights.
+              </p>
+              
+              <div className="space-y-3">
+                <Button 
+                  onClick={openQuestionnaire}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Quick Profile (Recommended)
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleOpenProfileForm('your')}
+                  className="w-full py-3 rounded-xl"
+                >
+                  <Plus className="w-5 h-5 mr-2" />
+                  Detailed Profile Builder
+                </Button>
+              </div>
+            </div>
+          )}
+        </Card>
+
+        {/* Partner Profile Card */}
+        <Card className="p-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-100 to-teal-100 rounded-full -translate-y-10 translate-x-10"></div>
+          
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Partner Profile</h3>
+                <p className="text-sm text-gray-600">Understand your partner's style</p>
+              </div>
+            </div>
+            {hasPartnerProfile && (
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+            )}
+          </div>
+
+          {hasPartnerProfile ? (
+            <div className="space-y-4">
+              <ProfileViewer 
+                profileType="partner" 
+                profiles={temporaryProfiles} 
+                demographics={temporaryDemographics} 
+              />
+              <Button 
+                variant="outline" 
+                onClick={() => handleOpenProfileForm('partner')}
+                className="w-full"
+              >
+                Edit Partner Profile
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <p className="text-gray-600 leading-relaxed">
+                Add your partner's communication style and preferences for more accurate relationship insights and advice.
+              </p>
+              
+              {!hasYourProfile ? (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                  <p className="text-amber-800 text-sm">
+                    💡 Complete your profile first to unlock partner profile creation
+                  </p>
+                </div>
+              ) : (
+                <Button 
+                  onClick={() => handleOpenProfileForm('partner')}
+                  className="w-full bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <Plus className="w-5 h-5 mr-2" />
+                  Add Partner Profile
+                </Button>
+              )}
+            </div>
+          )}
+        </Card>
       </div>
 
+      {/* Quick Start Actions */}
+      {hasYourProfile && (
+        <Card className="p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to Get Started?</h3>
+              <p className="text-gray-600">Your profile is complete! Start getting personalized relationship insights.</p>
+            </div>
+            <Button 
+              onClick={() => window.location.href = '/dashboard?tab=insights'}
+              className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+            >
+              Chat with Kai
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {/* Modals */}
+      {showQuestionnaire && (
+        <PersonalProfileQuestionnaire 
+          onComplete={handleQuestionnaireComplete}
+          onClose={handleQuestionnaireClose}
+        />
+      )}
+
+      {showCompletionOptions && (
+        <ProfileCompletionOptions
+          onAddPartnerProfile={handleAddPartnerProfile}
+          onStartChatting={handleStartChatting}
+          onClose={handleCloseCompletionOptions}
+        />
+      )}
+      
       {showDemographics && (
         <Demographics 
           profileType={activeProfileType}
+          onClose={() => setShowDemographics(false)}
           onComplete={handleDemographicsComplete}
-          onClose={handleDemographicsClose}
-          initialData={demographicsData[activeProfileType]}
+          initialData={temporaryDemographics[activeProfileType]}
         />
       )}
-
-      {showForm && (
+      
+      {showProfileForm && (
         <ProfileForm 
           profileType={activeProfileType}
-          onClose={() => setShowForm(false)}
+          onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
-          initialProfiles={profiles}
-          initialDemographics={demographicsData}
-        />
-      )}
-
-      {showQuestionnaire && (
-        <PersonalProfileQuestionnaire
-          onComplete={handleQuestionnaireComplete}
-          onClose={handleQuestionnaireClose}
+          onBackToDemographics={handleBackToDemographics}
+          initialProfiles={temporaryProfiles}
+          initialDemographics={temporaryDemographics}
         />
       )}
     </div>
