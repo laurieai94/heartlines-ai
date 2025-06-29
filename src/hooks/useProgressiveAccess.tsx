@@ -68,18 +68,23 @@ export const useProgressiveAccess = () => {
     const yourProfile = temporaryProfiles.your[0];
     const yourDemographics = temporaryDemographics.your;
     
+    console.log('Checking essential personal profile:', { yourProfile, yourDemographics });
+    
     // Check for essential fields that indicate meaningful personal profile completion
     const hasName = yourDemographics?.name || yourProfile?.name;
+    const hasAge = yourDemographics?.age || yourProfile?.age;
     const hasEmotionalData = (yourProfile?.stressReactions?.length > 0 || yourDemographics?.stressReactions?.length > 0) ||
                             (yourProfile?.attachmentStyles?.length > 0 || yourDemographics?.attachmentStyles?.length > 0) ||
                             (yourProfile?.loveLanguages?.length > 0 || yourDemographics?.loveLanguages?.length > 0);
     
-    const hasBasicInfo = hasName && (yourDemographics?.age || yourProfile?.age);
+    const hasBasicInfo = hasName && hasAge;
     
-    console.log('Essential personal profile check:', { hasName, hasEmotionalData, hasBasicInfo });
+    console.log('Essential personal profile check:', { hasName, hasAge, hasEmotionalData, hasBasicInfo });
     
     // User has completed enough personal profile to enable chat
-    return hasBasicInfo && hasEmotionalData;
+    const isComplete = hasBasicInfo && hasEmotionalData;
+    console.log('Personal profile complete for chat access:', isComplete);
+    return isComplete;
   };
 
   const profileCompletion = calculateProfileCompletion();
@@ -90,7 +95,10 @@ export const useProgressiveAccess = () => {
     if (user) return 'full-access';
     
     // If user has essential personal profile data, enable full functionality including chat
-    if (hasPersonalProfileForChat) return 'full-access';
+    if (hasPersonalProfileForChat) {
+      console.log('Granting full access due to completed personal profile');
+      return 'full-access';
+    }
     
     // Check if we have any profile data at all
     const hasAnyProfileData = temporaryDemographics.your?.name || 
@@ -103,6 +111,7 @@ export const useProgressiveAccess = () => {
   };
 
   const accessLevel = getAccessLevel();
+  console.log('Current access level:', accessLevel, 'hasPersonalProfile:', hasPersonalProfileForChat);
 
   // Check if user can interact with features - allow all interactions with personal profile
   const checkInteractionPermission = (action: string): boolean => {

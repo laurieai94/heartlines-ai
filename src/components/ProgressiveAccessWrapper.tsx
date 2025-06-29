@@ -24,6 +24,11 @@ const ProgressiveAccessWrapper = ({
     // Only prevent default if we have an action to check
     if (!action) return;
 
+    // If user has full access, don't block anything
+    if (accessLevel === 'full-access') {
+      return;
+    }
+
     e.preventDefault();
     e.stopPropagation();
 
