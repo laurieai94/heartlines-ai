@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ const Dashboard = () => {
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
         {/* Clean Navigation Header */}
-        <div className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-gray-100/50">
+        <div className="w-full bg-white">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
             <div className="flex items-center justify-between py-6">
@@ -111,7 +112,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Main Content - Seamless Flow */}
+        {/* Main Content */}
         <div className="flex-1 min-h-0">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
