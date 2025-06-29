@@ -1,4 +1,5 @@
 
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,7 @@ import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { useNavigationContext } from "@/contexts/NavigationContext";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 
@@ -33,6 +35,7 @@ const AISidebar = ({
 }: AISidebarProps) => {
   // Use temporary profile data directly for real-time updates and consistency with Profile tab
   const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
+  const { goToProfile } = useNavigationContext();
   
   const userName = temporaryDemographics.your?.name || '';
   const partnerName = temporaryDemographics.partner?.name || '';
@@ -107,7 +110,12 @@ const AISidebar = ({
 
   const handleEditProfile = () => {
     setShowProfileViewer(false);
-    onOpenProfileForm?.(viewingProfileType);
+    goToProfile();
+  };
+
+  // Handle going to profile page to start/continue profiles
+  const handleGoToProfile = () => {
+    goToProfile();
   };
 
   // Sort topics by frequency and recency
@@ -140,7 +148,7 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Profile Completion Status with real-time updates */}
+        {/* Rebuilt Profile Completion Status matching Profile page design */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />
@@ -148,12 +156,12 @@ const AISidebar = ({
             <div className="ml-auto text-xs text-gray-500">{profileCompletion}% overall</div>
           </div>
           
-          {/* Your Profile with real-time progress */}
+          {/* Your Profile matching the Profile page design */}
           <div className="space-y-3 mb-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
                 <User className="w-4 h-4 text-purple-500" />
-                {userName || 'Your'} Profile
+                Your Profile
               </span>
               <span className="text-sm text-gray-500">{yourCompletion}%</span>
             </div>
@@ -169,7 +177,7 @@ const AISidebar = ({
                 variant="outline" 
                 size="sm" 
                 className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
-                onClick={() => onOpenProfileForm?.('your')}
+                onClick={handleGoToProfile}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {yourCompletion > 0 ? 'Continue' : 'Start Profile'}
@@ -187,7 +195,7 @@ const AISidebar = ({
             </div>
           </div>
 
-          {/* Partner Profile */}
+          {/* Partner Profile matching the Profile page design */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -208,7 +216,7 @@ const AISidebar = ({
                 variant="outline" 
                 size="sm" 
                 className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
-                onClick={() => onOpenProfileForm?.('partner')}
+                onClick={handleGoToProfile}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {partnerCompletion > 0 ? 'Continue' : 'Add Partner'}
@@ -320,3 +328,4 @@ const AISidebar = ({
 };
 
 export default AISidebar;
+
