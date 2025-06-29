@@ -34,7 +34,7 @@ export const usePersonalProfilePersistence = () => {
             console.log('Loaded personal profile from database:', data.demographics_data);
             setProfileData(prev => {
               const prevData = prev || {};
-              const dbData = data.demographics_data || {};
+              const dbData = typeof data.demographics_data === 'object' && data.demographics_data !== null ? data.demographics_data : {};
               return { ...prevData, ...dbData };
             });
           }
