@@ -2,6 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, User, MessageCircle, ArrowRight, Sparkles, CheckCircle } from "lucide-react";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 interface ProfileCompletionOptionsProps {
   onAddPartnerProfile: () => void;
@@ -19,24 +20,13 @@ const ProfileCompletionOptions = ({
   completionType
 }: ProfileCompletionOptionsProps) => {
   
+  const { goToCoach } = useNavigation();
   const isPersonalCompletion = completionType === 'personal';
   const isPartnerCompletion = completionType === 'partner';
 
   const handleStartChatting = () => {
-    // Navigate to insights/coach tab
-    const currentUrl = new URL(window.location.href);
-    currentUrl.hash = '';
-    window.history.pushState({}, '', currentUrl.toString());
-    
-    // Trigger navigation to insights tab
-    const tabsElement = document.querySelector('[data-state="active"][value="profile"]')?.closest('[role="tablist"]');
-    if (tabsElement) {
-      const insightsTab = tabsElement.querySelector('[value="insights"]') as HTMLElement;
-      if (insightsTab) {
-        insightsTab.click();
-      }
-    }
-    
+    console.log('ProfileCompletionOptions: Starting chat, navigating to coach');
+    goToCoach();
     onStartChatting();
   };
 
