@@ -59,7 +59,7 @@ export const usePersonalProfileQuestionnaire = () => {
       readiness: questionnaireData.readiness,
       healthyRelationship: questionnaireData.healthyRelationship,
       otherHealthy: questionnaireData.otherHealthy,
-      additionalInfo: questionnairedData.additionalInfo,
+      additionalInfo: questionnaireData.additionalInfo,
       
       // Metadata
       completedAt: new Date().toISOString(),
@@ -92,7 +92,7 @@ export const usePersonalProfileQuestionnaire = () => {
     };
 
     const newDemographics = {
-      ...temporaryDemochemicsDemographics,
+      ...temporaryDemographics,
       your: demographicsData
     };
 
