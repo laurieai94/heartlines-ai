@@ -30,9 +30,13 @@ export const usePersonalProfilePersistence = () => {
             .eq('profile_type', 'your')
             .single();
 
-          if (data && !error) {
+          if (data && !error && data.demographics_data) {
             console.log('Loaded personal profile from database:', data.demographics_data);
-            setProfileData(prev => ({ ...(prev || {}), ...(data.demographics_data || {}) }));
+            setProfileData(prev => {
+              const prevData = prev || {};
+              const dbData = data.demographics_data || {};
+              return { ...prevData, ...dbData };
+            });
           }
         }
       } catch (error) {
@@ -50,7 +54,10 @@ export const usePersonalProfilePersistence = () => {
   const saveData = async (newData: Record<string, any>) => {
     console.log('Saving personal profile data:', newData);
     
-    const updatedData = { ...(profileData || {}), ...(newData || {}) };
+    const currentData = profileData || {};
+    const newDataSafe = newData || {};
+    const updatedData = { ...currentData, ...newDataSafe };
+    
     setProfileData(updatedData);
 
     // Save to localStorage immediately
@@ -83,7 +90,8 @@ export const usePersonalProfilePersistence = () => {
 
   // Handle multi-select fields
   const handleMultiSelect = (field: string, value: string) => {
-    const current = (profileData || {})[field] || [];
+    const currentData = profileData || {};
+    const current = currentData[field] || [];
     const updated = current.includes(value) 
       ? current.filter((item: string) => item !== value)
       : [...current, value];
