@@ -1,8 +1,9 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check } from "lucide-react";
 import { toast } from "sonner";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import AttachmentQuestions from "./AttachmentQuestions";
 import RelationshipContext from "./RelationshipContext";
 import OptionalSections from "./OptionalSections";
@@ -15,21 +16,33 @@ interface ProfileFormPage3Props {
 }
 
 const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage3Props) => {
-  const [formData, setFormData] = useState({
-    // Core attachment questions (required)
-    comfortableClosenessIndependence: initialData.comfortableClosenessIndependence || '',
-    worryRelationshipSecurity: initialData.worryRelationshipSecurity || '',
-    wantClosenessButFearHurt: initialData.wantClosenessButFearHurt || '',
-    relationshipLength: initialData.relationshipLength || '',
-    relationshipType: initialData.relationshipType || '',
-    
-    // Optional fields - these should NOT be required for validation
-    improvingCommunicationFocus: initialData.improvingCommunicationFocus || '',
-    workingOnPersonalDevelopment: initialData.workingOnPersonalDevelopment || '',
-    learnedHealthyFromFamily: initialData.learnedHealthyFromFamily || '',
-    socialSituationsAnxious: initialData.socialSituationsAnxious || '',
-    
-    ...initialData
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  
+  // Load existing data from temporary storage
+  const getExistingProfileData = () => {
+    const existingProfile = temporaryProfiles[profileType]?.[0] || {};
+    const existingDemographics = temporaryDemographics[profileType] || {};
+    return { ...existingProfile, ...existingDemographics, ...initialData };
+  };
+
+  const [formData, setFormData] = useState(() => {
+    const existingData = getExistingProfileData();
+    return {
+      // Core attachment questions (required)
+      comfortableClosenessIndependence: existingData.comfortableClosenessIndependence || '',
+      worryRelationshipSecurity: existingData.worryRelationshipSecurity || '',
+      wantClosenessButFearHurt: existingData.wantClosenessButFearHurt || '',
+      relationshipLength: existingData.relationshipLength || '',
+      relationshipType: existingData.relationshipType || '',
+      
+      // Optional fields - these should NOT be required for validation
+      improvingCommunicationFocus: existingData.improvingCommunicationFocus || '',
+      workingOnPersonalDevelopment: existingData.workingOnPersonalDevelopment || '',
+      learnedHealthyFromFamily: existingData.learnedHealthyFromFamily || '',
+      socialSituationsAnxious: existingData.socialSituationsAnxious || '',
+      
+      ...existingData
+    };
   });
 
   const [expandedSections, setExpandedSections] = useState({
@@ -37,6 +50,33 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     growth: false,
     background: false
   });
+
+  // Auto-save data whenever formData changes
+  useEffect(() => {
+    const saveData = () => {
+      const currentProfile = temporaryProfiles[profileType]?.[0] || {};
+      const currentDemographics = temporaryDemographics[profileType] || {};
+      
+      const updatedProfile = { ...currentProfile, ...formData };
+      const updatedDemographics = { ...currentDemographics, ...formData };
+      
+      const newProfiles = {
+        ...temporaryProfiles,
+        [profileType]: [updatedProfile]
+      };
+      
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: updatedDemographics
+      };
+      
+      updateTemporaryProfile(newProfiles, newDemographics);
+    };
+
+    // Debounce the save to avoid too frequent updates
+    const timeoutId = setTimeout(saveData, 500);
+    return () => clearTimeout(timeoutId);
+  }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 
   const isPersonal = profileType === 'your';
 
@@ -93,6 +133,9 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
           </h3>
           <p className="text-sm text-gray-600">
             <span className="text-red-500">*</span> indicates required questions. Optional sections are clearly marked.
+          </p>
+          <p className="text-xs text-green-600 mt-1">
+            ✓ Your answers are automatically saved as you type
           </p>
         </div>
         

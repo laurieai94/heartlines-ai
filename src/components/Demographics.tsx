@@ -1,9 +1,11 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { toast } from "sonner";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import DemographicsPage1 from "./Demographics/DemographicsPage1";
 import DemographicsPage2 from "./Demographics/DemographicsPage2";
 
@@ -15,12 +17,18 @@ interface DemographicsProps {
 }
 
 const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: DemographicsProps) => {
+  const { temporaryDemographics } = useTemporaryProfile();
+  
+  // Load saved data from temporary storage
+  const savedData = temporaryDemographics[profileType] || {};
+  const combinedInitialData = { ...savedData, ...initialData };
+  
   const [currentPage, setCurrentPage] = useState(1);
-  const [page1Data, setPage1Data] = useState(initialData || {});
-  const [page2Data, setPage2Data] = useState(initialData || {});
+  const [page1Data, setPage1Data] = useState(combinedInitialData);
+  const [page2Data, setPage2Data] = useState(combinedInitialData);
   const [hasVisited, setHasVisited] = useState({ 
     page1: true, 
-    page2: initialData && Object.keys(initialData).length > 0 
+    page2: Object.keys(combinedInitialData).length > 0 
   });
 
   const totalPages = 2;
@@ -111,6 +119,9 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
               </h2>
               <p className="text-gray-600">
                 Help us understand {isPersonal ? 'your' : 'their'} background and context
+              </p>
+              <p className="text-xs text-green-600 mt-1">
+                ✓ Your answers are automatically saved as you type
               </p>
             </div>
             <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700">

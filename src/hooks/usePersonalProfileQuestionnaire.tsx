@@ -12,8 +12,14 @@ export const usePersonalProfileQuestionnaire = () => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal profile questionnaire completed:', questionnaireData);
     
+    // Get existing data and merge with new data
+    const existingProfile = temporaryProfiles.your?.[0] || {};
+    const existingDemographics = temporaryDemographics.your || {};
+    
     // Transform questionnaire data into the profile structure
     const profileData = {
+      ...existingProfile, // Keep existing data
+      
       // Basic demographics
       name: questionnaireData.name,
       pronouns: questionnaireData.pronouns,
@@ -53,7 +59,7 @@ export const usePersonalProfileQuestionnaire = () => {
       readiness: questionnaireData.readiness,
       healthyRelationship: questionnaireData.healthyRelationship,
       otherHealthy: questionnaireData.otherHealthy,
-      additionalInfo: questionnaireData.additionalInfo,
+      additionalInfo: questionnairedData.additionalInfo,
       
       // Metadata
       completedAt: new Date().toISOString(),
@@ -63,6 +69,8 @@ export const usePersonalProfileQuestionnaire = () => {
 
     // Create demographics data for easier access
     const demographicsData = {
+      ...existingDemographics, // Keep existing data
+      
       name: questionnaireData.name,
       pronouns: Array.isArray(questionnaireData.pronouns) ? questionnaireData.pronouns[0] : questionnaireData.customPronouns,
       age: questionnaireData.age,
@@ -84,7 +92,7 @@ export const usePersonalProfileQuestionnaire = () => {
     };
 
     const newDemographics = {
-      ...temporaryDemographics,
+      ...temporaryDemochemicsDemographics,
       your: demographicsData
     };
 

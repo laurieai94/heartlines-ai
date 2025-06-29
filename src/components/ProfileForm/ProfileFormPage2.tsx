@@ -1,8 +1,9 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import ConflictStyles from "./ConflictStyles";
 
 interface ProfileFormPage2Props {
@@ -13,18 +14,57 @@ interface ProfileFormPage2Props {
 }
 
 const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage2Props) => {
-  const [formData, setFormData] = useState({
-    // Conflict and stress patterns (all required)
-    conflictResponse: initialData.conflictResponse || '',
-    stressSpaceNeed: initialData.stressSpaceNeed || '',
-    stressSupportNeed: initialData.stressSupportNeed || '',
-    goSilentWhenUpset: initialData.goSilentWhenUpset || '',
-    needToTalkImmediately: initialData.needToTalkImmediately || '',
-    beingRushedMakesWorse: initialData.beingRushedMakesWorse || '',
-    feelHeardWithValidation: initialData.feelHeardWithValidation || '',
-    
-    ...initialData
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  
+  // Load existing data from temporary storage
+  const getExistingProfileData = () => {
+    const existingProfile = temporaryProfiles[profileType]?.[0] || {};
+    const existingDemographics = temporaryDemographics[profileType] || {};
+    return { ...existingProfile, ...existingDemographics, ...initialData };
+  };
+
+  const [formData, setFormData] = useState(() => {
+    const existingData = getExistingProfileData();
+    return {
+      // Conflict and stress patterns (all required)
+      conflictResponse: existingData.conflictResponse || '',
+      stressSpaceNeed: existingData.stressSpaceNeed || '',
+      stressSupportNeed: existingData.stressSupportNeed || '',
+      goSilentWhenUpset: existingData.goSilentWhenUpset || '',
+      needToTalkImmediately: existingData.needToTalkImmediately || '',
+      beingRushedMakesWorse: existingData.beingRushedMakesWorse || '',
+      feelHeardWithValidation: existingData.feelHeardWithValidation || '',
+      
+      ...existingData
+    };
   });
+
+  // Auto-save data whenever formData changes
+  useEffect(() => {
+    const saveData = () => {
+      const currentProfile = temporaryProfiles[profileType]?.[0] || {};
+      const currentDemographics = temporaryDemographics[profileType] || {};
+      
+      const updatedProfile = { ...currentProfile, ...formData };
+      const updatedDemographics = { ...currentDemographics, ...formData };
+      
+      const newProfiles = {
+        ...temporaryProfiles,
+        [profileType]: [updatedProfile]
+      };
+      
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: updatedDemographics
+      };
+      
+      updateTemporaryProfile(newProfiles, newDemographics);
+    };
+
+    // Debounce the save to avoid too frequent updates
+    const timeoutId = setTimeout(saveData, 500);
+    return () => clearTimeout(timeoutId);
+  }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 
   const isPersonal = profileType === 'your';
 
@@ -66,6 +106,9 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
           </h3>
           <p className="text-sm text-gray-600">
             <span className="text-red-500">*</span> All questions in this section are required
+          </p>
+          <p className="text-xs text-green-600 mt-1">
+            ✓ Your answers are automatically saved as you type
           </p>
         </div>
         

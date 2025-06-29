@@ -1,8 +1,9 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import CommunicationStyles from "./CommunicationStyles";
 import LoveLanguages from "./LoveLanguages";
 
@@ -13,27 +14,66 @@ interface ProfileFormPage1Props {
 }
 
 const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormPage1Props) => {
-  const [formData, setFormData] = useState({
-    // Communication preferences (required)
-    importantTalkPreference: initialData.importantTalkPreference || '',
-    communicationDirectness: initialData.communicationDirectness || '',
-    emotionExpression: initialData.emotionExpression || '',
-    
-    // Love languages (required)
-    loveLanguages: initialData.loveLanguages || [],
-    
-    // Deep dive love language questions (optional)
-    wordsOfAffirmationDeep: initialData.wordsOfAffirmationDeep || '',
-    qualityTimeDeep: initialData.qualityTimeDeep || '',
-    physicalTouchDeep: initialData.physicalTouchDeep || '',
-    giftsDeep: initialData.giftsDeep || '',
-    actsOfServiceDeep: initialData.actsOfServiceDeep || '',
-    needTimeToProcessDeep: initialData.needTimeToProcessDeep || '',
-    directCommunicationDeep: initialData.directCommunicationDeep || '',
-    gentleApproachDeep: initialData.gentleApproachDeep || '',
-    
-    ...initialData
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  
+  // Load existing data from temporary storage
+  const getExistingProfileData = () => {
+    const existingProfile = temporaryProfiles[profileType]?.[0] || {};
+    const existingDemographics = temporaryDemographics[profileType] || {};
+    return { ...existingProfile, ...existingDemographics, ...initialData };
+  };
+
+  const [formData, setFormData] = useState(() => {
+    const existingData = getExistingProfileData();
+    return {
+      // Communication preferences (required)
+      importantTalkPreference: existingData.importantTalkPreference || '',
+      communicationDirectness: existingData.communicationDirectness || '',
+      emotionExpression: existingData.emotionExpression || '',
+      
+      // Love languages (required)
+      loveLanguages: existingData.loveLanguages || [],
+      
+      // Deep dive love language questions (optional)
+      wordsOfAffirmationDeep: existingData.wordsOfAffirmationDeep || '',
+      qualityTimeDeep: existingData.qualityTimeDeep || '',
+      physicalTouchDeep: existingData.physicalTouchDeep || '',
+      giftsDeep: existingData.giftsDeep || '',
+      actsOfServiceDeep: existingData.actsOfServiceDeep || '',
+      needTimeToProcessDeep: existingData.needTimeToProcessDeep || '',
+      directCommunicationDeep: existingData.directCommunicationDeep || '',
+      gentleApproachDeep: existingData.gentleApproachDeep || '',
+      
+      ...existingData
+    };
   });
+
+  // Auto-save data whenever formData changes
+  useEffect(() => {
+    const saveData = () => {
+      const currentProfile = temporaryProfiles[profileType]?.[0] || {};
+      const currentDemographics = temporaryDemographics[profileType] || {};
+      
+      const updatedProfile = { ...currentProfile, ...formData };
+      const updatedDemographics = { ...currentDemographics, ...formData };
+      
+      const newProfiles = {
+        ...temporaryProfiles,
+        [profileType]: [updatedProfile]
+      };
+      
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: updatedDemographics
+      };
+      
+      updateTemporaryProfile(newProfiles, newDemographics);
+    };
+
+    // Debounce the save to avoid too frequent updates
+    const timeoutId = setTimeout(saveData, 500);
+    return () => clearTimeout(timeoutId);
+  }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 
   const isPersonal = profileType === 'your';
 
@@ -99,6 +139,9 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
           </h3>
           <p className="text-sm text-gray-600">
             <span className="text-red-500">*</span> indicates required questions. Deep dive questions are optional and help provide more personalized insights.
+          </p>
+          <p className="text-xs text-green-600 mt-1">
+            ✓ Your answers are automatically saved as you type
           </p>
         </div>
         
