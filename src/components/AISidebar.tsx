@@ -8,6 +8,7 @@ import { User, Lightbulb, Heart, MessageCircle, Plus, Settings, Eye } from "luci
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 
@@ -30,8 +31,11 @@ const AISidebar = ({
   onOpenProfileForm,
   onStartConversation
 }: AISidebarProps) => {
-  const userName = demographicsData.your?.name || '';
-  const partnerName = demographicsData.partner?.name || '';
+  // Use temporary profile data for real-time updates
+  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  
+  const userName = temporaryDemographics.your?.name || '';
+  const partnerName = temporaryDemographics.partner?.name || '';
   const { topics, loading } = useConversationTopics();
   
   // Use centralized progress tracking
@@ -40,10 +44,10 @@ const AISidebar = ({
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages using the same logic as useProgressiveAccess
+  // Calculate individual profile completion percentages using the same logic as ProfileBuilder
   const calculateYourCompletion = () => {
-    const yourProfile = profiles.your[0];
-    const yourDemo = demographicsData.your;
+    const yourProfile = temporaryProfiles.your[0];
+    const yourDemo = temporaryDemographics.your;
     
     if (!yourProfile && !yourDemo) return 0;
     
@@ -68,8 +72,8 @@ const AISidebar = ({
   };
 
   const calculatePartnerCompletion = () => {
-    const partnerProfile = profiles.partner[0];
-    const partnerDemo = demographicsData.partner;
+    const partnerProfile = temporaryProfiles.partner[0];
+    const partnerDemo = temporaryDemographics.partner;
     
     if (!partnerProfile && !partnerDemo) return 0;
     

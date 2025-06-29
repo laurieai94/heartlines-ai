@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -9,6 +10,7 @@ import Demographics from "@/components/Demographics";
 import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
 import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 
 interface ProfileStats {
   completion: number;
@@ -41,42 +43,59 @@ const ProfileBuilder = ({
     handleQuestionnaireClose 
   } = usePersonalProfileQuestionnaire();
 
-  // Use centralized progress tracking
+  // Use centralized progress tracking and temporary profile data
   const { profileCompletion } = useProgressiveAccess();
+  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
 
   // Get user's name for personalization
-  const userName = demographicsData.your?.name || '';
+  const userName = temporaryDemographics.your?.name || '';
 
-  // Calculate individual profile completion percentages (simplified)
-  const calculateIndividualCompletion = (profileData: any[], demographicsData: any) => {
-    if (!profileData.length && !demographicsData) return 0;
+  // Calculate individual profile completion percentages using the same logic as useProgressiveAccess
+  const calculateYourCompletion = () => {
+    const yourProfile = temporaryProfiles.your[0];
+    const yourDemo = temporaryDemographics.your;
     
-    let totalFields = 8;
-    let completedFields = 0;
+    if (!yourProfile && !yourDemo) return 0;
     
-    if (demographicsData?.name) completedFields++;
-    if (demographicsData?.age) completedFields++;
-    if (profileData[0]?.stressReactions?.length > 0) completedFields++;
-    if (profileData[0]?.attachmentStyles?.length > 0) completedFields++;
-    if (profileData[0]?.loveLanguages?.length > 0) completedFields++;
-    if (profileData[0]?.receiveLove?.length > 0) completedFields++;
-    if (profileData[0]?.familyDynamics?.length > 0) completedFields++;
-    if (profileData[0]?.relationshipStatus?.length > 0) completedFields++;
+    let completed = 0;
+    let total = 8;
     
-    return Math.round((completedFields / totalFields) * 100);
+    // Basic info
+    if (yourDemo?.name) completed++;
+    if (yourDemo?.age) completed++;
+    
+    // Emotional blueprint - check both profile and demographics
+    if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
+    if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
+    if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
+    if (yourProfile?.receiveLove?.length > 0 || yourDemo?.receiveLove?.length > 0) completed++;
+    
+    // Background
+    if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
+    if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
+    
+    return Math.round((completed / total) * 100);
   };
 
-  const yourProfileStats: ProfileStats = {
-    completion: calculateIndividualCompletion(profiles.your, demographicsData.your),
-    sectionsComplete: profiles.your.length > 0 ? 4 : 0,
-    totalSections: 5
+  const calculatePartnerCompletion = () => {
+    const partnerProfile = temporaryProfiles.partner[0];
+    const partnerDemo = temporaryDemographics.partner;
+    
+    if (!partnerProfile && !partnerDemo) return 0;
+    
+    let completed = 0;
+    let total = 4;
+    
+    if (partnerDemo?.name) completed++;
+    if (partnerProfile?.communicationStyle) completed++;
+    if (partnerProfile?.loveLanguages?.length > 0) completed++;
+    if (partnerProfile?.conflictStyle) completed++;
+    
+    return Math.round((completed / total) * 100);
   };
 
-  const partnerProfileStats: ProfileStats = {
-    completion: calculateIndividualCompletion(profiles.partner, demographicsData.partner),
-    sectionsComplete: profiles.partner.length > 0 ? 2 : 0,
-    totalSections: 5
-  };
+  const yourProfileCompletion = calculateYourCompletion();
+  const partnerProfileCompletion = calculatePartnerCompletion();
 
   const handleStartProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
@@ -162,10 +181,10 @@ const ProfileBuilder = ({
                 </h3>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex-1">
-                    <Progress value={yourProfileStats.completion} className="h-2 bg-white/60" />
+                    <Progress value={yourProfileCompletion} className="h-2 bg-white/60" />
                   </div>
                   <span className="text-sm font-semibold text-purple-600">
-                    {yourProfileStats.completion}%
+                    {yourProfileCompletion}%
                   </span>
                 </div>
               </div>
@@ -200,7 +219,7 @@ const ProfileBuilder = ({
               onClick={openQuestionnaire}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             >
-              Begin My Profile
+              {yourProfileCompletion > 0 ? 'Continue My Profile' : 'Begin My Profile'}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
@@ -217,10 +236,10 @@ const ProfileBuilder = ({
                 <h3 className="text-xl font-bold text-gray-900">Unlock Their Perspective Too</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex-1">
-                    <Progress value={partnerProfileStats.completion} className="h-2 bg-white/60" />
+                    <Progress value={partnerProfileCompletion} className="h-2 bg-white/60" />
                   </div>
                   <span className="text-sm font-semibold text-rose-600">
-                    {partnerProfileStats.completion}%
+                    {partnerProfileCompletion}%
                   </span>
                 </div>
               </div>
@@ -255,7 +274,7 @@ const ProfileBuilder = ({
               onClick={() => handleStartProfile('partner')}
               className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             >
-              Add Partner Profile
+              {partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
