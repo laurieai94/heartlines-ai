@@ -73,13 +73,35 @@ export const useProgressiveAccess = () => {
     // Check for essential fields that indicate meaningful personal profile completion
     const hasName = yourDemographics?.name || yourProfile?.name;
     const hasAge = yourDemographics?.age || yourProfile?.age;
-    const hasEmotionalData = (yourProfile?.stressReactions?.length > 0 || yourDemographics?.stressReactions?.length > 0) ||
-                            (yourProfile?.attachmentStyles?.length > 0 || yourDemographics?.attachmentStyles?.length > 0) ||
-                            (yourProfile?.loveLanguages?.length > 0 || yourDemographics?.loveLanguages?.length > 0);
+    
+    // Check for communication and emotional data from the actual form fields
+    const hasCommunicationData = yourProfile?.importantTalkPreference || 
+                                yourProfile?.communicationDirectness || 
+                                yourProfile?.emotionExpression;
+    
+    const hasLoveLanguages = yourProfile?.loveLanguages && yourProfile.loveLanguages.length > 0;
+    
+    const hasConflictData = yourProfile?.conflictResponse || 
+                           yourProfile?.stressSpaceNeed || 
+                           yourProfile?.stressSupportNeed;
+    
+    const hasAttachmentData = yourProfile?.comfortableClosenessIndependence || 
+                             yourProfile?.worryRelationshipSecurity || 
+                             yourProfile?.wantClosenessButFearHurt;
     
     const hasBasicInfo = hasName && hasAge;
+    const hasEmotionalData = hasCommunicationData || hasLoveLanguages || hasConflictData || hasAttachmentData;
     
-    console.log('Essential personal profile check:', { hasName, hasAge, hasEmotionalData, hasBasicInfo });
+    console.log('Essential personal profile check:', { 
+      hasName, 
+      hasAge, 
+      hasCommunicationData, 
+      hasLoveLanguages, 
+      hasConflictData, 
+      hasAttachmentData, 
+      hasBasicInfo, 
+      hasEmotionalData 
+    });
     
     // User has completed enough personal profile to enable chat
     const isComplete = hasBasicInfo && hasEmotionalData;
