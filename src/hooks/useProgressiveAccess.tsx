@@ -70,41 +70,52 @@ export const useProgressiveAccess = () => {
     
     console.log('Checking essential personal profile:', { yourProfile, yourDemographics });
     
-    // Check for essential fields that indicate meaningful personal profile completion
+    // Check for basic required info - using the same pattern as partner profile
     const hasName = yourDemographics?.name || yourProfile?.name;
     const hasAge = yourDemographics?.age || yourProfile?.age;
     
-    // Check for communication and emotional data from the actual form fields
-    const hasCommunicationData = yourProfile?.importantTalkPreference || 
-                                yourProfile?.communicationDirectness || 
-                                yourProfile?.emotionExpression;
+    // Check if we have meaningful profile data - look for any significant responses
+    const hasStressReactions = (yourDemographics?.stressReactions && Array.isArray(yourDemographics.stressReactions) && yourDemographics.stressReactions.length > 0) ||
+                              (yourProfile?.stressReactions && Array.isArray(yourProfile.stressReactions) && yourProfile.stressReactions.length > 0);
     
-    const hasLoveLanguages = yourProfile?.loveLanguages && yourProfile.loveLanguages.length > 0;
+    const hasAttachmentStyles = (yourDemographics?.attachmentStyles && Array.isArray(yourDemographics.attachmentStyles) && yourDemographics.attachmentStyles.length > 0) ||
+                               (yourProfile?.attachmentStyles && Array.isArray(yourProfile.attachmentStyles) && yourProfile.attachmentStyles.length > 0);
     
-    const hasConflictData = yourProfile?.conflictResponse || 
-                           yourProfile?.stressSpaceNeed || 
-                           yourProfile?.stressSupportNeed;
+    const hasLoveLanguages = (yourDemographics?.loveLanguages && Array.isArray(yourDemographics.loveLanguages) && yourDemographics.loveLanguages.length > 0) ||
+                            (yourProfile?.loveLanguages && Array.isArray(yourProfile.loveLanguages) && yourProfile.loveLanguages.length > 0);
     
-    const hasAttachmentData = yourProfile?.comfortableClosenessIndependence || 
-                             yourProfile?.worryRelationshipSecurity || 
-                             yourProfile?.wantClosenessButFearHurt;
+    const hasReceiveLove = (yourDemographics?.receiveLove && Array.isArray(yourDemographics.receiveLove) && yourDemographics.receiveLove.length > 0) ||
+                          (yourProfile?.receiveLove && Array.isArray(yourProfile.receiveLove) && yourProfile.receiveLove.length > 0);
     
+    const hasFamilyDynamics = (yourDemographics?.familyDynamics && Array.isArray(yourDemographics.familyDynamics) && yourDemographics.familyDynamics.length > 0) ||
+                             (yourProfile?.familyDynamics && Array.isArray(yourProfile.familyDynamics) && yourProfile.familyDynamics.length > 0);
+    
+    const hasRelationshipStatus = (yourDemographics?.relationshipStatus && Array.isArray(yourDemographics.relationshipStatus) && yourDemographics.relationshipStatus.length > 0) ||
+                                 (yourProfile?.relationshipStatus && Array.isArray(yourProfile.relationshipStatus) && yourProfile.relationshipStatus.length > 0);
+    
+    // Basic requirements: name and age
     const hasBasicInfo = hasName && hasAge;
-    const hasEmotionalData = hasCommunicationData || hasLoveLanguages || hasConflictData || hasAttachmentData;
+    
+    // Emotional data: at least 2 out of the 4 main categories
+    const emotionalDataCount = [hasStressReactions, hasAttachmentStyles, hasLoveLanguages, hasReceiveLove, hasFamilyDynamics, hasRelationshipStatus].filter(Boolean).length;
+    const hasEnoughEmotionalData = emotionalDataCount >= 2;
     
     console.log('Essential personal profile check:', { 
-      hasName, 
-      hasAge, 
-      hasCommunicationData, 
-      hasLoveLanguages, 
-      hasConflictData, 
-      hasAttachmentData, 
+      hasName: !!hasName, 
+      hasAge: !!hasAge, 
+      hasStressReactions,
+      hasAttachmentStyles,
+      hasLoveLanguages,
+      hasReceiveLove,
+      hasFamilyDynamics,
+      hasRelationshipStatus,
       hasBasicInfo, 
-      hasEmotionalData 
+      emotionalDataCount,
+      hasEnoughEmotionalData
     });
     
     // User has completed enough personal profile to enable chat
-    const isComplete = hasBasicInfo && hasEmotionalData;
+    const isComplete = hasBasicInfo && hasEnoughEmotionalData;
     console.log('Personal profile complete for chat access:', isComplete);
     return isComplete;
   };
