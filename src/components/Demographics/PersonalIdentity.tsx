@@ -21,13 +21,17 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
 
   // Load existing data when component mounts or when profile data changes
   useEffect(() => {
-    if (isPersonal && isLoaded && personalProfileData) {
-      console.log('PersonalIdentity: Loading existing data:', personalProfileData);
+    if (isPersonal && isLoaded && personalProfileData && Object.keys(personalProfileData).length > 0) {
+      console.log('PersonalIdentity: Loading existing personal data:', personalProfileData);
       
-      // Update form data with existing values
+      // Update form data with existing values, but only if the form field is empty
       Object.keys(personalProfileData).forEach(key => {
-        if (personalProfileData[key] && formData[key] !== personalProfileData[key]) {
-          updateFormData(key, personalProfileData[key]);
+        const existingValue = personalProfileData[key];
+        const currentValue = formData[key];
+        
+        if (existingValue && (!currentValue || (Array.isArray(currentValue) && currentValue.length === 0))) {
+          console.log(`PersonalIdentity: Setting ${key} to`, existingValue);
+          updateFormData(key, existingValue);
         }
       });
     }

@@ -60,19 +60,36 @@ export const useTemporaryProfile = () => {
   useEffect(() => {
     if (isLoaded) {
       console.log('Saving profiles to localStorage:', temporaryProfiles);
-      localStorage.setItem('realtalk_temp_profiles', JSON.stringify(temporaryProfiles));
+      try {
+        localStorage.setItem('realtalk_temp_profiles', JSON.stringify(temporaryProfiles));
+      } catch (error) {
+        console.error('Error saving profiles to localStorage:', error);
+      }
     }
   }, [temporaryProfiles, isLoaded]);
 
   useEffect(() => {
     if (isLoaded) {
       console.log('Saving demographics to localStorage:', temporaryDemographics);
-      localStorage.setItem('realtalk_temp_demographics', JSON.stringify(temporaryDemographics));
+      try {
+        localStorage.setItem('realtalk_temp_demographics', JSON.stringify(temporaryDemographics));
+      } catch (error) {
+        console.error('Error saving demographics to localStorage:', error);
+      }
     }
   }, [temporaryDemographics, isLoaded]);
 
   const updateTemporaryProfile = (newProfiles: TemporaryProfileData, newDemographics: TemporaryDemographicsData) => {
     console.log('Updating temporary profile data:', { newProfiles, newDemographics });
+    
+    // Immediately save to localStorage as well as state
+    try {
+      localStorage.setItem('realtalk_temp_profiles', JSON.stringify(newProfiles));
+      localStorage.setItem('realtalk_temp_demographics', JSON.stringify(newDemographics));
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+    
     setTemporaryProfiles(newProfiles);
     setTemporaryDemographics(newDemographics);
   };

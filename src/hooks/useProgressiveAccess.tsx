@@ -63,15 +63,23 @@ export const useProgressiveAccess = () => {
 
   // Check if personal profile has essential information for chat access
   const hasEssentialPersonalProfile = () => {
-    if (!isLoaded) return false;
+    if (!isLoaded) {
+      console.log('Data not loaded yet, returning false for hasEssentialPersonalProfile');
+      return false;
+    }
     
     const yourProfile = temporaryProfiles.your[0];
     const yourDemographics = temporaryDemographics.your;
     
     console.log('Checking essential personal profile:', { yourProfile, yourDemographics });
     
-    // Comprehensive check - look in both data sources
-    const allData = { ...yourProfile, ...yourDemographics };
+    // Comprehensive check - look in both data sources and merge them
+    const allData = { 
+      ...(yourProfile || {}), 
+      ...(yourDemographics || {}) 
+    };
+    
+    console.log('Merged personal profile data for checking:', allData);
     
     // Basic requirements
     const hasName = allData?.name && allData.name.trim() !== '';
@@ -98,7 +106,7 @@ export const useProgressiveAccess = () => {
       hasFamilyDynamics,
       hasRelationshipStatus,
       hasQuestionnaireSource,
-      allData
+      allDataKeys: Object.keys(allData)
     });
     
     // Must have basic info AND at least 4 core questionnaire responses OR be marked as questionnaire complete
@@ -123,7 +131,10 @@ export const useProgressiveAccess = () => {
   
   // Determine access level - enable full access with completed personal profile
   const getAccessLevel = (): AccessLevel => {
-    if (user) return 'full-access';
+    if (user) {
+      console.log('User is authenticated, granting full access');
+      return 'full-access';
+    }
     
     // If user has essential personal profile data, enable full functionality
     if (hasPersonalProfileForChat) {

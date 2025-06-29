@@ -18,35 +18,27 @@ export const usePersonalProfileQuestionnaire = () => {
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     
-    // Create comprehensive profile data by merging all existing data with new data
-    const updatedProfile = {
+    // Merge all existing data with new questionnaire data
+    const mergedData = {
       ...existingProfile,
-      ...existingDemographics, // Include demographics data in profile
-      ...questionnaireData,
-      completedAt: new Date().toISOString(),
-      profileSource: 'personal-questionnaire'
-    };
-    
-    const updatedDemographics = {
       ...existingDemographics,
-      ...existingProfile, // Include profile data in demographics
       ...questionnaireData,
       completedAt: new Date().toISOString(),
       profileSource: 'personal-questionnaire'
     };
     
-    // Update temporary profile system
+    // Update both profile and demographics with the complete merged data
     const newProfiles = {
       ...temporaryProfiles,
-      your: [updatedProfile]
+      your: [mergedData]
     };
     
     const newDemographics = {
       ...temporaryDemographics,
-      your: updatedDemographics
+      your: mergedData
     };
     
-    console.log('Saving questionnaire data to temporary profile:', { newProfiles, newDemographics });
+    console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
     setShowQuestionnaire(false);

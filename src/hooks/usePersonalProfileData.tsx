@@ -4,18 +4,23 @@ import { useTemporaryProfile } from './useTemporaryProfile';
 export const usePersonalProfileData = () => {
   const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
   
-  // Merge all existing personal profile data from both sources
+  // Get the most complete personal profile data by merging both sources
   const getPersonalProfileData = () => {
     if (!isLoaded) return {};
     
-    const existingProfile = temporaryProfiles.your[0] || {};
-    const existingDemographics = temporaryDemographics.your || {};
+    const profileData = temporaryProfiles.your[0] || {};
+    const demographicsData = temporaryDemographics.your || {};
     
-    // Merge all data sources
-    return {
-      ...existingProfile,
-      ...existingDemographics
+    console.log('Getting personal profile data:', { profileData, demographicsData });
+    
+    // Return merged data with demographics taking precedence for most fields
+    const mergedData = {
+      ...profileData,
+      ...demographicsData
     };
+    
+    console.log('Merged personal profile data:', mergedData);
+    return mergedData;
   };
 
   return {
