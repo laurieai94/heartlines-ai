@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 
 interface PersonalIdentityProps {
   profileType: 'your' | 'partner';
@@ -16,7 +16,7 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfileData();
+  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfilePersistence();
 
   // Use personal profile data if this is the personal profile
   const currentData = isPersonal ? profileData : formData;
@@ -53,7 +53,14 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
 
   // Don't render until data is ready for personal profiles
   if (isPersonal && !isReady) {
-    return <div className="text-center py-4">Loading your profile...</div>;
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your profile...</p>
+        </div>
+      </div>
+    );
   }
 
   return (

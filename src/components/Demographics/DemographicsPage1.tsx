@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -17,13 +17,13 @@ interface DemographicsPage1Props {
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
   const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
-  const { profileData, isReady, updateField } = usePersonalProfileData();
+  const { profileData, isReady, updateField, isLoading } = usePersonalProfilePersistence();
   const isPersonal = profileType === 'your';
   
   // Initialize form data based on profile type
   const [formData, setFormData] = useState(() => {
     if (isPersonal) {
-      return {}; // Personal data is handled by usePersonalProfileData
+      return {}; // Personal data is handled by usePersonalProfilePersistence
     } else {
       const existingData = temporaryDemographics[profileType] || {};
       return {
@@ -137,7 +137,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   const progressPercentage = (completedFields.length / totalRequiredFields) * 100;
 
   // Show loading for personal profiles until ready
-  if (isPersonal && !isReady) {
+  if (isPersonal && (isLoading || !isReady)) {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
