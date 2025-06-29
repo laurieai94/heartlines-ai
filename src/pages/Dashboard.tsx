@@ -54,7 +54,7 @@ const Dashboard = () => {
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
         {/* Clean Navigation Header */}
-        <div className="w-full bg-gradient-to-r from-gray-50 to-indigo-50/30">
+        <div className="w-full bg-gradient-to-b from-gray-50/80 via-indigo-50/40 to-transparent">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
             <div className="flex items-center justify-between py-6">
