@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -206,8 +205,9 @@ const PersonalProfileQuestionnaire = ({ isOpen, onClose, onComplete }: PersonalP
             <CardContent className="space-y-6">
               <div className="flex justify-center">
                 <AvatarUpload
-                  currentAvatar={formData.avatarUrl}
-                  onAvatarChange={(url) => updateFormData('avatarUrl', url)}
+                  currentAvatarUrl={formData.avatarUrl}
+                  onAvatarUpdate={(url) => updateFormData('avatarUrl', url)}
+                  userName={formData.name}
                 />
               </div>
 
