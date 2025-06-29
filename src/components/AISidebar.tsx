@@ -4,15 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { User, Lightbulb, Heart, MessageCircle, Plus, Settings, Eye } from "lucide-react";
+import { User, Lightbulb, Heart, MessageCircle, Plus, Eye } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
-import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { useNavigation } from "@/contexts/NavigationContext";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
-import ProfileForm from "./ProfileForm";
-import Demographics from "./Demographics";
 
 interface AISidebarProps {
   profiles: ProfileData;
@@ -33,11 +31,10 @@ const AISidebar = ({
   onOpenProfileForm,
   onStartConversation
 }: AISidebarProps) => {
-  // Use temporary profile data directly for real-time updates and consistency with Profile tab
-  const { temporaryProfiles, temporaryDemographics, isLoaded, updateTemporaryProfile } = useTemporaryProfile();
+  const { goToProfile } = useNavigation();
   
-  const userName = temporaryDemographics.your?.name || '';
-  const partnerName = temporaryDemographics.partner?.name || '';
+  const userName = demographicsData.your?.name || '';
+  const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
   
   // Use centralized progress tracking
@@ -45,18 +42,11 @@ const AISidebar = ({
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
-  
-  // New state for profile form modal
-  const [showProfileForm, setShowProfileForm] = useState(false);
-  const [showDemographics, setShowDemographics] = useState(false);
-  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages using real-time data
+  // Calculate individual profile completion percentages using the same data as Profile page
   const calculateYourCompletion = () => {
-    if (!isLoaded) return 0;
-    
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemo = temporaryDemographics.your;
+    const yourProfile = profiles.your[0];
+    const yourDemo = demographicsData.your;
     
     if (!yourProfile && !yourDemo) return 0;
     
@@ -82,10 +72,8 @@ const AISidebar = ({
   };
 
   const calculatePartnerCompletion = () => {
-    if (!isLoaded) return 0;
-    
-    const partnerProfile = temporaryProfiles.partner[0];
-    const partnerDemo = temporaryDemographics.partner;
+    const partnerProfile = profiles.partner[0];
+    const partnerDemo = demographicsData.partner;
     
     if (!partnerProfile && !partnerDemo) return 0;
     
@@ -110,45 +98,9 @@ const AISidebar = ({
     setShowProfileViewer(true);
   };
 
-  // Handle continuing/starting profiles - show modal instead of navigating
+  // Handle continuing/starting profiles - navigate to Profile tab
   const handleStartContinueProfile = (profileType: 'your' | 'partner') => {
-    setActiveProfileType(profileType);
-    // If no demographics data exists for this profile type, show demographics first
-    if (!temporaryDemographics[profileType]) {
-      setShowDemographics(true);
-    } else {
-      setShowProfileForm(true);
-    }
-  };
-
-  // Handle profile form completion
-  const handleProfileComplete = (profileData: any) => {
-    // Update temporary profile data
-    const newProfiles = { ...temporaryProfiles };
-    const newDemographics = { ...temporaryDemographics };
-    
-    newProfiles[activeProfileType] = [profileData];
-    
-    updateTemporaryProfile(newProfiles, newDemographics);
-    setShowProfileForm(false);
-  };
-
-  // Handle demographics completion
-  const handleDemographicsComplete = (demographicsData: any) => {
-    // Update temporary demographics data
-    const newProfiles = { ...temporaryProfiles };
-    const newDemographics = { ...temporaryDemographics };
-    
-    newDemographics[activeProfileType] = demographicsData;
-    
-    updateTemporaryProfile(newProfiles, newDemographics);
-    setShowDemographics(false);
-    setShowProfileForm(true);
-  };
-
-  const handleBackToDemographics = () => {
-    setShowProfileForm(false);
-    setShowDemographics(true);
+    goToProfile();
   };
 
   // Sort topics by frequency and recency
@@ -350,35 +302,13 @@ const AISidebar = ({
       {showProfileViewer && (
         <ProfileViewer
           profileType={viewingProfileType}
-          profileData={temporaryProfiles[viewingProfileType]}
-          demographicsData={temporaryDemographics[viewingProfileType]}
+          profileData={profiles[viewingProfileType]}
+          demographicsData={demographicsData[viewingProfileType]}
           onEdit={() => {
             setShowProfileViewer(false);
-            handleStartContinueProfile(viewingProfileType);
+            goToProfile();
           }}
           onClose={() => setShowProfileViewer(false)}
-        />
-      )}
-
-      {/* Demographics Modal */}
-      {showDemographics && (
-        <Demographics 
-          profileType={activeProfileType}
-          onClose={() => setShowDemographics(false)}
-          onComplete={handleDemographicsComplete}
-          initialData={temporaryDemographics[activeProfileType]}
-        />
-      )}
-      
-      {/* Profile Form Modal */}
-      {showProfileForm && (
-        <ProfileForm 
-          profileType={activeProfileType}
-          onClose={() => setShowProfileForm(false)}
-          onComplete={handleProfileComplete}
-          onBackToDemographics={handleBackToDemographics}
-          initialProfiles={temporaryProfiles}
-          initialDemographics={temporaryDemographics}
         />
       )}
     </>
