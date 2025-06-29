@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,12 +31,10 @@ const ProfileBuilder = ({
   initialProfiles = { your: [], partner: [] }, 
   initialDemographics = { your: null, partner: null } 
 }: ProfileBuilderProps) => {
-  const [profiles, setProfiles] = useState<{your: any[], partner: any[]}>(initialProfiles);
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
-  const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
 
   const { 
@@ -51,7 +50,7 @@ const ProfileBuilder = ({
 
   // Use centralized progress tracking and temporary profile data
   const { profileCompletion } = useProgressiveAccess();
-  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile, isLoaded } = useTemporaryProfile();
 
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || '';
@@ -114,7 +113,7 @@ const ProfileBuilder = ({
   const handleStartProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // Start with demographics if not completed yet
-    if (!demographicsData[profileType]) {
+    if (!temporaryDemographics[profileType]) {
       setShowDemographics(true);
     } else {
       setShowForm(true);
@@ -123,16 +122,18 @@ const ProfileBuilder = ({
 
   const handleDemographicsComplete = (demographics: any) => {
     const newDemographics = {
-      ...demographicsData,
+      ...temporaryDemographics,
       [activeProfileType]: demographics
     };
-    setDemographicsData(newDemographics);
+    
+    // Update temporary profile system
+    updateTemporaryProfile(temporaryProfiles, newDemographics);
     setShowDemographics(false);
     setShowForm(true);
     
     // Call the callback if provided
     if (onProfileUpdate) {
-      onProfileUpdate(profiles, newDemographics);
+      onProfileUpdate(temporaryProfiles, newDemographics);
     }
   };
 
@@ -142,10 +143,12 @@ const ProfileBuilder = ({
 
   const handleProfileComplete = (profile: any) => {
     const newProfiles = {
-      ...profiles,
-      [activeProfileType]: [...profiles[activeProfileType], profile]
+      ...temporaryProfiles,
+      [activeProfileType]: [...(temporaryProfiles[activeProfileType] || []).slice(0, 0), profile]
     };
-    setProfiles(newProfiles);
+    
+    // Update temporary profile system
+    updateTemporaryProfile(newProfiles, temporaryDemographics);
     setShowForm(false);
     
     // Check if this is partner profile completion
@@ -158,7 +161,7 @@ const ProfileBuilder = ({
     
     // Call the callback if provided
     if (onProfileUpdate) {
-      onProfileUpdate(newProfiles, demographicsData);
+      onProfileUpdate(newProfiles, temporaryDemographics);
     }
   };
 
@@ -166,7 +169,7 @@ const ProfileBuilder = ({
   const handlePersonalProfileAddPartner = () => {
     handleAddPartnerProfile();
     setActiveProfileType('partner');
-    if (!demographicsData.partner) {
+    if (!temporaryDemographics.partner) {
       setShowDemographics(true);
     } else {
       setShowForm(true);
@@ -439,7 +442,7 @@ const ProfileBuilder = ({
           profileType={activeProfileType}
           onComplete={handleDemographicsComplete}
           onClose={handleDemographicsClose}
-          initialData={demographicsData[activeProfileType]}
+          initialData={temporaryDemographics[activeProfileType]}
         />
       )}
 
@@ -448,8 +451,8 @@ const ProfileBuilder = ({
           profileType={activeProfileType}
           onClose={() => setShowForm(false)}
           onComplete={handleProfileComplete}
-          initialProfiles={profiles}
-          initialDemographics={demographicsData}
+          initialProfiles={temporaryProfiles}
+          initialDemographics={temporaryDemographics}
         />
       )}
 
@@ -486,3 +489,4 @@ const ProfileBuilder = ({
 };
 
 export default ProfileBuilder;
+
