@@ -167,11 +167,24 @@ const AISidebar = ({
           </p>
         </Card>
 
+        {/* Safe Space - More compact */}
+        <Card className="p-3 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300">
+          <div className="flex items-center gap-2 mb-2">
+            <Heart className="w-3 h-3 text-coral-600 animate-pulse" />
+            <h3 className="text-sm font-medium text-gray-900">Safe Space</h3>
+          </div>
+          <div className="text-xs text-gray-600 space-y-1">
+            <p>• No judgment, just support</p>
+            <p>• Your feelings are valid</p>
+            <p>• Messy is normal</p>
+          </div>
+        </Card>
+
         {/* Profile Completion Status - More compact */}
         <Card className="p-3 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-2 mb-3">
             <User className="w-3 h-3 text-coral-600" />
-            <h3 className="text-sm font-medium text-gray-900">Your Profiles</h3>
+            <h3 className="text-sm font-medium text-gray-900">You</h3>
             <div className="ml-auto text-xs text-gray-500">{profileCompletion}% overall</div>
           </div>
           
@@ -312,19 +325,6 @@ const AISidebar = ({
             ) : (
               <p className="text-xs text-gray-500">Keep chatting and I'll identify conversation themes</p>
             )}
-          </div>
-        </Card>
-
-        {/* Safe Space - More compact */}
-        <Card className="p-3 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300" style={{animationDelay: '0.4s'}}>
-          <div className="flex items-center gap-2 mb-2">
-            <Heart className="w-3 h-3 text-coral-600 animate-pulse" />
-            <h3 className="text-sm font-medium text-gray-900">Safe Space</h3>
-          </div>
-          <div className="text-xs text-gray-600 space-y-1">
-            <p>• No judgment, just support</p>
-            <p>• Your feelings are valid</p>
-            <p>• Messy is normal</p>
           </div>
         </Card>
 
