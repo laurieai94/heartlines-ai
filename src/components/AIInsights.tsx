@@ -7,6 +7,7 @@ import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
+import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -33,20 +34,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       setChatHistory(messages);
     }
   }, [conversations, currentConversationId, loadConversation]);
-
-  // Add contextual welcome message when user has profile data
-  useEffect(() => {
-    if (chatHistory.length === 0 && (profiles.your?.[0] || demographicsData.your)) {
-      const userName = demographicsData.your?.name || 'there';
-      const welcomeMessage: ChatMessage = {
-        id: Date.now(),
-        content: `Hi ${userName}! I'm Kai, your relationship coach. I can see you've shared some information about yourself, which helps me provide more personalized guidance. What would you like to talk about today?`,
-        type: 'ai',
-        timestamp: new Date().toISOString()
-      };
-      setChatHistory([welcomeMessage]);
-    }
-  }, [profiles, demographicsData, chatHistory.length]);
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
@@ -94,14 +81,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   return (
     <div className="flex gap-6 h-[calc(100vh-200px)]">
-      <AIChat 
-        profiles={profiles}
-        demographicsData={demographicsData}
-        chatHistory={chatHistory}
-        setChatHistory={setChatHistory}
-        isConfigured={isConfigured}
-        conversationStarter={conversationStarter}
-      />
+      <ProgressiveAccessWrapper action="chat">
+        <AIChat 
+          profiles={profiles}
+          demographicsData={demographicsData}
+          chatHistory={chatHistory}
+          setChatHistory={setChatHistory}
+          isConfigured={isConfigured}
+          conversationStarter={conversationStarter}
+        />
+      </ProgressiveAccessWrapper>
       <AISidebar 
         profiles={profiles}
         demographicsData={demographicsData}
