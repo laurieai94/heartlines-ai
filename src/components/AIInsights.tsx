@@ -18,8 +18,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   
-  // Use real-time temporary profile data for consistency
-  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  // Use the updateTemporaryProfile function for profile form updates
+  const { updateTemporaryProfile } = useTemporaryProfile();
   
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
 
@@ -46,7 +46,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // If no demographics data exists for this profile type, show demographics first
-    if (!temporaryDemographics[profileType]) {
+    if (!demographicsData[profileType]) {
       setShowDemographics(true);
     } else {
       setShowProfileForm(true);
@@ -87,8 +87,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     <div className="flex gap-6 h-[calc(100vh-200px)]">
       <ProgressiveAccessWrapper action="chat">
         <AIChat 
-          profiles={temporaryProfiles}
-          demographicsData={temporaryDemographics}
+          profiles={profiles}
+          demographicsData={demographicsData}
           chatHistory={chatHistory}
           setChatHistory={setChatHistory}
           isConfigured={isConfigured}
@@ -96,8 +96,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         />
       </ProgressiveAccessWrapper>
       <AISidebar 
-        profiles={temporaryProfiles}
-        demographicsData={temporaryDemographics}
+        profiles={profiles}
+        demographicsData={demographicsData}
         chatHistory={chatHistory}
         isConfigured={isConfigured}
         onSupabaseConfigured={handleSupabaseConfigured}
@@ -111,7 +111,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           profileType={activeProfileType}
           onClose={() => setShowDemographics(false)}
           onComplete={handleDemographicsComplete}
-          initialData={temporaryDemographics[activeProfileType]}
+          initialData={demographicsData[activeProfileType]}
         />
       )}
       
@@ -122,8 +122,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
           onBackToDemographics={handleBackToDemographics}
-          initialProfiles={temporaryProfiles}
-          initialDemographics={temporaryDemographics}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
         />
       )}
     </div>
