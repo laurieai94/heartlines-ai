@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -32,7 +31,7 @@ const AISidebar = ({
   onStartConversation
 }: AISidebarProps) => {
   // Use temporary profile data for real-time updates
-  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
   
   const userName = temporaryDemographics.your?.name || '';
   const partnerName = temporaryDemographics.partner?.name || '';
@@ -44,8 +43,10 @@ const AISidebar = ({
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages using the same logic as ProfileBuilder
+  // Calculate individual profile completion percentages
   const calculateYourCompletion = () => {
+    if (!isLoaded) return 0;
+    
     const yourProfile = temporaryProfiles.your[0];
     const yourDemo = temporaryDemographics.your;
     
@@ -68,10 +69,14 @@ const AISidebar = ({
     if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
     if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
     
-    return Math.round((completed / total) * 100);
+    const completion = Math.round((completed / total) * 100);
+    console.log('Your profile completion:', { completed, total, completion });
+    return completion;
   };
 
   const calculatePartnerCompletion = () => {
+    if (!isLoaded) return 0;
+    
     const partnerProfile = temporaryProfiles.partner[0];
     const partnerDemo = temporaryDemographics.partner;
     
@@ -85,12 +90,15 @@ const AISidebar = ({
     if (partnerProfile?.loveLanguages?.length > 0) completed++;
     if (partnerProfile?.conflictStyle) completed++;
     
-    return Math.round((completed / total) * 100);
+    const completion = Math.round((completed / total) * 100);
+    console.log('Partner profile completion:', { completed, total, completion });
+    return completion;
   };
 
   const yourCompletion = calculateYourCompletion();
   const partnerCompletion = calculatePartnerCompletion();
 
+  // Handle viewing and editing profiles
   const handleViewProfile = (profileType: 'your' | 'partner') => {
     setViewingProfileType(profileType);
     setShowProfileViewer(true);
@@ -131,7 +139,7 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Profile Completion Status with real-time updates from centralized hook */}
+        {/* Profile Completion Status with real-time updates */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />

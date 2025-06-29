@@ -45,13 +45,15 @@ const ProfileBuilder = ({
 
   // Use centralized progress tracking and temporary profile data
   const { profileCompletion } = useProgressiveAccess();
-  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
 
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || '';
 
-  // Calculate individual profile completion percentages using the same logic as useProgressiveAccess
+  // Calculate individual profile completion percentages
   const calculateYourCompletion = () => {
+    if (!isLoaded) return 0;
+    
     const yourProfile = temporaryProfiles.your[0];
     const yourDemo = temporaryDemographics.your;
     
@@ -74,10 +76,14 @@ const ProfileBuilder = ({
     if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
     if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
     
-    return Math.round((completed / total) * 100);
+    const completion = Math.round((completed / total) * 100);
+    console.log('ProfileBuilder - Your profile completion:', { completed, total, completion });
+    return completion;
   };
 
   const calculatePartnerCompletion = () => {
+    if (!isLoaded) return 0;
+    
     const partnerProfile = temporaryProfiles.partner[0];
     const partnerDemo = temporaryDemographics.partner;
     
@@ -91,7 +97,9 @@ const ProfileBuilder = ({
     if (partnerProfile?.loveLanguages?.length > 0) completed++;
     if (partnerProfile?.conflictStyle) completed++;
     
-    return Math.round((completed / total) * 100);
+    const completion = Math.round((completed / total) * 100);
+    console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion });
+    return completion;
   };
 
   const yourProfileCompletion = calculateYourCompletion();
@@ -331,7 +339,6 @@ const ProfileBuilder = ({
         </div>
       </Card>
 
-      {/* Expandable Tips Section */}
       <div className="max-w-4xl mx-auto">
         <Button 
           variant="ghost" 
@@ -344,7 +351,6 @@ const ProfileBuilder = ({
         
         {showDetails && (
           <div className="mt-6 space-y-4 animate-fade-in">
-            {/* Privacy Note */}
             <Card className="p-4 bg-gray-50 border-l-4 border-blue-400">
               <div className="flex items-center gap-3">
                 <Search className="w-4 h-4 text-gray-500" />
@@ -354,7 +360,6 @@ const ProfileBuilder = ({
               </div>
             </Card>
 
-            {/* Profile Building Tips */}
             <Card className="p-6 bg-white/60 backdrop-blur-md border-0 shadow-lg">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Profile Building Tips</h3>
               <div className="grid md:grid-cols-2 gap-6">
@@ -396,7 +401,6 @@ const ProfileBuilder = ({
         )}
       </div>
 
-      {/* Demographics Modal */}
       {showDemographics && (
         <Demographics 
           profileType={activeProfileType}
@@ -406,7 +410,6 @@ const ProfileBuilder = ({
         />
       )}
 
-      {/* Profile Form Modal */}
       {showForm && (
         <ProfileForm 
           profileType={activeProfileType}
@@ -417,7 +420,6 @@ const ProfileBuilder = ({
         />
       )}
 
-      {/* Personal Profile Questionnaire Modal */}
       {showQuestionnaire && (
         <PersonalProfileQuestionnaire
           onComplete={handleQuestionnaireComplete}

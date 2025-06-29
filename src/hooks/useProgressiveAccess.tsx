@@ -16,14 +16,22 @@ export interface ProgressiveAccessState {
 
 export const useProgressiveAccess = () => {
   const { user } = useAuth();
-  const { temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
   // Calculate profile completion percentage based on actual data
   const calculateProfileCompletion = () => {
+    // Don't calculate until data is loaded
+    if (!isLoaded) {
+      console.log('Profile completion: waiting for data to load');
+      return 0;
+    }
+
     let totalFields = 0;
     let completedFields = 0;
+
+    console.log('Calculating profile completion with data:', { temporaryProfiles, temporaryDemographics });
 
     // Check personal profile completion (your profile)
     const yourProfile = temporaryProfiles.your[0];
@@ -43,6 +51,7 @@ export const useProgressiveAccess = () => {
         const value = yourDemographics?.[field] || yourProfile?.[field];
         if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
           completedFields++;
+          console.log(`Personal field ${field} completed:`, value);
         }
       });
     }
@@ -59,6 +68,7 @@ export const useProgressiveAccess = () => {
         const value = partnerDemographics?.[field] || partnerProfile?.[field];
         if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
           completedFields++;
+          console.log(`Partner field ${field} completed:`, value);
         }
       });
     }
