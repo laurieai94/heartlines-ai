@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +8,11 @@ import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
+import ProfileForm from "./ProfileForm";
+import Demographics from "./Demographics";
 
 interface AISidebarProps {
   profiles: ProfileData;
@@ -32,6 +34,7 @@ const AISidebar = ({
   onStartConversation
 }: AISidebarProps) => {
   const { goToProfile } = useNavigation();
+  const { updateTemporaryProfile } = useTemporaryProfile();
   
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -42,6 +45,9 @@ const AISidebar = ({
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
+  const [showProfileForm, setShowProfileForm] = useState(false);
+  const [showDemographics, setShowDemographics] = useState(false);
+  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
   // Calculate individual profile completion percentages using the same data as Profile page
   const calculateYourCompletion = () => {
@@ -98,9 +104,37 @@ const AISidebar = ({
     setShowProfileViewer(true);
   };
 
-  // Handle continuing/starting profiles - navigate to Profile tab
+  // Handle continuing/starting profiles - open modals instead of navigating
   const handleStartContinueProfile = (profileType: 'your' | 'partner') => {
-    goToProfile();
+    setActiveProfileType(profileType);
+    // If no demographics data exists for this profile type, show demographics first
+    if (!demographicsData[profileType]) {
+      setShowDemographics(true);
+    } else {
+      setShowProfileForm(true);
+    }
+  };
+
+  const handleProfileComplete = (profileData: any) => {
+    setShowProfileForm(false);
+  };
+
+  const handleDemographicsComplete = (demographics: any) => {
+    // Update temporary profile data
+    const newDemographics = {
+      ...demographicsData,
+      [activeProfileType]: demographics
+    };
+    updateTemporaryProfile(profiles, newDemographics);
+    
+    // Move to profile form
+    setShowDemographics(false);
+    setShowProfileForm(true);
+  };
+
+  const handleBackToDemographics = () => {
+    setShowProfileForm(false);
+    setShowDemographics(true);
   };
 
   // Sort topics by frequency and recency
@@ -306,9 +340,32 @@ const AISidebar = ({
           demographicsData={demographicsData[viewingProfileType]}
           onEdit={() => {
             setShowProfileViewer(false);
-            goToProfile();
+            setActiveProfileType(viewingProfileType);
+            setShowProfileForm(true);
           }}
           onClose={() => setShowProfileViewer(false)}
+        />
+      )}
+
+      {/* Demographics Modal */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType}
+          onClose={() => setShowDemographics(false)}
+          onComplete={handleDemographicsComplete}
+          initialData={demographicsData[activeProfileType]}
+        />
+      )}
+      
+      {/* Profile Form Modal */}
+      {showProfileForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowProfileForm(false)}
+          onComplete={handleProfileComplete}
+          onBackToDemographics={handleBackToDemographics}
+          initialProfiles={profiles}
+          initialDemographics={demographicsData}
         />
       )}
     </>
