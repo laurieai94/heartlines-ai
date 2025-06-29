@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Heart, User, Brain, Home, Target } from "lucide-react";
-import { AvatarUpload } from "./AvatarUpload";
+import AvatarUpload from "./AvatarUpload";
 import { toast } from "sonner";
 
 interface PersonalProfileQuestionnaireProps {

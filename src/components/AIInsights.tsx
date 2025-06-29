@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
@@ -39,10 +38,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     if (chatHistory.length === 0 && (profiles.your?.[0] || demographicsData.your)) {
       const userName = demographicsData.your?.name || 'there';
       const welcomeMessage: ChatMessage = {
-        id: 'welcome-' + Date.now(),
+        id: Date.now(),
         content: `Hi ${userName}! I'm Kai, your relationship coach. I can see you've shared some information about yourself, which helps me provide more personalized guidance. What would you like to talk about today?`,
         role: 'assistant',
-        timestamp: new Date()
+        timestamp: new Date().toISOString()
       };
       setChatHistory([welcomeMessage]);
     }
