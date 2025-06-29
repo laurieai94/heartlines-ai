@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -260,28 +261,33 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-2">
-                  What's your name or nickname? <span className="text-red-500">*</span>
+                  What's your name or nickname?
                 </label>
                 <Input 
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
                   placeholder="Enter your name"
                   className="w-full"
-                  required
                 />
               </div>
 
               {/* Pronouns */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What pronouns do you use? <span className="text-red-500">*</span>
+                  What pronouns do you use?
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {['She/her', 'He/him', 'They/them', 'Xe/xem', 'Ze/zir', 'No pronouns — use my name', 'Prefer not to say'].map((pronoun) => (
                     <div key={pronoun} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.pronouns?.includes(pronoun) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('pronouns', pronoun)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('pronouns', pronoun);
+                          } else {
+                            handleMultiSelect('pronouns', pronoun);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{pronoun}</span>
                     </div>
@@ -300,14 +306,20 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Gender */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How do you identify your gender? (Select all that apply) <span className="text-red-500">*</span>
+                  How do you identify your gender? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {['Woman', 'Man', 'Non-binary', 'Genderqueer', 'Trans woman', 'Trans man', 'Agender', 'Gender fluid', 'Two-Spirit', 'Questioning', 'Prefer not to say'].map((gender) => (
                     <div key={gender} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.gender?.includes(gender) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('gender', gender)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('gender', gender);
+                          } else {
+                            handleMultiSelect('gender', gender);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{gender}</span>
                     </div>
@@ -333,7 +345,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={orientation} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.orientation?.includes(orientation) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('orientation', orientation)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('orientation', orientation);
+                          } else {
+                            handleMultiSelect('orientation', orientation);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{orientation}</span>
                     </div>
@@ -352,7 +370,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Age */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How old are you? <span className="text-red-500">*</span>
+                  How old are you?
                 </label>
                 <div className="grid md:grid-cols-3 gap-3">
                   {['Under 18', '18–24', '25–29', '30–39', '40–49', '50–60', '60+'].map((ageRange) => (
@@ -371,14 +389,20 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Status */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What's your current relationship status? (Select all that apply) <span className="text-red-500">*</span>
+                  What's your current relationship status? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {['Single', 'In a relationship', 'Engaged', 'Married', 'Open / Poly', 'Exploring', 'Separated / Divorced', 'Prefer not to say'].map((status) => (
                     <div key={status} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipStatus?.includes(status) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipStatus', status)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipStatus', status);
+                          } else {
+                            handleMultiSelect('relationshipStatus', status);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{status}</span>
                     </div>
@@ -394,7 +418,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Stress Reactions */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  When you're stressed in a relationship, how do you tend to react? (Select all that apply) <span className="text-red-500">*</span>
+                  When you're stressed in a relationship, how do you tend to react? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -410,7 +434,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={reaction} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.stressReactions?.includes(reaction) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('stressReactions', reaction)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('stressReactions', reaction);
+                          } else {
+                            handleMultiSelect('stressReactions', reaction);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{reaction}</span>
                     </div>
@@ -421,7 +451,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Attachment Styles */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Which attachment styles resonate with you? (Select all that apply) <span className="text-red-500">*</span>
+                  Which attachment styles resonate with you? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -436,7 +466,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={style} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.attachmentStyles?.includes(style) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('attachmentStyles', style)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('attachmentStyles', style);
+                          } else {
+                            handleMultiSelect('attachmentStyles', style);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{style}</span>
                     </div>
@@ -447,7 +483,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Conflict Needs */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What do you usually need in conflict? (Select all that apply) <span className="text-red-500">*</span>
+                  What do you usually need in conflict? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -463,7 +499,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={need} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.conflictNeeds?.includes(need) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('conflictNeeds', need)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('conflictNeeds', need);
+                          } else {
+                            handleMultiSelect('conflictNeeds', need);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{need}</span>
                     </div>
@@ -474,7 +516,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Show Love */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How do you show love to others? (Select all that apply) <span className="text-red-500">*</span>
+                  How do you show love to others? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -490,7 +532,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={way} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.showLove?.includes(way) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('showLove', way)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('showLove', way);
+                          } else {
+                            handleMultiSelect('showLove', way);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{way}</span>
                     </div>
@@ -501,7 +549,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Receive Love */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How do you prefer to receive love? (Select all that apply) <span className="text-red-500">*</span>
+                  How do you prefer to receive love? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -517,7 +565,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={way} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.receiveLove?.includes(way) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('receiveLove', way)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('receiveLove', way);
+                          } else {
+                            handleMultiSelect('receiveLove', way);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{way}</span>
                     </div>
@@ -533,7 +587,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Family Dynamics */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How would you describe your family dynamics growing up? (Select all that apply) <span className="text-red-500">*</span>
+                  How would you describe your family dynamics growing up? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -551,7 +605,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={dynamic} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.familyDynamics?.includes(dynamic) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('familyDynamics', dynamic)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('familyDynamics', dynamic);
+                          } else {
+                            handleMultiSelect('familyDynamics', dynamic);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{dynamic}</span>
                     </div>
@@ -562,7 +622,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Professional Support */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Have you worked with a therapist, coach, or support group? (Select all that apply) <span className="text-red-500">*</span>
+                  Have you worked with a therapist, coach, or support group? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -575,7 +635,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={support} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.professionalSupport?.includes(support) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('professionalSupport', support)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('professionalSupport', support);
+                          } else {
+                            handleMultiSelect('professionalSupport', support);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{support}</span>
                     </div>
@@ -586,7 +652,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Influences */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What influenced your ideas about love and relationships? (Select all that apply) <span className="text-red-500">*</span>
+                  What influenced your ideas about love and relationships? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -602,7 +668,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={influence} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipInfluences?.includes(influence) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipInfluences', influence)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipInfluences', influence);
+                          } else {
+                            handleMultiSelect('relationshipInfluences', influence);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{influence}</span>
                     </div>
@@ -613,7 +685,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Patterns */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What relationship patterns have you noticed in yourself? (Select all that apply) <span className="text-red-500">*</span>
+                  What relationship patterns have you noticed in yourself? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -630,7 +702,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={pattern} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipPatterns?.includes(pattern) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipPatterns', pattern)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipPatterns', pattern);
+                          } else {
+                            handleMultiSelect('relationshipPatterns', pattern);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{pattern}</span>
                     </div>
@@ -646,21 +724,20 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Partner Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Partner or Relationship Name/Nickname <span className="text-red-500">*</span>
+                  Partner or Relationship Name/Nickname
                 </label>
                 <Input 
                   value={formData.partnerName}
                   onChange={(e) => handleInputChange('partnerName', e.target.value)}
                   placeholder="Enter their name or nickname"
                   className="w-full"
-                  required
                 />
               </div>
 
               {/* Relationship Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How would you describe your current (or most recent) relationship? (Select all that apply) <span className="text-red-500">*</span>
+                  How would you describe your current (or most recent) relationship? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -678,7 +755,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={type} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipType?.includes(type) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipType', type)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipType', type);
+                          } else {
+                            handleMultiSelect('relationshipType', type);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{type}</span>
                     </div>
@@ -689,7 +772,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Duration */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How long have you been (or were you) in this relationship? (Select 1-2) <span className="text-red-500">*</span>
+                  How long have you been (or were you) in this relationship? (Select 1-2)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -703,7 +786,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={duration} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipDuration?.includes(duration) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipDuration', duration)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipDuration', duration);
+                          } else {
+                            handleMultiSelect('relationshipDuration', duration);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{duration}</span>
                     </div>
@@ -714,7 +803,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Positives */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What's working well in this relationship? (Select all that apply) <span className="text-red-500">*</span>
+                  What's working well in this relationship? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -729,7 +818,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={positive} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipPositives?.includes(positive) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipPositives', positive)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipPositives', positive);
+                          } else {
+                            handleMultiSelect('relationshipPositives', positive);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{positive}</span>
                     </div>
@@ -748,7 +843,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Relationship Challenges */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What feels difficult or unresolved? (Select all that apply) <span className="text-red-500">*</span>
+                  What feels difficult or unresolved? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -765,7 +860,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={challenge} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.relationshipChallenges?.includes(challenge) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('relationshipChallenges', challenge)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('relationshipChallenges', challenge);
+                          } else {
+                            handleMultiSelect('relationshipChallenges', challenge);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{challenge}</span>
                     </div>
@@ -776,7 +877,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Living Arrangement */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How do you currently live? (Select all that apply) <span className="text-red-500">*</span>
+                  How do you currently live? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -789,7 +890,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={arrangement} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.livingArrangement?.includes(arrangement) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('livingArrangement', arrangement)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('livingArrangement', arrangement);
+                          } else {
+                            handleMultiSelect('livingArrangement', arrangement);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{arrangement}</span>
                     </div>
@@ -800,7 +907,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Emotional Connection */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How emotionally connected do you feel with your partner right now? <span className="text-red-500">*</span>
+                  How emotionally connected do you feel with your partner right now?
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -831,7 +938,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Hoping For */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What are you most hoping RealTalk can support you with? (Select all that apply) <span className="text-red-500">*</span>
+                  What are you most hoping RealTalk can support you with? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -852,7 +959,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={hope} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.hopingFor?.includes(hope) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('hopingFor', hope)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('hopingFor', hope);
+                          } else {
+                            handleMultiSelect('hopingFor', hope);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{hope}</span>
                     </div>
@@ -863,7 +976,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Readiness */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  How ready are you to do the work? (Select all that apply) <span className="text-red-500">*</span>
+                  How ready are you to do the work? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -877,7 +990,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={readiness} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.readiness?.includes(readiness) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('readiness', readiness)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('readiness', readiness);
+                          } else {
+                            handleMultiSelect('readiness', readiness);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{readiness}</span>
                     </div>
@@ -888,7 +1007,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {/* Healthy Relationship */}
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-3">
-                  What does a healthy relationship mean to you? (Select all that apply) <span className="text-red-500">*</span>
+                  What does a healthy relationship mean to you? (Select all that apply)
                 </label>
                 <div className="grid md:grid-cols-2 gap-3">
                   {[
@@ -905,7 +1024,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <div key={healthy} className="flex items-center space-x-2">
                       <Checkbox 
                         checked={formData.healthyRelationship?.includes(healthy) || false}
-                        onCheckedChange={(checked) => handleMultiSelect('healthyRelationship', healthy)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            handleMultiSelect('healthyRelationship', healthy);
+                          } else {
+                            handleMultiSelect('healthyRelationship', healthy);
+                          }
+                        }}
                       />
                       <span className="text-sm text-gray-700">{healthy}</span>
                     </div>
