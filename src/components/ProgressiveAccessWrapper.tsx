@@ -29,12 +29,6 @@ const ProgressiveAccessWrapper = ({
 
     const canProceed = checkInteractionPermission(action);
     
-    // Special handling for chat/insights actions with personal profile completion
-    if (!canProceed && (action === 'chat' || action === 'insights') && hasPersonalProfileForChat) {
-      // This shouldn't happen with the new logic, but just in case
-      return;
-    }
-    
     if (!canProceed && accessLevel === 'profile-required') {
       const handleProfileClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -67,8 +61,8 @@ const ProgressiveAccessWrapper = ({
     }
   };
 
-  // For full access or when personal profile enables chat access
-  if (accessLevel === 'full-access' || (hasPersonalProfileForChat && (action === 'chat' || action === 'insights'))) {
+  // For full access (including personal profile completion), allow unrestricted access
+  if (accessLevel === 'full-access') {
     return <>{children}</>;
   }
 

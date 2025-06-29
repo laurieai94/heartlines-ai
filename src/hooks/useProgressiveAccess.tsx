@@ -56,23 +56,6 @@ export const useProgressiveAccess = () => {
       });
     }
 
-    // Check partner profile completion
-    const partnerProfile = temporaryProfiles.partner[0];
-    const partnerDemographics = temporaryDemographics.partner;
-    
-    if (partnerProfile || partnerDemographics) {
-      const partnerFields = ['name', 'communicationStyle', 'loveLanguages', 'conflictStyle'];
-      totalFields += partnerFields.length;
-      
-      partnerFields.forEach(field => {
-        const value = partnerDemographics?.[field] || partnerProfile?.[field];
-        if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
-          completedFields++;
-          console.log(`Partner field ${field} completed:`, value);
-        }
-      });
-    }
-
     const completion = totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
     console.log('Profile completion calculated:', { completedFields, totalFields, completion });
     return completion;
@@ -102,12 +85,12 @@ export const useProgressiveAccess = () => {
   const profileCompletion = calculateProfileCompletion();
   const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // Determine access level - key change: enable chat access with personal profile completion
+  // Determine access level - enable chat access with personal profile completion
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
     
-    // If user has essential personal profile data, enable chat access
-    if (hasPersonalProfileForChat) return 'signup-required';
+    // If user has essential personal profile data, enable full functionality including chat
+    if (hasPersonalProfileForChat) return 'full-access';
     
     // Check if we have any profile data at all
     const hasAnyProfileData = temporaryDemographics.your?.name || 
@@ -121,23 +104,13 @@ export const useProgressiveAccess = () => {
 
   const accessLevel = getAccessLevel();
 
-  // Check if user can interact with features - key change: allow chat with personal profile
+  // Check if user can interact with features - allow all interactions with personal profile
   const checkInteractionPermission = (action: string): boolean => {
     console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%, hasPersonalProfile: ${hasPersonalProfileForChat}`);
     
     switch (accessLevel) {
       case 'full-access':
         return true;
-      
-      case 'signup-required':
-        // Personal profile completed - enable chat immediately, show signup for other actions
-        if (action === 'chat' || action === 'insights') {
-          return true; // Allow immediate chat access
-        }
-        // For other actions, show sign-up modal
-        setBlockingAction(action);
-        setShowSignUpModal(true);
-        return false;
       
       case 'profile-required':
         // No meaningful profile data - redirect to profile
@@ -157,7 +130,7 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true, // Always allow tab navigation
-    canInteract: accessLevel === 'full-access' || (accessLevel === 'signup-required' && hasPersonalProfileForChat),
+    canInteract: accessLevel === 'full-access',
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,
