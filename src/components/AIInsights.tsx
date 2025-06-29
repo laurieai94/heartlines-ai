@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
-import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
@@ -84,30 +83,20 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   return (
-    <div className="flex gap-4 h-full overflow-hidden">
+    <div className="h-full w-full">
       <ProgressiveAccessWrapper action="chat">
-        <div className="flex-1 min-w-0">
-          <AIChat 
-            profiles={profiles}
-            demographicsData={demographicsData}
-            chatHistory={chatHistory}
-            setChatHistory={setChatHistory}
-            isConfigured={isConfigured}
-            conversationStarter={conversationStarter}
-          />
-        </div>
-      </ProgressiveAccessWrapper>
-      <div className="w-80 flex-shrink-0">
-        <AISidebar 
+        <AIChat 
           profiles={profiles}
           demographicsData={demographicsData}
           chatHistory={chatHistory}
+          setChatHistory={setChatHistory}
           isConfigured={isConfigured}
+          conversationStarter={conversationStarter}
           onSupabaseConfigured={handleSupabaseConfigured}
           onOpenProfileForm={handleOpenProfileForm}
           onStartConversation={handleStartConversation}
         />
-      </div>
+      </ProgressiveAccessWrapper>
       
       {/* Demographics Modal */}
       {showDemographics && (
