@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useState, useEffect } from "react";
 
 interface PersonalIdentityProps {
@@ -17,25 +18,37 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { personalProfileData, isLoaded } = usePersonalProfileData();
+  const { personalProfileData, savePersonalProfileData, isLoaded } = usePersonalProfileData();
+  const { updateTemporaryProfile } = useTemporaryProfile();
 
   // Load existing data when component mounts or when profile data changes
   useEffect(() => {
     if (isPersonal && isLoaded && personalProfileData && Object.keys(personalProfileData).length > 0) {
       console.log('PersonalIdentity: Loading existing personal data:', personalProfileData);
       
-      // Update form data with existing values, but only if the form field is empty
+      // Update form data with existing values
       Object.keys(personalProfileData).forEach(key => {
         const existingValue = personalProfileData[key];
-        const currentValue = formData[key];
         
-        if (existingValue && (!currentValue || (Array.isArray(currentValue) && currentValue.length === 0))) {
+        if (existingValue !== undefined && existingValue !== null && existingValue !== '') {
           console.log(`PersonalIdentity: Setting ${key} to`, existingValue);
           updateFormData(key, existingValue);
         }
       });
     }
-  }, [isPersonal, isLoaded, personalProfileData]);
+  }, [isPersonal, isLoaded, personalProfileData, updateFormData]);
+
+  // Save data immediately when form data changes for personal profile
+  useEffect(() => {
+    if (isPersonal && isLoaded && formData && Object.keys(formData).length > 0) {
+      console.log('PersonalIdentity: Saving form data changes:', formData);
+      
+      const { newProfiles, newDemographics } = savePersonalProfileData(formData);
+      
+      // Update temporary storage
+      updateTemporaryProfile(newProfiles, newDemographics);
+    }
+  }, [formData, isPersonal, isLoaded, savePersonalProfileData, updateTemporaryProfile]);
 
   const handleAvatarUpdate = async (url: string) => {
     updateFormData('avatar_url', url);

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -16,13 +17,19 @@ interface DemographicsPage1Props {
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
   const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
+  const { personalProfileData, savePersonalProfileData, isLoaded } = usePersonalProfileData();
   const isPersonal = profileType === 'your';
   
-  // Load existing data from temporary storage - this is the key fix
+  // Get existing data - for personal profiles, use the unified data
   const getExistingData = () => {
-    const existingDemographics = temporaryDemographics[profileType] || {};
-    // Merge all data sources with proper precedence
-    return { ...existingDemographics, ...initialData };
+    if (isPersonal && isLoaded) {
+      // For personal profiles, use the merged data from usePersonalProfileData
+      return { ...personalProfileData, ...initialData };
+    } else {
+      // For partner profiles, use the existing logic
+      const existingDemographics = temporaryDemographics[profileType] || {};
+      return { ...existingDemographics, ...initialData };
+    }
   };
   
   const [formData, setFormData] = useState(() => {
@@ -40,32 +47,46 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     };
   });
 
-  // Reload data when temporary demographics change (important for persistence)
+  // Reload data when profile data changes
   useEffect(() => {
     const existingData = getExistingData();
-    setFormData(prev => ({
-      ...prev,
-      ...existingData
-    }));
-  }, [temporaryDemographics, profileType]);
+    console.log('DemographicsPage1: Reloading data for', profileType, existingData);
+    
+    setFormData(prev => {
+      const newData = { ...prev, ...existingData };
+      console.log('DemographicsPage1: Updated form data:', newData);
+      return newData;
+    });
+  }, [isPersonal, isLoaded, personalProfileData, temporaryDemographics, profileType]);
 
   // Auto-save data whenever formData changes
   useEffect(() => {
+    if (!isLoaded) return;
+    
     const saveData = () => {
-      const newDemographics = {
-        ...temporaryDemographics,
-        [profileType]: { ...temporaryDemographics[profileType], ...formData }
-      };
+      console.log('DemographicsPage1: Auto-saving data for', profileType, formData);
       
-      updateTemporaryProfile(temporaryProfiles, newDemographics);
+      if (isPersonal) {
+        // For personal profiles, use the unified save function
+        const { newProfiles, newDemographics } = savePersonalProfileData(formData);
+        updateTemporaryProfile(newProfiles, newDemographics);
+      } else {
+        // For partner profiles, use existing logic
+        const newDemographics = {
+          ...temporaryDemographics,
+          [profileType]: { ...temporaryDemographics[profileType], ...formData }
+        };
+        updateTemporaryProfile(temporaryProfiles, newDemographics);
+      }
     };
 
     // Debounce the save to avoid too frequent updates
-    const timeoutId = setTimeout(saveData, 500);
+    const timeoutId = setTimeout(saveData, 300);
     return () => clearTimeout(timeoutId);
-  }, [formData, profileType, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
+  }, [formData, profileType, isLoaded, isPersonal, savePersonalProfileData, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
 
   const updateFormData = (field: string, value: any) => {
+    console.log('DemographicsPage1: Updating field', field, 'with value:', value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -114,6 +135,8 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
 
   const handleContinue = () => {
     if (!validateRequired()) return;
+    
+    console.log('DemographicsPage1: Completing with data:', formData);
     onComplete(formData);
   };
 

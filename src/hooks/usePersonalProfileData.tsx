@@ -1,4 +1,3 @@
-
 import { useTemporaryProfile } from './useTemporaryProfile';
 
 export const usePersonalProfileData = () => {
@@ -13,7 +12,7 @@ export const usePersonalProfileData = () => {
     
     console.log('Getting personal profile data:', { profileData, demographicsData });
     
-    // Return merged data with demographics taking precedence for most fields
+    // Merge data with demographics taking precedence, but keep profile data as fallback
     const mergedData = {
       ...profileData,
       ...demographicsData
@@ -23,8 +22,39 @@ export const usePersonalProfileData = () => {
     return mergedData;
   };
 
+  // Save data to both storage locations for consistency
+  const savePersonalProfileData = (newData: any) => {
+    console.log('Saving personal profile data:', newData);
+    
+    const currentProfileData = temporaryProfiles.your[0] || {};
+    const currentDemographicsData = temporaryDemographics.your || {};
+    
+    // Merge with existing data
+    const updatedData = {
+      ...currentProfileData,
+      ...currentDemographicsData,
+      ...newData
+    };
+    
+    console.log('Updated personal profile data:', updatedData);
+    
+    // Save to both locations
+    const newProfiles = {
+      ...temporaryProfiles,
+      your: [updatedData]
+    };
+    
+    const newDemographics = {
+      ...temporaryDemographics,
+      your: updatedData
+    };
+    
+    return { newProfiles, newDemographics };
+  };
+
   return {
     personalProfileData: getPersonalProfileData(),
+    savePersonalProfileData,
     isLoaded
   };
 };
