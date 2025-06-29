@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
 import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
