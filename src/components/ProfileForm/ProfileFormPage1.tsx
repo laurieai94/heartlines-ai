@@ -16,10 +16,11 @@ interface ProfileFormPage1Props {
 const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormPage1Props) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
-  // Load existing data from temporary storage
+  // Load existing data from temporary storage - this is the key fix
   const getExistingProfileData = () => {
     const existingProfile = temporaryProfiles[profileType]?.[0] || {};
     const existingDemographics = temporaryDemographics[profileType] || {};
+    // Merge all data sources with proper precedence
     return { ...existingProfile, ...existingDemographics, ...initialData };
   };
 
@@ -47,6 +48,15 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
       ...existingData
     };
   });
+
+  // Reload data when temporary profiles change (important for persistence)
+  useEffect(() => {
+    const existingData = getExistingProfileData();
+    setFormData(prev => ({
+      ...prev,
+      ...existingData
+    }));
+  }, [temporaryProfiles, temporaryDemographics, profileType]);
 
   // Auto-save data whenever formData changes
   useEffect(() => {

@@ -1,9 +1,10 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -14,19 +15,55 @@ interface DemographicsPage1Props {
 }
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
+  const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
   const isPersonal = profileType === 'your';
   
-  const [formData, setFormData] = useState({
-    name: initialData.name || '',
-    pronouns: initialData.pronouns || '',
-    age: initialData.age || '',
-    sexualOrientation: initialData.sexualOrientation || [],
-    genderIdentity: initialData.genderIdentity || [],
-    education: initialData.education || '',
-    workSituation: initialData.workSituation || '',
-    income: initialData.income || '',
-    ...initialData
+  // Load existing data from temporary storage - this is the key fix
+  const getExistingData = () => {
+    const existingDemographics = temporaryDemographics[profileType] || {};
+    // Merge all data sources with proper precedence
+    return { ...existingDemographics, ...initialData };
+  };
+  
+  const [formData, setFormData] = useState(() => {
+    const existingData = getExistingData();
+    return {
+      name: existingData.name || '',
+      pronouns: existingData.pronouns || '',
+      age: existingData.age || '',
+      sexualOrientation: existingData.sexualOrientation || [],
+      genderIdentity: existingData.genderIdentity || [],
+      education: existingData.education || '',
+      workSituation: existingData.workSituation || '',
+      income: existingData.income || '',
+      ...existingData
+    };
   });
+
+  // Reload data when temporary demographics change (important for persistence)
+  useEffect(() => {
+    const existingData = getExistingData();
+    setFormData(prev => ({
+      ...prev,
+      ...existingData
+    }));
+  }, [temporaryDemographics, profileType]);
+
+  // Auto-save data whenever formData changes
+  useEffect(() => {
+    const saveData = () => {
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: { ...temporaryDemographics[profileType], ...formData }
+      };
+      
+      updateTemporaryProfile(temporaryProfiles, newDemographics);
+    };
+
+    // Debounce the save to avoid too frequent updates
+    const timeoutId = setTimeout(saveData, 500);
+    return () => clearTimeout(timeoutId);
+  }, [formData, profileType, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
 
   const updateFormData = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
