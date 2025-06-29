@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,9 +9,10 @@ import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { useNavigation } from "@/contexts/NavigationContext";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
+import ProfileForm from "./ProfileForm";
+import Demographics from "./Demographics";
 
 interface AISidebarProps {
   profiles: ProfileData;
@@ -32,8 +34,7 @@ const AISidebar = ({
   onStartConversation
 }: AISidebarProps) => {
   // Use temporary profile data directly for real-time updates and consistency with Profile tab
-  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
-  const { goToProfile } = useNavigation();
+  const { temporaryProfiles, temporaryDemographics, isLoaded, updateTemporaryProfile } = useTemporaryProfile();
   
   const userName = temporaryDemographics.your?.name || '';
   const partnerName = temporaryDemographics.partner?.name || '';
@@ -44,6 +45,11 @@ const AISidebar = ({
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
+  
+  // New state for profile form modal
+  const [showProfileForm, setShowProfileForm] = useState(false);
+  const [showDemographics, setShowDemographics] = useState(false);
+  const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
   // Calculate individual profile completion percentages using real-time data
   const calculateYourCompletion = () => {
@@ -72,7 +78,6 @@ const AISidebar = ({
     if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
     
     const completion = Math.round((completed / total) * 100);
-    console.log('Your profile completion:', { completed, total, completion });
     return completion;
   };
 
@@ -93,27 +98,57 @@ const AISidebar = ({
     if (partnerProfile?.conflictStyle) completed++;
     
     const completion = Math.round((completed / total) * 100);
-    console.log('Partner profile completion:', { completed, total, completion });
     return completion;
   };
 
   const yourCompletion = calculateYourCompletion();
   const partnerCompletion = calculatePartnerCompletion();
 
-  // Handle viewing and editing profiles using real-time data
+  // Handle viewing profiles
   const handleViewProfile = (profileType: 'your' | 'partner') => {
     setViewingProfileType(profileType);
     setShowProfileViewer(true);
   };
 
-  const handleEditProfile = () => {
-    setShowProfileViewer(false);
-    goToProfile();
+  // Handle continuing/starting profiles - show modal instead of navigating
+  const handleStartContinueProfile = (profileType: 'your' | 'partner') => {
+    setActiveProfileType(profileType);
+    // If no demographics data exists for this profile type, show demographics first
+    if (!temporaryDemographics[profileType]) {
+      setShowDemographics(true);
+    } else {
+      setShowProfileForm(true);
+    }
   };
 
-  // Handle going to profile page to start/continue profiles
-  const handleGoToProfile = () => {
-    goToProfile();
+  // Handle profile form completion
+  const handleProfileComplete = (profileData: any) => {
+    // Update temporary profile data
+    const newProfiles = { ...temporaryProfiles };
+    const newDemographics = { ...temporaryDemographics };
+    
+    newProfiles[activeProfileType] = [profileData];
+    
+    updateTemporaryProfile(newProfiles, newDemographics);
+    setShowProfileForm(false);
+  };
+
+  // Handle demographics completion
+  const handleDemographicsComplete = (demographicsData: any) => {
+    // Update temporary demographics data
+    const newProfiles = { ...temporaryProfiles };
+    const newDemographics = { ...temporaryDemographics };
+    
+    newDemographics[activeProfileType] = demographicsData;
+    
+    updateTemporaryProfile(newProfiles, newDemographics);
+    setShowDemographics(false);
+    setShowProfileForm(true);
+  };
+
+  const handleBackToDemographics = () => {
+    setShowProfileForm(false);
+    setShowDemographics(true);
   };
 
   // Sort topics by frequency and recency
@@ -146,7 +181,7 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Rebuilt Profile Completion Status matching Profile page design */}
+        {/* Profile Completion Status matching Profile page design */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />
@@ -154,7 +189,7 @@ const AISidebar = ({
             <div className="ml-auto text-xs text-gray-500">{profileCompletion}% overall</div>
           </div>
           
-          {/* Your Profile matching the Profile page design */}
+          {/* Your Profile */}
           <div className="space-y-3 mb-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -175,7 +210,7 @@ const AISidebar = ({
                 variant="outline" 
                 size="sm" 
                 className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
-                onClick={handleGoToProfile}
+                onClick={() => handleStartContinueProfile('your')}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {yourCompletion > 0 ? 'Continue' : 'Start Profile'}
@@ -193,7 +228,7 @@ const AISidebar = ({
             </div>
           </div>
 
-          {/* Partner Profile matching the Profile page design */}
+          {/* Partner Profile */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -214,7 +249,7 @@ const AISidebar = ({
                 variant="outline" 
                 size="sm" 
                 className="flex-1 text-xs hover:scale-105 transition-transform duration-200"
-                onClick={handleGoToProfile}
+                onClick={() => handleStartContinueProfile('partner')}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {partnerCompletion > 0 ? 'Continue' : 'Add Partner'}
@@ -311,14 +346,39 @@ const AISidebar = ({
         </div>
       </div>
 
-      {/* Profile Viewer Modal using real-time data */}
+      {/* Profile Viewer Modal */}
       {showProfileViewer && (
         <ProfileViewer
           profileType={viewingProfileType}
           profileData={temporaryProfiles[viewingProfileType]}
           demographicsData={temporaryDemographics[viewingProfileType]}
-          onEdit={handleEditProfile}
+          onEdit={() => {
+            setShowProfileViewer(false);
+            handleStartContinueProfile(viewingProfileType);
+          }}
           onClose={() => setShowProfileViewer(false)}
+        />
+      )}
+
+      {/* Demographics Modal */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType}
+          onClose={() => setShowDemographics(false)}
+          onComplete={handleDemographicsComplete}
+          initialData={temporaryDemographics[activeProfileType]}
+        />
+      )}
+      
+      {/* Profile Form Modal */}
+      {showProfileForm && (
+        <ProfileForm 
+          profileType={activeProfileType}
+          onClose={() => setShowProfileForm(false)}
+          onComplete={handleProfileComplete}
+          onBackToDemographics={handleBackToDemographics}
+          initialProfiles={temporaryProfiles}
+          initialDemographics={temporaryDemographics}
         />
       )}
     </>
