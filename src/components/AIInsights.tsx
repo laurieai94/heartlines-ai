@@ -84,7 +84,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   return (
-    <div className="flex gap-4 h-full overflow-hidden">
+    <div className="flex gap-6 h-full overflow-hidden bg-gradient-to-br from-coral-50/30 via-peach-50/30 to-orange-50/30 rounded-2xl p-4">
       <ProgressiveAccessWrapper action="chat">
         <div className="flex-1 min-w-0">
           <AIChat 
