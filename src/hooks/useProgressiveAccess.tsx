@@ -20,7 +20,7 @@ export const useProgressiveAccess = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
-  // Calculate profile completion percentage based on questionnaire data
+  // Calculate profile completion percentage based on actual data
   const calculateProfileCompletion = () => {
     let totalFields = 0;
     let completedFields = 0;
@@ -30,21 +30,21 @@ export const useProgressiveAccess = () => {
     const yourDemographics = temporaryDemographics.your;
     
     if (yourProfile || yourDemographics) {
-      // Count key fields from personal questionnaire
+      // Core personal fields
       const personalFields = [
-        'name', 'pronouns', 'age', 'stressReactions', 'attachmentStyles', 
+        'name', 'age', 'stressReactions', 'attachmentStyles', 
         'loveLanguages', 'receiveLove', 'familyDynamics', 'relationshipStatus'
       ];
       
       totalFields += personalFields.length;
       
-      // Check demographics completion
-      if (yourDemographics) {
-        completedFields += personalFields.filter(field => {
-          const value = yourDemographics[field] || yourProfile?.[field];
-          return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
-        }).length;
-      }
+      // Check demographics and profile completion
+      personalFields.forEach(field => {
+        const value = yourDemographics?.[field] || yourProfile?.[field];
+        if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
+          completedFields++;
+        }
+      });
     }
 
     // Check partner profile completion
@@ -55,15 +55,17 @@ export const useProgressiveAccess = () => {
       const partnerFields = ['name', 'communicationStyle', 'loveLanguages', 'conflictStyle'];
       totalFields += partnerFields.length;
       
-      if (partnerDemographics || partnerProfile) {
-        completedFields += partnerFields.filter(field => {
-          const value = partnerDemographics?.[field] || partnerProfile?.[field];
-          return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
-        }).length;
-      }
+      partnerFields.forEach(field => {
+        const value = partnerDemographics?.[field] || partnerProfile?.[field];
+        if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
+          completedFields++;
+        }
+      });
     }
 
-    return totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
+    const completion = totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
+    console.log('Profile completion calculated:', { completedFields, totalFields, completion });
+    return completion;
   };
 
   const profileCompletion = calculateProfileCompletion();
@@ -71,7 +73,15 @@ export const useProgressiveAccess = () => {
   // Determine access level
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
-    if (profileCompletion > 0) return 'signup-required';
+    
+    // Check if we have any meaningful profile data
+    const hasPersonalData = temporaryDemographics.your?.name || 
+                           temporaryProfiles.your?.[0]?.name ||
+                           (temporaryDemographics.your && Object.keys(temporaryDemographics.your).length > 0);
+    
+    if (hasPersonalData && profileCompletion >= 30) return 'signup-required';
+    if (profileCompletion > 0) return 'profile-required';
+    
     return 'profile-required';
   };
 
@@ -79,20 +89,20 @@ export const useProgressiveAccess = () => {
 
   // Check if user can interact with features
   const checkInteractionPermission = (action: string): boolean => {
-    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}`);
+    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%`);
     
     switch (accessLevel) {
       case 'full-access':
         return true;
       
       case 'signup-required':
-        // Profile completed but not signed up - show sign-up modal
+        // Profile has some completion but not signed up - show sign-up modal
         setBlockingAction(action);
         setShowSignUpModal(true);
         return false;
       
       case 'profile-required':
-        // No profile started - redirect to profile
+        // No meaningful profile data - redirect to profile
         setBlockingAction(action);
         return false;
       
@@ -109,7 +119,7 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true, // Always allow tab navigation
-    canInteract: accessLevel === 'full-access',
+    canInteract: accessLevel === 'full-access' || (accessLevel === 'signup-required' && profileCompletion >= 30),
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,

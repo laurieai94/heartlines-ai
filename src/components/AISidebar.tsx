@@ -37,7 +37,7 @@ const AISidebar = ({
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages
+  // Calculate individual profile completion percentages with real-time updates
   const calculateYourCompletion = () => {
     const yourProfile = profiles.your[0];
     const yourDemo = demographicsData.your;
@@ -45,13 +45,21 @@ const AISidebar = ({
     if (!yourProfile && !yourDemo) return 0;
     
     let completed = 0;
-    let total = 5; // Key fields
+    let total = 8; // Core fields for personal profile
     
+    // Basic info
     if (yourDemo?.name) completed++;
     if (yourDemo?.age) completed++;
-    if (yourProfile?.loveLanguages?.length > 0) completed++;
-    if (yourProfile?.stressReactions?.length > 0) completed++;
-    if (yourProfile?.familyDynamics?.length > 0) completed++;
+    
+    // Emotional blueprint
+    if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
+    if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
+    if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
+    if (yourProfile?.receiveLove?.length > 0 || yourDemo?.receiveLove?.length > 0) completed++;
+    
+    // Background
+    if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
+    if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
     
     return Math.round((completed / total) * 100);
   };
@@ -63,7 +71,7 @@ const AISidebar = ({
     if (!partnerProfile && !partnerDemo) return 0;
     
     let completed = 0;
-    let total = 4; // Key fields
+    let total = 4; // Key fields for partner profile
     
     if (partnerDemo?.name) completed++;
     if (partnerProfile?.communicationStyle) completed++;
@@ -97,7 +105,7 @@ const AISidebar = ({
   return (
     <>
       <div className="w-80 space-y-4">
-        {/* Meet Kai with avatar */}
+        {/* Meet Kai with enhanced messaging */}
         <Card className="p-4 bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200/50 animate-fade-in hover:shadow-lg transition-all duration-300">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
@@ -111,7 +119,8 @@ const AISidebar = ({
             </div>
           </div>
           <p className="text-sm text-gray-600">
-            Built on the expertise of PhD-level clinical psychology—trained on 15+ years of insights to deliver real, effective advice for modern relationships.
+            Your AI relationship coach trained on 15+ years of clinical psychology expertise. 
+            {profileCompletion > 0 ? ` I already know some things about ${userName || 'you'} and can provide personalized guidance.` : ' Complete your profile to unlock personalized insights.'}
           </p>
         </Card>
 
@@ -123,7 +132,7 @@ const AISidebar = ({
             <div className="ml-auto text-xs text-gray-500">{profileCompletion}% overall</div>
           </div>
           
-          {/* Your Profile */}
+          {/* Your Profile with real-time progress */}
           <div className="space-y-3 mb-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -147,7 +156,7 @@ const AISidebar = ({
                 onClick={() => onOpenProfileForm?.('your')}
               >
                 <Plus className="w-3 h-3 mr-1" />
-                {yourCompletion > 0 ? 'Keep Going' : 'Start'}
+                {yourCompletion > 0 ? 'Continue' : 'Start Profile'}
               </Button>
               {yourCompletion > 0 && (
                 <Button 
@@ -186,7 +195,7 @@ const AISidebar = ({
                 onClick={() => onOpenProfileForm?.('partner')}
               >
                 <Plus className="w-3 h-3 mr-1" />
-                {partnerCompletion > 0 ? 'Keep Going' : 'Start'}
+                {partnerCompletion > 0 ? 'Continue' : 'Add Partner'}
               </Button>
               {partnerCompletion > 0 && (
                 <Button 
@@ -201,9 +210,16 @@ const AISidebar = ({
             </div>
           </div>
 
-          {userName && partnerName && (yourCompletion > 50 || partnerCompletion > 50) && (
+          {/* Dynamic messaging based on progress */}
+          {yourCompletion >= 30 && (
             <div className="mt-4 p-2 bg-coral-50 rounded text-xs text-coral-700 animate-fade-in">
-              <strong>Real talk:</strong> I know {userName} and {partnerName}'s actual patterns, not just generic relationship stuff
+              <strong>Ready to chat!</strong> I have enough info about {userName || 'you'} to provide personalized relationship guidance.
+            </div>
+          )}
+          
+          {yourCompletion > 0 && yourCompletion < 30 && (
+            <div className="mt-4 p-2 bg-amber-50 rounded text-xs text-amber-700 animate-fade-in">
+              <strong>Keep going!</strong> Complete a bit more of your profile for better personalized advice.
             </div>
           )}
         </Card>

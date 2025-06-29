@@ -31,7 +31,8 @@ export const useTemporaryProfile = () => {
     
     if (savedProfiles) {
       try {
-        setTemporaryProfiles(JSON.parse(savedProfiles));
+        const parsed = JSON.parse(savedProfiles);
+        setTemporaryProfiles(parsed);
       } catch (error) {
         console.error('Error parsing saved profiles:', error);
       }
@@ -39,7 +40,8 @@ export const useTemporaryProfile = () => {
     
     if (savedDemographics) {
       try {
-        setTemporaryDemographics(JSON.parse(savedDemographics));
+        const parsed = JSON.parse(savedDemographics);
+        setTemporaryDemographics(parsed);
       } catch (error) {
         console.error('Error parsing saved demographics:', error);
       }
@@ -56,6 +58,7 @@ export const useTemporaryProfile = () => {
   }, [temporaryDemographics]);
 
   const updateTemporaryProfile = (newProfiles: TemporaryProfileData, newDemographics: TemporaryDemographicsData) => {
+    console.log('Updating temporary profile data:', { newProfiles, newDemographics });
     setTemporaryProfiles(newProfiles);
     setTemporaryDemographics(newDemographics);
   };
@@ -87,6 +90,9 @@ export const useTemporaryProfile = () => {
       // Clear temporary data
       localStorage.removeItem('realtalk_temp_profiles');
       localStorage.removeItem('realtalk_temp_demographics');
+      
+      setTemporaryProfiles({ your: [], partner: [] });
+      setTemporaryDemographics({ your: null, partner: null });
       
     } catch (error) {
       console.error('Error transferring profile data:', error);

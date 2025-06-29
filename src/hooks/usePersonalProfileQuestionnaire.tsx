@@ -12,7 +12,7 @@ export const usePersonalProfileQuestionnaire = () => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal profile questionnaire completed:', questionnaireData);
     
-    // Transform questionnaire data into the existing profile structure
+    // Transform questionnaire data into the profile structure
     const profileData = {
       // Basic demographics
       name: questionnaireData.name,
@@ -61,15 +61,20 @@ export const usePersonalProfileQuestionnaire = () => {
       avatarUrl: questionnaireData.avatarUrl
     };
 
-    // Create demographics data
+    // Create demographics data for easier access
     const demographicsData = {
       name: questionnaireData.name,
-      pronouns: questionnaireData.pronouns?.[0] || questionnaireData.customPronouns,
+      pronouns: Array.isArray(questionnaireData.pronouns) ? questionnaireData.pronouns[0] : questionnaireData.customPronouns,
       age: questionnaireData.age,
-      gender: questionnaireData.gender?.[0] || questionnaireData.customGender,
-      orientation: questionnaireData.orientation?.[0] || questionnaireData.customOrientation,
-      relationshipStatus: questionnaireData.relationshipStatus?.[0],
-      avatarUrl: questionnaireData.avatarUrl
+      gender: Array.isArray(questionnaireData.gender) ? questionnaireData.gender[0] : questionnaireData.customGender,
+      orientation: Array.isArray(questionnaireData.orientation) ? questionnaireData.orientation[0] : questionnaireData.customOrientation,
+      relationshipStatus: Array.isArray(questionnaireData.relationshipStatus) ? questionnaireData.relationshipStatus[0] : questionnaireData.relationshipStatus,
+      avatarUrl: questionnaireData.avatarUrl,
+      stressReactions: questionnaireData.stressReactions,
+      attachmentStyles: questionnaireData.attachmentStyles,
+      loveLanguages: questionnaireData.showLove,
+      receiveLove: questionnaireData.receiveLove,
+      familyDynamics: questionnaireData.familyDynamics
     };
 
     // Update the temporary profile system
@@ -83,12 +88,13 @@ export const usePersonalProfileQuestionnaire = () => {
       your: demographicsData
     };
 
+    console.log('Saving profile data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     setShowQuestionnaire(false);
     
-    toast.success("Personal profile completed! Redirecting you to chat with Kai...");
+    toast.success("Personal profile completed! You can now chat with Kai about your relationship.");
     
-    // Redirect to coach page after completion
+    // Redirect to chat page after completion
     setTimeout(() => {
       navigate('/dashboard', { state: { activeTab: 'insights' } });
     }, 1500);
