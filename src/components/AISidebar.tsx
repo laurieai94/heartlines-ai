@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +8,7 @@ import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { useNavigationContext } from "@/contexts/NavigationContext";
+import { useNavigation } from "@/contexts/NavigationContext";
 import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 
@@ -35,7 +33,7 @@ const AISidebar = ({
 }: AISidebarProps) => {
   // Use temporary profile data directly for real-time updates and consistency with Profile tab
   const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
-  const { goToProfile } = useNavigationContext();
+  const { goToProfile } = useNavigation();
   
   const userName = temporaryDemographics.your?.name || '';
   const partnerName = temporaryDemographics.partner?.name || '';
@@ -328,4 +326,3 @@ const AISidebar = ({
 };
 
 export default AISidebar;
-
