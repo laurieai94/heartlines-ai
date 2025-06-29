@@ -52,12 +52,12 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`h-screen flex flex-col bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
+      <div className={`h-screen flex flex-col bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
         {/* Clean Navigation Header */}
         <div className="flex-shrink-0 w-full bg-gradient-to-b from-gray-50/80 via-indigo-50/40 to-transparent">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
-            <div className="flex items-center justify-between py-6">
+            <div className="flex items-center justify-between py-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-500 via-pink-500 to-coral-500 rounded-2xl flex items-center justify-center shadow-sm">
                   <Heart className="w-5 h-5 text-white" />
@@ -76,7 +76,7 @@ const Dashboard = () => {
 
             {/* Navigation Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex justify-center pb-6">
+              <div className="flex justify-center pb-4">
                 <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-gray-50/50 backdrop-blur-sm border-0 rounded-xl p-1 gap-1">
                   <TabsTrigger 
                     value="profile" 
@@ -112,12 +112,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Main Content - Flex grow to fill remaining space */}
-        <div className="flex-1 min-h-0">
-          <div className="h-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-8">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
-              <TabsContent value="profile" className="mt-0 h-full">
-                <div className="h-full overflow-y-auto">
+        {/* Main Content - Optimized for full height usage */}
+        <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="h-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-4">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
+              <TabsContent value="profile" className="mt-0 flex-1 min-h-0">
+                <div className="h-full">
                   <ProfileBuilder 
                     onProfileUpdate={handleProfileUpdate}
                     initialProfiles={temporaryProfiles}
@@ -126,30 +126,36 @@ const Dashboard = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="insights" className="mt-0 h-full">
+              <TabsContent value="insights" className="mt-0 flex-1 min-h-0">
                 <ProgressiveAccessWrapper action="insights">
-                  <AIInsights 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
+                  <div className="h-full">
+                    <AIInsights 
+                      profiles={temporaryProfiles}
+                      demographicsData={temporaryDemographics}
+                    />
+                  </div>
                 </ProgressiveAccessWrapper>
               </TabsContent>
 
-              <TabsContent value="conversation" className="mt-0 h-full">
+              <TabsContent value="conversation" className="mt-0 flex-1 min-h-0">
                 <ProgressiveAccessWrapper action="practice">
-                  <ConversationPractice 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
+                  <div className="h-full">
+                    <ConversationPractice 
+                      profiles={temporaryProfiles}
+                      demographicsData={temporaryDemographics}
+                    />
+                  </div>
                 </ProgressiveAccessWrapper>
               </TabsContent>
 
-              <TabsContent value="actions" className="mt-0 h-full">
+              <TabsContent value="actions" className="mt-0 flex-1 min-h-0">
                 <ProgressiveAccessWrapper action="actions">
-                  <ThoughtfulActions 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
+                  <div className="h-full">
+                    <ThoughtfulActions 
+                      profiles={temporaryProfiles}
+                      demographicsData={temporaryDemographics}
+                    />
+                  </div>
                 </ProgressiveAccessWrapper>
               </TabsContent>
             </Tabs>
