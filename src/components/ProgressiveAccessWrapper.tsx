@@ -17,7 +17,7 @@ const ProgressiveAccessWrapper = ({
   fallbackTab = "profile",
   className = ""
 }: ProgressiveAccessWrapperProps) => {
-  const { accessLevel, checkInteractionPermission } = useProgressiveAccess();
+  const { accessLevel, checkInteractionPermission, personalProfileReady } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
 
   const handleInteraction = (e: React.MouseEvent) => {
@@ -29,39 +29,72 @@ const ProgressiveAccessWrapper = ({
 
     const canProceed = checkInteractionPermission(action);
     
-    if (!canProceed && accessLevel === 'profile-required') {
-      const handleProfileClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Use navigation context to switch to profile
-        goToProfile();
-        
-        // Small delay to ensure tab switch completes
-        setTimeout(() => {
-          toast.dismiss();
-        }, 100);
-      };
+    if (!canProceed) {
+      // For chat/insights actions, if personal profile isn't ready, guide to profile
+      if ((action === 'chat' || action === 'insights') && !personalProfileReady) {
+        const handleProfileClick = (e: React.MouseEvent) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Use navigation context to switch to profile
+          goToProfile();
+          
+          // Small delay to ensure tab switch completes
+          setTimeout(() => {
+            toast.dismiss();
+          }, 100);
+        };
 
-      // Show clickable toast message to go to profile
-      toast.info(
-        <div className="text-sm">
-          RealTalk works best when it knows you.{' '}
-          <button 
-            onClick={handleProfileClick}
-            className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
-          >
-            Let's build your profile first.
-          </button>
-        </div>,
-        {
-          duration: 6000,
-        }
-      );
+        // Show clickable toast message to go to profile
+        toast.info(
+          <div className="text-sm">
+            Complete your personal profile first to unlock Kai.{' '}
+            <button 
+              onClick={handleProfileClick}
+              className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
+            >
+              Let's finish your profile.
+            </button>
+          </div>,
+          {
+            duration: 6000,
+          }
+        );
+      } else if (accessLevel === 'profile-required') {
+        const handleProfileClick = (e: React.MouseEvent) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Use navigation context to switch to profile
+          goToProfile();
+          
+          // Small delay to ensure tab switch completes
+          setTimeout(() => {
+            toast.dismiss();
+          }, 100);
+        };
+
+        // Show clickable toast message to go to profile
+        toast.info(
+          <div className="text-sm">
+            RealTalk works best when it knows you.{' '}
+            <button 
+              onClick={handleProfileClick}
+              className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
+            >
+              Let's build your profile first.
+            </button>
+          </div>,
+          {
+            duration: 6000,
+          }
+        );
+      }
     }
   };
 
-  if (accessLevel === 'full-access') {
+  // Allow full access if personal profile is ready (for chat) or full access level
+  if (accessLevel === 'full-access' || (personalProfileReady && (action === 'chat' || action === 'insights'))) {
     return <>{children}</>;
   }
 
