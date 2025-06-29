@@ -84,26 +84,30 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   return (
-    <div className="flex gap-6 h-full">
+    <div className="flex gap-3 h-full overflow-hidden">
       <ProgressiveAccessWrapper action="chat">
-        <AIChat 
+        <div className="flex-1 min-w-0">
+          <AIChat 
+            profiles={profiles}
+            demographicsData={demographicsData}
+            chatHistory={chatHistory}
+            setChatHistory={setChatHistory}
+            isConfigured={isConfigured}
+            conversationStarter={conversationStarter}
+          />
+        </div>
+      </ProgressiveAccessWrapper>
+      <div className="w-72 flex-shrink-0">
+        <AISidebar 
           profiles={profiles}
           demographicsData={demographicsData}
           chatHistory={chatHistory}
-          setChatHistory={setChatHistory}
           isConfigured={isConfigured}
-          conversationStarter={conversationStarter}
+          onSupabaseConfigured={handleSupabaseConfigured}
+          onOpenProfileForm={handleOpenProfileForm}
+          onStartConversation={handleStartConversation}
         />
-      </ProgressiveAccessWrapper>
-      <AISidebar 
-        profiles={profiles}
-        demographicsData={demographicsData}
-        chatHistory={chatHistory}
-        isConfigured={isConfigured}
-        onSupabaseConfigured={handleSupabaseConfigured}
-        onOpenProfileForm={handleOpenProfileForm}
-        onStartConversation={handleStartConversation}
-      />
+      </div>
       
       {/* Demographics Modal */}
       {showDemographics && (
