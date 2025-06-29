@@ -38,7 +38,7 @@ export const useProgressiveAccess = () => {
     const yourDemographics = temporaryDemographics.your;
     
     if (yourProfile || yourDemographics) {
-      // Core personal fields
+      // Core personal fields - matching what the questionnaire actually saves
       const personalFields = [
         'name', 'age', 'stressReactions', 'attachmentStyles', 
         'loveLanguages', 'receiveLove', 'familyDynamics', 'relationshipStatus'
@@ -70,83 +70,75 @@ export const useProgressiveAccess = () => {
     
     console.log('Checking essential personal profile:', { yourProfile, yourDemographics });
     
-    // Check for basic required info - using the same pattern as partner profile
-    const hasName = yourDemographics?.name || yourProfile?.name;
-    const hasAge = yourDemographics?.age || yourProfile?.age;
+    // Comprehensive check - look in both data sources
+    const allData = { ...yourProfile, ...yourDemographics };
     
-    // Check if we have meaningful profile data - look for any significant responses
-    const hasStressReactions = (yourDemographics?.stressReactions && Array.isArray(yourDemographics.stressReactions) && yourDemographics.stressReactions.length > 0) ||
-                              (yourProfile?.stressReactions && Array.isArray(yourProfile.stressReactions) && yourProfile.stressReactions.length > 0);
+    // Basic requirements
+    const hasName = allData?.name && allData.name.trim() !== '';
+    const hasAge = allData?.age && allData.age !== '';
     
-    const hasAttachmentStyles = (yourDemographics?.attachmentStyles && Array.isArray(yourDemographics.attachmentStyles) && yourDemographics.attachmentStyles.length > 0) ||
-                               (yourProfile?.attachmentStyles && Array.isArray(yourProfile.attachmentStyles) && yourProfile.attachmentStyles.length > 0);
+    // Core questionnaire fields that indicate completion
+    const hasStressReactions = Array.isArray(allData?.stressReactions) && allData.stressReactions.length > 0;
+    const hasAttachmentStyles = Array.isArray(allData?.attachmentStyles) && allData.attachmentStyles.length > 0;
+    const hasLoveLanguages = Array.isArray(allData?.loveLanguages) && allData.loveLanguages.length > 0;
+    const hasReceiveLove = Array.isArray(allData?.receiveLove) && allData.receiveLove.length > 0;
+    const hasFamilyDynamics = Array.isArray(allData?.familyDynamics) && allData.familyDynamics.length > 0;
+    const hasRelationshipStatus = Array.isArray(allData?.relationshipStatus) && allData.relationshipStatus.length > 0;
     
-    const hasLoveLanguages = (yourDemographics?.loveLanguages && Array.isArray(yourDemographics.loveLanguages) && yourDemographics.loveLanguages.length > 0) ||
-                            (yourProfile?.loveLanguages && Array.isArray(yourProfile.loveLanguages) && yourProfile.loveLanguages.length > 0);
+    // Check if profile was completed via questionnaire
+    const hasQuestionnaireSource = allData?.profileSource === 'personal-questionnaire';
     
-    const hasReceiveLove = (yourDemographics?.receiveLove && Array.isArray(yourDemographics.receiveLove) && yourDemographics.receiveLove.length > 0) ||
-                          (yourProfile?.receiveLove && Array.isArray(yourProfile.receiveLove) && yourProfile.receiveLove.length > 0);
-    
-    const hasFamilyDynamics = (yourDemographics?.familyDynamics && Array.isArray(yourDemographics.familyDynamics) && yourDemographics.familyDynamics.length > 0) ||
-                             (yourProfile?.familyDynamics && Array.isArray(yourProfile.familyDynamics) && yourProfile.familyDynamics.length > 0);
-    
-    const hasRelationshipStatus = (yourDemographics?.relationshipStatus && Array.isArray(yourDemographics.relationshipStatus) && yourDemographics.relationshipStatus.length > 0) ||
-                                 (yourProfile?.relationshipStatus && Array.isArray(yourProfile.relationshipStatus) && yourProfile.relationshipStatus.length > 0);
-    
-    // Basic requirements: name and age
-    const hasBasicInfo = hasName && hasAge;
-    
-    // Emotional data: at least 2 out of the 4 main categories
-    const emotionalDataCount = [hasStressReactions, hasAttachmentStyles, hasLoveLanguages, hasReceiveLove, hasFamilyDynamics, hasRelationshipStatus].filter(Boolean).length;
-    const hasEnoughEmotionalData = emotionalDataCount >= 2;
-    
-    console.log('Essential personal profile check:', { 
-      hasName: !!hasName, 
-      hasAge: !!hasAge, 
+    console.log('Essential profile check details:', {
+      hasName,
+      hasAge,
       hasStressReactions,
       hasAttachmentStyles,
       hasLoveLanguages,
       hasReceiveLove,
       hasFamilyDynamics,
       hasRelationshipStatus,
-      hasBasicInfo, 
-      emotionalDataCount,
-      hasEnoughEmotionalData
+      hasQuestionnaireSource,
+      allData
     });
     
-    // User has completed enough personal profile to enable chat
-    const isComplete = hasBasicInfo && hasEnoughEmotionalData;
-    console.log('Personal profile complete for chat access:', isComplete);
+    // Must have basic info AND at least 4 core questionnaire responses OR be marked as questionnaire complete
+    const hasBasicInfo = hasName && hasAge;
+    const coreResponses = [hasStressReactions, hasAttachmentStyles, hasLoveLanguages, hasReceiveLove, hasFamilyDynamics, hasRelationshipStatus].filter(Boolean).length;
+    const hasEnoughData = coreResponses >= 4 || hasQuestionnaireSource;
+    
+    const isComplete = hasBasicInfo && hasEnoughData;
+    console.log('Personal profile complete for access:', { 
+      isComplete, 
+      hasBasicInfo, 
+      coreResponses, 
+      hasEnoughData,
+      hasQuestionnaireSource 
+    });
+    
     return isComplete;
   };
 
   const profileCompletion = calculateProfileCompletion();
   const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // Determine access level - enable chat access with personal profile completion
+  // Determine access level - enable full access with completed personal profile
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
     
-    // If user has essential personal profile data, enable full functionality including chat
+    // If user has essential personal profile data, enable full functionality
     if (hasPersonalProfileForChat) {
       console.log('Granting full access due to completed personal profile');
       return 'full-access';
     }
     
-    // Check if we have any profile data at all
-    const hasAnyProfileData = temporaryDemographics.your?.name || 
-                             temporaryProfiles.your?.[0]?.name ||
-                             (temporaryDemographics.your && Object.keys(temporaryDemographics.your).length > 0);
-    
-    if (hasAnyProfileData && profileCompletion > 0) return 'profile-required';
-    
+    console.log('Profile not complete enough for full access - requiring profile completion');
     return 'profile-required';
   };
 
   const accessLevel = getAccessLevel();
   console.log('Current access level:', accessLevel, 'hasPersonalProfile:', hasPersonalProfileForChat);
 
-  // Check if user can interact with features - allow all interactions with personal profile
+  // Check if user can interact with features
   const checkInteractionPermission = (action: string): boolean => {
     console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%, hasPersonalProfile: ${hasPersonalProfileForChat}`);
     
@@ -155,7 +147,7 @@ export const useProgressiveAccess = () => {
         return true;
       
       case 'profile-required':
-        // No meaningful profile data - redirect to profile
+        // Block interaction and set blocking action
         setBlockingAction(action);
         return false;
       
