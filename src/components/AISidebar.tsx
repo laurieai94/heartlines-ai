@@ -181,7 +181,7 @@ const AISidebar = ({
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-gray-700 flex items-center gap-1">
                 <User className="w-3 h-3 text-purple-500" />
-                Your Profile
+                {userName || 'Your Profile'}
               </span>
               <span className="text-xs text-gray-500">{yourCompletion}%</span>
             </div>
@@ -220,7 +220,7 @@ const AISidebar = ({
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-gray-700 flex items-center gap-1">
                 <Heart className="w-3 h-3 text-pink-500" />
-                {partnerName || 'Partner'} Profile
+                {partnerName || 'Partner Profile'}
               </span>
               <span className="text-xs text-gray-500">{partnerCompletion}%</span>
             </div>
