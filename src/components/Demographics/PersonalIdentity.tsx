@@ -4,8 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { usePersonalProfile } from "@/hooks/usePersonalProfile";
-import { useState, useEffect } from "react";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 
 interface PersonalIdentityProps {
   profileType: 'your' | 'partner';
@@ -17,32 +16,15 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { personalData, savePersonalData, isLoaded } = usePersonalProfile();
+  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfileData();
 
-  // Load existing personal data on mount
-  useEffect(() => {
-    if (isPersonal && isLoaded && personalData && Object.keys(personalData).length > 0) {
-      console.log('Loading existing personal data:', personalData);
-      
-      Object.keys(personalData).forEach(key => {
-        const value = personalData[key];
-        if (value !== undefined && value !== null && value !== '') {
-          updateFormData(key, value);
-        }
-      });
-    }
-  }, [isPersonal, isLoaded, personalData, updateFormData]);
-
-  // Save changes for personal profile
-  useEffect(() => {
-    if (isPersonal && isLoaded && formData && Object.keys(formData).length > 0) {
-      console.log('Saving personal profile changes:', formData);
-      savePersonalData(formData);
-    }
-  }, [formData, isPersonal, isLoaded, savePersonalData]);
+  // Use personal profile data if this is the personal profile
+  const currentData = isPersonal ? profileData : formData;
+  const currentUpdateField = isPersonal ? updateField : updateFormData;
+  const currentHandleMultiSelect = isPersonal ? handlePersonalMultiSelect : handleMultiSelect;
 
   const handleAvatarUpdate = async (url: string) => {
-    updateFormData('avatar_url', url);
+    currentUpdateField('avatar_url', url);
     
     if (isPersonal) {
       try {
@@ -69,6 +51,11 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
     'Woman', 'Man', 'Non-binary', 'Genderfluid', 'Transgender woman', 'Transgender man', 'Agender', 'Two-Spirit', 'Other', 'Prefer not to share'
   ];
 
+  // Don't render until data is ready for personal profiles
+  if (isPersonal && !isReady) {
+    return <div className="text-center py-4">Loading your profile...</div>;
+  }
+
   return (
     <div className="space-y-6">
       {/* Avatar Upload - only for personal profile */}
@@ -76,9 +63,9 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         <div className="flex justify-center mb-8">
           <div className="text-center">
             <AvatarUpload
-              currentAvatarUrl={formData.avatar_url}
+              currentAvatarUrl={currentData.avatar_url}
               onAvatarUpdate={handleAvatarUpdate}
-              userName={formData.name}
+              userName={currentData.name}
             />
             <p className="text-xs text-gray-500 mt-2">Optional - add a photo to personalize your profile</p>
           </div>
@@ -93,8 +80,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </Label>
         <Input
           id="name"
-          value={formData.name || ''}
-          onChange={(e) => updateFormData('name', e.target.value)}
+          value={currentData.name || ''}
+          onChange={(e) => currentUpdateField('name', e.target.value)}
           placeholder={isPersonal ? "Enter your name or preferred name" : "Enter their name or preferred name"}
           className="mt-1"
         />
@@ -111,14 +98,14 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={pronoun} className="flex items-center space-x-2">
               <input
                 type="radio"
-                id={`pronoun-${pronoun}`}
+                id={`pronoun-${pronoun}-${profileType}`}
                 name={`pronouns-${profileType}`}
                 value={pronoun}
-                checked={formData.pronouns === pronoun}
-                onChange={(e) => updateFormData('pronouns', e.target.value)}
+                checked={currentData.pronouns === pronoun}
+                onChange={(e) => currentUpdateField('pronouns', e.target.value)}
                 className="w-4 h-4 text-pink-600"
               />
-              <Label htmlFor={`pronoun-${pronoun}`} className="text-sm">
+              <Label htmlFor={`pronoun-${pronoun}-${profileType}`} className="text-sm">
                 {pronoun}
               </Label>
             </div>
@@ -137,14 +124,14 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={age} className="flex items-center space-x-2">
               <input
                 type="radio"
-                id={`age-${age}`}
+                id={`age-${age}-${profileType}`}
                 name={`age-${profileType}`}
                 value={age}
-                checked={formData.age === age}
-                onChange={(e) => updateFormData('age', e.target.value)}
+                checked={currentData.age === age}
+                onChange={(e) => currentUpdateField('age', e.target.value)}
                 className="w-4 h-4 text-pink-600"
               />
-              <Label htmlFor={`age-${age}`} className="text-sm">
+              <Label htmlFor={`age-${age}-${profileType}`} className="text-sm">
                 {age}
               </Label>
             </div>
@@ -164,8 +151,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={orientation} className="flex items-center space-x-2">
               <Checkbox
                 id={`orientation-${orientation}-${profileType}`}
-                checked={formData.sexualOrientation?.includes(orientation) || false}
-                onCheckedChange={() => handleMultiSelect('sexualOrientation', orientation)}
+                checked={currentData.sexualOrientation?.includes(orientation) || false}
+                onCheckedChange={() => currentHandleMultiSelect('sexualOrientation', orientation)}
               />
               <Label htmlFor={`orientation-${orientation}-${profileType}`} className="text-sm">
                 {orientation}
@@ -187,8 +174,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={gender} className="flex items-center space-x-2">
               <Checkbox
                 id={`gender-${gender}-${profileType}`}
-                checked={formData.genderIdentity?.includes(gender) || false}
-                onCheckedChange={() => handleMultiSelect('genderIdentity', gender)}
+                checked={currentData.genderIdentity?.includes(gender) || false}
+                onCheckedChange={() => currentHandleMultiSelect('genderIdentity', gender)}
               />
               <Label htmlFor={`gender-${gender}-${profileType}`} className="text-sm">
                 {gender}

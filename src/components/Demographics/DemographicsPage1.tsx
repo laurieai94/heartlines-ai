@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { usePersonalProfile } from "@/hooks/usePersonalProfile";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -17,57 +17,58 @@ interface DemographicsPage1Props {
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
   const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
-  const { personalData, isLoaded } = usePersonalProfile();
+  const { profileData, isReady, updateField } = usePersonalProfileData();
   const isPersonal = profileType === 'your';
   
-  // Initialize form data
+  // Initialize form data based on profile type
   const [formData, setFormData] = useState(() => {
-    const existingData = isPersonal ? personalData : (temporaryDemographics[profileType] || {});
-    return {
-      name: existingData.name || '',
-      pronouns: existingData.pronouns || '',
-      age: existingData.age || '',
-      sexualOrientation: existingData.sexualOrientation || [],
-      genderIdentity: existingData.genderIdentity || [],
-      education: existingData.education || '',
-      workSituation: existingData.workSituation || '',
-      income: existingData.income || '',
-      ...existingData,
-      ...initialData
-    };
+    if (isPersonal) {
+      return {}; // Personal data is handled by usePersonalProfileData
+    } else {
+      const existingData = temporaryDemographics[profileType] || {};
+      return {
+        name: existingData.name || '',
+        pronouns: existingData.pronouns || '',
+        age: existingData.age || '',
+        sexualOrientation: existingData.sexualOrientation || [],
+        genderIdentity: existingData.genderIdentity || [],
+        education: existingData.education || '',
+        workSituation: existingData.workSituation || '',
+        income: existingData.income || '',
+        ...existingData,
+        ...initialData
+      };
+    }
   });
 
-  // Reload data when personal data changes
+  // Auto-save for partner profiles
   useEffect(() => {
-    if (isPersonal && isLoaded) {
-      console.log('Reloading personal data:', personalData);
-      setFormData(prev => ({ ...prev, ...personalData }));
-    }
-  }, [isPersonal, isLoaded, personalData]);
-
-  // Auto-save data
-  useEffect(() => {
-    if (!isLoaded || !formData || Object.keys(formData).length === 0) return;
-    
-    console.log('Auto-saving data for', profileType, formData);
-    
-    if (!isPersonal) {
-      // For partner profiles, use existing logic
+    if (!isPersonal && formData && Object.keys(formData).length > 0) {
+      console.log('Auto-saving partner data:', formData);
+      
       const newDemographics = {
         ...temporaryDemographics,
         [profileType]: { ...temporaryDemographics[profileType], ...formData }
       };
       updateTemporaryProfile(temporaryProfiles, newDemographics);
     }
-    // Personal profile auto-save is handled in PersonalIdentity component
-  }, [formData, profileType, isLoaded, isPersonal, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
+  }, [formData, profileType, isPersonal, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
 
   const updateFormData = (field: string, value: any) => {
     console.log('Updating field', field, 'with value:', value);
-    setFormData(prev => ({ ...prev, [field]: value }));
+    if (isPersonal) {
+      updateField(field, value);
+    } else {
+      setFormData(prev => ({ ...prev, [field]: value }));
+    }
   };
 
   const handleMultiSelect = (field: string, value: string) => {
+    if (isPersonal) {
+      // This is handled by the PersonalIdentity component
+      return;
+    }
+    
     const current = formData[field] || [];
     const updated = current.includes(value) 
       ? current.filter(item => item !== value)
@@ -76,14 +77,16 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   };
 
   const validateRequired = () => {
+    const currentData = isPersonal ? profileData : formData;
+    
     if (isPersonal) {
       const required = ['name', 'pronouns', 'age', 'education', 'workSituation'];
-      const missing = required.filter(field => !formData[field]);
+      const missing = required.filter(field => !currentData[field]);
       
-      if (!formData.sexualOrientation || formData.sexualOrientation.length === 0) {
+      if (!currentData.sexualOrientation || currentData.sexualOrientation.length === 0) {
         missing.push('sexualOrientation');
       }
-      if (!formData.genderIdentity || formData.genderIdentity.length === 0) {
+      if (!currentData.genderIdentity || currentData.genderIdentity.length === 0) {
         missing.push('genderIdentity');
       }
       
@@ -100,7 +103,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         return false;
       }
     } else {
-      if (!formData.name) {
+      if (!currentData.name) {
         toast.error('Please provide your partner\'s name');
         return false;
       }
@@ -111,25 +114,39 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   const handleContinue = () => {
     if (!validateRequired()) return;
     
-    console.log('Completing with data:', formData);
-    onComplete(formData);
+    const dataToComplete = isPersonal ? profileData : formData;
+    console.log('Completing with data:', dataToComplete);
+    onComplete(dataToComplete);
   };
 
   // Calculate progress
+  const currentData = isPersonal ? profileData : formData;
   const requiredFields = isPersonal ? ['name', 'pronouns', 'age', 'education', 'workSituation'] : ['name'];
-  const completedFields = requiredFields.filter(field => formData[field]);
+  const completedFields = requiredFields.filter(field => currentData[field]);
   
   if (isPersonal) {
-    if (formData.sexualOrientation && formData.sexualOrientation.length > 0) {
+    if (currentData.sexualOrientation && currentData.sexualOrientation.length > 0) {
       completedFields.push('sexualOrientation');
     }
-    if (formData.genderIdentity && formData.genderIdentity.length > 0) {
+    if (currentData.genderIdentity && currentData.genderIdentity.length > 0) {
       completedFields.push('genderIdentity');
     }
   }
   
   const totalRequiredFields = isPersonal ? requiredFields.length + 2 : requiredFields.length;
   const progressPercentage = (completedFields.length / totalRequiredFields) * 100;
+
+  // Show loading for personal profiles until ready
+  if (isPersonal && !isReady) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -218,7 +235,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         </div>
         <BackgroundLifestyle 
           profileType={profileType}
-          formData={formData}
+          formData={isPersonal ? profileData : formData}
           updateFormData={updateFormData}
         />
       </Card>
