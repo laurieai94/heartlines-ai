@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,7 +31,7 @@ const AISidebar = ({
   onOpenProfileForm,
   onStartConversation
 }: AISidebarProps) => {
-  // Use temporary profile data for real-time updates
+  // Use temporary profile data directly for real-time updates and consistency with Profile tab
   const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
   
   const userName = temporaryDemographics.your?.name || '';
@@ -43,7 +44,7 @@ const AISidebar = ({
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages
+  // Calculate individual profile completion percentages using real-time data
   const calculateYourCompletion = () => {
     if (!isLoaded) return 0;
     
@@ -98,7 +99,7 @@ const AISidebar = ({
   const yourCompletion = calculateYourCompletion();
   const partnerCompletion = calculatePartnerCompletion();
 
-  // Handle viewing and editing profiles
+  // Handle viewing and editing profiles using real-time data
   const handleViewProfile = (profileType: 'your' | 'partner') => {
     setViewingProfileType(profileType);
     setShowProfileViewer(true);
@@ -304,12 +305,12 @@ const AISidebar = ({
         </div>
       </div>
 
-      {/* Profile Viewer Modal */}
+      {/* Profile Viewer Modal using real-time data */}
       {showProfileViewer && (
         <ProfileViewer
           profileType={viewingProfileType}
-          profileData={profiles[viewingProfileType]}
-          demographicsData={demographicsData[viewingProfileType]}
+          profileData={temporaryProfiles[viewingProfileType]}
+          demographicsData={temporaryDemographics[viewingProfileType]}
           onEdit={handleEditProfile}
           onClose={() => setShowProfileViewer(false)}
         />
