@@ -81,12 +81,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-        About {isPersonal ? 'You' : 'Your Partner'}
-        {isPersonal && <span className="text-red-500 text-sm">*Required</span>}
-      </h3>
-
-      {/* Avatar Upload - only for personal profile and now optional */}
+      {/* Avatar Upload - only for personal profile */}
       {isPersonal && (
         <div className="flex justify-center mb-8">
           <div className="text-center">
@@ -103,13 +98,14 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
       {/* Name */}
       <div>
         <Label htmlFor="name" className="text-base font-medium">
-          What should we call {isPersonal ? 'you' : 'them'}? {isPersonal && <span className="text-red-500">*</span>}
+          What should we call {isPersonal ? 'you' : 'them'}?
+          {isPersonal && <span className="text-red-500 ml-1">*</span>}
         </Label>
         <Input
           id="name"
           value={formData.name || ''}
           onChange={(e) => updateFormData('name', e.target.value)}
-          placeholder="Enter name or preferred name"
+          placeholder={isPersonal ? "Enter your name or preferred name" : "Enter their name or preferred name"}
           className="mt-1"
         />
       </div>
@@ -117,7 +113,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
       {/* Pronouns */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Pronouns {isPersonal && <span className="text-red-500">*</span>}
+          Pronouns
+          {isPersonal && <span className="text-red-500 ml-1">*</span>}
         </Label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {pronounOptions.map((pronoun) => (
@@ -125,7 +122,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
               <input
                 type="radio"
                 id={`pronoun-${pronoun}`}
-                name="pronouns"
+                name={`pronouns-${profileType}`}
                 value={pronoun}
                 checked={formData.pronouns === pronoun}
                 onChange={(e) => updateFormData('pronouns', e.target.value)}
@@ -142,7 +139,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
       {/* Age */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Age Range {isPersonal && <span className="text-red-500">*</span>}
+          Age Range
+          {isPersonal && <span className="text-red-500 ml-1">*</span>}
         </Label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {ageOptions.map((age) => (
@@ -150,7 +148,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
               <input
                 type="radio"
                 id={`age-${age}`}
-                name="age"
+                name={`age-${profileType}`}
                 value={age}
                 checked={formData.age === age}
                 onChange={(e) => updateFormData('age', e.target.value)}
@@ -164,21 +162,22 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Sexual Orientation - Now Required */}
+      {/* Sexual Orientation */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Sexual Orientation {isPersonal && <span className="text-red-500">*</span>}
+          Sexual Orientation
+          {isPersonal && <span className="text-red-500 ml-1">*</span>}
         </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {orientationOptions.map((orientation) => (
             <div key={orientation} className="flex items-center space-x-2">
               <Checkbox
-                id={`orientation-${orientation}`}
+                id={`orientation-${orientation}-${profileType}`}
                 checked={formData.sexualOrientation?.includes(orientation) || false}
                 onCheckedChange={() => handleMultiSelect('sexualOrientation', orientation)}
               />
-              <Label htmlFor={`orientation-${orientation}`} className="text-sm">
+              <Label htmlFor={`orientation-${orientation}-${profileType}`} className="text-sm">
                 {orientation}
               </Label>
             </div>
@@ -186,21 +185,22 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
         </div>
       </div>
 
-      {/* Gender Identity - Now Required */}
+      {/* Gender Identity */}
       <div>
         <Label className="text-base font-medium mb-3 block">
-          Gender Identity {isPersonal && <span className="text-red-500">*</span>}
+          Gender Identity
+          {isPersonal && <span className="text-red-500 ml-1">*</span>}
         </Label>
         <p className="text-sm text-gray-600 mb-3">Select all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {genderOptions.map((gender) => (
             <div key={gender} className="flex items-center space-x-2">
               <Checkbox
-                id={`gender-${gender}`}
+                id={`gender-${gender}-${profileType}`}
                 checked={formData.genderIdentity?.includes(gender) || false}
                 onCheckedChange={() => handleMultiSelect('genderIdentity', gender)}
               />
-              <Label htmlFor={`gender-${gender}`} className="text-sm">
+              <Label htmlFor={`gender-${gender}-${profileType}`} className="text-sm">
                 {gender}
               </Label>
             </div>
