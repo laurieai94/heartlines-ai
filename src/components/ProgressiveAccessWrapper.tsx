@@ -17,7 +17,7 @@ const ProgressiveAccessWrapper = ({
   fallbackTab = "profile",
   className = ""
 }: ProgressiveAccessWrapperProps) => {
-  const { accessLevel, checkInteractionPermission } = useProgressiveAccess();
+  const { accessLevel, checkInteractionPermission, hasPersonalProfileForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
 
   const handleInteraction = (e: React.MouseEvent) => {
@@ -28,6 +28,12 @@ const ProgressiveAccessWrapper = ({
     e.stopPropagation();
 
     const canProceed = checkInteractionPermission(action);
+    
+    // Special handling for chat/insights actions with personal profile completion
+    if (!canProceed && (action === 'chat' || action === 'insights') && hasPersonalProfileForChat) {
+      // This shouldn't happen with the new logic, but just in case
+      return;
+    }
     
     if (!canProceed && accessLevel === 'profile-required') {
       const handleProfileClick = (e: React.MouseEvent) => {
@@ -61,7 +67,8 @@ const ProgressiveAccessWrapper = ({
     }
   };
 
-  if (accessLevel === 'full-access') {
+  // For full access or when personal profile enables chat access
+  if (accessLevel === 'full-access' || (hasPersonalProfileForChat && (action === 'chat' || action === 'insights'))) {
     return <>{children}</>;
   }
 

@@ -78,35 +78,63 @@ export const useProgressiveAccess = () => {
     return completion;
   };
 
+  // Check if personal profile has essential information for chat access
+  const hasEssentialPersonalProfile = () => {
+    if (!isLoaded) return false;
+    
+    const yourProfile = temporaryProfiles.your[0];
+    const yourDemographics = temporaryDemographics.your;
+    
+    // Check for essential fields that indicate meaningful personal profile completion
+    const hasName = yourDemographics?.name || yourProfile?.name;
+    const hasEmotionalData = (yourProfile?.stressReactions?.length > 0 || yourDemographics?.stressReactions?.length > 0) ||
+                            (yourProfile?.attachmentStyles?.length > 0 || yourDemographics?.attachmentStyles?.length > 0) ||
+                            (yourProfile?.loveLanguages?.length > 0 || yourDemographics?.loveLanguages?.length > 0);
+    
+    const hasBasicInfo = hasName && (yourDemographics?.age || yourProfile?.age);
+    
+    console.log('Essential personal profile check:', { hasName, hasEmotionalData, hasBasicInfo });
+    
+    // User has completed enough personal profile to enable chat
+    return hasBasicInfo && hasEmotionalData;
+  };
+
   const profileCompletion = calculateProfileCompletion();
+  const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // Determine access level
+  // Determine access level - key change: enable chat access with personal profile completion
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
     
-    // Check if we have any meaningful profile data
-    const hasPersonalData = temporaryDemographics.your?.name || 
-                           temporaryProfiles.your?.[0]?.name ||
-                           (temporaryDemographics.your && Object.keys(temporaryDemographics.your).length > 0);
+    // If user has essential personal profile data, enable chat access
+    if (hasPersonalProfileForChat) return 'signup-required';
     
-    if (hasPersonalData && profileCompletion >= 30) return 'signup-required';
-    if (profileCompletion > 0) return 'profile-required';
+    // Check if we have any profile data at all
+    const hasAnyProfileData = temporaryDemographics.your?.name || 
+                             temporaryProfiles.your?.[0]?.name ||
+                             (temporaryDemographics.your && Object.keys(temporaryDemographics.your).length > 0);
+    
+    if (hasAnyProfileData && profileCompletion > 0) return 'profile-required';
     
     return 'profile-required';
   };
 
   const accessLevel = getAccessLevel();
 
-  // Check if user can interact with features
+  // Check if user can interact with features - key change: allow chat with personal profile
   const checkInteractionPermission = (action: string): boolean => {
-    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%`);
+    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%, hasPersonalProfile: ${hasPersonalProfileForChat}`);
     
     switch (accessLevel) {
       case 'full-access':
         return true;
       
       case 'signup-required':
-        // Profile has some completion but not signed up - show sign-up modal
+        // Personal profile completed - enable chat immediately, show signup for other actions
+        if (action === 'chat' || action === 'insights') {
+          return true; // Allow immediate chat access
+        }
+        // For other actions, show sign-up modal
         setBlockingAction(action);
         setShowSignUpModal(true);
         return false;
@@ -129,11 +157,12 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true, // Always allow tab navigation
-    canInteract: accessLevel === 'full-access' || (accessLevel === 'signup-required' && profileCompletion >= 30),
+    canInteract: accessLevel === 'full-access' || (accessLevel === 'signup-required' && hasPersonalProfileForChat),
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,
     checkInteractionPermission,
-    closeSignUpModal
+    closeSignUpModal,
+    hasPersonalProfileForChat // Export this for other components to use
   };
 };
