@@ -52,11 +52,11 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
-        {/* Centered Container for Desktop */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 flex flex-col`}>
+        {/* Fixed Header */}
+        <div className="flex-shrink-0 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
           {/* Minimal Header */}
-          <div className="flex items-center justify-between py-6 pb-8">
+          <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
                 <Heart className="w-5 h-5 text-white" />
@@ -73,10 +73,9 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Main Content */}
+          {/* Professional Navigation Bar */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            {/* Professional Navigation Bar */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-4">
               <div className="w-full max-w-2xl">
                 <TabsList className="grid grid-cols-4 w-full h-12 bg-white/90 backdrop-blur-sm shadow-sm border border-gray-100/50 rounded-xl p-1.5 gap-1">
                   <TabsTrigger 
@@ -110,52 +109,55 @@ const Dashboard = () => {
                 </TabsList>
               </div>
             </div>
-
-            <div className="max-w-6xl mx-auto">
-              <TabsContent value="profile" className="mt-0">
-                <ProfileBuilder 
-                  onProfileUpdate={handleProfileUpdate}
-                  initialProfiles={temporaryProfiles}
-                  initialDemographics={temporaryDemographics}
-                />
-              </TabsContent>
-
-              <TabsContent value="insights" className="mt-0 h-[calc(100vh-200px)]">
-                <ProgressiveAccessWrapper action="insights">
-                  <AIInsights 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
-                </ProgressiveAccessWrapper>
-              </TabsContent>
-
-              <TabsContent value="conversation" className="mt-0">
-                <ProgressiveAccessWrapper action="practice">
-                  <ConversationPractice 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
-                </ProgressiveAccessWrapper>
-              </TabsContent>
-
-              <TabsContent value="actions" className="mt-0">
-                <ProgressiveAccessWrapper action="actions">
-                  <ThoughtfulActions 
-                    profiles={temporaryProfiles}
-                    demographicsData={temporaryDemographics}
-                  />
-                </ProgressiveAccessWrapper>
-              </TabsContent>
-            </div>
           </Tabs>
-
-          {/* Sign-up Modal */}
-          <SignUpModal
-            isOpen={shouldShowSignUpModal}
-            onClose={closeSignUpModal}
-            blockingAction={blockingAction}
-          />
         </div>
+
+        {/* Main Content - Fills remaining screen */}
+        <div className="flex-1 min-h-0 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
+            <TabsContent value="profile" className="mt-0 h-full">
+              <ProfileBuilder 
+                onProfileUpdate={handleProfileUpdate}
+                initialProfiles={temporaryProfiles}
+                initialDemographics={temporaryDemographics}
+              />
+            </TabsContent>
+
+            <TabsContent value="insights" className="mt-0 h-full">
+              <ProgressiveAccessWrapper action="insights">
+                <AIInsights 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </ProgressiveAccessWrapper>
+            </TabsContent>
+
+            <TabsContent value="conversation" className="mt-0 h-full">
+              <ProgressiveAccessWrapper action="practice">
+                <ConversationPractice 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </ProgressiveAccessWrapper>
+            </TabsContent>
+
+            <TabsContent value="actions" className="mt-0 h-full">
+              <ProgressiveAccessWrapper action="actions">
+                <ThoughtfulActions 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </ProgressiveAccessWrapper>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Sign-up Modal */}
+        <SignUpModal
+          isOpen={shouldShowSignUpModal}
+          onClose={closeSignUpModal}
+          blockingAction={blockingAction}
+        />
       </div>
     </NavigationProvider>
   );
