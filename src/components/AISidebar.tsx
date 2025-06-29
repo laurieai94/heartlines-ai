@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -32,12 +33,14 @@ const AISidebar = ({
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
+  
+  // Use centralized progress tracking
   const { profileCompletion } = useProgressiveAccess();
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages with real-time updates
+  // Calculate individual profile completion percentages using the same logic as useProgressiveAccess
   const calculateYourCompletion = () => {
     const yourProfile = profiles.your[0];
     const yourDemo = demographicsData.your;
@@ -45,13 +48,13 @@ const AISidebar = ({
     if (!yourProfile && !yourDemo) return 0;
     
     let completed = 0;
-    let total = 8; // Core fields for personal profile
+    let total = 8;
     
     // Basic info
     if (yourDemo?.name) completed++;
     if (yourDemo?.age) completed++;
     
-    // Emotional blueprint
+    // Emotional blueprint - check both profile and demographics
     if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
     if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
     if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
@@ -71,7 +74,7 @@ const AISidebar = ({
     if (!partnerProfile && !partnerDemo) return 0;
     
     let completed = 0;
-    let total = 4; // Key fields for partner profile
+    let total = 4;
     
     if (partnerDemo?.name) completed++;
     if (partnerProfile?.communicationStyle) completed++;
@@ -124,7 +127,7 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Profile Completion Status with real-time updates */}
+        {/* Profile Completion Status with real-time updates from centralized hook */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-4 h-4 text-coral-600" />
@@ -210,14 +213,14 @@ const AISidebar = ({
             </div>
           </div>
 
-          {/* Dynamic messaging based on progress */}
-          {yourCompletion >= 30 && (
+          {/* Dynamic messaging based on centralized progress */}
+          {profileCompletion >= 30 && (
             <div className="mt-4 p-2 bg-coral-50 rounded text-xs text-coral-700 animate-fade-in">
               <strong>Ready to chat!</strong> I have enough info about {userName || 'you'} to provide personalized relationship guidance.
             </div>
           )}
           
-          {yourCompletion > 0 && yourCompletion < 30 && (
+          {profileCompletion > 0 && profileCompletion < 30 && (
             <div className="mt-4 p-2 bg-amber-50 rounded text-xs text-amber-700 animate-fade-in">
               <strong>Keep going!</strong> Complete a bit more of your profile for better personalized advice.
             </div>
@@ -272,7 +275,6 @@ const AISidebar = ({
           </div>
         </Card>
 
-        {/* Safe Space with fade-in */}
         <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300" style={{animationDelay: '0.4s'}}>
           <div className="flex items-center gap-2 mb-2">
             <Heart className="w-4 h-4 text-coral-600 animate-pulse" />
@@ -285,7 +287,6 @@ const AISidebar = ({
           </div>
         </Card>
 
-        {/* API Configuration */}
         <div className="animate-slide-up" style={{animationDelay: '0.6s'}}>
           <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
         </div>

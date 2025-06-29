@@ -8,6 +8,7 @@ import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
 import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
 import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 
 interface ProfileStats {
   completion: number;
@@ -40,57 +41,39 @@ const ProfileBuilder = ({
     handleQuestionnaireClose 
   } = usePersonalProfileQuestionnaire();
 
+  // Use centralized progress tracking
+  const { profileCompletion } = useProgressiveAccess();
+
   // Get user's name for personalization
   const userName = demographicsData.your?.name || '';
 
-  // Calculate more detailed completion percentages
-  const calculateProfileCompletion = (profileData: any[], demographicsData: any) => {
-    let totalFields = 0;
-    let completedFields = 0;
-
-    // Demographics fields (required for completion)
-    const demographicsFields = ['name', 'pronouns', 'age', 'education', 'workSituation'];
-    totalFields += demographicsFields.length;
-    if (demographicsData) {
-      completedFields += demographicsFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
-    }
-
-    // Background & lifestyle fields (now required)
-    const backgroundFields = ['familyBackground', 'parentsRelationship', 'personalityType', 'healthWellness'];
-    totalFields += backgroundFields.length;
-    if (demographicsData) {
-      completedFields += backgroundFields.filter(field => demographicsData[field] && demographicsData[field] !== '').length;
-    }
-
-    // Profile fields (core required fields)
-    const profileFields = [
-      'importantTalkPreference', 'communicationDirectness', 'emotionExpression', 'loveLanguages',
-      'conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately',
-      'beingRushedMakesWorse', 'feelHeardWithValidation',
-      'comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt',
-      'relationshipLength', 'relationshipType', 'improvingCommunicationFocus'
-    ];
-    totalFields += profileFields.length;
+  // Calculate individual profile completion percentages (simplified)
+  const calculateIndividualCompletion = (profileData: any[], demographicsData: any) => {
+    if (!profileData.length && !demographicsData) return 0;
     
-    if (profileData.length > 0) {
-      const profile = profileData[0];
-      completedFields += profileFields.filter(field => {
-        const value = profile[field];
-        return value && value !== '' && (Array.isArray(value) ? value.length > 0 : true);
-      }).length;
-    }
+    let totalFields = 8;
+    let completedFields = 0;
+    
+    if (demographicsData?.name) completedFields++;
+    if (demographicsData?.age) completedFields++;
+    if (profileData[0]?.stressReactions?.length > 0) completedFields++;
+    if (profileData[0]?.attachmentStyles?.length > 0) completedFields++;
+    if (profileData[0]?.loveLanguages?.length > 0) completedFields++;
+    if (profileData[0]?.receiveLove?.length > 0) completedFields++;
+    if (profileData[0]?.familyDynamics?.length > 0) completedFields++;
+    if (profileData[0]?.relationshipStatus?.length > 0) completedFields++;
     
     return Math.round((completedFields / totalFields) * 100);
   };
 
   const yourProfileStats: ProfileStats = {
-    completion: calculateProfileCompletion(profiles.your, demographicsData.your),
+    completion: calculateIndividualCompletion(profiles.your, demographicsData.your),
     sectionsComplete: profiles.your.length > 0 ? 4 : 0,
     totalSections: 5
   };
 
   const partnerProfileStats: ProfileStats = {
-    completion: calculateProfileCompletion(profiles.partner, demographicsData.partner),
+    completion: calculateIndividualCompletion(profiles.partner, demographicsData.partner),
     sectionsComplete: profiles.partner.length > 0 ? 2 : 0,
     totalSections: 5
   };
@@ -149,6 +132,19 @@ const ProfileBuilder = ({
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Build your relationship profiles in just 5 minutes
         </p>
+        {/* Real-time overall progress indicator */}
+        {profileCompletion > 0 && (
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+            <span>Overall Progress:</span>
+            <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 ease-out"
+                style={{ width: `${profileCompletion}%` }}
+              />
+            </div>
+            <span className="font-semibold text-purple-600">{profileCompletion}%</span>
+          </div>
+        )}
       </div>
 
       {/* Compact Two-Card Layout */}
