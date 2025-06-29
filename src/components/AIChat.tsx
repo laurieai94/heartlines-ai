@@ -181,33 +181,33 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
             <ScrollArea className="flex-1 px-6 py-4">
               <div className="space-y-4 max-w-3xl mx-auto">
                 
-                {/* Kai's Welcome Section */}
+                {/* Kai's Welcome Section - More Compact */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                  <div className="text-center py-8 animate-fade-in">
-                    {/* Kai Avatar with Glow */}
-                    <div className="w-16 h-16 mx-auto mb-4 relative">
+                  <div className="text-center py-4 animate-fade-in">
+                    {/* Kai Avatar with Glow - Smaller */}
+                    <div className="w-12 h-12 mx-auto mb-3 relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
-                      <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-white shadow-2xl relative z-10">
+                      <Avatar className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-white shadow-2xl relative z-10">
                         <AvatarImage 
                           src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                           alt="Kai" 
                           className="object-cover"
                         />
                         <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                          <Heart className="w-8 h-8" />
+                          <Heart className="w-6 h-6" />
                         </AvatarFallback>
                       </Avatar>
                       {/* Animated thinking indicator when ready */}
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-bounce-gentle shadow-lg"></div>
+                      <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white animate-bounce-gentle shadow-lg"></div>
                     </div>
                     
-                    {/* Warm Welcome Message */}
-                    <div className="space-y-3 max-w-xl mx-auto">
-                      <h2 className="text-2xl font-semibold text-gray-800 leading-relaxed">
+                    {/* Warm Welcome Message - More Compact */}
+                    <div className="space-y-2 max-w-lg mx-auto">
+                      <h2 className="text-xl font-semibold text-gray-800 leading-relaxed">
                         Hey, I'm Kai 👋
                       </h2>
                       
-                      <div className="text-base text-gray-600 leading-relaxed font-light space-y-2">
+                      <div className="text-sm text-gray-600 leading-relaxed font-light space-y-1">
                         <p>Here to help you figure out the messy, meaningful, and everything-in-between parts of your relationship.</p>
                         <p>What's going on today?</p>
                       </div>
