@@ -84,7 +84,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   return (
-    <div className="flex gap-3 h-full overflow-hidden">
+    <div className="flex gap-4 h-full overflow-hidden">
       <ProgressiveAccessWrapper action="chat">
         <div className="flex-1 min-w-0">
           <AIChat 
@@ -97,7 +97,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           />
         </div>
       </ProgressiveAccessWrapper>
-      <div className="w-72 flex-shrink-0">
+      <div className="w-80 flex-shrink-0">
         <AISidebar 
           profiles={profiles}
           demographicsData={demographicsData}

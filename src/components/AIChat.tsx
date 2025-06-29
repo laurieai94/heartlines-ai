@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -171,21 +172,21 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         style={backgroundPatternStyle}
       />
       
-      {/* Main Chat Container - Full height */}
-      <div className="flex-1 min-h-0 flex items-stretch justify-center p-1 lg:p-2 h-full">
+      {/* Main Chat Container - Optimized for more vertical space */}
+      <div className="flex-1 min-h-0 flex items-stretch justify-center p-1 h-full">
         <div className="w-full max-w-4xl flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden h-full">
           
-          {/* Chat Messages Area - Maximized scrollable area */}
+          {/* Chat Messages Area - Maximized scrollable area with tighter spacing */}
           <div className="flex-1 min-h-0 flex flex-col">
             <ScrollArea className="flex-1 min-h-0">
-              <div className="p-2 lg:p-3">
+              <div className="p-2">
                 <div className="space-y-2 max-w-3xl mx-auto">
                   
                   {/* Kai's Welcome Section - More compact */}
                   {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                    <div className="text-center py-3 animate-fade-in">
+                    <div className="text-center py-2 animate-fade-in">
                       {/* Kai Avatar with Glow - Smaller */}
-                      <div className="w-10 h-10 mx-auto mb-3 relative">
+                      <div className="w-10 h-10 mx-auto mb-2 relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
                         <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border-3 border-white shadow-2xl relative z-10">
                           <AvatarImage 
@@ -202,7 +203,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                       </div>
                       
                       {/* Warm Welcome Message - More compact */}
-                      <div className="space-y-1.5 max-w-xl mx-auto">
+                      <div className="space-y-1 max-w-xl mx-auto">
                         <h2 className="text-lg font-medium text-gray-800 leading-relaxed">
                           Hey, I'm Kai 👋
                         </h2>
@@ -259,8 +260,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               </div>
             </ScrollArea>
 
-            {/* Chat Input - Compact and fixed at bottom */}
-            <div className="shrink-0 p-2 border-t border-white/20 bg-white/40 backdrop-blur-sm">
+            {/* Chat Input - More compact and fixed at bottom */}
+            <div className="shrink-0 p-1.5 border-t border-white/20 bg-white/40 backdrop-blur-sm">
               <div className="max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
