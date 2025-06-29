@@ -22,8 +22,7 @@ const Dashboard = () => {
     blockingAction, 
     closeSignUpModal,
     accessLevel,
-    profileCompletion,
-    personalProfileReady
+    profileCompletion
   } = useProgressiveAccess();
   
   // Use temporary profiles for non-authenticated users
@@ -58,15 +57,10 @@ const Dashboard = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">RealTalk</h1>
-                {accessLevel !== 'full-access' && !personalProfileReady && (
+                {accessLevel !== 'full-access' && (
                   <p className="text-xs text-gray-500">
                     {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                      profileCompletion > 0 ? `${profileCompletion}% complete - one step away from full access` : 'One step away from full access'}
-                  </p>
-                )}
-                {personalProfileReady && accessLevel !== 'full-access' && (
-                  <p className="text-xs text-green-600">
-                    ✓ Personal profile complete - Kai is ready to chat!
                   </p>
                 )}
               </div>
@@ -92,9 +86,6 @@ const Dashboard = () => {
                   >
                     <Lightbulb className="w-4 h-4" />
                     <span className="hidden sm:inline">Coach</span>
-                    {personalProfileReady && (
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    )}
                   </TabsTrigger>
                   <TabsTrigger 
                     value="conversation" 
@@ -124,11 +115,12 @@ const Dashboard = () => {
               </TabsContent>
 
               <TabsContent value="insights" className="mt-0 h-[calc(100vh-200px)]">
-                {/* Remove ProgressiveAccessWrapper here since AIInsights handles its own access control */}
-                <AIInsights 
-                  profiles={temporaryProfiles}
-                  demographicsData={temporaryDemographics}
-                />
+                <ProgressiveAccessWrapper action="insights">
+                  <AIInsights 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
+                </ProgressiveAccessWrapper>
               </TabsContent>
 
               <TabsContent value="conversation" className="mt-0">

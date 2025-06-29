@@ -38,10 +38,10 @@ export const useProgressiveAccess = () => {
     const yourDemographics = temporaryDemographics.your;
     
     if (yourProfile || yourDemographics) {
-      // Core personal fields - reduced requirements for chat access
+      // Core personal fields
       const personalFields = [
         'name', 'age', 'stressReactions', 'attachmentStyles', 
-        'loveLanguages', 'receiveLove'
+        'loveLanguages', 'receiveLove', 'familyDynamics', 'relationshipStatus'
       ];
       
       totalFields += personalFields.length;
@@ -56,47 +56,35 @@ export const useProgressiveAccess = () => {
       });
     }
 
+    // Check partner profile completion
+    const partnerProfile = temporaryProfiles.partner[0];
+    const partnerDemographics = temporaryDemographics.partner;
+    
+    if (partnerProfile || partnerDemographics) {
+      const partnerFields = ['name', 'communicationStyle', 'loveLanguages', 'conflictStyle'];
+      totalFields += partnerFields.length;
+      
+      partnerFields.forEach(field => {
+        const value = partnerDemographics?.[field] || partnerProfile?.[field];
+        if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
+          completedFields++;
+          console.log(`Partner field ${field} completed:`, value);
+        }
+      });
+    }
+
     const completion = totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
     console.log('Profile completion calculated:', { completedFields, totalFields, completion });
     return completion;
   };
 
-  // Check if personal profile has essential data for chat
-  const hasPersonalProfileForChat = () => {
-    if (!isLoaded) return false;
-    
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemographics = temporaryDemographics.your;
-    
-    // Essential fields needed for meaningful chat interaction
-    const hasName = yourDemographics?.name || yourProfile?.name;
-    const hasAge = yourDemographics?.age || yourProfile?.age;
-    const hasBasicEmotionalData = 
-      (yourProfile?.stressReactions?.length > 0 || yourDemographics?.stressReactions?.length > 0) ||
-      (yourProfile?.attachmentStyles?.length > 0 || yourDemographics?.attachmentStyles?.length > 0) ||
-      (yourProfile?.loveLanguages?.length > 0 || yourDemographics?.loveLanguages?.length > 0);
-    
-    console.log('Personal profile chat readiness:', { 
-      hasName, 
-      hasAge, 
-      hasBasicEmotionalData,
-      canChat: hasName && hasAge && hasBasicEmotionalData
-    });
-    
-    return hasName && hasAge && hasBasicEmotionalData;
-  };
-
   const profileCompletion = calculateProfileCompletion();
-  const personalProfileReady = hasPersonalProfileForChat();
   
-  // Determine access level - updated logic for immediate chat access
+  // Determine access level
   const getAccessLevel = (): AccessLevel => {
     if (user) return 'full-access';
     
-    // If personal profile has essential data, allow chat access
-    if (personalProfileReady) return 'full-access';
-    
-    // Check if we have any meaningful profile data but not enough for chat
+    // Check if we have any meaningful profile data
     const hasPersonalData = temporaryDemographics.your?.name || 
                            temporaryProfiles.your?.[0]?.name ||
                            (temporaryDemographics.your && Object.keys(temporaryDemographics.your).length > 0);
@@ -109,17 +97,9 @@ export const useProgressiveAccess = () => {
 
   const accessLevel = getAccessLevel();
 
-  // Check if user can interact with features - updated for chat access
+  // Check if user can interact with features
   const checkInteractionPermission = (action: string): boolean => {
-    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%, personal ready: ${personalProfileReady}`);
-    
-    // Special handling for chat - allow if personal profile is ready
-    if (action === 'chat' || action === 'insights') {
-      if (personalProfileReady) {
-        console.log('Chat access granted: personal profile ready');
-        return true;
-      }
-    }
+    console.log(`Checking permission for action: ${action}, access level: ${accessLevel}, completion: ${profileCompletion}%`);
     
     switch (accessLevel) {
       case 'full-access':
@@ -149,12 +129,11 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true, // Always allow tab navigation
-    canInteract: accessLevel === 'full-access' || personalProfileReady,
+    canInteract: accessLevel === 'full-access' || (accessLevel === 'signup-required' && profileCompletion >= 30),
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,
     checkInteractionPermission,
-    closeSignUpModal,
-    personalProfileReady // Expose this for components that need it
+    closeSignUpModal
   };
 };

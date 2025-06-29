@@ -31,7 +31,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { saveConversation } = useChatHistory();
-  const { accessLevel, canInteract, personalProfileReady } = useProgressiveAccess();
+  const { accessLevel, canInteract } = useProgressiveAccess();
   const processedStarters = useRef(new Set<string>());
 
   const userName = demographicsData.your?.name || profile?.name || '';
@@ -46,26 +46,25 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
   // Handle conversation starter - improved to avoid duplicates
   useEffect(() => {
-    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && (canInteract || personalProfileReady)) {
+    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && canInteract) {
       processedStarters.current.add(conversationStarter);
       sendMessage(conversationStarter);
     }
-  }, [conversationStarter, isConfigured, canInteract, personalProfileReady]);
+  }, [conversationStarter, isConfigured, canInteract]);
 
   // Save conversation whenever chat history changes (with debouncing)
   useEffect(() => {
-    if (chatHistory.length > 0 && (canInteract || personalProfileReady)) {
+    if (chatHistory.length > 0 && canInteract) {
       const timeoutId = setTimeout(() => {
         saveConversation(chatHistory);
       }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [chatHistory, saveConversation, canInteract, personalProfileReady]);
+  }, [chatHistory, saveConversation, canInteract]);
 
   const sendMessage = async (userMessage: string) => {
-    // Allow chat if personal profile is ready, even without full access
-    if (!canInteract && !personalProfileReady) return;
+    if (!canInteract) return;
 
     const newUserMessage: ChatMessage = {
       id: Date.now(),
@@ -165,9 +164,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b8a' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3Ccircle cx='27' cy='27' r='2'/%3E%3Ccircle cx='47' cy='47' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
   };
 
-  // Check if chat should be enabled
-  const chatEnabled = isConfigured && (canInteract || personalProfileReady);
-
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
       {/* Soft Background Pattern */}
@@ -186,7 +182,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               <div className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Welcome Section */}
-                {chatHistory.length === 0 && chatEnabled && !conversationStarter && (
+                {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                   <div className="text-center py-12 animate-fade-in">
                     {/* Kai Avatar with Glow */}
                     <div className="w-20 h-20 mx-auto mb-8 relative">
@@ -268,14 +264,14 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
                     onSendMessage={sendMessage} 
-                    loading={loading || !chatEnabled} 
+                    loading={loading || !isConfigured || !canInteract} 
                     userName={userName} 
                     partnerName={partnerName}
                     chatHistory={chatHistory}
                     onSpeakResponse={handleSpeakResponse}
                   />
                 </ProgressiveAccessWrapper>
-                {!isConfigured && (accessLevel === 'full-access' || personalProfileReady) && (
+                {!isConfigured && accessLevel === 'full-access' && (
                   <p className="text-sm text-gray-500 mt-4 text-center font-light">
                     Complete setup to start chatting
                   </p>
