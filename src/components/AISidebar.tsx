@@ -162,8 +162,7 @@ const AISidebar = ({
             </div>
           </div>
           <p className="text-xs text-gray-600 leading-relaxed">
-            Your AI relationship coach trained on 15+ years of clinical psychology expertise. 
-            {profileCompletion > 0 ? ` I already know some things about ${userName || 'you'} and can provide personalized guidance.` : ' Complete your profile to unlock personalized insights.'}
+            Your AI relationship coach, trained on 15+ years of PhD-level clinical psychology and grounded in evidence-based practices. Built to help you grow, communicate, and connect in the moments that matter most.
           </p>
         </Card>
 
