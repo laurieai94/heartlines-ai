@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const usePersonalProfileQuestionnaire = () => {
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  const [showCompletionOptions, setShowCompletionOptions] = useState(false);
   const { updateTemporaryProfile, temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
   const navigate = useNavigate();
 
@@ -100,16 +101,32 @@ export const usePersonalProfileQuestionnaire = () => {
     updateTemporaryProfile(newProfiles, newDemographics);
     setShowQuestionnaire(false);
     
-    toast.success("Personal profile completed! You can now chat with Kai about your relationship.");
+    toast.success("Personal profile completed!");
     
-    // Redirect to chat page after completion
-    setTimeout(() => {
-      navigate('/dashboard', { state: { activeTab: 'insights' } });
-    }, 1500);
+    // Show completion options instead of immediately redirecting
+    setShowCompletionOptions(true);
   };
 
   const handleQuestionnaireClose = () => {
     setShowQuestionnaire(false);
+  };
+
+  const handleCompletionOptionsClose = () => {
+    setShowCompletionOptions(false);
+  };
+
+  const handleAddPartnerProfile = () => {
+    setShowCompletionOptions(false);
+    // This will be handled by the ProfileBuilder component
+    // We'll pass this action up through a callback
+  };
+
+  const handleStartChatting = () => {
+    setShowCompletionOptions(false);
+    // Navigate to chat page
+    setTimeout(() => {
+      navigate('/dashboard', { state: { activeTab: 'insights' } });
+    }, 500);
   };
 
   const openQuestionnaire = () => {
@@ -118,8 +135,12 @@ export const usePersonalProfileQuestionnaire = () => {
 
   return {
     showQuestionnaire,
+    showCompletionOptions,
     openQuestionnaire,
     handleQuestionnaireComplete,
-    handleQuestionnaireClose
+    handleQuestionnaireClose,
+    handleCompletionOptionsClose,
+    handleAddPartnerProfile,
+    handleStartChatting
   };
 };

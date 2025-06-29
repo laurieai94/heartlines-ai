@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -35,12 +34,17 @@ const ProfileBuilder = ({
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
   const [demographicsData, setDemographicsData] = useState<{your: any, partner: any}>(initialDemographics);
+  const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
 
   const { 
     showQuestionnaire, 
+    showCompletionOptions,
     openQuestionnaire, 
     handleQuestionnaireComplete, 
-    handleQuestionnaireClose 
+    handleQuestionnaireClose,
+    handleCompletionOptionsClose,
+    handleAddPartnerProfile,
+    handleStartChatting
   } = usePersonalProfileQuestionnaire();
 
   // Use centralized progress tracking and temporary profile data
@@ -141,12 +145,39 @@ const ProfileBuilder = ({
     };
     setProfiles(newProfiles);
     setShowForm(false);
-    toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
+    
+    // Check if this is partner profile completion
+    if (activeProfileType === 'partner') {
+      setShowPartnerCompletionOptions(true);
+      toast.success('Partner profile completed!');
+    } else {
+      toast.success(`${activeProfileType === 'your' ? (userName ? `${userName}'s` : 'Your') : 'Partner'} profile saved successfully!`);
+    }
     
     // Call the callback if provided
     if (onProfileUpdate) {
       onProfileUpdate(newProfiles, demographicsData);
     }
+  };
+
+  // Handle completion options from personal profile questionnaire
+  const handlePersonalProfileAddPartner = () => {
+    handleAddPartnerProfile();
+    setActiveProfileType('partner');
+    if (!demographicsData.partner) {
+      setShowDemographics(true);
+    } else {
+      setShowForm(true);
+    }
+  };
+
+  const handlePartnerCompletionClose = () => {
+    setShowPartnerCompletionOptions(false);
+  };
+
+  const handlePartnerCompletionStartChat = () => {
+    setShowPartnerCompletionOptions(false);
+    handleStartChatting();
   };
 
   return (
@@ -424,6 +455,28 @@ const ProfileBuilder = ({
         <PersonalProfileQuestionnaire
           onComplete={handleQuestionnaireComplete}
           onClose={handleQuestionnaireClose}
+        />
+      )}
+
+      {/* Personal Profile Completion Options */}
+      {showCompletionOptions && (
+        <ProfileCompletionOptions
+          completionType="personal"
+          onAddPartnerProfile={handlePersonalProfileAddPartner}
+          onStartChatting={handleStartChatting}
+          onClose={handleCompletionOptionsClose}
+          hasPartnerProfile={temporaryProfiles.partner.length > 0}
+        />
+      )}
+
+      {/* Partner Profile Completion Options */}
+      {showPartnerCompletionOptions && (
+        <ProfileCompletionOptions
+          completionType="partner"
+          onAddPartnerProfile={() => {}} // Not used for partner completion
+          onStartChatting={handlePartnerCompletionStartChat}
+          onClose={handlePartnerCompletionClose}
+          hasPartnerProfile={true}
         />
       )}
     </div>
