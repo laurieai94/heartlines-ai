@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { useState, useEffect } from "react";
 
 interface PersonalIdentityProps {
   profileType: 'your' | 'partner';
@@ -15,6 +17,21 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
+  const { personalProfileData, isLoaded } = usePersonalProfileData();
+
+  // Load existing data when component mounts or when profile data changes
+  useEffect(() => {
+    if (isPersonal && isLoaded && personalProfileData) {
+      console.log('PersonalIdentity: Loading existing data:', personalProfileData);
+      
+      // Update form data with existing values
+      Object.keys(personalProfileData).forEach(key => {
+        if (personalProfileData[key] && formData[key] !== personalProfileData[key]) {
+          updateFormData(key, personalProfileData[key]);
+        }
+      });
+    }
+  }, [isPersonal, isLoaded, personalProfileData]);
 
   const handleAvatarUpdate = async (url: string) => {
     updateFormData('avatar_url', url);

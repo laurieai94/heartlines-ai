@@ -14,13 +14,14 @@ export const usePersonalProfileQuestionnaire = () => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal questionnaire completed with data:', questionnaireData);
     
-    // Merge with existing data and save to temporary profile system
+    // Get existing data from both profiles and demographics
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     
-    // Create comprehensive profile data
+    // Create comprehensive profile data by merging all existing data with new data
     const updatedProfile = {
       ...existingProfile,
+      ...existingDemographics, // Include demographics data in profile
       ...questionnaireData,
       completedAt: new Date().toISOString(),
       profileSource: 'personal-questionnaire'
@@ -28,6 +29,7 @@ export const usePersonalProfileQuestionnaire = () => {
     
     const updatedDemographics = {
       ...existingDemographics,
+      ...existingProfile, // Include profile data in demographics
       ...questionnaireData,
       completedAt: new Date().toISOString(),
       profileSource: 'personal-questionnaire'
