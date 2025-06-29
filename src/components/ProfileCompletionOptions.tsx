@@ -22,6 +22,24 @@ const ProfileCompletionOptions = ({
   const isPersonalCompletion = completionType === 'personal';
   const isPartnerCompletion = completionType === 'partner';
 
+  const handleStartChatting = () => {
+    // Navigate to insights/coach tab
+    const currentUrl = new URL(window.location.href);
+    currentUrl.hash = '';
+    window.history.pushState({}, '', currentUrl.toString());
+    
+    // Trigger navigation to insights tab
+    const tabsElement = document.querySelector('[data-state="active"][value="profile"]')?.closest('[role="tablist"]');
+    if (tabsElement) {
+      const insightsTab = tabsElement.querySelector('[value="insights"]') as HTMLElement;
+      if (insightsTab) {
+        insightsTab.click();
+      }
+    }
+    
+    onStartChatting();
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <Card className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8 relative overflow-hidden">
@@ -70,7 +88,7 @@ const ProfileCompletionOptions = ({
 
                 {/* Option 2: Start Chatting */}
                 <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200/50 hover:border-purple-300 transition-all duration-300 hover:shadow-lg cursor-pointer group"
-                      onClick={onStartChatting}>
+                      onClick={handleStartChatting}>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <MessageCircle className="w-6 h-6 text-white" />
@@ -104,7 +122,7 @@ const ProfileCompletionOptions = ({
               {/* Single option for partner profile completion */}
               <div className="mt-8">
                 <Button 
-                  onClick={onStartChatting}
+                  onClick={handleStartChatting}
                   className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 px-8 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg group"
                 >
                   <MessageCircle className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" />

@@ -44,8 +44,13 @@ const Dashboard = () => {
     setActiveTab("profile");
   };
 
+  const handleGoToCoach = () => {
+    console.log('Navigating to coach tab');
+    setActiveTab("insights");
+  };
+
   return (
-    <NavigationProvider goToProfile={handleGoToProfile}>
+    <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className={`min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
         {/* Centered Container for Desktop */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,11 +1,13 @@
 
 import { useState } from 'react';
 import { useTemporaryProfile } from './useTemporaryProfile';
+import { useNavigation } from '@/contexts/NavigationContext';
 
 export const usePersonalProfileQuestionnaire = () => {
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
   const [showCompletionOptions, setShowCompletionOptions] = useState(false);
   const { updateTemporaryProfile, temporaryProfiles, temporaryDemographics } = useTemporaryProfile();
+  const { goToProfile } = useNavigation();
 
   const openQuestionnaire = () => {
     setShowQuestionnaire(true);
@@ -55,10 +57,15 @@ export const usePersonalProfileQuestionnaire = () => {
 
   const handleAddPartnerProfile = () => {
     setShowCompletionOptions(false);
+    // Stay on profile tab for partner profile creation
   };
 
   const handleStartChatting = () => {
     setShowCompletionOptions(false);
+    // Navigate to coach tab
+    window.location.hash = 'insights';
+    const event = new HashChangeEvent('hashchange');
+    window.dispatchEvent(event);
   };
 
   return {
