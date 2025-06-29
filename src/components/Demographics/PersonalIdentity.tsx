@@ -4,8 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
-import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { usePersonalProfile } from "@/hooks/usePersonalProfile";
 import { useState, useEffect } from "react";
 
 interface PersonalIdentityProps {
@@ -18,42 +17,33 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { personalProfileData, savePersonalProfileData, isLoaded } = usePersonalProfileData();
-  const { updateTemporaryProfile } = useTemporaryProfile();
+  const { personalData, savePersonalData, isLoaded } = usePersonalProfile();
 
-  // Load existing data when component mounts or when profile data changes
+  // Load existing personal data on mount
   useEffect(() => {
-    if (isPersonal && isLoaded && personalProfileData && Object.keys(personalProfileData).length > 0) {
-      console.log('PersonalIdentity: Loading existing personal data:', personalProfileData);
+    if (isPersonal && isLoaded && personalData && Object.keys(personalData).length > 0) {
+      console.log('Loading existing personal data:', personalData);
       
-      // Update form data with existing values
-      Object.keys(personalProfileData).forEach(key => {
-        const existingValue = personalProfileData[key];
-        
-        if (existingValue !== undefined && existingValue !== null && existingValue !== '') {
-          console.log(`PersonalIdentity: Setting ${key} to`, existingValue);
-          updateFormData(key, existingValue);
+      Object.keys(personalData).forEach(key => {
+        const value = personalData[key];
+        if (value !== undefined && value !== null && value !== '') {
+          updateFormData(key, value);
         }
       });
     }
-  }, [isPersonal, isLoaded, personalProfileData, updateFormData]);
+  }, [isPersonal, isLoaded, personalData, updateFormData]);
 
-  // Save data immediately when form data changes for personal profile
+  // Save changes for personal profile
   useEffect(() => {
     if (isPersonal && isLoaded && formData && Object.keys(formData).length > 0) {
-      console.log('PersonalIdentity: Saving form data changes:', formData);
-      
-      const { newProfiles, newDemographics } = savePersonalProfileData(formData);
-      
-      // Update temporary storage
-      updateTemporaryProfile(newProfiles, newDemographics);
+      console.log('Saving personal profile changes:', formData);
+      savePersonalData(formData);
     }
-  }, [formData, isPersonal, isLoaded, savePersonalProfileData, updateTemporaryProfile]);
+  }, [formData, isPersonal, isLoaded, savePersonalData]);
 
   const handleAvatarUpdate = async (url: string) => {
     updateFormData('avatar_url', url);
     
-    // If this is the personal profile, also update the user profile
     if (isPersonal) {
       try {
         await updateProfile({ avatar_url: url });

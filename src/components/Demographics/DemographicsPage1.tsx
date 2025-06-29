@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { usePersonalProfile } from "@/hooks/usePersonalProfile";
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -17,23 +17,12 @@ interface DemographicsPage1Props {
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
   const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
-  const { personalProfileData, savePersonalProfileData, isLoaded } = usePersonalProfileData();
+  const { personalData, isLoaded } = usePersonalProfile();
   const isPersonal = profileType === 'your';
   
-  // Get existing data - for personal profiles, use the unified data
-  const getExistingData = () => {
-    if (isPersonal && isLoaded) {
-      // For personal profiles, use the merged data from usePersonalProfileData
-      return { ...personalProfileData, ...initialData };
-    } else {
-      // For partner profiles, use the existing logic
-      const existingDemographics = temporaryDemographics[profileType] || {};
-      return { ...existingDemographics, ...initialData };
-    }
-  };
-  
+  // Initialize form data
   const [formData, setFormData] = useState(() => {
-    const existingData = getExistingData();
+    const existingData = isPersonal ? personalData : (temporaryDemographics[profileType] || {});
     return {
       name: existingData.name || '',
       pronouns: existingData.pronouns || '',
@@ -43,50 +32,38 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       education: existingData.education || '',
       workSituation: existingData.workSituation || '',
       income: existingData.income || '',
-      ...existingData
+      ...existingData,
+      ...initialData
     };
   });
 
-  // Reload data when profile data changes
+  // Reload data when personal data changes
   useEffect(() => {
-    const existingData = getExistingData();
-    console.log('DemographicsPage1: Reloading data for', profileType, existingData);
-    
-    setFormData(prev => {
-      const newData = { ...prev, ...existingData };
-      console.log('DemographicsPage1: Updated form data:', newData);
-      return newData;
-    });
-  }, [isPersonal, isLoaded, personalProfileData, temporaryDemographics, profileType]);
+    if (isPersonal && isLoaded) {
+      console.log('Reloading personal data:', personalData);
+      setFormData(prev => ({ ...prev, ...personalData }));
+    }
+  }, [isPersonal, isLoaded, personalData]);
 
-  // Auto-save data whenever formData changes
+  // Auto-save data
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isLoaded || !formData || Object.keys(formData).length === 0) return;
     
-    const saveData = () => {
-      console.log('DemographicsPage1: Auto-saving data for', profileType, formData);
-      
-      if (isPersonal) {
-        // For personal profiles, use the unified save function
-        const { newProfiles, newDemographics } = savePersonalProfileData(formData);
-        updateTemporaryProfile(newProfiles, newDemographics);
-      } else {
-        // For partner profiles, use existing logic
-        const newDemographics = {
-          ...temporaryDemographics,
-          [profileType]: { ...temporaryDemographics[profileType], ...formData }
-        };
-        updateTemporaryProfile(temporaryProfiles, newDemographics);
-      }
-    };
-
-    // Debounce the save to avoid too frequent updates
-    const timeoutId = setTimeout(saveData, 300);
-    return () => clearTimeout(timeoutId);
-  }, [formData, profileType, isLoaded, isPersonal, savePersonalProfileData, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
+    console.log('Auto-saving data for', profileType, formData);
+    
+    if (!isPersonal) {
+      // For partner profiles, use existing logic
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: { ...temporaryDemographics[profileType], ...formData }
+      };
+      updateTemporaryProfile(temporaryProfiles, newDemographics);
+    }
+    // Personal profile auto-save is handled in PersonalIdentity component
+  }, [formData, profileType, isLoaded, isPersonal, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
 
   const updateFormData = (field: string, value: any) => {
-    console.log('DemographicsPage1: Updating field', field, 'with value:', value);
+    console.log('Updating field', field, 'with value:', value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -103,7 +80,6 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       const required = ['name', 'pronouns', 'age', 'education', 'workSituation'];
       const missing = required.filter(field => !formData[field]);
       
-      // Check for required multi-select fields
       if (!formData.sexualOrientation || formData.sexualOrientation.length === 0) {
         missing.push('sexualOrientation');
       }
@@ -124,7 +100,6 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         return false;
       }
     } else {
-      // For partner, only name is required
       if (!formData.name) {
         toast.error('Please provide your partner\'s name');
         return false;
@@ -136,15 +111,14 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   const handleContinue = () => {
     if (!validateRequired()) return;
     
-    console.log('DemographicsPage1: Completing with data:', formData);
+    console.log('Completing with data:', formData);
     onComplete(formData);
   };
 
-  // Calculate progress for engagement - updated to include new required fields
+  // Calculate progress
   const requiredFields = isPersonal ? ['name', 'pronouns', 'age', 'education', 'workSituation'] : ['name'];
   const completedFields = requiredFields.filter(field => formData[field]);
   
-  // Add progress for multi-select required fields for personal profiles
   if (isPersonal) {
     if (formData.sexualOrientation && formData.sexualOrientation.length > 0) {
       completedFields.push('sexualOrientation');
@@ -154,7 +128,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     }
   }
   
-  const totalRequiredFields = isPersonal ? requiredFields.length + 2 : requiredFields.length; // +2 for the multi-select fields
+  const totalRequiredFields = isPersonal ? requiredFields.length + 2 : requiredFields.length;
   const progressPercentage = (completedFields.length / totalRequiredFields) * 100;
 
   return (
@@ -249,7 +223,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         />
       </Card>
 
-      {/* Enhanced Continue Button */}
+      {/* Continue Button */}
       <div className="flex justify-between items-center pt-4">
         <div className="text-sm text-gray-500">
           {completedFields.length} of {totalRequiredFields} required fields completed
