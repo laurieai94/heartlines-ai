@@ -50,7 +50,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Stress = relationship chaos. Let's prep you
+              💡 <strong>Why we ask:</strong> Your stress patterns predict how you'll handle relationship challenges - understanding this helps us suggest coping strategies that actually work for you
             </p>
             <div className="space-y-2">
               {stressResponseOptions.map((response) => (
@@ -76,7 +76,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Your love language = personalized advice
+              💡 <strong>Why we ask:</strong> Your love language preferences guide how we suggest showing and receiving love - this makes our relationship advice deeply personal to you
             </p>
             <div className="space-y-2">
               {feelLovedOptions.map((way) => (
@@ -105,7 +105,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Fight better with strategies that fit you
+              💡 <strong>Why we ask:</strong> Conflict needs help us suggest resolution strategies that honor your emotional processing style and lead to actual healing
             </p>
             <div className="space-y-2">
               {conflictNeedsOptions.map((need) => (
@@ -130,7 +130,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               Your attachment style <span className="text-red-500">*</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Foundation of how you love and trust
+              💡 <strong>Why we ask:</strong> Attachment style is the foundation of how you connect, trust, and handle intimacy - it's the key to understanding your relationship patterns
             </p>
             <div className="space-y-2">
               {attachmentOptions.map((style) => (

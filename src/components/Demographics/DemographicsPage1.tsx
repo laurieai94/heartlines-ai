@@ -161,8 +161,8 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
             <div className="flex-1">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Let's get to know {isPersonal ? 'you' : 'your partner'} better!</h3>
               <p className="text-gray-700 mb-4">
-                Quick info to personalize your experience. 
-                {!isPersonal && ' Don\'t stress if you don\'t know everything—just fill in what you can!'}
+                This helps Kai understand {isPersonal ? 'your' : 'their'} background and give more personalized insights. 
+                {!isPersonal && ' Don\'t worry if you don\'t know everything—just fill in what you can!'}
               </p>
               
               {/* Progress Indicator */}
@@ -181,7 +181,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
 
               <div className="flex items-center gap-2 text-sm text-purple-700">
                 <Lock className="w-4 h-4" />
-                <span className="font-medium">Private & secure—this stays with you</span>
+                <span className="font-medium">Private & secure—this information stays with you</span>
               </div>
             </div>
           </div>
@@ -196,7 +196,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
             </div>
             <div>
               <p className="text-sm text-amber-800">
-                <strong>New relationship?</strong> No worries! Share what you know, skip the rest.
+                <strong>New relationship?</strong> No problem! Just share what you know and skip the rest. You can always come back later.
               </p>
             </div>
           </div>
@@ -212,7 +212,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
             </div>
             Personal Identity
           </h4>
-          <p className="text-gray-600 text-sm">The basics to personalize your experience</p>
+          <p className="text-gray-600 text-sm">Basic information to personalize the experience</p>
         </div>
         <PersonalIdentity 
           profileType={profileType}
@@ -231,7 +231,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
             </div>
             Background & Lifestyle
           </h4>
-          <p className="text-gray-600 text-sm">Context that helps us understand {isPersonal ? 'your' : 'their'} perspective</p>
+          <p className="text-gray-600 text-sm">Context that helps understand {isPersonal ? 'your' : 'their'} perspective</p>
         </div>
         <BackgroundLifestyle 
           profileType={profileType}
