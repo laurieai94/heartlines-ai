@@ -34,25 +34,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     updateCurrentMessages
   } = useChatHistory();
 
-  // Get current chat history from the hook instead of local state
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>(() => getCurrentMessages());
+  // Use chat history directly from the hook - no local state needed
+  const chatHistory = getCurrentMessages();
 
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
-
-  // Sync chat history with persistent storage
-  useEffect(() => {
-    const currentMessages = getCurrentMessages();
-    if (currentMessages.length > 0) {
-      setChatHistory(currentMessages);
-    }
-  }, [getCurrentMessages]);
-
-  // Update persistent storage when chat history changes
-  useEffect(() => {
-    updateCurrentMessages(chatHistory);
-  }, [chatHistory, updateCurrentMessages]);
 
   useEffect(() => {
     console.log('=== AIInsights: Profile Data Sources ===');
@@ -104,8 +91,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   useEffect(() => {
     if (conversations.length > 0 && !currentConversationId && chatHistory.length === 0) {
       const latestConversation = conversations[0];
-      const messages = loadConversation(latestConversation.id);
-      setChatHistory(messages);
+      loadConversation(latestConversation.id);
     }
   }, [conversations, currentConversationId, loadConversation, chatHistory.length]);
 
@@ -144,19 +130,29 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleLoadConversation = (conversationId: string) => {
-    const messages = loadConversation(conversationId);
-    setChatHistory(messages);
+    loadConversation(conversationId);
   };
 
   const handleNewConversation = () => {
-    const messages = startNewConversation();
-    setChatHistory(messages);
+    startNewConversation();
+  };
+
+  // Update chat history function that works with the hook
+  const setChatHistory = (newHistory: ChatMessage[] | ((prev: ChatMessage[]) => ChatMessage[])) => {
+    if (typeof newHistory === 'function') {
+      const currentMessages = getCurrentMessages();
+      const updatedMessages = newHistory(currentMessages);
+      updateCurrentMessages(updatedMessages);
+    } else {
+      updateCurrentMessages(newHistory);
+    }
   };
 
   // Debug: Log what we're passing to AIChat
   console.log('=== Passing to AIChat ===');
   console.log('unifiedProfiles:', unifiedProfiles);
   console.log('unifiedDemographics:', unifiedDemographics);
+  console.log('chatHistory:', chatHistory);
 
   return (
     <div className="flex gap-4 h-full overflow-hidden">

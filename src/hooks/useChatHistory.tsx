@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
 
@@ -24,9 +24,11 @@ export const useChatHistory = () => {
     if (stored) {
       try {
         const messages = JSON.parse(stored);
+        console.log('Loading messages from localStorage:', messages);
         setCurrentMessages(messages);
       } catch (error) {
         console.error('Error loading current messages:', error);
+        setCurrentMessages([]);
       }
     }
   }, []);
@@ -51,15 +53,21 @@ export const useChatHistory = () => {
     }
   };
 
-  const getCurrentMessages = () => {
+  const getCurrentMessages = useCallback(() => {
     return currentMessages;
-  };
+  }, [currentMessages]);
 
-  const updateCurrentMessages = (messages: ChatMessage[]) => {
+  const updateCurrentMessages = useCallback((messages: ChatMessage[]) => {
+    console.log('Updating current messages:', messages);
     setCurrentMessages(messages);
-    // Persist to localStorage
-    localStorage.setItem('current_chat_messages', JSON.stringify(messages));
-  };
+    // Persist to localStorage immediately
+    try {
+      localStorage.setItem('current_chat_messages', JSON.stringify(messages));
+      console.log('Messages saved to localStorage');
+    } catch (error) {
+      console.error('Error saving messages to localStorage:', error);
+    }
+  }, []);
 
   const saveConversation = async (messages: ChatMessage[], title?: string) => {
     // Store in localStorage as fallback since database table doesn't exist
@@ -98,31 +106,34 @@ export const useChatHistory = () => {
 
       localStorage.setItem('chat_conversations', JSON.stringify(conversations));
       setConversations(conversations);
+      console.log('Conversation saved:', conversation);
     } catch (error) {
       console.error('Error saving conversation:', error);
     }
   };
 
-  const loadConversation = (conversationId: string): ChatMessage[] => {
+  const loadConversation = useCallback((conversationId: string): ChatMessage[] => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
       const messages = typeof conversation.messages === 'string' 
         ? JSON.parse(conversation.messages) 
         : conversation.messages;
+      console.log('Loading conversation:', conversationId, messages);
       setCurrentMessages(messages);
       localStorage.setItem('current_chat_messages', JSON.stringify(messages));
       return messages;
     }
     return [];
-  };
+  }, [conversations]);
 
-  const startNewConversation = () => {
+  const startNewConversation = useCallback(() => {
+    console.log('Starting new conversation');
     setCurrentConversationId(null);
     setCurrentMessages([]);
     localStorage.removeItem('current_chat_messages');
     return [];
-  };
+  }, []);
 
   const deleteConversation = async (conversationId: string) => {
     try {
