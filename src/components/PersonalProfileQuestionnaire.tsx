@@ -200,7 +200,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg">Loading your profile...</p>
           </div>
         </div>
@@ -213,40 +213,40 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="p-8 border-b bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full -translate-y-16 translate-x-16 opacity-20"></div>
+          <div className="p-8 border-b bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-pink-500/20 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="relative">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
                     {getSectionIcon(currentSection)}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-white">
                       Let's Get to Know You
                     </h2>
-                    <p className="text-gray-600">
+                    <p className="text-pink-200">
                       Building your personalized relationship profile
                     </p>
                   </div>
                 </div>
-                <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700 rounded-full p-2">
+                <Button variant="ghost" onClick={onClose} className="text-pink-200 hover:text-white hover:bg-white/10 rounded-full p-2">
                   <X className="w-6 h-6" />
                 </Button>
               </div>
 
               {/* Section Progress */}
-              <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-lg font-bold text-gray-700">Section {currentSection} of 4</span>
-                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse"></div>
+                    <span className="text-lg font-bold text-white">Section {currentSection} of 4</span>
+                    <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
                   </div>
                   <div className="text-right">
-                    <div className="text-base font-semibold text-purple-600">
+                    <div className="text-base font-semibold text-white">
                       {getSectionTitle(currentSection)}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-pink-200">
                       {getSectionTime(currentSection)}
                     </div>
                   </div>
@@ -254,13 +254,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                 <div className="space-y-2">
                   <Progress 
                     value={sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]} 
-                    className="h-3 bg-gray-200" 
+                    className="h-3 bg-black/20" 
                   />
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">
+                    <span className="text-pink-200">
                       {sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]}% complete
                     </span>
-                    <span className="text-purple-600 font-medium">
+                    <span className="text-orange-200 font-medium">
                       {currentSection === 4 ? 'Optional section' : 'Required'}
                     </span>
                   </div>
@@ -303,11 +303,11 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                       disabled={!isAccessible}
                       className={`w-14 h-14 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-300 ${
                         isCurrent 
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-110 ring-4 ring-purple-200' 
+                          ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg scale-110 ring-4 ring-pink-200' 
                           : isCompleted 
                             ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer hover:scale-105 shadow-md' 
                             : isAccessible
-                              ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer hover:scale-105 shadow-md'
+                              ? 'bg-orange-500 text-white hover:bg-orange-600 cursor-pointer hover:scale-105 shadow-md'
                               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       }`}
                     >
@@ -324,7 +324,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ${
                   currentSection === 4 
                     ? 'bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white' 
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white'
+                    : 'bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 {currentSection === 4 ? 'Complete Profile' : 'Next Section'}
@@ -360,7 +360,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             <div className="space-y-4">
               <Button
                 onClick={handleOptionalYes}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Yes, let's go deeper
                 <Sparkles className="w-5 h-5 ml-2" />

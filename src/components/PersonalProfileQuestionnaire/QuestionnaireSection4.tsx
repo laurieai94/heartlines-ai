@@ -53,8 +53,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           Your answers are automatically saved
         </div>
-        <div className="p-4 bg-purple-50 rounded-xl border border-purple-200">
-          <p className="text-purple-700 font-medium">
+        <div className="p-4 bg-rose-50 rounded-xl border border-rose-200">
+          <p className="text-rose-700 font-medium">
             💡 Skip any questions that don't feel right to answer - you can always come back later
           </p>
         </div>
@@ -65,7 +65,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           Family dynamics growing up <span className="text-gray-500 font-normal">(Optional)</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {familyDynamicsOptions.map((dynamic) => (
             <button
@@ -73,8 +73,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('familyDynamics', dynamic)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.familyDynamics || []).includes(dynamic)
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
               }`}
             >
               {dynamic}
@@ -91,7 +91,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           How parents handled conflict <span className="text-gray-500 font-normal">(Optional)</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {parentConflictOptions.map((style) => (
             <button
@@ -99,8 +99,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('parentConflictStyle', style)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.parentConflictStyle || []).includes(style)
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
               }`}
             >
               {style}
@@ -117,7 +117,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           Messages about love received <span className="text-gray-500 font-normal">(Optional)</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {loveMessagesOptions.map((message) => (
             <button
@@ -143,7 +143,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           What influenced love ideas <span className="text-gray-500 font-normal">(Optional)</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {loveInfluencesOptions.map((influence) => (
             <button
@@ -151,8 +151,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('loveInfluences', influence)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.loveInfluences || []).includes(influence)
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-blue-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50 shadow-sm hover:shadow-md'
               }`}
             >
               {influence}
@@ -194,7 +194,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           What hoping to grow in <span className="text-gray-500 font-normal">(Optional)</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {growthAreasOptions.map((area) => (
             <button
@@ -216,15 +216,15 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Final Encouragement */}
-      <div className="text-center p-6 bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-purple-100">
+      <div className="text-center p-6 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-rose-100">
         <div className="text-3xl mb-3">🌟</div>
-        <p className="text-xl font-bold text-purple-900 mb-2">
+        <p className="text-xl font-bold text-rose-900 mb-2">
           You're all set!
         </p>
-        <p className="text-purple-700 text-lg mb-4">
+        <p className="text-rose-700 text-lg mb-4">
           Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
         </p>
-        <p className="text-purple-600 text-sm">
+        <p className="text-rose-600 text-sm">
           Remember: You can always update your profile as you learn and grow
         </p>
       </div>

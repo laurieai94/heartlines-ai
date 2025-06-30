@@ -48,7 +48,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           When relationship stress hits, you typically: <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {stressResponseOptions.map((response) => (
             <button
@@ -56,8 +56,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('stressResponse', response)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.stressResponse || []).includes(response)
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
               }`}
             >
               {response}
@@ -74,7 +74,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           In conflict, what do you need most? <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Select up to 3</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Select up to 3</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {conflictNeedsOptions.map((need) => (
             <button
@@ -83,10 +83,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               disabled={(profileData.conflictNeeds || []).length >= 3 && !(profileData.conflictNeeds || []).includes(need)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.conflictNeeds || []).includes(need)
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
                   : (profileData.conflictNeeds || []).length >= 3
                     ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
               }`}
             >
               {need}
@@ -94,7 +94,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         {(profileData.conflictNeeds || []).length > 0 && (
-          <p className="text-sm text-purple-600 font-medium">
+          <p className="text-sm text-rose-600 font-medium">
             Selected: {(profileData.conflictNeeds || []).length}/3
           </p>
         )}
@@ -108,7 +108,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-base font-semibold text-gray-700">
           You feel most loved when someone: <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-sm text-purple-600 font-medium">✨ Select up to 3</p>
+        <p className="text-sm text-rose-600 font-medium">✨ Select up to 3</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {feelLovedOptions.map((way) => (
             <button
@@ -128,7 +128,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         {(profileData.feelLovedWhen || []).length > 0 && (
-          <p className="text-sm text-purple-600 font-medium">
+          <p className="text-sm text-rose-600 font-medium">
             Selected: {(profileData.feelLovedWhen || []).length}/3
           </p>
         )}
@@ -149,8 +149,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => updateField('attachmentStyle', style)}
               className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 profileData.attachmentStyle === style
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-blue-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50 shadow-sm hover:shadow-md'
               }`}
             >
               {style}
@@ -166,12 +166,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Encouraging Progress Message */}
-      <div className="text-center p-6 bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-purple-100">
+      <div className="text-center p-6 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-rose-100">
         <div className="text-2xl mb-2">🎉</div>
-        <p className="text-lg font-semibold text-purple-900 mb-2">
+        <p className="text-lg font-semibold text-rose-900 mb-2">
           Great! You've covered the essentials
         </p>
-        <p className="text-purple-700">
+        <p className="text-rose-700">
           You're helping RealTalk understand how to support you better. The next section is optional but helps provide even more personalized insights.
         </p>
       </div>

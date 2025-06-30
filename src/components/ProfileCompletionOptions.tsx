@@ -24,23 +24,23 @@ const ProfileCompletionOptions = ({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="p-8 border-b bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full -translate-y-16 translate-x-16 opacity-20"></div>
+        <div className="p-8 border-b bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-pink-500/20 rounded-full -translate-y-16 translate-x-16"></div>
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
                 <Sparkles className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-2xl font-bold text-white">
                   🎉 Profile Complete!
                 </h2>
-                <p className="text-gray-600 mt-1">
+                <p className="text-pink-200 mt-1">
                   You're ready to start your RealTalk journey
                 </p>
               </div>
             </div>
-            <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700 rounded-full">
+            <Button variant="ghost" onClick={onClose} className="text-pink-200 hover:text-white hover:bg-white/10 rounded-full">
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -63,9 +63,9 @@ const ProfileCompletionOptions = ({
               <div className="grid gap-4">
                 {/* Option 1: Add Partner Profile */}
                 {!hasPartnerProfile && (
-                  <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 border-purple-100 hover:border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50">
+                  <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 border-rose-100 hover:border-rose-200 bg-gradient-to-r from-rose-50 to-pink-50">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                      <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
                         <Heart className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">
@@ -76,7 +76,7 @@ const ProfileCompletionOptions = ({
                           Share what you know about your partner's communication style for even better insights
                         </p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-purple-500" />
+                      <ArrowRight className="w-5 h-5 text-rose-500" />
                     </div>
                   </Card>
                 )}
@@ -109,7 +109,7 @@ const ProfileCompletionOptions = ({
                 {!hasPartnerProfile && (
                   <Button
                     onClick={onAddPartnerProfile}
-                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
+                    className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
                   >
                     Yes, let's add partner details
                     <Heart className="w-5 h-5 ml-2" />
