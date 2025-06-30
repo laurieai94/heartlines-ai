@@ -130,8 +130,8 @@ export class AICoachEngine {
     console.log('User name from context:', context.yourTraits.name);
     console.log('User has profile data:', Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length > 1);
 
-    // Debug command
-    if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
+    // Debug command - check for various forms of debug request
+    if (userMessage.toLowerCase().includes("debug") && userMessage.toLowerCase().includes("profile")) {
       return this.generateDebugResponse(context);
     }
 
@@ -395,43 +395,72 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
     const userName = context.yourTraits.name || "Unknown";
     const partnerName = context.partnerTraits.name || "Unknown";
 
-    return `🔍 **DEBUG - Here's what Kai can see:**
+    // Count defined fields
+    const yourTraitCount = Object.keys(context.yourTraits).filter(key => {
+      const value = context.yourTraits[key as keyof typeof context.yourTraits];
+      return value !== undefined && value !== null && value !== '' && 
+             (Array.isArray(value) ? value.length > 0 : true);
+    }).length;
+
+    const partnerTraitCount = Object.keys(context.partnerTraits).filter(key => {
+      const value = context.partnerTraits[key as keyof typeof context.partnerTraits];
+      return value !== undefined && value !== null && value !== '' && 
+             (Array.isArray(value) ? value.length > 0 : true);
+    }).length;
+
+    return `🔍 **DEBUG - Here's what Kai can see about your profiles:**
 
 **About ${userName}:**
-- Name: ${context.yourTraits.name || "Not specified"}
-- Age: ${context.yourTraits.age || "Not specified"}
-- Pronouns: ${context.yourTraits.pronouns || "Not specified"}
-- Communication style: ${context.yourTraits.communicationStyle || "Not specified"}
-- Attachment style: ${context.yourTraits.attachmentStyle || "Not specified"}
-- Conflict style: ${context.yourTraits.conflictStyle || "Not specified"}
-- Love languages: ${context.yourTraits.loveLanguages?.join(", ") || "None listed"}
-- Stress responses: ${context.yourTraits.stressResponse?.join(", ") || "None listed"}
-- Triggers: ${context.yourTraits.triggers?.join(", ") || "None listed"}
-- Strengths: ${context.yourTraits.strengths?.join(", ") || "None listed"}
-- Growth areas: ${context.yourTraits.growthAreas?.join(", ") || "None listed"}
-- Why RealTalk: ${context.yourTraits.whyRealTalk?.join(", ") || "Not specified"}
-- Education: ${context.yourTraits.education || "Not specified"}
-- Work situation: ${context.yourTraits.workSituation || "Not specified"}
+- Name: ${context.yourTraits.name || "❌ Not specified"}
+- Age: ${context.yourTraits.age || "❌ Not specified"}
+- Pronouns: ${context.yourTraits.pronouns || "❌ Not specified"}
+- Communication style: ${context.yourTraits.communicationStyle || "❌ Not specified"}
+- Attachment style: ${context.yourTraits.attachmentStyle || "❌ Not specified"}
+- Conflict style: ${context.yourTraits.conflictStyle || "❌ Not specified"}
+- Love languages: ${context.yourTraits.loveLanguages?.join(", ") || "❌ None listed"}
+- Stress responses: ${context.yourTraits.stressResponse?.join(", ") || "❌ None listed"}
+- Triggers: ${context.yourTraits.triggers?.join(", ") || "❌ None listed"}
+- Strengths: ${context.yourTraits.strengths?.join(", ") || "❌ None listed"}
+- Growth areas: ${context.yourTraits.growthAreas?.join(", ") || "❌ None listed"}
+- Why RealTalk: ${context.yourTraits.whyRealTalk?.join(", ") || "❌ Not specified"}
+- Family dynamics: ${context.yourTraits.familyDynamics?.join(", ") || "❌ Not specified"}
+- Education: ${context.yourTraits.education || "❌ Not specified"}
+- Work situation: ${context.yourTraits.workSituation || "❌ Not specified"}
+- Sexual orientation: ${context.yourTraits.sexualOrientation?.join(", ") || "❌ Not specified"}
+- Gender identity: ${context.yourTraits.genderIdentity?.join(", ") || "❌ Not specified"}
 
 **About ${partnerName}:**
-- Name: ${context.partnerTraits.name || "Not specified"}
-- Communication style: ${context.partnerTraits.communicationStyle || "Not specified"}
-- Attachment style: ${context.partnerTraits.attachmentStyle || "Not specified"}
-- Conflict style: ${context.partnerTraits.conflictStyle || "Not specified"}
-- Love languages: ${context.partnerTraits.loveLanguages?.join(", ") || "None listed"}
-- Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
+- Name: ${context.partnerTraits.name || "❌ Not specified"}
+- Communication style: ${context.partnerTraits.communicationStyle || "❌ Not specified"}
+- Attachment style: ${context.partnerTraits.attachmentStyle || "❌ Not specified"}
+- Conflict style: ${context.partnerTraits.conflictStyle || "❌ Not specified"}
+- Love languages: ${context.partnerTraits.loveLanguages?.join(", ") || "❌ None listed"}
+- Stress responses: ${context.partnerTraits.stressResponse?.join(", ") || "❌ None listed"}
+- Triggers: ${context.partnerTraits.triggers?.join(", ") || "❌ None listed"}
+- Strengths: ${context.partnerTraits.strengths?.join(", ") || "❌ None listed"}
+- Growth areas: ${context.partnerTraits.growthAreas?.join(", ") || "❌ None listed"}
 
 **Relationship Info:**
-- Status: ${context.relationship.stage || "Not specified"}
-- Length: ${context.relationship.length || "Not specified"}
-- Living together: ${context.relationship.livingTogether ? "Yes" : "No"}
+- Status: ${context.relationship.stage || "❌ Not specified"}
+- Length: ${context.relationship.length || "❌ Not specified"}
+- Living together: ${context.relationship.livingTogether ? "✅ Yes" : "❌ No"}
 
-**AI Service Status:** ${this.aiService ? "✅ Connected - Supabase Backend" : "❌ Not connected"}
+**System Status:**
+- AI Service: ${this.aiService ? "✅ Connected - Supabase Backend" : "❌ Not connected"}
+- User traits with data: ${yourTraitCount}
+- Partner traits with data: ${partnerTraitCount}
+- Total profile completeness: ${yourTraitCount + partnerTraitCount > 5 ? "✅ Good" : "⚠️ Needs more data"}
 
-**Profile Data Summary:**
-- User traits defined: ${Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length}
-- Partner traits defined: ${Object.keys(context.partnerTraits).filter(key => context.partnerTraits[key as keyof typeof context.partnerTraits] !== undefined).length}
+**Data Quality Check:**
+${yourTraitCount < 3 ? "⚠️ **User profile is very incomplete** - Kai needs more information to provide personalized coaching." : ""}
+${partnerTraitCount < 2 ? "⚠️ **Partner profile is incomplete** - Consider adding partner information for better relationship insights." : ""}
+${yourTraitCount >= 5 ? "✅ **User profile looks good** - Kai has enough information to provide personalized coaching!" : ""}
 
-If any profile data is missing, there may be a profile access issue. Try filling out your profile in the Demographics section!`;
+**Next Steps:**
+${yourTraitCount < 5 ? "• Complete your personal profile in the sidebar to help Kai understand you better\n" : ""}
+${partnerTraitCount < 2 ? "• Add partner profile information for more comprehensive relationship guidance\n" : ""}
+${yourTraitCount >= 5 && partnerTraitCount >= 2 ? "• ✅ Profiles look great! Kai should be able to provide personalized coaching." : ""}
+
+*This debug info shows exactly what data Kai can access. If any important information is missing, try completing your profiles in the sidebar.*`;
   }
 }
