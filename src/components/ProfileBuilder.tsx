@@ -189,12 +189,12 @@ const ProfileBuilder = ({
         <h1 className="text-2xl font-bold text-white">
           Let's Get to Know the Real You
         </h1>
-        <p className="text-base text-pink-200 max-w-2xl mx-auto">
+        <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
           Build your relationship profiles in just 5 minutes
         </p>
         {/* Real-time overall progress indicator */}
         {profileCompletion > 0 && (
-          <div className="flex items-center justify-center gap-2 text-sm text-pink-200">
+          <div className="flex items-center justify-center gap-2 text-sm text-pink-200/80">
             <span>Overall Progress:</span>
             <div className="w-32 h-2 bg-black/30 rounded-full overflow-hidden">
               <div 
@@ -233,7 +233,7 @@ const ProfileBuilder = ({
                 </div>
               </div>
 
-              <p className="text-pink-200 text-sm leading-relaxed">
+              <p className="text-pink-200/80 text-sm leading-relaxed">
                 This is where we truly get you. Answer a few quick questions about how you love, what shaped you, and what truly matters.
               </p>
 
@@ -242,17 +242,17 @@ const ProfileBuilder = ({
                   <Target className="w-4 h-4" />
                   <span className="font-semibold text-sm">What You'll Unlock:</span>
                 </div>
-                <ul className="space-y-1 text-pink-200 text-xs">
+                <ul className="space-y-1 text-pink-200/80 text-xs">
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-orange-400" />
+                    <Star className="w-3 h-3 text-orange-300" />
                     Psychologist-level insights
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-orange-400" />
+                    <Star className="w-3 h-3 text-orange-300" />
                     Personalized daily support
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-orange-400" />
+                    <Star className="w-3 h-3 text-orange-300" />
                     Better advice built around you
                   </li>
                 </ul>
@@ -288,7 +288,7 @@ const ProfileBuilder = ({
                 </div>
               </div>
 
-              <p className="text-pink-200 text-sm leading-relaxed">
+              <p className="text-pink-200/80 text-sm leading-relaxed">
                 Share what you've observed about your partner's style, needs, and reactions. This gives RealTalk the insights to bridge the gap between you two.
               </p>
 
@@ -297,17 +297,17 @@ const ProfileBuilder = ({
                   <Lightbulb className="w-4 h-4" />
                   <span className="font-semibold text-sm">What You'll Unlock:</span>
                 </div>
-                <ul className="space-y-1 text-pink-200 text-xs">
+                <ul className="space-y-1 text-pink-200/80 text-xs">
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-pink-400" />
+                    <Star className="w-3 h-3 text-pink-300" />
                     Build lasting, authentic connection
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-pink-400" />
+                    <Star className="w-3 h-3 text-pink-300" />
                     Deep, actionable insights
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-pink-400" />
+                    <Star className="w-3 h-3 text-pink-300" />
                     Smarter advice that gets you both
                   </li>
                 </ul>
@@ -328,7 +328,7 @@ const ProfileBuilder = ({
         <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg max-w-4xl mx-auto">
           <div className="text-center space-y-3">
             <h3 className="text-xl font-bold text-white">The Questions That Actually Matter</h3>
-            <p className="text-base text-pink-200 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base text-pink-200/80 max-w-3xl mx-auto leading-relaxed">
               How do you really act when you're stressed? What makes you feel most loved? 
               The more honest you are, the less we'll sound like a generic self-help book.
             </p>
@@ -338,16 +338,16 @@ const ProfileBuilder = ({
                 <h4 className="text-base font-semibold text-white">Simple Process:</h4>
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
-                    <Play className="w-4 h-4 text-green-400" />
-                    <span className="text-pink-200 text-sm">Build your profile to capture your unique relationship vibe</span>
+                    <Play className="w-4 h-4 text-green-300" />
+                    <span className="text-pink-200/80 text-sm">Build your profile to capture your unique relationship vibe</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Zap className="w-4 h-4 text-green-400" />
-                    <span className="text-pink-200 text-sm">Connect with Kai for AI-powered clarity that just gets it</span>
+                    <Zap className="w-4 h-4 text-green-300" />
+                    <span className="text-pink-200/80 text-sm">Connect with Kai for AI-powered clarity that just gets it</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Target className="w-4 h-4 text-green-400" />
-                    <span className="text-pink-200 text-sm">Take real action, leveling up your bond with smart advice</span>
+                    <Target className="w-4 h-4 text-green-300" />
+                    <span className="text-pink-200/80 text-sm">Take real action, leveling up your bond with smart advice</span>
                   </div>
                 </div>
               </div>
@@ -356,16 +356,16 @@ const ProfileBuilder = ({
                 <h4 className="text-base font-semibold text-white">You Get:</h4>
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
-                    <MessageSquare className="w-4 h-4 text-orange-400" />
-                    <span className="text-pink-200 text-sm">Mastering the 'We need to talk'</span>
+                    <MessageSquare className="w-4 h-4 text-orange-300" />
+                    <span className="text-pink-200/80 text-sm">Mastering the 'We need to talk'</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Shield className="w-4 h-4 text-orange-400" />
-                    <span className="text-pink-200 text-sm">Turning arguments into wins</span>
+                    <Shield className="w-4 h-4 text-orange-300" />
+                    <span className="text-pink-200/80 text-sm">Turning arguments into wins</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Heart className="w-4 h-4 text-orange-400" />
-                    <span className="text-pink-200 text-sm">Making your actions actually count</span>
+                    <Heart className="w-4 h-4 text-orange-300" />
+                    <span className="text-pink-200/80 text-sm">Making your actions actually count</span>
                   </div>
                 </div>
               </div>
@@ -378,7 +378,7 @@ const ProfileBuilder = ({
           <Button 
             variant="ghost" 
             onClick={() => setShowDetails(!showDetails)}
-            className="w-full text-pink-200 hover:text-white text-sm py-2 hover:bg-white/10"
+            className="w-full text-pink-200/80 hover:text-white text-sm py-2 hover:bg-white/10"
           >
             {showDetails ? 'Hide' : 'Show'} Tips
             <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
@@ -388,8 +388,8 @@ const ProfileBuilder = ({
             <div className="mt-4 space-y-3 animate-fade-in">
               <Card className="p-3 bg-white/5 backdrop-blur-sm border-l-4 border-orange-400">
                 <div className="flex items-center gap-3">
-                  <Search className="w-4 h-4 text-pink-200" />
-                  <p className="text-pink-200 text-sm">
+                  <Search className="w-4 h-4 text-pink-200/80" />
+                  <p className="text-pink-200/80 text-sm">
                     <strong className="text-white">Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
                   </p>
                 </div>
@@ -403,14 +403,14 @@ const ProfileBuilder = ({
                       <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
                         <h4 className="font-semibold text-white text-sm">Be honest</h4>
-                        <p className="text-pink-200 text-xs">The AI only works with real data, not aspirational answers</p>
+                        <p className="text-pink-200/80 text-xs">The AI only works with real data, not aspirational answers</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
                         <h4 className="font-semibold text-white text-sm">"Not sure yet" is okay</h4>
-                        <p className="text-pink-200 text-xs">Profiles improve as you learn more about each other</p>
+                        <p className="text-pink-200/80 text-xs">Profiles improve as you learn more about each other</p>
                       </div>
                     </div>
                   </div>
@@ -419,14 +419,14 @@ const ProfileBuilder = ({
                       <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
                         <h4 className="font-semibold text-white text-sm">Start with core questions</h4>
-                        <p className="text-pink-200 text-xs">Get immediate value, then expand sections over time</p>
+                        <p className="text-pink-200/80 text-xs">Get immediate value, then expand sections over time</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
                         <h4 className="font-semibold text-white text-sm">Update as you grow</h4>
-                        <p className="text-pink-200 text-xs">Relationships evolve, and so should your profiles</p>
+                        <p className="text-pink-200/80 text-xs">Relationships evolve, and so should your profiles</p>
                       </div>
                     </div>
                   </div>

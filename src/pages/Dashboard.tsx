@@ -52,9 +52,9 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`h-screen flex flex-col bg-gradient-to-br from-purple-900 via-rose-800 to-pink-700 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
+      <div className={`h-screen flex flex-col bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
         {/* Clean Navigation Header */}
-        <div className="flex-shrink-0 w-full bg-black/10 backdrop-blur-sm border-b border-white/10">
+        <div className="flex-shrink-0 w-full bg-black/20 backdrop-blur-sm border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
             <div className="flex items-center justify-between py-4">
@@ -65,7 +65,7 @@ const Dashboard = () => {
                 <div>
                   <h1 className="text-2xl font-bold text-white font-serif">RealTalk</h1>
                   {accessLevel !== 'full-access' && (
-                    <p className="text-sm text-pink-200 font-medium">
+                    <p className="text-sm text-pink-200/80 font-medium">
                       {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                        profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                     </p>
@@ -77,31 +77,31 @@ const Dashboard = () => {
             {/* Navigation Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex justify-center pb-4">
-                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-1 gap-1">
+                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-black/30 backdrop-blur-sm border border-white/20 rounded-xl p-1 gap-1">
                   <TabsTrigger 
                     value="profile" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200 hover:text-white hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
                   >
                     <User className="w-4 h-4" />
                     <span className="hidden sm:inline">Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="insights" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200 hover:text-white hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
                   >
                     <Lightbulb className="w-4 h-4" />
                     <span className="hidden sm:inline">Coach</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="conversation" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200 hover:text-white hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span className="hidden sm:inline">Practice</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="actions" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200 hover:text-white hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
                   >
                     <Heart className="w-4 h-4" />
                     <span className="hidden sm:inline">Actions</span>
