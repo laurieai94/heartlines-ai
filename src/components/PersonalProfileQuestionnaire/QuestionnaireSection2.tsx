@@ -56,7 +56,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           Current relationship status <span className="text-red-500">*</span>
         </Label>
         <p className="text-xs text-gray-600 mb-3">
-          💡 <strong>Why we ask:</strong> Your relationship status shapes what guidance is most helpful - from dating tips to deepening existing connections
+          💡 <strong>Why we ask:</strong> Different stages = different advice vibes
         </p>
         <div className="grid grid-cols-2 gap-2">
           {relationshipStatusOptions.map((status) => (
@@ -82,7 +82,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             How long have you been together? <span className="text-red-500">*</span>
           </Label>
           <p className="text-xs text-gray-600 mb-3">
-            💡 <strong>Why we ask:</strong> Each relationship stage has unique dynamics and challenges - this helps us offer stage-appropriate guidance
+            💡 <strong>Why we ask:</strong> Each stage hits different tbh
           </p>
           <div className="grid grid-cols-3 gap-2">
             {relationshipLengthOptions.map((length) => (
@@ -112,7 +112,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Knowing your relationship strengths helps us build on what's already working rather than starting from scratch
+              💡 <strong>Why we ask:</strong> Build on your wins, not just fix problems
             </p>
             <div className="grid grid-cols-2 gap-2">
               {workingWellOptions.map((item) => (
@@ -138,7 +138,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Understanding your specific challenges lets us provide targeted strategies that address your actual pain points
+              💡 <strong>Why we ask:</strong> Target the actual pain points, not generic advice
             </p>
             <div className="grid grid-cols-2 gap-2">
               {feelsDifficultOptions.map((challenge) => (
@@ -166,7 +166,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
         <p className="text-xs text-gray-600 mb-3">
-          💡 <strong>Why we ask:</strong> Your goals help us tailor conversations to what matters most to you right now in your relationship journey
+          💡 <strong>Why we ask:</strong> Customize the vibe to your goals
         </p>
         <div className="grid grid-cols-2 gap-2">
           {whyRealTalkOptions.map((reason) => (

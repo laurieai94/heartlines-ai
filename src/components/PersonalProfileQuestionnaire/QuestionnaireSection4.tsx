@@ -44,7 +44,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               Family dynamics growing up
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Family patterns often repeat in adult relationships - understanding yours helps us spot patterns and suggest healthier alternatives
+              💡 <strong>Why we ask:</strong> Family patterns repeat. Let's break the cycle
             </p>
             <div className="space-y-2">
               {familyDynamicsOptions.map((dynamic) => (
@@ -69,7 +69,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               Messages about love received
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Early messages about love shape your expectations and fears - identifying these helps us address limiting beliefs and build healthier patterns
+              💡 <strong>Why we ask:</strong> Challenge limiting beliefs about love
             </p>
             <div className="space-y-2">
               {loveMessagesOptions.map((message) => (
@@ -97,7 +97,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               How parents handled conflict
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Conflict styles we observed often become our default approaches - knowing yours helps us teach you new, healthier conflict resolution tools
+              💡 <strong>Why we ask:</strong> Learn new conflict tools that actually work
             </p>
             <div className="space-y-2">
               {parentConflictOptions.map((style) => (
@@ -122,7 +122,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               What influenced love ideas
             </Label>
             <p className="text-xs text-gray-600 mb-3">
-              💡 <strong>Why we ask:</strong> Understanding what shaped your beliefs about love helps us provide guidance that honors your values while challenging unhelpful patterns
+              💡 <strong>Why we ask:</strong> Honor your values, challenge unhelpful patterns
             </p>
             <div className="space-y-2">
               {loveInfluencesOptions.map((influence) => (
