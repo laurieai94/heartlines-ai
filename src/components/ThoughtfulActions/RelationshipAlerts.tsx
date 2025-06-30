@@ -44,25 +44,25 @@ const RelationshipAlerts = ({ profiles, demographicsData }: RelationshipAlertsPr
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-        <AlertTriangle className="w-5 h-5 text-amber-500" />
+      <h3 className="text-xl font-bold text-white flex items-center gap-2">
+        <AlertTriangle className="w-5 h-5 text-yellow-400" />
         Relationship Insights
       </h3>
       
       {alerts.map((alert) => {
         const IconComponent = alert.icon;
         return (
-          <Card key={alert.id} className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200/50">
+          <Card key={alert.id} className="p-6 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-400/30 backdrop-blur-sm rounded-2xl">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-100 to-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <IconComponent className="w-6 h-6 text-amber-600" />
+              <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center flex-shrink-0">
+                <IconComponent className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-900 mb-2">{alert.title}</h4>
-                <p className="text-gray-700 mb-4">{alert.description}</p>
+                <h4 className="font-semibold text-white mb-2">{alert.title}</h4>
+                <p className="text-slate-300 mb-4">{alert.description}</p>
                 <Button 
                   size="sm" 
-                  className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 rounded-xl"
                 >
                   {alert.action}
                 </Button>

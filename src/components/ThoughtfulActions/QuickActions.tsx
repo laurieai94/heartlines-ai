@@ -29,8 +29,8 @@ interface QuickActionsProps {
 
 const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActionsProps) => {
   return (
-    <Card className="p-6 bg-gradient-to-r from-pink-50 to-fuchsia-50 border-pink-200/50">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Inspiration</h3>
+    <Card className="p-6 bg-white/5 backdrop-blur-sm border border-white/10 shadow-xl rounded-2xl">
+      <h3 className="text-lg font-semibold text-white mb-4">Quick Inspiration</h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {ACTION_CATEGORIES.map((category) => {
           const IconComponent = category.icon;
@@ -39,9 +39,9 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
               key={category.value}
               variant="outline"
               onClick={() => onSelectAction(category.value)}
-              className="flex items-center gap-2 h-auto py-3 px-4 justify-start"
+              className="flex items-center gap-2 h-auto py-3 px-4 justify-start bg-white/5 border-white/20 text-slate-300 hover:bg-white/10 hover:text-white hover:border-white/30 rounded-xl"
             >
-              <IconComponent className="w-4 h-4 text-pink-600" />
+              <IconComponent className="w-4 h-4 text-blue-400" />
               <span className="text-sm">{category.label}</span>
             </Button>
           );
