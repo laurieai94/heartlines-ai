@@ -57,15 +57,15 @@ const Dashboard = () => {
         <div className="w-full">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
-            <div className="flex items-center justify-between py-8">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Heart className="w-7 h-7 text-white" />
+            <div className="flex items-center justify-between py-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold text-white font-serif">Your Profiles</h1>
+                  <h1 className="text-3xl font-bold text-white font-serif">RealTalk</h1>
                   {accessLevel !== 'full-access' && (
-                    <p className="text-lg text-pink-200/90 font-medium mt-1">
+                    <p className="text-sm text-pink-200/80 font-medium">
                       {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                        profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                     </p>
@@ -74,34 +74,34 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Navigation Tabs - Enhanced spacing and visual hierarchy */}
+            {/* Navigation Tabs - Seamlessly integrated */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex justify-center pb-10">
-                <TabsList className="grid grid-cols-4 w-full max-w-5xl h-16 bg-black/25 backdrop-blur-md border border-white/20 rounded-2xl p-3 gap-3 shadow-2xl">
+              <div className="flex justify-center pb-8">
+                <TabsList className="grid grid-cols-4 w-full max-w-4xl h-14 bg-black/20 backdrop-blur-sm border border-white/20 rounded-2xl p-2 gap-2">
                   <TabsTrigger 
                     value="profile" 
-                    className="flex items-center justify-center gap-3 rounded-xl py-4 px-8 text-lg font-semibold transition-all duration-300 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-pink-200/90 hover:text-white hover:bg-white/10 hover:scale-102"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
                     <User className="w-5 h-5" />
                     <span>Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="insights" 
-                    className="flex items-center justify-center gap-3 rounded-xl py-4 px-8 text-lg font-semibold transition-all duration-300 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-pink-200/90 hover:text-white hover:bg-white/10 hover:scale-102"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
                     <Lightbulb className="w-5 h-5" />
                     <span>Coach</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="conversation" 
-                    className="flex items-center justify-center gap-3 rounded-xl py-4 px-8 text-lg font-semibold transition-all duration-300 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-pink-200/90 hover:text-white hover:bg-white/10 hover:scale-102"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>Practice</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="actions" 
-                    className="flex items-center justify-center gap-3 rounded-xl py-4 px-8 text-lg font-semibold transition-all duration-300 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-pink-200/90 hover:text-white hover:bg-white/10 hover:scale-102"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
                     <Heart className="w-5 h-5" />
                     <span>Actions</span>
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <div className="flex-1">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pb-12">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pb-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsContent value="profile" className="mt-0">
                 <ProfileBuilder 
