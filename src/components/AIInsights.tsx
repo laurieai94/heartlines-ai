@@ -13,6 +13,7 @@ import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersist
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isConfigured, setIsConfigured] = useState(true);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [showDemographics, setShowDemographics] = useState(false);
@@ -24,18 +25,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
-  // Use persistent chat history from the hook
-  const { 
-    conversations, 
-    currentConversationId, 
-    loadConversation, 
-    startNewConversation,
-    getCurrentMessages,
-    updateCurrentMessages
-  } = useChatHistory();
-
-  // Use chat history directly from the hook - no local state needed
-  const chatHistory = getCurrentMessages();
+  const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
 
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
@@ -87,13 +77,14 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setIsConfigured(configured);
   }, []);
 
-  // Load the most recent conversation on mount if no current conversation
+  // Load the most recent conversation on mount
   useEffect(() => {
-    if (conversations.length > 0 && !currentConversationId && chatHistory.length === 0) {
+    if (conversations.length > 0 && !currentConversationId) {
       const latestConversation = conversations[0];
-      loadConversation(latestConversation.id);
+      const messages = loadConversation(latestConversation.id);
+      setChatHistory(messages);
     }
-  }, [conversations, currentConversationId, loadConversation, chatHistory.length]);
+  }, [conversations, currentConversationId, loadConversation]);
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
@@ -130,29 +121,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleLoadConversation = (conversationId: string) => {
-    loadConversation(conversationId);
+    const messages = loadConversation(conversationId);
+    setChatHistory(messages);
   };
 
   const handleNewConversation = () => {
-    startNewConversation();
-  };
-
-  // Update chat history function that works with the hook
-  const setChatHistory = (newHistory: ChatMessage[] | ((prev: ChatMessage[]) => ChatMessage[])) => {
-    if (typeof newHistory === 'function') {
-      const currentMessages = getCurrentMessages();
-      const updatedMessages = newHistory(currentMessages);
-      updateCurrentMessages(updatedMessages);
-    } else {
-      updateCurrentMessages(newHistory);
-    }
+    const messages = startNewConversation();
+    setChatHistory(messages);
   };
 
   // Debug: Log what we're passing to AIChat
   console.log('=== Passing to AIChat ===');
   console.log('unifiedProfiles:', unifiedProfiles);
   console.log('unifiedDemographics:', unifiedDemographics);
-  console.log('chatHistory:', chatHistory);
 
   return (
     <div className="flex gap-4 h-full overflow-hidden">

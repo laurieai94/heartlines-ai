@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,11 +26,9 @@ const AIChatInput = ({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const sendMessage = () => {
-    if (!currentMessage.trim() || loading) return;
-    
-    console.log('Sending message:', currentMessage);
+    if (!currentMessage.trim()) return;
     onSendMessage(currentMessage.trim());
-    setCurrentMessage(""); // Clear input after sending
+    setCurrentMessage("");
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -40,12 +39,10 @@ const AIChatInput = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('Input changing to:', e.target.value);
     setCurrentMessage(e.target.value);
   };
 
   const handleVoiceMessage = (message: string) => {
-    console.log('Voice message received:', message);
     onSendMessage(message);
   };
 
@@ -89,7 +86,6 @@ const AIChatInput = ({
   };
 
   const handleQuickStarter = (starter: string) => {
-    console.log('Quick starter selected:', starter);
     onSendMessage(starter);
     setSelectedCategory(null);
   };
@@ -153,7 +149,7 @@ const AIChatInput = ({
         </div>
       )}
 
-      {/* Chat Input with Voice */}
+      {/* Compact Chat Input with Voice */}
       <div className="flex gap-3 items-end">
         <div className="flex-1">
           <Textarea
