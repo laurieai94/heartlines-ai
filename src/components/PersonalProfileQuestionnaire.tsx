@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check, X, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import QuestionnaireSection1 from "./PersonalProfileQuestionnaire/QuestionnaireSection1";
 import QuestionnaireSection2 from "./PersonalProfileQuestionnaire/QuestionnaireSection2";
 import QuestionnaireSection3 from "./PersonalProfileQuestionnaire/QuestionnaireSection3";
@@ -15,41 +15,9 @@ interface PersonalProfileQuestionnaireProps {
   onClose: () => void;
 }
 
-interface ProfileData {
-  name?: string;
-  age?: string;
-  gender?: string[];
-  orientation?: string[];
-  profilePhoto?: string;
-  relationshipStatus?: string;
-  relationshipLength?: string;
-  whyRealTalk?: string[];
-  biggestChallenge?: string[];
-  workingWell?: string[];
-  feelsDifficult?: string[];
-  stressResponse?: string[];
-  conflictNeeds?: string[];
-  feelLovedWhen?: string[];
-  attachmentStyle?: string;
-  familyDynamics?: string[];
-  parentConflictStyle?: string[];
-  loveMessages?: string[];
-  loveInfluences?: string[];
-  mentalHealthContext?: string;
-  growthAreas?: string[];
-  [key: string]: any;
-}
-
 const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQuestionnaireProps) => {
-  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  const { profileData, isLoading, updateField, handleMultiSelect } = usePersonalProfileData();
   const [currentSection, setCurrentSection] = useState(1);
-  
-  // Initialize profile data from existing data
-  const [profileData, setProfileData] = useState<ProfileData>(() => {
-    const existingProfile = temporaryProfiles.your?.[0] || {};
-    const existingDemographics = temporaryDemographics.your || {};
-    return { ...existingProfile, ...existingDemographics };
-  });
   
   const [sectionReadiness, setSectionReadiness] = useState({
     1: true,
@@ -58,41 +26,19 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     4: false
   });
 
-  // Auto-save profile data every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Object.keys(profileData).length > 0) {
-        const newProfiles = {
-          ...temporaryProfiles,
-          your: [profileData]
-        };
-        const newDemographics = {
-          ...temporaryDemographics,
-          your: profileData
-        };
-        updateTemporaryProfile(newProfiles, newDemographics);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [profileData, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
-
-  const updateField = (field: string, value: any) => {
-    setProfileData(prev => {
-      const updated = { ...prev, [field]: value };
-      return updated;
-    });
-  };
-
-  const handleMultiSelect = (field: string, value: string) => {
-    setProfileData(prev => {
-      const current = prev[field] || [];
-      const updated = current.includes(value) 
-        ? current.filter(item => item !== value)
-        : [...current, value];
-      return { ...prev, [field]: updated };
-    });
-  };
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+        <div className="bg-white rounded-xl p-6">
+          <div className="text-center">
+            <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading your profile...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const validateSection = (section: number) => {
     switch (section) {
@@ -150,9 +96,15 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   };
 
   const handleComplete = () => {
+    const completedData = {
+      ...profileData,
+      completedAt: new Date().toISOString(),
+      profileSource: 'personal-questionnaire'
+    };
+    
     onComplete({
       type: 'personal',
-      completionData: profileData
+      completionData: completedData
     });
   };
 
@@ -207,8 +159,6 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       default: return "";
     }
   };
-
-  const isSection3Complete = validateSection(3);
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2">
