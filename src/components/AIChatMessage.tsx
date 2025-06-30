@@ -23,35 +23,39 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   };
   
   return (
-    <div className={`flex gap-3 mb-3 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
-      {/* Compact Avatar */}
+    <div className={`flex gap-4 mb-6 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+      {/* Fixed Avatar Container */}
       <div className="flex-shrink-0">
-        <div className="relative">
+        <div className="relative w-10 h-10">
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
             isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
           }`}></div>
           
-          <Avatar className={`w-8 h-8 relative z-10 border-2 border-white shadow-lg ${
+          <Avatar className={`w-10 h-10 relative z-10 border-2 border-white shadow-lg overflow-visible ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
           }`}>
             {isUser && userAvatarUrl ? (
-              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
+              <AvatarImage 
+                src={userAvatarUrl} 
+                alt={userName || 'User'} 
+                className="w-full h-full object-cover rounded-full"
+              />
             ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
+              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm font-medium w-full h-full flex items-center justify-center rounded-full">
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
               </AvatarFallback>
             ) : (
               <>
                 <AvatarImage 
-                  src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+                  src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                   alt="Kai" 
-                  className="object-cover"
+                  className="w-full h-full object-cover rounded-full"
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                  <Bot className="w-4 h-4" />
+                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm font-medium w-full h-full flex items-center justify-center rounded-full">
+                  <Bot className="w-5 h-5" />
                 </AvatarFallback>
               </>
             )}
@@ -59,7 +63,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         </div>
       </div>
 
-      {/* Compact Message Bubble */}
+      {/* Message Bubble */}
       <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
@@ -75,8 +79,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           </div>
         </div>
         
-        {/* Compact Time */}
-        <p className={`text-xs text-gray-400 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+        {/* Timestamp */}
+        <p className={`text-xs text-gray-400 mt-2 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
           {formatTime(message.timestamp)}
         </p>
       </div>

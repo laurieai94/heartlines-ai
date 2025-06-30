@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -26,7 +27,6 @@ interface AIChatProps {
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
@@ -41,61 +41,38 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
   // Improved auto-scroll function
-  const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
-    // Multiple scroll approaches for better compatibility
-    const scrollMethods = [
-      // Method 1: Direct scroll to bottom of scroll viewport
-      () => {
-        const viewport = document.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
-        if (viewport) {
-          viewport.scrollTo({
-            top: viewport.scrollHeight,
-            behavior
-          });
-        }
-      },
-      
-      // Method 2: Scroll messages end ref into view
-      () => {
-        if (messagesEndRef.current) {
-          messagesEndRef.current.scrollIntoView({ 
-            behavior, 
-            block: "end", 
-            inline: "nearest" 
-          });
-        }
-      },
-      
-      // Method 3: Force scroll using requestAnimationFrame
-      () => {
-        requestAnimationFrame(() => {
-          const viewport = document.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
-          if (viewport) {
-            viewport.scrollTop = viewport.scrollHeight;
-          }
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest'
+      });
+    }
+    
+    // Also try scrolling the viewport directly
+    setTimeout(() => {
+      const viewport = document.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
+      if (viewport) {
+        viewport.scrollTo({
+          top: viewport.scrollHeight,
+          behavior: 'smooth'
         });
       }
-    ];
-
-    // Execute methods with slight delays
-    scrollMethods.forEach((method, index) => {
-      setTimeout(method, index * 50);
-    });
+    }, 50);
   };
 
-  // Scroll on new messages
+  // Auto-scroll on new messages
   useEffect(() => {
     if (chatHistory.length > 0) {
-      // Immediate scroll for new messages
-      setTimeout(() => scrollToBottom('auto'), 50);
-      setTimeout(() => scrollToBottom('smooth'), 200);
+      setTimeout(() => scrollToBottom(), 100);
     }
-  }, [chatHistory.length]);
+  }, [chatHistory.length, loading]);
 
-  // Scroll when loading state changes
+  // Additional scroll when loading changes
   useEffect(() => {
     if (!loading && chatHistory.length > 0) {
-      setTimeout(() => scrollToBottom('smooth'), 100);
+      setTimeout(() => scrollToBottom(), 200);
     }
   }, [loading]);
 
@@ -139,9 +116,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       return [...prev, newUserMessage];
     });
     
-    // Force scroll after user message
-    setTimeout(() => scrollToBottom('auto'), 100);
-    
     setLoading(true);
 
     // Extract and track topics from user message
@@ -151,46 +125,8 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       
-      // Enhanced AI prompt for Kai
-      const enhancedPrompt = `You are Kai, a PhD-level clinical psychologist and certified life coach with 15+ years of experience specializing in cognitive behavioral therapy, mindfulness-based interventions, and strengths-based coaching.
-
-Your personality: Speak like a trusted friend who happens to be a brilliant psychologist. Use casual, conversational language while maintaining professional insight. Be genuinely curious about the user's experience and show empathy through your word choices and questions.
-
-Your approach - Always Ask Before You Tell:
-- Lead with Questions: Always explore before advising
-- Listen First: Acknowledge what they've shared before offering perspectives
-- Collaborative Discovery: Help users find their own insights rather than prescribing solutions
-- Check Understanding: "Does that resonate with you?" "How does that land?"
-
-## Conversational Pacing - Keep It Natural
-
-**ONE Question at a Time:**
-- Ask only ONE meaningful question per response
-- Let the user answer before diving deeper
-- Build understanding gradually, not through interrogation
-
-**Flow Pattern:**
-1. **First Response:** Welcome + ONE open question about their situation
-2. **Follow-ups:** Acknowledge what they shared + ONE deeper question
-3. **Keep Building:** Show you're listening + explore ONE new angle
-
-**Example Good Flow:**
-User: "We keep fighting about money"
-Kai: "Money disagreements can be really stressful. What tends to trigger these conversations - is it usually about spending, saving, or something else?"
-
-**Avoid This:**
-"Money disagreements can be stressful. What triggers these fights? How do you both typically react? What's your communication like? When did this pattern start? How are you feeling about it?"
-
-**Engagement Principles:**
-- Make each response feel like a natural conversation turn
-- Show genuine curiosity about their specific situation
-- Build trust through listening, not rapid-fire questioning
-- Let the conversation develop organically
-- Keep responses conversational length (2-3 sentences max before the question)
-
-For this conversation with ${userName || 'the user'}, remember they are seeking guidance about their relationship${partnerName ? ` with ${partnerName}` : ''}. Focus on asking thoughtful, open-ended questions that help them reflect and discover their own wisdom.`;
-
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, enhancedPrompt);
+      // Use the enhanced AI prompt for Kai
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory);
       
       console.log('Received AI response:', aiResponse);
       
@@ -214,9 +150,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
       if (speakResponseRef.current) {
         speakResponseRef.current(aiResponse);
       }
-
-      // Ensure scroll after AI response
-      setTimeout(() => scrollToBottom('smooth'), 200);
       
     } catch (error) {
       console.error('Error generating AI response:', error);
@@ -227,9 +160,6 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         timestamp: new Date().toISOString()
       };
       setChatHistory(prev => [...prev, errorMessage]);
-      
-      // Scroll after error message too
-      setTimeout(() => scrollToBottom('smooth'), 200);
     } finally {
       setLoading(false);
     }
@@ -248,7 +178,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
           {/* Chat Messages Area */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
             <ScrollArea className="flex-1 px-6 py-6">
-              <div ref={chatContainerRef} className="space-y-6 max-w-3xl mx-auto">
+              <div id="chat-container" ref={chatContainerRef} className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
@@ -297,7 +227,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 {loading && (
                   <div className="flex justify-start animate-fade-in">
                     <div className="flex gap-3 items-end">
-                      <div className="relative">
+                      <div className="relative flex-shrink-0">
                         <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
                         <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
                           <AvatarImage 
@@ -333,7 +263,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                 )}
                 
                 {/* Scroll anchor - this ensures we always scroll to the bottom */}
-                <div ref={messagesEndRef} className="h-1" />
+                <div ref={messagesEndRef} className="h-4" />
               </div>
             </ScrollArea>
 
