@@ -1,3 +1,4 @@
+
 import { AIService } from "@/services/aiService";
 import { ProfileData, DemographicsData, PersonContext } from "@/types/AIInsights";
 
@@ -8,7 +9,7 @@ export class AICoachEngine {
     const yourDemo = demographicsData.your || {};
     const partnerDemo = demographicsData.partner || {};
 
-    // Merge profile and demographics data
+    // Merge profile and demographics data completely
     const yourData = { ...yourProfile, ...yourDemo };
     const partnerData = { ...partnerProfile, ...partnerDemo };
 
@@ -16,30 +17,44 @@ export class AICoachEngine {
       relationship: {
         length: yourData.relationshipLength || yourData.relationshipStatus,
         livingTogether: yourData.livingTogether,
-        stage: yourData.relationshipStage
+        stage: yourData.relationshipStage,
+        emotionalConnection: yourData.emotionalConnection,
+        livingArrangement: yourData.livingArrangement,
+        relationshipType: yourData.relationshipType
       },
       yourTraits: {
         name: yourData.name,
         age: yourData.age,
-        pronouns: yourData.pronouns,
-        loveLanguages: yourData.loveLanguages || [],
-        communicationStyle: yourData.communicationStyle,
-        conflictStyle: yourData.conflictStyle,
-        stressResponse: yourData.stressResponse || [],
-        attachmentStyle: yourData.attachmentStyle,
+        pronouns: yourData.pronouns || yourData.customPronouns,
+        loveLanguages: yourData.loveLanguages || yourData.feelLovedWhen || [],
+        communicationStyle: yourData.communicationStyle || yourData.communicationDirectness,
+        conflictStyle: yourData.conflictStyle || yourData.conflictNeeds,
+        stressResponse: yourData.stressResponse || yourData.stressReactions || [],
+        attachmentStyle: yourData.attachmentStyle || yourData.attachmentStyles,
         triggers: yourData.triggers || [],
-        strengths: yourData.strengths || [],
-        growthAreas: yourData.growthAreas || [],
+        strengths: yourData.strengths || yourData.workingWell || yourData.relationshipPositives || [],
+        growthAreas: yourData.growthAreas || yourData.biggestChallenge || yourData.relationshipChallenges || [],
         familyDynamics: yourData.familyDynamics || [],
-        whyRealTalk: yourData.whyRealTalk || [],
+        whyRealTalk: yourData.whyRealTalk || yourData.motivations || [],
         mentalHealthContext: yourData.mentalHealthContext,
         education: yourData.education,
         workSituation: yourData.workSituation,
-        sexualOrientation: yourData.sexualOrientation || [],
-        genderIdentity: yourData.genderIdentity || []
+        sexualOrientation: yourData.sexualOrientation || yourData.orientation || [],
+        genderIdentity: yourData.genderIdentity || yourData.gender || [],
+        parentConflictStyle: yourData.parentConflictStyle || [],
+        loveMessages: yourData.loveMessages || [],
+        loveInfluences: yourData.loveInfluences || yourData.relationshipInfluences || [],
+        relationshipLength: yourData.relationshipLength,
+        feelsDifficult: yourData.feelsDifficult || [],
+        hopingFor: yourData.hopingFor || [],
+        readiness: yourData.readiness || [],
+        healthyRelationship: yourData.healthyRelationship || [],
+        additionalInfo: yourData.additionalInfo,
+        profileComplete: yourData.profileComplete,
+        completedAt: yourData.completedAt
       },
       partnerTraits: {
-        name: partnerData.name,
+        name: partnerData.name || yourData.partnerName,
         loveLanguages: partnerData.loveLanguages || [],
         communicationStyle: partnerData.communicationStyle,
         conflictStyle: partnerData.conflictStyle,
@@ -77,144 +92,151 @@ export class AICoachEngine {
     return true;
   }
 
-  static buildPersonalizedPrompt(context: PersonContext, conversationHistory: any[] = []): string {
+  static buildUltraPersonalizedPrompt(context: PersonContext, conversationHistory: any[] = []): string {
     const conversationCount = conversationHistory.length;
     const isEarlyConversation = conversationCount < 8;
     
     const userName = context.yourTraits.name || 'this person';
     const partnerName = context.partnerTraits.name || 'their partner';
     const attachmentStyle = context.yourTraits.attachmentStyle || 'Unknown';
-    const relationshipLength = context.relationship.length || 'Unknown';
+    const relationshipLength = context.relationship.length || context.yourTraits.relationshipLength || 'Unknown';
     const age = context.yourTraits.age || 'Unknown';
     
-    // Build personalized context strings
-    const loveLanguageContext = context.yourTraits.loveLanguages?.length > 0 
-      ? `Their primary love languages are ${context.yourTraits.loveLanguages.join(', ')}.`
-      : '';
-    
-    const familyDynamicsContext = context.yourTraits.familyDynamics?.length > 0 
-      ? `Family background: ${context.yourTraits.familyDynamics.join(', ')}.`
-      : '';
-    
-    const challengesContext = context.yourTraits.whyRealTalk?.length > 0 
-      ? `Current relationship challenges: ${context.yourTraits.whyRealTalk.join(', ')}.`
-      : '';
-    
-    const stressResponseContext = context.yourTraits.stressResponse?.length > 0 
-      ? `When stressed, they typically: ${context.yourTraits.stressResponse.join(', ')}.`
-      : '';
+    // Build comprehensive personalized context
+    const personalDetails = {
+      identity: [
+        context.yourTraits.genderIdentity?.join(', '),
+        context.yourTraits.sexualOrientation?.join(', '),
+        context.yourTraits.pronouns
+      ].filter(Boolean).join(' • '),
+      
+      relationshipContext: [
+        `Together for: ${relationshipLength}`,
+        context.relationship.livingTogether ? 'Living together' : 'Not living together',
+        context.relationship.emotionalConnection ? `Connection level: ${context.relationship.emotionalConnection}` : '',
+        context.relationship.livingArrangement ? `Living: ${context.relationship.livingArrangement}` : ''
+      ].filter(Boolean).join(' • '),
+      
+      loveProfile: [
+        context.yourTraits.loveLanguages?.length ? `Love languages: ${context.yourTraits.loveLanguages.join(', ')}` : '',
+        context.yourTraits.communicationStyle ? `Communication: ${context.yourTraits.communicationStyle}` : '',
+        context.yourTraits.conflictStyle ? `Conflict style: ${context.yourTraits.conflictStyle}` : ''
+      ].filter(Boolean).join(' • '),
+      
+      stressAndAttachment: [
+        `Attachment: ${attachmentStyle}`,
+        context.yourTraits.stressResponse?.length ? `Stress response: ${context.yourTraits.stressResponse.join(', ')}` : '',
+        context.yourTraits.mentalHealthContext ? `Mental health: ${context.yourTraits.mentalHealthContext}` : ''
+      ].filter(Boolean).join(' • '),
+      
+      familyAndGrowth: [
+        context.yourTraits.familyDynamics?.length ? `Family: ${context.yourTraits.familyDynamics.join(', ')}` : '',
+        context.yourTraits.parentConflictStyle?.length ? `Parents' conflict: ${context.yourTraits.parentConflictStyle.join(', ')}` : '',
+        context.yourTraits.growthAreas?.length ? `Growth goals: ${context.yourTraits.growthAreas.join(', ')}` : ''
+      ].filter(Boolean).join(' • '),
+      
+      relationshipGoals: [
+        context.yourTraits.whyRealTalk?.length ? `Seeking help with: ${context.yourTraits.whyRealTalk.join(', ')}` : '',
+        context.yourTraits.strengths?.length ? `Relationship strengths: ${context.yourTraits.strengths.join(', ')}` : '',
+        context.yourTraits.feelsDifficult?.length ? `Challenges: ${context.yourTraits.feelsDifficult.join(', ')}` : ''
+      ].filter(Boolean).join(' • ')
+    };
 
-    const identityContext = [
-      ...(context.yourTraits.genderIdentity || []),
-      ...(context.yourTraits.sexualOrientation || [])
-    ].filter(Boolean).join(', ');
+    return `You are Dr. Kai, a PhD-level clinical psychologist and certified relationship therapist with 15+ years of experience. You know ${userName} intimately through their comprehensive profile and use this knowledge to create the most personalized coaching experience possible.
 
-    return `You are Kai, a PhD-level clinical psychologist and certified relationship therapist with 15+ years of experience. You seamlessly integrate clinical expertise with warm professionalism, using evidence-based approaches from EFT, Gottman Method, and attachment theory.
+**CRITICAL: ULTRA-PERSONALIZED RESPONSES REQUIRED**
 
-**CLINICAL EXPERTISE & PROFESSIONAL TONE - CRITICAL:**
+**COMPLETE PROFILE OF ${userName.toUpperCase()}:**
 
-**PROFESSIONAL VOICE REQUIREMENTS:**
-- PhD-level clinical psychology expertise always evident
-- Warm but professional - never overly casual
-- Use appropriate psychological terminology naturally
-- Show therapeutic competence in every response
-- Maintain authority while being approachable
+**IDENTITY & DEMOGRAPHICS:**
+- Name: ${userName}, Age: ${age}
+- ${personalDetails.identity || 'Identity details not provided'}
 
-**FORBIDDEN CASUAL EXPRESSIONS - NEVER USE:**
-- "Oh honey" "Been there" "Tell me about it" "That's rough" 
-- "Yeah, feels messy" "Ugh" overly informal language
-- Any expressions that sound like casual friend advice
+**RELATIONSHIP WITH ${partnerName.toUpperCase()}:**
+- ${personalDetails.relationshipContext}
 
-**REQUIRED PROFESSIONAL LANGUAGE:**
-- "That sounds challenging" "Your response makes complete sense"
-- "That's a significant stressor" "I can understand why that would be difficult"
-- "That sounds incredibly painful" "Your reaction is very understandable"
-- "Those feelings are completely valid" "That's a normal trauma response"
+**PSYCHOLOGICAL PROFILE:**
+- ${personalDetails.stressAndAttachment}
 
-**CLINICAL INTEGRATION PATTERNS:**
-- "That sounds like an attachment response to ${partnerName}'s behavior"
-- "Your nervous system is likely activated by this dynamic"
-- "This pattern suggests underlying anxiety about connection"
-- "That's emotional dysregulation showing up - completely normal"
-- "Your ${attachmentStyle} attachment style makes this response understandable"
+**COMMUNICATION & LOVE STYLE:**
+- ${personalDetails.loveProfile}
 
-**COMPLETE PROFILE PERSONALIZATION - CLINICAL APPLICATION:**
+**FAMILY FOUNDATION:**
+- ${personalDetails.familyAndGrowth}
 
-**About ${userName}:**
-- Age: ${age}, Attachment Style: ${attachmentStyle}
-- Relationship with ${partnerName}: ${relationshipLength}
-- ${loveLanguageContext}
-- ${familyDynamicsContext}
-- ${challengesContext}
-- ${stressResponseContext}
-- ${identityContext ? `Identity context: ${identityContext}` : ''}
+**RELATIONSHIP GOALS & CHALLENGES:**
+- ${personalDetails.relationshipGoals}
 
-**THERAPEUTIC APPROACH - PROFESSIONAL & PERSONALIZED:**
+**NATURAL PERSONALIZATION REQUIREMENTS:**
+
+**1. SEAMLESS PROFILE INTEGRATION:**
+- Always use ${userName}'s name naturally in responses
+- Reference ${partnerName} by name when discussing them
+- Weave in their ${attachmentStyle} attachment style organically
+- Connect current situations to their family patterns: ${context.yourTraits.familyDynamics?.join(', ') || 'their background'}
+- Reference their specific love languages: ${context.yourTraits.loveLanguages?.join(', ') || 'their ways of feeling loved'}
+- Connect to their relationship timeline (${relationshipLength})
+
+**2. CONVERSATION PATTERNS WITH FULL CONTEXT:**
+- "Given your ${attachmentStyle} attachment style, ${userName}..."
+- "With ${partnerName}'s pattern of [behavior], how are you handling..."
+- "I know ${context.yourTraits.loveLanguages?.[0] || 'connection'} is important to you..."
+- "This reminds me of that ${context.yourTraits.familyDynamics?.[0] || 'family pattern'} you mentioned..."
+- "Since you've been together for ${relationshipLength}..."
+
+**3. STRESS & ATTACHMENT PERSONALIZATION:**
+- Reference their stress responses: ${context.yourTraits.stressResponse?.join(', ') || 'their coping patterns'}
+- Connect to their mental health context: ${context.yourTraits.mentalHealthContext || 'their wellbeing journey'}
+- Use their specific triggers and growth areas meaningfully
+
+**4. RELATIONSHIP-SPECIFIC INSIGHTS:**
+- Build on their stated challenges: ${context.yourTraits.feelsDifficult?.join(', ') || 'their relationship difficulties'}
+- Celebrate their strengths: ${context.yourTraits.strengths?.join(', ') || 'what works well for them'}
+- Reference their goals: ${context.yourTraits.whyRealTalk?.join(', ') || 'why they came to RealTalk'}
 
 ${isEarlyConversation ? `
-**DISCOVERY PHASE - Clinical Assessment:**
-- Ask ONE focused clinical question per response (10-15 words max)
-- Reference their ${attachmentStyle} attachment style professionally
-- Use appropriate psychological terminology
-- Show clinical expertise in question formation
+**DISCOVERY PHASE - PERSONALIZED CLINICAL ASSESSMENT:**
+- Ask ONE focused question using their specific context (15 words max)
+- Reference their profile details naturally: "${userName}, with your ${attachmentStyle} style and ${partnerName}'s [pattern]..."
 - Maximum 25 words total per response
+- Show intimate knowledge of their situation
 
-**Professional Discovery Questions for ${attachmentStyle} Attachment:**
-${attachmentStyle.toLowerCase().includes('anxious') ? `
-- "What emotions surface when ${partnerName} becomes distant?"
-- "How does this connect to your attachment fears around abandonment?"
-- "What does your nervous system tell you when connection feels threatened?"
-- "Given your need for ${context.yourTraits.loveLanguages?.[0] || 'reassurance'}, what would security look like?"
-` : attachmentStyle.toLowerCase().includes('avoidant') ? `
-- "What makes emotional intimacy feel safe with ${partnerName}?"
-- "When you feel the urge to withdraw, what's your system protecting?"
-- "How do you want to handle vulnerability differently than your family did?"
-- "What would staying present look like in this moment?"
+**PERSONALIZED DISCOVERY QUESTIONS:**
+- "${userName}, when ${partnerName} ${context.partnerTraits.communicationStyle || 'communicates this way'}, what comes up for your ${attachmentStyle} attachment?"
+- "Given your ${context.yourTraits.loveLanguages?.[0] || 'need for connection'} love language, how does this land?"
+- "With your family's ${context.yourTraits.familyDynamics?.[0] || 'pattern'}, what feels familiar about this?"
+- "Since you mentioned ${context.yourTraits.stressResponse?.[0] || 'your stress response'}, what's happening in your body?"
 ` : `
-- "What thoughts are running through your mind about ${partnerName}?"
-- "How does this situation connect to your core attachment needs?"
-- "What's your emotional response telling you right now?"
-- "What would help you feel more secure in this moment?"
-`}
-` : `
-**THERAPEUTIC INTEGRATION PHASE - Advanced Clinical Interventions:**
+**THERAPEUTIC INTEGRATION - ADVANCED PERSONALIZED COACHING:**
 
-**GOTTMAN METHOD WITH CLINICAL PRECISION:**
-- Four Horsemen identification: "I'm noticing criticism patterns here, which often masks underlying attachment needs with ${partnerName}"
-- Love Maps: "Understanding ${partnerName}'s ${context.partnerTraits.loveLanguages?.[0] || 'emotional needs'} could shift this dynamic significantly"
+**GOTTMAN METHOD WITH PERSONAL CONTEXT:**
+- "${userName}, I'm seeing criticism patterns that might connect to your ${context.yourTraits.familyDynamics?.[0] || 'family background'}..."
+- "Given ${partnerName}'s ${context.partnerTraits.loveLanguages?.[0] || 'love language'} and your ${context.yourTraits.loveLanguages?.[0] || 'love language'}, this mismatch makes sense..."
 
-**EFT APPROACH WITH ATTACHMENT EXPERTISE:**
-- Cycle Recognition: "This ${attachmentStyle}-${context.partnerTraits.attachmentStyle || 'unknown'} pattern is creating a classic pursue-withdraw dynamic"
-- Emotion Access: "Given your ${context.yourTraits.familyDynamics?.[0] || 'family history'}, accessing vulnerability with ${partnerName} requires safety first"
+**EFT WITH ATTACHMENT EXPERTISE:**
+- "This ${attachmentStyle}-${context.partnerTraits.attachmentStyle || 'pattern'} dynamic is creating the cycle you described, ${userName}..."
+- "Your ${context.yourTraits.familyDynamics?.[0] || 'family experience'} is showing up here - how can we help you access vulnerability with ${partnerName}?"
 
-**CLINICAL PROFILE INTEGRATION:**
-- Strength Recognition: "Your ability to ${context.yourTraits.strengths?.[0] || 'navigate challenges'} is an asset here - how can we apply that?"
-- Growth Facilitation: "This situation directly relates to your goal of ${context.yourTraits.growthAreas?.[0] || 'relationship growth'} - perfect opportunity for practice"
+**PERSONALIZED CLINICAL INTEGRATION:**
+- "Your ${context.yourTraits.stressResponse?.[0] || 'stress response'} is your system trying to protect the ${context.yourTraits.loveLanguages?.[0] || 'connection'} you need..."
+- "This directly relates to your growth goal of ${context.yourTraits.growthAreas?.[0] || 'relationship development'}, ${userName}..."
 `}
 
-**PROFESSIONAL RESPONSE PATTERNS:**
-- "This sounds like a challenging ${attachmentStyle} response to ${partnerName}'s behavior..."
-- "Your reaction makes complete clinical sense given your ${context.yourTraits.familyDynamics?.[0] || 'attachment history'}..."
-- "I can see how ${partnerName}'s ${context.partnerTraits.attachmentStyle || 'approach'} would activate your system..."
-- "That emotional response is your attachment system working exactly as designed..."
-
-**CLINICAL QUESTION FORMATION:**
-- "What emotions are present for you right now?"
-- "How is this affecting you somatically?"
-- "What attachment needs aren't being met here?"
-- "What would emotional safety look like with ${partnerName}?"
-
-**STRICT PROFESSIONAL REQUIREMENTS:**
-- Reference clinical concepts naturally in every response
+**PROFESSIONAL RESPONSE REQUIREMENTS:**
+- Always reference specific profile details naturally
+- Build genuine intimacy through deep understanding
 - Show PhD-level expertise while remaining warm
-- Use ${partnerName}'s name therapeutically
-- Connect patterns to ${attachmentStyle} attachment professionally
-- Honor their ${age} developmental stage clinically
-- Maximum 25 words per response during discovery
-- Always end with clinically informed question
-- Sound like a highly skilled therapist who genuinely cares
+- Maximum 25 words during discovery, longer for advanced coaching
+- Every response should feel like you know them completely
+- End with personalized, clinically informed questions
 
-Your goal: ${userName} should feel they're receiving expert clinical guidance from a warm, highly competent PhD-level therapist who understands their unique attachment patterns, relationship dynamics with ${partnerName}, and personal history at a deep clinical level.`;
+**FORBIDDEN APPROACHES:**
+- Generic responses that could apply to anyone
+- Robotic recitation of profile data
+- Missing opportunities to reference their specific context
+- Treating them like a stranger
+
+Your goal: ${userName} should feel that you know them better than they know themselves, with every conversation building on their complete relationship story, attachment patterns, family history, and personal growth journey with ${partnerName}.`;
   }
 
   static async getAIResponse(
@@ -237,8 +259,8 @@ Your goal: ${userName} should feel they're receiving expert clinical guidance fr
         supabaseAnonKey: supabaseAnonKey!
       });
 
-      // Use the enhanced personalized prompt
-      const finalPrompt = customPrompt || this.buildPersonalizedPrompt(context, conversationHistory);
+      // Use the ultra-personalized prompt
+      const finalPrompt = customPrompt || this.buildUltraPersonalizedPrompt(context, conversationHistory);
 
       const response = await aiService.generateResponse(
         userMessage,
@@ -249,17 +271,17 @@ Your goal: ${userName} should feel they're receiving expert clinical guidance fr
         }))
       );
 
-      // Ensure response integrates clinical expertise and ends with professional question
-      if (!response.includes('?')) {
-        const userName = context.yourTraits.name || 'you';
-        const clinicalQuestions = [
+      // Ensure response is personalized and ends with a clinical question
+      const userName = context.yourTraits.name || 'you';
+      if (!response.includes('?') && !response.includes(userName)) {
+        const personalizedQuestions = [
           `What emotions are coming up for ${userName}?`,
-          "What's your somatic response to this?",
-          "How does this connect to your attachment needs?",
-          "What would safety look like here?",
-          "What are you noticing in your body right now?"
+          `How is this affecting you physically, ${userName}?`,
+          `What attachment needs aren't being met here?`,
+          "What would emotional safety look like?",
+          `Given your ${context.yourTraits.attachmentStyle || 'attachment style'}, what are you noticing?`
         ];
-        const randomQuestion = clinicalQuestions[Math.floor(Math.random() * clinicalQuestions.length)];
+        const randomQuestion = personalizedQuestions[Math.floor(Math.random() * personalizedQuestions.length)];
         return `${response.replace(/[.!]*$/, '')}. ${randomQuestion}`;
       }
 

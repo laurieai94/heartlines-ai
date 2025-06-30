@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -108,46 +109,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       
-      // Enhanced AI prompt for Kai's professional clinical voice
-      const enhancedPrompt = `You are Kai, a PhD-level clinical psychologist and certified relationship therapist with deep expertise in attachment theory, EFT, and the Gottman Method.
+      // Build ultra-personalized prompt that uses ALL available profile data
+      const ultraPersonalizedPrompt = AICoachEngine.buildUltraPersonalizedPrompt(context, chatHistory);
 
-CRITICAL PROFESSIONAL TONE REQUIREMENTS:
-- PhD-level clinical expertise always evident
-- Warm but professional - never overly casual
-- Use appropriate psychological terminology naturally
-- Show therapeutic competence in every response
-- Maintain clinical authority while being approachable
-
-FORBIDDEN CASUAL EXPRESSIONS - NEVER USE:
-- "Oh honey" "Been there" "Tell me about it" "That's rough" 
-- "Yeah, feels messy" "Ugh" or any overly informal language
-
-REQUIRED PROFESSIONAL LANGUAGE:
-- "That sounds challenging" "Your response makes complete sense"
-- "That's a significant stressor" "I can understand why that would be difficult"
-- "Those feelings are completely valid" "That's a normal attachment response"
-
-CLINICAL RESPONSE PATTERNS:
-- "That sounds like an attachment response to their behavior"
-- "Your nervous system is likely activated by this dynamic"
-- "This pattern suggests underlying attachment needs"
-- "Your ${context.yourTraits?.attachmentStyle || 'attachment'} style makes this response understandable"
-
-VOICE REQUIREMENTS:
-- Length: ULTRA-SHORT responses (15-25 words max, 1-2 sentences)
-- Style: Clinical expertise delivered warmly and accessibly
-- Always end with a clinically informed question
-
-EXAMPLES OF PROFESSIONAL TONE:
-Instead of: "Ugh, phone scrolling when you need connection. What's that bringing up?"
-Say: "That disconnect when you need attention activates attachment fears. What emotions surface?"
-
-Instead of: "They're pulling away and your nervous system is freaking out, right?"
-Say: "Their withdrawal likely triggers your attachment system. What's your body telling you?"
-
-For this conversation with ${userName || 'the user'}, provide clinical insights while staying warm and help them understand their attachment patterns with professional expertise.`;
-
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, enhancedPrompt);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, ultraPersonalizedPrompt);
       
       // Extract topics from AI response as well
       const aiTopics = extractTopicsFromMessage(aiResponse);
@@ -205,7 +170,7 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
             >
               <div className="space-y-6 max-w-3xl mx-auto">
                 
-                {/* Kai's Welcome Section */}
+                {/* Kai's Personalized Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                   <div className="text-center py-8 animate-fade-in">
                     {/* Kai Avatar */}
@@ -224,14 +189,21 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse shadow-lg"></div>
                     </div>
                     
-                    {/* Welcome Message */}
+                    {/* Personalized Welcome Message */}
                     <div className="space-y-3 max-w-lg mx-auto">
                       <h2 className="text-2xl font-bold text-white leading-tight">
-                        Hello, I'm Dr. Kai 👋
+                        Hello {userName ? `${userName}` : ''}, I'm Dr. Kai 👋
                       </h2>
                       
                       <div className="text-white/80 leading-relaxed">
-                        <p>I'm a clinical psychologist specializing in relationships and attachment. I'm here to help you navigate the complexities of your partnership with professional insight and care.</p>
+                        <p>I'm a clinical psychologist specializing in relationships and attachment. 
+                        {userName && partnerName && (
+                          <span> I'm here to help you and {partnerName} navigate your relationship with professional insight and care.</span>
+                        )}
+                        {!partnerName && (
+                          <span> I'm here to help you navigate your relationship complexities with professional insight and care.</span>
+                        )}
+                        </p>
                       </div>
                     </div>
                   </div>
