@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -42,7 +43,14 @@ interface ProfileData {
 const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQuestionnaireProps) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   const [currentSection, setCurrentSection] = useState(1);
-  const [profileData, setProfileData] = useState<ProfileData>({});
+  
+  // Initialize profile data from existing data
+  const [profileData, setProfileData] = useState<ProfileData>(() => {
+    const existingProfile = temporaryProfiles.your?.[0] || {};
+    const existingDemographics = temporaryDemographics.your || {};
+    return { ...existingProfile, ...existingDemographics };
+  });
+  
   const [sectionReadiness, setSectionReadiness] = useState({
     1: true,
     2: false,
@@ -56,10 +64,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       if (Object.keys(profileData).length > 0) {
         const newProfiles = {
           ...temporaryProfiles,
-          personal: [profileData]
+          your: [profileData]
         };
-        const defaultDemographics = { your: null, partner: null };
-        updateTemporaryProfile(newProfiles, temporaryDemographics || defaultDemographics);
+        const newDemographics = {
+          ...temporaryDemographics,
+          your: profileData
+        };
+        updateTemporaryProfile(newProfiles, newDemographics);
       }
     }, 1000);
 
@@ -139,17 +150,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   };
 
   const handleComplete = () => {
-    if (currentSection === 3 && validateSection(3)) {
-      onComplete({
-        type: 'personal',
-        completionData: profileData
-      });
-    } else if (currentSection === 4) {
-      onComplete({
-        type: 'personal',
-        completionData: profileData
-      });
-    }
+    onComplete({
+      type: 'personal',
+      completionData: profileData
+    });
   };
 
   const getRequiredCount = (section: number) => {
@@ -205,7 +209,6 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   };
 
   const isSection3Complete = validateSection(3);
-  const canShowOptionalPrompt = currentSection === 3 && isSection3Complete;
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2">
@@ -311,42 +314,6 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                 handleMultiSelect={handleMultiSelect}
                 isReady={sectionReadiness[4] && currentSection === 4}
               />
-
-              {/* Optional Sections Prompt */}
-              {canShowOptionalPrompt && (
-                <div className="mt-4 p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
-                  <div className="text-center">
-                    <div className="text-2xl mb-1">🎉</div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Nice work! You've covered the essentials.
-                    </h3>
-                    <p className="text-gray-600 mb-3 text-sm">
-                      Want to unlock even deeper insights? Adding more context helps our relationship coach give you more personalized guidance.
-                    </p>
-                    <div className="flex gap-3 justify-center">
-                      <Button
-                        onClick={() => {
-                          setSectionReadiness(prev => ({ ...prev, 4: true }));
-                          setCurrentSection(4);
-                        }}
-                        className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-6 py-2"
-                      >
-                        Yes, let's go deeper
-                      </Button>
-                      <Button
-                        onClick={handleComplete}
-                        variant="outline"
-                        className="border-green-300 text-green-600 hover:bg-green-50 px-6 py-2"
-                      >
-                        I'm ready to start coaching
-                      </Button>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-2">
-                      You can always add more details later in your profile
-                    </p>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 
@@ -376,6 +343,18 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                   className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white flex items-center gap-2 px-4 py-2"
                 >
                   Next
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              )}
+              {currentSection === 3 && validateSection(3) && (
+                <Button
+                  onClick={() => {
+                    setSectionReadiness(prev => ({ ...prev, 4: true }));
+                    setCurrentSection(4);
+                  }}
+                  className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white flex items-center gap-2 px-4 py-2"
+                >
+                  Continue Optional
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               )}
