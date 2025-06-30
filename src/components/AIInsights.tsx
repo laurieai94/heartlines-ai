@@ -13,7 +13,6 @@ import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersist
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isConfigured, setIsConfigured] = useState(true);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [showDemographics, setShowDemographics] = useState(false);
@@ -25,11 +24,35 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
-  const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
+  // Use persistent chat history from the hook
+  const { 
+    conversations, 
+    currentConversationId, 
+    loadConversation, 
+    startNewConversation,
+    getCurrentMessages,
+    updateCurrentMessages
+  } = useChatHistory();
+
+  // Get current chat history from the hook instead of local state
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>(() => getCurrentMessages());
 
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
+
+  // Sync chat history with persistent storage
+  useEffect(() => {
+    const currentMessages = getCurrentMessages();
+    if (currentMessages.length > 0) {
+      setChatHistory(currentMessages);
+    }
+  }, [getCurrentMessages]);
+
+  // Update persistent storage when chat history changes
+  useEffect(() => {
+    updateCurrentMessages(chatHistory);
+  }, [chatHistory, updateCurrentMessages]);
 
   useEffect(() => {
     console.log('=== AIInsights: Profile Data Sources ===');
@@ -77,14 +100,14 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setIsConfigured(configured);
   }, []);
 
-  // Load the most recent conversation on mount
+  // Load the most recent conversation on mount if no current conversation
   useEffect(() => {
-    if (conversations.length > 0 && !currentConversationId) {
+    if (conversations.length > 0 && !currentConversationId && chatHistory.length === 0) {
       const latestConversation = conversations[0];
       const messages = loadConversation(latestConversation.id);
       setChatHistory(messages);
     }
-  }, [conversations, currentConversationId, loadConversation]);
+  }, [conversations, currentConversationId, loadConversation, chatHistory.length]);
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);

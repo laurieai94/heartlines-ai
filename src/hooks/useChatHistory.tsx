@@ -15,7 +15,21 @@ export interface ChatConversation {
 export const useChatHistory = () => {
   const [conversations, setConversations] = useState<ChatConversation[]>([]);
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
+  const [currentMessages, setCurrentMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Load current messages from localStorage on init
+  useEffect(() => {
+    const stored = localStorage.getItem('current_chat_messages');
+    if (stored) {
+      try {
+        const messages = JSON.parse(stored);
+        setCurrentMessages(messages);
+      } catch (error) {
+        console.error('Error loading current messages:', error);
+      }
+    }
+  }, []);
 
   const fetchConversations = async () => {
     try {
@@ -25,15 +39,26 @@ export const useChatHistory = () => {
         return;
       }
 
-      // For now, just return empty array since the table doesn't exist
-      // This prevents build errors while maintaining functionality
-      setConversations([]);
+      // Load from localStorage for now
+      const stored = localStorage.getItem('chat_conversations') || '[]';
+      const conversations = JSON.parse(stored);
+      setConversations(conversations);
     } catch (error) {
       console.error('Error fetching conversations:', error);
       setConversations([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getCurrentMessages = () => {
+    return currentMessages;
+  };
+
+  const updateCurrentMessages = (messages: ChatMessage[]) => {
+    setCurrentMessages(messages);
+    // Persist to localStorage
+    localStorage.setItem('current_chat_messages', JSON.stringify(messages));
   };
 
   const saveConversation = async (messages: ChatMessage[], title?: string) => {
@@ -72,6 +97,7 @@ export const useChatHistory = () => {
       }
 
       localStorage.setItem('chat_conversations', JSON.stringify(conversations));
+      setConversations(conversations);
     } catch (error) {
       console.error('Error saving conversation:', error);
     }
@@ -81,15 +107,20 @@ export const useChatHistory = () => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
-      return typeof conversation.messages === 'string' 
+      const messages = typeof conversation.messages === 'string' 
         ? JSON.parse(conversation.messages) 
         : conversation.messages;
+      setCurrentMessages(messages);
+      localStorage.setItem('current_chat_messages', JSON.stringify(messages));
+      return messages;
     }
     return [];
   };
 
   const startNewConversation = () => {
     setCurrentConversationId(null);
+    setCurrentMessages([]);
+    localStorage.removeItem('current_chat_messages');
     return [];
   };
 
@@ -102,6 +133,8 @@ export const useChatHistory = () => {
       
       if (currentConversationId === conversationId) {
         setCurrentConversationId(null);
+        setCurrentMessages([]);
+        localStorage.removeItem('current_chat_messages');
       }
       
       fetchConversations();
@@ -122,6 +155,8 @@ export const useChatHistory = () => {
     loadConversation,
     startNewConversation,
     deleteConversation,
-    refetchConversations: fetchConversations
+    refetchConversations: fetchConversations,
+    getCurrentMessages,
+    updateCurrentMessages
   };
 };
