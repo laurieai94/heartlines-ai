@@ -12,46 +12,53 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   if (!isReady) return null;
 
   const relationshipStatusOptions = [
-    'Single actively dating', 'Single not dating', 'Casually dating', 'In committed relationship',
-    'Engaged', 'Married/life partnered', 'Open/polyamorous', 'It\'s complicated', 'Taking relationship break'
+    'Single actively dating', 'Single not dating', 'Casual/dating around', 
+    'Exclusive but not official', 'In a relationship', 'Engaged', 
+    'Married', 'It\'s complicated'
   ];
 
   const relationshipLengthOptions = [
-    'Less than 6 months', '6 months-1 year', '1-3 years', '3-7 years', '7+ years', 'On/off complicated'
+    'Less than 3 months', '3-6 months', '6 months - 1 year', 
+    '1-2 years', '2-5 years', '5+ years'
   ];
 
   const whyRealTalkOptions = [
-    'Improve communication', 'Same fights/issues', 'New relationship guidance', 
-    'Work through specific issue', 'Relationship feels stuck', 'Understand myself better',
-    'Major relationship decision'
+    'Want better communication', 'Working through conflict', 'Feeling disconnected',
+    'Want to understand my patterns', 'Preparing for serious commitment', 
+    'Recovery from past relationship', 'Just curious about relationships'
   ];
 
   const workingWellOptions = [
-    'Emotionally connected', 'Can laugh together', 'Talk through conflict',
-    'Support growth', 'Sexually compatible', 'On same page',
-    'Show up during hard times', 'Other'
+    'Great communication', 'Strong physical connection', 'Shared values/goals',
+    'Fun and laughter together', 'Good conflict resolution', 'Emotional support',
+    'Trust and honesty', 'Respect for differences'
   ];
 
-  const difficultOptions = [
-    'Argue often', 'Avoid issues', 'Feel distant', 'Don\'t feel heard',
-    'Emotionally shut down', 'Trust/safety concerns', 'Betrayal/break',
-    'Want different things', 'Stuck in pattern'
+  const feelsDifficultOptions = [
+    'Communication breakdowns', 'Different conflict styles', 'Intimacy challenges',
+    'Time management/priorities', 'Family/friend dynamics', 'Financial stress',
+    'Trust issues', 'Future planning disagreements'
   ];
 
-  const showRelationshipDeepDive = profileData.relationshipStatus && 
-    !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus);
-
-  const showRelationshipLength = profileData.relationshipStatus && 
+  // Check if user is in some form of relationship (not single not dating)
+  const isInRelationship = profileData.relationshipStatus && 
     !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus);
 
   return (
     <div className="space-y-6">
+      <div className="text-center space-y-2">
+        <h3 className="text-xl font-bold text-gray-900">Your Situation 💕</h3>
+        <p className="text-gray-600">
+          What's your relationship status rn
+        </p>
+      </div>
+
       {/* Relationship Status */}
       <div className="space-y-3">
         <Label className="text-sm font-medium text-gray-700">
           Current relationship status <span className="text-red-500">*</span>
         </Label>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           {relationshipStatusOptions.map((status) => (
             <button
               key={status}
@@ -66,48 +73,45 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             </button>
           ))}
         </div>
-        <p className="text-xs text-gray-500">This helps us understand your relationship context</p>
       </div>
 
-      {/* Conditional Relationship Length */}
-      {showRelationshipLength && (
-        <div className="space-y-3">
-          <Label className="text-sm font-medium text-gray-700">
-            How long have you been together? <span className="text-red-500">*</span>
-          </Label>
-          <div className="grid grid-cols-3 gap-2">
-            {relationshipLengthOptions.map((length) => (
-              <button
-                key={length}
-                onClick={() => updateField('relationshipLength', length)}
-                className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-                  profileData.relationshipLength === length
-                    ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
-                }`}
-              >
-                {length}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Conditional Relationship Deep Dive */}
-      {showRelationshipDeepDive && (
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* What's Working */}
+      {/* Conditional Relationship Details - Only show if in some form of relationship */}
+      {isInRelationship && (
+        <>
+          {/* Relationship Length */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              What's working well <span className="text-red-500">*</span>
-              <span className="text-green-600 font-medium text-xs ml-2 block">✨ Check all that apply</span>
+              How long have you been together? <span className="text-red-500">*</span>
             </Label>
-            <div className="space-y-2">
+            <div className="grid grid-cols-3 gap-2">
+              {relationshipLengthOptions.map((length) => (
+                <button
+                  key={length}
+                  onClick={() => updateField('relationshipLength', length)}
+                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-center hover:scale-105 ${
+                    profileData.relationshipLength === length
+                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                  }`}
+                >
+                  {length}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* What's Working Well */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              What's working well in your relationship? <span className="text-red-500">*</span>
+              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+            </Label>
+            <div className="grid grid-cols-2 gap-2">
               {workingWellOptions.map((item) => (
                 <button
                   key={item}
                   onClick={() => handleMultiSelect('workingWell', item)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.workingWell || []).includes(item)
                       ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white border-green-500 shadow-md'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50'
@@ -117,39 +121,43 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">Required to understand your relationship strengths</p>
+            <p className="text-xs text-gray-500">
+              Knowing your strengths helps us build on what's already working
+            </p>
           </div>
 
-          {/* What's Difficult */}
+          {/* What Feels Difficult */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              What feels difficult <span className="text-red-500">*</span>
-              <span className="text-orange-600 font-medium text-xs ml-2 block">✨ Check all that apply</span>
+              What feels difficult or challenging? <span className="text-red-500">*</span>
+              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
-            <div className="space-y-2">
-              {difficultOptions.map((item) => (
+            <div className="grid grid-cols-2 gap-2">
+              {feelsDifficultOptions.map((challenge) => (
                 <button
-                  key={item}
-                  onClick={() => handleMultiSelect('feelsDifficult', item)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-                    (profileData.feelsDifficult || []).includes(item)
+                  key={challenge}
+                  onClick={() => handleMultiSelect('feelsDifficult', challenge)}
+                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.feelsDifficult || []).includes(challenge)
                       ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
                   }`}
                 >
-                  {item}
+                  {challenge}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">Required to understand areas for growth</p>
+            <p className="text-xs text-gray-500">
+              Understanding challenges helps us provide targeted guidance
+            </p>
           </div>
-        </div>
+        </>
       )}
 
       {/* Why RealTalk */}
       <div className="space-y-3">
         <Label className="text-sm font-medium text-gray-700">
-          What brings you to RealTalk? <span className="text-red-500">*</span>
+          Why are you interested in RealTalk? <span className="text-red-500">*</span>
           <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
         <div className="grid grid-cols-2 gap-2">
@@ -159,21 +167,23 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('whyRealTalk', reason)}
               className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                 (profileData.whyRealTalk || []).includes(reason)
-                  ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-md'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+                  ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-500 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
               }`}
             >
               {reason}
             </button>
           ))}
         </div>
-        <p className="text-xs text-gray-500">Helps us understand your coaching focus</p>
+        <p className="text-xs text-gray-500">
+          This helps us tailor the experience to your specific goals
+        </p>
       </div>
 
       {/* Progress Message */}
       <div className="text-center p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
         <p className="text-sm font-medium text-rose-900">
-          Perfect! 🎯 Understanding your relationship world helps us provide relevant guidance
+          Perfect! 💫 Now let's understand how you handle relationships
         </p>
       </div>
     </div>

@@ -56,7 +56,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
         });
         
-        // If in a relationship, require relationship length and relationship details
+        // If in a relationship (not single not dating), require relationship details
         if (profileData.relationshipStatus && 
             !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
           if (!profileData.relationshipLength) {
@@ -192,7 +192,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return "About You ✨";
+      case 1: return "The Real You ✨";
       case 2: return "Your Situation 💕";
       case 3: return "Your Vibe 🧠";
       case 4: return "Your Foundation 🌱";

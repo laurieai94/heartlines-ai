@@ -39,11 +39,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <p className="text-gray-600">
           What shaped your love style
         </p>
-        <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
-          <p className="text-rose-700 font-medium text-sm">
-            <span className="text-red-500">*</span> Please answer at least one question to complete this section
-          </p>
-        </div>
       </div>
 
       {/* Two Column Layout for Desktop */}

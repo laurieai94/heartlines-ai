@@ -2,6 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Camera, User, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -82,6 +83,18 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-6">
+      <div className="text-center space-y-2">
+        <h3 className="text-xl font-bold text-gray-900">The Real You ✨</h3>
+        <p className="text-gray-600">
+          The essentials we need to know
+        </p>
+        <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <p className="text-blue-700 font-medium text-sm">
+            💡 Why we ask: These basics help RealTalk give you advice that fits your identity and life stage
+          </p>
+        </div>
+      </div>
+
       {/* Underage Modal */}
       {showUnderageModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
@@ -227,6 +240,22 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             </button>
           ))}
         </div>
+        
+        {/* Self-describe text box for gender */}
+        {(profileData.gender || []).includes('Prefer to self-describe') && (
+          <div className="mt-3">
+            <Label className="text-sm font-medium text-gray-700 mb-2 block">
+              Please describe your gender identity:
+            </Label>
+            <Textarea
+              value={profileData.genderSelfDescribe || ''}
+              onChange={(e) => updateField('genderSelfDescribe', e.target.value)}
+              placeholder="How do you identify?"
+              className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
+              rows={2}
+            />
+          </div>
+        )}
       </div>
 
       {/* Sexual Orientation - Compact Grid */}
@@ -250,6 +279,22 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             </button>
           ))}
         </div>
+        
+        {/* Self-describe text box for orientation */}
+        {(profileData.orientation || []).includes('Prefer to self-describe') && (
+          <div className="mt-3">
+            <Label className="text-sm font-medium text-gray-700 mb-2 block">
+              Please describe your sexual orientation:
+            </Label>
+            <Textarea
+              value={profileData.orientationSelfDescribe || ''}
+              onChange={(e) => updateField('orientationSelfDescribe', e.target.value)}
+              placeholder="How do you identify?"
+              className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
+              rows={2}
+            />
+          </div>
+        )}
       </div>
 
       {/* Progress Message */}
