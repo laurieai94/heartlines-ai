@@ -27,8 +27,17 @@ const Dashboard = () => {
     setActiveTab(value);
   };
 
+  // Navigation functions for the context
+  const goToProfile = () => {
+    setActiveTab('profile');
+  };
+
+  const goToCoach = () => {
+    setActiveTab('coach');
+  };
+
   return (
-    <NavigationProvider>
+    <NavigationProvider goToProfile={goToProfile} goToCoach={goToCoach}>
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 relative overflow-hidden">
         <BubbleBackground />
         
@@ -87,7 +96,7 @@ const Dashboard = () => {
                 <ProfileBuilder />
               </TabsContent>
             </div>
-          </div>
+          </Tabs>
         </div>
       </div>
     </NavigationProvider>
