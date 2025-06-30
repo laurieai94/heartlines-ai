@@ -307,9 +307,9 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
-      {/* Main Chat Container - Uses full screen height */}
-      <div className="flex-1 min-h-0 flex items-stretch justify-center p-6">
+    <div className="fixed inset-0 flex flex-col overflow-hidden">
+      {/* Main Chat Container - Uses full viewport height */}
+      <div className="flex-1 min-h-0 flex items-stretch justify-center p-4 md:p-6">
         <div className="w-full max-w-4xl flex flex-col min-h-0">
           
           {/* Chat Messages Area - Fixed height container with bulletproof scrolling */}
@@ -319,7 +319,7 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
             <div 
               ref={chatContainerRef}
               id="chat-messages-container"
-              className="flex-1 overflow-y-auto overflow-x-hidden px-6 py-6"
+              className="flex-1 overflow-y-auto overflow-x-hidden px-4 md:px-6 py-4 md:py-6"
               style={{ 
                 scrollBehavior: 'smooth',
                 overflowAnchor: 'none',
@@ -409,7 +409,7 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
 
             {/* Chat Input - Fixed at bottom */}
             <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
-              <div className="p-6 max-w-3xl mx-auto">
+              <div className="p-4 md:p-6 max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
                     onSendMessage={sendMessage} 
