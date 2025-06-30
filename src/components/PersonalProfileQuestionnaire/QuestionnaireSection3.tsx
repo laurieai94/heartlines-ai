@@ -1,6 +1,5 @@
 
 import { Label } from "@/components/ui/label";
-import { Lightbulb } from "lucide-react";
 
 interface QuestionnaireSection3Props {
   profileData: any;
@@ -50,10 +49,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               When stressed, you typically... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Your stress patterns predict how you'll handle relationship challenges
-            </p>
             <div className="space-y-2">
               {stressResponseOptions.map((response) => (
                 <button
@@ -77,10 +72,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               You feel most loved when... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Your love language preferences guide how we suggest showing and receiving love
-            </p>
             <div className="space-y-2">
               {feelLovedOptions.map((way) => (
                 <button
@@ -107,10 +98,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               During conflict, you need... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Conflict needs help us suggest resolution strategies that honor your emotional processing style
-            </p>
             <div className="space-y-2">
               {conflictNeedsOptions.map((need) => (
                 <button
@@ -133,10 +120,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               Your attachment style <span className="text-red-500">*</span>
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Attachment style is the foundation of how you connect, trust, and handle intimacy
-            </p>
             <div className="space-y-2">
               {attachmentOptions.map((style) => (
                 <button
