@@ -28,6 +28,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
@@ -40,42 +41,63 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
-  // Improved auto-scroll function
+  // Enhanced auto-scroll function with multiple fallback methods
   const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
-    // Try multiple methods to ensure scrolling works
-    setTimeout(() => {
+    // Use multiple approaches to ensure scrolling works across different browsers/devices
+    const scrollMethods = [
       // Method 1: Scroll the messages end ref into view
-      if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({ behavior, block: "end" });
-      }
+      () => {
+        if (messagesEndRef.current) {
+          messagesEndRef.current.scrollIntoView({ behavior, block: "end", inline: "nearest" });
+        }
+      },
       
-      // Method 2: Scroll the scroll area to bottom
-      if (scrollAreaRef.current) {
-        const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-        if (scrollElement) {
-          scrollElement.scrollTop = scrollElement.scrollHeight;
+      // Method 2: Scroll the chat container directly
+      () => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTo({
+            top: chatContainerRef.current.scrollHeight,
+            behavior
+          });
+        }
+      },
+      
+      // Method 3: Scroll the scroll area viewport
+      () => {
+        if (scrollAreaRef.current) {
+          const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
+          if (scrollElement) {
+            scrollElement.scrollTo({
+              top: scrollElement.scrollHeight,
+              behavior
+            });
+          }
         }
       }
-    }, 100);
+    ];
+
+    // Execute all scroll methods with slight delays to ensure one works
+    scrollMethods.forEach((method, index) => {
+      setTimeout(method, index * 50);
+    });
   };
 
-  // Auto-scroll when chat history changes or when loading state changes
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatHistory.length, loading]);
-
-  // Also scroll when a new message is added (more specific trigger)
+  // Immediate scroll for new messages
   useEffect(() => {
     if (chatHistory.length > 0) {
-      const lastMessage = chatHistory[chatHistory.length - 1];
-      // Immediate scroll for user messages, delayed for AI responses to allow for rendering
-      if (lastMessage.type === 'user') {
-        scrollToBottom('auto');
-      } else {
-        setTimeout(() => scrollToBottom(), 200);
-      }
+      // Force immediate scroll with instant behavior, then smooth scroll
+      setTimeout(() => scrollToBottom('auto'), 0);
+      setTimeout(() => scrollToBottom('smooth'), 100);
     }
-  }, [chatHistory]);
+  }, [chatHistory.length]);
+
+  // Additional scroll trigger for loading state changes
+  useEffect(() => {
+    if (!loading && chatHistory.length > 0) {
+      // Scroll after AI response completes
+      setTimeout(() => scrollToBottom('smooth'), 200);
+    }
+  }, [loading]);
 
   // Handle conversation starter - improved to avoid duplicates
   useEffect(() => {
@@ -107,6 +129,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     };
 
     setChatHistory(prev => [...prev, newUserMessage]);
+    
+    // Immediate scroll after user message
+    setTimeout(() => scrollToBottom('auto'), 0);
+    
     setLoading(true);
 
     // Extract and track topics from user message
@@ -174,6 +200,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
       if (speakResponseRef.current) {
         speakResponseRef.current(aiResponse);
       }
+
+      // Ensure scroll after AI response
+      setTimeout(() => scrollToBottom('smooth'), 300);
+      
     } catch (error) {
       console.error('Error generating AI response:', error);
       const errorMessage: ChatMessage = {
@@ -183,6 +213,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         timestamp: new Date().toISOString()
       };
       setChatHistory(prev => [...prev, errorMessage]);
+      
+      // Scroll after error message too
+      setTimeout(() => scrollToBottom('smooth'), 300);
     } finally {
       setLoading(false);
     }
@@ -201,7 +234,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
           {/* Chat Messages Area - Glassmorphism effect, no background square */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
             <ScrollArea ref={scrollAreaRef} className="flex-1 px-6 py-6">
-              <div className="space-y-6 max-w-3xl mx-auto">
+              <div ref={chatContainerRef} className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Welcome Section - Modern, clean design */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
@@ -286,7 +319,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 )}
                 
-                <div ref={messagesEndRef} />
+                {/* Scroll anchor - this element will always be scrolled into view */}
+                <div ref={messagesEndRef} className="h-1" />
               </div>
             </ScrollArea>
 
