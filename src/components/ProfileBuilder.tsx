@@ -64,19 +64,15 @@ const ProfileBuilder = ({
     let completed = 0;
     let total = 8;
     
-    // Basic info
+    // Core required questions from the questionnaire
     if (yourDemo?.name) completed++;
     if (yourDemo?.age) completed++;
-    
-    // Emotional blueprint - check both profile and demographics
-    if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
-    if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
-    if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
-    if (yourProfile?.receiveLove?.length > 0 || yourDemo?.receiveLove?.length > 0) completed++;
-    
-    // Background
-    if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
-    if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
+    if (yourDemo?.gender?.length > 0) completed++;
+    if (yourDemo?.sexualOrientation?.length > 0) completed++;
+    if (yourDemo?.relationshipStatus) completed++;
+    if (yourDemo?.whyRealTalk?.length > 0) completed++;
+    if (yourDemo?.biggestChallenge?.length > 0) completed++;
+    if (yourDemo?.attachmentStyle) completed++;
     
     const completion = Math.round((completed / total) * 100);
     console.log('ProfileBuilder - Your profile completion:', { completed, total, completion });
@@ -95,9 +91,9 @@ const ProfileBuilder = ({
     let total = 4;
     
     if (partnerDemo?.name) completed++;
-    if (partnerProfile?.communicationStyle) completed++;
-    if (partnerProfile?.loveLanguages?.length > 0) completed++;
-    if (partnerProfile?.conflictStyle) completed++;
+    if (partnerProfile?.communicationStyle || partnerDemo?.communicationStyle) completed++;
+    if (partnerProfile?.loveLanguages?.length > 0 || partnerDemo?.loveLanguages?.length > 0) completed++;
+    if (partnerProfile?.conflictStyle || partnerDemo?.conflictStyle) completed++;
     
     const completion = Math.round((completed / total) * 100);
     console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion });
@@ -109,7 +105,7 @@ const ProfileBuilder = ({
 
   const handleStartProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
-    // Start with demographics if not completed yet
+    // For partner profiles, still use the old flow
     if (!temporaryDemographics[profileType]) {
       setShowDemographics(true);
     } else {
@@ -190,7 +186,7 @@ const ProfileBuilder = ({
           Let's Get to Know the Real You
         </h1>
         <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
-          Build your relationship profiles in just 5 minutes
+          Build your relationship profiles to unlock personalized insights
         </p>
         {/* Real-time overall progress indicator */}
         {profileCompletion > 0 && (
@@ -211,7 +207,7 @@ const ProfileBuilder = ({
       <div className="flex-1 min-h-0 space-y-4">
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {/* Card 1: Your Profile */}
+          {/* Card 1: Your Personal Profile */}
           <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -220,7 +216,7 @@ const ProfileBuilder = ({
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-white">
-                    Your Profile
+                    Your Personal Profile
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1">
@@ -234,26 +230,26 @@ const ProfileBuilder = ({
               </div>
 
               <p className="text-pink-200/80 text-sm leading-relaxed">
-                This is where we truly get you. Answer a few quick questions about how you love, what shaped you, and what truly matters.
+                Complete our comprehensive questionnaire to unlock personalized relationship insights from Kai, your AI coach.
               </p>
 
               <div className="bg-white/5 rounded-lg p-3 border border-white/10">
                 <div className="flex items-center gap-2 text-orange-300 mb-2">
                   <Target className="w-4 h-4" />
-                  <span className="font-semibold text-sm">What You'll Unlock:</span>
+                  <span className="font-semibold text-sm">What You'll Get:</span>
                 </div>
                 <ul className="space-y-1 text-pink-200/80 text-xs">
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-orange-300" />
-                    Psychologist-level insights
+                    Personalized coaching tailored to your patterns
                   </li>
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-orange-300" />
-                    Personalized daily support
+                    Deep insights into your relationship style
                   </li>
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-orange-300" />
-                    Better advice built around you
+                    Custom advice that actually gets you
                   </li>
                 </ul>
               </div>
@@ -262,13 +258,13 @@ const ProfileBuilder = ({
                 onClick={openQuestionnaire}
                 className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0"
               >
-                {yourProfileCompletion > 0 ? 'Continue My Profile' : 'Begin My Profile'}
+                {yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </Card>
 
-          {/* Card 2: Unlock Their Perspective Too */}
+          {/* Card 2: Partner Profile */}
           <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -276,7 +272,7 @@ const ProfileBuilder = ({
                   <Heart className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white">Unlock Their Perspective Too</h3>
+                  <h3 className="text-lg font-bold text-white">Partner Profile</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1">
                       <Progress value={partnerProfileCompletion} className="h-2 bg-black/40" />
@@ -289,7 +285,7 @@ const ProfileBuilder = ({
               </div>
 
               <p className="text-pink-200/80 text-sm leading-relaxed">
-                Share what you've observed about your partner's style, needs, and reactions. This gives RealTalk the insights to bridge the gap between you two.
+                Share what you know about your partner's communication style and preferences for even better insights.
               </p>
 
               <div className="bg-white/5 rounded-lg p-3 border border-white/10">
@@ -300,15 +296,15 @@ const ProfileBuilder = ({
                 <ul className="space-y-1 text-pink-200/80 text-xs">
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-pink-300" />
-                    Build lasting, authentic connection
+                    Dual-perspective relationship insights
                   </li>
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-pink-300" />
-                    Deep, actionable insights
+                    Bridge-building communication tips
                   </li>
                   <li className="flex items-center gap-2">
                     <Star className="w-3 h-3 text-pink-300" />
-                    Smarter advice that gets you both
+                    Advice that considers both of you
                   </li>
                 </ul>
               </div>
