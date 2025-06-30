@@ -85,7 +85,7 @@ const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }:
         <Label className="text-base font-medium mb-3 block">Household Income (Optional)</Label>
         <p className="text-sm text-gray-600 mb-3 flex items-center gap-1">
           <Lightbulb className="w-3 h-3 text-amber-500" />
-          Help us understand your financial context for relevant advice
+          Understanding your financial context helps us provide relevant advice
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {incomeOptions.map((income) => (
