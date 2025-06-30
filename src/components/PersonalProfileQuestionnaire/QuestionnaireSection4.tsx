@@ -43,188 +43,188 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h3 className="text-2xl font-bold text-gray-900">Your Foundation</h3>
-        <p className="text-gray-600 text-lg">
+        <h3 className="text-xl font-bold text-gray-900">Your Foundation</h3>
+        <p className="text-gray-600">
           These details are <strong>completely optional</strong> but help unlock deeper insights
         </p>
-        <div className="flex items-center justify-center gap-2 text-sm text-green-600 bg-green-50 rounded-full px-4 py-2 mx-auto w-fit">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          Your answers are automatically saved
-        </div>
-        <div className="p-4 bg-rose-50 rounded-xl border border-rose-200">
-          <p className="text-rose-700 font-medium">
+        <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+          <p className="text-rose-700 font-medium text-sm">
             💡 Skip any questions that don't feel right to answer - you can always come back later
           </p>
         </div>
       </div>
 
-      {/* Family Dynamics */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          Family dynamics growing up <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {familyDynamicsOptions.map((dynamic) => (
-            <button
-              key={dynamic}
-              onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                (profileData.familyDynamics || []).includes(dynamic)
-                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {dynamic}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> Family patterns often influence how we approach relationships as adults
-        </p>
-      </div>
+      {/* Two Column Layout for Desktop */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {/* Family Dynamics */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              Family dynamics growing up <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="space-y-2">
+              {familyDynamicsOptions.map((dynamic) => (
+                <button
+                  key={dynamic}
+                  onClick={() => handleMultiSelect('familyDynamics', dynamic)}
+                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.familyDynamics || []).includes(dynamic)
+                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                  }`}
+                >
+                  {dynamic}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Family patterns often influence how we approach relationships as adults
+            </p>
+          </div>
 
-      {/* Parent Conflict Style */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          How parents handled conflict <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {parentConflictOptions.map((style) => (
-            <button
-              key={style}
-              onClick={() => handleMultiSelect('parentConflictStyle', style)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                (profileData.parentConflictStyle || []).includes(style)
-                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {style}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> The conflict styles we observe growing up often become our default approaches
-        </p>
-      </div>
+          {/* Love Messages */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              Messages about love received <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="space-y-2">
+              {loveMessagesOptions.map((message) => (
+                <button
+                  key={message}
+                  onClick={() => handleMultiSelect('loveMessages', message)}
+                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.loveMessages || []).includes(message)
+                      ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+                  }`}
+                >
+                  {message}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Early messages shape our expectations and relationship patterns
+            </p>
+          </div>
 
-      {/* Love Messages */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          Messages about love received <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {loveMessagesOptions.map((message) => (
-            <button
-              key={message}
-              onClick={() => handleMultiSelect('loveMessages', message)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                (profileData.loveMessages || []).includes(message)
-                  ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {message}
-            </button>
-          ))}
+          {/* Mental Health Context */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              Current mental health context <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="grid grid-cols-1 gap-2">
+              {mentalHealthOptions.map((context) => (
+                <button
+                  key={context}
+                  onClick={() => updateField('mentalHealthContext', context)}
+                  className={`p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    profileData.mentalHealthContext === context
+                      ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white border-green-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50'
+                  }`}
+                >
+                  {context}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Mental health affects relationships, and we want to provide appropriate support
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> Early messages about love shape our expectations and relationship patterns
-        </p>
-      </div>
 
-      {/* Love Influences */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          What influenced love ideas <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {loveInfluencesOptions.map((influence) => (
-            <button
-              key={influence}
-              onClick={() => handleMultiSelect('loveInfluences', influence)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                (profileData.loveInfluences || []).includes(influence)
-                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {influence}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> Understanding what shaped your relationship beliefs helps us provide more relevant guidance
-        </p>
-      </div>
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Parent Conflict Style */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              How parents handled conflict <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="space-y-2">
+              {parentConflictOptions.map((style) => (
+                <button
+                  key={style}
+                  onClick={() => handleMultiSelect('parentConflictStyle', style)}
+                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.parentConflictStyle || []).includes(style)
+                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                  }`}
+                >
+                  {style}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Conflict styles we observe often become our default approaches
+            </p>
+          </div>
 
-      {/* Mental Health Context */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          Current mental health context <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {mentalHealthOptions.map((context) => (
-            <button
-              key={context}
-              onClick={() => updateField('mentalHealthContext', context)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                profileData.mentalHealthContext === context
-                  ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white border-green-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {context}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> Mental health affects relationships, and we want to provide appropriate support
-        </p>
-      </div>
+          {/* Love Influences */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              What influenced love ideas <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="space-y-2">
+              {loveInfluencesOptions.map((influence) => (
+                <button
+                  key={influence}
+                  onClick={() => handleMultiSelect('loveInfluences', influence)}
+                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.loveInfluences || []).includes(influence)
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                  }`}
+                >
+                  {influence}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Understanding what shaped beliefs helps us provide relevant guidance
+            </p>
+          </div>
 
-      {/* Growth Areas */}
-      <div className="space-y-4">
-        <Label className="text-base font-semibold text-gray-700">
-          What hoping to grow in <span className="text-gray-500 font-normal">(Optional)</span>
-        </Label>
-        <p className="text-sm text-rose-600 font-medium">✨ Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {growthAreasOptions.map((area) => (
-            <button
-              key={area}
-              onClick={() => handleMultiSelect('growthAreas', area)}
-              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                (profileData.growthAreas || []).includes(area)
-                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50 shadow-sm hover:shadow-md'
-              }`}
-            >
-              {area}
-            </button>
-          ))}
+          {/* Growth Areas */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-gray-700">
+              What hoping to grow in <span className="text-gray-500 font-normal">(Optional)</span>
+            </Label>
+            <div className="space-y-2">
+              {growthAreasOptions.map((area) => (
+                <button
+                  key={area}
+                  onClick={() => handleMultiSelect('growthAreas', area)}
+                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.growthAreas || []).includes(area)
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                  }`}
+                >
+                  {area}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500">
+              Growth goals help us prioritize the most relevant coaching topics
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-gray-400">
-          💡 <strong>Why we ask:</strong> Knowing your growth goals helps us prioritize the most relevant coaching topics
-        </p>
       </div>
 
       {/* Final Encouragement */}
-      <div className="text-center p-6 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-rose-100">
-        <div className="text-3xl mb-3">🌟</div>
-        <p className="text-xl font-bold text-rose-900 mb-2">
+      <div className="text-center p-4 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 rounded-lg border border-rose-200">
+        <div className="text-2xl mb-2">🌟</div>
+        <p className="text-lg font-bold text-rose-900 mb-1">
           You're all set!
         </p>
-        <p className="text-rose-700 text-lg mb-4">
+        <p className="text-rose-700 text-sm mb-2">
           Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
         </p>
-        <p className="text-rose-600 text-sm">
+        <p className="text-rose-600 text-xs">
           Remember: You can always update your profile as you learn and grow
         </p>
       </div>

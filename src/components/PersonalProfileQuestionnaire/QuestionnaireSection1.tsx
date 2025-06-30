@@ -41,263 +41,224 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     updateField('age', age);
   };
 
-  const handlePhotoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be under 5MB');
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      toast.error('Please upload a JPG or PNG image');
+      return;
+    }
+
+    setIsUploading(true);
     try {
-      setIsUploading(true);
-
-      if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('You must select an image to upload.');
-      }
-
-      const file = event.target.files[0];
-      
-      if (!file.type.startsWith('image/')) {
-        throw new Error('Please select an image file (JPG or PNG).');
-      }
-      
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error('Image size should be less than 5MB.');
-      }
-
-      // Create a local URL for immediate preview
-      const localUrl = URL.createObjectURL(file);
-      updateField('profilePhoto', localUrl);
-      
-      toast.success('Photo uploaded successfully! 📸');
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        updateField('profilePhoto', result);
+        setIsUploading(false);
+        toast.success('Photo uploaded successfully!');
+      };
+      reader.readAsDataURL(file);
     } catch (error) {
-      console.error('Error uploading photo:', error);
-      toast.error(error.message || 'Error uploading photo');
-    } finally {
       setIsUploading(false);
+      toast.error('Failed to upload image');
     }
   };
 
-  const removePhoto = () => {
-    updateField('profilePhoto', null);
-    toast.success('Photo removed');
-  };
-
-  const getInitialAvatar = () => {
-    if (profileData.name) {
-      return profileData.name.charAt(0).toUpperCase();
-    }
-    return '';
+  const generateAvatar = (name: string) => {
+    if (!name) return null;
+    return (
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
+        {name.charAt(0).toUpperCase()}
+      </div>
+    );
   };
 
   return (
-    <>
-      <div className="space-y-8">
-        <div className="text-center space-y-2">
-          <h3 className="text-2xl font-bold text-gray-900">Who You Are</h3>
-          <p className="text-gray-600 text-lg">Let's start with the basics so RealTalk can personalize your experience</p>
-          <div className="flex items-center justify-center gap-2 text-sm text-green-600 bg-green-50 rounded-full px-4 py-2 mx-auto w-fit">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            Your answers are automatically saved
-          </div>
-        </div>
-
-        {/* Profile Photo */}
-        <div className="space-y-4">
-          <Label className="text-base font-semibold text-gray-700">
-            Add profile photo <span className="text-gray-500 font-normal">(Optional)</span>
-          </Label>
-          <div className="flex items-center gap-6">
-            <div className="relative group">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg ring-4 ring-purple-100 transition-all duration-300 group-hover:ring-purple-200">
-                {profileData.profilePhoto ? (
-                  <img 
-                    src={profileData.profilePhoto} 
-                    alt="Profile" 
-                    className="w-full h-full rounded-full object-cover" 
-                  />
-                ) : (
-                  <span className="text-2xl font-bold text-white">
-                    {getInitialAvatar() || <User className="w-8 h-8" />}
-                  </span>
-                )}
-              </div>
-              {profileData.profilePhoto && (
-                <button
-                  onClick={removePhoto}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-colors shadow-lg"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              )}
-            </div>
-            <div className="space-y-3">
-              <div className="relative">
-                <input
-                  type="file"
-                  id="photo-upload"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  disabled={isUploading}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-                />
-                <Button 
-                  variant="outline" 
-                  className="flex items-center gap-2 relative pointer-events-none bg-white hover:bg-gray-50 border-2 border-purple-200 hover:border-purple-300 text-purple-700 font-medium"
-                  disabled={isUploading}
-                >
-                  {isUploading ? (
-                    <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <Camera className="w-4 h-4" />
-                  )}
-                  {isUploading ? 'Uploading...' : 'Upload Photo'}
-                </Button>
-              </div>
-              <p className="text-sm text-gray-500">JPG, PNG, max 5MB</p>
-              <p className="text-xs text-gray-400">
-                💡 <strong>Why we ask:</strong> Helps personalize your experience and makes coaching feel more connected
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Name */}
-        <div className="space-y-3">
-          <Label htmlFor="name" className="text-base font-semibold text-gray-700">
-            What should we call you? <span className="text-red-500 text-lg">*</span>
-          </Label>
-          <Input
-            id="name"
-            value={profileData.name || ''}
-            onChange={(e) => updateField('name', e.target.value)}
-            placeholder="Enter your name"
-            className="text-lg p-4 border-2 border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl transition-all duration-200"
-          />
-          <p className="text-sm text-gray-500">Used throughout the app for personalization</p>
-          <p className="text-xs text-gray-400">
-            💡 <strong>Why we ask:</strong> Makes your coaching experience personal and helps build connection with Kai
-          </p>
-        </div>
-
-        {/* Age */}
-        <div className="space-y-4">
-          <Label className="text-base font-semibold text-gray-700">
-            What's your age? <span className="text-red-500 text-lg">*</span>
-          </Label>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {ageOptions.map((age) => (
-              <button
-                key={age}
-                onClick={() => handleAgeSelect(age)}
-                className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 hover:scale-105 ${
-                  profileData.age === age
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
-                }`}
-              >
-                {age}
-              </button>
-            ))}
-          </div>
-          <p className="text-xs text-gray-400">
-            💡 <strong>Why we ask:</strong> Age influences relationship patterns and helps provide age-appropriate guidance
-          </p>
-        </div>
-
-        {/* Gender */}
-        <div className="space-y-4">
-          <Label className="text-base font-semibold text-gray-700">
-            How do you identify your gender? <span className="text-red-500 text-lg">*</span>
-          </Label>
-          <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {genderOptions.map((gender) => (
-              <button
-                key={gender}
-                onClick={() => handleMultiSelect('gender', gender)}
-                className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                  (profileData.gender || []).includes(gender)
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
-                }`}
-              >
-                {gender}
-              </button>
-            ))}
-          </div>
-          <p className="text-xs text-gray-400">
-            💡 <strong>Why we ask:</strong> Helps us understand your perspective and provide inclusive, relevant guidance
-          </p>
-        </div>
-
-        {/* Sexual Orientation */}
-        <div className="space-y-4">
-          <Label className="text-base font-semibold text-gray-700">
-            What's your sexual orientation? <span className="text-red-500 text-lg">*</span>
-          </Label>
-          <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {orientationOptions.map((orientation) => (
-              <button
-                key={orientation}
-                onClick={() => handleMultiSelect('sexualOrientation', orientation)}
-                className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
-                  (profileData.sexualOrientation || []).includes(orientation)
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
-                }`}
-              >
-                {orientation}
-              </button>
-            ))}
-          </div>
-          <p className="text-xs text-gray-400">
-            💡 <strong>Why we ask:</strong> Ensures coaching advice is relevant to your relationship experiences and identity
-          </p>
-        </div>
-
-        {/* Encouraging Progress Message */}
-        <div className="text-center p-6 bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-purple-100">
-          <div className="text-2xl mb-2">🌟</div>
-          <p className="text-lg font-semibold text-purple-900 mb-2">
-            You're doing great!
-          </p>
-          <p className="text-purple-700">
-            These details help RealTalk understand how to support you better
-          </p>
-        </div>
-      </div>
-
+    <div className="space-y-6">
       {/* Underage Modal */}
       {showUnderageModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
-            <div className="text-4xl mb-4">👋</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Hey there!
-            </h3>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              We love that you're thinking about healthy relationships. 
-              RealTalk is designed for adults 18+, but there are amazing 
-              age-appropriate resources waiting for you.
-            </p>
-            <p className="text-gray-600 mb-8">
-              Check out <strong>Love is Respect</strong> for support that's perfect for where you are right now.
-            </p>
-            <div className="space-y-4">
-              <Button
-                onClick={() => window.open('https://www.loveisrespect.org/', '_blank')}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg"
-              >
-                Visit Love is Respect
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setShowUnderageModal(false)}
-                className="w-full border-2 border-purple-200 text-purple-700 hover:bg-purple-50 py-3 rounded-xl font-semibold"
-              >
-                I'm actually 18+
-              </Button>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div className="text-center">
+              <div className="text-3xl mb-3">👋</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Hey there!</h3>
+              <p className="text-gray-600 mb-4">
+                We love that you're thinking about healthy relationships. RealTalk is designed for adults 18+, 
+                but there are amazing age-appropriate resources waiting for you.
+              </p>
+              <p className="text-gray-600 mb-6">
+                Check out Love is Respect for support that's perfect for where you are right now.
+              </p>
+              <div className="flex gap-3 justify-center">
+                <Button
+                  onClick={() => window.open('https://www.loveisrespect.org/', '_blank')}
+                  className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white"
+                >
+                  Visit Love is Respect
+                </Button>
+                <Button
+                  onClick={() => setShowUnderageModal(false)}
+                  variant="outline"
+                >
+                  I'm actually 18+
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       )}
-    </>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Photo Upload Section */}
+        <div className="space-y-3">
+          <Label className="text-sm font-medium text-gray-700">
+            Add profile photo <span className="text-gray-500 font-normal">(Optional)</span>
+          </Label>
+          
+          <div className="flex items-center gap-4">
+            {profileData.profilePhoto ? (
+              <img 
+                src={profileData.profilePhoto} 
+                alt="Profile" 
+                className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
+              />
+            ) : profileData.name ? (
+              generateAvatar(profileData.name)
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300">
+                <User className="w-6 h-6 text-gray-400" />
+              </div>
+            )}
+            
+            <div className="flex-1">
+              <input
+                type="file"
+                accept="image/jpeg,image/png"
+                onChange={handleImageUpload}
+                className="hidden"
+                id="photo-upload"
+                disabled={isUploading}
+              />
+              <label
+                htmlFor="photo-upload"
+                className="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer text-sm transition-colors"
+              >
+                {isUploading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-rose-500 border-t-transparent rounded-full animate-spin" />
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-4 h-4" />
+                    Upload Photo
+                  </>
+                )}
+              </label>
+              <p className="text-xs text-gray-500 mt-1">JPG, PNG • Max 5MB</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Name Field */}
+        <div className="space-y-3">
+          <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+            What should we call you? <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            id="name"
+            type="text"
+            value={profileData.name || ''}
+            onChange={(e) => updateField('name', e.target.value)}
+            placeholder="Your name"
+            className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
+          />
+          <p className="text-xs text-gray-500">Used throughout app for personalization</p>
+        </div>
+      </div>
+
+      {/* Age Selection - Compact Grid */}
+      <div className="space-y-3">
+        <Label className="text-sm font-medium text-gray-700">
+          What's your age? <span className="text-red-500">*</span>
+        </Label>
+        <div className="grid grid-cols-4 gap-2">
+          {ageOptions.map((age) => (
+            <button
+              key={age}
+              onClick={() => handleAgeSelect(age)}
+              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105 ${
+                profileData.age === age
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+              }`}
+            >
+              {age}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Gender - Compact Grid */}
+      <div className="space-y-3">
+        <Label className="text-sm font-medium text-gray-700">
+          How do you identify your gender? <span className="text-red-500">*</span>
+          <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+        </Label>
+        <div className="grid grid-cols-3 gap-2">
+          {genderOptions.map((gender) => (
+            <button
+              key={gender}
+              onClick={() => handleMultiSelect('gender', gender)}
+              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                (profileData.gender || []).includes(gender)
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+              }`}
+            >
+              {gender}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Sexual Orientation - Compact Grid */}
+      <div className="space-y-3">
+        <Label className="text-sm font-medium text-gray-700">
+          What's your sexual orientation? <span className="text-red-500">*</span>
+          <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+        </Label>
+        <div className="grid grid-cols-3 gap-2">
+          {orientationOptions.map((orientation) => (
+            <button
+              key={orientation}
+              onClick={() => handleMultiSelect('orientation', orientation)}
+              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                (profileData.orientation || []).includes(orientation)
+                  ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+              }`}
+            >
+              {orientation}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Progress Message */}
+      <div className="text-center p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
+        <p className="text-sm font-medium text-rose-900">
+          Great start! 🌟 This helps RealTalk personalize your experience
+        </p>
+      </div>
+    </div>
   );
 };
 
