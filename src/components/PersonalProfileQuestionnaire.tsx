@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -59,7 +58,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           ...temporaryProfiles,
           personal: [profileData]
         };
-        updateTemporaryProfile(newProfiles, temporaryDemographics || {});
+        const defaultDemographics = { your: null, partner: null };
+        updateTemporaryProfile(newProfiles, temporaryDemographics || defaultDemographics);
       }
     }, 1000);
 
@@ -286,7 +286,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto p-4">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <QuestionnaireSection1 
                 profileData={profileData}
                 updateField={updateField}
