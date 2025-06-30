@@ -10,6 +10,7 @@ import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import APIKeyInput from "./APIKeyInput";
 import ProfileViewer from "./ProfileViewer";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
@@ -147,54 +148,54 @@ const AISidebar = ({
 
   return (
     <>
-      <div className="w-full h-full overflow-y-auto space-y-4 p-1">
-        {/* Meet Kai */}
-        <Card className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-fade-in hover:shadow-xl transition-all duration-300">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
-              <Heart className="w-5 h-5 text-white" />
+      <div className="w-full h-full overflow-y-auto space-y-3">
+        {/* Meet Kai - More compact */}
+        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-fade-in hover:shadow-lg transition-all duration-300">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+              <Heart className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Lightbulb className="w-4 h-4 text-orange-300" />
+              <h3 className="text-sm font-medium text-white flex items-center gap-2">
+                <Lightbulb className="w-3 h-3 text-orange-300" />
                 Meet Kai
               </h3>
             </div>
           </div>
-          <p className="text-sm text-pink-200/90 leading-relaxed">
+          <p className="text-xs text-pink-200/80 leading-relaxed">
             Your AI relationship coach, trained on 15+ years of PhD-level clinical psychology and grounded in evidence-based practices. Built to help you grow, communicate, and connect in the moments that matter most.
           </p>
         </Card>
 
-        {/* Safe Space */}
-        <Card className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up hover:shadow-xl transition-all duration-300">
-          <div className="flex items-center gap-3 mb-3">
-            <Heart className="w-4 h-4 text-orange-300 animate-pulse" />
-            <h3 className="text-sm font-semibold text-white">Safe Space</h3>
+        {/* Safe Space - More compact */}
+        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300">
+          <div className="flex items-center gap-2 mb-2">
+            <Heart className="w-3 h-3 text-orange-300 animate-pulse" />
+            <h3 className="text-sm font-medium text-white">Safe Space</h3>
           </div>
-          <div className="text-sm text-pink-200/90 space-y-2">
+          <div className="text-xs text-pink-200/80 space-y-1">
             <p>• No judgment, just support</p>
             <p>• Your feelings are valid</p>
             <p>• Messy is normal</p>
           </div>
         </Card>
 
-        {/* Profile Completion Status */}
-        <Card className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up">
-          <div className="flex items-center gap-3 mb-4">
-            <User className="w-4 h-4 text-orange-300" />
-            <h3 className="text-sm font-semibold text-white">Your Profiles</h3>
-            <div className="ml-auto text-sm text-pink-200/80">{profileCompletion}% overall</div>
+        {/* Profile Completion Status - More compact */}
+        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up">
+          <div className="flex items-center gap-2 mb-3">
+            <User className="w-3 h-3 text-orange-300" />
+            <h3 className="text-sm font-medium text-white">You</h3>
+            <div className="ml-auto text-xs text-pink-200/80">{profileCompletion}% overall</div>
           </div>
           
-          {/* Your Profile */}
-          <div className="space-y-3 mb-4">
+          {/* Your Profile - Compact */}
+          <div className="space-y-2 mb-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white flex items-center gap-2">
-                <User className="w-4 h-4 text-purple-300" />
+              <span className="text-xs font-medium text-white flex items-center gap-1">
+                <User className="w-3 h-3 text-purple-300" />
                 {userName || 'You'}
               </span>
-              <span className="text-sm text-pink-200/80">{yourCompletion}%</span>
+              <span className="text-xs text-pink-200/80">{yourCompletion}%</span>
             </div>
             <div className="relative">
               <Progress 
@@ -203,37 +204,37 @@ const AISidebar = ({
               />
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-sm h-8 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0 shadow-lg"
+                className="flex-1 text-xs h-7 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0"
                 onClick={() => handleStartContinueProfile('your')}
               >
-                <Plus className="w-4 h-4 mr-1" />
+                <Plus className="w-3 h-3 mr-1" />
                 {yourCompletion > 0 ? 'Continue' : 'Start Profile'}
               </Button>
               {yourCompletion > 0 && (
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-sm h-8 px-3 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
+                  className="text-xs h-7 px-2 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
                   onClick={() => handleViewProfile('your')}
                 >
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-3 h-3" />
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Partner Profile */}
-          <div className="space-y-3">
+          {/* Partner Profile - Compact */}
+          <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white flex items-center gap-2">
-                <Heart className="w-4 h-4 text-pink-300" />
+              <span className="text-xs font-medium text-white flex items-center gap-1">
+                <Heart className="w-3 h-3 text-pink-300" />
                 {partnerName || 'Partner Profile'}
               </span>
-              <span className="text-sm text-pink-200/80">{partnerCompletion}%</span>
+              <span className="text-xs text-pink-200/80">{partnerCompletion}%</span>
             </div>
             <div className="relative">
               <Progress 
@@ -242,70 +243,70 @@ const AISidebar = ({
               />
               <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full opacity-20 animate-pulse"></div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-sm h-8 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0 shadow-lg"
+                className="flex-1 text-xs h-7 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0"
                 onClick={() => handleStartContinueProfile('partner')}
               >
-                <Plus className="w-4 h-4 mr-1" />
+                <Plus className="w-3 h-3 mr-1" />
                 {partnerCompletion > 0 ? 'Continue' : 'Add Partner'}
               </Button>
               {partnerCompletion > 0 && (
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-sm h-8 px-3 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
+                  className="text-xs h-7 px-2 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
                   onClick={() => handleViewProfile('partner')}
                 >
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-3 h-3" />
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Dynamic messaging */}
+          {/* Dynamic messaging - More compact */}
           {profileCompletion >= 30 && (
-            <div className="mt-4 p-3 bg-orange-400/20 backdrop-blur-sm rounded-lg text-sm text-orange-200 animate-fade-in">
+            <div className="mt-3 p-2 bg-orange-400/20 rounded text-xs text-orange-200 animate-fade-in">
               <strong>Ready to chat!</strong> I have enough info about {userName || 'you'} to provide personalized relationship guidance.
             </div>
           )}
           
           {profileCompletion > 0 && profileCompletion < 30 && (
-            <div className="mt-4 p-3 bg-amber-400/20 backdrop-blur-sm rounded-lg text-sm text-amber-200 animate-fade-in">
+            <div className="mt-3 p-2 bg-amber-400/20 rounded text-xs text-amber-200 animate-fade-in">
               <strong>Keep going!</strong> Complete a bit more of your profile for better personalized advice.
             </div>
           )}
         </Card>
 
-        {/* What We've Covered */}
-        <Card className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
-          <div className="flex items-center gap-3 mb-3">
-            <MessageCircle className="w-4 h-4 text-orange-300" />
-            <h3 className="text-sm font-semibold text-white">What We've Covered</h3>
+        {/* What We've Covered - More compact */}
+        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
+          <div className="flex items-center gap-2 mb-2">
+            <MessageCircle className="w-3 h-3 text-orange-300" />
+            <h3 className="text-sm font-medium text-white">What We've Covered</h3>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1">
             {loading ? (
-              <p className="text-sm text-pink-200/80">Loading topics...</p>
+              <p className="text-xs text-pink-200/80">Loading topics...</p>
             ) : chatHistory.length === 0 ? (
-              <p className="text-sm text-pink-200/80">Start chatting and I'll track our conversation themes</p>
+              <p className="text-xs text-pink-200/80">Start chatting and I'll track our conversation themes</p>
             ) : sortedTopics.length > 0 ? (
               <>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {sortedTopics.slice(0, 6).map((topic, index) => (
                     <Badge 
                       key={topic.id} 
                       variant="outline" 
-                      className="w-full justify-between border-white/30 text-white bg-white/10 text-sm h-7 hover:bg-white/20 transition-all duration-200 hover:scale-105 animate-fade-in"
+                      className="w-full justify-between border-white/30 text-white bg-white/10 text-xs h-6 hover:bg-white/20 transition-all duration-200 hover:scale-105 animate-fade-in"
                       style={{animationDelay: `${index * 0.1}s`}}
                     >
-                      <div className="flex items-center gap-2">
-                        <MessageCircle className="w-3 h-3" />
-                        <span className="truncate text-sm">{topic.topic}</span>
+                      <div className="flex items-center gap-1">
+                        <MessageCircle className="w-2 h-2" />
+                        <span className="truncate text-xs">{topic.topic}</span>
                       </div>
                       {topic.frequency > 1 && (
-                        <span className="bg-orange-300 text-black px-2 py-1 rounded-full text-xs font-medium">
+                        <span className="bg-orange-300 text-black px-1 py-0.5 rounded-full text-xs font-medium">
                           {topic.frequency}x
                         </span>
                       )}
@@ -313,19 +314,23 @@ const AISidebar = ({
                   ))}
                 </div>
                 {sortedTopics.length > 6 && (
-                  <p className="text-sm text-pink-200/80 mt-2">
+                  <p className="text-xs text-pink-200/80 mt-1">
                     +{sortedTopics.length - 6} more topics discussed
                   </p>
                 )}
-                <div className="mt-3 p-3 bg-white/5 backdrop-blur-sm rounded-lg text-sm text-pink-200/80 animate-fade-in">
+                <div className="mt-2 p-2 bg-white/5 rounded text-xs text-pink-200/80 animate-fade-in">
                   <strong>Patterns emerging:</strong> I'm learning about your relationship dynamics as we talk
                 </div>
               </>
             ) : (
-              <p className="text-sm text-pink-200/80">Keep chatting and I'll identify conversation themes</p>
+              <p className="text-xs text-pink-200/80">Keep chatting and I'll identify conversation themes</p>
             )}
           </div>
         </Card>
+
+        <div className="animate-slide-up" style={{animationDelay: '0.6s'}}>
+          <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />
+        </div>
       </div>
 
       {/* Profile Viewer Modal */}
