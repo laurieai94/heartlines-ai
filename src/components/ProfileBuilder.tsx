@@ -186,23 +186,23 @@ const ProfileBuilder = ({
     <div className="h-full flex flex-col space-y-4">
       {/* Main Header - Compact */}
       <div className="text-center space-y-2 flex-shrink-0">
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-white">
           Let's Get to Know the Real You
         </h1>
-        <p className="text-base text-gray-600 max-w-2xl mx-auto">
+        <p className="text-base text-pink-200 max-w-2xl mx-auto">
           Build your relationship profiles in just 5 minutes
         </p>
         {/* Real-time overall progress indicator */}
         {profileCompletion > 0 && (
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center justify-center gap-2 text-sm text-pink-200">
             <span>Overall Progress:</span>
-            <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="w-32 h-2 bg-black/30 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 ease-out"
+                className="h-full bg-gradient-to-r from-orange-400 to-pink-500 transition-all duration-500 ease-out"
                 style={{ width: `${profileCompletion}%` }}
               />
             </div>
-            <span className="font-semibold text-purple-600">{profileCompletion}%</span>
+            <span className="font-semibold text-white">{profileCompletion}%</span>
           </div>
         )}
       </div>
@@ -212,47 +212,47 @@ const ProfileBuilder = ({
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Card 1: Your Profile */}
-          <Card className="group p-4 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 border-2 border-purple-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-purple-300">
+          <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <Brain className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-gray-900">
+                  <h3 className="text-lg font-bold text-white">
                     Your Profile
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1">
-                      <Progress value={yourProfileCompletion} className="h-2 bg-white/60" />
+                      <Progress value={yourProfileCompletion} className="h-2 bg-black/40" />
                     </div>
-                    <span className="text-sm font-semibold text-purple-600">
+                    <span className="text-sm font-semibold text-orange-300">
                       {yourProfileCompletion}%
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-pink-200 text-sm leading-relaxed">
                 This is where we truly get you. Answer a few quick questions about how you love, what shaped you, and what truly matters.
               </p>
 
-              <div className="bg-white/70 rounded-lg p-3 border border-purple-200/50">
-                <div className="flex items-center gap-2 text-purple-700 mb-2">
+              <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                <div className="flex items-center gap-2 text-orange-300 mb-2">
                   <Target className="w-4 h-4" />
                   <span className="font-semibold text-sm">What You'll Unlock:</span>
                 </div>
-                <ul className="space-y-1 text-gray-700 text-xs">
+                <ul className="space-y-1 text-pink-200 text-xs">
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-purple-500" />
+                    <Star className="w-3 h-3 text-orange-400" />
                     Psychologist-level insights
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-purple-500" />
+                    <Star className="w-3 h-3 text-orange-400" />
                     Personalized daily support
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-purple-500" />
+                    <Star className="w-3 h-3 text-orange-400" />
                     Better advice built around you
                   </li>
                 </ul>
@@ -260,7 +260,7 @@ const ProfileBuilder = ({
 
               <Button 
                 onClick={openQuestionnaire}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0"
               >
                 {yourProfileCompletion > 0 ? 'Continue My Profile' : 'Begin My Profile'}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -269,45 +269,45 @@ const ProfileBuilder = ({
           </Card>
 
           {/* Card 2: Unlock Their Perspective Too */}
-          <Card className="group p-4 bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 border-2 border-rose-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-rose-300">
+          <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <Heart className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-gray-900">Unlock Their Perspective Too</h3>
+                  <h3 className="text-lg font-bold text-white">Unlock Their Perspective Too</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1">
-                      <Progress value={partnerProfileCompletion} className="h-2 bg-white/60" />
+                      <Progress value={partnerProfileCompletion} className="h-2 bg-black/40" />
                     </div>
-                    <span className="text-sm font-semibold text-rose-600">
+                    <span className="text-sm font-semibold text-pink-300">
                       {partnerProfileCompletion}%
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-pink-200 text-sm leading-relaxed">
                 Share what you've observed about your partner's style, needs, and reactions. This gives RealTalk the insights to bridge the gap between you two.
               </p>
 
-              <div className="bg-white/70 rounded-lg p-3 border border-rose-200/50">
-                <div className="flex items-center gap-2 text-rose-700 mb-2">
+              <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                <div className="flex items-center gap-2 text-pink-300 mb-2">
                   <Lightbulb className="w-4 h-4" />
                   <span className="font-semibold text-sm">What You'll Unlock:</span>
                 </div>
-                <ul className="space-y-1 text-gray-700 text-xs">
+                <ul className="space-y-1 text-pink-200 text-xs">
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-rose-500" />
+                    <Star className="w-3 h-3 text-pink-400" />
                     Build lasting, authentic connection
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-rose-500" />
+                    <Star className="w-3 h-3 text-pink-400" />
                     Deep, actionable insights
                   </li>
                   <li className="flex items-center gap-2">
-                    <Star className="w-3 h-3 text-rose-500" />
+                    <Star className="w-3 h-3 text-pink-400" />
                     Smarter advice that gets you both
                   </li>
                 </ul>
@@ -315,7 +315,7 @@ const ProfileBuilder = ({
 
               <Button 
                 onClick={() => handleStartProfile('partner')}
-                className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0"
               >
                 {partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -325,47 +325,47 @@ const ProfileBuilder = ({
         </div>
 
         {/* Compact Value Proposition */}
-        <Card className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-0 shadow-lg max-w-4xl mx-auto">
+        <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg max-w-4xl mx-auto">
           <div className="text-center space-y-3">
-            <h3 className="text-xl font-bold text-gray-900">The Questions That Actually Matter</h3>
-            <p className="text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h3 className="text-xl font-bold text-white">The Questions That Actually Matter</h3>
+            <p className="text-base text-pink-200 max-w-3xl mx-auto leading-relaxed">
               How do you really act when you're stressed? What makes you feel most loved? 
               The more honest you are, the less we'll sound like a generic self-help book.
             </p>
             
             <div className="grid md:grid-cols-2 gap-4 mt-4">
               <div className="text-left space-y-2">
-                <h4 className="text-base font-semibold text-gray-900">Simple Process:</h4>
+                <h4 className="text-base font-semibold text-white">Simple Process:</h4>
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
-                    <Play className="w-4 h-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">Build your profile to capture your unique relationship vibe</span>
+                    <Play className="w-4 h-4 text-green-400" />
+                    <span className="text-pink-200 text-sm">Build your profile to capture your unique relationship vibe</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Zap className="w-4 h-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">Connect with Kai for AI-powered clarity that just gets it</span>
+                    <Zap className="w-4 h-4 text-green-400" />
+                    <span className="text-pink-200 text-sm">Connect with Kai for AI-powered clarity that just gets it</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Target className="w-4 h-4 text-green-500" />
-                    <span className="text-gray-600 text-sm">Take real action, leveling up your bond with smart advice</span>
+                    <Target className="w-4 h-4 text-green-400" />
+                    <span className="text-pink-200 text-sm">Take real action, leveling up your bond with smart advice</span>
                   </div>
                 </div>
               </div>
               
               <div className="text-left space-y-2">
-                <h4 className="text-base font-semibold text-gray-900">You Get:</h4>
+                <h4 className="text-base font-semibold text-white">You Get:</h4>
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
-                    <MessageSquare className="w-4 h-4 text-blue-500" />
-                    <span className="text-gray-600 text-sm">Mastering the 'We need to talk'</span>
+                    <MessageSquare className="w-4 h-4 text-orange-400" />
+                    <span className="text-pink-200 text-sm">Mastering the 'We need to talk'</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Shield className="w-4 h-4 text-blue-500" />
-                    <span className="text-gray-600 text-sm">Turning arguments into wins</span>
+                    <Shield className="w-4 h-4 text-orange-400" />
+                    <span className="text-pink-200 text-sm">Turning arguments into wins</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Heart className="w-4 h-4 text-blue-500" />
-                    <span className="text-gray-600 text-sm">Making your actions actually count</span>
+                    <Heart className="w-4 h-4 text-orange-400" />
+                    <span className="text-pink-200 text-sm">Making your actions actually count</span>
                   </div>
                 </div>
               </div>
@@ -378,7 +378,7 @@ const ProfileBuilder = ({
           <Button 
             variant="ghost" 
             onClick={() => setShowDetails(!showDetails)}
-            className="w-full text-gray-600 hover:text-gray-900 text-sm py-2"
+            className="w-full text-pink-200 hover:text-white text-sm py-2 hover:bg-white/10"
           >
             {showDetails ? 'Hide' : 'Show'} Tips
             <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
@@ -386,47 +386,47 @@ const ProfileBuilder = ({
           
           {showDetails && (
             <div className="mt-4 space-y-3 animate-fade-in">
-              <Card className="p-3 bg-gray-50 border-l-4 border-blue-400">
+              <Card className="p-3 bg-white/5 backdrop-blur-sm border-l-4 border-orange-400">
                 <div className="flex items-center gap-3">
-                  <Search className="w-4 h-4 text-gray-500" />
-                  <p className="text-gray-600 text-sm">
-                    <strong>Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
+                  <Search className="w-4 h-4 text-pink-200" />
+                  <p className="text-pink-200 text-sm">
+                    <strong className="text-white">Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
                   </p>
                 </div>
               </Card>
 
-              <Card className="p-4 bg-white/60 backdrop-blur-md border-0 shadow-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Profile Building Tips</h3>
+              <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
+                <h3 className="text-lg font-semibold text-white mb-3">Profile Building Tips</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 text-sm">Be honest</h4>
-                        <p className="text-gray-600 text-xs">The AI only works with real data, not aspirational answers</p>
+                        <h4 className="font-semibold text-white text-sm">Be honest</h4>
+                        <p className="text-pink-200 text-xs">The AI only works with real data, not aspirational answers</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 text-sm">"Not sure yet" is okay</h4>
-                        <p className="text-gray-600 text-xs">Profiles improve as you learn more about each other</p>
+                        <h4 className="font-semibold text-white text-sm">"Not sure yet" is okay</h4>
+                        <p className="text-pink-200 text-xs">Profiles improve as you learn more about each other</p>
                       </div>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 text-sm">Start with core questions</h4>
-                        <p className="text-gray-600 text-xs">Get immediate value, then expand sections over time</p>
+                        <h4 className="font-semibold text-white text-sm">Start with core questions</h4>
+                        <p className="text-pink-200 text-xs">Get immediate value, then expand sections over time</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 text-sm">Update as you grow</h4>
-                        <p className="text-gray-600 text-xs">Relationships evolve, and so should your profiles</p>
+                        <h4 className="font-semibold text-white text-sm">Update as you grow</h4>
+                        <p className="text-pink-200 text-xs">Relationships evolve, and so should your profiles</p>
                       </div>
                     </div>
                   </div>
