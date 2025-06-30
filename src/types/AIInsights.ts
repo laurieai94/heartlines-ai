@@ -19,6 +19,9 @@ export interface PersonContext {
     length?: string;
     livingTogether?: boolean;
     stage?: string;
+    emotionalConnection?: string;
+    livingArrangement?: string;
+    relationshipType?: string;
   };
   yourTraits: {
     name?: string;
@@ -39,6 +42,17 @@ export interface PersonContext {
     workSituation?: string;
     sexualOrientation?: string[];
     genderIdentity?: string[];
+    parentConflictStyle?: string[];
+    loveMessages?: string[];
+    loveInfluences?: string[];
+    relationshipLength?: string;
+    feelsDifficult?: string[];
+    hopingFor?: string[];
+    readiness?: string[];
+    healthyRelationship?: string[];
+    additionalInfo?: string;
+    profileComplete?: boolean;
+    completedAt?: string;
   };
   partnerTraits: {
     name?: string;
