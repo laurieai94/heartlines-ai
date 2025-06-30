@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -14,10 +15,35 @@ interface PersonalProfileQuestionnaireProps {
   onClose: () => void;
 }
 
+interface ProfileData {
+  name?: string;
+  age?: string;
+  gender?: string[];
+  orientation?: string[];
+  profilePhoto?: string;
+  relationshipStatus?: string;
+  relationshipLength?: string;
+  whyRealTalk?: string[];
+  biggestChallenge?: string[];
+  workingWell?: string[];
+  feelsDifficult?: string[];
+  stressResponse?: string[];
+  conflictNeeds?: string[];
+  feelLovedWhen?: string[];
+  attachmentStyle?: string;
+  familyDynamics?: string[];
+  parentConflictStyle?: string[];
+  loveMessages?: string[];
+  loveInfluences?: string[];
+  mentalHealthContext?: string;
+  growthAreas?: string[];
+  [key: string]: any;
+}
+
 const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQuestionnaireProps) => {
-  const { temporaryProfiles, updateTemporaryProfile } = useTemporaryProfile();
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   const [currentSection, setCurrentSection] = useState(1);
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState<ProfileData>({});
   const [sectionReadiness, setSectionReadiness] = useState({
     1: true,
     2: false,
@@ -33,12 +59,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           ...temporaryProfiles,
           personal: [profileData]
         };
-        updateTemporaryProfile(newProfiles, temporaryProfiles.demographics || {});
+        updateTemporaryProfile(newProfiles, temporaryDemographics || {});
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [profileData, temporaryProfiles, updateTemporaryProfile]);
+  }, [profileData, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 
   const updateField = (field: string, value: any) => {
     setProfileData(prev => {
@@ -183,10 +209,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[95vh] overflow-hidden flex">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden flex">
         {/* Compact Sidebar Progress */}
-        <div className="w-48 bg-gradient-to-b from-rose-50 to-pink-50 border-r p-4 flex flex-col">
-          <div className="flex items-center gap-2 mb-6">
+        <div className="w-48 bg-gradient-to-b from-rose-50 to-pink-50 border-r p-3 flex flex-col">
+          <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 bg-gradient-to-br from-rose-500 to-pink-500 rounded-lg flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
@@ -196,7 +222,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             </div>
           </div>
 
-          <div className="space-y-3 flex-1">
+          <div className="space-y-2 flex-1">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
               const isCompleted = section < currentSection || (section <= 3 && validateSection(section));
@@ -209,7 +235,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                   key={section}
                   onClick={() => isAccessible && setCurrentSection(section)}
                   disabled={!isAccessible}
-                  className={`w-full text-left p-3 rounded-lg transition-all text-sm ${
+                  className={`w-full text-left p-2 rounded-lg transition-all text-sm ${
                     isActive 
                       ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md' 
                       : isCompleted 
@@ -223,7 +249,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <span className="font-medium">Section {section}</span>
                     {isCompleted && <Check className="w-4 h-4" />}
                   </div>
-                  <div className="text-xs opacity-90 mb-2">{getSectionTitle(section)}</div>
+                  <div className="text-xs opacity-90 mb-1">{getSectionTitle(section)}</div>
                   {section <= 3 && (
                     <div className="text-xs opacity-75">
                       {completedCount}/{requiredCount} required
@@ -234,7 +260,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             })}
           </div>
 
-          <Button variant="ghost" onClick={onClose} className="mt-4 text-gray-500 hover:text-gray-700 w-full">
+          <Button variant="ghost" onClick={onClose} className="mt-3 text-gray-500 hover:text-gray-700 w-full py-2">
             <X className="w-4 h-4 mr-2" />
             Close
           </Button>
@@ -243,7 +269,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Compact Header */}
-          <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
+          <div className="p-3 border-b bg-gradient-to-r from-gray-50 to-white">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-lg font-bold text-gray-900">
                 {getSectionTitle(currentSection)}
@@ -254,13 +280,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             </div>
             <Progress 
               value={(currentSection / 4) * 100} 
-              className="h-2" 
+              className="h-1.5" 
             />
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="max-w-4xl mx-auto">
+          <div className="flex-1 overflow-y-auto p-4">
+            <div className="max-w-5xl mx-auto">
               <QuestionnaireSection1 
                 profileData={profileData}
                 updateField={updateField}
@@ -288,13 +314,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
               {/* Optional Sections Prompt */}
               {canShowOptionalPrompt && (
-                <div className="mt-6 p-4 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
+                <div className="mt-4 p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
                   <div className="text-center">
-                    <div className="text-2xl mb-2">🎉</div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <div className="text-2xl mb-1">🎉</div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
                       Nice work! You've covered the essentials.
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-3 text-sm">
                       Want to unlock even deeper insights? Adding more context helps our relationship coach give you more personalized guidance.
                     </p>
                     <div className="flex gap-3 justify-center">
@@ -303,14 +329,14 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                           setSectionReadiness(prev => ({ ...prev, 4: true }));
                           setCurrentSection(4);
                         }}
-                        className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white"
+                        className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-6 py-2"
                       >
                         Yes, let's go deeper
                       </Button>
                       <Button
                         onClick={handleComplete}
                         variant="outline"
-                        className="border-green-300 text-green-600 hover:bg-green-50"
+                        className="border-green-300 text-green-600 hover:bg-green-50 px-6 py-2"
                       >
                         I'm ready to start coaching
                       </Button>
@@ -325,12 +351,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           </div>
 
           {/* Compact Footer */}
-          <div className="p-4 border-t bg-gray-50 flex justify-between items-center">
+          <div className="p-3 border-t bg-gray-50 flex justify-between items-center">
             <Button
               variant="outline"
               onClick={handleBack}
               disabled={currentSection === 1}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 px-4 py-2"
             >
               <ArrowLeft className="w-4 h-4" />
               Back
@@ -347,7 +373,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                 <Button
                   onClick={handleNext}
                   disabled={!validateSection(currentSection)}
-                  className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white flex items-center gap-2"
+                  className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white flex items-center gap-2 px-4 py-2"
                 >
                   Next
                   <ArrowRight className="w-4 h-4" />
@@ -356,7 +382,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {currentSection === 3 && validateSection(3) && (
                 <Button
                   onClick={handleComplete}
-                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2"
+                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2 px-4 py-2"
                 >
                   <Check className="w-4 h-4" />
                   Complete Profile
@@ -365,7 +391,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
               {currentSection === 4 && (
                 <Button
                   onClick={handleComplete}
-                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2"
+                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2 px-4 py-2"
                 >
                   <Check className="w-4 h-4" />
                   Complete Profile
