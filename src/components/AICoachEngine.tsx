@@ -65,8 +65,9 @@ export class AICoachEngine {
   }
 
   static initializeSupabase(): boolean {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    // Use hardcoded values from the Supabase client instead of environment variables
+    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
     
     if (!supabaseUrl || !supabaseAnonKey) {
       console.warn('Supabase configuration missing');
@@ -82,8 +83,9 @@ export class AICoachEngine {
     conversationHistory: any[] = [],
     customPrompt?: string
   ): Promise<string> {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    // Use hardcoded values from the Supabase client instead of environment variables
+    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
 
     if (!supabaseUrl || !supabaseAnonKey) {
       throw new Error('🔧 **Configuration Required**\n\nPlease configure your Supabase settings to enable AI chat functionality.');
