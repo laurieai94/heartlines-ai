@@ -27,7 +27,7 @@ interface AIChatProps {
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
@@ -41,65 +41,66 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
-  // Enhanced auto-scroll function with multiple fallback methods
+  // Improved auto-scroll function
   const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
-    // Use multiple approaches to ensure scrolling works across different browsers/devices
+    // Multiple scroll approaches for better compatibility
     const scrollMethods = [
-      // Method 1: Scroll the messages end ref into view
+      // Method 1: Direct scroll to bottom of scroll viewport
       () => {
-        if (messagesEndRef.current) {
-          messagesEndRef.current.scrollIntoView({ behavior, block: "end", inline: "nearest" });
-        }
-      },
-      
-      // Method 2: Scroll the chat container directly
-      () => {
-        if (chatContainerRef.current) {
-          chatContainerRef.current.scrollTo({
-            top: chatContainerRef.current.scrollHeight,
+        const viewport = document.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
+        if (viewport) {
+          viewport.scrollTo({
+            top: viewport.scrollHeight,
             behavior
           });
         }
       },
       
-      // Method 3: Scroll the scroll area viewport
+      // Method 2: Scroll messages end ref into view
       () => {
-        if (scrollAreaRef.current) {
-          const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
-          if (scrollElement) {
-            scrollElement.scrollTo({
-              top: scrollElement.scrollHeight,
-              behavior
-            });
-          }
+        if (messagesEndRef.current) {
+          messagesEndRef.current.scrollIntoView({ 
+            behavior, 
+            block: "end", 
+            inline: "nearest" 
+          });
         }
+      },
+      
+      // Method 3: Force scroll using requestAnimationFrame
+      () => {
+        requestAnimationFrame(() => {
+          const viewport = document.querySelector('[data-radix-scroll-area-viewport]') as HTMLElement;
+          if (viewport) {
+            viewport.scrollTop = viewport.scrollHeight;
+          }
+        });
       }
     ];
 
-    // Execute all scroll methods with slight delays to ensure one works
+    // Execute methods with slight delays
     scrollMethods.forEach((method, index) => {
       setTimeout(method, index * 50);
     });
   };
 
-  // Immediate scroll for new messages
+  // Scroll on new messages
   useEffect(() => {
     if (chatHistory.length > 0) {
-      // Force immediate scroll with instant behavior, then smooth scroll
-      setTimeout(() => scrollToBottom('auto'), 0);
-      setTimeout(() => scrollToBottom('smooth'), 100);
+      // Immediate scroll for new messages
+      setTimeout(() => scrollToBottom('auto'), 50);
+      setTimeout(() => scrollToBottom('smooth'), 200);
     }
   }, [chatHistory.length]);
 
-  // Additional scroll trigger for loading state changes
+  // Scroll when loading state changes
   useEffect(() => {
     if (!loading && chatHistory.length > 0) {
-      // Scroll after AI response completes
-      setTimeout(() => scrollToBottom('smooth'), 200);
+      setTimeout(() => scrollToBottom('smooth'), 100);
     }
   }, [loading]);
 
-  // Handle conversation starter - improved to avoid duplicates
+  // Handle conversation starter
   useEffect(() => {
     if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && canInteract) {
       processedStarters.current.add(conversationStarter);
@@ -107,7 +108,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     }
   }, [conversationStarter, isConfigured, canInteract]);
 
-  // Save conversation whenever chat history changes (with debouncing)
+  // Save conversation with debouncing
   useEffect(() => {
     if (chatHistory.length > 0 && canInteract) {
       const timeoutId = setTimeout(() => {
@@ -130,8 +131,8 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
     setChatHistory(prev => [...prev, newUserMessage]);
     
-    // Immediate scroll after user message
-    setTimeout(() => scrollToBottom('auto'), 0);
+    // Force scroll after user message
+    setTimeout(() => scrollToBottom('auto'), 100);
     
     setLoading(true);
 
@@ -202,7 +203,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
       }
 
       // Ensure scroll after AI response
-      setTimeout(() => scrollToBottom('smooth'), 300);
+      setTimeout(() => scrollToBottom('smooth'), 200);
       
     } catch (error) {
       console.error('Error generating AI response:', error);
@@ -215,7 +216,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
       setChatHistory(prev => [...prev, errorMessage]);
       
       // Scroll after error message too
-      setTimeout(() => scrollToBottom('smooth'), 300);
+      setTimeout(() => scrollToBottom('smooth'), 200);
     } finally {
       setLoading(false);
     }
@@ -227,19 +228,19 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      {/* Main Chat Container - Direct integration with background, no square container */}
+      {/* Main Chat Container */}
       <div className="flex-1 min-h-0 flex items-stretch justify-center p-6">
         <div className="w-full max-w-4xl flex flex-col">
           
-          {/* Chat Messages Area - Glassmorphism effect, no background square */}
+          {/* Chat Messages Area */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-            <ScrollArea ref={scrollAreaRef} className="flex-1 px-6 py-6">
+            <ScrollArea className="flex-1 px-6 py-6">
               <div ref={chatContainerRef} className="space-y-6 max-w-3xl mx-auto">
                 
-                {/* Kai's Welcome Section - Modern, clean design */}
+                {/* Kai's Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
                   <div className="text-center py-8 animate-fade-in">
-                    {/* Kai Avatar with modern glow effect */}
+                    {/* Kai Avatar */}
                     <div className="w-16 h-16 mx-auto mb-4 relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
                       <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-2xl relative z-10">
@@ -252,11 +253,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                           <Heart className="w-8 h-8" />
                         </AvatarFallback>
                       </Avatar>
-                      {/* Status indicator */}
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse shadow-lg"></div>
                     </div>
                     
-                    {/* Welcome Message - Clean typography */}
+                    {/* Welcome Message */}
                     <div className="space-y-3 max-w-lg mx-auto">
                       <h2 className="text-2xl font-bold text-white leading-tight">
                         Hey, I'm Kai 👋
@@ -280,7 +280,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 ))}
                 
-                {/* Enhanced Typing Indicator */}
+                {/* Typing Indicator */}
                 {loading && (
                   <div className="flex justify-start animate-fade-in">
                     <div className="flex gap-3 items-end">
@@ -319,12 +319,12 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 )}
                 
-                {/* Scroll anchor - this element will always be scrolled into view */}
+                {/* Scroll anchor - this ensures we always scroll to the bottom */}
                 <div ref={messagesEndRef} className="h-1" />
               </div>
             </ScrollArea>
 
-            {/* Chat Input - Modern, integrated design */}
+            {/* Chat Input */}
             <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
               <div className="p-6 max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
