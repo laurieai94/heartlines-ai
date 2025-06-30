@@ -122,9 +122,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <Label className="text-sm font-medium text-gray-700">
             Add profile photo <span className="text-gray-500 font-normal">(Optional)</span>
           </Label>
-          <p className="text-xs text-gray-600 mb-3">
-            💡 <strong>Why we ask:</strong> A photo helps personalize your experience and makes conversations feel more natural
-          </p>
           
           <div className="flex items-center gap-4">
             {profileData.profilePhoto ? (
@@ -176,9 +173,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <Label htmlFor="name" className="text-sm font-medium text-gray-700">
             What should we call you? <span className="text-red-500">*</span>
           </Label>
-          <p className="text-xs text-gray-600 mb-3">
-            💡 <strong>Why we ask:</strong> Using your preferred name makes our guidance feel personal and authentic to you
-          </p>
           <Input
             id="name"
             type="text"
@@ -195,9 +189,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-sm font-medium text-gray-700">
           What's your age? <span className="text-red-500">*</span>
         </Label>
-        <p className="text-xs text-gray-600 mb-3">
-          💡 <strong>Why we ask:</strong> Different life stages bring unique relationship challenges and opportunities - this helps us give age-appropriate guidance
-        </p>
         <div className="grid grid-cols-4 gap-2">
           {ageOptions.map((age) => (
             <button
@@ -221,9 +212,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           How do you identify your gender? <span className="text-red-500">*</span>
           <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
-        <p className="text-xs text-gray-600 mb-3">
-          💡 <strong>Why we ask:</strong> Gender identity affects relationship dynamics and expectations - understanding yours helps us provide relevant, affirming guidance
-        </p>
         <div className="grid grid-cols-3 gap-2">
           {genderOptions.map((gender) => (
             <button
@@ -263,9 +251,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           What's your sexual orientation? <span className="text-red-500">*</span>
           <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
-        <p className="text-xs text-gray-600 mb-3">
-          💡 <strong>Why we ask:</strong> Sexual orientation influences relationship patterns, community connections, and unique challenges - this ensures our advice resonates with your experience
-        </p>
         <div className="grid grid-cols-3 gap-2">
           {orientationOptions.map((orientation) => (
             <button
