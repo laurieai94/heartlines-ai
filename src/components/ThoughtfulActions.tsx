@@ -47,8 +47,8 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <h2 className="text-4xl font-bold text-white font-sans tracking-tight">Turn Insights Into Action</h2>
-          <p className="text-xl text-pink-200 max-w-2xl mx-auto font-medium">
+          <h2 className="text-3xl font-bold text-gray-900">Turn Insights Into Action</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Small, thoughtful actions that strengthen your connection with {partnerName}
           </p>
         </div>
@@ -73,20 +73,20 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         />
 
         {/* Custom Action Creator */}
-        <Card className="p-8 lg:p-10 bg-gradient-to-br from-white/10 via-pink-50/20 to-orange-50/10 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl">
+        <Card className="p-6 lg:p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg">
           <div className="text-center space-y-6">
-            <div className="w-20 h-20 bg-gradient-to-r from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center mx-auto shadow-xl">
-              <Lightbulb className="w-10 h-10 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto shadow-lg">
+              <Lightbulb className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h3 className="text-3xl font-bold text-white mb-3 font-sans tracking-tight">Create Your Own Action</h3>
-              <p className="text-pink-200 max-w-xl mx-auto text-lg font-medium">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Create Your Own Action</h3>
+              <p className="text-gray-600 max-w-xl mx-auto">
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl border-0 h-auto"
+              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Plan Custom Action
               <Heart className="w-5 h-5 ml-2" />
