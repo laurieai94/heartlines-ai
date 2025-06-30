@@ -1,3 +1,4 @@
+
 import { AIService } from "@/services/aiService";
 import { ProfileData, DemographicsData, PersonContext } from "@/types/AIInsights";
 
@@ -190,7 +191,17 @@ NEVER give advice until you've asked at least 3-4 discovery questions. Your job 
       return response;
     } catch (error) {
       console.error('Error in getAIResponse:', error);
-      throw error;
+      
+      // Handle specific Anthropic API errors with user-friendly messages
+      if (error.message?.includes('500') || error.message?.includes('Internal server error')) {
+        throw new Error('🤖 **AI Service Temporarily Unavailable**\n\nThe AI service is experiencing temporary issues. Please try again in a few moments.');
+      } else if (error.message?.includes('429') || error.message?.includes('rate limit')) {
+        throw new Error('⏳ **Rate Limit Reached**\n\nToo many requests. Please wait a moment before trying again.');
+      } else if (error.message?.includes('401') || error.message?.includes('unauthorized')) {
+        throw new Error('🔐 **Authentication Error**\n\nThere\'s an issue with the AI service authentication. Please contact support.');
+      } else {
+        throw new Error('🤖 **AI Service Error**\n\nSomething went wrong with the AI service. Please try again or contact support if the issue persists.');
+      }
     }
   }
 }
