@@ -29,9 +29,9 @@ interface QuickActionsProps {
 
 const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActionsProps) => {
   return (
-    <Card className="p-6 bg-gradient-to-r from-pink-50 to-fuchsia-50 border-pink-200/50">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Inspiration</h3>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+    <Card className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
+      <h3 className="text-2xl font-semibold text-white mb-6">Quick Inspiration</h3>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {ACTION_CATEGORIES.map((category) => {
           const IconComponent = category.icon;
           return (
@@ -39,10 +39,10 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
               key={category.value}
               variant="outline"
               onClick={() => onSelectAction(category.value)}
-              className="flex items-center gap-2 h-auto py-3 px-4 justify-start"
+              className="flex items-center gap-3 h-auto py-4 px-6 justify-start bg-white/5 hover:bg-white/15 border-white/20 hover:border-white/30 text-white hover:text-white transition-all duration-200 rounded-xl"
             >
-              <IconComponent className="w-4 h-4 text-pink-600" />
-              <span className="text-sm">{category.label}</span>
+              <IconComponent className="w-5 h-5 text-orange-400" />
+              <span className="text-base font-medium">{category.label}</span>
             </Button>
           );
         })}

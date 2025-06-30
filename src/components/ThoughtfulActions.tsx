@@ -43,11 +43,11 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full">
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <h2 className="text-3xl font-bold text-white">Turn Insights Into Action</h2>
+          <h2 className="text-4xl font-bold text-white">Turn Insights Into Action</h2>
           <p className="text-xl text-pink-200/80 max-w-2xl mx-auto">
             Small, thoughtful actions that strengthen your connection with {partnerName}
           </p>
@@ -73,23 +73,23 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         />
 
         {/* Custom Action Creator */}
-        <Card className="p-6 lg:p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
+        <Card className="p-8 lg:p-12 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
           <div className="text-center space-y-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl flex items-center justify-center mx-auto shadow-lg">
-              <Lightbulb className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 bg-gradient-to-r from-orange-400 via-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+              <Lightbulb className="w-10 h-10 text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2">Create Your Own Action</h3>
-              <p className="text-pink-200/80 max-w-xl mx-auto">
+              <h3 className="text-3xl font-bold text-white mb-3">Create Your Own Action</h3>
+              <p className="text-pink-200/80 max-w-xl mx-auto text-lg">
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+              className="bg-gradient-to-r from-orange-400 via-pink-500 to-pink-600 hover:from-orange-500 hover:via-pink-600 hover:to-pink-700 text-white px-10 py-4 text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
             >
               Plan Custom Action
-              <Heart className="w-5 h-5 ml-2" />
+              <Heart className="w-6 h-6 ml-2" />
             </Button>
           </div>
         </Card>

@@ -43,26 +43,26 @@ const RelationshipAlerts = ({ profiles, demographicsData }: RelationshipAlertsPr
   }
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-        <AlertTriangle className="w-5 h-5 text-amber-500" />
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+        <AlertTriangle className="w-6 h-6 text-orange-400" />
         Relationship Insights
       </h3>
       
       {alerts.map((alert) => {
         const IconComponent = alert.icon;
         return (
-          <Card key={alert.id} className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200/50">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-100 to-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <IconComponent className="w-6 h-6 text-amber-600" />
+          <Card key={alert.id} className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <IconComponent className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-900 mb-2">{alert.title}</h4>
-                <p className="text-gray-700 mb-4">{alert.description}</p>
+                <h4 className="font-semibold text-white mb-3 text-xl">{alert.title}</h4>
+                <p className="text-pink-200/90 mb-6 text-lg">{alert.description}</p>
                 <Button 
-                  size="sm" 
-                  className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                  size="lg" 
+                  className="bg-gradient-to-r from-orange-400 via-pink-500 to-pink-600 hover:from-orange-500 hover:via-pink-600 hover:to-pink-700 text-white border-0 px-8 py-3 text-base font-semibold rounded-xl"
                 >
                   {alert.action}
                 </Button>

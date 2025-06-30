@@ -52,18 +52,18 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`h-screen flex flex-col bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
-        {/* Clean Navigation Header */}
-        <div className="flex-shrink-0 w-full bg-black/20 backdrop-blur-sm border-b border-white/10">
+      <div className={`min-h-screen bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
+        {/* Header with integrated navigation */}
+        <div className="w-full">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
-            <div className="flex items-center justify-between py-4">
+            <div className="flex items-center justify-between py-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Heart className="w-5 h-5 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-white font-serif">RealTalk</h1>
+                  <h1 className="text-3xl font-bold text-white font-serif">RealTalk</h1>
                   {accessLevel !== 'full-access' && (
                     <p className="text-sm text-pink-200/80 font-medium">
                       {accessLevel === 'profile-required' ? 'Start by building your profile' : 
@@ -74,37 +74,37 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Navigation Tabs */}
+            {/* Navigation Tabs - Seamlessly integrated */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex justify-center pb-4">
-                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-black/30 backdrop-blur-sm border border-white/20 rounded-xl p-1 gap-1">
+              <div className="flex justify-center pb-8">
+                <TabsList className="grid grid-cols-4 w-full max-w-4xl h-14 bg-black/20 backdrop-blur-sm border border-white/20 rounded-2xl p-2 gap-2">
                   <TabsTrigger 
                     value="profile" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
-                    <User className="w-4 h-4" />
-                    <span className="hidden sm:inline">Profile</span>
+                    <User className="w-5 h-5" />
+                    <span>Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="insights" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
-                    <Lightbulb className="w-4 h-4" />
-                    <span className="hidden sm:inline">Coach</span>
+                    <Lightbulb className="w-5 h-5" />
+                    <span>Coach</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="conversation" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    <span className="hidden sm:inline">Practice</span>
+                    <MessageCircle className="w-5 h-5" />
+                    <span>Practice</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="actions" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:shadow-sm text-pink-200/90 hover:text-white hover:bg-white/15"
+                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-base font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/90 hover:text-white hover:bg-white/10"
                   >
-                    <Heart className="w-4 h-4" />
-                    <span className="hidden sm:inline">Actions</span>
+                    <Heart className="w-5 h-5" />
+                    <span>Actions</span>
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -112,50 +112,42 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Main Content - Optimized for full height usage */}
-        <div className="flex-1 min-h-0 overflow-hidden">
-          <div className="h-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-4">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-              <TabsContent value="profile" className="mt-0 flex-1 min-h-0">
-                <div className="h-full">
-                  <ProfileBuilder 
-                    onProfileUpdate={handleProfileUpdate}
-                    initialProfiles={temporaryProfiles}
-                    initialDemographics={temporaryDemographics}
-                  />
-                </div>
+        {/* Main Content */}
+        <div className="flex-1">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pb-8">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsContent value="profile" className="mt-0">
+                <ProfileBuilder 
+                  onProfileUpdate={handleProfileUpdate}
+                  initialProfiles={temporaryProfiles}
+                  initialDemographics={temporaryDemographics}
+                />
               </TabsContent>
 
-              <TabsContent value="insights" className="mt-0 flex-1 min-h-0">
+              <TabsContent value="insights" className="mt-0">
                 <ProgressiveAccessWrapper action="insights">
-                  <div className="h-full">
-                    <AIInsights 
-                      profiles={temporaryProfiles}
-                      demographicsData={temporaryDemographics}
-                    />
-                  </div>
+                  <AIInsights 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
                 </ProgressiveAccessWrapper>
               </TabsContent>
 
-              <TabsContent value="conversation" className="mt-0 flex-1 min-h-0">
+              <TabsContent value="conversation" className="mt-0">
                 <ProgressiveAccessWrapper action="practice">
-                  <div className="h-full">
-                    <ConversationPractice 
-                      profiles={temporaryProfiles}
-                      demographicsData={temporaryDemographics}
-                    />
-                  </div>
+                  <ConversationPractice 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
                 </ProgressiveAccessWrapper>
               </TabsContent>
 
-              <TabsContent value="actions" className="mt-0 flex-1 min-h-0">
+              <TabsContent value="actions" className="mt-0">
                 <ProgressiveAccessWrapper action="actions">
-                  <div className="h-full">
-                    <ThoughtfulActions 
-                      profiles={temporaryProfiles}
-                      demographicsData={temporaryDemographics}
-                    />
-                  </div>
+                  <ThoughtfulActions 
+                    profiles={temporaryProfiles}
+                    demographicsData={temporaryDemographics}
+                  />
                 </ProgressiveAccessWrapper>
               </TabsContent>
             </Tabs>

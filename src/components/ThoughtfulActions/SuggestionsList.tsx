@@ -46,10 +46,10 @@ const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) =
 
   if (suggestions.length === 0) {
     return (
-      <Card className="p-8 text-center bg-white/60 backdrop-blur-md border-0 shadow-lg">
-        <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">No suggestions yet</h3>
-        <p className="text-gray-600">
+      <Card className="p-12 text-center bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
+        <Heart className="w-16 h-16 text-orange-400 mx-auto mb-6" />
+        <h3 className="text-2xl font-semibold text-white mb-3">No suggestions yet</h3>
+        <p className="text-pink-200/80 text-lg">
           Create custom actions to get personalized suggestions based on your profiles.
         </p>
       </Card>
@@ -57,37 +57,37 @@ const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) =
   }
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-xl font-bold text-gray-900">Your Personalized Suggestions</h3>
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-white">Your Personalized Suggestions</h3>
       {suggestions.map((suggestion) => {
         const IconComponent = getCategoryIcon(suggestion.category);
         return (
-          <Card key={suggestion.id} className="p-6 bg-white/80 backdrop-blur-md border-0 shadow-lg">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-pink-100 to-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <IconComponent className="w-6 h-6 text-pink-600" />
+          <Card key={suggestion.id} className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
+            <div className="flex items-start gap-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <IconComponent className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
-                <div className="flex justify-between items-start mb-3">
+                <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900">
+                    <h4 className="font-semibold text-white text-xl">
                       {ACTION_CATEGORIES.find(cat => cat.value === suggestion.category)?.label}
                     </h4>
                     {suggestion.partnerMood && (
-                      <p className="text-sm text-gray-600">For when they're: {suggestion.partnerMood}</p>
+                      <p className="text-sm text-pink-200/80">For when they're: {suggestion.partnerMood}</p>
                     )}
                   </div>
-                  <span className="text-sm text-gray-500">{suggestion.timestamp}</span>
+                  <span className="text-sm text-pink-200/70">{suggestion.timestamp}</span>
                 </div>
                 
                 {(suggestion.occasion || suggestion.context) && (
-                  <div className="bg-gradient-to-r from-pink-50 to-fuchsia-50 p-3 rounded-lg mb-4 text-sm">
-                    {suggestion.occasion && <p><strong>Occasion:</strong> {suggestion.occasion}</p>}
-                    {suggestion.context && <p><strong>Context:</strong> {suggestion.context}</p>}
+                  <div className="bg-white/5 p-4 rounded-xl mb-6 text-sm">
+                    {suggestion.occasion && <p className="text-pink-200/90"><strong>Occasion:</strong> {suggestion.occasion}</p>}
+                    {suggestion.context && <p className="text-pink-200/90"><strong>Context:</strong> {suggestion.context}</p>}
                   </div>
                 )}
                 
-                <div className="prose prose-sm max-w-none text-gray-700">
+                <div className="prose prose-sm max-w-none text-pink-200/90">
                   <pre className="whitespace-pre-wrap font-sans">{suggestion.suggestions}</pre>
                 </div>
               </div>
