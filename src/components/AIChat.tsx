@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heart, Bot, Handshake } from "lucide-react";
@@ -39,35 +40,139 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
-  // Improved auto-scroll function
-  const scrollToBottom = (force = false) => {
+  // BULLETPROOF SCROLL FUNCTION - Multiple Methods
+  const scrollToBottom = useCallback((force = false) => {
+    console.log('🔄 Attempting scroll to bottom...');
+    
+    // Method 1: scrollIntoView on messages end ref
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ 
         behavior: force ? 'auto' : 'smooth',
+        block: 'end',
+        inline: 'nearest'
+      });
+      console.log('✅ scrollIntoView executed');
+    }
+    
+    // Method 2: Direct container scroll
+    if (chatContainerRef.current) {
+      const container = chatContainerRef.current;
+      console.log(`📊 Container - Height: ${container.scrollHeight}, Current: ${container.scrollTop}`);
+      
+      if (force) {
+        container.scrollTop = container.scrollHeight;
+      } else {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+      console.log(`✅ Container scroll executed - New position: ${container.scrollTop}`);
+    }
+    
+    // Method 3: DOM query backup
+    const chatElement = document.getElementById('chat-messages-container');
+    if (chatElement) {
+      chatElement.scrollTop = chatElement.scrollHeight;
+      console.log('✅ DOM query scroll executed');
+    }
+    
+    // Method 4: Messages end element backup
+    const messagesEndElement = document.getElementById('messages-end-anchor');
+    if (messagesEndElement) {
+      messagesEndElement.scrollIntoView({ 
+        behavior: force ? 'auto' : 'smooth',
         block: 'end'
       });
+      console.log('✅ Messages end anchor scroll executed');
     }
-  };
+  }, []);
 
-  // Auto-scroll when messages change
+  // FORCE SCROLL WITH MULTIPLE ATTEMPTS
+  const forceScrollToBottom = useCallback(() => {
+    console.log('🚀 Force scroll initiated...');
+    // Multiple attempts with different delays
+    [0, 50, 100, 200, 300, 500, 1000].forEach(delay => {
+      setTimeout(() => {
+        scrollToBottom(delay === 0);
+      }, delay);
+    });
+  }, [scrollToBottom]);
+
+  // MUTATION OBSERVER FOR DOM CHANGES
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current;
+    if (!chatContainer) return;
+
+    const observer = new MutationObserver((mutations) => {
+      let shouldScroll = false;
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          shouldScroll = true;
+        }
+      });
+      
+      if (shouldScroll) {
+        console.log('🔍 DOM mutation detected, scrolling...');
+        setTimeout(() => scrollToBottom(), 50);
+      }
+    });
+
+    observer.observe(chatContainer, { 
+      childList: true, 
+      subtree: true,
+      attributes: false,
+      characterData: false
+    });
+
+    return () => observer.disconnect();
+  }, [scrollToBottom]);
+
+  // SCROLL ON MESSAGES CHANGE
   useEffect(() => {
     if (chatHistory.length > 0) {
-      // Use setTimeout to ensure DOM has updated
-      setTimeout(() => scrollToBottom(), 100);
+      console.log(`📨 Messages changed (${chatHistory.length} total), scrolling...`);
+      forceScrollToBottom();
     }
-  }, [chatHistory.length]);
+  }, [chatHistory.length, forceScrollToBottom]);
 
-  // Auto-scroll when loading state changes (for typing indicator)
+  // SCROLL ON LOADING STATE CHANGE
   useEffect(() => {
     if (loading) {
-      setTimeout(() => scrollToBottom(), 100);
+      console.log('⏳ Loading state changed, scrolling...');
+      setTimeout(() => forceScrollToBottom(), 100);
     }
-  }, [loading]);
+  }, [loading, forceScrollToBottom]);
 
-  // Force scroll on mount
+  // INITIAL SCROLL ON MOUNT
   useEffect(() => {
-    scrollToBottom(true);
-  }, []);
+    console.log('🏁 Component mounted, initial scroll...');
+    setTimeout(() => forceScrollToBottom(), 100);
+  }, [forceScrollToBottom]);
+
+  // WINDOW RESIZE HANDLER
+  useEffect(() => {
+    const handleResize = () => {
+      console.log('📐 Window resized, scrolling...');
+      setTimeout(() => forceScrollToBottom(), 300);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [forceScrollToBottom]);
+
+  // MOBILE KEYBOARD HANDLER
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('👁️ Page visibility changed, scrolling...');
+        setTimeout(() => forceScrollToBottom(), 500);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [forceScrollToBottom]);
 
   // Handle conversation starter
   useEffect(() => {
@@ -91,6 +196,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const sendMessage = async (userMessage: string) => {
     if (!canInteract) return;
 
+    console.log('💬 Sending message, will scroll after...');
     const newUserMessage: ChatMessage = {
       id: Date.now(),
       type: 'user',
@@ -100,6 +206,9 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
     setChatHistory(prev => [...prev, newUserMessage]);
     setLoading(true);
+
+    // Scroll after user message is added
+    setTimeout(() => forceScrollToBottom(), 100);
 
     // Extract and track topics from user message
     const topics = extractTopicsFromMessage(userMessage);
@@ -160,7 +269,11 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
         timestamp: new Date().toISOString()
       };
 
+      console.log('🤖 AI response received, adding message...');
       setChatHistory(prev => [...prev, aiMessage]);
+
+      // Force scroll after AI message
+      setTimeout(() => forceScrollToBottom(), 200);
 
       // Automatically speak Kai's response if voice function is available
       if (speakResponseRef.current) {
@@ -176,6 +289,9 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
         timestamp: new Date().toISOString()
       };
       setChatHistory(prev => [...prev, errorMessage]);
+      
+      // Force scroll after error message
+      setTimeout(() => forceScrollToBottom(), 200);
     } finally {
       setLoading(false);
     }
@@ -185,25 +301,33 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
     speakResponseRef.current = speakFunction;
   };
 
+  const handleInputFocus = () => {
+    console.log('🎯 Input focused, scrolling...');
+    setTimeout(() => forceScrollToBottom(), 300);
+  };
+
   return (
-    <div className="h-full flex flex-col overflow-hidden">
-      {/* Main Chat Container - Fixed height to stay within viewport */}
+    <div className="h-screen flex flex-col overflow-hidden">
+      {/* Main Chat Container - Uses full screen height */}
       <div className="flex-1 min-h-0 flex items-stretch justify-center p-6">
         <div className="w-full max-w-4xl flex flex-col min-h-0">
           
-          {/* Chat Messages Area - Fixed height container */}
+          {/* Chat Messages Area - Fixed height container with bulletproof scrolling */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
             
-            {/* Messages Container with native scroll */}
+            {/* Messages Container with native scroll and multiple IDs for targeting */}
             <div 
               ref={chatContainerRef}
-              className="flex-1 overflow-y-auto px-6 py-6"
+              id="chat-messages-container"
+              className="flex-1 overflow-y-auto overflow-x-hidden px-6 py-6"
               style={{ 
                 scrollBehavior: 'smooth',
-                overflowAnchor: 'none'
+                overflowAnchor: 'none',
+                height: '100%',
+                maxHeight: '100%'
               }}
             >
-              <div className="space-y-6 max-w-3xl mx-auto">
+              <div className="space-y-6 max-w-3xl mx-auto pb-4">
                 
                 {/* Kai's Welcome Section */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
@@ -276,8 +400,10 @@ For this conversation with ${userName || 'the user'}, provide clinical insights 
                   </div>
                 )}
                 
-                {/* Scroll anchor - ensures we always scroll to the bottom */}
-                <div ref={messagesEndRef} className="h-1" />
+                {/* MULTIPLE SCROLL ANCHORS - Bulletproof approach */}
+                <div ref={messagesEndRef} className="h-1 w-1" />
+                <div id="messages-end-anchor" className="h-1 w-1" />
+                <div className="scroll-anchor h-4" />
               </div>
             </div>
 

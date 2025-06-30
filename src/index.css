@@ -126,6 +126,30 @@
     font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
     font-feature-settings: 'liga', 'dlig';
   }
+
+  /* BULLETPROOF CHAT SCROLLING STYLES */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #chat-messages-container {
+    scroll-behavior: smooth;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-anchor {
+    flex-shrink: 0;
+  }
+
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    #chat-messages-container {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
 }
 
 @layer utilities {
@@ -254,4 +278,25 @@
   .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
   .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
   .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
+
+  /* Chat scrolling utilities */
+  .chat-scroll-container {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+  }
+
+  .force-scroll {
+    overflow-anchor: none !important;
+    scroll-behavior: smooth !important;
+  }
 }

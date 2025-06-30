@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,6 +26,7 @@ const AIChatInput = ({
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
+    console.log('📤 Sending message from input...');
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
   };
@@ -43,7 +43,19 @@ const AIChatInput = ({
   };
 
   const handleVoiceMessage = (message: string) => {
+    console.log('🎤 Voice message received...');
     onSendMessage(message);
+  };
+
+  const handleInputFocus = () => {
+    console.log('🎯 Input focused, triggering scroll...');
+    // Trigger scroll after mobile keyboard appears
+    setTimeout(() => {
+      const chatContainer = document.getElementById('chat-messages-container');
+      if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }, 300);
   };
 
   const conversationCategories = {
@@ -86,6 +98,7 @@ const AIChatInput = ({
   };
 
   const handleQuickStarter = (starter: string) => {
+    console.log('⚡ Quick starter selected...');
     onSendMessage(starter);
     setSelectedCategory(null);
   };
@@ -94,7 +107,6 @@ const AIChatInput = ({
 
   return (
     <div className="space-y-3">
-      {/* Compact Category Selection or Conversation Starters */}
       {showQuickStarters && (
         <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-3 border border-orange-100/50 shadow-lg">
           {!selectedCategory ? (
@@ -149,13 +161,14 @@ const AIChatInput = ({
         </div>
       )}
 
-      {/* Compact Chat Input with Voice */}
+      {/* Chat Input with enhanced focus handling */}
       <div className="flex gap-3 items-end">
         <div className="flex-1">
           <Textarea
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
+            onFocus={handleInputFocus}
             placeholder={chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."}
             disabled={loading}
             className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
