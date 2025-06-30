@@ -7,7 +7,6 @@ import { Progress } from "@/components/ui/progress";
 import { User, Lightbulb, Heart, MessageCircle, Plus, Eye } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
-import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import APIKeyInput from "./APIKeyInput";
@@ -37,12 +36,10 @@ const AISidebar = ({
   const { goToProfile } = useNavigation();
   const { updateTemporaryProfile } = useTemporaryProfile();
   
+  // Get names from current profile data
   const userName = demographicsData.your?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   const { topics, loading } = useConversationTopics();
-  
-  // Use centralized progress tracking
-  const { profileCompletion } = useProgressiveAccess();
   
   const [showProfileViewer, setShowProfileViewer] = useState(false);
   const [viewingProfileType, setViewingProfileType] = useState<'your' | 'partner'>('your');
@@ -50,7 +47,7 @@ const AISidebar = ({
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
 
-  // Calculate individual profile completion percentages using the same data as Profile page
+  // Calculate profile completion based on current profile data
   const calculateYourCompletion = () => {
     const yourProfile = profiles.your[0];
     const yourDemo = demographicsData.your;
@@ -64,18 +61,17 @@ const AISidebar = ({
     if (yourDemo?.name) completed++;
     if (yourDemo?.age) completed++;
     
-    // Emotional blueprint - check both profile and demographics
-    if (yourProfile?.stressReactions?.length > 0 || yourDemo?.stressReactions?.length > 0) completed++;
-    if (yourProfile?.attachmentStyles?.length > 0 || yourDemo?.attachmentStyles?.length > 0) completed++;
+    // Core profile elements
+    if (yourProfile?.stressResponse?.length > 0 || yourDemo?.stressResponse?.length > 0) completed++;
+    if (yourProfile?.attachmentStyle?.length > 0 || yourDemo?.attachmentStyle?.length > 0) completed++;
     if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
-    if (yourProfile?.receiveLove?.length > 0 || yourDemo?.receiveLove?.length > 0) completed++;
+    if (yourProfile?.conflictNeeds?.length > 0 || yourDemo?.conflictNeeds?.length > 0) completed++;
     
     // Background
     if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
-    if (yourProfile?.relationshipStatus?.length > 0 || yourDemo?.relationshipStatus?.length > 0) completed++;
+    if (yourProfile?.relationshipStatus || yourDemo?.relationshipStatus) completed++;
     
-    const completion = Math.round((completed / total) * 100);
-    return completion;
+    return Math.round((completed / total) * 100);
   };
 
   const calculatePartnerCompletion = () => {
@@ -88,16 +84,16 @@ const AISidebar = ({
     let total = 4;
     
     if (partnerDemo?.name) completed++;
-    if (partnerProfile?.communicationStyle) completed++;
-    if (partnerProfile?.loveLanguages?.length > 0) completed++;
-    if (partnerProfile?.conflictStyle) completed++;
+    if (partnerProfile?.communicationStyle || partnerDemo?.communicationStyle) completed++;
+    if (partnerProfile?.loveLanguages?.length > 0 || partnerDemo?.loveLanguages?.length > 0) completed++;
+    if (partnerProfile?.conflictStyle || partnerDemo?.conflictStyle) completed++;
     
-    const completion = Math.round((completed / total) * 100);
-    return completion;
+    return Math.round((completed / total) * 100);
   };
 
   const yourCompletion = calculateYourCompletion();
   const partnerCompletion = calculatePartnerCompletion();
+  const overallCompletion = Math.round((yourCompletion + partnerCompletion) / 2);
 
   // Handle viewing profiles
   const handleViewProfile = (profileType: 'your' | 'partner') => {
@@ -105,10 +101,9 @@ const AISidebar = ({
     setShowProfileViewer(true);
   };
 
-  // Handle continuing/starting profiles - open modals instead of navigating
+  // Handle continuing/starting profiles
   const handleStartContinueProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
-    // If no demographics data exists for this profile type, show demographics first
     if (!demographicsData[profileType]) {
       setShowDemographics(true);
     } else {
@@ -121,14 +116,12 @@ const AISidebar = ({
   };
 
   const handleDemographicsComplete = (demographics: any) => {
-    // Update temporary profile data
     const newDemographics = {
       ...demographicsData,
       [activeProfileType]: demographics
     };
     updateTemporaryProfile(profiles, newDemographics);
     
-    // Move to profile form
     setShowDemographics(false);
     setShowProfileForm(true);
   };
@@ -149,7 +142,7 @@ const AISidebar = ({
   return (
     <>
       <div className="w-full h-full overflow-y-auto space-y-3">
-        {/* Meet Kai - More compact */}
+        {/* Meet Kai */}
         <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-fade-in hover:shadow-lg transition-all duration-300">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
@@ -167,7 +160,7 @@ const AISidebar = ({
           </p>
         </Card>
 
-        {/* Safe Space - More compact */}
+        {/* Safe Space */}
         <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up hover:shadow-lg transition-all duration-300">
           <div className="flex items-center gap-2 mb-2">
             <Heart className="w-3 h-3 text-orange-300 animate-pulse" />
@@ -180,15 +173,15 @@ const AISidebar = ({
           </div>
         </Card>
 
-        {/* Profile Completion Status - More compact */}
+        {/* Profile Completion Status */}
         <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up">
           <div className="flex items-center gap-2 mb-3">
             <User className="w-3 h-3 text-orange-300" />
-            <h3 className="text-sm font-medium text-white">You</h3>
-            <div className="ml-auto text-xs text-pink-200/80">{profileCompletion}% overall</div>
+            <h3 className="text-sm font-medium text-white">Profiles</h3>
+            <div className="ml-auto text-xs text-pink-200/80">{overallCompletion}% overall</div>
           </div>
           
-          {/* Your Profile - Compact */}
+          {/* Your Profile */}
           <div className="space-y-2 mb-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-white flex items-center gap-1">
@@ -227,7 +220,7 @@ const AISidebar = ({
             </div>
           </div>
 
-          {/* Partner Profile - Compact */}
+          {/* Partner Profile */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-white flex items-center gap-1">
@@ -266,21 +259,21 @@ const AISidebar = ({
             </div>
           </div>
 
-          {/* Dynamic messaging - More compact */}
-          {profileCompletion >= 30 && (
+          {/* Dynamic status messaging */}
+          {overallCompletion >= 30 && (
             <div className="mt-3 p-2 bg-orange-400/20 rounded text-xs text-orange-200 animate-fade-in">
               <strong>Ready to chat!</strong> I have enough info about {userName || 'you'} to provide personalized relationship guidance.
             </div>
           )}
           
-          {profileCompletion > 0 && profileCompletion < 30 && (
+          {overallCompletion > 0 && overallCompletion < 30 && (
             <div className="mt-3 p-2 bg-amber-400/20 rounded text-xs text-amber-200 animate-fade-in">
               <strong>Keep going!</strong> Complete a bit more of your profile for better personalized advice.
             </div>
           )}
         </Card>
 
-        {/* What We've Covered - More compact */}
+        {/* What We've Covered */}
         <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
           <div className="flex items-center gap-2 mb-2">
             <MessageCircle className="w-3 h-3 text-orange-300" />
