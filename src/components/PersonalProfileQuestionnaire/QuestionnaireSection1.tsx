@@ -83,16 +83,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <h3 className="text-xl font-bold text-gray-900">The Real You ✨</h3>
-        <p className="text-gray-600">
-          The essentials we need to know
+      <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+        <p className="text-blue-700 font-medium text-sm">
+          💡 Why we ask: These basics help RealTalk give you advice that fits your identity and life stage
         </p>
-        <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-blue-700 font-medium text-sm">
-            💡 Why we ask: These basics help RealTalk give you advice that fits your identity and life stage
-          </p>
-        </div>
       </div>
 
       {/* Underage Modal */}

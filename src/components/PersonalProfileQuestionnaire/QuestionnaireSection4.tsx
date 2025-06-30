@@ -34,13 +34,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <h3 className="text-xl font-bold text-gray-900">Your Foundation 🌱</h3>
-        <p className="text-gray-600">
-          What shaped your love style
-        </p>
-      </div>
-
       {/* Two Column Layout for Desktop */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left Column */}

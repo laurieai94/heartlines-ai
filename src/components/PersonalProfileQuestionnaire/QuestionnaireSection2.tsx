@@ -46,13 +46,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <h3 className="text-xl font-bold text-gray-900">Your Situation 💕</h3>
-        <p className="text-gray-600">
-          What's your relationship status rn
-        </p>
-      </div>
-
       {/* Relationship Status */}
       <div className="space-y-3">
         <Label className="text-sm font-medium text-gray-700">
