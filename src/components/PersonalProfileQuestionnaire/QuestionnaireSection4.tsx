@@ -1,6 +1,5 @@
 
 import { Label } from "@/components/ui/label";
-import { Lightbulb } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -44,10 +43,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               Family dynamics growing up
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Family patterns often repeat in adult relationships
-            </p>
             <div className="space-y-2">
               {familyDynamicsOptions.map((dynamic) => (
                 <button
@@ -70,10 +65,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               Messages about love received
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Early messages about love shape your expectations and fears
-            </p>
             <div className="space-y-2">
               {loveMessagesOptions.map((message) => (
                 <button
@@ -99,10 +90,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               How parents handled conflict
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Conflict styles we observed often become our default approaches
-            </p>
             <div className="space-y-2">
               {parentConflictOptions.map((style) => (
                 <button
@@ -125,10 +112,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               What influenced love ideas
             </Label>
-            <p className="text-xs text-gray-600 mb-3 flex items-center gap-1">
-              <Lightbulb className="w-3 h-3 text-amber-500" />
-              Understanding what shaped your beliefs about love helps us provide guidance that honors your values while challenging unhelpful patterns
-            </p>
             <div className="space-y-2">
               {loveInfluencesOptions.map((influence) => (
                 <button
