@@ -49,6 +49,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               When stressed, you typically... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              💡 <strong>Why we ask:</strong> Your stress patterns predict how you'll handle relationship challenges - understanding this helps us suggest coping strategies that actually work for you
+            </p>
             <div className="space-y-2">
               {stressResponseOptions.map((response) => (
                 <button
@@ -64,9 +67,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">
-              💡 Understanding your stress patterns helps predict relationship dynamics
-            </p>
           </div>
 
           {/* Feel Loved When */}
@@ -75,6 +75,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               You feel most loved when... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              💡 <strong>Why we ask:</strong> Your love language preferences guide how we suggest showing and receiving love - this makes our relationship advice deeply personal to you
+            </p>
             <div className="space-y-2">
               {feelLovedOptions.map((way) => (
                 <button
@@ -90,9 +93,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">
-              💡 Your love language preferences guide our relationship advice
-            </p>
           </div>
         </div>
 
@@ -104,6 +104,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               During conflict, you need... <span className="text-red-500">*</span>
               <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              💡 <strong>Why we ask:</strong> Conflict needs help us suggest resolution strategies that honor your emotional processing style and lead to actual healing
+            </p>
             <div className="space-y-2">
               {conflictNeedsOptions.map((need) => (
                 <button
@@ -119,9 +122,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">
-              💡 Conflict needs help us suggest resolution strategies that work for you
-            </p>
           </div>
 
           {/* Attachment Style */}
@@ -129,6 +129,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               Your attachment style <span className="text-red-500">*</span>
             </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              💡 <strong>Why we ask:</strong> Attachment style is the foundation of how you connect, trust, and handle intimacy - it's the key to understanding your relationship patterns
+            </p>
             <div className="space-y-2">
               {attachmentOptions.map((style) => (
                 <button
@@ -144,18 +147,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500">
-              💡 Attachment style is foundational to how you connect in relationships
-            </p>
           </div>
         </div>
-      </div>
-
-      {/* Progress Message */}
-      <div className="text-center p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
-        <p className="text-sm font-medium text-rose-900">
-          Amazing insights! 🧠 Last section about your foundation coming up
-        </p>
       </div>
     </div>
   );
