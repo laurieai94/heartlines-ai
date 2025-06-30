@@ -52,20 +52,20 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`h-screen flex flex-col bg-gradient-to-br from-indigo-50 via-white to-purple-50 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
+      <div className={`h-screen flex flex-col bg-gradient-to-br from-purple-900 via-purple-800 to-pink-800 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
         {/* Clean Navigation Header */}
-        <div className="flex-shrink-0 w-full bg-gradient-to-b from-gray-50/80 via-indigo-50/40 to-transparent">
+        <div className="flex-shrink-0 w-full bg-gradient-to-b from-black/20 via-purple-900/40 to-transparent backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
             <div className="flex items-center justify-between py-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 via-pink-500 to-coral-500 rounded-2xl flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-pink-400 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
                   <Heart className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 font-serif">RealTalk</h1>
+                  <h1 className="text-2xl font-bold text-white font-serif">RealTalk</h1>
                   {accessLevel !== 'full-access' && (
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-pink-200 font-medium">
                       {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                        profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                     </p>
@@ -77,31 +77,31 @@ const Dashboard = () => {
             {/* Navigation Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex justify-center pb-4">
-                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-gray-50/50 backdrop-blur-sm border-0 rounded-xl p-1 gap-1">
+                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-black/20 backdrop-blur-md border border-white/10 rounded-xl p-1 gap-1">
                   <TabsTrigger 
                     value="profile" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-sm text-gray-600 hover:text-purple-600 hover:bg-white/50"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-400 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200 hover:text-white hover:bg-white/10"
                   >
                     <User className="w-4 h-4" />
                     <span className="hidden sm:inline">Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="insights" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-sm text-gray-600 hover:text-purple-600 hover:bg-white/50"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-400 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200 hover:text-white hover:bg-white/10"
                   >
                     <Lightbulb className="w-4 h-4" />
                     <span className="hidden sm:inline">Coach</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="conversation" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-sm text-gray-600 hover:text-purple-600 hover:bg-white/50"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-400 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200 hover:text-white hover:bg-white/10"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span className="hidden sm:inline">Practice</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="actions" 
-                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-sm text-gray-600 hover:text-purple-600 hover:bg-white/50"
+                    className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-400 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200 hover:text-white hover:bg-white/10"
                   >
                     <Heart className="w-4 h-4" />
                     <span className="hidden sm:inline">Actions</span>
