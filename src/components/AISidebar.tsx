@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { User, Lightbulb, Heart, MessageCircle, Plus, Eye } from "lucide-react";
+import { User, Lightbulb, Heart, MessageCircle, Plus, Eye, Target, BookOpen } from "lucide-react";
 import { ProfileData, DemographicsData } from "@/types/AIInsights";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -46,54 +46,6 @@ const AISidebar = ({
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
-
-  // Calculate profile completion based on current profile data
-  const calculateYourCompletion = () => {
-    const yourProfile = profiles.your[0];
-    const yourDemo = demographicsData.your;
-    
-    if (!yourProfile && !yourDemo) return 0;
-    
-    let completed = 0;
-    let total = 8;
-    
-    // Basic info
-    if (yourDemo?.name) completed++;
-    if (yourDemo?.age) completed++;
-    
-    // Core profile elements
-    if (yourProfile?.stressResponse?.length > 0 || yourDemo?.stressResponse?.length > 0) completed++;
-    if (yourProfile?.attachmentStyle?.length > 0 || yourDemo?.attachmentStyle?.length > 0) completed++;
-    if (yourProfile?.loveLanguages?.length > 0 || yourDemo?.loveLanguages?.length > 0) completed++;
-    if (yourProfile?.conflictNeeds?.length > 0 || yourDemo?.conflictNeeds?.length > 0) completed++;
-    
-    // Background
-    if (yourProfile?.familyDynamics?.length > 0 || yourDemo?.familyDynamics?.length > 0) completed++;
-    if (yourProfile?.relationshipStatus || yourDemo?.relationshipStatus) completed++;
-    
-    return Math.round((completed / total) * 100);
-  };
-
-  const calculatePartnerCompletion = () => {
-    const partnerProfile = profiles.partner[0];
-    const partnerDemo = demographicsData.partner;
-    
-    if (!partnerProfile && !partnerDemo) return 0;
-    
-    let completed = 0;
-    let total = 4;
-    
-    if (partnerDemo?.name) completed++;
-    if (partnerProfile?.communicationStyle || partnerDemo?.communicationStyle) completed++;
-    if (partnerProfile?.loveLanguages?.length > 0 || partnerDemo?.loveLanguages?.length > 0) completed++;
-    if (partnerProfile?.conflictStyle || partnerDemo?.conflictStyle) completed++;
-    
-    return Math.round((completed / total) * 100);
-  };
-
-  const yourCompletion = calculateYourCompletion();
-  const partnerCompletion = calculatePartnerCompletion();
-  const overallCompletion = Math.round((yourCompletion + partnerCompletion) / 2);
 
   // Handle viewing profiles
   const handleViewProfile = (profileType: 'your' | 'partner') => {
@@ -139,6 +91,34 @@ const AISidebar = ({
     return new Date(b.mentioned_at).getTime() - new Date(a.mentioned_at).getTime();
   });
 
+  // Extract key takeaways from chat history
+  const extractTakeaways = () => {
+    if (chatHistory.length === 0) return [];
+    
+    // Simple extraction of potential takeaways from AI messages
+    const aiMessages = chatHistory.filter(msg => msg.type === 'ai');
+    const takeaways = [];
+    
+    // Look for patterns in AI responses that suggest insights or advice
+    aiMessages.forEach(msg => {
+      const content = msg.content.toLowerCase();
+      if (content.includes('pattern') || content.includes('notice') || content.includes('sounds like')) {
+        const sentences = msg.content.split('.').filter(s => s.length > 20);
+        if (sentences.length > 0) {
+          takeaways.push({
+            id: msg.id,
+            insight: sentences[0].trim() + '.',
+            timestamp: msg.timestamp
+          });
+        }
+      }
+    });
+    
+    return takeaways.slice(0, 4); // Show up to 4 recent takeaways
+  };
+
+  const takeaways = extractTakeaways();
+
   return (
     <>
       <div className="w-full h-full overflow-y-auto space-y-3">
@@ -173,106 +153,6 @@ const AISidebar = ({
           </div>
         </Card>
 
-        {/* Profile Completion Status */}
-        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up">
-          <div className="flex items-center gap-2 mb-3">
-            <User className="w-3 h-3 text-orange-300" />
-            <h3 className="text-sm font-medium text-white">Profiles</h3>
-            <div className="ml-auto text-xs text-pink-200/80">{overallCompletion}% overall</div>
-          </div>
-          
-          {/* Your Profile */}
-          <div className="space-y-2 mb-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-white flex items-center gap-1">
-                <User className="w-3 h-3 text-purple-300" />
-                {userName || 'You'}
-              </span>
-              <span className="text-xs text-pink-200/80">{yourCompletion}%</span>
-            </div>
-            <div className="relative">
-              <Progress 
-                value={yourCompletion} 
-                className="h-2 transition-all duration-1000 ease-out hover:scale-105" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
-            </div>
-            <div className="flex gap-1">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="flex-1 text-xs h-7 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0"
-                onClick={() => handleStartContinueProfile('your')}
-              >
-                <Plus className="w-3 h-3 mr-1" />
-                {yourCompletion > 0 ? 'Continue' : 'Start Profile'}
-              </Button>
-              {yourCompletion > 0 && (
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="text-xs h-7 px-2 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
-                  onClick={() => handleViewProfile('your')}
-                >
-                  <Eye className="w-3 h-3" />
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {/* Partner Profile */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-white flex items-center gap-1">
-                <Heart className="w-3 h-3 text-pink-300" />
-                {partnerName || 'Partner Profile'}
-              </span>
-              <span className="text-xs text-pink-200/80">{partnerCompletion}%</span>
-            </div>
-            <div className="relative">
-              <Progress 
-                value={partnerCompletion} 
-                className="h-2 transition-all duration-1000 ease-out hover:scale-105" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full opacity-20 animate-pulse"></div>
-            </div>
-            <div className="flex gap-1">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="flex-1 text-xs h-7 hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0"
-                onClick={() => handleStartContinueProfile('partner')}
-              >
-                <Plus className="w-3 h-3 mr-1" />
-                {partnerCompletion > 0 ? 'Continue' : 'Add Partner'}
-              </Button>
-              {partnerCompletion > 0 && (
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="text-xs h-7 px-2 hover:scale-105 transition-transform duration-200 text-white hover:bg-white/20"
-                  onClick={() => handleViewProfile('partner')}
-                >
-                  <Eye className="w-3 h-3" />
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {/* Dynamic status messaging */}
-          {overallCompletion >= 30 && (
-            <div className="mt-3 p-2 bg-orange-400/20 rounded text-xs text-orange-200 animate-fade-in">
-              <strong>Ready to chat!</strong> I have enough info about {userName || 'you'} to provide personalized relationship guidance.
-            </div>
-          )}
-          
-          {overallCompletion > 0 && overallCompletion < 30 && (
-            <div className="mt-3 p-2 bg-amber-400/20 rounded text-xs text-amber-200 animate-fade-in">
-              <strong>Keep going!</strong> Complete a bit more of your profile for better personalized advice.
-            </div>
-          )}
-        </Card>
-
         {/* What We've Covered */}
         <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
           <div className="flex items-center gap-2 mb-2">
@@ -287,7 +167,7 @@ const AISidebar = ({
             ) : sortedTopics.length > 0 ? (
               <>
                 <div className="space-y-1">
-                  {sortedTopics.slice(0, 6).map((topic, index) => (
+                  {sortedTopics.slice(0, 4).map((topic, index) => (
                     <Badge 
                       key={topic.id} 
                       variant="outline" 
@@ -306,17 +186,49 @@ const AISidebar = ({
                     </Badge>
                   ))}
                 </div>
-                {sortedTopics.length > 6 && (
+                {sortedTopics.length > 4 && (
                   <p className="text-xs text-pink-200/80 mt-1">
-                    +{sortedTopics.length - 6} more topics discussed
+                    +{sortedTopics.length - 4} more topics discussed
                   </p>
                 )}
-                <div className="mt-2 p-2 bg-white/5 rounded text-xs text-pink-200/80 animate-fade-in">
-                  <strong>Patterns emerging:</strong> I'm learning about your relationship dynamics as we talk
-                </div>
               </>
             ) : (
               <p className="text-xs text-pink-200/80">Keep chatting and I'll identify conversation themes</p>
+            )}
+          </div>
+        </Card>
+
+        {/* Key Takeaways */}
+        <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.3s'}}>
+          <div className="flex items-center gap-2 mb-2">
+            <Target className="w-3 h-3 text-orange-300" />
+            <h3 className="text-sm font-medium text-white">Key Takeaways</h3>
+          </div>
+          <div className="space-y-1">
+            {chatHistory.length === 0 ? (
+              <p className="text-xs text-pink-200/80">Your insights and discoveries will appear here</p>
+            ) : takeaways.length > 0 ? (
+              <>
+                <div className="space-y-2">
+                  {takeaways.map((takeaway, index) => (
+                    <div 
+                      key={takeaway.id}
+                      className="p-2 bg-white/5 rounded text-xs text-pink-200/90 border border-white/10 animate-fade-in"
+                      style={{animationDelay: `${index * 0.1}s`}}
+                    >
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-3 h-3 text-orange-300 mt-0.5 flex-shrink-0" />
+                        <span className="leading-relaxed">{takeaway.insight}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 p-2 bg-white/5 rounded text-xs text-pink-200/80 animate-fade-in">
+                  <strong>Growing together:</strong> These insights help build stronger connection and understanding
+                </div>
+              </>
+            ) : (
+              <p className="text-xs text-pink-200/80">Keep exploring together - insights will emerge as we talk</p>
             )}
           </div>
         </Card>
