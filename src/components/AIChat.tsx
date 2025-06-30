@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -120,7 +119,12 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   }, [chatHistory, saveConversation, canInteract]);
 
   const sendMessage = async (userMessage: string) => {
-    if (!canInteract) return;
+    if (!canInteract || !userMessage.trim() || loading) {
+      console.log('Cannot send message:', { canInteract, userMessage: userMessage.trim(), loading });
+      return;
+    }
+
+    console.log('Processing message:', userMessage);
 
     const newUserMessage: ChatMessage = {
       id: Date.now(),
@@ -129,7 +133,11 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       timestamp: new Date().toISOString()
     };
 
-    setChatHistory(prev => [...prev, newUserMessage]);
+    // Update chat history immediately
+    setChatHistory(prev => {
+      console.log('Adding user message to history:', [...prev, newUserMessage]);
+      return [...prev, newUserMessage];
+    });
     
     // Force scroll after user message
     setTimeout(() => scrollToBottom('auto'), 100);
@@ -184,6 +192,8 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
 
       const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, enhancedPrompt);
       
+      console.log('Received AI response:', aiResponse);
+      
       // Extract topics from AI response as well
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
@@ -195,7 +205,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
         timestamp: new Date().toISOString()
       };
 
-      setChatHistory(prev => [...prev, aiMessage]);
+      setChatHistory(prev => {
+        console.log('Adding AI message to history:', [...prev, aiMessage]);
+        return [...prev, aiMessage];
+      });
 
       // Automatically speak Kai's response if voice function is available
       if (speakResponseRef.current) {
