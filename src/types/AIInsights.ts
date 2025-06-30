@@ -22,21 +22,30 @@ export interface PersonContext {
   };
   yourTraits: {
     name?: string;
-    loveLanguage?: string;
+    age?: string;
+    pronouns?: string;
+    loveLanguages?: string[];
     communicationStyle?: string;
     conflictStyle?: string;
-    stressResponse?: string;
+    stressResponse?: string[];
     attachmentStyle?: string;
     triggers?: string[];
     strengths?: string[];
     growthAreas?: string[];
+    familyDynamics?: string[];
+    whyRealTalk?: string[];
+    mentalHealthContext?: string;
+    education?: string;
+    workSituation?: string;
+    sexualOrientation?: string[];
+    genderIdentity?: string[];
   };
   partnerTraits: {
     name?: string;
-    loveLanguage?: string;
+    loveLanguages?: string[];
     communicationStyle?: string;
     conflictStyle?: string;
-    stressResponse?: string;
+    stressResponse?: string[];
     attachmentStyle?: string;
     triggers?: string[];
     strengths?: string[];
