@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -158,57 +159,46 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
     speakResponseRef.current = speakFunction;
   };
 
-  // Background pattern as a style object to avoid JSX quote issues
-  const backgroundPatternStyle = {
-    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b8a' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3Ccircle cx='27' cy='27' r='2'/%3E%3Ccircle cx='47' cy='47' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-  };
-
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 overflow-hidden">
-      {/* Soft Background Pattern */}
-      <div 
-        className="absolute inset-0 opacity-30 pointer-events-none"
-        style={backgroundPatternStyle}
-      />
-      
-      {/* Main Chat Container - Full height with proper flex layout */}
-      <div className="flex-1 min-h-0 flex items-stretch justify-center p-4">
-        <div className="w-full max-w-4xl flex flex-col bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
+    <div className="h-full flex flex-col overflow-hidden">
+      {/* Main Chat Container - Full height, no background card */}
+      <div className="flex-1 min-h-0 flex items-stretch justify-center p-6">
+        <div className="w-full max-w-4xl flex flex-col overflow-hidden">
           
           {/* Chat Messages Area - Flex-1 with scroll area */}
           <div className="flex-1 min-h-0 flex flex-col">
-            <ScrollArea className="flex-1 px-6 py-4">
-              <div className="space-y-4 max-w-3xl mx-auto">
+            <ScrollArea className="flex-1 px-4 py-6">
+              <div className="space-y-6 max-w-3xl mx-auto">
                 
-                {/* Kai's Welcome Section - More Compact */}
+                {/* Kai's Welcome Section - Clean and modern */}
                 {chatHistory.length === 0 && isConfigured && !conversationStarter && (
-                  <div className="text-center py-4 animate-fade-in">
-                    {/* Kai Avatar with Glow - Smaller */}
-                    <div className="w-12 h-12 mx-auto mb-3 relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
-                      <Avatar className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-white shadow-2xl relative z-10">
+                  <div className="text-center py-8 animate-fade-in">
+                    {/* Kai Avatar with subtle glow */}
+                    <div className="w-16 h-16 mx-auto mb-6 relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-xl animate-pulse"></div>
+                      <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-white shadow-xl relative z-10">
                         <AvatarImage 
                           src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                           alt="Kai" 
                           className="object-cover"
                         />
                         <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                          <Heart className="w-6 h-6" />
+                          <Heart className="w-8 h-8" />
                         </AvatarFallback>
                       </Avatar>
-                      {/* Animated thinking indicator when ready */}
-                      <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white animate-bounce-gentle shadow-lg"></div>
+                      {/* Online indicator */}
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-lg animate-pulse"></div>
                     </div>
                     
-                    {/* Warm Welcome Message - More Compact */}
-                    <div className="space-y-2 max-w-lg mx-auto">
-                      <h2 className="text-xl font-semibold text-gray-800 leading-relaxed">
+                    {/* Welcome Message - Clean typography */}
+                    <div className="space-y-4 max-w-2xl mx-auto">
+                      <h2 className="text-3xl font-bold text-gray-800 leading-tight">
                         Hey, I'm Kai 👋
                       </h2>
                       
-                      <div className="text-sm text-gray-600 leading-relaxed font-light">
-                        <p>Here to help you figure out the messy, meaningful, and everything-in-between parts of your relationship.</p>
-                      </div>
+                      <p className="text-lg text-gray-600 leading-relaxed font-light">
+                        Here to help you figure out the messy, meaningful, and everything-in-between parts of your relationship.
+                      </p>
                     </div>
                   </div>
                 )}
@@ -224,28 +214,25 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 ))}
                 
-                {/* Typing Indicator with Enhanced Animation */}
+                {/* Typing Indicator - Subtle and modern */}
                 {loading && (
                   <div className="flex justify-start animate-fade-in">
                     <div className="flex gap-3 items-end">
                       <div className="relative">
-                        {/* Enhanced thinking glow */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full blur-md opacity-60 animate-pulse"></div>
-                        <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10">
+                        <div className="absolute inset-0 bg-gradient-to-r from-pink-200/30 to-purple-200/30 rounded-full blur-md animate-pulse"></div>
+                        <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 shadow-lg">
                           <AvatarImage 
                             src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
                             alt="Kai" 
                             className="object-cover"
                           />
                           <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                            <Bot className="w-4 h-4" />
+                            <Bot className="w-5 h-5" />
                           </AvatarFallback>
                         </Avatar>
-                        {/* Pulsing thinking dot */}
-                        <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-purple-400 rounded-full animate-pulse shadow-lg"></div>
                       </div>
-                      <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl px-4 py-3 shadow-lg border border-gray-100">
-                        <div className="flex gap-1">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-3xl px-6 py-4 shadow-lg border border-gray-100/50">
+                        <div className="flex gap-2">
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
@@ -255,10 +242,10 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   </div>
                 )}
                 
-                {/* Waiting for message indicator */}
+                {/* Listening indicator - Subtle */}
                 {!loading && chatHistory.length > 0 && canInteract && (
-                  <div className="flex justify-center py-2">
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                  <div className="flex justify-center py-4">
+                    <div className="flex items-center gap-3 text-gray-400 text-sm bg-white/50 backdrop-blur-sm rounded-full px-4 py-2">
                       <div className="w-2 h-2 bg-purple-300 rounded-full animate-pulse"></div>
                       <span className="font-light">Kai is listening...</span>
                     </div>
@@ -269,9 +256,9 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
               </div>
             </ScrollArea>
 
-            {/* Chat Input - Fixed at bottom with optimal height */}
-            <div className="shrink-0 border-t border-white/20 bg-white/40 backdrop-blur-sm">
-              <div className="p-4 max-w-3xl mx-auto">
+            {/* Chat Input - Fixed at bottom with modern styling */}
+            <div className="shrink-0 border-t border-white/20 bg-white/60 backdrop-blur-xl">
+              <div className="p-6 max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
                     onSendMessage={sendMessage} 
@@ -283,7 +270,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
                   />
                 </ProgressiveAccessWrapper>
                 {!isConfigured && accessLevel === 'full-access' && (
-                  <p className="text-xs text-gray-500 mt-2 text-center font-light">
+                  <p className="text-sm text-gray-500 mt-3 text-center font-light">
                     Complete setup to start chatting
                   </p>
                 )}
