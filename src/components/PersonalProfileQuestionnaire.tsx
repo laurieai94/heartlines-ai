@@ -160,12 +160,23 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     }
   };
 
+  const handleSectionClick = (section: number) => {
+    const isAccessible = sectionReadiness[section];
+    const isCompleted = section < currentSection || (section <= 3 && validateSection(section));
+    
+    if (isAccessible || isCompleted) {
+      setCurrentSection(section);
+      // Make sure the section is accessible
+      setSectionReadiness(prev => ({ ...prev, [section]: true }));
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden flex">
         {/* Compact Sidebar Progress */}
-        <div className="w-48 bg-gradient-to-b from-rose-50 to-pink-50 border-r p-3 flex flex-col">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="w-56 bg-gradient-to-b from-rose-50 to-pink-50 border-r p-4 flex flex-col">
+          <div className="flex items-center gap-2 mb-6">
             <div className="w-8 h-8 bg-gradient-to-br from-rose-500 to-pink-500 rounded-lg flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
@@ -175,20 +186,20 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             </div>
           </div>
 
-          <div className="space-y-2 flex-1">
+          <div className="space-y-3 flex-1">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
               const isCompleted = section < currentSection || (section <= 3 && validateSection(section));
-              const isAccessible = sectionReadiness[section];
+              const isAccessible = sectionReadiness[section] || isCompleted;
               const requiredCount = getRequiredCount(section);
               const completedCount = getCompletedCount(section);
 
               return (
                 <button
                   key={section}
-                  onClick={() => isAccessible && setCurrentSection(section)}
+                  onClick={() => handleSectionClick(section)}
                   disabled={!isAccessible}
-                  className={`w-full text-left p-2 rounded-lg transition-all text-sm ${
+                  className={`w-full text-left p-3 rounded-lg transition-all text-sm ${
                     isActive 
                       ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md' 
                       : isCompleted 
@@ -198,14 +209,23 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                           : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium">Section {section}</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-semibold text-sm">{getSectionTitle(section)}</span>
                     {isCompleted && <Check className="w-4 h-4" />}
                   </div>
-                  <div className="text-xs opacity-90 mb-1">{getSectionTitle(section)}</div>
                   {section <= 3 && (
-                    <div className="text-xs opacity-75">
+                    <div className="text-xs opacity-75 mb-1">
                       {completedCount}/{requiredCount} required
+                    </div>
+                  )}
+                  {section === 1 && (
+                    <div className="text-xs opacity-75 text-left">
+                      We use this to personalize your experience and provide relevant guidance
+                    </div>
+                  )}
+                  {section === 4 && (
+                    <div className="text-xs opacity-75 text-left">
+                      Optional - deeper insights
                     </div>
                   )}
                 </button>
@@ -213,7 +233,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             })}
           </div>
 
-          <Button variant="ghost" onClick={onClose} className="mt-3 text-gray-500 hover:text-gray-700 w-full py-2">
+          <Button variant="ghost" onClick={onClose} className="mt-4 text-gray-500 hover:text-gray-700 w-full py-2">
             <X className="w-4 h-4 mr-2" />
             Close
           </Button>
@@ -222,9 +242,9 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Compact Header */}
-          <div className="p-3 border-b bg-gradient-to-r from-gray-50 to-white">
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-lg font-bold text-gray-900">
+          <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xl font-bold text-gray-900">
                 {getSectionTitle(currentSection)}
               </h2>
               <div className="text-sm text-gray-600">
@@ -233,12 +253,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             </div>
             <Progress 
               value={(currentSection / 4) * 100} 
-              className="h-1.5" 
+              className="h-2" 
             />
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-6">
             <div className="max-w-6xl mx-auto">
               <QuestionnaireSection1 
                 profileData={profileData}
@@ -268,7 +288,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           </div>
 
           {/* Compact Footer */}
-          <div className="p-3 border-t bg-gray-50 flex justify-between items-center">
+          <div className="p-4 border-t bg-gray-50 flex justify-between items-center">
             <Button
               variant="outline"
               onClick={handleBack}
