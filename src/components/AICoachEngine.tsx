@@ -1,4 +1,3 @@
-
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -35,112 +34,83 @@ export class AICoachEngine {
     console.log('Processed yourDemographics:', yourDemographics);
     console.log('Processed partnerDemographics:', partnerDemographics);
 
-    // Helper function to derive communication style from profile responses
-    const deriveCommunicationStyle = (profile: any) => {
-      if (profile.directCommunication === "Strongly Agree") return "Direct";
-      if (profile.gentleApproach === "Strongly Agree") return "Gentle";
-      if (profile.needTimeToProcess === "Strongly Agree") return "Thoughtful";
+    // Helper function to extract array values safely
+    const extractArrayValue = (value: any): string[] => {
+      if (Array.isArray(value)) return value;
+      if (typeof value === 'string') return [value];
+      return [];
+    };
+
+    // Helper function to extract single value safely
+    const extractSingleValue = (value: any): string | undefined => {
+      if (Array.isArray(value)) return value[0];
+      if (typeof value === 'string') return value;
       return undefined;
     };
 
-    // Helper function to derive love language from profile responses
-    const deriveLoveLanguage = (profile: any) => {
-      const scores = {
-        'Words of Affirmation': (profile.wordsOfAffirmation === "Strongly Agree" ? 2 : profile.wordsOfAffirmation === "Agree" ? 1 : 0) +
-                               (profile.proudOfYouAffirmations === "Strongly Agree" ? 2 : profile.proudOfYouAffirmations === "Agree" ? 1 : 0),
-        'Quality Time': (profile.qualityTime === "Strongly Agree" ? 2 : profile.qualityTime === "Agree" ? 1 : 0) +
-                       (profile.qualityTimeUndividedAttention === "Strongly Agree" ? 2 : profile.qualityTimeUndividedAttention === "Agree" ? 1 : 0),
-        'Physical Touch': (profile.physicalTouch === "Strongly Agree" ? 2 : profile.physicalTouch === "Agree" ? 1 : 0) +
-                         (profile.casualTouchThroughoutDay === "Strongly Agree" ? 2 : profile.casualTouchThroughoutDay === "Agree" ? 1 : 0),
-        'Acts of Service': (profile.householdChoresService === "Strongly Agree" ? 2 : profile.householdChoresService === "Agree" ? 1 : 0) +
-                          (profile.practicalHelpRelieves === "Strongly Agree" ? 2 : profile.practicalHelpRelieves === "Agree" ? 1 : 0),
-        'Receiving Gifts': (profile.thoughtfulVsExpensiveGifts === "Strongly Agree" ? 2 : profile.thoughtfulVsExpensiveGifts === "Agree" ? 1 : 0)
-      };
-      
-      const maxScore = Math.max(...Object.values(scores));
-      if (maxScore === 0) return undefined;
-      
-      return Object.keys(scores).find(key => scores[key] === maxScore);
-    };
-
-    // Helper function to derive stress response
-    const deriveStressResponse = (profile: any) => {
-      if (profile.talkThroughStressImmediately === "Strongly Agree") return "Talk it out immediately";
-      if (profile.needSpaceToProcess === "Strongly Agree") return "Need space to process";
-      if (profile.withdrawWhenOverwhelmed === "Strongly Agree") return "Withdraw when overwhelmed";
-      if (profile.physicalComfortHelps === "Strongly Agree") return "Seek physical comfort";
-      return undefined;
-    };
-
-    // Helper function to derive attachment style
-    const deriveAttachmentStyle = (profile: any) => {
-      if (profile.comfortableClosenessIndependence === "Strongly Agree") return "Secure";
-      if (profile.worryRelationshipSecurity === "Strongly Agree") return "Anxious";
-      if (profile.wantClosenessButFearHurt === "Strongly Agree") return "Fearful-Avoidant";
-      return undefined;
-    };
-
-    // Helper function to derive conflict style
-    const deriveConflictStyle = (profile: any) => {
-      if (profile.needToTalkImmediately === "Strongly Agree") return "Direct confrontation";
-      if (profile.goSilentWhenUpset === "Strongly Agree") return "Withdrawal";
-      if (profile.feelHeardWithValidation === "Strongly Agree") return "Collaborative";
-      return undefined;
-    };
-
-    // Helper function to extract triggers
-    const extractTriggers = (profile: any) => {
-      const triggers = [];
-      if (profile.beingRushedMakesWorse === "Strongly Agree") triggers.push("Being rushed");
-      if (profile.socialSituationsAnxious === "Strongly Agree") triggers.push("Social situations");
-      return triggers;
-    };
-
-    // Helper function to extract strengths
-    const extractStrengths = (profile: any) => {
-      const strengths = [];
-      if (profile.improvingCommunicationFocus === "Strongly Agree") strengths.push("Focused on improving communication");
-      if (profile.workingOnPersonalDevelopment === "Strongly Agree") strengths.push("Committed to personal growth");
-      if (profile.learnedHealthyFromFamily === "Strongly Agree") strengths.push("Learned healthy patterns from family");
-      return strengths;
-    };
-
+    // Build context from the unified profile data
     const context = {
       relationship: {
-        length: yourProfile.relationshipLength || partnerProfile.relationshipLength || undefined,
-        livingTogether: yourDemographics.livingTogether || false,
-        stage: yourProfile.relationshipType || partnerProfile.relationshipType || undefined
+        length: yourProfile.relationshipLength || yourDemographics.relationshipLength || undefined,
+        livingTogether: yourDemographics.livingTogether || yourProfile.livingTogether || false,
+        stage: yourProfile.relationshipStatus || yourDemographics.relationshipStatus || undefined
       },
       yourTraits: {
-        name: yourDemographics.name || undefined,
-        loveLanguage: deriveLoveLanguage(yourProfile),
-        communicationStyle: deriveCommunicationStyle(yourProfile),
-        conflictStyle: deriveConflictStyle(yourProfile),
-        stressResponse: deriveStressResponse(yourProfile),
-        attachmentStyle: deriveAttachmentStyle(yourProfile),
-        triggers: extractTriggers(yourProfile),
-        strengths: extractStrengths(yourProfile),
-        growthAreas: []
+        name: yourDemographics.name || yourProfile.name || undefined,
+        age: yourDemographics.age || yourProfile.age || undefined,
+        pronouns: yourDemographics.pronouns || yourProfile.pronouns || undefined,
+        loveLanguages: extractArrayValue(yourProfile.loveLanguages || yourDemographics.loveLanguages || yourProfile.feelLovedWhen),
+        communicationStyle: extractSingleValue(yourProfile.communicationStyle || yourDemographics.communicationStyle),
+        conflictStyle: extractSingleValue(yourProfile.conflictStyle || yourDemographics.conflictStyle),
+        stressResponse: extractArrayValue(yourProfile.stressResponse || yourDemographics.stressResponse),
+        attachmentStyle: extractSingleValue(yourProfile.attachmentStyle || yourDemographics.attachmentStyle),
+        triggers: extractArrayValue(yourProfile.triggers || yourDemographics.triggers || yourProfile.feelsDifficult),
+        strengths: extractArrayValue(yourProfile.strengths || yourDemographics.strengths || yourProfile.workingWell),
+        growthAreas: extractArrayValue(yourProfile.growthAreas || yourDemographics.growthAreas || yourProfile.biggestChallenge),
+        familyDynamics: extractArrayValue(yourProfile.familyDynamics || yourDemographics.familyDynamics),
+        whyRealTalk: extractArrayValue(yourProfile.whyRealTalk || yourDemographics.whyRealTalk),
+        mentalHealthContext: yourProfile.mentalHealthContext || yourDemographics.mentalHealthContext,
+        education: yourProfile.education || yourDemographics.education,
+        workSituation: yourProfile.workSituation || yourDemographics.workSituation,
+        sexualOrientation: extractArrayValue(yourProfile.sexualOrientation || yourDemographics.sexualOrientation || yourProfile.orientation),
+        genderIdentity: extractArrayValue(yourProfile.genderIdentity || yourDemographics.genderIdentity || yourProfile.gender)
       },
       partnerTraits: {
-        name: partnerDemographics.name || undefined,
-        loveLanguage: deriveLoveLanguage(partnerProfile),
-        communicationStyle: deriveCommunicationStyle(partnerProfile),
-        conflictStyle: deriveConflictStyle(partnerProfile),
-        stressResponse: deriveStressResponse(partnerProfile),
-        attachmentStyle: deriveAttachmentStyle(partnerProfile),
-        triggers: extractTriggers(partnerProfile),
-        strengths: extractStrengths(partnerProfile),
-        growthAreas: []
+        name: partnerDemographics.name || partnerProfile.name || undefined,
+        loveLanguages: extractArrayValue(partnerProfile.loveLanguages || partnerDemographics.loveLanguages),
+        communicationStyle: extractSingleValue(partnerProfile.communicationStyle || partnerDemographics.communicationStyle),
+        conflictStyle: extractSingleValue(partnerProfile.conflictStyle || partnerDemographics.conflictStyle),
+        stressResponse: extractArrayValue(partnerProfile.stressResponse || partnerDemographics.stressResponse),
+        attachmentStyle: extractSingleValue(partnerProfile.attachmentStyle || partnerDemographics.attachmentStyle),
+        triggers: extractArrayValue(partnerProfile.triggers || partnerDemographics.triggers),
+        strengths: extractArrayValue(partnerProfile.strengths || partnerDemographics.strengths),
+        growthAreas: extractArrayValue(partnerProfile.growthAreas || partnerDemographics.growthAreas)
       },
       dynamics: {
-        loveLanguageMatch: deriveLoveLanguage(yourProfile) === deriveLoveLanguage(partnerProfile),
-        loveLanguageGap: deriveLoveLanguage(yourProfile) !== deriveLoveLanguage(partnerProfile),
-        communicationMatch: deriveCommunicationStyle(yourProfile) === deriveCommunicationStyle(partnerProfile),
-        conflictDynamic: deriveConflictStyle(yourProfile) && deriveConflictStyle(partnerProfile) ? 
-          `${deriveConflictStyle(yourProfile)}-${deriveConflictStyle(partnerProfile)}` : undefined
+        loveLanguageMatch: false,
+        loveLanguageGap: false,
+        communicationMatch: false,
+        conflictDynamic: undefined
       }
     };
+
+    // Calculate dynamics
+    const yourLoveLanguages = context.yourTraits.loveLanguages || [];
+    const partnerLoveLanguages = context.partnerTraits.loveLanguages || [];
+    
+    if (yourLoveLanguages.length > 0 && partnerLoveLanguages.length > 0) {
+      const hasCommonLoveLanguage = yourLoveLanguages.some(lang => partnerLoveLanguages.includes(lang));
+      context.dynamics.loveLanguageMatch = hasCommonLoveLanguage;
+      context.dynamics.loveLanguageGap = !hasCommonLoveLanguage;
+    }
+
+    if (context.yourTraits.communicationStyle && context.partnerTraits.communicationStyle) {
+      context.dynamics.communicationMatch = context.yourTraits.communicationStyle === context.partnerTraits.communicationStyle;
+    }
+
+    if (context.yourTraits.conflictStyle && context.partnerTraits.conflictStyle) {
+      context.dynamics.conflictDynamic = `${context.yourTraits.conflictStyle}-${context.partnerTraits.conflictStyle}`;
+    }
 
     console.log('Final context built:', context);
     return context;
@@ -303,8 +273,16 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
     
     let insights = `**About ${userName}:**\n`;
     
-    if (context.yourTraits.loveLanguage) {
-      insights += `- Primary love language is ${context.yourTraits.loveLanguage} - use this to frame relationship advice\n`;
+    if (context.yourTraits.age) {
+      insights += `- Age: ${context.yourTraits.age} - adapt communication style accordingly\n`;
+    }
+    
+    if (context.yourTraits.pronouns) {
+      insights += `- Uses ${context.yourTraits.pronouns} pronouns - respect their identity\n`;
+    }
+    
+    if (context.yourTraits.loveLanguages && context.yourTraits.loveLanguages.length > 0) {
+      insights += `- Love languages: ${context.yourTraits.loveLanguages.join(', ')} - use this to frame relationship advice\n`;
     }
     
     if (context.yourTraits.communicationStyle) {
@@ -315,8 +293,8 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
       insights += `- Attachment style: ${context.yourTraits.attachmentStyle} - be sensitive to their attachment needs\n`;
     }
     
-    if (context.yourTraits.stressResponse) {
-      insights += `- Under stress: ${context.yourTraits.stressResponse} - consider this when discussing conflicts\n`;
+    if (context.yourTraits.stressResponse && context.yourTraits.stressResponse.length > 0) {
+      insights += `- Under stress: ${context.yourTraits.stressResponse.join(', ')} - consider this when discussing conflicts\n`;
     }
     
     if (context.yourTraits.triggers && context.yourTraits.triggers.length > 0) {
@@ -327,10 +305,22 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
       insights += `- Strengths to leverage: ${context.yourTraits.strengths.join(', ')}\n`;
     }
 
+    if (context.yourTraits.growthAreas && context.yourTraits.growthAreas.length > 0) {
+      insights += `- Growth areas: ${context.yourTraits.growthAreas.join(', ')} - help them work on these\n`;
+    }
+
+    if (context.yourTraits.whyRealTalk && context.yourTraits.whyRealTalk.length > 0) {
+      insights += `- Why they're using RealTalk: ${context.yourTraits.whyRealTalk.join(', ')} - keep their goals in mind\n`;
+    }
+
+    if (context.yourTraits.familyDynamics && context.yourTraits.familyDynamics.length > 0) {
+      insights += `- Family background: ${context.yourTraits.familyDynamics.join(', ')} - consider family patterns\n`;
+    }
+
     insights += `\n**About ${partnerName}:**\n`;
     
-    if (context.partnerTraits.loveLanguage) {
-      insights += `- Primary love language is ${context.partnerTraits.loveLanguage} - reference when discussing how to connect\n`;
+    if (context.partnerTraits.loveLanguages && context.partnerTraits.loveLanguages.length > 0) {
+      insights += `- Love languages: ${context.partnerTraits.loveLanguages.join(', ')} - reference when discussing how to connect\n`;
     }
     
     if (context.partnerTraits.communicationStyle) {
@@ -351,8 +341,12 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
       insights += `- Together for ${context.relationship.length} - reference their relationship stage\n`;
     }
     
+    if (context.relationship.stage) {
+      insights += `- Relationship status: ${context.relationship.stage} - tailor advice to their situation\n`;
+    }
+    
     if (context.dynamics.loveLanguageMatch) {
-      insights += `- Both share the same love language - highlight this strength\n`;
+      insights += `- Both share similar love languages - highlight this strength\n`;
     } else if (context.dynamics.loveLanguageGap) {
       insights += `- Different love languages - help bridge this gap naturally\n`;
     }
@@ -384,21 +378,34 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
     return `DEBUG - Here's what Kai can see:
 
 **About ${userName}:**
+- Name: ${context.yourTraits.name || "Not specified"}
+- Age: ${context.yourTraits.age || "Not specified"}
+- Pronouns: ${context.yourTraits.pronouns || "Not specified"}
 - Communication style: ${context.yourTraits.communicationStyle || "Not specified"}
 - Attachment style: ${context.yourTraits.attachmentStyle || "Not specified"}
 - Conflict style: ${context.yourTraits.conflictStyle || "Not specified"}
-- Love language: ${context.yourTraits.loveLanguage || "Not specified"}
+- Love languages: ${context.yourTraits.loveLanguages?.join(", ") || "None listed"}
+- Stress responses: ${context.yourTraits.stressResponse?.join(", ") || "None listed"}
 - Triggers: ${context.yourTraits.triggers?.join(", ") || "None listed"}
+- Strengths: ${context.yourTraits.strengths?.join(", ") || "None listed"}
+- Growth areas: ${context.yourTraits.growthAreas?.join(", ") || "None listed"}
+- Why RealTalk: ${context.yourTraits.whyRealTalk?.join(", ") || "Not specified"}
 
 **About ${partnerName}:**
+- Name: ${context.partnerTraits.name || "Not specified"}
 - Communication style: ${context.partnerTraits.communicationStyle || "Not specified"}
 - Attachment style: ${context.partnerTraits.attachmentStyle || "Not specified"}
 - Conflict style: ${context.partnerTraits.conflictStyle || "Not specified"}
-- Love language: ${context.partnerTraits.loveLanguage || "Not specified"}
+- Love languages: ${context.partnerTraits.loveLanguages?.join(", ") || "None listed"}
 - Triggers: ${context.partnerTraits.triggers?.join(", ") || "None listed"}
+
+**Relationship Info:**
+- Status: ${context.relationship.stage || "Not specified"}
+- Length: ${context.relationship.length || "Not specified"}
+- Living together: ${context.relationship.livingTogether ? "Yes" : "No"}
 
 **AI Service Status:** ${this.aiService ? "Connected - Supabase Backend" : "Not connected"}
 
-Kai is ready with comprehensive relationship psychology expertise. If any profile data is wrong or missing, there's a profile access issue.`;
+Kai is ready with comprehensive relationship psychology expertise. If any profile data is wrong or missing, there may be a profile access issue.`;
   }
 }

@@ -8,6 +8,8 @@ import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
@@ -18,10 +20,43 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   
-  // Use the updateTemporaryProfile function for profile form updates
-  const { updateTemporaryProfile } = useTemporaryProfile();
+  // Get actual profile data from the questionnaire system
+  const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
+  const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
+  const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
+
+  // Combine all profile data sources into a unified format
+  const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
+  const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
+
+  useEffect(() => {
+    if (personalDataReady && persistenceReady) {
+      // Merge personal profile data from both hooks
+      const mergedPersonalData = {
+        ...personalProfilePersistence,
+        ...personalProfileData
+      };
+
+      // Create unified profile structure
+      const newUnifiedProfiles = {
+        your: mergedPersonalData && Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
+        partner: temporaryProfiles.partner
+      };
+
+      const newUnifiedDemographics = {
+        your: mergedPersonalData && Object.keys(mergedPersonalData).length > 0 ? mergedPersonalData : temporaryDemographics.your,
+        partner: temporaryDemographics.partner
+      };
+
+      console.log('Unified profile data:', newUnifiedProfiles);
+      console.log('Unified demographics data:', newUnifiedDemographics);
+
+      setUnifiedProfiles(newUnifiedProfiles);
+      setUnifiedDemographics(newUnifiedDemographics);
+    }
+  }, [personalProfileData, personalProfilePersistence, personalDataReady, persistenceReady, temporaryProfiles, temporaryDemographics]);
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
@@ -46,7 +81,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const handleOpenProfileForm = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // If no demographics data exists for this profile type, show demographics first
-    if (!demographicsData[profileType]) {
+    if (!unifiedDemographics[profileType]) {
       setShowDemographics(true);
     } else {
       setShowProfileForm(true);
@@ -88,8 +123,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       <ProgressiveAccessWrapper action="chat">
         <div className="flex-1 min-w-0">
           <AIChat 
-            profiles={profiles}
-            demographicsData={demographicsData}
+            profiles={unifiedProfiles}
+            demographicsData={unifiedDemographics}
             chatHistory={chatHistory}
             setChatHistory={setChatHistory}
             isConfigured={isConfigured}
@@ -99,8 +134,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       </ProgressiveAccessWrapper>
       <div className="w-80 flex-shrink-0">
         <AISidebar 
-          profiles={profiles}
-          demographicsData={demographicsData}
+          profiles={unifiedProfiles}
+          demographicsData={unifiedDemographics}
           chatHistory={chatHistory}
           isConfigured={isConfigured}
           onSupabaseConfigured={handleSupabaseConfigured}
@@ -115,7 +150,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           profileType={activeProfileType}
           onClose={() => setShowDemographics(false)}
           onComplete={handleDemographicsComplete}
-          initialData={demographicsData[activeProfileType]}
+          initialData={unifiedDemographics[activeProfileType]}
         />
       )}
       
@@ -126,8 +161,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           onClose={() => setShowProfileForm(false)}
           onComplete={handleProfileComplete}
           onBackToDemographics={handleBackToDemographics}
-          initialProfiles={profiles}
-          initialDemographics={demographicsData}
+          initialProfiles={unifiedProfiles}
+          initialDemographics={unifiedDemographics}
         />
       )}
     </div>
