@@ -23,22 +23,22 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   };
   
   return (
-    <div className={`flex gap-3 mb-3 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
-      {/* Compact Avatar */}
+    <div className={`flex gap-3 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+      {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
-        <div className="relative">
+        <div className="relative w-8 h-8">
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
             isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
           }`}></div>
           
-          <Avatar className={`w-8 h-8 relative z-10 border-2 border-white shadow-lg ${
+          <Avatar className={`w-8 h-8 relative z-10 border-2 border-white shadow-lg overflow-visible ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
           }`}>
             {isUser && userAvatarUrl ? (
-              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} />
+              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
                 {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
@@ -59,7 +59,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         </div>
       </div>
 
-      {/* Compact Message Bubble */}
+      {/* Message Bubble */}
       <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
@@ -75,7 +75,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           </div>
         </div>
         
-        {/* Compact Time */}
+        {/* Timestamp */}
         <p className={`text-xs text-gray-400 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
           {formatTime(message.timestamp)}
         </p>
