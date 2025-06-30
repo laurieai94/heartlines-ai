@@ -27,6 +27,7 @@ interface AIChatProps {
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
@@ -39,10 +40,42 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
-  // Auto-scroll to bottom when chat history changes
+  // Improved auto-scroll function
+  const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
+    // Try multiple methods to ensure scrolling works
+    setTimeout(() => {
+      // Method 1: Scroll the messages end ref into view
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior, block: "end" });
+      }
+      
+      // Method 2: Scroll the scroll area to bottom
+      if (scrollAreaRef.current) {
+        const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+        if (scrollElement) {
+          scrollElement.scrollTop = scrollElement.scrollHeight;
+        }
+      }
+    }, 100);
+  };
+
+  // Auto-scroll when chat history changes or when loading state changes
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatHistory, loading]);
+    scrollToBottom();
+  }, [chatHistory.length, loading]);
+
+  // Also scroll when a new message is added (more specific trigger)
+  useEffect(() => {
+    if (chatHistory.length > 0) {
+      const lastMessage = chatHistory[chatHistory.length - 1];
+      // Immediate scroll for user messages, delayed for AI responses to allow for rendering
+      if (lastMessage.type === 'user') {
+        scrollToBottom('auto');
+      } else {
+        setTimeout(() => scrollToBottom(), 200);
+      }
+    }
+  }, [chatHistory]);
 
   // Handle conversation starter - improved to avoid duplicates
   useEffect(() => {
@@ -167,7 +200,7 @@ For this conversation with ${userName || 'the user'}, remember they are seeking 
           
           {/* Chat Messages Area - Glassmorphism effect, no background square */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-            <ScrollArea className="flex-1 px-6 py-6">
+            <ScrollArea ref={scrollAreaRef} className="flex-1 px-6 py-6">
               <div className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Welcome Section - Modern, clean design */}
