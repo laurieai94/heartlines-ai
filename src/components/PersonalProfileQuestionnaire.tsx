@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Check, X, Camera, User, Heart, Brain } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X, User, Heart, Brain, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import QuestionnaireSection1 from "./PersonalProfileQuestionnaire/QuestionnaireSection1";
@@ -18,6 +18,7 @@ interface PersonalProfileQuestionnaireProps {
 
 const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQuestionnaireProps) => {
   const [currentSection, setCurrentSection] = useState(1);
+  const [showOptionalPrompt, setShowOptionalPrompt] = useState(false);
   const { profileData, isLoading, isReady, saveData, updateField, handleMultiSelect } = usePersonalProfilePersistence();
   
   const [sectionProgress, setSectionProgress] = useState({
@@ -49,7 +50,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       if (profileData.biggestChallenge && profileData.biggestChallenge.length > 0) completed++;
       
       // Add conditional relationship length if in relationship
-      const inRelationship = ['committed', 'engaged', 'married', 'open', 'complicated', 'break'].includes(profileData.relationshipStatus);
+      const inRelationship = ['In committed relationship', 'Engaged', 'Married/life partnered', 'Open/polyamorous', 'It\'s complicated', 'Taking relationship break'].includes(profileData.relationshipStatus);
       const totalRequired = inRelationship ? required.length + 1 : required.length;
       
       if (inRelationship && profileData.relationshipLength && profileData.relationshipLength !== '') {
@@ -71,13 +72,14 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     };
 
     const calculateSection4Progress = () => {
-      // Section 4 is optional, so always shows 100% if any questions are answered
+      // Section 4 is optional, so shows progress based on answered questions
       const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences', 'mentalHealthContext', 'growthAreas'];
       const answered = optionalFields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value !== '');
       }).length;
-      return answered > 0 ? 100 : 0;
+      
+      return answered > 0 ? Math.round((answered / optionalFields.length) * 100) : 0;
     };
 
     setSectionProgress({
@@ -104,7 +106,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   };
 
   const handleNext = () => {
-    if (currentSection < 4 && canProceedToNext(currentSection)) {
+    if (currentSection === 3 && canProceedToNext(3)) {
+      // After section 3, show optional prompt
+      setShowOptionalPrompt(true);
+    } else if (currentSection < 4 && canProceedToNext(currentSection)) {
       setCurrentSection(currentSection + 1);
     } else if (currentSection === 4) {
       handleComplete();
@@ -117,6 +122,16 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     }
   };
 
+  const handleOptionalYes = () => {
+    setShowOptionalPrompt(false);
+    setCurrentSection(4);
+  };
+
+  const handleOptionalNo = () => {
+    setShowOptionalPrompt(false);
+    handleComplete();
+  };
+
   const handleComplete = () => {
     const completedData = {
       ...profileData,
@@ -125,15 +140,15 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     };
     saveData(completedData);
     onComplete(completedData);
-    toast.success("Your profile is complete! Let's start your journey with RealTalk.");
+    toast.success("🎉 Your profile is complete! Let's start your journey with RealTalk.");
   };
 
   const getSectionIcon = (section: number) => {
     switch (section) {
-      case 1: return <User className="w-4 h-4" />;
-      case 2: return <Heart className="w-4 h-4" />;
-      case 3: return <Brain className="w-4 h-4" />;
-      case 4: return <Check className="w-4 h-4" />;
+      case 1: return <User className="w-5 h-5" />;
+      case 2: return <Heart className="w-5 h-5" />;
+      case 3: return <Brain className="w-5 h-5" />;
+      case 4: return <Sparkles className="w-5 h-5" />;
       default: return null;
     }
   };
@@ -185,8 +200,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading your profile...</p>
+            <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg">Loading your profile...</p>
           </div>
         </div>
       </div>
@@ -194,127 +209,177 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="p-6 border-b bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full -translate-y-16 translate-x-16 opacity-20"></div>
-          <div className="relative">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
-                  {getSectionIcon(currentSection)}
+    <>
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          {/* Header */}
+          <div className="p-8 border-b bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full -translate-y-16 translate-x-16 opacity-20"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                    {getSectionIcon(currentSection)}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Let's Get to Know You
+                    </h2>
+                    <p className="text-gray-600">
+                      Building your personalized relationship profile
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Let's Get to Know You
-                  </h2>
-                  <p className="text-gray-600">
-                    Building your personalized relationship profile
-                  </p>
+                <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700 rounded-full p-2">
+                  <X className="w-6 h-6" />
+                </Button>
+              </div>
+
+              {/* Section Progress */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg font-bold text-gray-700">Section {currentSection} of 4</span>
+                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse"></div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-base font-semibold text-purple-600">
+                      {getSectionTitle(currentSection)}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {getSectionTime(currentSection)}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Progress 
+                    value={sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]} 
+                    className="h-3 bg-gray-200" 
+                  />
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">
+                      {sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]}% complete
+                    </span>
+                    <span className="text-purple-600 font-medium">
+                      {currentSection === 4 ? 'Optional section' : 'Required'}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700 rounded-full">
-                <X className="w-5 h-5" />
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-8">
+            {renderCurrentSection()}
+          </div>
+
+          {/* Navigation Footer */}
+          <div className="p-8 border-t bg-gray-50/80 backdrop-blur-sm">
+            <div className="flex justify-between items-center">
+              {/* Back Button */}
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                disabled={currentSection === 1}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                Previous
+              </Button>
+              
+              {/* Section Indicators */}
+              <div className="flex gap-3 items-center">
+                {Array.from({ length: 4 }, (_, i) => {
+                  const sectionNum = i + 1;
+                  const isCurrent = sectionNum === currentSection;
+                  const isCompleted = sectionProgress[`section${sectionNum}` as keyof typeof sectionProgress] === 100;
+                  const isAccessible = sectionNum <= currentSection || isCompleted;
+                  
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => isAccessible && setCurrentSection(sectionNum)}
+                      disabled={!isAccessible}
+                      className={`w-14 h-14 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                        isCurrent 
+                          ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-110 ring-4 ring-purple-200' 
+                          : isCompleted 
+                            ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer hover:scale-105 shadow-md' 
+                            : isAccessible
+                              ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer hover:scale-105 shadow-md'
+                              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      {isCompleted && sectionNum !== currentSection ? <Check className="w-6 h-6" /> : sectionNum}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Next/Complete Button */}
+              <Button
+                onClick={handleNext}
+                disabled={!canProceedToNext(currentSection) && currentSection !== 4}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ${
+                  currentSection === 4 
+                    ? 'bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white' 
+                    : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {currentSection === 4 ? 'Complete Profile' : 'Next Section'}
+                {currentSection === 4 ? <Check className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
               </Button>
             </div>
-
-            {/* Section Progress */}
-            <div className="bg-white/70 rounded-xl p-4">
-              <div className="flex justify-between items-center mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-gray-700">Section {currentSection} of 4</span>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-purple-600 font-medium">
-                    {getSectionTitle(currentSection)}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {getSectionTime(currentSection)}
-                  </div>
-                </div>
-              </div>
-              <Progress value={sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]} className="h-3 bg-gray-200" />
-              <div className="text-xs text-gray-500 mt-2 text-center">
-                {sectionProgress[`section${currentSection}` as keyof typeof sectionProgress]}% complete
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          {renderCurrentSection()}
-        </div>
-
-        {/* Navigation Footer */}
-        <div className="p-6 border-t bg-gray-50/80 backdrop-blur-sm">
-          <div className="flex justify-between items-center">
-            {/* Back Button */}
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              disabled={currentSection === 1}
-              className="flex items-center gap-2 px-6 py-2 rounded-xl border-gray-300 hover:bg-gray-100"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Previous
-            </Button>
             
-            {/* Section Indicators */}
-            <div className="flex gap-2 items-center">
-              {Array.from({ length: 4 }, (_, i) => {
-                const sectionNum = i + 1;
-                const isCurrent = sectionNum === currentSection;
-                const isCompleted = sectionProgress[`section${sectionNum}` as keyof typeof sectionProgress] === 100;
-                const isAccessible = sectionNum <= currentSection || isCompleted;
-                
-                return (
-                  <button
-                    key={i}
-                    onClick={() => isAccessible && setCurrentSection(sectionNum)}
-                    disabled={!isAccessible}
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center text-sm font-semibold transition-all duration-300 ${
-                      isCurrent 
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-110' 
-                        : isCompleted 
-                          ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer hover:scale-105 shadow-md' 
-                          : isAccessible
-                            ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer hover:scale-105 shadow-md'
-                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    }`}
-                  >
-                    {isCompleted && sectionNum !== currentSection ? <Check className="w-5 h-5" /> : sectionNum}
-                  </button>
-                );
-              })}
+            {/* Help text */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-500 bg-white/60 backdrop-blur-sm rounded-full px-6 py-3 inline-block border border-gray-200">
+                {currentSection < 4 
+                  ? '💡 Complete all required questions to proceed to the next section' 
+                  : '🌟 This section is optional but helps provide more personalized insights'
+                }
+              </p>
             </div>
-
-            {/* Next/Complete Button */}
-            <Button
-              onClick={handleNext}
-              disabled={!canProceedToNext(currentSection) && currentSection !== 4}
-              className={`flex items-center gap-2 px-6 py-2 rounded-xl ${
-                currentSection === 4 
-                  ? 'bg-green-600 hover:bg-green-700' 
-                  : 'bg-purple-600 hover:bg-purple-700'
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
-            >
-              {currentSection === 4 ? 'Complete Profile' : 'Next Section'}
-              {currentSection === 4 ? <Check className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
-            </Button>
-          </div>
-          
-          {/* Help text */}
-          <div className="mt-4 text-center">
-            <p className="text-xs text-gray-500 bg-white/60 rounded-full px-4 py-2 inline-block">
-              💡 {currentSection < 4 ? 'Complete all required questions to proceed' : 'This section is optional but helps personalize your experience'}
-            </p>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Optional Section Prompt */}
+      {showOptionalPrompt && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-60 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center">
+            <div className="text-4xl mb-4">🎉</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Nice work! You've covered the essentials.
+            </h3>
+            <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+              Want to unlock even deeper insights? Adding more context helps 
+              our relationship coach give you more personalized guidance.
+            </p>
+            <div className="space-y-4">
+              <Button
+                onClick={handleOptionalYes}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Yes, let's go deeper
+                <Sparkles className="w-5 h-5 ml-2" />
+              </Button>
+              <Button
+                onClick={handleOptionalNo}
+                className="w-full bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                I'm ready to start coaching
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </div>
+            <p className="text-sm text-gray-500 mt-4">
+              You can always add more details later in your profile
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

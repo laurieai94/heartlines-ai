@@ -35,52 +35,58 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
-        <h3 className="text-xl font-semibold text-gray-900">How You Operate</h3>
-        <p className="text-gray-600">Understanding your patterns helps us provide better support</p>
-        <p className="text-xs text-green-600">✓ Your answers are automatically saved</p>
+        <h3 className="text-2xl font-bold text-gray-900">How You Operate</h3>
+        <p className="text-gray-600 text-lg">Understanding your patterns helps us provide better support</p>
+        <div className="flex items-center justify-center gap-2 text-sm text-green-600 bg-green-50 rounded-full px-4 py-2 mx-auto w-fit">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          Your answers are automatically saved
+        </div>
       </div>
 
       {/* Stress Response */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">
-          When relationship stress hits, you typically: <span className="text-red-500">*</span>
+      <div className="space-y-4">
+        <Label className="text-base font-semibold text-gray-700">
+          When relationship stress hits, you typically: <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-xs text-gray-500">Check all that apply</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <p className="text-sm text-purple-600 font-medium">✨ Check all that apply</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {stressResponseOptions.map((response) => (
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all text-left ${
+              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.stressResponse || []).includes(response)
-                  ? 'bg-purple-500 text-white border-purple-500'
-                  : 'bg-white border-gray-300 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
               }`}
             >
               {response}
             </button>
           ))}
         </div>
+        <p className="text-xs text-gray-400">
+          💡 <strong>Why we ask:</strong> Understanding your stress patterns helps us suggest coping strategies that actually work for you
+        </p>
       </div>
 
       {/* Conflict Needs */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">
-          In conflict, what do you need most? <span className="text-red-500">*</span>
+      <div className="space-y-4">
+        <Label className="text-base font-semibold text-gray-700">
+          In conflict, what do you need most? <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-xs text-gray-500">Select up to 3</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <p className="text-sm text-purple-600 font-medium">✨ Select up to 3</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {conflictNeedsOptions.map((need) => (
             <button
               key={need}
               onClick={() => handleMultiSelect('conflictNeeds', need)}
               disabled={(profileData.conflictNeeds || []).length >= 3 && !(profileData.conflictNeeds || []).includes(need)}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all text-left ${
+              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.conflictNeeds || []).includes(need)
-                  ? 'bg-purple-500 text-white border-purple-500'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 shadow-lg'
                   : (profileData.conflictNeeds || []).length >= 3
                     ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50 shadow-sm hover:shadow-md'
               }`}
             >
               {need}
@@ -88,30 +94,33 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         {(profileData.conflictNeeds || []).length > 0 && (
-          <p className="text-xs text-gray-500">
+          <p className="text-sm text-purple-600 font-medium">
             Selected: {(profileData.conflictNeeds || []).length}/3
           </p>
         )}
+        <p className="text-xs text-gray-400">
+          💡 <strong>Why we ask:</strong> Knowing what you need during conflict helps us coach you and your partner through difficult moments
+        </p>
       </div>
 
       {/* Feel Loved When */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">
-          You feel most loved when someone: <span className="text-red-500">*</span>
+      <div className="space-y-4">
+        <Label className="text-base font-semibold text-gray-700">
+          You feel most loved when someone: <span className="text-red-500 text-lg">*</span>
         </Label>
-        <p className="text-xs text-gray-500">Select up to 3</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <p className="text-sm text-purple-600 font-medium">✨ Select up to 3</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {feelLovedOptions.map((way) => (
             <button
               key={way}
               onClick={() => handleMultiSelect('feelLovedWhen', way)}
               disabled={(profileData.feelLovedWhen || []).length >= 3 && !(profileData.feelLovedWhen || []).includes(way)}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all text-left ${
+              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 (profileData.feelLovedWhen || []).includes(way)
-                  ? 'bg-pink-500 text-white border-pink-500'
+                  ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-lg'
                   : (profileData.feelLovedWhen || []).length >= 3
                     ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50 shadow-sm hover:shadow-md'
               }`}
             >
               {way}
@@ -119,44 +128,51 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         {(profileData.feelLovedWhen || []).length > 0 && (
-          <p className="text-xs text-gray-500">
+          <p className="text-sm text-purple-600 font-medium">
             Selected: {(profileData.feelLovedWhen || []).length}/3
           </p>
         )}
+        <p className="text-xs text-gray-400">
+          💡 <strong>Why we ask:</strong> Understanding your love language helps us suggest ways to feel more connected in your relationships
+        </p>
       </div>
 
       {/* Attachment Style */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">
-          Your attachment style (if known): <span className="text-red-500">*</span>
+      <div className="space-y-4">
+        <Label className="text-base font-semibold text-gray-700">
+          Your attachment style (if known): <span className="text-red-500 text-lg">*</span>
         </Label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {attachmentOptions.map((style) => (
             <button
               key={style}
               onClick={() => updateField('attachmentStyle', style)}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all text-left ${
+              className={`p-4 rounded-xl border-2 text-base font-medium transition-all duration-200 text-left hover:scale-105 ${
                 profileData.attachmentStyle === style
-                  ? 'bg-blue-500 text-white border-blue-500'
-                  : 'bg-white border-gray-300 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-blue-500 shadow-lg'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md'
               }`}
             >
               {style}
             </button>
           ))}
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-sm text-gray-500 mt-2">
           Don't worry if you're not sure - we can explore this together
+        </p>
+        <p className="text-xs text-gray-400">
+          💡 <strong>Why we ask:</strong> Attachment style influences how you connect, communicate, and handle relationship challenges
         </p>
       </div>
 
-      {/* Encouragement */}
-      <div className="text-center p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
-        <p className="text-sm text-gray-700 font-medium">
-          🎉 Great! You're helping RealTalk understand how to support you better
+      {/* Encouraging Progress Message */}
+      <div className="text-center p-6 bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 rounded-2xl border-2 border-purple-100">
+        <div className="text-2xl mb-2">🎉</div>
+        <p className="text-lg font-semibold text-purple-900 mb-2">
+          Great! You've covered the essentials
         </p>
-        <p className="text-xs text-gray-500 mt-1">
-          The next section is optional but helps provide even more personalized insights
+        <p className="text-purple-700">
+          You're helping RealTalk understand how to support you better. The next section is optional but helps provide even more personalized insights.
         </p>
       </div>
     </div>
