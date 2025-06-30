@@ -32,26 +32,16 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
     'Past experiences', 'Therapy/development', 'Trauma', 'Creating own blueprint'
   ];
 
-  const mentalHealthOptions = [
-    'Good space', 'Managing anxiety/depression', 'Working through trauma',
-    'Major life stress', 'In therapy', 'Prefer not to share'
-  ];
-
-  const growthAreasOptions = [
-    'Self-awareness', 'Communication/conflict resolution', 'Boundaries', 'Trust/intimacy',
-    'Breaking patterns', 'Healing hurt', 'Understanding attachment', 'Creating desired relationship'
-  ];
-
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h3 className="text-xl font-bold text-gray-900">Your Foundation</h3>
+        <h3 className="text-xl font-bold text-gray-900">Your Foundation 🌱</h3>
         <p className="text-gray-600">
-          These details are <strong>completely optional</strong> but help unlock deeper insights
+          What shaped your love style
         </p>
         <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
           <p className="text-rose-700 font-medium text-sm">
-            💡 Skip any questions that don't feel right to answer - you can always come back later
+            <span className="text-red-500">*</span> Please answer at least one question to complete this section
           </p>
         </div>
       </div>
@@ -63,7 +53,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Family Dynamics */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              Family dynamics growing up <span className="text-gray-500 font-normal">(Optional)</span>
+              Family dynamics growing up
             </Label>
             <div className="space-y-2">
               {familyDynamicsOptions.map((dynamic) => (
@@ -88,7 +78,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Love Messages */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              Messages about love received <span className="text-gray-500 font-normal">(Optional)</span>
+              Messages about love received
             </Label>
             <div className="space-y-2">
               {loveMessagesOptions.map((message) => (
@@ -109,31 +99,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               Early messages shape our expectations and relationship patterns
             </p>
           </div>
-
-          {/* Mental Health Context */}
-          <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
-              Current mental health context <span className="text-gray-500 font-normal">(Optional)</span>
-            </Label>
-            <div className="grid grid-cols-1 gap-2">
-              {mentalHealthOptions.map((context) => (
-                <button
-                  key={context}
-                  onClick={() => updateField('mentalHealthContext', context)}
-                  className={`p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-                    profileData.mentalHealthContext === context
-                      ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white border-green-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50'
-                  }`}
-                >
-                  {context}
-                </button>
-              ))}
-            </div>
-            <p className="text-xs text-gray-500">
-              Mental health affects relationships, and we want to provide appropriate support
-            </p>
-          </div>
         </div>
 
         {/* Right Column */}
@@ -141,7 +106,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Parent Conflict Style */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              How parents handled conflict <span className="text-gray-500 font-normal">(Optional)</span>
+              How parents handled conflict
             </Label>
             <div className="space-y-2">
               {parentConflictOptions.map((style) => (
@@ -166,7 +131,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Love Influences */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              What influenced love ideas <span className="text-gray-500 font-normal">(Optional)</span>
+              What influenced love ideas
             </Label>
             <div className="space-y-2">
               {loveInfluencesOptions.map((influence) => (
@@ -185,31 +150,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             </div>
             <p className="text-xs text-gray-500">
               Understanding what shaped beliefs helps us provide relevant guidance
-            </p>
-          </div>
-
-          {/* Growth Areas */}
-          <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
-              What hoping to grow in <span className="text-gray-500 font-normal">(Optional)</span>
-            </Label>
-            <div className="space-y-2">
-              {growthAreasOptions.map((area) => (
-                <button
-                  key={area}
-                  onClick={() => handleMultiSelect('growthAreas', area)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-                    (profileData.growthAreas || []).includes(area)
-                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
-                  }`}
-                >
-                  {area}
-                </button>
-              ))}
-            </div>
-            <p className="text-xs text-gray-500">
-              Growth goals help us prioritize the most relevant coaching topics
             </p>
           </div>
         </div>

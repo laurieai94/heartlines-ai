@@ -26,12 +26,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     'Major relationship decision'
   ];
 
-  const biggestChallengeOptions = [
-    'Communication breakdowns', 'Feeling disconnected', 'Trust/safety/betrayal',
-    'Boundaries', 'Intimacy/sexual connection', 'Understanding patterns/triggers',
-    'Relationship decision', 'Breaking cycles'
-  ];
-
   const workingWellOptions = [
     'Emotionally connected', 'Can laugh together', 'Talk through conflict',
     'Support growth', 'Sexually compatible', 'On same page',
@@ -42,16 +36,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     'Argue often', 'Avoid issues', 'Feel distant', 'Don\'t feel heard',
     'Emotionally shut down', 'Trust/safety concerns', 'Betrayal/break',
     'Want different things', 'Stuck in pattern'
-  ];
-
-  const livingOptions = [
-    'Live together full-time', 'Live apart', 'Stay over frequently',
-    'On/off', 'It\'s complicated'
-  ];
-
-  const emotionalConnectionOptions = [
-    'Deeply connected', 'Mostly close', 'Sometimes connected',
-    'Often disconnected', 'On different pages', 'Unsure how I feel'
   ];
 
   const showRelationshipDeepDive = profileData.relationshipStatus && 
@@ -115,7 +99,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           {/* What's Working */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              What's working well <span className="text-gray-500 font-normal">(Optional)</span>
+              What's working well <span className="text-red-500">*</span>
               <span className="text-green-600 font-medium text-xs ml-2 block">✨ Check all that apply</span>
             </Label>
             <div className="space-y-2">
@@ -133,12 +117,13 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
+            <p className="text-xs text-gray-500">Required to understand your relationship strengths</p>
           </div>
 
           {/* What's Difficult */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              What feels difficult <span className="text-gray-500 font-normal">(Optional)</span>
+              What feels difficult <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2 block">✨ Check all that apply</span>
             </Label>
             <div className="space-y-2">
@@ -156,6 +141,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
+            <p className="text-xs text-gray-500">Required to understand areas for growth</p>
           </div>
         </div>
       )}
@@ -182,38 +168,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         <p className="text-xs text-gray-500">Helps us understand your coaching focus</p>
-      </div>
-
-      {/* Biggest Challenge */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">
-          Biggest relationship challenge <span className="text-red-500">*</span>
-          <span className="text-rose-600 font-medium text-xs ml-2">✨ Select up to 3</span>
-        </Label>
-        <div className="grid grid-cols-2 gap-2">
-          {biggestChallengeOptions.map((challenge) => (
-            <button
-              key={challenge}
-              onClick={() => handleMultiSelect('biggestChallenge', challenge)}
-              disabled={(profileData.biggestChallenge || []).length >= 3 && !(profileData.biggestChallenge || []).includes(challenge)}
-              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-                (profileData.biggestChallenge || []).includes(challenge)
-                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
-                  : (profileData.biggestChallenge || []).length >= 3
-                    ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
-              }`}
-            >
-              {challenge}
-            </button>
-          ))}
-        </div>
-        {(profileData.biggestChallenge || []).length > 0 && (
-          <p className="text-sm text-rose-600 font-medium">
-            Selected: {(profileData.biggestChallenge || []).length}/3
-          </p>
-        )}
-        <p className="text-xs text-gray-500">Guides our coaching priorities for you</p>
       </div>
 
       {/* Progress Message */}

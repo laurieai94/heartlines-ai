@@ -50,16 +50,25 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         });
       }
       case 2: {
-        const required = ['relationshipStatus', 'whyRealTalk', 'biggestChallenge'];
-        const isValid = required.every(field => {
+        const required = ['relationshipStatus', 'whyRealTalk'];
+        let isValid = required.every(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
         });
         
+        // If in a relationship, require relationship length and relationship details
         if (profileData.relationshipStatus && 
-            !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus) &&
-            !profileData.relationshipLength) {
-          return false;
+            !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
+          if (!profileData.relationshipLength) {
+            isValid = false;
+          }
+          // Require at least one selection for both working well and feels difficult
+          if (!profileData.workingWell || profileData.workingWell.length === 0) {
+            isValid = false;
+          }
+          if (!profileData.feelsDifficult || profileData.feelsDifficult.length === 0) {
+            isValid = false;
+          }
         }
         
         return isValid;
@@ -67,6 +76,14 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
       case 3: {
         const required = ['stressResponse', 'conflictNeeds', 'feelLovedWhen', 'attachmentStyle'];
         return required.every(field => {
+          const value = profileData[field];
+          return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+        });
+      }
+      case 4: {
+        // Make foundation section required - at least one field must be filled
+        const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
+        return optionalFields.some(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
         });
@@ -96,6 +113,11 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   };
 
   const handleComplete = () => {
+    if (!validateSection(4)) {
+      toast.error("Please answer at least one question in Your Foundation section");
+      return;
+    }
+
     const completedData = {
       ...profileData,
       completedAt: new Date().toISOString(),
@@ -111,10 +133,16 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   const getRequiredCount = (section: number) => {
     switch (section) {
       case 1: return 4;
-      case 2: return profileData.relationshipStatus && 
-                    !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus) 
-                    ? 4 : 3;
+      case 2: {
+        let base = 2; // relationshipStatus, whyRealTalk
+        if (profileData.relationshipStatus && 
+            !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
+          base += 3; // relationshipLength, workingWell, feelsDifficult
+        }
+        return base;
+      }
       case 3: return 4;
+      case 4: return 1; // At least one field required
       default: return 0;
     }
   };
@@ -129,18 +157,30 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         }).length;
       }
       case 2: {
-        let fields = ['relationshipStatus', 'whyRealTalk', 'biggestChallenge'];
+        let fields = ['relationshipStatus', 'whyRealTalk'];
+        let completed = fields.filter(field => {
+          const value = profileData[field];
+          return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+        }).length;
+        
         if (profileData.relationshipStatus && 
             !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
-          fields.push('relationshipLength');
+          if (profileData.relationshipLength) completed++;
+          if (profileData.workingWell && profileData.workingWell.length > 0) completed++;
+          if (profileData.feelsDifficult && profileData.feelsDifficult.length > 0) completed++;
         }
+        
+        return completed;
+      }
+      case 3: {
+        const fields = ['stressResponse', 'conflictNeeds', 'feelLovedWhen', 'attachmentStyle'];
         return fields.filter(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
         }).length;
       }
-      case 3: {
-        const fields = ['stressResponse', 'conflictNeeds', 'feelLovedWhen', 'attachmentStyle'];
+      case 4: {
+        const fields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
         return fields.filter(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -152,17 +192,27 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return "Who You Are";
-      case 2: return "Your Relationship World";
-      case 3: return "How You Operate";
-      case 4: return "Your Foundation";
+      case 1: return "About You ✨";
+      case 2: return "Your Situation 💕";
+      case 3: return "Your Vibe 🧠";
+      case 4: return "Your Foundation 🌱";
+      default: return "";
+    }
+  };
+
+  const getSectionDescription = (section: number) => {
+    switch (section) {
+      case 1: return "The essentials we need to know";
+      case 2: return "What's your relationship status rn";
+      case 3: return "How you handle conflict and connection";
+      case 4: return "What shaped your love style";
       default: return "";
     }
   };
 
   const handleSectionClick = (section: number) => {
     const isAccessible = sectionReadiness[section];
-    const isCompleted = section < currentSection || (section <= 3 && validateSection(section));
+    const isCompleted = section < currentSection || validateSection(section);
     
     if (isAccessible || isCompleted) {
       setCurrentSection(section);
@@ -189,7 +239,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           <div className="space-y-3 flex-1">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
-              const isCompleted = section < currentSection || (section <= 3 && validateSection(section));
+              const isCompleted = section < currentSection || validateSection(section);
               const isAccessible = sectionReadiness[section] || isCompleted;
               const requiredCount = getRequiredCount(section);
               const completedCount = getCompletedCount(section);
@@ -213,21 +263,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                     <span className="font-semibold text-sm">{getSectionTitle(section)}</span>
                     {isCompleted && <Check className="w-4 h-4" />}
                   </div>
-                  {section <= 3 && (
-                    <div className="text-xs opacity-75 mb-1">
-                      {completedCount}/{requiredCount} required
-                    </div>
-                  )}
-                  {section === 1 && (
-                    <div className="text-xs opacity-75 text-left">
-                      We use this to personalize your experience and provide relevant guidance
-                    </div>
-                  )}
-                  {section === 4 && (
-                    <div className="text-xs opacity-75 text-left">
-                      Optional - deeper insights
-                    </div>
-                  )}
+                  <div className="text-xs opacity-75 mb-1">
+                    {completedCount}/{requiredCount} required
+                  </div>
+                  <div className="text-xs opacity-75 text-left">
+                    {getSectionDescription(section)}
+                  </div>
                 </button>
               );
             })}
@@ -244,9 +285,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           {/* Compact Header */}
           <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xl font-bold text-gray-900">
-                {getSectionTitle(currentSection)}
-              </h2>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">
+                  {getSectionTitle(currentSection)}
+                </h2>
+                <p className="text-sm text-gray-600">{getSectionDescription(currentSection)}</p>
+              </div>
               <div className="text-sm text-gray-600">
                 Step {currentSection} of 4
               </div>
@@ -300,13 +344,11 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             </Button>
 
             <div className="text-xs text-gray-500">
-              {currentSection <= 3 && (
-                <>Progress: {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required</>
-              )}
+              Progress: {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
             </div>
 
             <div className="flex gap-2">
-              {currentSection < 3 && (
+              {currentSection < 4 && (
                 <Button
                   onClick={handleNext}
                   disabled={!validateSection(currentSection)}
@@ -316,30 +358,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               )}
-              {currentSection === 3 && validateSection(3) && (
-                <Button
-                  onClick={() => {
-                    setSectionReadiness(prev => ({ ...prev, 4: true }));
-                    setCurrentSection(4);
-                  }}
-                  className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white flex items-center gap-2 px-4 py-2"
-                >
-                  Continue Optional
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              )}
-              {currentSection === 3 && validateSection(3) && (
-                <Button
-                  onClick={handleComplete}
-                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2 px-4 py-2"
-                >
-                  <Check className="w-4 h-4" />
-                  Complete Profile
-                </Button>
-              )}
               {currentSection === 4 && (
                 <Button
                   onClick={handleComplete}
+                  disabled={!validateSection(4)}
                   className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white flex items-center gap-2 px-4 py-2"
                 >
                   <Check className="w-4 h-4" />

@@ -131,7 +131,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       {/* Attachment Style */}
       <div className="space-y-3">
         <Label className="text-sm font-medium text-gray-700">
-          Your attachment style (if known): <span className="text-red-500">*</span>
+          Your attachment style: <span className="text-red-500">*</span>
         </Label>
         <div className="grid grid-cols-3 gap-2">
           {attachmentOptions.map((style) => (
@@ -163,7 +163,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           Great! You've covered the essentials
         </p>
         <p className="text-sm text-rose-700">
-          You're helping RealTalk understand how to support you better. The next section is optional but helps provide even more personalized insights.
+          You're helping RealTalk understand how to support you better. One more section to complete your foundation.
         </p>
       </div>
     </div>
