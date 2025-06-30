@@ -27,31 +27,43 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
 
-  // Combine all profile data sources into a unified format
+  // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
 
   useEffect(() => {
+    console.log('=== AIInsights: Profile Data Sources ===');
+    console.log('personalProfileData:', personalProfileData);
+    console.log('personalProfilePersistence:', personalProfilePersistence);
+    console.log('temporaryProfiles:', temporaryProfiles);
+    console.log('temporaryDemographics:', temporaryDemographics);
+    console.log('personalDataReady:', personalDataReady);
+    console.log('persistenceReady:', persistenceReady);
+
     if (personalDataReady && persistenceReady) {
-      // Merge personal profile data from both hooks
+      // Merge ALL personal profile data sources
       const mergedPersonalData = {
+        ...temporaryDemographics.your,
         ...personalProfilePersistence,
         ...personalProfileData
       };
 
-      // Create unified profile structure
+      console.log('=== Merged Personal Data ===', mergedPersonalData);
+
+      // Create unified profile structure - ensure we have data in both profile and demographics
       const newUnifiedProfiles = {
-        your: mergedPersonalData && Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
+        your: Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
         partner: temporaryProfiles.partner
       };
 
       const newUnifiedDemographics = {
-        your: mergedPersonalData && Object.keys(mergedPersonalData).length > 0 ? mergedPersonalData : temporaryDemographics.your,
+        your: Object.keys(mergedPersonalData).length > 0 ? mergedPersonalData : temporaryDemographics.your,
         partner: temporaryDemographics.partner
       };
 
-      console.log('Unified profile data:', newUnifiedProfiles);
-      console.log('Unified demographics data:', newUnifiedDemographics);
+      console.log('=== Final Unified Data ===');
+      console.log('newUnifiedProfiles:', newUnifiedProfiles);
+      console.log('newUnifiedDemographics:', newUnifiedDemographics);
 
       setUnifiedProfiles(newUnifiedProfiles);
       setUnifiedDemographics(newUnifiedDemographics);
@@ -117,6 +129,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     const messages = startNewConversation();
     setChatHistory(messages);
   };
+
+  // Debug: Log what we're passing to AIChat
+  console.log('=== Passing to AIChat ===');
+  console.log('unifiedProfiles:', unifiedProfiles);
+  console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
     <div className="flex gap-4 h-full overflow-hidden">

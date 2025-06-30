@@ -1,3 +1,4 @@
+
 import { PersonContext, ChatMessage } from "@/types/AIInsights";
 import { AIService } from "@/services/aiService";
 
@@ -21,18 +22,20 @@ export class AICoachEngine {
   }
 
   static buildPersonContext(profiles: any, demographicsData: any): PersonContext {
-    console.log('Raw profiles data:', profiles);
-    console.log('Raw demographics data:', demographicsData);
+    console.log('=== AICoachEngine.buildPersonContext ===');
+    console.log('Input profiles:', profiles);
+    console.log('Input demographicsData:', demographicsData);
     
-    const yourProfile = profiles.your[0] || {};
-    const partnerProfile = profiles.partner[0] || {};
-    const yourDemographics = demographicsData.your || {};
-    const partnerDemographics = demographicsData.partner || {};
+    const yourProfile = profiles?.your?.[0] || {};
+    const partnerProfile = profiles?.partner?.[0] || {};
+    const yourDemographics = demographicsData?.your || {};
+    const partnerDemographics = demographicsData?.partner || {};
 
-    console.log('Processed yourProfile:', yourProfile);
-    console.log('Processed partnerProfile:', partnerProfile);
-    console.log('Processed yourDemographics:', yourDemographics);
-    console.log('Processed partnerDemographics:', partnerDemographics);
+    console.log('=== Extracted Data ===');
+    console.log('yourProfile:', yourProfile);
+    console.log('partnerProfile:', partnerProfile);
+    console.log('yourDemographics:', yourDemographics);
+    console.log('partnerDemographics:', partnerDemographics);
 
     // Helper function to extract array values safely
     const extractArrayValue = (value: any): string[] => {
@@ -49,7 +52,7 @@ export class AICoachEngine {
     };
 
     // Build context from the unified profile data
-    const context = {
+    const context: PersonContext = {
       relationship: {
         length: yourProfile.relationshipLength || yourDemographics.relationshipLength || undefined,
         livingTogether: yourDemographics.livingTogether || yourProfile.livingTogether || false,
@@ -112,13 +115,20 @@ export class AICoachEngine {
       context.dynamics.conflictDynamic = `${context.yourTraits.conflictStyle}-${context.partnerTraits.conflictStyle}`;
     }
 
-    console.log('Final context built:', context);
+    console.log('=== Final Context Built ===');
+    console.log('context:', context);
+    console.log('Has user name:', !!context.yourTraits.name);
+    console.log('Has user data:', Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length);
+    
     return context;
   }
 
   static async getAIResponse(userMessage: string, context: PersonContext, chatHistory: ChatMessage[] = [], enhancedPrompt?: string): Promise<string> {
-    console.log('Getting AI response via Supabase...');
+    console.log('=== Getting AI Response ===');
+    console.log('User message:', userMessage);
     console.log('Context being used:', context);
+    console.log('User name from context:', context.yourTraits.name);
+    console.log('User has profile data:', Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length > 1);
 
     // Debug command
     if (userMessage.toUpperCase().includes("DEBUG PROFILES")) {
@@ -171,8 +181,14 @@ export class AICoachEngine {
     const userName = context.yourTraits.name || "the user";
     const partnerName = context.partnerTraits.name || "their partner";
 
+    console.log('=== Building System Prompt ===');
+    console.log('userName:', userName);
+    console.log('partnerName:', partnerName);
+    console.log('Has user profile data:', Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length > 1);
+
     // Build dynamic contextual insights
     const contextualInsights = this.buildContextualInsights(context);
+    console.log('Contextual insights built, length:', contextualInsights.length);
 
     return `You are Kai, an AI relationship coach for RealTalk with PhD-level expertise in relationship psychology. Your approach combines evidence-based therapeutic knowledge with warm, conversational interaction.
 
@@ -271,6 +287,9 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
     const userName = context.yourTraits.name || "the user";
     const partnerName = context.partnerTraits.name || "their partner";
     
+    console.log('=== Building Contextual Insights ===');
+    console.log('Building insights for:', userName, 'and', partnerName);
+    
     let insights = `**About ${userName}:**\n`;
     
     if (context.yourTraits.age) {
@@ -355,6 +374,7 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
       insights += `- Conflict dynamic: ${context.dynamics.conflictDynamic} - tailor conflict advice to this pattern\n`;
     }
 
+    console.log('Contextual insights built:', insights.length, 'characters');
     return insights;
   }
 
@@ -375,7 +395,7 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
     const userName = context.yourTraits.name || "Unknown";
     const partnerName = context.partnerTraits.name || "Unknown";
 
-    return `DEBUG - Here's what Kai can see:
+    return `🔍 **DEBUG - Here's what Kai can see:**
 
 **About ${userName}:**
 - Name: ${context.yourTraits.name || "Not specified"}
@@ -390,6 +410,8 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
 - Strengths: ${context.yourTraits.strengths?.join(", ") || "None listed"}
 - Growth areas: ${context.yourTraits.growthAreas?.join(", ") || "None listed"}
 - Why RealTalk: ${context.yourTraits.whyRealTalk?.join(", ") || "Not specified"}
+- Education: ${context.yourTraits.education || "Not specified"}
+- Work situation: ${context.yourTraits.workSituation || "Not specified"}
 
 **About ${partnerName}:**
 - Name: ${context.partnerTraits.name || "Not specified"}
@@ -404,8 +426,12 @@ Remember: You are Kai, not just an AI - you're a relationship coach with deep ex
 - Length: ${context.relationship.length || "Not specified"}
 - Living together: ${context.relationship.livingTogether ? "Yes" : "No"}
 
-**AI Service Status:** ${this.aiService ? "Connected - Supabase Backend" : "Not connected"}
+**AI Service Status:** ${this.aiService ? "✅ Connected - Supabase Backend" : "❌ Not connected"}
 
-Kai is ready with comprehensive relationship psychology expertise. If any profile data is wrong or missing, there may be a profile access issue.`;
+**Profile Data Summary:**
+- User traits defined: ${Object.keys(context.yourTraits).filter(key => context.yourTraits[key as keyof typeof context.yourTraits] !== undefined).length}
+- Partner traits defined: ${Object.keys(context.partnerTraits).filter(key => context.partnerTraits[key as keyof typeof context.partnerTraits] !== undefined).length}
+
+If any profile data is missing, there may be a profile access issue. Try filling out your profile in the Demographics section!`;
   }
 }
