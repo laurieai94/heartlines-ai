@@ -59,7 +59,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Family patterns often influence how we approach relationships as adults
+              💡 Family patterns often influence how we approach relationships as adults
             </p>
           </div>
 
@@ -84,7 +84,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Early messages shape our expectations and relationship patterns
+              💡 Early messages shape our expectations and relationship patterns
             </p>
           </div>
         </div>
@@ -112,7 +112,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Conflict styles we observe often become our default approaches
+              💡 Conflict styles we observe often become our default approaches
             </p>
           </div>
 
@@ -137,7 +137,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Understanding what shaped beliefs helps us provide relevant guidance
+              💡 Understanding what shaped beliefs helps us provide relevant guidance
             </p>
           </div>
         </div>

@@ -83,12 +83,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-6">
-      <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-        <p className="text-blue-700 font-medium text-sm">
-          💡 Why we ask: These basics help RealTalk give you advice that fits your identity and life stage
-        </p>
-      </div>
-
       {/* Underage Modal */}
       {showUnderageModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
@@ -187,7 +181,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             placeholder="Your name"
             className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
           />
-          <p className="text-xs text-gray-500">Used throughout app for personalization</p>
+          <p className="text-xs text-gray-500">💡 Used throughout app for personalization</p>
         </div>
       </div>
 
@@ -250,6 +244,9 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             />
           </div>
         )}
+        <p className="text-xs text-gray-500">
+          💡 These basics help RealTalk give you advice that fits your identity and life stage
+        </p>
       </div>
 
       {/* Sexual Orientation - Compact Grid */}

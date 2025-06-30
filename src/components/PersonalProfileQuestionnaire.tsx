@@ -59,9 +59,14 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         // If in a relationship (not single not dating), require relationship details
         if (profileData.relationshipStatus && 
             !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
-          if (!profileData.relationshipLength) {
-            isValid = false;
+          
+          // Only require relationship length for defined relationships (not casual/complicated)
+          if (!['Casual/dating around', 'It\'s complicated'].includes(profileData.relationshipStatus)) {
+            if (!profileData.relationshipLength) {
+              isValid = false;
+            }
           }
+          
           // Require at least one selection for both working well and feels difficult
           if (!profileData.workingWell || profileData.workingWell.length === 0) {
             isValid = false;
@@ -137,7 +142,11 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         let base = 2; // relationshipStatus, whyRealTalk
         if (profileData.relationshipStatus && 
             !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
-          base += 3; // relationshipLength, workingWell, feelsDifficult
+          // Only add relationship length requirement for defined relationships
+          if (!['Casual/dating around', 'It\'s complicated'].includes(profileData.relationshipStatus)) {
+            base += 1; // relationshipLength
+          }
+          base += 2; // workingWell, feelsDifficult
         }
         return base;
       }
@@ -165,7 +174,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         
         if (profileData.relationshipStatus && 
             !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus)) {
-          if (profileData.relationshipLength) completed++;
+          // Only count relationship length for defined relationships
+          if (!['Casual/dating around', 'It\'s complicated'].includes(profileData.relationshipStatus)) {
+            if (profileData.relationshipLength) completed++;
+          }
           if (profileData.workingWell && profileData.workingWell.length > 0) completed++;
           if (profileData.feelsDifficult && profileData.feelsDifficult.length > 0) completed++;
         }

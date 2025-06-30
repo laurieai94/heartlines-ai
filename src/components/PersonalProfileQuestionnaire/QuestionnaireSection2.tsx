@@ -43,6 +43,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   // Check if user is in some form of relationship (not single not dating)
   const isInRelationship = profileData.relationshipStatus && 
     !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus);
+  
+  // Check if user is in a defined relationship that has a length (not casual/complicated)
+  const hasRelationshipLength = profileData.relationshipStatus && 
+    !['Single actively dating', 'Single not dating', 'Casual/dating around', 'It\'s complicated'].includes(profileData.relationshipStatus);
 
   return (
     <div className="space-y-6">
@@ -68,31 +72,33 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
         </div>
       </div>
 
+      {/* Conditional Relationship Length - Only show if in a defined relationship */}
+      {hasRelationshipLength && (
+        <div className="space-y-3">
+          <Label className="text-sm font-medium text-gray-700">
+            How long have you been together? <span className="text-red-500">*</span>
+          </Label>
+          <div className="grid grid-cols-3 gap-2">
+            {relationshipLengthOptions.map((length) => (
+              <button
+                key={length}
+                onClick={() => updateField('relationshipLength', length)}
+                className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-center hover:scale-105 ${
+                  profileData.relationshipLength === length
+                    ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                }`}
+              >
+                {length}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Conditional Relationship Details - Only show if in some form of relationship */}
       {isInRelationship && (
         <>
-          {/* Relationship Length */}
-          <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
-              How long have you been together? <span className="text-red-500">*</span>
-            </Label>
-            <div className="grid grid-cols-3 gap-2">
-              {relationshipLengthOptions.map((length) => (
-                <button
-                  key={length}
-                  onClick={() => updateField('relationshipLength', length)}
-                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-center hover:scale-105 ${
-                    profileData.relationshipLength === length
-                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
-                  }`}
-                >
-                  {length}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* What's Working Well */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
@@ -115,7 +121,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Knowing your strengths helps us build on what's already working
+              💡 Knowing your strengths helps us build on what's already working
             </p>
           </div>
 
@@ -141,7 +147,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               ))}
             </div>
             <p className="text-xs text-gray-500">
-              Understanding challenges helps us provide targeted guidance
+              💡 Understanding challenges helps us provide targeted guidance
             </p>
           </div>
         </>
@@ -169,7 +175,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
         <p className="text-xs text-gray-500">
-          This helps us tailor the experience to your specific goals
+          💡 This helps us tailor the experience to your specific goals
         </p>
       </div>
 
