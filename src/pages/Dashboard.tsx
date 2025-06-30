@@ -52,9 +52,9 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`h-screen flex flex-col bg-gradient-to-br from-red-900/40 via-pink-900/30 to-orange-900/40 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
+      <div className={`h-screen flex flex-col bg-gradient-to-br from-red-950 via-rose-950 to-pink-950 ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300 overflow-hidden`}>
         {/* Clean Navigation Header */}
-        <div className="flex-shrink-0 w-full bg-gradient-to-b from-white/10 via-coral-50/5 to-transparent backdrop-blur-sm">
+        <div className="flex-shrink-0 w-full bg-gradient-to-b from-black/20 via-red-950/50 to-transparent backdrop-blur-sm border-b border-red-900/30">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
             {/* Brand Header */}
             <div className="flex items-center justify-between py-4">
@@ -77,7 +77,7 @@ const Dashboard = () => {
             {/* Navigation Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex justify-center pb-4">
-                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-1 gap-1 shadow-lg">
+                <TabsList className="grid grid-cols-4 w-full max-w-2xl h-12 bg-black/30 backdrop-blur-sm border border-red-900/40 rounded-xl p-1 gap-1 shadow-lg">
                   <TabsTrigger 
                     value="profile" 
                     className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-coral-400 data-[state=active]:to-pink-400 data-[state=active]:text-white data-[state=active]:shadow-md text-white/70 hover:text-white hover:bg-white/10"
