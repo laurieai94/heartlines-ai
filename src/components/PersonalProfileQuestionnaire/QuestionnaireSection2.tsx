@@ -1,6 +1,7 @@
 
 import { Label } from "@/components/ui/label";
-import { Heart, Users, MessageSquare, Clock } from "lucide-react";
+import { Heart, Users, MessageSquare, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 interface QuestionnaireSection2Props {
   profileData: any;
@@ -10,6 +11,12 @@ interface QuestionnaireSection2Props {
 }
 
 const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection2Props) => {
+  const [showAllRelationshipOptions, setShowAllRelationshipOptions] = useState(false);
+  const [showAllDatingChallenges, setShowAllDatingChallenges] = useState(false);
+  const [showAllDatingGoals, setShowAllDatingGoals] = useState(false);
+  const [showAllWorkingWell, setShowAllWorkingWell] = useState(false);
+  const [showAllDifficult, setShowAllDifficult] = useState(false);
+
   if (!isReady) return null;
 
   const relationshipStatusOptions = [
@@ -35,7 +42,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     'Trust issues', 'Future planning disagreements'
   ];
 
-  // New refined dating-specific options (7 each)
   const datingChallengesOptions = [
     'Finding people who want the same thing I do',
     'Getting past the first few dates into something deeper',
@@ -69,180 +75,263 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
 
   return (
-    <div className="space-y-3">
-      <div className="questionnaire-card p-3 space-y-3">
-        {/* Relationship Status */}
-        <div className="space-y-2">
-          <Label className="text-base font-semibold questionnaire-text">
-            What is your current relationship status? <span className="text-red-400">*</span>
-          </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-            <Heart className="w-4 h-4 text-pink-300" />
-            <span>From 'it's complicated' to married - we meet you where you are</span>
+    <div className="space-y-8">
+      {/* Relationship Status - Main Question */}
+      <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+        <div className="space-y-4">
+          <div>
+            <Label className="text-xl font-bold text-white mb-2 block">
+              What is your current relationship status? <span className="text-red-400">*</span>
+            </Label>
+            <div className="flex items-center gap-2 text-sm text-white/90 mb-4">
+              <Heart className="w-5 h-5 text-pink-300" />
+              <span>From 'it's complicated' to married - we meet you where you are</span>
+            </div>
           </div>
-          <div className="grid grid-cols-3 gap-1.5">
-            {relationshipStatusOptions.map((status) => (
+          
+          <div className="space-y-3">
+            {relationshipStatusOptions.slice(0, showAllRelationshipOptions ? relationshipStatusOptions.length : 6).map((status) => (
               <button
                 key={status}
                 onClick={() => updateField('relationshipStatus', status)}
-                className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.02] ${
                   profileData.relationshipStatus === status
-                    ? 'questionnaire-button-selected'
-                    : 'questionnaire-button-secondary'
+                    ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/20 border-2 border-pink-400/50 text-white shadow-lg'
+                    : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
                 }`}
               >
-                {status}
+                <span className="font-medium">{status}</span>
+              </button>
+            ))}
+            
+            {relationshipStatusOptions.length > 6 && (
+              <button
+                onClick={() => setShowAllRelationshipOptions(!showAllRelationshipOptions)}
+                className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+              >
+                {showAllRelationshipOptions ? (
+                  <>Show less <ChevronUp className="w-4 h-4" /></>
+                ) : (
+                  <>Show more options <ChevronDown className="w-4 h-4" /></>
+                )}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Conditional Dating Questions for Single/Dating Users */}
+      {isSingleOrDating && (
+        <>
+          {/* Dating Challenges */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+            <div>
+              <Label className="text-xl font-bold text-white mb-2 block">
+                What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
+              </Label>
+              <div className="flex items-center gap-2 text-sm text-white/90 mb-1">
+                <MessageSquare className="w-5 h-5 text-blue-300" />
+                <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
+              </div>
+              <p className="text-orange-300 font-medium text-sm mb-4">Select up to 3 that resonate most</p>
+            </div>
+            
+            <div className="space-y-3">
+              {datingChallengesOptions.slice(0, showAllDatingChallenges ? datingChallengesOptions.length : 5).map((challenge) => (
+                <button
+                  key={challenge}
+                  onClick={() => handleMultiSelect('datingChallenges', challenge)}
+                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] ${
+                    (profileData.datingChallenges || []).includes(challenge)
+                      ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-2 border-blue-400/50 text-white shadow-lg'
+                      : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  }`}
+                >
+                  <span className="font-medium">{challenge}</span>
+                </button>
+              ))}
+              
+              {datingChallengesOptions.length > 5 && (
+                <button
+                  onClick={() => setShowAllDatingChallenges(!showAllDatingChallenges)}
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  {showAllDatingChallenges ? (
+                    <>Show less <ChevronUp className="w-4 h-4" /></>
+                  ) : (
+                    <>Show more challenges <ChevronDown className="w-4 h-4" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Dating Goals */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+            <div>
+              <Label className="text-xl font-bold text-white mb-2 block">
+                What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
+              </Label>
+              <div className="flex items-center gap-2 text-sm text-white/90 mb-1">
+                <Heart className="w-5 h-5 text-pink-300" />
+                <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires</span>
+              </div>
+              <p className="text-orange-300 font-medium text-sm mb-4">Select up to 3 that feel most important</p>
+            </div>
+            
+            <div className="space-y-3">
+              {datingGoalsOptions.slice(0, showAllDatingGoals ? datingGoalsOptions.length : 5).map((goal) => (
+                <button
+                  key={goal}
+                  onClick={() => handleMultiSelect('datingGoals', goal)}
+                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] ${
+                    (profileData.datingGoals || []).includes(goal)
+                      ? 'bg-gradient-to-r from-pink-500/20 to-rose-500/20 border-2 border-pink-400/50 text-white shadow-lg'
+                      : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  }`}
+                >
+                  <span className="font-medium">{goal}</span>
+                </button>
+              ))}
+              
+              {datingGoalsOptions.length > 5 && (
+                <button
+                  onClick={() => setShowAllDatingGoals(!showAllDatingGoals)}
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  {showAllDatingGoals ? (
+                    <>Show less <ChevronUp className="w-4 h-4" /></>
+                  ) : (
+                    <>Show more goals <ChevronDown className="w-4 h-4" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Conditional Relationship Length */}
+      {hasRelationshipLength && (
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+          <div>
+            <Label className="text-xl font-bold text-white mb-2 block">
+              How long have you been together? <span className="text-red-400">*</span>
+            </Label>
+            <div className="flex items-center gap-2 text-sm text-white/90 mb-4">
+              <Clock className="w-5 h-5 text-green-300" />
+              <span>Different relationship stages have different needs and challenges</span>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3">
+            {relationshipLengthOptions.map((length) => (
+              <button
+                key={length}
+                onClick={() => updateField('relationshipLength', length)}
+                className={`p-4 rounded-xl text-center transition-all duration-200 hover:scale-[1.02] ${
+                  profileData.relationshipLength === length
+                    ? 'bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-400/50 text-white shadow-lg'
+                    : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                }`}
+              >
+                <span className="font-medium">{length}</span>
               </button>
             ))}
           </div>
         </div>
+      )}
 
-        {/* Conditional Dating Questions for Single/Dating Users */}
-        {isSingleOrDating && (
-          <>
-            {/* Dating Challenges */}
-            <div className="space-y-2">
-              <Label className="text-base font-semibold questionnaire-text">
-                What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
-              </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <MessageSquare className="w-4 h-4 text-blue-300" />
-                <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation</span>
-              </div>
-              <div className="grid grid-cols-1 gap-1.5">
-                {datingChallengesOptions.map((challenge) => (
-                  <button
-                    key={challenge}
-                    onClick={() => handleMultiSelect('datingChallenges', challenge)}
-                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-auto min-h-[36px] ${
-                      (profileData.datingChallenges || []).includes(challenge)
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
-                  >
-                    {challenge}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Dating Goals */}
-            <div className="space-y-2">
-              <Label className="text-base font-semibold questionnaire-text">
-                What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
-              </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <Heart className="w-4 h-4 text-pink-300" />
-                <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice</span>
-              </div>
-              <div className="grid grid-cols-1 gap-1.5">
-                {datingGoalsOptions.map((goal) => (
-                  <button
-                    key={goal}
-                    onClick={() => handleMultiSelect('datingGoals', goal)}
-                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-auto min-h-[36px] ${
-                      (profileData.datingGoals || []).includes(goal)
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
-                  >
-                    {goal}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Conditional Relationship Length */}
-        {hasRelationshipLength && (
-          <div className="space-y-2">
-            <Label className="text-base font-semibold questionnaire-text">
-              How long have you been together? <span className="text-red-400">*</span>
-            </Label>
-            <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-              <Clock className="w-4 h-4 text-green-300" />
-              <span>Different relationship stages have different needs and challenges</span>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5">
-              {relationshipLengthOptions.map((length) => (
-                <button
-                  key={length}
-                  onClick={() => updateField('relationshipLength', length)}
-                  className={`p-2 rounded-lg text-sm font-medium transition-all text-center hover:scale-105 h-9 ${
-                    profileData.relationshipLength === length
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {length}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Conditional Relationship Details */}
-        {isInRelationship && (
-          <>
-            {/* What's Working Well */}
-            <div className="space-y-2">
-              <Label className="text-base font-semibold questionnaire-text">
+      {/* Conditional Relationship Details */}
+      {isInRelationship && (
+        <>
+          {/* What's Working Well */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+            <div>
+              <Label className="text-xl font-bold text-white mb-2 block">
                 What's working well in your relationship? <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <Heart className="w-4 h-4 text-pink-300" />
+              <div className="flex items-center gap-2 text-sm text-white/90 mb-1">
+                <Heart className="w-5 h-5 text-pink-300" />
                 <span>We'll build on what's already good instead of fixing everything</span>
               </div>
-              <div className="grid grid-cols-3 gap-1.5">
-                {workingWellOptions.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => handleMultiSelect('workingWell', item)}
-                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
-                      (profileData.workingWell || []).includes(item)
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
+              <p className="text-orange-300 font-medium text-sm mb-4">Check all that apply</p>
             </div>
+            
+            <div className="space-y-3">
+              {workingWellOptions.slice(0, showAllWorkingWell ? workingWellOptions.length : 6).map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleMultiSelect('workingWell', item)}
+                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] ${
+                    (profileData.workingWell || []).includes(item)
+                      ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/20 border-2 border-pink-400/50 text-white shadow-lg'
+                      : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  }`}
+                >
+                  <span className="font-medium">{item}</span>
+                </button>
+              ))}
+              
+              {workingWellOptions.length > 6 && (
+                <button
+                  onClick={() => setShowAllWorkingWell(!showAllWorkingWell)}
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  {showAllWorkingWell ? (
+                    <>Show less <ChevronUp className="w-4 h-4" /></>
+                  ) : (
+                    <>Show more <ChevronDown className="w-4 h-4" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
 
-            {/* What Feels Difficult */}
-            <div className="space-y-2">
-              <Label className="text-base font-semibold questionnaire-text">
+          {/* What Feels Difficult */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+            <div>
+              <Label className="text-xl font-bold text-white mb-2 block">
                 What feels difficult or challenging? <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <MessageSquare className="w-4 h-4 text-blue-300" />
+              <div className="flex items-center gap-2 text-sm text-white/90 mb-1">
+                <MessageSquare className="w-5 h-5 text-blue-300" />
                 <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
-              <div className="grid grid-cols-3 gap-1.5">
-                {feelsDifficultOptions.map((challenge) => (
-                  <button
-                    key={challenge}
-                    onClick={() => handleMultiSelect('feelsDifficult', challenge)}
-                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
-                      (profileData.feelsDifficult || []).includes(challenge)
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
-                  >
-                    {challenge}
-                  </button>
-                ))}
-              </div>
+              <p className="text-orange-300 font-medium text-sm mb-4">Check all that apply</p>
             </div>
-          </>
-        )}
-      </div>
+            
+            <div className="space-y-3">
+              {feelsDifficultOptions.slice(0, showAllDifficult ? feelsDifficultOptions.length : 6).map((challenge) => (
+                <button
+                  key={challenge}
+                  onClick={() => handleMultiSelect('feelsDifficult', challenge)}
+                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] ${
+                    (profileData.feelsDifficult || []).includes(challenge)
+                      ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-2 border-blue-400/50 text-white shadow-lg'
+                      : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  }`}
+                >
+                  <span className="font-medium">{challenge}</span>
+                </button>
+              ))}
+              
+              {feelsDifficultOptions.length > 6 && (
+                <button
+                  onClick={() => setShowAllDifficult(!showAllDifficult)}
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  {showAllDifficult ? (
+                    <>Show less <ChevronUp className="w-4 h-4" /></>
+                  ) : (
+                    <>Show more challenges <ChevronDown className="w-4 h-4" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
