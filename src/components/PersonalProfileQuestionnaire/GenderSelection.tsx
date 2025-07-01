@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Heart } from "lucide-react";
@@ -22,7 +21,7 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
         How do you identify your gender? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+      <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
         <Heart className="w-4 h-4 text-purple-300" />
         <span>We get that gender is complex and personal</span>
       </div>
@@ -51,8 +50,8 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do you identify?"
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2"
-            rows={2}
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 min-h-[60px] resize-none"
+            rows={1}
           />
         </div>
       )}
