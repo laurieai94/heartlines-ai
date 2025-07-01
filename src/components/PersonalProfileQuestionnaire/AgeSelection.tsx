@@ -1,6 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Lightbulb } from "lucide-react";
+import { Users } from "lucide-react";
 
 interface AgeSelectionProps {
   selectedAge: string;
@@ -18,7 +18,7 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
         What's your age? <span className="text-red-400">*</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
-        <Lightbulb className="w-3 h-3" />
+        <Users className="w-4 h-4 text-orange-300" />
         <span>Different life stages = different relationship challenges</span>
       </div>
       <div className="grid grid-cols-4 gap-1.5">

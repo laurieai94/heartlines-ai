@@ -1,7 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Lightbulb } from "lucide-react";
+import { Users } from "lucide-react";
 
 interface GenderSelectionProps {
   selectedGenders: string[];
@@ -22,8 +22,8 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
         How do you identify your gender? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm text-white/80 mb-3">
-        <Lightbulb className="w-4 h-4" />
+      <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
+        <Users className="w-4 h-4 text-purple-300" />
         <span>We get that gender is complex and personal</span>
       </div>
       <div className="grid grid-cols-3 gap-2">

@@ -1,7 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Lightbulb } from "lucide-react";
+import { Info } from "lucide-react";
 import { useState } from "react";
 
 interface PronounsSelectionProps {
@@ -47,7 +47,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
         What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
-        <Lightbulb className="w-3 h-3" />
+        <Info className="w-4 h-4 text-blue-300" />
         <span>So we can refer to you correctly</span>
       </div>
       <div className="grid grid-cols-4 gap-1.5">
