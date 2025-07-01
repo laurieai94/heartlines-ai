@@ -1,6 +1,5 @@
-
 import { Label } from "@/components/ui/label";
-import { Lightbulb } from "lucide-react";
+import { Heart, Users, MessageSquare, Clock } from "lucide-react";
 
 interface QuestionnaireSection2Props {
   profileData: any;
@@ -76,91 +75,91 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-3">
-      <div className="questionnaire-card p-4 space-y-4">
+      <div className="questionnaire-card p-3 space-y-3">
         {/* Relationship Status */}
         <div className="space-y-2">
           <Label className="text-base font-semibold questionnaire-text">
             Current relationship status <span className="text-red-400">*</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
-            <Lightbulb className="w-3 h-3" />
+          <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+            <Heart className="w-4 h-4 text-pink-300" />
             <span>From 'it's complicated' to married - we meet you where you are</span>
           </div>
-          <div className="grid grid-cols-2 gap-1.5">
+          <div className="grid grid-cols-3 gap-1.5">
             {relationshipStatusOptions.map((status) => (
               <button
                 key={status}
                 onClick={() => updateField('relationshipStatus', status)}
-                className={`p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
+                className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
                   profileData.relationshipStatus === status
                     ? 'questionnaire-button-selected'
                     : 'questionnaire-button-secondary'
                 }`}
-                >
-                  {status}
-                </button>
-              ))}
-            </div>
+              >
+                {status}
+              </button>
+            ))}
           </div>
+        </div>
 
-          {/* Conditional Dating Questions for Single/Dating Users */}
-          {isSingleOrDating && (
-            <>
-              {/* Dating Challenges */}
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold questionnaire-text">
-                  What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
-                  <span className="text-orange-300 font-medium text-sm ml-2">✨ Select up to 3</span>
-                </Label>
-                <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation</span>
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {datingChallengesOptions.map((challenge) => (
-                    <button
-                      key={challenge}
-                      onClick={() => handleMultiSelect('datingChallenges', challenge)}
-                      className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                        (profileData.datingChallenges || []).includes(challenge)
-                          ? 'questionnaire-button-selected'
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
-                      {challenge}
-                    </button>
-                  ))}
-                </div>
+        {/* Conditional Dating Questions for Single/Dating Users */}
+        {isSingleOrDating && (
+          <>
+            {/* Dating Challenges */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <MessageSquare className="w-4 h-4 text-blue-300" />
+                <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation</span>
               </div>
+              <div className="grid grid-cols-1 gap-1.5">
+                {datingChallengesOptions.map((challenge) => (
+                  <button
+                    key={challenge}
+                    onClick={() => handleMultiSelect('datingChallenges', challenge)}
+                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-auto min-h-[36px] ${
+                      (profileData.datingChallenges || []).includes(challenge)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {challenge}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-              {/* Dating Goals */}
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold questionnaire-text">
-                  What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
-                  <span className="text-orange-300 font-medium text-sm ml-2">✨ Select up to 3</span>
-                </Label>
-                <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice</span>
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {datingGoalsOptions.map((goal) => (
-                    <button
-                      key={goal}
-                      onClick={() => handleMultiSelect('datingGoals', goal)}
-                      className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                        (profileData.datingGoals || []).includes(goal)
-                          ? 'questionnaire-button-selected'
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
-                      {goal}
-                    </button>
-                  ))}
-                </div>
+            {/* Dating Goals */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <Heart className="w-4 h-4 text-pink-300" />
+                <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice</span>
               </div>
-            </>
-          )}
+              <div className="grid grid-cols-1 gap-1.5">
+                {datingGoalsOptions.map((goal) => (
+                  <button
+                    key={goal}
+                    onClick={() => handleMultiSelect('datingGoals', goal)}
+                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-auto min-h-[36px] ${
+                      (profileData.datingGoals || []).includes(goal)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {goal}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Conditional Relationship Length */}
         {hasRelationshipLength && (
@@ -168,8 +167,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-base font-semibold questionnaire-text">
               How long have you been together? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
-              <Lightbulb className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <Clock className="w-4 h-4 text-green-300" />
               <span>The 6-month mark hits different than 2 years</span>
             </div>
             <div className="grid grid-cols-3 gap-1.5">
@@ -177,105 +176,105 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={length}
                   onClick={() => updateField('relationshipLength', length)}
-                  className={`p-2 rounded-lg text-xs font-medium transition-all text-center hover:scale-105 h-8 ${
+                  className={`p-2 rounded-lg text-sm font-medium transition-all text-center hover:scale-105 h-9 ${
                     profileData.relationshipLength === length
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
                   }`}
+                >
+                  {length}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Conditional Relationship Details */}
+        {isInRelationship && (
+          <>
+            {/* What's Working Well */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                What's working well in your relationship? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <Heart className="w-4 h-4 text-pink-300" />
+                <span>We'll build on what's already good instead of fixing everything</span>
+              </div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {workingWellOptions.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => handleMultiSelect('workingWell', item)}
+                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                      (profileData.workingWell || []).includes(item)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
                   >
-                    {length}
+                    {item}
                   </button>
                 ))}
               </div>
             </div>
-          )}
 
-          {/* Conditional Relationship Details */}
-          {isInRelationship && (
-            <>
-              {/* What's Working Well */}
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold questionnaire-text">
-                  What's working well in your relationship? <span className="text-red-400">*</span>
-                  <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
-                </Label>
-                <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>We'll build on what's already good instead of fixing everything</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {workingWellOptions.map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => handleMultiSelect('workingWell', item)}
-                      className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                        (profileData.workingWell || []).includes(item)
-                          ? 'questionnaire-button-selected'
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
+            {/* What Feels Difficult */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                What feels difficult or challenging? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <MessageSquare className="w-4 h-4 text-blue-300" />
+                <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
-
-              {/* What Feels Difficult */}
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold questionnaire-text">
-                  What feels difficult or challenging? <span className="text-red-400">*</span>
-                  <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
-                </Label>
-                <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Let's tackle the stuff that's actually driving you crazy</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {feelsDifficultOptions.map((challenge) => (
-                    <button
-                      key={challenge}
-                      onClick={() => handleMultiSelect('feelsDifficult', challenge)}
-                      className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                        (profileData.feelsDifficult || []).includes(challenge)
-                          ? 'questionnaire-button-selected'
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
-                      {challenge}
-                    </button>
-                  ))}
-                </div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {feelsDifficultOptions.map((challenge) => (
+                  <button
+                    key={challenge}
+                    onClick={() => handleMultiSelect('feelsDifficult', challenge)}
+                    className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                      (profileData.feelsDifficult || []).includes(challenge)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {challenge}
+                  </button>
+                ))}
               </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
 
-          {/* Why RealTalk */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
-              Why are you interested in RealTalk? <span className="text-red-400">*</span>
-              <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
-            </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
-              <span>So we know what kind of help you're actually looking for</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {whyRealTalkOptions.map((reason) => (
-                <button
-                  key={reason}
-                  onClick={() => handleMultiSelect('whyRealTalk', reason)}
-                  className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                    (profileData.whyRealTalk || []).includes(reason)
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {reason}
-                </button>
-              ))}
-            </div>
+        {/* Why RealTalk */}
+        <div className="space-y-2">
+          <Label className="text-base font-semibold questionnaire-text">
+            Why are you interested in RealTalk? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+          </Label>
+          <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+            <Users className="w-4 h-4 text-orange-300" />
+            <span>So we know what kind of help you're actually looking for</span>
+          </div>
+          <div className="grid grid-cols-3 gap-1.5">
+            {whyRealTalkOptions.map((reason) => (
+              <button
+                key={reason}
+                onClick={() => handleMultiSelect('whyRealTalk', reason)}
+                className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                  (profileData.whyRealTalk || []).includes(reason)
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
+                }`}
+              >
+                {reason}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

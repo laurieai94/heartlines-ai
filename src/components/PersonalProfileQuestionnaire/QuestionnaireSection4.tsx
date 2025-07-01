@@ -1,6 +1,5 @@
-
 import { Label } from "@/components/ui/label";
-import { Lightbulb } from "lucide-react";
+import { Home, Users, Heart, BookOpen } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -35,18 +34,18 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-3">
-      <div className="questionnaire-card p-4 space-y-4">
+      <div className="questionnaire-card p-3 space-y-3">
         {/* Two Column Layout for Desktop */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-3">
           {/* Left Column */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Family Dynamics */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
                 How would you describe your family dynamics growing up?
               </Label>
-              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
-                <Lightbulb className="w-3 h-3" />
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <Home className="w-4 h-4 text-green-300" />
                 <span>Your family shaped your relationship blueprint (for better or worse)</span>
               </div>
               <div className="space-y-1.5">
@@ -54,111 +53,111 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                   <button
                     key={dynamic}
                     onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-                    className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
+                    className={`w-full p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
                       (profileData.familyDynamics || []).includes(dynamic)
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'
                     }`}
-                >
-                  {dynamic}
-                </button>
-              ))}
+                  >
+                    {dynamic}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Love Messages */}
-          <div className="space-y-2">
-            <Label className="text-base font-semibold questionnaire-text">
-              What messages about love did you receive growing up?
-            </Label>
-            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
-              <Lightbulb className="w-3 h-3" />
-              <span>The stuff about relationships you internalized growing up</span>
-            </div>
-            <div className="space-y-1.5">
-              {loveMessagesOptions.map((message) => (
-                <button
-                  key={message}
-                  onClick={() => handleMultiSelect('loveMessages', message)}
-                  className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
-                    (profileData.loveMessages || []).includes(message)
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {message}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-4">
-          {/* Parent Conflict Style */}
-          <div className="space-y-2">
-            <Label className="text-base font-semibold questionnaire-text">
-              How parents handled conflict
-            </Label>
-            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
-              <Lightbulb className="w-3 h-3" />
-              <span>How they fought affects how you fight - let's break the cycle</span>
-            </div>
-            <div className="space-y-1.5">
-              {parentConflictOptions.map((style) => (
-                <button
-                  key={style}
-                  onClick={() => handleMultiSelect('parentConflictStyle', style)}
-                  className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
-                    (profileData.parentConflictStyle || []).includes(style)
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {style}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Love Influences */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
-              What influenced love ideas
-            </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
-              <span>What shaped your ideas about how love should work</span>
-            </div>
+            {/* Love Messages */}
             <div className="space-y-2">
-              {loveInfluencesOptions.map((influence) => (
-                <button
-                  key={influence}
-                  onClick={() => handleMultiSelect('loveInfluences', influence)}
-                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                    (profileData.loveInfluences || []).includes(influence)
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  {influence}
-                </button>
-              ))}
+              <Label className="text-base font-semibold questionnaire-text">
+                What messages about love did you receive growing up?
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <Heart className="w-4 h-4 text-pink-300" />
+                <span>The stuff about relationships you internalized growing up</span>
+              </div>
+              <div className="space-y-1.5">
+                {loveMessagesOptions.map((message) => (
+                  <button
+                    key={message}
+                    onClick={() => handleMultiSelect('loveMessages', message)}
+                    className={`w-full p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                      (profileData.loveMessages || []).includes(message)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {message}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-3">
+            {/* Parent Conflict Style */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                How parents handled conflict
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <Users className="w-4 h-4 text-orange-300" />
+                <span>How they fought affects how you fight - let's break the cycle</span>
+              </div>
+              <div className="space-y-1.5">
+                {parentConflictOptions.map((style) => (
+                  <button
+                    key={style}
+                    onClick={() => handleMultiSelect('parentConflictStyle', style)}
+                    className={`w-full p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                      (profileData.parentConflictStyle || []).includes(style)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {style}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Love Influences */}
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
+                What influenced love ideas
+              </Label>
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+                <BookOpen className="w-4 h-4 text-blue-300" />
+                <span>What shaped your ideas about how love should work</span>
+              </div>
+              <div className="space-y-1.5">
+                {loveInfluencesOptions.map((influence) => (
+                  <button
+                    key={influence}
+                    onClick={() => handleMultiSelect('loveInfluences', influence)}
+                    className={`w-full p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
+                      (profileData.loveInfluences || []).includes(influence)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {influence}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
         {/* Final Encouragement */}
-        <div className="text-center p-4 questionnaire-card">
+        <div className="text-center p-3 questionnaire-card">
           <div className="text-2xl mb-2">🌟</div>
-          <p className="text-base font-bold questionnaire-text mb-1">
+          <p className="text-base font-semibold questionnaire-text mb-1">
             You're all set!
           </p>
-          <p className="questionnaire-text-muted text-sm mb-2">
+          <p className="questionnaire-text-muted text-[13px] mb-2 font-normal">
             Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
           </p>
-          <p className="questionnaire-text-muted text-xs">
+          <p className="questionnaire-text-muted text-xs font-normal">
             Remember: You can always update your profile as you learn and grow
           </p>
         </div>

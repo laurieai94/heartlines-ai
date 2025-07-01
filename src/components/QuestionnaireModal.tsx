@@ -19,7 +19,7 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
       />
       
       {/* Modal Container */}
-      <div className="relative w-[70%] h-[85%] max-w-[900px] max-h-[700px] bg-white/5 backdrop-blur-lg rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.4)] border border-white/10 overflow-hidden animate-scale-in">
+      <div className="relative w-[65%] h-[85%] max-w-[850px] max-h-[700px] bg-white/5 backdrop-blur-lg rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.4)] border border-white/10 overflow-hidden animate-scale-in">
         {/* Close Button */}
         <Button
           variant="ghost"

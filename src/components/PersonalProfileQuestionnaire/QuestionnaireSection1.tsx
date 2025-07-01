@@ -43,7 +43,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 Would you like to add a profile photo? <span className="questionnaire-text-muted font-normal">(Optional)</span>
               </Label>
-              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
                 <MessageCircle className="w-4 h-4 text-blue-300" />
                 <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
               </div>
@@ -58,7 +58,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label htmlFor="name" className="text-base font-semibold questionnaire-text">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
-              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>So we can make this feel like talking to a real person, not a bot</span>
               </div>
@@ -68,7 +68,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 value={profileData.name || ''}
                 onChange={(e) => updateField('name', e.target.value)}
                 placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8 font-medium"
               />
             </div>
           </div>
