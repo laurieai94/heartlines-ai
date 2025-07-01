@@ -17,7 +17,7 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
       <Label className="text-base font-semibold text-white">
         What's your age? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
+      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
         <Users className="w-4 h-4 text-orange-300" />
         <span>Different life stages = different relationship challenges</span>
       </div>

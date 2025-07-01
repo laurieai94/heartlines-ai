@@ -18,11 +18,11 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
-      <Label className="text-lg font-semibold text-white">
+      <Label className="text-base font-semibold text-white">
         How do you identify your gender? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
+        <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
+      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
         <Users className="w-4 h-4 text-purple-300" />
         <span>We get that gender is complex and personal</span>
       </div>

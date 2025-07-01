@@ -43,10 +43,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 Add a profile photo (optional)
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
-                <MessageCircle className="w-4 h-4 text-blue-300" />
-                <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
-              </div>
               <PhotoUpload
                 profilePhoto={profileData.profilePhoto || ''}
                 name={profileData.name || ''}

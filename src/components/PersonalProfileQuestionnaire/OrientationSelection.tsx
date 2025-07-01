@@ -18,11 +18,11 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
-      <Label className="text-lg font-semibold questionnaire-text">
+      <Label className="text-base font-semibold questionnaire-text">
         What's your sexual orientation? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
+        <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+      <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
         <Heart className="w-4 h-4 text-pink-300" />
         <span>Because straight dating advice doesn't work for everyone</span>
       </div>
