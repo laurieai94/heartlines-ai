@@ -28,7 +28,8 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
 
   const handleOptionSelect = (option: string) => {
     if (option === 'Other') {
-      // Don't set the selection yet, wait for custom input
+      // Set the selection to 'Other' to show the input
+      onPronounsSelect('Other');
       return;
     }
     onPronounsSelect(option);
