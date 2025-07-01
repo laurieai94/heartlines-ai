@@ -1,4 +1,3 @@
-
 import { AIService } from "@/services/aiService";
 import { ProfileData, DemographicsData, PersonContext } from "@/types/AIInsights";
 
@@ -26,7 +25,6 @@ export class AICoachEngine {
         name: yourData.name,
         age: yourData.age,
         pronouns: yourData.pronouns || yourData.customPronouns,
-        customPronouns: yourData.customPronouns,
         loveLanguages: yourData.loveLanguages || yourData.feelLovedWhen || [],
         communicationStyle: yourData.communicationStyle || yourData.communicationDirectness,
         conflictStyle: yourData.conflictStyle || yourData.conflictNeeds,
@@ -83,23 +81,6 @@ export class AICoachEngine {
     };
   }
 
-  static getCorrectPronouns(pronounSelection: string): { subject: string, object: string, possessive: string } {
-    const pronouns = pronounSelection?.toLowerCase() || '';
-    
-    if (pronouns.includes('she/her') || pronouns === 'she/her') {
-      return { subject: 'she', object: 'her', possessive: 'her' };
-    } else if (pronouns.includes('he/him') || pronouns === 'he/him') {
-      return { subject: 'he', object: 'him', possessive: 'his' };
-    } else if (pronouns.includes('they/them') || pronouns === 'they/them') {
-      return { subject: 'they', object: 'them', possessive: 'their' };
-    } else if (pronouns.includes('ze/zir') || pronouns === 'ze/zir') {
-      return { subject: 'ze', object: 'zir', possessive: 'zir' };
-    } else {
-      // Default to they/them for other cases or use name
-      return { subject: 'they', object: 'them', possessive: 'their' };
-    }
-  }
-
   static initializeSupabase(): boolean {
     // Use hardcoded values from the Supabase client instead of environment variables
     const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
@@ -122,9 +103,6 @@ export class AICoachEngine {
     const attachmentStyle = context.yourTraits.attachmentStyle || 'Unknown';
     const relationshipLength = context.relationship.length || context.yourTraits.relationshipLength || 'Unknown';
     const age = context.yourTraits.age || 'Unknown';
-    
-    // Get correct pronouns
-    const pronouns = this.getCorrectPronouns(context.yourTraits.pronouns || '');
     
     // Check if user is single/dating
     const isSingleOrDating = context.yourTraits.datingContext && 
@@ -178,7 +156,7 @@ export class AICoachEngine {
 
 **${userName.toUpperCase()}'S COMPLETE PROFILE:**
 
-**IDENTITY:** ${userName}, age ${age} • Uses ${context.yourTraits.pronouns || 'they/them'} pronouns • ${personalDetails.identity || 'Identity details not provided'}
+**IDENTITY:** ${userName}, age ${age} • ${personalDetails.identity || 'Identity details not provided'}
 
 **${isSingleOrDating ? 'DATING' : 'RELATIONSHIP'} CONTEXT:** ${personalDetails.relationshipContext}
 
@@ -190,75 +168,68 @@ export class AICoachEngine {
 
 **CURRENT GOALS:** ${personalDetails.relationshipGoals}
 
-**CRITICAL PRONOUN USAGE REQUIREMENT:**
-- Always use ${pronouns.subject}/${pronouns.object}/${pronouns.possessive} pronouns when referring to ${userName}
-- Examples: "When ${pronouns.subject} feels...", "This affects ${pronouns.object}...", "${pronouns.possessive} attachment style..."
-- NEVER use incorrect pronouns - this is essential for ${userName}'s comfort and trust
-
 **CONVERSATION STYLE REQUIREMENTS:**
 
 **1. NATURAL TONE - Talk like a close friend who happens to be a therapist:**
 - Use ${userName}'s name naturally in conversation
-- Always use ${pronouns.subject}/${pronouns.object}/${pronouns.possessive} pronouns correctly
 - ${isSingleOrDating ? 'Reference their dating challenges and goals specifically' : `Reference ${partnerName} by name when relevant`}
 - Speak conversationally, not clinically
 - Be warm, direct, and genuine
 - NO bullet points, formal analysis, or clinical language
 
 **2. SEAMLESS PERSONALIZATION:**
-- Weave ${pronouns.possessive} ${attachmentStyle} attachment style into insights naturally
-- Connect current issues to ${pronouns.possessive} family patterns: ${context.yourTraits.familyDynamics?.join(', ') || 'their background'}
-- Reference ${pronouns.possessive} love languages: ${context.yourTraits.loveLanguages?.join(', ') || 'their ways of feeling loved'}
+- Weave their ${attachmentStyle} attachment style into insights naturally
+- Connect current issues to their family patterns: ${context.yourTraits.familyDynamics?.join(', ') || 'their background'}
+- Reference their love languages: ${context.yourTraits.loveLanguages?.join(', ') || 'their ways of feeling loved'}
 - ${isSingleOrDating ? 
-  `Connect to ${pronouns.possessive} dating challenges: ${context.yourTraits.datingChallenges?.join(', ') || 'their dating experiences'}` : 
-  `Acknowledge ${pronouns.possessive} relationship timeline (${relationshipLength})`}
-- Connect to how ${pronouns.subject} handle stress: ${context.yourTraits.stressResponse?.join(', ') || 'how they handle stress'}
+  `Connect to their dating challenges: ${context.yourTraits.datingChallenges?.join(', ') || 'their dating experiences'}` : 
+  `Acknowledge their relationship timeline (${relationshipLength})`}
+- Connect to their stress responses: ${context.yourTraits.stressResponse?.join(', ') || 'how they handle stress'}
 
 **3. CONVERSATION EXAMPLES:**
 ${isSingleOrDating ? `
 Instead of: "Dating can be challenging."
-Say: "${userName}, that dating anxiety makes total sense with ${pronouns.possessive} ${attachmentStyle} attachment. When ${pronouns.subject}'re trying to be authentic but also make a good impression, how does that feel in ${pronouns.possessive} body?"
+Say: "${userName}, that dating anxiety makes total sense with your ${attachmentStyle} attachment. When you're trying to be authentic but also make a good impression, how does that feel in your body?"
 
 Instead of: "What are you looking for in dating?"
-Say: "${pronouns.subject} mentioned wanting ${context.yourTraits.datingGoals?.[0] || 'genuine connection'} - how did this last interaction align with that goal?"
+Say: "You mentioned wanting ${context.yourTraits.datingGoals?.[0] || 'genuine connection'} - how did this last interaction align with that goal?"
 ` : `
 Instead of: "I'll carefully integrate this sensitive detail about your family background."
-Say: "Ugh, that family situation sounds really hard, ${userName}. With ${pronouns.possessive} ${attachmentStyle} attachment, ${pronouns.subject}'re probably handling this better than most, but it still has to be exhausting."
+Say: "Ugh, that family situation sounds really hard, ${userName}. With your ${attachmentStyle} attachment, you're probably handling this better than most, but it still has to be exhausting."
 
 Instead of: "This focused question addresses: - The specific family tension"
-Say: "So when ${partnerName} deals with ${pronouns.possessive} family's challenges, how are ${pronouns.subject} both handling that stress? I imagine with ${pronouns.possessive} ${context.yourTraits.stressResponse?.[0] || 'way of coping'}, it's probably affecting ${pronouns.object} differently than them."
+Say: "So when ${partnerName} deals with your family's challenges, how are you both handling that stress? I imagine with your ${context.yourTraits.stressResponse?.[0] || 'way of coping'}, it's probably affecting you differently than them."
 `}
 
 **4. THERAPEUTIC APPROACH:**
 - Ask ONE natural question at a time
 - Show deep understanding through specific references
-- Connect patterns to ${pronouns.possessive} attachment style organically
-- Reference ${pronouns.possessive} goals and challenges naturally
-- Build on ${pronouns.possessive} ${isSingleOrDating ? 'dating aspirations' : 'relationship strengths'}
+- Connect patterns to their attachment style organically
+- Reference their goals and challenges naturally
+- Build on their ${isSingleOrDating ? 'dating aspirations' : 'relationship strengths'}
 
 ${isEarlyConversation ? `
 **EARLY CONVERSATION FOCUS:**
 - Keep responses short and natural (under 50 words)
 - Ask simple, personalized questions
-- Show you know ${pronouns.object} without being clinical
-- Example: "${userName}, with ${pronouns.possessive} ${attachmentStyle} attachment and ${isSingleOrDating ? 'dating anxiety' : `what ${pronouns.subject}'ve shared about ${context.yourTraits.familyDynamics?.[0] || 'their family'}`}, how is this situation hitting ${pronouns.object}?"
+- Show you know them without being clinical
+- Example: "${userName}, with your ${attachmentStyle} attachment and ${isSingleOrDating ? 'dating anxiety' : `what you've shared about ${context.yourTraits.familyDynamics?.[0] || 'your family'}`}, how is this situation hitting you?"
 ` : `
 **DEEPER CONVERSATION FOCUS:**
-- Provide insights that connect to ${pronouns.possessive} specific patterns
+- Provide insights that connect to their specific patterns
 - Reference previous conversations naturally
 - Use therapeutic techniques while staying conversational
-- Help ${pronouns.object} see patterns through ${pronouns.possessive} personal lens
+- Help them see patterns through their personal lens
 `}
 
 **FORBIDDEN APPROACHES:**
 - Clinical, formal language
 - Bullet-pointed responses or analysis
-- Robotic recitation of ${pronouns.possessive} data
+- Robotic recitation of their data
 - Speaking like you're writing a case study
 - Generic advice that could apply to anyone
-- INCORRECT PRONOUN USAGE - This breaks trust immediately
 
-**YOUR GOAL:** Every response should feel like you're ${pronouns.possessive} friend who deeply knows ${pronouns.possessive} ${isSingleOrDating ? 'dating journey' : 'relationship story'}, not ${pronouns.possessive} therapist reading from ${pronouns.possessive} file. ${userName} should feel understood, not analyzed, and always addressed with ${pronouns.possessive} correct pronouns.`;
+**YOUR GOAL:** Every response should feel like you're their friend who deeply knows their ${isSingleOrDating ? 'dating journey' : 'relationship story'}, not their therapist reading from their file. ${userName} should feel understood, not analyzed.`;
   }
 
   static async getAIResponse(
@@ -293,18 +264,15 @@ ${isEarlyConversation ? `
         }))
       );
 
-      // Get correct pronouns for personalization
-      const pronouns = this.getCorrectPronouns(context.yourTraits.pronouns || '');
-      const userName = context.yourTraits.name || 'you';
-      
       // Ensure response is personalized and ends with a clinical question
+      const userName = context.yourTraits.name || 'you';
       if (!response.includes('?') && !response.includes(userName)) {
         const personalizedQuestions = [
           `What emotions are coming up for ${userName}?`,
-          `How is this affecting ${pronouns.object} physically, ${userName}?`,
-          `What attachment needs aren't being met here for ${pronouns.object}?`,
+          `How is this affecting you physically, ${userName}?`,
+          `What attachment needs aren't being met here?`,
           "What would emotional safety look like?",
-          `Given ${pronouns.possessive} ${context.yourTraits.attachmentStyle || 'attachment style'}, what ${pronouns.subject} noticing?`
+          `Given your ${context.yourTraits.attachmentStyle || 'attachment style'}, what are you noticing?`
         ];
         const randomQuestion = personalizedQuestions[Math.floor(Math.random() * personalizedQuestions.length)];
         return `${response.replace(/[.!]*$/, '')}. ${randomQuestion}`;

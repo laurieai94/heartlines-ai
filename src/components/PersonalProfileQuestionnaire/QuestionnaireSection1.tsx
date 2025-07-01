@@ -7,7 +7,6 @@ import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
 import GenderSelection from "./GenderSelection";
 import OrientationSelection from "./OrientationSelection";
-import PronounsSelection from "./PronounsSelection";
 
 interface QuestionnaireSection1Props {
   profileData: any;
@@ -62,13 +61,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           />
         </div>
       </div>
-
-      <PronounsSelection
-        selectedPronouns={profileData.pronouns || ''}
-        customPronouns={profileData.customPronouns || ''}
-        onPronounsSelect={(pronouns) => updateField('pronouns', pronouns)}
-        onCustomPronounsChange={(value) => updateField('customPronouns', value)}
-      />
 
       <AgeSelection 
         selectedAge={profileData.age || ''}
