@@ -1,3 +1,4 @@
+
 import { Label } from "@/components/ui/label";
 import { Heart, Users, MessageSquare, Clock } from "lucide-react";
 
@@ -20,12 +21,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   const relationshipLengthOptions = [
     'Less than 3 months', '3-6 months', '6 months - 1 year', 
     '1-2 years', '2-5 years', '5+ years'
-  ];
-
-  const whyRealTalkOptions = [
-    'Want better communication', 'Working through conflict', 'Feeling disconnected',
-    'Want to understand my patterns', 'Preparing for serious commitment', 
-    'Recovery from past relationship', 'Just curious about relationships'
   ];
 
   const workingWellOptions = [
@@ -169,7 +164,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             </Label>
             <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
               <Clock className="w-4 h-4 text-green-300" />
-              <span>The 6-month mark hits different than 2 years</span>
+              <span>Different relationship stages have different needs and challenges</span>
             </div>
             <div className="grid grid-cols-3 gap-1.5">
               {relationshipLengthOptions.map((length) => (
@@ -247,33 +242,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             </div>
           </>
         )}
-
-        {/* Why RealTalk */}
-        <div className="space-y-2">
-          <Label className="text-base font-semibold questionnaire-text">
-            Why are you interested in RealTalk? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
-          </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-            <Users className="w-4 h-4 text-orange-300" />
-            <span>So we know what kind of help you're actually looking for</span>
-          </div>
-          <div className="grid grid-cols-3 gap-1.5">
-            {whyRealTalkOptions.map((reason) => (
-              <button
-                key={reason}
-                onClick={() => handleMultiSelect('whyRealTalk', reason)}
-                className={`p-2 rounded-lg text-sm font-medium transition-all text-left hover:scale-105 h-9 ${
-                  (profileData.whyRealTalk || []).includes(reason)
-                    ? 'questionnaire-button-selected'
-                    : 'questionnaire-button-secondary'
-                }`}
-              >
-                {reason}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

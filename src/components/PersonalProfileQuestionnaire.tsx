@@ -50,7 +50,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         });
       }
       case 2: {
-        const required = ['relationshipStatus', 'whyRealTalk'];
+        // Only require relationshipStatus - removed whyRealTalk
+        const required = ['relationshipStatus'];
         let isValid = required.every(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -153,7 +154,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
     switch (section) {
       case 1: return 5; // Updated to include pronouns
       case 2: {
-        let base = 2; // relationshipStatus, whyRealTalk
+        let base = 1; // Only relationshipStatus now - removed whyRealTalk
         
         // Add dating-specific requirements
         const isSingleOrDating = profileData.relationshipStatus && 
@@ -188,7 +189,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         }).length;
       }
       case 2: {
-        let fields = ['relationshipStatus', 'whyRealTalk'];
+        let fields = ['relationshipStatus']; // Removed whyRealTalk
         let completed = fields.filter(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
