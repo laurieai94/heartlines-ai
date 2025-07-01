@@ -34,20 +34,20 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="questionnaire-bg p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="questionnaire-card p-8 space-y-8">
+    <div className="questionnaire-bg p-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="questionnaire-card p-6 space-y-6">
       {/* Two Column Layout for Desktop */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left Column */}
         <div className="space-y-6">
           {/* Family Dynamics */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
+            <Label className="text-lg font-semibold questionnaire-text">
               How would you describe your family dynamics growing up?
             </Label>
-            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-              <Lightbulb className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
+              <Lightbulb className="w-4 h-4" />
               <span>Your family shaped your relationship blueprint (for better or worse)</span>
             </div>
             <div className="space-y-2">
@@ -55,10 +55,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={dynamic}
                   onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.familyDynamics || []).includes(dynamic)
-                      ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
                   }`}
                 >
                   {dynamic}
@@ -69,11 +69,11 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
           {/* Love Messages */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
+            <Label className="text-lg font-semibold questionnaire-text">
               What messages about love did you receive growing up?
             </Label>
-            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-              <Lightbulb className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
+              <Lightbulb className="w-4 h-4" />
               <span>The stuff about relationships you internalized growing up</span>
             </div>
             <div className="space-y-2">
@@ -81,10 +81,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={message}
                   onClick={() => handleMultiSelect('loveMessages', message)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.loveMessages || []).includes(message)
-                      ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
                   }`}
                 >
                   {message}
@@ -98,11 +98,11 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <div className="space-y-6">
           {/* Parent Conflict Style */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
+            <Label className="text-lg font-semibold questionnaire-text">
               How parents handled conflict
             </Label>
-            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-              <Lightbulb className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
+              <Lightbulb className="w-4 h-4" />
               <span>How they fought affects how you fight - let's break the cycle</span>
             </div>
             <div className="space-y-2">
@@ -110,10 +110,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={style}
                   onClick={() => handleMultiSelect('parentConflictStyle', style)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.parentConflictStyle || []).includes(style)
-                      ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
                   }`}
                 >
                   {style}
@@ -124,11 +124,11 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
           {/* Love Influences */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium text-gray-700">
+            <Label className="text-lg font-semibold questionnaire-text">
               What influenced love ideas
             </Label>
-            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-              <Lightbulb className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
+              <Lightbulb className="w-4 h-4" />
               <span>What shaped your ideas about how love should work</span>
             </div>
             <div className="space-y-2">
@@ -136,10 +136,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={influence}
                   onClick={() => handleMultiSelect('loveInfluences', influence)}
-                  className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.loveInfluences || []).includes(influence)
-                      ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
                   }`}
                 >
                   {influence}
@@ -153,10 +153,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Final Encouragement */}
           <div className="text-center p-6 questionnaire-card">
             <div className="text-3xl mb-3">🌟</div>
-            <p className="text-xl font-bold questionnaire-text mb-2">
+            <p className="text-lg font-bold questionnaire-text mb-2">
               You're all set!
             </p>
-            <p className="questionnaire-text-muted text-lg mb-3">
+            <p className="questionnaire-text-muted text-base mb-3">
               Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
             </p>
             <p className="questionnaire-text-muted text-sm">

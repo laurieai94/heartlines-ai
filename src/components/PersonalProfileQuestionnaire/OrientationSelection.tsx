@@ -17,21 +17,21 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
       <Label className="text-lg font-semibold questionnaire-text">
         What's your sexual orientation? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
         <Lightbulb className="w-4 h-4" />
         <span>Because straight dating advice doesn't work for everyone</span>
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         {orientationOptions.map((orientation) => (
           <button
             key={orientation}
             onClick={() => onOrientationSelect(orientation)}
-            className={`p-4 rounded-2xl text-sm font-medium transition-all text-left hover:scale-105 ${
+            className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
               selectedOrientations.includes(orientation)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -43,15 +43,15 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
       </div>
       
       {selectedOrientations.includes('Prefer to self-describe') && (
-        <div className="mt-4">
-          <Label className="text-lg font-medium questionnaire-text mb-3 block">
+        <div className="mt-3">
+          <Label className="text-lg font-medium questionnaire-text mb-2 block">
             Please describe your sexual orientation:
           </Label>
           <Textarea
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do you identify?"
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-lg p-4"
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-base p-3"
             rows={3}
           />
         </div>
