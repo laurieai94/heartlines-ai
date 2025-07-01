@@ -42,20 +42,20 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
-      <Label className="text-lg font-semibold text-white">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-2">
+      <Label className="text-base font-semibold text-white">
         What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm text-white/80 mb-3">
-        <Lightbulb className="w-4 h-4" />
+      <div className="flex items-center gap-2 text-xs text-white/80 mb-2">
+        <Lightbulb className="w-3 h-3" />
         <span>So we can refer to you correctly</span>
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-1.5">
         {pronounOptions.map((pronouns) => (
           <button
             key={pronouns}
             onClick={() => handleOptionSelect(pronouns)}
-            className={`p-3 rounded-xl text-sm font-medium transition-all hover:scale-105 ${
+            className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 h-8 ${
               selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -67,15 +67,15 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
       </div>
       
       {(selectedPronouns === 'Other' || customPronouns) && (
-        <div className="mt-3">
-          <Label className="text-lg font-medium text-white mb-2 block">
+        <div className="mt-2">
+          <Label className="text-sm font-medium text-white mb-1 block">
             Please specify your pronouns:
           </Label>
           <Input
             value={customPronouns}
             onChange={(e) => handleCustomChange(e.target.value)}
             placeholder="e.g., xe/xir, fae/faer, etc."
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-base p-3"
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-8"
           />
         </div>
       )}

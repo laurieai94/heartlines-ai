@@ -31,20 +31,20 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 
       />
 
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <Label className="text-lg font-semibold questionnaire-text">
+        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-base font-semibold questionnaire-text">
                 Would you like to add a profile photo? <span className="questionnaire-text-muted font-normal">(Optional)</span>
               </Label>
-              <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                <Lightbulb className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+                <Lightbulb className="w-3 h-3" />
                 <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
               </div>
               <PhotoUpload
@@ -54,12 +54,12 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               />
             </div>
 
-            <div className="space-y-3">
-              <Label htmlFor="name" className="text-lg font-semibold questionnaire-text">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-base font-semibold questionnaire-text">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
-              <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                <Lightbulb className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+                <Lightbulb className="w-3 h-3" />
                 <span>So we can make this feel like talking to a real person, not a bot</span>
               </div>
               <Input
@@ -68,7 +68,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 value={profileData.name || ''}
                 onChange={(e) => updateField('name', e.target.value)}
                 placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-base p-3"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8"
               />
             </div>
           </div>

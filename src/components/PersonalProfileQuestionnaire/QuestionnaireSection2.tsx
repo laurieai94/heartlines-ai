@@ -75,28 +75,27 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
 
   return (
-    <div className="questionnaire-bg p-6">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <div className="questionnaire-card p-6 space-y-6">
-          {/* Relationship Status */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
-              Current relationship status <span className="text-red-400">*</span>
-            </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
-              <span>From 'it's complicated' to married - we meet you where you are</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {relationshipStatusOptions.map((status) => (
-                <button
-                  key={status}
-                  onClick={() => updateField('relationshipStatus', status)}
-                  className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                    profileData.relationshipStatus === status
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
+    <div className="space-y-3">
+      <div className="questionnaire-card p-4 space-y-4">
+        {/* Relationship Status */}
+        <div className="space-y-2">
+          <Label className="text-base font-semibold questionnaire-text">
+            Current relationship status <span className="text-red-400">*</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+            <Lightbulb className="w-3 h-3" />
+            <span>From 'it's complicated' to married - we meet you where you are</span>
+          </div>
+          <div className="grid grid-cols-2 gap-1.5">
+            {relationshipStatusOptions.map((status) => (
+              <button
+                key={status}
+                onClick={() => updateField('relationshipStatus', status)}
+                className={`p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
+                  profileData.relationshipStatus === status
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
+                }`}
                 >
                   {status}
                 </button>
@@ -163,26 +162,26 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             </>
           )}
 
-          {/* Conditional Relationship Length */}
-          {hasRelationshipLength && (
-            <div className="space-y-3">
-              <Label className="text-lg font-semibold questionnaire-text">
-                How long have you been together? <span className="text-red-400">*</span>
-              </Label>
-              <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-                <Lightbulb className="w-4 h-4" />
-                <span>The 6-month mark hits different than 2 years</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {relationshipLengthOptions.map((length) => (
-                  <button
-                    key={length}
-                    onClick={() => updateField('relationshipLength', length)}
-                    className={`p-3 rounded-xl text-sm font-medium transition-all text-center hover:scale-105 ${
-                      profileData.relationshipLength === length
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
+        {/* Conditional Relationship Length */}
+        {hasRelationshipLength && (
+          <div className="space-y-2">
+            <Label className="text-base font-semibold questionnaire-text">
+              How long have you been together? <span className="text-red-400">*</span>
+            </Label>
+            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+              <Lightbulb className="w-3 h-3" />
+              <span>The 6-month mark hits different than 2 years</span>
+            </div>
+            <div className="grid grid-cols-3 gap-1.5">
+              {relationshipLengthOptions.map((length) => (
+                <button
+                  key={length}
+                  onClick={() => updateField('relationshipLength', length)}
+                  className={`p-2 rounded-lg text-xs font-medium transition-all text-center hover:scale-105 h-8 ${
+                    profileData.relationshipLength === length
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
+                  }`}
                   >
                     {length}
                   </button>
@@ -275,9 +274,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
             </div>
-          </div>
-        </div>
       </div>
+    </div>
     </div>
   );
 };

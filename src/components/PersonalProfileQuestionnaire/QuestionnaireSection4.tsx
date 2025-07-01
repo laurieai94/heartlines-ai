@@ -34,32 +34,31 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="questionnaire-bg p-6">
-      <div className="max-w-3xl mx-auto">
-        <div className="questionnaire-card p-6 space-y-6">
-      {/* Two Column Layout for Desktop */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Left Column */}
-        <div className="space-y-6">
-          {/* Family Dynamics */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
-              How would you describe your family dynamics growing up?
-            </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
-              <span>Your family shaped your relationship blueprint (for better or worse)</span>
-            </div>
+    <div className="space-y-3">
+      <div className="questionnaire-card p-4 space-y-4">
+        {/* Two Column Layout for Desktop */}
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Left Column */}
+          <div className="space-y-4">
+            {/* Family Dynamics */}
             <div className="space-y-2">
-              {familyDynamicsOptions.map((dynamic) => (
-                <button
-                  key={dynamic}
-                  onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
-                    (profileData.familyDynamics || []).includes(dynamic)
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
+              <Label className="text-base font-semibold questionnaire-text">
+                How would you describe your family dynamics growing up?
+              </Label>
+              <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+                <Lightbulb className="w-3 h-3" />
+                <span>Your family shaped your relationship blueprint (for better or worse)</span>
+              </div>
+              <div className="space-y-1.5">
+                {familyDynamicsOptions.map((dynamic) => (
+                  <button
+                    key={dynamic}
+                    onClick={() => handleMultiSelect('familyDynamics', dynamic)}
+                    className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
+                      (profileData.familyDynamics || []).includes(dynamic)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
                 >
                   {dynamic}
                 </button>
@@ -68,20 +67,20 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </div>
 
           {/* Love Messages */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
+          <div className="space-y-2">
+            <Label className="text-base font-semibold questionnaire-text">
               What messages about love did you receive growing up?
             </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+              <Lightbulb className="w-3 h-3" />
               <span>The stuff about relationships you internalized growing up</span>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {loveMessagesOptions.map((message) => (
                 <button
                   key={message}
                   onClick={() => handleMultiSelect('loveMessages', message)}
-                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
                     (profileData.loveMessages || []).includes(message)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
@@ -95,22 +94,22 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Parent Conflict Style */}
-          <div className="space-y-3">
-            <Label className="text-lg font-semibold questionnaire-text">
+          <div className="space-y-2">
+            <Label className="text-base font-semibold questionnaire-text">
               How parents handled conflict
             </Label>
-            <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-3">
-              <Lightbulb className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs questionnaire-text-muted mb-2">
+              <Lightbulb className="w-3 h-3" />
               <span>How they fought affects how you fight - let's break the cycle</span>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {parentConflictOptions.map((style) => (
                 <button
                   key={style}
                   onClick={() => handleMultiSelect('parentConflictStyle', style)}
-                  className={`w-full p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
+                  className={`w-full p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-105 h-8 ${
                     (profileData.parentConflictStyle || []).includes(style)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
@@ -150,19 +149,18 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         </div>
       </div>
 
-          {/* Final Encouragement */}
-          <div className="text-center p-6 questionnaire-card">
-            <div className="text-3xl mb-3">🌟</div>
-            <p className="text-lg font-bold questionnaire-text mb-2">
-              You're all set!
-            </p>
-            <p className="questionnaire-text-muted text-base mb-3">
-              Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
-            </p>
-            <p className="questionnaire-text-muted text-sm">
-              Remember: You can always update your profile as you learn and grow
-            </p>
-          </div>
+        {/* Final Encouragement */}
+        <div className="text-center p-4 questionnaire-card">
+          <div className="text-2xl mb-2">🌟</div>
+          <p className="text-base font-bold questionnaire-text mb-1">
+            You're all set!
+          </p>
+          <p className="questionnaire-text-muted text-sm mb-2">
+            Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
+          </p>
+          <p className="questionnaire-text-muted text-xs">
+            Remember: You can always update your profile as you learn and grow
+          </p>
         </div>
       </div>
     </div>

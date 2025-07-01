@@ -43,16 +43,16 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
       </div>
       
       {selectedOrientations.includes('Prefer to self-describe') && (
-        <div className="mt-3">
-          <Label className="text-lg font-medium questionnaire-text mb-2 block">
+        <div className="mt-2">
+          <Label className="text-sm font-medium questionnaire-text mb-1 block">
             Please describe your sexual orientation:
           </Label>
           <Textarea
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do you identify?"
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-base p-3"
-            rows={3}
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2"
+            rows={2}
           />
         </div>
       )}
