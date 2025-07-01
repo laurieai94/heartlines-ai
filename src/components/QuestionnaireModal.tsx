@@ -19,20 +19,20 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
         onClick={onClose}
       />
       
-      {/* Modal Container - Better sized and centered */}
-      <div className="relative w-full max-w-5xl h-[85vh] max-h-[600px] bg-white/5 backdrop-blur-2xl rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/20 overflow-hidden animate-scale-in">
+      {/* Modal Container - Properly centered and sized */}
+      <div className="relative w-full max-w-4xl h-[90vh] max-h-[700px] bg-white/5 backdrop-blur-2xl rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/20 overflow-hidden animate-scale-in">
         {/* Close Button */}
         <Button
           variant="ghost"
           size="icon"
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 text-white/80 hover:text-white hover:bg-white/10 rounded-full w-8 h-8"
+          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white hover:bg-white/10 rounded-full w-8 h-8"
         >
           <X className="w-4 h-4" />
         </Button>
         
-        {/* Questionnaire Content - Now properly sized for modal */}
-        <div className="h-full">
+        {/* Questionnaire Content - Modal mode */}
+        <div className="h-full w-full">
           <PersonalProfileQuestionnaire onComplete={onClose} onClose={onClose} isModal={true} />
         </div>
       </div>
