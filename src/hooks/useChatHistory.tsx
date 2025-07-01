@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
@@ -39,9 +38,18 @@ export const useChatHistory = () => {
         const localConversations = JSON.parse(stored).filter((c: any) => c.user_id === user.id);
         setConversations(localConversations);
       } else {
-        setConversations(data || []);
+        // Convert database format to our interface
+        const formattedConversations: ChatConversation[] = (data || []).map(conv => ({
+          ...conv,
+          messages: typeof conv.messages === 'string' 
+            ? JSON.parse(conv.messages) 
+            : Array.isArray(conv.messages) 
+              ? conv.messages as ChatMessage[]
+              : []
+        }));
+        setConversations(formattedConversations);
         // Also store in localStorage as backup
-        localStorage.setItem('chat_conversations', JSON.stringify(data || []));
+        localStorage.setItem('chat_conversations', JSON.stringify(formattedConversations));
       }
     } catch (error) {
       console.error('Error fetching conversations:', error);
@@ -71,7 +79,7 @@ export const useChatHistory = () => {
         id: currentConversationId || crypto.randomUUID(),
         user_id: user.id,
         title: conversationTitle,
-        messages: messages,
+        messages: JSON.stringify(messages), // Convert to JSON string for database
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
@@ -92,15 +100,20 @@ export const useChatHistory = () => {
       const stored = localStorage.getItem('chat_conversations') || '[]';
       const conversations = JSON.parse(stored);
       
+      const conversationForStorage = {
+        ...conversationData,
+        messages: messages // Keep as array for localStorage
+      };
+
       if (currentConversationId) {
         const index = conversations.findIndex((c: any) => c.id === currentConversationId);
         if (index >= 0) {
-          conversations[index] = conversationData;
+          conversations[index] = conversationForStorage;
         } else {
-          conversations.push(conversationData);
+          conversations.push(conversationForStorage);
         }
       } else {
-        conversations.push(conversationData);
+        conversations.push(conversationForStorage);
         setCurrentConversationId(conversationData.id);
       }
 
@@ -117,6 +130,9 @@ export const useChatHistory = () => {
       console.error('Error saving conversation:', error);
       // Fallback to localStorage only
       try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        
         const stored = localStorage.getItem('chat_conversations') || '[]';
         const conversations = JSON.parse(stored);
         const conversationData = {
