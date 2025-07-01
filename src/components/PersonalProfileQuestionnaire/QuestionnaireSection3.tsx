@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Brain, MessageSquare, Shield, Users, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Brain, MessageSquare, Shield, Users } from "lucide-react";
 
 interface QuestionnaireSection3Props {
   profileData: any;
@@ -11,10 +10,6 @@ interface QuestionnaireSection3Props {
 }
 
 const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection3Props) => {
-  const [showAllStressOptions, setShowAllStressOptions] = useState(false);
-  const [showAllConflictOptions, setShowAllConflictOptions] = useState(false);
-  const [showAllLovedOptions, setShowAllLovedOptions] = useState(false);
-
   if (!isReady) return null;
 
   const stressResponseOptions = [
@@ -59,7 +54,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
-          {stressResponseOptions.slice(0, showAllStressOptions ? stressResponseOptions.length : 6).map((response) => (
+          {stressResponseOptions.map((response) => (
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
@@ -72,19 +67,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               {response}
             </button>
           ))}
-          
-          {stressResponseOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllStressOptions(!showAllStressOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-            >
-              {showAllStressOptions ? (
-                <>Show less <ChevronUp className="w-3 h-3" /></>
-              ) : (
-                <>Show more responses <ChevronDown className="w-3 h-3" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
@@ -102,7 +84,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
-          {conflictNeedsOptions.slice(0, showAllConflictOptions ? conflictNeedsOptions.length : 6).map((need) => (
+          {conflictNeedsOptions.map((need) => (
             <button
               key={need}
               onClick={() => handleMultiSelect('conflictNeeds', need)}
@@ -115,19 +97,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               {need}
             </button>
           ))}
-          
-          {conflictNeedsOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllConflictOptions(!showAllConflictOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-            >
-              {showAllConflictOptions ? (
-                <>Show less <ChevronUp className="w-3 h-3" /></>
-              ) : (
-                <>Show more needs <ChevronDown className="w-3 h-3" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
@@ -145,7 +114,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
-          {feelLovedOptions.slice(0, showAllLovedOptions ? feelLovedOptions.length : 6).map((way) => (
+          {feelLovedOptions.map((way) => (
             <button
               key={way}
               onClick={() => handleMultiSelect('feelLovedWhen', way)}
@@ -158,19 +127,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               {way}
             </button>
           ))}
-          
-          {feelLovedOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllLovedOptions(!showAllLovedOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-            >
-              {showAllLovedOptions ? (
-                <>Show less <ChevronUp className="w-3 h-3" /></>
-              ) : (
-                <>Show more ways <ChevronDown className="w-3 h-3" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 

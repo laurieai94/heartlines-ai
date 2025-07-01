@@ -12,27 +12,25 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Enhanced backdrop with stronger blur */}
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+      {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/40 backdrop-blur-xl"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
       
-      {/* Modal Container - Properly centered and sized */}
-      <div className="relative w-full max-w-4xl h-[90vh] max-h-[700px] bg-white/5 backdrop-blur-2xl rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] border border-white/20 overflow-hidden animate-scale-in">
+      {/* Modal Container */}
+      <div className="relative z-10 w-full max-w-5xl mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Close Button */}
-        <Button
-          variant="ghost"
-          size="icon"
+        <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-white/80 hover:text-white hover:bg-white/10 rounded-full w-8 h-8"
+          className="absolute top-6 right-6 z-20 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200"
         >
-          <X className="w-4 h-4" />
-        </Button>
+          <X className="w-6 h-6" />
+        </button>
         
-        {/* Questionnaire Content - Modal mode */}
-        <div className="h-full w-full">
+        {/* Questionnaire Content */}
+        <div className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
           <PersonalProfileQuestionnaire onComplete={onClose} onClose={onClose} isModal={true} />
         </div>
       </div>

@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Home, UserCheck, Heart, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Home, UserCheck, Heart, BookOpen } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -11,11 +10,6 @@ interface QuestionnaireSection4Props {
 }
 
 const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection4Props) => {
-  const [showAllFamilyOptions, setShowAllFamilyOptions] = useState(false);
-  const [showAllConflictOptions, setShowAllConflictOptions] = useState(false);
-  const [showAllMessageOptions, setShowAllMessageOptions] = useState(false);
-  const [showAllInfluenceOptions, setShowAllInfluenceOptions] = useState(false);
-
   if (!isReady) return null;
 
   const familyDynamicsOptions = [
@@ -54,8 +48,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-3">Select all that feel relevant (optional)</p>
         </div>
         
-        <div className="space-y-2">
-          {familyDynamicsOptions.slice(0, showAllFamilyOptions ? familyDynamicsOptions.length : 6).map((dynamic) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {familyDynamicsOptions.map((dynamic) => (
             <button
               key={dynamic}
               onClick={() => handleMultiSelect('familyDynamics', dynamic)}
@@ -68,19 +62,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               {dynamic}
             </button>
           ))}
-          
-          {familyDynamicsOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllFamilyOptions(!showAllFamilyOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
-            >
-              {showAllFamilyOptions ? (
-                <>Show less <ChevronUp className="w-4 h-4" /></>
-              ) : (
-                <>Show more options <ChevronDown className="w-4 h-4" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
@@ -97,8 +78,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
-        <div className="space-y-2">
-          {parentConflictOptions.slice(0, showAllConflictOptions ? parentConflictOptions.length : 6).map((style) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {parentConflictOptions.map((style) => (
             <button
               key={style}
               onClick={() => handleMultiSelect('parentConflictStyle', style)}
@@ -111,19 +92,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               {style}
             </button>
           ))}
-          
-          {parentConflictOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllConflictOptions(!showAllConflictOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
-            >
-              {showAllConflictOptions ? (
-                <>Show less <ChevronUp className="w-4 h-4" /></>
-              ) : (
-                <>Show more styles <ChevronDown className="w-4 h-4" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
@@ -140,8 +108,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-3">Select all that resonate (optional)</p>
         </div>
         
-        <div className="space-y-2">
-          {loveMessagesOptions.slice(0, showAllMessageOptions ? loveMessagesOptions.length : 6).map((message) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {loveMessagesOptions.map((message) => (
             <button
               key={message}
               onClick={() => handleMultiSelect('loveMessages', message)}
@@ -154,19 +122,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               {message}
             </button>
           ))}
-          
-          {loveMessagesOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllMessageOptions(!showAllMessageOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
-            >
-              {showAllMessageOptions ? (
-                <>Show less <ChevronUp className="w-4 h-4" /></>
-              ) : (
-                <>Show more messages <ChevronDown className="w-4 h-4" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
@@ -183,8 +138,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
-        <div className="space-y-2">
-          {loveInfluencesOptions.slice(0, showAllInfluenceOptions ? loveInfluencesOptions.length : 6).map((influence) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {loveInfluencesOptions.map((influence) => (
             <button
               key={influence}
               onClick={() => handleMultiSelect('loveInfluences', influence)}
@@ -197,19 +152,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               {influence}
             </button>
           ))}
-          
-          {loveInfluencesOptions.length > 6 && (
-            <button
-              onClick={() => setShowAllInfluenceOptions(!showAllInfluenceOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
-            >
-              {showAllInfluenceOptions ? (
-                <>Show less <ChevronUp className="w-4 h-4" /></>
-              ) : (
-                <>Show more influences <ChevronDown className="w-4 h-4" /></>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
