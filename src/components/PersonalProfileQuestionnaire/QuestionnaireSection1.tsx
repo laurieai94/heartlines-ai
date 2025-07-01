@@ -31,14 +31,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="questionnaire-bg p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="space-y-8">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 
       />
 
-        <div className="questionnaire-card p-8 space-y-8">
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-8 space-y-8">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <Label className="text-lg font-semibold questionnaire-text">
@@ -98,7 +97,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         onOrientationSelect={(orientation) => handleMultiSelect('orientation', orientation)}
         onSelfDescribeChange={(value) => updateField('orientationSelfDescribe', value)}
       />
-      </div>
     </div>
   );
 };

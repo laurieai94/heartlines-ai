@@ -42,11 +42,11 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
   };
 
   return (
-    <div className="space-y-4">
-      <Label className="text-lg font-semibold questionnaire-text">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-8 space-y-4">
+      <Label className="text-lg font-semibold text-white">
         What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+      <div className="flex items-center gap-2 text-sm text-white/80 mb-4">
         <Lightbulb className="w-4 h-4" />
         <span>So we can refer to you correctly</span>
       </div>
@@ -68,7 +68,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
       
       {(selectedPronouns === 'Other' || customPronouns) && (
         <div className="mt-4">
-          <Label className="text-lg font-medium questionnaire-text mb-3 block">
+          <Label className="text-lg font-medium text-white mb-3 block">
             Please specify your pronouns:
           </Label>
           <Input

@@ -17,12 +17,12 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
   ];
 
   return (
-    <div className="space-y-4">
-      <Label className="text-lg font-semibold questionnaire-text">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-8 space-y-4">
+      <Label className="text-lg font-semibold text-white">
         How do you identify your gender? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-sm ml-2">✨ Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+      <div className="flex items-center gap-2 text-sm text-white/80 mb-4">
         <Lightbulb className="w-4 h-4" />
         <span>We get that gender is complex and personal</span>
       </div>
@@ -44,7 +44,7 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
       
       {selectedGenders.includes('Prefer to self-describe') && (
         <div className="mt-4">
-          <Label className="text-lg font-medium questionnaire-text mb-3 block">
+          <Label className="text-lg font-medium text-white mb-3 block">
             Please describe your gender identity:
           </Label>
           <Textarea

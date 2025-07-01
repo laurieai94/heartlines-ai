@@ -13,11 +13,11 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
   ];
 
   return (
-    <div className="space-y-4">
-      <Label className="text-lg font-semibold questionnaire-text">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-8 space-y-4">
+      <Label className="text-lg font-semibold text-white">
         What's your age? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+      <div className="flex items-center gap-2 text-sm text-white/80 mb-4">
         <Lightbulb className="w-4 h-4" />
         <span>Different life stages = different relationship challenges</span>
       </div>

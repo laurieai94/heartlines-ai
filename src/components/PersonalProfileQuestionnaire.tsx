@@ -265,47 +265,39 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   const getSectionGradient = (section: number, isActive: boolean, isCompleted: boolean) => {
     const gradients = {
       1: isActive ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600' : 
-         isCompleted ? 'bg-gradient-to-br from-rose-100 to-pink-100 border border-rose-200' : 
-         'bg-white/80 backdrop-blur-sm border border-gray-200/50',
+         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
+         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
       2: isActive ? 'bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600' : 
-         isCompleted ? 'bg-gradient-to-br from-emerald-100 to-green-100 border border-emerald-200' : 
-         'bg-white/80 backdrop-blur-sm border border-gray-200/50',
+         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
+         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
       3: isActive ? 'bg-gradient-to-br from-cyan-400 via-teal-500 to-blue-600' : 
-         isCompleted ? 'bg-gradient-to-br from-cyan-100 to-teal-100 border border-cyan-200' : 
-         'bg-white/80 backdrop-blur-sm border border-gray-200/50',
+         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
+         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
       4: isActive ? 'bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-600' : 
-         isCompleted ? 'bg-gradient-to-br from-violet-100 to-purple-100 border border-violet-200' : 
-         'bg-white/80 backdrop-blur-sm border border-gray-200/50'
+         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
+         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15'
     };
     return gradients[section];
   };
 
   const getSectionTextColor = (section: number, isActive: boolean, isCompleted: boolean) => {
     if (isActive) return 'text-white';
-    if (isCompleted) {
-      const colors = {
-        1: 'text-rose-800',
-        2: 'text-emerald-800', 
-        3: 'text-cyan-800',
-        4: 'text-violet-800'
-      };
-      return colors[section];
-    }
-    return 'text-gray-700';
+    if (isCompleted) return 'text-white';
+    return 'text-white/80';
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden flex border border-white/20">
+    <div className="fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden flex border border-white/15">
         {/* Modern Sidebar Progress */}
-        <div className="w-64 bg-gradient-to-b from-gray-50/90 to-white/90 backdrop-blur-xl border-r border-gray-200/50 p-6 flex flex-col">
+        <div className="w-64 bg-white/10 backdrop-blur-xl border-r border-white/15 p-6 flex flex-col">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 text-base">Your Profile</h3>
-              <p className="text-xs text-gray-600 font-medium">Building your foundation</p>
+              <h3 className="font-bold text-white text-base">Your Profile</h3>
+              <p className="text-xs text-white/80 font-medium">Building your foundation</p>
             </div>
           </div>
 
@@ -355,7 +347,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
             })}
           </div>
 
-          <Button variant="ghost" onClick={onClose} className="mt-4 text-gray-500 hover:text-gray-700 w-full py-2">
+          <Button variant="ghost" onClick={onClose} className="mt-4 text-white/80 hover:text-white hover:bg-white/10 w-full py-2">
             <X className="w-4 h-4 mr-2" />
             Close
           </Button>
@@ -364,20 +356,20 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Modern Header */}
-          <div className="p-6 border-b border-gray-200/30 bg-gradient-to-r from-white/90 to-gray-50/90 backdrop-blur-sm">
+          <div className="p-6 border-b border-white/15 bg-white/5 backdrop-blur-sm">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                <h2 className="text-2xl font-bold text-white mb-1">
                   {getSectionTitle(currentSection)}
                 </h2>
-                <p className="text-sm text-gray-600 font-medium">{getSectionDescription(currentSection)}</p>
+                <p className="text-sm text-white/80 font-medium">{getSectionDescription(currentSection)}</p>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm text-gray-600 font-medium border border-gray-200/50">
+              <div className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-sm text-white/90 font-medium border border-white/15">
                 Step {currentSection} of 4
               </div>
             </div>
             <div className="relative">
-              <div className="w-full bg-gray-200/50 rounded-full h-3 overflow-hidden">
+              <div className="w-full bg-white/20 rounded-full h-3 overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${(currentSection / 4) * 100}%` }}
@@ -388,7 +380,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
                   <div 
                     key={step}
                     className={`text-xs font-medium ${
-                      step <= currentSection ? 'text-rose-600' : 'text-gray-400'
+                      step <= currentSection ? 'text-orange-300' : 'text-white/50'
                     }`}
                   >
                     {getSectionTitle(step).split(' ')[0]} {getSectionTitle(step).split(' ')[1]}
@@ -399,7 +391,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-gray-50/30 to-white/50">
+          <div className="flex-1 overflow-y-auto p-8 bg-black/5">
             <div className="max-w-5xl mx-auto">
               <QuestionnaireSection1 
                 profileData={profileData}
@@ -429,18 +421,18 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
           </div>
 
           {/* Modern Footer */}
-          <div className="p-6 border-t border-gray-200/30 bg-gradient-to-r from-white/90 to-gray-50/90 backdrop-blur-sm flex justify-between items-center">
+          <div className="p-6 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center">
             <Button
               variant="outline"
               onClick={handleBack}
               disabled={currentSection === 1}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl border-gray-300/50 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 text-white"
             >
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
 
-            <div className="bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-gray-600 font-medium border border-gray-200/50">
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-white/90 font-medium border border-white/15">
               Progress: {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
             </div>
 
