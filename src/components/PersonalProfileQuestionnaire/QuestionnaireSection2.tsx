@@ -87,8 +87,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => updateField('relationshipStatus', status)}
               className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                 profileData.relationshipStatus === status
-                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                  ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
               }`}
             >
               {status}
@@ -101,10 +101,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
       {isSingleOrDating && (
         <>
           {/* Dating Challenges */}
-          <div className="space-y-3 bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+          <div className="space-y-3 bg-orange-50 p-4 rounded-lg border-2 border-orange-200">
             <Label className="text-sm font-medium text-gray-700">
               What's your biggest challenge in the dating world right now? <span className="text-red-500">*</span>
-              <span className="text-blue-600 font-medium text-xs ml-2">✨ Select up to 3</span>
+              <span className="text-orange-600 font-medium text-xs ml-2">✨ Select up to 3</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
               Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation
@@ -116,8 +116,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('datingChallenges', challenge)}
                   className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.datingChallenges || []).includes(challenge)
-                      ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white border-blue-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {challenge}
@@ -127,10 +127,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           </div>
 
           {/* Dating Goals */}
-          <div className="space-y-3 bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+          <div className="space-y-3 bg-peach-50 p-4 rounded-lg border-2 border-peach-200">
             <Label className="text-sm font-medium text-gray-700">
               What are you hoping to find or create in your dating life? <span className="text-red-500">*</span>
-              <span className="text-purple-600 font-medium text-xs ml-2">✨ Select up to 3</span>
+              <span className="text-peach-500 font-medium text-xs ml-2">✨ Select up to 3</span>
             </Label>
             <p className="text-xs text-gray-600 mb-3">
               Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice
@@ -142,8 +142,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('datingGoals', goal)}
                   className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.datingGoals || []).includes(goal)
-                      ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                      ? 'bg-gradient-to-r from-peach-400 to-orange-400 text-white border-peach-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-peach-300 hover:bg-peach-50'
                   }`}
                 >
                   {goal}
@@ -167,8 +167,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 onClick={() => updateField('relationshipLength', length)}
                 className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-center hover:scale-105 ${
                   profileData.relationshipLength === length
-                    ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                    ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                 }`}
               >
                 {length}
@@ -185,7 +185,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
               What's working well in your relationship? <span className="text-red-500">*</span>
-              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+              <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <div className="grid grid-cols-2 gap-2">
               {workingWellOptions.map((item) => (
@@ -194,8 +194,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('workingWell', item)}
                   className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.workingWell || []).includes(item)
-                      ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white border-green-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {item}
@@ -208,7 +208,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
               What feels difficult or challenging? <span className="text-red-500">*</span>
-              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+              <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <div className="grid grid-cols-2 gap-2">
               {feelsDifficultOptions.map((challenge) => (
@@ -217,7 +217,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('feelsDifficult', challenge)}
                   className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.feelsDifficult || []).includes(challenge)
-                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
+                      ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white border-orange-400 shadow-md'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
                   }`}
                 >
@@ -233,7 +233,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
       <div className="space-y-3">
         <Label className="text-sm font-medium text-gray-700">
           Why are you interested in RealTalk? <span className="text-red-500">*</span>
-          <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+          <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
         <div className="grid grid-cols-2 gap-2">
           {whyRealTalkOptions.map((reason) => (
@@ -242,8 +242,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               onClick={() => handleMultiSelect('whyRealTalk', reason)}
               className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                 (profileData.whyRealTalk || []).includes(reason)
-                  ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-500 shadow-md'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                  ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                  : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
               }`}
             >
               {reason}

@@ -50,8 +50,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('familyDynamics', dynamic)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.familyDynamics || []).includes(dynamic)
-                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {dynamic}
@@ -72,8 +72,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('loveMessages', message)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.loveMessages || []).includes(message)
-                      ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {message}
@@ -97,8 +97,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('parentConflictStyle', style)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.parentConflictStyle || []).includes(style)
-                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {style}
@@ -119,7 +119,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('loveInfluences', influence)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.loveInfluences || []).includes(influence)
-                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
+                      ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white border-orange-400 shadow-md'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
                   }`}
                 >
@@ -132,15 +132,15 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Final Encouragement */}
-      <div className="text-center p-4 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 rounded-lg border border-rose-200">
+      <div className="text-center p-4 bg-gradient-to-r from-coral-50 via-orange-50 to-peach-50 rounded-lg border border-coral-200">
         <div className="text-2xl mb-2">🌟</div>
-        <p className="text-lg font-bold text-rose-900 mb-1">
+        <p className="text-lg font-bold text-coral-900 mb-1">
           You're all set!
         </p>
-        <p className="text-rose-700 text-sm mb-2">
+        <p className="text-coral-700 text-sm mb-2">
           Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
         </p>
-        <p className="text-rose-600 text-xs">
+        <p className="text-coral-600 text-xs">
           Remember: You can always update your profile as you learn and grow
         </p>
       </div>

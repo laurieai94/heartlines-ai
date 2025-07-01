@@ -47,7 +47,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
               When stressed, you typically... <span className="text-red-500">*</span>
-              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+              <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <div className="space-y-2">
               {stressResponseOptions.map((response) => (
@@ -56,8 +56,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('stressResponse', response)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.stressResponse || []).includes(response)
-                      ? 'bg-gradient-to-r from-blue-500 to-teal-500 text-white border-blue-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {response}
@@ -70,7 +70,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
               You feel most loved when... <span className="text-red-500">*</span>
-              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+              <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <div className="space-y-2">
               {feelLovedOptions.map((way) => (
@@ -79,8 +79,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('feelLovedWhen', way)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.feelLovedWhen || []).includes(way)
-                      ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:bg-pink-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {way}
@@ -96,7 +96,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
               During conflict, you need... <span className="text-red-500">*</span>
-              <span className="text-rose-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+              <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
             <div className="space-y-2">
               {conflictNeedsOptions.map((need) => (
@@ -105,7 +105,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => handleMultiSelect('conflictNeeds', need)}
                   className={`w-full p-2 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     (profileData.conflictNeeds || []).includes(need)
-                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-orange-500 shadow-md'
+                      ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white border-orange-400 shadow-md'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
                   }`}
                 >
@@ -127,8 +127,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   onClick={() => updateField('attachmentStyle', style)}
                   className={`w-full p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
                     profileData.attachmentStyle === style
-                      ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-500 shadow-md'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                      ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
                   }`}
                 >
                   {style}
