@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Check, X, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X, Sparkles, User, Heart, Zap, Award } from "lucide-react";
 import { toast } from "sonner";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import QuestionnaireSection1 from "./PersonalProfileQuestionnaire/QuestionnaireSection1";
@@ -233,10 +234,30 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
 
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return "The Real You ✨";
-      case 2: return "Your Situation 💕";
-      case 3: return "Your Vibe 🧠";
-      case 4: return "Your Foundation 🌱";
+      case 1: return (
+        <div className="flex items-center gap-2">
+          <User className="w-4 h-4" />
+          <span>The Real You</span>
+        </div>
+      );
+      case 2: return (
+        <div className="flex items-center gap-2">
+          <Heart className="w-4 h-4" />
+          <span>Your Situation</span>
+        </div>
+      );
+      case 3: return (
+        <div className="flex items-center gap-2">
+          <Zap className="w-4 h-4" />
+          <span>Your Vibe</span>
+        </div>
+      );
+      case 4: return (
+        <div className="flex items-center gap-2">
+          <Award className="w-4 h-4" />
+          <span>Your Foundation</span>
+        </div>
+      );
       default: return "";
     }
   };
@@ -385,7 +406,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
                         step <= currentSection ? 'text-orange-300' : 'text-white/50'
                       }`}
                     >
-                      {getSectionTitle(step).split(' ')[0]} {getSectionTitle(step).split(' ')[1]}
+                      {step === 1 ? 'Real' : step === 2 ? 'Situation' : step === 3 ? 'Vibe' : 'Foundation'}
                     </div>
                   ))}
                 </div>
@@ -498,7 +519,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
                   step <= currentSection ? 'text-orange-300' : 'text-white/50'
                 }`}
               >
-                {getSectionTitle(step).split(' ')[0]}
+                {step === 1 ? 'Real' : step === 2 ? 'Situation' : step === 3 ? 'Vibe' : 'Foundation'}
               </div>
             ))}
           </div>
