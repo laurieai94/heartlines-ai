@@ -109,10 +109,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       
-      // Build ultra-personalized prompt that uses ALL available profile data
-      const ultraPersonalizedPrompt = AICoachEngine.buildUltraPersonalizedPrompt(context, chatHistory);
+      // Use the correct clinical response prompt method
+      const clinicalPrompt = AICoachEngine.buildClinicalResponsePrompt(context, chatHistory);
 
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, ultraPersonalizedPrompt);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, clinicalPrompt);
       
       // Extract topics from AI response as well
       const aiTopics = extractTopicsFromMessage(aiResponse);
