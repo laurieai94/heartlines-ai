@@ -56,7 +56,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-coral-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your profile...</p>
         </div>
       </div>
@@ -110,7 +110,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
                 value={pronoun}
                 checked={currentData.pronouns === pronoun}
                 onChange={(e) => currentUpdateField('pronouns', e.target.value)}
-                className="w-4 h-4 text-coral-500"
+                className="w-4 h-4 text-orange-500"
               />
               <Label htmlFor={`pronoun-${pronoun}-${profileType}`} className="text-sm">
                 {pronoun}
@@ -136,7 +136,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
                 value={age}
                 checked={currentData.age === age}
                 onChange={(e) => currentUpdateField('age', e.target.value)}
-                className="w-4 h-4 text-coral-500"
+                className="w-4 h-4 text-orange-500"
               />
               <Label htmlFor={`age-${age}-${profileType}`} className="text-sm">
                 {age}

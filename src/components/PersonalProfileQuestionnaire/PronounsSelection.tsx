@@ -52,8 +52,8 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
             onClick={() => handleOptionSelect(pronouns)}
             className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105 ${
               selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
-                ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-purple-500 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
             }`}
           >
             {pronouns}
@@ -70,7 +70,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
             value={customPronouns}
             onChange={(e) => handleCustomChange(e.target.value)}
             placeholder="e.g., xe/xir, fae/faer, etc."
-            className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+            className="border-gray-300 focus:border-orange-400 focus:ring-orange-400"
           />
         </div>
       )}
