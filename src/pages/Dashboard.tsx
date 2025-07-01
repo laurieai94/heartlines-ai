@@ -14,10 +14,12 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import SignUpModal from "@/components/SignUpModal";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import { NavigationProvider } from "@/contexts/NavigationContext";
+import QuestionnaireModal from "@/components/QuestionnaireModal";
 
 const Dashboard = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("profile");
+  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const { 
     shouldShowSignUpModal, 
     blockingAction, 
@@ -159,6 +161,12 @@ const Dashboard = () => {
           isOpen={shouldShowSignUpModal}
           onClose={closeSignUpModal}
           blockingAction={blockingAction}
+        />
+
+        {/* Questionnaire Modal */}
+        <QuestionnaireModal
+          isOpen={showQuestionnaireModal}
+          onClose={() => setShowQuestionnaireModal(false)}
         />
       </div>
     </NavigationProvider>
