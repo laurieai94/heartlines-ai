@@ -27,6 +27,7 @@ export interface PersonContext {
     name?: string;
     age?: string;
     pronouns?: string;
+    customPronouns?: string;
     loveLanguages?: string[];
     communicationStyle?: string;
     conflictStyle?: string;
