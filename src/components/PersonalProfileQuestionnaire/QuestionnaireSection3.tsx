@@ -58,7 +58,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-2">Check all that apply</p>
         </div>
         
-        <div className="space-y-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {stressResponseOptions.slice(0, showAllStressOptions ? stressResponseOptions.length : 6).map((response) => (
             <button
               key={response}
@@ -76,7 +76,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {stressResponseOptions.length > 6 && (
             <button
               onClick={() => setShowAllStressOptions(!showAllStressOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
             >
               {showAllStressOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>
@@ -101,7 +101,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-2">Check all that apply</p>
         </div>
         
-        <div className="space-y-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {conflictNeedsOptions.slice(0, showAllConflictOptions ? conflictNeedsOptions.length : 6).map((need) => (
             <button
               key={need}
@@ -119,7 +119,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {conflictNeedsOptions.length > 6 && (
             <button
               onClick={() => setShowAllConflictOptions(!showAllConflictOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
             >
               {showAllConflictOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>
@@ -144,7 +144,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-orange-300 font-medium text-xs mb-2">Check all that apply</p>
         </div>
         
-        <div className="space-y-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {feelLovedOptions.slice(0, showAllLovedOptions ? feelLovedOptions.length : 6).map((way) => (
             <button
               key={way}
@@ -162,7 +162,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {feelLovedOptions.length > 6 && (
             <button
               onClick={() => setShowAllLovedOptions(!showAllLovedOptions)}
-              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
             >
               {showAllLovedOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>

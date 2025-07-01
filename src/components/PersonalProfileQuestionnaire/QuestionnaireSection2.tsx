@@ -1,3 +1,4 @@
+
 import { Label } from "@/components/ui/label";
 import { Heart, Users, MessageSquare, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -106,7 +107,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             {relationshipStatusOptions.length > 6 && (
               <button
                 onClick={() => setShowAllRelationshipOptions(!showAllRelationshipOptions)}
-                className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+                className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
               >
                 {showAllRelationshipOptions ? (
                   <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -135,8 +136,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <p className="text-orange-300 font-medium text-xs mb-4">Select up to 3 that resonate most</p>
             </div>
             
-            <div className="space-y-3">
-              {datingChallengesOptions.slice(0, showAllDatingChallenges ? datingChallengesOptions.length : 5).map((challenge) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {datingChallengesOptions.slice(0, showAllDatingChallenges ? datingChallengesOptions.length : 6).map((challenge) => (
                 <button
                   key={challenge}
                   onClick={() => handleMultiSelect('datingChallenges', challenge)}
@@ -150,10 +151,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
               
-              {datingChallengesOptions.length > 5 && (
+              {datingChallengesOptions.length > 6 && (
                 <button
                   onClick={() => setShowAllDatingChallenges(!showAllDatingChallenges)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
                 >
                   {showAllDatingChallenges ? (
                     <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -178,8 +179,8 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <p className="text-orange-300 font-medium text-xs mb-4">Select up to 3 that feel most important</p>
             </div>
             
-            <div className="space-y-3">
-              {datingGoalsOptions.slice(0, showAllDatingGoals ? datingGoalsOptions.length : 5).map((goal) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {datingGoalsOptions.slice(0, showAllDatingGoals ? datingGoalsOptions.length : 6).map((goal) => (
                 <button
                   key={goal}
                   onClick={() => handleMultiSelect('datingGoals', goal)}
@@ -193,10 +194,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 </button>
               ))}
               
-              {datingGoalsOptions.length > 5 && (
+              {datingGoalsOptions.length > 6 && (
                 <button
                   onClick={() => setShowAllDatingGoals(!showAllDatingGoals)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
                 >
                   {showAllDatingGoals ? (
                     <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -257,7 +258,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <p className="text-orange-300 font-medium text-xs mb-4">Check all that apply</p>
             </div>
             
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {workingWellOptions.slice(0, showAllWorkingWell ? workingWellOptions.length : 6).map((item) => (
                 <button
                   key={item}
@@ -275,7 +276,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               {workingWellOptions.length > 6 && (
                 <button
                   onClick={() => setShowAllWorkingWell(!showAllWorkingWell)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
                 >
                   {showAllWorkingWell ? (
                     <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -300,7 +301,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <p className="text-orange-300 font-medium text-xs mb-4">Check all that apply</p>
             </div>
             
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {feelsDifficultOptions.slice(0, showAllDifficult ? feelsDifficultOptions.length : 6).map((challenge) => (
                 <button
                   key={challenge}
@@ -318,7 +319,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               {feelsDifficultOptions.length > 6 && (
                 <button
                   onClick={() => setShowAllDifficult(!showAllDifficult)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
                 >
                   {showAllDifficult ? (
                     <>Show less <ChevronUp className="w-4 h-4" /></>
