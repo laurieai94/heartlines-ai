@@ -19,7 +19,7 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
     <div className="space-y-3">
       <Label className="text-sm font-medium text-gray-700">
         How do you identify your gender? <span className="text-red-500">*</span>
-        <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+        <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
       </Label>
       <div className="grid grid-cols-3 gap-2">
         {genderOptions.map((gender) => (
@@ -28,8 +28,8 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
             onClick={() => onGenderSelect(gender)}
             className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
               selectedGenders.includes(gender)
-                ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
+                ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
             }`}
           >
             {gender}
@@ -46,7 +46,7 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do you identify?"
-            className="border-gray-300 focus:border-coral-400 focus:ring-coral-400"
+            className="border-gray-300 focus:border-orange-400 focus:ring-orange-400"
             rows={2}
           />
         </div>

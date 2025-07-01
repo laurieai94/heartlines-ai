@@ -23,8 +23,8 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
             onClick={() => onAgeSelect(age)}
             className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105 ${
               selectedAge === age
-                ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
+                ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
             }`}
           >
             {age}
