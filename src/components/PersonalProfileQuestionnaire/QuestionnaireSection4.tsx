@@ -1,5 +1,6 @@
 
 import { Label } from "@/components/ui/label";
+import { Lightbulb } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -43,6 +44,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               How would you describe your family dynamics growing up?
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>Your family shaped your relationship blueprint (for better or worse)</span>
+            </div>
             <div className="space-y-2">
               {familyDynamicsOptions.map((dynamic) => (
                 <button
@@ -65,6 +70,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               What messages about love did you receive growing up?
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>The stuff about relationships you internalized growing up</span>
+            </div>
             <div className="space-y-2">
               {loveMessagesOptions.map((message) => (
                 <button
@@ -90,6 +99,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               How parents handled conflict
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>How they fought affects how you fight - let's break the cycle</span>
+            </div>
             <div className="space-y-2">
               {parentConflictOptions.map((style) => (
                 <button
@@ -112,6 +125,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               What influenced love ideas
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>What shaped your ideas about how love should work</span>
+            </div>
             <div className="space-y-2">
               {loveInfluencesOptions.map((influence) => (
                 <button

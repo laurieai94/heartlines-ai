@@ -1,5 +1,6 @@
 
 import { Label } from "@/components/ui/label";
+import { Lightbulb } from "lucide-react";
 
 interface QuestionnaireSection2Props {
   profileData: any;
@@ -80,6 +81,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
         <Label className="text-sm font-medium text-gray-700">
           Current relationship status <span className="text-red-500">*</span>
         </Label>
+        <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+          <Lightbulb className="w-3 h-3" />
+          <span>From 'it's complicated' to married - we meet you where you are</span>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {relationshipStatusOptions.map((status) => (
             <button
@@ -160,6 +165,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           <Label className="text-sm font-medium text-gray-700">
             How long have you been together? <span className="text-red-500">*</span>
           </Label>
+          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+            <Lightbulb className="w-3 h-3" />
+            <span>The 6-month mark hits different than 2 years</span>
+          </div>
           <div className="grid grid-cols-3 gap-2">
             {relationshipLengthOptions.map((length) => (
               <button
@@ -187,6 +196,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               What's working well in your relationship? <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>We'll build on what's already good instead of fixing everything</span>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               {workingWellOptions.map((item) => (
                 <button
@@ -210,6 +223,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               What feels difficult or challenging? <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>Let's tackle the stuff that's actually driving you crazy</span>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               {feelsDifficultOptions.map((challenge) => (
                 <button
@@ -235,6 +252,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           Why are you interested in RealTalk? <span className="text-red-500">*</span>
           <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
         </Label>
+        <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+          <Lightbulb className="w-3 h-3" />
+          <span>So we know what kind of help you're actually looking for</span>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {whyRealTalkOptions.map((reason) => (
             <button

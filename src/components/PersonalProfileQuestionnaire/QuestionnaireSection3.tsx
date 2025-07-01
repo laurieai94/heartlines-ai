@@ -1,5 +1,6 @@
 
 import { Label } from "@/components/ui/label";
+import { Lightbulb } from "lucide-react";
 
 interface QuestionnaireSection3Props {
   profileData: any;
@@ -49,6 +50,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               When stressed, you typically... <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>How you react when life gets overwhelming (spoiler: we all have patterns)</span>
+            </div>
             <div className="space-y-2">
               {stressResponseOptions.map((response) => (
                 <button
@@ -72,6 +77,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               You feel most loved when... <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>Your specific love language, not generic relationship advice</span>
+            </div>
             <div className="space-y-2">
               {feelLovedOptions.map((way) => (
                 <button
@@ -98,6 +107,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               During conflict, you need... <span className="text-red-500">*</span>
               <span className="text-orange-600 font-medium text-xs ml-2">✨ Check all that apply</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>What you actually need during fights (not what you think you should need)</span>
+            </div>
             <div className="space-y-2">
               {conflictNeedsOptions.map((need) => (
                 <button
@@ -120,6 +133,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-sm font-medium text-gray-700">
               What's your attachment style? <span className="text-red-500">*</span>
             </Label>
+            <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+              <Lightbulb className="w-3 h-3" />
+              <span>The psychological patterns that run your relationships (yes, even yours)</span>
+            </div>
             <div className="space-y-2">
               {attachmentOptions.map((style) => (
                 <button

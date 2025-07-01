@@ -2,6 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { Lightbulb } from "lucide-react";
 import PhotoUpload from "./PhotoUpload";
 import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
@@ -41,6 +42,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <Label className="text-sm font-medium text-gray-700">
             Would you like to add a profile photo? <span className="text-gray-500 font-normal">(Optional)</span>
           </Label>
+          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+            <Lightbulb className="w-3 h-3" />
+            <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
+          </div>
           <PhotoUpload
             profilePhoto={profileData.profilePhoto || ''}
             name={profileData.name || ''}
@@ -52,6 +57,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <Label htmlFor="name" className="text-sm font-medium text-gray-700">
             What should we call you? <span className="text-red-500">*</span>
           </Label>
+          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+            <Lightbulb className="w-3 h-3" />
+            <span>So we can make this feel like talking to a real person, not a bot</span>
+          </div>
           <Input
             id="name"
             type="text"
