@@ -39,13 +39,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
           <Label className="text-base font-semibold text-white">
-            How would you describe your family dynamics growing up?
+            How would you describe your family dynamics growing up? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
             <Home className="w-4 h-4 text-green-300" />
             <span>Your family shaped your relationship blueprint (for better or worse)</span>
           </div>
-          <p className="text-orange-300 font-medium text-xs mb-3">Select all that feel relevant (optional)</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -69,13 +69,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
           <Label className="text-base font-semibold text-white">
-            How did your parents handle conflict?
+            How did your parents handle conflict? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
             <UserCheck className="w-4 h-4 text-orange-300" />
             <span>How they fought affects how you fight - let's break the cycle</span>
           </div>
-          <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -99,13 +99,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
           <Label className="text-base font-semibold text-white">
-            What messages about love did you receive growing up?
+            What messages about love did you receive growing up? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
             <Heart className="w-4 h-4 text-pink-300" />
             <span>The stuff about relationships you internalized growing up</span>
           </div>
-          <p className="text-orange-300 font-medium text-xs mb-3">Select all that resonate (optional)</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -129,13 +129,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
           <Label className="text-base font-semibold text-white">
-            What influenced your ideas about love?
+            What influenced your ideas about love? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
             <BookOpen className="w-4 h-4 text-blue-300" />
             <span>What shaped your ideas about how love should work</span>
           </div>
-          <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">

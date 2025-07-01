@@ -20,7 +20,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
       <Label className="text-base font-semibold text-white">
         What's your sexual orientation? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-normal text-xs ml-2">Check all that apply</span>
+        <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
         <Compass className="w-4 h-4 text-pink-300" />

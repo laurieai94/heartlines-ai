@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Heart, Users, MessageSquare, Clock, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Heart, Users, MessageSquare, Clock } from "lucide-react";
 
 interface QuestionnaireSection2Props {
   profileData: any;
@@ -11,12 +10,6 @@ interface QuestionnaireSection2Props {
 }
 
 const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection2Props) => {
-  const [showAllRelationshipOptions, setShowAllRelationshipOptions] = useState(false);
-  const [showAllDatingChallenges, setShowAllDatingChallenges] = useState(false);
-  const [showAllDatingGoals, setShowAllDatingGoals] = useState(false);
-  const [showAllWorkingWell, setShowAllWorkingWell] = useState(false);
-  const [showAllDifficult, setShowAllDifficult] = useState(false);
-
   if (!isReady) return null;
 
   const relationshipStatusOptions = [
@@ -90,7 +83,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {relationshipStatusOptions.slice(0, showAllRelationshipOptions ? relationshipStatusOptions.length : 6).map((status) => (
+            {relationshipStatusOptions.map((status) => (
               <button
                 key={status}
                 onClick={() => updateField('relationshipStatus', status)}
@@ -103,19 +96,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 {status}
               </button>
             ))}
-            
-            {relationshipStatusOptions.length > 6 && (
-              <button
-                onClick={() => setShowAllRelationshipOptions(!showAllRelationshipOptions)}
-                className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-              >
-                {showAllRelationshipOptions ? (
-                  <>Show less <ChevronUp className="w-4 h-4" /></>
-                ) : (
-                  <>Show more options <ChevronDown className="w-4 h-4" /></>
-                )}
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -128,16 +108,16 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-base font-semibold text-white mb-2 block">
                 What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-1 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
                 <MessageSquare className="w-4 h-4 text-blue-300" />
                 <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
               </div>
-              <p className="text-orange-300 font-medium text-xs mb-4">Select up to 3 that resonate most</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {datingChallengesOptions.slice(0, showAllDatingChallenges ? datingChallengesOptions.length : 6).map((challenge) => (
+              {datingChallengesOptions.map((challenge) => (
                 <button
                   key={challenge}
                   onClick={() => handleMultiSelect('datingChallenges', challenge)}
@@ -150,19 +130,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   {challenge}
                 </button>
               ))}
-              
-              {datingChallengesOptions.length > 6 && (
-                <button
-                  onClick={() => setShowAllDatingChallenges(!showAllDatingChallenges)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-                >
-                  {showAllDatingChallenges ? (
-                    <>Show less <ChevronUp className="w-4 h-4" /></>
-                  ) : (
-                    <>Show more challenges <ChevronDown className="w-4 h-4" /></>
-                  )}
-                </button>
-              )}
             </div>
           </div>
 
@@ -171,16 +138,16 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-base font-semibold text-white mb-2 block">
                 What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-1 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires</span>
               </div>
-              <p className="text-orange-300 font-medium text-xs mb-4">Select up to 3 that feel most important</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {datingGoalsOptions.slice(0, showAllDatingGoals ? datingGoalsOptions.length : 6).map((goal) => (
+              {datingGoalsOptions.map((goal) => (
                 <button
                   key={goal}
                   onClick={() => handleMultiSelect('datingGoals', goal)}
@@ -193,19 +160,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   {goal}
                 </button>
               ))}
-              
-              {datingGoalsOptions.length > 6 && (
-                <button
-                  onClick={() => setShowAllDatingGoals(!showAllDatingGoals)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-                >
-                  {showAllDatingGoals ? (
-                    <>Show less <ChevronUp className="w-4 h-4" /></>
-                  ) : (
-                    <>Show more goals <ChevronDown className="w-4 h-4" /></>
-                  )}
-                </button>
-              )}
             </div>
           </div>
         </>
@@ -250,16 +204,16 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-base font-semibold text-white mb-2 block">
                 What's working well in your relationship? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-1 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>We'll build on what's already good instead of fixing everything</span>
               </div>
-              <p className="text-orange-300 font-medium text-xs mb-4">Check all that apply</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {workingWellOptions.slice(0, showAllWorkingWell ? workingWellOptions.length : 6).map((item) => (
+              {workingWellOptions.map((item) => (
                 <button
                   key={item}
                   onClick={() => handleMultiSelect('workingWell', item)}
@@ -272,19 +226,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   {item}
                 </button>
               ))}
-              
-              {workingWellOptions.length > 6 && (
-                <button
-                  onClick={() => setShowAllWorkingWell(!showAllWorkingWell)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-                >
-                  {showAllWorkingWell ? (
-                    <>Show less <ChevronUp className="w-4 h-4" /></>
-                  ) : (
-                    <>Show more <ChevronDown className="w-4 h-4" /></>
-                  )}
-                </button>
-              )}
             </div>
           </div>
 
@@ -293,16 +234,16 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-base font-semibold text-white mb-2 block">
                 What feels difficult or challenging? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-1 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
                 <MessageSquare className="w-4 h-4 text-blue-300" />
                 <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
-              <p className="text-orange-300 font-medium text-xs mb-4">Check all that apply</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {feelsDifficultOptions.slice(0, showAllDifficult ? feelsDifficultOptions.length : 6).map((challenge) => (
+              {feelsDifficultOptions.map((challenge) => (
                 <button
                   key={challenge}
                   onClick={() => handleMultiSelect('feelsDifficult', challenge)}
@@ -315,19 +256,6 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                   {challenge}
                 </button>
               ))}
-              
-              {feelsDifficultOptions.length > 6 && (
-                <button
-                  onClick={() => setShowAllDifficult(!showAllDifficult)}
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs md:col-span-2"
-                >
-                  {showAllDifficult ? (
-                    <>Show less <ChevronUp className="w-4 h-4" /></>
-                  ) : (
-                    <>Show more challenges <ChevronDown className="w-4 h-4" /></>
-                  )}
-                </button>
-              )}
             </div>
           </div>
         </>
