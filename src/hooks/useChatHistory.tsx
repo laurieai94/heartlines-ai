@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
@@ -10,6 +11,38 @@ export interface ChatConversation {
   created_at: string;
   updated_at: string;
 }
+
+// Type guard to check if an object is a valid ChatMessage
+const isChatMessage = (obj: any): obj is ChatMessage => {
+  return obj && 
+    typeof obj.id === 'number' && 
+    typeof obj.type === 'string' && 
+    (obj.type === 'user' || obj.type === 'ai') &&
+    typeof obj.content === 'string' && 
+    typeof obj.timestamp === 'string';
+};
+
+// Safe conversion function for messages
+const convertToMessages = (data: any): ChatMessage[] => {
+  if (!data) return [];
+  
+  // If it's a string, try to parse it
+  if (typeof data === 'string') {
+    try {
+      const parsed = JSON.parse(data);
+      return convertToMessages(parsed);
+    } catch {
+      return [];
+    }
+  }
+  
+  // If it's an array, validate each item
+  if (Array.isArray(data)) {
+    return data.filter(isChatMessage);
+  }
+  
+  return [];
+};
 
 export const useChatHistory = () => {
   const [conversations, setConversations] = useState<ChatConversation[]>([]);
@@ -38,14 +71,10 @@ export const useChatHistory = () => {
         const localConversations = JSON.parse(stored).filter((c: any) => c.user_id === user.id);
         setConversations(localConversations);
       } else {
-        // Convert database format to our interface
+        // Convert database format to our interface using safe conversion
         const formattedConversations: ChatConversation[] = (data || []).map(conv => ({
           ...conv,
-          messages: typeof conv.messages === 'string' 
-            ? JSON.parse(conv.messages) 
-            : Array.isArray(conv.messages) 
-              ? conv.messages as ChatMessage[]
-              : []
+          messages: convertToMessages(conv.messages)
         }));
         setConversations(formattedConversations);
         // Also store in localStorage as backup
@@ -160,9 +189,7 @@ export const useChatHistory = () => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
-      const messages = typeof conversation.messages === 'string' 
-        ? JSON.parse(conversation.messages) 
-        : conversation.messages;
+      const messages = convertToMessages(conversation.messages);
       
       // Also save to sessionStorage for quick recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
@@ -196,9 +223,7 @@ export const useChatHistory = () => {
     if (conversations.length > 0) {
       const mostRecent = conversations[0];
       setCurrentConversationId(mostRecent.id);
-      return typeof mostRecent.messages === 'string' 
-        ? JSON.parse(mostRecent.messages) 
-        : mostRecent.messages;
+      return convertToMessages(mostRecent.messages);
     }
     
     return [];
