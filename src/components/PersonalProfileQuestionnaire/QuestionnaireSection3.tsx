@@ -63,7 +63,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.stressResponse || []).includes(response)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -76,7 +76,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {stressResponseOptions.length > 6 && (
             <button
               onClick={() => setShowAllStressOptions(!showAllStressOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllStressOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>
@@ -106,7 +106,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={need}
               onClick={() => handleMultiSelect('conflictNeeds', need)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.conflictNeeds || []).includes(need)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -119,7 +119,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {conflictNeedsOptions.length > 6 && (
             <button
               onClick={() => setShowAllConflictOptions(!showAllConflictOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllConflictOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>
@@ -149,7 +149,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={way}
               onClick={() => handleMultiSelect('feelLovedWhen', way)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.feelLovedWhen || []).includes(way)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -162,7 +162,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {feelLovedOptions.length > 6 && (
             <button
               onClick={() => setShowAllLovedOptions(!showAllLovedOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
+              className="w-full p-3 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllLovedOptions ? (
                 <>Show less <ChevronUp className="w-3 h-3" /></>
@@ -191,7 +191,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={style}
               onClick={() => updateField('attachmentStyle', style)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 profileData.attachmentStyle === style
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'

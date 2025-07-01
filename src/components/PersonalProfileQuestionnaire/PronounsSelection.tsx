@@ -51,12 +51,12 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
         <MessageCircle className="w-4 h-4 text-green-300" />
         <span>So we can refer to you correctly</span>
       </div>
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-2">
         {pronounOptions.map((pronouns) => (
           <button
             key={pronouns}
             onClick={() => handleOptionSelect(pronouns)}
-            className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 h-8 ${
+            className={`p-3 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
               selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
