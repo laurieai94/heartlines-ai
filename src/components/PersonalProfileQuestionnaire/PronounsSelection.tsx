@@ -45,35 +45,32 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
       <Label className="text-sm font-medium text-gray-700">
         What pronouns do you use? <span className="text-red-500">*</span>
       </Label>
-      <p className="text-xs text-gray-600 mb-3">
-        RealTalk wants to refer to you correctly throughout the app
-      </p>
-      <div className="grid grid-cols-2 gap-2">
-        {pronounOptions.map((option) => (
+      <div className="grid grid-cols-4 gap-2">
+        {pronounOptions.map((pronouns) => (
           <button
-            key={option}
-            onClick={() => handleOptionSelect(option)}
-            className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
-              selectedPronouns === option ||
-              (option === 'Other' && customPronouns && !pronounOptions.slice(0, -1).includes(selectedPronouns))
-                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white border-rose-500 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-rose-300 hover:bg-rose-50'
+            key={pronouns}
+            onClick={() => handleOptionSelect(pronouns)}
+            className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105 ${
+              selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
+                ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-purple-500 shadow-md'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
             }`}
           >
-            {option}
+            {pronouns}
           </button>
         ))}
       </div>
       
-      {/* Custom pronouns input */}
-      {(selectedPronouns === 'Other' || (customPronouns && !pronounOptions.slice(0, -1).includes(selectedPronouns))) && (
+      {(selectedPronouns === 'Other' || customPronouns) && (
         <div className="mt-3">
+          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+            Please specify your pronouns:
+          </Label>
           <Input
-            type="text"
             value={customPronouns}
             onChange={(e) => handleCustomChange(e.target.value)}
-            placeholder="Please specify your pronouns"
-            className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
+            placeholder="e.g., xe/xir, fae/faer, etc."
+            className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
           />
         </div>
       )}

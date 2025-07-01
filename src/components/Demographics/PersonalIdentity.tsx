@@ -110,7 +110,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
                 value={pronoun}
                 checked={currentData.pronouns === pronoun}
                 onChange={(e) => currentUpdateField('pronouns', e.target.value)}
-                className="w-4 h-4 text-pink-600"
+                className="w-4 h-4 text-purple-600"
               />
               <Label htmlFor={`pronoun-${pronoun}-${profileType}`} className="text-sm">
                 {pronoun}
@@ -136,7 +136,7 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
                 value={age}
                 checked={currentData.age === age}
                 onChange={(e) => currentUpdateField('age', e.target.value)}
-                className="w-4 h-4 text-pink-600"
+                className="w-4 h-4 text-purple-600"
               />
               <Label htmlFor={`age-${age}-${profileType}`} className="text-sm">
                 {age}

@@ -44,7 +44,7 @@ const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }:
                 value={education}
                 checked={formData.education === education}
                 onChange={(e) => updateFormData('education', e.target.value)}
-                className="w-4 h-4 text-pink-600"
+                className="w-4 h-4 text-purple-600"
               />
               <Label htmlFor={`education-${education}`} className="text-sm">
                 {education}
@@ -69,7 +69,7 @@ const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }:
                 value={work}
                 checked={formData.workSituation === work}
                 onChange={(e) => updateFormData('workSituation', e.target.value)}
-                className="w-4 h-4 text-pink-600"
+                className="w-4 h-4 text-purple-600"
               />
               <Label htmlFor={`work-${work}`} className="text-sm">
                 {work}
@@ -92,7 +92,7 @@ const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }:
                 value={income}
                 checked={formData.income === income}
                 onChange={(e) => updateFormData('income', e.target.value)}
-                className="w-4 h-4 text-pink-600"
+                className="w-4 h-4 text-purple-600"
               />
               <Label htmlFor={`income-${income}`} className="text-sm">
                 {income}
