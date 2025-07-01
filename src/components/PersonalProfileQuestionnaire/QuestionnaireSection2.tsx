@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Heart, Users, MessageSquare, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -89,7 +88,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             </div>
           </div>
           
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {relationshipStatusOptions.slice(0, showAllRelationshipOptions ? relationshipStatusOptions.length : 6).map((status) => (
               <button
                 key={status}
