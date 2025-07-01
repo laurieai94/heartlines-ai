@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
@@ -77,14 +76,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setIsConfigured(configured);
   }, []);
 
-  // Load the most recent conversation on mount
-  useEffect(() => {
-    if (conversations.length > 0 && !currentConversationId) {
-      const latestConversation = conversations[0];
-      const messages = loadConversation(latestConversation.id);
-      setChatHistory(messages);
-    }
-  }, [conversations, currentConversationId, loadConversation]);
+  // Note: Removed automatic conversation loading - now handled by AIChat component
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);

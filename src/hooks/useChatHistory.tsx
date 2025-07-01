@@ -25,19 +25,40 @@ export const useChatHistory = () => {
         return;
       }
 
-      // For now, just return empty array since the table doesn't exist
-      // This prevents build errors while maintaining functionality
-      setConversations([]);
+      // Try to fetch from database first
+      const { data, error } = await supabase
+        .from('chat_conversations')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('updated_at', { ascending: false });
+
+      if (error) {
+        console.error('Database fetch error, falling back to localStorage:', error);
+        // Fallback to localStorage
+        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const localConversations = JSON.parse(stored).filter((c: any) => c.user_id === user.id);
+        setConversations(localConversations);
+      } else {
+        setConversations(data || []);
+        // Also store in localStorage as backup
+        localStorage.setItem('chat_conversations', JSON.stringify(data || []));
+      }
     } catch (error) {
       console.error('Error fetching conversations:', error);
-      setConversations([]);
+      // Final fallback to localStorage
+      try {
+        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const conversations = JSON.parse(stored);
+        setConversations(conversations);
+      } catch {
+        setConversations([]);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const saveConversation = async (messages: ChatMessage[], title?: string) => {
-    // Store in localStorage as fallback since database table doesn't exist
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user || messages.length === 0) return;
@@ -46,34 +67,76 @@ export const useChatHistory = () => {
         messages.find(m => m.type === 'user')?.content.substring(0, 50) + '...' || 
         'New Conversation';
 
-      const conversation = {
-        id: currentConversationId || Date.now().toString(),
+      const conversationData = {
+        id: currentConversationId || crypto.randomUUID(),
         user_id: user.id,
         title: conversationTitle,
-        messages,
+        messages: messages,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
 
-      // Store in localStorage for now
+      // Save to database
+      const { error: dbError } = await supabase
+        .from('chat_conversations')
+        .upsert(conversationData, { 
+          onConflict: 'id',
+          ignoreDuplicates: false 
+        });
+
+      if (dbError) {
+        console.error('Database save error:', dbError);
+      }
+
+      // Always save to localStorage as backup
       const stored = localStorage.getItem('chat_conversations') || '[]';
       const conversations = JSON.parse(stored);
       
       if (currentConversationId) {
         const index = conversations.findIndex((c: any) => c.id === currentConversationId);
         if (index >= 0) {
-          conversations[index] = conversation;
+          conversations[index] = conversationData;
         } else {
-          conversations.push(conversation);
+          conversations.push(conversationData);
         }
       } else {
-        conversations.push(conversation);
-        setCurrentConversationId(conversation.id);
+        conversations.push(conversationData);
+        setCurrentConversationId(conversationData.id);
       }
 
       localStorage.setItem('chat_conversations', JSON.stringify(conversations));
+
+      // Also save to sessionStorage for immediate recovery
+      sessionStorage.setItem('current_chat', JSON.stringify({
+        conversationId: conversationData.id,
+        messages: messages,
+        timestamp: Date.now()
+      }));
+
     } catch (error) {
       console.error('Error saving conversation:', error);
+      // Fallback to localStorage only
+      try {
+        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const conversations = JSON.parse(stored);
+        const conversationData = {
+          id: currentConversationId || crypto.randomUUID(),
+          user_id: user.id,
+          title: title || 'New Conversation',
+          messages,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        };
+        
+        conversations.push(conversationData);
+        localStorage.setItem('chat_conversations', JSON.stringify(conversations));
+        
+        if (!currentConversationId) {
+          setCurrentConversationId(conversationData.id);
+        }
+      } catch (fallbackError) {
+        console.error('Even localStorage save failed:', fallbackError);
+      }
     }
   };
 
@@ -81,30 +144,85 @@ export const useChatHistory = () => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
-      return typeof conversation.messages === 'string' 
+      const messages = typeof conversation.messages === 'string' 
         ? JSON.parse(conversation.messages) 
         : conversation.messages;
+      
+      // Also save to sessionStorage for quick recovery
+      sessionStorage.setItem('current_chat', JSON.stringify({
+        conversationId: conversationId,
+        messages: messages,
+        timestamp: Date.now()
+      }));
+      
+      return messages;
     }
+    return [];
+  };
+
+  const loadMostRecentConversation = (): ChatMessage[] => {
+    // First check sessionStorage for immediate recovery
+    try {
+      const sessionChat = sessionStorage.getItem('current_chat');
+      if (sessionChat) {
+        const { conversationId, messages, timestamp } = JSON.parse(sessionChat);
+        // Only use if less than 1 hour old
+        if (Date.now() - timestamp < 3600000) {
+          setCurrentConversationId(conversationId);
+          return messages;
+        }
+      }
+    } catch (error) {
+      console.error('Error loading from sessionStorage:', error);
+    }
+
+    // Then check for most recent conversation
+    if (conversations.length > 0) {
+      const mostRecent = conversations[0];
+      setCurrentConversationId(mostRecent.id);
+      return typeof mostRecent.messages === 'string' 
+        ? JSON.parse(mostRecent.messages) 
+        : mostRecent.messages;
+    }
+    
     return [];
   };
 
   const startNewConversation = () => {
     setCurrentConversationId(null);
+    sessionStorage.removeItem('current_chat');
     return [];
   };
 
   const deleteConversation = async (conversationId: string) => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Delete from database
+      const { error } = await supabase
+        .from('chat_conversations')
+        .delete()
+        .eq('id', conversationId)
+        .eq('user_id', user.id);
+
+      if (error) {
+        console.error('Database delete error:', error);
+      }
+
+      // Delete from localStorage
       const stored = localStorage.getItem('chat_conversations') || '[]';
       const conversations = JSON.parse(stored);
       const filtered = conversations.filter((c: any) => c.id !== conversationId);
       localStorage.setItem('chat_conversations', JSON.stringify(filtered));
       
+      // Clear session if it's the current conversation
       if (currentConversationId === conversationId) {
         setCurrentConversationId(null);
+        sessionStorage.removeItem('current_chat');
       }
       
-      fetchConversations();
+      await fetchConversations();
     } catch (error) {
       console.error('Error deleting conversation:', error);
     }
@@ -120,6 +238,7 @@ export const useChatHistory = () => {
     loading,
     saveConversation,
     loadConversation,
+    loadMostRecentConversation,
     startNewConversation,
     deleteConversation,
     refetchConversations: fetchConversations

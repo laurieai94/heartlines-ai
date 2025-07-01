@@ -26,12 +26,13 @@ interface AIChatProps {
 
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
+  const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
-  const { saveConversation } = useChatHistory();
+  const { saveConversation, loadMostRecentConversation, currentConversationId } = useChatHistory();
   const { accessLevel, canInteract } = useProgressiveAccess();
   const processedStarters = useRef(new Set<string>());
 
@@ -39,6 +40,19 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   const partnerName = demographicsData.partner?.name || '';
   
   const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
+
+  // Load conversation history on mount
+  useEffect(() => {
+    if (!isHistoryLoaded && canInteract) {
+      console.log('Loading conversation history...');
+      const savedHistory = loadMostRecentConversation();
+      if (savedHistory.length > 0) {
+        console.log(`Restored ${savedHistory.length} messages from conversation history`);
+        setChatHistory(savedHistory);
+      }
+      setIsHistoryLoaded(true);
+    }
+  }, [canInteract, isHistoryLoaded, loadMostRecentConversation, setChatHistory]);
 
   // Improved auto-scroll function
   const scrollToBottom = (force = false) => {
@@ -72,22 +86,59 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
   // Handle conversation starter
   useEffect(() => {
-    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && canInteract) {
+    if (conversationStarter && !processedStarters.current.has(conversationStarter) && isConfigured && canInteract && isHistoryLoaded) {
       processedStarters.current.add(conversationStarter);
       sendMessage(conversationStarter);
     }
-  }, [conversationStarter, isConfigured, canInteract]);
+  }, [conversationStarter, isConfigured, canInteract, isHistoryLoaded]);
 
-  // Save conversation with debouncing
+  // Save conversation with immediate persistence and debouncing
   useEffect(() => {
-    if (chatHistory.length > 0 && canInteract) {
+    if (chatHistory.length > 0 && canInteract && isHistoryLoaded) {
+      // Immediate save to sessionStorage for tab switching
+      try {
+        sessionStorage.setItem('current_chat', JSON.stringify({
+          conversationId: currentConversationId,
+          messages: chatHistory,
+          timestamp: Date.now()
+        }));
+      } catch (error) {
+        console.error('Error saving to sessionStorage:', error);
+      }
+
+      // Debounced save to database and localStorage
       const timeoutId = setTimeout(() => {
         saveConversation(chatHistory);
       }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [chatHistory, saveConversation, canInteract]);
+  }, [chatHistory, saveConversation, canInteract, isHistoryLoaded, currentConversationId]);
+
+  // Listen for page visibility changes to save conversation
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && chatHistory.length > 0) {
+        // Immediately save when tab becomes hidden
+        saveConversation(chatHistory);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [chatHistory, saveConversation]);
+
+  // Save conversation before page unload
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (chatHistory.length > 0) {
+        saveConversation(chatHistory);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [chatHistory, saveConversation]);
 
   const sendMessage = async (userMessage: string) => {
     if (!canInteract) return;
@@ -171,7 +222,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
               <div className="space-y-6 max-w-3xl mx-auto">
                 
                 {/* Kai's Personalized Welcome Section */}
-                {chatHistory.length === 0 && isConfigured && !conversationStarter && (
+                {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
                   <div className="text-center py-8 animate-fade-in">
                     {/* Kai Avatar */}
                     <div className="w-16 h-16 mx-auto mb-4 relative">
@@ -259,7 +310,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
                 <ProgressiveAccessWrapper action="chat">
                   <AIChatInput 
                     onSendMessage={sendMessage} 
-                    loading={loading || !isConfigured || !canInteract} 
+                    loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
                     userName={userName} 
                     partnerName={partnerName}
                     chatHistory={chatHistory}
