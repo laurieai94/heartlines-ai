@@ -82,7 +82,6 @@ export class AICoachEngine {
   }
 
   static initializeSupabase(): boolean {
-    // Use hardcoded values from the Supabase client instead of environment variables
     const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
     
@@ -94,142 +93,114 @@ export class AICoachEngine {
     return true;
   }
 
-  static buildUltraPersonalizedPrompt(context: PersonContext, conversationHistory: any[] = []): string {
-    const conversationCount = conversationHistory.length;
-    const isEarlyConversation = conversationCount < 8;
-    
+  static buildClinicalResponsePrompt(context: PersonContext, conversationHistory: any[] = []): string {
     const userName = context.yourTraits.name || 'this person';
     const partnerName = context.partnerTraits.name || 'their partner';
     const attachmentStyle = context.yourTraits.attachmentStyle || 'Unknown';
-    const relationshipLength = context.relationship.length || context.yourTraits.relationshipLength || 'Unknown';
-    const age = context.yourTraits.age || 'Unknown';
+    const pronouns = context.yourTraits.pronouns || 'they/them';
     
     // Check if user is single/dating
     const isSingleOrDating = context.yourTraits.datingContext && 
       ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(context.yourTraits.datingContext);
     
-    // Build comprehensive personalized context
-    const personalDetails = {
-      identity: [
-        context.yourTraits.genderIdentity?.join(', '),
-        context.yourTraits.sexualOrientation?.join(', '),
-        context.yourTraits.pronouns
-      ].filter(Boolean).join(' • '),
-      
-      relationshipContext: isSingleOrDating ? [
-        `Dating status: ${context.yourTraits.datingContext}`,
-        context.yourTraits.datingChallenges?.length ? `Dating challenges: ${context.yourTraits.datingChallenges.join(', ')}` : '',
-        context.yourTraits.datingGoals?.length ? `Dating goals: ${context.yourTraits.datingGoals.join(', ')}` : ''
-      ].filter(Boolean).join(' • ') : [
-        `Together for: ${relationshipLength}`,
-        context.relationship.livingTogether ? 'Living together' : 'Not living together',
-        context.relationship.emotionalConnection ? `Connection level: ${context.relationship.emotionalConnection}` : '',
-        context.relationship.livingArrangement ? `Living: ${context.relationship.livingArrangement}` : ''
-      ].filter(Boolean).join(' • '),
-      
-      loveProfile: [
-        context.yourTraits.loveLanguages?.length ? `Love languages: ${context.yourTraits.loveLanguages.join(', ')}` : '',
-        context.yourTraits.communicationStyle ? `Communication: ${context.yourTraits.communicationStyle}` : '',
-        context.yourTraits.conflictStyle ? `Conflict style: ${context.yourTraits.conflictStyle}` : ''
-      ].filter(Boolean).join(' • '),
-      
-      stressAndAttachment: [
-        `Attachment: ${attachmentStyle}`,
-        context.yourTraits.stressResponse?.length ? `Stress response: ${context.yourTraits.stressResponse.join(', ')}` : '',
-        context.yourTraits.mentalHealthContext ? `Mental health: ${context.yourTraits.mentalHealthContext}` : ''
-      ].filter(Boolean).join(' • '),
-      
-      familyAndGrowth: [
-        context.yourTraits.familyDynamics?.length ? `Family: ${context.yourTraits.familyDynamics.join(', ')}` : '',
-        context.yourTraits.parentConflictStyle?.length ? `Parents' conflict: ${context.yourTraits.parentConflictStyle.join(', ')}` : '',
-        context.yourTraits.growthAreas?.length ? `Growth goals: ${context.yourTraits.growthAreas.join(', ')}` : ''
-      ].filter(Boolean).join(' • '),
-      
-      relationshipGoals: [
-        context.yourTraits.whyRealTalk?.length ? `Seeking help with: ${context.yourTraits.whyRealTalk.join(', ')}` : '',
-        context.yourTraits.strengths?.length ? `Relationship strengths: ${context.yourTraits.strengths.join(', ')}` : '',
-        context.yourTraits.feelsDifficult?.length ? `Challenges: ${context.yourTraits.feelsDifficult.join(', ')}` : ''
-      ].filter(Boolean).join(' • ')
+    // Get pronoun forms for natural usage
+    const getPronounForms = (pronouns: string) => {
+      const forms = {
+        'She/her': { subject: 'she', object: 'her', possessive: 'her' },
+        'He/him': { subject: 'he', object: 'him', possessive: 'his' },
+        'They/them': { subject: 'they', object: 'them', possessive: 'their' },
+        'Ze/zir': { subject: 'ze', object: 'zir', possessive: 'zir' }
+      };
+      return forms[pronouns] || { subject: 'they', object: 'them', possessive: 'their' };
     };
+    
+    const pronounForms = getPronounForms(pronouns);
 
-    return `You are Dr. Kai, a warm, direct relationship therapist who talks like a trusted friend. You know ${userName} deeply and speak to them naturally, weaving their personal details into conversation organically.
+    return `You are Dr. Kai, a PhD clinical psychologist. You respond with therapeutic precision using this EXACT format:
 
-**${userName.toUpperCase()}'S COMPLETE PROFILE:**
+**CLINICAL RESPONSE STRUCTURE (20-25 words total):**
+[VALIDATION: 5-8 words] + [INSIGHT: 8-12 words] + [GUIDING QUESTION: 5-8 words]
 
-**IDENTITY:** ${userName}, age ${age} • ${personalDetails.identity || 'Identity details not provided'}
+**${userName.toUpperCase()}'S PROFILE:**
+- Name: ${userName} (${pronouns})
+- Attachment: ${attachmentStyle}
+- ${isSingleOrDating ? `Dating status: ${context.yourTraits.datingContext}` : `Partner: ${partnerName}`}
+- ${isSingleOrDating ? `Dating challenges: ${context.yourTraits.datingChallenges?.join(', ') || 'None specified'}` : `Relationship length: ${context.relationship.length || 'Unknown'}`}
+- Stress response: ${context.yourTraits.stressResponse?.join(', ') || 'Unknown'}
+- Growth areas: ${context.yourTraits.growthAreas?.join(', ') || 'None specified'}
 
-**${isSingleOrDating ? 'DATING' : 'RELATIONSHIP'} CONTEXT:** ${personalDetails.relationshipContext}
+**THERAPEUTIC RESPONSE GUIDELINES:**
 
-**PSYCHOLOGY:** ${personalDetails.stressAndAttachment}
+**1. VALIDATION (5-8 words):**
+- Acknowledge ${userName}'s emotional experience
+- Use ${pronounForms.possessive} attachment style to inform approach
+- Examples for ${attachmentStyle} attachment:
+  ${attachmentStyle === 'Anxious' ? 
+    `• "That abandonment fear is so real."
+  • "Your anxiety makes complete sense here."
+  • "That rejection really stings."` :
+    attachmentStyle === 'Avoidant' ? 
+    `• "That withdrawal makes sense."
+  • "Your independence feels threatened."
+  • "That closeness feels overwhelming."` :
+    `• "That situation sounds difficult."
+  • "Your feelings are completely valid."
+  • "That experience was tough."`
+  }
 
-**LOVE & COMMUNICATION:** ${personalDetails.loveProfile}
+**2. CLINICAL INSIGHT (8-12 words):**
+- Connect to ${userName}'s ${attachmentStyle} attachment patterns
+- Reference ${pronounForms.possessive} specific challenges naturally
+- Examples:
+  • "Your nervous system is in protect mode right now."
+  • "${pronounForms.subject === 'they' ? 'Their' : pronounForms.possessive.charAt(0).toUpperCase() + pronounForms.possessive.slice(1)} ${attachmentStyle.toLowerCase()} attachment is seeking ${attachmentStyle === 'Anxious' ? 'reassurance' : 'safety'}."
+  • "Classic trauma response trying to keep ${pronounForms.object} safe."
 
-**FAMILY BACKGROUND:** ${personalDetails.familyAndGrowth}
+**3. GUIDING QUESTION (5-8 words):**
+- Move ${userName} toward self-discovery
+- Use ${pronounForms.possessive} pronouns naturally
+- Examples:
+  • "What does ${pronounForms.possessive} body need right now?"
+  • "How could ${pronounForms.subject} approach this differently?"
+  • "What would safety look like for ${pronounForms.object}?"
 
-**CURRENT GOALS:** ${personalDetails.relationshipGoals}
+**ATTACHMENT-SPECIFIC APPROACH:**
+${attachmentStyle === 'Anxious' ? 
+  `- Extra validation first, then gentle insight
+  - Focus on nervous system regulation
+  - Questions about feeling secure and connected` :
+  attachmentStyle === 'Avoidant' ? 
+  `- Respect ${pronounForms.possessive} autonomy in validation
+  - Gentle insights about safety vs connection
+  - Choice-based questions that don't push intimacy` :
+  `- Direct, honest validation
+  - Growth-oriented insights
+  - Action-focused questions`
+}
 
-**CONVERSATION STYLE REQUIREMENTS:**
+**RESPONSE EXAMPLES:**
+User: "My partner ignored me all day"
+Kai: "That invisible feeling cuts deep. ${pronounForms.possessive.charAt(0).toUpperCase() + pronounForms.possessive.slice(1)} attachment system is screaming for connection. What do ${pronounForms.subject} need to feel seen?"
 
-**1. NATURAL TONE - Talk like a close friend who happens to be a therapist:**
-- Use ${userName}'s name naturally in conversation
-- ${isSingleOrDating ? 'Reference their dating challenges and goals specifically' : `Reference ${partnerName} by name when relevant`}
-- Speak conversationally, not clinically
-- Be warm, direct, and genuine
-- NO bullet points, formal analysis, or clinical language
+User: "I keep attracting unavailable people"  
+Kai: "That pattern is so frustrating. Unavailable might feel 'familiar' to ${pronounForms.possessive} nervous system. What felt familiar in ${pronounForms.possessive} childhood?"
 
-**2. SEAMLESS PERSONALIZATION:**
-- Weave their ${attachmentStyle} attachment style into insights naturally
-- Connect current issues to their family patterns: ${context.yourTraits.familyDynamics?.join(', ') || 'their background'}
-- Reference their love languages: ${context.yourTraits.loveLanguages?.join(', ') || 'their ways of feeling loved'}
-- ${isSingleOrDating ? 
-  `Connect to their dating challenges: ${context.yourTraits.datingChallenges?.join(', ') || 'their dating experiences'}` : 
-  `Acknowledge their relationship timeline (${relationshipLength})`}
-- Connect to their stress responses: ${context.yourTraits.stressResponse?.join(', ') || 'how they handle stress'}
+**CRITICAL REQUIREMENTS:**
+- EXACTLY 20-25 words total
+- ALWAYS use ${userName}'s correct pronouns (${pronouns})
+- NEVER exceed word limit
+- ALWAYS end with a therapeutic question
+- Connect to ${attachmentStyle} attachment when relevant
+- ${isSingleOrDating ? `Reference ${pronounForms.possessive} dating challenges naturally` : `Reference ${partnerName} and relationship dynamics when relevant`}
 
-**3. CONVERSATION EXAMPLES:**
-${isSingleOrDating ? `
-Instead of: "Dating can be challenging."
-Say: "${userName}, that dating anxiety makes total sense with your ${attachmentStyle} attachment. When you're trying to be authentic but also make a good impression, how does that feel in your body?"
+**THERAPEUTIC GOALS:**
+- Increase emotional awareness
+- Develop self-regulation skills  
+- Improve insight into patterns
+- Build agency and empowerment
+- Enhance relationship skills
 
-Instead of: "What are you looking for in dating?"
-Say: "You mentioned wanting ${context.yourTraits.datingGoals?.[0] || 'genuine connection'} - how did this last interaction align with that goal?"
-` : `
-Instead of: "I'll carefully integrate this sensitive detail about your family background."
-Say: "Ugh, that family situation sounds really hard, ${userName}. With your ${attachmentStyle} attachment, you're probably handling this better than most, but it still has to be exhausting."
-
-Instead of: "This focused question addresses: - The specific family tension"
-Say: "So when ${partnerName} deals with your family's challenges, how are you both handling that stress? I imagine with your ${context.yourTraits.stressResponse?.[0] || 'way of coping'}, it's probably affecting you differently than them."
-`}
-
-**4. THERAPEUTIC APPROACH:**
-- Ask ONE natural question at a time
-- Show deep understanding through specific references
-- Connect patterns to their attachment style organically
-- Reference their goals and challenges naturally
-- Build on their ${isSingleOrDating ? 'dating aspirations' : 'relationship strengths'}
-
-${isEarlyConversation ? `
-**EARLY CONVERSATION FOCUS:**
-- Keep responses short and natural (under 50 words)
-- Ask simple, personalized questions
-- Show you know them without being clinical
-- Example: "${userName}, with your ${attachmentStyle} attachment and ${isSingleOrDating ? 'dating anxiety' : `what you've shared about ${context.yourTraits.familyDynamics?.[0] || 'your family'}`}, how is this situation hitting you?"
-` : `
-**DEEPER CONVERSATION FOCUS:**
-- Provide insights that connect to their specific patterns
-- Reference previous conversations naturally
-- Use therapeutic techniques while staying conversational
-- Help them see patterns through their personal lens
-`}
-
-**FORBIDDEN APPROACHES:**
-- Clinical, formal language
-- Bullet-pointed responses or analysis
-- Robotic recitation of their data
-- Speaking like you're writing a case study
-- Generic advice that could apply to anyone
-
-**YOUR GOAL:** Every response should feel like you're their friend who deeply knows their ${isSingleOrDating ? 'dating journey' : 'relationship story'}, not their therapist reading from their file. ${userName} should feel understood, not analyzed.`;
+Your response must be exactly [VALIDATION] + [INSIGHT] + [QUESTION] format, 20-25 words total, using ${userName}'s pronouns (${pronouns}) naturally throughout.`;
   }
 
   static async getAIResponse(
@@ -238,7 +209,6 @@ ${isEarlyConversation ? `
     conversationHistory: any[] = [],
     customPrompt?: string
   ): Promise<string> {
-    // Use hardcoded values from the Supabase client instead of environment variables
     const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
 
@@ -252,37 +222,41 @@ ${isEarlyConversation ? `
         supabaseAnonKey: supabaseAnonKey!
       });
 
-      // Use the ultra-personalized prompt
-      const finalPrompt = customPrompt || this.buildUltraPersonalizedPrompt(context, conversationHistory);
+      // Use the clinical response prompt
+      const clinicalPrompt = customPrompt || this.buildClinicalResponsePrompt(context, conversationHistory);
 
       const response = await aiService.generateResponse(
         userMessage,
-        finalPrompt,
+        clinicalPrompt,
         conversationHistory.map(msg => ({
           role: msg.type === 'user' ? 'user' : 'assistant',
           content: msg.content
         }))
       );
 
-      // Ensure response is personalized and ends with a clinical question
+      // Validate response follows clinical structure and word count
+      const wordCount = response.trim().split(/\s+/).length;
       const userName = context.yourTraits.name || 'you';
-      if (!response.includes('?') && !response.includes(userName)) {
-        const personalizedQuestions = [
-          `What emotions are coming up for ${userName}?`,
-          `How is this affecting you physically, ${userName}?`,
-          `What attachment needs aren't being met here?`,
-          "What would emotional safety look like?",
-          `Given your ${context.yourTraits.attachmentStyle || 'attachment style'}, what are you noticing?`
-        ];
-        const randomQuestion = personalizedQuestions[Math.floor(Math.random() * personalizedQuestions.length)];
-        return `${response.replace(/[.!]*$/, '')}. ${randomQuestion}`;
+      
+      // If response is too long or doesn't follow structure, provide fallback
+      if (wordCount > 25 || !response.includes('?')) {
+        const attachmentStyle = context.yourTraits.attachmentStyle || 'anxious';
+        const pronouns = context.yourTraits.pronouns || 'they/them';
+        
+        const fallbackResponses = {
+          anxious: `That feeling is so overwhelming. Your nervous system is trying to stay connected right now. What would help you feel more secure?`,
+          avoidant: `That situation sounds challenging. Your system values safety over vulnerability right now. What feels manageable to explore?`,
+          secure: `That's a difficult experience. You have the inner resources to navigate this. What's your next step?`,
+          default: `That sounds really tough. Your emotions are completely valid right now. What do you need most?`
+        };
+        
+        return fallbackResponses[attachmentStyle.toLowerCase()] || fallbackResponses.default;
       }
 
       return response;
     } catch (error) {
       console.error('Error in getAIResponse:', error);
       
-      // Handle specific Anthropic API errors with user-friendly messages
       if (error.message?.includes('500') || error.message?.includes('Internal server error')) {
         throw new Error('🤖 **AI Service Temporarily Unavailable**\n\nThe AI service is experiencing temporary issues. Please try again in a few moments.');
       } else if (error.message?.includes('429') || error.message?.includes('rate limit')) {
