@@ -1,6 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Home, UserCheck, Heart, BookOpen } from "lucide-react";
+import { Home, UserCheck, Heart, BookOpen, Sparkles } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -157,7 +157,9 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
       {/* Final Encouragement */}
       <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-xl border border-purple-400/20 p-4 text-center space-y-3">
-        <div className="text-3xl mb-2">🌟</div>
+        <div className="flex justify-center mb-2">
+          <Sparkles className="w-8 h-8 text-yellow-300" />
+        </div>
         <h3 className="text-base font-semibold text-white mb-2">
           You're all set!
         </h3>
