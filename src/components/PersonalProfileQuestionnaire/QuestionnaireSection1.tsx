@@ -41,7 +41,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                Would you like to add a profile photo? <span className="questionnaire-text-muted font-normal">(Optional)</span>
+                Add a profile photo (optional)
               </Label>
               <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
                 <MessageCircle className="w-4 h-4 text-blue-300" />
