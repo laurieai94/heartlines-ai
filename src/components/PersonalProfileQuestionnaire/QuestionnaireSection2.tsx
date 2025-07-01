@@ -79,9 +79,9 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
         {/* Relationship Status */}
         <div className="space-y-2">
           <Label className="text-base font-semibold questionnaire-text">
-            Current relationship status <span className="text-red-400">*</span>
+            What is your current relationship status? <span className="text-red-400">*</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
             <Heart className="w-4 h-4 text-pink-300" />
             <span>From 'it's complicated' to married - we meet you where you are</span>
           </div>
@@ -111,7 +111,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <MessageSquare className="w-4 h-4 text-blue-300" />
                 <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation</span>
               </div>
@@ -138,7 +138,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice</span>
               </div>
@@ -167,7 +167,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <Label className="text-base font-semibold questionnaire-text">
               How long have you been together? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+            <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
               <Clock className="w-4 h-4 text-green-300" />
               <span>The 6-month mark hits different than 2 years</span>
             </div>
@@ -198,7 +198,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 What's working well in your relationship? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>We'll build on what's already good instead of fixing everything</span>
               </div>
@@ -225,7 +225,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 What feels difficult or challenging? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <MessageSquare className="w-4 h-4 text-blue-300" />
                 <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
@@ -254,7 +254,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             Why are you interested in RealTalk? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+          <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
             <Users className="w-4 h-4 text-orange-300" />
             <span>So we know what kind of help you're actually looking for</span>
           </div>

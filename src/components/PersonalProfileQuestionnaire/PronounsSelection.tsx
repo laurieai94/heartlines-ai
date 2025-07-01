@@ -46,7 +46,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
       <Label className="text-base font-semibold text-white">
         What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+      <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
         <Info className="w-4 h-4 text-blue-300" />
         <span>So we can refer to you correctly</span>
       </div>

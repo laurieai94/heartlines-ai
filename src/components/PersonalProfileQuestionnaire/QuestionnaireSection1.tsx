@@ -54,7 +54,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label htmlFor="name" className="text-base font-semibold questionnaire-text">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>So we can make this feel like talking to a real person, not a bot</span>
               </div>

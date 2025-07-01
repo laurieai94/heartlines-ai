@@ -47,10 +47,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             {/* Stress Response */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                When stressed, you typically... <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+                When you're feeling stressed, how do you typically respond? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Brain className="w-4 h-4 text-purple-300" />
                 <span>How you react when life gets overwhelming (spoiler: we all have patterns)</span>
               </div>
@@ -74,10 +74,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             {/* Feel Loved When */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                You feel most loved when... <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+                When do you feel most loved? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>Your specific love language, not generic relationship advice</span>
               </div>
@@ -104,10 +104,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             {/* Conflict Needs */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                During conflict, you need... <span className="text-red-400">*</span>
-                <span className="text-orange-300 font-medium text-xs ml-2">Check all that apply</span>
+                When you're in conflict, what do you need? <span className="text-red-400">*</span>
+                <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Shield className="w-4 h-4 text-blue-300" />
                 <span>What you actually need during fights (not what you think you should need)</span>
               </div>
@@ -133,7 +133,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 What's your attachment style? <span className="text-red-400">*</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Users className="w-4 h-4 text-orange-300" />
                 <span>The psychological patterns that run your relationships (yes, even yours)</span>
               </div>

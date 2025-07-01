@@ -44,7 +44,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 How would you describe your family dynamics growing up?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Home className="w-4 h-4 text-green-300" />
                 <span>Your family shaped your relationship blueprint (for better or worse)</span>
               </div>
@@ -70,7 +70,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 What messages about love did you receive growing up?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>The stuff about relationships you internalized growing up</span>
               </div>
@@ -97,9 +97,9 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             {/* Parent Conflict Style */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                How parents handled conflict
+                How did your parents handle conflict?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <Users className="w-4 h-4 text-orange-300" />
                 <span>How they fought affects how you fight - let's break the cycle</span>
               </div>
@@ -123,9 +123,9 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             {/* Love Influences */}
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                What influenced love ideas
+                What influenced your ideas about love?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] questionnaire-text-muted mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
                 <BookOpen className="w-4 h-4 text-blue-300" />
                 <span>What shaped your ideas about how love should work</span>
               </div>
@@ -154,10 +154,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           <p className="text-base font-semibold questionnaire-text mb-1">
             You're all set!
           </p>
-          <p className="questionnaire-text-muted text-[13px] mb-2 font-normal">
+          <p className="text-white/90 text-[13px] mb-2 font-normal">
             Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
           </p>
-          <p className="questionnaire-text-muted text-xs font-normal">
+          <p className="text-white/90 text-xs font-normal">
             Remember: You can always update your profile as you learn and grow
           </p>
         </div>
