@@ -13,20 +13,20 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-2">
-      <Label className="text-base font-semibold text-white">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-6 space-y-4">
+      <Label className="text-lg font-semibold text-white">
         What's your age? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+      <div className="flex items-center gap-2 text-sm text-white/80 mb-4">
         <Calendar className="w-4 h-4 text-orange-300" />
         <span>Different life stages = different relationship challenges</span>
       </div>
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-3">
         {ageOptions.map((age) => (
           <button
             key={age}
             onClick={() => onAgeSelect(age)}
-            className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 h-8 ${
+            className={`p-4 rounded-xl text-sm font-medium transition-all hover:scale-105 ${
               selectedAge === age
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

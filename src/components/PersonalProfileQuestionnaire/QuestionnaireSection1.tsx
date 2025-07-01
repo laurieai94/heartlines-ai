@@ -31,44 +31,44 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-6">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 
       />
 
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-base font-semibold questionnaire-text">
-                Add a profile pic <span className="text-white/60 text-sm font-normal">(optional)</span>
-              </Label>
-              <PhotoUpload
-                profilePhoto={profileData.profilePhoto || ''}
-                name={profileData.name || ''}
-                onPhotoUpdate={(photo) => updateField('profilePhoto', photo)}
-              />
-            </div>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-6 space-y-4">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <Label className="text-lg font-semibold text-white">
+              Add a profile pic <span className="text-white/60 text-sm font-normal">(optional)</span>
+            </Label>
+            <PhotoUpload
+              profilePhoto={profileData.profilePhoto || ''}
+              name={profileData.name || ''}
+              onPhotoUpdate={(photo) => updateField('profilePhoto', photo)}
+            />
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-base font-semibold questionnaire-text">
-                What should we call you? <span className="text-red-400">*</span>
-              </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
-                <User className="w-4 h-4 text-blue-300" />
-                <span>So we can make this feel like talking to a real person, not a bot</span>
-              </div>
-              <Input
-                id="name"
-                type="text"
-                value={profileData.name || ''}
-                onChange={(e) => updateField('name', e.target.value)}
-                placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8 font-medium"
-              />
+          <div className="space-y-3">
+            <Label htmlFor="name" className="text-lg font-semibold text-white">
+              What should we call you? <span className="text-red-400">*</span>
+            </Label>
+            <div className="flex items-center gap-2 text-sm text-white/80 mb-3">
+              <User className="w-4 h-4 text-blue-300" />
+              <span>So we can make this feel like talking to a real person, not a bot</span>
             </div>
+            <Input
+              id="name"
+              type="text"
+              value={profileData.name || ''}
+              onChange={(e) => updateField('name', e.target.value)}
+              placeholder="Your name"
+              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-base p-4 h-12 font-medium"
+            />
           </div>
         </div>
+      </div>
 
       <PronounsSelection
         selectedPronouns={profileData.pronouns || ''}
