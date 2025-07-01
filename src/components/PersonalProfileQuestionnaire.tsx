@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -43,7 +42,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   const validateSection = (section: number) => {
     switch (section) {
       case 1: {
-        const required = ['name', 'age', 'gender', 'orientation'];
+        // Now includes pronouns as required field
+        const required = ['name', 'pronouns', 'age', 'gender', 'orientation'];
         return required.every(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -151,7 +151,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
 
   const getRequiredCount = (section: number) => {
     switch (section) {
-      case 1: return 4;
+      case 1: return 5; // Updated to include pronouns
       case 2: {
         let base = 2; // relationshipStatus, whyRealTalk
         
@@ -180,7 +180,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose }: PersonalProfileQu
   const getCompletedCount = (section: number) => {
     switch (section) {
       case 1: {
-        const fields = ['name', 'age', 'gender', 'orientation'];
+        // Updated to include pronouns
+        const fields = ['name', 'pronouns', 'age', 'gender', 'orientation'];
         return fields.filter(field => {
           const value = profileData[field];
           return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');

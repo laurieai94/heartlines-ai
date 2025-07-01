@@ -40,35 +40,25 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     'Trust issues', 'Future planning disagreements'
   ];
 
-  // New dating-specific options
+  // New refined dating-specific options (7 each)
   const datingChallengesOptions = [
     'Finding people who want the same thing I do',
     'Getting past the first few dates into something deeper',
-    'Knowing when someone is genuinely interested vs. just being polite',
     'Setting boundaries and not settling for less than I deserve',
     'Dating anxiety and putting myself out there',
     'Getting over past relationship patterns that keep showing up',
-    'Navigating physical intimacy and timing',
     'Being authentic while still trying to make a good impression',
-    'Dealing with rejection and dating disappointment',
-    'Finding time and energy to date with everything else going on',
-    'Online dating fatigue and app overwhelm',
-    'Figuring out what I actually want vs. what I think I should want'
+    'Online dating fatigue and app overwhelm'
   ];
 
   const datingGoalsOptions = [
     'A serious, long-term partnership leading to marriage/commitment',
-    'Someone to explore life with without pressure for "forever"',
     'Better understanding of what I want and need in a partner',
     'Confidence and skills in dating and relationships',
-    'Fun, connection, and new experiences with different people',
     'Healing from past relationships before getting serious again',
     'Learning to be vulnerable and authentic in dating',
     'A partner who truly gets me and accepts me as I am',
-    'Someone who shares my values and life vision',
-    'Better boundaries and ability to recognize red flags',
-    'Just figuring out dating after being out of it for a while',
-    'Casual connections while I focus on other life priorities'
+    'Someone who shares my values and life vision'
   ];
 
   // Check if user is in some form of relationship (not single not dating)
