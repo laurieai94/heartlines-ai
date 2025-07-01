@@ -12,7 +12,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   if (!isReady) return null;
 
   const relationshipStatusOptions = [
-    'Single actively dating', 'Single not dating', 'Casual/dating around', 
+    'Single, actively dating', 'Single, not dating', 'Casually dating/seeing people', 
     'Exclusive but not official', 'In a relationship', 'Engaged', 
     'Married', 'It\'s complicated'
   ];
@@ -40,13 +40,48 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     'Trust issues', 'Future planning disagreements'
   ];
 
+  // New dating-specific options
+  const datingChallengesOptions = [
+    'Finding people who want the same thing I do',
+    'Getting past the first few dates into something deeper',
+    'Knowing when someone is genuinely interested vs. just being polite',
+    'Setting boundaries and not settling for less than I deserve',
+    'Dating anxiety and putting myself out there',
+    'Getting over past relationship patterns that keep showing up',
+    'Navigating physical intimacy and timing',
+    'Being authentic while still trying to make a good impression',
+    'Dealing with rejection and dating disappointment',
+    'Finding time and energy to date with everything else going on',
+    'Online dating fatigue and app overwhelm',
+    'Figuring out what I actually want vs. what I think I should want'
+  ];
+
+  const datingGoalsOptions = [
+    'A serious, long-term partnership leading to marriage/commitment',
+    'Someone to explore life with without pressure for "forever"',
+    'Better understanding of what I want and need in a partner',
+    'Confidence and skills in dating and relationships',
+    'Fun, connection, and new experiences with different people',
+    'Healing from past relationships before getting serious again',
+    'Learning to be vulnerable and authentic in dating',
+    'A partner who truly gets me and accepts me as I am',
+    'Someone who shares my values and life vision',
+    'Better boundaries and ability to recognize red flags',
+    'Just figuring out dating after being out of it for a while',
+    'Casual connections while I focus on other life priorities'
+  ];
+
   // Check if user is in some form of relationship (not single not dating)
   const isInRelationship = profileData.relationshipStatus && 
-    !['Single actively dating', 'Single not dating'].includes(profileData.relationshipStatus);
+    !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
   
   // Check if user is in a defined relationship that has a length (not casual/complicated)
   const hasRelationshipLength = profileData.relationshipStatus && 
-    !['Single actively dating', 'Single not dating', 'Casual/dating around', 'It\'s complicated'].includes(profileData.relationshipStatus);
+    !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people', 'It\'s complicated'].includes(profileData.relationshipStatus);
+
+  // Check if user is single/dating (trigger for additional questions)
+  const isSingleOrDating = profileData.relationshipStatus && 
+    ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
 
   return (
     <div className="space-y-6">
@@ -71,6 +106,63 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           ))}
         </div>
       </div>
+
+      {/* Conditional Dating Questions for Single/Dating Users */}
+      {isSingleOrDating && (
+        <>
+          {/* Dating Challenges */}
+          <div className="space-y-3 bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+            <Label className="text-sm font-medium text-gray-700">
+              What's your biggest challenge in the dating world right now? <span className="text-red-500">*</span>
+              <span className="text-blue-600 font-medium text-xs ml-2">✨ Select up to 3</span>
+            </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              Understanding your specific dating struggles helps RealTalk provide targeted guidance for your situation
+            </p>
+            <div className="grid grid-cols-1 gap-2">
+              {datingChallengesOptions.map((challenge) => (
+                <button
+                  key={challenge}
+                  onClick={() => handleMultiSelect('datingChallenges', challenge)}
+                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.datingChallenges || []).includes(challenge)
+                      ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white border-blue-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                  }`}
+                >
+                  {challenge}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Dating Goals */}
+          <div className="space-y-3 bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+            <Label className="text-sm font-medium text-gray-700">
+              What are you hoping to find or create in your dating life? <span className="text-red-500">*</span>
+              <span className="text-purple-600 font-medium text-xs ml-2">✨ Select up to 3</span>
+            </Label>
+            <p className="text-xs text-gray-600 mb-3">
+              Knowing what you're hoping to create helps RealTalk coach you toward your actual desires, not generic dating advice
+            </p>
+            <div className="grid grid-cols-1 gap-2">
+              {datingGoalsOptions.map((goal) => (
+                <button
+                  key={goal}
+                  onClick={() => handleMultiSelect('datingGoals', goal)}
+                  className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
+                    (profileData.datingGoals || []).includes(goal)
+                      ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-500 shadow-md'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                  }`}
+                >
+                  {goal}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Conditional Relationship Length */}
       {hasRelationshipLength && (

@@ -53,6 +53,10 @@ export interface PersonContext {
     additionalInfo?: string;
     profileComplete?: boolean;
     completedAt?: string;
+    // New dating-specific fields
+    datingChallenges?: string[];
+    datingGoals?: string[];
+    datingContext?: string;
   };
   partnerTraits: {
     name?: string;

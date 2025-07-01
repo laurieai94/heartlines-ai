@@ -50,7 +50,10 @@ export class AICoachEngine {
         healthyRelationship: yourData.healthyRelationship || [],
         additionalInfo: yourData.additionalInfo,
         profileComplete: yourData.profileComplete,
-        completedAt: yourData.completedAt
+        completedAt: yourData.completedAt,
+        datingChallenges: yourData.datingChallenges || [],
+        datingGoals: yourData.datingGoals || [],
+        datingContext: yourData.relationshipStatus
       },
       partnerTraits: {
         name: partnerData.name || yourData.partnerName,
@@ -101,6 +104,10 @@ export class AICoachEngine {
     const relationshipLength = context.relationship.length || context.yourTraits.relationshipLength || 'Unknown';
     const age = context.yourTraits.age || 'Unknown';
     
+    // Check if user is single/dating
+    const isSingleOrDating = context.yourTraits.datingContext && 
+      ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(context.yourTraits.datingContext);
+    
     // Build comprehensive personalized context
     const personalDetails = {
       identity: [
@@ -109,7 +116,11 @@ export class AICoachEngine {
         context.yourTraits.pronouns
       ].filter(Boolean).join(' • '),
       
-      relationshipContext: [
+      relationshipContext: isSingleOrDating ? [
+        `Dating status: ${context.yourTraits.datingContext}`,
+        context.yourTraits.datingChallenges?.length ? `Dating challenges: ${context.yourTraits.datingChallenges.join(', ')}` : '',
+        context.yourTraits.datingGoals?.length ? `Dating goals: ${context.yourTraits.datingGoals.join(', ')}` : ''
+      ].filter(Boolean).join(' • ') : [
         `Together for: ${relationshipLength}`,
         context.relationship.livingTogether ? 'Living together' : 'Not living together',
         context.relationship.emotionalConnection ? `Connection level: ${context.relationship.emotionalConnection}` : '',
@@ -147,7 +158,7 @@ export class AICoachEngine {
 
 **IDENTITY:** ${userName}, age ${age} • ${personalDetails.identity || 'Identity details not provided'}
 
-**RELATIONSHIP:** ${personalDetails.relationshipContext}
+**${isSingleOrDating ? 'DATING' : 'RELATIONSHIP'} CONTEXT:** ${personalDetails.relationshipContext}
 
 **PSYCHOLOGY:** ${personalDetails.stressAndAttachment}
 
@@ -161,7 +172,7 @@ export class AICoachEngine {
 
 **1. NATURAL TONE - Talk like a close friend who happens to be a therapist:**
 - Use ${userName}'s name naturally in conversation
-- Reference ${partnerName} by name when relevant
+- ${isSingleOrDating ? 'Reference their dating challenges and goals specifically' : `Reference ${partnerName} by name when relevant`}
 - Speak conversationally, not clinically
 - Be warm, direct, and genuine
 - NO bullet points, formal analysis, or clinical language
@@ -170,29 +181,39 @@ export class AICoachEngine {
 - Weave their ${attachmentStyle} attachment style into insights naturally
 - Connect current issues to their family patterns: ${context.yourTraits.familyDynamics?.join(', ') || 'their background'}
 - Reference their love languages: ${context.yourTraits.loveLanguages?.join(', ') || 'their ways of feeling loved'}
-- Acknowledge their relationship timeline (${relationshipLength})
+- ${isSingleOrDating ? 
+  `Connect to their dating challenges: ${context.yourTraits.datingChallenges?.join(', ') || 'their dating experiences'}` : 
+  `Acknowledge their relationship timeline (${relationshipLength})`}
 - Connect to their stress responses: ${context.yourTraits.stressResponse?.join(', ') || 'how they handle stress'}
 
 **3. CONVERSATION EXAMPLES:**
+${isSingleOrDating ? `
+Instead of: "Dating can be challenging."
+Say: "${userName}, that dating anxiety makes total sense with your ${attachmentStyle} attachment. When you're trying to be authentic but also make a good impression, how does that feel in your body?"
+
+Instead of: "What are you looking for in dating?"
+Say: "You mentioned wanting ${context.yourTraits.datingGoals?.[0] || 'genuine connection'} - how did this last interaction align with that goal?"
+` : `
 Instead of: "I'll carefully integrate this sensitive detail about your family background."
-Say: "Ugh, that family situation sounds really hard, ${userName}. With your secure attachment, you're probably handling this better than most, but it still has to be exhausting."
+Say: "Ugh, that family situation sounds really hard, ${userName}. With your ${attachmentStyle} attachment, you're probably handling this better than most, but it still has to be exhausting."
 
 Instead of: "This focused question addresses: - The specific family tension"
-Say: "So when ${partnerName} deals with your family's homophobia, how are you both handling that stress? I imagine with your ${context.yourTraits.stressResponse?.[0] || 'way of coping'}, it's probably affecting you differently than them."
+Say: "So when ${partnerName} deals with your family's challenges, how are you both handling that stress? I imagine with your ${context.yourTraits.stressResponse?.[0] || 'way of coping'}, it's probably affecting you differently than them."
+`}
 
 **4. THERAPEUTIC APPROACH:**
 - Ask ONE natural question at a time
 - Show deep understanding through specific references
 - Connect patterns to their attachment style organically
 - Reference their goals and challenges naturally
-- Build on their relationship strengths
+- Build on their ${isSingleOrDating ? 'dating aspirations' : 'relationship strengths'}
 
 ${isEarlyConversation ? `
 **EARLY CONVERSATION FOCUS:**
 - Keep responses short and natural (under 50 words)
 - Ask simple, personalized questions
 - Show you know them without being clinical
-- Example: "${userName}, with your ${attachmentStyle} attachment and what you've shared about ${context.yourTraits.familyDynamics?.[0] || 'your family'}, how is this situation hitting you?"
+- Example: "${userName}, with your ${attachmentStyle} attachment and ${isSingleOrDating ? 'dating anxiety' : `what you've shared about ${context.yourTraits.familyDynamics?.[0] || 'your family'}`}, how is this situation hitting you?"
 ` : `
 **DEEPER CONVERSATION FOCUS:**
 - Provide insights that connect to their specific patterns
@@ -208,7 +229,7 @@ ${isEarlyConversation ? `
 - Speaking like you're writing a case study
 - Generic advice that could apply to anyone
 
-**YOUR GOAL:** Every response should feel like you're their friend who deeply knows their story, not their therapist reading from their file. ${userName} should feel understood, not analyzed.`;
+**YOUR GOAL:** Every response should feel like you're their friend who deeply knows their ${isSingleOrDating ? 'dating journey' : 'relationship story'}, not their therapist reading from their file. ${userName} should feel understood, not analyzed.`;
   }
 
   static async getAIResponse(
