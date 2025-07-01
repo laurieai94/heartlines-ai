@@ -128,7 +128,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
   return (
     <div className="space-y-8">
       {/* Introduction */}
-      <Card className="p-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200">
+      <Card className="p-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200 shadow-lg">
         <div className="flex items-start gap-4">
           <Heart className="w-6 h-6 text-orange-600 mt-1" />
           <div>
@@ -153,7 +153,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
       </Card>
 
       {/* Section 1: Growing Up */}
-      <Card className="p-6">
+      <Card className="p-6 bg-white/95 backdrop-blur-sm border border-orange-100 shadow-lg">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Growing Up</h3>
 
         <div className="space-y-6">
@@ -211,7 +211,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
       </Card>
 
       {/* Section 2: Family Influence */}
-      <Card className="p-6">
+      <Card className="p-6 bg-white/95 backdrop-blur-sm border border-orange-100 shadow-lg">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Family Influence</h3>
 
         <div className="space-y-6">
@@ -265,7 +265,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
       </Card>
 
       {/* Section 3: Background Context */}
-      <Card className="p-6">
+      <Card className="p-6 bg-white/95 backdrop-blur-sm border border-orange-100 shadow-lg">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Background Context</h3>
 
         <div className="space-y-6">
@@ -319,7 +319,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
       </Card>
 
       {/* Tips Section */}
-      <Card className="p-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200">
+      <Card className="p-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">💡 Tips</h3>
         <div className="space-y-3 text-sm text-gray-700">
           <div className="flex items-start gap-3">
@@ -351,7 +351,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
         <Button
           variant="outline"
           onClick={onBack}
-          className="text-lg px-6 py-3"
+          className="text-lg px-6 py-3 border-orange-200 hover:bg-orange-50"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           Previous Page
@@ -360,7 +360,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
         <div className="flex gap-3">
           <Button
             onClick={handleComplete}
-            className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-lg px-8 py-3"
+            className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-lg px-8 py-3 border-0 shadow-lg hover:shadow-xl transition-all duration-200"
           >
             Complete Demographics & Start Profile
             <ArrowRight className="w-5 h-5 ml-2" />

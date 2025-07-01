@@ -108,10 +108,10 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
         {/* Header */}
-        <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="p-6 border-b border-orange-100 bg-gradient-to-r from-orange-50 via-pink-50 to-red-50">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -120,11 +120,11 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
               <p className="text-gray-600">
                 Help us understand {isPersonal ? 'your' : 'their'} background and context
               </p>
-              <p className="text-xs text-green-600 mt-1">
+              <p className="text-xs text-orange-600 mt-1 font-medium">
                 ✓ Your answers are automatically saved as you type
               </p>
             </div>
-            <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <Button variant="ghost" onClick={onClose} className="text-gray-500 hover:text-gray-700 hover:bg-white/50">
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -135,7 +135,12 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
               <span className="text-sm font-medium text-gray-700">Page {currentPage} of {totalPages}</span>
               <span className="text-sm text-gray-500">{getPageTitle()}</span>
             </div>
-            <Progress value={(currentPage / totalPages) * 100} className="h-3" />
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div 
+                className="bg-gradient-to-r from-orange-400 to-pink-500 h-3 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(currentPage / totalPages) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
 
@@ -145,14 +150,14 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
         </div>
 
         {/* Navigation Footer */}
-        <div className="p-6 border-t bg-gray-50">
+        <div className="p-6 border-t border-orange-100 bg-gradient-to-r from-orange-50/50 to-pink-50/50">
           <div className="flex justify-between items-center">
             {/* Back Button */}
             <Button
               variant="outline"
               onClick={handlePrevPage}
               disabled={currentPage === 1}
-              className="flex items-center gap-2 px-6 py-2"
+              className="flex items-center gap-2 px-6 py-2 border-orange-200 hover:bg-orange-50"
             >
               <ArrowLeft className="w-4 h-4" />
               Previous
@@ -173,11 +178,11 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
                     disabled={!isVisited}
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
                       isCurrent 
-                        ? 'bg-blue-500 text-white shadow-lg' 
+                        ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white shadow-lg' 
                         : isCompleted 
-                          ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
+                          ? 'bg-gradient-to-r from-green-400 to-green-500 text-white hover:from-green-500 hover:to-green-600 cursor-pointer' 
                           : isVisited
-                            ? 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+                            ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white hover:from-orange-500 hover:to-pink-600 cursor-pointer'
                             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     }`}
                   >

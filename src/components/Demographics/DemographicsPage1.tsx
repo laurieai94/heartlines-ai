@@ -151,7 +151,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   return (
     <div className="space-y-6">
       {/* Engaging Introduction with Progress */}
-      <Card className="p-6 bg-gradient-to-r from-orange-50 via-pink-50 to-red-50 border-orange-200 relative overflow-hidden">
+      <Card className="p-6 bg-gradient-to-r from-orange-50 via-pink-50 to-red-50 border-orange-200 relative overflow-hidden shadow-lg">
         <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-200 to-pink-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
         <div className="relative">
           <div className="flex items-start gap-4">
@@ -166,7 +166,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
               </p>
               
               {/* Progress Indicator */}
-              <div className="bg-white/70 rounded-lg p-3 mb-3">
+              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 mb-3 border border-orange-100">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">Progress</span>
                   <span className="text-sm text-orange-600 font-semibold">{Math.round(progressPercentage)}%</span>
@@ -189,7 +189,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       </Card>
 
       {!isPersonal && (
-        <Card className="p-4 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200">
+        <Card className="p-4 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
               <HelpCircle className="w-4 h-4 text-orange-600" />
@@ -204,11 +204,11 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       )}
 
       {/* Personal Identity Section */}
-      <Card className="p-6 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+      <Card className="p-6 border-0 shadow-lg bg-white/95 backdrop-blur-sm border border-orange-100">
         <div className="mb-4">
           <h4 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-orange-600">1</span>
+            <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">1</span>
             </div>
             Personal Identity
           </h4>
@@ -223,11 +223,11 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       </Card>
 
       {/* Background & Lifestyle Section */}
-      <Card className="p-6 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+      <Card className="p-6 border-0 shadow-lg bg-white/95 backdrop-blur-sm border border-orange-100">
         <div className="mb-4">
           <h4 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <div className="w-6 h-6 bg-pink-100 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-pink-600">2</span>
+            <div className="w-6 h-6 bg-gradient-to-br from-pink-400 to-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">2</span>
             </div>
             Background & Lifestyle
           </h4>
@@ -248,7 +248,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         <Button
           onClick={handleContinue}
           disabled={progressPercentage < 100}
-          className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border-0"
         >
           Continue to Family Background
           <ArrowRight className="w-5 h-5 ml-2" />
