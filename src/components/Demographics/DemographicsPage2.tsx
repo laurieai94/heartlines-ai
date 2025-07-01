@@ -127,9 +127,9 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
   return (
     <div className="space-y-8">
       {/* Introduction */}
-      <Card className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+      <Card className="p-6 bg-gradient-to-r from-coral-50 to-orange-50 border-coral-200">
         <div className="flex items-start gap-4">
-          <Heart className="w-6 h-6 text-purple-600 mt-1" />
+          <Heart className="w-6 h-6 text-coral-600 mt-1" />
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {isPersonal ? 'Your' : 'Your Partner\'s'} Family Background
@@ -142,7 +142,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
               <span className="text-red-500">*</span> All questions in this section are required
             </p>
             {!isPersonal && (
-              <div className="flex items-center gap-2 text-sm text-purple-700 mt-2">
+              <div className="flex items-center gap-2 text-sm text-coral-700 mt-2">
                 <HelpCircle className="w-4 h-4" />
                 <span className="font-medium">Don't know much about their family? Choose "Prefer not to share" for questions you can't answer.</span>
               </div>
@@ -171,7 +171,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
                     value={option}
                     checked={formData.familyStructure === option}
                     onChange={(e) => updateFormData('familyStructure', e.target.value)}
-                    className="w-4 h-4 text-purple-600"
+                    className="w-4 h-4 text-coral-500"
                   />
                   <Label htmlFor={`family-${option}`} className="text-sm">
                     {option}
@@ -197,7 +197,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
                     value={option}
                     checked={formData.conflictStyle === option}
                     onChange={(e) => updateFormData('conflictStyle', e.target.value)}
-                    className="w-4 h-4 text-purple-600"
+                    className="w-4 h-4 text-coral-500"
                   />
                   <Label htmlFor={`conflict-${option}`} className="text-sm">
                     {option}
@@ -229,7 +229,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
                     value={option}
                     checked={formData.familyRelationship === option}
                     onChange={(e) => updateFormData('familyRelationship', e.target.value)}
-                    className="w-4 h-4 text-purple-600"
+                    className="w-4 h-4 text-coral-500"
                   />
                   <Label htmlFor={`relationship-${option}`} className="text-sm">
                     {option}
@@ -283,7 +283,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
                     value={option}
                     checked={formData.familyPriorities === option}
                     onChange={(e) => updateFormData('familyPriorities', e.target.value)}
-                    className="w-4 h-4 text-purple-600"
+                    className="w-4 h-4 text-coral-500"
                   />
                   <Label htmlFor={`priorities-${option}`} className="text-sm">
                     {option}
@@ -318,25 +318,25 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
       </Card>
 
       {/* Tips Section */}
-      <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+      <Card className="p-6 bg-gradient-to-r from-orange-50 to-amber-50 border-orange-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">💡 Tips</h3>
         <div className="space-y-3 text-sm text-gray-700">
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div className="w-2 h-2 bg-coral-500 rounded-full mt-2"></div>
             <div>
               <h4 className="font-semibold">These questions help our AI understand relationship patterns</h4>
               <p>We use this to provide more personalized advice for your unique situation</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div className="w-2 h-2 bg-coral-500 rounded-full mt-2"></div>
             <div>
               <h4 className="font-semibold">All answers are completely private</h4>
               <p>This information stays in your profile and helps personalize your experience</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div className="w-2 h-2 bg-coral-500 rounded-full mt-2"></div>
             <div>
               <h4 className="font-semibold">You can update these anytime</h4>
               <p>As you grow and change, you can always update your demographics</p>
@@ -359,7 +359,7 @@ const DemographicsPage2 = ({ profileType, onComplete, onBack, onSkip, initialDat
         <div className="flex gap-3">
           <Button
             onClick={handleComplete}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg px-8 py-3"
+            className="bg-gradient-to-r from-coral-400 to-orange-400 hover:from-coral-500 hover:to-orange-500 text-lg px-8 py-3"
           >
             Complete Demographics & Start Profile
             <ArrowRight className="w-5 h-5 ml-2" />

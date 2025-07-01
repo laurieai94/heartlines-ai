@@ -19,7 +19,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
     <div className="space-y-3">
       <Label className="text-sm font-medium text-gray-700">
         What's your sexual orientation? <span className="text-red-500">*</span>
-        <span className="text-purple-600 font-medium text-xs ml-2">✨ Check all that apply</span>
+        <span className="text-coral-600 font-medium text-xs ml-2">✨ Check all that apply</span>
       </Label>
       <div className="grid grid-cols-3 gap-2">
         {orientationOptions.map((orientation) => (
@@ -28,8 +28,8 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
             onClick={() => onOrientationSelect(orientation)}
             className={`p-3 rounded-lg border-2 text-sm font-medium transition-all text-left hover:scale-105 ${
               selectedOrientations.includes(orientation)
-                ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-purple-500 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                ? 'bg-gradient-to-r from-coral-400 to-orange-400 text-white border-coral-400 shadow-md'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-coral-300 hover:bg-coral-50'
             }`}
           >
             {orientation}
@@ -46,7 +46,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do you identify?"
-            className="border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+            className="border-gray-300 focus:border-coral-400 focus:ring-coral-400"
             rows={2}
           />
         </div>

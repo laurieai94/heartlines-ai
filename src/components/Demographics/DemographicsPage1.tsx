@@ -141,7 +141,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-coral-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your profile...</p>
         </div>
       </div>
@@ -151,11 +151,11 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   return (
     <div className="space-y-6">
       {/* Engaging Introduction with Progress */}
-      <Card className="p-6 bg-gradient-to-r from-purple-50 via-blue-50 to-cyan-50 border-purple-200 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-200 to-blue-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
+      <Card className="p-6 bg-gradient-to-r from-coral-50 via-orange-50 to-amber-50 border-coral-200 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-coral-200 to-orange-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
         <div className="relative">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-br from-coral-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1">
@@ -169,17 +169,17 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
               <div className="bg-white/70 rounded-lg p-3 mb-3">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">Progress</span>
-                  <span className="text-sm text-purple-600 font-semibold">{Math.round(progressPercentage)}%</span>
+                  <span className="text-sm text-coral-600 font-semibold">{Math.round(progressPercentage)}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div 
-                    className="bg-gradient-to-r from-purple-500 to-blue-500 h-2.5 rounded-full transition-all duration-500 ease-out"
+                    className="bg-gradient-to-r from-coral-400 to-orange-400 h-2.5 rounded-full transition-all duration-500 ease-out"
                     style={{ width: `${progressPercentage}%` }}
                   ></div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-purple-700">
+              <div className="flex items-center gap-2 text-sm text-coral-700">
                 <Lock className="w-4 h-4" />
                 <span className="font-medium">Private & secure—this information stays with you</span>
               </div>
@@ -207,8 +207,8 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       <Card className="p-6 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
         <div className="mb-4">
           <h4 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-purple-600">1</span>
+            <div className="w-6 h-6 bg-coral-100 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-coral-600">1</span>
             </div>
             Personal Identity
           </h4>
@@ -226,8 +226,8 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       <Card className="p-6 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
         <div className="mb-4">
           <h4 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-blue-600">2</span>
+            <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-orange-600">2</span>
             </div>
             Background & Lifestyle
           </h4>
@@ -248,7 +248,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
         <Button
           onClick={handleContinue}
           disabled={progressPercentage < 100}
-          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-gradient-to-r from-coral-400 to-orange-400 hover:from-coral-500 hover:to-orange-500 text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Continue to Family Background
           <ArrowRight className="w-5 h-5 ml-2" />
