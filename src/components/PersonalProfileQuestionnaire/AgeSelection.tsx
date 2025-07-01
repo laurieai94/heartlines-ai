@@ -1,6 +1,6 @@
 
 import { Label } from "@/components/ui/label";
-import { Users } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 interface AgeSelectionProps {
   selectedAge: string;
@@ -17,8 +17,8 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
       <Label className="text-base font-semibold text-white">
         What's your age? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-        <Users className="w-4 h-4 text-orange-300" />
+      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+        <Calendar className="w-4 h-4 text-orange-300" />
         <span>Different life stages = different relationship challenges</span>
       </div>
       <div className="grid grid-cols-4 gap-1.5">

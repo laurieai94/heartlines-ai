@@ -2,7 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { MessageCircle, Heart, Info, Users } from "lucide-react";
+import { MessageCircle, Heart, Info, Users, User } from "lucide-react";
 import PhotoUpload from "./PhotoUpload";
 import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
@@ -41,7 +41,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-base font-semibold questionnaire-text">
-                Add a profile photo (optional)
+                Add a profile pic <span className="text-white/60 text-sm font-normal">(optional)</span>
               </Label>
               <PhotoUpload
                 profilePhoto={profileData.profilePhoto || ''}
@@ -54,8 +54,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label htmlFor="name" className="text-base font-semibold questionnaire-text">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <Heart className="w-4 h-4 text-pink-300" />
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+                <User className="w-4 h-4 text-blue-300" />
                 <span>So we can make this feel like talking to a real person, not a bot</span>
               </div>
               <Input

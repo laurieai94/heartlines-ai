@@ -1,7 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart } from "lucide-react";
+import { Compass } from "lucide-react";
 
 interface OrientationSelectionProps {
   selectedOrientations: string[];
@@ -22,8 +22,8 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
         What's your sexual orientation? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-        <Heart className="w-4 h-4 text-pink-300" />
+      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+        <Compass className="w-4 h-4 text-pink-300" />
         <span>Because straight dating advice doesn't work for everyone</span>
       </div>
       <div className="grid grid-cols-3 gap-2">

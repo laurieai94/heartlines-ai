@@ -1,5 +1,6 @@
+
 import { Label } from "@/components/ui/label";
-import { Home, Users, Heart, BookOpen } from "lucide-react";
+import { Home, UserCheck, Heart, BookOpen } from "lucide-react";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -44,7 +45,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 How would you describe your family dynamics growing up?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
                 <Home className="w-4 h-4 text-green-300" />
                 <span>Your family shaped your relationship blueprint (for better or worse)</span>
               </div>
@@ -70,7 +71,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 What messages about love did you receive growing up?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
                 <Heart className="w-4 h-4 text-pink-300" />
                 <span>The stuff about relationships you internalized growing up</span>
               </div>
@@ -99,8 +100,8 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 How did your parents handle conflict?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
-                <Users className="w-4 h-4 text-orange-300" />
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
+                <UserCheck className="w-4 h-4 text-orange-300" />
                 <span>How they fought affects how you fight - let's break the cycle</span>
               </div>
               <div className="space-y-1.5">
@@ -125,7 +126,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-base font-semibold questionnaire-text">
                 What influenced your ideas about love?
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
+              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
                 <BookOpen className="w-4 h-4 text-blue-300" />
                 <span>What shaped your ideas about how love should work</span>
               </div>
