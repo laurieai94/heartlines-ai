@@ -42,23 +42,23 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
   };
 
   return (
-    <div className="space-y-3">
-      <Label className="text-sm font-medium text-gray-700">
-        What pronouns do you use? <span className="text-red-500">*</span>
+    <div className="space-y-4">
+      <Label className="text-lg font-semibold questionnaire-text">
+        What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-        <Lightbulb className="w-3 h-3" />
+      <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+        <Lightbulb className="w-4 h-4" />
         <span>So we can refer to you correctly</span>
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-3">
         {pronounOptions.map((pronouns) => (
           <button
             key={pronouns}
             onClick={() => handleOptionSelect(pronouns)}
-            className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105 ${
+            className={`p-4 rounded-2xl text-sm font-medium transition-all hover:scale-105 ${
               selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
-                ? 'bg-gradient-to-r from-orange-400 to-pink-500 text-white border-orange-400 shadow-md'
-                : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
+                ? 'questionnaire-button-selected'
+                : 'questionnaire-button-secondary'
             }`}
           >
             {pronouns}
@@ -67,15 +67,15 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
       </div>
       
       {(selectedPronouns === 'Other' || customPronouns) && (
-        <div className="mt-3">
-          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+        <div className="mt-4">
+          <Label className="text-lg font-medium questionnaire-text mb-3 block">
             Please specify your pronouns:
           </Label>
           <Input
             value={customPronouns}
             onChange={(e) => handleCustomChange(e.target.value)}
             placeholder="e.g., xe/xir, fae/faer, etc."
-            className="border-gray-300 focus:border-orange-400 focus:ring-orange-400"
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-lg p-4"
           />
         </div>
       )}

@@ -31,46 +31,49 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-6">
+    <div className="questionnaire-bg p-8">
+      <div className="max-w-4xl mx-auto space-y-8">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 
       />
 
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-3">
-          <Label className="text-sm font-medium text-gray-700">
-            Would you like to add a profile photo? <span className="text-gray-500 font-normal">(Optional)</span>
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-            <Lightbulb className="w-3 h-3" />
-            <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
-          </div>
-          <PhotoUpload
-            profilePhoto={profileData.profilePhoto || ''}
-            name={profileData.name || ''}
-            onPhotoUpdate={(photo) => updateField('profilePhoto', photo)}
-          />
-        </div>
+        <div className="questionnaire-card p-8 space-y-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <Label className="text-lg font-semibold questionnaire-text">
+                Would you like to add a profile photo? <span className="questionnaire-text-muted font-normal">(Optional)</span>
+              </Label>
+              <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+                <Lightbulb className="w-4 h-4" />
+                <span>Helps your AI coach feel more personal (totally optional if you're not into pics)</span>
+              </div>
+              <PhotoUpload
+                profilePhoto={profileData.profilePhoto || ''}
+                name={profileData.name || ''}
+                onPhotoUpdate={(photo) => updateField('profilePhoto', photo)}
+              />
+            </div>
 
-        <div className="space-y-3">
-          <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-            What should we call you? <span className="text-red-500">*</span>
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-            <Lightbulb className="w-3 h-3" />
-            <span>So we can make this feel like talking to a real person, not a bot</span>
+            <div className="space-y-4">
+              <Label htmlFor="name" className="text-lg font-semibold questionnaire-text">
+                What should we call you? <span className="text-red-400">*</span>
+              </Label>
+              <div className="flex items-center gap-2 text-sm questionnaire-text-muted mb-4">
+                <Lightbulb className="w-4 h-4" />
+                <span>So we can make this feel like talking to a real person, not a bot</span>
+              </div>
+              <Input
+                id="name"
+                type="text"
+                value={profileData.name || ''}
+                onChange={(e) => updateField('name', e.target.value)}
+                placeholder="Your name"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-lg p-4"
+              />
+            </div>
           </div>
-          <Input
-            id="name"
-            type="text"
-            value={profileData.name || ''}
-            onChange={(e) => updateField('name', e.target.value)}
-            placeholder="Your name"
-            className="border-gray-300 focus:border-rose-500 focus:ring-rose-500"
-          />
         </div>
-      </div>
 
       <PronounsSelection
         selectedPronouns={profileData.pronouns || ''}
@@ -95,6 +98,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         onOrientationSelect={(orientation) => handleMultiSelect('orientation', orientation)}
         onSelfDescribeChange={(value) => updateField('orientationSelfDescribe', value)}
       />
+      </div>
     </div>
   );
 };

@@ -34,7 +34,9 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="questionnaire-bg p-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="questionnaire-card p-8 space-y-8">
       {/* Two Column Layout for Desktop */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left Column */}
@@ -148,18 +150,20 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         </div>
       </div>
 
-      {/* Final Encouragement */}
-      <div className="text-center p-4 bg-gradient-to-r from-orange-50 via-pink-50 to-orange-50 rounded-lg border border-orange-200">
-        <div className="text-2xl mb-2">🌟</div>
-        <p className="text-lg font-bold text-orange-900 mb-1">
-          You're all set!
-        </p>
-        <p className="text-orange-700 text-sm mb-2">
-          Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
-        </p>
-        <p className="text-orange-600 text-xs">
-          Remember: You can always update your profile as you learn and grow
-        </p>
+          {/* Final Encouragement */}
+          <div className="text-center p-6 questionnaire-card">
+            <div className="text-3xl mb-3">🌟</div>
+            <p className="text-xl font-bold questionnaire-text mb-2">
+              You're all set!
+            </p>
+            <p className="questionnaire-text-muted text-lg mb-3">
+              Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
+            </p>
+            <p className="questionnaire-text-muted text-sm">
+              Remember: You can always update your profile as you learn and grow
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
