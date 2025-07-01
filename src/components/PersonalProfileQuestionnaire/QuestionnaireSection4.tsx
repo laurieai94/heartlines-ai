@@ -41,7 +41,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Family Dynamics */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              Family dynamics growing up
+              How would you describe your family dynamics growing up?
             </Label>
             <div className="space-y-2">
               {familyDynamicsOptions.map((dynamic) => (
@@ -63,7 +63,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {/* Love Messages */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              Messages about love received
+              What messages about love did you receive growing up?
             </Label>
             <div className="space-y-2">
               {loveMessagesOptions.map((message) => (

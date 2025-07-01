@@ -118,7 +118,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {/* Attachment Style */}
           <div className="space-y-3">
             <Label className="text-sm font-medium text-gray-700">
-              Your attachment style <span className="text-red-500">*</span>
+              What's your attachment style? <span className="text-red-500">*</span>
             </Label>
             <div className="space-y-2">
               {attachmentOptions.map((style) => (

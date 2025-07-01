@@ -39,7 +39,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-3">
           <Label className="text-sm font-medium text-gray-700">
-            Add profile photo <span className="text-gray-500 font-normal">(Optional)</span>
+            Would you like to add a profile photo? <span className="text-gray-500 font-normal">(Optional)</span>
           </Label>
           <PhotoUpload
             profilePhoto={profileData.profilePhoto || ''}
