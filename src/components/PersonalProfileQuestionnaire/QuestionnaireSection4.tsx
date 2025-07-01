@@ -1,3 +1,4 @@
+
 import { Label } from "@/components/ui/label";
 import { Home, UserCheck, Heart, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -43,14 +44,14 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       {/* Family Dynamics */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
-          <Label className="text-base font-medium text-white">
+          <Label className="text-base font-semibold text-white">
             How would you describe your family dynamics growing up?
           </Label>
-          <div className="flex items-center gap-2 text-sm text-white/80">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
             <Home className="w-4 h-4 text-green-300" />
             <span>Your family shaped your relationship blueprint (for better or worse)</span>
           </div>
-          <p className="text-orange-300 font-medium text-sm mb-3">Select all that feel relevant (optional)</p>
+          <p className="text-orange-300 font-medium text-xs mb-3">Select all that feel relevant (optional)</p>
         </div>
         
         <div className="space-y-2">
@@ -58,10 +59,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={dynamic}
               onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-              className={`w-full p-3 rounded-lg text-left text-sm font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.familyDynamics || []).includes(dynamic)
-                  ? 'bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-400/50 text-white shadow-lg'
-                  : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
               }`}
             >
               {dynamic}
@@ -71,7 +72,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {familyDynamicsOptions.length > 6 && (
             <button
               onClick={() => setShowAllFamilyOptions(!showAllFamilyOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllFamilyOptions ? (
                 <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -86,14 +87,14 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       {/* Parent Conflict Style */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
-          <Label className="text-base font-medium text-white">
+          <Label className="text-base font-semibold text-white">
             How did your parents handle conflict?
           </Label>
-          <div className="flex items-center gap-2 text-sm text-white/80">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
             <UserCheck className="w-4 h-4 text-orange-300" />
             <span>How they fought affects how you fight - let's break the cycle</span>
           </div>
-          <p className="text-orange-300 font-medium text-sm mb-3">Select all that apply (optional)</p>
+          <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
         <div className="space-y-2">
@@ -101,10 +102,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={style}
               onClick={() => handleMultiSelect('parentConflictStyle', style)}
-              className={`w-full p-3 rounded-lg text-left text-sm font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.parentConflictStyle || []).includes(style)
-                  ? 'bg-gradient-to-r from-orange-500/20 to-amber-500/20 border-2 border-orange-400/50 text-white shadow-lg'
-                  : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
               }`}
             >
               {style}
@@ -114,7 +115,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {parentConflictOptions.length > 6 && (
             <button
               onClick={() => setShowAllConflictOptions(!showAllConflictOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllConflictOptions ? (
                 <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -129,14 +130,14 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       {/* Love Messages */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
-          <Label className="text-base font-medium text-white">
+          <Label className="text-base font-semibold text-white">
             What messages about love did you receive growing up?
           </Label>
-          <div className="flex items-center gap-2 text-sm text-white/80">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
             <Heart className="w-4 h-4 text-pink-300" />
             <span>The stuff about relationships you internalized growing up</span>
           </div>
-          <p className="text-orange-300 font-medium text-sm mb-3">Select all that resonate (optional)</p>
+          <p className="text-orange-300 font-medium text-xs mb-3">Select all that resonate (optional)</p>
         </div>
         
         <div className="space-y-2">
@@ -144,10 +145,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={message}
               onClick={() => handleMultiSelect('loveMessages', message)}
-              className={`w-full p-3 rounded-lg text-left text-sm font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveMessages || []).includes(message)
-                  ? 'bg-gradient-to-r from-pink-500/20 to-rose-500/20 border-2 border-pink-400/50 text-white shadow-lg'
-                  : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
               }`}
             >
               {message}
@@ -157,7 +158,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {loveMessagesOptions.length > 6 && (
             <button
               onClick={() => setShowAllMessageOptions(!showAllMessageOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllMessageOptions ? (
                 <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -172,14 +173,14 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       {/* Love Influences */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div className="space-y-2">
-          <Label className="text-base font-medium text-white">
+          <Label className="text-base font-semibold text-white">
             What influenced your ideas about love?
           </Label>
-          <div className="flex items-center gap-2 text-sm text-white/80">
+          <div className="flex items-center gap-2 text-[13px] text-white/80 font-normal">
             <BookOpen className="w-4 h-4 text-blue-300" />
             <span>What shaped your ideas about how love should work</span>
           </div>
-          <p className="text-orange-300 font-medium text-sm mb-3">Select all that apply (optional)</p>
+          <p className="text-orange-300 font-medium text-xs mb-3">Select all that apply (optional)</p>
         </div>
         
         <div className="space-y-2">
@@ -187,10 +188,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={influence}
               onClick={() => handleMultiSelect('loveInfluences', influence)}
-              className={`w-full p-3 rounded-lg text-left text-sm font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveInfluences || []).includes(influence)
-                  ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-2 border-blue-400/50 text-white shadow-lg'
-                  : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/15'
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
               }`}
             >
               {influence}
@@ -200,7 +201,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           {loveInfluencesOptions.length > 6 && (
             <button
               onClick={() => setShowAllInfluenceOptions(!showAllInfluenceOptions)}
-              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm"
+              className="w-full p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-xs"
             >
               {showAllInfluenceOptions ? (
                 <>Show less <ChevronUp className="w-4 h-4" /></>
@@ -215,10 +216,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       {/* Final Encouragement */}
       <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-xl border border-purple-400/20 p-4 text-center space-y-3">
         <div className="text-3xl mb-2">🌟</div>
-        <h3 className="text-base font-medium text-white mb-2">
+        <h3 className="text-base font-semibold text-white mb-2">
           You're all set!
         </h3>
-        <p className="text-white/90 text-sm mb-2 max-w-md mx-auto">
+        <p className="text-white/90 text-xs mb-2 max-w-md mx-auto">
           Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
         </p>
         <p className="text-white/70 text-xs">

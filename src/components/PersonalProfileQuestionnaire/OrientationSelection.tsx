@@ -1,3 +1,4 @@
+
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Compass } from "lucide-react";
@@ -17,11 +18,11 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
-      <Label className="text-base font-semibold questionnaire-text">
+      <Label className="text-base font-semibold text-white">
         What's your sexual orientation? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-normal text-[13px] ml-2">Check all that apply</span>
+        <span className="text-orange-300 font-normal text-xs ml-2">Check all that apply</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/90 mb-2 font-normal">
+      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
         <Compass className="w-4 h-4 text-pink-300" />
         <span>Because straight dating advice doesn't work for everyone</span>
       </div>
@@ -30,7 +31,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
           <button
             key={orientation}
             onClick={() => onOrientationSelect(orientation)}
-            className={`p-3 rounded-xl text-sm font-medium transition-all text-left hover:scale-105 ${
+            className={`p-3 rounded-xl text-xs font-medium transition-all text-left hover:scale-105 ${
               selectedOrientations.includes(orientation)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -43,7 +44,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
       
       {selectedOrientations.includes('Prefer to self-describe') && (
         <div className="mt-2">
-          <Label className="text-sm font-medium questionnaire-text mb-1 block">
+          <Label className="text-xs font-medium text-white mb-1 block">
             Please describe your sexual orientation:
           </Label>
           <Textarea
