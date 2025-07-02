@@ -306,23 +306,23 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     return 'text-white/80';
   };
 
-  // Single unified layout with sidebar (works for both modal and non-modal)
+  // Single unified layout with sleeker sidebar
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden flex`}>
       <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-7xl max-h-[95vh]'} overflow-hidden flex border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
-        {/* Modern Sidebar Progress */}
-        <div className="w-64 bg-white/10 backdrop-blur-xl border-r border-white/15 p-6 flex flex-col">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-5 h-5 text-white" />
+        {/* Sleeker Sidebar Progress - Reduced width and padding */}
+        <div className="w-56 bg-white/10 backdrop-blur-xl border-r border-white/15 p-5 flex flex-col">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-9 h-9 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">Your Profile</h3>
-              <p className="text-xs text-white/80 font-medium">Building your foundation</p>
+              <h3 className="font-bold text-white text-sm">Your Profile</h3>
+              <p className="text-xs text-white/70 font-medium">Building your foundation</p>
             </div>
           </div>
 
-          <div className="space-y-4 flex-1">
+          <div className="space-y-3 flex-1">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
               const isCompleted = section < currentSection || validateSection(section);
@@ -335,21 +335,21 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
                   key={section}
                   onClick={() => handleSectionClick(section)}
                   disabled={!isAccessible}
-                  className={`w-full text-left p-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] ${
+                  className={`w-full text-left p-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] ${
                     getSectionGradient(section, isActive, isCompleted)
                   } ${
-                    isActive ? 'shadow-xl shadow-rose-500/20' :
-                    isCompleted ? 'shadow-lg' :
-                    isAccessible ? 'hover:shadow-lg shadow-md' : 'opacity-60 cursor-not-allowed'
+                    isActive ? 'shadow-lg shadow-rose-500/20' :
+                    isCompleted ? 'shadow-md' :
+                    isAccessible ? 'hover:shadow-md shadow-sm' : 'opacity-60 cursor-not-allowed'
                   } ${getSectionTextColor(section, isActive, isCompleted)}`}
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-bold text-base leading-tight">{getSectionTitle(section)}</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-sm leading-tight">{getSectionTitle(section)}</span>
                     {isCompleted && (
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
                         isActive ? 'bg-white/20' : 'bg-emerald-500'
                       }`}>
-                        <Check className="w-4 h-4 text-white" />
+                        <Check className="w-3 h-3 text-white" />
                       </div>
                     )}
                   </div>
@@ -368,13 +368,13 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
             })}
           </div>
 
-          <Button variant="ghost" onClick={onClose} className="mt-4 text-white/80 hover:text-white hover:bg-white/10 w-full py-2">
+          <Button variant="ghost" onClick={onClose} className="mt-4 text-white/80 hover:text-white hover:bg-white/10 w-full py-2 text-sm">
             <X className="w-4 h-4 mr-2" />
             Close
           </Button>
         </div>
 
-        {/* Main Content */}
+        {/* Main Content - Use more available space */}
         <div className="flex-1 flex flex-col">
           {/* Modern Header */}
           <div className={`${isModal ? 'p-4' : 'p-6'} border-b border-white/15 bg-white/5 backdrop-blur-sm`}>
@@ -411,9 +411,9 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
             </div>
           </div>
 
-          {/* Content Area */}
+          {/* Content Area - Use more available space */}
           <div className={`flex-1 overflow-y-auto ${isModal ? 'p-4' : 'p-8'} bg-black/5`}>
-            <div className={`${isModal ? 'max-w-3xl' : 'max-w-5xl'} mx-auto`}>
+            <div className={`${isModal ? 'max-w-5xl' : 'max-w-6xl'} mx-auto`}>
               <QuestionnaireSection1 
                 profileData={profileData}
                 updateField={updateField}
