@@ -104,7 +104,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
 
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden`}>
-      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-5xl h-[90vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-6xl h-[90vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
         
         <QuestionnaireHeader 
           onClose={onClose}
@@ -113,7 +113,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           profileData={profileData}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-4 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}
@@ -128,7 +128,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           ref={contentRef}
           className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
         >
-          <div className="p-6 max-w-3xl mx-auto">
+          <div className="p-4 max-w-5xl mx-auto">
             <QuestionnaireSection1 
               profileData={profileData}
               updateField={updateField}
