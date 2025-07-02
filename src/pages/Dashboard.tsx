@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -233,17 +234,17 @@ const Dashboard = () => {
           blockingAction={blockingAction}
         />
 
-        {/* Questionnaire Modal - Updated to use more screen width */}
+        {/* Questionnaire Modal - Updated to appear as windowed overlay */}
         {showQuestionnaireModal && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-8">
             {/* Backdrop */}
             <div 
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
               onClick={handleQuestionnaireClose}
             />
             
-            {/* Modal Container - Made wider to use more screen space */}
-            <div className="relative z-10 w-full max-w-[98vw] mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            {/* Modal Container - Made smaller to appear as windowed overlay */}
+            <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
               {/* Questionnaire Content */}
               <div className="h-full w-full overflow-hidden">
                 <PersonalProfileQuestionnaire 
