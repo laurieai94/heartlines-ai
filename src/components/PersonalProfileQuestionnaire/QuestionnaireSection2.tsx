@@ -68,16 +68,16 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-2">
       {/* Relationship Status - Main Question */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
-        <div className="space-y-4">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <div className="space-y-2">
           <div>
-            <Label className="text-base font-semibold text-white mb-2 block">
+            <Label className="text-sm font-semibold text-white mb-2 block">
               What is your current relationship status? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-              <Heart className="w-4 h-4 text-pink-300" />
+            <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+              <Heart className="w-3 h-3 text-pink-300" />
               <span>From 'it's complicated' to married - we meet you where you are</span>
             </div>
           </div>
@@ -87,7 +87,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <button
                 key={status}
                 onClick={() => updateField('relationshipStatus', status)}
-                className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
+                className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
                   profileData.relationshipStatus === status
                     ? 'questionnaire-button-selected'
                     : 'questionnaire-button-secondary'
@@ -104,14 +104,14 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
       {isSingleOrDating && (
         <>
           {/* Dating Challenges */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
             <div>
-              <Label className="text-base font-semibold text-white mb-2 block">
+              <Label className="text-sm font-semibold text-white mb-2 block">
                 What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-                <MessageSquare className="w-4 h-4 text-blue-300" />
+              <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+                <MessageSquare className="w-3 h-3 text-blue-300" />
                 <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
               </div>
             </div>
@@ -121,7 +121,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={challenge}
                   onClick={() => handleMultiSelect('datingChallenges', challenge)}
-                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+                  className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                     (profileData.datingChallenges || []).includes(challenge)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
@@ -134,14 +134,14 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           </div>
 
           {/* Dating Goals */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
             <div>
-              <Label className="text-base font-semibold text-white mb-2 block">
+              <Label className="text-sm font-semibold text-white mb-2 block">
                 What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-                <Heart className="w-4 h-4 text-pink-300" />
+              <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+                <Heart className="w-3 h-3 text-pink-300" />
                 <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires</span>
               </div>
             </div>
@@ -151,7 +151,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={goal}
                   onClick={() => handleMultiSelect('datingGoals', goal)}
-                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+                  className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                     (profileData.datingGoals || []).includes(goal)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
@@ -167,13 +167,13 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
 
       {/* Conditional Relationship Length */}
       {hasRelationshipLength && (
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
           <div>
-            <Label className="text-base font-semibold text-white mb-2 block">
+            <Label className="text-sm font-semibold text-white mb-2 block">
               How long have you been together? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-              <Clock className="w-4 h-4 text-green-300" />
+            <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+              <Clock className="w-3 h-3 text-green-300" />
               <span>Different relationship stages have different needs and challenges</span>
             </div>
           </div>
@@ -183,7 +183,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               <button
                 key={length}
                 onClick={() => updateField('relationshipLength', length)}
-                className={`p-4 rounded-xl text-center transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
+                className={`p-2 rounded-lg text-center transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
                   profileData.relationshipLength === length
                     ? 'questionnaire-button-selected'
                     : 'questionnaire-button-secondary'
@@ -200,14 +200,14 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
       {isInRelationship && (
         <>
           {/* What's Working Well */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
             <div>
-              <Label className="text-base font-semibold text-white mb-2 block">
+              <Label className="text-sm font-semibold text-white mb-2 block">
                 What's working well in your relationship? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-                <Heart className="w-4 h-4 text-pink-300" />
+              <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+                <Heart className="w-3 h-3 text-pink-300" />
                 <span>We'll build on what's already good instead of fixing everything</span>
               </div>
             </div>
@@ -217,7 +217,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={item}
                   onClick={() => handleMultiSelect('workingWell', item)}
-                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+                  className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                     (profileData.workingWell || []).includes(item)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
@@ -230,14 +230,14 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           </div>
 
           {/* What Feels Difficult */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
             <div>
-              <Label className="text-base font-semibold text-white mb-2 block">
+              <Label className="text-sm font-semibold text-white mb-2 block">
                 What feels difficult or challenging? <span className="text-red-400">*</span>
                 <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-[13px] text-white/80 mb-4 font-normal">
-                <MessageSquare className="w-4 h-4 text-blue-300" />
+              <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+                <MessageSquare className="w-3 h-3 text-blue-300" />
                 <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
             </div>
@@ -247,7 +247,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
                 <button
                   key={challenge}
                   onClick={() => handleMultiSelect('feelsDifficult', challenge)}
-                  className={`w-full p-4 rounded-xl text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+                  className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                     (profileData.feelsDifficult || []).includes(challenge)
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
