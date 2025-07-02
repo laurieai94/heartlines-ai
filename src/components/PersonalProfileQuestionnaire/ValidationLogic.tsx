@@ -1,3 +1,4 @@
+
 // Validation logic utility functions
 export const validateSection = (section: number, profileData: any) => {
   switch (section) {
@@ -140,34 +141,4 @@ export const getCompletedCount = (section: number, profileData: any) => {
     }
     default: return 0;
   }
-};
-
-export const getOverallProgress = (profileData: any) => {
-  const totalRequired = [1, 2, 3, 4].reduce((sum, section) => sum + getRequiredCount(section, profileData), 0);
-  const totalCompleted = [1, 2, 3, 4].reduce((sum, section) => sum + getCompletedCount(section, profileData), 0);
-  
-  return Math.round((totalCompleted / totalRequired) * 100);
-};
-
-export const getMotivationalMessage = (progress: number, currentSection: number) => {
-  if (progress === 100) return "🎉 Complete!";
-  if (progress >= 75) return "🔥 Almost there!";
-  if (progress >= 50) return "💪 Great progress!";
-  if (progress >= 25) return "✨ You're doing great!";
-  return "🚀 Let's get started!";
-};
-
-export const getTimeEstimation = (progress: number) => {
-  const remainingProgress = 100 - progress;
-  const estimatedMinutes = Math.ceil((remainingProgress / 100) * 5); // Assume 5 minutes total
-  
-  if (estimatedMinutes <= 1) return "Less than 1 minute left";
-  if (estimatedMinutes === 2) return "About 2 minutes remaining";
-  return `About ${estimatedMinutes} minutes remaining`;
-};
-
-export const getSectionCompletionRate = (section: number, profileData: any) => {
-  const required = getRequiredCount(section, profileData);
-  const completed = getCompletedCount(section, profileData);
-  return required > 0 ? Math.round((completed / required) * 100) : 0;
 };
