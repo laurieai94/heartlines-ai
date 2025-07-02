@@ -27,13 +27,15 @@ interface PersonalProfileData {
   feelLovedWhen?: string[];
   attachmentStyle?: string;
   
-  // Section 4 - Your Foundation
-  familyDynamics?: string[];
-  parentConflictStyle?: string[];
-  loveMessages?: string[];
-  loveInfluences?: string[];
-  mentalHealthContext?: string;
-  growthAreas?: string[];
+  // Section 4 - Your Foundation (New Questions)
+  familySituation?: string;
+  familySituationOther?: string;
+  familyEmotions?: string[];
+  familyEmotionsOther?: string;
+  familyConflict?: string[];
+  familyConflictOther?: string;
+  familyLove?: string[];
+  familyLoveOther?: string;
   
   // Metadata
   completedAt?: string;

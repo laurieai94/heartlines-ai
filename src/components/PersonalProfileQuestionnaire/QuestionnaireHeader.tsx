@@ -16,7 +16,7 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
   const getMotivationalMessage = () => {
     if (overallProgress === 100) return {
       title: "Profile Complete! Ready for RealTalk!",
-      subtitle: "Your smart conversation tools, AI insights, and relationship guidance are now available"
+      subtitle: "Your personalized conversation tools are now ready to use"
     };
     if (overallProgress >= 80) return {
       title: "Complete your profile to unlock RealTalk",

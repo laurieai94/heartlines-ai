@@ -55,8 +55,8 @@ export const validateSection = (section: number, profileData: any) => {
       });
     }
     case 4: {
-      const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
-      return optionalFields.some(field => {
+      const required = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
+      return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
       });
@@ -87,7 +87,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
       return base;
     }
     case 3: return 4;
-    case 4: return 1;
+    case 4: return 4;
     default: return 0;
   }
 };
@@ -133,15 +133,11 @@ export const getCompletedCount = (section: number, profileData: any) => {
       }).length;
     }
     case 4: {
-      // Fixed: Section 4 should return 0 or 1 (binary completion) since getRequiredCount returns 1
-      const fields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
-      const hasAnyData = fields.some(field => {
+      const fields = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
+      return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
-      });
-      
-      // Return 1 if any field has data, 0 if none do (binary completion)
-      return hasAnyData ? 1 : 0;
+      }).length;
     }
     default: return 0;
   }

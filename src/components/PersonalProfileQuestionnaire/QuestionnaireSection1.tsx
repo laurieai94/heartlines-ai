@@ -54,10 +54,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             <Label htmlFor="name" className="text-sm font-medium text-white">
               What should we call you? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-xs text-white/80 mb-1">
-              <User className="w-3 h-3 text-blue-300" />
-              <span>So we can refer to you correctly</span>
-            </div>
             <Input
               id="name"
               type="text"
