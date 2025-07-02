@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
@@ -96,7 +95,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           totalSections={4}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-4 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}
@@ -108,7 +107,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
         </div>
 
         <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-          <div className="p-8 max-w-4xl mx-auto">
+          <div className="p-4 max-w-5xl mx-auto">
             <QuestionnaireSection1 
               profileData={profileData}
               updateField={updateField}

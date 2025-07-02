@@ -34,26 +34,26 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* Family Dynamics */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
-        <div className="space-y-2">
-          <Label className="text-base font-semibold text-white">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <div className="space-y-1">
+          <Label className="text-sm font-semibold text-white">
             How would you describe your family dynamics growing up? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
-            <Home className="w-4 h-4 text-green-300" />
+          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+            <Home className="w-3 h-3 text-green-300" />
             <span>Your family shaped your relationship blueprint (for better or worse)</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {familyDynamicsOptions.map((dynamic) => (
             <button
               key={dynamic}
               onClick={() => handleMultiSelect('familyDynamics', dynamic)}
-              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.familyDynamics || []).includes(dynamic)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -66,24 +66,24 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Parent Conflict Style */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
-        <div className="space-y-2">
-          <Label className="text-base font-semibold text-white">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <div className="space-y-1">
+          <Label className="text-sm font-semibold text-white">
             How did your parents handle conflict? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
-            <UserCheck className="w-4 h-4 text-orange-300" />
+          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+            <UserCheck className="w-3 h-3 text-orange-300" />
             <span>How they fought affects how you fight - let's break the cycle</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {parentConflictOptions.map((style) => (
             <button
               key={style}
               onClick={() => handleMultiSelect('parentConflictStyle', style)}
-              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.parentConflictStyle || []).includes(style)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -96,24 +96,24 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Love Messages */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
-        <div className="space-y-2">
-          <Label className="text-base font-semibold text-white">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <div className="space-y-1">
+          <Label className="text-sm font-semibold text-white">
             What messages about love did you receive growing up? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
-            <Heart className="w-4 h-4 text-pink-300" />
+          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+            <Heart className="w-3 h-3 text-pink-300" />
             <span>The stuff about relationships you internalized growing up</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {loveMessagesOptions.map((message) => (
             <button
               key={message}
               onClick={() => handleMultiSelect('loveMessages', message)}
-              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveMessages || []).includes(message)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -126,24 +126,24 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Love Influences */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
-        <div className="space-y-2">
-          <Label className="text-base font-semibold text-white">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <div className="space-y-1">
+          <Label className="text-sm font-semibold text-white">
             What influenced your ideas about love? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-[13px] text-white/80 mb-3 font-normal">
-            <BookOpen className="w-4 h-4 text-blue-300" />
+          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+            <BookOpen className="w-3 h-3 text-blue-300" />
             <span>What shaped your ideas about how love should work</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {loveInfluencesOptions.map((influence) => (
             <button
               key={influence}
               onClick={() => handleMultiSelect('loveInfluences', influence)}
-              className={`w-full p-3 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveInfluences || []).includes(influence)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -156,14 +156,14 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Final Encouragement */}
-      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-xl border border-purple-400/20 p-4 text-center space-y-3">
-        <div className="flex justify-center mb-2">
-          <Sparkles className="w-8 h-8 text-yellow-300" />
+      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-xl border border-purple-400/20 p-3 text-center space-y-2">
+        <div className="flex justify-center mb-1">
+          <Sparkles className="w-6 h-6 text-yellow-300" />
         </div>
-        <h3 className="text-base font-semibold text-white mb-2">
+        <h3 className="text-sm font-semibold text-white mb-1">
           You're all set!
         </h3>
-        <p className="text-white/90 text-xs mb-2 max-w-md mx-auto">
+        <p className="text-white/90 text-xs mb-1 max-w-md mx-auto">
           Thanks for sharing so thoughtfully. This foundation will help RealTalk provide truly personalized guidance.
         </p>
         <p className="text-white/70 text-xs">

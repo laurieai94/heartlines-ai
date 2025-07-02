@@ -30,16 +30,16 @@ const SectionNavigation = ({
 
   const getSectionIcon = (section: number) => {
     switch (section) {
-      case 1: return <User className="w-4 h-4" />;
-      case 2: return <Heart className="w-4 h-4" />;
-      case 3: return <Zap className="w-4 h-4" />;
-      case 4: return <Award className="w-4 h-4" />;
+      case 1: return <User className="w-3 h-3" />;
+      case 2: return <Heart className="w-3 h-3" />;
+      case 3: return <Zap className="w-3 h-3" />;
+      case 4: return <Award className="w-3 h-3" />;
       default: return null;
     }
   };
 
   return (
-    <div className="grid grid-cols-4 gap-3 mb-4">
+    <div className="grid grid-cols-4 gap-2 mb-2">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = section < currentSection || validateSection(section);
@@ -52,7 +52,7 @@ const SectionNavigation = ({
             key={section}
             onClick={() => onSectionClick(section)}
             disabled={!isAccessible}
-            className={`p-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] text-left ${
+            className={`p-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
               isActive 
                 ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
                 : isCompleted 
@@ -63,20 +63,20 @@ const SectionNavigation = ({
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 {getSectionIcon(section)}
-                <span className="font-semibold text-sm">{getSectionTitle(section)}</span>
+                <span className="font-semibold text-xs">{getSectionTitle(section)}</span>
               </div>
               {isCompleted && (
-                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                <div className={`w-3 h-3 rounded-full flex items-center justify-center ${
                   isActive ? 'bg-white/20' : 'bg-emerald-500'
                 }`}>
-                  <Check className="w-3 h-3 text-white" />
+                  <Check className="w-2 h-2 text-white" />
                 </div>
               )}
             </div>
             <div className="text-xs opacity-80">
-              {completedCount}/{requiredCount} required
+              {completedCount}/{requiredCount}
             </div>
           </button>
         );
