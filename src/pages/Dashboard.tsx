@@ -243,10 +243,10 @@ const Dashboard = () => {
               onClick={handleQuestionnaireClose}
             />
             
-            {/* Modal Container */}
-            <div className="relative z-10 w-full max-w-7xl mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            {/* Modal Container - Made wider to accommodate sidebar */}
+            <div className="relative z-10 w-full max-w-[90vw] mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
               {/* Questionnaire Content */}
-              <div className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+              <div className="h-full w-full overflow-hidden">
                 <PersonalProfileQuestionnaire 
                   onComplete={handleQuestionnaireComplete} 
                   onClose={handleQuestionnaireClose} 
