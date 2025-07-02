@@ -306,12 +306,12 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     return 'text-white/80';
   };
 
-  // Single unified layout with sleeker sidebar and proper scroll containment
+  // Single unified layout with fixed sidebar and proper scroll containment
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden flex`}>
-      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-7xl max-h-[95vh]'} overflow-hidden flex border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
-        {/* Sleeker Sidebar Progress - Reduced width and padding */}
-        <div className="w-56 bg-white/10 backdrop-blur-xl border-r border-white/15 p-5 flex flex-col overflow-hidden">
+      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-7xl h-[85vh]'} overflow-hidden flex border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+        {/* Fixed Sidebar Progress - Always visible */}
+        <div className="w-56 bg-white/10 backdrop-blur-xl border-r border-white/15 p-5 flex flex-col flex-shrink-0 h-full">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-9 h-9 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
               <Sparkles className="w-4 h-4 text-white" />
@@ -322,7 +322,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
             </div>
           </div>
 
-          <div className="space-y-3 flex-1">
+          <div className="space-y-3 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
               const isCompleted = section < currentSection || validateSection(section);
@@ -374,9 +374,9 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           </Button>
         </div>
 
-        {/* Main Content - Use more available space with proper scroll containment */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Modern Header */}
+        {/* Main Content - Only this area scrolls */}
+        <div className="flex-1 flex flex-col h-full overflow-hidden">
+          {/* Modern Header - Fixed */}
           <div className={`${isModal ? 'p-4' : 'p-6'} border-b border-white/15 bg-white/5 backdrop-blur-sm flex-shrink-0`}>
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -411,15 +411,9 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
             </div>
           </div>
 
-          {/* Content Area - Properly contained scrolling */}
-          <div 
-            className={`flex-1 overflow-hidden ${isModal ? 'p-4' : 'p-8'} bg-black/5`}
-            style={{ scrollBehavior: 'smooth' }}
-          >
-            <div 
-              className={`${isModal ? 'max-w-5xl' : 'max-w-6xl'} mx-auto h-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent`}
-              onWheel={(e) => e.stopPropagation()}
-            >
+          {/* Scrollable Content Area - Only this scrolls */}
+          <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+            <div className={`${isModal ? 'p-4' : 'p-8'} ${isModal ? 'max-w-5xl' : 'max-w-6xl'} mx-auto`}>
               <QuestionnaireSection1 
                 profileData={profileData}
                 updateField={updateField}
@@ -447,7 +441,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
             </div>
           </div>
 
-          {/* Modern Footer */}
+          {/* Modern Footer - Fixed */}
           <div className={`${isModal ? 'p-4' : 'p-6'} border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0`}>
             <Button
               variant="outline"
