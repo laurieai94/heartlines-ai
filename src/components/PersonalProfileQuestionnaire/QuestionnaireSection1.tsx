@@ -31,16 +31,16 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 
       />
 
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-3">
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-white">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div className="grid md:grid-cols-2 gap-1.5">
+          <div className="space-y-1">
+            <Label className="text-sm font-semibold text-white">
               Add a profile pic <span className="text-white/60 text-xs font-normal">(optional)</span>
             </Label>
             <PhotoUpload
@@ -50,8 +50,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium text-white">
+          <div className="space-y-1">
+            <Label htmlFor="name" className="text-sm font-semibold text-white">
               What should we call you? <span className="text-red-400">*</span>
             </Label>
             <Input
@@ -60,7 +60,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
               placeholder="Your name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8 font-medium"
+              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
             />
           </div>
         </div>

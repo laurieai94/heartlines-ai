@@ -23,24 +23,24 @@ const RelationshipQuestions = ({ profileData, handleMultiSelect }: RelationshipQ
   return (
     <>
       {/* What's Working Well */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
-          <Label className="text-sm font-semibold text-white mb-2 block">
+          <Label className="text-sm font-semibold text-white">
             What's working well in your relationship? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <Heart className="w-3 h-3 text-pink-300" />
             <span>We'll build on what's already good instead of fixing everything</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
           {workingWellOptions.map((item) => (
             <button
               key={item}
               onClick={() => handleMultiSelect('workingWell', item)}
-              className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+              className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                 (profileData.workingWell || []).includes(item)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -53,24 +53,24 @@ const RelationshipQuestions = ({ profileData, handleMultiSelect }: RelationshipQ
       </div>
 
       {/* What Feels Difficult */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
-          <Label className="text-sm font-semibold text-white mb-2 block">
+          <Label className="text-sm font-semibold text-white">
             What feels difficult or challenging? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <MessageSquare className="w-3 h-3 text-blue-300" />
             <span>Let's tackle the stuff that's actually driving you crazy</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
           {feelsDifficultOptions.map((challenge) => (
             <button
               key={challenge}
               onClick={() => handleMultiSelect('feelsDifficult', challenge)}
-              className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+              className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
                 (profileData.feelsDifficult || []).includes(challenge)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'

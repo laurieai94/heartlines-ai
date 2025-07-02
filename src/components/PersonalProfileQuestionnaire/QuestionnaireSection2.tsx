@@ -27,7 +27,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
     ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {/* Relationship Status - Main Question */}
       <RelationshipStatusSelector 
         profileData={profileData}

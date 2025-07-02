@@ -14,23 +14,23 @@ const RelationshipLengthSelector = ({ profileData, updateField }: RelationshipLe
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
       <div>
-        <Label className="text-sm font-semibold text-white mb-2 block">
+        <Label className="text-sm font-semibold text-white">
           How long have you been together? <span className="text-red-400">*</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
           <Clock className="w-3 h-3 text-green-300" />
           <span>Different relationship stages have different needs and challenges</span>
         </div>
       </div>
       
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
         {relationshipLengthOptions.map((length) => (
           <button
             key={length}
             onClick={() => updateField('relationshipLength', length)}
-            className={`p-2 rounded-lg text-center transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
+            className={`p-1.5 rounded-lg text-center transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
               profileData.relationshipLength === length
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
