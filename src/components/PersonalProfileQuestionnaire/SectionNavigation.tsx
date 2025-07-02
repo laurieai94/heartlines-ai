@@ -75,6 +75,9 @@ const SectionNavigation = ({
                 </div>
               )}
             </div>
+            <div className="text-xs opacity-60 mb-1">
+              Step {section}
+            </div>
             <div className="text-xs opacity-80">
               {completedCount}/{requiredCount}
             </div>

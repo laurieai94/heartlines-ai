@@ -128,7 +128,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           ref={contentRef}
           className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
         >
-          <div className="p-4 max-w-5xl mx-auto">
+          <div className="px-6 md:px-8 py-4 max-w-3xl mx-auto">
             <QuestionnaireSection1 
               profileData={profileData}
               updateField={updateField}
