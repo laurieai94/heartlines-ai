@@ -93,8 +93,13 @@ export const usePersonalProfileData = () => {
     loadData();
   }, [user]);
 
-  // Save data function with auto-save
+  // Save data function - only saves when there's actual data
   const saveData = async (newData: Partial<PersonalProfileData>) => {
+    // Don't save if newData is empty or has no meaningful content
+    if (!newData || Object.keys(newData).length === 0) {
+      return;
+    }
+
     console.log('Saving personal profile data:', newData);
     
     const currentData = profileData || {};
@@ -151,17 +156,6 @@ export const usePersonalProfileData = () => {
     console.log(`Multi-select update for ${field}:`, updated);
     updateField(field, updated);
   };
-
-  // Auto-save functionality with debouncing
-  useEffect(() => {
-    if (isReady && Object.keys(profileData).length > 0) {
-      const timeoutId = setTimeout(() => {
-        saveData({});
-      }, 1000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [profileData, isReady, user]);
 
   return {
     profileData,

@@ -9,7 +9,8 @@ import QuestionnaireSection1 from "./PersonalProfileQuestionnaire/QuestionnaireS
 import QuestionnaireSection2 from "./PersonalProfileQuestionnaire/QuestionnaireSection2";
 import QuestionnaireSection3 from "./PersonalProfileQuestionnaire/QuestionnaireSection3";
 import QuestionnaireSection4 from "./PersonalProfileQuestionnaire/QuestionnaireSection4";
-import { validateSection, getRequiredCount, getCompletedCount } from "./PersonalProfileQuestionnaire/ValidationLogic";
+import { validateSection, getRequiredCount, getCompletedCount, calculateOverallProgress } from "./PersonalProfileQuestionnaire/ValidationLogic";
+import { Sparkles, Trophy, PartyPopper } from "lucide-react";
 
 interface PersonalProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -20,6 +21,7 @@ interface PersonalProfileQuestionnaireProps {
 const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: PersonalProfileQuestionnaireProps) => {
   const { profileData, isLoading, updateField, handleMultiSelect } = usePersonalProfileData();
   const [currentSection, setCurrentSection] = useState(1);
+  const [showSuccess, setShowSuccess] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   
   const [sectionReadiness, setSectionReadiness] = useState({
@@ -55,6 +57,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     );
   }
 
+  const overallProgress = calculateOverallProgress(profileData);
+
   const handleNext = () => {
     if (!validateSection(currentSection, profileData)) {
       toast.error("Please complete all required questions in this section");
@@ -80,16 +84,25 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
       return;
     }
 
-    const completedData = {
-      ...profileData,
-      completedAt: new Date().toISOString(),
-      profileSource: 'personal-questionnaire'
-    };
+    // Show success state briefly
+    setShowSuccess(true);
     
-    onComplete({
-      type: 'personal',
-      completionData: completedData
-    });
+    setTimeout(() => {
+      const completedData = {
+        ...profileData,
+        completedAt: new Date().toISOString(),
+        profileSource: 'personal-questionnaire'
+      };
+      
+      toast.success("🎉 Profile Complete! Welcome to RealTalk!", {
+        duration: 3000,
+      });
+      
+      onComplete({
+        type: 'personal',
+        completionData: completedData
+      });
+    }, 2000);
   };
 
   const handleSectionClick = (section: number) => {
@@ -101,6 +114,40 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
       setSectionReadiness(prev => ({ ...prev, [section]: true }));
     }
   };
+
+  // Success state
+  if (showSuccess) {
+    return (
+      <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'} overflow-hidden`}>
+        <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-2xl h-[70vh]'} overflow-hidden flex flex-col items-center justify-center border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+          <div className="text-center space-y-6 p-8">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <Trophy className="w-12 h-12 text-yellow-400 animate-bounce" />
+              <PartyPopper className="w-8 h-8 text-pink-400 animate-pulse" />
+            </div>
+            
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold text-white">Profile Complete!</h2>
+              <p className="text-lg text-white/80">
+                🎉 Congratulations! You're ready to start using RealTalk
+              </p>
+            </div>
+            
+            <div className="w-full max-w-xs mx-auto bg-white/10 rounded-full h-3 overflow-hidden border border-white/20">
+              <div 
+                className="h-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 animate-pulse"
+                style={{ width: '100%' }}
+              />
+            </div>
+            
+            <p className="text-sm text-white/70">
+              Starting your RealTalk experience...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'} overflow-hidden`}>
@@ -165,6 +212,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           validateSection={(section) => validateSection(section, profileData)}
           getRequiredCount={(section) => getRequiredCount(section, profileData)}
           getCompletedCount={(section) => getCompletedCount(section, profileData)}
+          profileData={profileData}
         />
       </div>
     </div>
