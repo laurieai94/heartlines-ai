@@ -10,6 +10,7 @@ interface QuestionnaireFooterProps {
   validateSection: (section: number) => boolean;
   getRequiredCount: (section: number) => number;
   getCompletedCount: (section: number) => number;
+  overallProgress: number;
 }
 
 const QuestionnaireFooter = ({ 
@@ -19,10 +20,15 @@ const QuestionnaireFooter = ({
   onComplete, 
   validateSection, 
   getRequiredCount, 
-  getCompletedCount 
+  getCompletedCount,
+  overallProgress
 }: QuestionnaireFooterProps) => {
+  const currentCompleted = getCompletedCount(currentSection);
+  const currentRequired = getRequiredCount(currentSection);
+  const isCurrentSectionValid = validateSection(currentSection);
+
   return (
-    <div className="p-3 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+    <div className="p-2 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
       <Button
         variant="outline"
         onClick={onBack}
@@ -33,16 +39,28 @@ const QuestionnaireFooter = ({
         Back
       </Button>
 
-      <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full text-xs text-white/90 font-medium border border-white/15">
-        {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
+      <div className="flex items-center gap-3">
+        <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full text-xs text-white/90 font-medium border border-white/15">
+          {currentCompleted}/{currentRequired} required
+        </div>
+        
+        {overallProgress > 0 && (
+          <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full text-xs text-white/90 font-medium border border-white/15">
+            {overallProgress}% complete
+          </div>
+        )}
       </div>
 
       <div className="flex gap-2">
         {currentSection < 4 && (
           <Button
             onClick={onNext}
-            disabled={!validateSection(currentSection)}
-            className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
+            disabled={!isCurrentSectionValid}
+            className={`text-white flex items-center gap-2 px-3 py-1.5 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 ${
+              isCurrentSectionValid 
+                ? 'bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700' 
+                : 'bg-white/20'
+            }`}
           >
             Next
             <ArrowRight className="w-3 h-3" />

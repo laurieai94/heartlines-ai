@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import QuestionnaireHeader from "./PersonalProfileQuestionnaire/QuestionnaireHeader";
@@ -8,7 +9,7 @@ import QuestionnaireSection1 from "./PersonalProfileQuestionnaire/QuestionnaireS
 import QuestionnaireSection2 from "./PersonalProfileQuestionnaire/QuestionnaireSection2";
 import QuestionnaireSection3 from "./PersonalProfileQuestionnaire/QuestionnaireSection3";
 import QuestionnaireSection4 from "./PersonalProfileQuestionnaire/QuestionnaireSection4";
-import { validateSection, getRequiredCount, getCompletedCount } from "./PersonalProfileQuestionnaire/ValidationLogic";
+import { validateSection, getRequiredCount, getCompletedCount, getOverallProgress } from "./PersonalProfileQuestionnaire/ValidationLogic";
 
 interface PersonalProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -19,6 +20,7 @@ interface PersonalProfileQuestionnaireProps {
 const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: PersonalProfileQuestionnaireProps) => {
   const { profileData, isLoading, updateField, handleMultiSelect } = usePersonalProfileData();
   const [currentSection, setCurrentSection] = useState(1);
+  const contentRef = useRef<HTMLDivElement>(null);
   
   const [sectionReadiness, setSectionReadiness] = useState({
     1: true,
@@ -26,6 +28,21 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     3: false,
     4: false
   });
+
+  // Auto-scroll to top when section changes
+  const scrollToTop = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Scroll to top whenever currentSection changes
+  useEffect(() => {
+    scrollToTop();
+  }, [currentSection]);
 
   if (isLoading) {
     return (
@@ -85,6 +102,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     }
   };
 
+  const overallProgress = getOverallProgress(profileData);
+
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden`}>
       <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-6xl h-[90vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
@@ -93,9 +112,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           onClose={onClose}
           currentSection={currentSection}
           totalSections={4}
+          overallProgress={overallProgress}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}
@@ -106,8 +126,8 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-          <div className="p-4 max-w-5xl mx-auto">
+        <div ref={contentRef} className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          <div className="p-3 max-w-5xl mx-auto">
             <QuestionnaireSection1 
               profileData={profileData}
               updateField={updateField}
@@ -143,6 +163,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           validateSection={(section) => validateSection(section, profileData)}
           getRequiredCount={(section) => getRequiredCount(section, profileData)}
           getCompletedCount={(section) => getCompletedCount(section, profileData)}
+          overallProgress={overallProgress}
         />
       </div>
     </div>
