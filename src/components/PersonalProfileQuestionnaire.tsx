@@ -233,41 +233,21 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
 
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return (
-        <div className="flex items-center gap-2">
-          <User className="w-4 h-4" />
-          <span>The Real You</span>
-        </div>
-      );
-      case 2: return (
-        <div className="flex items-center gap-2">
-          <Heart className="w-4 h-4" />
-          <span>Your Situation</span>
-        </div>
-      );
-      case 3: return (
-        <div className="flex items-center gap-2">
-          <Zap className="w-4 h-4" />
-          <span>Your Vibe</span>
-        </div>
-      );
-      case 4: return (
-        <div className="flex items-center gap-2">
-          <Award className="w-4 h-4" />
-          <span>Your Foundation</span>
-        </div>
-      );
+      case 1: return "The Real You";
+      case 2: return "Your Situation";
+      case 3: return "Your Vibe";
+      case 4: return "Your Foundation";
       default: return "";
     }
   };
 
-  const getSectionDescription = (section: number) => {
+  const getSectionIcon = (section: number) => {
     switch (section) {
-      case 1: return "The essentials we need to know";
-      case 2: return "What's your relationship status rn";
-      case 3: return "How you handle conflict and connection";
-      case 4: return "What shaped your love style";
-      default: return "";
+      case 1: return <User className="w-4 h-4" />;
+      case 2: return <Heart className="w-4 h-4" />;
+      case 3: return <Zap className="w-4 h-4" />;
+      case 4: return <Award className="w-4 h-4" />;
+      default: return null;
     }
   };
 
@@ -282,47 +262,30 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     }
   };
 
-  const getSectionGradient = (section: number, isActive: boolean, isCompleted: boolean) => {
-    const gradients = {
-      1: isActive ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600' : 
-         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
-         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
-      2: isActive ? 'bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600' : 
-         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
-         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
-      3: isActive ? 'bg-gradient-to-br from-cyan-400 via-teal-500 to-blue-600' : 
-         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
-         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15',
-      4: isActive ? 'bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-600' : 
-         isCompleted ? 'bg-white/15 backdrop-blur-sm border border-white/20' : 
-         'bg-white/10 backdrop-blur-sm border border-white/15 hover:bg-white/15'
-    };
-    return gradients[section];
-  };
-
-  const getSectionTextColor = (section: number, isActive: boolean, isCompleted: boolean) => {
-    if (isActive) return 'text-white';
-    if (isCompleted) return 'text-white';
-    return 'text-white/80';
-  };
-
-  // Single unified layout with fixed sidebar and proper scroll containment
+  // Optimized layout with horizontal navigation and questions front and center
   return (
-    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden flex`}>
-      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-7xl h-[85vh]'} overflow-hidden flex border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
-        {/* Fixed Sidebar Progress - Always visible */}
-        <div className="w-56 bg-white/10 backdrop-blur-xl border-r border-white/15 p-5 flex flex-col flex-shrink-0 h-full">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-9 h-9 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-4 h-4 text-white" />
+    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'} overflow-hidden`}>
+      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-6xl h-[90vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+        
+        {/* Compact Header with Horizontal Navigation */}
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-4 flex-shrink-0">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-lg">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-white">Your Personal Profile</h2>
+                <p className="text-xs text-white/70">Building your foundation</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-white text-sm">Your Profile</h3>
-              <p className="text-xs text-white/70 font-medium">Building your foundation</p>
-            </div>
+            <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-2 rounded-full">
+              <X className="w-5 h-5" />
+            </Button>
           </div>
 
-          <div className="space-y-3 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          {/* Horizontal Section Navigation */}
+          <div className="grid grid-cols-4 gap-3 mb-4">
             {[1, 2, 3, 4].map((section) => {
               const isActive = section === currentSection;
               const isCompleted = section < currentSection || validateSection(section);
@@ -335,150 +298,115 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
                   key={section}
                   onClick={() => handleSectionClick(section)}
                   disabled={!isAccessible}
-                  className={`w-full text-left p-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] ${
-                    getSectionGradient(section, isActive, isCompleted)
-                  } ${
-                    isActive ? 'shadow-lg shadow-rose-500/20' :
-                    isCompleted ? 'shadow-md' :
-                    isAccessible ? 'hover:shadow-md shadow-sm' : 'opacity-60 cursor-not-allowed'
-                  } ${getSectionTextColor(section, isActive, isCompleted)}`}
+                  className={`p-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] text-left ${
+                    isActive 
+                      ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
+                      : isCompleted 
+                        ? 'bg-white/15 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20' 
+                        : isAccessible 
+                          ? 'bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 hover:bg-white/15' 
+                          : 'bg-white/5 border border-white/10 text-white/50 cursor-not-allowed opacity-60'
+                  }`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-sm leading-tight">{getSectionTitle(section)}</span>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      {getSectionIcon(section)}
+                      <span className="font-semibold text-sm">{getSectionTitle(section)}</span>
+                    </div>
                     {isCompleted && (
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
                         isActive ? 'bg-white/20' : 'bg-emerald-500'
                       }`}>
                         <Check className="w-3 h-3 text-white" />
                       </div>
                     )}
                   </div>
-                  <div className={`text-xs font-medium mb-2 ${
-                    isActive ? 'text-white/90' : isCompleted ? 'text-current/80' : 'text-gray-500'
-                  }`}>
+                  <div className="text-xs opacity-80">
                     {completedCount}/{requiredCount} required
-                  </div>
-                  <div className={`text-xs leading-relaxed ${
-                    isActive ? 'text-white/80' : isCompleted ? 'text-current/70' : 'text-gray-500'
-                  }`}>
-                    {getSectionDescription(section)}
                   </div>
                 </button>
               );
             })}
           </div>
 
-          <Button variant="ghost" onClick={onClose} className="mt-4 text-white/80 hover:text-white hover:bg-white/10 w-full py-2 text-sm">
-            <X className="w-4 h-4 mr-2" />
-            Close
-          </Button>
+          {/* Progress Bar */}
+          <div className="relative">
+            <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${(currentSection / 4) * 100}%` }}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Main Content - Only this area scrolls */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden">
-          {/* Modern Header - Fixed */}
-          <div className={`${isModal ? 'p-4' : 'p-6'} border-b border-white/15 bg-white/5 backdrop-blur-sm flex-shrink-0`}>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className={`${isModal ? 'text-lg' : 'text-2xl'} font-bold text-white mb-1`}>
-                  {getSectionTitle(currentSection)}
-                </h2>
-                <p className="text-sm text-white/80 font-medium">{getSectionDescription(currentSection)}</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-sm text-white/90 font-medium border border-white/15">
-                Step {currentSection} of 4
-              </div>
-            </div>
-            <div className="relative">
-              <div className={`w-full bg-white/20 rounded-full ${isModal ? 'h-2' : 'h-3'} overflow-hidden`}>
-                <div 
-                  className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 rounded-full transition-all duration-700 ease-out"
-                  style={{ width: `${(currentSection / 4) * 100}%` }}
-                />
-              </div>
-              <div className="flex justify-between mt-2">
-                {[1, 2, 3, 4].map((step) => (
-                  <div 
-                    key={step}
-                    className={`text-xs font-medium ${
-                      step <= currentSection ? 'text-orange-300' : 'text-white/50'
-                    }`}
-                  >
-                    {step === 1 ? 'Real' : step === 2 ? 'Situation' : step === 3 ? 'Vibe' : 'Foundation'}
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Main Content Area - Questions Front and Center */}
+        <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          <div className="p-8 max-w-4xl mx-auto">
+            <QuestionnaireSection1 
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isReady={sectionReadiness[1] && currentSection === 1}
+            />
+            <QuestionnaireSection2 
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isReady={sectionReadiness[2] && currentSection === 2}
+            />
+            <QuestionnaireSection3 
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isReady={sectionReadiness[3] && currentSection === 3}
+            />
+            <QuestionnaireSection4 
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isReady={sectionReadiness[4] && currentSection === 4}
+            />
+          </div>
+        </div>
+
+        {/* Compact Footer */}
+        <div className="p-4 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+          <Button
+            variant="outline"
+            onClick={handleBack}
+            disabled={currentSection === 1}
+            className="flex items-center gap-2 px-4 py-2 text-sm rounded-xl border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 text-white"
+          >
+            <ArrowLeft className="w-3 h-3" />
+            Back
+          </Button>
+
+          <div className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white/90 font-medium border border-white/15">
+            {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
           </div>
 
-          {/* Scrollable Content Area - Only this scrolls */}
-          <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-            <div className={`${isModal ? 'p-4' : 'p-8'} ${isModal ? 'max-w-5xl' : 'max-w-6xl'} mx-auto`}>
-              <QuestionnaireSection1 
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isReady={sectionReadiness[1] && currentSection === 1}
-              />
-              <QuestionnaireSection2 
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isReady={sectionReadiness[2] && currentSection === 2}
-              />
-              <QuestionnaireSection3 
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isReady={sectionReadiness[3] && currentSection === 3}
-              />
-              <QuestionnaireSection4 
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isReady={sectionReadiness[4] && currentSection === 4}
-              />
-            </div>
-          </div>
-
-          {/* Modern Footer - Fixed */}
-          <div className={`${isModal ? 'p-4' : 'p-6'} border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0`}>
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              disabled={currentSection === 1}
-              className={`flex items-center gap-2 ${isModal ? 'px-4 py-2 text-sm' : 'px-6 py-3'} rounded-xl border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 text-white`}
-            >
-              <ArrowLeft className={`${isModal ? 'w-3 h-3' : 'w-4 h-4'}`} />
-              Back
-            </Button>
-
-            <div className={`bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full ${isModal ? 'text-xs' : 'text-sm'} text-white/90 font-medium border border-white/15`}>
-              {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
-            </div>
-
-            <div className="flex gap-3">
-              {currentSection < 4 && (
-                <Button
-                  onClick={handleNext}
-                  disabled={!validateSection(currentSection)}
-                  className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 ${isModal ? 'px-4 py-2 text-sm' : 'px-6 py-3'} rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100`}
-                >
-                  Next
-                  <ArrowRight className={`${isModal ? 'w-3 h-3' : 'w-4 h-4'}`} />
-                </Button>
-              )}
-              {currentSection === 4 && (
-                <Button
-                  onClick={handleComplete}
-                  disabled={!validateSection(4)}
-                  className={`bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 ${isModal ? 'px-4 py-2 text-sm' : 'px-6 py-3'} rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100`}
-                >
-                  <Check className={`${isModal ? 'w-3 h-3' : 'w-4 h-4'}`} />
-                  {isModal ? 'Complete' : 'Complete Profile'}
-                </Button>
-              )}
-            </div>
+          <div className="flex gap-3">
+            {currentSection < 4 && (
+              <Button
+                onClick={handleNext}
+                disabled={!validateSection(currentSection)}
+                className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-4 py-2 text-sm rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
+              >
+                Next
+                <ArrowRight className="w-3 h-3" />
+              </Button>
+            )}
+            {currentSection === 4 && (
+              <Button
+                onClick={handleComplete}
+                disabled={!validateSection(4)}
+                className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 px-4 py-2 text-sm rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
+              >
+                <Check className="w-3 h-3" />
+                Complete
+              </Button>
+            )}
           </div>
         </div>
       </div>
