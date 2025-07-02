@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -34,6 +33,20 @@ const Dashboard = () => {
   
   // Use temporary profiles for non-authenticated users
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+
+  // Prevent body scroll when questionnaire modal is open
+  useEffect(() => {
+    if (showQuestionnaireModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function to restore scroll when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showQuestionnaireModal]);
 
   // Handle redirect from profile completion
   useEffect(() => {
@@ -234,19 +247,23 @@ const Dashboard = () => {
           blockingAction={blockingAction}
         />
 
-        {/* Questionnaire Modal - Updated to appear as windowed overlay */}
+        {/* Questionnaire Modal - Updated to appear as windowed overlay with proper scroll containment */}
         {showQuestionnaireModal && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-8">
+          <div 
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-8"
+            onWheel={(e) => e.stopPropagation()}
+          >
             {/* Backdrop */}
             <div 
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
               onClick={handleQuestionnaireClose}
+              onWheel={(e) => e.preventDefault()}
             />
             
-            {/* Modal Container - Made smaller to appear as windowed overlay */}
-            <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            {/* Modal Container - Made smaller to appear as windowed overlay with proper height */}
+            <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
               {/* Questionnaire Content */}
-              <div className="h-full w-full overflow-hidden">
+              <div className="h-full w-full">
                 <PersonalProfileQuestionnaire 
                   onComplete={handleQuestionnaireComplete} 
                   onClose={handleQuestionnaireClose} 
