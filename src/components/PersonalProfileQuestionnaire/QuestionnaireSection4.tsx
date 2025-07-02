@@ -83,7 +83,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {familySituationOptions.map((option) => (
             <button
               key={option}
@@ -125,7 +125,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {familyEmotionsOptions.map((option) => (
             <button
               key={option}
@@ -167,7 +167,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {familyConflictOptions.map((option) => (
             <button
               key={option}
@@ -209,7 +209,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {familyLoveOptions.map((option) => (
             <button
               key={option}
