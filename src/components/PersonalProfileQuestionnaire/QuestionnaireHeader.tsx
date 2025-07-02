@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Trophy, Heart, MessageCircle, Lightbulb } from "lucide-react";
+import { X, Sparkles, Heart, MessageCircle, Lightbulb, Rocket, Zap, Star } from "lucide-react";
 import { calculateOverallProgress } from "./ValidationLogic";
 
 interface QuestionnaireHeaderProps {
@@ -15,23 +15,23 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
   
   const getMotivationalMessage = () => {
     if (overallProgress === 100) return {
-      title: "🎉 Profile Complete! Ready for RealTalk!",
-      subtitle: "Access personalized insights, conversation starters, and relationship tools"
+      title: "Profile Complete! Ready for RealTalk!",
+      subtitle: "Your smart conversation tools, AI insights, and relationship guidance are now available"
     };
     if (overallProgress >= 80) return {
-      title: "🚀 Complete your profile to unlock RealTalk",
+      title: "Complete your profile to unlock RealTalk",
       subtitle: "Get AI-powered relationship insights tailored to your unique situation"
     };
     if (overallProgress >= 50) return {
-      title: "💪 Great progress! Keep going to unlock RealTalk",
+      title: "Great progress! Keep going to unlock RealTalk",
       subtitle: "Soon you'll have personalized conversation starters and conflict resolution tools"
     };
     if (overallProgress >= 25) return {
-      title: "✨ Nice start! Continue building your profile",
+      title: "Nice start! Continue building your profile",
       subtitle: "Each question helps create better, more personalized relationship guidance"
     };
     return {
-      title: "🌟 Building your foundation for better conversations",
+      title: "Building your foundation for better conversations",
       subtitle: "Your answers help us provide personalized relationship insights and tools"
     };
   };
@@ -58,13 +58,21 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
     return null;
   };
 
+  const getTitleIcon = () => {
+    if (overallProgress === 100) return <Heart className="w-4 h-4 text-white" />;
+    if (overallProgress >= 80) return <Rocket className="w-4 h-4 text-white" />;
+    if (overallProgress >= 50) return <Zap className="w-4 h-4 text-white" />;
+    if (overallProgress >= 25) return <Star className="w-4 h-4 text-white" />;
+    return <Sparkles className="w-4 h-4 text-white" />;
+  };
+
   return (
     <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 flex-1">
           <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-lg">
             {overallProgress === 100 ? (
-              <Trophy className="w-4 h-4 text-white" />
+              <Heart className="w-4 h-4 text-white" />
             ) : (
               <Sparkles className="w-4 h-4 text-white" />
             )}
@@ -72,11 +80,14 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
           
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-1">
-              <h2 className="text-lg font-bold text-white">Your Personal Profile</h2>
+              <h2 className="text-lg font-bold text-white">Your Profile</h2>
             </div>
             
             <div className="space-y-1">
-              <p className="text-sm text-white font-medium">{message.title}</p>
+              <div className="flex items-center gap-2">
+                {getTitleIcon()}
+                <p className="text-sm text-white font-medium">{message.title}</p>
+              </div>
               <p className="text-xs text-white/70 leading-relaxed">{message.subtitle}</p>
               
               {getFeaturePreview()}

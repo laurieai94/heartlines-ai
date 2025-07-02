@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
@@ -10,7 +9,7 @@ import QuestionnaireSection2 from "./PersonalProfileQuestionnaire/QuestionnaireS
 import QuestionnaireSection3 from "./PersonalProfileQuestionnaire/QuestionnaireSection3";
 import QuestionnaireSection4 from "./PersonalProfileQuestionnaire/QuestionnaireSection4";
 import { validateSection, getRequiredCount, getCompletedCount, calculateOverallProgress } from "./PersonalProfileQuestionnaire/ValidationLogic";
-import { Sparkles, Trophy, PartyPopper } from "lucide-react";
+import { Sparkles, Trophy, PartyPopper, Heart } from "lucide-react";
 
 interface PersonalProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -122,7 +121,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
         <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-2xl h-[70vh]'} overflow-hidden flex flex-col items-center justify-center border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
           <div className="text-center space-y-6 p-8">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <Trophy className="w-12 h-12 text-yellow-400 animate-bounce" />
+              <Heart className="w-12 h-12 text-pink-400 animate-bounce" />
               <PartyPopper className="w-8 h-8 text-pink-400 animate-pulse" />
             </div>
             
