@@ -1,5 +1,5 @@
 
-import { Check, User, Heart, Zap, Award } from "lucide-react";
+import { Check, User, Heart, Zap, TreeDeciduous } from "lucide-react";
 
 interface SectionNavigationProps {
   currentSection: number;
@@ -34,7 +34,7 @@ const SectionNavigation = ({
       case 1: return <User className="w-3 h-3" />;
       case 2: return <Heart className="w-3 h-3" />;
       case 3: return <Zap className="w-3 h-3" />;
-      case 4: return <Award className="w-3 h-3" />;
+      case 4: return <TreeDeciduous className="w-3 h-3" />;
       default: return null;
     }
   };

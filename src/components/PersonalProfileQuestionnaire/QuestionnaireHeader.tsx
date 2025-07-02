@@ -13,13 +13,6 @@ interface QuestionnaireHeaderProps {
 const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileData }: QuestionnaireHeaderProps) => {
   const overallProgress = calculateOverallProgress(profileData);
   
-  const getTitle = () => {
-    if (overallProgress === 100) return "Profile Complete!";
-    if (overallProgress >= 75) return "Almost there!";
-    if (overallProgress >= 50) return "Great progress!";
-    return "Building your profile";
-  };
-
   const getSubtitle = () => {
     if (overallProgress === 100) return "Ready to unlock RealTalk";
     if (overallProgress >= 75) return "Complete to access all features";
@@ -39,7 +32,7 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
           </div>
           
           <div>
-            <h2 className="text-base font-bold text-white">{getTitle()}</h2>
+            <h2 className="text-base font-bold text-white">Your Profile</h2>
             <p className="text-xs text-white/70">{getSubtitle()}</p>
           </div>
         </div>

@@ -92,7 +92,7 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
             </>
           )}
         </label>
-        <p className="text-xs text-gray-500 mt-1">JPG, PNG • Max 5MB</p>
+        <p className="text-xs text-white/70 mt-1">JPG, PNG • Max 5MB</p>
       </div>
     </div>
   );
