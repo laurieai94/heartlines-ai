@@ -1,3 +1,4 @@
+
 // Validation logic utility functions
 export const validateSection = (section: number, profileData: any) => {
   switch (section) {
@@ -132,11 +133,15 @@ export const getCompletedCount = (section: number, profileData: any) => {
       }).length;
     }
     case 4: {
+      // Fixed: Section 4 should return 0 or 1 (binary completion) since getRequiredCount returns 1
       const fields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
-      return fields.filter(field => {
+      const hasAnyData = fields.some(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
-      }).length;
+      });
+      
+      // Return 1 if any field has data, 0 if none do (binary completion)
+      return hasAnyData ? 1 : 0;
     }
     default: return 0;
   }
@@ -149,10 +154,19 @@ export const calculateOverallProgress = (profileData: any) => {
   
   // Calculate total required and completed across all sections
   for (let section = 1; section <= 4; section++) {
-    totalRequired += getRequiredCount(section, profileData);
-    totalCompleted += getCompletedCount(section, profileData);
+    const required = getRequiredCount(section, profileData);
+    const completed = getCompletedCount(section, profileData);
+    
+    totalRequired += required;
+    totalCompleted += completed;
+    
+    // Add debugging to track progress calculation
+    console.log(`Section ${section}: ${completed}/${required} (${Math.round((completed/required)*100)}%)`);
   }
   
+  const overallProgress = totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+  console.log(`Overall Progress: ${totalCompleted}/${totalRequired} = ${overallProgress}%`);
+  
   // Return percentage (0-100)
-  return totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+  return overallProgress;
 };
