@@ -11,7 +11,7 @@ interface QuestionnaireHeaderProps {
 
 const QuestionnaireHeader = ({ onClose }: QuestionnaireHeaderProps) => {
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-lg">
