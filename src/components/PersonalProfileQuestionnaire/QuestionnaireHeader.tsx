@@ -1,14 +1,18 @@
 
 import { Button } from "@/components/ui/button";
 import { X, Sparkles } from "lucide-react";
+import { calculateOverallProgress } from "./ValidationLogic";
 
 interface QuestionnaireHeaderProps {
   onClose: () => void;
   currentSection: number;
   totalSections: number;
+  profileData: any;
 }
 
-const QuestionnaireHeader = ({ onClose, currentSection, totalSections }: QuestionnaireHeaderProps) => {
+const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileData }: QuestionnaireHeaderProps) => {
+  const overallProgress = calculateOverallProgress(profileData);
+  
   return (
     <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
       <div className="flex items-center justify-between">
@@ -22,11 +26,16 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections }: Questio
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden w-32">
-            <div 
-              className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 rounded-full transition-all duration-700 ease-out"
-              style={{ width: `${(currentSection / totalSections) * 100}%` }}
-            />
+          <div className="flex items-center gap-2">
+            <div className="w-32 bg-white/20 rounded-full h-1.5 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${overallProgress}%` }}
+              />
+            </div>
+            <span className="text-xs text-white/90 font-medium min-w-[3rem]">
+              {overallProgress}%
+            </span>
           </div>
           <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-full">
             <X className="w-4 h-4" />

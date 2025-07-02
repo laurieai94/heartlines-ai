@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import QuestionnaireHeader from "./PersonalProfileQuestionnaire/QuestionnaireHeader";
@@ -19,6 +20,7 @@ interface PersonalProfileQuestionnaireProps {
 const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: PersonalProfileQuestionnaireProps) => {
   const { profileData, isLoading, updateField, handleMultiSelect } = usePersonalProfileData();
   const [currentSection, setCurrentSection] = useState(1);
+  const contentRef = useRef<HTMLDivElement>(null);
   
   const [sectionReadiness, setSectionReadiness] = useState({
     1: true,
@@ -26,6 +28,21 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     3: false,
     4: false
   });
+
+  // Auto-scroll to top when section changes
+  const scrollToTop = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Trigger scroll when section changes
+  useEffect(() => {
+    scrollToTop();
+  }, [currentSection]);
 
   if (isLoading) {
     return (
@@ -93,6 +110,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           onClose={onClose}
           currentSection={currentSection}
           totalSections={4}
+          profileData={profileData}
         />
 
         <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
@@ -106,7 +124,10 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+        <div 
+          ref={contentRef}
+          className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+        >
           <div className="p-4 max-w-5xl mx-auto">
             <QuestionnaireSection1 
               profileData={profileData}

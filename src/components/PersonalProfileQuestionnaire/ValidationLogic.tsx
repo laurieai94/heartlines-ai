@@ -1,4 +1,3 @@
-
 // Validation logic utility functions
 export const validateSection = (section: number, profileData: any) => {
   switch (section) {
@@ -141,4 +140,19 @@ export const getCompletedCount = (section: number, profileData: any) => {
     }
     default: return 0;
   }
+};
+
+// New function to calculate overall progress from 0-100%
+export const calculateOverallProgress = (profileData: any) => {
+  let totalRequired = 0;
+  let totalCompleted = 0;
+  
+  // Calculate total required and completed across all sections
+  for (let section = 1; section <= 4; section++) {
+    totalRequired += getRequiredCount(section, profileData);
+    totalCompleted += getCompletedCount(section, profileData);
+  }
+  
+  // Return percentage (0-100)
+  return totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
 };
