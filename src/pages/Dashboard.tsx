@@ -15,11 +15,15 @@ import SignUpModal from "@/components/SignUpModal";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import QuestionnaireModal from "@/components/QuestionnaireModal";
+import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 
 const Dashboard = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("profile");
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
+  const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
+  
   const { 
     shouldShowSignUpModal, 
     blockingAction, 
@@ -52,9 +56,67 @@ const Dashboard = () => {
     setActiveTab("insights");
   };
 
+  const handleOpenQuestionnaire = () => {
+    console.log('Opening questionnaire modal');
+    setShowQuestionnaireModal(true);
+  };
+
+  const handleQuestionnaireComplete = (questionnaireData: any) => {
+    console.log('Personal questionnaire completed with data:', questionnaireData);
+    
+    // Get existing data from both profiles and demographics
+    const existingProfile = temporaryProfiles.your[0] || {};
+    const existingDemographics = temporaryDemographics.your || {};
+    
+    // Merge all existing data with new questionnaire data
+    const mergedData = {
+      ...existingProfile,
+      ...existingDemographics,
+      ...questionnaireData.completionData,
+      completedAt: new Date().toISOString(),
+      profileSource: 'personal-questionnaire'
+    };
+    
+    // Update both profile and demographics with the complete merged data
+    const newProfiles = {
+      ...temporaryProfiles,
+      your: [mergedData]
+    };
+    
+    const newDemographics = {
+      ...temporaryDemographics,
+      your: mergedData
+    };
+    
+    console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
+    updateTemporaryProfile(newProfiles, newDemographics);
+    
+    setShowQuestionnaireModal(false);
+    setShowPersonalCompletionOptions(true);
+  };
+
+  const handleQuestionnaireClose = () => {
+    setShowQuestionnaireModal(false);
+  };
+
+  const handlePersonalCompletionClose = () => {
+    setShowPersonalCompletionOptions(false);
+  };
+
+  const handlePersonalAddPartnerProfile = () => {
+    setShowPersonalCompletionOptions(false);
+    // Stay on profile tab for partner profile creation
+  };
+
+  const handlePersonalStartChatting = () => {
+    console.log('Starting chat, navigating to coach');
+    setShowPersonalCompletionOptions(false);
+    setActiveTab("insights");
+  };
+
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className={`min-h-screen bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${shouldShowSignUpModal ? 'blur-sm' : ''} transition-all duration-300`}>
+      <div className={`min-h-screen bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${shouldShowSignUpModal || showQuestionnaireModal ? 'blur-sm' : ''} transition-all duration-300`}>
         {/* Header with improved spacing and typography */}
         <div className="w-full">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,6 +185,7 @@ const Dashboard = () => {
                   onProfileUpdate={handleProfileUpdate}
                   initialProfiles={temporaryProfiles}
                   initialDemographics={temporaryDemographics}
+                  onOpenQuestionnaire={handleOpenQuestionnaire}
                 />
               </TabsContent>
 
@@ -163,11 +226,39 @@ const Dashboard = () => {
           blockingAction={blockingAction}
         />
 
-        {/* Questionnaire Modal */}
-        <QuestionnaireModal
-          isOpen={showQuestionnaireModal}
-          onClose={() => setShowQuestionnaireModal(false)}
-        />
+        {/* Questionnaire Modal - Updated to use custom modal instead of QuestionnaireModal */}
+        {showQuestionnaireModal && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={handleQuestionnaireClose}
+            />
+            
+            {/* Modal Container */}
+            <div className="relative z-10 w-full max-w-7xl mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+              {/* Questionnaire Content */}
+              <div className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                <PersonalProfileQuestionnaire 
+                  onComplete={handleQuestionnaireComplete} 
+                  onClose={handleQuestionnaireClose} 
+                  isModal={true} 
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Personal Profile Completion Options */}
+        {showPersonalCompletionOptions && (
+          <ProfileCompletionOptions
+            completionType="personal"
+            onAddPartnerProfile={handlePersonalAddPartnerProfile}
+            onStartChatting={handlePersonalStartChatting}
+            onClose={handlePersonalCompletionClose}
+            hasPartnerProfile={temporaryProfiles.partner.length > 0}
+          />
+        )}
       </div>
     </NavigationProvider>
   );

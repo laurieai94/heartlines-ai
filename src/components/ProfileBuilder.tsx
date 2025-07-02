@@ -6,9 +6,7 @@ import { Heart, User, Plus, Clock, CheckCircle, Search, ArrowRight, Lightbulb, S
 import { toast } from "sonner";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
-import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
 import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
-import { usePersonalProfileQuestionnaire } from "@/hooks/usePersonalProfileQuestionnaire";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 
@@ -22,29 +20,20 @@ interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {your: any[], partner: any[]};
   initialDemographics?: {your: any, partner: any};
+  onOpenQuestionnaire?: () => void;
 }
 
 const ProfileBuilder = ({ 
   onProfileUpdate, 
   initialProfiles = { your: [], partner: [] }, 
-  initialDemographics = { your: null, partner: null } 
+  initialDemographics = { your: null, partner: null },
+  onOpenQuestionnaire
 }: ProfileBuilderProps) => {
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showDetails, setShowDetails] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
-
-  const { 
-    showQuestionnaire, 
-    showCompletionOptions,
-    openQuestionnaire, 
-    handleQuestionnaireComplete, 
-    handleQuestionnaireClose,
-    handleCompletionOptionsClose,
-    handleAddPartnerProfile,
-    handleStartChatting
-  } = usePersonalProfileQuestionnaire();
 
   // Use centralized progress tracking and temporary profile data
   const { profileCompletion } = useProgressiveAccess();
@@ -113,6 +102,13 @@ const ProfileBuilder = ({
     }
   };
 
+  const handleStartPersonalProfile = () => {
+    // Call the callback to open the questionnaire modal in Dashboard
+    if (onOpenQuestionnaire) {
+      onOpenQuestionnaire();
+    }
+  };
+
   const handleDemographicsComplete = (demographics: any) => {
     const newDemographics = {
       ...temporaryDemographics,
@@ -158,24 +154,13 @@ const ProfileBuilder = ({
     }
   };
 
-  // Handle completion options from personal profile questionnaire
-  const handlePersonalProfileAddPartner = () => {
-    handleAddPartnerProfile();
-    setActiveProfileType('partner');
-    if (!temporaryDemographics.partner) {
-      setShowDemographics(true);
-    } else {
-      setShowForm(true);
-    }
-  };
-
   const handlePartnerCompletionClose = () => {
     setShowPartnerCompletionOptions(false);
   };
 
   const handlePartnerCompletionStartChat = () => {
     setShowPartnerCompletionOptions(false);
-    handleStartChatting();
+    // This would need to be handled by the parent component
   };
 
   return (
@@ -255,7 +240,7 @@ const ProfileBuilder = ({
               </div>
 
               <Button 
-                onClick={openQuestionnaire}
+                onClick={handleStartPersonalProfile}
                 className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0"
               >
                 {yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
@@ -433,7 +418,7 @@ const ProfileBuilder = ({
         </div>
       </div>
 
-      {/* Modals */}
+      {/* Modals for partner profile only */}
       {showDemographics && (
         <Demographics 
           profileType={activeProfileType}
@@ -450,24 +435,6 @@ const ProfileBuilder = ({
           onComplete={handleProfileComplete}
           initialProfiles={temporaryProfiles}
           initialDemographics={temporaryDemographics}
-        />
-      )}
-
-      {showQuestionnaire && (
-        <PersonalProfileQuestionnaire
-          onComplete={handleQuestionnaireComplete}
-          onClose={handleQuestionnaireClose}
-        />
-      )}
-
-      {/* Personal Profile Completion Options */}
-      {showCompletionOptions && (
-        <ProfileCompletionOptions
-          completionType="personal"
-          onAddPartnerProfile={handlePersonalProfileAddPartner}
-          onStartChatting={handleStartChatting}
-          onClose={handleCompletionOptionsClose}
-          hasPartnerProfile={temporaryProfiles.partner.length > 0}
         />
       )}
 
