@@ -22,7 +22,7 @@ const FamilySituationQuestion = ({
     'Parents married/together - constant fighting but stayed',
     'Parents divorced and stayed divorced',
     'Parents divorced, one/both remarried someone else',
-    'Parents divorced but got back together (wild, I know)',
+    'Parents divorced but got back together',
     'Single parent household',
     'Raised by grandparents/other family',
     'Other (please specify)'
