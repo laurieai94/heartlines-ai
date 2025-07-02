@@ -9,7 +9,7 @@ interface AgeSelectionProps {
 
 const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
   const ageOptions = [
-    'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50+'
+    'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
   ];
 
   return (
