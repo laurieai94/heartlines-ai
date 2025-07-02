@@ -1,0 +1,47 @@
+
+import { Label } from "@/components/ui/label";
+import { Clock } from "lucide-react";
+
+interface RelationshipLengthSelectorProps {
+  profileData: any;
+  updateField: (field: string, value: any) => void;
+}
+
+const RelationshipLengthSelector = ({ profileData, updateField }: RelationshipLengthSelectorProps) => {
+  const relationshipLengthOptions = [
+    'Less than 3 months', '3-6 months', '6 months - 1 year', 
+    '1-2 years', '2-5 years', '5+ years'
+  ];
+
+  return (
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div>
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          How long have you been together? <span className="text-red-400">*</span>
+        </Label>
+        <div className="flex items-center gap-2 text-xs text-white/80 mb-4 font-normal">
+          <Clock className="w-3 h-3 text-green-300" />
+          <span>Different relationship stages have different needs and challenges</span>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-2 gap-3">
+        {relationshipLengthOptions.map((length) => (
+          <button
+            key={length}
+            onClick={() => updateField('relationshipLength', length)}
+            className={`p-2 rounded-lg text-center transition-all duration-200 hover:scale-[1.02] text-xs font-medium ${
+              profileData.relationshipLength === length
+                ? 'questionnaire-button-selected'
+                : 'questionnaire-button-secondary'
+            }`}
+          >
+            {length}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RelationshipLengthSelector;
