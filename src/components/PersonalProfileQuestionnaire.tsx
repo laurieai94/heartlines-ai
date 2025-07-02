@@ -160,7 +160,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           profileData={profileData}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}
