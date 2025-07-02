@@ -39,20 +39,21 @@ const SectionNavigation = ({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-2 mb-2">
+    <div className="grid grid-cols-4 gap-2">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = section < currentSection || validateSection(section);
         const isAccessible = sectionReadiness[section] || isCompleted;
         const requiredCount = getRequiredCount(section);
         const completedCount = getCompletedCount(section);
+        const progressPercentage = requiredCount > 0 ? (completedCount / requiredCount) * 100 : 0;
 
         return (
           <button
             key={section}
             onClick={() => onSectionClick(section)}
             disabled={!isAccessible}
-            className={`p-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
+            className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
               isActive 
                 ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
                 : isCompleted 
@@ -62,7 +63,7 @@ const SectionNavigation = ({
                     : 'bg-white/5 border border-white/10 text-white/50 cursor-not-allowed opacity-60'
             }`}
           >
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-0.5">
               <div className="flex items-center gap-1">
                 {getSectionIcon(section)}
                 <span className="font-semibold text-xs">{getSectionTitle(section)}</span>
@@ -75,11 +76,24 @@ const SectionNavigation = ({
                 </div>
               )}
             </div>
-            <div className="text-xs opacity-60 mb-1">
-              Step {section}
+            
+            <div className="flex items-center justify-between text-xs mb-0.5">
+              <span className="opacity-70 font-medium">Step {section}</span>
+              <span className="opacity-80">{completedCount}/{requiredCount}</span>
             </div>
-            <div className="text-xs opacity-80">
-              {completedCount}/{requiredCount}
+            
+            {/* Progress bar */}
+            <div className="w-full bg-white/20 rounded-full h-1 overflow-hidden">
+              <div 
+                className={`h-full rounded-full transition-all duration-500 ${
+                  isActive 
+                    ? 'bg-white/60' 
+                    : isCompleted 
+                      ? 'bg-emerald-400' 
+                      : 'bg-white/40'
+                }`}
+                style={{ width: `${Math.min(progressPercentage, 100)}%` }}
+              />
             </div>
           </button>
         );
