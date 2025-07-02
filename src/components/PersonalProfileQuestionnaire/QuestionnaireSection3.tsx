@@ -53,7 +53,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {stressResponseOptions.map((response) => (
             <button
               key={response}
@@ -83,7 +83,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {conflictNeedsOptions.map((need) => (
             <button
               key={need}
@@ -113,7 +113,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {feelLovedOptions.map((way) => (
             <button
               key={way}
@@ -142,7 +142,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="space-y-0.5">
+        <div className="space-y-2">
           {attachmentOptions.map((style) => (
             <button
               key={style}

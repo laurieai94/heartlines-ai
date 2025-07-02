@@ -53,7 +53,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
           <span>So we can refer to you correctly</span>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-0.5">
+      <div className="grid grid-cols-4 gap-2">
         {pronounOptions.map((pronouns) => (
           <button
             key={pronouns}

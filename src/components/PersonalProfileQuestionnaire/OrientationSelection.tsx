@@ -28,7 +28,7 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
           <span>Because straight dating advice doesn't work for everyone</span>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {orientationOptions.map((orientation) => (
           <button
             key={orientation}

@@ -23,7 +23,7 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
           <span>Different life stages = different relationship challenges</span>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-0.5">
+      <div className="grid grid-cols-4 gap-2">
         {ageOptions.map((age) => (
           <button
             key={age}

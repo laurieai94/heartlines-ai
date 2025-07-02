@@ -35,7 +35,7 @@ const RelationshipQuestions = ({ profileData, handleMultiSelect }: RelationshipQ
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {workingWellOptions.map((item) => (
             <button
               key={item}
@@ -65,7 +65,7 @@ const RelationshipQuestions = ({ profileData, handleMultiSelect }: RelationshipQ
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {feelsDifficultOptions.map((challenge) => (
             <button
               key={challenge}

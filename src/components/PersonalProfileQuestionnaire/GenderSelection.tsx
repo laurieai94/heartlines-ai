@@ -28,7 +28,7 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
           <span>We get that gender is complex and personal</span>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {genderOptions.map((gender) => (
           <button
             key={gender}

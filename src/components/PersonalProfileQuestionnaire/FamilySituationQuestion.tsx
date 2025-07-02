@@ -40,7 +40,7 @@ const FamilySituationQuestion = ({
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {options.map((option) => (
           <button
             key={option}
