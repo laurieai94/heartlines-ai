@@ -21,10 +21,10 @@ const SectionNavigation = ({
 }: SectionNavigationProps) => {
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return "The Real You";
-      case 2: return "Your Situation";
-      case 3: return "Your Vibe";
-      case 4: return "Your Foundation";
+      case 1: return "You";
+      case 2: return "Situation";
+      case 3: return "Style";
+      case 4: return "Foundation";
       default: return "";
     }
   };
@@ -40,20 +40,20 @@ const SectionNavigation = ({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-1.5">
+    <div className="grid grid-cols-4 gap-1">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = section < currentSection || validateSection(section);
         const isAccessible = sectionReadiness[section] || isCompleted;
-        const requiredCount = getRequiredCount(section);
         const completedCount = getCompletedCount(section);
+        const requiredCount = getRequiredCount(section);
 
         return (
           <button
             key={section}
             onClick={() => onSectionClick(section)}
             disabled={!isAccessible}
-            className={`py-1 px-1.5 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
+            className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
               isActive 
                 ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
                 : isCompleted 
@@ -63,8 +63,8 @@ const SectionNavigation = ({
                     : 'bg-white/5 border border-white/10 text-white/50 cursor-not-allowed opacity-60'
             }`}
           >
-            <div className="flex items-center justify-between mb-0.5">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
                 {getSectionIcon(section)}
                 <span className="font-semibold text-xs">{getSectionTitle(section)}</span>
               </div>
@@ -77,9 +77,8 @@ const SectionNavigation = ({
               )}
             </div>
             
-            <div className="flex items-center justify-between text-xs">
-              <span className="opacity-70 font-medium">Step {section}</span>
-              <span className="opacity-80">{completedCount}/{requiredCount}</span>
+            <div className="text-xs opacity-70 mt-0.5">
+              {completedCount}/{requiredCount}
             </div>
           </button>
         );

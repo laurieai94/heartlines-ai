@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Heart, MessageCircle, Lightbulb, Rocket, Zap, Star } from "lucide-react";
+import { X, Heart, Sparkles } from "lucide-react";
 import { calculateOverallProgress } from "./ValidationLogic";
 
 interface QuestionnaireHeaderProps {
@@ -13,101 +13,54 @@ interface QuestionnaireHeaderProps {
 const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileData }: QuestionnaireHeaderProps) => {
   const overallProgress = calculateOverallProgress(profileData);
   
-  const getMotivationalMessage = () => {
-    if (overallProgress === 100) return {
-      title: "Profile Complete! Ready for RealTalk!",
-      subtitle: "Your personalized conversation tools are now ready to use"
-    };
-    if (overallProgress >= 80) return {
-      title: "Complete your profile to unlock RealTalk",
-      subtitle: "Get AI-powered relationship insights tailored to your unique situation"
-    };
-    if (overallProgress >= 50) return {
-      title: "Great progress! Keep going to unlock RealTalk",
-      subtitle: "Soon you'll have personalized conversation starters and conflict resolution tools"
-    };
-    if (overallProgress >= 25) return {
-      title: "Nice start! Continue building your profile",
-      subtitle: "Each question helps create better, more personalized relationship guidance"
-    };
-    return {
-      title: "Building your foundation for better conversations",
-      subtitle: "Your answers help us provide personalized relationship insights and tools"
-    };
+  const getTitle = () => {
+    if (overallProgress === 100) return "Profile Complete!";
+    if (overallProgress >= 75) return "Almost there!";
+    if (overallProgress >= 50) return "Great progress!";
+    return "Building your profile";
   };
 
-  const message = getMotivationalMessage();
-
-  const getFeaturePreview = () => {
-    if (overallProgress >= 75) return (
-      <div className="flex items-center gap-3 text-xs text-white/80">
-        <div className="flex items-center gap-1">
-          <MessageCircle className="w-3 h-3 text-emerald-300" />
-          <span>Smart Conversations</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Lightbulb className="w-3 h-3 text-yellow-300" />
-          <span>AI Insights</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Heart className="w-3 h-3 text-pink-300" />
-          <span>Relationship Tools</span>
-        </div>
-      </div>
-    );
-    return null;
-  };
-
-  const getTitleIcon = () => {
-    if (overallProgress === 100) return <Heart className="w-4 h-4 text-white" />;
-    if (overallProgress >= 80) return <Rocket className="w-4 h-4 text-white" />;
-    if (overallProgress >= 50) return <Zap className="w-4 h-4 text-white" />;
-    if (overallProgress >= 25) return <Star className="w-4 h-4 text-white" />;
-    return <Sparkles className="w-4 h-4 text-white" />;
+  const getSubtitle = () => {
+    if (overallProgress === 100) return "Ready to unlock RealTalk";
+    if (overallProgress >= 75) return "Complete to access all features";
+    return "Personalizing your experience";
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4 flex-1">
-          <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-lg">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2.5 flex-shrink-0">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
             {overallProgress === 100 ? (
-              <Heart className="w-4 h-4 text-white" />
+              <Heart className="w-3 h-3 text-white" />
             ) : (
-              <Sparkles className="w-4 h-4 text-white" />
+              <Sparkles className="w-3 h-3 text-white" />
             )}
           </div>
           
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-1">
-              <h2 className="text-lg font-bold text-white">Your Profile</h2>
-            </div>
-            
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                {getTitleIcon()}
-                <p className="text-sm text-white font-medium">{message.title}</p>
-              </div>
-              <p className="text-xs text-white/70 leading-relaxed">{message.subtitle}</p>
-              
-              {getFeaturePreview()}
-              
-              <div className="flex items-center gap-2 mt-2">
-                <div className="w-24 h-2 bg-white/20 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700"
-                    style={{ width: `${overallProgress}%` }}
-                  />
-                </div>
-                <span className="text-xs text-white/70 font-medium">{overallProgress}%</span>
-              </div>
-            </div>
+          <div>
+            <h2 className="text-base font-bold text-white">{getTitle()}</h2>
+            <p className="text-xs text-white/70">{getSubtitle()}</p>
           </div>
         </div>
         
-        <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-2 rounded-full">
+        <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-full">
           <X className="w-4 h-4" />
         </Button>
+      </div>
+      
+      {/* Prominent Progress Bar */}
+      <div className="space-y-1">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-white/70">Progress</span>
+          <span className="text-white font-medium">{overallProgress}%</span>
+        </div>
+        <div className="w-full h-2.5 bg-white/20 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
+            style={{ width: `${overallProgress}%` }}
+          />
+        </div>
       </div>
     </div>
   );

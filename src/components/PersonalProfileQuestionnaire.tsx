@@ -159,7 +159,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           profileData={profileData}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}
@@ -175,7 +175,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           ref={contentRef}
           className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
         >
-          <div className="px-2 py-1">
+          <div className="px-1.5 py-1">
             <QuestionnaireSection1 
               profileData={profileData}
               updateField={updateField}

@@ -23,7 +23,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       <FamilySituationQuestion
         selectedValue={profileData.familySituation || ''}
         otherText={profileData.familySituationOther || ''}
