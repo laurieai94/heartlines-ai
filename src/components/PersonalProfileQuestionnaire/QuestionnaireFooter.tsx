@@ -21,6 +21,11 @@ const QuestionnaireFooter = ({
   getRequiredCount, 
   getCompletedCount 
 }: QuestionnaireFooterProps) => {
+  const isCurrentSectionValid = validateSection(currentSection);
+  const completedCount = getCompletedCount(currentSection);
+  const requiredCount = getRequiredCount(currentSection);
+  const remainingCount = requiredCount - completedCount;
+
   return (
     <div className="p-3 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
       <Button
@@ -33,8 +38,16 @@ const QuestionnaireFooter = ({
         Back
       </Button>
 
-      <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full text-xs text-white/90 font-medium border border-white/15">
-        {getCompletedCount(currentSection)}/{getRequiredCount(currentSection)} required
+      <div className="text-center">
+        <div className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-white/90 font-medium border border-white/15">
+          {isCurrentSectionValid ? (
+            <span className="text-emerald-300">✓ Section Complete</span>
+          ) : (
+            <span>
+              {remainingCount > 0 ? `Complete ${remainingCount} more required` : 'Complete all required questions'}
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="flex gap-2">

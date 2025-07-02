@@ -104,7 +104,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
 
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-2'} overflow-hidden`}>
-      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-4xl h-[85vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-4xl h-[80vh]'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
         
         <QuestionnaireHeader 
           onClose={onClose}
