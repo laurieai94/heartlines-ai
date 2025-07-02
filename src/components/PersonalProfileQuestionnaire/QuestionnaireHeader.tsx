@@ -12,7 +12,6 @@ interface QuestionnaireHeaderProps {
 
 const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileData }: QuestionnaireHeaderProps) => {
   const overallProgress = calculateOverallProgress(profileData);
-  const isNearCompletion = overallProgress >= 80;
   
   const getMotivationalMessage = () => {
     if (overallProgress === 100) return {
@@ -20,7 +19,7 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
       subtitle: "Access personalized insights, conversation starters, and relationship tools"
     };
     if (overallProgress >= 80) return {
-      title: "🚀 Almost there! Complete your profile to unlock RealTalk",
+      title: "🚀 Complete your profile to unlock RealTalk",
       subtitle: "Get AI-powered relationship insights tailored to your unique situation"
     };
     if (overallProgress >= 50) return {
@@ -74,11 +73,6 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-1">
               <h2 className="text-lg font-bold text-white">Your Personal Profile</h2>
-              {isNearCompletion && (
-                <div className="px-2 py-1 bg-emerald-500/20 border border-emerald-400/30 rounded-full">
-                  <span className="text-xs font-medium text-emerald-300">Almost Done!</span>
-                </div>
-              )}
             </div>
             
             <div className="space-y-1">
