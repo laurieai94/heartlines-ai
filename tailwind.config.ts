@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,55 +63,47 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				maroon: {
-					50: 'hsl(var(--maroon-50))',
-					100: 'hsl(var(--maroon-100))',
-					200: 'hsl(var(--maroon-200))',
-					300: 'hsl(var(--maroon-300))',
-					400: 'hsl(var(--maroon-400))',
-					500: 'hsl(var(--maroon-500))',
-					600: 'hsl(var(--maroon-600))',
-					700: 'hsl(var(--maroon-700))',
-					800: 'hsl(var(--maroon-800))',
-					900: 'hsl(var(--maroon-900))',
+				// New Warm Luxury Meets Digital Serenity Palette
+				slate: {
+					50: 'hsl(var(--slate-50))',
+					100: 'hsl(var(--slate-100))',
+					200: 'hsl(var(--slate-200))',
+					300: 'hsl(var(--slate-300))',
+					400: 'hsl(var(--slate-400))',
+					500: 'hsl(var(--slate-500))',
+					600: 'hsl(var(--slate-600))',
+					700: 'hsl(var(--slate-700))',
+					800: 'hsl(var(--slate-800))',
+					900: 'hsl(var(--slate-900))',
 				},
-				tan: {
-					50: 'hsl(var(--tan-50))',
-					100: 'hsl(var(--tan-100))',
-					200: 'hsl(var(--tan-200))',
-					300: 'hsl(var(--tan-300))',
-					400: 'hsl(var(--tan-400))',
-					500: 'hsl(var(--tan-500))',
-					600: 'hsl(var(--tan-600))',
+				copper: {
+					50: 'hsl(var(--copper-50))',
+					100: 'hsl(var(--copper-100))',
+					200: 'hsl(var(--copper-200))',
+					300: 'hsl(var(--copper-300))',
+					400: 'hsl(var(--copper-400))',
+					500: 'hsl(var(--copper-500))',
+					600: 'hsl(var(--copper-600))',
+					700: 'hsl(var(--copper-700))',
+					800: 'hsl(var(--copper-800))',
 				},
-				gold: {
-					50: 'hsl(var(--gold-50))',
-					100: 'hsl(var(--gold-100))',
-					200: 'hsl(var(--gold-200))',
-					300: 'hsl(var(--gold-300))',
-					400: 'hsl(var(--gold-400))',
-					500: 'hsl(var(--gold-500))',
-					600: 'hsl(var(--gold-600))',
+				sage: {
+					50: 'hsl(var(--sage-50))',
+					100: 'hsl(var(--sage-100))',
+					200: 'hsl(var(--sage-200))',
+					300: 'hsl(var(--sage-300))',
+					400: 'hsl(var(--sage-400))',
+					500: 'hsl(var(--sage-500))',
+					600: 'hsl(var(--sage-600))',
+					700: 'hsl(var(--sage-700))',
 				},
-				// Keep coral for backwards compatibility but make it represent tan tones
-				coral: {
-					50: 'hsl(var(--tan-50))',
-					100: 'hsl(var(--tan-100))',
-					200: 'hsl(var(--tan-200))',
-					300: 'hsl(var(--tan-300))',
-					400: 'hsl(var(--tan-400))',
-					500: 'hsl(var(--tan-500))',
-					600: 'hsl(var(--tan-600))',
+				ivory: {
+					50: 'hsl(var(--ivory-50))',
+					100: 'hsl(var(--ivory-100))',
+					200: 'hsl(var(--ivory-200))',
+					300: 'hsl(var(--ivory-300))',
+					400: 'hsl(var(--ivory-400))',
 				},
-				// Keep peach for backwards compatibility but make it represent gold tones
-				peach: {
-					50: 'hsl(var(--gold-50))',
-					100: 'hsl(var(--gold-100))',
-					200: 'hsl(var(--gold-200))',
-					300: 'hsl(var(--gold-300))',
-					400: 'hsl(var(--gold-400))',
-					500: 'hsl(var(--gold-500))',
-				}
 			},
 			fontFamily: {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
@@ -190,6 +183,14 @@ export default {
 						transform: 'translateX(5%) translateY(5%)',
 						opacity: '0.8'
 					}
+				},
+				'shimmer': {
+					'0%, 100%': {
+						backgroundPosition: '200% 200%'
+					},
+					'50%': {
+						backgroundPosition: '0% 0%'
+					}
 				}
 			},
 			animation: {
@@ -199,7 +200,8 @@ export default {
 				'slide-up': 'slide-up 0.6s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
-				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite'
+				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
+				'shimmer': 'shimmer 3s ease-in-out infinite'
 			}
 		}
 	},

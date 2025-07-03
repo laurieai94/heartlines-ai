@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -81,17 +80,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Sophisticated Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-maroon-900/40 via-tan-600/20 to-maroon-800/30 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-tan-500/15 via-gold-500/10 to-maroon-700/15 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-gold-400/10 via-tan-400/10 to-maroon-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+      {/* Sophisticated Animated Background - New Palette */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/50 animate-gradient"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-copper-700/20 via-copper-600/15 to-slate-800/25 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-sage-600/15 via-copper-600/10 to-slate-900/15 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-gold-300/30 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-copper-400/40 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -107,7 +106,7 @@ const Index = () => {
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-20 h-20 border border-tan-300/10 rounded-lg animate-spin"
+            className="absolute w-20 h-20 border border-sage-400/15 rounded-lg animate-spin"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -119,30 +118,30 @@ const Index = () => {
       </div>
 
       {/* Code-like Background Elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-5">
-        <div className="absolute top-20 left-10 font-mono text-xs text-tan-200">
+      <div className="absolute inset-0 overflow-hidden opacity-8">
+        <div className="absolute top-20 left-10 font-mono text-xs text-ivory-200">
           {`const love = { understanding: true, growth: infinite }`}
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-gold-200">
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-copper-300">
           {`if (relationship.status === 'complicated') { ai.help() }`}
         </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-tan-200">
+        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-sage-300">
           {`return personalized.advice.filter(advice => advice.isRelevant)`}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-maroon-900/20 via-tan-900/10 to-maroon-900/20 backdrop-blur-sm border-b border-gold-300/10">
+      <nav className="px-6 py-4 relative z-10 glass-slate border-b border-copper-500/20">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-gold-400 to-tan-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-gold-300/20">
+            <div className="w-8 h-8 copper-sheen rounded-xl flex items-center justify-center shadow-copper border border-copper-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
           <div className="flex items-center">
             <Link to="/dashboard">
-              <Button variant="outline" className="border-gold-400/50 text-gold-400 hover:bg-gold-400/10 rounded-full font-thin backdrop-blur-sm">
+              <Button variant="outline" className="border-copper-500/60 text-copper-400 hover:bg-copper-500/15 rounded-full font-thin glass">
                 Get Started - It's Free
               </Button>
             </Link>
@@ -151,39 +150,39 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-maroon-900/30 via-tan-900/20 to-maroon-800/30 backdrop-blur-sm">
+      <section className="relative px-6 py-20 lg:py-28 glass-slate">
         {/* Accent decoration - floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-gold-400/10 to-tan-400/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-tan-400/15 to-gold-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-copper-500/15 to-sage-400/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-sage-500/20 to-copper-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-tan-500/5 via-gold-500/10 to-tan-500/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-sage-600/8 via-copper-600/12 to-sage-600/8"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 bg-tan-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-gold-300/30 shadow-lg transition-transform duration-300"
+                className="inline-flex items-center gap-3 glass-copper rounded-full px-6 py-3 mb-8 border border-copper-400/40 shadow-copper transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 bg-gradient-to-r from-gold-400 to-tan-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
+                <div className="w-2 h-2 copper-sheen rounded-full animate-pulse"></div>
+                <span className="text-sm font-light text-white/95 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
                 Your relationship isn't a rom-com.
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-tan-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-copper-500 to-sage-400">
                   Real growth needs real tools.
                 </span>
               </h1>
               
-              <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
+              <p className="text-xl lg:text-2xl text-ivory-200/90 mb-12 leading-relaxed font-light">
                 We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
-                <Button className="bg-gradient-to-r from-gold-400 to-tan-500 hover:from-gold-300 hover:to-tan-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
+                <Button className="copper-sheen hover:shadow-copper text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
@@ -194,9 +193,9 @@ const Index = () => {
             <div className="relative flex items-center justify-center">
               <div className="relative">
                 {/* Phone Frame */}
-                <div className="relative w-80 h-[600px] bg-black rounded-[2.5rem] p-3 shadow-2xl border border-gray-700">
+                <div className="relative w-80 h-[600px] bg-black rounded-[2.5rem] p-3 shadow-2xl border border-slate-600">
                   {/* Phone Screen */}
-                  <div className="w-full h-full bg-gradient-to-b from-gray-900 to-black rounded-[2rem] overflow-hidden relative">
+                  <div className="w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 rounded-[2rem] overflow-hidden relative">
                     {/* Status Bar */}
                     <div className="flex justify-between items-center px-6 py-3 text-white text-sm">
                       <span>9:41 AM</span>
@@ -210,8 +209,8 @@ const Index = () => {
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-tan-400">RealSwipe</h2>
-                        <div className="w-8 h-8 bg-gradient-to-r from-gold-400 to-tan-400 rounded-full flex items-center justify-center">
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-copper-500 to-sage-400">RealSwipe</h2>
+                        <div className="w-8 h-8 copper-sheen rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
                       </div>
@@ -221,10 +220,10 @@ const Index = () => {
                     <div className="px-6 pb-6 flex-1">
                       <div 
                         key={currentProfile}
-                        className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
+                        className="glass-slate rounded-3xl p-6 h-96 relative border border-copper-500/30 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-tan-400/20 to-gold-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
+                        <div className="w-full h-48 bg-gradient-to-br from-sage-500/25 to-copper-500/20 rounded-2xl overflow-hidden mb-4 border border-copper-400/20">
                           <img 
                             src={datingProfiles[currentProfile].photo} 
                             alt={datingProfiles[currentProfile].name}
@@ -237,19 +236,19 @@ const Index = () => {
                           <h3 className="text-2xl font-light mb-1">
                             {datingProfiles[currentProfile].name}, {datingProfiles[currentProfile].age}
                           </h3>
-                          <p className="text-gray-300 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
+                          <p className="text-ivory-200/80 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
                         </div>
 
                         {/* Action Buttons */}
                         <div className="absolute bottom-6 left-6 right-6 flex justify-center gap-4">
-                          <div className="w-12 h-12 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-red-400/30">
+                          <div className="w-12 h-12 bg-red-500/25 glass rounded-full flex items-center justify-center border border-red-400/40">
                             <span className="text-red-400 text-xl">✕</span>
                           </div>
-                          <div className="w-12 h-12 bg-tan-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-tan-400/30">
-                            <Heart className="w-5 h-5 text-tan-400" />
+                          <div className="w-12 h-12 glass-copper rounded-full flex items-center justify-center border border-copper-400/40">
+                            <Heart className="w-5 h-5 text-copper-400" />
                           </div>
-                          <div className="w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-blue-400/30">
-                            <MessageCircle className="w-5 h-5 text-blue-400" />
+                          <div className="w-12 h-12 bg-sage-500/25 glass rounded-full flex items-center justify-center border border-sage-400/40">
+                            <MessageCircle className="w-5 h-5 text-sage-400" />
                           </div>
                         </div>
                       </div>
@@ -261,7 +260,7 @@ const Index = () => {
                         <div
                           key={index}
                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentProfile ? 'bg-gold-400' : 'bg-white/30'
+                            index === currentProfile ? 'bg-copper-500' : 'bg-white/30'
                           }`}
                         />
                       ))}
@@ -273,11 +272,11 @@ const Index = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-8 -right-8 w-16 h-16 bg-tan-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-tan-300/30 animate-pulse">
-                  <Heart className="w-6 h-6 text-tan-400" />
+                <div className="absolute -top-8 -right-8 w-16 h-16 glass-copper rounded-full flex items-center justify-center border border-copper-400/40 animate-pulse">
+                  <Heart className="w-6 h-6 text-copper-400" />
                 </div>
-                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-gold-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-gold-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-6 h-6 text-gold-400" />
+                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-sage-500/20 glass rounded-full flex items-center justify-center border border-sage-400/40 animate-pulse" style={{ animationDelay: '1s' }}>
+                  <MessageCircle className="w-6 h-6 text-sage-400" />
                 </div>
               </div>
             </div>
@@ -286,17 +285,17 @@ const Index = () => {
       </section>
 
       {/* Visual Break with Accent */}
-      <section className="px-6 py-8 relative bg-gradient-to-r from-maroon-900/20 via-tan-900/10 to-maroon-900/20 backdrop-blur-sm border-y border-gold-400/10">
+      <section className="px-6 py-8 relative glass-slate border-y border-copper-500/15">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line with floating dots */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-copper-500/50 to-transparent"></div>
             {/* Accent dots */}
-            <div className="absolute left-1/4 w-2 h-2 bg-gold-400/60 rounded-full animate-pulse"></div>
-            <div className="absolute right-1/4 w-2 h-2 bg-tan-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute left-1/4 w-2 h-2 bg-copper-500/70 rounded-full animate-pulse"></div>
+            <div className="absolute right-1/4 w-2 h-2 bg-sage-400/70 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             {/* Center icon */}
-            <div className="absolute bg-gradient-to-r from-maroon-900/50 to-tan-900/50 px-6 backdrop-blur-sm rounded-full">
-              <div className="w-12 h-12 bg-gradient-to-r from-gold-400 to-tan-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-gold-300/30">
+            <div className="absolute glass-slate px-6 rounded-full">
+              <div className="w-12 h-12 copper-sheen rounded-full flex items-center justify-center mb-4 mx-auto border border-copper-400/40">
                 <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -401,42 +400,42 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-gold-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-gold-400/20 to-tan-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-gold-300/30">
-                <Brain className="w-10 h-10 text-gold-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
+              <div className="w-20 h-20 glass-copper rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-copper-400/40">
+                <Brain className="w-10 h-10 text-copper-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
-              <p className="text-gray-300 leading-relaxed font-light">
+              <p className="text-ivory-200/80 leading-relaxed font-light">
                 Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, what makes you feel loved, and yes, even your weird quirks. The more honest you are, the better we can help.
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-gold-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-tan-400/20 to-gold-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-gold-300/30">
-                <Target className="w-10 h-10 text-tan-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
+              <div className="w-20 h-20 bg-sage-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-sage-400/40">
+                <Target className="w-10 h-10 text-sage-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
-              <p className="text-gray-300 leading-relaxed font-light">
+              <p className="text-ivory-200/80 leading-relaxed font-light">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-gold-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-tan-400/20 to-gold-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-gold-300/30">
-                <MessageCircle className="w-10 h-10 text-tan-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
+              <div className="w-20 h-20 bg-sage-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-sage-400/40">
+                <MessageCircle className="w-10 h-10 text-sage-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
-              <p className="text-gray-300 leading-relaxed font-light">
+              <p className="text-ivory-200/80 leading-relaxed font-light">
                 Scared to bring up that thing? Practice the conversation with our AI first. It knows both your communication styles, so you can figure out the best approach without the drama.
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-gold-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-gold-400/20 to-tan-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-gold-300/30">
-                <Sparkles className="w-10 h-10 text-gold-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
+              <div className="w-20 h-20 glass-copper rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-copper-400/40">
+                <Sparkles className="w-10 h-10 text-copper-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions Made Easy</h3>
-              <p className="text-gray-300 leading-relaxed font-light">
+              <p className="text-ivory-200/80 leading-relaxed font-light">
                 Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
               </p>
             </Card>
@@ -466,22 +465,22 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 text-center border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+            <Card className="p-6 text-center border-0 shadow-xl glass-slate backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">No toxic positivity</h4>
               <p className="text-gray-300 leading-relaxed font-light">Real relationships have rough patches, and that's normal</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+            <Card className="p-6 text-center border-0 shadow-xl glass-slate backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Actually personalized</h4>
               <p className="text-gray-300 leading-relaxed font-light">Not horoscope-level generic advice</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+            <Card className="p-6 text-center border-0 shadow-xl glass-slate backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Designed for busy humans</h4>
               <p className="text-gray-300 leading-relaxed font-light">Quick daily insights that fit into your actual life</p>
             </Card>
             
-            <Card className="p-6 text-center border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+            <Card className="p-6 text-center border-0 shadow-xl glass-slate backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
               <h4 className="text-xl font-light text-white mb-3">Privacy first</h4>
               <p className="text-gray-300 leading-relaxed font-light">Your relationship details stay between you, your partner, and our very secure servers</p>
             </Card>
@@ -514,7 +513,7 @@ const Index = () => {
           {/* Main Content in Cards */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* Left Card - Reality Check */}
-            <Card className="p-8 border-0 shadow-xl bg-tan-500/10 backdrop-blur-lg rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3">
+            <Card className="p-8 border-0 shadow-xl glass-slate rounded-3xl border border-gold-400/20 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-3">
               <div className="w-16 h-16 bg-gradient-to-r from-gold-400/20 to-tan-400/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-gold-300/30">
                 <MessageSquare className="w-8 h-8 text-gold-400" />
               </div>
@@ -602,15 +601,15 @@ const Index = () => {
       )}
 
       {/* Footer */}
-      <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-gold-300/10">
+      <footer className="px-6 py-16 bg-black/60 glass relative border-t border-copper-400/15">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-gold-400 to-tan-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-gold-300/20">
+            <div className="w-8 h-8 copper-sheen rounded-full flex items-center justify-center shadow-copper border border-copper-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
-          <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
+          <p className="text-ivory-200/80 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
       </footer>
     </div>

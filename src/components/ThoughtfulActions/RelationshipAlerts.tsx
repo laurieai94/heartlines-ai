@@ -45,24 +45,24 @@ const RelationshipAlerts = ({ profiles, demographicsData }: RelationshipAlertsPr
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-        <AlertTriangle className="w-6 h-6 text-gold-400" />
+        <AlertTriangle className="w-6 h-6 text-copper-400" />
         Relationship Insights
       </h3>
       
       {alerts.map((alert) => {
         const IconComponent = alert.icon;
         return (
-          <Card key={alert.id} className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
+          <Card key={alert.id} className="p-8 glass-slate border border-copper-500/25 shadow-copper rounded-2xl">
             <div className="flex items-start gap-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-gold-400 to-tan-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <div className="w-16 h-16 copper-sheen rounded-2xl flex items-center justify-center flex-shrink-0 shadow-copper">
                 <IconComponent className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
                 <h4 className="font-semibold text-white mb-3 text-xl">{alert.title}</h4>
-                <p className="text-tan-200/90 mb-6 text-lg">{alert.description}</p>
+                <p className="text-ivory-200/90 mb-6 text-lg">{alert.description}</p>
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-gold-400 via-tan-500 to-tan-600 hover:from-gold-500 hover:via-tan-600 hover:to-tan-700 text-white border-0 px-8 py-3 text-base font-semibold rounded-xl"
+                  className="copper-sheen hover:shadow-copper text-white border-0 px-8 py-3 text-base font-semibold rounded-xl transition-all duration-300"
                 >
                   {alert.action}
                 </Button>
