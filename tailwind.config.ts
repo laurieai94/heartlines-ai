@@ -63,6 +63,32 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
+				sage: {
+					50: 'hsl(var(--sage-50))',
+					100: 'hsl(var(--sage-100))',
+					200: 'hsl(var(--sage-200))',
+					300: 'hsl(var(--sage-300))',
+					400: 'hsl(var(--sage-400))',
+					500: 'hsl(var(--sage-500))',
+					600: 'hsl(var(--sage-600))',
+				},
+				cream: {
+					50: 'hsl(var(--cream-50))',
+					100: 'hsl(var(--cream-100))',
+					200: 'hsl(var(--cream-200))',
+					300: 'hsl(var(--cream-300))',
+					400: 'hsl(var(--cream-400))',
+					500: 'hsl(var(--cream-500))',
+				},
+				terracotta: {
+					50: 'hsl(var(--terracotta-50))',
+					100: 'hsl(var(--terracotta-100))',
+					200: 'hsl(var(--terracotta-200))',
+					300: 'hsl(var(--terracotta-300))',
+					400: 'hsl(var(--terracotta-400))',
+					500: 'hsl(var(--terracotta-500))',
+					600: 'hsl(var(--terracotta-600))',
+				},
 				coral: {
 					50: 'hsl(var(--coral-50))',
 					100: 'hsl(var(--coral-100))',
