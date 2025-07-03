@@ -48,58 +48,34 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom warm sage and earth tone colors */
-    --sage-50: 85 20% 95%;
-    --sage-100: 85 18% 88%;
-    --sage-200: 85 16% 78%;
-    --sage-300: 85 14% 68%;
-    --sage-400: 85 12% 58%;
-    --sage-500: 85 15% 48%;
-    --sage-600: 85 18% 38%;
+    /* Custom warm colors */
+    --coral-50: 16 100% 97%;
+    --coral-100: 16 92% 91%;
+    --coral-200: 16 88% 82%;
+    --coral-300: 16 84% 72%;
+    --coral-400: 16 80% 62%;
+    --coral-500: 16 76% 52%;
+    --coral-600: 16 72% 42%;
     
-    --cream-50: 45 100% 97%;
-    --cream-100: 45 85% 92%;
-    --cream-200: 45 75% 85%;
-    --cream-300: 45 65% 78%;
-    --cream-400: 45 55% 71%;
-    --cream-500: 45 45% 64%;
+    --peach-50: 25 100% 97%;
+    --peach-100: 25 92% 91%;
+    --peach-200: 25 88% 82%;
+    --peach-300: 25 84% 72%;
+    --peach-400: 25 80% 62%;
+    --peach-500: 25 76% 52%;
 
-    --terracotta-50: 15 100% 95%;
-    --terracotta-100: 15 90% 88%;
-    --terracotta-200: 15 80% 78%;
-    --terracotta-300: 15 70% 68%;
-    --terracotta-400: 15 60% 58%;
-    --terracotta-500: 15 55% 48%;
-    --terracotta-600: 15 50% 38%;
-
-    /* Premium questionnaire colors - Updated to sage theme */
-    --questionnaire-bg: 85 15% 55%;
-    --questionnaire-bg-dark: 85 20% 45%;
+    /* Premium questionnaire colors - Lightened slightly */
+    --questionnaire-bg: 345 35% 55%;
+    --questionnaire-bg-dark: 345 40% 45%;
     --questionnaire-card: 0 0% 100% / 0.1;
     --questionnaire-border: 0 0% 100% / 0.2;
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 90%;
     
-    /* Premium gradients - Updated to earth tones */
-    --gradient-questionnaire: linear-gradient(135deg, hsl(85 15% 55%) 0%, hsl(85 20% 45%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, hsl(15 60% 58%) 0%, hsl(15 55% 48%) 100%);
-    --gradient-selected: linear-gradient(135deg, hsl(15 60% 58%) 0%, hsl(15 55% 48%) 100%);
-
-    /* Legacy coral/peach mappings - now point to sage/terracotta */
-    --coral-50: 85 20% 95%;
-    --coral-100: 85 18% 88%;
-    --coral-200: 85 16% 78%;
-    --coral-300: 85 14% 68%;
-    --coral-400: 85 12% 58%;
-    --coral-500: 85 15% 48%;
-    --coral-600: 85 18% 38%;
-    
-    --peach-50: 45 100% 97%;
-    --peach-100: 45 85% 92%;
-    --peach-200: 45 75% 85%;
-    --peach-300: 45 65% 78%;
-    --peach-400: 45 55% 71%;
-    --peach-500: 45 45% 64%;
+    /* Premium gradients */
+    --gradient-questionnaire: linear-gradient(135deg, hsl(345 35% 55%) 0%, hsl(345 40% 45%) 100%);
+    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
   }
 
   .dark {
@@ -247,101 +223,49 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Sage color utilities */
-  .from-sage-50 { --tw-gradient-from: hsl(var(--sage-50)) !important; }
-  .to-sage-50 { --tw-gradient-to: hsl(var(--sage-50)) !important; }
-  .via-sage-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--sage-50)), var(--tw-gradient-to) !important; }
-  .from-sage-100 { --tw-gradient-from: hsl(var(--sage-100)) !important; }
-  .to-sage-100 { --tw-gradient-to: hsl(var(--sage-100)) !important; }
-  .from-sage-200 { --tw-gradient-from: hsl(var(--sage-200)) !important; }
-  .to-sage-200 { --tw-gradient-to: hsl(var(--sage-200)) !important; }
-  .from-sage-300 { --tw-gradient-from: hsl(var(--sage-300)) !important; }
-  .to-sage-300 { --tw-gradient-to: hsl(var(--sage-300)) !important; }
-  .from-sage-400 { --tw-gradient-from: hsl(var(--sage-400)) !important; }
-  .to-sage-400 { --tw-gradient-to: hsl(var(--sage-400)) !important; }
-  .from-sage-500 { --tw-gradient-from: hsl(var(--sage-500)) !important; }
-  .to-sage-500 { --tw-gradient-to: hsl(var(--sage-500)) !important; }
+  /* Coral color utilities */
+  .from-coral-50 { --tw-gradient-from: hsl(var(--coral-50)) !important; }
+  .to-coral-50 { --tw-gradient-to: hsl(var(--coral-50)) !important; }
+  .via-coral-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--coral-50)), var(--tw-gradient-to) !important; }
+  .from-coral-100 { --tw-gradient-from: hsl(var(--coral-100)) !important; }
+  .to-coral-100 { --tw-gradient-to: hsl(var(--coral-100)) !important; }
+  .from-coral-200 { --tw-gradient-from: hsl(var(--coral-200)) !important; }
+  .to-coral-200 { --tw-gradient-to: hsl(var(--coral-200)) !important; }
+  .from-coral-300 { --tw-gradient-from: hsl(var(--coral-300)) !important; }
+  .to-coral-300 { --tw-gradient-to: hsl(var(--coral-300)) !important; }
+  .from-coral-400 { --tw-gradient-from: hsl(var(--coral-400)) !important; }
+  .to-coral-400 { --tw-gradient-to: hsl(var(--coral-400)) !important; }
+  .from-coral-500 { --tw-gradient-from: hsl(var(--coral-500)) !important; }
+  .to-coral-500 { --tw-gradient-to: hsl(var(--coral-500)) !important; }
   
-  .bg-sage-50 { background-color: hsl(var(--sage-50)) !important; }
-  .bg-sage-100 { background-color: hsl(var(--sage-100)) !important; }
-  .bg-sage-200 { background-color: hsl(var(--sage-200)) !important; }
-  .bg-sage-400 { background-color: hsl(var(--sage-400)) !important; }
-  .bg-sage-500 { background-color: hsl(var(--sage-500)) !important; }
-  .bg-sage-600 { background-color: hsl(var(--sage-600)) !important; }
+  .bg-coral-50 { background-color: hsl(var(--coral-50)) !important; }
+  .bg-coral-100 { background-color: hsl(var(--coral-100)) !important; }
+  .bg-coral-200 { background-color: hsl(var(--coral-200)) !important; }
+  .bg-coral-400 { background-color: hsl(var(--coral-400)) !important; }
+  .bg-coral-500 { background-color: hsl(var(--coral-500)) !important; }
+  .bg-coral-600 { background-color: hsl(var(--coral-600)) !important; }
   
-  .text-sage-600 { color: hsl(var(--sage-600)) !important; }
-  .text-sage-700 { color: hsl(var(--sage-700)) !important; }
+  .text-coral-600 { color: hsl(var(--coral-600)) !important; }
+  .text-coral-700 { color: hsl(var(--coral-700)) !important; }
   
-  .border-sage-200 { border-color: hsl(var(--sage-200)) !important; }
-  .border-sage-300 { border-color: hsl(var(--sage-300)) !important; }
-  .focus\:border-sage-300:focus { border-color: hsl(var(--sage-300)) !important; }
-  .focus\:ring-sage-200\/30:focus { --tw-ring-color: hsl(var(--sage-200) / 0.3) !important; }
+  .border-coral-200 { border-color: hsl(var(--coral-200)) !important; }
+  .border-coral-300 { border-color: hsl(var(--coral-300)) !important; }
+  .focus\:border-coral-300:focus { border-color: hsl(var(--coral-300)) !important; }
+  .focus\:ring-coral-200\/30:focus { --tw-ring-color: hsl(var(--coral-200) / 0.3) !important; }
   
-  .hover\:bg-sage-50:hover { background-color: hsl(var(--sage-50)) !important; }
-  .hover\:text-sage-600:hover { color: hsl(var(--sage-600)) !important; }
-  .hover\:from-sage-500:hover { --tw-gradient-from: hsl(var(--sage-500)) !important; }
-  .hover\:to-sage-500:hover { --tw-gradient-to: hsl(var(--sage-500)) !important; }
-
-  /* Shadow colors for sage */
-  .shadow-coral-200\/50 { --tw-shadow-color: hsl(var(--sage-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
-
-  /* Terracotta color utilities */
-  .from-terracotta-200 { --tw-gradient-from: hsl(var(--terracotta-200)) !important; }
-  .to-terracotta-200 { --tw-gradient-to: hsl(var(--terracotta-200)) !important; }
-  .from-terracotta-400 { --tw-gradient-from: hsl(var(--terracotta-400)) !important; }
-  .to-terracotta-400 { --tw-gradient-to: hsl(var(--terracotta-400)) !important; }
-  .from-terracotta-500 { --tw-gradient-from: hsl(var(--terracotta-500)) !important; }
-  .to-terracotta-500 { --tw-gradient-to: hsl(var(--terracotta-500)) !important; }
-
-  /* Cream color utilities */
-  .from-cream-50 { --tw-gradient-from: hsl(var(--cream-50)) !important; }
-  .to-cream-50 { --tw-gradient-to: hsl(var(--cream-50)) !important; }
-  .from-cream-200 { --tw-gradient-from: hsl(var(--cream-200)) !important; }
-  .to-cream-200 { --tw-gradient-to: hsl(var(--cream-200)) !important; }
-
-  /* Legacy coral/peach utilities - now map to sage/cream */
-  .from-coral-50 { --tw-gradient-from: hsl(var(--sage-50)) !important; }
-  .to-coral-50 { --tw-gradient-to: hsl(var(--sage-50)) !important; }
-  .via-coral-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--sage-50)), var(--tw-gradient-to) !important; }
-  .from-coral-100 { --tw-gradient-from: hsl(var(--sage-100)) !important; }
-  .to-coral-100 { --tw-gradient-to: hsl(var(--sage-100)) !important; }
-  .from-coral-200 { --tw-gradient-from: hsl(var(--sage-200)) !important; }
-  .to-coral-200 { --tw-gradient-to: hsl(var(--sage-200)) !important; }
-  .from-coral-300 { --tw-gradient-from: hsl(var(--sage-300)) !important; }
-  .to-coral-300 { --tw-gradient-to: hsl(var(--sage-300)) !important; }
-  .from-coral-400 { --tw-gradient-from: hsl(var(--sage-400)) !important; }
-  .to-coral-400 { --tw-gradient-to: hsl(var(--sage-400)) !important; }
-  .from-coral-500 { --tw-gradient-from: hsl(var(--sage-500)) !important; }
-  .to-coral-500 { --tw-gradient-to: hsl(var(--sage-500)) !important; }
-  
-  .bg-coral-50 { background-color: hsl(var(--sage-50)) !important; }
-  .bg-coral-100 { background-color: hsl(var(--sage-100)) !important; }
-  .bg-coral-200 { background-color: hsl(var(--sage-200)) !important; }
-  .bg-coral-400 { background-color: hsl(var(--sage-400)) !important; }
-  .bg-coral-500 { background-color: hsl(var(--sage-500)) !important; }
-  .bg-coral-600 { background-color: hsl(var(--sage-600)) !important; }
-  
-  .text-coral-600 { color: hsl(var(--sage-600)) !important; }
-  .text-coral-700 { color: hsl(var(--sage-700)) !important; }
-  
-  .border-coral-200 { border-color: hsl(var(--sage-200)) !important; }
-  .border-coral-300 { border-color: hsl(var(--sage-300)) !important; }
-  .focus\:border-coral-300:focus { border-color: hsl(var(--sage-300)) !important; }
-  .focus\:ring-coral-200\/30:focus { --tw-ring-color: hsl(var(--sage-200) / 0.3) !important; }
-  
-  .hover\:bg-coral-50:hover { background-color: hsl(var(--sage-50)) !important; }
-  .hover\:text-coral-600:hover { color: hsl(var(--sage-600)) !important; }
-  .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--sage-500)) !important; }
-  .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--sage-500)) !important; }
+  .hover\:bg-coral-50:hover { background-color: hsl(var(--coral-50)) !important; }
+  .hover\:text-coral-600:hover { color: hsl(var(--coral-600)) !important; }
+  .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--coral-500)) !important; }
+  .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--coral-500)) !important; }
 
   /* Shadow colors for coral */
   .shadow-coral-200\/50 { --tw-shadow-color: hsl(var(--coral-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
 
-  /* Peach color utilities - now map to cream */
-  .from-peach-200 { --tw-gradient-from: hsl(var(--cream-200)) !important; }
-  .to-peach-200 { --tw-gradient-to: hsl(var(--cream-200)) !important; }
-  .from-peach-50 { --tw-gradient-from: hsl(var(--cream-50)) !important; }
-  .to-peach-50 { --tw-gradient-to: hsl(var(--cream-50)) !important; }
+  /* Peach color utilities */
+  .from-peach-200 { --tw-gradient-from: hsl(var(--peach-200)) !important; }
+  .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
+  .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
+  .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
 
   /* Questionnaire premium styling */
   .questionnaire-bg {
@@ -378,7 +302,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(187, 93, 56, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
   }
   
   .questionnaire-button-secondary {
@@ -399,6 +323,6 @@
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(187, 93, 56, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
   }
 }
