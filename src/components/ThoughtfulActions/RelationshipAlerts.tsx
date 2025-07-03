@@ -45,24 +45,24 @@ const RelationshipAlerts = ({ profiles, demographicsData }: RelationshipAlertsPr
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-        <AlertTriangle className="w-6 h-6 text-burgundy-400" />
+        <AlertTriangle className="w-6 h-6 text-amber-400" />
         Relationship Insights
       </h3>
       
       {alerts.map((alert) => {
         const IconComponent = alert.icon;
         return (
-          <Card key={alert.id} className="p-8 glass-slate border border-burgundy-500/25 shadow-burgundy rounded-2xl">
+          <Card key={alert.id} className="p-8 glass-slate border border-gold-400/25 shadow-gold rounded-2xl">
             <div className="flex items-start gap-6">
-              <div className="w-16 h-16 burgundy-sheen rounded-2xl flex items-center justify-center flex-shrink-0 shadow-burgundy">
+              <div className="w-16 h-16 gold-sheen rounded-2xl flex items-center justify-center flex-shrink-0 shadow-gold">
                 <IconComponent className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
                 <h4 className="font-semibold text-white mb-3 text-xl">{alert.title}</h4>
-                <p className="text-champagne-200/90 mb-6 text-lg">{alert.description}</p>
+                <p className="text-tan-200/90 mb-6 text-lg">{alert.description}</p>
                 <Button 
                   size="lg" 
-                  className="burgundy-sheen hover:shadow-burgundy text-white border-0 px-8 py-3 text-base font-semibold rounded-xl transition-all duration-300"
+                  className="gold-sheen hover:shadow-gold text-white border-0 px-8 py-3 text-base font-semibold rounded-xl transition-all duration-300"
                 >
                   {alert.action}
                 </Button>

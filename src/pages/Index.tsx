@@ -81,17 +81,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Sophisticated Animated Background - New Palette */}
+      {/* Sophisticated Animated Background - Sunset Canyon Palette */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/50 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-burgundy-700/20 via-burgundy-600/15 to-slate-800/25 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-sage-600/15 via-burgundy-600/10 to-slate-900/15 animate-gradient" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-burgundy-700/20 via-gold-600/15 to-slate-800/25 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-tan-600/15 via-amber-600/10 to-slate-900/15 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-burgundy-400/40 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-gold-400/40 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -107,7 +107,7 @@ const Index = () => {
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-20 h-20 border border-sage-400/15 rounded-lg animate-spin"
+            className="absolute w-20 h-20 border border-amber-400/15 rounded-lg animate-spin"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -120,29 +120,29 @@ const Index = () => {
 
       {/* Code-like Background Elements */}
       <div className="absolute inset-0 overflow-hidden opacity-8">
-        <div className="absolute top-20 left-10 font-mono text-xs text-champagne-200">
+        <div className="absolute top-20 left-10 font-mono text-xs text-tan-200">
           {`const love = { understanding: true, growth: infinite }`}
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-burgundy-300">
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-gold-300">
           {`if (relationship.status === 'complicated') { ai.help() }`}
         </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-sage-300">
+        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-amber-300">
           {`return personalized.advice.filter(advice => advice.isRelevant)`}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 glass-slate border-b border-burgundy-500/20">
+      <nav className="px-6 py-4 relative z-10 glass-slate border-b border-gold-500/20">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 burgundy-sheen rounded-xl flex items-center justify-center shadow-burgundy border border-burgundy-400/30">
+            <div className="w-8 h-8 gold-sheen rounded-xl flex items-center justify-center shadow-gold border border-gold-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
           <div className="flex items-center">
             <Link to="/dashboard">
-              <Button variant="outline" className="border-burgundy-500/60 text-burgundy-400 hover:bg-burgundy-500/15 rounded-full font-thin glass">
+              <Button variant="outline" className="border-gold-500/60 text-gold-400 hover:bg-gold-500/15 rounded-full font-thin glass">
                 Get Started - It's Free
               </Button>
             </Link>
@@ -153,37 +153,37 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative px-6 py-20 lg:py-28 glass-slate">
         {/* Accent decoration - floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-500/15 to-sage-400/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-sage-500/20 to-burgundy-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-gold-500/15 to-amber-400/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-tan-500/20 to-orange-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-sage-600/8 via-burgundy-600/12 to-sage-600/8"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-600/8 via-gold-600/12 to-tan-600/8"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 glass-burgundy rounded-full px-6 py-3 mb-8 border border-burgundy-400/40 shadow-burgundy transition-transform duration-300"
+                className="inline-flex items-center gap-3 glass-gold rounded-full px-6 py-3 mb-8 border border-gold-400/40 shadow-gold transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 burgundy-sheen rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 gold-sheen rounded-full animate-pulse"></div>
                 <span className="text-sm font-light text-white/95 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
                 Your relationship isn't a rom-com.
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-500 to-sage-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-amber-400">
                   Real growth needs real tools.
                 </span>
               </h1>
               
-              <p className="text-xl lg:text-2xl text-champagne-200/90 mb-12 leading-relaxed font-light">
+              <p className="text-xl lg:text-2xl text-tan-200/90 mb-12 leading-relaxed font-light">
                 We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
-                <Button className="burgundy-sheen hover:shadow-burgundy text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
+                <Button className="gold-sheen hover:shadow-gold text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
@@ -210,8 +210,8 @@ const Index = () => {
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-burgundy-500 to-sage-400">RealSwipe</h2>
-                        <div className="w-8 h-8 burgundy-sheen rounded-full flex items-center justify-center">
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-amber-400">RealSwipe</h2>
+                        <div className="w-8 h-8 gold-sheen rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
                       </div>
@@ -221,10 +221,10 @@ const Index = () => {
                     <div className="px-6 pb-6 flex-1">
                       <div 
                         key={currentProfile}
-                        className="glass-slate rounded-3xl p-6 h-96 relative border border-burgundy-500/30 animate-fade-in"
+                        className="glass-slate rounded-3xl p-6 h-96 relative border border-gold-500/30 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-sage-500/25 to-burgundy-500/20 rounded-2xl overflow-hidden mb-4 border border-burgundy-400/20">
+                        <div className="w-full h-48 bg-gradient-to-br from-tan-500/25 to-amber-500/20 rounded-2xl overflow-hidden mb-4 border border-gold-400/20">
                           <img 
                             src={datingProfiles[currentProfile].photo} 
                             alt={datingProfiles[currentProfile].name}
@@ -237,7 +237,7 @@ const Index = () => {
                           <h3 className="text-2xl font-light mb-1">
                             {datingProfiles[currentProfile].name}, {datingProfiles[currentProfile].age}
                           </h3>
-                          <p className="text-champagne-200/80 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
+                          <p className="text-tan-200/80 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
                         </div>
 
                         {/* Action Buttons */}
@@ -245,8 +245,8 @@ const Index = () => {
                           <div className="w-12 h-12 bg-red-500/25 glass rounded-full flex items-center justify-center border border-red-400/40">
                             <span className="text-red-400 text-xl">✕</span>
                           </div>
-                          <div className="w-12 h-12 glass-burgundy rounded-full flex items-center justify-center border border-burgundy-400/40">
-                            <Heart className="w-5 h-5 text-burgundy-400" />
+                          <div className="w-12 h-12 glass-gold rounded-full flex items-center justify-center border border-gold-400/40">
+                            <Heart className="w-5 h-5 text-gold-400" />
                           </div>
                           <div className="w-12 h-12 bg-sage-500/25 glass rounded-full flex items-center justify-center border border-sage-400/40">
                             <MessageCircle className="w-5 h-5 text-sage-400" />
@@ -261,7 +261,7 @@ const Index = () => {
                         <div
                           key={index}
                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentProfile ? 'bg-burgundy-500' : 'bg-white/30'
+                            index === currentProfile ? 'bg-gold-500' : 'bg-white/30'
                           }`}
                         />
                       ))}
@@ -273,11 +273,11 @@ const Index = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-8 -right-8 w-16 h-16 glass-burgundy rounded-full flex items-center justify-center border border-burgundy-400/40 animate-pulse">
-                  <Heart className="w-6 h-6 text-burgundy-400" />
+                <div className="absolute -top-8 -right-8 w-16 h-16 glass-gold rounded-full flex items-center justify-center border border-gold-400/40 animate-pulse">
+                  <Heart className="w-6 h-6 text-gold-400" />
                 </div>
-                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-sage-500/20 glass rounded-full flex items-center justify-center border border-sage-400/40 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-6 h-6 text-sage-400" />
+                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-orange-500/20 glass rounded-full flex items-center justify-center border border-orange-400/40 animate-pulse" style={{ animationDelay: '1s' }}>
+                  <MessageCircle className="w-6 h-6 text-orange-400" />
                 </div>
               </div>
             </div>
@@ -286,17 +286,17 @@ const Index = () => {
       </section>
 
       {/* Visual Break with Accent */}
-      <section className="px-6 py-8 relative glass-slate border-y border-burgundy-500/15">
+      <section className="px-6 py-8 relative glass-slate border-y border-gold-500/15">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line with floating dots */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-burgundy-500/50 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></div>
             {/* Accent dots */}
-            <div className="absolute left-1/4 w-2 h-2 bg-burgundy-500/70 rounded-full animate-pulse"></div>
-            <div className="absolute right-1/4 w-2 h-2 bg-sage-400/70 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute left-1/4 w-2 h-2 bg-gold-500/70 rounded-full animate-pulse"></div>
+            <div className="absolute right-1/4 w-2 h-2 bg-amber-400/70 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             {/* Center icon */}
             <div className="absolute glass-slate px-6 rounded-full">
-              <div className="w-12 h-12 burgundy-sheen rounded-full flex items-center justify-center mb-4 mx-auto border border-burgundy-400/40">
+              <div className="w-12 h-12 gold-sheen rounded-full flex items-center justify-center mb-4 mx-auto border border-gold-400/40">
                 <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -304,11 +304,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Real Talk Section - Enhanced with combined content */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-maroon-900/20 via-tan-900/15 to-maroon-900/20 backdrop-blur-sm border-y border-gold-400/20">
+      {/* Real Talk Section - Enhanced with Sunset Canyon colors */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-bronze-900/20 via-tan-900/15 to-bronze-900/20 backdrop-blur-sm border-y border-gold-400/20">
         {/* Dramatic Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-tan-500/8 via-gold-500/12 to-tan-500/8"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(180,140,100,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(200,160,100,0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(245,158,11,0.15),transparent_50%)]"></div>
         
         {/* Accent Lines */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-400/60 to-transparent"></div>
@@ -382,7 +382,7 @@ const Index = () => {
       </section>
 
       {/* How It Actually Works */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-maroon-900/30 via-tan-900/20 to-maroon-900/30 backdrop-blur-sm border-b border-gold-400/5">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-bronze-900/30 via-tan-900/20 to-bronze-900/30 backdrop-blur-sm border-b border-gold-400/5">
         {/* Accent - connecting lines */}
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-300/30 to-transparent"></div>
@@ -401,42 +401,42 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
-              <div className="w-20 h-20 glass-copper rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-copper-400/40">
-                <Brain className="w-10 h-10 text-copper-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-gold transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-gold-500/25">
+              <div className="w-20 h-20 glass-gold rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-gold-400/40">
+                <Brain className="w-10 h-10 text-gold-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
-              <p className="text-ivory-200/80 leading-relaxed font-light">
+              <p className="text-tan-200/80 leading-relaxed font-light">
                 Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, what makes you feel loved, and yes, even your weird quirks. The more honest you are, the better we can help.
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
-              <div className="w-20 h-20 bg-sage-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-sage-400/40">
-                <Target className="w-10 h-10 text-sage-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-amber transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-amber-500/25">
+              <div className="w-20 h-20 bg-amber-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-amber-400/40">
+                <Target className="w-10 h-10 text-amber-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
-              <p className="text-ivory-200/80 leading-relaxed font-light">
+              <p className="text-tan-200/80 leading-relaxed font-light">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
-              <div className="w-20 h-20 bg-sage-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-sage-400/40">
-                <MessageCircle className="w-10 h-10 text-sage-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-orange transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-orange-500/25">
+              <div className="w-20 h-20 bg-orange-500/25 glass rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-orange-400/40">
+                <MessageCircle className="w-10 h-10 text-orange-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
-              <p className="text-ivory-200/80 leading-relaxed font-light">
+              <p className="text-tan-200/80 leading-relaxed font-light">
                 Scared to bring up that thing? Practice the conversation with our AI first. It knows both your communication styles, so you can figure out the best approach without the drama.
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-copper transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-copper-500/25">
-              <div className="w-20 h-20 glass-copper rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-copper-400/40">
-                <Sparkles className="w-10 h-10 text-copper-400" />
+            <Card className="p-8 border-0 shadow-xl glass-slate hover:shadow-bronze transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-bronze-500/25">
+              <div className="w-20 h-20 glass-bronze rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-bronze-400/40">
+                <Sparkles className="w-10 h-10 text-bronze-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions Made Easy</h3>
-              <p className="text-ivory-200/80 leading-relaxed font-light">
+              <p className="text-tan-200/80 leading-relaxed font-light">
                 Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
               </p>
             </Card>
@@ -445,7 +445,7 @@ const Index = () => {
       </section>
 
       {/* Why Different Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-maroon-900/35 via-tan-900/25 to-maroon-900/35 backdrop-blur-sm border-b border-gold-400/5">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-bronze-900/35 via-tan-900/25 to-bronze-900/35 backdrop-blur-sm border-b border-gold-400/5">
         {/* Accent - grid pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -489,8 +489,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section - Reorganized with Better Visual Flow */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-tan-900/25 via-maroon-900/25 to-tan-900/25 backdrop-blur-sm">
+      {/* Final CTA Section - Reorganized with Sunset Canyon colors */}
+      <section className="px-6 py-20 relative bg-gradient-to-br from-tan-900/25 via-bronze-900/25 to-tan-900/25 backdrop-blur-sm">
         {/* Accent - radiating circles */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <div className="w-96 h-96 border border-gold-300/30 rounded-full animate-pulse"></div>
@@ -602,15 +602,15 @@ const Index = () => {
       )}
 
       {/* Footer */}
-      <footer className="px-6 py-16 bg-black/60 glass relative border-t border-burgundy-400/15">
+      <footer className="px-6 py-16 bg-black/60 glass relative border-t border-gold-400/15">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 burgundy-sheen rounded-full flex items-center justify-center shadow-burgundy border border-burgundy-400/30">
+            <div className="w-8 h-8 gold-sheen rounded-full flex items-center justify-center shadow-gold border border-gold-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
-          <p className="text-champagne-200/80 font-light text-lg">Finally, an app that gets your relationship.</p>
+          <p className="text-tan-200/80 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
       </footer>
     </div>

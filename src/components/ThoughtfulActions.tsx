@@ -48,7 +48,7 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         {/* Header - Improved typography hierarchy and spacing */}
         <div className="text-center space-y-6">
           <h2 className="text-3xl font-bold text-white leading-tight">Turn Insights Into Action</h2>
-          <p className="text-lg text-champagne-200/80 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-tan-200/80 max-w-xl mx-auto leading-relaxed">
             Small, thoughtful actions that strengthen your connection with {partnerName}
           </p>
         </div>
@@ -73,20 +73,20 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         />
 
         {/* Custom Action Creator - Reduced padding and improved proportions */}
-        <Card className="p-10 glass-slate border border-burgundy-500/25 shadow-burgundy rounded-2xl max-w-2xl mx-auto">
+        <Card className="p-10 glass-slate border border-gold-400/25 shadow-gold rounded-2xl max-w-2xl mx-auto">
           <div className="text-center space-y-8">
-            <div className="w-16 h-16 burgundy-sheen rounded-2xl flex items-center justify-center mx-auto shadow-burgundy">
+            <div className="w-16 h-16 gold-sheen rounded-2xl flex items-center justify-center mx-auto shadow-gold">
               <Lightbulb className="w-8 h-8 text-white" />
             </div>
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-white leading-tight">Create Your Own Action</h3>
-              <p className="text-champagne-200/80 max-w-md mx-auto leading-relaxed">
+              <p className="text-tan-200/80 max-w-md mx-auto leading-relaxed">
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="burgundy-sheen hover:shadow-burgundy text-white px-8 py-3 text-base font-semibold shadow-burgundy hover:shadow-2xl transition-all duration-300 border-0 rounded-xl"
+              className="gold-sheen hover:shadow-gold text-white px-8 py-3 text-base font-semibold shadow-gold hover:shadow-2xl transition-all duration-300 border-0 rounded-xl"
             >
               Plan Custom Action
               <Heart className="w-5 h-5 ml-2" />
