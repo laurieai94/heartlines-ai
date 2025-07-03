@@ -242,50 +242,118 @@
   }
 
   /* Sophisticated Maroon color utilities */
-  .from-maroon-500 { --tw-gradient-from: hsl(var(--maroon-500)) !important; }
-  .to-maroon-500 { --tw-gradient-to: hsl(var(--maroon-500)) !important; }
-  .from-maroon-700 { --tw-gradient-from: hsl(var(--maroon-700)) !important; }
-  .to-maroon-700 { --tw-gradient-to: hsl(var(--maroon-700)) !important; }
-  .from-maroon-800 { --tw-gradient-from: hsl(var(--maroon-800)) !important; }
-  .to-maroon-800 { --tw-gradient-to: hsl(var(--maroon-800)) !important; }
-  .from-maroon-900 { --tw-gradient-from: hsl(var(--maroon-900)) !important; }
-  .to-maroon-900 { --tw-gradient-to: hsl(var(--maroon-900)) !important; }
+  .from-maroon-500 { 
+    --tw-gradient-from: hsl(var(--maroon-500));
+  }
+  .to-maroon-500 { 
+    --tw-gradient-to: hsl(var(--maroon-500));
+  }
+  .from-maroon-700 { 
+    --tw-gradient-from: hsl(var(--maroon-700));
+  }
+  .to-maroon-700 { 
+    --tw-gradient-to: hsl(var(--maroon-700));
+  }
+  .from-maroon-800 { 
+    --tw-gradient-from: hsl(var(--maroon-800));
+  }
+  .to-maroon-800 { 
+    --tw-gradient-to: hsl(var(--maroon-800));
+  }
+  .from-maroon-900 { 
+    --tw-gradient-from: hsl(var(--maroon-900));
+  }
+  .to-maroon-900 { 
+    --tw-gradient-to: hsl(var(--maroon-900));
+  }
   
-  .bg-maroon-700 { background-color: hsl(var(--maroon-700)) !important; }
-  .bg-maroon-800 { background-color: hsl(var(--maroon-800)) !important; }
-  .bg-maroon-900 { background-color: hsl(var(--maroon-900)) !important; }
+  .bg-maroon-700 { 
+    background-color: hsl(var(--maroon-700));
+  }
+  .bg-maroon-800 { 
+    background-color: hsl(var(--maroon-800));
+  }
+  .bg-maroon-900 { 
+    background-color: hsl(var(--maroon-900));
+  }
   
-  .text-maroon-400 { color: hsl(var(--maroon-400)) !important; }
-  .text-maroon-500 { color: hsl(var(--maroon-500)) !important; }
+  .text-maroon-400 { 
+    color: hsl(var(--maroon-400));
+  }
+  .text-maroon-500 { 
+    color: hsl(var(--maroon-500));
+  }
 
   /* Tan color utilities */
-  .from-tan-300 { --tw-gradient-from: hsl(var(--tan-300)) !important; }
-  .to-tan-300 { --tw-gradient-to: hsl(var(--tan-300)) !important; }
-  .from-tan-400 { --tw-gradient-from: hsl(var(--tan-400)) !important; }
-  .to-tan-400 { --tw-gradient-to: hsl(var(--tan-400)) !important; }
-  .from-tan-500 { --tw-gradient-from: hsl(var(--tan-500)) !important; }
-  .to-tan-500 { --tw-gradient-to: hsl(var(--tan-500)) !important; }
+  .from-tan-300 { 
+    --tw-gradient-from: hsl(var(--tan-300));
+  }
+  .to-tan-300 { 
+    --tw-gradient-to: hsl(var(--tan-300));
+  }
+  .from-tan-400 { 
+    --tw-gradient-from: hsl(var(--tan-400));
+  }
+  .to-tan-400 { 
+    --tw-gradient-to: hsl(var(--tan-400));
+  }
+  .from-tan-500 { 
+    --tw-gradient-from: hsl(var(--tan-500));
+  }
+  .to-tan-500 { 
+    --tw-gradient-to: hsl(var(--tan-500));
+  }
   
-  .bg-tan-200 { background-color: hsl(var(--tan-200)) !important; }
-  .bg-tan-300 { background-color: hsl(var(var(--tan-300)) !important; }
-  .bg-tan-400 { background-color: hsl(var(--tan-400)) !important; }
+  .bg-tan-200 { 
+    background-color: hsl(var(--tan-200));
+  }
+  .bg-tan-300 { 
+    background-color: hsl(var(--tan-300));
+  }
+  .bg-tan-400 { 
+    background-color: hsl(var(--tan-400));
+  }
   
-  .text-tan-100 { color: hsl(var(--tan-100)) !important; }
-  .text-tan-200 { color: hsl(var(--tan-200)) !important; }
+  .text-tan-100 { 
+    color: hsl(var(--tan-100));
+  }
+  .text-tan-200 { 
+    color: hsl(var(--tan-200));
+  }
 
   /* Gold color utilities */
-  .from-gold-400 { --tw-gradient-from: hsl(var(--gold-400)) !important; }
-  .to-gold-400 { --tw-gradient-to: hsl(var(--gold-400)) !important; }
-  .from-gold-500 { --tw-gradient-from: hsl(var(--gold-500)) !important; }
-  .to-gold-500 { --tw-gradient-to: hsl(var(--gold-500)) !important; }
-  .from-gold-600 { --tw-gradient-from: hsl(var(--gold-600)) !important; }
-  .to-gold-600 { --tw-gradient-to: hsl(var(--gold-600)) !important; }
+  .from-gold-400 { 
+    --tw-gradient-from: hsl(var(--gold-400));
+  }
+  .to-gold-400 { 
+    --tw-gradient-to: hsl(var(--gold-400));
+  }
+  .from-gold-500 { 
+    --tw-gradient-from: hsl(var(--gold-500));
+  }
+  .to-gold-500 { 
+    --tw-gradient-to: hsl(var(--gold-500));
+  }
+  .from-gold-600 { 
+    --tw-gradient-from: hsl(var(--gold-600));
+  }
+  .to-gold-600 { 
+    --tw-gradient-to: hsl(var(--gold-600));
+  }
   
-  .bg-gold-400 { background-color: hsl(var(--gold-400)) !important; }
-  .bg-gold-500 { background-color: hsl(var(var(--gold-500)) !important; }
+  .bg-gold-400 { 
+    background-color: hsl(var(--gold-400));
+  }
+  .bg-gold-500 { 
+    background-color: hsl(var(--gold-500));
+  }
   
-  .text-gold-400 { color: hsl(var(--gold-400)) !important; }
-  .text-gold-500 { color: hsl(var(--gold-500)) !important; }
+  .text-gold-400 { 
+    color: hsl(var(--gold-400));
+  }
+  .text-gold-500 { 
+    color: hsl(var(--gold-500));
+  }
 
   /* Questionnaire premium styling - Updated colors */
   .questionnaire-bg {
