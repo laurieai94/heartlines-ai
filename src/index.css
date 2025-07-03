@@ -49,102 +49,102 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Modern Botanical Minimalism Color Palette */
+    /* Modern Botanical Minimalism Color Palette - Exact Hex Matches */
     
     /* Dark Green-Gray #283618 - Primary Dark */
-    --green-gray-50: 68 32% 95%;
-    --green-gray-100: 68 28% 88%;
-    --green-gray-200: 68 25% 75%;
-    --green-gray-300: 68 22% 62%;
-    --green-gray-400: 68 25% 48%;
-    --green-gray-500: 68 30% 35%;
-    --green-gray-600: 68 35% 25%;
-    --green-gray-700: 68 40% 18%;
-    --green-gray-800: 68 45% 12%;
-    --green-gray-900: 68 50% 8%;
+    --green-gray-50: 68 39% 95%;
+    --green-gray-100: 68 39% 88%;
+    --green-gray-200: 68 39% 75%;
+    --green-gray-300: 68 39% 62%;
+    --green-gray-400: 68 39% 48%;
+    --green-gray-500: 68 39% 35%;
+    --green-gray-600: 68 39% 25%;
+    --green-gray-700: 68 39% 18%;
+    --green-gray-800: 68 39% 13%;
+    --green-gray-900: 68 39% 8%;
     
     /* Light Gray-Green #B7B7A4 - Muted Secondary */
-    --gray-green-50: 60 15% 96%;
-    --gray-green-100: 60 12% 90%;
-    --gray-green-200: 60 10% 82%;
-    --gray-green-300: 60 8% 72%;
-    --gray-green-400: 60 6% 64%;
-    --gray-green-500: 60 8% 56%;
-    --gray-green-600: 60 10% 48%;
-    --gray-green-700: 60 12% 40%;
-    --gray-green-800: 60 15% 32%;
-    --gray-green-900: 60 18% 24%;
+    --gray-green-50: 60 8% 95%;
+    --gray-green-100: 60 8% 88%;
+    --gray-green-200: 60 8% 82%;
+    --gray-green-300: 60 8% 75%;
+    --gray-green-400: 60 8% 69%;
+    --gray-green-500: 60 8% 62%;
+    --gray-green-600: 60 8% 55%;
+    --gray-green-700: 60 8% 48%;
+    --gray-green-800: 60 8% 40%;
+    --gray-green-900: 60 8% 32%;
     
     /* Soft Gray #D4D4D4 - Neutral Background */
     --soft-gray-50: 0 0% 98%;
     --soft-gray-100: 0 0% 94%;
-    --soft-gray-200: 0 0% 83%;
-    --soft-gray-300: 0 0% 74%;
-    --soft-gray-400: 0 0% 65%;
-    --soft-gray-500: 0 0% 56%;
-    --soft-gray-600: 0 0% 47%;
-    --soft-gray-700: 0 0% 38%;
-    --soft-gray-800: 0 0% 29%;
-    --soft-gray-900: 0 0% 20%;
+    --soft-gray-200: 0 0% 88%;
+    --soft-gray-300: 0 0% 83%;
+    --soft-gray-400: 0 0% 78%;
+    --soft-gray-500: 0 0% 73%;
+    --soft-gray-600: 0 0% 68%;
+    --soft-gray-700: 0 0% 63%;
+    --soft-gray-800: 0 0% 58%;
+    --soft-gray-900: 0 0% 53%;
     
     /* Off-White #F0EFEB - Clean Background */
-    --off-white-50: 40 25% 98%;
-    --off-white-100: 40 20% 95%;
-    --off-white-200: 40 15% 90%;
-    --off-white-300: 40 12% 85%;
-    --off-white-400: 40 10% 80%;
+    --off-white-50: 40 20% 98%;
+    --off-white-100: 40 20% 96%;
+    --off-white-200: 40 20% 94%;
+    --off-white-300: 40 20% 92%;
+    --off-white-400: 40 20% 90%;
     
     /* Light Orange #FFBF69 - Primary Accent */
     --orange-50: 42 100% 95%;
     --orange-100: 42 100% 88%;
     --orange-200: 42 100% 80%;
-    --orange-300: 42 100% 72%;
-    --orange-400: 42 100% 64%;
-    --orange-500: 42 100% 58%;
-    --orange-600: 42 95% 52%;
-    --orange-700: 42 90% 46%;
-    --orange-800: 42 85% 40%;
-    --orange-900: 42 80% 34%;
+    --orange-300: 42 100% 75%;
+    --orange-400: 42 100% 71%;
+    --orange-500: 42 100% 65%;
+    --orange-600: 42 95% 58%;
+    --orange-700: 42 90% 52%;
+    --orange-800: 42 85% 46%;
+    --orange-900: 42 80% 40%;
     
     /* Muted Pink #CB997E - Secondary Accent */
-    --pink-50: 24 50% 95%;
-    --pink-100: 24 45% 88%;
-    --pink-200: 24 40% 80%;
-    --pink-300: 24 35% 72%;
-    --pink-400: 24 30% 64%;
-    --pink-500: 24 25% 56%;
-    --pink-600: 24 28% 48%;
-    --pink-700: 24 32% 40%;
-    --pink-800: 24 36% 32%;
-    --pink-900: 24 40% 24%;
+    --pink-50: 24 28% 95%;
+    --pink-100: 24 28% 88%;
+    --pink-200: 24 28% 80%;
+    --pink-300: 24 28% 75%;
+    --pink-400: 24 28% 70%;
+    --pink-500: 24 28% 65%;
+    --pink-600: 24 28% 60%;
+    --pink-700: 24 28% 55%;
+    --pink-800: 24 28% 50%;
+    --pink-900: 24 28% 45%;
     
     /* Pale Peach #FFE8D6 - Soft Highlight */
     --peach-50: 32 100% 96%;
-    --peach-100: 32 100% 92%;
-    --peach-200: 32 100% 86%;
-    --peach-300: 32 100% 80%;
-    --peach-400: 32 100% 74%;
-    --peach-500: 32 100% 68%;
-    --peach-600: 32 95% 62%;
-    --peach-700: 32 90% 56%;
-    --peach-800: 32 85% 50%;
-    --peach-900: 32 80% 44%;
+    --peach-100: 32 100% 94%;
+    --peach-200: 32 100% 92%;
+    --peach-300: 32 100% 88%;
+    --peach-400: 32 100% 84%;
+    --peach-500: 32 100% 80%;
+    --peach-600: 32 95% 76%;
+    --peach-700: 32 90% 72%;
+    --peach-800: 32 85% 68%;
+    --peach-900: 32 80% 64%;
 
     /* Premium questionnaire colors - Updated to botanical palette */
-    --questionnaire-bg: 68 40% 18%;
-    --questionnaire-bg-dark: 68 50% 8%;
+    --questionnaire-bg: 68 39% 13%;
+    --questionnaire-bg-dark: 68 39% 8%;
     --questionnaire-card: 0 0% 100% / 0.08;
     --questionnaire-border: 0 0% 100% / 0.15;
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 92%;
     
     /* Premium gradients - Botanical minimalism */
-    --gradient-questionnaire: linear-gradient(135deg, hsl(68 40% 18%) 0%, hsl(68 50% 8%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, hsl(42 100% 58%) 0%, hsl(24 28% 48%) 100%);
-    --gradient-selected: linear-gradient(135deg, hsl(42 100% 58%) 0%, hsl(32 100% 68%) 100%);
-    --gradient-sophisticated: linear-gradient(135deg, hsl(68 40% 18%) 0%, hsl(42 100% 58%) 30%, hsl(24 28% 48%) 70%, hsl(60 8% 56%) 100%);
-    --gradient-botanical: linear-gradient(135deg, hsl(68 50% 8%) 0%, hsl(60 8% 56%) 25%, hsl(42 100% 58%) 50%, hsl(24 28% 48%) 75%, hsl(32 100% 68%) 100%);
-    --gradient-serenity: linear-gradient(135deg, hsl(60 8% 56%) 0%, hsl(32 100% 68%) 30%, hsl(40 20% 95%) 70%, hsl(68 25% 35%) 100%);
+    --gradient-questionnaire: linear-gradient(135deg, hsl(68 39% 13%) 0%, hsl(68 39% 8%) 100%);
+    --gradient-primary-button: linear-gradient(135deg, hsl(42 100% 71%) 0%, hsl(24 28% 65%) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(42 100% 71%) 0%, hsl(32 100% 92%) 100%);
+    --gradient-sophisticated: linear-gradient(135deg, hsl(68 39% 13%) 0%, hsl(42 100% 71%) 30%, hsl(24 28% 65%) 70%, hsl(60 8% 69%) 100%);
+    --gradient-botanical: linear-gradient(135deg, hsl(68 39% 8%) 0%, hsl(60 8% 69%) 25%, hsl(42 100% 71%) 50%, hsl(24 28% 65%) 75%, hsl(32 100% 92%) 100%);
+    --gradient-serenity: linear-gradient(135deg, hsl(60 8% 69%) 0%, hsl(32 100% 92%) 30%, hsl(40 20% 94%) 70%, hsl(68 39% 18%) 100%);
   }
 
   .dark {
@@ -281,10 +281,6 @@
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
   }
 
-  .shadow-neon {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(139, 92, 246, 0.2);
-  }
-
   .shadow-botanical {
     box-shadow: 0 10px 30px rgba(40, 54, 24, 0.2), 0 5px 15px rgba(40, 54, 24, 0.15);
   }
@@ -344,59 +340,14 @@
     border: 1px solid rgba(183, 183, 164, 0.2);
   }
 
-  /* Color utilities for botanical palette */
-  
-  /* Green-Gray utilities */
-  .from-green-gray-700 { --tw-gradient-from: hsl(var(--green-gray-700)); }
-  .to-green-gray-700 { --tw-gradient-to: hsl(var(--green-gray-700)); }
-  .from-green-gray-800 { --tw-gradient-from: hsl(var(--green-gray-800)); }
-  .to-green-gray-800 { --tw-gradient-to: hsl(var(--green-gray-800)); }
-  .bg-green-gray-700 { background-color: hsl(var(--green-gray-700)); }
-  .bg-green-gray-800 { background-color: hsl(var(--green-gray-800)); }
-  .text-green-gray-700 { color: hsl(var(--green-gray-700)); }
-  .text-green-gray-800 { color: hsl(var(--green-gray-800)); }
-
-  /* Orange utilities */
-  .from-orange-400 { --tw-gradient-from: hsl(var(--orange-400)); }
-  .to-orange-500 { --tw-gradient-to: hsl(var(--orange-500)); }
-  .bg-orange-400 { background-color: hsl(var(--orange-400)); }
-  .bg-orange-500 { background-color: hsl(var(--orange-500)); }
-  .text-orange-400 { color: hsl(var(--orange-400)); }
-  .text-orange-500 { color: hsl(var(--orange-500)); }
-  .border-orange-400 { border-color: hsl(var(--orange-400)) / 0.3; }
-
-  /* Pink utilities */
-  .from-pink-500 { --tw-gradient-from: hsl(var(--pink-500)); }
-  .to-pink-600 { --tw-gradient-to: hsl(var(--pink-600)); }
-  .bg-pink-500 { background-color: hsl(var(--pink-500)); }
-  .text-pink-500 { color: hsl(var(--pink-500)); }
-
-  /* Peach utilities */
-  .from-peach-400 { --tw-gradient-from: hsl(var(--peach-400)); }
-  .to-peach-500 { --tw-gradient-to: hsl(var(--peach-500)); }
-  .bg-peach-400 { background-color: hsl(var(--peach-400)); }
-  .text-peach-400 { color: hsl(var(--peach-400)); }
-
-  /* Gray-Green utilities */
-  .from-gray-green-400 { --tw-gradient-from: hsl(var(--gray-green-400)); }
-  .to-gray-green-500 { --tw-gradient-to: hsl(var(--gray-green-500)); }
-  .bg-gray-green-400 { background-color: hsl(var(--gray-green-400)); }
-  .text-gray-green-400 { color: hsl(var(--gray-green-400)); }
-  .text-gray-green-500 { color: hsl(var(--gray-green-500)); }
-
-  /* Off-white utilities */
-  .bg-off-white-100 { background-color: hsl(var(--off-white-100)); }
-  .bg-off-white-200 { background-color: hsl(var(--off-white-200)); }
-  .text-off-white-100 { color: hsl(var(--off-white-100)); }
-
   /* Questionnaire premium styling - Enhanced with botanical colors */
   .questionnaire-bg {
-    background: linear-gradient(135deg, hsl(var(--green-gray-800)) 0%, hsl(var(--green-gray-900)) 100%);
+    background: linear-gradient(135deg, hsl(68 39% 13%) 0%, hsl(68 39% 8%) 100%);
     min-height: 100vh;
   }
 
   .questionnaire-bg-modal {
-    background: linear-gradient(135deg, hsl(var(--green-gray-800)) 0%, hsl(var(--green-gray-900)) 100%);
+    background: linear-gradient(135deg, hsl(68 39% 13%) 0%, hsl(68 39% 8%) 100%);
     height: 100%;
   }
   
@@ -465,45 +416,45 @@
   /* Enhanced botanical sheen effects */
   .botanical-sheen {
     background: linear-gradient(135deg, 
-      hsl(var(--green-gray-800)) 0%, 
-      hsl(var(--green-gray-700)) 25%, 
-      hsl(var(--green-gray-600)) 50%, 
-      hsl(var(--green-gray-700)) 75%, 
-      hsl(var(--green-gray-800)) 100%);
+      hsl(68 39% 13%) 0%, 
+      hsl(68 39% 18%) 25%, 
+      hsl(68 39% 25%) 50%, 
+      hsl(68 39% 18%) 75%, 
+      hsl(68 39% 13%) 100%);
     background-size: 200% 200%;
     animation: shimmer 3s ease-in-out infinite;
   }
 
   .orange-sheen {
     background: linear-gradient(135deg, 
-      hsl(var(--orange-700)) 0%, 
-      hsl(var(--orange-600)) 20%, 
-      hsl(var(--orange-400)) 40%, 
-      hsl(var(--orange-500)) 60%, 
-      hsl(var(--orange-600)) 80%, 
-      hsl(var(--orange-700)) 100%);
+      hsl(42 100% 71%) 0%, 
+      hsl(42 95% 75%) 20%, 
+      hsl(42 100% 80%) 40%, 
+      hsl(42 100% 75%) 60%, 
+      hsl(42 95% 71%) 80%, 
+      hsl(42 100% 71%) 100%);
     background-size: 200% 200%;
     animation: shimmer 3s ease-in-out infinite;
   }
 
   .peach-sheen {
     background: linear-gradient(135deg, 
-      hsl(var(--peach-700)) 0%, 
-      hsl(var(--peach-500)) 30%, 
-      hsl(var(--peach-400)) 50%, 
-      hsl(var(--peach-500)) 70%, 
-      hsl(var(--peach-700)) 100%);
+      hsl(32 100% 92%) 0%, 
+      hsl(32 100% 88%) 30%, 
+      hsl(32 100% 84%) 50%, 
+      hsl(32 100% 88%) 70%, 
+      hsl(32 100% 92%) 100%);
     background-size: 200% 200%;
     animation: shimmer 3s ease-in-out infinite;
   }
 
   .pink-sheen {
     background: linear-gradient(135deg, 
-      hsl(var(--pink-700)) 0%, 
-      hsl(var(--pink-500)) 25%, 
-      hsl(var(--pink-400)) 50%, 
-      hsl(var(--pink-500)) 75%, 
-      hsl(var(--pink-700)) 100%);
+      hsl(24 28% 65%) 0%, 
+      hsl(24 28% 70%) 25%, 
+      hsl(24 28% 75%) 50%, 
+      hsl(24 28% 70%) 75%, 
+      hsl(24 28% 65%) 100%);
     background-size: 200% 200%;
     animation: shimmer 3s ease-in-out infinite;
   }

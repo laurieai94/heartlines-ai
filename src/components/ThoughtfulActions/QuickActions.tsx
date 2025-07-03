@@ -39,7 +39,7 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
               key={category.value}
               variant="outline"
               onClick={() => onSelectAction(category.value)}
-              className="flex items-center gap-3 h-auto py-3.5 px-5 justify-start glass-orange hover:bg-orange-500/20 border-orange-400/30 hover:border-orange-300/50 text-white hover:text-white transition-all duration-200 rounded-xl hover:shadow-orange"
+              className="flex items-center gap-3 h-auto py-3.5 px-5 justify-start glass-orange hover:bg-orange-400/20 border-orange-400/30 hover:border-orange-400/50 text-white hover:text-white transition-all duration-200 rounded-xl hover:shadow-orange"
             >
               <IconComponent className="w-4 h-4 text-orange-400 flex-shrink-0" />
               <span className="text-sm font-medium leading-tight">{category.label}</span>
