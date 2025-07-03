@@ -64,10 +64,10 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
 
   return (
     <div className="fixed inset-0 bg-black/60 glass flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-tan-100">
+      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-off-white-100">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-slate-800">Create Custom Action</h2>
+            <h2 className="text-2xl font-bold text-green-gray-800">Create Custom Action</h2>
             <Button variant="ghost" size="sm" onClick={onClose}>
               <X className="w-5 h-5" />
             </Button>
@@ -78,10 +78,10 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
               <div>
                 <Label htmlFor="category">Action Category</Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger className="bg-white border-slate-300">
+                  <SelectTrigger className="bg-white border-green-gray-300">
                     <SelectValue placeholder="What kind of gesture?" />
                   </SelectTrigger>
-                  <SelectContent className="bg-white border-slate-300">
+                  <SelectContent className="bg-white border-green-gray-300">
                     {ACTION_CATEGORIES.map((cat) => (
                       <SelectItem key={cat.value} value={cat.value}>
                         {cat.label}
@@ -98,7 +98,7 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
                   value={partnerMood}
                   onChange={(e) => setPartnerMood(e.target.value)}
                   placeholder="e.g., stressed, excited, tired, celebrating"
-                  className="bg-white border-slate-300"
+                  className="bg-white border-green-gray-300"
                 />
               </div>
 
@@ -109,7 +109,7 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
                   value={occasion}
                   onChange={(e) => setOccasion(e.target.value)}
                   placeholder="e.g., birthday, anniversary, bad day at work"
-                  className="bg-white border-slate-300"
+                  className="bg-white border-green-gray-300"
                 />
               </div>
             </div>
@@ -123,14 +123,14 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
                   onChange={(e) => setContext(e.target.value)}
                   placeholder={`Any other details about ${partnerName}'s preferences, current situation, or what you're hoping to achieve...`}
                   rows={4}
-                  className="bg-white border-slate-300"
+                  className="bg-white border-green-gray-300"
                 />
               </div>
 
               <Button 
                 onClick={handleGenerateSuggestions}
                 disabled={loading || !category}
-                className="gold-sheen hover:shadow-gold w-full text-white border-0"
+                className="orange-sheen hover:shadow-orange w-full text-white border-0"
               >
                 {loading ? "Generating Ideas..." : "Get Thoughtful Suggestions"}
                 <Sparkles className="w-4 h-4 ml-2" />
