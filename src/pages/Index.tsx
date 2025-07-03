@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -82,15 +83,15 @@ const Index = () => {
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Sophisticated Animated Background - New Palette */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/50 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-copper-700/20 via-copper-600/15 to-slate-800/25 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-sage-600/15 via-copper-600/10 to-slate-900/15 animate-gradient" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-burgundy-700/20 via-burgundy-600/15 to-slate-800/25 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-sage-600/15 via-burgundy-600/10 to-slate-900/15 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-copper-400/40 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-burgundy-400/40 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -119,10 +120,10 @@ const Index = () => {
 
       {/* Code-like Background Elements */}
       <div className="absolute inset-0 overflow-hidden opacity-8">
-        <div className="absolute top-20 left-10 font-mono text-xs text-ivory-200">
+        <div className="absolute top-20 left-10 font-mono text-xs text-champagne-200">
           {`const love = { understanding: true, growth: infinite }`}
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-copper-300">
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-burgundy-300">
           {`if (relationship.status === 'complicated') { ai.help() }`}
         </div>
         <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-sage-300">
@@ -131,17 +132,17 @@ const Index = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 glass-slate border-b border-copper-500/20">
+      <nav className="px-6 py-4 relative z-10 glass-slate border-b border-burgundy-500/20">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 copper-sheen rounded-xl flex items-center justify-center shadow-copper border border-copper-400/30">
+            <div className="w-8 h-8 burgundy-sheen rounded-xl flex items-center justify-center shadow-burgundy border border-burgundy-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
           <div className="flex items-center">
             <Link to="/dashboard">
-              <Button variant="outline" className="border-copper-500/60 text-copper-400 hover:bg-copper-500/15 rounded-full font-thin glass">
+              <Button variant="outline" className="border-burgundy-500/60 text-burgundy-400 hover:bg-burgundy-500/15 rounded-full font-thin glass">
                 Get Started - It's Free
               </Button>
             </Link>
@@ -152,37 +153,37 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative px-6 py-20 lg:py-28 glass-slate">
         {/* Accent decoration - floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-copper-500/15 to-sage-400/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-sage-500/20 to-copper-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-500/15 to-sage-400/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-sage-500/20 to-burgundy-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-sage-600/8 via-copper-600/12 to-sage-600/8"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-sage-600/8 via-burgundy-600/12 to-sage-600/8"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 glass-copper rounded-full px-6 py-3 mb-8 border border-copper-400/40 shadow-copper transition-transform duration-300"
+                className="inline-flex items-center gap-3 glass-burgundy rounded-full px-6 py-3 mb-8 border border-burgundy-400/40 shadow-burgundy transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 copper-sheen rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 burgundy-sheen rounded-full animate-pulse"></div>
                 <span className="text-sm font-light text-white/95 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
                 Your relationship isn't a rom-com.
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-copper-500 to-sage-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-burgundy-500 to-sage-400">
                   Real growth needs real tools.
                 </span>
               </h1>
               
-              <p className="text-xl lg:text-2xl text-ivory-200/90 mb-12 leading-relaxed font-light">
+              <p className="text-xl lg:text-2xl text-champagne-200/90 mb-12 leading-relaxed font-light">
                 We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
-                <Button className="copper-sheen hover:shadow-copper text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
+                <Button className="burgundy-sheen hover:shadow-burgundy text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
@@ -209,8 +210,8 @@ const Index = () => {
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-copper-500 to-sage-400">RealSwipe</h2>
-                        <div className="w-8 h-8 copper-sheen rounded-full flex items-center justify-center">
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-burgundy-500 to-sage-400">RealSwipe</h2>
+                        <div className="w-8 h-8 burgundy-sheen rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
                       </div>
@@ -220,10 +221,10 @@ const Index = () => {
                     <div className="px-6 pb-6 flex-1">
                       <div 
                         key={currentProfile}
-                        className="glass-slate rounded-3xl p-6 h-96 relative border border-copper-500/30 animate-fade-in"
+                        className="glass-slate rounded-3xl p-6 h-96 relative border border-burgundy-500/30 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-sage-500/25 to-copper-500/20 rounded-2xl overflow-hidden mb-4 border border-copper-400/20">
+                        <div className="w-full h-48 bg-gradient-to-br from-sage-500/25 to-burgundy-500/20 rounded-2xl overflow-hidden mb-4 border border-burgundy-400/20">
                           <img 
                             src={datingProfiles[currentProfile].photo} 
                             alt={datingProfiles[currentProfile].name}
@@ -236,7 +237,7 @@ const Index = () => {
                           <h3 className="text-2xl font-light mb-1">
                             {datingProfiles[currentProfile].name}, {datingProfiles[currentProfile].age}
                           </h3>
-                          <p className="text-ivory-200/80 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
+                          <p className="text-champagne-200/80 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
                         </div>
 
                         {/* Action Buttons */}
@@ -244,8 +245,8 @@ const Index = () => {
                           <div className="w-12 h-12 bg-red-500/25 glass rounded-full flex items-center justify-center border border-red-400/40">
                             <span className="text-red-400 text-xl">✕</span>
                           </div>
-                          <div className="w-12 h-12 glass-copper rounded-full flex items-center justify-center border border-copper-400/40">
-                            <Heart className="w-5 h-5 text-copper-400" />
+                          <div className="w-12 h-12 glass-burgundy rounded-full flex items-center justify-center border border-burgundy-400/40">
+                            <Heart className="w-5 h-5 text-burgundy-400" />
                           </div>
                           <div className="w-12 h-12 bg-sage-500/25 glass rounded-full flex items-center justify-center border border-sage-400/40">
                             <MessageCircle className="w-5 h-5 text-sage-400" />
@@ -260,7 +261,7 @@ const Index = () => {
                         <div
                           key={index}
                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentProfile ? 'bg-copper-500' : 'bg-white/30'
+                            index === currentProfile ? 'bg-burgundy-500' : 'bg-white/30'
                           }`}
                         />
                       ))}
@@ -272,8 +273,8 @@ const Index = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-8 -right-8 w-16 h-16 glass-copper rounded-full flex items-center justify-center border border-copper-400/40 animate-pulse">
-                  <Heart className="w-6 h-6 text-copper-400" />
+                <div className="absolute -top-8 -right-8 w-16 h-16 glass-burgundy rounded-full flex items-center justify-center border border-burgundy-400/40 animate-pulse">
+                  <Heart className="w-6 h-6 text-burgundy-400" />
                 </div>
                 <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-sage-500/20 glass rounded-full flex items-center justify-center border border-sage-400/40 animate-pulse" style={{ animationDelay: '1s' }}>
                   <MessageCircle className="w-6 h-6 text-sage-400" />
@@ -285,17 +286,17 @@ const Index = () => {
       </section>
 
       {/* Visual Break with Accent */}
-      <section className="px-6 py-8 relative glass-slate border-y border-copper-500/15">
+      <section className="px-6 py-8 relative glass-slate border-y border-burgundy-500/15">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line with floating dots */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-copper-500/50 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-burgundy-500/50 to-transparent"></div>
             {/* Accent dots */}
-            <div className="absolute left-1/4 w-2 h-2 bg-copper-500/70 rounded-full animate-pulse"></div>
+            <div className="absolute left-1/4 w-2 h-2 bg-burgundy-500/70 rounded-full animate-pulse"></div>
             <div className="absolute right-1/4 w-2 h-2 bg-sage-400/70 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             {/* Center icon */}
             <div className="absolute glass-slate px-6 rounded-full">
-              <div className="w-12 h-12 copper-sheen rounded-full flex items-center justify-center mb-4 mx-auto border border-copper-400/40">
+              <div className="w-12 h-12 burgundy-sheen rounded-full flex items-center justify-center mb-4 mx-auto border border-burgundy-400/40">
                 <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -601,15 +602,15 @@ const Index = () => {
       )}
 
       {/* Footer */}
-      <footer className="px-6 py-16 bg-black/60 glass relative border-t border-copper-400/15">
+      <footer className="px-6 py-16 bg-black/60 glass relative border-t border-burgundy-400/15">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 copper-sheen rounded-full flex items-center justify-center shadow-copper border border-copper-400/30">
+            <div className="w-8 h-8 burgundy-sheen rounded-full flex items-center justify-center shadow-burgundy border border-burgundy-400/30">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
-          <p className="text-ivory-200/80 font-light text-lg">Finally, an app that gets your relationship.</p>
+          <p className="text-champagne-200/80 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
       </footer>
     </div>

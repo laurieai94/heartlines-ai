@@ -64,7 +64,7 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
 
   return (
     <div className="fixed inset-0 bg-black/60 glass flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-ivory-100">
+      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-champagne-100">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-slate-800">Create Custom Action</h2>
@@ -130,7 +130,7 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
               <Button 
                 onClick={handleGenerateSuggestions}
                 disabled={loading || !category}
-                className="copper-sheen hover:shadow-copper w-full text-white border-0"
+                className="burgundy-sheen hover:shadow-burgundy w-full text-white border-0"
               >
                 {loading ? "Generating Ideas..." : "Get Thoughtful Suggestions"}
                 <Sparkles className="w-4 h-4 ml-2" />
