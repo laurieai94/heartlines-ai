@@ -29,7 +29,7 @@ interface QuickActionsProps {
 
 const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActionsProps) => {
   return (
-    <Card className="p-8 glass-emerald shadow-power-3xl rounded-2xl border border-emerald-400/20">
+    <Card className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
       <h3 className="text-xl font-semibold text-white mb-8 leading-tight">Quick Inspiration</h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {ACTION_CATEGORIES.map((category) => {
@@ -39,9 +39,9 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
               key={category.value}
               variant="outline"
               onClick={() => onSelectAction(category.value)}
-              className="flex items-center gap-3 h-auto py-3.5 px-5 justify-start glass-copper hover:glass-gold border-copper-400/30 hover:border-gold-400/40 text-white hover:text-white transition-all duration-200 rounded-xl shadow-lg hover:shadow-copper-glow hover:transform hover:scale-105"
+              className="flex items-center gap-3 h-auto py-3.5 px-5 justify-start bg-white/5 hover:bg-white/15 border-white/20 hover:border-white/30 text-white hover:text-white transition-all duration-200 rounded-xl"
             >
-              <IconComponent className="w-4 h-4 text-gold-500 flex-shrink-0" />
+              <IconComponent className="w-4 h-4 text-orange-400 flex-shrink-0" />
               <span className="text-sm font-medium leading-tight">{category.label}</span>
             </Button>
           );
