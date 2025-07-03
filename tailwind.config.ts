@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,22 +62,54 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				coral: {
-					50: 'hsl(var(--coral-50))',
-					100: 'hsl(var(--coral-100))',
-					200: 'hsl(var(--coral-200))',
-					300: 'hsl(var(--coral-300))',
-					400: 'hsl(var(--coral-400))',
-					500: 'hsl(var(--coral-500))',
-					600: 'hsl(var(--coral-600))',
+				maroon: {
+					50: 'hsl(var(--maroon-50))',
+					100: 'hsl(var(--maroon-100))',
+					200: 'hsl(var(--maroon-200))',
+					300: 'hsl(var(--maroon-300))',
+					400: 'hsl(var(--maroon-400))',
+					500: 'hsl(var(--maroon-500))',
+					600: 'hsl(var(--maroon-600))',
+					700: 'hsl(var(--maroon-700))',
+					800: 'hsl(var(--maroon-800))',
+					900: 'hsl(var(--maroon-900))',
 				},
+				tan: {
+					50: 'hsl(var(--tan-50))',
+					100: 'hsl(var(--tan-100))',
+					200: 'hsl(var(--tan-200))',
+					300: 'hsl(var(--tan-300))',
+					400: 'hsl(var(--tan-400))',
+					500: 'hsl(var(--tan-500))',
+					600: 'hsl(var(--tan-600))',
+				},
+				gold: {
+					50: 'hsl(var(--gold-50))',
+					100: 'hsl(var(--gold-100))',
+					200: 'hsl(var(--gold-200))',
+					300: 'hsl(var(--gold-300))',
+					400: 'hsl(var(--gold-400))',
+					500: 'hsl(var(--gold-500))',
+					600: 'hsl(var(--gold-600))',
+				},
+				// Keep coral for backwards compatibility but make it represent tan tones
+				coral: {
+					50: 'hsl(var(--tan-50))',
+					100: 'hsl(var(--tan-100))',
+					200: 'hsl(var(--tan-200))',
+					300: 'hsl(var(--tan-300))',
+					400: 'hsl(var(--tan-400))',
+					500: 'hsl(var(--tan-500))',
+					600: 'hsl(var(--tan-600))',
+				},
+				// Keep peach for backwards compatibility but make it represent gold tones
 				peach: {
-					50: 'hsl(var(--peach-50))',
-					100: 'hsl(var(--peach-100))',
-					200: 'hsl(var(--peach-200))',
-					300: 'hsl(var(--peach-300))',
-					400: 'hsl(var(--peach-400))',
-					500: 'hsl(var(--peach-500))',
+					50: 'hsl(var(--gold-50))',
+					100: 'hsl(var(--gold-100))',
+					200: 'hsl(var(--gold-200))',
+					300: 'hsl(var(--gold-300))',
+					400: 'hsl(var(--gold-400))',
+					500: 'hsl(var(--gold-500))',
 				}
 			},
 			fontFamily: {

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,34 +49,51 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom warm colors */
-    --coral-50: 16 100% 97%;
-    --coral-100: 16 92% 91%;
-    --coral-200: 16 88% 82%;
-    --coral-300: 16 84% 72%;
-    --coral-400: 16 80% 62%;
-    --coral-500: 16 76% 52%;
-    --coral-600: 16 72% 42%;
+    /* Sophisticated Androgynous Color Palette */
     
-    --peach-50: 25 100% 97%;
-    --peach-100: 25 92% 91%;
-    --peach-200: 25 88% 82%;
-    --peach-300: 25 84% 72%;
-    --peach-400: 25 80% 62%;
-    --peach-500: 25 76% 52%;
+    /* Deep Maroon/Burgundy - Primary backgrounds */
+    --maroon-50: 345 85% 95%;
+    --maroon-100: 345 75% 85%;
+    --maroon-200: 345 70% 75%;
+    --maroon-300: 345 65% 65%;
+    --maroon-400: 345 60% 55%;
+    --maroon-500: 345 55% 45%;
+    --maroon-600: 345 60% 35%;
+    --maroon-700: 345 65% 25%;
+    --maroon-800: 345 70% 18%;
+    --maroon-900: 345 75% 12%;
+    
+    /* Rich Tan/Camel - Secondary backgrounds */
+    --tan-50: 30 50% 92%;
+    --tan-100: 30 45% 82%;
+    --tan-200: 30 40% 72%;
+    --tan-300: 30 45% 62%;
+    --tan-400: 30 45% 52%;
+    --tan-500: 30 40% 42%;
+    --tan-600: 30 35% 32%;
+    
+    /* Antique Gold/Brass - Accent colors */
+    --gold-50: 45 85% 92%;
+    --gold-100: 45 80% 82%;
+    --gold-200: 45 75% 72%;
+    --gold-300: 45 70% 62%;
+    --gold-400: 45 75% 55%;
+    --gold-500: 45 80% 48%;
+    --gold-600: 45 85% 42%;
 
-    /* Premium questionnaire colors - Lightened slightly */
-    --questionnaire-bg: 345 35% 55%;
-    --questionnaire-bg-dark: 345 40% 45%;
+    /* Premium questionnaire colors - Updated to maroon theme */
+    --questionnaire-bg: 345 55% 25%;
+    --questionnaire-bg-dark: 345 65% 18%;
     --questionnaire-card: 0 0% 100% / 0.1;
     --questionnaire-border: 0 0% 100% / 0.2;
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 90%;
     
-    /* Premium gradients */
-    --gradient-questionnaire: linear-gradient(135deg, hsl(345 35% 55%) 0%, hsl(345 40% 45%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
-    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    /* Premium gradients - Sophisticated maroon to gold */
+    --gradient-questionnaire: linear-gradient(135deg, hsl(345 55% 25%) 0%, hsl(345 65% 18%) 100%);
+    --gradient-primary-button: linear-gradient(135deg, hsl(45 75% 55%) 0%, hsl(45 80% 48%) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(45 75% 55%) 0%, hsl(30 45% 52%) 100%);
+    --gradient-sophisticated: linear-gradient(135deg, hsl(345 65% 25%) 0%, hsl(30 40% 42%) 50%, hsl(45 75% 55%) 100%);
   }
 
   .dark {
@@ -216,65 +234,67 @@
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(139, 92, 246, 0.2);
   }
 
-  /* Glassmorphism */
+  /* Glassmorphism - Updated for sophisticated palette */
   .glass {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(30, 20, 20, 0.05);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(180, 140, 100, 0.1);
   }
 
-  /* Coral color utilities */
-  .from-coral-50 { --tw-gradient-from: hsl(var(--coral-50)) !important; }
-  .to-coral-50 { --tw-gradient-to: hsl(var(--coral-50)) !important; }
-  .via-coral-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--coral-50)), var(--tw-gradient-to) !important; }
-  .from-coral-100 { --tw-gradient-from: hsl(var(--coral-100)) !important; }
-  .to-coral-100 { --tw-gradient-to: hsl(var(--coral-100)) !important; }
-  .from-coral-200 { --tw-gradient-from: hsl(var(--coral-200)) !important; }
-  .to-coral-200 { --tw-gradient-to: hsl(var(--coral-200)) !important; }
-  .from-coral-300 { --tw-gradient-from: hsl(var(--coral-300)) !important; }
-  .to-coral-300 { --tw-gradient-to: hsl(var(--coral-300)) !important; }
-  .from-coral-400 { --tw-gradient-from: hsl(var(--coral-400)) !important; }
-  .to-coral-400 { --tw-gradient-to: hsl(var(--coral-400)) !important; }
-  .from-coral-500 { --tw-gradient-from: hsl(var(--coral-500)) !important; }
-  .to-coral-500 { --tw-gradient-to: hsl(var(--coral-500)) !important; }
+  /* Sophisticated Maroon color utilities */
+  .from-maroon-500 { --tw-gradient-from: hsl(var(--maroon-500)) !important; }
+  .to-maroon-500 { --tw-gradient-to: hsl(var(--maroon-500)) !important; }
+  .from-maroon-700 { --tw-gradient-from: hsl(var(--maroon-700)) !important; }
+  .to-maroon-700 { --tw-gradient-to: hsl(var(--maroon-700)) !important; }
+  .from-maroon-800 { --tw-gradient-from: hsl(var(--maroon-800)) !important; }
+  .to-maroon-800 { --tw-gradient-to: hsl(var(--maroon-800)) !important; }
+  .from-maroon-900 { --tw-gradient-from: hsl(var(--maroon-900)) !important; }
+  .to-maroon-900 { --tw-gradient-to: hsl(var(--maroon-900)) !important; }
   
-  .bg-coral-50 { background-color: hsl(var(--coral-50)) !important; }
-  .bg-coral-100 { background-color: hsl(var(--coral-100)) !important; }
-  .bg-coral-200 { background-color: hsl(var(--coral-200)) !important; }
-  .bg-coral-400 { background-color: hsl(var(--coral-400)) !important; }
-  .bg-coral-500 { background-color: hsl(var(--coral-500)) !important; }
-  .bg-coral-600 { background-color: hsl(var(--coral-600)) !important; }
+  .bg-maroon-700 { background-color: hsl(var(--maroon-700)) !important; }
+  .bg-maroon-800 { background-color: hsl(var(--maroon-800)) !important; }
+  .bg-maroon-900 { background-color: hsl(var(--maroon-900)) !important; }
   
-  .text-coral-600 { color: hsl(var(--coral-600)) !important; }
-  .text-coral-700 { color: hsl(var(--coral-700)) !important; }
-  
-  .border-coral-200 { border-color: hsl(var(--coral-200)) !important; }
-  .border-coral-300 { border-color: hsl(var(--coral-300)) !important; }
-  .focus\:border-coral-300:focus { border-color: hsl(var(--coral-300)) !important; }
-  .focus\:ring-coral-200\/30:focus { --tw-ring-color: hsl(var(--coral-200) / 0.3) !important; }
-  
-  .hover\:bg-coral-50:hover { background-color: hsl(var(--coral-50)) !important; }
-  .hover\:text-coral-600:hover { color: hsl(var(--coral-600)) !important; }
-  .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--coral-500)) !important; }
-  .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--coral-500)) !important; }
+  .text-maroon-400 { color: hsl(var(--maroon-400)) !important; }
+  .text-maroon-500 { color: hsl(var(--maroon-500)) !important; }
 
-  /* Shadow colors for coral */
-  .shadow-coral-200\/50 { --tw-shadow-color: hsl(var(--coral-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  /* Tan color utilities */
+  .from-tan-300 { --tw-gradient-from: hsl(var(--tan-300)) !important; }
+  .to-tan-300 { --tw-gradient-to: hsl(var(--tan-300)) !important; }
+  .from-tan-400 { --tw-gradient-from: hsl(var(--tan-400)) !important; }
+  .to-tan-400 { --tw-gradient-to: hsl(var(--tan-400)) !important; }
+  .from-tan-500 { --tw-gradient-from: hsl(var(--tan-500)) !important; }
+  .to-tan-500 { --tw-gradient-to: hsl(var(--tan-500)) !important; }
+  
+  .bg-tan-200 { background-color: hsl(var(--tan-200)) !important; }
+  .bg-tan-300 { background-color: hsl(var(var(--tan-300)) !important; }
+  .bg-tan-400 { background-color: hsl(var(--tan-400)) !important; }
+  
+  .text-tan-100 { color: hsl(var(--tan-100)) !important; }
+  .text-tan-200 { color: hsl(var(--tan-200)) !important; }
 
-  /* Peach color utilities */
-  .from-peach-200 { --tw-gradient-from: hsl(var(--peach-200)) !important; }
-  .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
-  .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
-  .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
+  /* Gold color utilities */
+  .from-gold-400 { --tw-gradient-from: hsl(var(--gold-400)) !important; }
+  .to-gold-400 { --tw-gradient-to: hsl(var(--gold-400)) !important; }
+  .from-gold-500 { --tw-gradient-from: hsl(var(--gold-500)) !important; }
+  .to-gold-500 { --tw-gradient-to: hsl(var(--gold-500)) !important; }
+  .from-gold-600 { --tw-gradient-from: hsl(var(--gold-600)) !important; }
+  .to-gold-600 { --tw-gradient-to: hsl(var(--gold-600)) !important; }
+  
+  .bg-gold-400 { background-color: hsl(var(--gold-400)) !important; }
+  .bg-gold-500 { background-color: hsl(var(var(--gold-500)) !important; }
+  
+  .text-gold-400 { color: hsl(var(--gold-400)) !important; }
+  .text-gold-500 { color: hsl(var(--gold-500)) !important; }
 
-  /* Questionnaire premium styling */
+  /* Questionnaire premium styling - Updated colors */
   .questionnaire-bg {
-    background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
+    background: linear-gradient(135deg, hsl(var(--maroon-700)) 0%, hsl(var(--maroon-900)) 100%);
     min-height: 100vh;
   }
 
   .questionnaire-bg-modal {
-    background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
+    background: linear-gradient(135deg, hsl(var(--maroon-700)) 0%, hsl(var(--maroon-900)) 100%);
     height: 100%;
   }
   
@@ -302,7 +322,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 10px 30px rgba(200, 160, 100, 0.3);
   }
   
   .questionnaire-button-secondary {
@@ -323,6 +343,11 @@
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 8px 25px rgba(200, 160, 100, 0.3);
+  }
+
+  /* Sophisticated gradient utility */
+  .bg-sophisticated-gradient {
+    background: var(--gradient-sophisticated);
   }
 }
