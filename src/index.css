@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,34 +49,54 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom warm colors */
-    --coral-50: 16 100% 97%;
-    --coral-100: 16 92% 91%;
-    --coral-200: 16 88% 82%;
-    --coral-300: 16 84% 72%;
-    --coral-400: 16 80% 62%;
-    --coral-500: 16 76% 52%;
-    --coral-600: 16 72% 42%;
+    /* New Earth-tone Color System */
+    /* Forest Green Scale */
+    --forest-50: 150 20% 95%;
+    --forest-100: 150 25% 88%;
+    --forest-200: 150 30% 78%;
+    --forest-300: 150 35% 65%;
+    --forest-400: 150 40% 50%;
+    --forest-500: 150 45% 35%;
+    --forest-600: 150 50% 25%;
     
-    --peach-50: 25 100% 97%;
-    --peach-100: 25 92% 91%;
-    --peach-200: 25 88% 82%;
-    --peach-300: 25 84% 72%;
-    --peach-400: 25 80% 62%;
-    --peach-500: 25 76% 52%;
+    /* Terracotta Scale */
+    --terracotta-50: 15 40% 95%;
+    --terracotta-100: 15 45% 88%;
+    --terracotta-200: 15 50% 78%;
+    --terracotta-300: 15 55% 68%;
+    --terracotta-400: 15 60% 58%;
+    --terracotta-500: 15 65% 48%;
+    --terracotta-600: 15 70% 38%;
+    
+    /* Golden Yellow Scale */
+    --golden-50: 45 60% 95%;
+    --golden-100: 45 70% 88%;
+    --golden-200: 45 75% 78%;
+    --golden-300: 45 80% 68%;
+    --golden-400: 45 85% 58%;
+    --golden-500: 45 90% 48%;
+    --golden-600: 45 85% 38%;
+    
+    /* Tan/Cream Scale */
+    --tan-50: 35 30% 95%;
+    --tan-100: 35 35% 88%;
+    --tan-200: 35 40% 78%;
+    --tan-300: 35 45% 68%;
+    --tan-400: 35 50% 58%;
+    --tan-500: 35 55% 48%;
 
-    /* Premium questionnaire colors - Lightened slightly */
-    --questionnaire-bg: 345 35% 55%;
-    --questionnaire-bg-dark: 345 40% 45%;
+    /* Premium questionnaire colors - Earth tone theme */
+    --questionnaire-bg: 150 30% 20%;
+    --questionnaire-bg-dark: 150 35% 15%;
     --questionnaire-card: 0 0% 100% / 0.1;
     --questionnaire-border: 0 0% 100% / 0.2;
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 90%;
     
-    /* Premium gradients */
-    --gradient-questionnaire: linear-gradient(135deg, hsl(345 35% 55%) 0%, hsl(345 40% 45%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
-    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    /* Premium gradients - Earth tone theme */
+    --gradient-questionnaire: linear-gradient(135deg, hsl(150 30% 20%) 0%, hsl(150 35% 15%) 100%);
+    --gradient-primary-button: linear-gradient(135deg, hsl(15 65% 48%) 0%, hsl(45 85% 58%) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(15 65% 48%) 0%, hsl(45 85% 58%) 100%);
   }
 
   .dark {
@@ -223,51 +244,78 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Coral color utilities */
-  .from-coral-50 { --tw-gradient-from: hsl(var(--coral-50)) !important; }
-  .to-coral-50 { --tw-gradient-to: hsl(var(--coral-50)) !important; }
-  .via-coral-50 { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--coral-50)), var(--tw-gradient-to) !important; }
-  .from-coral-100 { --tw-gradient-from: hsl(var(--coral-100)) !important; }
-  .to-coral-100 { --tw-gradient-to: hsl(var(--coral-100)) !important; }
-  .from-coral-200 { --tw-gradient-from: hsl(var(--coral-200)) !important; }
-  .to-coral-200 { --tw-gradient-to: hsl(var(--coral-200)) !important; }
-  .from-coral-300 { --tw-gradient-from: hsl(var(--coral-300)) !important; }
-  .to-coral-300 { --tw-gradient-to: hsl(var(--coral-300)) !important; }
-  .from-coral-400 { --tw-gradient-from: hsl(var(--coral-400)) !important; }
-  .to-coral-400 { --tw-gradient-to: hsl(var(--coral-400)) !important; }
-  .from-coral-500 { --tw-gradient-from: hsl(var(--coral-500)) !important; }
-  .to-coral-500 { --tw-gradient-to: hsl(var(--coral-500)) !important; }
+  /* Forest Green utilities */
+  .from-forest-50 { --tw-gradient-from: hsl(var(--forest-50)) !important; }
+  .to-forest-50 { --tw-gradient-to: hsl(var(--forest-50)) !important; }
+  .from-forest-100 { --tw-gradient-from: hsl(var(--forest-100)) !important; }
+  .to-forest-100 { --tw-gradient-to: hsl(var(--forest-100)) !important; }
+  .from-forest-200 { --tw-gradient-from: hsl(var(--forest-200)) !important; }
+  .to-forest-200 { --tw-gradient-to: hsl(var(--forest-200)) !important; }
+  .from-forest-300 { --tw-gradient-from: hsl(var(--forest-300)) !important; }
+  .to-forest-300 { --tw-gradient-to: hsl(var(--forest-300)) !important; }
+  .from-forest-400 { --tw-gradient-from: hsl(var(--forest-400)) !important; }
+  .to-forest-400 { --tw-gradient-to: hsl(var(--forest-400)) !important; }
+  .from-forest-500 { --tw-gradient-from: hsl(var(--forest-500)) !important; }
+  .to-forest-500 { --tw-gradient-to: hsl(var(--forest-500)) !important; }
   
-  .bg-coral-50 { background-color: hsl(var(--coral-50)) !important; }
-  .bg-coral-100 { background-color: hsl(var(--coral-100)) !important; }
-  .bg-coral-200 { background-color: hsl(var(--coral-200)) !important; }
-  .bg-coral-400 { background-color: hsl(var(--coral-400)) !important; }
-  .bg-coral-500 { background-color: hsl(var(--coral-500)) !important; }
-  .bg-coral-600 { background-color: hsl(var(--coral-600)) !important; }
+  .bg-forest-50 { background-color: hsl(var(--forest-50)) !important; }
+  .bg-forest-100 { background-color: hsl(var(--forest-100)) !important; }
+  .bg-forest-200 { background-color: hsl(var(--forest-200)) !important; }
+  .bg-forest-400 { background-color: hsl(var(--forest-400)) !important; }
+  .bg-forest-500 { background-color: hsl(var(--forest-500)) !important; }
+  .bg-forest-600 { background-color: hsl(var(--forest-600)) !important; }
   
-  .text-coral-600 { color: hsl(var(--coral-600)) !important; }
-  .text-coral-700 { color: hsl(var(--coral-700)) !important; }
+  .text-forest-600 { color: hsl(var(--forest-600)) !important; }
+  .text-forest-700 { color: hsl(var(--forest-700)) !important; }
   
-  .border-coral-200 { border-color: hsl(var(--coral-200)) !important; }
-  .border-coral-300 { border-color: hsl(var(--coral-300)) !important; }
-  .focus\:border-coral-300:focus { border-color: hsl(var(--coral-300)) !important; }
-  .focus\:ring-coral-200\/30:focus { --tw-ring-color: hsl(var(--coral-200) / 0.3) !important; }
+  .border-forest-200 { border-color: hsl(var(--forest-200)) !important; }
+  .border-forest-300 { border-color: hsl(var(--forest-300)) !important; }
+  .focus\:border-forest-300:focus { border-color: hsl(var(--forest-300)) !important; }
+  .focus\:ring-forest-200\/30:focus { --tw-ring-color: hsl(var(--forest-200) / 0.3) !important; }
   
-  .hover\:bg-coral-50:hover { background-color: hsl(var(--coral-50)) !important; }
-  .hover\:text-coral-600:hover { color: hsl(var(--coral-600)) !important; }
-  .hover\:from-coral-500:hover { --tw-gradient-from: hsl(var(--coral-500)) !important; }
-  .hover\:to-coral-500:hover { --tw-gradient-to: hsl(var(--coral-500)) !important; }
+  .hover\:bg-forest-50:hover { background-color: hsl(var(--forest-50)) !important; }
+  .hover\:text-forest-600:hover { color: hsl(var(--forest-600)) !important; }
+  .hover\:from-forest-500:hover { --tw-gradient-from: hsl(var(--forest-500)) !important; }
+  .hover\:to-forest-500:hover { --tw-gradient-to: hsl(var(--forest-500)) !important; }
 
-  /* Shadow colors for coral */
-  .shadow-coral-200\/50 { --tw-shadow-color: hsl(var(--coral-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  /* Terracotta utilities */
+  .from-terracotta-200 { --tw-gradient-from: hsl(var(--terracotta-200)) !important; }
+  .to-terracotta-200 { --tw-gradient-to: hsl(var(--terracotta-200)) !important; }
+  .from-terracotta-50 { --tw-gradient-from: hsl(var(--terracotta-50)) !important; }
+  .to-terracotta-50 { --tw-gradient-to: hsl(var(--terracotta-50)) !important; }
+  .from-terracotta-400 { --tw-gradient-from: hsl(var(--terracotta-400)) !important; }
+  .to-terracotta-400 { --tw-gradient-to: hsl(var(--terracotta-400)) !important; }
+  .from-terracotta-500 { --tw-gradient-from: hsl(var(--terracotta-500)) !important; }
+  .to-terracotta-500 { --tw-gradient-to: hsl(var(--terracotta-500)) !important; }
 
-  /* Peach color utilities */
-  .from-peach-200 { --tw-gradient-from: hsl(var(--peach-200)) !important; }
-  .to-peach-200 { --tw-gradient-to: hsl(var(--peach-200)) !important; }
-  .from-peach-50 { --tw-gradient-from: hsl(var(--peach-50)) !important; }
-  .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
+  .bg-terracotta-50 { background-color: hsl(var(--terracotta-50)) !important; }
+  .bg-terracotta-100 { background-color: hsl(var(--terracotta-100)) !important; }
+  .bg-terracotta-400 { background-color: hsl(var(--terracotta-400)) !important; }
+  .bg-terracotta-500 { background-color: hsl(var(--terracotta-500)) !important; }
 
-  /* Questionnaire premium styling */
+  /* Golden Yellow utilities */
+  .from-golden-200 { --tw-gradient-from: hsl(var(--golden-200)) !important; }
+  .to-golden-200 { --tw-gradient-to: hsl(var(--golden-200)) !important; }
+  .from-golden-400 { --tw-gradient-from: hsl(var(--golden-400)) !important; }
+  .to-golden-400 { --tw-gradient-to: hsl(var(--golden-400)) !important; }
+
+  .bg-golden-400 { background-color: hsl(var(--golden-400)) !important; }
+  .text-golden-600 { color: hsl(var(--golden-600)) !important; }
+
+  /* Tan utilities */
+  .from-tan-50 { --tw-gradient-from: hsl(var(--tan-50)) !important; }
+  .to-tan-50 { --tw-gradient-to: hsl(var(--tan-50)) !important; }
+  .from-tan-200 { --tw-gradient-from: hsl(var(--tan-200)) !important; }
+  .to-tan-200 { --tw-gradient-to: hsl(var(--tan-200)) !important; }
+
+  .bg-tan-50 { background-color: hsl(var(--tan-50)) !important; }
+  .bg-tan-100 { background-color: hsl(var(--tan-100)) !important; }
+
+  /* Shadow colors for earth tones */
+  .shadow-terracotta-200\/50 { --tw-shadow-color: hsl(var(--terracotta-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  .shadow-golden-200\/50 { --tw-shadow-color: hsl(var(--golden-200) / 0.5); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+
+  /* Questionnaire premium styling - Earth tone theme */
   .questionnaire-bg {
     background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
     min-height: 100vh;
@@ -302,7 +350,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 10px 30px rgba(221, 144, 101, 0.3);
   }
   
   .questionnaire-button-secondary {
@@ -323,6 +371,6 @@
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 8px 25px rgba(221, 144, 101, 0.3);
   }
 }

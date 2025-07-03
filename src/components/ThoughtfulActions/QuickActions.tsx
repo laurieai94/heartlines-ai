@@ -41,7 +41,7 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
               onClick={() => onSelectAction(category.value)}
               className="flex items-center gap-3 h-auto py-3.5 px-5 justify-start bg-white/5 hover:bg-white/15 border-white/20 hover:border-white/30 text-white hover:text-white transition-all duration-200 rounded-xl"
             >
-              <IconComponent className="w-4 h-4 text-orange-400 flex-shrink-0" />
+              <IconComponent className="w-4 h-4 text-golden-400 flex-shrink-0" />
               <span className="text-sm font-medium leading-tight">{category.label}</span>
             </Button>
           );
