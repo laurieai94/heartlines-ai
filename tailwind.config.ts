@@ -1,7 +1,7 @@
 
 import type { Config } from "tailwindcss";
 
-// Color palette constants
+// === COLOR PALETTE CONSTANTS ===
 const MONOCHROME_COLORS = {
   'rich-black': { DEFAULT: 'hsl(var(--rich-black))' },
   'warm-white': { DEFAULT: 'hsl(var(--warm-white))' },
@@ -16,6 +16,20 @@ const LAVENDER_COLORS = {
   'lavender-soft': { DEFAULT: 'hsl(var(--lavender-soft))' },
   'lavender-deep': { DEFAULT: 'hsl(var(--lavender-deep))' },
   'lavender-mist': { DEFAULT: 'hsl(var(--lavender-mist))' },
+};
+
+const ELECTRIC_COLORS = {
+  'electric-blue': { DEFAULT: 'hsl(var(--electric-blue))' },
+  'neon-cyan': { DEFAULT: 'hsl(var(--neon-cyan))' },
+  'electric-purple': { DEFAULT: 'hsl(var(--electric-purple))' },
+  'hot-pink': { DEFAULT: 'hsl(var(--hot-pink))' },
+  'electric-lime': { DEFAULT: 'hsl(var(--electric-lime))' },
+  'neon-blue': { DEFAULT: 'hsl(var(--neon-blue))' },
+  'royal-blue': { DEFAULT: 'hsl(var(--royal-blue))' },
+  'deep-purple': { DEFAULT: 'hsl(var(--deep-purple))' },
+  'midnight-blue': { DEFAULT: 'hsl(var(--midnight-blue))' },
+  'indigo': { DEFAULT: 'hsl(var(--indigo))' },
+  'steel-blue': { DEFAULT: 'hsl(var(--steel-blue))' },
 };
 
 const SHADCN_COLORS = {
@@ -64,7 +78,7 @@ const SHADCN_COLORS = {
   },
 };
 
-// Animation keyframes
+// === ANIMATION KEYFRAMES ===
 const KEYFRAMES = {
   'accordion-down': {
     from: { height: '0' },
@@ -102,10 +116,24 @@ const KEYFRAMES = {
   'lavender-pulse': {
     '0%, 100%': { opacity: '0.3' },
     '50%': { opacity: '0.6' }
+  },
+  'electric-pulse': {
+    '0%, 100%': { opacity: '0.4' },
+    '50%': { opacity: '0.8' }
+  },
+  'neon-glow': {
+    '0%, 100%': { 
+      boxShadow: '0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor',
+      opacity: '0.8'
+    },
+    '50%': { 
+      boxShadow: '0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor',
+      opacity: '1'
+    }
   }
 };
 
-// Animation utilities
+// === ANIMATION UTILITIES ===
 const ANIMATIONS = {
   'accordion-down': 'accordion-down 0.2s ease-out',
   'accordion-up': 'accordion-up 0.2s ease-out',
@@ -115,9 +143,12 @@ const ANIMATIONS = {
   'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
   'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
   'monochrome-pulse': 'monochrome-pulse 3s ease-in-out infinite',
-  'lavender-pulse': 'lavender-pulse 4s ease-in-out infinite'
+  'lavender-pulse': 'lavender-pulse 4s ease-in-out infinite',
+  'electric-pulse': 'electric-pulse 2s ease-in-out infinite',
+  'neon-glow': 'neon-glow 2s ease-in-out infinite'
 };
 
+// === MAIN CONFIGURATION ===
 export default {
   darkMode: ["class"],
   content: [
@@ -141,6 +172,7 @@ export default {
         ...SHADCN_COLORS,
         ...MONOCHROME_COLORS,
         ...LAVENDER_COLORS,
+        ...ELECTRIC_COLORS,
       },
 
       // === TYPOGRAPHY ===

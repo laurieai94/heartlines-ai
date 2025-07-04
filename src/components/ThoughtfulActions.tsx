@@ -45,9 +45,11 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
   return (
     <div className="w-full">
       <div className="space-y-10">
-        {/* Header - Improved typography hierarchy and spacing */}
+        {/* Header - Enhanced with electric accent */}
         <div className="text-center space-y-6">
-          <h2 className="text-3xl font-bold text-white leading-tight">Turn Insights Into Action</h2>
+          <h2 className="text-3xl font-bold text-white leading-tight">
+            Turn Insights Into <span className="text-electric-blue">Action</span>
+          </h2>
           <p className="text-lg text-medium-gray max-w-xl mx-auto leading-relaxed">
             Small, thoughtful actions that strengthen your connection with {partnerName}
           </p>
@@ -72,21 +74,23 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
           demographicsData={demographicsData}
         />
 
-        {/* Custom Action Creator - Enhanced with Lavender Accents */}
+        {/* Custom Action Creator - Enhanced with Electric Blue Accents */}
         <Card className="p-10 bg-white/10 backdrop-blur-sm border border-white/20 shadow-elegant rounded-2xl max-w-2xl mx-auto">
           <div className="text-center space-y-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-lavender to-lavender-deep rounded-2xl flex items-center justify-center mx-auto shadow-elegant border border-lavender/30">
+            <div className="w-16 h-16 bg-gradient-to-r from-electric-blue to-electric-purple rounded-2xl flex items-center justify-center mx-auto shadow-elegant border border-electric-blue/30 neon-glow-blue">
               <Lightbulb className="w-8 h-8 text-white" />
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white leading-tight">Create Your Own Action</h3>
+              <h3 className="text-2xl font-bold text-white leading-tight">
+                Create Your Own <span className="text-electric-blue">Action</span>
+              </h3>
               <p className="text-medium-gray max-w-md mx-auto leading-relaxed">
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-lavender to-lavender-deep hover:from-lavender-deep hover:to-lavender text-white px-8 py-3 text-base font-semibold shadow-elegant hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
+              className="bg-gradient-to-r from-electric-blue to-neon-blue hover:from-neon-blue hover:to-electric-purple text-white px-8 py-3 text-base font-semibold shadow-elegant hover:shadow-3xl transition-all duration-300 border-0 rounded-xl hover:neon-glow-blue"
             >
               Plan Custom Action
               <Heart className="w-5 h-5 ml-2" />

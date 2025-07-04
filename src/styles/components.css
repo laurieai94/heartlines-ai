@@ -20,6 +20,25 @@
     border: 1px solid rgba(150, 123, 182, 0.2);
   }
 
+  /* Electric Glassmorphism - New vibrant styles */
+  .glass-electric-blue {
+    background: rgba(0, 191, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+  }
+
+  .glass-neon-cyan {
+    background: rgba(0, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+  }
+
+  .glass-electric-purple {
+    background: rgba(128, 0, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(128, 0, 255, 0.2);
+  }
+
   /* Blue & Purple Glassmorphism */
   .glass-royal-blue {
     background: rgba(65, 105, 225, 0.1);
@@ -33,7 +52,26 @@
     border: 1px solid rgba(70, 130, 180, 0.2);
   }
 
-  /* Questionnaire premium styling - Monochrome with accent highlights */
+  /* Neon Glow Effects */
+  .neon-glow-blue {
+    box-shadow: 0 0 5px hsl(var(--electric-blue)), 
+                0 0 10px hsl(var(--electric-blue)), 
+                0 0 15px hsl(var(--electric-blue));
+  }
+
+  .neon-glow-cyan {
+    box-shadow: 0 0 5px hsl(var(--neon-cyan)), 
+                0 0 10px hsl(var(--neon-cyan)), 
+                0 0 15px hsl(var(--neon-cyan));
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 5px hsl(var(--electric-purple)), 
+                0 0 10px hsl(var(--electric-purple)), 
+                0 0 15px hsl(var(--electric-purple));
+  }
+
+  /* Questionnaire premium styling - Enhanced with electric accents */
   .questionnaire-bg {
     background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
     min-height: 100vh;
@@ -70,6 +108,19 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(150, 123, 182, 0.3);
   }
+
+  /* Electric Enhanced Buttons */
+  .questionnaire-button-electric {
+    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--neon-blue)) 100%);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+  }
+  
+  .questionnaire-button-electric:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 191, 255, 0.4);
+  }
   
   .questionnaire-button-secondary {
     background: rgba(255, 255, 255, 0.1);
@@ -84,6 +135,13 @@
     border-color: rgba(150, 123, 182, 0.3);
     transform: translateY(-1px);
   }
+
+  /* Electric Enhanced Secondary Buttons */
+  .questionnaire-button-secondary-electric:hover {
+    background: rgba(0, 191, 255, 0.15);
+    border-color: rgba(0, 191, 255, 0.3);
+    transform: translateY(-1px);
+  }
   
   .questionnaire-button-selected {
     background: linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--lavender-deep)) 100%);
@@ -91,5 +149,14 @@
     border: none;
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(150, 123, 182, 0.3);
+  }
+
+  /* Electric Enhanced Selected Buttons */
+  .questionnaire-button-selected-electric {
+    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-purple)) 100%);
+    color: white;
+    border: none;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
   }
 }

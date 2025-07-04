@@ -15,12 +15,26 @@
     --lavender-deep: 248 53% 58%;     /* Deep Slate Blue #6A5ACD */
     --lavender-mist: 240 67% 94%;     /* Light Lavender #E6E6FA */
     
+    /* Electric & Vibrant Color Palette - High energy accents */
+    --electric-blue: 199 100% 50%;    /* Electric Blue #00BFFF */
+    --neon-cyan: 180 100% 50%;        /* Neon Cyan #00FFFF */
+    --electric-purple: 270 100% 50%;  /* Electric Purple #8000FF */
+    --hot-pink: 330 100% 50%;         /* Hot Pink #FF0080 */
+    --electric-lime: 75 100% 50%;     /* Electric Lime #80FF00 */
+    --neon-blue: 210 100% 56%;        /* Neon Blue #0080FF */
+    
     /* Sophisticated Blue & Purple Highlights */
     --royal-blue: 225 73% 57%;        /* Royal Blue #4169E1 */
     --deep-purple: 248 53% 58%;       /* Deep Purple #6A5ACD */
     --midnight-blue: 230 65% 47%;     /* Midnight Blue #2E4BC6 */
     --indigo: 275 100% 25%;           /* Indigo #4B0082 */
     --steel-blue: 207 44% 49%;        /* Steel Blue #4682B4 */
+    
+    /* Electric gradients with dynamic energy */
+    --gradient-electric: linear-gradient(135deg, hsl(199 100% 50%) 0%, hsl(270 100% 50%) 100%);
+    --gradient-neon: linear-gradient(135deg, hsl(180 100% 50%) 0%, hsl(330 100% 50%) 100%);
+    --gradient-electric-blue: linear-gradient(135deg, hsl(199 100% 50%) 0%, hsl(210 100% 56%) 100%);
+    --gradient-cyber: linear-gradient(135deg, hsl(199 100% 50%) 0%, hsl(75 100% 50%) 50%, hsl(330 100% 50%) 100%);
     
     /* Monochrome gradients with accent touches */
     --gradient-primary: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 11%) 100%);
@@ -72,6 +86,28 @@
   .border-lavender-deep { border-color: hsl(var(--lavender-deep)); }
   .border-lavender-mist { border-color: hsl(var(--lavender-mist)); }
 
+  /* Electric & Vibrant Color Utilities */
+  .bg-electric-blue { background-color: hsl(var(--electric-blue)); }
+  .bg-neon-cyan { background-color: hsl(var(--neon-cyan)); }
+  .bg-electric-purple { background-color: hsl(var(--electric-purple)); }
+  .bg-hot-pink { background-color: hsl(var(--hot-pink)); }
+  .bg-electric-lime { background-color: hsl(var(--electric-lime)); }
+  .bg-neon-blue { background-color: hsl(var(--neon-blue)); }
+  
+  .text-electric-blue { color: hsl(var(--electric-blue)); }
+  .text-neon-cyan { color: hsl(var(--neon-cyan)); }
+  .text-electric-purple { color: hsl(var(--electric-purple)); }
+  .text-hot-pink { color: hsl(var(--hot-pink)); }
+  .text-electric-lime { color: hsl(var(--electric-lime)); }
+  .text-neon-blue { color: hsl(var(--neon-blue)); }
+  
+  .border-electric-blue { border-color: hsl(var(--electric-blue)); }
+  .border-neon-cyan { border-color: hsl(var(--neon-cyan)); }
+  .border-electric-purple { border-color: hsl(var(--electric-purple)); }
+  .border-hot-pink { border-color: hsl(var(--hot-pink)); }
+  .border-electric-lime { border-color: hsl(var(--electric-lime)); }
+  .border-neon-blue { border-color: hsl(var(--neon-blue)); }
+
   /* Blue & Purple Highlight utilities */
   .bg-royal-blue { background-color: hsl(var(--royal-blue)); }
   .bg-deep-purple { background-color: hsl(var(--deep-purple)); }
@@ -91,7 +127,7 @@
   .border-indigo { border-color: hsl(var(--indigo)); }
   .border-steel-blue { border-color: hsl(var(--steel-blue)); }
 
-  /* Gradient utilities */
+  /* Enhanced Gradient utilities */
   .from-rich-black { --tw-gradient-from: hsl(var(--rich-black)); }
   .to-rich-black { --tw-gradient-to: hsl(var(--rich-black)); }
   .via-rich-black { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--rich-black)), var(--tw-gradient-to); }
@@ -119,6 +155,21 @@
   .from-lavender-mist { --tw-gradient-from: hsl(var(--lavender-mist)); }
   .to-lavender-mist { --tw-gradient-to: hsl(var(--lavender-mist)); }
 
+  /* Electric & Vibrant gradients */
+  .from-electric-blue { --tw-gradient-from: hsl(var(--electric-blue)); }
+  .to-electric-blue { --tw-gradient-to: hsl(var(--electric-blue)); }
+  .via-electric-blue { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--electric-blue)), var(--tw-gradient-to); }
+  .from-neon-cyan { --tw-gradient-from: hsl(var(--neon-cyan)); }
+  .to-neon-cyan { --tw-gradient-to: hsl(var(--neon-cyan)); }
+  .from-electric-purple { --tw-gradient-from: hsl(var(--electric-purple)); }
+  .to-electric-purple { --tw-gradient-to: hsl(var(--electric-purple)); }
+  .from-hot-pink { --tw-gradient-from: hsl(var(--hot-pink)); }
+  .to-hot-pink { --tw-gradient-to: hsl(var(--hot-pink)); }
+  .from-electric-lime { --tw-gradient-from: hsl(var(--electric-lime)); }
+  .to-electric-lime { --tw-gradient-to: hsl(var(--electric-lime)); }
+  .from-neon-blue { --tw-gradient-from: hsl(var(--neon-blue)); }
+  .to-neon-blue { --tw-gradient-to: hsl(var(--neon-blue)); }
+
   /* Blue & Purple gradients */
   .from-royal-blue { --tw-gradient-from: hsl(var(--royal-blue)); }
   .to-royal-blue { --tw-gradient-to: hsl(var(--royal-blue)); }
@@ -131,7 +182,7 @@
   .from-steel-blue { --tw-gradient-from: hsl(var(--steel-blue)); }
   .to-steel-blue { --tw-gradient-to: hsl(var(--steel-blue)); }
 
-  /* Hover effects */
+  /* Enhanced Hover effects */
   .hover\:bg-rich-black:hover { background-color: hsl(var(--rich-black)); }
   .hover\:bg-graphite:hover { background-color: hsl(var(--graphite)); }
   .hover\:bg-dark-gray:hover { background-color: hsl(var(--dark-gray)); }
@@ -141,10 +192,17 @@
   .hover\:bg-royal-blue:hover { background-color: hsl(var(--royal-blue)); }
   .hover\:bg-deep-purple:hover { background-color: hsl(var(--deep-purple)); }
   .hover\:bg-steel-blue:hover { background-color: hsl(var(--steel-blue)); }
+  .hover\:bg-electric-blue:hover { background-color: hsl(var(--electric-blue)); }
+  .hover\:bg-neon-cyan:hover { background-color: hsl(var(--neon-cyan)); }
+  .hover\:bg-electric-purple:hover { background-color: hsl(var(--electric-purple)); }
+  .hover\:bg-hot-pink:hover { background-color: hsl(var(--hot-pink)); }
 
-  /* Shadow colors */
+  /* Enhanced Shadow colors */
   .shadow-black\/20 { --tw-shadow-color: rgba(0, 0, 0, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
   .shadow-black\/10 { --tw-shadow-color: rgba(0, 0, 0, 0.1); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
   .shadow-lavender\/20 { --tw-shadow-color: rgba(150, 123, 182, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
   .shadow-royal-blue\/20 { --tw-shadow-color: rgba(65, 105, 225, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  .shadow-electric-blue\/20 { --tw-shadow-color: rgba(0, 191, 255, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  .shadow-neon-cyan\/20 { --tw-shadow-color: rgba(0, 255, 255, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  .shadow-electric-purple\/20 { --tw-shadow-color: rgba(128, 0, 255, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
 }

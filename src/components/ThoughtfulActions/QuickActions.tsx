@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Coffee, Gift, Heart, Calendar, MessageSquare } from "lucide-react";
 
 const ACTION_CATEGORIES = [
-  { value: "daily", label: "Daily Gestures", icon: Coffee },
-  { value: "special", label: "Special Occasions", icon: Gift },
-  { value: "support", label: "Emotional Support", icon: Heart },
-  { value: "quality-time", label: "Quality Time", icon: Calendar },
-  { value: "communication", label: "Communication", icon: MessageSquare }
+  { value: "daily", label: "Daily Gestures", icon: Coffee, color: "electric-blue" },
+  { value: "special", label: "Special Occasions", icon: Gift, color: "neon-cyan" },
+  { value: "support", label: "Emotional Support", icon: Heart, color: "lavender" },
+  { value: "quality-time", label: "Quality Time", icon: Calendar, color: "electric-purple" },
+  { value: "communication", label: "Communication", icon: MessageSquare, color: "neon-blue" }
 ];
 
 interface ProfileData {
@@ -34,22 +34,33 @@ const QuickActions = ({ profiles, demographicsData, onSelectAction }: QuickActio
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {ACTION_CATEGORIES.map((category, index) => {
           const IconComponent = category.icon;
-          // Add lavender accent to Heart/Emotional Support category
-          const isEmotionalSupport = category.value === "support";
+          
+          // Apply different electric colors to different categories
+          const getColorClasses = (color: string) => {
+            switch (color) {
+              case "electric-blue":
+                return "bg-electric-blue/10 hover:bg-electric-blue/20 border-electric-blue/30 hover:border-electric-blue/50 text-electric-blue";
+              case "neon-cyan":
+                return "bg-neon-cyan/10 hover:bg-neon-cyan/20 border-neon-cyan/30 hover:border-neon-cyan/50 text-neon-cyan";
+              case "lavender":
+                return "bg-lavender/10 hover:bg-lavender/20 border-lavender/30 hover:border-lavender/50 text-lavender";
+              case "electric-purple":
+                return "bg-electric-purple/10 hover:bg-electric-purple/20 border-electric-purple/30 hover:border-electric-purple/50 text-electric-purple";
+              case "neon-blue":
+                return "bg-neon-blue/10 hover:bg-neon-blue/20 border-neon-blue/30 hover:border-neon-blue/50 text-neon-blue";
+              default:
+                return "bg-white/5 hover:bg-white/15 border-white/20 hover:border-white/30 text-white";
+            }
+          };
+
           return (
             <Button
               key={category.value}
               variant="outline"
               onClick={() => onSelectAction(category.value)}
-              className={`flex items-center gap-3 h-auto py-3.5 px-5 justify-start transition-all duration-200 rounded-xl ${
-                isEmotionalSupport 
-                  ? "bg-lavender/10 hover:bg-lavender/20 border-lavender/30 hover:border-lavender/50 text-white hover:text-white"
-                  : "bg-white/5 hover:bg-white/15 border-white/20 hover:border-white/30 text-white hover:text-white"
-              }`}
+              className={`flex items-center gap-3 h-auto py-3.5 px-5 justify-start transition-all duration-200 rounded-xl hover:text-white ${getColorClasses(category.color)}`}
             >
-              <IconComponent className={`w-4 h-4 flex-shrink-0 ${
-                isEmotionalSupport ? 'text-lavender' : 'text-warm-white'
-              }`} />
+              <IconComponent className="w-4 h-4 flex-shrink-0" />
               <span className="text-sm font-medium leading-tight">{category.label}</span>
             </Button>
           );
