@@ -20,7 +20,7 @@ const FloatingCTAButton = () => {
   return (
     <div className="fixed bottom-8 right-8 z-50 animate-fade-in">
       <Link to="/dashboard">
-        <Button className="bg-gradient-to-r from-electric-blue to-electric-purple hover:from-neon-blue hover:to-electric-purple text-white px-6 py-4 rounded-full shadow-elegant hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-electric-blue/40 neon-glow-blue">
+        <Button className="bg-gradient-to-r from-electric-blue to-electric-purple hover:from-electric-blue/80 hover:to-electric-purple/80 text-white px-6 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-electric-blue/40 electric-glow">
           Try It Now
           <ArrowRight className="w-5 h-5 ml-2" />
         </Button>

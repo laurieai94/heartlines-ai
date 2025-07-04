@@ -12,7 +12,7 @@ import LandingFooter from "@/components/landing/LandingFooter";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rich-black via-graphite to-dark-gray relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden">
       <BackgroundEffects />
       <LandingHeader />
       <HeroSection />

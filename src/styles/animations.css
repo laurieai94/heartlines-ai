@@ -51,6 +51,19 @@
     }
   }
 
+  .animate-subtle-pulse {
+    animation: subtlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes subtlePulse {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   .animate-bounce-gentle {
     animation: bounceGentle 3s ease-in-out infinite;
   }
@@ -73,5 +86,9 @@
 
   .shadow-elegant {
     box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .electric-glow {
+    box-shadow: 0 0 10px hsl(var(--electric-blue)), 0 0 20px hsl(var(--electric-blue));
   }
 }
