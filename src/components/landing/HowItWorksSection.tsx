@@ -13,7 +13,7 @@ const HowItWorksSection = () => {
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <div className="w-16 h-16 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-6 mx-auto electric-border shadow-elegant">
+          <div className="w-16 h-16 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-6 mx-auto border border-electric-blue/30 shadow-lg">
             <Target className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-4xl lg:text-5xl font-thin text-white mb-6">
@@ -22,8 +22,8 @@ const HowItWorksSection = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group electric-border">
-            <div className="w-20 h-20 bg-electric-blue/20 rounded-full flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform electric-border">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-electric-blue/30">
+            <div className="w-20 h-20 bg-electric-blue/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-electric-blue/30">
               <Brain className="w-10 h-10 text-electric-blue" />
             </div>
             <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
@@ -32,8 +32,8 @@ const HowItWorksSection = () => {
             </p>
           </Card>
 
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-electric-purple/30">
-            <div className="w-20 h-20 bg-electric-purple/20 rounded-full flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform border border-electric-purple/40">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-electric-purple/30">
+            <div className="w-20 h-20 bg-electric-purple/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-electric-purple/40">
               <Target className="w-10 h-10 text-electric-purple" />
             </div>
             <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
@@ -42,8 +42,8 @@ const HowItWorksSection = () => {
             </p>
           </Card>
           
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-white/20">
-            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform border border-white/30">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-white/20">
+            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-white/30">
               <MessageCircle className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
@@ -52,8 +52,8 @@ const HowItWorksSection = () => {
             </p>
           </Card>
           
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group electric-border">
-            <div className="w-20 h-20 bg-gradient-to-r from-electric-blue/20 to-electric-purple/20 rounded-full flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform electric-border">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-electric-blue/30">
+            <div className="w-20 h-20 bg-gradient-to-r from-electric-blue/20 to-electric-purple/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform border border-electric-blue/30">
               <Sparkles className="w-10 h-10 text-electric-blue" />
             </div>
             <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions Made Easy</h3>

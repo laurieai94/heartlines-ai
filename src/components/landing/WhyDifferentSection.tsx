@@ -12,7 +12,7 @@ const WhyDifferentSection = () => {
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <div className="w-16 h-16 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-6 mx-auto electric-border electric-glow">
+          <div className="w-16 h-16 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-6 mx-auto border border-electric-blue/30 shadow-lg">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8">
@@ -24,22 +24,22 @@ const WhyDifferentSection = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="p-6 text-center border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl electric-border hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+          <Card className="p-6 text-center border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-blue/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
             <h4 className="text-xl font-light text-white mb-3">No toxic positivity</h4>
             <p className="text-gray-300 leading-relaxed font-light">Real relationships have rough patches, and that's normal</p>
           </Card>
           
-          <Card className="p-6 text-center border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-purple/30 hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+          <Card className="p-6 text-center border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-purple/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
             <h4 className="text-xl font-light text-white mb-3">Actually personalized</h4>
             <p className="text-gray-300 leading-relaxed font-light">Not horoscope-level generic advice</p>
           </Card>
           
-          <Card className="p-6 text-center border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl border border-white/20 hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+          <Card className="p-6 text-center border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-white/20 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
             <h4 className="text-xl font-light text-white mb-3">Designed for busy humans</h4>
             <p className="text-gray-300 leading-relaxed font-light">Quick daily insights that fit into your actual life</p>
           </Card>
           
-          <Card className="p-6 text-center border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl electric-border hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+          <Card className="p-6 text-center border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-blue/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
             <h4 className="text-xl font-light text-white mb-3">Privacy first</h4>
             <p className="text-gray-300 leading-relaxed font-light">Your relationship details stay between you, your partner, and our very secure servers</p>
           </Card>

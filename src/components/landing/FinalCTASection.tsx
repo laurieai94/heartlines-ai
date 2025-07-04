@@ -17,7 +17,7 @@ const FinalCTASection = () => {
       <div className="max-w-5xl mx-auto text-center relative z-10">
         {/* Header */}
         <div className="mb-12">
-          <div className="w-20 h-20 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-8 mx-auto electric-border shadow-elegant electric-glow">
+          <div className="w-20 h-20 bg-gradient-to-r from-electric-blue to-electric-purple rounded-full flex items-center justify-center mb-8 mx-auto border border-electric-blue/30 shadow-lg">
             <Heart className="w-10 h-10 text-white" />
           </div>
           <h2 className="text-4xl lg:text-5xl font-thin text-white mb-8 leading-tight">
@@ -28,8 +28,8 @@ const FinalCTASection = () => {
 
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl electric-border hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-3">
-            <div className="w-16 h-16 bg-electric-blue/20 rounded-full flex items-center justify-center mb-6 mx-auto electric-border">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-blue/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-3">
+            <div className="w-16 h-16 bg-electric-blue/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-electric-blue/30">
               <MessageSquare className="w-8 h-8 text-electric-blue" />
             </div>
             <h3 className="text-2xl font-light text-white mb-4">The Reality</h3>
@@ -38,7 +38,7 @@ const FinalCTASection = () => {
             </p>
           </Card>
 
-          <Card className="p-8 border-0 shadow-elegant bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-purple/30 hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-3">
+          <Card className="p-8 border-0 shadow-lg bg-black/60 backdrop-blur-sm rounded-3xl border border-electric-purple/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-3">
             <div className="w-16 h-16 bg-electric-purple/20 rounded-full flex items-center justify-center mb-6 mx-auto border border-electric-purple/40">
               <Users className="w-8 h-8 text-electric-purple" />
             </div>
@@ -53,7 +53,7 @@ const FinalCTASection = () => {
         <div className="mb-12">
           <h3 className="text-3xl font-light text-white mb-8">Ready to Love Smarter?</h3>
           <Link to="/dashboard">
-            <Button className="bg-gradient-to-r from-electric-blue to-electric-purple hover:from-electric-blue/90 hover:to-electric-purple/90 text-white px-12 py-8 text-xl rounded-full shadow-elegant hover:shadow-3xl transition-all duration-300 transform hover:scale-105 electric-glow mb-6 font-light">
+            <Button className="bg-gradient-to-r from-electric-blue to-electric-purple hover:from-electric-blue/90 hover:to-electric-purple/90 text-white px-12 py-8 text-xl rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-6 font-light">
               Create Your Profile
               <ArrowRight className="w-6 h-6 ml-3" />
             </Button>
@@ -63,7 +63,7 @@ const FinalCTASection = () => {
         {/* Fine Print */}
         <div className="bg-black/40 backdrop-blur-sm p-8 rounded-3xl border border-white/20">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-electric-blue/50 to-electric-purple/50 rounded-full flex items-center justify-center electric-border">
+            <div className="w-8 h-8 bg-gradient-to-r from-electric-blue/50 to-electric-purple/50 rounded-full flex items-center justify-center border border-electric-blue/30">
               <Heart className="w-4 h-4 text-white" />
             </div>
             <h4 className="text-xl font-light text-white">The Fine Print (But Make It Friendly)</h4>
@@ -71,7 +71,7 @@ const FinalCTASection = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="w-12 h-12 bg-electric-blue/15 rounded-full flex items-center justify-center mb-3 mx-auto electric-border">
+              <div className="w-12 h-12 bg-electric-blue/15 rounded-full flex items-center justify-center mb-3 mx-auto border border-electric-blue/30">
                 <span className="text-electric-blue font-bold">$</span>
               </div>
               <p className="text-gray-300 font-light">Free to start, always</p>
@@ -92,7 +92,7 @@ const FinalCTASection = () => {
             </div>
             
             <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-electric-blue/20 to-electric-purple/20 rounded-full flex items-center justify-center mb-3 mx-auto electric-border">
+              <div className="w-12 h-12 bg-gradient-to-r from-electric-blue/20 to-electric-purple/20 rounded-full flex items-center justify-center mb-3 mx-auto border border-electric-blue/30">
                 <Heart className="w-5 h-5 text-electric-blue" />
               </div>
               <p className="text-gray-300 font-light">No judgment, just better tools</p>

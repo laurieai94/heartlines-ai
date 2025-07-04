@@ -14,7 +14,7 @@ const RealTalkSection = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Problem Setup Section */}
         <div className="text-center mb-16">
-          <div className="inline-block bg-black/80 backdrop-blur-sm rounded-full px-8 py-3 mb-8 electric-border">
+          <div className="inline-block bg-black/80 backdrop-blur-sm rounded-full px-8 py-3 mb-8 border border-electric-blue/30">
             <span className="text-white font-light tracking-wide">The Real Talk</span>
           </div>
           
@@ -38,7 +38,7 @@ const RealTalkSection = () => {
         {/* Visual Separator */}
         <div className="relative flex items-center justify-center mb-16">
           <div className="w-full h-px bg-gradient-to-r from-transparent via-electric-blue/40 to-transparent"></div>
-          <div className="absolute bg-gradient-to-r from-electric-blue to-electric-purple rounded-full p-4 shadow-elegant electric-border">
+          <div className="absolute bg-gradient-to-r from-electric-blue to-electric-purple rounded-full p-4 shadow-lg border border-electric-blue/30">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
         </div>
@@ -46,7 +46,7 @@ const RealTalkSection = () => {
         {/* Solution Section */}
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <div className="space-y-8 flex items-center">
-            <div className="bg-black/60 backdrop-blur-sm rounded-3xl p-12 electric-border shadow-elegant flex items-center justify-center min-h-[300px]">
+            <div className="bg-black/60 backdrop-blur-sm rounded-3xl p-12 border border-electric-blue/30 shadow-lg flex items-center justify-center min-h-[300px]">
               <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-electric-blue to-electric-purple text-center leading-tight">
                 Enter RealTalk.
               </h3>
@@ -54,7 +54,7 @@ const RealTalkSection = () => {
           </div>
 
           <div className="space-y-8 flex items-center">
-            <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-elegant">
+            <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-lg">
               <div className="space-y-6">
                 <p className="text-lg text-white leading-relaxed font-light">
                   We built this because most relationship tools just tell you what's wrong without teaching you how to actually fix it.
