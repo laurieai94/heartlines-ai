@@ -28,7 +28,6 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
 
   const handleOptionSelect = (option: string) => {
     if (option === 'Other') {
-      // Set the selection to 'Other' to show the input
       onPronounsSelect('Other');
       return;
     }
@@ -48,7 +47,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
         What pronouns do you use? <span className="text-red-400">*</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-        <MessageCircle className="w-3 h-3 text-electric-blue" />
+        <MessageCircle className="w-3 h-3 text-blue-400" />
         <span>So we can refer to you correctly</span>
       </div>
       <div className="grid grid-cols-4 gap-1">

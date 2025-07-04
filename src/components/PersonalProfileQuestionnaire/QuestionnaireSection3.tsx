@@ -45,10 +45,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When you're feeling stressed, how do you typically respond? <span className="text-red-400">*</span>
-            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Brain className="w-3 h-3 text-electric-purple" />
+            <Brain className="w-3 h-3 text-purple-400" />
             <span>How you react when life gets overwhelming (spoiler: we all have patterns)</span>
           </div>
         </div>
@@ -75,10 +75,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When you're in conflict, what do you need? <span className="text-red-400">*</span>
-            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Shield className="w-3 h-3 text-neon-cyan" />
+            <Shield className="w-3 h-3 text-cyan-400" />
             <span>What you actually need during fights (not what you think you should need)</span>
           </div>
         </div>
@@ -105,10 +105,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When do you feel most loved? <span className="text-red-400">*</span>
-            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <MessageSquare className="w-3 h-3 text-electric-blue" />
+            <MessageSquare className="w-3 h-3 text-blue-400" />
             <span>Your specific love language, not generic relationship advice</span>
           </div>
         </div>
@@ -137,7 +137,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             What's your attachment style? <span className="text-red-400">*</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Users className="w-3 h-3 text-electric-purple" />
+            <Users className="w-3 h-3 text-purple-400" />
             <span>The psychological patterns that run your relationships (yes, even yours)</span>
           </div>
         </div>

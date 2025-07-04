@@ -54,31 +54,31 @@
 
   /* Neon Glow Effects */
   .neon-glow-blue {
-    box-shadow: 0 0 5px hsl(var(--electric-blue)), 
-                0 0 10px hsl(var(--electric-blue)), 
-                0 0 15px hsl(var(--electric-blue));
+    box-shadow: 0 0 5px #00bfff, 
+                0 0 10px #00bfff, 
+                0 0 15px #00bfff;
   }
 
   .neon-glow-cyan {
-    box-shadow: 0 0 5px hsl(var(--neon-cyan)), 
-                0 0 10px hsl(var(--neon-cyan)), 
-                0 0 15px hsl(var(--neon-cyan));
+    box-shadow: 0 0 5px #00ffff, 
+                0 0 10px #00ffff, 
+                0 0 15px #00ffff;
   }
 
   .neon-glow-purple {
-    box-shadow: 0 0 5px hsl(var(--electric-purple)), 
-                0 0 10px hsl(var(--electric-purple)), 
-                0 0 15px hsl(var(--electric-purple));
+    box-shadow: 0 0 5px #8000ff, 
+                0 0 10px #8000ff, 
+                0 0 15px #8000ff;
   }
 
-  /* Questionnaire premium styling - Enhanced with electric accents */
+  /* Questionnaire premium styling - Electric theme */
   .questionnaire-bg {
-    background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     min-height: 100vh;
   }
 
   .questionnaire-bg-modal {
-    background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     height: 100%;
   }
   
@@ -90,15 +90,15 @@
   }
   
   .questionnaire-text {
-    color: hsl(var(--questionnaire-text));
+    color: #ffffff;
   }
   
   .questionnaire-text-muted {
-    color: hsl(var(--questionnaire-text-muted));
+    color: rgba(255, 255, 255, 0.8);
   }
   
   .questionnaire-button-primary {
-    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-purple)) 100%);
+    background: linear-gradient(135deg, #00bfff 0%, #8000ff 100%);
     color: white;
     border: none;
     transition: all 0.3s ease;
@@ -111,7 +111,7 @@
 
   /* Electric Enhanced Buttons */
   .questionnaire-button-electric {
-    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--neon-blue)) 100%);
+    background: linear-gradient(135deg, #00bfff 0%, #0ea5e9 100%);
     color: white;
     border: none;
     transition: all 0.3s ease;
@@ -144,7 +144,7 @@
   }
   
   .questionnaire-button-selected {
-    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-purple)) 100%);
+    background: linear-gradient(135deg, #00bfff 0%, #8000ff 100%);
     color: white;
     border: none;
     transform: translateY(-1px);
@@ -153,7 +153,7 @@
 
   /* Electric Enhanced Selected Buttons */
   .questionnaire-button-selected-electric {
-    background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-purple)) 100%);
+    background: linear-gradient(135deg, #00bfff 0%, #8000ff 100%);
     color: white;
     border: none;
     transform: translateY(-1px);

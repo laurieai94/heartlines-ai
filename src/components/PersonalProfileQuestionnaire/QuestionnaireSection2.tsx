@@ -76,7 +76,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             What is your current relationship status? <span className="text-red-400">*</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Heart className="w-3 h-3 text-electric-blue" />
+            <Heart className="w-3 h-3 text-blue-400" />
             <span>From 'it's complicated' to married - we meet you where you are</span>
           </div>
         </div>
@@ -106,10 +106,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-sm font-semibold text-white mb-1 block">
                 What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
-                <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+                <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
               <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-                <MessageSquare className="w-3 h-3 text-neon-cyan" />
+                <MessageSquare className="w-3 h-3 text-cyan-400" />
                 <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
               </div>
             </div>
@@ -136,10 +136,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-sm font-semibold text-white mb-1 block">
                 What are you hoping to find or create in your dating life? <span className="text-red-400">*</span>
-                <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+                <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
               <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-                <Heart className="w-3 h-3 text-electric-purple" />
+                <Heart className="w-3 h-3 text-purple-400" />
                 <span>Knowing what you're hoping to create helps RealTalk coach you toward your actual desires</span>
               </div>
             </div>
@@ -171,7 +171,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
               How long have you been together? <span className="text-red-400">*</span>
             </Label>
             <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-              <Clock className="w-3 h-3 text-electric-blue" />
+              <Clock className="w-3 h-3 text-blue-400" />
               <span>Different relationship stages have different needs and challenges</span>
             </div>
           </div>
@@ -202,10 +202,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-sm font-semibold text-white mb-1 block">
                 What's working well in your relationship? <span className="text-red-400">*</span>
-                <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+                <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
               <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-                <Heart className="w-3 h-3 text-electric-purple" />
+                <Heart className="w-3 h-3 text-purple-400" />
                 <span>We'll build on what's already good instead of fixing everything</span>
               </div>
             </div>
@@ -232,10 +232,10 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-sm font-semibold text-white mb-1 block">
                 What feels difficult or challenging? <span className="text-red-400">*</span>
-                <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+                <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
               <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-                <MessageSquare className="w-3 h-3 text-neon-cyan" />
+                <MessageSquare className="w-3 h-3 text-cyan-400" />
                 <span>Let's tackle the stuff that's actually driving you crazy</span>
               </div>
             </div>

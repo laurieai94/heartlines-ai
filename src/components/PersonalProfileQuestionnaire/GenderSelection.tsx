@@ -20,10 +20,10 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
     <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
       <Label className="text-sm font-semibold text-white mb-1 block">
         How do you identify your gender? <span className="text-red-400">*</span>
-        <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
+        <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-        <Heart className="w-3 h-3 text-electric-purple" />
+        <Heart className="w-3 h-3 text-purple-400" />
         <span>We get that gender is complex and personal</span>
       </div>
       <div className="grid grid-cols-3 gap-1">
