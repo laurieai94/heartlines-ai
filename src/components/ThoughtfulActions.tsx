@@ -48,7 +48,7 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         {/* Header - Improved typography hierarchy and spacing */}
         <div className="text-center space-y-6">
           <h2 className="text-3xl font-bold text-white leading-tight">Turn Insights Into Action</h2>
-          <p className="text-lg text-mint-200/80 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-medium-gray max-w-xl mx-auto leading-relaxed">
             Small, thoughtful actions that strengthen your connection with {partnerName}
           </p>
         </div>
@@ -73,20 +73,20 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
         />
 
         {/* Custom Action Creator - Reduced padding and improved proportions */}
-        <Card className="p-10 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl max-w-2xl mx-auto">
+        <Card className="p-10 bg-white/10 backdrop-blur-sm border border-white/20 shadow-elegant rounded-2xl max-w-2xl mx-auto">
           <div className="text-center space-y-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-copper-400 via-mint-500 to-mint-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+            <div className="w-16 h-16 bg-gradient-to-r from-graphite via-dark-gray to-medium-gray rounded-2xl flex items-center justify-center mx-auto shadow-elegant">
               <Lightbulb className="w-8 h-8 text-white" />
             </div>
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-white leading-tight">Create Your Own Action</h3>
-              <p className="text-mint-200/80 max-w-md mx-auto leading-relaxed">
+              <p className="text-medium-gray max-w-md mx-auto leading-relaxed">
                 Have a specific idea for connecting with {partnerName}? Let's plan it together and get personalized tips.
               </p>
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-copper-400 via-mint-500 to-mint-600 hover:from-copper-500 hover:via-mint-600 hover:to-mint-700 text-white px-8 py-3 text-base font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
+              className="bg-gradient-to-r from-rich-black via-graphite to-dark-gray hover:from-graphite hover:via-dark-gray hover:to-medium-gray text-white px-8 py-3 text-base font-semibold shadow-elegant hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
             >
               Plan Custom Action
               <Heart className="w-5 h-5 ml-2" />

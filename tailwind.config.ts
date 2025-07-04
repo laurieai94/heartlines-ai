@@ -63,38 +63,24 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				forest: {
-					50: 'hsl(var(--forest-50))',
-					100: 'hsl(var(--forest-100))',
-					200: 'hsl(var(--forest-200))',
-					300: 'hsl(var(--forest-300))',
-					400: 'hsl(var(--forest-400))',
-					500: 'hsl(var(--forest-500))',
-					600: 'hsl(var(--forest-600))',
+				// Monochrome palette - Rich blacks, warm whites, sophisticated grays
+				'rich-black': {
+					DEFAULT: 'hsl(var(--rich-black))',
 				},
-				copper: {
-					50: 'hsl(var(--copper-50))',
-					100: 'hsl(var(--copper-100))',
-					200: 'hsl(var(--copper-200))',
-					300: 'hsl(var(--copper-300))',
-					400: 'hsl(var(--copper-400))',
-					500: 'hsl(var(--copper-500))',
+				'warm-white': {
+					DEFAULT: 'hsl(var(--warm-white))',
 				},
-				mint: {
-					50: 'hsl(var(--mint-50))',
-					100: 'hsl(var(--mint-100))',
-					200: 'hsl(var(--mint-200))',
-					300: 'hsl(var(--mint-300))',
-					400: 'hsl(var(--mint-400))',
-					500: 'hsl(var(--mint-500))',
+				graphite: {
+					DEFAULT: 'hsl(var(--graphite))',
 				},
-				stone: {
-					50: 'hsl(var(--stone-50))',
-					100: 'hsl(var(--stone-100))',
-					200: 'hsl(var(--stone-200))',
-					300: 'hsl(var(--stone-300))',
-					400: 'hsl(var(--stone-400))',
-					500: 'hsl(var(--stone-500))',
+				'soft-gray': {
+					DEFAULT: 'hsl(var(--soft-gray))',
+				},
+				'medium-gray': {
+					DEFAULT: 'hsl(var(--medium-gray))',
+				},
+				'dark-gray': {
+					DEFAULT: 'hsl(var(--dark-gray))',
 				}
 			},
 			fontFamily: {
@@ -175,6 +161,14 @@ export default {
 						transform: 'translateX(5%) translateY(5%)',
 						opacity: '0.8'
 					}
+				},
+				'monochrome-pulse': {
+					'0%, 100%': {
+						opacity: '0.1'
+					},
+					'50%': {
+						opacity: '0.3'
+					}
 				}
 			},
 			animation: {
@@ -184,7 +178,8 @@ export default {
 				'slide-up': 'slide-up 0.6s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
-				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite'
+				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
+				'monochrome-pulse': 'monochrome-pulse 3s ease-in-out infinite'
 			}
 		}
 	},
