@@ -67,49 +67,11 @@
     }
   }
 
-  /* Subtler pulse animations */
-  .animate-electric-pulse {
-    animation: electricPulse 3s ease-in-out infinite;
-  }
-
-  @keyframes electricPulse {
-    0%, 100% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.9;
-      transform: scale(1.02);
-    }
-  }
-
-  .animate-subtle-glow {
-    animation: subtleGlow 4s ease-in-out infinite;
-  }
-
-  @keyframes subtleGlow {
-    0%, 100% {
-      box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-    }
-  }
-
   .shadow-3xl {
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
   }
 
   .shadow-elegant {
     box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Optimized text shadows for better readability */
-  .text-shadow-electric {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 191, 255, 0.2);
-  }
-
-  .text-shadow-strong {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   }
 }
