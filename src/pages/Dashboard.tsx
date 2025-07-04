@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -134,20 +135,20 @@ const Dashboard = () => {
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className="min-h-screen">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`min-h-screen bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+        <div className={`min-h-screen bg-black ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
           {/* Header with improved spacing and typography */}
           <div className="w-full">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Brand Header - Reduced padding, improved typography scale */}
               <div className="flex items-center justify-between py-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-10 h-10 bg-gradient-to-r from-electric-blue to-electric-purple rounded-xl flex items-center justify-center shadow-lg">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h1 className="text-2xl font-bold text-white font-serif leading-tight">RealTalk</h1>
                     {accessLevel !== 'full-access' && (
-                      <p className="text-xs text-pink-200/70 font-medium mt-1 leading-relaxed">
+                      <p className="text-xs text-gray-100 font-medium mt-1 leading-relaxed">
                         {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                          profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                       </p>
@@ -162,28 +163,28 @@ const Dashboard = () => {
                   <TabsList className="grid grid-cols-4 w-full max-w-3xl h-12 bg-black/15 backdrop-blur-sm border border-white/15 rounded-xl p-1.5 gap-1">
                     <TabsTrigger 
                       value="profile" 
-                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-white/70 hover:text-white hover:bg-white/10"
                     >
                       <User className="w-4 h-4" />
                       <span>Profile</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="insights" 
-                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-white/70 hover:text-white hover:bg-white/10"
                     >
                       <Lightbulb className="w-4 h-4" />
                       <span>Coach</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="conversation" 
-                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-white/70 hover:text-white hover:bg-white/10"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Practice</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="actions" 
-                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+                      className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-white/70 hover:text-white hover:bg-white/10"
                     >
                       <Heart className="w-4 h-4" />
                       <span>Actions</span>
@@ -261,7 +262,7 @@ const Dashboard = () => {
             />
             
             {/* Modal Container - Made smaller to appear as windowed overlay with proper height */}
-            <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-black backdrop-blur-xl rounded-3xl shadow-2xl border border-electric-blue/40 overflow-hidden">
               {/* Questionnaire Content */}
               <div className="h-full w-full">
                 <PersonalProfileQuestionnaire 
