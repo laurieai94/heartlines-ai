@@ -37,13 +37,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
     <div className="space-y-2">
       {/* Family Dynamics */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
-        <div className="space-y-1">
-          <Label className="text-sm font-semibold text-white">
+        <div>
+          <Label className="text-sm font-semibold text-white mb-1 block">
             How would you describe your family dynamics growing up? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Home className="w-3 h-3 text-green-300" />
+            <Home className="w-3 h-3 text-electric-blue" />
             <span>Your family shaped your relationship blueprint (for better or worse)</span>
           </div>
         </div>
@@ -67,13 +67,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
       {/* Parent Conflict Style */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
-        <div className="space-y-1">
-          <Label className="text-sm font-semibold text-white">
+        <div>
+          <Label className="text-sm font-semibold text-white mb-1 block">
             How did your parents handle conflict? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <UserCheck className="w-3 h-3 text-orange-300" />
+            <UserCheck className="w-3 h-3 text-electric-purple" />
             <span>How they fought affects how you fight - let's break the cycle</span>
           </div>
         </div>
@@ -97,13 +97,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
       {/* Love Messages */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
-        <div className="space-y-1">
-          <Label className="text-sm font-semibold text-white">
+        <div>
+          <Label className="text-sm font-semibold text-white mb-1 block">
             What messages about love did you receive growing up? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Heart className="w-3 h-3 text-pink-300" />
+            <Heart className="w-3 h-3 text-neon-cyan" />
             <span>The stuff about relationships you internalized growing up</span>
           </div>
         </div>
@@ -127,13 +127,13 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
       {/* Love Influences */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
-        <div className="space-y-1">
-          <Label className="text-sm font-semibold text-white">
+        <div>
+          <Label className="text-sm font-semibold text-white mb-1 block">
             What influenced your ideas about love? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <BookOpen className="w-3 h-3 text-blue-300" />
+            <BookOpen className="w-3 h-3 text-electric-blue" />
             <span>What shaped your ideas about how love should work</span>
           </div>
         </div>
@@ -156,9 +156,9 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Final Encouragement */}
-      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-xl border border-purple-400/20 p-3 text-center space-y-2">
+      <div className="bg-gradient-to-r from-electric-blue/10 to-electric-purple/10 backdrop-blur-lg rounded-xl border border-electric-blue/20 p-3 text-center space-y-2">
         <div className="flex justify-center mb-1">
-          <Sparkles className="w-6 h-6 text-yellow-300" />
+          <Sparkles className="w-6 h-6 text-electric-blue" />
         </div>
         <h3 className="text-sm font-semibold text-white mb-1">
           You're all set!

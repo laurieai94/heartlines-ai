@@ -17,21 +17,21 @@ const OrientationSelection = ({ selectedOrientations, selfDescribe, onOrientatio
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/15 p-6 space-y-3">
-      <Label className="text-base font-semibold text-white">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <Label className="text-sm font-semibold text-white mb-1 block">
         What's your sexual orientation? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        <span className="text-electric-blue font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 text-[13px] text-white/80 mb-2 font-normal">
-        <Compass className="w-4 h-4 text-pink-300" />
+      <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+        <Compass className="w-3 h-3 text-neon-cyan" />
         <span>Because straight dating advice doesn't work for everyone</span>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-1">
         {orientationOptions.map((orientation) => (
           <button
             key={orientation}
             onClick={() => onOrientationSelect(orientation)}
-            className={`p-3 rounded-xl text-xs font-medium transition-all text-left hover:scale-105 ${
+            className={`p-2 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
               selectedOrientations.includes(orientation)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

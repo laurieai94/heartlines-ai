@@ -40,7 +40,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-3">
         <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-white">
+            <Label className="text-sm font-semibold text-white">
               Add a profile pic <span className="text-white/60 text-xs font-normal">(optional)</span>
             </Label>
             <PhotoUpload
@@ -51,11 +51,11 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium text-white">
+            <Label htmlFor="name" className="text-sm font-semibold text-white mb-1 block">
               What should we call you? <span className="text-red-400">*</span>
             </Label>
-            <div className="flex items-center gap-2 text-xs text-white/80 mb-1">
-              <User className="w-3 h-3 text-blue-300" />
+            <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
+              <User className="w-3 h-3 text-electric-blue" />
               <span>So we can refer to you correctly</span>
             </div>
             <Input
@@ -64,7 +64,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
               placeholder="Your name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-8 font-medium"
+              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-8 font-medium"
             />
           </div>
         </div>
