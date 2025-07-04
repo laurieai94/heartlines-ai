@@ -63,30 +63,22 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				forest: {
-					50: 'hsl(var(--forest-50))',
-					100: 'hsl(var(--forest-100))',
-					200: 'hsl(var(--forest-200))',
-					300: 'hsl(var(--forest-300))',
-					400: 'hsl(var(--forest-400))',
-					500: 'hsl(var(--forest-500))',
-					600: 'hsl(var(--forest-600))',
+				coral: {
+					50: 'hsl(var(--coral-50))',
+					100: 'hsl(var(--coral-100))',
+					200: 'hsl(var(--coral-200))',
+					300: 'hsl(var(--coral-300))',
+					400: 'hsl(var(--coral-400))',
+					500: 'hsl(var(--coral-500))',
+					600: 'hsl(var(--coral-600))',
 				},
-				amber: {
-					50: 'hsl(var(--amber-50))',
-					100: 'hsl(var(--amber-100))',
-					200: 'hsl(var(--amber-200))',
-					300: 'hsl(var(--amber-300))',
-					400: 'hsl(var(--amber-400))',
-					500: 'hsl(var(--amber-500))',
-				},
-				steel: {
-					50: 'hsl(var(--steel-50))',
-					100: 'hsl(var(--steel-100))',
-					200: 'hsl(var(--steel-200))',
-					300: 'hsl(var(--steel-300))',
-					400: 'hsl(var(--steel-400))',
-					500: 'hsl(var(--steel-500))',
+				peach: {
+					50: 'hsl(var(--peach-50))',
+					100: 'hsl(var(--peach-100))',
+					200: 'hsl(var(--peach-200))',
+					300: 'hsl(var(--peach-300))',
+					400: 'hsl(var(--peach-400))',
+					500: 'hsl(var(--peach-500))',
 				}
 			},
 			fontFamily: {
