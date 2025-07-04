@@ -1,9 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProfileStorage } from './useProfileStorage';
-import { useProfileDatabase } from './useProfileDatabase';
-import { useProfileFields } from './useProfileFields';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PersonalProfileData {
   // Section 1 - Who You Are
@@ -27,15 +25,13 @@ interface PersonalProfileData {
   feelLovedWhen?: string[];
   attachmentStyle?: string;
   
-  // Section 4 - Your Foundation (New Questions)
-  familySituation?: string;
-  familySituationOther?: string;
-  familyEmotions?: string[];
-  familyEmotionsOther?: string;
-  familyConflict?: string[];
-  familyConflictOther?: string;
-  familyLove?: string[];
-  familyLoveOther?: string;
+  // Section 4 - Your Foundation
+  familyDynamics?: string[];
+  parentConflictStyle?: string[];
+  loveMessages?: string[];
+  loveInfluences?: string[];
+  mentalHealthContext?: string;
+  growthAreas?: string[];
   
   // Metadata
   completedAt?: string;
@@ -45,11 +41,9 @@ interface PersonalProfileData {
 
 export const usePersonalProfileData = () => {
   const { user } = useAuth();
+  const [profileData, setProfileData] = useState<PersonalProfileData>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
-  
-  const { profileData, setProfileData, loadFromStorage, saveToStorage } = useProfileStorage();
-  const { loadFromDatabase, saveToDatabase } = useProfileDatabase();
 
   // Load data on mount
   useEffect(() => {
@@ -57,19 +51,36 @@ export const usePersonalProfileData = () => {
       try {
         setIsLoading(true);
         
-        // Load from localStorage first
-        const localData = loadFromStorage();
-        if (Object.keys(localData).length > 0) {
-          setProfileData(localData);
+        // First try to load from localStorage
+        const localData = localStorage.getItem('personal_profile_questionnaire');
+        if (localData) {
+          const parsed = JSON.parse(localData);
+          console.log('Loaded personal profile from localStorage:', parsed);
+          setProfileData(parsed || {});
         }
 
-        // Load from database if user is authenticated
-        const dbData = await loadFromDatabase();
-        if (Object.keys(dbData).length > 0) {
-          setProfileData(prev => {
-            const prevData = prev || {};
-            return { ...prevData, ...dbData };
-          });
+        // If user is authenticated, also try to load from database
+        if (user) {
+          const { data, error } = await supabase
+            .from('user_profiles')
+            .select('profile_data, demographics_data')
+            .eq('user_id', user.id)
+            .eq('profile_type', 'your')
+            .single();
+
+          if (data && !error) {
+            // Merge profile_data and demographics_data
+            const dbData = {
+              ...(typeof data.profile_data === 'object' && data.profile_data !== null ? data.profile_data : {}),
+              ...(typeof data.demographics_data === 'object' && data.demographics_data !== null ? data.demographics_data : {})
+            };
+            
+            console.log('Loaded personal profile from database:', dbData);
+            setProfileData(prev => {
+              const prevData = prev || {};
+              return { ...prevData, ...dbData };
+            });
+          }
         }
       } catch (error) {
         console.error('Error loading personal profile data:', error);
@@ -82,8 +93,9 @@ export const usePersonalProfileData = () => {
     loadData();
   }, [user]);
 
-  // Save data function
+  // Save data function - only saves when there's actual data
   const saveData = async (newData: Partial<PersonalProfileData>) => {
+    // Don't save if newData is empty or has no meaningful content
     if (!newData || Object.keys(newData).length === 0) {
       return;
     }
@@ -95,11 +107,55 @@ export const usePersonalProfileData = () => {
     const updatedData = { ...currentData, ...newDataSafe };
     
     setProfileData(updatedData);
-    saveToStorage(updatedData);
-    await saveToDatabase(updatedData);
+
+    // Save to localStorage immediately
+    try {
+      localStorage.setItem('personal_profile_questionnaire', JSON.stringify(updatedData));
+      console.log('Saved to localStorage successfully');
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+
+    // Save to database if user is authenticated
+    if (user) {
+      try {
+        const { error } = await supabase.from('user_profiles').upsert({
+          user_id: user.id,
+          profile_type: 'your',
+          profile_data: updatedData,
+          demographics_data: updatedData,
+          updated_at: new Date().toISOString()
+        });
+        
+        if (error) {
+          console.error('Database save error:', error);
+        } else {
+          console.log('Saved to database successfully');
+        }
+      } catch (error) {
+        console.error('Error saving to database:', error);
+      }
+    }
   };
 
-  const { updateField, handleMultiSelect } = useProfileFields(profileData, saveData);
+  // Update single field
+  const updateField = (field: string, value: any) => {
+    console.log(`Updating field: ${field} with value:`, value);
+    const updatedData = { [field]: value };
+    saveData(updatedData);
+  };
+
+  // Handle multi-select fields
+  const handleMultiSelect = (field: string, value: string) => {
+    const currentData = profileData || {};
+    const current = currentData[field] || [];
+    const updated = current.includes(value) 
+      ? current.filter((item: string) => item !== value)
+      : [...current, value];
+    
+    console.log(`Multi-select update for ${field}:`, updated);
+    updateField(field, updated);
+  };
 
   return {
     profileData,

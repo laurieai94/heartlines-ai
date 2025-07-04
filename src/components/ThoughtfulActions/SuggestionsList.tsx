@@ -46,10 +46,10 @@ const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) =
 
   if (suggestions.length === 0) {
     return (
-      <Card className="p-12 text-center glass-botanical border border-orange-400/25 shadow-orange rounded-2xl">
+      <Card className="p-12 text-center bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
         <Heart className="w-16 h-16 text-orange-400 mx-auto mb-6" />
         <h3 className="text-2xl font-semibold text-white mb-3">No suggestions yet</h3>
-        <p className="text-gray-green-200/80 text-lg">
+        <p className="text-pink-200/80 text-lg">
           Create custom actions to get personalized suggestions based on your profiles.
         </p>
       </Card>
@@ -62,9 +62,9 @@ const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) =
       {suggestions.map((suggestion) => {
         const IconComponent = getCategoryIcon(suggestion.category);
         return (
-          <Card key={suggestion.id} className="p-8 glass-botanical border border-orange-400/25 shadow-orange rounded-2xl">
+          <Card key={suggestion.id} className="p-8 bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl rounded-2xl">
             <div className="flex items-start gap-6">
-              <div className="w-16 h-16 orange-sheen rounded-2xl flex items-center justify-center flex-shrink-0 shadow-orange">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0">
                 <IconComponent className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
@@ -74,20 +74,20 @@ const SuggestionsList = ({ profiles, demographicsData }: SuggestionsListProps) =
                       {ACTION_CATEGORIES.find(cat => cat.value === suggestion.category)?.label}
                     </h4>
                     {suggestion.partnerMood && (
-                      <p className="text-sm text-gray-green-200/80">For when they're: {suggestion.partnerMood}</p>
+                      <p className="text-sm text-pink-200/80">For when they're: {suggestion.partnerMood}</p>
                     )}
                   </div>
-                  <span className="text-sm text-gray-green-200/70">{suggestion.timestamp}</span>
+                  <span className="text-sm text-pink-200/70">{suggestion.timestamp}</span>
                 </div>
                 
                 {(suggestion.occasion || suggestion.context) && (
-                  <div className="glass p-4 rounded-xl mb-6 text-sm border border-orange-400/20">
-                    {suggestion.occasion && <p className="text-gray-green-200/90"><strong>Occasion:</strong> {suggestion.occasion}</p>}
-                    {suggestion.context && <p className="text-gray-green-200/90"><strong>Context:</strong> {suggestion.context}</p>}
+                  <div className="bg-white/5 p-4 rounded-xl mb-6 text-sm">
+                    {suggestion.occasion && <p className="text-pink-200/90"><strong>Occasion:</strong> {suggestion.occasion}</p>}
+                    {suggestion.context && <p className="text-pink-200/90"><strong>Context:</strong> {suggestion.context}</p>}
                   </div>
                 )}
                 
-                <div className="prose prose-sm max-w-none text-gray-green-200/90">
+                <div className="prose prose-sm max-w-none text-pink-200/90">
                   <pre className="whitespace-pre-wrap font-sans">{suggestion.suggestions}</pre>
                 </div>
               </div>

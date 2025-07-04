@@ -192,7 +192,7 @@ const ProfileBuilder = ({
       <div className="flex-1 min-h-0 space-y-4">
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {/* Card 1: Your Profile */}
+          {/* Card 1: Your Personal Profile */}
           <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ const ProfileBuilder = ({
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-white">
-                    Your Profile
+                    Your Personal Profile
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1">

@@ -1,12 +1,9 @@
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { useFormState } from "@/hooks/useFormState";
-import { useAutoSave } from "@/hooks/useAutoSave";
-import { validatePage2Required } from "@/utils/formValidation";
 import ConflictStyles from "./ConflictStyles";
 
 interface ProfileFormPage2Props {
@@ -19,17 +16,18 @@ interface ProfileFormPage2Props {
 const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: ProfileFormPage2Props) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
-  // Get existing data from temporary storage
+  // Load existing data from temporary storage - this is the key fix
   const getExistingProfileData = () => {
     const existingProfile = temporaryProfiles[profileType]?.[0] || {};
     const existingDemographics = temporaryDemographics[profileType] || {};
+    // Merge all data sources with proper precedence
     return { ...existingProfile, ...existingDemographics, ...initialData };
   };
 
-  // Initialize form data with default values
-  const getInitialFormData = () => {
+  const [formData, setFormData] = useState(() => {
     const existingData = getExistingProfileData();
     return {
+      // Conflict and stress patterns (all required)
       conflictResponse: existingData.conflictResponse || '',
       stressSpaceNeed: existingData.stressSpaceNeed || '',
       stressSupportNeed: existingData.stressSupportNeed || '',
@@ -37,65 +35,76 @@ const ProfileFormPage2 = ({ profileType, onComplete, onBack, initialData }: Prof
       needToTalkImmediately: existingData.needToTalkImmediately || '',
       beingRushedMakesWorse: existingData.beingRushedMakesWorse || '',
       feelHeardWithValidation: existingData.feelHeardWithValidation || '',
+      
       ...existingData
     };
-  };
+  });
 
-  // Auto-save handler
-  const handleAutoSave = (data: any) => {
-    const currentProfile = temporaryProfiles[profileType]?.[0] || {};
-    const currentDemographics = temporaryDemographics[profileType] || {};
-    
-    const updatedProfile = { ...currentProfile, ...data };
-    const updatedDemographics = { ...currentDemographics, ...data };
-    
-    const newProfiles = {
-      ...temporaryProfiles,
-      [profileType]: [updatedProfile]
-    };
-    
-    const newDemographics = {
-      ...temporaryDemographics,
-      [profileType]: updatedDemographics
-    };
-    
-    updateTemporaryProfile(newProfiles, newDemographics);
-  };
-
-  const { formData, updateField, resetFormData } = useFormState(
-    getInitialFormData(),
-    handleAutoSave
-  );
-
-  // Auto-save functionality
-  useAutoSave(formData, handleAutoSave);
-
-  // Reload data when temporary profiles change
+  // Reload data when temporary profiles change (important for persistence)
   useEffect(() => {
     const existingData = getExistingProfileData();
-    resetFormData({
-      conflictResponse: existingData.conflictResponse || '',
-      stressSpaceNeed: existingData.stressSpaceNeed || '',
-      stressSupportNeed: existingData.stressSupportNeed || '',
-      goSilentWhenUpset: existingData.goSilentWhenUpset || '',
-      needToTalkImmediately: existingData.needToTalkImmediately || '',
-      beingRushedMakesWorse: existingData.beingRushedMakesWorse || '',
-      feelHeardWithValidation: existingData.feelHeardWithValidation || '',
+    setFormData(prev => ({
+      ...prev,
       ...existingData
-    });
+    }));
   }, [temporaryProfiles, temporaryDemographics, profileType]);
+
+  // Auto-save data whenever formData changes
+  useEffect(() => {
+    const saveData = () => {
+      const currentProfile = temporaryProfiles[profileType]?.[0] || {};
+      const currentDemographics = temporaryDemographics[profileType] || {};
+      
+      const updatedProfile = { ...currentProfile, ...formData };
+      const updatedDemographics = { ...currentDemographics, ...formData };
+      
+      const newProfiles = {
+        ...temporaryProfiles,
+        [profileType]: [updatedProfile]
+      };
+      
+      const newDemographics = {
+        ...temporaryDemographics,
+        [profileType]: updatedDemographics
+      };
+      
+      updateTemporaryProfile(newProfiles, newDemographics);
+    };
+
+    // Debounce the save to avoid too frequent updates
+    const timeoutId = setTimeout(saveData, 500);
+    return () => clearTimeout(timeoutId);
+  }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
+
+  const isPersonal = profileType === 'your';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const validation = validatePage2Required(formData);
-    if (!validation.isValid) {
-      toast.error('Please answer all required questions before continuing');
-      return;
-    }
+    // Validate required fields
+    if (!validateRequired()) return;
     
     console.log('Page 2 form data being submitted:', formData);
     onComplete(formData);
+  };
+
+  const validateRequired = () => {
+    const required = ['conflictResponse', 'stressSpaceNeed', 'stressSupportNeed', 'goSilentWhenUpset', 'needToTalkImmediately', 'beingRushedMakesWorse', 'feelHeardWithValidation'];
+    const missing = required.filter(field => !formData[field] || formData[field] === '');
+    
+    console.log('Page 2 validation - missing required fields:', missing);
+    console.log('Page 2 current form data:', formData);
+    
+    if (missing.length > 0) {
+      toast.error('Please answer all required questions before continuing');
+      return false;
+    }
+    return true;
+  };
+
+  const updateField = (field: string, value: string) => {
+    console.log(`Page 2 updating field ${field} with value:`, value);
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (

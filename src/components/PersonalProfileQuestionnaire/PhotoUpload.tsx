@@ -57,13 +57,13 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
         <img 
           src={profilePhoto} 
           alt="Profile" 
-          className="w-16 h-16 rounded-full object-cover border-2 border-white/20"
+          className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
         />
       ) : name ? (
         generateAvatar(name)
       ) : (
-        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-6 h-6 text-white/60" />
+        <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300">
+          <User className="w-6 h-6 text-gray-400" />
         </div>
       )}
       
@@ -78,7 +78,7 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
         />
         <label
           htmlFor="photo-upload"
-          className="questionnaire-button-secondary inline-flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer text-sm transition-colors text-white"
+          className="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer text-sm transition-colors"
         >
           {isUploading ? (
             <>
@@ -92,7 +92,7 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
             </>
           )}
         </label>
-        <p className="text-xs text-white/70 mt-1">JPG, PNG • Max 5MB</p>
+        <p className="text-xs text-gray-500 mt-1">JPG, PNG • Max 5MB</p>
       </div>
     </div>
   );
