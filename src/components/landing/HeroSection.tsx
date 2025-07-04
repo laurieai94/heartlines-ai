@@ -37,15 +37,15 @@ const HeroSection = () => {
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
-              Stop getting relationship advice from 1995.
+              Your relationship isn't a rom-com.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-blue via-electric-purple to-electric-blue">
-                Your love life deserves an upgrade.
+                Real growth needs real tools.
               </span>
             </h1>
             
             <p className="text-xl lg:text-2xl text-gray-100 mb-12 leading-relaxed font-light">
-              We're building the relationship app we wish we'd had—one that actually gets how modern love works (or doesn't work) and gives you tools that don't make you cringe.
+              We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
             </p>
             
             <Link to="/dashboard">
