@@ -72,10 +72,10 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
           demographicsData={demographicsData}
         />
 
-        {/* Custom Action Creator - Reduced padding and improved proportions */}
+        {/* Custom Action Creator - Enhanced with Lavender Accents */}
         <Card className="p-10 bg-white/10 backdrop-blur-sm border border-white/20 shadow-elegant rounded-2xl max-w-2xl mx-auto">
           <div className="text-center space-y-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-graphite via-dark-gray to-medium-gray rounded-2xl flex items-center justify-center mx-auto shadow-elegant">
+            <div className="w-16 h-16 bg-gradient-to-r from-lavender to-lavender-deep rounded-2xl flex items-center justify-center mx-auto shadow-elegant border border-lavender/30">
               <Lightbulb className="w-8 h-8 text-white" />
             </div>
             <div className="space-y-4">
@@ -86,7 +86,7 @@ const ThoughtfulActions = ({ profiles = { your: [], partner: [] }, demographicsD
             </div>
             <Button
               onClick={() => setShowCustomForm(true)}
-              className="bg-gradient-to-r from-rich-black via-graphite to-dark-gray hover:from-graphite hover:via-dark-gray hover:to-medium-gray text-white px-8 py-3 text-base font-semibold shadow-elegant hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
+              className="bg-gradient-to-r from-lavender to-lavender-deep hover:from-lavender-deep hover:to-lavender text-white px-8 py-3 text-base font-semibold shadow-elegant hover:shadow-3xl transition-all duration-300 border-0 rounded-xl"
             >
               Plan Custom Action
               <Heart className="w-5 h-5 ml-2" />

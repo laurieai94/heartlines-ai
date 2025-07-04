@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,7 +5,7 @@
 /* Import modern fonts with serif options */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
-/* Monochrome Design System - Black & White Elegance */
+/* Monochrome Design System with Lavender Accents */
 
 @layer base {
   :root {
@@ -57,12 +56,20 @@
     --medium-gray: 0 0% 45%;
     --dark-gray: 0 0% 20%;
     
-    /* Monochrome gradients for depth and elegance */
+    /* Lavender accent palette - Sophisticated purple tones */
+    --lavender: 265 25% 60%;          /* Medium Lavender #967BB6 */
+    --lavender-soft: 300 24% 80%;     /* Soft Thistle #D8BFD8 */
+    --lavender-deep: 248 53% 58%;     /* Deep Slate Blue #6A5ACD */
+    --lavender-mist: 240 67% 94%;     /* Light Lavender #E6E6FA */
+    
+    /* Monochrome gradients with lavender accents */
     --gradient-primary: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 11%) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(0 0% 91%) 0%, hsl(0 0% 98%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 11%) 50%, hsl(0 0% 20%) 100%);
+    --gradient-lavender: linear-gradient(135deg, hsl(265 25% 60%) 0%, hsl(248 53% 58%) 100%);
+    --gradient-lavender-soft: linear-gradient(135deg, hsl(300 24% 80%) 0%, hsl(240 67% 94%) 100%);
     
-    /* Premium questionnaire colors - Elegant monochrome */
+    /* Premium questionnaire colors with lavender touches */
     --questionnaire-bg: 0 0% 6%;
     --questionnaire-bg-dark: 0 0% 4%;
     --questionnaire-card: 0 0% 100% / 0.1;
@@ -222,6 +229,13 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
+  /* Lavender Glassmorphism */
+  .glass-lavender {
+    background: rgba(150, 123, 182, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(150, 123, 182, 0.2);
+  }
+
   /* Monochrome color utilities */
   .bg-rich-black { background-color: hsl(var(--rich-black)); }
   .bg-warm-white { background-color: hsl(var(--warm-white)); }
@@ -244,6 +258,22 @@
   .border-medium-gray { border-color: hsl(var(--medium-gray)); }
   .border-dark-gray { border-color: hsl(var(--dark-gray)); }
 
+  /* Lavender color utilities */
+  .bg-lavender { background-color: hsl(var(--lavender)); }
+  .bg-lavender-soft { background-color: hsl(var(--lavender-soft)); }
+  .bg-lavender-deep { background-color: hsl(var(--lavender-deep)); }
+  .bg-lavender-mist { background-color: hsl(var(--lavender-mist)); }
+  
+  .text-lavender { color: hsl(var(--lavender)); }
+  .text-lavender-soft { color: hsl(var(--lavender-soft)); }
+  .text-lavender-deep { color: hsl(var(--lavender-deep)); }
+  .text-lavender-mist { color: hsl(var(--lavender-mist)); }
+  
+  .border-lavender { border-color: hsl(var(--lavender)); }
+  .border-lavender-soft { border-color: hsl(var(--lavender-soft)); }
+  .border-lavender-deep { border-color: hsl(var(--lavender-deep)); }
+  .border-lavender-mist { border-color: hsl(var(--lavender-mist)); }
+
   /* Monochrome gradients */
   .from-rich-black { --tw-gradient-from: hsl(var(--rich-black)); }
   .to-rich-black { --tw-gradient-to: hsl(var(--rich-black)); }
@@ -261,17 +291,31 @@
   .from-warm-white { --tw-gradient-from: hsl(var(--warm-white)); }
   .to-warm-white { --tw-gradient-to: hsl(var(--warm-white)); }
 
+  /* Lavender gradients */
+  .from-lavender { --tw-gradient-from: hsl(var(--lavender)); }
+  .to-lavender { --tw-gradient-to: hsl(var(--lavender)); }
+  .via-lavender { --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--lavender)), var(--tw-gradient-to); }
+  .from-lavender-soft { --tw-gradient-from: hsl(var(--lavender-soft)); }
+  .to-lavender-soft { --tw-gradient-to: hsl(var(--lavender-soft)); }
+  .from-lavender-deep { --tw-gradient-from: hsl(var(--lavender-deep)); }
+  .to-lavender-deep { --tw-gradient-to: hsl(var(--lavender-deep)); }
+  .from-lavender-mist { --tw-gradient-from: hsl(var(--lavender-mist)); }
+  .to-lavender-mist { --tw-gradient-to: hsl(var(--lavender-mist)); }
+
   /* Hover effects */
   .hover\:bg-rich-black:hover { background-color: hsl(var(--rich-black)); }
   .hover\:bg-graphite:hover { background-color: hsl(var(--graphite)); }
   .hover\:bg-dark-gray:hover { background-color: hsl(var(--dark-gray)); }
   .hover\:bg-soft-gray:hover { background-color: hsl(var(--soft-gray)); }
+  .hover\:bg-lavender:hover { background-color: hsl(var(--lavender)); }
+  .hover\:bg-lavender-soft:hover { background-color: hsl(var(--lavender-soft)); }
 
-  /* Shadow colors for monochrome */
+  /* Shadow colors */
   .shadow-black\/20 { --tw-shadow-color: rgba(0, 0, 0, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
   .shadow-black\/10 { --tw-shadow-color: rgba(0, 0, 0, 0.1); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+  .shadow-lavender\/20 { --tw-shadow-color: rgba(150, 123, 182, 0.2); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
 
-  /* Questionnaire premium styling - Monochrome */
+  /* Questionnaire premium styling - Monochrome with lavender accents */
   .questionnaire-bg {
     background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
     min-height: 100vh;
@@ -298,7 +342,7 @@
   }
   
   .questionnaire-button-primary {
-    background: linear-gradient(135deg, hsl(var(--rich-black)) 0%, hsl(var(--graphite)) 100%);
+    background: linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--lavender-deep)) 100%);
     color: white;
     border: none;
     transition: all 0.3s ease;
@@ -306,7 +350,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(150, 123, 182, 0.3);
   }
   
   .questionnaire-button-secondary {
@@ -318,15 +362,16 @@
   }
   
   .questionnaire-button-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(150, 123, 182, 0.15);
+    border-color: rgba(150, 123, 182, 0.3);
     transform: translateY(-1px);
   }
   
   .questionnaire-button-selected {
-    background: linear-gradient(135deg, hsl(var(--rich-black)) 0%, hsl(var(--graphite)) 100%);
+    background: linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--lavender-deep)) 100%);
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(150, 123, 182, 0.3);
   }
 }

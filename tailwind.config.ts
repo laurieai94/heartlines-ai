@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -81,6 +80,19 @@ export default {
 				},
 				'dark-gray': {
 					DEFAULT: 'hsl(var(--dark-gray))',
+				},
+				// Lavender accent palette - Sophisticated purple tones
+				'lavender': {
+					DEFAULT: 'hsl(var(--lavender))',
+				},
+				'lavender-soft': {
+					DEFAULT: 'hsl(var(--lavender-soft))',
+				},
+				'lavender-deep': {
+					DEFAULT: 'hsl(var(--lavender-deep))',
+				},
+				'lavender-mist': {
+					DEFAULT: 'hsl(var(--lavender-mist))',
 				}
 			},
 			fontFamily: {
@@ -169,6 +181,14 @@ export default {
 					'50%': {
 						opacity: '0.3'
 					}
+				},
+				'lavender-pulse': {
+					'0%, 100%': {
+						opacity: '0.3'
+					},
+					'50%': {
+						opacity: '0.6'
+					}
 				}
 			},
 			animation: {
@@ -179,7 +199,8 @@ export default {
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
 				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
-				'monochrome-pulse': 'monochrome-pulse 3s ease-in-out infinite'
+				'monochrome-pulse': 'monochrome-pulse 3s ease-in-out infinite',
+				'lavender-pulse': 'lavender-pulse 4s ease-in-out infinite'
 			}
 		}
 	},
