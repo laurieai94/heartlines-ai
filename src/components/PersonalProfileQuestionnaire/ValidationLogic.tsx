@@ -1,3 +1,4 @@
+
 // Validation logic utility functions
 export const validateSection = (section: number, profileData: any) => {
   switch (section) {
@@ -86,7 +87,15 @@ export const getRequiredCount = (section: number, profileData: any) => {
       return base;
     }
     case 3: return 4;
-    case 4: return 1;
+    case 4: {
+      // Fixed: Return the actual number of completed fields for Section 4 to ensure 100% progress
+      const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
+      const completedCount = optionalFields.filter(field => {
+        const value = profileData[field];
+        return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+      }).length;
+      return Math.max(1, completedCount); // At least 1 required, but adjust to actual completed count
+    }
     default: return 0;
   }
 };

@@ -10,7 +10,7 @@ import QuestionnaireSection2 from "./PersonalProfileQuestionnaire/QuestionnaireS
 import QuestionnaireSection3 from "./PersonalProfileQuestionnaire/QuestionnaireSection3";
 import QuestionnaireSection4 from "./PersonalProfileQuestionnaire/QuestionnaireSection4";
 import { validateSection, getRequiredCount, getCompletedCount, calculateOverallProgress } from "./PersonalProfileQuestionnaire/ValidationLogic";
-import { Sparkles, Trophy, PartyPopper } from "lucide-react";
+import { Trophy, PartyPopper } from "lucide-react";
 
 interface PersonalProfileQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -50,7 +50,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     return (
       <div className="flex items-center justify-center p-8">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-4 border-electric-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-white/80">Loading your profile...</p>
         </div>
       </div>
@@ -123,7 +123,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
           <div className="text-center space-y-6 p-8">
             <div className="flex items-center justify-center space-x-2 mb-4">
               <Trophy className="w-12 h-12 text-yellow-400 animate-bounce" />
-              <PartyPopper className="w-8 h-8 text-pink-400 animate-pulse" />
+              <PartyPopper className="w-8 h-8 text-electric-blue animate-pulse" />
             </div>
             
             <div className="space-y-2">

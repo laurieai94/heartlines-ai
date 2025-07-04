@@ -49,7 +49,7 @@ const UnifiedProgressBar = ({ currentSection, profileData }: UnifiedProgressBarP
                 <div
                   className={`h-full transition-all duration-700 ease-out ${
                     isActive
-                      ? 'bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 shadow-lg'
+                      ? 'bg-gradient-to-r from-electric-blue to-electric-purple shadow-lg'
                       : isCompleted
                       ? 'bg-gradient-to-r from-emerald-400 to-emerald-500'
                       : 'bg-white/20'
@@ -71,7 +71,7 @@ const UnifiedProgressBar = ({ currentSection, profileData }: UnifiedProgressBarP
         
         {/* Overall progress indicator */}
         <div 
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400/30 to-purple-400/30 pointer-events-none transition-all duration-500"
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-electric-blue/30 to-electric-purple/30 pointer-events-none transition-all duration-500"
           style={{ width: `${overallProgress}%` }}
         />
       </div>
