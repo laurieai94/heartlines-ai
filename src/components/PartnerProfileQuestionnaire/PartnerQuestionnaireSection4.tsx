@@ -54,7 +54,7 @@ const PartnerQuestionnaireSection4 = ({
             <span>This is their relationship blueprint whether they know it or not</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {familyBackgroundOptions.map((background) => (
             <button
               key={background}
@@ -83,7 +83,7 @@ const PartnerQuestionnaireSection4 = ({
             <span>Their emotional comfort zone</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {emotionsOptions.map((emotion) => {
             const isSelected = profileData.partnerEmotions?.includes(emotion);
             return (
@@ -115,7 +115,7 @@ const PartnerQuestionnaireSection4 = ({
             <span>Their core values based on actions, not just words</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {valuesOptions.map((value) => {
             const isSelected = profileData.partnerValues?.includes(value);
             return (

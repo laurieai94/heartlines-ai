@@ -35,7 +35,7 @@ const PartnerQuestionnaireSection3 = ({
             <span>Their biggest anxiety triggers</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {stressorOptions.map((stressor) => (
             <button
               key={stressor}
@@ -64,7 +64,7 @@ const PartnerQuestionnaireSection3 = ({
             <span>Based on what you've observed</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {relationshipNeedsOptions.map((need) => {
             const isSelected = profileData.partnerRelationshipNeeds?.includes(need);
             return (
@@ -95,7 +95,7 @@ const PartnerQuestionnaireSection3 = ({
             <span>Their conflict personality</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {conflictStyleOptions.map((style) => (
             <button
               key={style}
@@ -123,7 +123,7 @@ const PartnerQuestionnaireSection3 = ({
             <span>What they're naturally good at in love</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {superpowerOptions.map((power) => (
             <button
               key={power}

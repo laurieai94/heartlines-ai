@@ -23,7 +23,7 @@ const PartnerAgeSelection = ({ selectedAge, onAgeSelect }: PartnerAgeSelectionPr
           <span>Different life stages = different relationship vibes</span>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-4 gap-2">
         {ageOptions.map((age) => (
           <button
             key={age}

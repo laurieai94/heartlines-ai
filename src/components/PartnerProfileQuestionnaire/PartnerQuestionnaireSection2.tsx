@@ -35,7 +35,7 @@ const PartnerQuestionnaireSection2 = ({
             <span>Stress responses are relationship kryptonite if you don't get them</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {stressResponseOptions.map((response) => {
             const isSelected = profileData.partnerStressResponse?.includes(response);
             return (
@@ -67,7 +67,7 @@ const PartnerQuestionnaireSection2 = ({
             <span>The stuff that actually helps them during conflict</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {conflictNeedsOptions.map((need) => {
             const isSelected = profileData.partnerConflictNeeds?.includes(need);
             return (
@@ -99,7 +99,7 @@ const PartnerQuestionnaireSection2 = ({
             <span>Their love language IRL</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {loveLanguageOptions.map((language) => {
             const isSelected = profileData.partnerLoveLanguage?.includes(language);
             return (
