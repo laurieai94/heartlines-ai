@@ -18,9 +18,9 @@ const PartnerQuestionnaireSection4 = ({
 }: PartnerQuestionnaireSection4Props) => {
   if (!isReady) return null;
 
-  const familyBackgroundOptions = ["Parents together with a healthy, solid relationship", "Parents together with normal ups and downs", "Parents together but fought constantly", "Parents divorced and stayed that way", "Parents divorced, one or both remarried", "Parents divorced but got back together", "Single parent household", "Raised by grandparents or other family", "They don't really talk about family stuff", "Haven't gotten into family history yet", "Other (please specify)"];
-  const emotionsOptions = ["Pretty open about all their feelings", "Good with positive emotions, struggle with negative ones", "Not super emotional in general", "Some feelings are easier than others", "Can get overwhelmed by big emotions", "Very even-keeled and stable", "Emotions seem scary or uncomfortable for them", "Still learning their emotional patterns", "Other (please specify)"];
-  const valuesOptions = ["Family relationships and connections", "Career success and achievement", "Personal growth and self-improvement", "Financial security and stability", "Adventure and new experiences", "Helping others and making a difference", "Independence and autonomy", "Loyalty and commitment", "Honesty and authenticity", "Fun and enjoyment", "Still figuring out what drives them", "Other (please specify)"];
+  const familyBackgroundOptions = ["Parents together with a healthy, solid relationship", "Parents together with normal ups and downs", "Parents together but fought constantly", "Parents divorced and stayed that way", "Parents divorced, one or both remarried", "Parents divorced but got back together", "Single parent household", "Raised by grandparents or other family", "They don't really talk about family stuff", "Haven't gotten into family history yet"];
+  const emotionsOptions = ["Pretty open about all their feelings", "Good with positive emotions, struggle with negative ones", "Not super emotional in general", "Some feelings are easier than others", "Can get overwhelmed by big emotions", "Very even-keeled and stable", "Emotions seem scary or uncomfortable for them", "Still learning their emotional patterns"];
+  const valuesOptions = ["Family relationships and connections", "Career success and achievement", "Personal growth and self-improvement", "Financial security and stability", "Adventure and new experiences", "Helping others and making a difference", "Independence and autonomy", "Loyalty and commitment", "Honesty and authenticity", "Fun and enjoyment", "Still figuring out what drives them"];
 
   return (
     <div className="space-y-1.5">
@@ -73,16 +73,6 @@ const PartnerQuestionnaireSection4 = ({
             );
           })}
         </div>
-        {profileData.partnerFamilyBackground?.includes("Other (please specify)") && (
-          <div className="mt-2">
-            <Input
-              placeholder="Please specify their family background"
-              value={profileData.partnerFamilyBackgroundOther || ''}
-              onChange={(e) => updateField('partnerFamilyBackgroundOther', e.target.value)}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
-            />
-          </div>
-        )}
       </div>
 
       {/* Emotions */}
@@ -115,16 +105,6 @@ const PartnerQuestionnaireSection4 = ({
             );
           })}
         </div>
-        {profileData.partnerEmotions?.includes("Other (please specify)") && (
-          <div className="mt-2">
-            <Input
-              placeholder="Please specify how they handle emotions"
-              value={profileData.partnerEmotionsOther || ''}
-              onChange={(e) => updateField('partnerEmotionsOther', e.target.value)}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
-            />
-          </div>
-        )}
       </div>
 
       {/* Values */}
@@ -157,16 +137,6 @@ const PartnerQuestionnaireSection4 = ({
             );
           })}
         </div>
-        {profileData.partnerValues?.includes("Other (please specify)") && (
-          <div className="mt-2">
-            <Input
-              placeholder="Please specify what's important to them"
-              value={profileData.partnerValuesOther || ''}
-              onChange={(e) => updateField('partnerValuesOther', e.target.value)}
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
-            />
-          </div>
-        )}
       </div>
     </div>
   );

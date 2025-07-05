@@ -25,9 +25,6 @@ export const getPartnerCompletedCount = (section: number, profileData: any) => {
       if (profileData.partnerStressResponse && profileData.partnerStressResponse.length > 0) count++;
       if (profileData.partnerConflictNeeds && profileData.partnerConflictNeeds.length > 0) count++;
       if (profileData.partnerLoveLanguage && profileData.partnerLoveLanguage.length > 0) count++;
-      if (profileData.partnerStressResponseOther && profileData.partnerStressResponseOther.trim() !== '') count++;
-      if (profileData.partnerConflictNeedsOther && profileData.partnerConflictNeedsOther.trim() !== '') count++;
-      if (profileData.partnerLoveLanguageOther && profileData.partnerLoveLanguageOther.trim() !== '') count++;
       return count;
     }
     case 3: {
@@ -45,9 +42,6 @@ export const getPartnerCompletedCount = (section: number, profileData: any) => {
       if (profileData.partnerUpbringing && profileData.partnerUpbringing.trim() !== '') count++;
       if (profileData.partnerValues && profileData.partnerValues.length > 0) count++;
       if (profileData.partnerEmotions && profileData.partnerEmotions.length > 0) count++;
-      if (profileData.partnerFamilyBackgroundOther && profileData.partnerFamilyBackgroundOther.trim() !== '') count++;
-      if (profileData.partnerEmotionsOther && profileData.partnerEmotionsOther.trim() !== '') count++;
-      if (profileData.partnerValuesOther && profileData.partnerValuesOther.trim() !== '') count++;
       return count;
     }
     default: return 0;
@@ -63,8 +57,8 @@ export const calculatePartnerOverallProgress = (profileData: any) => {
     totalCompleted += getPartnerCompletedCount(section, profileData);
   }
   
-  // Use a reasonable total to calculate percentage (now 18 fields total with new "Other" fields)
-  const estimatedTotal = 18;
+  // Use updated total to calculate percentage (now 15 fields total without "Other" fields)
+  const estimatedTotal = 15;
   const overallProgress = Math.min(Math.round((totalCompleted / estimatedTotal) * 100), 100);
   
   console.log(`Partner Overall Progress: ${totalCompleted} fields completed = ${overallProgress}%`);

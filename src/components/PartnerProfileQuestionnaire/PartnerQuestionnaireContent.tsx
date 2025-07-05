@@ -53,7 +53,7 @@ const PartnerQuestionnaireContent = ({
                 <Sparkles className="w-3 h-3 text-white" />
               </div>
               <p className="text-sm text-white font-medium leading-relaxed">
-                Whether you've been together 20 years or just started talking - answer what you know and skip what you don't. RealTalk works with whatever you can share.
+                Just met or together forever? Fill out what you actually know and skip the rest. RealTalk works with whatever you've got.
               </p>
             </div>
           </div>
