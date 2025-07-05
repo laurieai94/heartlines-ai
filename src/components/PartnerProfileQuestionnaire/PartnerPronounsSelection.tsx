@@ -1,5 +1,6 @@
 
 import { Label } from "@/components/ui/label";
+import { Users } from "lucide-react";
 
 interface PartnerPronounsSelectionProps {
   selectedPronouns: string;
@@ -12,10 +13,13 @@ const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: Partne
   ];
 
   return (
-    <div className="bg-white/5 rounded-lg p-3 space-y-2">
-      <Label className="text-sm font-medium text-white">
-        What pronouns do they use?
-      </Label>
+    <div className="bg-white/10 rounded-lg p-2.5 space-y-1.5">
+      <div className="flex items-center gap-2 mb-2">
+        <Users className="w-3.5 h-3.5 text-blue-400" />
+        <Label className="text-sm font-medium text-white">
+          What pronouns do they use?
+        </Label>
+      </div>
       <div className="grid grid-cols-3 gap-2">
         {pronounsOptions.map((pronoun) => (
           <button
