@@ -13,7 +13,7 @@ interface PartnerGenderSelectionProps {
 const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelfDescribeChange }: PartnerGenderSelectionProps) => {
   const genderOptions = [
     'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
-    'Genderfluid', 'Questioning', 'Not sure/haven't talked about it', 'Prefer to self-describe'
+    'Genderfluid', 'Questioning', 'Not sure/haven\'t talked about it', 'Prefer to self-describe'
   ];
 
   return (

@@ -13,7 +13,7 @@ interface PartnerOrientationSelectionProps {
 const PartnerOrientationSelection = ({ selectedOrientations, selfDescribe, onOrientationSelect, onSelfDescribeChange }: PartnerOrientationSelectionProps) => {
   const orientationOptions = [
     'Straight/Heterosexual', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
-    'Queer', 'Asexual', 'Questioning', 'Not sure/haven't discussed', 'Prefer to self-describe'
+    'Queer', 'Asexual', 'Questioning', 'Not sure/haven\'t discussed', 'Prefer to self-describe'
   ];
 
   return (
