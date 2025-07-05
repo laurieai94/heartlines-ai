@@ -36,6 +36,11 @@ const PartnerQuestionnaireContainer = ({
   });
 
   const handleNext = () => {
+    if (!validatePartnerSection(currentSection, profileData)) {
+      toast.error("Please complete all required questions in this section");
+      return;
+    }
+
     if (currentSection < 4) {
       const nextSection = currentSection + 1;
       setSectionReadiness(prev => ({ ...prev, [nextSection]: true }));
@@ -50,6 +55,11 @@ const PartnerQuestionnaireContainer = ({
   };
 
   const handleComplete = () => {
+    if (!validatePartnerSection(4, profileData)) {
+      toast.error("Please answer at least one question in Background section");
+      return;
+    }
+
     // Show success state briefly
     setShowSuccess(true);
     
@@ -73,7 +83,7 @@ const PartnerQuestionnaireContainer = ({
 
   const handleSectionClick = (section: number) => {
     const isAccessible = sectionReadiness[section];
-    const isCompleted = section < currentSection;
+    const isCompleted = section < currentSection || validatePartnerSection(section, profileData);
     
     if (isAccessible || isCompleted) {
       setCurrentSection(section);

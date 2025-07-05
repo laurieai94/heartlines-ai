@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Sparkles, Heart, MessageCircle, Lightbulb } from "lucide-react";
+import { calculatePartnerOverallProgress } from "./PartnerValidationLogic";
 
 interface PartnerQuestionnaireFooterProps {
   currentSection: number;
@@ -13,57 +14,106 @@ interface PartnerQuestionnaireFooterProps {
   profileData: any;
 }
 
-const PartnerQuestionnaireFooter = ({
-  currentSection,
-  onBack,
-  onNext,
-  onComplete,
-  getRequiredCount,
-  getCompletedCount
+const PartnerQuestionnaireFooter = ({ 
+  currentSection, 
+  onBack, 
+  onNext, 
+  onComplete, 
+  validateSection, 
+  getRequiredCount, 
+  getCompletedCount,
+  profileData 
 }: PartnerQuestionnaireFooterProps) => {
-  const isLastSection = currentSection === 4;
+  const isCurrentSectionValid = validateSection(currentSection);
   const completedCount = getCompletedCount(currentSection);
   const requiredCount = getRequiredCount(currentSection);
+  const remainingCount = requiredCount - completedCount;
+  const overallProgress = calculatePartnerOverallProgress(profileData);
+
+  const getSimpleStatusMessage = () => {
+    if (currentSection === 4 && overallProgress === 100) {
+      return "Ready to unlock dual-perspective insights!";
+    }
+    if (isCurrentSectionValid) {
+      return currentSection === 4 ? 
+        "Complete partner profile to access enhanced features" : 
+        "Section complete - ready for the next step";
+    }
+    return remainingCount > 0 ? 
+      `${remainingCount} more question${remainingCount === 1 ? '' : 's'} to go` : 
+      'Please complete the required questions';
+  };
+
+  const getValueMessage = () => {
+    if (currentSection === 4 && overallProgress >= 80) {
+      return "Unlock relationship insights that consider both perspectives";
+    }
+    if (currentSection === 3) {
+      return "Understanding their style creates more effective communication strategies";
+    }
+    if (currentSection === 2) {
+      return "Their relationship context enables better dual-perspective advice";
+    }
+    return "Each answer helps provide more balanced, relationship-focused guidance";
+  };
+
+  const getStatusIcon = () => {
+    if (currentSection === 4 && overallProgress === 100) return <Heart className="w-3 h-3 text-emerald-300" />;
+    if (isCurrentSectionValid) return <Check className="w-3 h-3 text-emerald-300" />;
+    return <Sparkles className="w-3 h-3 text-white/70" />;
+  };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-3 flex-shrink-0">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {currentSection > 1 && (
-            <Button 
-              variant="ghost" 
-              onClick={onBack}
-              className="text-white/80 hover:text-white hover:bg-white/10"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Back
-            </Button>
-          )}
-        </div>
+    <div className="p-3 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+      <Button
+        variant="outline"
+        onClick={onBack}
+        disabled={currentSection === 1}
+        className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 text-white"
+      >
+        <ArrowLeft className="w-3 h-3" />
+        Back
+      </Button>
 
-        <div className="text-center text-xs text-white/70">
-          {completedCount}/{requiredCount} answered
+      <div className="text-center flex-1 mx-6">
+        <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15 max-w-md mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            {getStatusIcon()}
+            <div className={`font-medium text-sm ${isCurrentSectionValid ? 'text-emerald-300' : 'text-white/90'}`}>
+              {getSimpleStatusMessage()}
+            </div>
+          </div>
+          <div className="text-white/70 text-xs">
+            {getValueMessage()}
+          </div>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          {!isLastSection ? (
-            <Button 
-              onClick={onNext}
-              className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white"
-            >
-              Next
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          ) : (
-            <Button 
-              onClick={onComplete}
-              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
-            >
-              <Heart className="w-4 h-4 mr-2" />
-              Complete Profile
-            </Button>
-          )}
-        </div>
+      <div className="flex gap-2">
+        {currentSection < 4 && (
+          <Button
+            onClick={onNext}
+            disabled={!validateSection(currentSection)}
+            className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-4 py-2 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
+          >
+            Next Step
+            <ArrowRight className="w-3 h-3" />
+          </Button>
+        )}
+        {currentSection === 4 && (
+          <Button
+            onClick={onComplete}
+            disabled={!validateSection(4)}
+            className={`${
+              overallProgress === 100 
+                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700'
+                : 'bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700'
+            } text-white flex items-center gap-2 px-5 py-2 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 font-semibold`}
+          >
+            {overallProgress === 100 ? <Check className="w-3 h-3" /> : <Heart className="w-3 h-3" />}
+            {overallProgress === 100 ? "Unlock Partner Insights!" : "Complete & Unlock Features"}
+          </Button>
+        )}
       </div>
     </div>
   );

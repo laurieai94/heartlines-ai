@@ -22,8 +22,8 @@ const PartnerSectionNavigation = ({
   const getSectionTitle = (section: number) => {
     switch (section) {
       case 1: return "Basics";
-      case 2: return "How They Operate";
-      case 3: return "Relationship Dynamics";
+      case 2: return "Situation";
+      case 3: return "Style";
       case 4: return "Background";
       default: return "";
     }
@@ -32,8 +32,8 @@ const PartnerSectionNavigation = ({
   const getSectionIcon = (section: number) => {
     switch (section) {
       case 1: return <User className="w-3 h-3" />;
-      case 2: return <Zap className="w-3 h-3" />;
-      case 3: return <Heart className="w-3 h-3" />;
+      case 2: return <Heart className="w-3 h-3" />;
+      case 3: return <Zap className="w-3 h-3" />;
       case 4: return <TreeDeciduous className="w-3 h-3" />;
       default: return null;
     }
@@ -43,7 +43,7 @@ const PartnerSectionNavigation = ({
     <div className="grid grid-cols-4 gap-1">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
-        const isCompleted = section < currentSection;
+        const isCompleted = section < currentSection || validateSection(section);
         const isAccessible = sectionReadiness[section] || isCompleted;
         const completedCount = getCompletedCount(section);
         const requiredCount = getRequiredCount(section);

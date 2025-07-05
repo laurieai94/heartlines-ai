@@ -14,8 +14,8 @@ const PartnerQuestionnaireHeader = ({ onClose, currentSection, totalSections, pr
   const overallProgress = calculatePartnerOverallProgress(profileData);
   
   const getSubtitle = () => {
-    if (overallProgress === 100) return "Partner profile complete";
-    if (overallProgress >= 75) return "Almost done with partner profile";
+    if (overallProgress === 100) return "Ready to unlock dual insights";
+    if (overallProgress >= 75) return "Complete to access partner features";
     return "Building your partner's profile";
   };
 
