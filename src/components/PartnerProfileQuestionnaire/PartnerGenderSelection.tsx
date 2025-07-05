@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart } from "lucide-react";
 
 interface PartnerGenderSelectionProps {
   selectedGenders: string[];
@@ -13,27 +12,21 @@ interface PartnerGenderSelectionProps {
 const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelfDescribeChange }: PartnerGenderSelectionProps) => {
   const genderOptions = [
     'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
-    'Genderfluid', 'Questioning', 'Not sure/haven\'t talked about it', 'Prefer to self-describe'
+    'Genderfluid', 'Questioning', 'Not sure', 'Self-describe'
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-      <div>
-        <Label className="text-sm font-semibold text-white">
-          What's their gender identity?
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
-        </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <Heart className="w-3 h-3 text-purple-300" />
-          <span>Because gender is complex and personal</span>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+    <div className="bg-white/5 rounded-lg p-3 space-y-2">
+      <Label className="text-sm font-medium text-white">
+        What's their gender identity?
+        <span className="text-orange-300 font-normal text-xs ml-2">Select all that apply</span>
+      </Label>
+      <div className="grid grid-cols-3 gap-2">
         {genderOptions.map((gender) => (
           <button
             key={gender}
             onClick={() => onGenderSelect(gender)}
-            className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
+            className={`p-1.5 rounded-md text-xs font-medium transition-all text-left hover:scale-[1.01] ${
               selectedGenders.includes(gender)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -44,20 +37,18 @@ const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect,
         ))}
       </div>
       
-      {selectedGenders.includes('Prefer to self-describe') && (
-        <div className="mt-1.5">
-          <Label className="text-xs font-medium text-white mb-1 block">
-            Please describe their gender identity:
-          </Label>
+      {selectedGenders.includes('Self-describe') && (
+        <div className="mt-2">
           <Textarea
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do they identify?"
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 min-h-[50px] resize-none"
-            rows={2}
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 min-h-[40px] resize-none"
+            rows={1}
           />
         </div>
       )}
+      <p className="text-xs text-white/60">Because gender is complex and personal</p>
     </div>
   );
 };

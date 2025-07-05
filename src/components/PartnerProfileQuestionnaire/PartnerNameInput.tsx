@@ -1,7 +1,6 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User } from "lucide-react";
 
 interface PartnerNameInputProps {
   value: string;
@@ -10,22 +9,17 @@ interface PartnerNameInputProps {
 
 const PartnerNameInput = ({ value, onChange }: PartnerNameInputProps) => {
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-      <div>
-        <Label className="text-sm font-semibold text-white">
-          What should we call them? <span className="text-red-400">*</span>
-        </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <User className="w-3 h-3 text-rose-400" />
-          <span>Their name or whatever you call them</span>
-        </div>
-      </div>
+    <div className="space-y-2">
+      <Label className="text-sm font-semibold text-white">
+        What should we call them? <span className="text-red-400">*</span>
+      </Label>
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Enter their name..."
-        className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1 h-6 font-medium w-32"
+        placeholder="Their name or nickname..."
+        className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2 h-9 font-medium"
       />
+      <p className="text-xs text-white/60">Their name or whatever you call them</p>
     </div>
   );
 };

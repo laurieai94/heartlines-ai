@@ -1,6 +1,5 @@
 
 import { Label } from "@/components/ui/label";
-import { Users } from "lucide-react";
 
 interface PartnerPronounsSelectionProps {
   selectedPronouns: string;
@@ -9,26 +8,20 @@ interface PartnerPronounsSelectionProps {
 
 const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: PartnerPronounsSelectionProps) => {
   const pronounsOptions = [
-    "She/her", "He/him", "They/them", "Ze/zir", "Multiple sets", "Use their name", "Other", "Not sure/haven't asked yet"
+    "She/her", "He/him", "They/them", "Use their name", "Not sure", "Other"
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-      <div>
-        <Label className="text-sm font-semibold text-white">
-          What pronouns do they use?
-        </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <Users className="w-3 h-3 text-rose-400" />
-          <span>So RealTalk doesn't misgender them</span>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-2">
+    <div className="bg-white/5 rounded-lg p-3 space-y-2">
+      <Label className="text-sm font-medium text-white">
+        What pronouns do they use?
+      </Label>
+      <div className="grid grid-cols-3 gap-2">
         {pronounsOptions.map((pronoun) => (
           <button
             key={pronoun}
             onClick={() => onPronounsSelect(pronoun)}
-            className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-[1.01] ${
+            className={`p-1.5 rounded-md text-xs font-medium transition-all hover:scale-[1.01] ${
               selectedPronouns === pronoun
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -38,6 +31,7 @@ const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: Partne
           </button>
         ))}
       </div>
+      <p className="text-xs text-white/60">So RealTalk doesn't misgender them</p>
     </div>
   );
 };

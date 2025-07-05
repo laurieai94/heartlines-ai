@@ -22,35 +22,50 @@ const PartnerQuestionnaireSection1 = ({
   if (!isReady) return null;
 
   return (
-    <div className="space-y-1.5">
-      <PartnerNameInput
-        value={profileData.partnerName || ''}
-        onChange={(value) => updateField('partnerName', value)}
-      />
+    <div className="space-y-3">
+      {/* Essential Info Section - Most Important */}
+      <div className="bg-white/15 backdrop-blur-lg rounded-xl border border-white/25 p-4 space-y-3">
+        <div className="flex items-center gap-2 mb-2">
+          <User className="w-4 h-4 text-rose-400" />
+          <h3 className="text-base font-semibold text-white">Essential Info</h3>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-4">
+          <PartnerNameInput
+            value={profileData.partnerName || ''}
+            onChange={(value) => updateField('partnerName', value)}
+          />
+          <PartnerAgeSelection
+            selectedAge={profileData.partnerAge || ''}
+            onAgeSelect={(age) => updateField('partnerAge', age)}
+          />
+        </div>
+      </div>
 
-      <PartnerAgeSelection
-        selectedAge={profileData.partnerAge || ''}
-        onAgeSelect={(age) => updateField('partnerAge', age)}
-      />
+      {/* Identity Info Section - Secondary */}
+      <div className="bg-white/8 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+        <h3 className="text-sm font-medium text-white/90 mb-2">Identity & Personal Info</h3>
+        <div className="space-y-2">
+          <PartnerPronounsSelection
+            selectedPronouns={profileData.partnerPronouns || ''}
+            onPronounsSelect={(pronouns) => updateField('partnerPronouns', pronouns)}
+          />
 
-      <PartnerPronounsSelection
-        selectedPronouns={profileData.partnerPronouns || ''}
-        onPronounsSelect={(pronouns) => updateField('partnerPronouns', pronouns)}
-      />
+          <PartnerGenderSelection
+            selectedGenders={profileData.partnerGender || []}
+            selfDescribe={profileData.partnerGenderSelfDescribe || ''}
+            onGenderSelect={(gender) => handleMultiSelect('partnerGender', gender)}
+            onSelfDescribeChange={(value) => updateField('partnerGenderSelfDescribe', value)}
+          />
 
-      <PartnerGenderSelection
-        selectedGenders={profileData.partnerGender || []}
-        selfDescribe={profileData.partnerGenderSelfDescribe || ''}
-        onGenderSelect={(gender) => handleMultiSelect('partnerGender', gender)}
-        onSelfDescribeChange={(value) => updateField('partnerGenderSelfDescribe', value)}
-      />
-
-      <PartnerOrientationSelection
-        selectedOrientations={profileData.partnerOrientation || []}
-        selfDescribe={profileData.partnerOrientationSelfDescribe || ''}
-        onOrientationSelect={(orientation) => handleMultiSelect('partnerOrientation', orientation)}
-        onSelfDescribeChange={(value) => updateField('partnerOrientationSelfDescribe', value)}
-      />
+          <PartnerOrientationSelection
+            selectedOrientations={profileData.partnerOrientation || []}
+            selfDescribe={profileData.partnerOrientationSelfDescribe || ''}
+            onOrientationSelect={(orientation) => handleMultiSelect('partnerOrientation', orientation)}
+            onSelfDescribeChange={(value) => updateField('partnerOrientationSelfDescribe', value)}
+          />
+        </div>
+      </div>
     </div>
   );
 };

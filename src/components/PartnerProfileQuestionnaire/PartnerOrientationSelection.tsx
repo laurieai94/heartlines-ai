@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Compass } from "lucide-react";
 
 interface PartnerOrientationSelectionProps {
   selectedOrientations: string[];
@@ -12,28 +11,22 @@ interface PartnerOrientationSelectionProps {
 
 const PartnerOrientationSelection = ({ selectedOrientations, selfDescribe, onOrientationSelect, onSelfDescribeChange }: PartnerOrientationSelectionProps) => {
   const orientationOptions = [
-    'Straight/Heterosexual', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
-    'Queer', 'Asexual', 'Questioning', 'Not sure/haven\'t discussed', 'Prefer to self-describe'
+    'Straight', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
+    'Queer', 'Asexual', 'Questioning', 'Not sure', 'Self-describe'
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-      <div>
-        <Label className="text-sm font-semibold text-white">
-          What's their sexual orientation?
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
-        </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <Compass className="w-3 h-3 text-pink-300" />
-          <span>Because straight dating advice doesn't work for everyone</span>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+    <div className="bg-white/5 rounded-lg p-3 space-y-2">
+      <Label className="text-sm font-medium text-white">
+        What's their sexual orientation?
+        <span className="text-orange-300 font-normal text-xs ml-2">Select all that apply</span>
+      </Label>
+      <div className="grid grid-cols-3 gap-2">
         {orientationOptions.map((orientation) => (
           <button
             key={orientation}
             onClick={() => onOrientationSelect(orientation)}
-            className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
+            className={`p-1.5 rounded-md text-xs font-medium transition-all text-left hover:scale-[1.01] ${
               selectedOrientations.includes(orientation)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
@@ -44,20 +37,18 @@ const PartnerOrientationSelection = ({ selectedOrientations, selfDescribe, onOri
         ))}
       </div>
       
-      {selectedOrientations.includes('Prefer to self-describe') && (
-        <div className="mt-1.5">
-          <Label className="text-xs font-medium text-white mb-1 block">
-            Please describe their sexual orientation:
-          </Label>
+      {selectedOrientations.includes('Self-describe') && (
+        <div className="mt-2">
           <Textarea
             value={selfDescribe}
             onChange={(e) => onSelfDescribeChange(e.target.value)}
             placeholder="How do they identify?"
-            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 min-h-[50px] resize-none"
+            className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 min-h-[40px] resize-none"
             rows={1}
           />
         </div>
       )}
+      <p className="text-xs text-white/60">Because straight dating advice doesn't work for everyone</p>
     </div>
   );
 };
