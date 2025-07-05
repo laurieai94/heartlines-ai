@@ -4,6 +4,7 @@ import PartnerQuestionnaireSection1 from "./PartnerQuestionnaireSection1";
 import PartnerQuestionnaireSection2 from "./PartnerQuestionnaireSection2";
 import PartnerQuestionnaireSection3 from "./PartnerQuestionnaireSection3";
 import PartnerQuestionnaireSection4 from "./PartnerQuestionnaireSection4";
+import { Sparkles } from "lucide-react";
 
 interface PartnerQuestionnaireContentProps {
   currentSection: number;
@@ -43,12 +44,18 @@ const PartnerQuestionnaireContent = ({
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
       <div className="px-1.5 py-1">
-        {/* Opening Note - only show on section 1 */}
+        {/* Prominent Opening Note - only show on section 1 */}
         {currentSection === 1 && (
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 mb-1.5">
-            <p className="text-sm text-white/90 leading-relaxed">
-              Whether you've been together 20 years or just started talking - answer what you know and skip what you don't. RealTalk works with whatever you can share.
-            </p>
+          <div className="bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-3 mb-1.5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-purple-500/10 animate-pulse"></div>
+            <div className="relative flex items-start gap-3">
+              <div className="w-6 h-6 bg-gradient-to-br from-rose-400 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Sparkles className="w-3 h-3 text-white" />
+              </div>
+              <p className="text-sm text-white font-medium leading-relaxed">
+                Whether you've been together 20 years or just started talking - answer what you know and skip what you don't. RealTalk works with whatever you can share.
+              </p>
+            </div>
           </div>
         )}
 

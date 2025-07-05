@@ -24,7 +24,7 @@ const PartnerNameInput = ({ value, onChange }: PartnerNameInputProps) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Enter their name..."
-        className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2.5"
+        className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
       />
     </div>
   );
