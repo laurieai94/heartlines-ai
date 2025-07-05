@@ -30,6 +30,8 @@ const ProfileCard = ({
   progressColor,
   benefitColor
 }: ProfileCardProps) => {
+  const [firstBenefit, ...remainingBenefits] = benefits;
+
   return (
     <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
       <div className="space-y-3">
@@ -58,11 +60,11 @@ const ProfileCard = ({
 
         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
           <div className={`flex items-center gap-2 ${benefitColor} mb-2`}>
-            <benefits[0].icon />
-            <span className="font-semibold text-sm">What You'll Get:</span>
+            {firstBenefit.icon}
+            <span className="font-semibold text-sm">{firstBenefit.text}</span>
           </div>
           <ul className="space-y-1 text-pink-200/80 text-xs">
-            {benefits.slice(1).map((benefit, index) => (
+            {remainingBenefits.map((benefit, index) => (
               <li key={index} className="flex items-center gap-2">
                 <Star className={`w-3 h-3 ${benefitColor}`} />
                 {benefit.text}
