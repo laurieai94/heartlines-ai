@@ -18,9 +18,9 @@ const PartnerQuestionnaireSection4 = ({
 }: PartnerQuestionnaireSection4Props) => {
   if (!isReady) return null;
 
-  const familyBackgroundOptions = ["Parents together with a healthy, solid relationship", "Parents together with normal ups and downs", "Parents together but fought constantly", "Parents divorced and stayed that way", "Parents divorced, one or both remarried", "Parents divorced but got back together", "Single parent household", "Raised by grandparents or other family", "They don't really talk about family stuff", "Haven't gotten into family history yet"];
-  const emotionsOptions = ["Pretty open about all their feelings", "Good with positive emotions, struggle with negative ones", "Not super emotional in general", "Some feelings are easier than others", "Can get overwhelmed by big emotions", "Very even-keeled and stable", "Emotions seem scary or uncomfortable for them", "Still learning their emotional patterns"];
-  const valuesOptions = ["Family relationships and connections", "Career success and achievement", "Personal growth and self-improvement", "Financial security and stability", "Adventure and new experiences", "Helping others and making a difference", "Independence and autonomy", "Loyalty and commitment", "Honesty and authenticity", "Fun and enjoyment", "Still figuring out what drives them"];
+  const familyBackgroundOptions = ["Parents together with a healthy, solid relationship", "Parents together with normal ups and downs", "Parents together but fought constantly", "Parents divorced and stayed that way", "Parents divorced, one or both remarried", "Parents divorced but got back together", "Single parent household", "Raised by grandparents or other family", "They don't really talk about family stuff", "Haven't gotten into family history yet", "Other (please specify)"];
+  const emotionsOptions = ["Pretty open about all their feelings", "Good with positive emotions, struggle with negative ones", "Not super emotional in general", "Some feelings are easier than others", "Can get overwhelmed by big emotions", "Very even-keeled and stable", "Emotions seem scary or uncomfortable for them", "Still learning their emotional patterns", "Other (please specify)"];
+  const valuesOptions = ["Family relationships and connections", "Career success and achievement", "Personal growth and self-improvement", "Financial security and stability", "Adventure and new experiences", "Helping others and making a difference", "Independence and autonomy", "Loyalty and commitment", "Honesty and authenticity", "Fun and enjoyment", "Still figuring out what drives them", "Other (please specify)"];
 
   return (
     <div className="space-y-1.5">
@@ -48,6 +48,7 @@ const PartnerQuestionnaireSection4 = ({
         <div>
           <Label className="text-sm font-semibold text-white">
             What's their family origin story?
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that apply</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <Users className="w-3 h-3 text-green-300" />
@@ -55,20 +56,33 @@ const PartnerQuestionnaireSection4 = ({
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {familyBackgroundOptions.map((background) => (
-            <button
-              key={background}
-              onClick={() => updateField('partnerFamilyBackground', background)}
-              className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
-                profileData.partnerFamilyBackground === background
-                  ? 'questionnaire-button-selected'
-                  : 'questionnaire-button-secondary'
-              }`}
-            >
-              {background}
-            </button>
-          ))}
+          {familyBackgroundOptions.map((background) => {
+            const isSelected = profileData.partnerFamilyBackground?.includes(background);
+            return (
+              <button
+                key={background}
+                onClick={() => handleMultiSelect('partnerFamilyBackground', background)}
+                className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
+                  isSelected
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
+                }`}
+              >
+                {background}
+              </button>
+            );
+          })}
         </div>
+        {profileData.partnerFamilyBackground?.includes("Other (please specify)") && (
+          <div className="mt-2">
+            <Input
+              placeholder="Please specify their family background"
+              value={profileData.partnerFamilyBackgroundOther || ''}
+              onChange={(e) => updateField('partnerFamilyBackgroundOther', e.target.value)}
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+            />
+          </div>
+        )}
       </div>
 
       {/* Emotions */}
@@ -101,6 +115,16 @@ const PartnerQuestionnaireSection4 = ({
             );
           })}
         </div>
+        {profileData.partnerEmotions?.includes("Other (please specify)") && (
+          <div className="mt-2">
+            <Input
+              placeholder="Please specify how they handle emotions"
+              value={profileData.partnerEmotionsOther || ''}
+              onChange={(e) => updateField('partnerEmotionsOther', e.target.value)}
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+            />
+          </div>
+        )}
       </div>
 
       {/* Values */}
@@ -133,6 +157,16 @@ const PartnerQuestionnaireSection4 = ({
             );
           })}
         </div>
+        {profileData.partnerValues?.includes("Other (please specify)") && (
+          <div className="mt-2">
+            <Input
+              placeholder="Please specify what's important to them"
+              value={profileData.partnerValuesOther || ''}
+              onChange={(e) => updateField('partnerValuesOther', e.target.value)}
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
