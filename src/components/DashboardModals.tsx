@@ -43,6 +43,9 @@ const DashboardModals = ({
   onPartnerCompletionClose,
   temporaryProfiles
 }: DashboardModalsProps) => {
+  console.log('DashboardModals render - showQuestionnaireModal:', showQuestionnaireModal);
+  console.log('DashboardModals render - showPartnerQuestionnaireModal:', showPartnerQuestionnaireModal);
+
   return (
     <>
       {/* Sign-up Modal */}
@@ -55,16 +58,17 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-4"
+          style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
           <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={onQuestionnaireClose}
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-[90vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             <div className="h-full w-full">
               <PersonalProfileQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
@@ -79,16 +83,17 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-4"
+          style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
           <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={onPartnerQuestionnaireClose}
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-[90vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             <div className="h-full w-full">
               <PartnerProfileQuestionnaire 
                 onComplete={onPartnerQuestionnaireComplete} 

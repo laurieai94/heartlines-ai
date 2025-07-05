@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { Brain, Heart, Target, Lightbulb, Star } from "lucide-react";
@@ -42,6 +41,26 @@ const ProfileBuilder = ({
   const yourProfileCompletion = calculateYourCompletion();
   const partnerProfileCompletion = calculatePartnerCompletion();
 
+  const handleStartPersonalProfile = () => {
+    console.log('handleStartPersonalProfile called, onOpenQuestionnaire exists:', !!onOpenQuestionnaire);
+    // Call the callback to open the questionnaire modal in Dashboard
+    if (onOpenQuestionnaire) {
+      onOpenQuestionnaire();
+    } else {
+      console.error('onOpenQuestionnaire callback not provided');
+    }
+  };
+
+  const handleStartPartnerProfile = () => {
+    console.log('handleStartPartnerProfile called, onOpenPartnerQuestionnaire exists:', !!onOpenPartnerQuestionnaire);
+    // Call the callback to open the partner questionnaire modal in Dashboard
+    if (onOpenPartnerQuestionnaire) {
+      onOpenPartnerQuestionnaire();
+    } else {
+      console.error('onOpenPartnerQuestionnaire callback not provided');
+    }
+  };
+
   const handleStartProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // For partner profiles, still use the old flow
@@ -49,20 +68,6 @@ const ProfileBuilder = ({
       setShowDemographics(true);
     } else {
       setShowForm(true);
-    }
-  };
-
-  const handleStartPersonalProfile = () => {
-    // Call the callback to open the questionnaire modal in Dashboard
-    if (onOpenQuestionnaire) {
-      onOpenQuestionnaire();
-    }
-  };
-
-  const handleStartPartnerProfile = () => {
-    // Call the callback to open the partner questionnaire modal in Dashboard
-    if (onOpenPartnerQuestionnaire) {
-      onOpenPartnerQuestionnaire();
     }
   };
 

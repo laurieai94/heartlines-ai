@@ -24,12 +24,12 @@ export const useDashboardHandlers = () => {
   };
 
   const handleOpenQuestionnaire = () => {
-    console.log('Opening questionnaire modal');
+    console.log('handleOpenQuestionnaire called - setting showQuestionnaireModal to true');
     setShowQuestionnaireModal(true);
   };
 
   const handleOpenPartnerQuestionnaire = () => {
-    console.log('Opening partner questionnaire modal');
+    console.log('handleOpenPartnerQuestionnaire called - setting showPartnerQuestionnaireModal to true');
     setShowPartnerQuestionnaireModal(true);
   };
 
@@ -96,10 +96,12 @@ export const useDashboardHandlers = () => {
   };
 
   const handleQuestionnaireClose = () => {
+    console.log('Closing questionnaire modal');
     setShowQuestionnaireModal(false);
   };
 
   const handlePartnerQuestionnaireClose = () => {
+    console.log('Closing partner questionnaire modal');
     setShowPartnerQuestionnaireModal(false);
   };
 

@@ -22,6 +22,15 @@ export const useDashboardModals = () => {
   
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
 
+  // Debug logging for modal state changes
+  useEffect(() => {
+    console.log('Modal state changed - showQuestionnaireModal:', showQuestionnaireModal);
+  }, [showQuestionnaireModal]);
+
+  useEffect(() => {
+    console.log('Modal state changed - showPartnerQuestionnaireModal:', showPartnerQuestionnaireModal);
+  }, [showPartnerQuestionnaireModal]);
+
   // Prevent body scroll when questionnaire modal is open
   useEffect(() => {
     if (showQuestionnaireModal || showPartnerQuestionnaireModal) {
