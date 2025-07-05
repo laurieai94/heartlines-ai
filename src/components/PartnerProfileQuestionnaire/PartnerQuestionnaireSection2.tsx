@@ -1,6 +1,7 @@
 
 import { Zap, Users, MessageCircle, Heart } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface PartnerQuestionnaireSection2Props {
   profileData: any;
@@ -53,6 +54,14 @@ const PartnerQuestionnaireSection2 = ({
             );
           })}
         </div>
+        <div className="mt-2">
+          <Input
+            placeholder="Other (please specify)"
+            value={profileData.partnerStressResponseOther || ''}
+            onChange={(e) => updateField('partnerStressResponseOther', e.target.value)}
+            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+          />
+        </div>
       </div>
 
       {/* Conflict Needs */}
@@ -85,6 +94,14 @@ const PartnerQuestionnaireSection2 = ({
             );
           })}
         </div>
+        <div className="mt-2">
+          <Input
+            placeholder="Other (please specify)"
+            value={profileData.partnerConflictNeedsOther || ''}
+            onChange={(e) => updateField('partnerConflictNeedsOther', e.target.value)}
+            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+          />
+        </div>
       </div>
 
       {/* Love Language */}
@@ -116,6 +133,14 @@ const PartnerQuestionnaireSection2 = ({
               </button>
             );
           })}
+        </div>
+        <div className="mt-2">
+          <Input
+            placeholder="Other (please specify)"
+            value={profileData.partnerLoveLanguageOther || ''}
+            onChange={(e) => updateField('partnerLoveLanguageOther', e.target.value)}
+            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 text-xs"
+          />
         </div>
       </div>
     </div>
