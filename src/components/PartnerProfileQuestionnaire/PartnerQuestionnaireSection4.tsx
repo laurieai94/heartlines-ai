@@ -23,46 +23,46 @@ const PartnerQuestionnaireSection4 = ({
   const valuesOptions = ["Family relationships and connections", "Career success and achievement", "Personal growth and self-improvement", "Financial security and stability", "Adventure and new experiences", "Helping others and making a difference", "Independence and autonomy", "Loyalty and commitment", "Honesty and authenticity", "Fun and enjoyment", "Still figuring out what drives them"];
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-6">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <TreeDeciduous className="w-5 h-5 text-rose-400" />
-          <h3 className="text-lg font-semibold text-white">Their Background</h3>
-        </div>
-        <p className="text-sm text-white/70">The family stuff that shaped them</p>
-      </div>
-
+    <div className="space-y-1.5">
       {/* Understanding Better */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
-        <Label className="text-white font-medium mb-2 block">
-          <HelpCircle className="w-4 h-4 inline mr-2 text-rose-400" />
-          What about them do you want to understand better? Totally optional
-        </Label>
-        <p className="text-xs text-white/60 mb-3">Anything that confuses you or that you're curious about</p>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div>
+          <Label className="text-sm font-semibold text-white">
+            What about them do you want to understand better?
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <HelpCircle className="w-3 h-3 text-blue-300" />
+            <span>Anything that confuses you or that you're curious about</span>
+          </div>
+        </div>
         <Input
           value={profileData.partnerUnderstandBetter || ''}
           onChange={(e) => updateField('partnerUnderstandBetter', e.target.value)}
           placeholder="What patterns puzzle you or what would help you connect better?"
-          className="bg-white/5 border-white/20 text-white placeholder-white/40"
+          className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2.5"
         />
       </div>
 
       {/* Family Background */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
-        <Label className="text-white font-medium mb-2 block">
-          <Users className="w-4 h-4 inline mr-2 text-rose-400" />
-          What's their family origin story?
-        </Label>
-        <p className="text-xs text-white/60 mb-3">This is their relationship blueprint whether they know it or not</p>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div>
+          <Label className="text-sm font-semibold text-white">
+            What's their family origin story?
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Users className="w-3 h-3 text-green-300" />
+            <span>This is their relationship blueprint whether they know it or not</span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-2">
           {familyBackgroundOptions.map((background) => (
             <button
               key={background}
               onClick={() => updateField('partnerFamilyBackground', background)}
-              className={`p-2 rounded-lg text-sm transition-all text-left ${
+              className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                 profileData.partnerFamilyBackground === background
-                  ? 'bg-gradient-to-r from-rose-500 to-pink-600 text-white'
-                  : 'bg-white/5 text-white/80 hover:bg-white/10'
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
               }`}
             >
               {background}
@@ -72,12 +72,17 @@ const PartnerQuestionnaireSection4 = ({
       </div>
 
       {/* Emotions */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
-        <Label className="text-white font-medium mb-2 block">
-          <Heart className="w-4 h-4 inline mr-2 text-rose-400" />
-          How do they handle emotions? Select all you've observed
-        </Label>
-        <p className="text-xs text-white/60 mb-3">Their emotional comfort zone</p>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div>
+          <Label className="text-sm font-semibold text-white">
+            How do they handle emotions?
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all you've observed</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Heart className="w-3 h-3 text-pink-300" />
+            <span>Their emotional comfort zone</span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-2">
           {emotionsOptions.map((emotion) => {
             const isSelected = profileData.partnerEmotions?.includes(emotion);
@@ -85,10 +90,10 @@ const PartnerQuestionnaireSection4 = ({
               <button
                 key={emotion}
                 onClick={() => handleMultiSelect('partnerEmotions', emotion)}
-                className={`p-2 rounded-lg text-sm transition-all text-left ${
+                className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                   isSelected
-                    ? 'bg-gradient-to-r from-rose-500 to-pink-600 text-white'
-                    : 'bg-white/5 text-white/80 hover:bg-white/10'
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
                 }`}
               >
                 {emotion}
@@ -99,12 +104,17 @@ const PartnerQuestionnaireSection4 = ({
       </div>
 
       {/* Values */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
-        <Label className="text-white font-medium mb-2 block">
-          <Target className="w-4 h-4 inline mr-2 text-rose-400" />
-          What seems most important to them in life? Select all that resonate
-        </Label>
-        <p className="text-xs text-white/60 mb-3">Their core values based on actions, not just words</p>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div>
+          <Label className="text-sm font-semibold text-white">
+            What seems most important to them in life?
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Target className="w-3 h-3 text-purple-300" />
+            <span>Their core values based on actions, not just words</span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-2">
           {valuesOptions.map((value) => {
             const isSelected = profileData.partnerValues?.includes(value);
@@ -112,10 +122,10 @@ const PartnerQuestionnaireSection4 = ({
               <button
                 key={value}
                 onClick={() => handleMultiSelect('partnerValues', value)}
-                className={`p-2 rounded-lg text-sm transition-all text-left ${
+                className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                   isSelected
-                    ? 'bg-gradient-to-r from-rose-500 to-pink-600 text-white'
-                    : 'bg-white/5 text-white/80 hover:bg-white/10'
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
                 }`}
               >
                 {value}
