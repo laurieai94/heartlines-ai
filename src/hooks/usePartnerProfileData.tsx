@@ -25,7 +25,7 @@ export const usePartnerProfileData = () => {
     };
 
     loadData();
-  }, []);
+  }, [loadFromStorage, setProfileData]);
 
   // Save data function
   const saveData = async (newData: Partial<PartnerProfileData>) => {
