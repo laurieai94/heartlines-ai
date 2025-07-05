@@ -15,13 +15,16 @@ import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import QuestionnaireModal from "@/components/QuestionnaireModal";
 import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import PartnerProfileQuestionnaire from "@/components/PartnerProfileQuestionnaire";
 import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 
 const Dashboard = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("profile");
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
+  const [showPartnerQuestionnaireModal, setShowPartnerQuestionnaireModal] = useState(false);
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
+  const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
   
   const { 
     shouldShowSignUpModal, 
@@ -36,7 +39,7 @@ const Dashboard = () => {
 
   // Prevent body scroll when questionnaire modal is open
   useEffect(() => {
-    if (showQuestionnaireModal) {
+    if (showQuestionnaireModal || showPartnerQuestionnaireModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -46,7 +49,7 @@ const Dashboard = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showQuestionnaireModal]);
+  }, [showQuestionnaireModal, showPartnerQuestionnaireModal]);
 
   // Handle redirect from profile completion
   useEffect(() => {
@@ -72,6 +75,11 @@ const Dashboard = () => {
   const handleOpenQuestionnaire = () => {
     console.log('Opening questionnaire modal');
     setShowQuestionnaireModal(true);
+  };
+
+  const handleOpenPartnerQuestionnaire = () => {
+    console.log('Opening partner questionnaire modal');
+    setShowPartnerQuestionnaireModal(true);
   };
 
   const handleQuestionnaireComplete = (questionnaireData: any) => {
@@ -108,17 +116,60 @@ const Dashboard = () => {
     setShowPersonalCompletionOptions(true);
   };
 
+  const handlePartnerQuestionnaireComplete = (questionnaireData: any) => {
+    console.log('Partner questionnaire completed with data:', questionnaireData);
+    
+    // Get existing data from both profiles and demographics
+    const existingProfile = temporaryProfiles.partner[0] || {};
+    const existingDemographics = temporaryDemographics.partner || {};
+    
+    // Merge all existing data with new questionnaire data
+    const mergedData = {
+      ...existingProfile,
+      ...existingDemographics,
+      ...questionnaireData.completionData,
+      completedAt: new Date().toISOString(),
+      profileSource: 'partner-questionnaire'
+    };
+    
+    // Update both profile and demographics with the complete merged data
+    const newProfiles = {
+      ...temporaryProfiles,
+      partner: [mergedData]
+    };
+    
+    const newDemographics = {
+      ...temporaryDemographics,
+      partner: mergedData
+    };
+    
+    console.log('Saving complete partner questionnaire data:', { newProfiles, newDemographics });
+    updateTemporaryProfile(newProfiles, newDemographics);
+    
+    setShowPartnerQuestionnaireModal(false);
+    setShowPartnerCompletionOptions(true);
+  };
+
   const handleQuestionnaireClose = () => {
     setShowQuestionnaireModal(false);
+  };
+
+  const handlePartnerQuestionnaireClose = () => {
+    setShowPartnerQuestionnaireModal(false);
   };
 
   const handlePersonalCompletionClose = () => {
     setShowPersonalCompletionOptions(false);
   };
 
+  const handlePartnerCompletionClose = () => {
+    setShowPartnerCompletionOptions(false);
+  };
+
   const handlePersonalAddPartnerProfile = () => {
     setShowPersonalCompletionOptions(false);
-    // Stay on profile tab for partner profile creation
+    // Open partner questionnaire modal
+    setShowPartnerQuestionnaireModal(true);
   };
 
   const handlePersonalStartChatting = () => {
@@ -127,8 +178,14 @@ const Dashboard = () => {
     setActiveTab("insights");
   };
 
+  const handlePartnerStartChatting = () => {
+    console.log('Starting chat from partner completion, navigating to coach');
+    setShowPartnerCompletionOptions(false);
+    setActiveTab("insights");
+  };
+
   // Check if any modal is open for blur effect
-  const isAnyModalOpen = shouldShowSignUpModal || showQuestionnaireModal || showPersonalCompletionOptions;
+  const isAnyModalOpen = shouldShowSignUpModal || showQuestionnaireModal || showPartnerQuestionnaireModal || showPersonalCompletionOptions || showPartnerCompletionOptions;
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
@@ -204,6 +261,7 @@ const Dashboard = () => {
                     initialProfiles={temporaryProfiles}
                     initialDemographics={temporaryDemographics}
                     onOpenQuestionnaire={handleOpenQuestionnaire}
+                    onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
                   />
                 </TabsContent>
 
@@ -247,7 +305,7 @@ const Dashboard = () => {
           blockingAction={blockingAction}
         />
 
-        {/* Questionnaire Modal - Updated to appear as windowed overlay with proper scroll containment */}
+        {/* Personal Questionnaire Modal */}
         {showQuestionnaireModal && (
           <div 
             className="fixed inset-0 z-[9999] flex items-center justify-center p-8"
@@ -260,13 +318,38 @@ const Dashboard = () => {
               onWheel={(e) => e.preventDefault()}
             />
             
-            {/* Modal Container - Made smaller to appear as windowed overlay with proper height */}
+            {/* Modal Container */}
             <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-              {/* Questionnaire Content */}
               <div className="h-full w-full">
                 <PersonalProfileQuestionnaire 
                   onComplete={handleQuestionnaireComplete} 
                   onClose={handleQuestionnaireClose} 
+                  isModal={true} 
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Partner Questionnaire Modal */}
+        {showPartnerQuestionnaireModal && (
+          <div 
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-8"
+            onWheel={(e) => e.stopPropagation()}
+          >
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={handlePartnerQuestionnaireClose}
+              onWheel={(e) => e.preventDefault()}
+            />
+            
+            {/* Modal Container */}
+            <div className="relative z-10 w-full max-w-5xl mx-auto h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+              <div className="h-full w-full">
+                <PartnerProfileQuestionnaire 
+                  onComplete={handlePartnerQuestionnaireComplete} 
+                  onClose={handlePartnerQuestionnaireClose} 
                   isModal={true} 
                 />
               </div>
@@ -282,6 +365,17 @@ const Dashboard = () => {
             onStartChatting={handlePersonalStartChatting}
             onClose={handlePersonalCompletionClose}
             hasPartnerProfile={temporaryProfiles.partner.length > 0}
+          />
+        )}
+
+        {/* Partner Profile Completion Options */}
+        {showPartnerCompletionOptions && (
+          <ProfileCompletionOptions
+            completionType="partner"
+            onAddPartnerProfile={() => {}} // Not used for partner completion
+            onStartChatting={handlePartnerStartChatting}
+            onClose={handlePartnerCompletionClose}
+            hasPartnerProfile={true}
           />
         )}
       </div>

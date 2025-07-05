@@ -21,13 +21,15 @@ interface ProfileBuilderProps {
   initialProfiles?: {your: any[], partner: any[]};
   initialDemographics?: {your: any, partner: any};
   onOpenQuestionnaire?: () => void;
+  onOpenPartnerQuestionnaire?: () => void;
 }
 
 const ProfileBuilder = ({ 
   onProfileUpdate, 
   initialProfiles = { your: [], partner: [] }, 
   initialDemographics = { your: null, partner: null },
-  onOpenQuestionnaire
+  onOpenQuestionnaire,
+  onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -106,6 +108,13 @@ const ProfileBuilder = ({
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
       onOpenQuestionnaire();
+    }
+  };
+
+  const handleStartPartnerProfile = () => {
+    // Call the callback to open the partner questionnaire modal in Dashboard
+    if (onOpenPartnerQuestionnaire) {
+      onOpenPartnerQuestionnaire();
     }
   };
 
@@ -295,7 +304,7 @@ const ProfileBuilder = ({
               </div>
 
               <Button 
-                onClick={() => handleStartProfile('partner')}
+                onClick={handleStartPartnerProfile}
                 className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0"
               >
                 {partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
