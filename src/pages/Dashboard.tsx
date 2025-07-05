@@ -5,7 +5,6 @@ import DashboardNavigation from "@/components/DashboardNavigation";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
-import { useDashboardHandlers } from "@/hooks/useDashboardHandlers";
 
 const Dashboard = () => {
   const {
@@ -22,10 +21,8 @@ const Dashboard = () => {
     profileCompletion,
     temporaryProfiles,
     temporaryDemographics,
-    isAnyModalOpen
-  } = useDashboardModals();
-
-  const {
+    isAnyModalOpen,
+    // Handler functions
     handleGoToProfile,
     handleGoToCoach,
     handleOpenQuestionnaire,
@@ -40,7 +37,7 @@ const Dashboard = () => {
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handleProfileUpdate
-  } = useDashboardHandlers();
+  } = useDashboardModals();
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
