@@ -1,5 +1,5 @@
 
-import { Trophy, PartyPopper } from "lucide-react";
+import { Heart, PartyPopper } from "lucide-react";
 
 interface QuestionnaireSuccessProps {
   isModal?: boolean;
@@ -11,8 +11,8 @@ const QuestionnaireSuccess = ({ isModal = false }: QuestionnaireSuccessProps) =>
       <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-2xl h-[70vh]'} overflow-hidden flex flex-col items-center justify-center border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
         <div className="text-center space-y-6 p-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <Trophy className="w-12 h-12 text-yellow-400 animate-bounce" />
-            <PartyPopper className="w-8 h-8 text-electric-blue animate-pulse" />
+            <Heart className="w-12 h-12 text-pink-400 animate-bounce" />
+            <PartyPopper className="w-8 h-8 text-pink-400 animate-pulse" />
           </div>
           
           <div className="space-y-2">

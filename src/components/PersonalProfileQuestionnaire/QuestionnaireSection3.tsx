@@ -39,26 +39,26 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {/* Stress Response */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When you're feeling stressed, how do you typically respond? <span className="text-red-400">*</span>
-            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Brain className="w-3 h-3 text-purple-400" />
-            <span>How you react when life gets overwhelming (spoiler: we all have patterns)</span>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Brain className="w-3 h-3 text-purple-300" />
+            <span>How you react when life gets overwhelming</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {stressResponseOptions.map((response) => (
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.stressResponse || []).includes(response)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -71,24 +71,24 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Conflict Needs */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When you're in conflict, what do you need? <span className="text-red-400">*</span>
-            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Shield className="w-3 h-3 text-cyan-400" />
-            <span>What you actually need during fights (not what you think you should need)</span>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Shield className="w-3 h-3 text-blue-300" />
+            <span>What you actually need during fights</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {conflictNeedsOptions.map((need) => (
             <button
               key={need}
               onClick={() => handleMultiSelect('conflictNeeds', need)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.conflictNeeds || []).includes(need)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -101,24 +101,24 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Feel Loved When */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             When do you feel most loved? <span className="text-red-400">*</span>
-            <span className="text-blue-400 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <MessageSquare className="w-3 h-3 text-blue-400" />
-            <span>Your specific love language, not generic relationship advice</span>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <MessageSquare className="w-3 h-3 text-pink-300" />
+            <span>Your specific love language</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {feelLovedOptions.map((way) => (
             <button
               key={way}
               onClick={() => handleMultiSelect('feelLovedWhen', way)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.feelLovedWhen || []).includes(way)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -131,23 +131,23 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Attachment Style */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-3 space-y-2">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
             What's your attachment style? <span className="text-red-400">*</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/80 mb-1 font-normal">
-            <Users className="w-3 h-3 text-purple-400" />
-            <span>The psychological patterns that run your relationships (yes, even yours)</span>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+            <Users className="w-3 h-3 text-orange-300" />
+            <span>The psychological patterns that run your relationships</span>
           </div>
         </div>
         
-        <div className="space-y-1">
+        <div className="space-y-2">
           {attachmentOptions.map((style) => (
             <button
               key={style}
               onClick={() => updateField('attachmentStyle', style)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 profileData.attachmentStyle === style
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'

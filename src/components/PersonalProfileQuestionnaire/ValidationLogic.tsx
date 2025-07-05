@@ -55,8 +55,8 @@ export const validateSection = (section: number, profileData: any) => {
       });
     }
     case 4: {
-      const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
-      return optionalFields.some(field => {
+      const required = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
+      return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
       });
@@ -87,15 +87,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
       return base;
     }
     case 3: return 4;
-    case 4: {
-      // Fixed: Return the actual number of completed fields for Section 4 to ensure 100% progress
-      const optionalFields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
-      const completedCount = optionalFields.filter(field => {
-        const value = profileData[field];
-        return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
-      }).length;
-      return Math.max(1, completedCount); // At least 1 required, but adjust to actual completed count
-    }
+    case 4: return 4;
     default: return 0;
   }
 };
@@ -141,7 +133,7 @@ export const getCompletedCount = (section: number, profileData: any) => {
       }).length;
     }
     case 4: {
-      const fields = ['familyDynamics', 'parentConflictStyle', 'loveMessages', 'loveInfluences'];
+      const fields = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
       return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -158,10 +150,19 @@ export const calculateOverallProgress = (profileData: any) => {
   
   // Calculate total required and completed across all sections
   for (let section = 1; section <= 4; section++) {
-    totalRequired += getRequiredCount(section, profileData);
-    totalCompleted += getCompletedCount(section, profileData);
+    const required = getRequiredCount(section, profileData);
+    const completed = getCompletedCount(section, profileData);
+    
+    totalRequired += required;
+    totalCompleted += completed;
+    
+    // Add debugging to track progress calculation
+    console.log(`Section ${section}: ${completed}/${required} (${Math.round((completed/required)*100)}%)`);
   }
   
+  const overallProgress = totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+  console.log(`Overall Progress: ${totalCompleted}/${totalRequired} = ${overallProgress}%`);
+  
   // Return percentage (0-100)
-  return totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+  return overallProgress;
 };
