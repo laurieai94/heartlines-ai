@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Sparkles, Heart, MessageCircle, Lightbulb } from "lucide-react";
-import { calculatePartnerOverallProgress } from "./PartnerValidationLogic";
+import { calculatePartnerOverallProgress, getPartnerTotalCount } from "./PartnerValidationLogic";
 
 interface PartnerQuestionnaireFooterProps {
   currentSection: number;
@@ -26,22 +26,22 @@ const PartnerQuestionnaireFooter = ({
 }: PartnerQuestionnaireFooterProps) => {
   const isCurrentSectionValid = validateSection(currentSection);
   const completedCount = getCompletedCount(currentSection);
-  const requiredCount = getRequiredCount(currentSection);
-  const remainingCount = requiredCount - completedCount;
+  const totalCount = getPartnerTotalCount(currentSection);
   const overallProgress = calculatePartnerOverallProgress(profileData);
 
   const getSimpleStatusMessage = () => {
     if (currentSection === 4 && overallProgress === 100) {
       return "Ready to unlock dual-perspective insights!";
     }
-    if (isCurrentSectionValid) {
+    if (completedCount === totalCount) {
       return currentSection === 4 ? 
         "Complete partner profile to access enhanced features" : 
         "Section complete - ready for the next step";
     }
-    return remainingCount > 0 ? 
-      `${remainingCount} more question${remainingCount === 1 ? '' : 's'} to go` : 
-      'Please complete the required questions';
+    const remaining = totalCount - completedCount;
+    return remaining > 0 ? 
+      `${remaining} more question${remaining === 1 ? '' : 's'} available` : 
+      'Complete the available questions';
   };
 
   const getValueMessage = () => {
@@ -59,7 +59,7 @@ const PartnerQuestionnaireFooter = ({
 
   const getStatusIcon = () => {
     if (currentSection === 4 && overallProgress === 100) return <Heart className="w-3 h-3 text-emerald-300" />;
-    if (isCurrentSectionValid) return <Check className="w-3 h-3 text-emerald-300" />;
+    if (completedCount === totalCount) return <Check className="w-3 h-3 text-emerald-300" />;
     return <Sparkles className="w-3 h-3 text-white/70" />;
   };
 
@@ -79,7 +79,7 @@ const PartnerQuestionnaireFooter = ({
         <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15 max-w-md mx-auto">
           <div className="flex items-center justify-center gap-2 mb-1">
             {getStatusIcon()}
-            <div className={`font-medium text-sm ${isCurrentSectionValid ? 'text-emerald-300' : 'text-white/90'}`}>
+            <div className={`font-medium text-sm ${completedCount === totalCount ? 'text-emerald-300' : 'text-white/90'}`}>
               {getSimpleStatusMessage()}
             </div>
           </div>

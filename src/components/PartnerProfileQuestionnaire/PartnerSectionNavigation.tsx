@@ -1,5 +1,6 @@
 
 import { Check, User, Heart, Zap, TreeDeciduous } from "lucide-react";
+import { getPartnerTotalCount } from "./PartnerValidationLogic";
 
 interface PartnerSectionNavigationProps {
   currentSection: number;
@@ -46,7 +47,7 @@ const PartnerSectionNavigation = ({
         const isCompleted = section < currentSection || validateSection(section);
         const isAccessible = sectionReadiness[section] || isCompleted;
         const completedCount = getCompletedCount(section);
-        const requiredCount = getRequiredCount(section);
+        const totalCount = getPartnerTotalCount(section);
 
         return (
           <button
@@ -78,7 +79,7 @@ const PartnerSectionNavigation = ({
             </div>
             
             <div className="text-xs opacity-70 mt-0.5">
-              {completedCount}/{requiredCount}
+              {completedCount}/{totalCount}
             </div>
           </button>
         );

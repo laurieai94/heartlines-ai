@@ -1,7 +1,6 @@
 
-import { TreeDeciduous, HelpCircle, Users, Heart, Target } from "lucide-react";
+import { TreeDeciduous, Users, Heart, Target } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 
 interface PartnerQuestionnaireSection4Props {
   profileData: any;
@@ -24,25 +23,6 @@ const PartnerQuestionnaireSection4 = ({
 
   return (
     <div className="space-y-1.5">
-      {/* Understanding Better */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div>
-          <Label className="text-sm font-semibold text-white">
-            What about them do you want to understand better?
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <HelpCircle className="w-3 h-3 text-blue-300" />
-            <span>Anything that confuses you or that you're curious about</span>
-          </div>
-        </div>
-        <Input
-          value={profileData.partnerUnderstandBetter || ''}
-          onChange={(e) => updateField('partnerUnderstandBetter', e.target.value)}
-          placeholder="What patterns puzzle you or what would help you connect better?"
-          className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-2.5"
-        />
-      </div>
-
       {/* Family Background */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
