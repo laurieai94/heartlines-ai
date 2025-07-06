@@ -1,7 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart } from "lucide-react";
+import { User } from "lucide-react";
 
 interface PartnerGenderSelectionProps {
   selectedGenders: string[];
@@ -19,7 +19,7 @@ const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect,
   return (
     <div className="bg-white/10 rounded-lg p-2.5 space-y-1.5">
       <div className="flex items-center gap-2 mb-2">
-        <Heart className="w-3.5 h-3.5 text-pink-400" />
+        <User className="w-3.5 h-3.5 text-pink-400" />
         <Label className="text-sm font-medium text-white">
           What's their gender identity?
           <span className="text-orange-300 font-normal text-xs ml-2">Select all that apply</span>
