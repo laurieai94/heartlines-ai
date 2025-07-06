@@ -1,0 +1,86 @@
+
+import { AIService } from "@/services/aiService";
+import { PersonContext } from "@/types/AIInsights";
+import { ConversationalPromptBuilder } from "./conversationalPrompt";
+
+export class AIResponseCoordinator {
+  static initializeSupabase(): boolean {
+    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn('Supabase configuration missing');
+      return false;
+    }
+    
+    return true;
+  }
+
+  static async getAIResponse(
+    userMessage: string, 
+    context: PersonContext, 
+    conversationHistory: any[] = [],
+    customPrompt?: string
+  ): Promise<string> {
+    const supabaseUrl = "https://relqmhrzyqckoaebscgx.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlbHFtaHJ6eXFja29hZWJzY2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNDg2MTksImV4cCI6MjA2NTYyNDYxOX0.-cE7meF7mvu6uMQ0iA3PkNCu7TX341fryEumWUn4FOE";
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error('🔧 **Configuration Required**\n\nPlease configure your Supabase settings to enable AI chat functionality.');
+    }
+
+    try {
+      const aiService = new AIService({
+        supabaseUrl: supabaseUrl!,
+        supabaseAnonKey: supabaseAnonKey!
+      });
+
+      // Use the conversational prompt instead of clinical
+      const conversationalPrompt = customPrompt || ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
+
+      const response = await aiService.generateResponse(
+        userMessage,
+        conversationalPrompt,
+        conversationHistory.map(msg => ({
+          role: msg.type === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }))
+      );
+
+      // Check if response uses names and is conversational
+      const userName = context.yourTraits.name || 'you';
+      const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';
+      
+      // If response doesn't use names or is too clinical, provide a conversational fallback
+      if (!response.includes(userName) || response.length > 500) {
+        const attachmentStyle = context.yourTraits.attachmentStyle || 'secure';
+        
+        const conversationalFallbacks = {
+          anxious: `Hey ${userName}, that feeling is totally understandable given your anxious attachment - your nervous system is just trying to keep you connected. What usually helps you feel more secure with ${partnerName}?`,
+          avoidant: `${userName}, that makes sense - sometimes pulling back feels safer when things get intense. What would feel manageable for you to try with ${partnerName} right now?`,
+          secure: `Hey ${userName}, sounds like you've got good insight into what's happening between you and ${partnerName}. What feels like the next right step for you both?`,
+          default: `${userName}, that sounds really challenging - your feelings about this with ${partnerName} make complete sense. What do you think would help most right now?`
+        };
+        
+        return conversationalFallbacks[attachmentStyle.toLowerCase()] || conversationalFallbacks.default;
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Error in getAIResponse:', error);
+      
+      const userName = context.yourTraits.name || 'you';
+      const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';
+      
+      if (error.message?.includes('500') || error.message?.includes('Internal server error')) {
+        return `Hey ${userName}, the AI service is having a moment - give it a few seconds and try again. What were you wanting to talk about with ${partnerName}?`;
+      } else if (error.message?.includes('429') || error.message?.includes('rate limit')) {
+        return `${userName}, we're getting a lot of traffic right now! Take a quick breather and try again in a moment.`;
+      } else if (error.message?.includes('401') || error.message?.includes('unauthorized')) {
+        return `${userName}, there's a technical hiccup on our end - the team is on it. Try refreshing or contact support if this keeps happening.`;
+      } else {
+        return `${userName}, something went wonky - try that again? I'm here to help you figure out what's going on with ${partnerName}.`;
+      }
+    }
+  }
+}

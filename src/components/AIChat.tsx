@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -160,10 +159,10 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       
-      // Use the correct clinical response prompt method
-      const clinicalPrompt = AICoachEngine.buildClinicalResponsePrompt(context, chatHistory);
+      // Use the conversational prompt method instead of clinical
+      const conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, chatHistory);
 
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, clinicalPrompt);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, conversationalPrompt);
       
       // Extract topics from AI response as well
       const aiTopics = extractTopicsFromMessage(aiResponse);
