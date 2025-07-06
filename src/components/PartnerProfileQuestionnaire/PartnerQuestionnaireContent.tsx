@@ -46,15 +46,21 @@ const PartnerQuestionnaireContent = ({
       <div className="px-1.5 py-1">
         {/* Prominent Opening Note - only show on section 1 */}
         {currentSection === 1 && (
-          <div className="bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-3 mb-1.5 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-2.5 mb-1.5 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-purple-500/10 animate-pulse"></div>
-            <div className="relative flex items-start gap-3">
-              <div className="w-6 h-6 bg-gradient-to-br from-rose-400 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Sparkles className="w-3 h-3 text-white" />
+            <div className="relative flex items-start gap-2.5">
+              <div className="w-5 h-5 bg-gradient-to-br from-rose-400 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Sparkles className="w-2.5 h-2.5 text-white" />
               </div>
-              <p className="text-sm text-white font-medium leading-relaxed">
-                Just met or together forever? Fill out what you actually know and skip the rest. RealTalk works with whatever you've got.
-              </p>
+              <div className="text-sm text-white leading-relaxed">
+                <div className="font-semibold mb-0.5">No pressure, no guessing required.</div>
+                <div className="text-white/90">
+                  Share what you know <span className="text-white/70">•</span> Skip what you don't
+                </div>
+                <div className="text-white/80 text-xs mt-1">
+                  RealTalk works with whatever you've got ✨
+                </div>
+              </div>
             </div>
           </div>
         )}
