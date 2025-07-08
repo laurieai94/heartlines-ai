@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useProgressiveAccess } from './useProgressiveAccess';
@@ -132,6 +131,14 @@ export const useDashboardModals = () => {
     
     console.log('Saving complete partner questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
+    
+    // CRITICAL FIX: Also save to localStorage with the key that usePartnerProfileData expects
+    try {
+      localStorage.setItem('partner_profile_questionnaire', JSON.stringify(mergedData));
+      console.log('Successfully saved partner data to localStorage with key "partner_profile_questionnaire":', mergedData);
+    } catch (error) {
+      console.error('Error saving partner data to localStorage:', error);
+    }
     
     setShowPartnerQuestionnaireModal(false);
     setShowPartnerCompletionOptions(true);

@@ -35,6 +35,40 @@ const PartnerQuestionnaireContainer = ({
     4: false
   });
 
+  // Enhanced updateField that also saves to localStorage
+  const enhancedUpdateField = (field: string, value: any) => {
+    updateField(field, value);
+    
+    // Also save the updated data to localStorage for immediate access
+    try {
+      const updatedData = { ...profileData, [field]: value };
+      localStorage.setItem('partner_profile_questionnaire', JSON.stringify(updatedData));
+      console.log('Partner profile data updated in localStorage:', { field, value, updatedData });
+    } catch (error) {
+      console.error('Error saving partner profile update to localStorage:', error);
+    }
+  };
+
+  // Enhanced handleMultiSelect that also saves to localStorage
+  const enhancedHandleMultiSelect = (field: string, value: string) => {
+    handleMultiSelect(field, value);
+    
+    // Calculate the updated multi-select value
+    const currentValues = profileData[field] || [];
+    const updatedValues = currentValues.includes(value)
+      ? currentValues.filter((v: string) => v !== value)
+      : [...currentValues, value];
+    
+    // Save to localStorage
+    try {
+      const updatedData = { ...profileData, [field]: updatedValues };
+      localStorage.setItem('partner_profile_questionnaire', JSON.stringify(updatedData));
+      console.log('Partner profile multi-select updated in localStorage:', { field, value, updatedValues, updatedData });
+    } catch (error) {
+      console.error('Error saving partner profile multi-select update to localStorage:', error);
+    }
+  };
+
   const handleNext = () => {
     if (!validatePartnerSection(currentSection, profileData)) {
       toast.error("Please complete all required questions in this section");
@@ -69,6 +103,14 @@ const PartnerQuestionnaireContainer = ({
         completedAt: new Date().toISOString(),
         profileSource: 'partner-questionnaire'
       };
+      
+      // Ensure data is saved to localStorage one final time
+      try {
+        localStorage.setItem('partner_profile_questionnaire', JSON.stringify(completedData));
+        console.log('Final partner profile data saved to localStorage on completion:', completedData);
+      } catch (error) {
+        console.error('Error saving final partner profile data to localStorage:', error);
+      }
       
       toast.success("🎉 Partner Profile Complete!", {
         duration: 3000,
@@ -117,8 +159,8 @@ const PartnerQuestionnaireContainer = ({
         <PartnerQuestionnaireContent
           currentSection={currentSection}
           profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
+          updateField={enhancedUpdateField}
+          handleMultiSelect={enhancedHandleMultiSelect}
           sectionReadiness={sectionReadiness}
         />
 
