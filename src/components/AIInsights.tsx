@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
@@ -77,7 +76,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setIsConfigured(configured);
   }, []);
 
-  // Note: Removed automatic conversation loading - now handled by AIChat component
+  // Handle new conversation
+  const handleNewConversation = () => {
+    const messages = startNewConversation();
+    setChatHistory(messages);
+    setConversationStarter('');
+  };
 
   const handleSupabaseConfigured = (configured: boolean) => {
     setIsConfigured(configured);
@@ -118,11 +122,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
   };
 
-  const handleNewConversation = () => {
-    const messages = startNewConversation();
-    setChatHistory(messages);
-  };
-
   // Debug: Log what we're passing to AIChat
   console.log('=== Passing to AIChat ===');
   console.log('unifiedProfiles:', unifiedProfiles);
@@ -139,6 +138,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             setChatHistory={setChatHistory}
             isConfigured={isConfigured}
             conversationStarter={conversationStarter}
+            onNewConversation={handleNewConversation}
           />
         </div>
       </ProgressiveAccessWrapper>

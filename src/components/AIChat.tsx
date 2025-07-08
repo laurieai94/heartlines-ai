@@ -16,9 +16,18 @@ interface AIChatProps {
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   isConfigured: boolean;
   conversationStarter?: string;
+  onNewConversation?: () => void;
 }
 
-const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
+const AIChat = ({ 
+  profiles, 
+  demographicsData, 
+  chatHistory, 
+  setChatHistory, 
+  isConfigured, 
+  conversationStarter,
+  onNewConversation 
+}: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const { profile } = useUserProfile();
   const { canInteract } = useProgressiveAccess();
@@ -33,6 +42,14 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     setChatHistory,
     canInteract
   });
+
+  // Handle new conversation
+  const handleNewConversation = () => {
+    setChatHistory([]);
+    if (onNewConversation) {
+      onNewConversation();
+    }
+  };
 
   // Mark history as loaded after effects have run
   useEffect(() => {
@@ -52,7 +69,7 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   });
 
   return (
-    <ChatLayout>
+    <ChatLayout userName={userName} onNewConversation={handleNewConversation}>
       <ChatContainer
         chatHistory={chatHistory}
         loading={loading}
