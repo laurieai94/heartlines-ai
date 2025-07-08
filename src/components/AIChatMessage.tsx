@@ -2,6 +2,7 @@
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
+import ReminderButton from "./chat/ReminderButton";
 
 interface AIChatMessageProps {
   message: ChatMessage;
@@ -21,6 +22,19 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
       hour12: true 
     });
   };
+
+  // Extract reminder suggestion from AI message
+  const extractReminderSuggestion = (content: string) => {
+    const reminderMatch = content.match(/\[REMINDER_SUGGESTION:\s*([^\]]+)\]/);
+    if (reminderMatch) {
+      const suggestionText = reminderMatch[1].trim();
+      const cleanedContent = content.replace(/\[REMINDER_SUGGESTION:[^\]]+\]/, '').trim();
+      return { suggestionText, cleanedContent };
+    }
+    return { suggestionText: null, cleanedContent: content };
+  };
+
+  const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
     <div className={`flex gap-3 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
@@ -71,9 +85,19 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           `}
         >
           <div className="text-sm leading-relaxed whitespace-pre-wrap font-light">
-            {message.content}
+            {cleanedContent}
           </div>
         </div>
+        
+        {/* Reminder Button for AI messages with suggestions */}
+        {!isUser && suggestionText && (
+          <div className="mt-1 ml-2">
+            <ReminderButton 
+              suggestedText={suggestionText} 
+              messageId={message.id}
+            />
+          </div>
+        )}
         
         {/* Timestamp */}
         <p className={`text-xs text-gray-400 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>

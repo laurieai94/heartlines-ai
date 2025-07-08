@@ -152,6 +152,45 @@ export type Database = {
         }
         Relationships: []
       }
+      user_reminders: {
+        Row: {
+          conversation_message_id: number | null
+          created_at: string
+          created_from_conversation: boolean
+          id: string
+          is_active: boolean
+          reminder_days: string[] | null
+          reminder_text: string
+          reminder_time: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          conversation_message_id?: number | null
+          created_at?: string
+          created_from_conversation?: boolean
+          id?: string
+          is_active?: boolean
+          reminder_days?: string[] | null
+          reminder_text: string
+          reminder_time: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          conversation_message_id?: number | null
+          created_at?: string
+          created_from_conversation?: boolean
+          id?: string
+          is_active?: boolean
+          reminder_days?: string[] | null
+          reminder_text?: string
+          reminder_time?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
