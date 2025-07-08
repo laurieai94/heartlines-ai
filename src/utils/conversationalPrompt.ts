@@ -1,15 +1,17 @@
+
 import { PersonContext } from "@/types/AIInsights";
 
 export class ConversationalPromptBuilder {
   static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
-    const { yourName, partnerName, yourTraits, partnerTraits, relationshipContext } = context;
+    const yourName = context.yourTraits?.name || '';
+    const partnerName = context.partnerTraits?.name || '';
     
-    const workContext = context.yourTraits.workSituation ? `Work situation: ${context.yourTraits.workSituation}` : '';
-    const relationshipLength = context.relationship.length ? `Relationship length: ${context.relationship.length}` : '';
-    const communicationStyle = context.yourTraits.communicationStyle ? `Communication style: ${context.yourTraits.communicationStyle}` : '';
-    const loveLanguages = context.yourTraits.loveLanguages?.length > 0 ? `Love languages: ${context.yourTraits.loveLanguages.join(', ')}` : '';
-    const stressResponse = context.yourTraits.stressResponse?.length > 0 ? `Stress response: ${context.yourTraits.stressResponse.join(', ')}` : '';
-    const relationshipChallenges = context.yourTraits.growthAreas?.length > 0 ? `Current challenges: ${context.yourTraits.growthAreas.join(', ')}` : '';
+    const workContext = context.yourTraits?.workSituation ? `Work situation: ${context.yourTraits.workSituation}` : '';
+    const relationshipLength = context.relationship?.length ? `Relationship length: ${context.relationship.length}` : '';
+    const communicationStyle = context.yourTraits?.communicationStyle ? `Communication style: ${context.yourTraits.communicationStyle}` : '';
+    const loveLanguages = context.yourTraits?.loveLanguages?.length > 0 ? `Love languages: ${context.yourTraits.loveLanguages.join(', ')}` : '';
+    const stressResponse = context.yourTraits?.stressResponse?.length > 0 ? `Stress response: ${context.yourTraits.stressResponse.join(', ')}` : '';
+    const relationshipChallenges = context.yourTraits?.growthAreas?.length > 0 ? `Current challenges: ${context.yourTraits.growthAreas.join(', ')}` : '';
 
     const prompt = `You are Dr. Kai, an AI relationship coach with 15+ years of PhD-level clinical psychology training specializing in attachment theory, communication patterns, and relationship dynamics.
 
@@ -45,9 +47,9 @@ export class ConversationalPromptBuilder {
 # Context Integration
 ${yourName ? `- Primary user: ${yourName}` : ''}
 ${partnerName ? `- Partner: ${partnerName}` : ''}
-${yourTraits ? `- User traits: ${yourTraits}` : ''}
-${partnerTraits ? `- Partner traits: ${partnerTraits}` : ''}
-${relationshipContext ? `- Relationship context: ${relationshipContext}` : ''}
+${context.yourTraits ? `- User traits: Communication style: ${context.yourTraits.communicationStyle || 'Not specified'}, Attachment style: ${context.yourTraits.attachmentStyle || 'Not specified'}` : ''}
+${context.partnerTraits ? `- Partner traits: Communication style: ${context.partnerTraits.communicationStyle || 'Not specified'}, Attachment style: ${context.partnerTraits.attachmentStyle || 'Not specified'}` : ''}
+${context.relationship ? `- Relationship context: Length: ${context.relationship.length || 'Not specified'}, Stage: ${context.relationship.stage || 'Not specified'}` : ''}
 
 # Recent Conversation Context
 ${conversationHistory.length > 0 ? 
