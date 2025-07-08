@@ -4,7 +4,9 @@ import DashboardHeader from "@/components/DashboardHeader";
 import DashboardNavigation from "@/components/DashboardNavigation";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
+import SignUpModal from "@/components/SignUpModal";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 
 const Dashboard = () => {
   const {
@@ -14,9 +16,6 @@ const Dashboard = () => {
     showPartnerQuestionnaireModal,
     showPersonalCompletionOptions,
     showPartnerCompletionOptions,
-    shouldShowSignUpModal,
-    blockingAction,
-    closeSignUpModal,
     accessLevel,
     profileCompletion,
     temporaryProfiles,
@@ -38,6 +37,12 @@ const Dashboard = () => {
     handlePartnerStartChatting,
     handleProfileUpdate
   } = useDashboardModals();
+
+  const { 
+    shouldShowSignUpModal, 
+    blockingAction, 
+    closeSignUpModal 
+  } = useProgressiveAccess();
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
@@ -65,11 +70,18 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Modals - These stay sharp and are rendered outside the blurred content */}
-        <DashboardModals
-          shouldShowSignUpModal={shouldShowSignUpModal}
-          onCloseSignUpModal={closeSignUpModal}
+        {/* Progressive Access Sign-Up Modal */}
+        <SignUpModal
+          isOpen={shouldShowSignUpModal}
+          onClose={closeSignUpModal}
           blockingAction={blockingAction}
+        />
+
+        {/* Other Modals - These stay sharp and are rendered outside the blurred content */}
+        <DashboardModals
+          shouldShowSignUpModal={false}
+          onCloseSignUpModal={() => {}}
+          blockingAction=""
           showQuestionnaireModal={showQuestionnaireModal}
           onQuestionnaireComplete={handleQuestionnaireComplete}
           onQuestionnaireClose={handleQuestionnaireClose}

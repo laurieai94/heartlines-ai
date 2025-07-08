@@ -129,19 +129,38 @@ export const useProgressiveAccess = () => {
   const profileCompletion = calculateProfileCompletion();
   const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // UNLOCK: Always grant full access regardless of profile completion or authentication
   const getAccessLevel = (): AccessLevel => {
-    console.log('UNLOCKED: Granting full access to all users');
-    return 'full-access';
+    // If user is authenticated, grant full access
+    if (user) {
+      console.log('User authenticated - granting full access');
+      return 'full-access';
+    }
+    
+    // If not authenticated, require signup for interactions
+    console.log('User not authenticated - requiring signup');
+    return 'signup-required';
   };
 
   const accessLevel = getAccessLevel();
   console.log('Current access level:', accessLevel, 'hasPersonalProfile:', hasPersonalProfileForChat);
 
-  // Check if user can interact with features - always return true now
+  // Check if user can interact with features
   const checkInteractionPermission = (action: string): boolean => {
-    console.log(`UNLOCKED: Granting permission for action: ${action}`);
-    return true;
+    if (accessLevel === 'full-access') {
+      console.log(`User authenticated - allowing action: ${action}`);
+      return true;
+    }
+    
+    // For unauthenticated users trying to chat, trigger signup modal
+    if (action === 'chat' && accessLevel === 'signup-required') {
+      console.log('Triggering signup modal for chat interaction');
+      setShowSignUpModal(true);
+      setBlockingAction(action);
+      return false;
+    }
+    
+    console.log(`Blocking action: ${action} for access level: ${accessLevel}`);
+    return false;
   };
 
   const closeSignUpModal = () => {
@@ -152,7 +171,7 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true,
-    canInteract: true, // Always allow interaction
+    canInteract: accessLevel === 'full-access',
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,
