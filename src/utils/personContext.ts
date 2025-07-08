@@ -41,14 +41,52 @@ export class PersonContextBuilder {
     return mapped;
   }
 
+  // Helper function to map personal questionnaire fields to standard field names
+  private static mapPersonalQuestionnaireFields(personalData: any): any {
+    const mapped = { ...personalData };
+    
+    // Map personal questionnaire fields to standard field names
+    if (personalData.gender) mapped.genderIdentity = personalData.gender;
+    if (personalData.orientation) mapped.sexualOrientation = personalData.orientation;
+    if (personalData.conflictNeeds) mapped.conflictStyle = personalData.conflictNeeds;
+    if (personalData.feelLovedWhen) mapped.loveLanguages = personalData.feelLovedWhen;
+    if (personalData.stressReactions) mapped.stressResponse = personalData.stressReactions;
+    if (personalData.attachmentStyles) mapped.attachmentStyle = personalData.attachmentStyles;
+    
+    // Map relationship context fields
+    if (personalData.workingWell) mapped.strengths = personalData.workingWell;
+    if (personalData.relationshipPositives) {
+      mapped.strengths = mapped.strengths ? [...mapped.strengths, ...personalData.relationshipPositives] : personalData.relationshipPositives;
+    }
+    if (personalData.biggestChallenge) mapped.growthAreas = personalData.biggestChallenge;
+    if (personalData.relationshipChallenges) {
+      mapped.growthAreas = mapped.growthAreas ? [...mapped.growthAreas, ...personalData.relationshipChallenges] : personalData.relationshipChallenges;
+    }
+    if (personalData.motivations) mapped.whyRealTalk = personalData.motivations;
+    if (personalData.relationshipInfluences) mapped.loveInfluences = personalData.relationshipInfluences;
+    
+    // Map family background fields
+    if (personalData.familySituation) mapped.familyDynamics = [personalData.familySituation];
+    if (personalData.familyEmotions) {
+      mapped.familyDynamics = mapped.familyDynamics ? [...mapped.familyDynamics, ...personalData.familyEmotions] : personalData.familyEmotions;
+    }
+    if (personalData.familyConflict) mapped.parentConflictStyle = personalData.familyConflict;
+    if (personalData.familyLove) mapped.loveMessages = personalData.familyLove;
+    
+    console.log('Mapped personal questionnaire fields:', { original: personalData, mapped });
+    return mapped;
+  }
+
   static buildPersonContext(profiles: ProfileData, demographicsData: DemographicsData): PersonContext {
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
     const yourDemo = demographicsData.your || {};
     const partnerDemo = demographicsData.partner || {};
 
-    // Merge profile and demographics data completely
-    const yourData = { ...yourProfile, ...yourDemo };
+    // Apply field mapping for personal data to handle questionnaire field names
+    const mappedYourProfile = this.mapPersonalQuestionnaireFields(yourProfile);
+    const mappedYourDemo = this.mapPersonalQuestionnaireFields(yourDemo);
+    const yourData = { ...mappedYourProfile, ...mappedYourDemo };
     
     // Apply field mapping for partner data to handle questionnaire field names
     const mappedPartnerProfile = this.mapPartnerQuestionnaireFields(partnerProfile);
@@ -58,6 +96,7 @@ export class PersonContextBuilder {
     console.log('Building PersonContext with:', { 
       yourData: Object.keys(yourData), 
       partnerData: Object.keys(partnerData),
+      yourDataValues: yourData,
       partnerDataValues: partnerData 
     });
 

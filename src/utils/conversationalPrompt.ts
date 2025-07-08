@@ -6,6 +6,40 @@ export class ConversationalPromptBuilder {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
     
+    // Build natural personal insights
+    const buildPersonalInsights = () => {
+      if (!context.yourTraits || Object.keys(context.yourTraits).length === 0) return '';
+      
+      const insights = [];
+      
+      if (context.yourTraits.age) insights.push(`${context.yourTraits.age} years old`);
+      if (context.yourTraits.genderIdentity?.length > 0) {
+        insights.push(`identifies as ${context.yourTraits.genderIdentity.join(', ')}`);
+      }
+      if (context.yourTraits.sexualOrientation?.length > 0) {
+        insights.push(`${context.yourTraits.sexualOrientation.join(', ')}`);
+      }
+      if (context.yourTraits.communicationStyle) {
+        insights.push(`communicates in a ${context.yourTraits.communicationStyle} way`);
+      }
+      if (context.yourTraits.attachmentStyle) {
+        insights.push(`has ${context.yourTraits.attachmentStyle} attachment`);
+      }
+      if (context.yourTraits.conflictStyle) {
+        const conflictMap = {
+          'avoid': 'tends to pull back during conflicts',
+          'engage': 'likes to talk things through right away',
+          'process': 'needs time to think before discussing conflicts'
+        };
+        insights.push(conflictMap[context.yourTraits.conflictStyle] || `handles conflict by ${context.yourTraits.conflictStyle}`);
+      }
+      if (context.yourTraits.loveLanguages?.length > 0) {
+        insights.push(`feels loved through: ${context.yourTraits.loveLanguages.join(', ')}`);
+      }
+      
+      return insights.length > 0 ? insights.join(', ') + '.' : '';
+    };
+
     // Build natural partner insights
     const buildPartnerInsights = () => {
       if (!context.partnerTraits || Object.keys(context.partnerTraits).length === 0) return '';
@@ -13,6 +47,13 @@ export class ConversationalPromptBuilder {
       const insights = [];
       
       if (partnerName) insights.push(`${partnerName}`);
+      if (context.partnerTraits.age) insights.push(`${context.partnerTraits.age} years old`);
+      if (context.partnerTraits.genderIdentity?.length > 0) {
+        insights.push(`identifies as ${context.partnerTraits.genderIdentity.join(', ')}`);
+      }
+      if (context.partnerTraits.sexualOrientation?.length > 0) {
+        insights.push(`${context.partnerTraits.sexualOrientation.join(', ')}`);
+      }
       if (context.partnerTraits.communicationStyle) {
         insights.push(`tends to communicate in a ${context.partnerTraits.communicationStyle} way`);
       }
@@ -114,11 +155,13 @@ You know both ${yourName || 'them'} AND ${partnerName || 'their partner'} person
 - Gently confirm patterns you might be seeing
 - Help them understand how their individual traits interact as a couple
 - Reference their dynamics naturally, like any friend who knows them both would
+- Be aware of their age, identity, and orientation context when giving advice
 
 **Examples of Natural Profile References:**
 - "Is this that ${context.yourTraits.attachmentStyle || 'attachment'} thing showing up?"
 - "Sounds like maybe your ${context.yourTraits.communicationStyle || 'communication'} style is bumping up against something here?"
 - "Does this feel like one of those ${context.yourTraits.conflictStyle || 'conflict'} moments for you?"
+- "Given that you're both in your ${context.yourTraits.age || 'stage of life'}, this makes sense..."
 
 ## What You Avoid
 - Jumping straight to advice without exploring first
@@ -135,9 +178,7 @@ Make them feel seen, heard, and understood. Help them process their feelings and
 ${yourName ? yourName : 'User'}${partnerName ? ` and their partner ${partnerName}` : ''}
 
 # What You Know About ${yourName || 'Them'}
-${context.yourTraits && Object.keys(context.yourTraits).length > 0 ? `
-${yourName || 'They'} ${context.yourTraits.communicationStyle ? `communicate in a ${context.yourTraits.communicationStyle} way` : ''}${context.yourTraits.attachmentStyle ? ` and have ${context.yourTraits.attachmentStyle} attachment` : ''}${context.yourTraits.loveLanguages?.length > 0 ? `. Love languages: ${context.yourTraits.loveLanguages.join(', ')}` : ''}${context.yourTraits.stressResponse?.length > 0 ? `. Under stress: ${context.yourTraits.stressResponse.join(', ')}` : ''}${context.yourTraits.conflictStyle ? `. During conflicts: ${context.yourTraits.conflictStyle}` : ''}${context.yourTraits.growthAreas?.length > 0 ? `. Working on: ${context.yourTraits.growthAreas.join(', ')}` : ''}
-` : 'You know them pretty well from your conversations.'}
+${buildPersonalInsights() ? buildPersonalInsights() : 'You know them pretty well from your conversations.'}
 
 # What You Know About ${partnerName || 'Their Partner'}
 ${buildPartnerInsights() ? buildPartnerInsights() : 'You\'re still getting to know them through your conversations.'}
