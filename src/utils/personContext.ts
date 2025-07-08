@@ -2,6 +2,45 @@
 import { ProfileData, DemographicsData, PersonContext } from "@/types/AIInsights";
 
 export class PersonContextBuilder {
+  // Helper function to map partner questionnaire fields to standard field names
+  private static mapPartnerQuestionnaireFields(partnerData: any): any {
+    const mapped = { ...partnerData };
+    
+    // Map partner questionnaire fields to standard field names
+    if (partnerData.partnerName) mapped.name = partnerData.partnerName;
+    if (partnerData.partnerAge) mapped.age = partnerData.partnerAge;
+    if (partnerData.partnerPronouns) mapped.pronouns = partnerData.partnerPronouns;
+    if (partnerData.partnerCustomPronouns) mapped.customPronouns = partnerData.partnerCustomPronouns;
+    if (partnerData.partnerGender) mapped.genderIdentity = partnerData.partnerGender;
+    if (partnerData.partnerOrientation) mapped.sexualOrientation = partnerData.partnerOrientation;
+    
+    // Map behavioral patterns
+    if (partnerData.partnerStressResponse) mapped.stressResponse = partnerData.partnerStressResponse;
+    if (partnerData.partnerConflictNeeds) mapped.conflictStyle = partnerData.partnerConflictNeeds;
+    if (partnerData.partnerLoveLanguage) mapped.loveLanguages = partnerData.partnerLoveLanguage;
+    
+    // Map deeper insights
+    if (partnerData.partnerStressors) mapped.triggers = partnerData.partnerStressors;
+    if (partnerData.partnerRelationshipNeeds) mapped.strengths = partnerData.partnerRelationshipNeeds;
+    if (partnerData.partnerConflictStyle) mapped.conflictStyle = partnerData.partnerConflictStyle;
+    if (partnerData.partnerSuperpower) {
+      mapped.strengths = mapped.strengths ? [...mapped.strengths, partnerData.partnerSuperpower] : [partnerData.partnerSuperpower];
+    }
+    
+    // Map background information
+    if (partnerData.partnerFamilyBackground) mapped.familyDynamics = partnerData.partnerFamilyBackground;
+    if (partnerData.partnerEmotions) mapped.attachmentStyle = partnerData.partnerEmotions;
+    if (partnerData.partnerValues) mapped.whyRealTalk = partnerData.partnerValues;
+    
+    // Map any additional common fields
+    if (partnerData.partnerEducation) mapped.education = partnerData.partnerEducation;
+    if (partnerData.partnerWork) mapped.workSituation = partnerData.partnerWork;
+    if (partnerData.partnerMentalHealth) mapped.mentalHealthContext = partnerData.partnerMentalHealth;
+    
+    console.log('Mapped partner questionnaire fields:', { original: partnerData, mapped });
+    return mapped;
+  }
+
   static buildPersonContext(profiles: ProfileData, demographicsData: DemographicsData): PersonContext {
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
@@ -10,7 +49,17 @@ export class PersonContextBuilder {
 
     // Merge profile and demographics data completely
     const yourData = { ...yourProfile, ...yourDemo };
-    const partnerData = { ...partnerProfile, ...partnerDemo };
+    
+    // Apply field mapping for partner data to handle questionnaire field names
+    const mappedPartnerProfile = this.mapPartnerQuestionnaireFields(partnerProfile);
+    const mappedPartnerDemo = this.mapPartnerQuestionnaireFields(partnerDemo);
+    const partnerData = { ...mappedPartnerProfile, ...mappedPartnerDemo };
+
+    console.log('Building PersonContext with:', { 
+      yourData: Object.keys(yourData), 
+      partnerData: Object.keys(partnerData),
+      partnerDataValues: partnerData 
+    });
 
     return {
       relationship: {
