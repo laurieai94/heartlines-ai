@@ -1,6 +1,5 @@
 
 import { ReactNode } from 'react';
-import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 
 interface ChatLayoutProps {
   children: ReactNode;

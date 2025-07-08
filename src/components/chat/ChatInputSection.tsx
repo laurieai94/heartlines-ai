@@ -30,7 +30,7 @@ export const ChatInputSection = ({
   const { accessLevel } = useProgressiveAccess();
 
   return (
-    <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
+    <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm sticky bottom-0">
       <div className="p-6 max-w-3xl mx-auto">
         <ProgressiveAccessWrapper action="chat">
           <AIChatInput 
