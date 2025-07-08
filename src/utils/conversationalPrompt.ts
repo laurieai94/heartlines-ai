@@ -4,15 +4,10 @@ import { PersonContext } from "@/types/AIInsights";
 export class ConversationalPromptBuilder {
   static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
     const userName = context.yourTraits.name || 'you';
-    const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';
+    const partnerName = context.partnerTratraits.name || context.yourTraits.name ? 'your partner' : 'they';
     const attachmentStyle = context.yourTraits.attachmentStyle || 'secure';
     const pronouns = context.yourTraits.pronouns || 'they/them';
     
-    // Check if user is single/dating
-    const isSingleOrDating = context.yourTraits.datingContext && 
-      ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(context.yourTraits.datingContext);
-    
-    // Build rich context about the person and their relationship
     const workContext = context.yourTraits.workSituation ? `Work situation: ${context.yourTraits.workSituation}` : '';
     const relationshipLength = context.relationship.length ? `Relationship length: ${context.relationship.length}` : '';
     const communicationStyle = context.yourTraits.communicationStyle ? `Communication style: ${context.yourTraits.communicationStyle}` : '';

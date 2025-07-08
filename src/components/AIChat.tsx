@@ -1,13 +1,9 @@
+
 import { useState, useEffect, useRef } from "react";
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heart, Bot, Handshake } from "lucide-react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
-import AIChatMessage from "./AIChatMessage";
 import AIChatInput from "./AIChatInput";
-import BubbleBackground from "./BubbleBackground";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ChatContainer from "./ChatContainer";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversationTopics } from "@/hooks/useConversationTopics";
 import { useChatHistory } from "@/hooks/useChatHistory";
@@ -26,8 +22,6 @@ interface AIChatProps {
 const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isConfigured, conversationStarter }: AIChatProps) => {
   const [loading, setLoading] = useState(false);
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { profile } = useUserProfile();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
@@ -37,8 +31,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
-  
-  const hasProfiles = profiles.your.length > 0 && profiles.partner.length > 0 && userName && partnerName;
 
   // Load conversation history on mount
   useEffect(() => {
@@ -52,36 +44,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
       setIsHistoryLoaded(true);
     }
   }, [canInteract, isHistoryLoaded, loadMostRecentConversation, setChatHistory]);
-
-  // Improved auto-scroll function
-  const scrollToBottom = (force = false) => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ 
-        behavior: force ? 'auto' : 'smooth',
-        block: 'end'
-      });
-    }
-  };
-
-  // Auto-scroll when messages change
-  useEffect(() => {
-    if (chatHistory.length > 0) {
-      // Use setTimeout to ensure DOM has updated
-      setTimeout(() => scrollToBottom(), 100);
-    }
-  }, [chatHistory.length]);
-
-  // Auto-scroll when loading state changes (for typing indicator)
-  useEffect(() => {
-    if (loading) {
-      setTimeout(() => scrollToBottom(), 100);
-    }
-  }, [loading]);
-
-  // Force scroll on mount
-  useEffect(() => {
-    scrollToBottom(true);
-  }, []);
 
   // Handle conversation starter
   useEffect(() => {
@@ -118,7 +80,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden' && chatHistory.length > 0) {
-        // Immediately save when tab becomes hidden
         saveConversation(chatHistory);
       }
     };
@@ -152,19 +113,14 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
     setChatHistory(prev => [...prev, newUserMessage]);
     setLoading(true);
 
-    // Extract and track topics from user message
     const topics = extractTopicsFromMessage(userMessage);
     topics.forEach(topic => addOrUpdateTopic(topic));
 
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
-      
-      // Use the conversational prompt method instead of clinical
       const conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, chatHistory);
-
       const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, conversationalPrompt);
       
-      // Extract topics from AI response as well
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
       
@@ -177,7 +133,6 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
       setChatHistory(prev => [...prev, aiMessage]);
 
-      // Automatically speak Kai's response if voice function is available
       if (speakResponseRef.current) {
         speakResponseRef.current(aiResponse);
       }
@@ -202,108 +157,19 @@ const AIChat = ({ profiles, demographicsData, chatHistory, setChatHistory, isCon
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      {/* Main Chat Container - Fixed height to stay within viewport */}
       <div className="flex-1 min-h-0 flex items-stretch justify-center p-6">
         <div className="w-full max-w-4xl flex flex-col min-h-0">
-          
-          {/* Chat Messages Area - Fixed height container */}
           <div className="flex-1 min-h-0 flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
             
-            {/* Messages Container with native scroll */}
-            <div 
-              ref={chatContainerRef}
-              className="flex-1 overflow-y-auto px-6 py-6"
-              style={{ 
-                scrollBehavior: 'smooth',
-                overflowAnchor: 'none'
-              }}
-            >
-              <div className="space-y-6 max-w-3xl mx-auto">
-                
-                {/* Kai's Personalized Welcome Section */}
-                {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
-                  <div className="text-center py-8 animate-fade-in">
-                    {/* Kai Avatar */}
-                    <div className="w-16 h-16 mx-auto mb-4 relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
-                      <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-2xl relative z-10">
-                        <AvatarImage 
-                          src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
-                          alt="Kai" 
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                          <Heart className="w-8 h-8" />
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse shadow-lg"></div>
-                    </div>
-                    
-                    {/* Personalized Welcome Message */}
-                    <div className="space-y-3 max-w-lg mx-auto">
-                      <h2 className="text-2xl font-bold text-white leading-tight">
-                        Hello {userName ? `${userName}` : ''}, I'm Dr. Kai 👋
-                      </h2>
-                      
-                      <div className="text-white/80 leading-relaxed">
-                        <p>I'm a clinical psychologist specializing in relationships and attachment. 
-                        {userName && partnerName && (
-                          <span> I'm here to help you and {partnerName} navigate your relationship with professional insight and care.</span>
-                        )}
-                        {!partnerName && (
-                          <span> I'm here to help you navigate your relationship complexities with professional insight and care.</span>
-                        )}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Chat Messages */}
-                {chatHistory.map((message, index) => (
-                  <div key={message.id} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <AIChatMessage 
-                      message={message} 
-                      userAvatarUrl={profile?.avatar_url || undefined}
-                      userName={userName}
-                    />
-                  </div>
-                ))}
-                
-                {/* Typing Indicator */}
-                {loading && (
-                  <div className="flex justify-start animate-fade-in">
-                    <div className="flex gap-3 items-end">
-                      <div className="relative flex-shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                        <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
-                          <AvatarImage 
-                            src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
-                            alt="Kai" 
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                            <Bot className="w-4 h-4" />
-                          </AvatarFallback>
-                        </Avatar>
-                      </div>
-                      <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
-                        <div className="flex gap-1.5">
-                          <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                          <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                          <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Scroll anchor - ensures we always scroll to the bottom */}
-                <div ref={messagesEndRef} className="h-1" />
-              </div>
-            </div>
+            <ChatContainer
+              chatHistory={chatHistory}
+              loading={loading}
+              userName={userName}
+              isConfigured={isConfigured}
+              conversationStarter={conversationStarter}
+              isHistoryLoaded={isHistoryLoaded}
+            />
 
-            {/* Chat Input - Fixed at bottom */}
             <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
               <div className="p-6 max-w-3xl mx-auto">
                 <ProgressiveAccessWrapper action="chat">
