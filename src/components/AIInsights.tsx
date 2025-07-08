@@ -9,6 +9,7 @@ import { useChatHistory } from "@/hooks/useChatHistory";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
+import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
@@ -22,6 +23,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
   const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
+  const { profileData: partnerProfileData, isLoading: partnerDataLoading } = usePartnerProfileData();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
   const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
@@ -34,12 +36,14 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     console.log('=== AIInsights: Profile Data Sources ===');
     console.log('personalProfileData:', personalProfileData);
     console.log('personalProfilePersistence:', personalProfilePersistence);
+    console.log('partnerProfileData:', partnerProfileData);
     console.log('temporaryProfiles:', temporaryProfiles);
     console.log('temporaryDemographics:', temporaryDemographics);
     console.log('personalDataReady:', personalDataReady);
     console.log('persistenceReady:', persistenceReady);
+    console.log('partnerDataLoading:', partnerDataLoading);
 
-    if (personalDataReady && persistenceReady) {
+    if (personalDataReady && persistenceReady && !partnerDataLoading) {
       // Merge ALL personal profile data sources
       const mergedPersonalData = {
         ...temporaryDemographics.your,
@@ -47,17 +51,26 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         ...personalProfileData
       };
 
-      console.log('=== Merged Personal Data ===', mergedPersonalData);
+      // Merge partner profile data from questionnaire and temporary sources
+      const mergedPartnerData = {
+        ...temporaryDemographics.partner,
+        ...temporaryProfiles.partner[0], // Get first partner profile if exists
+        ...partnerProfileData // This includes data from 'partner_profile_questionnaire' localStorage
+      };
+
+      console.log('=== Merged Data ===');
+      console.log('mergedPersonalData:', mergedPersonalData);
+      console.log('mergedPartnerData:', mergedPartnerData);
 
       // Create unified profile structure - ensure we have data in both profile and demographics
       const newUnifiedProfiles = {
         your: Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
-        partner: temporaryProfiles.partner
+        partner: Object.keys(mergedPartnerData).length > 0 ? [mergedPartnerData] : temporaryProfiles.partner
       };
 
       const newUnifiedDemographics = {
         your: Object.keys(mergedPersonalData).length > 0 ? mergedPersonalData : temporaryDemographics.your,
-        partner: temporaryDemographics.partner
+        partner: Object.keys(mergedPartnerData).length > 0 ? mergedPartnerData : temporaryDemographics.partner
       };
 
       console.log('=== Final Unified Data ===');
@@ -67,7 +80,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       setUnifiedProfiles(newUnifiedProfiles);
       setUnifiedDemographics(newUnifiedDemographics);
     }
-  }, [personalProfileData, personalProfilePersistence, personalDataReady, persistenceReady, temporaryProfiles, temporaryDemographics]);
+  }, [personalProfileData, personalProfilePersistence, partnerProfileData, personalDataReady, persistenceReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
