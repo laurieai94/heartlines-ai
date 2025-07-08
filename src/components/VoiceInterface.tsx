@@ -14,7 +14,7 @@ interface VoiceInterfaceProps {
 const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInterfaceProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(false); // Changed from true to false
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const currentUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
