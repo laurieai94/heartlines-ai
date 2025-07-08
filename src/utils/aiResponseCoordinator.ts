@@ -47,24 +47,7 @@ export class AIResponseCoordinator {
         }))
       );
 
-      // Check if response uses names and is conversational
-      const userName = context.yourTraits.name || 'you';
-      const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';
-      
-      // If response doesn't use names or is too clinical, provide a conversational fallback
-      if (!response.includes(userName) || response.length > 500) {
-        const attachmentStyle = context.yourTraits.attachmentStyle || 'secure';
-        
-        const conversationalFallbacks = {
-          anxious: `Hey ${userName}, that feeling is totally understandable given your anxious attachment - your nervous system is just trying to keep you connected. What usually helps you feel more secure with ${partnerName}?`,
-          avoidant: `${userName}, that makes sense - sometimes pulling back feels safer when things get intense. What would feel manageable for you to try with ${partnerName} right now?`,
-          secure: `Hey ${userName}, sounds like you've got good insight into what's happening between you and ${partnerName}. What feels like the next right step for you both?`,
-          default: `${userName}, that sounds really challenging - your feelings about this with ${partnerName} make complete sense. What do you think would help most right now?`
-        };
-        
-        return conversationalFallbacks[attachmentStyle.toLowerCase()] || conversationalFallbacks.default;
-      }
-
+      // Return the AI response directly - let the prompt guide the behavior
       return response;
     } catch (error) {
       console.error('Error in getAIResponse:', error);
@@ -72,6 +55,7 @@ export class AIResponseCoordinator {
       const userName = context.yourTraits.name || 'you';
       const partnerName = context.partnerTraits.name || context.yourTraits.name ? 'your partner' : 'they';
       
+      // Only use fallbacks for actual technical errors
       if (error.message?.includes('500') || error.message?.includes('Internal server error')) {
         return `Hey ${userName}, the AI service is having a moment - give it a few seconds and try again. What were you wanting to talk about with ${partnerName}?`;
       } else if (error.message?.includes('429') || error.message?.includes('rate limit')) {
