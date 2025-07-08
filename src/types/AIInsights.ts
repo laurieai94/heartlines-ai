@@ -60,6 +60,8 @@ export interface PersonContext {
   };
   partnerTraits: {
     name?: string;
+    age?: string;
+    pronouns?: string;
     loveLanguages?: string[];
     communicationStyle?: string;
     conflictStyle?: string;
@@ -68,6 +70,13 @@ export interface PersonContext {
     triggers?: string[];
     strengths?: string[];
     growthAreas?: string[];
+    familyDynamics?: string[];
+    whyRealTalk?: string[];
+    mentalHealthContext?: string;
+    education?: string;
+    workSituation?: string;
+    sexualOrientation?: string[];
+    genderIdentity?: string[];
   };
   dynamics: {
     loveLanguageMatch?: boolean;

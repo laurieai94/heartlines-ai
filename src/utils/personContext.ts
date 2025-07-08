@@ -57,14 +57,23 @@ export class PersonContextBuilder {
       },
       partnerTraits: {
         name: partnerData.name || yourData.partnerName,
-        loveLanguages: partnerData.loveLanguages || [],
-        communicationStyle: partnerData.communicationStyle,
-        conflictStyle: partnerData.conflictStyle,
-        stressResponse: partnerData.stressResponse || [],
-        attachmentStyle: partnerData.attachmentStyle,
+        age: partnerData.age,
+        pronouns: partnerData.pronouns || partnerData.customPronouns,
+        loveLanguages: partnerData.loveLanguages || partnerData.feelLovedWhen || [],
+        communicationStyle: partnerData.communicationStyle || partnerData.communicationDirectness,
+        conflictStyle: partnerData.conflictStyle || partnerData.conflictNeeds,
+        stressResponse: partnerData.stressResponse || partnerData.stressReactions || [],
+        attachmentStyle: partnerData.attachmentStyle || partnerData.attachmentStyles,
         triggers: partnerData.triggers || [],
-        strengths: partnerData.strengths || [],
-        growthAreas: partnerData.growthAreas || []
+        strengths: partnerData.strengths || partnerData.workingWell || partnerData.relationshipPositives || [],
+        growthAreas: partnerData.growthAreas || partnerData.biggestChallenge || partnerData.relationshipChallenges || [],
+        familyDynamics: partnerData.familyDynamics || [],
+        whyRealTalk: partnerData.whyRealTalk || partnerData.motivations || [],
+        mentalHealthContext: partnerData.mentalHealthContext,
+        education: partnerData.education,
+        workSituation: partnerData.workSituation,
+        sexualOrientation: partnerData.sexualOrientation || partnerData.orientation || [],
+        genderIdentity: partnerData.genderIdentity || partnerData.gender || []
       },
       dynamics: {
         loveLanguageMatch: yourData.loveLanguages?.some(lang => 
