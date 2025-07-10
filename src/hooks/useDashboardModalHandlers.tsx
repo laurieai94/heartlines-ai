@@ -138,6 +138,12 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setActiveTab("insights");
   };
 
+  const handlePartnerUpdatePersonalProfile = () => {
+    console.log('Opening personal questionnaire from partner completion');
+    modalStates.setShowPartnerCompletionOptions(false);
+    modalStates.setShowQuestionnaireModal(true);
+  };
+
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
     updateTemporaryProfile(newProfiles, newDemographics);
   };
@@ -159,6 +165,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     handlePersonalAddPartnerProfile,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
+    handlePartnerUpdatePersonalProfile,
     handleProfileUpdate
   };
 };

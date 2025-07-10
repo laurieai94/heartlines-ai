@@ -36,6 +36,7 @@ const Dashboard = () => {
     handlePersonalAddPartnerProfile,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
+    handlePartnerUpdatePersonalProfile,
     handleProfileUpdate
   } = useDashboardModals();
 
@@ -83,6 +84,7 @@ const Dashboard = () => {
           showPartnerCompletionOptions={showPartnerCompletionOptions}
           onPartnerStartChatting={handlePartnerStartChatting}
           onPartnerCompletionClose={handlePartnerCompletionClose}
+          onPartnerUpdatePersonalProfile={handlePartnerUpdatePersonalProfile}
           temporaryProfiles={temporaryProfiles}
         />
       </div>

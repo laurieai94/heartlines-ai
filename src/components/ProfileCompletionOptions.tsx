@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Check, X } from "lucide-react";
+import { Heart, MessageCircle, Check, X, User } from "lucide-react";
 
 interface ProfileCompletionOptionsProps {
   completionType: 'personal' | 'partner';
@@ -8,6 +8,7 @@ interface ProfileCompletionOptionsProps {
   onStartChatting: () => void;
   onClose: () => void;
   hasPartnerProfile: boolean;
+  onUpdatePersonalProfile?: () => void;
 }
 
 const ProfileCompletionOptions = ({ 
@@ -15,32 +16,33 @@ const ProfileCompletionOptions = ({
   onAddPartnerProfile, 
   onStartChatting, 
   onClose,
-  hasPartnerProfile 
+  hasPartnerProfile,
+  onUpdatePersonalProfile 
 }: ProfileCompletionOptionsProps) => {
   const isPersonalCompletion = completionType === 'personal';
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
-        {/* Clean Header */}
-        <div className="p-6 border-b border-gray-100 relative">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4">
+      <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 max-w-md w-full">
+        {/* Premium Header */}
+        <div className="p-6 border-b border-white/10 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute top-4 right-4 p-1 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200"
           >
             <X className="w-5 h-5" />
           </button>
           
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <Check className="w-5 h-5 text-green-600" />
+            <div className="w-10 h-10 bg-gradient-to-r from-green-400/20 to-emerald-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20">
+              <Check className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">
-                Profile Complete
+              <h2 className="text-xl font-semibold text-white">
+                Profile Complete!
               </h2>
-              <p className="text-gray-500 text-sm">
-                {isPersonalCompletion ? "Nice work! What's next?" : "Great! You're all set."}
+              <p className="text-white/70 text-sm">
+                {isPersonalCompletion ? "Great work! What's next?" : "Awesome! You're all set."}
               </p>
             </div>
           </div>
@@ -51,31 +53,41 @@ const ProfileCompletionOptions = ({
           {isPersonalCompletion ? (
             <>
               {!hasPartnerProfile && (
-                <Button
+                <button
                   onClick={onAddPartnerProfile}
-                  className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-white font-medium"
+                  className="w-full h-12 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
                 >
-                  <Heart className="w-4 h-4 mr-2" />
-                  Add Partner Profile
-                </Button>
+                  <Heart className="w-4 h-4" />
+                  Build out the partner profile
+                </button>
               )}
               
-              <Button
+              <button
                 onClick={onStartChatting}
-                className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-medium"
+                className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <MessageCircle className="w-4 h-4" />
                 Start Coaching with Kai
-              </Button>
+              </button>
             </>
           ) : (
-            <Button
-              onClick={onStartChatting}
-              className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-medium"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Start Coaching with Kai
-            </Button>
+            <>
+              <button
+                onClick={onUpdatePersonalProfile}
+                className="w-full h-12 bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                <User className="w-4 h-4" />
+                Update personal profile
+              </button>
+              
+              <button
+                onClick={onStartChatting}
+                className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Start Coaching with Kai
+              </button>
+            </>
           )}
         </div>
       </div>
