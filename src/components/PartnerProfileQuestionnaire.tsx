@@ -1,7 +1,5 @@
 
-import { useState } from "react";
 import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
-import PartnerQuestionnaireSuccess from "./PartnerProfileQuestionnaire/PartnerQuestionnaireSuccess";
 import PartnerQuestionnaireContainer from "./PartnerProfileQuestionnaire/PartnerQuestionnaireContainer";
 
 interface PartnerProfileQuestionnaireProps {
@@ -12,7 +10,6 @@ interface PartnerProfileQuestionnaireProps {
 
 const PartnerProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: PartnerProfileQuestionnaireProps) => {
   const { profileData, isLoading, updateField, handleMultiSelect } = usePartnerProfileData();
-  const [showSuccess, setShowSuccess] = useState(false);
 
   if (isLoading) {
     return (
@@ -25,11 +22,6 @@ const PartnerProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: P
     );
   }
 
-  // Success state
-  if (showSuccess) {
-    return <PartnerQuestionnaireSuccess isModal={isModal} />;
-  }
-
   return (
     <PartnerQuestionnaireContainer
       profileData={profileData}
@@ -38,7 +30,6 @@ const PartnerProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: P
       onComplete={onComplete}
       onClose={onClose}
       isModal={isModal}
-      setShowSuccess={setShowSuccess}
     />
   );
 };
