@@ -18,15 +18,15 @@ const ValueProposition = () => {
               <div className="space-y-2">
                 <div className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                  <span className="text-pink-200/80 text-sm">5 minutes of honesty → Get advice that feels personally crafted</span>
+                  <span className="text-pink-200/80 text-sm">5 minutes of honesty for personalized coaching insights</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                  <span className="text-pink-200/80 text-sm">Chat with Kai → AI coaching that gets your situation</span>
+                  <span className="text-pink-200/80 text-sm">Chat with Kai for advice that gets your situation</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                  <span className="text-pink-200/80 text-sm">Take action → Tools that work in your real life</span>
+                  <span className="text-pink-200/80 text-sm">Take action with tools that work in your real life</span>
                 </div>
               </div>
             </div>
@@ -108,4 +108,3 @@ const ValueProposition = () => {
 };
 
 export default ValueProposition;
-
