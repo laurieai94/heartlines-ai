@@ -23,7 +23,7 @@ const ProfileCompletionOptions = ({
 
   return (
     <div className="fixed inset-0 bg-white/20 backdrop-blur-sm z-[99999] flex items-center justify-center p-4">
-      <div className="questionnaire-card max-w-md w-full">
+      <div className="bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 max-w-md w-full">
         {/* Premium Header */}
         <div className="p-6 border-b border-white/10 relative">
           <button
@@ -60,15 +60,13 @@ const ProfileCompletionOptions = ({
                 Start Relationship Coaching with Kai
               </button>
               
-              {!hasPartnerProfile && (
-                <button
-                  onClick={onAddPartnerProfile}
-                  className="w-full h-12 bg-gradient-to-r from-rose-500/80 to-pink-500/80 hover:from-rose-600/80 hover:to-pink-600/80 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20"
-                >
-                  <Heart className="w-4 h-4" />
-                  Complete Partner Profile
-                </button>
-              )}
+              <button
+                onClick={onAddPartnerProfile}
+                className="w-full h-12 bg-gradient-to-r from-rose-500/80 to-pink-500/80 hover:from-rose-600/80 hover:to-pink-600/80 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20"
+              >
+                <Heart className="w-4 h-4" />
+                Add Your Partner Profile
+              </button>
             </>
           ) : (
             <>
