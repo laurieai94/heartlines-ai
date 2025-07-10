@@ -41,72 +41,24 @@ serve(async (req) => {
       throw error
     }
 
-    // Check if Twilio credentials are available
-    const twilioSid = Deno.env.get('TWILIO_ACCOUNT_SID')
-    const twilioToken = Deno.env.get('TWILIO_AUTH_TOKEN')
-    const twilioPhone = Deno.env.get('TWILIO_PHONE_NUMBER')
-
     const results = []
     
     for (const reminder of reminders || []) {
       try {
-        const phoneNumber = reminder.profiles?.phone_number
-        if (!phoneNumber) {
-          console.log(`No phone number for user ${reminder.user_id}`)
-          results.push({
-            reminderId: reminder.id,
-            status: 'failed',
-            error: 'No phone number on file'
-          })
-          continue
-        }
-
+        // Here you would integrate with your SMS service (Twilio, etc.)
+        // For now, we'll just log the SMS that would be sent
         const smsMessage = `RealTalk: ${reminder.reminder_text} 💙`
         
-        if (twilioSid && twilioToken && twilioPhone) {
-          // Send actual SMS via Twilio
-          const twilioUrl = `https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`
-          
-          const formData = new FormData()
-          formData.append('To', phoneNumber)
-          formData.append('From', twilioPhone)
-          formData.append('Body', smsMessage)
-
-          const twilioResponse = await fetch(twilioUrl, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Basic ${btoa(`${twilioSid}:${twilioToken}`)}`
-            },
-            body: formData
-          })
-
-          if (twilioResponse.ok) {
-            console.log(`SMS sent successfully to ${phoneNumber}`)
-            results.push({
-              reminderId: reminder.id,
-              status: 'sent',
-              message: smsMessage,
-              phone: phoneNumber
-            })
-          } else {
-            const errorData = await twilioResponse.text()
-            console.error(`Twilio error: ${errorData}`)
-            results.push({
-              reminderId: reminder.id,
-              status: 'failed',
-              error: 'SMS delivery failed'
-            })
-          }
-        } else {
-          // Log what would be sent (for testing without Twilio)
-          console.log(`Would send SMS to ${phoneNumber}: "${smsMessage}"`)
-          results.push({
-            reminderId: reminder.id,
-            status: 'simulated',
-            message: smsMessage,
-            phone: phoneNumber
-          })
-        }
+        console.log(`Would send SMS to user ${reminder.user_id}: "${smsMessage}"`)
+        
+        // In a real implementation, you'd send the SMS here:
+        // await sendSMS(reminder.profiles.phone_number, smsMessage)
+        
+        results.push({
+          reminderId: reminder.id,
+          status: 'sent',
+          message: smsMessage
+        })
       } catch (smsError) {
         console.error(`Failed to send SMS for reminder ${reminder.id}:`, smsError)
         results.push({

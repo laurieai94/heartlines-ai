@@ -33,21 +33,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
-        // Check subscription status when user signs in
-        if (event === 'SIGNED_IN' && session?.user) {
-          // Defer subscription check to avoid potential race conditions
-          setTimeout(async () => {
-            try {
-              await supabase.functions.invoke('check-subscription');
-            } catch (error) {
-              console.error('Failed to check subscription on sign in:', error);
-            }
-          }, 1000);
-        }
       }
     );
 
