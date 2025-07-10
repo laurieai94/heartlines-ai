@@ -22,8 +22,8 @@ const ProfileCompletionOptions = ({
   const isPersonalCompletion = completionType === 'personal';
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4">
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 max-w-md w-full">
+    <div className="fixed inset-0 bg-white/20 backdrop-blur-sm z-[99999] flex items-center justify-center p-4">
+      <div className="questionnaire-card max-w-md w-full">
         {/* Premium Header */}
         <div className="p-6 border-b border-white/10 relative">
           <button
@@ -38,10 +38,10 @@ const ProfileCompletionOptions = ({
               <Check className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold questionnaire-text">
                 Profile Complete!
               </h2>
-              <p className="text-white/70 text-sm">
+              <p className="questionnaire-text-muted text-sm">
                 {isPersonalCompletion ? "Great work! What's next?" : "Awesome! You're all set."}
               </p>
             </div>
@@ -52,40 +52,40 @@ const ProfileCompletionOptions = ({
         <div className="p-6 space-y-4">
           {isPersonalCompletion ? (
             <>
+              <button
+                onClick={onStartChatting}
+                className="w-full h-12 questionnaire-button-primary rounded-xl flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Start Relationship Coaching with Kai
+              </button>
+              
               {!hasPartnerProfile && (
                 <button
                   onClick={onAddPartnerProfile}
-                  className="w-full h-12 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
+                  className="w-full h-12 bg-gradient-to-r from-rose-500/80 to-pink-500/80 hover:from-rose-600/80 hover:to-pink-600/80 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20"
                 >
                   <Heart className="w-4 h-4" />
-                  Build out the partner profile
+                  Complete Partner Profile
                 </button>
               )}
-              
-              <button
-                onClick={onStartChatting}
-                className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Start Coaching with Kai
-              </button>
             </>
           ) : (
             <>
               <button
-                onClick={onUpdatePersonalProfile}
-                className="w-full h-12 bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
+                onClick={onStartChatting}
+                className="w-full h-12 questionnaire-button-primary rounded-xl flex items-center justify-center gap-2"
               >
-                <User className="w-4 h-4" />
-                Update personal profile
+                <MessageCircle className="w-4 h-4" />
+                Start Relationship Coaching with Kai
               </button>
               
               <button
-                onClick={onStartChatting}
-                className="w-full h-12 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2"
+                onClick={onUpdatePersonalProfile}
+                className="w-full h-12 bg-gradient-to-r from-purple-500/80 to-violet-500/80 hover:from-purple-600/80 hover:to-violet-600/80 text-white font-medium rounded-xl transition-all duration-300 hover:transform hover:translateY(-1px) hover:shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20"
               >
-                <MessageCircle className="w-4 h-4" />
-                Start Coaching with Kai
+                <User className="w-4 h-4" />
+                Update Personal Profile
               </button>
             </>
           )}
