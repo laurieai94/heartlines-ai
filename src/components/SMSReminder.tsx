@@ -1,13 +1,15 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
 import { toast } from "sonner";
+import { useSubscription } from "@/hooks/useSubscription";
 import PhoneNumberInput from "./SMSReminder/PhoneNumberInput";
 import ConversationReminders from "./SMSReminder/ConversationReminders";
 import PresetReminders from "./SMSReminder/PresetReminders";
 import MessagePreview from "./SMSReminder/MessagePreview";
 import ActiveRemindersView from "./SMSReminder/ActiveRemindersView";
+import SubscriptionPaywall from "./SubscriptionPaywall";
 import { usePhoneValidation } from "./SMSReminder/hooks/usePhoneValidation";
 import { useReminderTypes } from "./SMSReminder/hooks/useReminderTypes";
 import { useConversationReminders } from "./SMSReminder/hooks/useConversationReminders";
@@ -15,6 +17,7 @@ import { useConversationReminders } from "./SMSReminder/hooks/useConversationRem
 const SMSReminder = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
+  const { isPremium, subscribed, subscription_tier, openCustomerPortal } = useSubscription();
 
   const { phoneNumber, isPhoneValid, handlePhoneChange } = usePhoneValidation();
   const { reminderTypes, updateReminderType, enabledReminders } = useReminderTypes();
@@ -23,6 +26,23 @@ const SMSReminder = () => {
     toggleConversationReminder,
     activeConversationReminders
   } = useConversationReminders();
+
+  // Show paywall if user is not premium
+  if (!isPremium) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">SMS Reminders</h2>
+          <p className="text-gray-600">Get gentle text reminders to strengthen your relationship</p>
+        </div>
+        
+        <SubscriptionPaywall 
+          feature="SMS reminders"
+          description="Get personalized text reminders based on your conversations and relationship goals"
+        />
+      </div>
+    );
+  }
 
   const handleSaveSettings = () => {
     if (!isPhoneValid) {
@@ -60,9 +80,24 @@ const SMSReminder = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">Set Up SMS Reminders</h2>
-        <p className="text-gray-600">Get gentle text reminders to strengthen your relationship</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Set Up SMS Reminders</h2>
+          <p className="text-gray-600">Get gentle text reminders to strengthen your relationship</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="px-3 py-1 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 rounded-full text-sm font-medium">
+            Premium Active
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={openCustomerPortal}
+            className="text-xs"
+          >
+            Manage Subscription
+          </Button>
+        </div>
       </div>
 
       <PhoneNumberInput
