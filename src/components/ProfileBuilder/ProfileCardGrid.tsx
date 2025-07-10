@@ -1,3 +1,4 @@
+
 import { Brain, Heart, Lightbulb, Target, Star } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 
@@ -34,7 +35,7 @@ const ProfileCardGrid = ({
       <ProfileCard
         title="Tell Me About You"
         completion={yourProfileCompletion}
-        description="Answer some real questions about how you communicate, handle conflict, and connect so RealTalk can give you advice that doesn't suck."
+        description="Answer real questions about how you communicate, handle conflict, and connect so RealTalk can give you advice that doesn't suck."
         benefits={yourProfileBenefits}
         onStartProfile={onStartPersonalProfile}
         buttonText={yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
