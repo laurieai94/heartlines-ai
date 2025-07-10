@@ -62,14 +62,14 @@ const ValueProposition = () => {
         <div className="text-center space-y-6">
           <div className="flex items-center justify-center gap-2">
             <Lock className="w-5 h-5 text-green-300" />
-            <h3 className="text-xl font-bold text-white">Your Privacy is Protected</h3>
+            <h3 className="text-xl font-bold text-white">The RealTalk Privacy Promise</h3>
           </div>
           
           <p className="text-base text-pink-200/90 max-w-2xl mx-auto leading-relaxed">
             Your relationship details stay completely private and secure with bank-level encryption.
           </p>
 
-          {/* The RealTalk Promise - Featured */}
+          {/* Featured Promise Section */}
           <div className="bg-gradient-to-r from-white/10 to-white/5 rounded-xl p-6 border border-white/20 max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Shield className="w-6 h-6 text-green-300" />
@@ -81,7 +81,7 @@ const ValueProposition = () => {
             </p>
           </div>
 
-          {/* Key Privacy Highlights */}
+          {/* The Basics Section */}
           <div className="space-y-4 max-w-2xl mx-auto">
             <h4 className="text-base font-semibold text-white">The Basics (What Matters Most):</h4>
             <div className="space-y-3">
@@ -100,7 +100,7 @@ const ValueProposition = () => {
             </div>
           </div>
 
-          {/* Collapsible "Learn More" Section */}
+          {/* Collapsible "What This Means for You" Section */}
           <Collapsible open={isPrivacyExpanded} onOpenChange={setIsPrivacyExpanded}>
             <CollapsibleTrigger asChild>
               <Button 
@@ -113,20 +113,49 @@ const ValueProposition = () => {
             </CollapsibleTrigger>
             
             <CollapsibleContent className="space-y-6 mt-6">
-              <div className="text-left space-y-4 max-w-3xl mx-auto">
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                    <span className="text-pink-200/80 text-sm leading-relaxed">We don't share your data with advertisers, dating apps, or anyone else</span>
+              <div className="text-left space-y-6 max-w-3xl mx-auto">
+                
+                {/* Detailed Privacy Practices */}
+                <div className="space-y-4">
+                  <h5 className="text-base font-semibold text-white text-center">Detailed Privacy Practices</h5>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">We don't share your data with advertisers, dating apps, or anyone else</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">Your relationship details are encrypted and stored securely</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">We're not tracking you across the internet or building profiles to sell</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">We can't read your conversations - they're encrypted end-to-end</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">Your profile information is never used for marketing or other purposes</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
+                      <span className="text-pink-200/80 text-sm leading-relaxed">Even our team can't access your personal relationship details</span>
+                    </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                    <span className="text-pink-200/80 text-sm leading-relaxed">Your relationship details are encrypted and stored securely</span>
+                </div>
+
+                {/* Zero Access Policy - Special Section */}
+                <div className="bg-gradient-to-r from-green-900/20 to-emerald-900/10 rounded-xl p-6 border border-green-400/20">
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <Shield className="w-6 h-6 text-green-300" />
+                    <h5 className="text-lg font-bold text-white">Zero Access Policy</h5>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                    <span className="text-pink-200/80 text-sm leading-relaxed">We're not tracking you across the internet or building profiles to sell</span>
-                  </div>
+                  <p className="text-pink-200/95 text-sm leading-relaxed text-center">
+                    Your conversations and profiles are encrypted so securely that even RealTalk employees cannot read them. 
+                    Only you and Kai have access to your relationship information.
+                  </p>
                 </div>
               </div>
               
