@@ -35,7 +35,7 @@ const ProfileCardGrid = ({
       <ProfileCard
         title="Tell Me About You"
         completion={yourProfileCompletion}
-        description="Answer questions about how you communicate, handle conflict, and connect so RealTalk can give you advice that doesn't suck."
+        description="Answer questions about how you communicate, handle conflict, and connect so we give you advice that doesn't suck."
         benefits={yourProfileBenefits}
         onStartProfile={onStartPersonalProfile}
         buttonText={yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
@@ -61,4 +61,3 @@ const ProfileCardGrid = ({
 };
 
 export default ProfileCardGrid;
-
