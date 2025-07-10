@@ -126,17 +126,17 @@ const ProfileBuilder = ({
   };
 
   const yourProfileBenefits = [
-    { icon: <Target className="w-4 h-4" />, text: "What You'll Get:" },
-    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Personalized coaching tailored to your patterns" },
-    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Deep insights into your relationship style" },
-    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Custom advice that actually gets you" }
+    { icon: <Target className="w-4 h-4" />, text: "What you'll unlock:" },
+    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Coaching that fits your personality" },
+    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Insights into your relationship patterns" },
+    { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Advice that sounds like it was written for you" }
   ];
 
   const partnerProfileBenefits = [
-    { icon: <Lightbulb className="w-4 h-4" />, text: "What You'll Unlock:" },
-    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual-perspective relationship insights" },
-    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Bridge-building communication tips" },
-    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
+    { icon: <Lightbulb className="w-4 h-4" />, text: "What you'll unlock:" },
+    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "See your dynamic from their perspective" },
+    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Communication tips that speak their language" },
+    { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Strategies that work for how you two are together" }
   ];
 
   return (
@@ -149,19 +149,6 @@ const ProfileBuilder = ({
         <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
           Build your relationship profiles to unlock personalized insights
         </p>
-        {/* Real-time overall progress indicator */}
-        {profileCompletion > 0 && (
-          <div className="flex items-center justify-center gap-2 text-sm text-pink-200/80">
-            <span>Overall Progress:</span>
-            <div className="w-32 h-2 bg-black/30 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-orange-400 to-pink-500 transition-all duration-500 ease-out"
-                style={{ width: `${profileCompletion}%` }}
-              />
-            </div>
-            <span className="font-semibold text-white">{profileCompletion}%</span>
-          </div>
-        )}
       </div>
 
       {/* Main Content Area - Scrollable */}
@@ -170,9 +157,9 @@ const ProfileBuilder = ({
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Your Profile Card */}
           <ProfileCard
-            title="Your Profile"
+            title="Tell Me About You"
             completion={yourProfileCompletion}
-            description="Complete our comprehensive questionnaire to unlock personalized relationship insights from Kai, your AI coach."
+            description="Answer some real questions about how you communicate, handle conflict, and connect so RealTalk can give you advice that doesn't suck."
             benefits={yourProfileBenefits}
             onStartProfile={handleStartPersonalProfile}
             buttonText={yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
@@ -183,9 +170,9 @@ const ProfileBuilder = ({
 
           {/* Partner Profile Card */}
           <ProfileCard
-            title="Partner Profile"
+            title="Add Your Partner's Side"
             completion={partnerProfileCompletion}
-            description="Share what you know about your partner's communication style and preferences for even better insights."
+            description="Help me understand how they work too, so my advice works for both of you."
             benefits={partnerProfileBenefits}
             onStartProfile={handleStartPartnerProfile}
             buttonText={partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
