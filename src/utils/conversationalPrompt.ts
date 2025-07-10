@@ -6,7 +6,7 @@ export class ConversationalPromptBuilder {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
     
-    // Build natural personal insights
+    // Build natural personal insights with family background
     const buildPersonalInsights = () => {
       if (!context.yourTraits || Object.keys(context.yourTraits).length === 0) return '';
       
@@ -40,7 +40,7 @@ export class ConversationalPromptBuilder {
       return insights.length > 0 ? insights.join(', ') + '.' : '';
     };
 
-    // Build natural partner insights
+    // Build natural partner insights with family background
     const buildPartnerInsights = () => {
       if (!context.partnerTraits || Object.keys(context.partnerTraits).length === 0) return '';
       
@@ -76,6 +76,51 @@ export class ConversationalPromptBuilder {
       }
       
       return insights.length > 0 ? insights.join(', ') + '.' : '';
+    };
+
+    // Build family background insights
+    const buildFamilyBackgroundInsights = () => {
+      const insights = [];
+      
+      // Your family background
+      if (context.yourTraits.familyBackground) {
+        const fb = context.yourTraits.familyBackground;
+        
+        if (fb.situation?.length > 0) {
+          insights.push(`Your family growing up: ${fb.situation[0]}`);
+        }
+        
+        if (fb.emotions?.length > 0) {
+          const emotionDesc = fb.emotions.slice(0, 2).join(' and ');
+          insights.push(`Emotions in your family: ${emotionDesc}`);
+        }
+        
+        if (fb.conflict?.length > 0) {
+          const conflictDesc = fb.conflict.slice(0, 2).join(' and ');
+          insights.push(`Family conflict style: ${conflictDesc}`);
+        }
+        
+        if (fb.love?.length > 0) {
+          const loveDesc = fb.love.slice(0, 2).join(' and ');
+          insights.push(`How love was shown: ${loveDesc}`);
+        }
+      }
+      
+      // Partner's family background
+      if (context.partnerTraits.familyBackground && partnerName) {
+        const pfb = context.partnerTraits.familyBackground;
+        
+        if (pfb.situation?.length > 0) {
+          insights.push(`${partnerName}'s family: ${pfb.situation[0]}`);
+        }
+        
+        if (pfb.emotions?.length > 0) {
+          const emotionDesc = pfb.emotions.slice(0, 2).join(' and ');
+          insights.push(`${partnerName}'s family emotions: ${emotionDesc}`);
+        }
+      }
+      
+      return insights.length > 0 ? `\n\nFamily Origins:\n${insights.join('.\n')}.` : '';
     };
 
     // Build relationship dynamics naturally
@@ -156,12 +201,15 @@ You know both ${yourName || 'them'} AND ${partnerName || 'their partner'} person
 - Help them understand how their individual traits interact as a couple
 - Reference their dynamics naturally, like any friend who knows them both would
 - Be aware of their age, identity, and orientation context when giving advice
+- Connect current patterns to family of origin experiences when relevant
 
 **Examples of Natural Profile References:**
 - "Is this that ${context.yourTraits.attachmentStyle || 'attachment'} thing showing up?"
 - "Sounds like maybe your ${context.yourTraits.communicationStyle || 'communication'} style is bumping up against something here?"
 - "Does this feel like one of those ${context.yourTraits.conflictStyle || 'conflict'} moments for you?"
 - "Given that you're both in your ${context.yourTraits.age || 'stage of life'}, this makes sense..."
+- "I'm wondering if this connects to how conflict was handled in your family growing up?"
+- "This reminds me of what you shared about how love was shown in your family..."
 
 ## What You Avoid
 - Jumping straight to advice without exploring first
@@ -187,6 +235,8 @@ ${context.relationship && Object.keys(context.relationship).length > 0 ? `
 # Their Relationship
 They've been together ${context.relationship.length || 'for a while'}${context.relationship.stage ? ` and are ${context.relationship.stage}` : ''}${context.relationship.livingTogether ? ', living together' : ''}
 ` : ''}
+
+${buildFamilyBackgroundInsights()}
 
 ${buildDynamics()}
 

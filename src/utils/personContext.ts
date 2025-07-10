@@ -1,5 +1,4 @@
-
-import { ProfileData, DemographicsData, PersonContext } from "@/types/AIInsights";
+import { ProfileData, DemographicsData, PersonContext, FamilyBackground } from "@/types/AIInsights";
 
 export class PersonContextBuilder {
   // Helper function to map partner questionnaire fields to standard field names
@@ -27,7 +26,17 @@ export class PersonContextBuilder {
       mapped.strengths = mapped.strengths ? [...mapped.strengths, partnerData.partnerSuperpower] : [partnerData.partnerSuperpower];
     }
     
-    // Map background information
+    // Map family background information
+    const familyBackground: FamilyBackground = {};
+    if (partnerData.partnerFamilyBackground) familyBackground.situation = partnerData.partnerFamilyBackground;
+    if (partnerData.partnerEmotions) familyBackground.emotions = partnerData.partnerEmotions;
+    if (partnerData.partnerValues) familyBackground.dynamics = partnerData.partnerValues;
+    
+    if (Object.keys(familyBackground).length > 0) {
+      mapped.familyBackground = familyBackground;
+    }
+    
+    // Keep legacy field for backwards compatibility
     if (partnerData.partnerFamilyBackground) mapped.familyDynamics = partnerData.partnerFamilyBackground;
     if (partnerData.partnerEmotions) mapped.attachmentStyle = partnerData.partnerEmotions;
     if (partnerData.partnerValues) mapped.whyRealTalk = partnerData.partnerValues;
@@ -65,15 +74,45 @@ export class PersonContextBuilder {
     if (personalData.motivations) mapped.whyRealTalk = personalData.motivations;
     if (personalData.relationshipInfluences) mapped.loveInfluences = personalData.relationshipInfluences;
     
-    // Map family background fields
-    if (personalData.familySituation) mapped.familyDynamics = [personalData.familySituation];
-    if (personalData.familyEmotions) {
-      mapped.familyDynamics = mapped.familyDynamics ? [...mapped.familyDynamics, ...personalData.familyEmotions] : personalData.familyEmotions;
-    }
-    if (personalData.familyConflict) mapped.parentConflictStyle = personalData.familyConflict;
-    if (personalData.familyLove) mapped.loveMessages = personalData.familyLove;
+    // Map family background fields - preserve ALL family data
+    const familyBackground: FamilyBackground = {};
     
-    console.log('Mapped personal questionnaire fields:', { original: personalData, mapped });
+    if (personalData.familySituation) {
+      familyBackground.situation = [personalData.familySituation];
+      // Keep legacy field for backwards compatibility
+      mapped.familyDynamics = [personalData.familySituation];
+    }
+    
+    if (personalData.familyEmotions) {
+      familyBackground.emotions = personalData.familyEmotions;
+      // Add to familyDynamics for legacy support
+      if (mapped.familyDynamics) {
+        mapped.familyDynamics = [...mapped.familyDynamics, ...personalData.familyEmotions];
+      } else {
+        mapped.familyDynamics = personalData.familyEmotions;
+      }
+    }
+    
+    if (personalData.familyConflict) {
+      familyBackground.conflict = personalData.familyConflict;
+      mapped.parentConflictStyle = personalData.familyConflict;
+    }
+    
+    if (personalData.familyLove) {
+      familyBackground.love = personalData.familyLove;
+      mapped.loveMessages = personalData.familyLove;
+    }
+    
+    // Only set familyBackground if we have data
+    if (Object.keys(familyBackground).length > 0) {
+      mapped.familyBackground = familyBackground;
+    }
+    
+    console.log('Mapped personal questionnaire fields:', { 
+      original: personalData, 
+      mapped, 
+      familyBackground: mapped.familyBackground 
+    });
     return mapped;
   }
 
@@ -82,6 +121,12 @@ export class PersonContextBuilder {
     const partnerProfile = profiles.partner[0] || {};
     const yourDemo = demographicsData.your || {};
     const partnerDemo = demographicsData.partner || {};
+
+    console.log('=== Building PersonContext - Raw Data ===');
+    console.log('yourProfile:', yourProfile);
+    console.log('partnerProfile:', partnerProfile);
+    console.log('yourDemo:', yourDemo);
+    console.log('partnerDemo:', partnerDemo);
 
     // Apply field mapping for personal data to handle questionnaire field names
     const mappedYourProfile = this.mapPersonalQuestionnaireFields(yourProfile);
@@ -93,12 +138,11 @@ export class PersonContextBuilder {
     const mappedPartnerDemo = this.mapPartnerQuestionnaireFields(partnerDemo);
     const partnerData = { ...mappedPartnerProfile, ...mappedPartnerDemo };
 
-    console.log('Building PersonContext with:', { 
-      yourData: Object.keys(yourData), 
-      partnerData: Object.keys(partnerData),
-      yourDataValues: yourData,
-      partnerDataValues: partnerData 
-    });
+    console.log('=== Building PersonContext - Final Mapped Data ===');
+    console.log('yourData familyBackground:', yourData.familyBackground);
+    console.log('partnerData familyBackground:', partnerData.familyBackground);
+    console.log('yourData keys:', Object.keys(yourData));
+    console.log('partnerData keys:', Object.keys(partnerData));
 
     return {
       relationship: {
@@ -122,6 +166,7 @@ export class PersonContextBuilder {
         strengths: yourData.strengths || yourData.workingWell || yourData.relationshipPositives || [],
         growthAreas: yourData.growthAreas || yourData.biggestChallenge || yourData.relationshipChallenges || [],
         familyDynamics: yourData.familyDynamics || [],
+        familyBackground: yourData.familyBackground,
         whyRealTalk: yourData.whyRealTalk || yourData.motivations || [],
         mentalHealthContext: yourData.mentalHealthContext,
         education: yourData.education,
@@ -156,6 +201,7 @@ export class PersonContextBuilder {
         strengths: partnerData.strengths || partnerData.workingWell || partnerData.relationshipPositives || [],
         growthAreas: partnerData.growthAreas || partnerData.biggestChallenge || partnerData.relationshipChallenges || [],
         familyDynamics: partnerData.familyDynamics || [],
+        familyBackground: partnerData.familyBackground,
         whyRealTalk: partnerData.whyRealTalk || partnerData.motivations || [],
         mentalHealthContext: partnerData.mentalHealthContext,
         education: partnerData.education,

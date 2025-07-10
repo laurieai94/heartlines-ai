@@ -14,6 +14,14 @@ export interface AIInsightsProps {
   demographicsData?: DemographicsData;
 }
 
+export interface FamilyBackground {
+  situation?: string[];
+  emotions?: string[];
+  conflict?: string[];
+  love?: string[];
+  dynamics?: string[];
+}
+
 export interface PersonContext {
   relationship: {
     length?: string;
@@ -36,6 +44,7 @@ export interface PersonContext {
     strengths?: string[];
     growthAreas?: string[];
     familyDynamics?: string[];
+    familyBackground?: FamilyBackground;
     whyRealTalk?: string[];
     mentalHealthContext?: string;
     education?: string;
@@ -71,6 +80,7 @@ export interface PersonContext {
     strengths?: string[];
     growthAreas?: string[];
     familyDynamics?: string[];
+    familyBackground?: FamilyBackground;
     whyRealTalk?: string[];
     mentalHealthContext?: string;
     education?: string;
