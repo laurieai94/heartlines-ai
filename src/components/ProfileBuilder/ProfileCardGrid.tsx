@@ -1,4 +1,3 @@
-
 import { Brain, Heart, Lightbulb, Target, Star } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 
@@ -48,7 +47,7 @@ const ProfileCardGrid = ({
       <ProfileCard
         title="Add Your Partner's Side"
         completion={partnerProfileCompletion}
-        description="Help me understand how they work too, so my advice works for both of you."
+        description="Help RealTalk understand how they work too, so our relationship coach can give you advice that works for both of you."
         benefits={partnerProfileBenefits}
         onStartProfile={onStartPartnerProfile}
         buttonText={partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'}
