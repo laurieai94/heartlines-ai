@@ -23,7 +23,7 @@ const Dashboard = () => {
     temporaryProfiles,
     temporaryDemographics,
     isLoaded,
-    updateProfiles
+    updateTemporaryProfile
   } = useTemporaryProfile();
 
   const {
@@ -31,6 +31,24 @@ const Dashboard = () => {
     setActiveTab,
     showQuestionnaireModal,
     showPartnerQuestionnaireModal,
+    shouldShowSignUpModal,
+    closeSignUpModal,
+    accessLevel,
+    profileCompletion,
+    blockingAction,
+    handleOpenQuestionnaire,
+    handleOpenPartnerQuestionnaire,
+    handleQuestionnaireComplete,
+    handlePartnerQuestionnaireComplete,
+    handleQuestionnaireClose,
+    handlePartnerQuestionnaireClose,
+    handlePersonalCompletionClose,
+    handlePartnerCompletionClose,
+    handlePersonalAddPartnerProfile,
+    handlePersonalStartChatting,
+    handlePartnerStartChatting,
+    showPersonalCompletionOptions,
+    showPartnerCompletionOptions,
     ...modalProps
   } = useDashboardModals();
 
@@ -70,13 +88,15 @@ const Dashboard = () => {
       <BubbleBackground />
       
       <div className="relative z-10 flex flex-col h-screen">
-        <DashboardHeader onSignOut={() => navigate("/")} />
+        <DashboardHeader 
+          accessLevel={accessLevel}
+          profileCompletion={profileCompletion}
+        />
         
         <div className="flex flex-1 min-h-0">
           <DashboardNavigation
             activeTab={activeTab}
             onValueChange={setActiveTab}
-            profileCompletion={modalProps.profileCompletion}
           />
           
           <DashboardContent
@@ -84,17 +104,31 @@ const Dashboard = () => {
             onValueChange={setActiveTab}
             temporaryProfiles={temporaryProfiles}
             temporaryDemographics={temporaryDemographics}
-            onProfileUpdate={updateProfiles}
-            onOpenQuestionnaire={modalProps.openPersonalQuestionnaire}
-            onOpenPartnerQuestionnaire={modalProps.openPartnerQuestionnaire}
+            onProfileUpdate={updateTemporaryProfile}
+            onOpenQuestionnaire={handleOpenQuestionnaire}
+            onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
           />
         </div>
       </div>
 
       <DashboardModals
+        shouldShowSignUpModal={shouldShowSignUpModal}
+        onCloseSignUpModal={closeSignUpModal}
+        blockingAction={blockingAction}
         showQuestionnaireModal={showQuestionnaireModal}
+        onQuestionnaireComplete={handleQuestionnaireComplete}
+        onQuestionnaireClose={handleQuestionnaireClose}
         showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
-        {...modalProps}
+        onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
+        onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
+        showPersonalCompletionOptions={showPersonalCompletionOptions}
+        onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
+        onPersonalStartChatting={handlePersonalStartChatting}
+        onPersonalCompletionClose={handlePersonalCompletionClose}
+        showPartnerCompletionOptions={showPartnerCompletionOptions}
+        onPartnerStartChatting={handlePartnerStartChatting}
+        onPartnerCompletionClose={handlePartnerCompletionClose}
+        temporaryProfiles={temporaryProfiles}
       />
     </div>
   );
