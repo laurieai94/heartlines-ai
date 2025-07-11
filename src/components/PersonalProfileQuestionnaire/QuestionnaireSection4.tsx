@@ -19,21 +19,21 @@ const QuestionnaireSection4 = ({
   if (!isReady) return null;
 
   return (
-    <div className="space-y-3">
-      <div className="bg-white/15 backdrop-blur-lg rounded-xl border border-white/25 p-4 space-y-3">
-        <div className="flex items-center gap-2 mb-3">
+    <div className="space-y-1.5">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+        <div className="flex items-center gap-2 mb-1">
           <Heart className="w-4 h-4 text-rose-400" />
           <h3 className="text-base font-semibold text-white">Your Foundation</h3>
         </div>
         
         <div>
-          <Label className="text-sm font-medium text-white mb-2 block">
+          <Label className="text-sm font-semibold text-white mb-1 block">
             How did emotions work in your family? <span className="text-red-400">*</span>
           </Label>
-          <div className="text-xs text-white/70 mb-3">
+          <div className="text-xs text-white/70 mb-1.5">
             This programs how safe you feel being vulnerable
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {[
               "Open & healthy emotional expression",
               "Happy feelings okay, sad/angry ones shut down",
@@ -48,10 +48,10 @@ const QuestionnaireSection4 = ({
               <button
                 key={value}
                 onClick={() => handleMultiSelect('familyEmotions', value)}
-                className={`questionnaire-button text-left ${
+                className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                   profileData.familyEmotions?.includes(value)
-                    ? 'bg-rose-500/40 border-rose-400/60 text-white'
-                    : ''
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
                 }`}
               >
                 {value}
