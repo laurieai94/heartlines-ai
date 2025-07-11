@@ -32,7 +32,8 @@ const QuestionnaireSection4 = ({
           </Label>
           <div className="grid grid-cols-2 gap-2">
             {[
-              "Trust & honesty",
+              "Trust",
+              "Honesty",
               "Communication",
               "Shared values",
               "Physical intimacy",
