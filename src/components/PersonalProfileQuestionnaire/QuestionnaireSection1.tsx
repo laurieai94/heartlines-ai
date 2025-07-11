@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -43,8 +44,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     );
   };
 
-  const basicPronouns = ['She/her', 'He/him', 'They/them'];
-  const morePronouns = ['Ze/zir', 'Use my name', 'Multiple sets', 'Other'];
+  const basicPronouns = ['She/her', 'He/him'];
+  const morePronouns = ['They/them', 'Ze/zir', 'Use my name', 'Multiple sets', 'Other'];
 
   const handlePronounSelect = (pronouns: string) => {
     updateField('pronouns', pronouns);
@@ -89,8 +90,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 Pronouns <span className="text-red-400">*</span>
               </Label>
               
-              {/* Basic pronouns - always visible */}
-              <div className="grid grid-cols-3 gap-1.5">
+              {/* Basic pronouns - streamlined inline layout */}
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {basicPronouns.map((pronouns) => (
                   <button
                     key={pronouns}
@@ -104,12 +105,24 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                     {pronouns}
                   </button>
                 ))}
+                
+                {/* They/them as text input style */}
+                <button
+                  onClick={() => handlePronounSelect('They/them')}
+                  className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                    profileData.pronouns === 'They/them'
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
+                  }`}
+                >
+                  They/them
+                </button>
               </div>
 
               {/* More options toggle */}
               <button
                 onClick={() => setShowMorePronouns(!showMorePronouns)}
-                className="flex items-center gap-1 text-xs text-white/70 hover:text-white/90 transition-colors mt-1"
+                className="flex items-center gap-1 text-xs text-white/70 hover:text-white/90 transition-colors"
               >
                 {showMorePronouns ? (
                   <>
@@ -126,7 +139,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
 
               {/* Additional pronouns - collapsible */}
               {showMorePronouns && (
-                <div className="grid grid-cols-2 gap-1.5 mt-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   {morePronouns.map((pronouns) => (
                     <button
                       key={pronouns}

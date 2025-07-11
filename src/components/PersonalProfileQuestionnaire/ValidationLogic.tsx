@@ -3,7 +3,8 @@
 export const validateSection = (section: number, profileData: any) => {
   switch (section) {
     case 1: {
-      const required = ['name', 'pronouns', 'age', 'gender', 'orientation'];
+      // Removed 'gender' from required fields - it's optional
+      const required = ['name', 'pronouns', 'age', 'orientation'];
       return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -70,7 +71,7 @@ export const validateSection = (section: number, profileData: any) => {
 
 export const getRequiredCount = (section: number, profileData: any) => {
   switch (section) {
-    case 1: return 5;
+    case 1: return 4; // Updated from 5 to 4 since gender is now optional
     case 2: {
       let base = 1;
       
@@ -97,7 +98,8 @@ export const getRequiredCount = (section: number, profileData: any) => {
 export const getCompletedCount = (section: number, profileData: any) => {
   switch (section) {
     case 1: {
-      const fields = ['name', 'pronouns', 'age', 'gender', 'orientation'];
+      // Removed 'gender' from required fields count
+      const fields = ['name', 'pronouns', 'age', 'orientation'];
       return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
