@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronRight, AlertTriangle, Heart } from "lucide-react";
@@ -188,22 +187,6 @@ const RelationshipQuestions = ({ profileData, updateField, handleMultiSelect, re
     }
   };
 
-  // Handle challenge selection with limit of 3
-  const handleChallengeSelect = (challenge: string) => {
-    const currentChallenges = profileData.relationshipChallenges || [];
-    
-    if (currentChallenges.includes(challenge)) {
-      // Remove if already selected
-      const updated = currentChallenges.filter((c: string) => c !== challenge);
-      updateField('relationshipChallenges', updated);
-    } else if (currentChallenges.length < 3) {
-      // Add if under limit
-      const updated = [...currentChallenges, challenge];
-      updateField('relationshipChallenges', updated);
-    }
-  };
-
-  const selectedChallengesCount = (profileData.relationshipChallenges || []).length;
   const relationshipLengthConfig = getRelationshipLengthConfig();
   const workingWellConfig = getWorkingWellConfig();
 
@@ -214,41 +197,28 @@ const RelationshipQuestions = ({ profileData, updateField, handleMultiSelect, re
         <div>
           <Label className="text-sm font-semibold text-white">
             What's your biggest relationship challenges right now? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select up to 3</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <AlertTriangle className="w-3 h-3 text-yellow-300" />
-            <span>The thing that's actually driving you crazy</span>
+            <span>The things actually driving you crazy</span>
           </div>
-          {selectedChallengesCount > 0 && (
-            <div className="text-xs text-white/60 mt-1">
-              {selectedChallengesCount}/3 selected
-            </div>
-          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-          {challengeOptions.map((challenge) => {
-            const isSelected = (profileData.relationshipChallenges || []).includes(challenge);
-            const isDisabled = !isSelected && selectedChallengesCount >= 3;
-            
-            return (
-              <button
-                key={challenge}
-                onClick={() => handleChallengeSelect(challenge)}
-                disabled={isDisabled}
-                className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
-                  isSelected
-                    ? 'questionnaire-button-selected'
-                    : isDisabled
-                    ? 'questionnaire-button-secondary opacity-50 cursor-not-allowed'
-                    : 'questionnaire-button-secondary'
-                }`}
-              >
-                {challenge}
-              </button>
-            );
-          })}
+          {challengeOptions.map((challenge) => (
+            <button
+              key={challenge}
+              onClick={() => handleMultiSelect('relationshipChallenges', challenge)}
+              className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+                (profileData.relationshipChallenges || []).includes(challenge)
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
+              }`}
+            >
+              {challenge}
+            </button>
+          ))}
         </div>
       </div>
 
