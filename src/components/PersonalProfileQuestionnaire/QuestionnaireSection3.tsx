@@ -1,6 +1,8 @@
 
+import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { Brain, Heart, Shield, Users } from "lucide-react";
+import { Brain, Heart, Shield, Users, ChevronDown } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface QuestionnaireSection3Props {
   profileData: any;
@@ -10,6 +12,8 @@ interface QuestionnaireSection3Props {
 }
 
 const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection3Props) => {
+  const [isOptionalOpen, setIsOptionalOpen] = useState(false);
+
   if (!isReady) return null;
 
   const stressResponseOptions = [
@@ -118,74 +122,89 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         </div>
       </div>
 
-      {/* Optional Section Header */}
-      <div className="py-2">
-        <Label className="text-sm font-semibold text-white/90">
-          Want to dive deeper? (Optional)
-        </Label>
-        <div className="text-xs text-white/60 mt-0.5">
-          These help us give you more personalized insights
-        </div>
-      </div>
-
-      {/* Conflict Needs */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div>
-          <Label className="text-sm font-semibold text-white mb-1 block">
-            When you're in conflict, what do you actually need?
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that apply</span>
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <Shield className="w-3 h-3 text-blue-300" />
-            <span>What you actually need during fights</span>
+      {/* Optional Section - Collapsible */}
+      <Collapsible open={isOptionalOpen} onOpenChange={setIsOptionalOpen}>
+        <CollapsibleTrigger className="w-full">
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 hover:bg-white/15 transition-all duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-sm font-semibold text-white/90">
+                  Want to dive deeper? (Optional)
+                </Label>
+                <div className="text-xs text-white/60 mt-0.5">
+                  These help us give you more personalized insights
+                </div>
+              </div>
+              <ChevronDown 
+                className={`w-4 h-4 text-white/70 transition-transform duration-200 ${
+                  isOptionalOpen ? 'rotate-180' : ''
+                }`} 
+              />
+            </div>
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-          {conflictNeedsOptions.map((need) => (
-            <button
-              key={need}
-              onClick={() => handleMultiSelect('conflictNeeds', need)}
-              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                (profileData.conflictNeeds || []).includes(need)
-                  ? 'questionnaire-button-selected'
-                  : 'questionnaire-button-secondary'
-              }`}
-            >
-              {need}
-            </button>
-          ))}
-        </div>
-      </div>
+        </CollapsibleTrigger>
 
-      {/* Attachment Style */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div>
-          <Label className="text-sm font-semibold text-white mb-1 block">
-            What's your attachment style?
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <Users className="w-3 h-3 text-orange-300" />
-            <span>The psychological patterns that run your relationships</span>
+        <CollapsibleContent className="space-y-1.5 mt-1.5">
+          {/* Conflict Needs */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+            <div>
+              <Label className="text-sm font-semibold text-white mb-1 block">
+                When you're in conflict, what do you actually need?
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that apply</span>
+              </Label>
+              <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+                <Shield className="w-3 h-3 text-blue-300" />
+                <span>What you actually need during fights</span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              {conflictNeedsOptions.map((need) => (
+                <button
+                  key={need}
+                  onClick={() => handleMultiSelect('conflictNeeds', need)}
+                  className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    (profileData.conflictNeeds || []).includes(need)
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
+                  }`}
+                >
+                  {need}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        
-        <div className="space-y-2">
-          {attachmentOptions.map((style) => (
-            <button
-              key={style}
-              onClick={() => updateField('attachmentStyle', style)}
-              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                profileData.attachmentStyle === style
-                  ? 'questionnaire-button-selected'
-                  : 'questionnaire-button-secondary'
-              }`}
-            >
-              {style}
-            </button>
-          ))}
-        </div>
-      </div>
+
+          {/* Attachment Style */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+            <div>
+              <Label className="text-sm font-semibold text-white mb-1 block">
+                What's your attachment style?
+              </Label>
+              <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+                <Users className="w-3 h-3 text-orange-300" />
+                <span>The psychological patterns that run your relationships</span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {attachmentOptions.map((style) => (
+                <button
+                  key={style}
+                  onClick={() => updateField('attachmentStyle', style)}
+                  className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    profileData.attachmentStyle === style
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
+                  }`}
+                >
+                  {style}
+                </button>
+              ))}
+            </div>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };
