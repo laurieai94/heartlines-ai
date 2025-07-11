@@ -32,23 +32,31 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
 
         <CollapsibleContent className="space-y-3">
           <FamilySituationQuestion
-            selectedSituation={profileData.familySituation || ''}
-            onSituationSelect={(situation) => updateField('familySituation', situation)}
+            selectedValue={profileData.familySituation || ''}
+            otherText={profileData.familySituationOther || ''}
+            onSelect={(situation) => updateField('familySituation', situation)}
+            onOtherTextChange={(text) => updateField('familySituationOther', text)}
           />
 
           <FamilyConflictQuestion
-            selectedConflictStyle={profileData.familyConflict || ''}
-            onConflictStyleSelect={(style) => updateField('familyConflict', style)}
+            selectedValues={profileData.familyConflict || []}
+            otherText={profileData.familyConflictOther || ''}
+            onToggle={(style) => handleMultiSelect('familyConflict', style)}
+            onOtherTextChange={(text) => updateField('familyConflictOther', text)}
           />
 
           <FamilyEmotionsQuestion
-            selectedEmotions={profileData.familyEmotions || []}
-            onEmotionSelect={(emotion) => handleMultiSelect('familyEmotions', emotion)}
+            selectedValues={profileData.familyEmotions || []}
+            otherText={profileData.familyEmotionsOther || ''}
+            onToggle={(emotion) => handleMultiSelect('familyEmotions', emotion)}
+            onOtherTextChange={(text) => updateField('familyEmotionsOther', text)}
           />
 
           <FamilyLoveQuestion
-            selectedLoveLanguage={profileData.familyLove || ''}
-            onLoveLanguageSelect={(language) => updateField('familyLove', language)}
+            selectedValues={profileData.familyLove || []}
+            otherText={profileData.familyLoveOther || ''}
+            onToggle={(language) => handleMultiSelect('familyLove', language)}
+            onOtherTextChange={(text) => updateField('familyLoveOther', text)}
           />
         </CollapsibleContent>
       </div>
