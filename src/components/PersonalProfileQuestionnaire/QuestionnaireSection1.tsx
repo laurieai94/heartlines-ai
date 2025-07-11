@@ -50,60 +50,68 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             />
           </div>
 
-          <div className="space-y-1">
-            <Label htmlFor="name" className="text-sm font-semibold text-white">
-              What should we call you? <span className="text-red-400">*</span>
-            </Label>
-            <Input
-              id="name"
-              type="text"
-              value={profileData.name || ''}
-              onChange={(e) => updateField('name', e.target.value)}
-              placeholder="Your name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
-            />
-          </div>
-        </div>
-        
-        <div className="pt-1">
-          <div>
-            <Label className="text-sm font-semibold text-white">
-              What pronouns do you use? <span className="text-red-400">*</span>
-            </Label>
-            <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1.5">
-              <MessageCircle className="w-3 h-3 text-green-300" />
-              <span>So we can refer to you correctly</span>
-            </div>
-          </div>
-          <div className="grid grid-cols-4 gap-2">
-            {['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name', 'Other'].map((pronouns) => (
-              <button
-                key={pronouns}
-                onClick={() => updateField('pronouns', pronouns)}
-                className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                  profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))
-                    ? 'questionnaire-button-selected'
-                    : 'questionnaire-button-secondary'
-                }`}
-              >
-                {pronouns}
-              </button>
-            ))}
-          </div>
-          
-          {(profileData.pronouns === 'Other' || (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))) && (
-            <div className="mt-1.5">
-              <Label className="text-xs font-medium text-white mb-1 block">
-                Please specify your pronouns:
+          <div className="space-y-1.5">
+            <div className="space-y-1">
+              <Label htmlFor="name" className="text-sm font-semibold text-white">
+                What should we call you? <span className="text-red-400">*</span>
               </Label>
               <Input
-                value={profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns) ? profileData.pronouns : ''}
-                onChange={(e) => updateField('pronouns', e.target.value)}
-                placeholder="e.g., xe/xir, fae/faer, etc."
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7"
+                id="name"
+                type="text"
+                value={profileData.name || ''}
+                onChange={(e) => updateField('name', e.target.value)}
+                placeholder="Your name"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
               />
             </div>
-          )}
+            
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold text-white">
+                Pronouns <span className="text-red-400">*</span>
+              </Label>
+              <div className="grid grid-cols-3 gap-1.5">
+                {['She/her', 'He/him', 'They/them'].map((pronouns) => (
+                  <button
+                    key={pronouns}
+                    onClick={() => updateField('pronouns', pronouns)}
+                    className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                      profileData.pronouns === pronouns
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {pronouns}
+                  </button>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {['Ze/zir', 'Use my name', 'Multiple sets', 'Other'].map((pronouns) => (
+                  <button
+                    key={pronouns}
+                    onClick={() => updateField('pronouns', pronouns)}
+                    className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                      profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {pronouns}
+                  </button>
+                ))}
+              </div>
+              
+              {(profileData.pronouns === 'Other' || (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))) && (
+                <div className="mt-1">
+                  <Input
+                    value={profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns) ? profileData.pronouns : ''}
+                    onChange={(e) => updateField('pronouns', e.target.value)}
+                    placeholder="e.g., xe/xir, fae/faer"
+                    className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
