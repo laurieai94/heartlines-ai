@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { toast } from "sonner";
 import QuestionnaireHeader from "./QuestionnaireHeader";
@@ -91,8 +92,8 @@ const QuestionnaireContainer = ({
   };
 
   return (
-    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'} overflow-hidden`}>
-      <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'w-full max-w-2xl max-h-fit'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-full' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'} overflow-hidden`}>
+      <div className={`${isModal ? 'w-full h-full' : 'w-full max-w-2xl max-h-[80vh] min-h-fit'} overflow-hidden flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
         
         <QuestionnaireHeader 
           onClose={onClose}
