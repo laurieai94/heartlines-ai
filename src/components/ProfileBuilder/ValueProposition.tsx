@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Check, Lock, ChevronDown, Shield } from "lucide-react";
 import { useState } from "react";
+import ChatLockIcon from "./ChatLockIcon";
 
 const ValueProposition = () => {
   const [isPrivacyExpanded, setIsPrivacyExpanded] = useState(false);
@@ -69,8 +70,9 @@ const ValueProposition = () => {
             Your most personal thoughts deserve the highest protection. That's exactly what you get.
           </p>
 
-          {/* Essential Privacy Points */}
-          <div className="space-y-4 max-w-2xl mx-auto">
+          {/* Essential Privacy Points with Icon */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-center">
+            {/* Left column - Privacy points */}
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
@@ -84,6 +86,11 @@ const ValueProposition = () => {
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
                 <span className="text-pink-200/80 text-sm leading-relaxed text-left">Delete anytime - no questions asked</span>
               </div>
+            </div>
+
+            {/* Right column - Chat Lock Icon */}
+            <div className="flex justify-center">
+              <ChatLockIcon />
             </div>
           </div>
 
