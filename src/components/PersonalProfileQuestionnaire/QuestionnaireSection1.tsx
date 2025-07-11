@@ -1,8 +1,7 @@
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { User } from "lucide-react";
+import { User, ChevronDown, ChevronUp } from "lucide-react";
 import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
 import GenderSelection from "./GenderSelection";
@@ -17,6 +16,7 @@ interface QuestionnaireSection1Props {
 
 const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection1Props) => {
   const [showUnderageModal, setShowUnderageModal] = useState(false);
+  const [showMorePronouns, setShowMorePronouns] = useState(false);
 
   if (!isReady) return null;
 
@@ -41,6 +41,17 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         {name.charAt(0).toUpperCase()}
       </div>
     );
+  };
+
+  const basicPronouns = ['She/her', 'He/him', 'They/them'];
+  const morePronouns = ['Ze/zir', 'Use my name', 'Multiple sets', 'Other'];
+
+  const handlePronounSelect = (pronouns: string) => {
+    updateField('pronouns', pronouns);
+    // If selecting "Other", keep the more options expanded
+    if (pronouns !== 'Other') {
+      setShowMorePronouns(false);
+    }
   };
 
   return (
@@ -69,7 +80,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 value={profileData.name || ''}
                 onChange={(e) => updateField('name', e.target.value)}
                 placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium max-w-48"
               />
             </div>
             
@@ -77,11 +88,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-xs font-semibold text-white">
                 Pronouns <span className="text-red-400">*</span>
               </Label>
+              
+              {/* Basic pronouns - always visible */}
               <div className="grid grid-cols-3 gap-1.5">
-                {['She/her', 'He/him', 'They/them'].map((pronouns) => (
+                {basicPronouns.map((pronouns) => (
                   <button
                     key={pronouns}
-                    onClick={() => updateField('pronouns', pronouns)}
+                    onClick={() => handlePronounSelect(pronouns)}
                     className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
                       profileData.pronouns === pronouns
                         ? 'questionnaire-button-selected'
@@ -92,26 +105,49 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                   </button>
                 ))}
               </div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {['Ze/zir', 'Use my name', 'Multiple sets', 'Other'].map((pronouns) => (
-                  <button
-                    key={pronouns}
-                    onClick={() => updateField('pronouns', pronouns)}
-                    className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                      profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))
-                        ? 'questionnaire-button-selected'
-                        : 'questionnaire-button-secondary'
-                    }`}
-                  >
-                    {pronouns}
-                  </button>
-                ))}
-              </div>
+
+              {/* More options toggle */}
+              <button
+                onClick={() => setShowMorePronouns(!showMorePronouns)}
+                className="flex items-center gap-1 text-xs text-white/70 hover:text-white/90 transition-colors mt-1"
+              >
+                {showMorePronouns ? (
+                  <>
+                    <ChevronUp className="w-3 h-3" />
+                    Fewer options
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-3 h-3" />
+                    More options...
+                  </>
+                )}
+              </button>
+
+              {/* Additional pronouns - collapsible */}
+              {showMorePronouns && (
+                <div className="grid grid-cols-2 gap-1.5 mt-1.5">
+                  {morePronouns.map((pronouns) => (
+                    <button
+                      key={pronouns}
+                      onClick={() => handlePronounSelect(pronouns)}
+                      className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                        profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.slice(0, -1).includes(profileData.pronouns))
+                          ? 'questionnaire-button-selected'
+                          : 'questionnaire-button-secondary'
+                      }`}
+                    >
+                      {pronouns}
+                    </button>
+                  ))}
+                </div>
+              )}
               
-              {(profileData.pronouns === 'Other' || (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))) && (
+              {/* Custom pronouns input */}
+              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.slice(0, -1).includes(profileData.pronouns))) && (
                 <div className="mt-1">
                   <Input
-                    value={profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns) ? profileData.pronouns : ''}
+                    value={profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns) ? profileData.pronouns : ''}
                     onChange={(e) => updateField('pronouns', e.target.value)}
                     placeholder="e.g., xe/xir, fae/faer"
                     className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7"

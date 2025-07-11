@@ -55,7 +55,8 @@ export const validateSection = (section: number, profileData: any) => {
       });
     }
     case 4: {
-      const required = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
+      // Only require familySituation - the collapsible optional questions are truly optional
+      const required = ['familySituation'];
       return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -87,7 +88,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
       return base;
     }
     case 3: return 4;
-    case 4: return 4;
+    case 4: return 1; // Only familySituation is required
     default: return 0;
   }
 };
@@ -133,7 +134,8 @@ export const getCompletedCount = (section: number, profileData: any) => {
       }).length;
     }
     case 4: {
-      const fields = ['familySituation', 'familyEmotions', 'familyConflict', 'familyLove'];
+      // Only count familySituation as required for completion
+      const fields = ['familySituation'];
       return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
