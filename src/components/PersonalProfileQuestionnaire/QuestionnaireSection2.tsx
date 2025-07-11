@@ -14,17 +14,17 @@ interface QuestionnaireSection2Props {
 const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection2Props) => {
   if (!isReady) return null;
 
-  // Check if user is in some form of relationship (not single not dating)
+  // Check if user is in some form of relationship (not single or casually dating)
   const isInRelationship = profileData.relationshipStatus && 
-    !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
+    !['Single & actively dating', 'Single & taking a break', 'Casually seeing people', 'Talking to someone'].includes(profileData.relationshipStatus);
   
   // Check if user is in a defined relationship that has a length (not casual/complicated)
   const hasRelationshipLength = profileData.relationshipStatus && 
-    !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people', 'It\'s complicated'].includes(profileData.relationshipStatus);
+    ['In a relationship', 'Engaged', 'Married', 'Separated/Divorced'].includes(profileData.relationshipStatus);
 
   // Check if user is single/dating (trigger for additional questions)
   const isSingleOrDating = profileData.relationshipStatus && 
-    ['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus);
+    ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
 
   return (
     <div className="space-y-1.5">

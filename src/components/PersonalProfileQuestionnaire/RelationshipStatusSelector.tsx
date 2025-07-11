@@ -9,9 +9,15 @@ interface RelationshipStatusSelectorProps {
 
 const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipStatusSelectorProps) => {
   const relationshipStatusOptions = [
-    'Single, actively dating', 'Single, not dating', 'Casually dating/seeing people', 
-    'Exclusive but not official', 'In a relationship', 'Engaged', 
-    'Married', 'It\'s complicated'
+    'Single & actively dating',
+    'Single & taking a break', 
+    'Casually seeing people',
+    'Talking to someone',
+    'In a relationship',
+    'Engaged',
+    'Married',
+    'Separated/Divorced',
+    'It\'s complicated'
   ];
 
   return (
