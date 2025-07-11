@@ -65,24 +65,12 @@ const ValueProposition = () => {
             <h3 className="text-xl font-bold text-white">The RealTalk Privacy Promise</h3>
           </div>
           
-          <p className="text-base text-pink-200/90 max-w-2xl mx-auto leading-relaxed">
-            Your conversations are completely private and secure with bank-level encryption.
+          <p className="text-base text-pink-200/95 max-w-2xl mx-auto leading-relaxed font-medium">
+            Your most personal thoughts deserve the highest protection. That's exactly what you get.
           </p>
 
-          {/* Featured Promise Section */}
-          <div className="bg-gradient-to-r from-white/10 to-white/5 rounded-xl p-6 border border-white/20 max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Shield className="w-6 h-6 text-green-300" />
-              <h4 className="text-lg font-bold text-white">The RealTalk Promise</h4>
-            </div>
-            <p className="text-base text-pink-200/95 leading-relaxed font-medium">
-              Your most personal thoughts deserve the highest protection. That's exactly what you get.
-            </p>
-          </div>
-
-          {/* The Basics Section */}
+          {/* Essential Privacy Points */}
           <div className="space-y-4 max-w-2xl mx-auto">
-            <h4 className="text-base font-semibold text-white">The Basics (What Matters Most):</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
@@ -116,11 +104,11 @@ const ValueProposition = () => {
                 
                 {/* Detailed Privacy Practices */}
                 <div className="space-y-4">
-                  <h5 className="text-base font-semibold text-white text-center">Detailed Privacy Practices</h5>
+                  <h5 className="text-base font-semibold text-white text-center">How We Protect You</h5>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                      <span className="text-pink-200/80 text-sm leading-relaxed">We don't share your data with advertisers, dating apps, or anyone else</span>
+                      <span className="text-pink-200/80 text-sm leading-relaxed">No tracking across the internet or building profiles to sell</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
@@ -128,19 +116,11 @@ const ValueProposition = () => {
                     </div>
                     <div className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                      <span className="text-pink-200/80 text-sm leading-relaxed">We're not tracking you across the internet or building profiles to sell</span>
+                      <span className="text-pink-200/80 text-sm leading-relaxed">Profile information is never used for marketing or other purposes</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                      <span className="text-pink-200/80 text-sm leading-relaxed">We can't read your conversations - they're encrypted end-to-end</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                      <span className="text-pink-200/80 text-sm leading-relaxed">Your profile information is never used for marketing or other purposes</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                      <span className="text-pink-200/80 text-sm leading-relaxed">Even our team can't access your personal relationship details</span>
+                      <span className="text-pink-200/80 text-sm leading-relaxed">No sharing with advertisers, dating apps, or anyone else</span>
                     </div>
                   </div>
                 </div>
