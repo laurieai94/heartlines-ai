@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, ArrowLeft } from "lucide-react";
@@ -24,6 +24,8 @@ const AIChatInput = ({
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -39,8 +41,43 @@ const AIChatInput = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCurrentMessage(e.target.value);
+    const value = e.target.value;
+    setCurrentMessage(value);
+    
+    // Show typing indicator when user starts typing
+    if (value.trim() && !isTyping) {
+      setIsTyping(true);
+    }
+    
+    // Clear existing timeout and set new one
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    
+    // Hide typing indicator after user stops typing for 2 seconds
+    typingTimeoutRef.current = setTimeout(() => {
+      setIsTyping(false);
+    }, 2000);
   };
+
+  // Clear typing indicator when message is sent
+  useEffect(() => {
+    if (currentMessage === "") {
+      setIsTyping(false);
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    }
+  }, [currentMessage]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleVoiceMessage = (message: string) => {
     onSendMessage(message);
@@ -94,6 +131,17 @@ const AIChatInput = ({
 
   return (
     <div className="space-y-3">
+      {/* Kai is Listening Indicator */}
+      {isTyping && currentMessage.trim() && (
+        <div className="flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 animate-fade-in">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce"></div>
+            <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+          <span className="text-sm text-white/70 font-light">Kai is listening...</span>
+        </div>
+      )}
       {/* Compact Category Selection or Conversation Starters */}
       {showQuickStarters && (
         <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-3 border border-orange-100/50 shadow-lg">

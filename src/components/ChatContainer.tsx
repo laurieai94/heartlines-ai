@@ -24,14 +24,12 @@ const ChatContainer = ({
   isHistoryLoaded 
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaViewportRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = (force = false) => {
-    if (scrollAreaViewportRef.current) {
-      const viewport = scrollAreaViewportRef.current;
-      viewport.scrollTo({
-        top: viewport.scrollHeight,
-        behavior: force ? 'auto' : 'smooth'
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: force ? 'auto' : 'smooth',
+        block: 'end'
       });
     }
   };
@@ -53,12 +51,9 @@ const ChatContainer = ({
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-      <ScrollArea className="flex-1 h-0">
-        <div 
-          ref={scrollAreaViewportRef}
-          className="px-4 py-4"
-        >
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden max-h-[calc(100vh-200px)]">
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="px-4 py-4">
           <div className="space-y-4 max-w-2xl mx-auto">
             
             {/* Kai's Personalized Welcome Section */}
