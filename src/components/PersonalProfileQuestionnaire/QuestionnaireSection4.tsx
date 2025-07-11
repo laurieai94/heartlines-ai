@@ -16,10 +16,6 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
   if (!isReady) return null;
 
-  const handleSingleSelect = (field: string, value: string) => {
-    updateField(field, value);
-  };
-
   const emotionalVibeOptions = [
     "Open & healthy emotional expression",
     "Happy feelings okay, sad/angry ones shut down",
@@ -70,7 +66,7 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
 
   return (
     <div className="space-y-1.5">
-      {/* Main Emotional Vibe Question */}
+      {/* Main Emotional Vibe Question - CONVERTED TO MULTI-SELECT */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white">
@@ -79,16 +75,16 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <TreeDeciduous className="w-3 h-3 text-green-300" />
-            <span>This programs how safe you feel being vulnerable</span>
+            <span>Select all that resonate - this programs how safe you feel being vulnerable</span>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {emotionalVibeOptions.map((option) => {
-            const isSelected = profileData.familyEmotionalVibe === option;
+            const isSelected = (profileData.familyEmotionalVibe || []).includes(option);
             return (
               <button
                 key={option}
-                onClick={() => handleSingleSelect('familyEmotionalVibe', option)}
+                onClick={() => handleMultiSelect('familyEmotionalVibe', option)}
                 className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                   isSelected
                     ? 'questionnaire-button-selected'
@@ -122,16 +118,19 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
           </CollapsibleTrigger>
 
           <CollapsibleContent className="space-y-1.5">
-            {/* Family Structure */}
+            {/* Family Structure - CONVERTED TO MULTI-SELECT */}
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-white/90">Family structure growing up:</Label>
+              <Label className="text-sm font-medium text-white/90">
+                Family structure growing up:
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+              </Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {familyStructureOptions.map((option) => {
-                  const isSelected = profileData.familyStructure === option;
+                  const isSelected = (profileData.familyStructure || []).includes(option);
                   return (
                     <button
                       key={option}
-                      onClick={() => handleSingleSelect('familyStructure', option)}
+                      onClick={() => handleMultiSelect('familyStructure', option)}
                       className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                         isSelected
                           ? 'questionnaire-button-selected'
@@ -145,16 +144,19 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               </div>
             </div>
 
-            {/* Conflict Handling */}
+            {/* Conflict Handling - CONVERTED TO MULTI-SELECT */}
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-white/90">How did your family handle conflict?</Label>
+              <Label className="text-sm font-medium text-white/90">
+                How did your family handle conflict?
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+              </Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {conflictHandlingOptions.map((option) => {
-                  const isSelected = profileData.familyConflictHandling === option;
+                  const isSelected = (profileData.familyConflictHandling || []).includes(option);
                   return (
                     <button
                       key={option}
-                      onClick={() => handleSingleSelect('familyConflictHandling', option)}
+                      onClick={() => handleMultiSelect('familyConflictHandling', option)}
                       className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                         isSelected
                           ? 'questionnaire-button-selected'
@@ -168,16 +170,19 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
               </div>
             </div>
 
-            {/* Love Expression */}
+            {/* Love Expression - CONVERTED TO MULTI-SELECT */}
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-white/90">How was love typically shown?</Label>
+              <Label className="text-sm font-medium text-white/90">
+                How was love typically shown?
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+              </Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {loveExpressionOptions.map((option) => {
-                  const isSelected = profileData.familyLoveExpression === option;
+                  const isSelected = (profileData.familyLoveExpression || []).includes(option);
                   return (
                     <button
                       key={option}
-                      onClick={() => handleSingleSelect('familyLoveExpression', option)}
+                      onClick={() => handleMultiSelect('familyLoveExpression', option)}
                       className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
                         isSelected
                           ? 'questionnaire-button-selected'

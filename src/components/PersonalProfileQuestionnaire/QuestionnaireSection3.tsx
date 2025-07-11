@@ -72,7 +72,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <Brain className="w-3 h-3 text-purple-300" />
-            <span>Your automatic stress response</span>
+            <span>Select all that resonate</span>
           </div>
         </div>
         
@@ -101,7 +101,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
             <Heart className="w-3 h-3 text-pink-300" />
-            <span>Your main love language</span>
+            <span>Select all that resonate</span>
           </div>
         </div>
         
@@ -109,9 +109,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           {loveLanguageOptions.map((language) => (
             <button
               key={language}
-              onClick={() => updateField('loveLanguage', language)}
+              onClick={() => handleMultiSelect('loveLanguage', language)}
               className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                profileData.loveLanguage === language
+                (profileData.loveLanguage || []).includes(language)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
               }`}
@@ -150,7 +150,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <div>
               <Label className="text-sm font-semibold text-white mb-1 block">
                 When you're in conflict, what do you actually need?
-                <span className="text-orange-300 font-medium text-xs ml-2">Select all that apply</span>
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
               <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
                 <Shield className="w-3 h-3 text-blue-300" />

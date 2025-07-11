@@ -48,15 +48,16 @@ export const validateSection = (section: number, profileData: any) => {
       return isValid;
     }
     case 3: {
-      const required = ['stressResponse', 'conflictNeeds', 'feelLovedWhen', 'attachmentStyle'];
+      // Updated to handle multi-select fields - stressResponse and loveLanguage are now arrays
+      const required = ['stressResponse', 'loveLanguage'];
       return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
       });
     }
     case 4: {
-      // Only require familySituation - the collapsible optional questions are truly optional
-      const required = ['familySituation'];
+      // Only require familyEmotionalVibe - now as multi-select array
+      const required = ['familyEmotionalVibe'];
       return required.every(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -87,8 +88,8 @@ export const getRequiredCount = (section: number, profileData: any) => {
       }
       return base;
     }
-    case 3: return 4;
-    case 4: return 1; // Only familySituation is required
+    case 3: return 2; // stressResponse and loveLanguage (both now multi-select)
+    case 4: return 1; // Only familyEmotionalVibe is required (now multi-select)
     default: return 0;
   }
 };
@@ -127,15 +128,16 @@ export const getCompletedCount = (section: number, profileData: any) => {
       return completed;
     }
     case 3: {
-      const fields = ['stressResponse', 'conflictNeeds', 'feelLovedWhen', 'attachmentStyle'];
+      // Updated to handle new multi-select fields
+      const fields = ['stressResponse', 'loveLanguage'];
       return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
       }).length;
     }
     case 4: {
-      // Only count familySituation as required for completion
-      const fields = ['familySituation'];
+      // Only count familyEmotionalVibe as required for completion (now multi-select)
+      const fields = ['familyEmotionalVibe'];
       return fields.filter(field => {
         const value = profileData[field];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
