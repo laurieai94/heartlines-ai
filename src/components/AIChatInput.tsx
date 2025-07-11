@@ -26,11 +26,14 @@ const AIChatInput = ({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isTyping, setIsTyping] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
+    // Keep focus on textarea after sending message
+    setTimeout(() => textareaRef.current?.focus(), 0);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -81,6 +84,8 @@ const AIChatInput = ({
 
   const handleVoiceMessage = (message: string) => {
     onSendMessage(message);
+    // Keep focus on textarea after sending voice message
+    setTimeout(() => textareaRef.current?.focus(), 0);
   };
 
   const conversationCategories = {
@@ -125,6 +130,8 @@ const AIChatInput = ({
   const handleQuickStarter = (starter: string) => {
     onSendMessage(starter);
     setSelectedCategory(null);
+    // Keep focus on textarea after sending quick starter
+    setTimeout(() => textareaRef.current?.focus(), 0);
   };
 
   const showQuickStarters = chatHistory.length === 0;
@@ -201,6 +208,7 @@ const AIChatInput = ({
       <div className="flex gap-3 items-end">
         <div className="flex-1">
           <Textarea
+            ref={textareaRef}
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
