@@ -1,13 +1,12 @@
 
 import { useState, useEffect } from "react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
-import ChatContainer from "./ChatContainer";
+import ChatInterface from "./ChatInterface";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
-import { ChatInputSection } from "./chat/ChatInputSection";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -70,25 +69,16 @@ const AIChat = ({
 
   return (
     <ChatLayout userName={userName} onNewConversation={handleNewConversation}>
-      <ChatContainer
+      <ChatInterface
         chatHistory={chatHistory}
-        loading={loading}
-        userName={userName}
-        isConfigured={isConfigured}
-        conversationStarter={conversationStarter}
-        isHistoryLoaded={isHistoryLoaded}
-      />
-
-      <ChatInputSection
-        onSendMessage={sendMessage}
         loading={loading}
         userName={userName}
         partnerName={partnerName}
-        chatHistory={chatHistory}
-        onSpeakResponse={handleSpeakResponse}
         isConfigured={isConfigured}
-        canInteract={canInteract}
+        conversationStarter={conversationStarter}
         isHistoryLoaded={isHistoryLoaded}
+        onSendMessage={sendMessage}
+        onSpeakResponse={handleSpeakResponse}
       />
     </ChatLayout>
   );
