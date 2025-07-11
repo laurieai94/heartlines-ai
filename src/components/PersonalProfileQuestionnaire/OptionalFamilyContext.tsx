@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import FamilyConflictQuestion from "./FamilyConflictQuestion";
-import FamilyEmotionsQuestion from "./FamilyEmotionsQuestion";
 import FamilyLoveQuestion from "./FamilyLoveQuestion";
 import FamilySituationQuestion from "./FamilySituationQuestion";
 
@@ -22,10 +21,15 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <CollapsibleTrigger className="w-full">
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-semibold text-white">
-              Want to share more context?
-              <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
-            </Label>
+            <div className="text-left">
+              <Label className="text-sm font-semibold text-white">
+                Want to share more family context?
+                <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
+              </Label>
+              <div className="text-xs text-white/70 mt-1">
+                Helps us understand your relationship patterns
+              </div>
+            </div>
             <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>
         </CollapsibleTrigger>
@@ -43,13 +47,6 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
             otherText={profileData.familyConflictOther || ''}
             onToggle={(style) => handleMultiSelect('familyConflict', style)}
             onOtherTextChange={(text) => updateField('familyConflictOther', text)}
-          />
-
-          <FamilyEmotionsQuestion
-            selectedValues={profileData.familyEmotions || []}
-            otherText={profileData.familyEmotionsOther || ''}
-            onToggle={(emotion) => handleMultiSelect('familyEmotions', emotion)}
-            onOtherTextChange={(text) => updateField('familyEmotionsOther', text)}
           />
 
           <FamilyLoveQuestion

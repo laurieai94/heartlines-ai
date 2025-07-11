@@ -1,7 +1,6 @@
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Home } from "lucide-react";
 
 interface FamilySituationQuestionProps {
   selectedValue: string;
@@ -17,27 +16,23 @@ const FamilySituationQuestion = ({
   onOtherTextChange 
 }: FamilySituationQuestionProps) => {
   const options = [
-    'Parents married/together - solid, healthy relationship',
-    'Parents married/together - typical ups and downs',
-    'Parents married/together - constant fighting but stayed',
-    'Parents divorced and stayed divorced',
-    'Parents divorced, one/both remarried someone else',
-    'Parents divorced but got back together',
+    'Parents married - healthy relationship',
+    'Parents married - typical ups and downs',
+    'Parents married - constant fighting',
+    'Parents divorced when I was young',
+    'Parents divorced when I was older',
     'Single parent household',
     'Raised by grandparents/other family',
-    'Other (please specify)'
+    'Foster care/adopted',
+    'Other/complex situation'
   ];
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
       <div className="space-y-1">
         <Label className="text-sm font-semibold text-white">
-          What was your family situation like growing up? <span className="text-red-400">*</span>
+          Family structure growing up: <span className="text-red-400">*</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <Home className="w-3 h-3 text-green-300" />
-          <span>This programmed your relationship patterns</span>
-        </div>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -56,7 +51,7 @@ const FamilySituationQuestion = ({
         ))}
       </div>
       
-      {selectedValue === 'Other (please specify)' && (
+      {selectedValue === 'Other/complex situation' && (
         <div className="mt-1.5">
           <Textarea
             value={otherText}

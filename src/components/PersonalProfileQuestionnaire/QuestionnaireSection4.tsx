@@ -28,29 +28,28 @@ const QuestionnaireSection4 = ({
         
         <div>
           <Label className="text-sm font-medium text-white mb-2 block">
-            What's most important to you in a relationship? <span className="text-red-400">*</span>
+            How did emotions work in your family? <span className="text-red-400">*</span>
           </Label>
+          <div className="text-xs text-white/70 mb-3">
+            This programs how safe you feel being vulnerable
+          </div>
           <div className="grid grid-cols-2 gap-2">
             {[
-              "Trust",
-              "Honesty",
-              "Communication",
-              "Shared values",
-              "Physical intimacy",
-              "Quality time together",
-              "Mutual respect",
-              "Emotional support",
-              "Independence & space",
-              "Shared goals",
-              "Fun & adventure",
-              "Financial security",
-              "Family & children"
+              "Open & healthy emotional expression",
+              "Happy feelings okay, sad/angry ones shut down",
+              "We weren't an emotions family",
+              "Emotions were unpredictable/overwhelming",
+              "I became the family therapist",
+              "Big emotions were dramatic & scary",
+              "Emotions were used to manipulate",
+              "Everything looked fine but wasn't",
+              "Love expressed but other feelings weren't"
             ].map((value) => (
               <button
                 key={value}
-                onClick={() => handleMultiSelect('relationshipValues', value)}
+                onClick={() => handleMultiSelect('familyEmotions', value)}
                 className={`questionnaire-button text-left ${
-                  profileData.relationshipValues?.includes(value)
+                  profileData.familyEmotions?.includes(value)
                     ? 'bg-rose-500/40 border-rose-400/60 text-white'
                     : ''
                 }`}
