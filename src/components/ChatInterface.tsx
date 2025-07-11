@@ -184,7 +184,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                   <h2 className="text-2xl font-bold text-white leading-tight">
                     Hello {userName ? `${userName}` : ''}, I'm Kai 👋
                   </h2>
-                  <p className="text-white/80 leading-relaxed">
+                  <p className="text-white/90 leading-relaxed">
                     I'm a clinical psychologist specializing in relationships and attachment. I'm here to help you navigate your relationship complexities with professional insight and care.
                   </p>
                 </div>
@@ -216,7 +216,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       <Bot className="w-4 h-4" />
                     </AvatarFallback>
                   </Avatar>
-                  <div className="bg-white/95 backdrop-blur-sm rounded-2xl rounded-bl-md px-4 py-3 shadow-lg border border-white/20">
+                  <div className="bg-white backdrop-blur-sm rounded-2xl rounded-bl-md px-4 py-3 shadow-lg border border-white/10">
                     <div className="flex gap-1.5">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -233,21 +233,21 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
         </div>
       </div>
 
-      {/* Input Section - Always Visible and Compact */}
-      <div className="shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
+      {/* Input Section - Always Visible */}
+      <div className="shrink-0 border-t border-white/20 bg-white/10 backdrop-blur-sm">
         <div className="p-4 max-w-3xl mx-auto">
           <ProgressiveAccessWrapper action="chat">
             <div className="space-y-3">
               
               {/* Typing Indicator */}
               {isUserTyping && message.trim() && (
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 animate-fade-in">
+                <div className="flex items-center gap-2 px-3 py-2 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 animate-fade-in">
                   <div className="flex gap-1">
                     <div className="w-1.5 h-1.5 bg-rose-400 rounded-full animate-bounce"></div>
                     <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                     <div className="w-1.5 h-1.5 bg-rose-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                   </div>
-                  <span className="text-sm text-white/70 font-light">Kai is listening...</span>
+                  <span className="text-sm text-white/80 font-light">Kai is listening...</span>
                 </div>
               )}
 
@@ -267,7 +267,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                     onBlur={handleInputBlur}
                     placeholder={chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."}
                     disabled={isInputDisabled}
-                    className="border-2 border-rose-300/30 focus:border-rose-400/50 rounded-2xl px-4 py-3 text-sm resize-none min-h-[48px] max-h-[120px] focus:ring-2 focus:ring-rose-300/20 bg-white/90 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white/95 leading-relaxed text-gray-800 placeholder:text-gray-500"
+                    className="border-2 border-rose-300/40 focus:border-rose-400/60 rounded-2xl px-4 py-3 text-sm resize-none min-h-[48px] max-h-[120px] focus:ring-2 focus:ring-rose-300/30 bg-white backdrop-blur-sm transition-all duration-300 focus:shadow-lg leading-relaxed text-gray-800 placeholder:text-gray-500"
                     rows={1}
                   />
                 </div>
@@ -292,7 +292,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
           </ProgressiveAccessWrapper>
           
           {!isConfigured && accessLevel === 'full-access' && (
-            <p className="text-sm text-white/60 mt-3 text-center font-light">
+            <p className="text-sm text-white/70 mt-3 text-center font-light">
               Complete setup to start chatting
             </p>
           )}
