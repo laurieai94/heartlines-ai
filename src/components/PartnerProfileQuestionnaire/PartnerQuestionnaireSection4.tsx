@@ -1,5 +1,5 @@
 
-import { TreeDeciduous, Users, Heart, Target } from "lucide-react";
+import { Users, Heart, Target } from "lucide-react";
 import { Label } from "@/components/ui/label";
 
 interface PartnerQuestionnaireSection4Props {

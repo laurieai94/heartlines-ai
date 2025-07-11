@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check, Sparkles, Heart, MessageCircle, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Heart } from "lucide-react";
 import { calculatePartnerOverallProgress, getPartnerTotalCount } from "./PartnerValidationLogic";
 
 interface PartnerQuestionnaireFooterProps {
@@ -29,14 +29,9 @@ const PartnerQuestionnaireFooter = ({
   const totalCount = getPartnerTotalCount(currentSection);
   const overallProgress = calculatePartnerOverallProgress(profileData);
 
-  const getSimpleStatusMessage = () => {
-    if (currentSection === 4 && overallProgress === 100) {
-      return "Ready to unlock dual-perspective insights!";
-    }
+  const getStatusMessage = () => {
     if (completedCount === totalCount) {
-      return currentSection === 4 ? 
-        "Complete partner profile to access enhanced features" : 
-        "Section complete - ready for the next step";
+      return "✓ Section Complete";
     }
     const remaining = totalCount - completedCount;
     return remaining > 0 ? 
@@ -44,27 +39,8 @@ const PartnerQuestionnaireFooter = ({
       'Complete the available questions';
   };
 
-  const getValueMessage = () => {
-    if (currentSection === 4 && overallProgress >= 80) {
-      return "Unlock relationship insights that consider both perspectives";
-    }
-    if (currentSection === 3) {
-      return "Understanding their style creates more effective communication strategies";
-    }
-    if (currentSection === 2) {
-      return "Their relationship context enables better dual-perspective advice";
-    }
-    return "Each answer helps provide more balanced, relationship-focused guidance";
-  };
-
-  const getStatusIcon = () => {
-    if (currentSection === 4 && overallProgress === 100) return <Heart className="w-3 h-3 text-emerald-300" />;
-    if (completedCount === totalCount) return <Check className="w-3 h-3 text-emerald-300" />;
-    return <Sparkles className="w-3 h-3 text-white/70" />;
-  };
-
   return (
-    <div className="p-3 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+    <div className="p-2 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
       <Button
         variant="outline"
         onClick={onBack}
@@ -76,15 +52,12 @@ const PartnerQuestionnaireFooter = ({
       </Button>
 
       <div className="text-center flex-1 mx-6">
-        <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15 max-w-md mx-auto">
-          <div className="flex items-center justify-center gap-2 mb-1">
-            {getStatusIcon()}
+        <div className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/15 max-w-md mx-auto">
+          <div className="flex items-center justify-center gap-2">
+            {completedCount === totalCount && <Check className="w-3 h-3 text-emerald-300" />}
             <div className={`font-medium text-sm ${completedCount === totalCount ? 'text-emerald-300' : 'text-white/90'}`}>
-              {getSimpleStatusMessage()}
+              {getStatusMessage()}
             </div>
-          </div>
-          <div className="text-white/70 text-xs">
-            {getValueMessage()}
           </div>
         </div>
       </div>

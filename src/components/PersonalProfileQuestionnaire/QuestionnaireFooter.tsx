@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check, Sparkles, Heart, MessageCircle, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Heart } from "lucide-react";
 import { calculateOverallProgress } from "./ValidationLogic";
 
 interface QuestionnaireFooterProps {
@@ -30,41 +30,17 @@ const QuestionnaireFooter = ({
   const remainingCount = requiredCount - completedCount;
   const overallProgress = calculateOverallProgress(profileData);
 
-  const getSimpleStatusMessage = () => {
-    if (currentSection === 4 && overallProgress === 100) {
-      return "Ready to unlock your personalized RealTalk experience!";
-    }
+  const getStatusMessage = () => {
     if (isCurrentSectionValid) {
-      return currentSection === 4 ? 
-        "Complete your profile to access all RealTalk features" : 
-        "Section complete - ready for the next step";
+      return "✓ Section Complete";
     }
     return remainingCount > 0 ? 
       `${remainingCount} more question${remainingCount === 1 ? '' : 's'} to go` : 
       'Please complete the required questions';
   };
 
-  const getValueMessage = () => {
-    if (currentSection === 4 && overallProgress >= 80) {
-      return "Access AI insights, conversation tools, and personalized relationship guidance";
-    }
-    if (currentSection === 3) {
-      return "Understanding your style helps create better conversation strategies";
-    }
-    if (currentSection === 2) {
-      return "Your relationship context enables more relevant advice and insights";
-    }
-    return "Each answer helps us provide better, more personalized guidance";
-  };
-
-  const getStatusIcon = () => {
-    if (currentSection === 4 && overallProgress === 100) return <Heart className="w-3 h-3 text-emerald-300" />;
-    if (isCurrentSectionValid) return <Check className="w-3 h-3 text-emerald-300" />;
-    return <Sparkles className="w-3 h-3 text-white/70" />;
-  };
-
   return (
-    <div className="p-3 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+    <div className="p-2 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
       <Button
         variant="outline"
         onClick={onBack}
@@ -76,15 +52,12 @@ const QuestionnaireFooter = ({
       </Button>
 
       <div className="text-center flex-1 mx-6">
-        <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15 max-w-md mx-auto">
-          <div className="flex items-center justify-center gap-2 mb-1">
-            {getStatusIcon()}
+        <div className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/15 max-w-md mx-auto">
+          <div className="flex items-center justify-center gap-2">
+            {isCurrentSectionValid && <Check className="w-3 h-3 text-emerald-300" />}
             <div className={`font-medium text-sm ${isCurrentSectionValid ? 'text-emerald-300' : 'text-white/90'}`}>
-              {getSimpleStatusMessage()}
+              {getStatusMessage()}
             </div>
-          </div>
-          <div className="text-white/70 text-xs">
-            {getValueMessage()}
           </div>
         </div>
       </div>
