@@ -30,7 +30,8 @@ const RelationshipQuestions = ({ profileData, updateField, handleMultiSelect, re
   const getRelationshipLengthConfig = () => {
     switch (relationshipStatus) {
       case 'Talking to someone':
-        return null; // Skip length question entirely
+      case 'Engaged': // Skip length question for Engaged users (already answered in main form)
+        return null;
       case 'Married':
         return {
           label: 'How long have you been married?',
@@ -68,7 +69,7 @@ const RelationshipQuestions = ({ profileData, updateField, handleMultiSelect, re
             '5+ years'
           ]
         };
-      default: // In a relationship, Engaged
+      default: // In a relationship
         return {
           label: 'How long have you been together?',
           options: [
