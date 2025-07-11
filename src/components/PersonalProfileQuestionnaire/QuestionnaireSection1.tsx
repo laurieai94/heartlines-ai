@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -31,13 +32,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   const generateAvatar = (name: string) => {
     if (!name) {
       return (
-        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-5 h-5 text-white/60" />
+        <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
+          <User className="w-8 h-8 text-white/60" />
         </div>
       );
     }
     return (
-      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-lg font-bold">
+      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
         {name.charAt(0).toUpperCase()}
       </div>
     );
@@ -62,14 +63,14 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
       />
 
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5">
-        <div className="flex items-start gap-8">
+        <div className="flex items-center gap-6">
           {/* Avatar Circle */}
-          <div className="flex-shrink-0 mt-1">
+          <div className="flex-shrink-0">
             {generateAvatar(profileData.name || '')}
           </div>
 
           {/* Name and Pronouns in same row */}
-          <div className="flex-1 flex gap-8 items-start">
+          <div className="flex-1 flex gap-6 items-start">
             {/* Name */}
             <div className="w-72 space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
