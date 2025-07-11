@@ -56,6 +56,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
           profileData={profileData}
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
+          relationshipStatus={profileData.relationshipStatus}
         />
       )}
     </div>
