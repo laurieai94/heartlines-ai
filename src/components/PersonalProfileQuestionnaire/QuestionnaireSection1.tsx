@@ -72,7 +72,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           {/* Name and Pronouns in same row */}
           <div className="flex-1 flex gap-6 items-start">
             {/* Name */}
-            <div className="w-52 space-y-1">
+            <div className="w-60 space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
