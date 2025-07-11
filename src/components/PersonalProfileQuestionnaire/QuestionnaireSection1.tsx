@@ -63,16 +63,16 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
       />
 
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5">
-        <div className="flex items-start gap-6">
+        <div className="flex items-start gap-8">
           {/* Avatar Circle */}
           <div className="flex-shrink-0 mt-1">
             {generateAvatar(profileData.name || '')}
           </div>
 
           {/* Name and Pronouns in same row */}
-          <div className="flex-1 flex gap-6 items-start">
+          <div className="flex-1 flex gap-8 items-start">
             {/* Name */}
-            <div className="w-60 space-y-1">
+            <div className="w-72 space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>

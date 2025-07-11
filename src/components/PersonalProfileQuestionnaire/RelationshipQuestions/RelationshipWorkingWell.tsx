@@ -1,0 +1,47 @@
+
+import { Label } from "@/components/ui/label";
+import { Heart } from "lucide-react";
+
+interface RelationshipWorkingWellProps {
+  config: {
+    label: string;
+    subtitle: string;
+    options: string[];
+  };
+  profileData: any;
+  handleMultiSelect: (field: string, value: string) => void;
+}
+
+const RelationshipWorkingWell = ({ config, profileData, handleMultiSelect }: RelationshipWorkingWellProps) => {
+  return (
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+      <div>
+        <Label className="text-sm font-medium text-white">
+          {config.label} (Select all that apply)
+        </Label>
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+          <Heart className="w-3 h-3 text-pink-300" />
+          <span>{config.subtitle}</span>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        {config.options.map((item) => (
+          <button
+            key={item}
+            onClick={() => handleMultiSelect('relationshipWorkingWell', item)}
+            className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+              (profileData.relationshipWorkingWell || []).includes(item)
+                ? 'questionnaire-button-selected'
+                : 'questionnaire-button-secondary'
+            }`}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RelationshipWorkingWell;
