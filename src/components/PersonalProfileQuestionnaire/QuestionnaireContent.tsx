@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from "react";
 import QuestionnaireSection1 from "./QuestionnaireSection1";
 import QuestionnaireSection2 from "./QuestionnaireSection2";
@@ -110,7 +109,7 @@ const QuestionnaireContent = ({
   return (
     <div 
       ref={contentRef}
-      className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+      className="overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
       <div className="px-1.5 py-1">
         {renderCurrentSection()}
