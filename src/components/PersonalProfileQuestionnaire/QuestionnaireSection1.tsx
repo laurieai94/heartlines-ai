@@ -2,13 +2,11 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { MessageCircle, Heart, Info, Users, User } from "lucide-react";
-import PhotoUpload from "./PhotoUpload";
+import { User } from "lucide-react";
 import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
 import GenderSelection from "./GenderSelection";
 import OrientationSelection from "./OrientationSelection";
-import PronounsSelection from "./PronounsSelection";
 
 interface QuestionnaireSection1Props {
   profileData: any;
@@ -30,6 +28,21 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     updateField('age', age);
   };
 
+  const generateAvatar = (name: string) => {
+    if (!name) {
+      return (
+        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
+          <User className="w-6 h-6 text-white/60" />
+        </div>
+      );
+    }
+    return (
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
+        {name.charAt(0).toUpperCase()}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-1.5">
       <UnderageModal 
@@ -38,19 +51,14 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
       />
 
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div className="grid md:grid-cols-2 gap-1.5">
-          <div className="space-y-1">
-            <Label className="text-sm font-semibold text-white">
-              Add a profile pic <span className="text-white/60 text-xs font-normal">(optional)</span>
-            </Label>
-            <PhotoUpload
-              profilePhoto={profileData.profilePhoto || ''}
-              name={profileData.name || ''}
-              onPhotoUpdate={(photo) => updateField('profilePhoto', photo)}
-            />
+        <div className="flex items-center gap-4">
+          {/* Avatar Circle */}
+          <div className="flex-shrink-0">
+            {generateAvatar(profileData.name || '')}
           </div>
 
-          <div className="space-y-1.5">
+          {/* Name and Pronouns */}
+          <div className="flex-1 space-y-2">
             <div className="space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>

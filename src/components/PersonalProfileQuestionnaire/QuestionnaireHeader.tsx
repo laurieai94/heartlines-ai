@@ -14,9 +14,9 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
   const overallProgress = calculateOverallProgress(profileData);
   
   const getSubtitle = () => {
-    if (overallProgress === 100) return "Ready to unlock RealTalk";
+    if (overallProgress === 100) return "Personalized for your messy reality";
     if (overallProgress >= 75) return "Complete to access all features";
-    return "Personalizing your experience";
+    return "Personalized for your messy reality";
   };
 
   return (
