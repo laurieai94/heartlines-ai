@@ -61,36 +61,59 @@ const QuestionnaireContent = ({
     };
   }, []);
 
+  // Render only the current active section
+  const renderCurrentSection = () => {
+    const isReady = sectionReadiness[currentSection];
+    
+    switch (currentSection) {
+      case 1:
+        return (
+          <QuestionnaireSection1 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={isReady}
+          />
+        );
+      case 2:
+        return (
+          <QuestionnaireSection2 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={isReady}
+          />
+        );
+      case 3:
+        return (
+          <QuestionnaireSection3 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={isReady}
+          />
+        );
+      case 4:
+        return (
+          <QuestionnaireSection4 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={isReady}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div 
       ref={contentRef}
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
-      <div className="px-1.5 py-1 min-h-fit">
-        <QuestionnaireSection1 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[1] && currentSection === 1}
-        />
-        <QuestionnaireSection2 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[2] && currentSection === 2}
-        />
-        <QuestionnaireSection3 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[3] && currentSection === 3}
-        />
-        <QuestionnaireSection4 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[4] && currentSection === 4}
-        />
+      <div className="px-1.5 py-1">
+        {renderCurrentSection()}
       </div>
     </div>
   );
