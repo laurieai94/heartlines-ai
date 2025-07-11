@@ -64,23 +64,52 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             />
           </div>
         </div>
+        
+        <div className="pt-1">
+          <div>
+            <Label className="text-sm font-semibold text-white">
+              What pronouns do you use? <span className="text-red-400">*</span>
+            </Label>
+            <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1.5">
+              <MessageCircle className="w-3 h-3 text-green-300" />
+              <span>So we can refer to you correctly</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name', 'Other'].map((pronouns) => (
+              <button
+                key={pronouns}
+                onClick={() => updateField('pronouns', pronouns)}
+                className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                  profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))
+                    ? 'questionnaire-button-selected'
+                    : 'questionnaire-button-secondary'
+                }`}
+              >
+                {pronouns}
+              </button>
+            ))}
+          </div>
+          
+          {(profileData.pronouns === 'Other' || (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns))) && (
+            <div className="mt-1.5">
+              <Label className="text-xs font-medium text-white mb-1 block">
+                Please specify your pronouns:
+              </Label>
+              <Input
+                value={profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(profileData.pronouns) ? profileData.pronouns : ''}
+                onChange={(e) => updateField('pronouns', e.target.value)}
+                placeholder="e.g., xe/xir, fae/faer, etc."
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7"
+              />
+            </div>
+          )}
+        </div>
       </div>
-
-      <PronounsSelection
-        selectedPronouns={profileData.pronouns || ''}
-        onPronounsSelect={(pronouns) => updateField('pronouns', pronouns)}
-      />
 
       <AgeSelection 
         selectedAge={profileData.age || ''}
         onAgeSelect={handleAgeSelect}
-      />
-
-      <GenderSelection
-        selectedGenders={profileData.gender || []}
-        selfDescribe={profileData.genderSelfDescribe || ''}
-        onGenderSelect={(gender) => handleMultiSelect('gender', gender)}
-        onSelfDescribeChange={(value) => updateField('genderSelfDescribe', value)}
       />
 
       <OrientationSelection
@@ -88,6 +117,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         selfDescribe={profileData.orientationSelfDescribe || ''}
         onOrientationSelect={(orientation) => handleMultiSelect('orientation', orientation)}
         onSelfDescribeChange={(value) => updateField('orientationSelfDescribe', value)}
+      />
+
+      <GenderSelection
+        selectedGenders={profileData.gender || []}
+        selfDescribe={profileData.genderSelfDescribe || ''}
+        onGenderSelect={(gender) => handleMultiSelect('gender', gender)}
+        onSelfDescribeChange={(value) => updateField('genderSelfDescribe', value)}
       />
     </div>
   );
