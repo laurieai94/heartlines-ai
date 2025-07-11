@@ -110,7 +110,7 @@ const QuestionnaireContent = ({
   return (
     <div 
       ref={contentRef}
-      className="overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+      className="flex-1 overflow-y-auto max-h-[60vh] bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
       <div className="px-1.5 py-1">
         {renderCurrentSection()}
