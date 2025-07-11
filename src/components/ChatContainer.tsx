@@ -24,13 +24,14 @@ const ChatContainer = ({
   isHistoryLoaded 
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollAreaViewportRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = (force = false) => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ 
-        behavior: force ? 'auto' : 'smooth',
-        block: 'end'
+    if (scrollAreaViewportRef.current) {
+      const viewport = scrollAreaViewportRef.current;
+      viewport.scrollTo({
+        top: viewport.scrollHeight,
+        behavior: force ? 'auto' : 'smooth'
       });
     }
   };
@@ -53,36 +54,39 @@ const ChatContainer = ({
 
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-      <ScrollArea ref={scrollAreaRef} className="flex-1 h-0">
-        <div className="px-6 py-6">
-          <div className="space-y-6 max-w-3xl mx-auto">
+      <ScrollArea className="flex-1 h-0">
+        <div 
+          ref={scrollAreaViewportRef}
+          className="px-4 py-4"
+        >
+          <div className="space-y-4 max-w-2xl mx-auto">
             
             {/* Kai's Personalized Welcome Section */}
             {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
-              <div className="text-center py-8 animate-fade-in">
+              <div className="text-center py-6 animate-fade-in">
                 {/* Kai Avatar */}
-                <div className="w-16 h-16 mx-auto mb-4 relative">
+                <div className="w-14 h-14 mx-auto mb-3 relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
-                  <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-2xl relative z-10">
+                  <Avatar className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-2xl relative z-10">
                     <AvatarImage 
                       src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
                       alt="Kai" 
                       className="object-cover"
                     />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-8 h-8" />
+                      <Heart className="w-7 h-7" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse shadow-lg"></div>
                 </div>
                 
                 {/* Personalized Welcome Message */}
-                <div className="space-y-3 max-w-lg mx-auto">
-                  <h2 className="text-2xl font-bold text-white leading-tight">
+                <div className="space-y-2 max-w-md mx-auto">
+                  <h2 className="text-xl font-bold text-white leading-tight">
                     Hello {userName ? `${userName}` : ''}, I'm Kai 👋
                   </h2>
                   
-                  <div className="text-white/80 leading-relaxed">
+                  <div className="text-white/80 leading-relaxed text-sm">
                     <p>I'm a clinical psychologist specializing in relationships and attachment. I'm here to help you navigate your relationship complexities with professional insight and care.</p>
                   </div>
                 </div>
