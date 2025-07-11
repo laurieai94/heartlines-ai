@@ -10,7 +10,7 @@ export const useReminderTypes = () => {
       description: "Get reminded to plan quality time together",
       enabled: false,
       time: "18:00",
-      customMessage: "Time to plan something special with your partner! 💕"
+      customMessage: "Time to plan something special with your partner!"
     },
     {
       id: "check-in",
@@ -18,7 +18,7 @@ export const useReminderTypes = () => {
       description: "Remember to ask how their day is going",
       enabled: false,
       time: "17:00",
-      customMessage: "Don't forget to check in with your partner about their day 😊"
+      customMessage: "Don't forget to check in with your partner about their day"
     },
     {
       id: "appreciation",
@@ -26,7 +26,7 @@ export const useReminderTypes = () => {
       description: "Prompts to express gratitude and love",
       enabled: false,
       time: "09:00",
-      customMessage: "Send your partner a quick appreciation message today! 🌟"
+      customMessage: "Send your partner a quick appreciation message today!"
     },
     {
       id: "conflict-resolution",
@@ -34,7 +34,7 @@ export const useReminderTypes = () => {
       description: "Gentle reminders after disagreements",
       enabled: false,
       time: "20:00",
-      customMessage: "Consider reaching out to reconnect after today's discussion 💙"
+      customMessage: "Consider reaching out to reconnect after today's discussion"
     },
     {
       id: "special-occasions",
@@ -42,7 +42,7 @@ export const useReminderTypes = () => {
       description: "Never forget anniversaries and important dates",
       enabled: false,
       time: "08:00",
-      customMessage: "Don't forget about the special occasion coming up! 🎉"
+      customMessage: "Don't forget about the special occasion coming up!"
     }
   ]);
 

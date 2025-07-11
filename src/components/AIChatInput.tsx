@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, ArrowLeft } from "lucide-react";
@@ -24,11 +23,19 @@ const AIChatInput = ({
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
+    
+    // Keep focus in the textarea after sending
+    requestAnimationFrame(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -44,7 +51,20 @@ const AIChatInput = ({
 
   const handleVoiceMessage = (message: string) => {
     onSendMessage(message);
+    // Keep focus after voice message
+    requestAnimationFrame(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    });
   };
+
+  // Auto-focus the textarea when component mounts and after interactions
+  useEffect(() => {
+    if (textareaRef.current && !loading) {
+      textareaRef.current.focus();
+    }
+  }, [loading]);
 
   const conversationCategories = {
     "Conflict & Repeating Patterns": [
@@ -88,6 +108,12 @@ const AIChatInput = ({
   const handleQuickStarter = (starter: string) => {
     onSendMessage(starter);
     setSelectedCategory(null);
+    // Keep focus after quick starter
+    requestAnimationFrame(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    });
   };
 
   const showQuickStarters = chatHistory.length === 0;
@@ -153,6 +179,7 @@ const AIChatInput = ({
       <div className="flex gap-3 items-end">
         <div className="flex-1">
           <Textarea
+            ref={textareaRef}
             value={currentMessage}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
