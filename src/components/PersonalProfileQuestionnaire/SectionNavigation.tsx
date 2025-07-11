@@ -1,4 +1,3 @@
-
 import { Check, User, Heart, Zap, TreeDeciduous } from "lucide-react";
 
 interface SectionNavigationProps {
@@ -23,7 +22,7 @@ const SectionNavigation = ({
     switch (section) {
       case 1: return "You";
       case 2: return "Situation";
-      case 3: return "Style";
+      case 3: return "Vibe";
       case 4: return "Foundation";
       default: return "";
     }
