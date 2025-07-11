@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -44,8 +43,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     );
   };
 
-  const basicPronouns = ['She/her', 'He/him'];
-  const morePronouns = ['They/them', 'Ze/zir', 'Use my name', 'Multiple sets', 'Other'];
+  const basicPronouns = ['She/her', 'He/him', 'They/them', 'Ze/zir', 'Use my name'];
+  const morePronouns = ['Multiple sets', 'Other'];
 
   const handlePronounSelect = (pronouns: string) => {
     updateField('pronouns', pronouns);
@@ -72,7 +71,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
           {/* Name and Pronouns in same row */}
           <div className="flex-1 flex gap-4 items-start">
             {/* Name */}
-            <div className="flex-1 min-w-0 space-y-1">
+            <div className="w-40 space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
@@ -92,7 +91,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 Pronouns <span className="text-red-400">*</span>
               </Label>
               
-              {/* Basic pronouns + They/them - streamlined inline layout */}
+              {/* Basic pronouns - expanded set in single row */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 {basicPronouns.map((pronouns) => (
                   <button
@@ -107,18 +106,6 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                     {pronouns}
                   </button>
                 ))}
-                
-                {/* They/them as text input style */}
-                <button
-                  onClick={() => handlePronounSelect('They/them')}
-                  className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                    profileData.pronouns === 'They/them'
-                      ? 'questionnaire-button-selected'
-                      : 'questionnaire-button-secondary'
-                  }`}
-                >
-                  They/them
-                </button>
               </div>
 
               {/* More options toggle */}
@@ -142,7 +129,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               {/* Additional pronouns - collapsible */}
               {showMorePronouns && (
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  {morePronouns.slice(1).map((pronouns) => (
+                  {morePronouns.map((pronouns) => (
                     <button
                       key={pronouns}
                       onClick={() => handlePronounSelect(pronouns)}
@@ -159,7 +146,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               )}
               
               {/* Custom pronouns input */}
-              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !['They/them', 'Ze/zir', 'Use my name', 'Multiple sets', 'Other'].includes(profileData.pronouns))) && (
+              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns))) && (
                 <div className="mt-1">
                   <Input
                     value={profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns) ? profileData.pronouns : ''}
