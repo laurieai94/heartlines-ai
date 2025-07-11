@@ -68,12 +68,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
-            When you're stressed, what's your go-to? <span className="text-red-400">*</span>
+            When you're stressed, what's your go-to? 
+            <span className="text-red-400 ml-1">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <Brain className="w-3 h-3 text-purple-300" />
-            <span>Select all that resonate</span>
-          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -97,12 +95,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white mb-1 block">
-            How do you feel most loved? <span className="text-red-400">*</span>
+            How do you feel most loved? 
+            <span className="text-red-400 ml-1">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <Heart className="w-3 h-3 text-pink-300" />
-            <span>Select all that resonate</span>
-          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -152,10 +148,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 When you're in conflict, what do you actually need?
                 <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
               </Label>
-              <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-                <Shield className="w-3 h-3 text-blue-300" />
-                <span>What you actually need during fights</span>
-              </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">

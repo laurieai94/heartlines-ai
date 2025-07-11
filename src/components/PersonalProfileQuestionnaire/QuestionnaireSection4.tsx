@@ -70,13 +70,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
         <div>
           <Label className="text-sm font-semibold text-white">
-            What was the emotional vibe in your family growing up?
+            How did emotions work in your family?
             <span className="text-red-300 ml-1">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-            <TreeDeciduous className="w-3 h-3 text-green-300" />
-            <span>Select all that resonate - this programs how safe you feel being vulnerable</span>
-          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {emotionalVibeOptions.map((option) => {

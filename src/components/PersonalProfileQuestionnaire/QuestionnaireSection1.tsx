@@ -32,13 +32,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   const generateAvatar = (name: string) => {
     if (!name) {
       return (
-        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-6 h-6 text-white/60" />
+        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
+          <User className="w-5 h-5 text-white/60" />
         </div>
       );
     }
     return (
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-lg font-bold">
         {name.charAt(0).toUpperCase()}
       </div>
     );
@@ -62,16 +62,17 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
         onClose={() => setShowUnderageModal(false)} 
       />
 
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div className="flex items-center gap-4">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5">
+        <div className="flex items-start gap-3">
           {/* Avatar Circle */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 mt-1">
             {generateAvatar(profileData.name || '')}
           </div>
 
-          {/* Name and Pronouns */}
-          <div className="flex-1 space-y-2">
-            <div className="space-y-1">
+          {/* Name and Pronouns in same row */}
+          <div className="flex-1 flex gap-4 items-start">
+            {/* Name */}
+            <div className="flex-1 min-w-0 space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
@@ -81,16 +82,17 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                 value={profileData.name || ''}
                 onChange={(e) => updateField('name', e.target.value)}
                 placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium max-w-48"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-1.5 h-7 font-medium"
               />
             </div>
             
-            <div className="space-y-1">
-              <Label className="text-xs font-semibold text-white">
+            {/* Pronouns */}
+            <div className="flex-1 min-w-0 space-y-1">
+              <Label className="text-sm font-semibold text-white">
                 Pronouns <span className="text-red-400">*</span>
               </Label>
               
-              {/* Basic pronouns - streamlined inline layout */}
+              {/* Basic pronouns + They/them - streamlined inline layout */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 {basicPronouns.map((pronouns) => (
                   <button
@@ -140,7 +142,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               {/* Additional pronouns - collapsible */}
               {showMorePronouns && (
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  {morePronouns.map((pronouns) => (
+                  {morePronouns.slice(1).map((pronouns) => (
                     <button
                       key={pronouns}
                       onClick={() => handlePronounSelect(pronouns)}
@@ -157,7 +159,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               )}
               
               {/* Custom pronouns input */}
-              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.slice(0, -1).includes(profileData.pronouns))) && (
+              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !['They/them', 'Ze/zir', 'Use my name', 'Multiple sets', 'Other'].includes(profileData.pronouns))) && (
                 <div className="mt-1">
                   <Input
                     value={profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns) ? profileData.pronouns : ''}
