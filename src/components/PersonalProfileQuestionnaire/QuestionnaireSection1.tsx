@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -68,10 +69,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
             {generateAvatar(profileData.name || '')}
           </div>
 
-          {/* Name and Pronouns in same row */}
-          <div className="flex-1 flex gap-4 items-start">
-            {/* Name */}
-            <div className="w-40 space-y-1">
+          {/* Content Area - Now Vertical Stack */}
+          <div className="flex-1 space-y-3">
+            {/* Name Section - Full Width */}
+            <div className="space-y-1">
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
@@ -85,8 +86,8 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               />
             </div>
             
-            {/* Pronouns */}
-            <div className="flex-1 min-w-0 space-y-1">
+            {/* Pronouns Section - Full Width */}
+            <div className="space-y-1">
               <Label className="text-sm font-semibold text-white">
                 Pronouns <span className="text-red-400">*</span>
               </Label>
