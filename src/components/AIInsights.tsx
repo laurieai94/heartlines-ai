@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
@@ -144,7 +143,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   return (
     <div className="flex gap-4 h-full min-h-0 overflow-hidden">
       <ProgressiveAccessWrapper action="chat">
-        <div className="flex-1 min-w-0 flex flex-col min-h-0">
+        <div className="flex-1 min-w-0 min-h-0">
           <AIChat 
             profiles={unifiedProfiles}
             demographicsData={unifiedDemographics}

@@ -14,6 +14,7 @@ interface QuestionnaireContainerProps {
   onComplete: (profileData: any) => void;
   onClose: () => void;
   isModal?: boolean;
+  setShowSuccess: (show: boolean) => void;
 }
 
 const QuestionnaireContainer = ({
@@ -22,7 +23,8 @@ const QuestionnaireContainer = ({
   handleMultiSelect,
   onComplete,
   onClose,
-  isModal = false
+  isModal = false,
+  setShowSuccess
 }: QuestionnaireContainerProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   
@@ -58,20 +60,25 @@ const QuestionnaireContainer = ({
       return;
     }
 
-    const completedData = {
-      ...profileData,
-      completedAt: new Date().toISOString(),
-      profileSource: 'personal-questionnaire'
-    };
+    // Show success state briefly
+    setShowSuccess(true);
     
-    toast.success("🎉 Profile Complete! Welcome to RealTalk!", {
-      duration: 3000,
-    });
-    
-    onComplete({
-      type: 'personal',
-      completionData: completedData
-    });
+    setTimeout(() => {
+      const completedData = {
+        ...profileData,
+        completedAt: new Date().toISOString(),
+        profileSource: 'personal-questionnaire'
+      };
+      
+      toast.success("🎉 Profile Complete! Welcome to RealTalk!", {
+        duration: 3000,
+      });
+      
+      onComplete({
+        type: 'personal',
+        completionData: completedData
+      });
+    }, 2000);
   };
 
   const handleSectionClick = (section: number) => {

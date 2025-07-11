@@ -33,8 +33,8 @@ export const ChatHeader = ({ userName, onNewConversation }: ChatHeaderProps) => 
             
             {/* Kai Info */}
             <div>
-              <h3 className="text-white font-semibold text-sm">Kai</h3>
-              <p className="text-white/70 text-xs">Your AI Relationship Coach</p>
+              <h3 className="text-white font-semibold text-sm">Dr. Kai</h3>
+              <p className="text-white/70 text-xs">Your Relationship Guide</p>
             </div>
           </div>
 

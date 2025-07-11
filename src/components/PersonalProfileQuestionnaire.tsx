@@ -1,5 +1,7 @@
 
+import { useState } from "react";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
+import QuestionnaireSuccess from "./PersonalProfileQuestionnaire/QuestionnaireSuccess";
 import QuestionnaireContainer from "./PersonalProfileQuestionnaire/QuestionnaireContainer";
 
 interface PersonalProfileQuestionnaireProps {
@@ -10,6 +12,7 @@ interface PersonalProfileQuestionnaireProps {
 
 const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: PersonalProfileQuestionnaireProps) => {
   const { profileData, isLoading, updateField, handleMultiSelect } = usePersonalProfileData();
+  const [showSuccess, setShowSuccess] = useState(false);
 
   if (isLoading) {
     return (
@@ -22,6 +25,11 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
     );
   }
 
+  // Success state
+  if (showSuccess) {
+    return <QuestionnaireSuccess isModal={isModal} />;
+  }
+
   return (
     <QuestionnaireContainer
       profileData={profileData}
@@ -30,6 +38,7 @@ const PersonalProfileQuestionnaire = ({ onComplete, onClose, isModal = false }: 
       onComplete={onComplete}
       onClose={onClose}
       isModal={isModal}
+      setShowSuccess={setShowSuccess}
     />
   );
 };

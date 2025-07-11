@@ -14,6 +14,7 @@ interface PartnerQuestionnaireContainerProps {
   onComplete: (profileData: any) => void;
   onClose: () => void;
   isModal?: boolean;
+  setShowSuccess: (show: boolean) => void;
 }
 
 const PartnerQuestionnaireContainer = ({
@@ -22,7 +23,8 @@ const PartnerQuestionnaireContainer = ({
   handleMultiSelect,
   onComplete,
   onClose,
-  isModal = false
+  isModal = false,
+  setShowSuccess
 }: PartnerQuestionnaireContainerProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   
@@ -92,28 +94,33 @@ const PartnerQuestionnaireContainer = ({
       return;
     }
 
-    const completedData = {
-      ...profileData,
-      completedAt: new Date().toISOString(),
-      profileSource: 'partner-questionnaire'
-    };
+    // Show success state briefly
+    setShowSuccess(true);
     
-    // Ensure data is saved to localStorage one final time
-    try {
-      localStorage.setItem('partner_profile_questionnaire', JSON.stringify(completedData));
-      console.log('Final partner profile data saved to localStorage on completion:', completedData);
-    } catch (error) {
-      console.error('Error saving final partner profile data to localStorage:', error);
-    }
-    
-    toast.success("🎉 Partner Profile Complete!", {
-      duration: 3000,
-    });
-    
-    onComplete({
-      type: 'partner',
-      completionData: completedData
-    });
+    setTimeout(() => {
+      const completedData = {
+        ...profileData,
+        completedAt: new Date().toISOString(),
+        profileSource: 'partner-questionnaire'
+      };
+      
+      // Ensure data is saved to localStorage one final time
+      try {
+        localStorage.setItem('partner_profile_questionnaire', JSON.stringify(completedData));
+        console.log('Final partner profile data saved to localStorage on completion:', completedData);
+      } catch (error) {
+        console.error('Error saving final partner profile data to localStorage:', error);
+      }
+      
+      toast.success("🎉 Partner Profile Complete!", {
+        duration: 3000,
+      });
+      
+      onComplete({
+        type: 'partner',
+        completionData: completedData
+      });
+    }, 2000);
   };
 
   const handleSectionClick = (section: number) => {

@@ -26,10 +26,10 @@ const DashboardContent = ({
   onOpenPartnerQuestionnaire
 }: DashboardContentProps) => {
   return (
-    <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 h-full flex flex-col min-h-0">
-        <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col min-h-0">
-          <TabsContent value="profile" className="mt-0 h-full flex-1 min-h-0">
+    <div className="flex-1 min-h-0">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 h-full">
+        <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
+          <TabsContent value="profile" className="mt-0 h-full">
             <ProfileBuilder 
               onProfileUpdate={onProfileUpdate}
               initialProfiles={temporaryProfiles}
@@ -39,7 +39,7 @@ const DashboardContent = ({
             />
           </TabsContent>
 
-          <TabsContent value="insights" className="mt-0 h-full flex-1 min-h-0">
+          <TabsContent value="insights" className="mt-0 h-full min-h-0">
             <ProgressiveAccessWrapper action="insights">
               <AIInsights 
                 profiles={temporaryProfiles}
@@ -48,7 +48,7 @@ const DashboardContent = ({
             </ProgressiveAccessWrapper>
           </TabsContent>
 
-          <TabsContent value="conversation" className="mt-0 h-full flex-1 min-h-0">
+          <TabsContent value="conversation" className="mt-0 h-full">
             <ProgressiveAccessWrapper action="practice">
               <ConversationPractice 
                 profiles={temporaryProfiles}
@@ -57,7 +57,7 @@ const DashboardContent = ({
             </ProgressiveAccessWrapper>
           </TabsContent>
 
-          <TabsContent value="actions" className="mt-0 h-full flex-1 min-h-0">
+          <TabsContent value="actions" className="mt-0 h-full">
             <ProgressiveAccessWrapper action="actions">
               <ThoughtfulActions 
                 profiles={temporaryProfiles}
