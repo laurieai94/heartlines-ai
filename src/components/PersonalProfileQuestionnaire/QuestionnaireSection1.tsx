@@ -1,7 +1,8 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { User, ChevronDown, ChevronUp } from "lucide-react";
+import { User, ChevronDown, ChevronUp, MessageCircle } from "lucide-react";
 import UnderageModal from "./UnderageModal";
 import AgeSelection from "./AgeSelection";
 import GenderSelection from "./GenderSelection";
@@ -75,6 +76,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label htmlFor="name" className="text-sm font-semibold text-white">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
+              <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+                <MessageCircle className="w-3 h-3 text-green-300" />
+                <span>We'll use this to personalize your experience</span>
+              </div>
               <Input
                 id="name"
                 type="text"
@@ -90,6 +95,10 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               <Label className="text-sm font-semibold text-white">
                 Pronouns <span className="text-red-400">*</span>
               </Label>
+              <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+                <MessageCircle className="w-3 h-3 text-blue-300" />
+                <span>Respecting identity is basic relationship respect</span>
+              </div>
               
               {/* Basic pronouns - expanded set in single row */}
               <div className="flex items-center gap-1.5 flex-wrap">

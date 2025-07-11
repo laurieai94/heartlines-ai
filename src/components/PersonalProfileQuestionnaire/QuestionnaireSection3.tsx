@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { Users, ChevronDown } from "lucide-react";
+import { Users, ChevronDown, Zap, Heart, MessageCircle } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface QuestionnaireSection3Props {
@@ -72,6 +72,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <span className="text-red-400 ml-1">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+            <Zap className="w-3 h-3 text-orange-300" />
+            <span>Stress patterns affect how you show up in relationships</span>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -99,6 +103,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <span className="text-red-400 ml-1">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+            <Heart className="w-3 h-3 text-pink-300" />
+            <span>Understanding your needs helps you communicate them</span>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -139,6 +147,10 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   When you're in conflict, what do you actually need?
                   <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
                 </Label>
+                <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+                  <MessageCircle className="w-3 h-3 text-blue-300" />
+                  <span>Knowing what you need during fights changes everything</span>
+                </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">

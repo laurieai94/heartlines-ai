@@ -1,5 +1,5 @@
 
-import { Heart } from "lucide-react";
+import { Heart, MessageCircle } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import OptionalFamilyContext from "./OptionalFamilyContext";
 
@@ -30,8 +30,9 @@ const QuestionnaireSection4 = ({
           <Label className="text-sm font-semibold text-white mb-1 block">
             How did emotions work in your family? <span className="text-red-400">*</span>
           </Label>
-          <div className="text-xs text-white/70 mb-1.5">
-            This programs how safe you feel being vulnerable
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+            <MessageCircle className="w-3 h-3 text-blue-300" />
+            <span>This programs how safe you feel being vulnerable</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {[
