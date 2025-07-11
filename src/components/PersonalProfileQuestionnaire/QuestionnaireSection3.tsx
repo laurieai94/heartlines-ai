@@ -16,6 +16,13 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
 
   if (!isReady) return null;
 
+  const handleOptionalToggle = (expanded: boolean) => {
+    setIsOptionalOpen(expanded);
+    if (expanded && (window as any).scrollToOptionalSection) {
+      (window as any).scrollToOptionalSection('deeper-section');
+    }
+  };
+
   const stressResponseOptions = [
     'Get quiet & need space',
     'Want to talk it out immediately', 
@@ -127,8 +134,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Optional Section - Standardized Bar Design */}
-      <Collapsible open={isOptionalOpen} onOpenChange={setIsOptionalOpen}>
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+      <Collapsible open={isOptionalOpen} onOpenChange={handleOptionalToggle}>
+        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5" data-scroll-id="deeper-section">
           <CollapsibleTrigger className="w-full">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-semibold text-white">

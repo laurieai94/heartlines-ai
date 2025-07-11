@@ -16,9 +16,16 @@ interface OptionalFamilyContextProps {
 const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: OptionalFamilyContextProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const handleToggle = (expanded: boolean) => {
+    setIsExpanded(expanded);
+    if (expanded && (window as any).scrollToOptionalSection) {
+      (window as any).scrollToOptionalSection('family-context');
+    }
+  };
+
   return (
-    <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+    <Collapsible open={isExpanded} onOpenChange={handleToggle}>
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5" data-scroll-id="family-context">
         <CollapsibleTrigger className="w-full">
           <div className="flex items-center justify-between">
             <div className="text-left">
