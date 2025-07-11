@@ -66,7 +66,7 @@ const ValueProposition = () => {
           </div>
           
           <p className="text-base text-pink-200/90 max-w-2xl mx-auto leading-relaxed">
-            Your relationship details stay completely private and secure with bank-level encryption.
+            Your conversations are completely private and secure with bank-level encryption.
           </p>
 
           {/* Featured Promise Section */}
@@ -76,8 +76,7 @@ const ValueProposition = () => {
               <h4 className="text-lg font-bold text-white">The RealTalk Promise</h4>
             </div>
             <p className="text-base text-pink-200/95 leading-relaxed font-medium">
-              Your most personal thoughts about your relationship deserve the highest level of protection. 
-              That's exactly what you get with RealTalk.
+              Your most personal thoughts deserve the highest protection. That's exactly what you get.
             </p>
           </div>
 
@@ -87,15 +86,15 @@ const ValueProposition = () => {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                <span className="text-pink-200/80 text-sm leading-relaxed text-left">Your conversations with Kai stay between you and our AI coach</span>
+                <span className="text-pink-200/80 text-sm leading-relaxed text-left">End-to-end encrypted - even we can't read your messages</span>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                <span className="text-pink-200/80 text-sm leading-relaxed text-left">We never sell or share your personal information</span>
+                <span className="text-pink-200/80 text-sm leading-relaxed text-left">Never sold or shared - your data stays yours</span>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="w-4 h-4 text-green-300 mt-0.5 flex-shrink-0" />
-                <span className="text-pink-200/80 text-sm leading-relaxed text-left">You can delete your data anytime, no questions asked</span>
+                <span className="text-pink-200/80 text-sm leading-relaxed text-left">Delete anytime - no questions asked</span>
               </div>
             </div>
           </div>
