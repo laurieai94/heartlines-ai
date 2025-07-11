@@ -100,16 +100,10 @@ const QuestionnaireSection4 = ({ profileData, updateField, handleMultiSelect, is
         <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
           <CollapsibleTrigger className="w-full">
             <div className="flex items-center justify-between">
-              <div>
-                <Label className="text-sm font-semibold text-white">
-                  Want to share more family context?
-                  <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
-                </Label>
-                <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-                  <MessageSquare className="w-3 h-3 text-blue-300" />
-                  <span>Helps us understand your relationship patterns</span>
-                </div>
-              </div>
+              <Label className="text-sm font-semibold text-white">
+                Want to share more context?
+                <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
+              </Label>
               <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
             </div>
           </CollapsibleTrigger>
