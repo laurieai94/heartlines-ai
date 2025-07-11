@@ -3,6 +3,7 @@ import KaiIntroCard from './KaiIntroCard';
 import SafeSpaceCard from './SafeSpaceCard';
 import ConversationTopicsCard from './ConversationTopicsCard';
 import KeyTakeawaysCard from './KeyTakeawaysCard';
+import PrivacyCard from './PrivacyCard';
 import APIKeyInput from '../APIKeyInput';
 
 interface SidebarContentProps {
@@ -20,6 +21,7 @@ const SidebarContent = ({
     <div className="w-full h-full overflow-y-auto space-y-3">
       <KaiIntroCard />
       <SafeSpaceCard />
+      <PrivacyCard />
       <ConversationTopicsCard chatHistory={chatHistory} />
       <KeyTakeawaysCard chatHistory={chatHistory} />
 

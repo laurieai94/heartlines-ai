@@ -79,7 +79,7 @@ const ChatContainer = ({
                 {/* Personalized Welcome Message */}
                 <div className="space-y-3 max-w-lg mx-auto">
                   <h2 className="text-2xl font-bold text-white leading-tight">
-                    Hello {userName ? `${userName}` : ''}, I'm Dr. Kai 👋
+                    Hello {userName ? `${userName}` : ''}, I'm Kai 👋
                   </h2>
                   
                   <div className="text-white/80 leading-relaxed">
