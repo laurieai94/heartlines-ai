@@ -43,18 +43,18 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         <div className="relative w-8 h-8">
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-            isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
+            isUser ? 'bg-gradient-to-r from-orange-300 to-pink-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
           }`}></div>
           
           <Avatar className={`w-8 h-8 relative z-10 border-2 border-white shadow-lg overflow-visible ${
             isUser 
-              ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
+              ? 'bg-gradient-to-br from-orange-400 to-pink-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
           }`}>
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
+              <AvatarFallback className="bg-gradient-to-br from-orange-400 to-pink-400 text-white text-xs font-medium">
                 {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
               </AvatarFallback>
             ) : (
@@ -79,8 +79,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           className={`
             px-4 py-3 rounded-3xl transition-all duration-300 group-hover:shadow-xl
             ${isUser
-              ? 'bg-gradient-to-br from-coral-400 to-pink-400 text-white rounded-br-lg shadow-coral-200/50'
-              : 'bg-gradient-to-br from-orange-50 to-peach-50 text-gray-800 rounded-bl-lg border border-orange-100/60 shadow-lg'
+              ? 'bg-gradient-to-br from-orange-400 to-pink-400 text-white rounded-br-lg shadow-orange-200/50'
+              : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-800 rounded-bl-lg border border-orange-100/60 shadow-lg'
             }
           `}
         >
@@ -100,7 +100,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         )}
         
         {/* Timestamp */}
-        <p className={`text-xs text-gray-400 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+        <p className={`text-xs text-white/60 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
           {formatTime(message.timestamp)}
         </p>
       </div>
