@@ -1,5 +1,6 @@
 
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare } from "lucide-react";
 
 interface DatingQuestionsProps {
@@ -15,8 +16,16 @@ const DatingQuestions = ({ profileData, handleMultiSelect }: DatingQuestionsProp
     'Dating anxiety and putting myself out there',
     'Getting over past relationship patterns that keep showing up',
     'Being authentic while still trying to make a good impression',
-    'Online dating fatigue and app overwhelm'
+    'Online dating fatigue and app overwhelm',
+    'Other'
   ];
+
+  const isOtherSelected = (profileData.datingChallenges || []).includes('Other');
+
+  const handleOtherTextChange = (text: string) => {
+    // Store the "Other" text in a separate field
+    handleMultiSelect('datingChallengesOther', text);
+  };
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
@@ -46,6 +55,18 @@ const DatingQuestions = ({ profileData, handleMultiSelect }: DatingQuestionsProp
           </button>
         ))}
       </div>
+
+      {/* Show text input when "Other" is selected */}
+      {isOtherSelected && (
+        <div className="mt-3">
+          <Textarea
+            placeholder="Please describe your biggest dating challenge..."
+            value={profileData.datingChallengesOther || ''}
+            onChange={(e) => handleOtherTextChange(e.target.value)}
+            className="bg-white/20 border-white/30 text-white placeholder:text-white/60 resize-none min-h-[80px]"
+          />
+        </div>
+      )}
     </div>
   );
 };
