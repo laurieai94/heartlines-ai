@@ -114,24 +114,28 @@ const QuestionnaireContainer = ({
           />
         </div>
 
-        <QuestionnaireContent
-          currentSection={currentSection}
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          sectionReadiness={sectionReadiness}
-        />
+        <div className={`${isModal ? 'flex-1 overflow-y-auto pb-20' : 'flex-1 overflow-y-auto'}`}>
+          <QuestionnaireContent
+            currentSection={currentSection}
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            sectionReadiness={sectionReadiness}
+          />
+        </div>
 
-        <QuestionnaireFooter
-          currentSection={currentSection}
-          onBack={handleBack}
-          onNext={handleNext}
-          onComplete={handleComplete}
-          validateSection={(section) => validateSection(section, profileData)}
-          getRequiredCount={(section) => getRequiredCount(section, profileData)}
-          getCompletedCount={(section) => getCompletedCount(section, profileData)}
-          profileData={profileData}
-        />
+        <div className={`${isModal ? 'sticky bottom-0 z-10 bg-white/10 backdrop-blur-xl border-t border-white/15' : ''}`}>
+          <QuestionnaireFooter
+            currentSection={currentSection}
+            onBack={handleBack}
+            onNext={handleNext}
+            onComplete={handleComplete}
+            validateSection={(section) => validateSection(section, profileData)}
+            getRequiredCount={(section) => getRequiredCount(section, profileData)}
+            getCompletedCount={(section) => getCompletedCount(section, profileData)}
+            profileData={profileData}
+          />
+        </div>
       </div>
     </div>
   );

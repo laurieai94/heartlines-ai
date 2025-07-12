@@ -18,8 +18,17 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
 
   const handleToggle = (expanded: boolean) => {
     setIsExpanded(expanded);
-    if (expanded && (window as any).scrollToOptionalSection) {
-      (window as any).scrollToOptionalSection('family-context');
+    if (expanded) {
+      setTimeout(() => {
+        // Scroll to bottom to show both content and footer
+        const modalContainer = document.querySelector('.flex-1.overflow-y-auto');
+        if (modalContainer) {
+          modalContainer.scrollTo({
+            top: modalContainer.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
+      }, 300); // Wait for expansion animation
     }
   };
 

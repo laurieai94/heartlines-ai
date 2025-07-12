@@ -156,24 +156,28 @@ const PartnerQuestionnaireContainer = ({
           />
         </div>
 
-        <PartnerQuestionnaireContent
-          currentSection={currentSection}
-          profileData={profileData}
-          updateField={enhancedUpdateField}
-          handleMultiSelect={enhancedHandleMultiSelect}
-          sectionReadiness={sectionReadiness}
-        />
+        <div className={`${isModal ? 'flex-1 overflow-y-auto pb-20' : 'flex-1 overflow-y-auto'}`}>
+          <PartnerQuestionnaireContent
+            currentSection={currentSection}
+            profileData={profileData}
+            updateField={enhancedUpdateField}
+            handleMultiSelect={enhancedHandleMultiSelect}
+            sectionReadiness={sectionReadiness}
+          />
+        </div>
 
-        <PartnerQuestionnaireFooter
-          currentSection={currentSection}
-          onBack={handleBack}
-          onNext={handleNext}
-          onComplete={handleComplete}
-          validateSection={(section) => validatePartnerSection(section, profileData)}
-          getRequiredCount={(section) => getPartnerRequiredCount(section, profileData)}
-          getCompletedCount={(section) => getPartnerCompletedCount(section, profileData)}
-          profileData={profileData}
-        />
+        <div className={`${isModal ? 'sticky bottom-0 z-10 bg-white/10 backdrop-blur-xl border-t border-white/15' : ''}`}>
+          <PartnerQuestionnaireFooter
+            currentSection={currentSection}
+            onBack={handleBack}
+            onNext={handleNext}
+            onComplete={handleComplete}
+            validateSection={(section) => validatePartnerSection(section, profileData)}
+            getRequiredCount={(section) => getPartnerRequiredCount(section, profileData)}
+            getCompletedCount={(section) => getPartnerCompletedCount(section, profileData)}
+            profileData={profileData}
+          />
+        </div>
       </div>
     </div>
   );
