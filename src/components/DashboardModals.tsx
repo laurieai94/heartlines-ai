@@ -68,8 +68,8 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            <div className="h-full overflow-y-auto">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-auto min-h-fit max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <div className="h-auto min-h-fit max-h-[80vh] w-full">
               <PersonalProfileQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
                 onClose={onQuestionnaireClose} 
@@ -93,8 +93,8 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            <div className="h-full overflow-y-auto">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-auto min-h-fit max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <div className="h-auto min-h-fit max-h-[80vh] w-full">
               <PartnerProfileQuestionnaire 
                 onComplete={onPartnerQuestionnaireComplete} 
                 onClose={onPartnerQuestionnaireClose} 
