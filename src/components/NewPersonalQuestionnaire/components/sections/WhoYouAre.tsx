@@ -50,10 +50,10 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
   useEffect(() => {
     if (!isActive || !onAutoScroll) return;
 
-    // Skip auto-scroll for custom pronouns to prevent interrupting typing
-    const isCustomPronounCase = profileData.pronouns === 'Other';
+    // For standard pronouns, check completion and scroll
+    const isStandardPronoun = profileData.pronouns && ['She/her', 'He/him', 'They/them'].includes(profileData.pronouns);
     
-    if (profileData.name && isPronounsComplete() && !profileData.age && !isCustomPronounCase) {
+    if (profileData.name && isStandardPronoun && !profileData.age) {
       onAutoScroll('question-name-pronouns');
     } else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
       onAutoScroll('question-age');
