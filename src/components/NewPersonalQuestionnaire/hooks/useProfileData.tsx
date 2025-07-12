@@ -37,7 +37,13 @@ export const useProfileData = () => {
 
   // Load existing profile data
   const loadProfile = useCallback(async () => {
-    if (!user?.id) return;
+    setIsLoading(true);
+    
+    // If no user, just set loading to false and return
+    if (!user?.id) {
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const { data, error } = await supabase
@@ -99,7 +105,7 @@ export const useProfileData = () => {
     }
   }, [profileData, isLoading, user?.id, saveProfile]);
 
-  // Load profile on mount
+  // Load profile on mount or when user changes
   useEffect(() => {
     loadProfile();
   }, [loadProfile]);
