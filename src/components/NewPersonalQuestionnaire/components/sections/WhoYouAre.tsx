@@ -72,13 +72,13 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
 
       {/* Name and Pronouns Combined */}
       <QuestionCard questionId="question-name-pronouns">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Left side: Name and Avatar */}
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0">
               {generateAvatar(profileData.name || '')}
             </div>
-            <div className="flex-1 max-w-xs">
+            <div className="flex-1 min-w-0">
               <Label htmlFor="name" className="text-sm font-semibold text-white mb-2 block">
                 What should we call you? <span className="text-red-400">*</span>
               </Label>
@@ -88,20 +88,20 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
                 value={profileData.name || ''}
                 onChange={(e) => updateField('name', e.target.value)}
                 placeholder="Your name"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
               />
             </div>
           </div>
 
           {/* Right side: Pronouns */}
-          <div>
+          <div className="flex flex-col">
             <Label className="text-sm font-semibold text-white mb-2 block">
               What pronouns do you use? <span className="text-red-400">*</span>
             </Label>
             <div className="text-xs text-white/70 font-normal mb-3">
               So we can refer to you correctly
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 flex-1">
               {pronounOptions.map((pronouns) => (
                 <button
                   key={pronouns}
