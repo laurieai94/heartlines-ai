@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { User, Calendar, Compass } from "lucide-react";
+import { User, Calendar, Compass, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
@@ -19,7 +18,6 @@ interface WhoYouAreProps {
 
 const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: WhoYouAreProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
-  const [dropdownSelection, setDropdownSelection] = useState("");
 
   const ageOptions = [
     'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
@@ -36,11 +34,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
   ];
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'Ze/zir'
-  ];
-
-  const additionalPronounOptions = [
-    'Multiple sets', 'Use my name', 'Other'
+    'She/her', 'He/him', 'They/them', 'Other'
   ];
 
   // Auto-scroll when key fields are answered
@@ -57,17 +51,10 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
   }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
 
   const handlePronounSelect = (pronoun: string) => {
-    updateField('pronouns', pronoun);
-    setDropdownSelection("");
-    setCustomPronoun("");
-  };
-
-  const handleDropdownSelect = (value: string) => {
-    setDropdownSelection(value);
-    if (value === 'Other') {
+    if (pronoun === 'Other') {
       setCustomPronoun("");
     } else {
-      updateField('pronouns', value);
+      updateField('pronouns', pronoun);
       setCustomPronoun("");
     }
   };
@@ -129,18 +116,19 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
             <Label className="text-sm font-semibold text-white mb-2 block">
               What pronouns do you use? <span className="text-red-400">*</span>
             </Label>
-            <div className="text-xs text-white/70 font-normal mb-3">
-              So we can refer to you correctly
+            <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+              <MessageSquare className="w-3 h-3 text-blue-300" />
+              <span>So we can refer to you correctly</span>
             </div>
             
-            {/* Primary pronoun buttons */}
+            {/* Pronoun buttons */}
             <div className="grid grid-cols-2 gap-2 mb-3">
               {primaryPronounOptions.map((pronouns) => (
                 <button
                   key={pronouns}
                   onClick={() => handlePronounSelect(pronouns)}
                   className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                    profileData.pronouns === pronouns
+                    (pronouns === 'Other' ? customPronoun : profileData.pronouns) === pronouns
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
                   }`}
@@ -150,26 +138,8 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
               ))}
             </div>
 
-            {/* Dropdown for additional options */}
-            <Select value={dropdownSelection} onValueChange={handleDropdownSelect}>
-              <SelectTrigger className="questionnaire-button-secondary border-0 text-white text-xs h-auto p-2">
-                <SelectValue placeholder="More options..." />
-              </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-700">
-                {additionalPronounOptions.map((option) => (
-                  <SelectItem 
-                    key={option} 
-                    value={option}
-                    className="text-white hover:bg-gray-700 focus:bg-gray-700"
-                  >
-                    {option}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
             {/* Custom pronoun input */}
-            {dropdownSelection === 'Other' && (
+            {profileData.pronouns === 'Other' || customPronoun && (
               <div className="mt-3 animate-fade-in">
                 <Input
                   type="text"
