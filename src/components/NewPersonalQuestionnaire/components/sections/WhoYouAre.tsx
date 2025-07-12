@@ -52,6 +52,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'Other') {
+      updateField('pronouns', 'Other');
       setCustomPronoun("");
     } else {
       updateField('pronouns', pronoun);
@@ -128,7 +129,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
                   key={pronouns}
                   onClick={() => handlePronounSelect(pronouns)}
                   className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                    (pronouns === 'Other' ? customPronoun : profileData.pronouns) === pronouns
+                    profileData.pronouns === pronouns
                       ? 'questionnaire-button-selected'
                       : 'questionnaire-button-secondary'
                   }`}
@@ -139,7 +140,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
             </div>
 
             {/* Custom pronoun input */}
-            {profileData.pronouns === 'Other' || customPronoun && (
+            {profileData.pronouns === 'Other' && (
               <div className="mt-3 animate-fade-in">
                 <Input
                   type="text"
