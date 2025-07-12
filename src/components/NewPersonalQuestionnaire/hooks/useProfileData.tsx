@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { ProfileData } from '../types';
 
 const defaultProfileData: ProfileData = {
-  // Section 1: Who You Are
+  // Section 1: The Basics
   name: '',
   age: '',
   gender: '',

@@ -26,7 +26,7 @@ const SectionContinueButton = ({
         };
       case 2:
         return {
-          text: "Continue to Your Relationship",
+          text: "Continue to Your Situationship",
           icon: Heart,
           gradient: "from-pink-500 to-purple-600"
         };

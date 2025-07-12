@@ -1,6 +1,6 @@
 
 export interface ProfileData {
-  // Section 1: Who You Are
+  // Section 1: The Basics
   name: string;
   age: string;
   gender: string;

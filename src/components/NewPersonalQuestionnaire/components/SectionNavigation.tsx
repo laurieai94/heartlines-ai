@@ -12,8 +12,8 @@ interface SectionNavigationProps {
 const SectionNavigation = ({ currentSection, profileData, onSectionClick }: SectionNavigationProps) => {
   const getSectionTitle = (section: number) => {
     switch (section) {
-      case 1: return "Who You Are";
-      case 2: return "Your Relationship";
+      case 1: return "The Basics";
+      case 2: return "Your Situationship";
       case 3: return "How You Operate";
       case 4: return "Your Foundation";
       default: return "";

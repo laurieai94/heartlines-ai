@@ -6,7 +6,7 @@ export const validateSection = (section: number, profileData: ProfileData): bool
   
   switch (section) {
     case 1: {
-      // Who You Are: name, age, orientation, pronouns, gender required
+      // The Basics: name, age, orientation, pronouns, gender required
       const required = ['name', 'age', 'orientation', 'pronouns', 'gender'];
       isValid = required.every(field => {
         const value = profileData[field as keyof ProfileData];

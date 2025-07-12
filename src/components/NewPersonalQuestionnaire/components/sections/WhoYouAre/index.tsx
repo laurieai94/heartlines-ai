@@ -47,7 +47,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
         <User className="w-5 h-5 text-rose-400" />
-        <h3 className="text-xl font-bold text-white">Who You Are</h3>
+        <h3 className="text-xl font-bold text-white">The Basics</h3>
       </div>
 
       {/* Name and Pronouns Combined */}
