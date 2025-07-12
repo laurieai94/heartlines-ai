@@ -57,8 +57,8 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
   // Question completion checks
   const isNamePronounsComplete = profileData.name && isPronounsComplete();
   const isAgeComplete = profileData.age;
-  const isOrientationComplete = profileData.orientation && profileData.orientation.length > 0;
-  const isGenderComplete = profileData.gender && profileData.gender.length > 0;
+  const isOrientationComplete = profileData.orientation && profileData.orientation.trim() !== '';
+  const isGenderComplete = profileData.gender && profileData.gender.trim() !== '';
 
   // Navigation functions
   const scrollToQuestion = (questionId: string) => {
@@ -223,16 +223,15 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your sexual orientation? <span className="text-red-400">*</span>
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Compass className="w-3 h-3 text-pink-300" />
           <span>Because straight dating advice doesn't work for everyone</span>
         </div>
-        <MultiSelect
+        <SingleSelect
           options={orientationOptions}
-          selectedValues={profileData.orientation || []}
-          onToggle={(value) => handleMultiSelect('orientation', value)}
+          selectedValue={profileData.orientation || ''}
+          onSelect={(value) => updateField('orientation', value)}
         />
       </QuestionCard>
 
@@ -240,16 +239,15 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       <QuestionCard questionId="question-gender">
         <Label className="text-sm font-semibold text-white mb-2 block">
           Gender identity? <span className="text-red-400">*</span>
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <User className="w-3 h-3 text-purple-300" />
           <span>We get that gender is complex and personal</span>
         </div>
-        <MultiSelect
+        <SingleSelect
           options={genderOptions}
-          selectedValues={profileData.gender || []}
-          onToggle={(value) => handleMultiSelect('gender', value)}
+          selectedValue={profileData.gender || ''}
+          onSelect={(value) => updateField('gender', value)}
         />
       </QuestionCard>
     </div>

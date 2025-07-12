@@ -2,8 +2,6 @@
 import { ProfileData } from '../types';
 
 export const validateSection = (section: number, profileData: ProfileData): boolean => {
-  console.log(`🔍 Validating section ${section}:`, { profileData });
-  
   let isValid = false;
   
   switch (section) {
@@ -12,7 +10,12 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       const required = ['name', 'age', 'orientation', 'pronouns', 'gender'];
       isValid = required.every(field => {
         const value = profileData[field as keyof ProfileData];
-        return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+        if (typeof value === 'string') {
+          return value && value.trim() !== '';
+        } else if (Array.isArray(value)) {
+          return value && value.length > 0;
+        }
+        return false;
       });
       break;
     }
@@ -52,11 +55,6 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       isValid = true;
   }
   
-  console.log(`✅ Section ${section} validation result:`, isValid);
-  if (isValid) {
-    console.log(`🎉 Section ${section} completed! Should auto-advance.`);
-  }
-  
   return isValid;
 };
 
@@ -68,7 +66,12 @@ export const calculateProgress = (profileData: ProfileData): number => {
   const section1Required = ['name', 'age', 'orientation', 'pronouns', 'gender'];
   const section1Completed = section1Required.filter(field => {
     const value = profileData[field as keyof ProfileData];
-    return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+    if (typeof value === 'string') {
+      return value && value.trim() !== '';
+    } else if (Array.isArray(value)) {
+      return value && value.length > 0;
+    }
+    return false;
   }).length;
   
   totalRequired += 5;

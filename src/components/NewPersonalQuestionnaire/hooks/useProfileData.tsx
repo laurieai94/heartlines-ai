@@ -9,8 +9,8 @@ const defaultProfileData: ProfileData = {
   // Section 1: Who You Are
   name: '',
   age: '',
-  gender: [],
-  orientation: [],
+  gender: '',
+  orientation: '',
   pronouns: '',
   
   // Section 2: Your Relationship
