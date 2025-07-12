@@ -7,7 +7,7 @@ interface PartnerQuestionnaireSuccessProps {
 
 const PartnerQuestionnaireSuccess = ({ isModal = false }: PartnerQuestionnaireSuccessProps) => {
   return (
-    <div className="flex items-center justify-center p-8 h-full">
+    <div className="flex items-center justify-center p-8 h-auto min-h-fit">
       <div className="text-center max-w-md">
         <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full mx-auto mb-6 flex items-center justify-center">
           <Check className="w-8 h-8 text-white" />
