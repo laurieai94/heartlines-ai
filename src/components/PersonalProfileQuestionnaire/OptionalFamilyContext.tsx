@@ -20,9 +20,9 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
     setIsExpanded(expanded);
     if (expanded) {
       setTimeout(() => {
-        // Scroll to bottom to show both content and footer
-        const scrollContainer = document.querySelector('.flex-1.overflow-y-auto') ||
-                               document.querySelector('[class*="flex-1"][class*="overflow-y-auto"]');
+        // Find the content scrollable area within the questionnaire container
+        const scrollContainer = document.querySelector('[class*="flex-1"][class*="overflow-y-auto"]') ||
+                               document.querySelector('.overflow-y-auto');
         if (scrollContainer) {
           scrollContainer.scrollTo({
             top: scrollContainer.scrollHeight,

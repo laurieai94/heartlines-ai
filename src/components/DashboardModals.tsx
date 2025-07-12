@@ -68,7 +68,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] overflow-y-auto bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
+          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
             <div className="w-full h-auto min-h-0">
               <PersonalProfileQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
@@ -93,7 +93,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] overflow-y-auto bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
+          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
             <div className="w-full h-auto min-h-0">
               <PartnerProfileQuestionnaire 
                 onComplete={onPartnerQuestionnaireComplete} 
