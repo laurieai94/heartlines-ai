@@ -58,7 +58,7 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -68,8 +68,8 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto h-auto min-h-fit max-h-[85vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            <div className="h-auto min-h-fit max-h-[85vh] w-full">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-auto min-h-fit max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <div className="h-auto min-h-fit max-h-[80vh] w-full">
               <PersonalProfileQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
                 onClose={onQuestionnaireClose} 
@@ -83,7 +83,7 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -93,8 +93,8 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto h-[90vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            <div className="h-full w-full">
+          <div className="relative z-10 w-full max-w-5xl mx-auto h-auto min-h-fit max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <div className="h-auto min-h-fit max-h-[80vh] w-full">
               <PartnerProfileQuestionnaire 
                 onComplete={onPartnerQuestionnaireComplete} 
                 onClose={onPartnerQuestionnaireClose} 
