@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Zap, Heart, MessageCircle } from "lucide-react";
 import { ProfileData } from "../../types";
@@ -10,9 +11,10 @@ interface HowYouOperateProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onAutoScroll?: (questionId: string) => void;
 }
 
-const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive }: HowYouOperateProps) => {
+const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: HowYouOperateProps) => {
   const stressResponseOptions = [
     'Get quiet & need space',
     'Want to talk it out immediately', 
@@ -49,6 +51,15 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive }
     'Shut down and withdraw'
   ];
 
+  // Auto-scroll logic
+  useEffect(() => {
+    if (!isActive || !onAutoScroll) return;
+
+    if (profileData.stressResponse && profileData.stressResponse.length > 0 && (!profileData.loveLanguage || profileData.loveLanguage.length === 0)) {
+      onAutoScroll('question-stress-response');
+    }
+  }, [profileData.stressResponse, profileData.loveLanguage, isActive, onAutoScroll]);
+
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
@@ -57,7 +68,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive }
       </div>
 
       {/* Stress Response */}
-      <QuestionCard>
+      <QuestionCard questionId="question-stress-response">
         <Label className="text-sm font-semibold text-white mb-2 block">
           When you're stressed, what's your go-to? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -74,7 +85,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive }
       </QuestionCard>
 
       {/* Love Language */}
-      <QuestionCard>
+      <QuestionCard questionId="question-love-language">
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you feel most loved? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -91,7 +102,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive }
       </QuestionCard>
 
       {/* Conflict Style - Optional */}
-      <QuestionCard className="opacity-80">
+      <QuestionCard className="opacity-80" questionId="question-conflict-style">
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you typically handle conflict?
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional - Select all that resonate)</span>

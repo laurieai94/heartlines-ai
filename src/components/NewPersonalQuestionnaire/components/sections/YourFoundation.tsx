@@ -1,4 +1,4 @@
-
+import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { TreeDeciduous, MessageCircle } from "lucide-react";
 import { ProfileData } from "../../types";
@@ -11,9 +11,10 @@ interface YourFoundationProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onAutoScroll?: (questionId: string) => void;
 }
 
-const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive }: YourFoundationProps) => {
+const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: YourFoundationProps) => {
   const familyDynamicsOptions = [
     "Open & healthy emotional expression",
     "Happy feelings okay, sad/angry ones shut down",
@@ -36,6 +37,13 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive 
     'Not sure/still figuring it out'
   ];
 
+  // Auto-scroll logic - since attachment style is optional, we don't auto-scroll after family dynamics
+  useEffect(() => {
+    if (!isActive || !onAutoScroll) return;
+    // Since this is the last section and attachment style is optional, 
+    // we keep the auto-scroll minimal here
+  }, [isActive, onAutoScroll]);
+
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
@@ -44,7 +52,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive 
       </div>
 
       {/* Family Emotional Dynamics */}
-      <QuestionCard>
+      <QuestionCard questionId="question-family-dynamics">
         <Label className="text-sm font-semibold text-white mb-2 block">
           How did emotions work in your family? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -61,7 +69,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive 
       </QuestionCard>
 
       {/* Attachment Style - Optional */}
-      <QuestionCard className="opacity-80">
+      <QuestionCard className="opacity-80" questionId="question-attachment-style">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your attachment style?
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>

@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Heart, Clock, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../types";
@@ -11,9 +12,10 @@ interface YourRelationshipProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onAutoScroll?: (questionId: string) => void;
 }
 
-const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive }: YourRelationshipProps) => {
+const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: YourRelationshipProps) => {
   const relationshipStatusOptions = [
     'Single & actively dating',
     'Single & taking a break', 
@@ -68,6 +70,21 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
 
+  // Auto-scroll logic
+  useEffect(() => {
+    if (!isActive || !onAutoScroll) return;
+
+    if (profileData.relationshipStatus) {
+      if (isSingle && (!profileData.datingChallenges || profileData.datingChallenges.length === 0)) {
+        onAutoScroll('question-relationship-status');
+      } else if (hasRelationship && !profileData.relationshipLength) {
+        onAutoScroll('question-relationship-status');
+      } else if (hasRelationship && profileData.relationshipLength && (!profileData.relationshipChallenges || profileData.relationshipChallenges.length === 0)) {
+        onAutoScroll('question-relationship-length');
+      }
+    }
+  }, [profileData.relationshipStatus, profileData.datingChallenges, profileData.relationshipLength, profileData.relationshipChallenges, isSingle, hasRelationship, isActive, onAutoScroll]);
+
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
@@ -76,7 +93,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       </div>
 
       {/* Relationship Status */}
-      <QuestionCard>
+      <QuestionCard questionId="question-relationship-status">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span>
         </Label>
@@ -103,28 +120,26 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Dating Challenges - for single people */}
       {isSingle && (
-        <>
-          <QuestionCard>
-            <Label className="text-sm font-semibold text-white mb-2 block">
-              What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
-              <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
-            </Label>
-            <div className="flex items-center gap-2 text-xs text-white/70 mb-3 font-normal">
-              <MessageSquare className="w-3 h-3 text-blue-300" />
-              <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
-            </div>
-            <MultiSelect
-              options={datingChallengesOptions}
-              selectedValues={profileData.datingChallenges || []}
-              onToggle={(value) => handleMultiSelect('datingChallenges', value)}
-            />
-          </QuestionCard>
-        </>
+        <QuestionCard questionId="question-dating-challenges">
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 mb-3 font-normal">
+            <MessageSquare className="w-3 h-3 text-blue-300" />
+            <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
+          </div>
+          <MultiSelect
+            options={datingChallengesOptions}
+            selectedValues={profileData.datingChallenges || []}
+            onToggle={(value) => handleMultiSelect('datingChallenges', value)}
+          />
+        </QuestionCard>
       )}
 
       {/* Relationship Length - for people in relationships */}
       {hasRelationship && (
-        <QuestionCard>
+        <QuestionCard questionId="question-relationship-length">
           <Label className="text-sm font-semibold text-white mb-2 block">
             How long have you been together? <span className="text-red-400">*</span>
           </Label>
@@ -142,7 +157,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Relationship Challenges - for people in relationships */}
       {hasRelationship && (
-        <QuestionCard>
+        <QuestionCard questionId="question-relationship-challenges">
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging in your relationship right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -157,7 +172,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* What's Working Well - for people in relationships */}
       {hasRelationship && (
-        <QuestionCard>
+        <QuestionCard questionId="question-relationship-working">
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well in your relationship? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Calendar, Compass, MessageCircle } from "lucide-react";
@@ -12,9 +13,10 @@ interface WhoYouAreProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onAutoScroll?: (questionId: string) => void;
 }
 
-const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: WhoYouAreProps) => {
+const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: WhoYouAreProps) => {
   const ageOptions = [
     'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
   ];
@@ -32,6 +34,19 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
   const pronounOptions = [
     'She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name', 'Other'
   ];
+
+  // Auto-scroll when key fields are answered
+  useEffect(() => {
+    if (!isActive || !onAutoScroll) return;
+
+    if (profileData.name && !profileData.age) {
+      onAutoScroll('question-name');
+    } else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
+      onAutoScroll('question-age');
+    } else if (profileData.orientation && profileData.orientation.length > 0 && !profileData.pronouns) {
+      onAutoScroll('question-orientation');
+    }
+  }, [profileData.name, profileData.age, profileData.orientation, profileData.pronouns, isActive, onAutoScroll]);
 
   const generateAvatar = (name: string) => {
     if (!name) {
@@ -56,7 +71,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       </div>
 
       {/* Name and Avatar */}
-      <QuestionCard>
+      <QuestionCard questionId="question-name">
         <div className="flex items-center gap-6">
           <div className="flex-shrink-0">
             {generateAvatar(profileData.name || '')}
@@ -78,7 +93,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       </QuestionCard>
 
       {/* Age */}
-      <QuestionCard>
+      <QuestionCard questionId="question-age">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your age? <span className="text-red-400">*</span>
         </Label>
@@ -104,7 +119,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       </QuestionCard>
 
       {/* Sexual Orientation */}
-      <QuestionCard>
+      <QuestionCard questionId="question-orientation">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your sexual orientation? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -121,7 +136,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       </QuestionCard>
 
       {/* Pronouns */}
-      <QuestionCard>
+      <QuestionCard questionId="question-pronouns">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What pronouns do you use? <span className="text-red-400">*</span>
         </Label>
@@ -137,7 +152,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
       </QuestionCard>
 
       {/* Gender (Optional) */}
-      <QuestionCard className="opacity-80">
+      <QuestionCard className="opacity-80" questionId="question-gender">
         <Label className="text-sm font-semibold text-white mb-2 block">
           Gender identity? 
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional - Select all that resonate)</span>
