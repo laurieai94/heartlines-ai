@@ -20,20 +20,20 @@ const SectionContinueButton = ({
     switch (currentSection) {
       case 1:
         return {
-          text: "Continue to Your Situationship",
-          icon: Heart,
+          text: "Continue to Section 2",
+          icon: ArrowRight,
           gradient: "from-rose-500 to-pink-600"
         };
       case 2:
         return {
-          text: "Continue to How You Operate",
-          icon: Zap,
+          text: "Continue to Section 3",
+          icon: ArrowRight,
           gradient: "from-pink-500 to-purple-600"
         };
       case 3:
         return {
-          text: "Continue to Your Foundation",
-          icon: TreeDeciduous,
+          text: "Continue to Section 4",
+          icon: ArrowRight,
           gradient: "from-purple-500 to-indigo-600"
         };
       default:

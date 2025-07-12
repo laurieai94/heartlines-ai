@@ -55,7 +55,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
   ];
 
   // Section completion check
-  const isSectionComplete = validateSection(4, profileData);
+  const isSectionComplete = validateSection(3, profileData);
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -114,6 +114,13 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
           onToggle={(value) => handleMultiSelect('conflictStyle', value)}
         />
       </QuestionCard>
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={3}
+        onClick={() => onSectionComplete?.()}
+      />
     </div>
   );
 };

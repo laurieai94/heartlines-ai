@@ -80,7 +80,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
   
   // Section completion check
-  const isSectionComplete = validateSection(3, profileData);
+  const isSectionComplete = validateSection(2, profileData);
 
   // Navigation functions
   const scrollToQuestion = (questionId: string) => {
@@ -224,7 +224,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {/* Section Continue Button */}
       <SectionContinueButton
         isVisible={isSectionComplete}
-        currentSection={3}
+        currentSection={2}
         onClick={() => onSectionComplete?.()}
       />
     </div>

@@ -41,7 +41,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
   ];
 
   // Section completion check
-  const isSectionComplete = validateSection(2, profileData);
+  const isSectionComplete = validateSection(4, profileData);
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -87,7 +87,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
       {/* Section Continue Button */}
       <SectionContinueButton
         isVisible={isSectionComplete}
-        currentSection={2}
+        currentSection={4}
         onClick={() => onSectionComplete?.()}
       />
     </div>
