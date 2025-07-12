@@ -13,10 +13,9 @@ interface WhoYouAreProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onAutoScroll?: (questionId: string) => void;
 }
 
-const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: WhoYouAreProps) => {
+const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: WhoYouAreProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
 
   // Initialize custom pronoun from saved data
@@ -55,31 +54,24 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     return true;
   };
 
-  // Auto-scroll when key fields are answered
-  useEffect(() => {
-    if (!isActive || !onAutoScroll) return;
+  // Question completion checks
+  const isNamePronounsComplete = profileData.name && isPronounsComplete();
+  const isAgeComplete = profileData.age;
+  const isOrientationComplete = profileData.orientation && profileData.orientation.length > 0;
+  const isGenderComplete = profileData.gender && profileData.gender.length > 0;
 
-    // When name and pronouns are complete, scroll to age
-    if (profileData.name && isPronounsComplete() && !profileData.age) {
-      onAutoScroll('question-age');
-    } 
-    // When age is complete, scroll to orientation
-    else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
-      onAutoScroll('question-orientation');
-    } 
-    // When orientation is complete, scroll to gender
-    else if (profileData.orientation && profileData.orientation.length > 0 && (!profileData.gender || profileData.gender.length === 0)) {
-      onAutoScroll('question-gender');
+  // Navigation functions
+  const scrollToQuestion = (questionId: string) => {
+    const element = document.getElementById(questionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll, isPronounsComplete]);
+  };
 
-  // Handle custom pronoun blur event for auto-scroll and saving
+  // Handle custom pronoun blur event
   const handleCustomPronounBlur = () => {
     if (customPronoun.trim().length > 0) {
       updateField('pronouns', customPronoun.trim());
-      if (profileData.name && !profileData.age && onAutoScroll) {
-        onAutoScroll('question-age');
-      }
     } else {
       updateField('pronouns', null);
     }
@@ -123,7 +115,11 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
       </div>
 
       {/* Name and Pronouns Combined */}
-      <QuestionCard questionId="question-name-pronouns">
+      <QuestionCard 
+        questionId="question-name-pronouns"
+        showContinue={isNamePronounsComplete && !isAgeComplete}
+        onContinue={() => scrollToQuestion('question-age')}
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Left side: Name and Avatar */}
           <div className="flex items-center gap-4">
@@ -190,7 +186,11 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
       </QuestionCard>
 
       {/* Age */}
-      <QuestionCard questionId="question-age">
+      <QuestionCard 
+        questionId="question-age"
+        showContinue={isAgeComplete && !isOrientationComplete}
+        onContinue={() => scrollToQuestion('question-orientation')}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your age? <span className="text-red-400">*</span>
         </Label>
@@ -216,7 +216,11 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
       </QuestionCard>
 
       {/* Sexual Orientation */}
-      <QuestionCard questionId="question-orientation">
+      <QuestionCard 
+        questionId="question-orientation"
+        showContinue={isOrientationComplete && !isGenderComplete}
+        onContinue={() => scrollToQuestion('question-gender')}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your sexual orientation? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

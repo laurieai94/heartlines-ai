@@ -1,7 +1,6 @@
 
 import { useRef } from "react";
 import { ProfileData } from "../types";
-import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
 import YourRelationship from "./sections/YourRelationship";
 import HowYouOperate from "./sections/HowYouOperate";
@@ -21,7 +20,6 @@ const QuestionnaireContent = ({
   currentSection
 }: QuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollToNextQuestion } = useAutoScroll({ scrollContainerRef });
 
   const scrollToSection = (sectionNumber: number) => {
     const container = scrollContainerRef.current;
@@ -51,7 +49,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 1}
-            onAutoScroll={scrollToNextQuestion}
           />
         </div>
 
@@ -61,7 +58,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 2}
-            onAutoScroll={scrollToNextQuestion}
           />
         </div>
 
@@ -71,7 +67,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 3}
-            onAutoScroll={scrollToNextQuestion}
           />
         </div>
 
@@ -81,7 +76,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 4}
-            onAutoScroll={scrollToNextQuestion}
           />
         </div>
       </div>

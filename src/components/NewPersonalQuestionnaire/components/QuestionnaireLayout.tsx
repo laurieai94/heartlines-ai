@@ -4,8 +4,9 @@ import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
-import QuestionnaireFooter from "./QuestionnaireFooter";
 import QuestionnaireContent from "./QuestionnaireContent";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
@@ -32,22 +33,10 @@ const QuestionnaireLayout = ({
   useEffect(() => {
     const isCurrentSectionComplete = validateSection(currentSection, profileData);
     
-    console.log(`Section ${currentSection} validation:`, {
-      isComplete: isCurrentSectionComplete,
-      profileData: {
-        name: profileData.name,
-        age: profileData.age,
-        orientation: profileData.orientation,
-        pronouns: profileData.pronouns,
-        gender: profileData.gender
-      }
-    });
-    
     if (isCurrentSectionComplete && currentSection < 4) {
       const timer = setTimeout(() => {
-        console.log(`Auto-advancing from section ${currentSection} to ${currentSection + 1}`);
         setCurrentSection(currentSection + 1);
-      }, 1500); // Increased delay to give question-level auto-scroll time to complete
+      }, 800); // Brief delay to show section completion
       
       return () => clearTimeout(timer);
     }
@@ -95,14 +84,24 @@ const QuestionnaireLayout = ({
           currentSection={currentSection}
         />
 
-        <QuestionnaireFooter
-          currentSection={currentSection}
-          overallProgress={overallProgress}
-          canComplete={canComplete}
-          onBack={handleBack}
-          onNext={handleNext}
-          onComplete={onComplete}
-        />
+        <div className="p-4 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
+          <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15">
+              <div className="text-sm text-white/90 font-medium">
+                Section {currentSection} of 4 • {Math.round(overallProgress)}% Complete
+              </div>
+            </div>
+            {currentSection === 4 && canComplete && (
+              <Button
+                onClick={onComplete}
+                className="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 px-6 py-3 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
+              >
+                <Heart className="w-4 h-4" />
+                Complete Profile
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

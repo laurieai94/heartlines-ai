@@ -12,10 +12,9 @@ interface YourRelationshipProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onAutoScroll?: (questionId: string) => void;
 }
 
-const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: YourRelationshipProps) => {
+const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive }: YourRelationshipProps) => {
   const relationshipStatusOptions = [
     'Single & actively dating',
     'Single & taking a break', 
@@ -70,20 +69,20 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
 
-  // Auto-scroll logic
-  useEffect(() => {
-    if (!isActive || !onAutoScroll) return;
+  // Question completion checks
+  const isStatusComplete = profileData.relationshipStatus;
+  const isDatingChallengesComplete = isSingle ? (profileData.datingChallenges && profileData.datingChallenges.length > 0) : true;
+  const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
+  const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
+  const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
 
-    if (profileData.relationshipStatus) {
-      if (isSingle && (!profileData.datingChallenges || profileData.datingChallenges.length === 0)) {
-        onAutoScroll('question-relationship-status');
-      } else if (hasRelationship && !profileData.relationshipLength) {
-        onAutoScroll('question-relationship-status');
-      } else if (hasRelationship && profileData.relationshipLength && (!profileData.relationshipChallenges || profileData.relationshipChallenges.length === 0)) {
-        onAutoScroll('question-relationship-length');
-      }
+  // Navigation functions
+  const scrollToQuestion = (questionId: string) => {
+    const element = document.getElementById(questionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [profileData.relationshipStatus, profileData.datingChallenges, profileData.relationshipLength, profileData.relationshipChallenges, isSingle, hasRelationship, isActive, onAutoScroll]);
+  };
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -93,7 +92,20 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       </div>
 
       {/* Relationship Status */}
-      <QuestionCard questionId="question-relationship-status">
+      <QuestionCard 
+        questionId="question-relationship-status"
+        showContinue={isStatusComplete && (
+          (isSingle && !isDatingChallengesComplete) ||
+          (hasRelationship && !isLengthComplete)
+        )}
+        onContinue={() => {
+          if (isSingle) {
+            scrollToQuestion('question-dating-challenges');
+          } else if (hasRelationship) {
+            scrollToQuestion('question-relationship-length');
+          }
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span>
         </Label>
@@ -120,7 +132,9 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Dating Challenges - for single people */}
       {isSingle && (
-        <QuestionCard questionId="question-dating-challenges">
+        <QuestionCard 
+          questionId="question-dating-challenges"
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -139,7 +153,11 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Relationship Length - for people in relationships */}
       {hasRelationship && (
-        <QuestionCard questionId="question-relationship-length">
+        <QuestionCard 
+          questionId="question-relationship-length"
+          showContinue={isLengthComplete && !isChallengesComplete}
+          onContinue={() => scrollToQuestion('question-relationship-challenges')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How long have you been together? <span className="text-red-400">*</span>
           </Label>
@@ -157,7 +175,11 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Relationship Challenges - for people in relationships */}
       {hasRelationship && (
-        <QuestionCard questionId="question-relationship-challenges">
+        <QuestionCard 
+          questionId="question-relationship-challenges"
+          showContinue={isChallengesComplete && !isWorkingComplete}
+          onContinue={() => scrollToQuestion('question-relationship-working')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging in your relationship right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
