@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Calendar, Compass, MessageCircle } from "lucide-react";
+import { User, Calendar, Compass } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
@@ -39,25 +39,25 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
   useEffect(() => {
     if (!isActive || !onAutoScroll) return;
 
-    if (profileData.name && !profileData.age) {
-      onAutoScroll('question-name');
+    if (profileData.name && profileData.pronouns && !profileData.age) {
+      onAutoScroll('question-name-pronouns');
     } else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
       onAutoScroll('question-age');
-    } else if (profileData.orientation && profileData.orientation.length > 0 && !profileData.pronouns) {
+    } else if (profileData.orientation && profileData.orientation.length > 0 && (!profileData.gender || profileData.gender.length === 0)) {
       onAutoScroll('question-orientation');
     }
-  }, [profileData.name, profileData.age, profileData.orientation, profileData.pronouns, isActive, onAutoScroll]);
+  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
 
   const generateAvatar = (name: string) => {
     if (!name) {
       return (
-        <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-8 h-8 text-white/60" />
+        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
+          <User className="w-6 h-6 text-white/60" />
         </div>
       );
     }
     return (
-      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
         {name.charAt(0).toUpperCase()}
       </div>
     );
@@ -70,24 +70,52 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
         <h3 className="text-xl font-bold text-white">Who You Are</h3>
       </div>
 
-      {/* Name and Avatar */}
-      <QuestionCard questionId="question-name">
-        <div className="flex items-center gap-6">
-          <div className="flex-shrink-0">
-            {generateAvatar(profileData.name || '')}
+      {/* Name and Pronouns Combined */}
+      <QuestionCard questionId="question-name-pronouns">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left side: Name and Avatar */}
+          <div className="flex items-center gap-4">
+            <div className="flex-shrink-0">
+              {generateAvatar(profileData.name || '')}
+            </div>
+            <div className="flex-1 max-w-xs">
+              <Label htmlFor="name" className="text-sm font-semibold text-white mb-2 block">
+                What should we call you? <span className="text-red-400">*</span>
+              </Label>
+              <Input
+                id="name"
+                type="text"
+                value={profileData.name || ''}
+                onChange={(e) => updateField('name', e.target.value)}
+                placeholder="Your name"
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium"
+              />
+            </div>
           </div>
-          <div className="flex-1">
-            <Label htmlFor="name" className="text-sm font-semibold text-white mb-2 block">
-              What should we call you? <span className="text-red-400">*</span>
+
+          {/* Right side: Pronouns */}
+          <div>
+            <Label className="text-sm font-semibold text-white mb-2 block">
+              What pronouns do you use? <span className="text-red-400">*</span>
             </Label>
-            <Input
-              id="name"
-              type="text"
-              value={profileData.name || ''}
-              onChange={(e) => updateField('name', e.target.value)}
-              placeholder="Your name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium"
-            />
+            <div className="text-xs text-white/70 font-normal mb-3">
+              So we can refer to you correctly
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {pronounOptions.map((pronouns) => (
+                <button
+                  key={pronouns}
+                  onClick={() => updateField('pronouns', pronouns)}
+                  className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                    profileData.pronouns === pronouns
+                      ? 'questionnaire-button-selected'
+                      : 'questionnaire-button-secondary'
+                  }`}
+                >
+                  {pronouns}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </QuestionCard>
@@ -132,22 +160,6 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
           options={orientationOptions}
           selectedValues={profileData.orientation || []}
           onToggle={(value) => handleMultiSelect('orientation', value)}
-        />
-      </QuestionCard>
-
-      {/* Pronouns */}
-      <QuestionCard questionId="question-pronouns">
-        <Label className="text-sm font-semibold text-white mb-2 block">
-          What pronouns do you use? <span className="text-red-400">*</span>
-        </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
-          <MessageCircle className="w-3 h-3 text-green-300" />
-          <span>So we can refer to you correctly</span>
-        </div>
-        <SingleSelect
-          options={pronounOptions}
-          selectedValue={profileData.pronouns || ''}
-          onSelect={(value) => updateField('pronouns', value)}
         />
       </QuestionCard>
 
