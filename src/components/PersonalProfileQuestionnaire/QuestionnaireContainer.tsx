@@ -92,8 +92,8 @@ const QuestionnaireContainer = ({
   };
 
   return (
-    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'} overflow-hidden`}>
-      <div className={`${isModal ? 'w-full h-auto min-h-0 overflow-y-auto' : 'w-full max-w-2xl max-h-[80vh] min-h-fit overflow-hidden'} flex flex-col border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl`}>
+    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
+      <div className={`${isModal ? 'w-full h-full max-h-[90vh] flex flex-col' : 'w-full max-w-2xl max-h-[80vh] flex flex-col'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
         
         <QuestionnaireHeader 
           onClose={onClose}
@@ -114,7 +114,7 @@ const QuestionnaireContainer = ({
           />
         </div>
 
-        <div className={`${isModal ? 'flex-1 overflow-y-auto pb-20' : 'flex-1 overflow-y-auto'}`}>
+        <div className="flex-1 overflow-y-auto">
           <QuestionnaireContent
             currentSection={currentSection}
             profileData={profileData}
@@ -124,7 +124,7 @@ const QuestionnaireContainer = ({
           />
         </div>
 
-        <div className={`${isModal ? 'sticky bottom-0 z-10 bg-white/10 backdrop-blur-xl border-t border-white/15' : ''}`}>
+        <div className="flex-shrink-0 border-t border-white/15 bg-white/10 backdrop-blur-xl">
           <QuestionnaireFooter
             currentSection={currentSection}
             onBack={handleBack}

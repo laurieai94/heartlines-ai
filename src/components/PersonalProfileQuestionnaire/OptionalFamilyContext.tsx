@@ -21,10 +21,11 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
     if (expanded) {
       setTimeout(() => {
         // Scroll to bottom to show both content and footer
-        const modalContainer = document.querySelector('.flex-1.overflow-y-auto');
-        if (modalContainer) {
-          modalContainer.scrollTo({
-            top: modalContainer.scrollHeight,
+        const scrollContainer = document.querySelector('.flex-1.overflow-y-auto') ||
+                               document.querySelector('[class*="flex-1"][class*="overflow-y-auto"]');
+        if (scrollContainer) {
+          scrollContainer.scrollTo({
+            top: scrollContainer.scrollHeight,
             behavior: 'smooth'
           });
         }
