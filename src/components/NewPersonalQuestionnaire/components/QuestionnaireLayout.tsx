@@ -32,10 +32,22 @@ const QuestionnaireLayout = ({
   useEffect(() => {
     const isCurrentSectionComplete = validateSection(currentSection, profileData);
     
+    console.log(`Section ${currentSection} validation:`, {
+      isComplete: isCurrentSectionComplete,
+      profileData: {
+        name: profileData.name,
+        age: profileData.age,
+        orientation: profileData.orientation,
+        pronouns: profileData.pronouns,
+        gender: profileData.gender
+      }
+    });
+    
     if (isCurrentSectionComplete && currentSection < 4) {
       const timer = setTimeout(() => {
+        console.log(`Auto-advancing from section ${currentSection} to ${currentSection + 1}`);
         setCurrentSection(currentSection + 1);
-      }, 800); // Brief delay to let users see completion
+      }, 1500); // Increased delay to give question-level auto-scroll time to complete
       
       return () => clearTimeout(timer);
     }
