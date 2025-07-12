@@ -1,5 +1,5 @@
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Calendar, Compass, MessageSquare } from "lucide-react";
@@ -18,7 +18,6 @@ interface WhoYouAreProps {
 
 const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: WhoYouAreProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
-  const debounceTimeoutRef = useRef<NodeJS.Timeout>();
 
   const ageOptions = [
     'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
@@ -63,32 +62,12 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     }
   }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
 
-  // Debounced auto-scroll for custom pronouns
-  useEffect(() => {
-    if (!isActive || !onAutoScroll) return;
-    
-    // Only handle custom pronoun case
-    if (profileData.pronouns === 'Other' && customPronoun.trim().length > 0) {
-      // Clear existing timeout
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
-      
-      // Set new debounced timeout
-      debounceTimeoutRef.current = setTimeout(() => {
-        if (profileData.name && !profileData.age) {
-          onAutoScroll('question-name-pronouns');
-        }
-      }, 500); // 500ms delay after user stops typing
+  // Handle custom pronoun blur event for auto-scroll
+  const handleCustomPronounBlur = () => {
+    if (customPronoun.trim().length > 0 && profileData.name && !profileData.age && onAutoScroll) {
+      onAutoScroll('question-name-pronouns');
     }
-    
-    // Cleanup timeout on unmount
-    return () => {
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
-    };
-  }, [customPronoun, profileData.name, profileData.pronouns, profileData.age, isActive, onAutoScroll]);
+  };
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'Other') {
@@ -186,6 +165,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
                   type="text"
                   value={customPronoun}
                   onChange={(e) => handleCustomPronounChange(e.target.value)}
+                  onBlur={handleCustomPronounBlur}
                   placeholder="Enter your pronouns"
                   className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
                 />
