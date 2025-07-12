@@ -62,10 +62,15 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     }
   }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
 
-  // Handle custom pronoun blur event for auto-scroll
+  // Handle custom pronoun blur event for auto-scroll and saving
   const handleCustomPronounBlur = () => {
-    if (customPronoun.trim().length > 0 && profileData.name && !profileData.age && onAutoScroll) {
-      onAutoScroll('question-name-pronouns');
+    if (customPronoun.trim().length > 0) {
+      updateField('pronouns', customPronoun.trim());
+      if (profileData.name && !profileData.age && onAutoScroll) {
+        onAutoScroll('question-name-pronouns');
+      }
+    } else {
+      updateField('pronouns', null);
     }
   };
 
@@ -81,9 +86,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
 
   const handleCustomPronounChange = (value: string) => {
     setCustomPronoun(value);
-    if (value.trim()) {
-      updateField('pronouns', value.trim());
-    }
+    // Don't update profileData.pronouns while typing
   };
 
   const generateAvatar = (name: string) => {
