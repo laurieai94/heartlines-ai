@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
@@ -27,6 +27,19 @@ const QuestionnaireLayout = ({
   const [currentSection, setCurrentSection] = useState(1);
   
   const overallProgress = calculateProgress(profileData);
+
+  // Auto-advance to next section when current section is complete
+  useEffect(() => {
+    const isCurrentSectionComplete = validateSection(currentSection, profileData);
+    
+    if (isCurrentSectionComplete && currentSection < 4) {
+      const timer = setTimeout(() => {
+        setCurrentSection(currentSection + 1);
+      }, 800); // Brief delay to let users see completion
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentSection, profileData]);
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
