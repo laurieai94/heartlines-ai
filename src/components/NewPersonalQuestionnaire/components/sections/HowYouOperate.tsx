@@ -5,6 +5,8 @@ import { Zap, Heart, Shield } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
+import SectionContinueButton from "../shared/SectionContinueButton";
+import { validateSection } from "../../utils/validation";
 
 interface HowYouOperateProps {
   profileData: ProfileData;
@@ -12,9 +14,10 @@ interface HowYouOperateProps {
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
   onAutoScroll?: (questionId: string) => void;
+  onSectionComplete?: () => void;
 }
 
-const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: HowYouOperateProps) => {
+const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll, onSectionComplete }: HowYouOperateProps) => {
   const stressResponseOptions = [
     'Get quiet & need space',
     'Want to talk it out immediately', 
@@ -51,14 +54,8 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
     'Shut down and withdraw'
   ];
 
-  // Auto-scroll logic
-  useEffect(() => {
-    if (!isActive || !onAutoScroll) return;
-
-    if (profileData.stressResponse && profileData.stressResponse.length > 0 && (!profileData.loveLanguage || profileData.loveLanguage.length === 0)) {
-      onAutoScroll('question-stress-response');
-    }
-  }, [profileData.stressResponse, profileData.loveLanguage, isActive, onAutoScroll]);
+  // Section completion check
+  const isSectionComplete = validateSection(4, profileData);
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>

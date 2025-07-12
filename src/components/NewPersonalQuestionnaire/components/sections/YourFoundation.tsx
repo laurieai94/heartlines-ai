@@ -5,6 +5,8 @@ import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SingleSelect from "../shared/SingleSelect";
+import SectionContinueButton from "../shared/SectionContinueButton";
+import { validateSection } from "../../utils/validation";
 
 interface YourFoundationProps {
   profileData: ProfileData;
@@ -12,9 +14,10 @@ interface YourFoundationProps {
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
   onAutoScroll?: (questionId: string) => void;
+  onSectionComplete?: () => void;
 }
 
-const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: YourFoundationProps) => {
+const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll, onSectionComplete }: YourFoundationProps) => {
   const familyDynamicsOptions = [
     "Open & healthy emotional expression",
     "Happy feelings okay, sad/angry ones shut down",
@@ -37,12 +40,8 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
     'Not sure/still figuring it out'
   ];
 
-  // Auto-scroll logic - since attachment style is optional, we don't auto-scroll after family dynamics
-  useEffect(() => {
-    if (!isActive || !onAutoScroll) return;
-    // Since this is the last section and attachment style is optional, 
-    // we keep the auto-scroll minimal here
-  }, [isActive, onAutoScroll]);
+  // Section completion check
+  const isSectionComplete = validateSection(2, profileData);
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -84,6 +83,13 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
           onSelect={(value) => updateField('attachmentStyle', value)}
         />
       </QuestionCard>
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={2}
+        onClick={() => onSectionComplete?.()}
+      />
     </div>
   );
 };

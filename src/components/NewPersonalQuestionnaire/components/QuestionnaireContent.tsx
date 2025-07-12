@@ -53,38 +53,42 @@ const QuestionnaireContent = ({
     >
       <div className="py-8 space-y-6">
         <div id="section-1" className="px-6" data-section="1">
-          <WhoYouAre
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 1}
-          />
+        <WhoYouAre
+          profileData={profileData}
+          updateField={updateField}
+          handleMultiSelect={handleMultiSelect}
+          isActive={currentSection === 1}
+          onSectionComplete={() => scrollToSection(2)}
+        />
         </div>
 
         <div id="section-2" className="px-6" data-section="2">
-          <YourRelationship
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 2}
-          />
-        </div>
-
-        <div id="section-3" className="px-6" data-section="3">
-          <HowYouOperate
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 3}
-          />
-        </div>
-
-        <div id="section-4" className="px-6" data-section="4">
           <YourFoundation
             profileData={profileData}
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
+            isActive={currentSection === 2}
+            onSectionComplete={() => scrollToSection(3)}
+          />
+        </div>
+
+        <div id="section-3" className="px-6" data-section="3">
+          <YourRelationship
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isActive={currentSection === 3}
+            onSectionComplete={() => scrollToSection(4)}
+          />
+        </div>
+
+        <div id="section-4" className="px-6" data-section="4">
+          <HowYouOperate
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 4}
+            onSectionComplete={() => {}} // Final section, no next section
           />
         </div>
       </div>

@@ -6,15 +6,18 @@ import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SingleSelect from "../shared/SingleSelect";
+import SectionContinueButton from "../shared/SectionContinueButton";
+import { validateSection } from "../../utils/validation";
 
 interface YourRelationshipProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onSectionComplete?: () => void;
 }
 
-const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive }: YourRelationshipProps) => {
+const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: YourRelationshipProps) => {
   const relationshipStatusOptions = [
     'Single & actively dating',
     'Single & taking a break', 
@@ -75,6 +78,9 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
   const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
   const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
+  
+  // Section completion check
+  const isSectionComplete = validateSection(3, profileData);
 
   // Navigation functions
   const scrollToQuestion = (questionId: string) => {
@@ -214,6 +220,13 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
           />
         </QuestionCard>
       )}
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={3}
+        onClick={() => onSectionComplete?.()}
+      />
     </div>
   );
 };

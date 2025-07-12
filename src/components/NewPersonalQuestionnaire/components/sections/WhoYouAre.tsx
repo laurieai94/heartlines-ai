@@ -7,15 +7,18 @@ import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SingleSelect from "../shared/SingleSelect";
+import SectionContinueButton from "../shared/SectionContinueButton";
+import { validateSection } from "../../utils/validation";
 
 interface WhoYouAreProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onSectionComplete?: () => void;
 }
 
-const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: WhoYouAreProps) => {
+const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: WhoYouAreProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
 
   // Initialize custom pronoun from saved data
@@ -59,6 +62,9 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
   const isAgeComplete = profileData.age;
   const isOrientationComplete = profileData.orientation && profileData.orientation.trim() !== '';
   const isGenderComplete = profileData.gender && profileData.gender.trim() !== '';
+  
+  // Section completion check
+  const isSectionComplete = validateSection(1, profileData);
 
   // Navigation functions
   const scrollToQuestion = (questionId: string) => {
@@ -250,6 +256,13 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: Wh
           onSelect={(value) => updateField('gender', value)}
         />
       </QuestionCard>
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={1}
+        onClick={() => onSectionComplete?.()}
+      />
     </div>
   );
 };

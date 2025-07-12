@@ -30,32 +30,17 @@ const QuestionnaireLayout = ({
   
   const overallProgress = calculateProgress(profileData);
 
-  // Auto-advance to next section when current section is complete
-  useEffect(() => {
-    const isCurrentSectionComplete = validateSection(currentSection, profileData);
-    console.log(`🔄 Auto-advance check - Section ${currentSection}:`, { isCurrentSectionComplete, hasScrollFn: !!scrollToSectionFn });
+  // Handle section completion via continue buttons
+  const handleSectionComplete = (nextSection: number) => {
+    setCurrentSection(nextSection);
     
-    if (isCurrentSectionComplete && currentSection < 4) {
-      console.log(`⏰ Setting timer to advance from section ${currentSection} to ${currentSection + 1}`);
-      const timer = setTimeout(() => {
-        const nextSection = currentSection + 1;
-        console.log(`📈 Advancing to section ${nextSection}`);
-        setCurrentSection(nextSection);
-        
-        // Auto-scroll to next section after brief delay
-        if (scrollToSectionFn) {
-          console.log(`📜 Scrolling to section ${nextSection}`);
-          setTimeout(() => {
-            scrollToSectionFn(nextSection);
-          }, 200);
-        } else {
-          console.warn('❌ No scroll function available!');
-        }
-      }, 800); // Brief delay to show section completion
-      
-      return () => clearTimeout(timer);
+    // Scroll to the next section
+    if (scrollToSectionFn) {
+      setTimeout(() => {
+        scrollToSectionFn(nextSection);
+      }, 200);
     }
-  }, [currentSection, profileData, scrollToSectionFn]);
+  };
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
