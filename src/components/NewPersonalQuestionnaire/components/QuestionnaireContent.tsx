@@ -63,7 +63,7 @@ const QuestionnaireContent = ({
         </div>
 
         <div id="section-2" className="px-6" data-section="2">
-          <YourFoundation
+          <YourRelationship
             profileData={profileData}
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
@@ -73,7 +73,7 @@ const QuestionnaireContent = ({
         </div>
 
         <div id="section-3" className="px-6" data-section="3">
-          <YourRelationship
+          <HowYouOperate
             profileData={profileData}
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
@@ -83,7 +83,7 @@ const QuestionnaireContent = ({
         </div>
 
         <div id="section-4" className="px-6" data-section="4">
-          <HowYouOperate
+          <YourFoundation
             profileData={profileData}
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}

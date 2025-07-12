@@ -20,7 +20,7 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       break;
     }
     case 2: {
-      // Your Relationship: relationshipStatus required + conditional fields
+      // Your Situationship: relationshipStatus required + conditional fields
       if (!profileData.relationshipStatus) {
         isValid = false;
         break;
@@ -77,7 +77,7 @@ export const calculateProgress = (profileData: ProfileData): number => {
   totalRequired += 5;
   totalCompleted += section1Completed;
   
-  // Section 2: Variable based on relationship status
+  // Section 2: Variable based on situationship status
   if (profileData.relationshipStatus) {
     totalRequired += 1;
     totalCompleted += 1;
