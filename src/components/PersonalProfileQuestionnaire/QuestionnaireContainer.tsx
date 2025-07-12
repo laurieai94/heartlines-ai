@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import SectionNavigation from "./SectionNavigation";
@@ -35,6 +35,56 @@ const QuestionnaireContainer = ({
     4: false
   });
 
+  // Global scroll utility functions
+  const scrollToTop = () => {
+    const scrollContainer = document.getElementById('questionnaire-content');
+    if (scrollContainer) {
+      scrollContainer.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollToBottom = () => {
+    const scrollContainer = document.getElementById('questionnaire-content');
+    if (scrollContainer) {
+      scrollContainer.scrollTo({
+        top: scrollContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollToElement = (elementId: string) => {
+    setTimeout(() => {
+      const scrollContainer = document.getElementById('questionnaire-content');
+      if (scrollContainer) {
+        const element = scrollContainer.querySelector(`[data-scroll-id="${elementId}"]`);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      }
+    }, 200);
+  };
+
+  // Provide scroll functions globally for child components
+  useEffect(() => {
+    (window as any).globalScrollUtils = {
+      scrollToTop,
+      scrollToBottom,
+      scrollToElement
+    };
+    
+    return () => {
+      delete (window as any).globalScrollUtils;
+    };
+  }, []);
+
   const handleNext = () => {
     if (!validateSection(currentSection, profileData)) {
       toast.error("Please complete all required questions in this section");
@@ -45,12 +95,16 @@ const QuestionnaireContainer = ({
       const nextSection = currentSection + 1;
       setSectionReadiness(prev => ({ ...prev, [nextSection]: true }));
       setCurrentSection(nextSection);
+      // Auto-scroll to top when moving to next section
+      setTimeout(() => scrollToTop(), 100);
     }
   };
 
   const handleBack = () => {
     if (currentSection > 1) {
       setCurrentSection(currentSection - 1);
+      // Auto-scroll to top when going back
+      setTimeout(() => scrollToTop(), 100);
     }
   };
 
@@ -88,6 +142,8 @@ const QuestionnaireContainer = ({
     if (isAccessible || isCompleted) {
       setCurrentSection(section);
       setSectionReadiness(prev => ({ ...prev, [section]: true }));
+      // Auto-scroll to top when switching sections
+      setTimeout(() => scrollToTop(), 100);
     }
   };
 

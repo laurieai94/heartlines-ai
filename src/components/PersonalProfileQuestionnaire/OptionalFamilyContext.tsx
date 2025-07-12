@@ -18,16 +18,9 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
 
   const handleToggle = (expanded: boolean) => {
     setIsExpanded(expanded);
-    if (expanded) {
+    if (expanded && (window as any).globalScrollUtils) {
       setTimeout(() => {
-        // Find the questionnaire content container for reliable scrolling
-        const scrollContainer = document.getElementById('questionnaire-content');
-        if (scrollContainer) {
-          scrollContainer.scrollTo({
-            top: scrollContainer.scrollHeight,
-            behavior: 'smooth'
-          });
-        }
+        (window as any).globalScrollUtils.scrollToBottom();
       }, 300); // Wait for expansion animation
     }
   };

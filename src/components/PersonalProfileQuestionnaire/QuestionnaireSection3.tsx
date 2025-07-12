@@ -18,8 +18,8 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
 
   const handleOptionalToggle = (expanded: boolean) => {
     setIsOptionalOpen(expanded);
-    if (expanded && (window as any).scrollToOptionalSection) {
-      (window as any).scrollToOptionalSection('deeper-section');
+    if (expanded && (window as any).globalScrollUtils) {
+      (window as any).globalScrollUtils.scrollToElement('deeper-section');
     }
   };
 
