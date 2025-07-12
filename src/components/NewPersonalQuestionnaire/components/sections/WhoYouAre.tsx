@@ -55,21 +55,23 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     return true;
   };
 
-  // Auto-scroll when key fields are answered (excluding custom pronouns)
+  // Auto-scroll when key fields are answered
   useEffect(() => {
     if (!isActive || !onAutoScroll) return;
 
-    // For standard pronouns, check completion and scroll
-    const isStandardPronoun = profileData.pronouns && ['She/her', 'He/him', 'They/them'].includes(profileData.pronouns);
-    
-    if (profileData.name && isStandardPronoun && !profileData.age) {
-      onAutoScroll('question-name-pronouns');
-    } else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
+    // When name and pronouns are complete, scroll to age
+    if (profileData.name && isPronounsComplete() && !profileData.age) {
       onAutoScroll('question-age');
-    } else if (profileData.orientation && profileData.orientation.length > 0 && (!profileData.gender || profileData.gender.length === 0)) {
+    } 
+    // When age is complete, scroll to orientation
+    else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
       onAutoScroll('question-orientation');
+    } 
+    // When orientation is complete, scroll to gender
+    else if (profileData.orientation && profileData.orientation.length > 0 && (!profileData.gender || profileData.gender.length === 0)) {
+      onAutoScroll('question-gender');
     }
-  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
+  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll, isPronounsComplete]);
 
   // Handle custom pronoun blur event for auto-scroll and saving
   const handleCustomPronounBlur = () => {
