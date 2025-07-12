@@ -83,6 +83,7 @@ const QuestionnaireLayout = ({
           handleMultiSelect={handleMultiSelect}
           currentSection={currentSection}
           onScrollToSection={setScrollToSectionFn}
+          onSectionComplete={handleSectionComplete}
         />
 
         <div className="p-4 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">

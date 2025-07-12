@@ -12,6 +12,7 @@ interface QuestionnaireContentProps {
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   currentSection: number;
   onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
+  onSectionComplete?: (nextSection: number) => void;
 }
 
 const QuestionnaireContent = ({
@@ -19,7 +20,8 @@ const QuestionnaireContent = ({
   updateField,
   handleMultiSelect,
   currentSection,
-  onScrollToSection
+  onScrollToSection,
+  onSectionComplete
 }: QuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +60,7 @@ const QuestionnaireContent = ({
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
           isActive={currentSection === 1}
-          onSectionComplete={() => scrollToSection(2)}
+          onSectionComplete={() => onSectionComplete?.(2)}
         />
         </div>
 
@@ -68,7 +70,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 2}
-            onSectionComplete={() => scrollToSection(3)}
+            onSectionComplete={() => onSectionComplete?.(3)}
           />
         </div>
 
@@ -78,7 +80,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 3}
-            onSectionComplete={() => scrollToSection(4)}
+            onSectionComplete={() => onSectionComplete?.(4)}
           />
         </div>
 
