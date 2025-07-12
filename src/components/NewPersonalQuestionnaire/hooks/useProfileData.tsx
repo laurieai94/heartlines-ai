@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { ProfileData } from '../types';
 
@@ -53,7 +53,7 @@ export const useProfileData = () => {
       }
 
       if (data?.profile_data) {
-        setProfileData({ ...defaultProfileData, ...data.profile_data });
+        setProfileData({ ...defaultProfileData, ...(data.profile_data as ProfileData) });
       }
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -74,7 +74,7 @@ export const useProfileData = () => {
         .upsert({
           user_id: user.id,
           profile_type: 'personal',
-          profile_data: data,
+          profile_data: data as any,
           updated_at: new Date().toISOString()
         });
 
