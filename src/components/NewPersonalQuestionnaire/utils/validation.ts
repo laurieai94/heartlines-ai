@@ -4,8 +4,8 @@ import { ProfileData } from '../types';
 export const validateSection = (section: number, profileData: ProfileData): boolean => {
   switch (section) {
     case 1: {
-      // Who You Are: name, age, orientation, pronouns required
-      const required = ['name', 'age', 'orientation', 'pronouns'];
+      // Who You Are: name, age, orientation, pronouns, gender required
+      const required = ['name', 'age', 'orientation', 'pronouns', 'gender'];
       return required.every(field => {
         const value = profileData[field as keyof ProfileData];
         return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
@@ -48,14 +48,14 @@ export const calculateProgress = (profileData: ProfileData): number => {
   let totalRequired = 0;
   let totalCompleted = 0;
   
-  // Section 1: 4 required fields
-  const section1Required = ['name', 'age', 'orientation', 'pronouns'];
+  // Section 1: 5 required fields
+  const section1Required = ['name', 'age', 'orientation', 'pronouns', 'gender'];
   const section1Completed = section1Required.filter(field => {
     const value = profileData[field as keyof ProfileData];
     return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
   }).length;
   
-  totalRequired += 4;
+  totalRequired += 5;
   totalCompleted += section1Completed;
   
   // Section 2: Variable based on relationship status

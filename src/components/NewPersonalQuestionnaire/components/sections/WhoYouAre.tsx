@@ -76,7 +76,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     if (customPronoun.trim().length > 0) {
       updateField('pronouns', customPronoun.trim());
       if (profileData.name && !profileData.age && onAutoScroll) {
-        onAutoScroll('question-name-pronouns');
+        onAutoScroll('question-age');
       }
     } else {
       updateField('pronouns', null);
@@ -230,11 +230,11 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
         />
       </QuestionCard>
 
-      {/* Gender (Optional) */}
-      <QuestionCard className="opacity-80" questionId="question-gender">
+      {/* Gender Identity */}
+      <QuestionCard questionId="question-gender">
         <Label className="text-sm font-semibold text-white mb-2 block">
-          Gender identity? 
-          <span className="text-orange-300 font-medium text-xs ml-2">(Optional - Select all that resonate)</span>
+          Gender identity? <span className="text-red-400">*</span>
+          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="text-xs text-white/70 font-normal mb-3">
           We get that gender is complex and personal
