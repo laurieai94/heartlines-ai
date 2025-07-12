@@ -37,18 +37,27 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
     'She/her', 'He/him', 'They/them', 'Other'
   ];
 
+  // Helper function to check if pronouns are complete
+  const isPronounsComplete = () => {
+    if (!profileData.pronouns) return false;
+    if (profileData.pronouns === 'Other') {
+      return customPronoun.trim().length > 0;
+    }
+    return true;
+  };
+
   // Auto-scroll when key fields are answered
   useEffect(() => {
     if (!isActive || !onAutoScroll) return;
 
-    if (profileData.name && profileData.pronouns && !profileData.age) {
+    if (profileData.name && isPronounsComplete() && !profileData.age) {
       onAutoScroll('question-name-pronouns');
     } else if (profileData.age && (!profileData.orientation || profileData.orientation.length === 0)) {
       onAutoScroll('question-age');
     } else if (profileData.orientation && profileData.orientation.length > 0 && (!profileData.gender || profileData.gender.length === 0)) {
       onAutoScroll('question-orientation');
     }
-  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, isActive, onAutoScroll]);
+  }, [profileData.name, profileData.pronouns, profileData.age, profileData.orientation, profileData.gender, customPronoun, isActive, onAutoScroll]);
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'Other') {
