@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
-import { Zap, Heart, MessageCircle } from "lucide-react";
+import { Zap, Heart, Shield } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
@@ -108,7 +108,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional - Select all that resonate)</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
-          <MessageCircle className="w-3 h-3 text-blue-300" />
+          <Shield className="w-3 h-3 text-blue-300" />
           <span>Knowing your conflict style helps navigate disagreements</span>
         </div>
         <MultiSelect

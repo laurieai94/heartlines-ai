@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
-import { TreeDeciduous, MessageCircle } from "lucide-react";
+import { TreeDeciduous, Home, Link } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
@@ -58,7 +58,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
-          <MessageCircle className="w-3 h-3 text-blue-300" />
+          <Home className="w-3 h-3 text-blue-300" />
           <span>This programs how safe you feel being vulnerable</span>
         </div>
         <MultiSelect
@@ -74,8 +74,9 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
           What's your attachment style?
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
         </Label>
-        <div className="text-xs text-white/70 font-normal mb-3">
-          The psychological patterns that run your relationships
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <Link className="w-3 h-3 text-purple-300" />
+          <span>The psychological patterns that run your relationships</span>
         </div>
         <SingleSelect
           options={attachmentStyleOptions}
