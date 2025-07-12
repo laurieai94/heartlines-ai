@@ -114,7 +114,7 @@ const QuestionnaireContainer = ({
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div id="questionnaire-content" className="flex-1 overflow-y-auto">
           <QuestionnaireContent
             currentSection={currentSection}
             profileData={profileData}

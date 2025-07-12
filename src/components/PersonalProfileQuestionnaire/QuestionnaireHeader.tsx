@@ -32,7 +32,7 @@ const QuestionnaireHeader = ({ onClose, currentSection, totalSections, profileDa
           </div>
           
           <div>
-            <h2 className="text-xs font-bold text-white">Your Profile</h2>
+            <h2 className="text-sm font-bold text-white">Your Profile</h2>
             <p className="text-xs text-white/70">{getSubtitle()}</p>
           </div>
         </div>

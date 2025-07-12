@@ -20,9 +20,8 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
     setIsExpanded(expanded);
     if (expanded) {
       setTimeout(() => {
-        // Find the content scrollable area within the questionnaire container
-        const scrollContainer = document.querySelector('[class*="flex-1"][class*="overflow-y-auto"]') ||
-                               document.querySelector('.overflow-y-auto');
+        // Find the questionnaire content container for reliable scrolling
+        const scrollContainer = document.getElementById('questionnaire-content');
         if (scrollContainer) {
           scrollContainer.scrollTo({
             top: scrollContainer.scrollHeight,
