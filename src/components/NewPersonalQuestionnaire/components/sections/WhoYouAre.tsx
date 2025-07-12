@@ -19,6 +19,15 @@ interface WhoYouAreProps {
 const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll }: WhoYouAreProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
 
+  // Initialize custom pronoun from saved data
+  useEffect(() => {
+    const standardPronouns = ['She/her', 'He/him', 'They/them', 'Other'];
+    if (profileData.pronouns && !standardPronouns.includes(profileData.pronouns)) {
+      // This is a custom pronoun value
+      setCustomPronoun(profileData.pronouns);
+    }
+  }, [profileData.pronouns]);
+
   const ageOptions = [
     'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
   ];
@@ -162,7 +171,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onAu
             </div>
 
             {/* Custom pronoun input */}
-            {profileData.pronouns === 'Other' && (
+            {(profileData.pronouns === 'Other' || (!['She/her', 'He/him', 'They/them'].includes(profileData.pronouns || '') && profileData.pronouns)) && (
               <div className="mt-3 animate-fade-in">
                 <Input
                   type="text"
