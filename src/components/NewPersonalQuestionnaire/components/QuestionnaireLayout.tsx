@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Heart, Sparkles } from "lucide-react";
 import { ProfileData } from "../types";
@@ -28,16 +28,22 @@ const QuestionnaireLayout = ({
   isModal = false
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const overallProgress = calculateProgress(profileData);
   
   const scrollToSection = (sectionNumber: number) => {
+    const container = scrollContainerRef.current;
     const element = document.getElementById(`section-${sectionNumber}`);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start',
-        inline: 'nearest'
+    
+    if (container && element) {
+      const containerRect = container.getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
+      
+      container.scrollTo({
+        top: relativeTop - 32, // Add some padding from top
+        behavior: 'smooth'
       });
     }
   };
@@ -119,7 +125,10 @@ const QuestionnaireLayout = ({
         </div>
 
         {/* Content - Natural Flow with Fixed Padding */}
-        <div className="flex-1 overflow-y-auto">
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto"
+        >
           <div className="py-8 space-y-6">
             
             <div id="section-1" className="px-6">
