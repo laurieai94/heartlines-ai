@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import SectionNavigation from "./SectionNavigation";
@@ -35,51 +35,15 @@ const QuestionnaireContainer = ({
     4: false
   });
 
-  // Bulletproof auto-scroll system
-  const scrollToTop = () => {
-    const container = document.getElementById('questionnaire-content');
-    if (container) {
-      container.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const reliableScrollTo = (elementId: string, retries = 3) => {
-    const attemptScroll = (attempt: number) => {
-      console.log(`[AutoScroll] Attempt ${4 - attempt} for element: ${elementId}`);
-      
-      const element = document.querySelector(`[data-scroll-id="${elementId}"]`);
-      
-      if (!element) {
-        console.log(`[AutoScroll] Element not found: ${elementId}`);
-        if (attempt > 0) {
-          setTimeout(() => attemptScroll(attempt - 1), 200);
-        }
-        return;
-      }
-
-      console.log(`[AutoScroll] Element found, scrolling to: ${elementId}`);
+  const scrollToSection = (sectionNumber: number) => {
+    const element = document.getElementById(`section-${sectionNumber}`);
+    if (element) {
       element.scrollIntoView({ 
         behavior: 'smooth', 
-        block: 'center',
-        inline: 'nearest'
+        block: 'start'
       });
-    };
-
-    // Wait for Radix UI animations, then attempt scroll
-    setTimeout(() => attemptScroll(retries), 800);
+    }
   };
-
-  // Global access for child components
-  useEffect(() => {
-    (window as any).reliableScroll = {
-      toTop: scrollToTop,
-      toElement: reliableScrollTo
-    };
-    
-    return () => {
-      delete (window as any).reliableScroll;
-    };
-  }, []);
 
   const handleNext = () => {
     if (!validateSection(currentSection, profileData)) {
@@ -91,16 +55,15 @@ const QuestionnaireContainer = ({
       const nextSection = currentSection + 1;
       setSectionReadiness(prev => ({ ...prev, [nextSection]: true }));
       setCurrentSection(nextSection);
-      // Scroll to top when moving to next section
-      setTimeout(scrollToTop, 150);
+      setTimeout(() => scrollToSection(nextSection), 100);
     }
   };
 
   const handleBack = () => {
     if (currentSection > 1) {
-      setCurrentSection(currentSection - 1);
-      // Scroll to top when going back
-      setTimeout(scrollToTop, 150);
+      const prevSection = currentSection - 1;
+      setCurrentSection(prevSection);
+      setTimeout(() => scrollToSection(prevSection), 100);
     }
   };
 
@@ -110,7 +73,6 @@ const QuestionnaireContainer = ({
       return;
     }
 
-    // Show success state briefly
     setShowSuccess(true);
     
     setTimeout(() => {
@@ -138,8 +100,7 @@ const QuestionnaireContainer = ({
     if (isAccessible || isCompleted) {
       setCurrentSection(section);
       setSectionReadiness(prev => ({ ...prev, [section]: true }));
-      // Scroll to top when switching sections
-      setTimeout(scrollToTop, 150);
+      setTimeout(() => scrollToSection(section), 100);
     }
   };
 
@@ -166,7 +127,7 @@ const QuestionnaireContainer = ({
           />
         </div>
 
-        <div id="questionnaire-content" className="flex-1 overflow-y-auto flex flex-col">
+        <div className="flex-1 overflow-y-auto">
           <QuestionnaireContent
             currentSection={currentSection}
             profileData={profileData}

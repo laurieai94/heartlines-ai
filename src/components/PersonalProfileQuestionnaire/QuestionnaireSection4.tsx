@@ -1,7 +1,8 @@
 
-import { Heart, MessageCircle } from "lucide-react";
+import { useState } from "react";
+import { Heart, MessageCircle, ChevronDown } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import OptionalFamilyContext from "./OptionalFamilyContext";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface QuestionnaireSection4Props {
   profileData: any;
@@ -16,41 +17,82 @@ const QuestionnaireSection4 = ({
   handleMultiSelect, 
   isReady 
 }: QuestionnaireSection4Props) => {
+  const [isOptionalOpen, setIsOptionalOpen] = useState(false);
+
   if (!isReady) return null;
 
+  const familyEmotionOptions = [
+    "Open & healthy emotional expression",
+    "Happy feelings okay, sad/angry ones shut down",
+    "We weren't an emotions family",
+    "Emotions were unpredictable/overwhelming",
+    "I became the family therapist",
+    "Big emotions were dramatic & scary",
+    "Emotions were used to manipulate",
+    "Everything looked fine but wasn't",
+    "Love expressed but other feelings weren't"
+  ];
+
+  const familySituationOptions = [
+    'Parents married - healthy relationship',
+    'Parents married - typical ups and downs',
+    'Parents married - constant fighting',
+    'Parents divorced when I was young',
+    'Parents divorced when I was older',
+    'Single parent household',
+    'Raised by grandparents/other family',
+    'Foster care/adopted',
+    'Other/complex situation'
+  ];
+
+  const familyConflictOptions = [
+    'Actually talked through problems',
+    'Someone always gave in to avoid drama',
+    'Conflict was avoided at all costs',
+    'Screaming matches were normal',
+    'Silent treatment & passive-aggressive',
+    'I was constantly the peacekeeper',
+    'Arguments felt scary & unpredictable',
+    'One parent always won',
+    'Fight then pretend nothing happened'
+  ];
+
+  const familyLoveOptions = [
+    'Lots of "I love yous" & physical affection',
+    'Love through doing things/helping out',
+    'Love through quality time together',
+    'Love through gifts & buying things',
+    'Love felt conditional - had to earn it',
+    'Love was assumed but rarely shown',
+    'Love felt overwhelming or suffocating',
+    'Love through achievements & making proud',
+    'Love was inconsistent (hot and cold)'
+  ];
+
   return (
-    <div className="space-y-1.5">
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
-        <div className="flex items-center gap-2 mb-1">
+    <div className="space-y-4">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-4">
+        <div className="flex items-center gap-2 mb-2">
           <Heart className="w-4 h-4 text-rose-400" />
           <h3 className="text-base font-semibold text-white">Your Foundation</h3>
         </div>
         
         <div>
-          <Label className="text-sm font-semibold text-white mb-1 block">
+          <Label className="text-sm font-semibold text-white mb-2 block">
             How did emotions work in your family? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageCircle className="w-3 h-3 text-blue-300" />
             <span>This programs how safe you feel being vulnerable</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            {[
-              "Open & healthy emotional expression",
-              "Happy feelings okay, sad/angry ones shut down",
-              "We weren't an emotions family",
-              "Emotions were unpredictable/overwhelming",
-              "I became the family therapist",
-              "Big emotions were dramatic & scary",
-              "Emotions were used to manipulate",
-              "Everything looked fine but wasn't",
-              "Love expressed but other feelings weren't"
-            ].map((value) => (
+            {familyEmotionOptions.map((value) => (
               <button
                 key={value}
                 onClick={() => handleMultiSelect('familyEmotions', value)}
-                className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                  profileData.familyEmotions?.includes(value)
+                className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                  (profileData.familyEmotions || []).includes(value)
                     ? 'questionnaire-button-selected'
                     : 'questionnaire-button-secondary'
                 }`}
@@ -62,11 +104,90 @@ const QuestionnaireSection4 = ({
         </div>
       </div>
 
-      <OptionalFamilyContext
-        profileData={profileData}
-        updateField={updateField}
-        handleMultiSelect={handleMultiSelect}
-      />
+      {/* Optional Family Context */}
+      <Collapsible open={isOptionalOpen} onOpenChange={setIsOptionalOpen}>
+        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
+          <CollapsibleTrigger className="w-full">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-semibold text-white">
+                Want to share more about your family background?
+                <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
+              </Label>
+              <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isOptionalOpen ? 'rotate-180' : ''}`} />
+            </div>
+          </CollapsibleTrigger>
+
+          <CollapsibleContent className="space-y-4 mt-4">
+            {/* Family Situation */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
+              <Label className="text-sm font-semibold text-white">
+                Family structure growing up:
+              </Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {familySituationOptions.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => updateField('familySituation', option)}
+                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                      profileData.familySituation === option
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Family Conflict */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
+              <Label className="text-sm font-semibold text-white">
+                How did your family handle conflict?
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+              </Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {familyConflictOptions.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleMultiSelect('familyConflict', option)}
+                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                      (profileData.familyConflict || []).includes(option)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Family Love */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
+              <Label className="text-sm font-semibold text-white">
+                How was love typically shown?
+                <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+              </Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {familyLoveOptions.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleMultiSelect('familyLove', option)}
+                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                      (profileData.familyLove || []).includes(option)
+                        ? 'questionnaire-button-selected'
+                        : 'questionnaire-button-secondary'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
     </div>
   );
 };

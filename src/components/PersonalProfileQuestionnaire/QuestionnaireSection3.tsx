@@ -16,13 +16,6 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
 
   if (!isReady) return null;
 
-  const handleOptionalToggle = (expanded: boolean) => {
-    setIsOptionalOpen(expanded);
-    if (expanded && (window as any).simpleScroll) {
-      (window as any).simpleScroll.toVisible('deeper-section');
-    }
-  };
-
   const stressResponseOptions = [
     'Get quiet & need space',
     'Want to talk it out immediately', 
@@ -70,16 +63,16 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-4">
       {/* Stress Response */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div>
-          <Label className="text-sm font-semibold text-white mb-1 block">
+          <Label className="text-sm font-semibold text-white mb-2 block">
             When you're stressed, what's your go-to? 
             <span className="text-red-400 ml-1">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <Zap className="w-3 h-3 text-orange-300" />
             <span>Stress patterns affect how you show up in relationships</span>
           </div>
@@ -90,7 +83,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
-              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.stressResponse || []).includes(response)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -103,14 +96,14 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
       </div>
 
       {/* Love Language */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div>
-          <Label className="text-sm font-semibold text-white mb-1 block">
+          <Label className="text-sm font-semibold text-white mb-2 block">
             How do you feel most loved? 
             <span className="text-red-400 ml-1">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <Heart className="w-3 h-3 text-pink-300" />
             <span>Understanding your needs helps you communicate them</span>
           </div>
@@ -121,7 +114,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             <button
               key={language}
               onClick={() => handleMultiSelect('loveLanguage', language)}
-              className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveLanguage || []).includes(language)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -133,9 +126,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
         </div>
       </div>
 
-      {/* Optional Section - Standardized Bar Design */}
-      <Collapsible open={isOptionalOpen} onOpenChange={handleOptionalToggle}>
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5" data-scroll-id="deeper-section">
+      {/* Optional Section */}
+      <Collapsible open={isOptionalOpen} onOpenChange={setIsOptionalOpen}>
+        <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4">
           <CollapsibleTrigger className="w-full">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-semibold text-white">
@@ -146,15 +139,15 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             </div>
           </CollapsibleTrigger>
 
-          <CollapsibleContent className="space-y-3">
+          <CollapsibleContent className="space-y-4 mt-4">
             {/* Conflict Needs */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
               <div>
-                <Label className="text-sm font-semibold text-white mb-1 block">
+                <Label className="text-sm font-semibold text-white mb-2 block">
                   When you're in conflict, what do you actually need?
                   <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
                 </Label>
-                <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-1">
+                <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
                   <MessageCircle className="w-3 h-3 text-blue-300" />
                   <span>Knowing what you need during fights changes everything</span>
                 </div>
@@ -165,7 +158,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   <button
                     key={need}
                     onClick={() => handleMultiSelect('conflictNeeds', need)}
-                    className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                       (profileData.conflictNeeds || []).includes(need)
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'
@@ -178,12 +171,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
             </div>
 
             {/* Attachment Style */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
               <div>
-                <Label className="text-sm font-semibold text-white mb-1 block">
+                <Label className="text-sm font-semibold text-white mb-2 block">
                   What's your attachment style?
                 </Label>
-                <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+                <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
                   <Users className="w-3 h-3 text-orange-300" />
                   <span>The psychological patterns that run your relationships</span>
                 </div>
@@ -194,7 +187,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                   <button
                     key={style}
                     onClick={() => updateField('attachmentStyle', style)}
-                    className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                       profileData.attachmentStyle === style
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'

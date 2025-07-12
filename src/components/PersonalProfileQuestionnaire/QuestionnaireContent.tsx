@@ -22,31 +22,42 @@ const QuestionnaireContent = ({
 }: QuestionnaireContentProps) => {
   return (
     <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-      <div className="px-1.5 py-8 min-h-full space-y-2">
-        <QuestionnaireSection1 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[1] && currentSection === 1}
-        />
-        <QuestionnaireSection2 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[2] && currentSection === 2}
-        />
-        <QuestionnaireSection3 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[3] && currentSection === 3}
-        />
-        <QuestionnaireSection4 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isReady={sectionReadiness[4] && currentSection === 4}
-        />
+      <div className="px-4 py-8 space-y-8">
+        <div id="section-1">
+          <QuestionnaireSection1 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={sectionReadiness[1]}
+          />
+        </div>
+        
+        <div id="section-2">
+          <QuestionnaireSection2 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={sectionReadiness[2]}
+          />
+        </div>
+        
+        <div id="section-3">
+          <QuestionnaireSection3 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={sectionReadiness[3]}
+          />
+        </div>
+        
+        <div id="section-4">
+          <QuestionnaireSection4 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isReady={sectionReadiness[4]}
+          />
+        </div>
       </div>
     </div>
   );

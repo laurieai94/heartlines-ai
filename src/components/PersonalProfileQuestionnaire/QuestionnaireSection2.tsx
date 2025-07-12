@@ -14,50 +14,38 @@ interface QuestionnaireSection2Props {
 const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, isReady }: QuestionnaireSection2Props) => {
   if (!isReady) return null;
 
-  // Check if user should see relationship challenges (not single/casual dating)
-  const showRelationshipChallenges = profileData.relationshipStatus && 
-    ['Talking to someone', 'In a relationship', 'Engaged', 'Married', 'Separated/Divorced', 'It\'s complicated'].includes(profileData.relationshipStatus);
-  
-  // Check if user is in a defined relationship that has a length (not casual/complicated)
-  const hasRelationshipLength = profileData.relationshipStatus && 
-    ['In a relationship', 'Engaged', 'Married', 'Separated/Divorced'].includes(profileData.relationshipStatus);
-
-  // Check if user is single/dating (trigger for additional questions)
-  const isSingleOrDating = profileData.relationshipStatus && 
-    ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+  const relationshipStatus = profileData.relationshipStatus;
+  const isSingle = relationshipStatus && ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(relationshipStatus);
+  const hasRelationship = relationshipStatus && ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(relationshipStatus);
 
   return (
-    <div className="space-y-1.5">
-      {/* Relationship Status - Main Question */}
+    <div className="space-y-4">
       <RelationshipStatusSelector 
         profileData={profileData}
         updateField={updateField}
       />
 
-      {/* Conditional Dating Questions for Single/Dating Users */}
-      {isSingleOrDating && (
+      {isSingle && (
         <DatingQuestions 
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}
         />
       )}
 
-      {/* Conditional Relationship Length */}
-      {hasRelationshipLength && (
-        <RelationshipLengthSelector 
-          profileData={profileData}
-          updateField={updateField}
-        />
-      )}
-
-      {/* Conditional Relationship Challenges */}
-      {showRelationshipChallenges && (
-        <RelationshipQuestions 
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          relationshipStatus={profileData.relationshipStatus}
-        />
+      {hasRelationship && (
+        <>
+          <RelationshipLengthSelector 
+            profileData={profileData}
+            updateField={updateField}
+          />
+          
+          <RelationshipQuestions 
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            relationshipStatus={relationshipStatus}
+          />
+        </>
       )}
     </div>
   );
