@@ -26,6 +26,7 @@ const QuestionnaireLayout = ({
   isModal = false
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
+  const [scrollToSectionFn, setScrollToSectionFn] = useState<((section: number) => void) | null>(null);
   
   const overallProgress = calculateProgress(profileData);
 
@@ -35,12 +36,20 @@ const QuestionnaireLayout = ({
     
     if (isCurrentSectionComplete && currentSection < 4) {
       const timer = setTimeout(() => {
-        setCurrentSection(currentSection + 1);
+        const nextSection = currentSection + 1;
+        setCurrentSection(nextSection);
+        
+        // Auto-scroll to next section after brief delay
+        if (scrollToSectionFn) {
+          setTimeout(() => {
+            scrollToSectionFn(nextSection);
+          }, 200);
+        }
       }, 800); // Brief delay to show section completion
       
       return () => clearTimeout(timer);
     }
-  }, [currentSection, profileData]);
+  }, [currentSection, profileData, scrollToSectionFn]);
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
@@ -82,6 +91,7 @@ const QuestionnaireLayout = ({
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
           currentSection={currentSection}
+          onScrollToSection={setScrollToSectionFn}
         />
 
         <div className="p-4 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">

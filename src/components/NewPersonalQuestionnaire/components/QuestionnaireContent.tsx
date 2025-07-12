@@ -1,5 +1,5 @@
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ProfileData } from "../types";
 import WhoYouAre from "./sections/WhoYouAre";
 import YourRelationship from "./sections/YourRelationship";
@@ -11,13 +11,15 @@ interface QuestionnaireContentProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   currentSection: number;
+  onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
 }
 
 const QuestionnaireContent = ({
   profileData,
   updateField,
   handleMultiSelect,
-  currentSection
+  currentSection,
+  onScrollToSection
 }: QuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +38,13 @@ const QuestionnaireContent = ({
       });
     }
   };
+
+  // Expose scroll function to parent
+  useEffect(() => {
+    if (onScrollToSection) {
+      onScrollToSection(scrollToSection);
+    }
+  }, [onScrollToSection]);
 
   return (
     <div 
