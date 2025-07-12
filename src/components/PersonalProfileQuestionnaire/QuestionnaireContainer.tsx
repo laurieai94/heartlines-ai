@@ -46,17 +46,7 @@ const QuestionnaireContainer = ({
     }
   };
 
-  const scrollToBottom = () => {
-    const scrollContainer = document.getElementById('questionnaire-content');
-    if (scrollContainer) {
-      scrollContainer.scrollTo({
-        top: scrollContainer.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const scrollToElement = (elementId: string) => {
+  const scrollToMakeVisible = (elementId: string) => {
     setTimeout(() => {
       const scrollContainer = document.getElementById('questionnaire-content');
       if (scrollContainer) {
@@ -64,19 +54,43 @@ const QuestionnaireContainer = ({
         if (element) {
           element.scrollIntoView({
             behavior: 'smooth',
-            block: 'start',
+            block: 'center',
             inline: 'nearest'
           });
         }
       }
-    }, 200);
+    }, 500);
+  };
+
+  const scrollToCenter = (elementId: string) => {
+    setTimeout(() => {
+      const scrollContainer = document.getElementById('questionnaire-content');
+      if (scrollContainer) {
+        const element = scrollContainer.querySelector(`[data-scroll-id="${elementId}"]`);
+        if (element) {
+          const containerRect = scrollContainer.getBoundingClientRect();
+          const elementRect = element.getBoundingClientRect();
+          const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - containerRect.height / 2 + elementRect.height / 2;
+          
+          scrollContainer.scrollTo({
+            top: scrollTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 500);
+  };
+
+  const scrollToElement = (elementId: string) => {
+    scrollToMakeVisible(elementId);
   };
 
   // Provide scroll functions globally for child components
   useEffect(() => {
     (window as any).globalScrollUtils = {
       scrollToTop,
-      scrollToBottom,
+      scrollToMakeVisible,
+      scrollToCenter,
       scrollToElement
     };
     

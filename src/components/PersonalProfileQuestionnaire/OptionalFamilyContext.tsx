@@ -20,8 +20,8 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
     setIsExpanded(expanded);
     if (expanded && (window as any).globalScrollUtils) {
       setTimeout(() => {
-        (window as any).globalScrollUtils.scrollToBottom();
-      }, 300); // Wait for expansion animation
+        (window as any).globalScrollUtils.scrollToCenter('family-context');
+      }, 500); // Wait for expansion animation
     }
   };
 
