@@ -22,7 +22,7 @@ const QuestionnaireContent = ({
 }: QuestionnaireContentProps) => {
   return (
     <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-      <div className="px-1.5 py-1 min-h-fit">
+      <div className="px-1.5 py-3 min-h-fit">
         <QuestionnaireSection1 
           profileData={profileData}
           updateField={updateField}

@@ -18,10 +18,8 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
 
   const handleToggle = (expanded: boolean) => {
     setIsExpanded(expanded);
-    if (expanded && (window as any).globalScrollUtils) {
-      setTimeout(() => {
-        (window as any).globalScrollUtils.scrollToCenter('family-context');
-      }, 500); // Wait for expansion animation
+    if (expanded && (window as any).simpleScroll) {
+      (window as any).simpleScroll.toVisible('family-context');
     }
   };
 

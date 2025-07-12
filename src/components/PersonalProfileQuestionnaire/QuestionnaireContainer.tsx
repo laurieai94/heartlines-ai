@@ -35,67 +35,53 @@ const QuestionnaireContainer = ({
     4: false
   });
 
-  // Global scroll utility functions
+  // Simple, reliable scroll system
   const scrollToTop = () => {
-    const scrollContainer = document.getElementById('questionnaire-content');
-    if (scrollContainer) {
-      scrollContainer.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+    const container = document.getElementById('questionnaire-content');
+    if (container) {
+      container.scrollTop = 0;
     }
   };
 
-  const scrollToMakeVisible = (elementId: string) => {
+  const scrollToVisible = (elementId: string, delay = 600) => {
     setTimeout(() => {
-      const scrollContainer = document.getElementById('questionnaire-content');
-      if (scrollContainer) {
-        const element = scrollContainer.querySelector(`[data-scroll-id="${elementId}"]`);
-        if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'nearest'
-          });
-        }
-      }
-    }, 500);
-  };
-
-  const scrollToCenter = (elementId: string) => {
-    setTimeout(() => {
-      const scrollContainer = document.getElementById('questionnaire-content');
-      if (scrollContainer) {
-        const element = scrollContainer.querySelector(`[data-scroll-id="${elementId}"]`);
-        if (element) {
-          const containerRect = scrollContainer.getBoundingClientRect();
-          const elementRect = element.getBoundingClientRect();
-          const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - containerRect.height / 2 + elementRect.height / 2;
-          
-          scrollContainer.scrollTo({
-            top: scrollTop,
+      const container = document.getElementById('questionnaire-content');
+      const element = document.querySelector(`[data-scroll-id="${elementId}"]`);
+      
+      if (container && element) {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        const containerTop = container.scrollTop;
+        
+        // Calculate element position relative to container
+        const elementTop = containerTop + (elementRect.top - containerRect.top);
+        const elementBottom = elementTop + elementRect.height;
+        
+        // Check if element is fully visible
+        const viewportTop = containerTop;
+        const viewportBottom = containerTop + containerRect.height;
+        
+        if (elementTop < viewportTop || elementBottom > viewportBottom) {
+          // Scroll to center the element
+          const scrollTarget = elementTop - (containerRect.height / 2) + (elementRect.height / 2);
+          container.scrollTo({
+            top: Math.max(0, scrollTarget),
             behavior: 'smooth'
           });
         }
       }
-    }, 500);
+    }, delay);
   };
 
-  const scrollToElement = (elementId: string) => {
-    scrollToMakeVisible(elementId);
-  };
-
-  // Provide scroll functions globally for child components
+  // Global access for child components
   useEffect(() => {
-    (window as any).globalScrollUtils = {
-      scrollToTop,
-      scrollToMakeVisible,
-      scrollToCenter,
-      scrollToElement
+    (window as any).simpleScroll = {
+      toTop: scrollToTop,
+      toVisible: scrollToVisible
     };
     
     return () => {
-      delete (window as any).globalScrollUtils;
+      delete (window as any).simpleScroll;
     };
   }, []);
 
@@ -109,16 +95,16 @@ const QuestionnaireContainer = ({
       const nextSection = currentSection + 1;
       setSectionReadiness(prev => ({ ...prev, [nextSection]: true }));
       setCurrentSection(nextSection);
-      // Auto-scroll to top when moving to next section
-      setTimeout(() => scrollToTop(), 100);
+      // Scroll to top when moving to next section
+      setTimeout(scrollToTop, 150);
     }
   };
 
   const handleBack = () => {
     if (currentSection > 1) {
       setCurrentSection(currentSection - 1);
-      // Auto-scroll to top when going back
-      setTimeout(() => scrollToTop(), 100);
+      // Scroll to top when going back
+      setTimeout(scrollToTop, 150);
     }
   };
 
@@ -156,8 +142,8 @@ const QuestionnaireContainer = ({
     if (isAccessible || isCompleted) {
       setCurrentSection(section);
       setSectionReadiness(prev => ({ ...prev, [section]: true }));
-      // Auto-scroll to top when switching sections
-      setTimeout(() => scrollToTop(), 100);
+      // Scroll to top when switching sections
+      setTimeout(scrollToTop, 150);
     }
   };
 
