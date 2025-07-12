@@ -17,7 +17,7 @@ const RelationshipChallenges = ({ profileData, handleMultiSelect }: Relationship
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
-          <AlertTriangle className="w-3 h-3 text-coral-400" />
+          <AlertTriangle className="w-3 h-3 text-yellow-300" />
           <span>The things actually driving you crazy</span>
         </div>
       </div>

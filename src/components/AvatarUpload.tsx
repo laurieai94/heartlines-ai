@@ -49,15 +49,15 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUplo
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="relative group">
-        <Avatar className="w-24 h-24 border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-coral-300 via-coral-400 to-coral-500">
+        <Avatar className="w-24 h-24 border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500">
           <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} />
-          <AvatarFallback className="bg-gradient-to-br from-coral-300 via-coral-400 to-coral-500 text-white text-2xl font-bold shadow-inner">
+          <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white text-2xl font-bold shadow-inner">
             {userName ? userName.charAt(0).toUpperCase() : <User className="w-8 h-8" />}
           </AvatarFallback>
         </Avatar>
         
         {/* Bright center indicator */}
-        <div className="absolute top-1 right-1 w-6 h-6 bg-gradient-to-br from-coral-300 to-coral-400 rounded-full animate-pulse shadow-lg border-2 border-white"></div>
+        <div className="absolute top-1 right-1 w-6 h-6 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg border-2 border-white"></div>
         
         <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <Camera className="w-6 h-6 text-white" />
