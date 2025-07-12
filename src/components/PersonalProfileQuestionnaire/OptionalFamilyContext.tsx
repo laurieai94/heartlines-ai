@@ -18,8 +18,8 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
 
   const handleToggle = (expanded: boolean) => {
     setIsExpanded(expanded);
-    if (expanded && (window as any).simpleScroll) {
-      (window as any).simpleScroll.toVisible('family-context');
+    if (expanded && (window as any).reliableScroll) {
+      (window as any).reliableScroll.toElement('family-context');
     }
   };
 

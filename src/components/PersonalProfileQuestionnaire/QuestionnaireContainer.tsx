@@ -35,53 +35,49 @@ const QuestionnaireContainer = ({
     4: false
   });
 
-  // Simple, reliable scroll system
+  // Bulletproof auto-scroll system
   const scrollToTop = () => {
     const container = document.getElementById('questionnaire-content');
     if (container) {
-      container.scrollTop = 0;
+      container.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  const scrollToVisible = (elementId: string, delay = 600) => {
-    setTimeout(() => {
-      const container = document.getElementById('questionnaire-content');
+  const reliableScrollTo = (elementId: string, retries = 3) => {
+    const attemptScroll = (attempt: number) => {
+      console.log(`[AutoScroll] Attempt ${4 - attempt} for element: ${elementId}`);
+      
       const element = document.querySelector(`[data-scroll-id="${elementId}"]`);
       
-      if (container && element) {
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = element.getBoundingClientRect();
-        const containerTop = container.scrollTop;
-        
-        // Calculate element position relative to container
-        const elementTop = containerTop + (elementRect.top - containerRect.top);
-        const elementBottom = elementTop + elementRect.height;
-        
-        // Check if element is fully visible
-        const viewportTop = containerTop;
-        const viewportBottom = containerTop + containerRect.height;
-        
-        if (elementTop < viewportTop || elementBottom > viewportBottom) {
-          // Scroll to center the element
-          const scrollTarget = elementTop - (containerRect.height / 2) + (elementRect.height / 2);
-          container.scrollTo({
-            top: Math.max(0, scrollTarget),
-            behavior: 'smooth'
-          });
+      if (!element) {
+        console.log(`[AutoScroll] Element not found: ${elementId}`);
+        if (attempt > 0) {
+          setTimeout(() => attemptScroll(attempt - 1), 200);
         }
+        return;
       }
-    }, delay);
+
+      console.log(`[AutoScroll] Element found, scrolling to: ${elementId}`);
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center',
+        inline: 'nearest'
+      });
+    };
+
+    // Wait for Radix UI animations, then attempt scroll
+    setTimeout(() => attemptScroll(retries), 800);
   };
 
   // Global access for child components
   useEffect(() => {
-    (window as any).simpleScroll = {
+    (window as any).reliableScroll = {
       toTop: scrollToTop,
-      toVisible: scrollToVisible
+      toElement: reliableScrollTo
     };
     
     return () => {
-      delete (window as any).simpleScroll;
+      delete (window as any).reliableScroll;
     };
   }, []);
 
