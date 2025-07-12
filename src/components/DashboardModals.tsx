@@ -63,7 +63,7 @@ const DashboardModals = ({
           onWheel={(e) => e.stopPropagation()}
         >
           <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={onQuestionnaireClose}
             onWheel={(e) => e.preventDefault()}
           />
@@ -88,7 +88,7 @@ const DashboardModals = ({
           onWheel={(e) => e.stopPropagation()}
         >
           <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={onPartnerQuestionnaireClose}
             onWheel={(e) => e.preventDefault()}
           />
