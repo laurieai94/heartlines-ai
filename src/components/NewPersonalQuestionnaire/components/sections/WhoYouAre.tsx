@@ -1,0 +1,158 @@
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { User, Calendar, Compass, MessageCircle } from "lucide-react";
+import { ProfileData } from "../../types";
+import QuestionCard from "../shared/QuestionCard";
+import MultiSelect from "../shared/MultiSelect";
+import SingleSelect from "../shared/SingleSelect";
+
+interface WhoYouAreProps {
+  profileData: ProfileData;
+  updateField: (field: keyof ProfileData, value: any) => void;
+  handleMultiSelect: (field: keyof ProfileData, value: string) => void;
+  isActive: boolean;
+}
+
+const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: WhoYouAreProps) => {
+  const ageOptions = [
+    'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
+  ];
+
+  const orientationOptions = [
+    'Straight/Heterosexual', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
+    'Queer', 'Asexual', 'Questioning', 'Prefer to self-describe'
+  ];
+
+  const genderOptions = [
+    'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
+    'Genderfluid', 'Questioning', 'Prefer to self-describe'
+  ];
+
+  const pronounOptions = [
+    'She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name', 'Other'
+  ];
+
+  const generateAvatar = (name: string) => {
+    if (!name) {
+      return (
+        <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
+          <User className="w-8 h-8 text-white/60" />
+        </div>
+      );
+    }
+    return (
+      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
+        {name.charAt(0).toUpperCase()}
+      </div>
+    );
+  };
+
+  return (
+    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+      <div className="flex items-center gap-2 mb-4">
+        <User className="w-5 h-5 text-rose-400" />
+        <h3 className="text-xl font-bold text-white">Who You Are</h3>
+      </div>
+
+      {/* Name and Avatar */}
+      <QuestionCard>
+        <div className="flex items-center gap-6">
+          <div className="flex-shrink-0">
+            {generateAvatar(profileData.name || '')}
+          </div>
+          <div className="flex-1">
+            <Label htmlFor="name" className="text-sm font-semibold text-white mb-2 block">
+              What should we call you? <span className="text-red-400">*</span>
+            </Label>
+            <Input
+              id="name"
+              type="text"
+              value={profileData.name || ''}
+              onChange={(e) => updateField('name', e.target.value)}
+              placeholder="Your name"
+              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium"
+            />
+          </div>
+        </div>
+      </QuestionCard>
+
+      {/* Age */}
+      <QuestionCard>
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          What's your age? <span className="text-red-400">*</span>
+        </Label>
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <Calendar className="w-3 h-3 text-orange-300" />
+          <span>Different life stages = different relationship challenges</span>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          {ageOptions.map((age) => (
+            <button
+              key={age}
+              onClick={() => updateField('age', age)}
+              className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
+                profileData.age === age
+                  ? 'questionnaire-button-selected'
+                  : 'questionnaire-button-secondary'
+              }`}
+            >
+              {age}
+            </button>
+          ))}
+        </div>
+      </QuestionCard>
+
+      {/* Sexual Orientation */}
+      <QuestionCard>
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          What's your sexual orientation? <span className="text-red-400">*</span>
+          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        </Label>
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <Compass className="w-3 h-3 text-pink-300" />
+          <span>Because straight dating advice doesn't work for everyone</span>
+        </div>
+        <MultiSelect
+          options={orientationOptions}
+          selectedValues={profileData.orientation || []}
+          onToggle={(value) => handleMultiSelect('orientation', value)}
+        />
+      </QuestionCard>
+
+      {/* Pronouns */}
+      <QuestionCard>
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          What pronouns do you use? <span className="text-red-400">*</span>
+        </Label>
+        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <MessageCircle className="w-3 h-3 text-green-300" />
+          <span>So we can refer to you correctly</span>
+        </div>
+        <SingleSelect
+          options={pronounOptions}
+          selectedValue={profileData.pronouns || ''}
+          onSelect={(value) => updateField('pronouns', value)}
+        />
+      </QuestionCard>
+
+      {/* Gender (Optional) */}
+      <QuestionCard className="opacity-80">
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          Gender identity? 
+          <span className="text-orange-300 font-medium text-xs ml-2">(Optional - Select all that resonate)</span>
+        </Label>
+        <div className="text-xs text-white/70 font-normal mb-3">
+          We get that gender is complex and personal
+        </div>
+        <MultiSelect
+          options={genderOptions}
+          selectedValues={profileData.gender || []}
+          onToggle={(value) => handleMultiSelect('gender', value)}
+        />
+      </QuestionCard>
+    </div>
+  );
+};
+
+export default WhoYouAre;

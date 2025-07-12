@@ -1,0 +1,94 @@
+
+import { ProfileData } from '../types';
+
+export const validateSection = (section: number, profileData: ProfileData): boolean => {
+  switch (section) {
+    case 1: {
+      // Who You Are: name, age, orientation, pronouns required
+      const required = ['name', 'age', 'orientation', 'pronouns'];
+      return required.every(field => {
+        const value = profileData[field as keyof ProfileData];
+        return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+      });
+    }
+    case 2: {
+      // Your Relationship: relationshipStatus required + conditional fields
+      if (!profileData.relationshipStatus) return false;
+      
+      const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+      const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+      
+      if (isSingle) {
+        return (profileData.datingChallenges || []).length > 0;
+      }
+      
+      if (hasRelationship) {
+        return profileData.relationshipLength && 
+               (profileData.relationshipChallenges || []).length > 0 && 
+               (profileData.relationshipWorking || []).length > 0;
+      }
+      
+      return true; // For other statuses like "It's complicated"
+    }
+    case 3: {
+      // How You Operate: stressResponse and loveLanguage required
+      return (profileData.stressResponse || []).length > 0 && 
+             (profileData.loveLanguage || []).length > 0;
+    }
+    case 4: {
+      // Your Foundation: familyDynamics required
+      return (profileData.familyDynamics || []).length > 0;
+    }
+    default:
+      return true;
+  }
+};
+
+export const calculateProgress = (profileData: ProfileData): number => {
+  let totalRequired = 0;
+  let totalCompleted = 0;
+  
+  // Section 1: 4 required fields
+  const section1Required = ['name', 'age', 'orientation', 'pronouns'];
+  const section1Completed = section1Required.filter(field => {
+    const value = profileData[field as keyof ProfileData];
+    return value && (Array.isArray(value) ? value.length > 0 : value.trim() !== '');
+  }).length;
+  
+  totalRequired += 4;
+  totalCompleted += section1Completed;
+  
+  // Section 2: Variable based on relationship status
+  if (profileData.relationshipStatus) {
+    totalRequired += 1;
+    totalCompleted += 1;
+    
+    const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+    const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+    
+    if (isSingle) {
+      totalRequired += 1;
+      if ((profileData.datingChallenges || []).length > 0) totalCompleted += 1;
+    }
+    
+    if (hasRelationship) {
+      totalRequired += 3;
+      if (profileData.relationshipLength) totalCompleted += 1;
+      if ((profileData.relationshipChallenges || []).length > 0) totalCompleted += 1;
+      if ((profileData.relationshipWorking || []).length > 0) totalCompleted += 1;
+    }
+  } else {
+    totalRequired += 1;
+  }
+  
+  // Section 3: 2 required fields
+  totalRequired += 2;
+  if ((profileData.stressResponse || []).length > 0) totalCompleted += 1;
+  if ((profileData.loveLanguage || []).length > 0) totalCompleted += 1;
+  
+  // Section 4: 1 required field
+  totalRequired += 1;
+  if ((profileData.familyDynamics || []).length > 0) totalCompleted += 1;
+  
+  return totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+};
