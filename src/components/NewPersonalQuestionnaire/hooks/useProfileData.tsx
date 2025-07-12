@@ -53,7 +53,7 @@ export const useProfileData = () => {
       }
 
       if (data?.profile_data) {
-        setProfileData({ ...defaultProfileData, ...(data.profile_data as ProfileData) });
+        setProfileData({ ...defaultProfileData, ...(data.profile_data as unknown as ProfileData) });
       }
     } catch (error) {
       console.error('Error loading profile:', error);
