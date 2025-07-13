@@ -36,13 +36,15 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   ];
 
   const datingChallengesOptions = [
-    'Finding people who want the same thing I do',
-    'Getting past the first few dates into something deeper',
-    'Setting boundaries and not settling for less than I deserve',
-    'Dating anxiety and putting myself out there',
-    'Getting over past relationship patterns that keep showing up',
-    'Being authentic while still trying to make a good impression',
-    'Online dating fatigue and app overwhelm'
+    'Finding my person in a sea of players',
+    'Moving past surface-level conversations',
+    'Dating anxiety is real',
+    'Not settling but also not being too picky',
+    'Being myself without scaring people off',
+    'Apps are exhausting',
+    'Repeating the same relationship mistakes',
+    'Wanting love but also my own life',
+    'Figuring out when someone\'s worth it'
   ];
 
   const relationshipChallengesOptions = [
