@@ -15,6 +15,10 @@ export interface ProfileData {
   relationshipWorking: string[];
   datingChallenges: string[];
   
+  // Separated/Divorced specific fields
+  separationSituation: string[];
+  datingReadiness: string[];
+  
   // Section 3: How You Operate
   stressResponse: string[];
   conflictStyle: string[];

@@ -27,8 +27,9 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       }
       
       const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-      const isTalking = profileData.relationshipStatus === 'Talking to someone';
+      const isTalking = profileData.relationshipStatus === 'Talking/Getting to know someone';
       const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+      const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
       
       if (isSingle) {
         isValid = (profileData.datingChallenges || []).length > 0;
@@ -38,6 +39,9 @@ export const validateSection = (section: number, profileData: ProfileData): bool
         isValid = profileData.relationshipLength && 
                  (profileData.relationshipChallenges || []).length > 0 && 
                  (profileData.relationshipWorking || []).length > 0;
+      } else if (isSeparatedDivorced) {
+        isValid = (profileData.separationSituation || []).length > 0 && 
+                 (profileData.datingReadiness || []).length > 0;
       } else {
         isValid = true; // For other statuses like "It's complicated"
       }
@@ -86,8 +90,9 @@ export const calculateProgress = (profileData: ProfileData): number => {
     totalCompleted += 1;
     
     const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-    const isTalking = profileData.relationshipStatus === 'Talking to someone';
+    const isTalking = profileData.relationshipStatus === 'Talking/Getting to know someone';
     const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+    const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
     
     if (isSingle) {
       totalRequired += 1;
@@ -104,6 +109,12 @@ export const calculateProgress = (profileData: ProfileData): number => {
       if (profileData.relationshipLength) totalCompleted += 1;
       if ((profileData.relationshipChallenges || []).length > 0) totalCompleted += 1;
       if ((profileData.relationshipWorking || []).length > 0) totalCompleted += 1;
+    }
+    
+    if (isSeparatedDivorced) {
+      totalRequired += 2;
+      if ((profileData.separationSituation || []).length > 0) totalCompleted += 1;
+      if ((profileData.datingReadiness || []).length > 0) totalCompleted += 1;
     }
   } else {
     totalRequired += 1;

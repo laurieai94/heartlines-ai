@@ -21,6 +21,10 @@ const defaultProfileData: ProfileData = {
   relationshipWorking: [],
   datingChallenges: [],
   
+  // Separated/Divorced specific fields
+  separationSituation: [],
+  datingReadiness: [],
+  
   // Section 3: How You Operate
   stressResponse: [],
   conflictStyle: [],

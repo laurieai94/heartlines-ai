@@ -83,9 +83,28 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
     'We\'re building something real together'
   ];
 
+  const separationSituationOptions = [
+    'Recently separated (less than 6 months)',
+    'Separated for a while (6+ months)',
+    'Divorce in progress (paperwork and legal stuff)',
+    'Divorce finalized (officially done)',
+    'Dating again (putting myself out there)',
+    'Taking time to heal (focusing on me right now)'
+  ];
+
+  const datingReadinessOptions = [
+    'Not ready to date yet (working on myself first)',
+    'Casually dating (seeing what\'s out there)',
+    'Ready for something serious (want real partnership again)',
+    'Taking it day by day (no rush, no pressure)',
+    'Focused on co-parenting (kids are the priority)',
+    'Want better relationship skills (learning for the future)'
+  ];
+
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const isTalking = profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+  const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
 
   // Question completion checks
   const isStatusComplete = profileData.relationshipStatus;
@@ -94,6 +113,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
   const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
   const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
+  const isSeparationSituationComplete = isSeparatedDivorced ? (profileData.separationSituation && profileData.separationSituation.length > 0) : true;
+  const isDatingReadinessComplete = isSeparatedDivorced ? (profileData.datingReadiness && profileData.datingReadiness.length > 0) : true;
   
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
@@ -119,7 +140,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
         showContinue={isStatusComplete && (
           (isSingle && !isDatingChallengesComplete) ||
           (isTalking && !isTalkingDurationComplete) ||
-          (hasRelationship && !isLengthComplete)
+          (hasRelationship && !isLengthComplete) ||
+          (isSeparatedDivorced && !isSeparationSituationComplete)
         )}
         onContinue={() => {
           if (isSingle) {
@@ -128,6 +150,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
             scrollToQuestion('question-talking-duration');
           } else if (hasRelationship) {
             scrollToQuestion('question-relationship-length');
+          } else if (isSeparatedDivorced) {
+            scrollToQuestion('question-separation-situation');
           }
         }}
       >
@@ -256,6 +280,49 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
             options={relationshipWorkingOptions}
             selectedValues={profileData.relationshipWorking || []}
             onToggle={(value) => handleMultiSelect('relationshipWorking', value)}
+          />
+        </QuestionCard>
+      )}
+
+      {/* Separated/Divorced specific questions */}
+      {isSeparatedDivorced && (
+        <QuestionCard 
+          questionId="question-separation-situation"
+          showContinue={isSeparationSituationComplete && !isDatingReadinessComplete}
+          onContinue={() => scrollToQuestion('question-dating-readiness')}
+        >
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            What's your situation right now? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+            <Heart className="w-3 h-3 text-blue-300" />
+            <span>Help us understand your journey</span>
+          </div>
+          <MultiSelect
+            options={separationSituationOptions}
+            selectedValues={profileData.separationSituation || []}
+            onToggle={(value) => handleMultiSelect('separationSituation', value)}
+            columns={2}
+          />
+        </QuestionCard>
+      )}
+
+      {isSeparatedDivorced && (
+        <QuestionCard questionId="question-dating-readiness">
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            Where are you at with dating/relationships? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+            <Heart className="w-3 h-3 text-purple-300" />
+            <span>We want to support you wherever you are</span>
+          </div>
+          <MultiSelect
+            options={datingReadinessOptions}
+            selectedValues={profileData.datingReadiness || []}
+            onToggle={(value) => handleMultiSelect('datingReadiness', value)}
+            columns={2}
           />
         </QuestionCard>
       )}
