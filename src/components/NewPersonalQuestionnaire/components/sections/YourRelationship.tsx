@@ -257,7 +257,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How would you describe what you have right now? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - help us understand your vibe</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
