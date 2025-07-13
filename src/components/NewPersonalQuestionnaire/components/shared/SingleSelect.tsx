@@ -1,4 +1,5 @@
 
+
 interface SingleSelectProps {
   options: string[];
   selectedValue: string;
@@ -11,9 +12,9 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3 }: SingleS
     switch (cols) {
       case 1: return 'grid-cols-1';
       case 2: return 'grid-cols-2 sm:grid-cols-2';
-      case 3: return 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-3';
+      case 3: return 'grid-cols-3';
       case 4: return 'grid-cols-2 sm:grid-cols-4 lg:grid-cols-4';
-      default: return 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-3';
+      default: return 'grid-cols-3';
     }
   };
 
@@ -37,3 +38,4 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3 }: SingleS
 };
 
 export default SingleSelect;
+
