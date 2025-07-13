@@ -44,6 +44,13 @@ const QuestionnaireLayout = ({
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
+    
+    // Scroll to the selected section
+    if (scrollToSectionFn) {
+      setTimeout(() => {
+        scrollToSectionFn(section);
+      }, 100);
+    }
   };
 
   const handleNext = () => {
