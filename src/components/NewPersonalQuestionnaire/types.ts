@@ -10,6 +10,7 @@ export interface ProfileData {
   // Section 2: Your Relationship
   relationshipStatus: string;
   relationshipLength: string;
+  talkingDuration: string;
   relationshipChallenges: string[];
   relationshipWorking: string[];
   datingChallenges: string[];

@@ -35,6 +35,13 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
     '1-2 years', '2-5 years', '5+ years'
   ];
 
+  const talkingDurationOptions = [
+    'Brand new (less than a month)',
+    'Getting to know each other (1-3 months)',
+    'Been a minute (3-6 months)',
+    'Okay this is long (6+ months)'
+  ];
+
   const datingChallengesOptions = [
     'Finding my person in a sea of players',
     'Moving past surface-level conversations',
@@ -72,11 +79,13 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   ];
 
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-  const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+  const isTalking = profileData.relationshipStatus === 'Talking to someone';
+  const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
 
   // Question completion checks
   const isStatusComplete = profileData.relationshipStatus;
   const isDatingChallengesComplete = isSingle ? (profileData.datingChallenges && profileData.datingChallenges.length > 0) : true;
+  const isTalkingDurationComplete = isTalking ? profileData.talkingDuration : true;
   const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
   const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
   const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
@@ -104,11 +113,14 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
         questionId="question-relationship-status"
         showContinue={isStatusComplete && (
           (isSingle && !isDatingChallengesComplete) ||
+          (isTalking && !isTalkingDurationComplete) ||
           (hasRelationship && !isLengthComplete)
         )}
         onContinue={() => {
           if (isSingle) {
             scrollToQuestion('question-dating-challenges');
+          } else if (isTalking) {
+            scrollToQuestion('question-talking-duration');
           } else if (hasRelationship) {
             scrollToQuestion('question-relationship-length');
           }
@@ -155,6 +167,26 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
             options={datingChallengesOptions}
             selectedValues={profileData.datingChallenges || []}
             onToggle={(value) => handleMultiSelect('datingChallenges', value)}
+          />
+        </QuestionCard>
+      )}
+
+      {/* Talking Duration - for people talking to someone */}
+      {isTalking && (
+        <QuestionCard 
+          questionId="question-talking-duration"
+        >
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            How long have you been talking? <span className="text-red-400">*</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+            <Clock className="w-3 h-3 text-green-300" />
+            <span>Early stages have their own unique dynamics and challenges</span>
+          </div>
+          <SingleSelect
+            options={talkingDurationOptions}
+            selectedValue={profileData.talkingDuration || ''}
+            onSelect={(value) => updateField('talkingDuration', value)}
           />
         </QuestionCard>
       )}

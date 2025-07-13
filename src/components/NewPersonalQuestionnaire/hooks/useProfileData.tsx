@@ -16,6 +16,7 @@ const defaultProfileData: ProfileData = {
   // Section 2: Your Relationship
   relationshipStatus: '',
   relationshipLength: '',
+  talkingDuration: '',
   relationshipChallenges: [],
   relationshipWorking: [],
   datingChallenges: [],
