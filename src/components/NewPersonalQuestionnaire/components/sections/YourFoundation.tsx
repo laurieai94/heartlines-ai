@@ -53,7 +53,7 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
       {/* Family Emotional Dynamics */}
       <QuestionCard 
         questionId="question-family-dynamics"
-        showContinue={!!(profileData.familyDynamics?.length) && !profileData.attachmentStyle}
+        showContinue={!!(profileData.familyDynamics?.length)}
         onContinue={() => {
           onAutoScroll?.('question-attachment-style');
         }}

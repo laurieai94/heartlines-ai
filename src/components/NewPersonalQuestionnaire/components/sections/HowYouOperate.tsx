@@ -67,7 +67,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
       {/* Stress Response */}
       <QuestionCard 
         questionId="question-stress-response"
-        showContinue={!!(profileData.stressResponse?.length) && !(profileData.loveLanguage?.length)}
+        showContinue={!!(profileData.stressResponse?.length)}
         onContinue={() => {
           onAutoScroll?.('question-love-language');
         }}
@@ -90,7 +90,7 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
       {/* Love Language */}
       <QuestionCard 
         questionId="question-love-language"
-        showContinue={!!(profileData.loveLanguage?.length) && !(profileData.conflictStyle?.length && !isSectionComplete)}
+        showContinue={!!(profileData.loveLanguage?.length)}
         onContinue={() => {
           onAutoScroll?.('question-conflict-style');
         }}
