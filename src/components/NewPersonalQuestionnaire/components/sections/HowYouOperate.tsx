@@ -65,7 +65,13 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
       </div>
 
       {/* Stress Response */}
-      <QuestionCard questionId="question-stress-response">
+      <QuestionCard 
+        questionId="question-stress-response"
+        showContinue={!!(profileData.stressResponse?.length) && !(profileData.loveLanguage?.length)}
+        onContinue={() => {
+          onAutoScroll?.('question-love-language');
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           When you're stressed, what's your go-to? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -82,7 +88,13 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
       </QuestionCard>
 
       {/* Love Language */}
-      <QuestionCard questionId="question-love-language">
+      <QuestionCard 
+        questionId="question-love-language"
+        showContinue={!!(profileData.loveLanguage?.length) && !(profileData.conflictStyle?.length && !isSectionComplete)}
+        onContinue={() => {
+          onAutoScroll?.('question-conflict-style');
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you feel most loved? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

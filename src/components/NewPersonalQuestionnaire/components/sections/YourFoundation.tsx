@@ -51,7 +51,13 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
       </div>
 
       {/* Family Emotional Dynamics */}
-      <QuestionCard questionId="question-family-dynamics">
+      <QuestionCard 
+        questionId="question-family-dynamics"
+        showContinue={!!(profileData.familyDynamics?.length) && !profileData.attachmentStyle}
+        onContinue={() => {
+          onAutoScroll?.('question-attachment-style');
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How did emotions work in your family? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -68,7 +74,15 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
       </QuestionCard>
 
       {/* Attachment Style - Optional */}
-      <QuestionCard className="opacity-80" questionId="question-attachment-style">
+      <QuestionCard 
+        className="opacity-80" 
+        questionId="question-attachment-style"
+        showContinue={isSectionComplete}
+        onContinue={() => {
+          // Complete the questionnaire (no next section)
+          onSectionComplete?.();
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your attachment style?
           <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
