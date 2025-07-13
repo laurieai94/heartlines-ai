@@ -101,6 +101,30 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
     'Want better relationship skills (learning for the future)'
   ];
 
+  const talkingDescriptionOptions = [
+    "We're just getting to know each other",
+    "We're exclusive but not putting a label on it",
+    "We're both seeing other people too",
+    "The undefined thing is giving me anxiety",
+    "We're intentionally taking it slow",
+    "I literally have no clue what this is",
+    "Good chemistry but haven't had the DTR talk",
+    "One of us is way more invested than the other",
+    "Started as friends, now there are feelings"
+  ];
+
+  const talkingChallengesOptions = [
+    "Not knowing where I stand with them",
+    "Wanting to text but trying not to seem thirsty",
+    "Are they talking to other people or just me?",
+    "When do I bring up the \"what are we\" conversation?",
+    "Trying not to catch feelings too fast",
+    "Playing it cool when I actually really like them",
+    "Getting mixed signals and overthinking everything",
+    "Being interested without coming off as clingy",
+    "Wondering if I'm just wasting my time here"
+  ];
+
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const isTalking = profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
@@ -110,6 +134,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const isStatusComplete = profileData.relationshipStatus;
   const isDatingChallengesComplete = isSingle ? (profileData.datingChallenges && profileData.datingChallenges.length > 0) : true;
   const isTalkingDurationComplete = isTalking ? profileData.talkingDuration : true;
+  const isTalkingDescriptionComplete = isTalking ? (profileData.talkingDescription && profileData.talkingDescription.length > 0) : true;
+  const isTalkingChallengesComplete = isTalking ? (profileData.talkingChallenges && profileData.talkingChallenges.length > 0) : true;
   const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
   const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
   const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
@@ -204,6 +230,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {isTalking && (
         <QuestionCard 
           questionId="question-talking-duration"
+          showContinue={isTalkingDurationComplete && !isTalkingDescriptionComplete}
+          onContinue={() => scrollToQuestion('question-talking-description')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How long have you been talking? <span className="text-red-400">*</span>
@@ -216,6 +244,52 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
             options={talkingDurationOptions}
             selectedValue={profileData.talkingDuration || ''}
             onSelect={(value) => updateField('talkingDuration', value)}
+          />
+        </QuestionCard>
+      )}
+
+      {/* Talking Description - for people talking to someone */}
+      {isTalking && isTalkingDurationComplete && (
+        <QuestionCard 
+          questionId="question-talking-description"
+          showContinue={isTalkingDescriptionComplete && !isTalkingChallengesComplete}
+          onContinue={() => scrollToQuestion('question-talking-challenges')}
+        >
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            How would you describe what you have right now? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - help us understand your vibe</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+            <MessageSquare className="w-3 h-3 text-blue-300" />
+            <span>The talking stage has its own unique energy</span>
+          </div>
+          <MultiSelect
+            options={talkingDescriptionOptions}
+            selectedValues={profileData.talkingDescription || []}
+            onToggle={(value) => handleMultiSelect('talkingDescription', value)}
+            columns={1}
+          />
+        </QuestionCard>
+      )}
+
+      {/* Talking Challenges - for people talking to someone */}
+      {isTalking && isTalkingDescriptionComplete && (
+        <QuestionCard 
+          questionId="question-talking-challenges"
+        >
+          <Label className="text-sm font-semibold text-white mb-2 block">
+            What feels most challenging about the talking stage? <span className="text-red-400">*</span>
+            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - we get that this stage is weird</span>
+          </Label>
+          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+            <AlertTriangle className="w-3 h-3 text-yellow-300" />
+            <span>Navigating uncertainty is tough - we're here to help</span>
+          </div>
+          <MultiSelect
+            options={talkingChallengesOptions}
+            selectedValues={profileData.talkingChallenges || []}
+            onToggle={(value) => handleMultiSelect('talkingChallenges', value)}
+            columns={1}
           />
         </QuestionCard>
       )}

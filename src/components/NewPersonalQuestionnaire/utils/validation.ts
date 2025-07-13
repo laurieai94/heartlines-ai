@@ -27,14 +27,16 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       }
       
       const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-      const isTalking = profileData.relationshipStatus === 'Talking/Getting to know someone';
+      const isTalking = profileData.relationshipStatus === 'Talking to someone';
       const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
       const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
       
       if (isSingle) {
         isValid = (profileData.datingChallenges || []).length > 0;
       } else if (isTalking) {
-        isValid = !!profileData.talkingDuration;
+        isValid = !!profileData.talkingDuration && 
+                 (profileData.talkingDescription || []).length > 0 && 
+                 (profileData.talkingChallenges || []).length > 0;
       } else if (hasRelationship) {
         isValid = profileData.relationshipLength && 
                  (profileData.relationshipChallenges || []).length > 0 && 
@@ -90,7 +92,7 @@ export const calculateProgress = (profileData: ProfileData): number => {
     totalCompleted += 1;
     
     const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-    const isTalking = profileData.relationshipStatus === 'Talking/Getting to know someone';
+    const isTalking = profileData.relationshipStatus === 'Talking to someone';
     const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
     const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
     
@@ -100,8 +102,10 @@ export const calculateProgress = (profileData: ProfileData): number => {
     }
     
     if (isTalking) {
-      totalRequired += 1;
+      totalRequired += 3;
       if (profileData.talkingDuration) totalCompleted += 1;
+      if ((profileData.talkingDescription || []).length > 0) totalCompleted += 1;
+      if ((profileData.talkingChallenges || []).length > 0) totalCompleted += 1;
     }
     
     if (hasRelationship) {
