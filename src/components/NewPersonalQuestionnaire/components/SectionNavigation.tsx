@@ -35,8 +35,6 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = validateSection(section, profileData);
-        const isAccessible = section <= currentSection || isCompleted;
-
         return (
           <button
             key={section}
@@ -44,15 +42,12 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
               console.log('🔵 SectionNavigation: Section button clicked:', section);
               onSectionClick(section);
             }}
-            disabled={!isAccessible}
             className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
               isActive 
                 ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
                 : isCompleted 
                   ? 'bg-white/15 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20' 
-                  : isAccessible 
-                    ? 'bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 hover:bg-white/15' 
-                    : 'bg-white/5 border border-white/10 text-white/50 cursor-not-allowed opacity-60'
+                  : 'bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 hover:bg-white/15'
             }`}
           >
             <div className="flex items-center justify-between">
