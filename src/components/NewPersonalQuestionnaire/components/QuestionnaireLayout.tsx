@@ -43,13 +43,18 @@ const QuestionnaireLayout = ({
   };
 
   const handleSectionClick = (section: number) => {
+    console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
     setCurrentSection(section);
     
     // Scroll to the selected section
+    console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn);
     if (scrollToSectionFn) {
+      console.log('🟢 QuestionnaireLayout: Calling scroll function with 100ms delay for section:', section);
       setTimeout(() => {
         scrollToSectionFn(section);
       }, 100);
+    } else {
+      console.warn('🔴 QuestionnaireLayout: Scroll function not available yet');
     }
   };
 

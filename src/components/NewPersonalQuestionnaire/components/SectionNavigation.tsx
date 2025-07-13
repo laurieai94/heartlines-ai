@@ -40,7 +40,10 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
         return (
           <button
             key={section}
-            onClick={() => onSectionClick(section)}
+            onClick={() => {
+              console.log('🔵 SectionNavigation: Section button clicked:', section);
+              onSectionClick(section);
+            }}
             disabled={!isAccessible}
             className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
               isActive 

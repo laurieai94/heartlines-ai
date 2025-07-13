@@ -26,25 +26,45 @@ const QuestionnaireContent = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (sectionNumber: number) => {
+    console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
+    
     const container = scrollContainerRef.current;
     const element = document.getElementById(`section-${sectionNumber}`);
+    
+    console.log('🟠 QuestionnaireContent: Container found:', !!container);
+    console.log('🟠 QuestionnaireContent: Target element found:', !!element);
+    console.log('🟠 QuestionnaireContent: Target element ID:', element ? element.id : 'not found');
     
     if (container && element) {
       const containerRect = container.getBoundingClientRect();
       const elementRect = element.getBoundingClientRect();
       const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
       
+      console.log('🟠 QuestionnaireContent: Scroll calculation:', {
+        containerTop: containerRect.top,
+        elementTop: elementRect.top,
+        currentScrollTop: container.scrollTop,
+        relativeTop,
+        finalScrollPosition: relativeTop - 32
+      });
+      
       container.scrollTo({
         top: relativeTop - 32,
         behavior: 'smooth'
       });
+      
+      console.log('🟠 QuestionnaireContent: Scroll executed successfully');
+    } else {
+      console.error('🔴 QuestionnaireContent: Failed to scroll - missing container or element');
     }
   };
 
   // Expose scroll function to parent
   useEffect(() => {
+    console.log('🟠 QuestionnaireContent: Setting up scroll function, onScrollToSection exists:', !!onScrollToSection);
     if (onScrollToSection) {
       onScrollToSection(scrollToSection);
+      console.log('🟠 QuestionnaireContent: Scroll function exposed to parent');
     }
   }, [onScrollToSection]);
 
