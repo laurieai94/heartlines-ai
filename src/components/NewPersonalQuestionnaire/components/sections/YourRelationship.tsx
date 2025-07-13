@@ -31,8 +31,13 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   ];
 
   const relationshipLengthOptions = [
-    'Less than 3 months', '3-6 months', '6 months - 1 year', 
-    '1-2 years', '2-5 years', '5+ years'
+    'Less than 3 months (new relationship energy)',
+    '3-6 months (getting serious)', 
+    '6 months - 1 year (past the honeymoon phase)',
+    '1-2 years (real relationship territory)',
+    '2-5 years (long-term partnership)',
+    '5-10 years (established life together)',
+    '10+ years (in it for the long haul)'
   ];
 
   const talkingDurationOptions = [
@@ -55,27 +60,27 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   ];
 
   const relationshipChallengesOptions = [
-    'Communication and really hearing each other',
-    'Managing conflict without it getting ugly',
-    'Balancing independence with togetherness',
-    'Intimacy and staying connected',
-    'Different life goals or timelines',
-    'Trust and past relationship baggage',
-    'Family or external pressures',
-    'Money and financial stress',
-    'Managing expectations vs reality'
+    'Actually hearing each other when we talk',
+    'Fighting without it turning into a disaster',
+    'Being together but still being ourselves',
+    'Staying connected and intimate',
+    'We want different things or timelines',
+    'Trust issues and past relationship baggage',
+    'Dealing with family or outside pressure',
+    'Money stress and financial decisions',
+    'Reality vs. what we expected this to be'
   ];
 
   const relationshipWorkingOptions = [
-    'We communicate really well',
-    'Great physical and emotional intimacy',
-    'We support each other\'s goals',
+    'We actually communicate well',
+    'Great physical and emotional connection',
+    'We support each other\'s dreams',
     'Similar values and life vision',
-    'We have fun together and laugh a lot',
-    'Good at working through disagreements',
+    'We laugh a lot and have genuine fun',
+    'We work through problems without drama',
     'We give each other space to be individuals',
-    'Strong friendship foundation',
-    'We\'re building something meaningful together'
+    'Solid friendship foundation',
+    'We\'re building something real together'
   ];
 
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
@@ -221,12 +226,12 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
           onContinue={() => scrollToQuestion('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
-            What feels most challenging in your relationship right now? <span className="text-red-400">*</span>
+            What feels most challenging right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <AlertTriangle className="w-3 h-3 text-red-300" />
-            <span>Challenges help us understand what to work on</span>
+            <span>This helps us understand what to focus on</span>
           </div>
           <MultiSelect
             options={relationshipChallengesOptions}
@@ -240,12 +245,12 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {hasRelationship && (
         <QuestionCard questionId="question-relationship-working">
           <Label className="text-sm font-semibold text-white mb-2 block">
-            What's working really well in your relationship? <span className="text-red-400">*</span>
+            What's working really well between you two? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <Star className="w-3 h-3 text-green-300" />
-            <span>Knowing what works helps us build on your strengths</span>
+            <span>We want to build on your strengths</span>
           </div>
           <MultiSelect
             options={relationshipWorkingOptions}
