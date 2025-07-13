@@ -2,6 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
+import SingleSelect from "../../shared/SingleSelect";
 
 interface AgeSelectionCardProps {
   profileData: ProfileData;
@@ -28,21 +29,12 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete, onContinue }: 
         <Calendar className="w-3 h-3 text-orange-300" />
         <span>Different life stages = different relationship challenges</span>
       </div>
-      <div className="grid grid-cols-4 gap-2">
-        {ageOptions.map((age) => (
-          <button
-            key={age}
-            onClick={() => updateField('age', age)}
-            className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-              profileData.age === age
-                ? 'questionnaire-button-selected'
-                : 'questionnaire-button-secondary'
-            }`}
-          >
-            {age}
-          </button>
-        ))}
-      </div>
+      <SingleSelect
+        options={ageOptions}
+        selectedValue={profileData.age || ''}
+        onSelect={(value) => updateField('age', value)}
+        columns={4}
+      />
     </QuestionCard>
   );
 };

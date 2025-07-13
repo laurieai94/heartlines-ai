@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
+import SingleSelect from "../../shared/SingleSelect";
 
 interface NamePronounsCardProps {
   profileData: ProfileData;
@@ -114,21 +115,12 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onContinue }: 
           </div>
           
           {/* Pronoun buttons */}
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {primaryPronounOptions.map((pronouns) => (
-              <button
-                key={pronouns}
-                onClick={() => handlePronounSelect(pronouns)}
-                className={`p-2 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                  profileData.pronouns === pronouns
-                    ? 'questionnaire-button-selected'
-                    : 'questionnaire-button-secondary'
-                }`}
-              >
-                {pronouns}
-              </button>
-            ))}
-          </div>
+          <SingleSelect
+            options={primaryPronounOptions}
+            selectedValue={profileData.pronouns || ''}
+            onSelect={handlePronounSelect}
+            columns={2}
+          />
 
           {/* Custom pronoun input */}
           {(profileData.pronouns === 'Other' || (!['She/her', 'He/him', 'They/them'].includes(profileData.pronouns || '') && profileData.pronouns)) && (

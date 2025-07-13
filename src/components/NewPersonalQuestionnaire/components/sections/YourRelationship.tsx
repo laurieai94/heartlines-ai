@@ -188,21 +188,12 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
           <Heart className="w-3 h-3 text-pink-300" />
           <span>From 'it's complicated' to married - we meet you where you are</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-          {relationshipStatusOptions.map((status) => (
-            <button
-              key={status}
-              onClick={() => updateField('relationshipStatus', status)}
-              className={`w-full p-2 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
-                profileData.relationshipStatus === status
-                  ? 'questionnaire-button-selected'
-                  : 'questionnaire-button-secondary'
-              }`}
-            >
-              {status}
-            </button>
-          ))}
-        </div>
+        <SingleSelect
+          options={relationshipStatusOptions}
+          selectedValue={profileData.relationshipStatus || ''}
+          onSelect={(value) => updateField('relationshipStatus', value)}
+          columns={3}
+        />
       </QuestionCard>
 
       {/* Dating Challenges - for single people */}
