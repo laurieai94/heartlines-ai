@@ -31,13 +31,13 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   ];
 
   const relationshipLengthOptions = [
-    'Less than 3 months (new relationship energy)',
-    '3-6 months (getting serious)', 
-    '6 months - 1 year (past the honeymoon phase)',
-    '1-2 years (real relationship territory)',
-    '2-5 years (long-term partnership)',
-    '5-10 years (established life together)',
-    '10+ years (in it for the long haul)'
+    'Less than 3 months',
+    '3-6 months',
+    '6 months - 1 year',
+    '1-2 years',
+    '2-5 years',
+    '5-10 years',
+    '10+ years'
   ];
 
   const talkingDurationOptions = [
