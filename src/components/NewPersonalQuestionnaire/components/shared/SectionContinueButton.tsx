@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, TreeDeciduous, Heart, Zap } from "lucide-react";
+import { ArrowDown, Sparkles, TreeDeciduous, Heart, Zap } from "lucide-react";
 
 interface SectionContinueButtonProps {
   isVisible: boolean;
@@ -21,25 +21,25 @@ const SectionContinueButton = ({
       case 1:
         return {
           text: "Continue to Section 2",
-          icon: ArrowRight,
+          icon: ArrowDown,
           gradient: "from-rose-500 to-pink-600"
         };
       case 2:
         return {
           text: "Continue to Section 3",
-          icon: ArrowRight,
+          icon: ArrowDown,
           gradient: "from-pink-500 to-purple-600"
         };
       case 3:
         return {
           text: "Continue to Section 4",
-          icon: ArrowRight,
+          icon: ArrowDown,
           gradient: "from-purple-500 to-indigo-600"
         };
       default:
         return {
           text: "Continue",
-          icon: ArrowRight,
+          icon: ArrowDown,
           gradient: "from-indigo-500 to-blue-600"
         };
     }

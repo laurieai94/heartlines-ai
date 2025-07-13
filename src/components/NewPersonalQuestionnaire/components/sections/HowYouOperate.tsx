@@ -119,7 +119,16 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
       <SectionContinueButton
         isVisible={isSectionComplete}
         currentSection={3}
-        onClick={() => onSectionComplete?.()}
+        onClick={() => {
+          // Scroll to first question of next section
+          setTimeout(() => {
+            const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
+            if (nextSectionFirstQuestion) {
+              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          onSectionComplete?.();
+        }}
       />
     </div>
   );

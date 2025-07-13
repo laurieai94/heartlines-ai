@@ -225,7 +225,16 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       <SectionContinueButton
         isVisible={isSectionComplete}
         currentSection={2}
-        onClick={() => onSectionComplete?.()}
+        onClick={() => {
+          // Scroll to first question of next section
+          setTimeout(() => {
+            const nextSectionFirstQuestion = document.querySelector('[data-section="3"] [data-question-card]');
+            if (nextSectionFirstQuestion) {
+              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          onSectionComplete?.();
+        }}
       />
     </div>
   );

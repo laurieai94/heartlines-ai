@@ -88,7 +88,10 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
       <SectionContinueButton
         isVisible={isSectionComplete}
         currentSection={4}
-        onClick={() => onSectionComplete?.()}
+        onClick={() => {
+          // Complete the questionnaire (no next section)
+          onSectionComplete?.();
+        }}
       />
     </div>
   );

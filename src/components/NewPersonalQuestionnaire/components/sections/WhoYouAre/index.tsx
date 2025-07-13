@@ -84,7 +84,16 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
       <SectionContinueButton
         isVisible={isSectionComplete}
         currentSection={1}
-        onClick={() => onSectionComplete?.()}
+        onClick={() => {
+          // Scroll to first question of next section
+          setTimeout(() => {
+            const nextSectionFirstQuestion = document.querySelector('[data-section="2"] [data-question-card]');
+            if (nextSectionFirstQuestion) {
+              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          onSectionComplete?.();
+        }}
       />
     </div>
   );
