@@ -24,7 +24,7 @@ const HowYouOperate = ({
 }: HowYouOperateProps) => {
 
   return (
-    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+    <div className="space-y-4 transition-opacity duration-300 opacity-100">
       <div className="flex items-center gap-2 mb-4">
         <Zap className="w-5 h-5 text-rose-400" />
         <h3 className="text-xl font-bold text-white">How You Operate</h3>
