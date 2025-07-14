@@ -80,7 +80,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onContinue }: 
   return (
     <QuestionCard 
       questionId="question-name-pronouns"
-      showContinue={isComplete}
+      showContinue={isNamePronounsComplete}
       onContinue={onContinue}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

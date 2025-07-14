@@ -20,7 +20,7 @@ const OrientationSelectionCard = ({ profileData, updateField, isComplete, onCont
   return (
     <QuestionCard 
       questionId="question-orientation"
-      showContinue={isComplete}
+      showContinue={!!profileData.orientation}
       onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">

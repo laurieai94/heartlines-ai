@@ -28,9 +28,9 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
 
   // Question completion checks
   const isNamePronounsComplete = profileData.name && isPronounsComplete();
-  const isAgeComplete = profileData.age;
-  const isOrientationComplete = profileData.orientation && profileData.orientation.trim() !== '';
-  const isGenderComplete = profileData.gender && profileData.gender.trim() !== '';
+  const isAgeComplete = !!profileData.age;
+  const isOrientationComplete = !!(profileData.orientation && profileData.orientation.trim() !== '');
+  const isGenderComplete = !!(profileData.gender && profileData.gender.trim() !== '');
   
   // Section completion check
   const isSectionComplete = validateSection(1, profileData);
@@ -54,7 +54,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
       <NamePronounsCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isNamePronounsComplete && !isAgeComplete}
+        isComplete={isNamePronounsComplete}
         onContinue={() => scrollToQuestion('question-age')}
       />
 
@@ -62,7 +62,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
       <AgeSelectionCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isAgeComplete && !isOrientationComplete}
+        isComplete={isAgeComplete}
         onContinue={() => scrollToQuestion('question-orientation')}
       />
 
@@ -70,7 +70,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
       <OrientationSelectionCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isOrientationComplete && !isGenderComplete}
+        isComplete={isOrientationComplete}
         onContinue={() => scrollToQuestion('question-gender')}
       />
 

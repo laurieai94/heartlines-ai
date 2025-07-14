@@ -22,7 +22,7 @@ const SeparatedDivorcedQuestions = ({
       {/* Separation Situation */}
       <QuestionCard 
         questionId="question-separation-situation"
-        showContinue={!!(profileData.separationSituation?.length) && !(profileData.datingReadiness?.length)}
+        showContinue={!!(profileData.separationSituation?.length)}
         onContinue={() => onAutoScroll?.('question-dating-readiness')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">

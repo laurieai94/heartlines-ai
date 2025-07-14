@@ -25,7 +25,7 @@ const TalkingStageQuestions = ({
       {/* Talking Duration */}
       <QuestionCard 
         questionId="question-talking-duration"
-        showContinue={!!profileData.talkingDuration && !(profileData.talkingDescription?.length)}
+        showContinue={!!profileData.talkingDuration}
         onContinue={() => onAutoScroll?.('question-talking-description')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
@@ -46,7 +46,7 @@ const TalkingStageQuestions = ({
       {profileData.talkingDuration && (
         <QuestionCard 
           questionId="question-talking-description"
-          showContinue={!!(profileData.talkingDescription?.length) && !(profileData.talkingChallenges?.length)}
+          showContinue={!!(profileData.talkingDescription?.length)}
           onContinue={() => onAutoScroll?.('question-talking-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">

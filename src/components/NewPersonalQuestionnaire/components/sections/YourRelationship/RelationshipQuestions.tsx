@@ -25,7 +25,7 @@ const RelationshipQuestions = ({
       {/* Relationship Length */}
       <QuestionCard 
         questionId="question-relationship-length"
-        showContinue={!!profileData.relationshipLength && !(profileData.relationshipChallenges?.length)}
+        showContinue={!!profileData.relationshipLength}
         onContinue={() => onAutoScroll?.('question-relationship-challenges')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
@@ -46,7 +46,7 @@ const RelationshipQuestions = ({
       {profileData.relationshipLength && (
         <QuestionCard 
           questionId="question-relationship-challenges"
-          showContinue={!!(profileData.relationshipChallenges?.length) && !(profileData.relationshipWorking?.length)}
+          showContinue={!!(profileData.relationshipChallenges?.length)}
           onContinue={() => onAutoScroll?.('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
