@@ -9,15 +9,12 @@ import { datingChallengesOptions } from "./constants";
 interface SinglePersonQuestionsProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onAutoScroll?: (questionId: string) => void;
 }
 
-const SinglePersonQuestions = ({ profileData, handleMultiSelect, onAutoScroll }: SinglePersonQuestionsProps) => {
+const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQuestionsProps) => {
   return (
     <QuestionCard 
       questionId="question-dating-challenges"
-      showContinue={!!(profileData.datingChallenges?.length)}
-      onContinue={() => onAutoScroll?.('question-section-complete')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>

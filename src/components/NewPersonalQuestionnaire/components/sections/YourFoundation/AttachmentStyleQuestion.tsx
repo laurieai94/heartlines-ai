@@ -9,19 +9,15 @@ import { attachmentStyleOptions } from "./constants";
 interface AttachmentStyleQuestionProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
-  onContinue: () => void;
 }
 
 const AttachmentStyleQuestion = ({ 
   profileData, 
-  updateField, 
-  onContinue 
+  updateField 
 }: AttachmentStyleQuestionProps) => {
   return (
     <QuestionCard 
       questionId="question-attachment-style"
-      showContinue={!!profileData.attachmentStyle}
-      onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>

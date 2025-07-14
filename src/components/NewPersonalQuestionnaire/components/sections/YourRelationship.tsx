@@ -4,7 +4,7 @@ import { Heart } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import SingleSelect from "../shared/SingleSelect";
-import SectionContinueButton from "../shared/SectionContinueButton";
+
 import { validateSection } from "../../utils/validation";
 import { relationshipStatusOptions } from "./YourRelationship/constants";
 import SinglePersonQuestions from "./YourRelationship/SinglePersonQuestions";
@@ -17,7 +17,7 @@ interface YourRelationshipProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onAutoScroll?: (questionId: string) => void;
+  
   onSectionComplete?: () => void;
 }
 
@@ -26,7 +26,7 @@ const YourRelationship = ({
   updateField, 
   handleMultiSelect, 
   isActive, 
-  onAutoScroll, 
+   
   onSectionComplete 
 }: YourRelationshipProps) => {
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
@@ -61,13 +61,6 @@ const YourRelationship = ({
       {/* Relationship Status */}
       <QuestionCard 
         questionId="question-relationship-status"
-        showContinue={shouldShowContinueAfterStatus()}
-        onContinue={() => {
-          const nextQuestion = getNextQuestionAfterStatus();
-          if (nextQuestion) {
-            onAutoScroll?.(nextQuestion);
-          }
-        }}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span>
@@ -89,7 +82,6 @@ const YourRelationship = ({
           <SinglePersonQuestions 
             profileData={profileData}
             handleMultiSelect={handleMultiSelect}
-            onAutoScroll={onAutoScroll}
           />
         )}
 
@@ -98,7 +90,6 @@ const YourRelationship = ({
           profileData={profileData}
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
-          onAutoScroll={onAutoScroll}
         />
       )}
 
@@ -107,7 +98,6 @@ const YourRelationship = ({
           profileData={profileData}
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
-          onAutoScroll={onAutoScroll}
         />
       )}
 
@@ -115,25 +105,8 @@ const YourRelationship = ({
         <SeparatedDivorcedQuestions
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}
-          onAutoScroll={onAutoScroll}
         />
       )}
-
-      {/* Section Continue Button */}
-      <SectionContinueButton
-        isVisible={isSectionComplete}
-        currentSection={2}
-        onClick={() => {
-          // Scroll to first question of next section
-          setTimeout(() => {
-            const nextSectionFirstQuestion = document.querySelector('[data-section="3"] [data-question-card]');
-            if (nextSectionFirstQuestion) {
-              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }, 100);
-          onSectionComplete?.();
-        }}
-      />
     </div>
   );
 };

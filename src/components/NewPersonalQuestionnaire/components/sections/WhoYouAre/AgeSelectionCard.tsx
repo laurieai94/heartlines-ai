@@ -8,10 +8,9 @@ interface AgeSelectionCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   isComplete: boolean;
-  onContinue: () => void;
 }
 
-const AgeSelectionCard = ({ profileData, updateField, isComplete, onContinue }: AgeSelectionCardProps) => {
+const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelectionCardProps) => {
   const ageOptions = [
     'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
   ];
@@ -19,8 +18,6 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete, onContinue }: 
   return (
     <QuestionCard 
       questionId="question-age"
-      showContinue={!!profileData.age}
-      onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your age? <span className="text-red-400">*</span>

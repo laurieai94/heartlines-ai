@@ -1,7 +1,7 @@
 
 import { Zap } from "lucide-react";
 import { ProfileData } from "../../types";
-import SectionContinueButton from "../shared/SectionContinueButton";
+
 import { validateSection } from "../../utils/validation";
 import StressResponseQuestion from "./HowYouOperate/StressResponseQuestion";
 import LoveLanguageQuestion from "./HowYouOperate/LoveLanguageQuestion";
@@ -12,7 +12,7 @@ interface HowYouOperateProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onAutoScroll?: (questionId: string) => void;
+  
   onSectionComplete?: () => void;
 }
 
@@ -21,7 +21,7 @@ const HowYouOperate = ({
   updateField,
   handleMultiSelect,
   isActive,
-  onAutoScroll,
+  
   onSectionComplete
 }: HowYouOperateProps) => {
   // Section completion check
@@ -37,43 +37,16 @@ const HowYouOperate = ({
       <StressResponseQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onContinue={() => onAutoScroll?.('question-love-language')}
       />
 
       <LoveLanguageQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onContinue={() => onAutoScroll?.('question-conflict-style')}
       />
 
       <ConflictStyleQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onContinue={() => {
-          // This is the last question in the section
-          if (isSectionComplete) {
-            onSectionComplete?.();
-          }
-        }}
-      />
-
-      {/* Section Continue Button */}
-      <SectionContinueButton
-        isVisible={isSectionComplete}
-        currentSection={3}
-        onClick={() => {
-          // Scroll to first question of next section
-          setTimeout(() => {
-            const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
-            if (nextSectionFirstQuestion) {
-              nextSectionFirstQuestion.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-              });
-            }
-          }, 100);
-          onSectionComplete?.();
-        }}
       />
     </div>
   );

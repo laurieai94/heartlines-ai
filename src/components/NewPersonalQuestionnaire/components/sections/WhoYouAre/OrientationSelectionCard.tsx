@@ -8,10 +8,9 @@ interface OrientationSelectionCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   isComplete: boolean;
-  onContinue: () => void;
 }
 
-const OrientationSelectionCard = ({ profileData, updateField, isComplete, onContinue }: OrientationSelectionCardProps) => {
+const OrientationSelectionCard = ({ profileData, updateField, isComplete }: OrientationSelectionCardProps) => {
   const orientationOptions = [
     'Straight/Heterosexual', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
     'Queer', 'Asexual', 'Questioning', 'Prefer to self-describe'
@@ -20,8 +19,6 @@ const OrientationSelectionCard = ({ profileData, updateField, isComplete, onCont
   return (
     <QuestionCard 
       questionId="question-orientation"
-      showContinue={!!profileData.orientation}
-      onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your sexual orientation? <span className="text-red-400">*</span>

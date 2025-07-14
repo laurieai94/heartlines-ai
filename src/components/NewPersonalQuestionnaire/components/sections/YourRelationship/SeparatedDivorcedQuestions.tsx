@@ -9,21 +9,17 @@ import { separationSituationOptions, datingReadinessOptions } from "./constants"
 interface SeparatedDivorcedQuestionsProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onAutoScroll?: (questionId: string) => void;
 }
 
 const SeparatedDivorcedQuestions = ({ 
   profileData, 
-  handleMultiSelect, 
-  onAutoScroll 
+  handleMultiSelect 
 }: SeparatedDivorcedQuestionsProps) => {
   return (
     <>
       {/* Separation Situation */}
       <QuestionCard 
         questionId="question-separation-situation"
-        showContinue={!!(profileData.separationSituation?.length)}
-        onContinue={() => onAutoScroll?.('question-dating-readiness')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your situation right now? <span className="text-red-400">*</span>
@@ -45,8 +41,6 @@ const SeparatedDivorcedQuestions = ({
       {(profileData.separationSituation?.length) && (
         <QuestionCard 
           questionId="question-dating-readiness"
-          showContinue={!!(profileData.datingReadiness?.length)}
-          onContinue={() => onAutoScroll?.('question-section-complete')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>

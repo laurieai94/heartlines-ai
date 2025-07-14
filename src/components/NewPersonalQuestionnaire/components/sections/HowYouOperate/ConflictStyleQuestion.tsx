@@ -9,19 +9,15 @@ import { conflictStyleOptions } from "./constants";
 interface ConflictStyleQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onContinue?: () => void;
 }
 
 const ConflictStyleQuestion = ({ 
   profileData, 
-  handleMultiSelect, 
-  onContinue 
+  handleMultiSelect 
 }: ConflictStyleQuestionProps) => {
   return (
     <QuestionCard 
-      questionId="question-conflict-style" 
-      showContinue={!!profileData.conflictStyle?.length} 
-      onContinue={onContinue}
+      questionId="question-conflict-style"
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict? <span className="text-red-400">*</span>

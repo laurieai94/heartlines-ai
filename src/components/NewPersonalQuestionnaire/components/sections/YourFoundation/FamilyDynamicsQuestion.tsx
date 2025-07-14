@@ -9,19 +9,15 @@ import { familyDynamicsOptions } from "./constants";
 interface FamilyDynamicsQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onContinue: () => void;
 }
 
 const FamilyDynamicsQuestion = ({ 
   profileData, 
-  handleMultiSelect, 
-  onContinue 
+  handleMultiSelect 
 }: FamilyDynamicsQuestionProps) => {
   return (
     <QuestionCard 
       questionId="question-family-dynamics"
-      showContinue={!!(profileData.familyDynamics?.length)}
-      onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How did emotions work in your family? <span className="text-red-400">*</span>

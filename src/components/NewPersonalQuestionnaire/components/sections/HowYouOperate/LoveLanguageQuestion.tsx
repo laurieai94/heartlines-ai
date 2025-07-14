@@ -9,19 +9,15 @@ import { loveLanguageOptions } from "./constants";
 interface LoveLanguageQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onContinue?: () => void;
 }
 
 const LoveLanguageQuestion = ({ 
   profileData, 
-  handleMultiSelect, 
-  onContinue 
+  handleMultiSelect 
 }: LoveLanguageQuestionProps) => {
   return (
     <QuestionCard 
-      questionId="question-love-language" 
-      showContinue={!!profileData.loveLanguage?.length} 
-      onContinue={onContinue}
+      questionId="question-love-language"
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you feel most loved? <span className="text-red-400">*</span>

@@ -1,7 +1,7 @@
 
 import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../types";
-import SectionContinueButton from "../shared/SectionContinueButton";
+
 import { validateSection } from "../../utils/validation";
 import FamilyDynamicsQuestion from "./YourFoundation/FamilyDynamicsQuestion";
 import AttachmentStyleQuestion from "./YourFoundation/AttachmentStyleQuestion";
@@ -11,7 +11,7 @@ interface YourFoundationProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onAutoScroll?: (questionId: string) => void;
+  
   onSectionComplete?: () => void;
 }
 
@@ -20,7 +20,7 @@ const YourFoundation = ({
   updateField, 
   handleMultiSelect, 
   isActive, 
-  onAutoScroll, 
+   
   onSectionComplete 
 }: YourFoundationProps) => {
   // Section completion check
@@ -36,30 +36,11 @@ const YourFoundation = ({
       <FamilyDynamicsQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onContinue={() => {
-          onAutoScroll?.('question-attachment-style');
-        }}
       />
 
       <AttachmentStyleQuestion
         profileData={profileData}
         updateField={updateField}
-        onContinue={() => {
-          // This is the last question in the section, trigger section completion
-          if (isSectionComplete) {
-            onSectionComplete?.();
-          }
-        }}
-      />
-
-      {/* Section Continue Button */}
-      <SectionContinueButton
-        isVisible={isSectionComplete}
-        currentSection={4}
-        onClick={() => {
-          // Complete the questionnaire (no next section)
-          onSectionComplete?.();
-        }}
       />
     </div>
   );

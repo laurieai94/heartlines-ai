@@ -18,16 +18,6 @@ const GenderSelectionCard = ({ profileData, updateField }: GenderSelectionCardPr
   return (
     <QuestionCard 
       questionId="question-gender"
-      showContinue={!!profileData.gender}
-      onContinue={() => {
-        // This is the last question in the section, scroll to section continue button
-        setTimeout(() => {
-          const sectionButton = document.querySelector('[data-section="1"] .section-continue-button');
-          if (sectionButton) {
-            sectionButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
-      }}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         Gender identity? <span className="text-red-400">*</span>

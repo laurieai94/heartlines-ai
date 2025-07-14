@@ -92,7 +92,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 2}
-            onAutoScroll={scrollToNextQuestion}
             onSectionComplete={() => onSectionComplete?.(3)}
           />
         </div>
@@ -103,7 +102,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 3}
-            onAutoScroll={scrollToNextQuestion}
+            
             onSectionComplete={() => onSectionComplete?.(4)}
           />
         </div>
@@ -114,7 +113,6 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 4}
-            onAutoScroll={scrollToNextQuestion}
             onSectionComplete={() => {}} // Final section, no next section
           />
         </div>

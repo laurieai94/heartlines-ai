@@ -10,10 +10,9 @@ interface NamePronounsCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   isComplete: boolean;
-  onContinue: () => void;
 }
 
-const NamePronounsCard = ({ profileData, updateField, isComplete, onContinue }: NamePronounsCardProps) => {
+const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const [customPronoun, setCustomPronoun] = useState("");
 
   // Initialize custom pronoun from saved data
@@ -80,8 +79,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onContinue }: 
   return (
     <QuestionCard 
       questionId="question-name-pronouns"
-      showContinue={isNamePronounsComplete}
-      onContinue={onContinue}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}
