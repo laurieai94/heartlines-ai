@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import SingleSelect from "../shared/SingleSelect";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
 
 import { validateSection } from "../../utils/validation";
 import { relationshipStatusOptions } from "./YourRelationship/constants";
@@ -29,6 +30,8 @@ const YourRelationship = ({
    
   onSectionComplete 
 }: YourRelationshipProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const isTalking = profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
@@ -61,6 +64,13 @@ const YourRelationship = ({
       {/* Relationship Status */}
       <QuestionCard 
         questionId="question-relationship-status"
+        showContinue={shouldShowContinueAfterStatus()}
+        onContinue={() => {
+          const nextQuestionId = getNextQuestionAfterStatus();
+          if (nextQuestionId) {
+            scrollToNextQuestion('question-relationship-status');
+          }
+        }}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span>
