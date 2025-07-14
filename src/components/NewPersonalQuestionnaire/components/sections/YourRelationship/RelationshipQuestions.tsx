@@ -11,22 +11,18 @@ interface RelationshipQuestionsProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onAutoScroll?: (questionId: string) => void;
 }
 
 const RelationshipQuestions = ({ 
   profileData, 
   updateField, 
-  handleMultiSelect, 
-  onAutoScroll 
+  handleMultiSelect 
 }: RelationshipQuestionsProps) => {
   return (
     <>
       {/* Relationship Length */}
       <QuestionCard 
         questionId="question-relationship-length"
-        showContinue={!!profileData.relationshipLength}
-        onContinue={() => onAutoScroll?.('question-relationship-challenges')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been together? <span className="text-red-400">*</span>
@@ -46,8 +42,6 @@ const RelationshipQuestions = ({
       {profileData.relationshipLength && (
         <QuestionCard 
           questionId="question-relationship-challenges"
-          showContinue={!!(profileData.relationshipChallenges?.length)}
-          onContinue={() => onAutoScroll?.('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
@@ -69,8 +63,6 @@ const RelationshipQuestions = ({
       {(profileData.relationshipChallenges?.length) && (
         <QuestionCard 
           questionId="question-relationship-working"
-          showContinue={!!(profileData.relationshipWorking?.length)}
-          onContinue={() => onAutoScroll?.('question-section-complete')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>

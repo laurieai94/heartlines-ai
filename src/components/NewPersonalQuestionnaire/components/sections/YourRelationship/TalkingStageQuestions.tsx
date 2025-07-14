@@ -11,22 +11,18 @@ interface TalkingStageQuestionsProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onAutoScroll?: (questionId: string) => void;
 }
 
 const TalkingStageQuestions = ({ 
   profileData, 
   updateField, 
-  handleMultiSelect, 
-  onAutoScroll 
+  handleMultiSelect 
 }: TalkingStageQuestionsProps) => {
   return (
     <>
       {/* Talking Duration */}
       <QuestionCard 
         questionId="question-talking-duration"
-        showContinue={!!profileData.talkingDuration}
-        onContinue={() => onAutoScroll?.('question-talking-description')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been talking? <span className="text-red-400">*</span>
@@ -46,8 +42,6 @@ const TalkingStageQuestions = ({
       {profileData.talkingDuration && (
         <QuestionCard 
           questionId="question-talking-description"
-          showContinue={!!(profileData.talkingDescription?.length)}
-          onContinue={() => onAutoScroll?.('question-talking-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How would you describe what you have right now? <span className="text-red-400">*</span>
@@ -70,8 +64,6 @@ const TalkingStageQuestions = ({
       {(profileData.talkingDescription?.length) && (
         <QuestionCard 
           questionId="question-talking-challenges"
-          showContinue={!!(profileData.talkingChallenges?.length)}
-          onContinue={() => onAutoScroll?.('question-section-complete')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging about the talking stage? <span className="text-red-400">*</span>
