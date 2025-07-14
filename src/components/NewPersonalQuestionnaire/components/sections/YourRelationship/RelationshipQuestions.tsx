@@ -67,7 +67,11 @@ const RelationshipQuestions = ({
 
       {/* What's Working Well */}
       {(profileData.relationshipChallenges?.length) && (
-        <QuestionCard questionId="question-relationship-working">
+        <QuestionCard 
+          questionId="question-relationship-working"
+          showContinue={!!(profileData.relationshipWorking?.length)}
+          onContinue={() => onAutoScroll?.('question-section-complete')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

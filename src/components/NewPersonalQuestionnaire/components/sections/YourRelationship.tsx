@@ -85,12 +85,13 @@ const YourRelationship = ({
       </QuestionCard>
 
       {/* Render appropriate question flow based on relationship status */}
-      {isSingle && (
-        <SinglePersonQuestions
-          profileData={profileData}
-          handleMultiSelect={handleMultiSelect}
-        />
-      )}
+        {isSingle && (
+          <SinglePersonQuestions 
+            profileData={profileData}
+            handleMultiSelect={handleMultiSelect}
+            onAutoScroll={onAutoScroll}
+          />
+        )}
 
       {isTalking && (
         <TalkingStageQuestions

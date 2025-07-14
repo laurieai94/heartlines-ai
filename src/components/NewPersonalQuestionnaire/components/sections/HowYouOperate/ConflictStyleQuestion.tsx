@@ -9,26 +9,19 @@ import { conflictStyleOptions } from "./constants";
 interface ConflictStyleQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  isSectionComplete: boolean;
-  onSectionComplete?: () => void;
+  onContinue?: () => void;
 }
 
-const ConflictStyleQuestion = ({
-  profileData,
-  handleMultiSelect,
-  isSectionComplete,
-  onSectionComplete
+const ConflictStyleQuestion = ({ 
+  profileData, 
+  handleMultiSelect, 
+  onContinue 
 }: ConflictStyleQuestionProps) => {
   return (
     <QuestionCard 
       questionId="question-conflict-style" 
       showContinue={!!profileData.conflictStyle?.length} 
-      onContinue={() => {
-        // This is the last question in the section, trigger section completion if ready
-        if (isSectionComplete) {
-          onSectionComplete?.();
-        }
-      }}
+      onContinue={onContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict? <span className="text-red-400">*</span>

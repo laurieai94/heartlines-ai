@@ -68,7 +68,11 @@ const TalkingStageQuestions = ({
 
       {/* Talking Challenges */}
       {(profileData.talkingDescription?.length) && (
-        <QuestionCard questionId="question-talking-challenges">
+        <QuestionCard 
+          questionId="question-talking-challenges"
+          showContinue={!!(profileData.talkingChallenges?.length)}
+          onContinue={() => onAutoScroll?.('question-section-complete')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging about the talking stage? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - we get that this stage is weird</span>

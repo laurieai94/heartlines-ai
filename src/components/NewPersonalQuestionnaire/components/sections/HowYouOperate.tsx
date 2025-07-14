@@ -37,20 +37,24 @@ const HowYouOperate = ({
       <StressResponseQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onAutoScroll={onAutoScroll}
+        onContinue={() => onAutoScroll?.('question-love-language')}
       />
 
       <LoveLanguageQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        onAutoScroll={onAutoScroll}
+        onContinue={() => onAutoScroll?.('question-conflict-style')}
       />
 
       <ConflictStyleQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
-        isSectionComplete={isSectionComplete}
-        onSectionComplete={onSectionComplete}
+        onContinue={() => {
+          // This is the last question in the section
+          if (isSectionComplete) {
+            onSectionComplete?.();
+          }
+        }}
       />
 
       {/* Section Continue Button */}

@@ -43,7 +43,11 @@ const SeparatedDivorcedQuestions = ({
 
       {/* Dating Readiness */}
       {(profileData.separationSituation?.length) && (
-        <QuestionCard questionId="question-dating-readiness">
+        <QuestionCard 
+          questionId="question-dating-readiness"
+          showContinue={!!(profileData.datingReadiness?.length)}
+          onContinue={() => onAutoScroll?.('question-section-complete')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
