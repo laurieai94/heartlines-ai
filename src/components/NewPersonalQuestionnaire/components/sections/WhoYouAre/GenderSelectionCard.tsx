@@ -8,17 +8,16 @@ import { useAutoScroll } from "../../../hooks/useAutoScroll";
 interface GenderSelectionCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
+  isComplete: boolean;
 }
 
-const GenderSelectionCard = ({ profileData, updateField }: GenderSelectionCardProps) => {
+const GenderSelectionCard = ({ profileData, updateField, isComplete }: GenderSelectionCardProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
   
   const genderOptions = [
     'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
     'Genderfluid', 'Questioning', 'Prefer to self-describe'
   ];
-
-  const isComplete = !!(profileData.gender && profileData.gender.trim() !== '');
 
   return (
     <QuestionCard 

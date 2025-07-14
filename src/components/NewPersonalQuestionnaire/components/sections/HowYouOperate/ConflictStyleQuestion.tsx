@@ -4,6 +4,7 @@ import { Shield } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { conflictStyleOptions } from "./constants";
 
 interface ConflictStyleQuestionProps {
@@ -15,9 +16,14 @@ const ConflictStyleQuestion = ({
   profileData, 
   handleMultiSelect 
 }: ConflictStyleQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!(profileData.conflictStyle?.length);
+
   return (
     <QuestionCard 
       questionId="question-conflict-style"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-conflict-style')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict? <span className="text-red-400">*</span>

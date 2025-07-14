@@ -4,6 +4,7 @@ import { Zap } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { stressResponseOptions } from "./constants";
 
 interface StressResponseQuestionProps {
@@ -15,9 +16,14 @@ const StressResponseQuestion = ({
   profileData, 
   handleMultiSelect 
 }: StressResponseQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!(profileData.stressResponse?.length);
+
   return (
     <QuestionCard 
       questionId="question-stress-response"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-stress-response')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         When you're stressed, what's your go-to? <span className="text-red-400">*</span>

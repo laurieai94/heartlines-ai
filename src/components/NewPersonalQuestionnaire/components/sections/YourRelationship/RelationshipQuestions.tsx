@@ -5,6 +5,7 @@ import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { relationshipLengthOptions, relationshipChallengesOptions, relationshipWorkingOptions } from "./constants";
 
 interface RelationshipQuestionsProps {
@@ -18,11 +19,15 @@ const RelationshipQuestions = ({
   updateField, 
   handleMultiSelect 
 }: RelationshipQuestionsProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+
   return (
     <>
       {/* Relationship Length */}
       <QuestionCard 
         questionId="question-relationship-length"
+        showContinue={!!profileData.relationshipLength}
+        onContinue={() => scrollToNextQuestion('question-relationship-length')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been together? <span className="text-red-400">*</span>
@@ -42,6 +47,8 @@ const RelationshipQuestions = ({
       {profileData.relationshipLength && (
         <QuestionCard 
           questionId="question-relationship-challenges"
+          showContinue={!!(profileData.relationshipChallenges?.length)}
+          onContinue={() => scrollToNextQuestion('question-relationship-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
@@ -63,6 +70,8 @@ const RelationshipQuestions = ({
       {(profileData.relationshipChallenges?.length) && (
         <QuestionCard 
           questionId="question-relationship-working"
+          showContinue={!!(profileData.relationshipWorking?.length)}
+          onContinue={() => scrollToNextQuestion('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>

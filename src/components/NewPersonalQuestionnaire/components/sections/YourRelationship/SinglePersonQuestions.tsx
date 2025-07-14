@@ -4,6 +4,7 @@ import { Target } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { datingChallengesOptions } from "./constants";
 
 interface SinglePersonQuestionsProps {
@@ -12,9 +13,14 @@ interface SinglePersonQuestionsProps {
 }
 
 const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQuestionsProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!(profileData.datingChallenges?.length);
+
   return (
     <QuestionCard 
       questionId="question-dating-challenges"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-dating-challenges')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>

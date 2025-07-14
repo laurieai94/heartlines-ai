@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { separationSituationOptions, datingReadinessOptions } from "./constants";
 
 interface SeparatedDivorcedQuestionsProps {
@@ -15,11 +16,15 @@ const SeparatedDivorcedQuestions = ({
   profileData, 
   handleMultiSelect 
 }: SeparatedDivorcedQuestionsProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+
   return (
     <>
       {/* Separation Situation */}
       <QuestionCard 
         questionId="question-separation-situation"
+        showContinue={!!(profileData.separationSituation?.length)}
+        onContinue={() => scrollToNextQuestion('question-separation-situation')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your situation right now? <span className="text-red-400">*</span>
@@ -41,6 +46,8 @@ const SeparatedDivorcedQuestions = ({
       {(profileData.separationSituation?.length) && (
         <QuestionCard 
           questionId="question-dating-readiness"
+          showContinue={!!(profileData.datingReadiness?.length)}
+          onContinue={() => scrollToNextQuestion('question-dating-readiness')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>

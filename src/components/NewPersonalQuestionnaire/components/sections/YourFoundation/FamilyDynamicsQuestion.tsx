@@ -1,9 +1,9 @@
-
 import { Label } from "@/components/ui/label";
 import { Home } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { familyDynamicsOptions } from "./constants";
 
 interface FamilyDynamicsQuestionProps {
@@ -15,9 +15,14 @@ const FamilyDynamicsQuestion = ({
   profileData, 
   handleMultiSelect 
 }: FamilyDynamicsQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!(profileData.familyDynamics?.length);
+
   return (
     <QuestionCard 
       questionId="question-family-dynamics"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-family-dynamics')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How did emotions work in your family? <span className="text-red-400">*</span>
