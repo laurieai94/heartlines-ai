@@ -2,6 +2,7 @@ import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
 import { validateSection } from "../../../utils/validation";
 import SectionContinueButton from "../../shared/SectionContinueButton";
+import SimpleContinueButton from "../../shared/SimpleContinueButton";
 import NamePronounsCard from "./NamePronounsCard";
 import AgeSelectionCard from "./AgeSelectionCard";
 import OrientationSelectionCard from "./OrientationSelectionCard";
@@ -16,26 +17,8 @@ interface WhoYouAreProps {
 }
 
 const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: WhoYouAreProps) => {
-  // Helper function to check if pronouns are complete (duplicated here to avoid complex prop passing)
-  const isPronounsComplete = () => {
-    if (!profileData.pronouns) return false;
-    if (profileData.pronouns === 'Other') {
-      // For 'Other', we need to check if there's a custom value that's not just 'Other'
-      return profileData.pronouns !== 'Other';
-    }
-    return true;
-  };
-
-  // Question completion checks
-  const isNamePronounsComplete = profileData.name && isPronounsComplete();
-  const isAgeComplete = profileData.age;
-  const isOrientationComplete = profileData.orientation && profileData.orientation.trim() !== '';
-  const isGenderComplete = profileData.gender && profileData.gender.trim() !== '';
-  
-  // Section completion check
   const isSectionComplete = validateSection(1, profileData);
 
-  // Navigation functions
   const scrollToQuestion = (questionId: string) => {
     const element = document.getElementById(questionId);
     if (element) {
@@ -43,58 +26,75 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
     }
   };
 
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector('[data-section="2"]');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    onSectionComplete?.();
+  };
+
+  // Check completion for individual questions
+  const isPronounsComplete = () => {
+    if (!profileData.pronouns) return false;
+    if (profileData.pronouns === 'Other') {
+      return profileData.pronouns !== 'Other';
+    }
+    return true;
+  };
+
+  const isNamePronounsComplete = profileData.name && isPronounsComplete();
+  const isAgeComplete = profileData.age;
+  const isOrientationComplete = profileData.orientation && profileData.orientation.trim() !== '';
+  const isGenderComplete = profileData.gender && profileData.gender.trim() !== '';
+
   return (
-    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`} data-section="1">
       <div className="flex items-center gap-2 mb-4">
         <User className="w-5 h-5 text-rose-400" />
         <h3 className="text-xl font-bold text-white">The Basics</h3>
       </div>
 
-      {/* Name and Pronouns Combined */}
       <NamePronounsCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isNamePronounsComplete && !isAgeComplete}
-        onContinue={() => scrollToQuestion('question-age')}
+        isComplete={false}
+        onContinue={() => {}}
       />
+      {isNamePronounsComplete && (
+        <SimpleContinueButton onClick={() => scrollToQuestion('question-age')} />
+      )}
 
-      {/* Age */}
       <AgeSelectionCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isAgeComplete && !isOrientationComplete}
-        onContinue={() => scrollToQuestion('question-orientation')}
+        isComplete={false}
+        onContinue={() => {}}
       />
+      {isAgeComplete && (
+        <SimpleContinueButton onClick={() => scrollToQuestion('question-orientation')} />
+      )}
 
-      {/* Sexual Orientation */}
       <OrientationSelectionCard
         profileData={profileData}
         updateField={updateField}
-        isComplete={isOrientationComplete && !isGenderComplete}
-        onContinue={() => scrollToQuestion('question-gender')}
+        isComplete={false}
+        onContinue={() => {}}
       />
+      {isOrientationComplete && (
+        <SimpleContinueButton onClick={() => scrollToQuestion('question-gender')} />
+      )}
 
-      {/* Gender Identity */}
       <GenderSelectionCard
         profileData={profileData}
         updateField={updateField}
       />
-
-      {/* Section Continue Button */}
-      <SectionContinueButton
-        isVisible={isSectionComplete}
-        currentSection={1}
-        onClick={() => {
-          // Scroll to first question of next section
-          setTimeout(() => {
-            const nextSectionFirstQuestion = document.querySelector('[data-section="2"] [data-question-card]');
-            if (nextSectionFirstQuestion) {
-              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }, 100);
-          onSectionComplete?.();
-        }}
-      />
+      {isSectionComplete && (
+        <SectionContinueButton 
+          onClick={scrollToNextSection}
+          text="Continue to Your Relationship" 
+        />
+      )}
     </div>
   );
 };

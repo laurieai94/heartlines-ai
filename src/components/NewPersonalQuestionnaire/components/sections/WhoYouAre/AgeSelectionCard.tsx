@@ -17,11 +17,7 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete, onContinue }: 
   ];
 
   return (
-    <QuestionCard 
-      questionId="question-age"
-      showContinue={isComplete}
-      onContinue={onContinue}
-    >
+    <QuestionCard questionId="question-age">
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your age? <span className="text-red-400">*</span>
       </Label>
