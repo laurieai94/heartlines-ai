@@ -6,7 +6,6 @@ import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SectionContinueButton from "../shared/SectionContinueButton";
 import { validateSection } from "../../utils/validation";
-
 interface HowYouOperateProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -15,62 +14,30 @@ interface HowYouOperateProps {
   onAutoScroll?: (questionId: string) => void;
   onSectionComplete?: () => void;
 }
-
-const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll, onSectionComplete }: HowYouOperateProps) => {
-  const stressResponseOptions = [
-    'Get quiet and need my space',
-    'Want to talk it out right now', 
-    'Get emotional and need comfort',
-    'Try to fix everything for everyone',
-    'Shut down completely',
-    'Become irritable and snappy AF',
-    'Overthink literally everything',
-    'Text my friends for support',
-    'Distract myself with work or scrolling'
-  ];
-
-  const loveLanguageOptions = [
-    'Quality time together',
-    'Physical touch & affection',
-    'Words of affirmation',
-    'Acts of service',
-    'Gifts & thoughtful gestures',
-    'Deep conversations',
-    'Shared experiences',
-    'Being supported in goals',
-    'Feeling appreciated & valued'
-  ];
-
-  const conflictStyleOptions = [
-    'Want to talk it through right away',
-    'Need space to cool down first',
-    'Try to understand their perspective',
-    'Focus on finding solutions quickly',
-    'Get emotional and need reassurance',
-    'Become analytical and logical',
-    'Avoid conflict if possible',
-    'Stand my ground and argue my point',
-    'Shut down and withdraw'
-  ];
+const HowYouOperate = ({
+  profileData,
+  updateField,
+  handleMultiSelect,
+  isActive,
+  onAutoScroll,
+  onSectionComplete
+}: HowYouOperateProps) => {
+  const stressResponseOptions = ['Get quiet and need my space', 'Want to talk it out right now', 'Get emotional and need comfort', 'Try to fix everything for everyone', 'Shut down completely', 'Become irritable and snappy AF', 'Overthink literally everything', 'Text my friends for support', 'Distract myself with work or scrolling'];
+  const loveLanguageOptions = ['Quality time together', 'Physical touch & affection', 'Words of affirmation', 'Acts of service', 'Gifts & thoughtful gestures', 'Deep conversations', 'Shared experiences', 'Being supported in goals', 'Feeling appreciated & valued'];
+  const conflictStyleOptions = ['Want to talk it through right away', 'Need space to cool down first', 'Try to understand their perspective', 'Focus on finding solutions quickly', 'Get emotional and need reassurance', 'Become analytical and logical', 'Avoid conflict if possible', 'Stand my ground and argue my point', 'Shut down and withdraw'];
 
   // Section completion check
   const isSectionComplete = validateSection(3, profileData);
-
-  return (
-    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+  return <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
         <Zap className="w-5 h-5 text-rose-400" />
         <h3 className="text-xl font-bold text-white">How You Operate</h3>
       </div>
 
       {/* Stress Response */}
-      <QuestionCard 
-        questionId="question-stress-response"
-        showContinue={!!(profileData.stressResponse?.length)}
-        onContinue={() => {
-          onAutoScroll?.('question-love-language');
-        }}
-      >
+      <QuestionCard questionId="question-stress-response" showContinue={!!profileData.stressResponse?.length} onContinue={() => {
+      onAutoScroll?.('question-love-language');
+    }}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           When you're stressed, what's your go-to? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -79,34 +46,22 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
           <Zap className="w-3 h-3 text-orange-300" />
           <span>Stress patterns affect how you show up in relationships</span>
         </div>
-        <MultiSelect
-          options={stressResponseOptions}
-          selectedValues={profileData.stressResponse || []}
-          onToggle={(value) => handleMultiSelect('stressResponse', value)}
-        />
+        <MultiSelect options={stressResponseOptions} selectedValues={profileData.stressResponse || []} onToggle={value => handleMultiSelect('stressResponse', value)} />
       </QuestionCard>
 
       {/* Love Language */}
-      <QuestionCard 
-        questionId="question-love-language"
-        showContinue={!!(profileData.loveLanguage?.length)}
-        onContinue={() => {
-          onAutoScroll?.('question-conflict-style');
-        }}
-      >
+      <QuestionCard questionId="question-love-language" showContinue={!!profileData.loveLanguage?.length} onContinue={() => {
+      onAutoScroll?.('question-conflict-style');
+    }}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you feel most loved? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Heart className="w-3 h-3 text-pink-300" />
-          <span>Understanding your needs helps you communicate them</span>
+          <span> Knowing this helps you actually ask for what you need</span>
         </div>
-        <MultiSelect
-          options={loveLanguageOptions}
-          selectedValues={profileData.loveLanguage || []}
-          onToggle={(value) => handleMultiSelect('loveLanguage', value)}
-        />
+        <MultiSelect options={loveLanguageOptions} selectedValues={profileData.loveLanguage || []} onToggle={value => handleMultiSelect('loveLanguage', value)} />
       </QuestionCard>
 
       {/* Conflict Style - Optional */}
@@ -119,30 +74,23 @@ const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, 
           <Shield className="w-3 h-3 text-blue-300" />
           <span>Knowing your conflict style helps navigate disagreements</span>
         </div>
-        <MultiSelect
-          options={conflictStyleOptions}
-          selectedValues={profileData.conflictStyle || []}
-          onToggle={(value) => handleMultiSelect('conflictStyle', value)}
-        />
+        <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} />
       </QuestionCard>
 
       {/* Section Continue Button */}
-      <SectionContinueButton
-        isVisible={isSectionComplete}
-        currentSection={3}
-        onClick={() => {
-          // Scroll to first question of next section
-          setTimeout(() => {
-            const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
-            if (nextSectionFirstQuestion) {
-              nextSectionFirstQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }, 100);
-          onSectionComplete?.();
-        }}
-      />
-    </div>
-  );
+      <SectionContinueButton isVisible={isSectionComplete} currentSection={3} onClick={() => {
+      // Scroll to first question of next section
+      setTimeout(() => {
+        const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
+        if (nextSectionFirstQuestion) {
+          nextSectionFirstQuestion.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 100);
+      onSectionComplete?.();
+    }} />
+    </div>;
 };
-
 export default HowYouOperate;
