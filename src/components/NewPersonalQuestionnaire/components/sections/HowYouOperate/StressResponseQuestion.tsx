@@ -9,20 +9,14 @@ import { stressResponseOptions } from "./constants";
 interface StressResponseQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onContinue?: () => void;
 }
 
 const StressResponseQuestion = ({ 
   profileData, 
-  handleMultiSelect, 
-  onContinue 
+  handleMultiSelect
 }: StressResponseQuestionProps) => {
   return (
-    <QuestionCard 
-      questionId="question-stress-response" 
-      showContinue={!!profileData.stressResponse?.length} 
-      onContinue={onContinue}
-    >
+    <QuestionCard questionId="question-stress-response">
       <Label className="text-sm font-semibold text-white mb-2 block">
         When you're stressed, what's your go-to? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

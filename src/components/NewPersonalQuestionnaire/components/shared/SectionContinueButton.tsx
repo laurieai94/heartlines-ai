@@ -1,61 +1,22 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Sparkles, TreeDeciduous, Heart, Zap } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 
 interface SectionContinueButtonProps {
-  isVisible: boolean;
-  currentSection: number;
   onClick: () => void;
+  text: string;
   className?: string;
 }
 
-const SectionContinueButton = ({ 
-  isVisible, 
-  currentSection, 
-  onClick, 
-  className = "" 
-}: SectionContinueButtonProps) => {
-  if (!isVisible) return null;
-
-  const getSectionInfo = () => {
-    switch (currentSection) {
-      case 1:
-        return {
-          text: "Continue to Section 2",
-          icon: ArrowDown,
-          gradient: "from-rose-500 to-pink-600"
-        };
-      case 2:
-        return {
-          text: "Continue to Section 3",
-          icon: ArrowDown,
-          gradient: "from-pink-500 to-purple-600"
-        };
-      case 3:
-        return {
-          text: "Continue to Section 4",
-          icon: ArrowDown,
-          gradient: "from-purple-500 to-indigo-600"
-        };
-      default:
-        return {
-          text: "Continue",
-          icon: ArrowDown,
-          gradient: "from-indigo-500 to-blue-600"
-        };
-    }
-  };
-
-  const { text, icon: Icon, gradient } = getSectionInfo();
-
+const SectionContinueButton = ({ onClick, text, className = "" }: SectionContinueButtonProps) => {
   return (
-    <div className={`flex justify-center mt-6 animate-fade-in ${className}`}>
+    <div className={`flex justify-center mt-8 animate-fade-in ${className}`}>
       <Button
         onClick={onClick}
-        className={`bg-gradient-to-r ${gradient} hover:scale-105 text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 shadow-lg hover:shadow-xl font-semibold`}
+        className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-3 shadow-lg hover:shadow-xl font-semibold text-base hover:scale-105"
       >
-        <Sparkles className="w-4 h-4" />
-        <span className="text-sm">{text}</span>
-        <Icon className="w-4 h-4" />
+        <Sparkles className="w-5 h-5" />
+        <span>{text}</span>
+        <ArrowDown className="w-5 h-5" />
       </Button>
     </div>
   );

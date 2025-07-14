@@ -12,7 +12,6 @@ interface QuestionnaireContentProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   currentSection: number;
-  onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
   onSectionComplete?: (nextSection: number) => void;
 }
 
