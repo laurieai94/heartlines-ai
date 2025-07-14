@@ -18,7 +18,11 @@ const OrientationSelectionCard = ({ profileData, updateField, isComplete, onCont
   ];
 
   return (
-    <QuestionCard questionId="question-orientation">
+    <QuestionCard 
+      questionId="question-orientation"
+      showContinue={isComplete}
+      onContinue={onContinue}
+    >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your sexual orientation? <span className="text-red-400">*</span>
       </Label>

@@ -1,16 +1,21 @@
 
 import { ReactNode } from "react";
+import QuestionContinueButton from "./QuestionContinueButton";
 
 interface QuestionCardProps {
   children: ReactNode;
   className?: string;
   questionId?: string;
+  showContinue?: boolean;
+  onContinue?: () => void;
 }
 
 const QuestionCard = ({ 
   children, 
   className = "", 
-  questionId
+  questionId, 
+  showContinue = false, 
+  onContinue 
 }: QuestionCardProps) => {
   return (
     <div 
@@ -19,6 +24,12 @@ const QuestionCard = ({
       id={questionId}
     >
       {children}
+      {showContinue && onContinue && (
+        <QuestionContinueButton
+          isVisible={showContinue}
+          onClick={onContinue}
+        />
+      )}
     </div>
   );
 };

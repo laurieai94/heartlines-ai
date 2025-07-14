@@ -5,7 +5,6 @@ import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
 import MultiSelect from "../../shared/MultiSelect";
-import SimpleContinueButton from "../../shared/SimpleContinueButton";
 import { relationshipLengthOptions, relationshipChallengesOptions, relationshipWorkingOptions } from "./constants";
 
 interface RelationshipQuestionsProps {
@@ -24,7 +23,11 @@ const RelationshipQuestions = ({
   return (
     <>
       {/* Relationship Length */}
-      <QuestionCard questionId="question-relationship-length">
+      <QuestionCard 
+        questionId="question-relationship-length"
+        showContinue={!!profileData.relationshipLength && !(profileData.relationshipChallenges?.length)}
+        onContinue={() => onAutoScroll?.('question-relationship-challenges')}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been together? <span className="text-red-400">*</span>
         </Label>
@@ -37,20 +40,15 @@ const RelationshipQuestions = ({
           selectedValue={profileData.relationshipLength || ''}
           onSelect={(value) => updateField('relationshipLength', value)}
         />
-        {profileData.relationshipLength && (
-          <SimpleContinueButton 
-            onClick={() => {
-              const element = document.getElementById('question-relationship-challenges');
-              element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }}
-            className="mt-4"
-          />
-        )}
       </QuestionCard>
 
       {/* Relationship Challenges */}
       {profileData.relationshipLength && (
-        <QuestionCard questionId="question-relationship-challenges">
+        <QuestionCard 
+          questionId="question-relationship-challenges"
+          showContinue={!!(profileData.relationshipChallenges?.length) && !(profileData.relationshipWorking?.length)}
+          onContinue={() => onAutoScroll?.('question-relationship-working')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -64,21 +62,16 @@ const RelationshipQuestions = ({
             selectedValues={profileData.relationshipChallenges || []}
             onToggle={(value) => handleMultiSelect('relationshipChallenges', value)}
           />
-          {(profileData.relationshipChallenges?.length) && (
-            <SimpleContinueButton 
-              onClick={() => {
-                const element = document.getElementById('question-relationship-working');
-                element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-              className="mt-4"
-            />
-          )}
         </QuestionCard>
       )}
 
       {/* What's Working Well */}
       {(profileData.relationshipChallenges?.length) && (
-        <QuestionCard questionId="question-relationship-working">
+        <QuestionCard 
+          questionId="question-relationship-working"
+          showContinue={!!(profileData.relationshipWorking?.length)}
+          onContinue={() => onAutoScroll?.('question-section-complete')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

@@ -5,7 +5,6 @@ import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
 import MultiSelect from "../../shared/MultiSelect";
-import SimpleContinueButton from "../../shared/SimpleContinueButton";
 import { talkingDurationOptions, talkingDescriptionOptions, talkingChallengesOptions } from "./constants";
 
 interface TalkingStageQuestionsProps {
@@ -24,7 +23,11 @@ const TalkingStageQuestions = ({
   return (
     <>
       {/* Talking Duration */}
-      <QuestionCard questionId="question-talking-duration">
+      <QuestionCard 
+        questionId="question-talking-duration"
+        showContinue={!!profileData.talkingDuration && !(profileData.talkingDescription?.length)}
+        onContinue={() => onAutoScroll?.('question-talking-description')}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been talking? <span className="text-red-400">*</span>
         </Label>
@@ -37,20 +40,15 @@ const TalkingStageQuestions = ({
           selectedValue={profileData.talkingDuration || ''}
           onSelect={(value) => updateField('talkingDuration', value)}
         />
-        {profileData.talkingDuration && (
-          <SimpleContinueButton 
-            onClick={() => {
-              const element = document.getElementById('question-talking-description');
-              element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }}
-            className="mt-4"
-          />
-        )}
       </QuestionCard>
 
       {/* Talking Description */}
       {profileData.talkingDuration && (
-        <QuestionCard questionId="question-talking-description">
+        <QuestionCard 
+          questionId="question-talking-description"
+          showContinue={!!(profileData.talkingDescription?.length) && !(profileData.talkingChallenges?.length)}
+          onContinue={() => onAutoScroll?.('question-talking-challenges')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How would you describe what you have right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -65,21 +63,16 @@ const TalkingStageQuestions = ({
             onToggle={(value) => handleMultiSelect('talkingDescription', value)}
             columns={1}
           />
-          {(profileData.talkingDescription?.length) && (
-            <SimpleContinueButton 
-              onClick={() => {
-                const element = document.getElementById('question-talking-challenges');
-                element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-              className="mt-4"
-            />
-          )}
         </QuestionCard>
       )}
 
       {/* Talking Challenges */}
       {(profileData.talkingDescription?.length) && (
-        <QuestionCard questionId="question-talking-challenges">
+        <QuestionCard 
+          questionId="question-talking-challenges"
+          showContinue={!!(profileData.talkingChallenges?.length)}
+          onContinue={() => onAutoScroll?.('question-section-complete')}
+        >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging about the talking stage? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - we get that this stage is weird</span>

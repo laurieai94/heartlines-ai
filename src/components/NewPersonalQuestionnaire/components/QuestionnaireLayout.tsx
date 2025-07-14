@@ -94,6 +94,7 @@ const QuestionnaireLayout = ({
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
           currentSection={currentSection}
+          onScrollToSection={setScrollToSectionFn}
           onSectionComplete={handleSectionComplete}
         />
 
