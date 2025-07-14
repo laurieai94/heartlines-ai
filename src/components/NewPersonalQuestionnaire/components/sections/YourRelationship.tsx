@@ -46,12 +46,9 @@ const YourRelationship = ({
   };
 
   const shouldShowContinueAfterStatus = () => {
-    return !!profileData.relationshipStatus && (
-      (isSingle && !(profileData.datingChallenges?.length)) ||
-      (isTalking && !profileData.talkingDuration) ||
-      (hasRelationship && !profileData.relationshipLength) ||
-      (isSeparatedDivorced && !(profileData.separationSituation?.length))
-    );
+    // Show continue button immediately after selecting a relationship status
+    // This will guide users to the next question in their flow
+    return !!profileData.relationshipStatus && !isSectionComplete;
   };
 
   return (
