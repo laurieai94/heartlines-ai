@@ -50,9 +50,10 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       break;
     }
     case 3: {
-      // How You Operate: stressResponse and loveLanguage required
+      // How You Operate: stressResponse, loveLanguage, and conflictStyle required
       isValid = (profileData.stressResponse || []).length > 0 && 
-               (profileData.loveLanguage || []).length > 0;
+               (profileData.loveLanguage || []).length > 0 &&
+               (profileData.conflictStyle || []).length > 0;
       break;
     }
     case 4: {
@@ -124,10 +125,11 @@ export const calculateProgress = (profileData: ProfileData): number => {
     totalRequired += 1;
   }
   
-  // Section 3: 2 required fields
-  totalRequired += 2;
+  // Section 3: 3 required fields (added conflictStyle)
+  totalRequired += 3;
   if ((profileData.stressResponse || []).length > 0) totalCompleted += 1;
   if ((profileData.loveLanguage || []).length > 0) totalCompleted += 1;
+  if ((profileData.conflictStyle || []).length > 0) totalCompleted += 1;
   
   // Section 4: 1 required field
   totalRequired += 1;
