@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Zap, Heart, Shield } from "lucide-react";
@@ -19,15 +18,15 @@ interface HowYouOperateProps {
 
 const HowYouOperate = ({ profileData, updateField, handleMultiSelect, isActive, onAutoScroll, onSectionComplete }: HowYouOperateProps) => {
   const stressResponseOptions = [
-    'Get quiet & need space',
-    'Want to talk it out immediately', 
-    'Get emotional & need comfort',
-    'Try to fix everything',
+    'Get quiet and need my space',
+    'Want to talk it out right now', 
+    'Get emotional and need comfort',
+    'Try to fix everything for everyone',
     'Shut down completely',
-    'Become irritable/snappy',
-    'Overthink everything',
-    'Seek support from friends',
-    'Distract with work/activities'
+    'Become irritable and snappy AF',
+    'Overthink literally everything',
+    'Text my friends for support',
+    'Distract myself with work or scrolling'
   ];
 
   const loveLanguageOptions = [
