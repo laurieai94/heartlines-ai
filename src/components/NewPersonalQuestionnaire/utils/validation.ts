@@ -1,4 +1,5 @@
 
+
 import { ProfileData } from '../types';
 
 export const validateSection = (section: number, profileData: ProfileData): boolean => {
@@ -57,8 +58,9 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       break;
     }
     case 4: {
-      // Your Foundation: familyDynamics required
-      isValid = (profileData.familyDynamics || []).length > 0;
+      // Your Foundation: familyDynamics and attachmentStyle required
+      isValid = (profileData.familyDynamics || []).length > 0 && 
+               !!profileData.attachmentStyle;
       break;
     }
     default:
@@ -131,9 +133,10 @@ export const calculateProgress = (profileData: ProfileData): number => {
   if ((profileData.loveLanguage || []).length > 0) totalCompleted += 1;
   if ((profileData.conflictStyle || []).length > 0) totalCompleted += 1;
   
-  // Section 4: 1 required field
-  totalRequired += 1;
+  // Section 4: 2 required fields (added attachmentStyle)
+  totalRequired += 2;
   if ((profileData.familyDynamics || []).length > 0) totalCompleted += 1;
+  if (profileData.attachmentStyle) totalCompleted += 1;
   
   return totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
 };
