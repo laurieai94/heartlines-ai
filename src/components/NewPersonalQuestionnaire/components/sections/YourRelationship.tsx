@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Heart, Clock, MessageSquare, Target, AlertTriangle, Star } from "lucide-react";
@@ -14,10 +13,18 @@ interface YourRelationshipProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
+  onAutoScroll?: (questionId: string) => void;
   onSectionComplete?: () => void;
 }
 
-const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: YourRelationshipProps) => {
+const YourRelationship = ({ 
+  profileData, 
+  updateField, 
+  handleMultiSelect, 
+  isActive, 
+  onAutoScroll, 
+  onSectionComplete 
+}: YourRelationshipProps) => {
   const relationshipStatusOptions = [
     'Single & actively dating',
     'Single & taking a break', 
@@ -130,28 +137,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
   const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
 
-  // Question completion checks
-  const isStatusComplete = profileData.relationshipStatus;
-  const isDatingChallengesComplete = isSingle ? (profileData.datingChallenges && profileData.datingChallenges.length > 0) : true;
-  const isTalkingDurationComplete = isTalking ? profileData.talkingDuration : true;
-  const isTalkingDescriptionComplete = isTalking ? (profileData.talkingDescription && profileData.talkingDescription.length > 0) : true;
-  const isTalkingChallengesComplete = isTalking ? (profileData.talkingChallenges && profileData.talkingChallenges.length > 0) : true;
-  const isLengthComplete = hasRelationship ? profileData.relationshipLength : true;
-  const isChallengesComplete = hasRelationship ? (profileData.relationshipChallenges && profileData.relationshipChallenges.length > 0) : true;
-  const isWorkingComplete = hasRelationship ? (profileData.relationshipWorking && profileData.relationshipWorking.length > 0) : true;
-  const isSeparationSituationComplete = isSeparatedDivorced ? (profileData.separationSituation && profileData.separationSituation.length > 0) : true;
-  const isDatingReadinessComplete = isSeparatedDivorced ? (profileData.datingReadiness && profileData.datingReadiness.length > 0) : true;
-  
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
-
-  // Navigation functions
-  const scrollToQuestion = (questionId: string) => {
-    const element = document.getElementById(questionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -163,21 +150,21 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {/* Relationship Status */}
       <QuestionCard 
         questionId="question-relationship-status"
-        showContinue={isStatusComplete && (
-          (isSingle && !isDatingChallengesComplete) ||
-          (isTalking && !isTalkingDurationComplete) ||
-          (hasRelationship && !isLengthComplete) ||
-          (isSeparatedDivorced && !isSeparationSituationComplete)
+        showContinue={!!profileData.relationshipStatus && (
+          (isSingle && !(profileData.datingChallenges?.length)) ||
+          (isTalking && !profileData.talkingDuration) ||
+          (hasRelationship && !profileData.relationshipLength) ||
+          (isSeparatedDivorced && !(profileData.separationSituation?.length))
         )}
         onContinue={() => {
           if (isSingle) {
-            scrollToQuestion('question-dating-challenges');
+            onAutoScroll?.('question-dating-challenges');
           } else if (isTalking) {
-            scrollToQuestion('question-talking-duration');
+            onAutoScroll?.('question-talking-duration');
           } else if (hasRelationship) {
-            scrollToQuestion('question-relationship-length');
+            onAutoScroll?.('question-relationship-length');
           } else if (isSeparatedDivorced) {
-            scrollToQuestion('question-separation-situation');
+            onAutoScroll?.('question-separation-situation');
           }
         }}
       >
@@ -198,9 +185,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
 
       {/* Dating Challenges - for single people */}
       {isSingle && (
-        <QuestionCard 
-          questionId="question-dating-challenges"
-        >
+        <QuestionCard questionId="question-dating-challenges">
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -221,8 +206,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {isTalking && (
         <QuestionCard 
           questionId="question-talking-duration"
-          showContinue={isTalkingDurationComplete && !isTalkingDescriptionComplete}
-          onContinue={() => scrollToQuestion('question-talking-description')}
+          showContinue={!!profileData.talkingDuration && !(profileData.talkingDescription?.length)}
+          onContinue={() => onAutoScroll?.('question-talking-description')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How long have you been talking? <span className="text-red-400">*</span>
@@ -240,11 +225,11 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       )}
 
       {/* Talking Description - for people talking to someone */}
-      {isTalking && isTalkingDurationComplete && (
+      {isTalking && profileData.talkingDuration && (
         <QuestionCard 
           questionId="question-talking-description"
-          showContinue={isTalkingDescriptionComplete && !isTalkingChallengesComplete}
-          onContinue={() => scrollToQuestion('question-talking-challenges')}
+          showContinue={!!(profileData.talkingDescription?.length) && !(profileData.talkingChallenges?.length)}
+          onContinue={() => onAutoScroll?.('question-talking-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How would you describe what you have right now? <span className="text-red-400">*</span>
@@ -264,10 +249,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       )}
 
       {/* Talking Challenges - for people talking to someone */}
-      {isTalking && isTalkingDescriptionComplete && (
-        <QuestionCard 
-          questionId="question-talking-challenges"
-        >
+      {isTalking && (profileData.talkingDescription?.length) && (
+        <QuestionCard questionId="question-talking-challenges">
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging about the talking stage? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate - we get that this stage is weird</span>
@@ -289,8 +272,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {hasRelationship && (
         <QuestionCard 
           questionId="question-relationship-length"
-          showContinue={isLengthComplete && !isChallengesComplete}
-          onContinue={() => scrollToQuestion('question-relationship-challenges')}
+          showContinue={!!profileData.relationshipLength && !(profileData.relationshipChallenges?.length)}
+          onContinue={() => onAutoScroll?.('question-relationship-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             How long have you been together? <span className="text-red-400">*</span>
@@ -308,11 +291,11 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       )}
 
       {/* Relationship Challenges - for people in relationships */}
-      {hasRelationship && (
+      {hasRelationship && profileData.relationshipLength && (
         <QuestionCard 
           questionId="question-relationship-challenges"
-          showContinue={isChallengesComplete && !isWorkingComplete}
-          onContinue={() => scrollToQuestion('question-relationship-working')}
+          showContinue={!!(profileData.relationshipChallenges?.length) && !(profileData.relationshipWorking?.length)}
+          onContinue={() => onAutoScroll?.('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
@@ -331,7 +314,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       )}
 
       {/* What's Working Well - for people in relationships */}
-      {hasRelationship && (
+      {hasRelationship && (profileData.relationshipChallenges?.length) && (
         <QuestionCard questionId="question-relationship-working">
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>
@@ -353,8 +336,8 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
       {isSeparatedDivorced && (
         <QuestionCard 
           questionId="question-separation-situation"
-          showContinue={isSeparationSituationComplete && !isDatingReadinessComplete}
-          onContinue={() => scrollToQuestion('question-dating-readiness')}
+          showContinue={!!(profileData.separationSituation?.length) && !(profileData.datingReadiness?.length)}
+          onContinue={() => onAutoScroll?.('question-dating-readiness')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's your situation right now? <span className="text-red-400">*</span>
@@ -373,7 +356,7 @@ const YourRelationship = ({ profileData, updateField, handleMultiSelect, isActiv
         </QuestionCard>
       )}
 
-      {isSeparatedDivorced && (
+      {isSeparatedDivorced && (profileData.separationSituation?.length) && (
         <QuestionCard questionId="question-dating-readiness">
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>

@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Zap, Heart, Shield } from "lucide-react";
@@ -30,16 +31,22 @@ const HowYouOperate = ({
 
   // Section completion check
   const isSectionComplete = validateSection(3, profileData);
-  return <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+
+  return (
+    <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
       <div className="flex items-center gap-2 mb-4">
         <Zap className="w-5 h-5 text-rose-400" />
         <h3 className="text-xl font-bold text-white">How You Operate</h3>
       </div>
 
       {/* Stress Response */}
-      <QuestionCard questionId="question-stress-response" showContinue={!!profileData.stressResponse?.length} onContinue={() => {
-      onAutoScroll?.('question-love-language');
-    }}>
+      <QuestionCard 
+        questionId="question-stress-response" 
+        showContinue={!!profileData.stressResponse?.length} 
+        onContinue={() => {
+          onAutoScroll?.('question-love-language');
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           When you're stressed, what's your go-to? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -48,13 +55,21 @@ const HowYouOperate = ({
           <Zap className="w-3 h-3 text-orange-300" />
           <span>Stress patterns affect how you show up in relationships</span>
         </div>
-        <MultiSelect options={stressResponseOptions} selectedValues={profileData.stressResponse || []} onToggle={value => handleMultiSelect('stressResponse', value)} />
+        <MultiSelect 
+          options={stressResponseOptions} 
+          selectedValues={profileData.stressResponse || []} 
+          onToggle={value => handleMultiSelect('stressResponse', value)} 
+        />
       </QuestionCard>
 
       {/* Love Language */}
-      <QuestionCard questionId="question-love-language" showContinue={!!profileData.loveLanguage?.length} onContinue={() => {
-      onAutoScroll?.('question-conflict-style');
-    }}>
+      <QuestionCard 
+        questionId="question-love-language" 
+        showContinue={!!profileData.loveLanguage?.length} 
+        onContinue={() => {
+          onAutoScroll?.('question-conflict-style');
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you feel most loved? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -63,13 +78,24 @@ const HowYouOperate = ({
           <Heart className="w-3 h-3 text-pink-300" />
           <span> Knowing this helps you actually ask for what you need</span>
         </div>
-        <MultiSelect options={loveLanguageOptions} selectedValues={profileData.loveLanguage || []} onToggle={value => handleMultiSelect('loveLanguage', value)} />
+        <MultiSelect 
+          options={loveLanguageOptions} 
+          selectedValues={profileData.loveLanguage || []} 
+          onToggle={value => handleMultiSelect('loveLanguage', value)} 
+        />
       </QuestionCard>
 
       {/* Conflict Style - Now Required */}
-      <QuestionCard questionId="question-conflict-style" showContinue={!!profileData.conflictStyle?.length} onContinue={() => {
-        // This is the last question in the section, so no auto-scroll needed
-      }}>
+      <QuestionCard 
+        questionId="question-conflict-style" 
+        showContinue={!!profileData.conflictStyle?.length} 
+        onContinue={() => {
+          // This is the last question in the section, trigger section completion if ready
+          if (isSectionComplete) {
+            onSectionComplete?.();
+          }
+        }}
+      >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How do you typically handle conflict? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -78,24 +104,33 @@ const HowYouOperate = ({
           <Shield className="w-3 h-3 text-blue-300" />
           <span>Your conflict style is everything in relationships</span>
         </div>
-        <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} />
+        <MultiSelect 
+          options={conflictStyleOptions} 
+          selectedValues={profileData.conflictStyle || []} 
+          onToggle={value => handleMultiSelect('conflictStyle', value)} 
+        />
       </QuestionCard>
 
       {/* Section Continue Button */}
-      <SectionContinueButton isVisible={isSectionComplete} currentSection={3} onClick={() => {
-      // Scroll to first question of next section
-      setTimeout(() => {
-        const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
-        if (nextSectionFirstQuestion) {
-          nextSectionFirstQuestion.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-        }
-      }, 100);
-      onSectionComplete?.();
-    }} />
-    </div>;
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={3}
+        onClick={() => {
+          // Scroll to first question of next section
+          setTimeout(() => {
+            const nextSectionFirstQuestion = document.querySelector('[data-section="4"] [data-question-card]');
+            if (nextSectionFirstQuestion) {
+              nextSectionFirstQuestion.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+              });
+            }
+          }, 100);
+          onSectionComplete?.();
+        }}
+      />
+    </div>
+  );
 };
 
 export default HowYouOperate;

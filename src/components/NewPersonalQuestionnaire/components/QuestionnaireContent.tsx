@@ -1,6 +1,7 @@
 
 import { useRef, useEffect } from "react";
 import { ProfileData } from "../types";
+import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
 import YourRelationship from "./sections/YourRelationship";
 import HowYouOperate from "./sections/HowYouOperate";
@@ -24,6 +25,7 @@ const QuestionnaireContent = ({
   onSectionComplete
 }: QuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollToNextQuestion } = useAutoScroll({ scrollContainerRef });
 
   const scrollToSection = (sectionNumber: number) => {
     console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
@@ -90,6 +92,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 2}
+            onAutoScroll={scrollToNextQuestion}
             onSectionComplete={() => onSectionComplete?.(3)}
           />
         </div>
@@ -100,6 +103,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 3}
+            onAutoScroll={scrollToNextQuestion}
             onSectionComplete={() => onSectionComplete?.(4)}
           />
         </div>
@@ -110,6 +114,7 @@ const QuestionnaireContent = ({
             updateField={updateField}
             handleMultiSelect={handleMultiSelect}
             isActive={currentSection === 4}
+            onAutoScroll={scrollToNextQuestion}
             onSectionComplete={() => {}} // Final section, no next section
           />
         </div>
