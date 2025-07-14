@@ -79,7 +79,10 @@ const YourFoundation = ({ profileData, updateField, handleMultiSelect, isActive,
         questionId="question-attachment-style"
         showContinue={!!profileData.attachmentStyle}
         onContinue={() => {
-          // This is the last question in the section, no auto-scroll needed
+          // This is the last question in the section, trigger section completion
+          if (isSectionComplete) {
+            onSectionComplete?.();
+          }
         }}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
