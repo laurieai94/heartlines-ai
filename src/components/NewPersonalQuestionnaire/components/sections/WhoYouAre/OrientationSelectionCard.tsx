@@ -3,6 +3,7 @@ import { Compass } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 
 interface OrientationSelectionCardProps {
   profileData: ProfileData;
@@ -11,6 +12,8 @@ interface OrientationSelectionCardProps {
 }
 
 const OrientationSelectionCard = ({ profileData, updateField, isComplete }: OrientationSelectionCardProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  
   const orientationOptions = [
     'Straight/Heterosexual', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
     'Queer', 'Asexual', 'Questioning', 'Prefer to self-describe'
@@ -19,6 +22,8 @@ const OrientationSelectionCard = ({ profileData, updateField, isComplete }: Orie
   return (
     <QuestionCard 
       questionId="question-orientation"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-orientation')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your sexual orientation? <span className="text-red-400">*</span>

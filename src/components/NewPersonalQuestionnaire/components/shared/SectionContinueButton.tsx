@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Sparkles, TreeDeciduous, Heart, Zap } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 
 interface SectionContinueButtonProps {
   isVisible: boolean;
@@ -20,32 +20,28 @@ const SectionContinueButton = ({
     switch (currentSection) {
       case 1:
         return {
-          text: "Continue to Section 2",
-          icon: ArrowDown,
+          text: "Continue to Your Foundation",
           gradient: "from-rose-500 to-pink-600"
         };
       case 2:
         return {
-          text: "Continue to Section 3",
-          icon: ArrowDown,
+          text: "Continue to How You Operate", 
           gradient: "from-pink-500 to-purple-600"
         };
       case 3:
         return {
-          text: "Continue to Section 4",
-          icon: ArrowDown,
+          text: "Continue to Your Relationship",
           gradient: "from-purple-500 to-indigo-600"
         };
       default:
         return {
           text: "Continue",
-          icon: ArrowDown,
           gradient: "from-indigo-500 to-blue-600"
         };
     }
   };
 
-  const { text, icon: Icon, gradient } = getSectionInfo();
+  const { text, gradient } = getSectionInfo();
 
   return (
     <div className={`flex justify-center mt-6 animate-fade-in ${className}`}>
@@ -55,7 +51,7 @@ const SectionContinueButton = ({
       >
         <Sparkles className="w-4 h-4" />
         <span className="text-sm">{text}</span>
-        <Icon className="w-4 h-4" />
+        <ArrowDown className="w-4 h-4" />
       </Button>
     </div>
   );

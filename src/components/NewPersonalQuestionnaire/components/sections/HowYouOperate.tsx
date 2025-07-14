@@ -3,6 +3,8 @@ import { Zap } from "lucide-react";
 import { ProfileData } from "../../types";
 
 import { validateSection } from "../../utils/validation";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
+import SectionContinueButton from "../shared/SectionContinueButton";
 import StressResponseQuestion from "./HowYouOperate/StressResponseQuestion";
 import LoveLanguageQuestion from "./HowYouOperate/LoveLanguageQuestion";
 import ConflictStyleQuestion from "./HowYouOperate/ConflictStyleQuestion";
@@ -24,6 +26,7 @@ const HowYouOperate = ({
   
   onSectionComplete
 }: HowYouOperateProps) => {
+  const { scrollToNextSection } = useAutoScroll();
   // Section completion check
   const isSectionComplete = validateSection(3, profileData);
 
@@ -47,6 +50,13 @@ const HowYouOperate = ({
       <ConflictStyleQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
+      />
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={3}
+        onClick={() => scrollToNextSection(3)}
       />
     </div>
   );

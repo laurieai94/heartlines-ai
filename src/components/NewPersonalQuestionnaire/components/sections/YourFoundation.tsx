@@ -3,6 +3,8 @@ import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../types";
 
 import { validateSection } from "../../utils/validation";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
+import SectionContinueButton from "../shared/SectionContinueButton";
 import FamilyDynamicsQuestion from "./YourFoundation/FamilyDynamicsQuestion";
 import AttachmentStyleQuestion from "./YourFoundation/AttachmentStyleQuestion";
 
@@ -23,8 +25,9 @@ const YourFoundation = ({
    
   onSectionComplete 
 }: YourFoundationProps) => {
+  const { scrollToNextSection } = useAutoScroll();
   // Section completion check
-  const isSectionComplete = validateSection(4, profileData);
+  const isSectionComplete = validateSection(2, profileData);
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
@@ -41,6 +44,13 @@ const YourFoundation = ({
       <AttachmentStyleQuestion
         profileData={profileData}
         updateField={updateField}
+      />
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={2}
+        onClick={() => scrollToNextSection(2)}
       />
     </div>
   );

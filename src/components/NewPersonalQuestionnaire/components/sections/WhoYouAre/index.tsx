@@ -1,6 +1,8 @@
 import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
 import { validateSection } from "../../../utils/validation";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
+import SectionContinueButton from "../../shared/SectionContinueButton";
 
 import NamePronounsCard from "./NamePronounsCard";
 import AgeSelectionCard from "./AgeSelectionCard";
@@ -16,6 +18,7 @@ interface WhoYouAreProps {
 }
 
 const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: WhoYouAreProps) => {
+  const { scrollToNextSection } = useAutoScroll();
   // Helper function to check if pronouns are complete (duplicated here to avoid complex prop passing)
   const isPronounsComplete = () => {
     if (!profileData.pronouns) return false;
@@ -68,6 +71,13 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
       <GenderSelectionCard
         profileData={profileData}
         updateField={updateField}
+      />
+
+      {/* Section Continue Button */}
+      <SectionContinueButton
+        isVisible={isSectionComplete}
+        currentSection={1}
+        onClick={() => scrollToNextSection(1)}
       />
 
     </div>

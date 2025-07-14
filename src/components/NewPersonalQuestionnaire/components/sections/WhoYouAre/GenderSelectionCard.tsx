@@ -3,6 +3,7 @@ import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 
 interface GenderSelectionCardProps {
   profileData: ProfileData;
@@ -10,14 +11,20 @@ interface GenderSelectionCardProps {
 }
 
 const GenderSelectionCard = ({ profileData, updateField }: GenderSelectionCardProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  
   const genderOptions = [
     'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
     'Genderfluid', 'Questioning', 'Prefer to self-describe'
   ];
 
+  const isComplete = !!(profileData.gender && profileData.gender.trim() !== '');
+
   return (
     <QuestionCard 
       questionId="question-gender"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-gender')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         Gender identity? <span className="text-red-400">*</span>

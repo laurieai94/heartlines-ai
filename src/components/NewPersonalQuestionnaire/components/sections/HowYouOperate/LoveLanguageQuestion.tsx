@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { loveLanguageOptions } from "./constants";
 
 interface LoveLanguageQuestionProps {
@@ -15,9 +16,14 @@ const LoveLanguageQuestion = ({
   profileData, 
   handleMultiSelect 
 }: LoveLanguageQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!(profileData.loveLanguage?.length);
+
   return (
     <QuestionCard 
       questionId="question-love-language"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-love-language')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you feel most loved? <span className="text-red-400">*</span>

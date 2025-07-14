@@ -4,6 +4,7 @@ import { Link } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { attachmentStyleOptions } from "./constants";
 
 interface AttachmentStyleQuestionProps {
@@ -15,9 +16,14 @@ const AttachmentStyleQuestion = ({
   profileData, 
   updateField 
 }: AttachmentStyleQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = !!profileData.attachmentStyle;
+
   return (
     <QuestionCard 
       questionId="question-attachment-style"
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-attachment-style')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>

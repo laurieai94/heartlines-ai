@@ -25,7 +25,7 @@ const QuestionnaireContent = ({
   onSectionComplete
 }: QuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollToNextQuestion } = useAutoScroll({ scrollContainerRef });
+  const { scrollToNextQuestion } = useAutoScroll();
 
   const scrollToSection = (sectionNumber: number) => {
     console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
