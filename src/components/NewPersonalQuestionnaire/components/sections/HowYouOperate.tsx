@@ -6,7 +6,6 @@ import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SectionContinueButton from "../shared/SectionContinueButton";
 import { validateSection } from "../../utils/validation";
-
 interface HowYouOperateProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -15,7 +14,6 @@ interface HowYouOperateProps {
   onAutoScroll?: (questionId: string) => void;
   onSectionComplete?: () => void;
 }
-
 const HowYouOperate = ({
   profileData,
   updateField,
@@ -74,7 +72,7 @@ const HowYouOperate = ({
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Shield className="w-3 h-3 text-blue-300" />
-          <span>Knowing your conflict style helps navigate disagreements</span>
+          <span>Your conflict style is everything in relationships</span>
         </div>
         <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} />
       </QuestionCard>
@@ -95,5 +93,4 @@ const HowYouOperate = ({
     }} />
     </div>;
 };
-
 export default HowYouOperate;
