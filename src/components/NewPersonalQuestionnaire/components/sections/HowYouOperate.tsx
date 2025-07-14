@@ -6,6 +6,7 @@ import QuestionCard from "../shared/QuestionCard";
 import MultiSelect from "../shared/MultiSelect";
 import SectionContinueButton from "../shared/SectionContinueButton";
 import { validateSection } from "../../utils/validation";
+
 interface HowYouOperateProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -14,6 +15,7 @@ interface HowYouOperateProps {
   onAutoScroll?: (questionId: string) => void;
   onSectionComplete?: () => void;
 }
+
 const HowYouOperate = ({
   profileData,
   updateField,
@@ -23,7 +25,7 @@ const HowYouOperate = ({
   onSectionComplete
 }: HowYouOperateProps) => {
   const stressResponseOptions = ['Get quiet and need my space', 'Want to talk it out right now', 'Get emotional and need comfort', 'Try to fix everything for everyone', 'Shut down completely', 'Become irritable and snappy AF', 'Overthink literally everything', 'Text my friends for support', 'Distract myself with work or scrolling'];
-  const loveLanguageOptions = ['Quality time together', 'Physical touch & affection', 'Words of affirmation', 'Acts of service', 'Gifts & thoughtful gestures', 'Deep conversations', 'Shared experiences', 'Being supported in goals', 'Feeling appreciated & valued'];
+  const loveLanguageOptions = ['Uninterrupted quality time (no phones)', 'Physical touch and cuddles', 'Being hyped up with words', 'Someone doing things to make my life easier', 'Thoughtful gifts that show they get me', 'Deep 3am conversations about everything', 'Adventures and making memories together', 'Having them support my dreams and goals', 'Feeling genuinely appreciated for who I am'];
   const conflictStyleOptions = ['Want to talk it through right away', 'Need space to cool down first', 'Try to understand their perspective', 'Focus on finding solutions quickly', 'Get emotional and need reassurance', 'Become analytical and logical', 'Avoid conflict if possible', 'Stand my ground and argue my point', 'Shut down and withdraw'];
 
   // Section completion check
@@ -93,4 +95,5 @@ const HowYouOperate = ({
     }} />
     </div>;
 };
+
 export default HowYouOperate;
