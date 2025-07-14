@@ -6,15 +6,18 @@ import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { attachmentStyleOptions } from "./constants";
+import { Button } from "@/components/ui/button";
 
 interface AttachmentStyleQuestionProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
+  onComplete?: () => void;
 }
 
 const AttachmentStyleQuestion = ({ 
   profileData, 
-  updateField 
+  updateField,
+  onComplete 
 }: AttachmentStyleQuestionProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
   const isComplete = !!profileData.attachmentStyle;
@@ -22,8 +25,7 @@ const AttachmentStyleQuestion = ({
   return (
     <QuestionCard 
       questionId="question-attachment-style"
-      showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion('question-attachment-style')}
+      showContinue={false}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
@@ -38,6 +40,16 @@ const AttachmentStyleQuestion = ({
         selectedValue={profileData.attachmentStyle || ''}
         onSelect={(value) => updateField('attachmentStyle', value)}
       />
+      {isComplete && onComplete && (
+        <div className="flex justify-center mt-4 animate-fade-in">
+          <Button
+            onClick={onComplete}
+            className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-[1.02] shadow-lg"
+          >
+            <span className="text-sm font-medium">Complete Profile</span>
+          </Button>
+        </div>
+      )}
     </QuestionCard>
   );
 };

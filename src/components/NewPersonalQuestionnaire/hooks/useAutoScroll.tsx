@@ -32,16 +32,26 @@ export const useAutoScroll = () => {
     const currentElement = document.getElementById(currentQuestionId);
     if (!currentElement) return;
 
-    // Find the next question card in the DOM
+    // First try to find the next question card as a sibling
     let nextElement = currentElement.nextElementSibling;
     while (nextElement && !nextElement.hasAttribute('data-question-card')) {
       nextElement = nextElement.nextElementSibling;
     }
 
+    // If no sibling found, look more broadly in the document
+    if (!nextElement) {
+      const allQuestionCards = document.querySelectorAll('[data-question-card]');
+      const currentIndex = Array.from(allQuestionCards).findIndex(el => el.id === currentQuestionId);
+      
+      if (currentIndex !== -1 && currentIndex < allQuestionCards.length - 1) {
+        nextElement = allQuestionCards[currentIndex + 1] as Element;
+      }
+    }
+
     if (nextElement) {
       const nextId = nextElement.id;
       if (nextId) {
-        scrollToElement(nextId);
+        scrollToElement(nextId, 300); // Shorter delay for better UX
       }
     } else {
       // If no next question in current section, look for next section
@@ -51,7 +61,13 @@ export const useAutoScroll = () => {
         const sectionNumber = parseInt(currentSectionId.replace('section-', ''));
         const nextSectionElement = document.getElementById(`section-${sectionNumber + 1}`);
         if (nextSectionElement) {
-          scrollToElement(`section-${sectionNumber + 1}`);
+          // Find first question in next section
+          const firstQuestionInNext = nextSectionElement.querySelector('[data-question-card]');
+          if (firstQuestionInNext && firstQuestionInNext.id) {
+            scrollToElement(firstQuestionInNext.id, 300);
+          } else {
+            scrollToElement(`section-${sectionNumber + 1}`, 300);
+          }
         }
       }
     }
