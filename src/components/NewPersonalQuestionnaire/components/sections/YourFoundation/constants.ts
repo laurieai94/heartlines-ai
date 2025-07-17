@@ -31,5 +31,6 @@ export const attachmentStyleOptions = [
   'Fearful-avoidant - want close relationships but push people away when they get too close',
   'Disorganized - your attachment responses are all over the place and conflicting',
   'Depends on the relationship - different people trigger different patterns',
-  'Not sure - still figuring out these patterns'
+  'Not sure - still figuring out these patterns',
+  'These don\'t capture my experience'
 ];
