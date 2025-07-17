@@ -77,6 +77,7 @@ const QuestionnaireLayout = ({
         <QuestionnaireHeader 
           overallProgress={overallProgress}
           onClose={onClose}
+          profileData={profileData}
         />
 
         <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">

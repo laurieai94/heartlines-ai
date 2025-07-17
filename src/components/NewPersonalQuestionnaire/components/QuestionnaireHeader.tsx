@@ -1,19 +1,27 @@
 
 import { Button } from "@/components/ui/button";
 import { X, User } from "lucide-react";
+import { ProfileData } from "../types";
 
 interface QuestionnaireHeaderProps {
   overallProgress: number;
   onClose: () => void;
+  profileData: ProfileData;
 }
 
-const QuestionnaireHeader = ({ overallProgress, onClose }: QuestionnaireHeaderProps) => {
+const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: QuestionnaireHeaderProps) => {
+  const getInitial = () => {
+    if (profileData.name && profileData.name.trim()) {
+      return profileData.name.trim()[0].toUpperCase();
+    }
+    return "?";
+  };
   return (
     <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
-            <User className="w-4.5 h-4.5 text-white" />
+            <span className="text-white font-bold text-sm">{getInitial()}</span>
           </div>
           
           <div>
