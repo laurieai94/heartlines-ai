@@ -1,4 +1,3 @@
-
 export const familyStructureOptions = [
   "Married parents with healthy relationship",
   "Divorced/separated parents - amicable split",

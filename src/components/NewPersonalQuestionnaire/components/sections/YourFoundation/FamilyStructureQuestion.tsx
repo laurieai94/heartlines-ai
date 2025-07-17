@@ -3,7 +3,18 @@ import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
-import { familyStructureOptions } from "./constants";
+
+const familyStructureOptions = [
+  "Married parents with healthy relationship",
+  "Divorced/separated parents - amicable split",
+  "Divorced/separated parents - high conflict",
+  "Single parent household (by choice)",
+  "Single parent household (death/abandonment)",
+  "Blended family/stepparents",
+  "Raised by grandparents/relatives",
+  "Parents together but unhappy/dysfunctional",
+  "On-and-off relationship between parents"
+];
 
 interface FamilyStructureQuestionProps {
   profileData: ProfileData;
