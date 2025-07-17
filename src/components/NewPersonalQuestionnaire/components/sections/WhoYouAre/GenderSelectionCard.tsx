@@ -20,7 +20,7 @@ const GenderSelectionCard = ({
   const genderOptions = ['Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 'Genderfluid', 'Questioning', 'Prefer to self-describe'];
   return <QuestionCard questionId="question-gender" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-gender')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
-        Gender identity? <span className="text-red-400">*</span>
+        What's your gender identity? <span className="text-red-400">*</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <User className="w-3 h-3 text-purple-300" />
