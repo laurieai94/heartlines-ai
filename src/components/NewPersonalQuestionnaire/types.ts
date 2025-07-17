@@ -21,6 +21,10 @@ export interface ProfileData {
   separationSituation: string[];
   datingReadiness: string[];
   
+  // Widowed specific fields
+  timeSinceLoss: string;
+  grievingProcess: string[];
+  
   // Section 3: How You Operate
   stressResponse: string[];
   conflictStyle: string[];

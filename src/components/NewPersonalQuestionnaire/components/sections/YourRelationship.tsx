@@ -10,6 +10,7 @@ import SinglePersonQuestions from "./YourRelationship/SinglePersonQuestions";
 import RelationshipQuestions from "./YourRelationship/RelationshipQuestions";
 import TalkingStageQuestions from "./YourRelationship/TalkingStageQuestions";
 import SeparatedDivorcedQuestions from "./YourRelationship/SeparatedDivorcedQuestions";
+import WidowedQuestions from "./YourRelationship/WidowedQuestions";
 interface YourRelationshipProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -31,6 +32,7 @@ const YourRelationship = ({
   const isTalking = profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
   const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
+  const isWidowed = profileData.relationshipStatus === 'Widowed';
 
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
@@ -39,6 +41,7 @@ const YourRelationship = ({
     if (isTalking) return 'question-talking-duration';
     if (hasRelationship) return 'question-relationship-length';
     if (isSeparatedDivorced) return 'question-separation-situation';
+    if (isWidowed) return 'question-time-since-loss';
     return null;
   };
   const shouldShowContinueAfterStatus = () => {
@@ -77,6 +80,8 @@ const YourRelationship = ({
       {hasRelationship && <RelationshipQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
 
       {isSeparatedDivorced && <SeparatedDivorcedQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
+
+      {isWidowed && <WidowedQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
     </div>;
 };
 export default YourRelationship;

@@ -26,6 +26,10 @@ const defaultProfileData: ProfileData = {
     // Separated/Divorced specific fields
     separationSituation: [],
     datingReadiness: [],
+    
+    // Widowed specific fields
+    timeSinceLoss: '',
+    grievingProcess: [],
   
   // Section 3: How You Operate
   stressResponse: [],

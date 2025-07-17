@@ -31,6 +31,7 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       const isTalking = profileData.relationshipStatus === 'Talking to someone';
       const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
       const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
+      const isWidowed = profileData.relationshipStatus === 'Widowed';
       
       if (isSingle) {
         isValid = (profileData.datingChallenges || []).length > 0;
@@ -45,6 +46,9 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       } else if (isSeparatedDivorced) {
         isValid = (profileData.separationSituation || []).length > 0 && 
                  (profileData.datingReadiness || []).length > 0;
+      } else if (isWidowed) {
+        isValid = !!profileData.timeSinceLoss && 
+                 (profileData.grievingProcess || []).length > 0;
       } else {
         isValid = true; // For other statuses like "It's complicated"
       }
@@ -98,6 +102,7 @@ export const calculateProgress = (profileData: ProfileData): number => {
     const isTalking = profileData.relationshipStatus === 'Talking to someone';
     const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
     const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
+    const isWidowed = profileData.relationshipStatus === 'Widowed';
     
     if (isSingle) {
       totalRequired += 1;
@@ -122,6 +127,12 @@ export const calculateProgress = (profileData: ProfileData): number => {
       totalRequired += 2;
       if ((profileData.separationSituation || []).length > 0) totalCompleted += 1;
       if ((profileData.datingReadiness || []).length > 0) totalCompleted += 1;
+    }
+    
+    if (isWidowed) {
+      totalRequired += 2;
+      if (profileData.timeSinceLoss) totalCompleted += 1;
+      if ((profileData.grievingProcess || []).length > 0) totalCompleted += 1;
     }
   } else {
     totalRequired += 1;
