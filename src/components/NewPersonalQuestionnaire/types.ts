@@ -19,10 +19,6 @@ export interface ProfileData {
   separationSituation: string[];
   datingReadiness: string[];
   
-  // Talking stage specific fields
-  talkingDescription: string[];
-  talkingChallenges: string[];
-  
   // Section 3: How You Operate
   stressResponse: string[];
   conflictStyle: string[];

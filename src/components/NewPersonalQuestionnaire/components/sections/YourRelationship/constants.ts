@@ -82,26 +82,3 @@ export const datingReadinessOptions = [
   'Want better relationship skills (learning for the future)'
 ];
 
-export const talkingDescriptionOptions = [
-  "We're just getting to know each other",
-  "We're exclusive but not putting a label on it",
-  "We're both seeing other people too",
-  "The undefined thing is giving me anxiety",
-  "We're intentionally taking it slow",
-  "I literally have no clue what this is",
-  "Good chemistry but haven't had the DTR talk",
-  "One of us is way more invested than the other",
-  "Started as friends, now there are feelings"
-];
-
-export const talkingChallengesOptions = [
-  "Not knowing where I stand with them",
-  "Wanting to text but trying not to seem thirsty",
-  "Are they talking to other people or just me?",
-  "When do I bring up the \"what are we\" conversation?",
-  "Trying not to catch feelings too fast",
-  "Playing it cool when I actually really like them",
-  "Getting mixed signals and overthinking everything",
-  "Being interested without coming off as clingy",
-  "Wondering if I'm just wasting my time here"
-];
