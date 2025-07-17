@@ -49,7 +49,7 @@ const TalkingStageQuestions = ({
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Brain className="w-3 h-3 text-green-300" />
-          <span>We get that this stage is weird - navigating uncertainty is tough - we're here to help</span>
+          <span>The talking stage has its own unique energy</span>
         </div>
         <MultiSelect options={talkingChallengesOptions} selectedValues={profileData.talkingChallenges || []} onToggle={value => handleMultiSelect('talkingChallenges', value)} columns={2} />
       </QuestionCard>
