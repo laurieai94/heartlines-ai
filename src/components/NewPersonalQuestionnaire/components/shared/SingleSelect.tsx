@@ -44,7 +44,7 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3, showOther
             key={option}
             onClick={() => {
               if (option === 'Other') {
-                // Don't call onSelect immediately for Other, wait for text input
+                onSelect('Other');
                 setOtherText('');
               } else {
                 onSelect(option);
