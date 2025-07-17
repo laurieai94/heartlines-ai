@@ -62,7 +62,7 @@ const WidowedQuestions = ({
             options={grievingProcessOptions}
             selectedValues={profileData.grievingProcess || []}
             onToggle={(value) => handleMultiSelect('grievingProcess', value)}
-            columns={1}
+            columns={2}
           />
         </QuestionCard>
       )}
