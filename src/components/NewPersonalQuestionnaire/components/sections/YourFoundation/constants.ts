@@ -1,4 +1,16 @@
 
+export const familyStructureOptions = [
+  "Married parents with healthy relationship",
+  "Divorced/separated parents - amicable split",
+  "Divorced/separated parents - high conflict",
+  "Single parent household (by choice)",
+  "Single parent household (death/abandonment)",
+  "Blended family/stepparents",
+  "Raised by grandparents/relatives",
+  "Parents together but unhappy/dysfunctional",
+  "On-and-off relationship between parents"
+];
+
 export const familyDynamicsOptions = [
   "Open & healthy emotional expression",
   "Happy feelings okay, sad/angry ones shut down",

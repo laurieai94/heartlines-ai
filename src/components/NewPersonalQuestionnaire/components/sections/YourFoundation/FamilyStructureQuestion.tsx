@@ -1,0 +1,42 @@
+import { Label } from "@/components/ui/label";
+import { TreeDeciduous } from "lucide-react";
+import { ProfileData } from "../../../types";
+import QuestionCard from "../../shared/QuestionCard";
+import MultiSelect from "../../shared/MultiSelect";
+import { familyStructureOptions } from "./constants";
+
+interface FamilyStructureQuestionProps {
+  profileData: ProfileData;
+  handleMultiSelect: (field: keyof ProfileData, value: string) => void;
+}
+
+const FamilyStructureQuestion = ({ 
+  profileData, 
+  handleMultiSelect 
+}: FamilyStructureQuestionProps) => {
+  return (
+    <QuestionCard 
+      questionId="question-family-structure" 
+      showContinue={profileData.familyStructure && profileData.familyStructure.length > 0}
+    >
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        What was your family dynamic growing up? <span className="text-red-400">*</span>
+        <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+      </Label>
+      
+      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+        <TreeDeciduous className="w-3 h-3 text-green-300" />
+        <span>This literally programmed your relationship blueprints</span>
+      </div>
+
+      <MultiSelect
+        options={familyStructureOptions}
+        selectedValues={profileData.familyStructure || []}
+        onToggle={(value) => handleMultiSelect("familyStructure", value)}
+        columns={2}
+      />
+    </QuestionCard>
+  );
+};
+
+export default FamilyStructureQuestion;

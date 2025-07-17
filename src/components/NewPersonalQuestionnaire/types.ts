@@ -27,6 +27,7 @@ export interface ProfileData {
   loveLanguage: string[];
   
   // Section 4: Your Foundation
+  familyStructure: string[];
   familyDynamics: string[];
   attachmentStyle: string;
 }
