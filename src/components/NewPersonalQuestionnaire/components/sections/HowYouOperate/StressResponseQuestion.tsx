@@ -26,7 +26,7 @@ const StressResponseQuestion = ({
       onContinue={() => scrollToNextQuestion('question-stress-response')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        When you're stressed, what's your go-to? <span className="text-red-400">*</span>
+        When life gets chaotic, where do you run? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
