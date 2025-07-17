@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
@@ -26,7 +26,7 @@ const QuestionnaireLayout = ({
   isModal = false
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
-  const [scrollToSectionFn, setScrollToSectionFn] = useState<((section: number) => void) | null>(null);
+  const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   
   const overallProgress = calculateProgress(profileData);
 
@@ -34,10 +34,10 @@ const QuestionnaireLayout = ({
   const handleSectionComplete = (nextSection: number) => {
     setCurrentSection(nextSection);
     
-    // Scroll to the next section
-    if (scrollToSectionFn) {
+    // Scroll to the next section using ref
+    if (scrollToSectionFn.current) {
       setTimeout(() => {
-        scrollToSectionFn(nextSection);
+        scrollToSectionFn.current!(nextSection);
       }, 200);
     }
   };
@@ -46,13 +46,11 @@ const QuestionnaireLayout = ({
     console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
     setCurrentSection(section);
     
-    // Scroll to the selected section
-    console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn);
-    if (scrollToSectionFn) {
-      console.log('🟢 QuestionnaireLayout: Calling scroll function with 100ms delay for section:', section);
-      setTimeout(() => {
-        scrollToSectionFn(section);
-      }, 100);
+    // Scroll to the selected section using ref
+    console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn.current);
+    if (scrollToSectionFn.current) {
+      console.log('🟢 QuestionnaireLayout: Calling scroll function immediately for section:', section);
+      scrollToSectionFn.current(section);
     } else {
       console.warn('🔴 QuestionnaireLayout: Scroll function not available yet');
     }
@@ -94,7 +92,7 @@ const QuestionnaireLayout = ({
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
           currentSection={currentSection}
-          onScrollToSection={setScrollToSectionFn}
+          onScrollToSection={(scrollFn) => { scrollToSectionFn.current = scrollFn; }}
           onSectionComplete={handleSectionComplete}
         />
 
