@@ -24,7 +24,7 @@ const GenderSelectionCard = ({
       </Label>
       <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <User className="w-3 h-3 text-purple-300" />
-        <span>Because we're way past thinking it's just two options</span>
+        <span>We're way past thinking it's just two options</span>
       </div>
       <SingleSelect options={genderOptions} selectedValue={profileData.gender || ''} onSelect={value => updateField('gender', value)} />
     </QuestionCard>;
