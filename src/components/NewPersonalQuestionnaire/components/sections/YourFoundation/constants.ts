@@ -7,7 +7,8 @@ export const familyStructureOptions = [
   "Blended family/stepparents",
   "Raised by grandparents/relatives",
   "Parents together but unhappy/dysfunctional",
-  "On-and-off relationship between parents"
+  "On-and-off relationship between parents",
+  "These don't capture my experience"
 ];
 
 export const familyDynamicsOptions = [
@@ -19,7 +20,8 @@ export const familyDynamicsOptions = [
   "Big feelings = big drama and meltdowns",
   "Emotions were weapons for control", 
   "Perfect family facade but toxic underneath",
-  "Love was there but complexity wasn't allowed"
+  "Love was there but complexity wasn't allowed",
+  "These don't capture my experience"
 ];
 
 export const attachmentStyleOptions = [
@@ -29,5 +31,6 @@ export const attachmentStyleOptions = [
   'Fearful-avoidant (want closeness but afraid of hurt)',
   'Disorganized (mix of patterns)',
   'Depends on the relationship',
-  'Not sure/still figuring it out'
+  'Not sure/still figuring it out',
+  'These don\'t capture my experience'
 ];

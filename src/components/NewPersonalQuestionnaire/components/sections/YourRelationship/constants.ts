@@ -39,7 +39,8 @@ export const talkingDescriptionOptions = [
   'I literally have no clue what this is',
   'Good chemistry but haven\'t had the DTR talk',
   'One of us is way more invested than the other',
-  'Started as friends, now there are feelings'
+  'Started as friends, now there are feelings',
+  'These don\'t capture my experience'
 ];
 
 export const talkingChallengesOptions = [
@@ -51,7 +52,8 @@ export const talkingChallengesOptions = [
   'Playing it cool when I actually really like them',
   'Getting mixed signals and overthinking everything',
   'Being interested without coming off as clingy',
-  'Wondering if I\'m just wasting my time here'
+  'Wondering if I\'m just wasting my time here',
+  'These don\'t capture my experience'
 ];
 
 export const datingChallengesOptions = [
@@ -63,7 +65,8 @@ export const datingChallengesOptions = [
   'Apps are exhausting',
   'Repeating the same relationship mistakes',
   'Wanting love but also my own life',
-  'Figuring out when someone\'s worth it'
+  'Figuring out when someone\'s worth it',
+  'These don\'t capture my experience'
 ];
 
 export const relationshipChallengesOptions = [
@@ -88,7 +91,8 @@ export const relationshipWorkingOptions = [
   'We work through problems without drama',
   'We give each other space to be individuals',
   'Solid friendship foundation',
-  'We\'re building something real together'
+  'We\'re building something real together',
+  'These don\'t capture my experience'
 ];
 
 export const separationSituationOptions = [
@@ -97,7 +101,8 @@ export const separationSituationOptions = [
   'Divorce in progress (paperwork and legal stuff)',
   'Divorce finalized (officially done)',
   'Dating again (putting myself out there)',
-  'Taking time to heal (focusing on me right now)'
+  'Taking time to heal (focusing on me right now)',
+  'These don\'t capture my experience'
 ];
 
 export const datingReadinessOptions = [
@@ -106,7 +111,8 @@ export const datingReadinessOptions = [
   'Ready for something serious (want real partnership again)',
   'Taking it day by day (no rush, no pressure)',
   'Focused on co-parenting (kids are the priority)',
-  'Want better relationship skills (learning for the future)'
+  'Want better relationship skills (learning for the future)',
+  'These don\'t capture my experience'
 ];
 
 export const timeSinceLossOptions = [
