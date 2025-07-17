@@ -69,7 +69,7 @@ const RelationshipQuestions = ({
       )}
 
       {/* What's Working Well */}
-      {(profileData.relationshipChallenges?.length) && (
+      {(profileData.relationshipChallenges?.length > 0) && (
         <QuestionCard 
           questionId="question-relationship-working"
           showContinue={!!(profileData.relationshipWorking?.length)}
