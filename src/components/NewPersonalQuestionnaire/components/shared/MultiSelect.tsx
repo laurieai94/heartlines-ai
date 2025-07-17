@@ -23,7 +23,7 @@ const MultiSelect = ({ options, selectedValues, onToggle, columns = 3 }: MultiSe
         <button
           key={option}
           onClick={() => onToggle(option)}
-          className={`w-full p-3 rounded-lg text-center text-sm font-medium transition-all duration-200 hover:scale-[1.01] ${
+          className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
             selectedValues.includes(option)
               ? 'questionnaire-button-selected'
               : 'questionnaire-button-secondary'
