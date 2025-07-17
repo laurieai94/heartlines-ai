@@ -37,6 +37,7 @@ const ConflictStyleQuestion = ({
         options={conflictStyleOptions} 
         selectedValues={profileData.conflictStyle || []} 
         onToggle={value => handleMultiSelect('conflictStyle', value)} 
+        columns={2}
       />
     </QuestionCard>
   );

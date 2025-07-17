@@ -37,6 +37,7 @@ const StressResponseQuestion = ({
         options={stressResponseOptions} 
         selectedValues={profileData.stressResponse || []} 
         onToggle={value => handleMultiSelect('stressResponse', value)} 
+        columns={2}
       />
     </QuestionCard>
   );

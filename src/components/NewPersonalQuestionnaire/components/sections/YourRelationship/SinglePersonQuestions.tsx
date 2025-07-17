@@ -34,6 +34,7 @@ const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQ
         options={datingChallengesOptions}
         selectedValues={profileData.datingChallenges || []}
         onToggle={(value) => handleMultiSelect('datingChallenges', value)}
+        columns={2}
       />
     </QuestionCard>
   );

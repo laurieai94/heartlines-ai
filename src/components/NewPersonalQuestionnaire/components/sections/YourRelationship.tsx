@@ -83,7 +83,7 @@ const YourRelationship = ({
           options={relationshipStatusOptions}
           selectedValue={profileData.relationshipStatus || ''}
           onSelect={(value) => updateField('relationshipStatus', value)}
-          columns={3}
+          columns={2}
         />
       </QuestionCard>
 

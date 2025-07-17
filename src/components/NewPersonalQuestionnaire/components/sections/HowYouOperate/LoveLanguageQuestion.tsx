@@ -37,6 +37,7 @@ const LoveLanguageQuestion = ({
         options={loveLanguageOptions} 
         selectedValues={profileData.loveLanguage || []} 
         onToggle={value => handleMultiSelect('loveLanguage', value)} 
+        columns={2}
       />
     </QuestionCard>
   );

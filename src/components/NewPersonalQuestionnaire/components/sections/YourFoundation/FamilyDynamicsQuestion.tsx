@@ -36,6 +36,7 @@ const FamilyDynamicsQuestion = ({
         options={familyDynamicsOptions}
         selectedValues={profileData.familyDynamics || []}
         onToggle={(value) => handleMultiSelect('familyDynamics', value)}
+        columns={2}
       />
     </QuestionCard>
   );
