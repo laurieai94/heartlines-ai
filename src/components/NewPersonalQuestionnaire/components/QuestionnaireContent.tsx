@@ -30,7 +30,17 @@ const QuestionnaireContent = ({
   const scrollToSection = (sectionNumber: number) => {
     console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
     
+    // Add null check for invalid section numbers
+    if (!sectionNumber || sectionNumber < 1 || sectionNumber > 4) {
+      console.error('🔴 QuestionnaireContent: Invalid section number:', sectionNumber);
+      return;
+    }
+    
     const container = scrollContainerRef.current;
+    if (!container) {
+      console.error('🔴 QuestionnaireContent: No scroll container found');
+      return;
+    }
     
     // Map section numbers to their first question IDs
     const sectionToFirstQuestion: Record<number, string> = {
@@ -41,34 +51,48 @@ const QuestionnaireContent = ({
     };
     
     const firstQuestionId = sectionToFirstQuestion[sectionNumber];
-    const element = document.getElementById(firstQuestionId);
-    
-    console.log('🟠 QuestionnaireContent: Container found:', !!container);
     console.log('🟠 QuestionnaireContent: Target question ID:', firstQuestionId);
-    console.log('🟠 QuestionnaireContent: Target element found:', !!element);
     
-    if (container && element) {
-      const containerRect = container.getBoundingClientRect();
-      const elementRect = element.getBoundingClientRect();
-      const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
+    // Add DOM ready delay
+    const attemptScroll = () => {
+      const element = document.getElementById(firstQuestionId);
+      const fallbackElement = document.getElementById(`section-${sectionNumber}`);
       
-      console.log('🟠 QuestionnaireContent: Scroll calculation:', {
-        containerTop: containerRect.top,
-        elementTop: elementRect.top,
-        currentScrollTop: container.scrollTop,
-        relativeTop,
-        finalScrollPosition: relativeTop - 80
-      });
+      console.log('🟠 QuestionnaireContent: First question element found:', !!element);
+      console.log('🟠 QuestionnaireContent: Fallback section element found:', !!fallbackElement);
       
-      container.scrollTo({
-        top: relativeTop - 80, // More offset for better positioning
-        behavior: 'smooth'
-      });
+      const targetElement = element || fallbackElement;
       
-      console.log('🟠 QuestionnaireContent: Scroll executed successfully to first question');
-    } else {
-      console.error('🔴 QuestionnaireContent: Failed to scroll - missing container or element');
-    }
+      if (targetElement) {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = targetElement.getBoundingClientRect();
+        const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
+        
+        console.log('🟠 QuestionnaireContent: Scroll calculation:', {
+          targetElementId: targetElement.id,
+          containerTop: containerRect.top,
+          elementTop: elementRect.top,
+          currentScrollTop: container.scrollTop,
+          relativeTop,
+          finalScrollPosition: relativeTop - 80
+        });
+        
+        container.scrollTo({
+          top: relativeTop - 80,
+          behavior: 'smooth'
+        });
+        
+        console.log('🟠 QuestionnaireContent: Scroll executed successfully to:', targetElement.id);
+      } else {
+        console.error('🔴 QuestionnaireContent: Neither first question nor section element found for section:', sectionNumber);
+      }
+    };
+    
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      // Add small delay to ensure all components are rendered
+      setTimeout(attemptScroll, 100);
+    });
   };
 
   // Expose scroll function to parent
