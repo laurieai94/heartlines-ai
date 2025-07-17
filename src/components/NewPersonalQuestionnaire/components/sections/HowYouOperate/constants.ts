@@ -8,7 +8,8 @@ export const stressResponseOptions = [
   'Become irritable and snappy AF',
   'Overthink literally everything',
   'Text my friends for support',
-  'Distract myself with work or scrolling'
+  'Distract myself with work or scrolling',
+  'These don\'t capture my experience'
 ];
 
 export const loveLanguageOptions = [
@@ -20,7 +21,8 @@ export const loveLanguageOptions = [
   'Deep 3am conversations about everything',
   'Adventures and making memories together',
   'Having them support my dreams and goals',
-  'Feeling genuinely appreciated for who I am'
+  'Feeling genuinely appreciated for who I am',
+  'These don\'t capture my experience'
 ];
 
 export const conflictStyleOptions = [
@@ -32,5 +34,6 @@ export const conflictStyleOptions = [
   'Go full logic mode and analyze everything',
   'Avoid conflict like it\'s my toxic ex',
   'Stand my ground because I know I\'m right',
-  'Shut down and give them the silent treatment'
+  'Shut down and give them the silent treatment',
+  'These don\'t capture my experience'
 ];
