@@ -124,6 +124,7 @@ export const grievingProcessOptions = [
   'In a good place most days with occasional difficult moments',
   'Feel like I\'ve integrated my loss and am ready to move forward',
   'Honestly, I\'m not sure where I am in this process',
-  'I feel ready to love again while honoring my past'
+  'I feel ready to love again while honoring my past',
+  'None of these'
 ];
 
