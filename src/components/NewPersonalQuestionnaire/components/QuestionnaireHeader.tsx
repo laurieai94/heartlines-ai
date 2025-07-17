@@ -23,7 +23,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
     <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-full flex items-center justify-center">
             {hasName ? (
               <span className="text-white font-bold text-lg">{getInitial()}</span>
             ) : (
