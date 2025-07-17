@@ -31,11 +31,21 @@ const QuestionnaireContent = ({
     console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
     
     const container = scrollContainerRef.current;
-    const element = document.getElementById(`section-${sectionNumber}`);
+    
+    // Map section numbers to their first question IDs
+    const sectionToFirstQuestion: Record<number, string> = {
+      1: 'question-name-pronouns',           // WhoYouAre section
+      2: 'question-relationship-status',    // YourRelationship section  
+      3: 'question-stress-response',        // HowYouOperate section
+      4: 'question-family-dynamics'         // YourFoundation section
+    };
+    
+    const firstQuestionId = sectionToFirstQuestion[sectionNumber];
+    const element = document.getElementById(firstQuestionId);
     
     console.log('🟠 QuestionnaireContent: Container found:', !!container);
+    console.log('🟠 QuestionnaireContent: Target question ID:', firstQuestionId);
     console.log('🟠 QuestionnaireContent: Target element found:', !!element);
-    console.log('🟠 QuestionnaireContent: Target element ID:', element ? element.id : 'not found');
     
     if (container && element) {
       const containerRect = container.getBoundingClientRect();
@@ -47,15 +57,15 @@ const QuestionnaireContent = ({
         elementTop: elementRect.top,
         currentScrollTop: container.scrollTop,
         relativeTop,
-        finalScrollPosition: relativeTop - 32
+        finalScrollPosition: relativeTop - 80
       });
       
       container.scrollTo({
-        top: relativeTop - 32,
+        top: relativeTop - 80, // More offset for better positioning
         behavior: 'smooth'
       });
       
-      console.log('🟠 QuestionnaireContent: Scroll executed successfully');
+      console.log('🟠 QuestionnaireContent: Scroll executed successfully to first question');
     } else {
       console.error('🔴 QuestionnaireContent: Failed to scroll - missing container or element');
     }
