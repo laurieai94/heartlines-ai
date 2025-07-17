@@ -10,6 +10,7 @@ import { validateSection } from "../../utils/validation";
 import { relationshipStatusOptions } from "./YourRelationship/constants";
 import SinglePersonQuestions from "./YourRelationship/SinglePersonQuestions";
 import RelationshipQuestions from "./YourRelationship/RelationshipQuestions";
+import TalkingStageQuestions from "./YourRelationship/TalkingStageQuestions";
 import SeparatedDivorcedQuestions from "./YourRelationship/SeparatedDivorcedQuestions";
 
 interface YourRelationshipProps {
@@ -32,6 +33,7 @@ const YourRelationship = ({
   const { scrollToNextQuestion } = useAutoScroll();
   
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+  const isTalking = profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
   const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
 
@@ -40,6 +42,7 @@ const YourRelationship = ({
 
   const getNextQuestionAfterStatus = () => {
     if (isSingle) return 'question-dating-challenges';
+    if (isTalking) return 'question-talking-duration';
     if (hasRelationship) return 'question-relationship-length';
     if (isSeparatedDivorced) return 'question-separation-situation';
     return null;
@@ -88,6 +91,14 @@ const YourRelationship = ({
       {isSingle && (
         <SinglePersonQuestions 
           profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+        />
+      )}
+
+      {isTalking && (
+        <TalkingStageQuestions
+          profileData={profileData}
+          updateField={updateField}
           handleMultiSelect={handleMultiSelect}
         />
       )}
