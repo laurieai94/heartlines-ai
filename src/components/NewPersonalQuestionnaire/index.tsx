@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useProfileData } from "./hooks/useProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
-import QuestionnaireSuccess from "../PersonalProfileQuestionnaire/QuestionnaireSuccess";
+import QuestionnaireCompletion from "./components/QuestionnaireCompletion";
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -12,7 +12,7 @@ interface NewPersonalQuestionnaireProps {
 
 const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewPersonalQuestionnaireProps) => {
   const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = useProfileData();
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showCompletion, setShowCompletion] = useState(false);
 
   if (isLoading) {
     return (
@@ -25,27 +25,44 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     );
   }
 
-  if (showSuccess) {
-    return <QuestionnaireSuccess isModal={isModal} />;
+  if (showCompletion) {
+    return (
+      <QuestionnaireCompletion
+        onAddPartner={() => {
+          const completedData = {
+            ...profileData,
+            completedAt: new Date().toISOString(),
+            profileSource: 'personal-questionnaire'
+          };
+          
+          onComplete({
+            type: 'personal',
+            completionData: completedData,
+            nextStep: 'partner-profile'
+          });
+        }}
+        onStartCoaching={() => {
+          const completedData = {
+            ...profileData,
+            completedAt: new Date().toISOString(),
+            profileSource: 'personal-questionnaire'
+          };
+          
+          onComplete({
+            type: 'personal',
+            completionData: completedData,
+            nextStep: 'start-coaching'
+          });
+        }}
+        isModal={isModal}
+      />
+    );
   }
 
   const handleComplete = async () => {
     try {
       await saveProfile();
-      setShowSuccess(true);
-      
-      setTimeout(() => {
-        const completedData = {
-          ...profileData,
-          completedAt: new Date().toISOString(),
-          profileSource: 'personal-questionnaire'
-        };
-        
-        onComplete({
-          type: 'personal',
-          completionData: completedData
-        });
-      }, 2000);
+      setShowCompletion(true);
     } catch (error) {
       console.error('Error completing questionnaire:', error);
     }

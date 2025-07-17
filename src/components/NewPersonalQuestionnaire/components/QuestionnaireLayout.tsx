@@ -5,8 +5,7 @@ import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
-import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import QuestionnaireFooter from "./QuestionnaireFooter";
 
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
@@ -97,24 +96,14 @@ const QuestionnaireLayout = ({
           onSectionComplete={handleSectionComplete}
         />
 
-        <div className="p-4 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
-          <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/15">
-              <div className="text-sm text-white/90 font-medium">
-                Section {currentSection} of 4 • {Math.round(overallProgress)}% Complete
-              </div>
-            </div>
-            {currentSection === 4 && canComplete && (
-              <Button
-                onClick={onComplete}
-                className="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 px-6 py-3 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
-              >
-                <Heart className="w-4 h-4" />
-                Complete Profile
-              </Button>
-            )}
-          </div>
-        </div>
+        <QuestionnaireFooter
+          currentSection={currentSection}
+          overallProgress={overallProgress}
+          canComplete={canComplete}
+          onBack={handleBack}
+          onNext={handleNext}
+          onComplete={onComplete}
+        />
       </div>
     </div>
   );
