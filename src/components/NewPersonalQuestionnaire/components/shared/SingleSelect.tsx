@@ -32,7 +32,9 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3, showOther
     }
   };
 
-  const allOptions = showOther ? [...options, 'Other'] : options;
+  // Check if 'Other' already exists in options to avoid duplicates
+  const hasOtherOption = options.includes('Other');
+  const allOptions = (showOther && !hasOtherOption) ? [...options, 'Other'] : options;
 
   return (
     <div className="space-y-3">
@@ -59,7 +61,7 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3, showOther
         ))}
       </div>
       
-      {(selectedValue === 'Other' || isOtherSelected) && showOther && (
+      {(selectedValue === 'Other' || isOtherSelected) && (showOther || hasOtherOption) && (
         <div className="mt-3">
           <Input
             placeholder="Please specify..."
