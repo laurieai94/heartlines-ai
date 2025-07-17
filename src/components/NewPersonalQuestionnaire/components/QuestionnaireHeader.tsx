@@ -12,11 +12,11 @@ const QuestionnaireHeader = ({ overallProgress, onClose }: QuestionnaireHeaderPr
     <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
             {overallProgress === 100 ? (
-              <Heart className="w-3.5 h-3.5 text-white" />
+              <Heart className="w-4.5 h-4.5 text-white" />
             ) : (
-              <Sparkles className="w-3.5 h-3.5 text-white" />
+              <Sparkles className="w-4.5 h-4.5 text-white" />
             )}
           </div>
           
