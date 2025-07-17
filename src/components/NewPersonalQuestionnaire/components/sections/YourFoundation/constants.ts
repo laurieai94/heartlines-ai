@@ -11,15 +11,15 @@ export const familyStructureOptions = [
 ];
 
 export const familyDynamicsOptions = [
-  "Open & healthy emotional expression",
-  "Happy feelings okay, sad/angry ones shut down",
-  "We weren't an emotions family",
-  "Emotions were unpredictable/overwhelming",
-  "I became the family therapist",
-  "Big emotions were dramatic & scary",
-  "Emotions were used to manipulate",
-  "Everything looked fine but wasn't",
-  "Love expressed but other feelings weren't"
+  "All feelings were valid and talked through",
+  "Happy vibes only - everything else got buried",
+  "We just didn't do the feelings thing",
+  "Emotional chaos - never knew what you'd get",
+  "I became everyone's therapist by age 12",
+  "Big feelings = big drama and meltdowns",
+  "Emotions were weapons for control", 
+  "Perfect family facade but toxic underneath",
+  "Love was there but complexity wasn't allowed"
 ];
 
 export const attachmentStyleOptions = [
