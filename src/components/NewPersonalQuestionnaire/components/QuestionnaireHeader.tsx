@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { X, Heart, Sparkles } from "lucide-react";
+import { X, User } from "lucide-react";
 
 interface QuestionnaireHeaderProps {
   overallProgress: number;
@@ -13,11 +13,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose }: QuestionnaireHeaderPr
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
-            {overallProgress === 100 ? (
-              <Heart className="w-4.5 h-4.5 text-white" />
-            ) : (
-              <Sparkles className="w-4.5 h-4.5 text-white" />
-            )}
+            <User className="w-4.5 h-4.5 text-white" />
           </div>
           
           <div>
