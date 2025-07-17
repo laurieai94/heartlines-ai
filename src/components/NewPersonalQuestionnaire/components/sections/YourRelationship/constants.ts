@@ -75,7 +75,8 @@ export const relationshipChallengesOptions = [
   'Trust issues and past relationship baggage',
   'Dealing with family or outside pressure',
   'Money stress and financial decisions',
-  'Reality vs. what we expected this to be'
+  'Reality vs. what we expected this to be',
+  'These don\'t capture my experience'
 ];
 
 export const relationshipWorkingOptions = [
