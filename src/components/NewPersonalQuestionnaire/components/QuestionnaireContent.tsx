@@ -110,7 +110,7 @@ const QuestionnaireContent = ({
       className="flex-1 overflow-y-auto"
     >
       <div className="py-8 space-y-6">
-        <div id="section-1" className="px-6" data-section="1">
+        <div id="section-1" data-section="1">
         <WhoYouAre
           profileData={profileData}
           updateField={updateField}
@@ -120,7 +120,7 @@ const QuestionnaireContent = ({
         />
         </div>
 
-        <div id="section-2" className="px-6" data-section="2">
+        <div id="section-2" data-section="2">
           <YourRelationship
             profileData={profileData}
             updateField={updateField}
@@ -130,7 +130,7 @@ const QuestionnaireContent = ({
           />
         </div>
 
-        <div id="section-3" className="px-6" data-section="3">
+        <div id="section-3" data-section="3">
           <HowYouOperate
             profileData={profileData}
             updateField={updateField}
@@ -141,7 +141,7 @@ const QuestionnaireContent = ({
           />
         </div>
 
-        <div id="section-4" className="px-6" data-section="4">
+        <div id="section-4" data-section="4">
           <YourFoundation
             profileData={profileData}
             updateField={updateField}
