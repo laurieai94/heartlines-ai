@@ -11,6 +11,8 @@ export interface ProfileData {
   relationshipStatus: string;
   relationshipLength: string;
   talkingDuration: string;
+  talkingDescription: string[];
+  talkingChallenges: string[];
   relationshipChallenges: string[];
   relationshipWorking: string[];
   datingChallenges: string[];
