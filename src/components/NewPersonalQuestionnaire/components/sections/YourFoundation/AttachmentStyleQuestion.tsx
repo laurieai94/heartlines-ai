@@ -39,7 +39,7 @@ const AttachmentStyleQuestion = ({
         options={attachmentStyleOptions}
         selectedValue={profileData.attachmentStyle || ''}
         onSelect={(value) => updateField('attachmentStyle', value)}
-        columns={2}
+        columns={1}
       />
       {isComplete && onComplete && (
         <div className="flex justify-center mt-4 animate-fade-in">

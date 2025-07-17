@@ -25,12 +25,11 @@ export const familyDynamicsOptions = [
 ];
 
 export const attachmentStyleOptions = [
-  'Secure (comfortable with intimacy & independence)',
-  'Anxious (worry about relationship, need reassurance)',
-  'Avoidant (value independence, uncomfortable with closeness)',
-  'Fearful-avoidant (want closeness but afraid of hurt)',
-  'Disorganized (mix of patterns)',
-  'Depends on the relationship',
-  'Not sure/still figuring it out',
-  'These don\'t capture my experience'
+  'Secure - comfortable with both intimacy and independence',
+  'Anxious - worry about the relationship and need lots of reassurance',
+  'Avoidant - value independence and feel uncomfortable with too much closeness',
+  'Fearful-avoidant - want closeness but afraid of getting hurt',
+  'Disorganized - honestly, it\'s a mix of all these patterns',
+  'Depends on the relationship and the person',
+  'Not sure - still figuring this whole thing out'
 ];
