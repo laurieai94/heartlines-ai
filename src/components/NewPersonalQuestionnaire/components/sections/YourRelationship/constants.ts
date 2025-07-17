@@ -8,6 +8,7 @@ export const relationshipStatusOptions = [
   'Engaged',
   'Married',
   'Separated/Divorced',
+  'Widowed',
   'It\'s complicated'
 ];
 
