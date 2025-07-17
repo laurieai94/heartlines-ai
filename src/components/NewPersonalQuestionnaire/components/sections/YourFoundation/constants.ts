@@ -25,11 +25,11 @@ export const familyDynamicsOptions = [
 ];
 
 export const attachmentStyleOptions = [
-  'Secure - comfortable with both intimacy and independence',
-  'Anxious - worry about the relationship and need lots of reassurance',
-  'Avoidant - value independence and feel uncomfortable with too much closeness',
-  'Fearful-avoidant - want closeness but afraid of getting hurt',
-  'Disorganized - honestly, it\'s a mix of all these patterns',
-  'Depends on the relationship and the person',
-  'Not sure - still figuring this whole thing out'
+  'Secure - comfortable with intimacy and independence, conflict doesn\'t freak you out',
+  'Anxious - crave closeness but constantly worry they\'ll leave, need lots of reassurance',
+  'Avoidant - independence is everything, shut down when things get too emotional',
+  'Fearful-avoidant - want close relationships but push people away when they get too close',
+  'Disorganized - your attachment responses are all over the place and conflicting',
+  'Depends on the relationship - different people trigger different patterns',
+  'Not sure - still figuring out these patterns'
 ];
