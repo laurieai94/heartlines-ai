@@ -55,15 +55,16 @@ const QuestionnaireLayout = ({
     }
   };
 
-  const handleNext = () => {
-    if (currentSection < 4) {
-      setCurrentSection(currentSection + 1);
-    }
-  };
-
-  const handleBack = () => {
-    if (currentSection > 1) {
-      setCurrentSection(currentSection - 1);
+  // Auto-advance to next section when current section is completed
+  const handleSectionAutoAdvance = (completedSection: number) => {
+    if (completedSection < 4 && validateSection(completedSection, profileData)) {
+      const nextSection = completedSection + 1;
+      setTimeout(() => {
+        setCurrentSection(nextSection);
+        if (scrollToSectionFn.current) {
+          scrollToSectionFn.current(nextSection);
+        }
+      }, 500); // Small delay to show completion celebration
     }
   };
 
@@ -100,8 +101,8 @@ const QuestionnaireLayout = ({
           currentSection={currentSection}
           overallProgress={overallProgress}
           canComplete={canComplete}
-          onBack={handleBack}
-          onNext={handleNext}
+          onBack={() => {}} // No longer used
+          onNext={() => {}} // No longer used
           onComplete={onComplete}
         />
       </div>

@@ -19,48 +19,35 @@ const QuestionnaireFooter = ({
   onNext,
   onComplete
 }: QuestionnaireFooterProps) => {
-  return (
-    <div className="p-2 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
-      <Button
-        variant="outline"
-        onClick={onBack}
-        disabled={currentSection === 1}
-        className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 text-white"
-      >
-        Back
-      </Button>
+  // Only show footer when all sections are complete
+  if (overallProgress < 100) {
+    return null;
+  }
 
-      <div className="text-center flex-1 mx-6">
-        <div className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/15 max-w-md mx-auto">
-          <div className="text-sm text-white/90 font-medium">
-            Section {currentSection} of 4
+  return (
+    <div className="p-6 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
+      <div className="text-center space-y-4">
+        <div className="flex items-center justify-center gap-2 text-emerald-400 mb-2">
+          <div className="w-8 h-8 rounded-full bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 flex items-center justify-center">
+            <Heart className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div className="text-sm font-medium text-white/90">
+            All sections complete!
           </div>
         </div>
-      </div>
-
-      <div className="flex gap-2">
-        {currentSection < 4 && (
-          <Button
-            onClick={onNext}
-            className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-4 py-2 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
-          >
-            Next
-          </Button>
-        )}
-        {currentSection === 4 && (
-          <Button
-            onClick={onComplete}
-            disabled={!canComplete}
-            className={`${
-              overallProgress === 100 
-                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700'
-                : 'bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700'
-            } text-white flex items-center gap-2 px-5 py-2 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 font-semibold`}
-          >
-            <Heart className="w-3 h-3" />
-            Complete Profile
-          </Button>
-        )}
+        
+        <Button
+          onClick={onComplete}
+          disabled={!canComplete}
+          className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-3 px-8 py-3 text-base rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100 font-semibold"
+        >
+          <Heart className="w-4 h-4" />
+          Unlock Kai AI Coach
+        </Button>
+        
+        <p className="text-white/70 text-sm max-w-md">
+          You're ready to start your personalized relationship coaching journey with Kai!
+        </p>
       </div>
     </div>
   );
