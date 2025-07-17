@@ -29,7 +29,7 @@ export const talkingDurationOptions = [
 ];
 
 export const talkingDescriptionOptions = [
-  'The talking stage has its own unique energy',
+  
   'We\'re just getting to know each other',
   'We\'re exclusive but not putting a label on it',
   'We\'re both seeing other people too',

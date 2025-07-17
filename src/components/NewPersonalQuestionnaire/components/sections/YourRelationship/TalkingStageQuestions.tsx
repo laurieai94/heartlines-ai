@@ -38,7 +38,7 @@ const TalkingStageQuestions = ({
         
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <MessageCircle className="w-3 h-3 text-green-300" />
-          <span>The talking stage has its own unique energy</span>
+          <span>Help us understand your unique situation</span>
         </div>
         <MultiSelect options={talkingDescriptionOptions} selectedValues={profileData.talkingDescription || []} onToggle={value => handleMultiSelect('talkingDescription', value)} columns={2} />
       </QuestionCard>
