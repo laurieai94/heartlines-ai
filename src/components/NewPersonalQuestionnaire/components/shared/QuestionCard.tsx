@@ -19,7 +19,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   return (
     <div 
-      className={`bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3 ${className}`}
+      className={`bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 px-6 py-4 space-y-3 ${className}`}
       data-question-card
       id={questionId}
     >
