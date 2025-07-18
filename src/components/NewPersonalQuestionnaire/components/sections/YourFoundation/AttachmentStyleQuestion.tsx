@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Link } from "lucide-react";
 import { ProfileData } from "../../../types";
@@ -7,26 +6,21 @@ import SingleSelect from "../../shared/SingleSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { attachmentStyleOptions } from "./constants";
 import { Button } from "@/components/ui/button";
-
 interface AttachmentStyleQuestionProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   onComplete?: () => void;
 }
-
-const AttachmentStyleQuestion = ({ 
-  profileData, 
+const AttachmentStyleQuestion = ({
+  profileData,
   updateField,
-  onComplete 
+  onComplete
 }: AttachmentStyleQuestionProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+  const {
+    scrollToNextQuestion
+  } = useAutoScroll();
   const isComplete = !!profileData.attachmentStyle;
-
-  return (
-    <QuestionCard 
-      questionId="question-attachment-style"
-      showContinue={false}
-    >
+  return <QuestionCard questionId="question-attachment-style" showContinue={false}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select one</span>
@@ -35,24 +29,10 @@ const AttachmentStyleQuestion = ({
         <Link className="w-3 h-3 text-purple-300" />
         <span>The psychological patterns that run your relationships</span>
       </div>
-      <SingleSelect
-        options={attachmentStyleOptions}
-        selectedValue={profileData.attachmentStyle || ''}
-        onSelect={(value) => updateField('attachmentStyle', value)}
-        columns={1}
-      />
-      {isComplete && onComplete && (
-        <div className="flex justify-center mt-4 animate-fade-in">
-          <Button
-            onClick={onComplete}
-            className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-[1.02] shadow-lg"
-          >
-            <span className="text-sm font-medium">Complete Profile</span>
-          </Button>
-        </div>
-      )}
-    </QuestionCard>
-  );
+      <SingleSelect options={attachmentStyleOptions} selectedValue={profileData.attachmentStyle || ''} onSelect={value => updateField('attachmentStyle', value)} columns={1} />
+      {isComplete && onComplete && <div className="flex justify-center mt-4 animate-fade-in">
+          
+        </div>}
+    </QuestionCard>;
 };
-
 export default AttachmentStyleQuestion;
