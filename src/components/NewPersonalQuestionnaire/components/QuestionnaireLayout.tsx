@@ -5,7 +5,7 @@ import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
-import EnhancedQuestionnaireFooter from "./EnhancedQuestionnaireFooter";
+import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
 
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
@@ -95,10 +95,8 @@ const QuestionnaireLayout = ({
           onSectionComplete={handleSectionComplete}
         />
 
-        <EnhancedQuestionnaireFooter
-          currentSection={currentSection}
+        <CleanQuestionnaireFooter
           profileData={profileData}
-          overallProgress={overallProgress}
           onComplete={onComplete}
         />
       </div>

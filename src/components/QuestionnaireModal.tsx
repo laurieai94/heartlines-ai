@@ -12,15 +12,15 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
       
-      {/* Modal Container */}
-      <div className="relative z-10 w-full max-w-5xl mx-4 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+      {/* Modal Container with side padding */}
+      <div className="relative z-10 w-full max-w-5xl mx-6 h-[95vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
