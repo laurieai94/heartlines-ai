@@ -1,6 +1,6 @@
 
 import SignUpModal from "@/components/SignUpModal";
-import PersonalProfileQuestionnaire from "@/components/PersonalProfileQuestionnaire";
+import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
 import PartnerProfileQuestionnaire from "@/components/PartnerProfileQuestionnaire";
 import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 
@@ -58,7 +58,7 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -68,14 +68,12 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
-            <div className="w-full h-auto min-h-0">
-              <PersonalProfileQuestionnaire 
-                onComplete={onQuestionnaireComplete} 
-                onClose={onQuestionnaireClose} 
-                isModal={true} 
-              />
-            </div>
+          <div className="relative z-10 w-full max-w-2xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh]">
+            <NewPersonalQuestionnaire 
+              onComplete={onQuestionnaireComplete} 
+              onClose={onQuestionnaireClose} 
+              isModal={true} 
+            />
           </div>
         </div>
       )}
@@ -83,7 +81,7 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -93,14 +91,12 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-xl sm:max-w-3xl lg:max-w-5xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
-            <div className="w-full h-auto min-h-0">
-              <PartnerProfileQuestionnaire 
-                onComplete={onPartnerQuestionnaireComplete} 
-                onClose={onPartnerQuestionnaireClose} 
-                isModal={true} 
-              />
-            </div>
+          <div className="relative z-10 w-full max-w-2xl mx-auto max-h-[90vh] sm:max-h-[85vh] lg:max-h-[80vh]">
+            <PartnerProfileQuestionnaire 
+              onComplete={onPartnerQuestionnaireComplete} 
+              onClose={onPartnerQuestionnaireClose} 
+              isModal={true} 
+            />
           </div>
         </div>
       )}
