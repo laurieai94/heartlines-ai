@@ -58,7 +58,7 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 lg:p-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -83,7 +83,7 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 lg:p-8"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
