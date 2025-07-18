@@ -13,7 +13,8 @@ const familyStructureOptions = [
   "Single parent household",
   "Blended family/stepparents",
   "Raised by grandparents/relatives",
-  "High-conflict household with lots of drama and chaos"
+  "High-conflict household with lots of drama and chaos",
+  "These don't capture my experience"
 ];
 
 interface FamilyStructureQuestionProps {
