@@ -1,13 +1,13 @@
 export const familyStructureOptions = [
-  "Married parents with healthy relationship",
+  "Married parents with healthy, loving relationship",
+  "Married parents who fought constantly but stayed together",
+  "Married parents who were distant/cold but functional",
   "Divorced/separated parents - amicable split",
-  "Divorced/separated parents - high conflict",
-  "Single parent household (by choice)",
-  "Single parent household (death/abandonment)",
+  "Divorced/separated parents - high conflict/messy",
+  "Single parent household",
   "Blended family/stepparents",
   "Raised by grandparents/relatives",
-  "Parents together but unhappy/dysfunctional",
-  "On-and-off relationship between parents",
+  "High-conflict household with lots of drama and chaos",
   "These don't capture my experience"
 ];
 
