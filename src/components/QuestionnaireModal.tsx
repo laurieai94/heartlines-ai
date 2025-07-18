@@ -20,7 +20,7 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
       />
       
       {/* Modal Container */}
-      <div className="relative z-10 w-full h-full max-h-screen mx-2 sm:mx-4 md:mx-8 lg:max-w-5xl lg:mx-auto lg:h-[90vh] lg:max-h-[90vh] bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+      <div className="relative z-10 w-full h-[95vh] max-w-5xl mx-4 bg-gradient-to-br from-purple-900/95 via-pink-900/95 to-blue-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
