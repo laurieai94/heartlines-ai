@@ -1,3 +1,4 @@
+
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -12,7 +13,11 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
 
   const handleClick = () => {
     console.log('🟠 Continue button clicked, onClick function exists:', !!onClick);
+    console.log('🟠 Continue button - isVisible:', isVisible);
+    console.log('🟠 Continue button - className:', className);
+    
     if (onClick) {
+      console.log('🟠 Continue button - calling onClick function');
       onClick();
     } else {
       console.warn('🔴 Continue button clicked but no onClick function provided');
