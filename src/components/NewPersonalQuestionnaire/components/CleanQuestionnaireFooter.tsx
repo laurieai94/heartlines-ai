@@ -1,6 +1,7 @@
 
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
+import { Heart } from "lucide-react";
 
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
@@ -61,9 +62,10 @@ const CleanQuestionnaireFooter = ({
           <div className="flex justify-center">
             <button
               onClick={onComplete}
-              className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 hover:border-white/30 text-white px-8 py-3 rounded-xl font-semibold shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center gap-3"
             >
-              Unlock RealTalk's AI Coach
+              <Heart className="w-4 h-4 text-emerald-400" />
+              <span>Unlock RealTalk's AI Coach</span>
             </button>
           </div>
         )}
