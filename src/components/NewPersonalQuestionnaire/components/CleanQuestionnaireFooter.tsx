@@ -47,21 +47,13 @@ const CleanQuestionnaireFooter = ({
         </div>
 
         {/* Progress Text */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-6">
           <p className="text-white text-sm font-medium mb-1">
             {completedSections} of 4 sections complete
           </p>
           <p className="text-white/70 text-sm">
             Complete profile to unlock RealTalk's Relationship Coach
           </p>
-        </div>
-
-        {/* Overall Progress Bar */}
-        <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-4">
-          <div 
-            className="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-700 rounded-full"
-            style={{ width: `${overallProgress}%` }}
-          />
         </div>
 
         {/* Completion Button */}
