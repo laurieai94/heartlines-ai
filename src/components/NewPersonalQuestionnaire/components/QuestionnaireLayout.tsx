@@ -5,7 +5,7 @@ import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
-import QuestionnaireFooter from "./QuestionnaireFooter";
+import EnhancedQuestionnaireFooter from "./EnhancedQuestionnaireFooter";
 
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
@@ -68,8 +68,6 @@ const QuestionnaireLayout = ({
     }
   };
 
-  const canComplete = validateSection(4, profileData);
-
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
       <div className={`${isModal ? 'w-full h-full max-h-[90vh] flex flex-col' : 'w-full max-w-2xl max-h-[80vh] flex flex-col'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
@@ -97,12 +95,10 @@ const QuestionnaireLayout = ({
           onSectionComplete={handleSectionComplete}
         />
 
-        <QuestionnaireFooter
+        <EnhancedQuestionnaireFooter
           currentSection={currentSection}
+          profileData={profileData}
           overallProgress={overallProgress}
-          canComplete={canComplete}
-          onBack={() => {}} // No longer used
-          onNext={() => {}} // No longer used
           onComplete={onComplete}
         />
       </div>
