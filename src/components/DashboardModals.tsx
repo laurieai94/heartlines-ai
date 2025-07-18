@@ -58,7 +58,7 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -68,7 +68,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[95vh] sm:max-h-[92vh] lg:max-h-[90vh]">
+          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[85vh] sm:max-h-[88vh] lg:max-h-[85vh]">
             <NewPersonalQuestionnaire 
               onComplete={onQuestionnaireComplete} 
               onClose={onQuestionnaireClose} 
@@ -81,7 +81,7 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6"
+          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16"
           style={{ zIndex: 99999 }}
           onWheel={(e) => e.stopPropagation()}
         >
@@ -91,7 +91,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[95vh] sm:max-h-[92vh] lg:max-h-[90vh]">
+          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[85vh] sm:max-h-[88vh] lg:max-h-[85vh]">
             <PartnerProfileQuestionnaire 
               onComplete={onPartnerQuestionnaireComplete} 
               onClose={onPartnerQuestionnaireClose} 
