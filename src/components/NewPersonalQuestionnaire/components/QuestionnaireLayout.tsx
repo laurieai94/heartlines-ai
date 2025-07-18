@@ -70,7 +70,7 @@ const QuestionnaireLayout = ({
 
   return (
     <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
-      <div className={`${isModal ? 'w-full h-full max-h-[90vh] flex flex-col' : 'w-full max-w-2xl max-h-[80vh] flex flex-col'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
+      <div className={`${isModal ? 'w-full h-full max-h-[95vh] flex flex-col' : 'w-full max-w-6xl max-h-[90vh] flex flex-col'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
         
         <QuestionnaireHeader 
           overallProgress={overallProgress}
@@ -78,7 +78,7 @@ const QuestionnaireLayout = ({
           profileData={profileData}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             profileData={profileData}
