@@ -1,8 +1,10 @@
+
 import { Label } from "@/components/ui/label";
 import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 
 const familyStructureOptions = [
   "Married parents with healthy, loving relationship",
@@ -26,10 +28,14 @@ const FamilyStructureQuestion = ({
   profileData, 
   handleMultiSelect 
 }: FamilyStructureQuestionProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const isComplete = profileData.familyStructure && profileData.familyStructure.length > 0;
+
   return (
     <QuestionCard 
       questionId="question-family-structure" 
-      showContinue={profileData.familyStructure && profileData.familyStructure.length > 0}
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion('question-family-structure')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What was your family dynamic growing up? <span className="text-red-400">*</span>
