@@ -11,8 +11,8 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Full-screen backdrop blur only */}
-      <div className="absolute inset-0 backdrop-blur-md" />
+      {/* Dark semi-transparent overlay */}
+      <div className="absolute inset-0 bg-black/50" />
       
       {/* Modal card with glassmorphism styling */}
       <div className="relative z-10 questionnaire-card max-w-md w-full p-8 animate-fade-in">
