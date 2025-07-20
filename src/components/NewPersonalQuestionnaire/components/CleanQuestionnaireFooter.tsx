@@ -46,7 +46,7 @@ const CleanQuestionnaireFooter = ({
             <span className="text-emerald-400 text-xs font-medium">AI relationship coach Kai is waiting</span>
           </div>
           <p className="text-white/70 text-sm">
-            Complete profile to unlock RealTalk's Relationship Coach
+            Complete profile to unlock relationship insights
           </p>
         </div>
 
