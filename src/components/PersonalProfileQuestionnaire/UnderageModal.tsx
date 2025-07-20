@@ -11,11 +11,8 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Subtle backdrop blur without dark overlay */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-white/5" />
-      
-      {/* Modal card with glassmorphism styling */}
-      <div className="relative z-10 questionnaire-card max-w-md w-full p-8 animate-fade-in">
+      {/* Modal card with glassmorphism styling - no overlay needed */}
+      <div className="questionnaire-card max-w-md w-full p-8 animate-fade-in">
         <div className="text-center">
           <h3 className="text-2xl font-bold questionnaire-text mb-6">
             We've got you covered
