@@ -80,6 +80,30 @@ export const useProfileData = () => {
     }
   }, [user?.id]);
 
+  // Save to localStorage in the format expected by useTemporaryProfile
+  const saveToLocalStorage = useCallback((data: ProfileData) => {
+    try {
+      // Get current temporary data
+      const savedProfiles = localStorage.getItem('realtalk_temp_profiles');
+      const savedDemographics = localStorage.getItem('realtalk_temp_demographics');
+      
+      let tempProfiles = savedProfiles ? JSON.parse(savedProfiles) : { your: [], partner: [] };
+      let tempDemographics = savedDemographics ? JSON.parse(savedDemographics) : { your: null, partner: null };
+      
+      // Update the 'your' profile data
+      tempProfiles.your = [data];
+      tempDemographics.your = data;
+      
+      // Save back to localStorage
+      localStorage.setItem('realtalk_temp_profiles', JSON.stringify(tempProfiles));
+      localStorage.setItem('realtalk_temp_demographics', JSON.stringify(tempDemographics));
+      
+      console.log('Saved profile data to localStorage:', { tempProfiles, tempDemographics });
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  }, []);
+
   // Auto-save profile data with debouncing
   const saveProfile = useCallback(async (dataToSave?: ProfileData) => {
     if (!user?.id) return;
@@ -87,6 +111,7 @@ export const useProfileData = () => {
     const data = dataToSave || profileData;
     
     try {
+      // Save to database
       const { error } = await supabase
         .from('user_profiles')
         .upsert({
@@ -99,12 +124,18 @@ export const useProfileData = () => {
       if (error) {
         console.error('Error saving profile:', error);
         toast.error('Failed to save profile');
+        return;
       }
+
+      // Also save to localStorage for dashboard compatibility
+      saveToLocalStorage(data);
+      
+      console.log('Profile saved successfully to both database and localStorage');
     } catch (error) {
       console.error('Error saving profile:', error);
       toast.error('Failed to save profile');
     }
-  }, [user?.id, profileData]);
+  }, [user?.id, profileData, saveToLocalStorage]);
 
   // Debounced auto-save
   useEffect(() => {
