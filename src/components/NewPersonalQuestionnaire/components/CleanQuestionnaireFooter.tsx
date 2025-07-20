@@ -27,11 +27,11 @@ const CleanQuestionnaireFooter = ({
     isComplete: validateSection(4, profileData)
   }];
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
-  return <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-6 flex-shrink-0">
+  return <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
       <div className="max-w-lg mx-auto">
         {/* Section Progress Indicators */}
-        <div className="flex justify-center gap-3 mb-4">
-          {sectionCompletions.map((section, index) => <div key={index} className="flex flex-col items-center gap-2">
+        <div className="flex justify-center gap-3 mb-3">
+          {sectionCompletions.map((section, index) => <div key={index} className="flex flex-col items-center gap-1">
               <div className={`w-3 h-3 rounded-full transition-all duration-300 ${section.isComplete ? 'bg-emerald-400 shadow-lg shadow-emerald-400/30' : 'bg-white/20'}`} />
               <span className={`text-xs font-medium transition-colors duration-300 ${section.isComplete ? 'text-emerald-400' : 'text-white/60'}`}>
                 {section.name}
@@ -40,8 +40,8 @@ const CleanQuestionnaireFooter = ({
         </div>
 
         {/* Progress Text with Eye-catching Element */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 mb-3">
+        <div className="text-center mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 mb-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-400 text-xs font-medium">AI relationship coach Kai is waiting</span>
           </div>
