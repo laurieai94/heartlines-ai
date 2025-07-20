@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 interface UnderageModalProps {
   isOpen: boolean;
@@ -10,10 +11,14 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-md z-[60] flex items-center justify-center p-4">
+    <div className="fixed inset-0 backdrop-blur-md z-[60] flex items-center justify-center p-4">
       <div className="bg-white/95 backdrop-blur-xl border border-gray-200/50 rounded-2xl shadow-2xl max-w-md w-full p-8 animate-fade-in">
         <div className="text-center">
-          <h3 className="text-2xl font-bold text-gray-800 mb-6">Let's get you the right resources</h3>
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
+            Let's get you the right resources
+            <Heart className="w-6 h-6 text-coral-500" />
+            !
+          </h3>
           <p className="text-gray-700 mb-8 text-sm leading-relaxed">
             Looks like you might be under 18! No worries - we just want to make sure you get resources that are actually built for where you're at. Love is Respect has amazing support specifically for teens and young adults navigating relationships.
           </p>
