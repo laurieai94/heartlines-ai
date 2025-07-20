@@ -45,9 +45,7 @@ const CleanQuestionnaireFooter = ({
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-400 text-xs font-medium">AI relationship coach Kai is waiting</span>
           </div>
-          <p className="text-white/70 text-sm">
-            Complete profile to unlock relationship insights
-          </p>
+          
         </div>
 
         {/* Completion Button */}
