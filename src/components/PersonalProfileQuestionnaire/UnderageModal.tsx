@@ -11,13 +11,13 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Modal card with enhanced glassmorphism styling for better readability */}
+      {/* Modal card with high opacity background for text readability */}
       <div className="questionnaire-modal-card max-w-md w-full p-8 animate-fade-in">
         <div className="text-center">
-          <h3 className="text-2xl font-bold questionnaire-text mb-6">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6">
             We've got you covered
           </h3>
-          <p className="questionnaire-text-muted mb-8 text-sm leading-relaxed">
+          <p className="text-gray-600 mb-8 text-sm leading-relaxed">
             You selected under 18 - no problem! We want you connected with resources that actually get it. Love is Respect is designed specifically for your age group.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
@@ -29,7 +29,7 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
             </Button>
             <button
               onClick={onClose}
-              className="questionnaire-text-muted text-sm hover:questionnaire-text transition-colors duration-300 hover:underline underline-offset-4 font-medium"
+              className="text-gray-500 text-sm hover:text-gray-700 transition-colors duration-300 hover:underline underline-offset-4 font-medium"
             >
               I'm 18+
             </button>
