@@ -11,8 +11,8 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Modal card with glassmorphism styling - no overlay needed */}
-      <div className="questionnaire-card max-w-md w-full p-8 animate-fade-in">
+      {/* Modal card with enhanced glassmorphism styling for better readability */}
+      <div className="questionnaire-modal-card max-w-md w-full p-8 animate-fade-in">
         <div className="text-center">
           <h3 className="text-2xl font-bold questionnaire-text mb-6">
             We've got you covered
