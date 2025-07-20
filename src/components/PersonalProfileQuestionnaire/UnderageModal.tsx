@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 interface UnderageModalProps {
   isOpen: boolean;
@@ -14,8 +15,9 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
       {/* Modal card with high opacity background for text readability */}
       <div className="questionnaire-modal-card max-w-md w-full p-8 animate-fade-in">
         <div className="text-center">
-          <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
             We've got you covered
+            <Heart className="w-6 h-6 text-pink-400 fill-pink-400" />
           </h3>
           <p className="text-gray-600 mb-8 text-sm leading-relaxed">
             You selected under 18 - no problem! We want you connected with resources that actually get it. Love is Respect is designed specifically for your age group.
