@@ -43,7 +43,7 @@ const CleanQuestionnaireFooter = ({
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 mb-3">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-xs font-medium">AI Coach Waiting</span>
+            <span className="text-emerald-400 text-xs font-medium">AI relationship coach Kai is waiting</span>
           </div>
           <p className="text-white/70 text-sm">
             Complete profile to unlock RealTalk's Relationship Coach
