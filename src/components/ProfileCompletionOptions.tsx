@@ -43,11 +43,8 @@ const ProfileCompletionOptions = ({
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white drop-shadow-sm">
-                  🎉 Profile Complete!
+                  Profile complete! What's your vibe?
                 </h2>
-                <p className="text-white/90 text-sm drop-shadow-sm">
-                  What's next?
-                </p>
               </div>
             </div>
             <Button 
@@ -64,59 +61,53 @@ const ProfileCompletionOptions = ({
         <div className="p-6 space-y-4 bg-gradient-to-b from-white/5 to-white/10">
           {isPersonalCompletion ? (
             <>
-              <div className="text-center space-y-2 mb-6">
-                <p className="text-white text-base leading-relaxed drop-shadow-sm font-medium">
-                  Great work! Ready to unlock deeper insights?
-                </p>
-              </div>
+              <div className="space-y-4">
+                {/* Primary Button: Start Coaching */}
+                <div 
+                  onClick={onStartChatting}
+                  className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-emerald-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-white font-bold text-lg mb-1 drop-shadow-sm">
+                        Start Coaching with Kai
+                      </h3>
+                      <p className="text-white/90 text-sm leading-relaxed">
+                        Begin your personalized coaching experience
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="space-y-3">
-                {/* Option 1: Add Partner Profile */}
+                {/* Secondary Button: Add Partner Profile */}
                 {!hasPartnerProfile && (
                   <div 
                     onClick={onAddPartnerProfile}
-                    className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-pink-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
+                    className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-pink-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.01] hover:shadow-lg group"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-pink-500/30 transition-all duration-300">
-                        <Heart className="w-5 h-5 text-white" />
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 bg-gradient-to-r from-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-md backdrop-blur-sm group-hover:shadow-pink-500/20 transition-all duration-300">
+                        <Heart className="w-4 h-4 text-white" />
                       </div>
                       <div className="flex-1">
                         <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
-                          Add Partner Profile
+                          Add your person's details
                         </h3>
                         <p className="text-white/80 text-xs leading-relaxed">
-                          Get personalized insights for both of you
+                          Get even more tailored advice (completely optional)
                         </p>
                       </div>
                     </div>
                   </div>
                 )}
-
-                {/* Option 2: Start Coaching */}
-                <div 
-                  onClick={onStartChatting}
-                  className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-emerald-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
-                      <MessageCircle className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
-                        Start Coaching with Kai
-                      </h3>
-                      <p className="text-white/80 text-xs leading-relaxed">
-                        Jump into personalized relationship guidance
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="text-center pt-2">
-                <p className="text-white/60 text-xs">
-                  💡 You can always add more details later
+                <p className="text-white/70 text-xs">
+                  Everything's flexible - add details whenever
                 </p>
               </div>
             </>
