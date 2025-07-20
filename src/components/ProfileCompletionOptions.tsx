@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Sparkles, X } from "lucide-react";
+import { useEffect } from "react";
 
 interface ProfileCompletionOptionsProps {
   completionType: 'personal' | 'partner';
@@ -19,24 +20,32 @@ const ProfileCompletionOptions = ({
 }: ProfileCompletionOptionsProps) => {
   const isPersonalCompletion = completionType === 'personal';
 
+  // Debug logging
+  useEffect(() => {
+    console.log('ProfileCompletionOptions rendered:', { completionType, hasPartnerProfile });
+  }, [completionType, hasPartnerProfile]);
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
-      {/* Glassmorphism Container - No overlay background */}
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-[60]">
+      {/* Enhanced Glassmorphism Container - No overlay background but more visible */}
+      <div className="bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-fade-in">
         
-        {/* Header with Glassmorphism */}
-        <div className="relative bg-gradient-to-br from-white/10 to-white/5 border-b border-white/15 p-6">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-400/20 to-pink-500/20 rounded-full -translate-y-12 translate-x-12"></div>
+        {/* Header with Enhanced Glassmorphism */}
+        <div className="relative bg-gradient-to-br from-white/15 to-white/10 border-b border-white/25 p-6">
+          {/* Decorative gradient circles */}
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-400/30 to-pink-500/30 rounded-full -translate-y-12 translate-x-12"></div>
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-purple-400/20 to-blue-500/20 rounded-full translate-y-8 -translate-x-8"></div>
+          
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-sm">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-xl backdrop-blur-sm border border-white/20">
+                <Sparkles className="w-6 h-6 text-white drop-shadow-sm" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-white drop-shadow-sm">
                   🎉 Profile Complete!
                 </h2>
-                <p className="text-white/80 text-sm">
+                <p className="text-white/90 text-sm drop-shadow-sm">
                   What's next?
                 </p>
               </div>
@@ -44,19 +53,19 @@ const ProfileCompletionOptions = ({
             <Button 
               variant="ghost" 
               onClick={onClose} 
-              className="text-white/60 hover:text-white hover:bg-white/10 rounded-full p-2"
+              className="text-white/70 hover:text-white hover:bg-white/15 rounded-full p-2 backdrop-blur-sm"
             >
               <X className="w-4 h-4" />
             </Button>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6 space-y-4">
+        {/* Content with Better Contrast */}
+        <div className="p-6 space-y-4 bg-gradient-to-b from-white/5 to-white/10">
           {isPersonalCompletion ? (
             <>
               <div className="text-center space-y-2 mb-6">
-                <p className="text-white/90 text-base leading-relaxed">
+                <p className="text-white text-base leading-relaxed drop-shadow-sm font-medium">
                   Great work! Ready to unlock deeper insights?
                 </p>
               </div>
@@ -66,17 +75,17 @@ const ProfileCompletionOptions = ({
                 {!hasPartnerProfile && (
                   <div 
                     onClick={onAddPartnerProfile}
-                    className="bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-pink-400/30 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] group"
+                    className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-pink-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-rose-500/80 to-pink-600/80 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-pink-500/25">
+                      <div className="w-10 h-10 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-pink-500/30 transition-all duration-300">
                         <Heart className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-white font-semibold text-sm mb-1">
+                        <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
                           Add Partner Profile
                         </h3>
-                        <p className="text-white/70 text-xs leading-relaxed">
+                        <p className="text-white/80 text-xs leading-relaxed">
                           Get personalized insights for both of you
                         </p>
                       </div>
@@ -87,17 +96,17 @@ const ProfileCompletionOptions = ({
                 {/* Option 2: Start Coaching */}
                 <div 
                   onClick={onStartChatting}
-                  className="bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-emerald-400/30 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] group"
+                  className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-emerald-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500/80 to-teal-600/80 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/25">
+                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
                       <MessageCircle className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-white font-semibold text-sm mb-1">
+                      <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
                         Start Coaching with Kai
                       </h3>
-                      <p className="text-white/70 text-xs leading-relaxed">
+                      <p className="text-white/80 text-xs leading-relaxed">
                         Jump into personalized relationship guidance
                       </p>
                     </div>
@@ -106,7 +115,7 @@ const ProfileCompletionOptions = ({
               </div>
 
               <div className="text-center pt-2">
-                <p className="text-white/50 text-xs">
+                <p className="text-white/60 text-xs">
                   💡 You can always add more details later
                 </p>
               </div>
@@ -114,27 +123,27 @@ const ProfileCompletionOptions = ({
           ) : (
             <>
               <div className="text-center space-y-2 mb-6">
-                <h3 className="text-xl font-bold text-white">
+                <h3 className="text-xl font-bold text-white drop-shadow-sm">
                   Partner Profile Added!
                 </h3>
-                <p className="text-white/80 text-base leading-relaxed">
+                <p className="text-white/90 text-base leading-relaxed font-medium">
                   Now Kai can provide even more personalized guidance.
                 </p>
               </div>
 
               <div 
                 onClick={onStartChatting}
-                className="bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-emerald-400/30 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] group"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-emerald-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500/80 to-teal-600/80 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/25">
+                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-white font-semibold text-sm mb-1">
+                    <h4 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
                       Ready to Start Coaching
                     </h4>
-                    <p className="text-white/70 text-xs leading-relaxed">
+                    <p className="text-white/80 text-xs leading-relaxed">
                       Get comprehensive relationship guidance for both of you
                     </p>
                   </div>

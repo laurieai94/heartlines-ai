@@ -19,6 +19,15 @@ export const useDashboardModalState = () => {
     console.log('Modal state changed - showPartnerQuestionnaireModal:', showPartnerQuestionnaireModal);
   }, [showPartnerQuestionnaireModal]);
 
+  // Debug logging for completion options
+  useEffect(() => {
+    console.log('Modal state changed - showPersonalCompletionOptions:', showPersonalCompletionOptions);
+  }, [showPersonalCompletionOptions]);
+
+  useEffect(() => {
+    console.log('Modal state changed - showPartnerCompletionOptions:', showPartnerCompletionOptions);
+  }, [showPartnerCompletionOptions]);
+
   // Prevent body scroll when questionnaire modal is open
   useEffect(() => {
     if (showQuestionnaireModal || showPartnerQuestionnaireModal) {
