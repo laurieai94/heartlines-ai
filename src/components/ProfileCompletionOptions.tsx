@@ -62,7 +62,7 @@ const ProfileCompletionOptions = ({
           {isPersonalCompletion ? (
             <>
               <div className="space-y-4">
-                {/* Primary Button: Start Coaching */}
+                {/* Main Button: Start Coaching */}
                 <div 
                   onClick={onStartChatting}
                   className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-emerald-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg"
@@ -82,21 +82,21 @@ const ProfileCompletionOptions = ({
                   </div>
                 </div>
 
-                {/* Secondary Button: Add Partner Profile */}
+                {/* Main Button: Add Partner Profile */}
                 {!hasPartnerProfile && (
                   <div 
                     onClick={onAddPartnerProfile}
-                    className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-pink-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.01] hover:shadow-lg group"
+                    className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-pink-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-gradient-to-r from-rose-500 to-pink-600 rounded-lg flex items-center justify-center shadow-md backdrop-blur-sm group-hover:shadow-pink-500/20 transition-all duration-300">
-                        <Heart className="w-4 h-4 text-white" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-pink-500/30 transition-all duration-300">
+                        <Heart className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
+                        <h3 className="text-white font-bold text-lg mb-1 drop-shadow-sm">
                           Add your person's details
                         </h3>
-                        <p className="text-white/80 text-xs leading-relaxed">
+                        <p className="text-white/90 text-sm leading-relaxed">
                           Get even more tailored advice (completely optional)
                         </p>
                       </div>
