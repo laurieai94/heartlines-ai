@@ -11,6 +11,7 @@ interface DashboardModalsProps {
   showQuestionnaireModal: boolean;
   onQuestionnaireComplete: (data: any) => void;
   onQuestionnaireClose: () => void;
+  onQuestionnaireOpen: () => void;
   showPartnerQuestionnaireModal: boolean;
   onPartnerQuestionnaireComplete: (data: any) => void;
   onPartnerQuestionnaireClose: () => void;
@@ -31,6 +32,7 @@ const DashboardModals = ({
   showQuestionnaireModal,
   onQuestionnaireComplete,
   onQuestionnaireClose,
+  onQuestionnaireOpen,
   showPartnerQuestionnaireModal,
   onPartnerQuestionnaireComplete,
   onPartnerQuestionnaireClose,
@@ -108,6 +110,7 @@ const DashboardModals = ({
           onAddPartnerProfile={onPersonalAddPartnerProfile}
           onStartChatting={onPersonalStartChatting}
           onClose={onPersonalCompletionClose}
+          onEditProfile={onQuestionnaireOpen}
           hasPartnerProfile={temporaryProfiles.partner.length > 0}
         />
       )}
@@ -119,6 +122,7 @@ const DashboardModals = ({
           onAddPartnerProfile={() => {}}
           onStartChatting={onPartnerStartChatting}
           onClose={onPartnerCompletionClose}
+          onEditProfile={onQuestionnaireOpen}
           hasPartnerProfile={true}
         />
       )}

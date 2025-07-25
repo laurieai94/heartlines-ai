@@ -73,6 +73,7 @@ const Dashboard = () => {
           showQuestionnaireModal={showQuestionnaireModal}
           onQuestionnaireComplete={handleQuestionnaireComplete}
           onQuestionnaireClose={handleQuestionnaireClose}
+          onQuestionnaireOpen={handleOpenQuestionnaire}
           showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
           onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
           onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}

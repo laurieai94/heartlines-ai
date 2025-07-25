@@ -8,6 +8,7 @@ interface ProfileCompletionOptionsProps {
   onAddPartnerProfile: () => void;
   onStartChatting: () => void;
   onClose: () => void;
+  onEditProfile: () => void;
   hasPartnerProfile: boolean;
 }
 
@@ -16,6 +17,7 @@ const ProfileCompletionOptions = ({
   onAddPartnerProfile, 
   onStartChatting, 
   onClose,
+  onEditProfile,
   hasPartnerProfile 
 }: ProfileCompletionOptionsProps) => {
   const isPersonalCompletion = completionType === 'personal';
@@ -104,9 +106,12 @@ const ProfileCompletionOptions = ({
               </div>
 
               <div className="text-center pt-2">
-                <p className="text-white/70 text-xs">
-                  Everything's flexible - add details whenever
-                </p>
+                <button 
+                  onClick={onEditProfile}
+                  className="text-white/70 hover:text-white text-xs underline hover:no-underline transition-all duration-200"
+                >
+                  Make updates to my profile
+                </button>
               </div>
             </>
           ) : (

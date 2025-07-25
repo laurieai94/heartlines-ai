@@ -229,6 +229,7 @@ const ProfileBuilder = ({
           onAddPartnerProfile={() => {}} // Not used for partner completion
           onStartChatting={handlePartnerCompletionStartChat}
           onClose={handlePartnerCompletionClose}
+          onEditProfile={() => {}} // Not used in ProfileBuilder context
           hasPartnerProfile={true}
         />
       )}
