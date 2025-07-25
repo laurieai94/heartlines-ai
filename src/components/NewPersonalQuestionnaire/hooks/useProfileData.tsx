@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { ProfileData } from '../types';
+import { calculateProgress } from '../utils/validation';
 
 const defaultProfileData: ProfileData = {
   // Section 1: The Basics
@@ -177,7 +178,6 @@ export const useProfileData = (onAutoComplete?: () => void) => {
   // Auto-completion detection
   useEffect(() => {
     if (!isLoading && onAutoComplete) {
-      const { calculateProgress } = require('../utils/validation');
       const progress = calculateProgress(profileData);
       
       if (progress === 100) {
