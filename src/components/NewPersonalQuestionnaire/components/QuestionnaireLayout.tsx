@@ -6,6 +6,7 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
+import { useCurrentSectionDetection } from "../hooks/useCurrentSectionDetection";
 
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
@@ -28,6 +29,13 @@ const QuestionnaireLayout = ({
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
+  
+  // Use intersection observer to detect current section during scroll
+  const handleSectionChange = (section: number) => {
+    setCurrentSection(section);
+  };
+  
+  useCurrentSectionDetection(handleSectionChange);
   
   const overallProgress = calculateProgress(profileData);
 
