@@ -36,8 +36,7 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       if (isSingle) {
         isValid = (profileData.datingChallenges || []).length > 0;
       } else if (isTalking) {
-        isValid = !!profileData.talkingDuration &&
-                 (profileData.talkingDescription || []).length > 0 &&
+        isValid = (profileData.talkingDescription || []).length > 0 &&
                  (profileData.talkingChallenges || []).length > 0;
       } else if (hasRelationship) {
         isValid = profileData.relationshipLength && 
@@ -110,8 +109,7 @@ export const calculateProgress = (profileData: ProfileData): number => {
     }
     
     if (isTalking) {
-      totalRequired += 3;
-      if (profileData.talkingDuration) totalCompleted += 1;
+      totalRequired += 2;
       if ((profileData.talkingDescription || []).length > 0) totalCompleted += 1;
       if ((profileData.talkingChallenges || []).length > 0) totalCompleted += 1;
     }

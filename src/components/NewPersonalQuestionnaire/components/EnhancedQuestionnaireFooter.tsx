@@ -51,8 +51,7 @@ const EnhancedQuestionnaireFooter = ({
             total += 1;
             if ((profileData.datingChallenges || []).length > 0) completed += 1;
           } else if (isTalking) {
-            total += 3;
-            if (profileData.talkingDuration) completed += 1;
+            total += 2;
             if ((profileData.talkingDescription || []).length > 0) completed += 1;
             if ((profileData.talkingChallenges || []).length > 0) completed += 1;
           } else if (hasRelationship) {
