@@ -72,7 +72,7 @@ const EnhancedQuestionnaireFooter = ({
         break;
       }
       case 3: {
-        const fields = ['stressResponse', 'loveLanguage', 'conflictStyle'];
+        const fields = ['loveLanguage', 'conflictStyle'];
         total = fields.length;
         completed = fields.filter(field => {
           const value = profileData[field as keyof ProfileData];
