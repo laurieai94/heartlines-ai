@@ -42,7 +42,7 @@ const ProfileCompletionOptions = ({
                 <Sparkles className="w-6 h-6 text-white drop-shadow-sm" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white drop-shadow-sm">
+                <h2 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
                   Profile complete! What's your vibe?
                 </h2>
               </div>
@@ -72,10 +72,10 @@ const ProfileCompletionOptions = ({
                       <MessageCircle className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-white font-bold text-lg mb-1 drop-shadow-sm">
+                      <h3 className="text-white font-semibold text-xl mb-2 drop-shadow-md tracking-wide leading-tight">
                         Start Coaching with Kai
                       </h3>
-                      <p className="text-white/90 text-sm leading-relaxed">
+                      <p className="text-white/95 text-base leading-normal font-medium">
                         Begin your personalized coaching experience
                       </p>
                     </div>
@@ -92,10 +92,10 @@ const ProfileCompletionOptions = ({
                       <Heart className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-white font-bold text-lg mb-1 drop-shadow-sm">
+                      <h3 className="text-white font-semibold text-xl mb-2 drop-shadow-md tracking-wide leading-tight">
                         Add your person's details
                       </h3>
-                      <p className="text-white/90 text-sm leading-relaxed">
+                      <p className="text-white/95 text-base leading-normal font-medium">
                         Get even more tailored advice (completely optional)
                       </p>
                     </div>
@@ -111,11 +111,11 @@ const ProfileCompletionOptions = ({
             </>
           ) : (
             <>
-              <div className="text-center space-y-2 mb-6">
-                <h3 className="text-xl font-bold text-white drop-shadow-sm">
+              <div className="text-center space-y-3 mb-6">
+                <h3 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
                   Partner Profile Added!
                 </h3>
-                <p className="text-white/90 text-base leading-relaxed font-medium">
+                <p className="text-white/95 text-lg leading-normal font-medium">
                   Now Kai can provide even more personalized guidance.
                 </p>
               </div>
@@ -129,10 +129,10 @@ const ProfileCompletionOptions = ({
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-white font-semibold text-sm mb-1 drop-shadow-sm">
+                    <h4 className="text-white font-semibold text-lg mb-2 drop-shadow-md tracking-wide leading-tight">
                       Ready to Start Coaching
                     </h4>
-                    <p className="text-white/80 text-xs leading-relaxed">
+                    <p className="text-white/95 text-sm leading-normal font-medium">
                       Get comprehensive relationship guidance for both of you
                     </p>
                   </div>
