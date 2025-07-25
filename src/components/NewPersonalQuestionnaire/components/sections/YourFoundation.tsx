@@ -1,7 +1,6 @@
 
 import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../types";
-import FamilyDynamicsQuestion from "./YourFoundation/FamilyDynamicsQuestion";
 import AttachmentStyleQuestion from "./YourFoundation/AttachmentStyleQuestion";
 import FamilyStructureQuestion from "./YourFoundation/FamilyStructureQuestion";
 
@@ -31,11 +30,6 @@ const YourFoundation = ({
       </div>
 
       <FamilyStructureQuestion
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-      />
-
-      <FamilyDynamicsQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
       />

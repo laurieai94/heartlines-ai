@@ -82,7 +82,7 @@ const EnhancedQuestionnaireFooter = ({
       }
       case 4: {
         total = 2;
-        if ((profileData.familyDynamics || []).length > 0) completed += 1;
+        if ((profileData.familyStructure || []).length > 0) completed += 1;
         if (profileData.attachmentStyle) completed += 1;
         break;
       }

@@ -11,18 +11,6 @@ export const familyStructureOptions = [
   "These don't capture my experience"
 ];
 
-export const familyDynamicsOptions = [
-  "All feelings were valid and talked through",
-  "Happy vibes only - everything else got buried",
-  "We just didn't do the feelings thing",
-  "Emotional chaos - never knew what you'd get",
-  "I became everyone's therapist by age 12",
-  "Big feelings = big drama and meltdowns",
-  "Emotions were weapons for control", 
-  "Perfect family facade but toxic underneath",
-  "Love was there but complexity wasn't allowed",
-  "These don't capture my experience"
-];
 
 export const attachmentStyleOptions = [
   'Secure - comfortable with intimacy and independence, conflict doesn\'t freak you out',

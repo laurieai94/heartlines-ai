@@ -39,7 +39,6 @@ const defaultProfileData: ProfileData = {
   
   // Section 4: Your Foundation
   familyStructure: [],
-  familyDynamics: [],
   attachmentStyle: ''
 };
 

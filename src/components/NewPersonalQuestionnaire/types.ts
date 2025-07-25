@@ -32,7 +32,6 @@ export interface ProfileData {
   
   // Section 4: Your Foundation
   familyStructure: string[];
-  familyDynamics: string[];
   attachmentStyle: string;
 }
 

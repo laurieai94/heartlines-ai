@@ -21,17 +21,6 @@ const QuestionnaireSection4 = ({
 
   if (!isReady) return null;
 
-  const familyEmotionOptions = [
-    "Open & healthy emotional expression",
-    "Happy feelings okay, sad/angry ones shut down",
-    "We weren't an emotions family",
-    "Emotions were unpredictable/overwhelming",
-    "I became the family therapist",
-    "Big emotions were dramatic & scary",
-    "Emotions were used to manipulate",
-    "Everything looked fine but wasn't",
-    "Love expressed but other feelings weren't"
-  ];
 
   const familySituationOptions = [
     'Parents married - healthy relationship',
@@ -77,31 +66,6 @@ const QuestionnaireSection4 = ({
           <h3 className="text-base font-semibold text-white">Your Foundation</h3>
         </div>
         
-        <div>
-          <Label className="text-sm font-semibold text-white mb-2 block">
-            How did emotions work in your family? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
-          </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
-            <MessageCircle className="w-3 h-3 text-blue-300" />
-            <span>This programs how safe you feel being vulnerable</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            {familyEmotionOptions.map((value) => (
-              <button
-                key={value}
-                onClick={() => handleMultiSelect('familyEmotions', value)}
-                className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                  (profileData.familyEmotions || []).includes(value)
-                    ? 'questionnaire-button-selected'
-                    : 'questionnaire-button-secondary'
-                }`}
-              >
-                {value}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Optional Family Context */}
