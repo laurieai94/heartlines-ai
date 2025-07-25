@@ -43,7 +43,7 @@ const ProfileCompletionOptions = ({
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
-                  Profile complete! What's your vibe?
+                  Profile complete!<br />What's your vibe?
                 </h2>
               </div>
             </div>
