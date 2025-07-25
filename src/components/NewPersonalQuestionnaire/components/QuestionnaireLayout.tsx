@@ -14,6 +14,7 @@ interface QuestionnaireLayoutProps {
   onComplete: () => void;
   onClose: () => void;
   isModal?: boolean;
+  onAutoComplete?: () => void;
 }
 
 const QuestionnaireLayout = ({
@@ -22,7 +23,8 @@ const QuestionnaireLayout = ({
   handleMultiSelect,
   onComplete,
   onClose,
-  isModal = false
+  isModal = false,
+  onAutoComplete
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
@@ -98,6 +100,7 @@ const QuestionnaireLayout = ({
         <CleanQuestionnaireFooter
           profileData={profileData}
           onComplete={onComplete}
+          autoCompleteEnabled={!!onAutoComplete}
         />
       </div>
     </div>

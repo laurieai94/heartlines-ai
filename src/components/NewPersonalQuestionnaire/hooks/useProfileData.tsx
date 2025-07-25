@@ -42,7 +42,7 @@ const defaultProfileData: ProfileData = {
   attachmentStyle: ''
 };
 
-export const useProfileData = () => {
+export const useProfileData = (onAutoComplete?: () => void) => {
   const { user } = useAuth();
   const [profileData, setProfileData] = useState<ProfileData>(defaultProfileData);
   const [isLoading, setIsLoading] = useState(true);
@@ -173,6 +173,21 @@ export const useProfileData = () => {
       };
     });
   }, []);
+
+  // Auto-completion detection
+  useEffect(() => {
+    if (!isLoading && onAutoComplete) {
+      const { calculateProgress } = require('../utils/validation');
+      const progress = calculateProgress(profileData);
+      
+      if (progress === 100) {
+        // Add a small delay for smooth transition
+        setTimeout(() => {
+          onAutoComplete();
+        }, 1500);
+      }
+    }
+  }, [profileData, isLoading, onAutoComplete]);
 
   return {
     profileData,

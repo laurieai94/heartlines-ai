@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProfileData } from "./hooks/useProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 
@@ -10,18 +10,9 @@ interface NewPersonalQuestionnaireProps {
 }
 
 const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewPersonalQuestionnaireProps) => {
-  const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = useProfileData();
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white/80">Loading your profile...</p>
-        </div>
-      </div>
-    );
-  }
+  const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
+  
+  const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = useProfileData(autoCompleteCallback);
 
   const handleComplete = async () => {
     try {
@@ -43,6 +34,24 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     }
   };
 
+  // Set the auto-complete callback after we have access to handleComplete
+  useEffect(() => {
+    if (!autoCompleteCallback) {
+      setAutoCompleteCallback(() => handleComplete);
+    }
+  }, [autoCompleteCallback, handleComplete]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white/80">Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <QuestionnaireLayout
       profileData={profileData}
@@ -51,6 +60,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       onComplete={handleComplete}
       onClose={onClose}
       isModal={isModal}
+      onAutoComplete={autoCompleteCallback}
     />
   );
 };

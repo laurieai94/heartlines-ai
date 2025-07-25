@@ -10,11 +10,13 @@ interface AttachmentStyleQuestionProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   onComplete?: () => void;
+  onQuestionComplete?: () => void;
 }
 const AttachmentStyleQuestion = ({
   profileData,
   updateField,
-  onComplete
+  onComplete,
+  onQuestionComplete
 }: AttachmentStyleQuestionProps) => {
   const {
     scrollToNextQuestion
@@ -29,7 +31,19 @@ const AttachmentStyleQuestion = ({
         <Link className="w-3 h-3 text-purple-300" />
         <span>The psychological patterns that run your relationships</span>
       </div>
-      <SingleSelect options={attachmentStyleOptions} selectedValue={profileData.attachmentStyle || ''} onSelect={value => updateField('attachmentStyle', value)} columns={1} />
+      <SingleSelect 
+        options={attachmentStyleOptions} 
+        selectedValue={profileData.attachmentStyle || ''} 
+        onSelect={value => {
+          updateField('attachmentStyle', value);
+          if (onQuestionComplete) {
+            setTimeout(() => {
+              onQuestionComplete();
+            }, 300);
+          }
+        }} 
+        columns={1} 
+      />
       {isComplete && onComplete && <div className="flex justify-center mt-4 animate-fade-in">
           
         </div>}

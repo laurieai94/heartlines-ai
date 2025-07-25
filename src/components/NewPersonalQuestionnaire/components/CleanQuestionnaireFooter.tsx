@@ -6,11 +6,13 @@ import { Heart } from "lucide-react";
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
   onComplete: () => void;
+  autoCompleteEnabled?: boolean;
 }
 
 const CleanQuestionnaireFooter = ({
   profileData,
-  onComplete
+  onComplete,
+  autoCompleteEnabled = false
 }: CleanQuestionnaireFooterProps) => {
   const overallProgress = calculateProgress(profileData);
   const canComplete = overallProgress === 100;
@@ -62,7 +64,7 @@ const CleanQuestionnaireFooter = ({
         </div>
 
         {/* Completion Button - More Compact */}
-        {canComplete && (
+        {canComplete && !autoCompleteEnabled && (
           <div className="flex justify-center">
             <button 
               onClick={onComplete}
@@ -71,6 +73,16 @@ const CleanQuestionnaireFooter = ({
               <Heart className="w-3.5 h-3.5 text-emerald-400" />
               <span>Unlock RealTalk's AI Coach</span>
             </button>
+          </div>
+        )}
+        
+        {/* Auto-completion message */}
+        {canComplete && autoCompleteEnabled && (
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse">
+              <Heart className="w-3.5 h-3.5" />
+              <span>Profile Complete! Unlocking RealTalk...</span>
+            </div>
           </div>
         )}
       </div>
