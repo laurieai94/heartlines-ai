@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { PartnerProfileData } from "../types";
 import { validatePartnerSection, calculatePartnerProgress } from "../utils/partnerValidation";
+import { useCurrentSectionDetection } from "../../NewPersonalQuestionnaire/hooks/useCurrentSectionDetection";
 import PartnerSectionNavigation from "./PartnerSectionNavigation";
 import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
@@ -30,7 +31,10 @@ const PartnerQuestionnaireLayout = ({
   
   const overallProgress = calculatePartnerProgress(profileData);
 
-  // Handle section completion via continue buttons
+  // Auto section detection hook (same as personal profile)
+  useCurrentSectionDetection(setCurrentSection);
+
+  // Handle section completion via continue buttons with auto-advance
   const handleSectionComplete = (nextSection: number) => {
     setCurrentSection(nextSection);
     
@@ -39,6 +43,19 @@ const PartnerQuestionnaireLayout = ({
       setTimeout(() => {
         scrollToSectionFn.current!(nextSection);
       }, 200);
+    }
+  };
+
+  // Auto-advance logic (same as personal profile)
+  const handleSectionAutoAdvance = () => {
+    const isSection1Complete = validatePartnerSection(1, profileData);
+    const isSection2Complete = validatePartnerSection(2, profileData);
+    const isSection3Complete = validatePartnerSection(3, profileData);
+
+    if (currentSection === 1 && isSection1Complete && !isSection2Complete) {
+      handleSectionComplete(2);
+    } else if (currentSection === 2 && isSection2Complete && !isSection3Complete) {
+      handleSectionComplete(3);
     }
   };
 
@@ -75,7 +92,7 @@ const PartnerQuestionnaireLayout = ({
           handleMultiSelect={handleMultiSelect}
           currentSection={currentSection}
           onScrollToSection={(scrollFn) => { scrollToSectionFn.current = scrollFn; }}
-          onSectionComplete={handleSectionComplete}
+          onSectionComplete={handleSectionAutoAdvance}
         />
 
         <PartnerQuestionnaireFooter

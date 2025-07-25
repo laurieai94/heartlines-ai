@@ -35,7 +35,7 @@ const PartnerSectionNavigation = ({
   const sections = [1, 2, 3];
 
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-3 gap-1">
       {sections.map((section) => {
         const isActive = currentSection === section;
         const isCompleted = validatePartnerSection(section, profileData);
@@ -46,23 +46,27 @@ const PartnerSectionNavigation = ({
           <button
             key={section}
             onClick={() => onSectionClick(section)}
-            className={`p-3 rounded-lg text-center transition-all duration-200 hover:scale-[1.02] border ${
-              isActive
-                ? 'bg-gradient-to-r from-rose-500/20 to-pink-600/20 border-rose-400/40 text-white shadow-lg'
-                : isCompleted
-                ? 'bg-gradient-to-r from-emerald-500/20 to-teal-600/20 border-emerald-400/40 text-emerald-100 hover:from-emerald-500/30 hover:to-teal-600/30'
-                : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white/90'
+            className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
+              isActive 
+                ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
+                : isCompleted 
+                  ? 'bg-white/15 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20' 
+                  : 'bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 hover:bg-white/15'
             }`}
           >
-            <div className="flex items-center justify-center gap-2 mb-1">
-              {isCompleted && !isActive && (
-                <div className="w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                {sectionIcon}
+                <span className="font-semibold text-xs">{sectionTitle}</span>
+              </div>
+              {isCompleted && (
+                <div className={`w-3 h-3 rounded-full flex items-center justify-center ${
+                  isActive ? 'bg-white/20' : 'bg-emerald-500'
+                }`}>
                   <span className="text-white text-xs">✓</span>
                 </div>
               )}
-              {sectionIcon}
             </div>
-            <div className="text-xs font-medium">{sectionTitle}</div>
           </button>
         );
       })}

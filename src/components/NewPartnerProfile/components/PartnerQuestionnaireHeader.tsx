@@ -18,39 +18,47 @@ const PartnerQuestionnaireHeader = ({
 }: PartnerQuestionnaireHeaderProps) => {
   const initial = getInitial(profileData);
 
+  const getSubtitle = () => {
+    if (overallProgress === 100) return "For deeper insights into your dynamic";
+    if (overallProgress >= 75) return "Complete to access all features";
+    return "For deeper insights into your dynamic";
+  };
+
   return (
-    <div className="p-6 border-b border-white/15 bg-white/5 backdrop-blur-sm flex-shrink-0">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500/20 to-pink-600/20 backdrop-blur-sm border border-rose-400/30 flex items-center justify-center">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
+      <div className="flex items-center justify-between mb-1">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
             {initial ? (
-              <span className="text-lg font-semibold text-rose-200">{initial}</span>
+              <span className="text-xs font-semibold text-white">{initial}</span>
             ) : (
-              <Heart className="w-5 h-5 text-rose-400" />
+              <Heart className="w-3.5 h-3.5 text-white" />
             )}
           </div>
+          
           <div>
-            <h1 className="text-2xl font-bold text-white mb-1">Partner Profile</h1>
-            <p className="text-white/70 text-sm">For deeper insights into your dynamic</p>
+            <h2 className="text-lg font-bold text-white">Partner Profile</h2>
+            <p className="text-sm text-white/70">{getSubtitle()}</p>
           </div>
         </div>
         
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/15 flex items-center justify-center transition-all duration-200 hover:scale-105 group"
+          className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full transition-all duration-200"
         >
-          <X className="w-5 h-5 text-white/70 group-hover:text-white" />
+          <X className="w-3.5 h-3.5" />
         </button>
       </div>
-
-      <div className="space-y-2">
-        <div className="flex items-center justify-between text-sm">
+      
+      {/* Prominent Progress Bar */}
+      <div className="space-y-1">
+        <div className="flex items-center justify-between text-xs">
           <span className="text-white/70">Progress</span>
-          <span className="text-white/90 font-medium">{overallProgress}%</span>
+          <span className="text-white font-medium">{overallProgress}%</span>
         </div>
-        <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+        <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-emerald-500 to-teal-600 transition-all duration-500 ease-out"
+            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
             style={{ width: `${overallProgress}%` }}
           />
         </div>
