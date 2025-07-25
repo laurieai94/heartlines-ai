@@ -17,7 +17,7 @@ const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: Partne
       <div className="flex items-center gap-2 mb-2">
         <UserCheck className="w-3.5 h-3.5 text-blue-400" />
         <Label className="text-sm font-medium text-white">
-          What pronouns do they use?
+          What pronouns do they use? <span className="text-red-400">*</span>
         </Label>
       </div>
       <div className="grid grid-cols-3 gap-2">
