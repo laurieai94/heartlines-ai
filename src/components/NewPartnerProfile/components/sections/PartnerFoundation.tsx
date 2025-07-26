@@ -28,11 +28,13 @@ const PartnerFoundation = ({
       <PartnerFamilyDynamicCard
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
+        isComplete={!!(profileData.partnerFamilyStructure && profileData.partnerFamilyStructure.length > 0)}
       />
 
       <PartnerAttachmentCard
         profileData={profileData}
         updateField={updateField}
+        isComplete={!!profileData.partnerAttachmentStyle}
       />
     </div>
   );

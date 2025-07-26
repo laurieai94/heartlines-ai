@@ -2,15 +2,25 @@ import QuestionCard from "@/components/NewPersonalQuestionnaire/components/share
 import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_LOVE_LANGUAGE_OPTIONS } from "../../constants";
+import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
 
 interface PartnerLoveLanguageCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
+  isComplete?: boolean;
 }
 
-const PartnerLoveLanguageCard = ({ profileData, handleMultiSelect }: PartnerLoveLanguageCardProps) => {
+const PartnerLoveLanguageCard = ({ profileData, handleMultiSelect, isComplete = false }: PartnerLoveLanguageCardProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const questionId = "partner-love-language-question";
+  
   return (
-    <QuestionCard className="space-y-4">
+    <QuestionCard 
+      className="space-y-4"
+      questionId={questionId}
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion(questionId)}
+    >
       <div>
         <h3 className="text-lg font-semibold text-white mb-2">
           How do they seem to feel most loved? Select all that resonate

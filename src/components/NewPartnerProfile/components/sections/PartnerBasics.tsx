@@ -36,16 +36,19 @@ const PartnerBasics = ({
       <PartnerAgeCard
         profileData={profileData}
         updateField={updateField}
+        isComplete={!!profileData.partnerAge}
       />
 
       <PartnerOrientationCard
         profileData={profileData}
         updateField={updateField}
+        isComplete={!!profileData.partnerOrientation}
       />
 
       <PartnerGenderCard
         profileData={profileData}
         updateField={updateField}
+        isComplete={!!profileData.partnerGender}
       />
     </div>
   );

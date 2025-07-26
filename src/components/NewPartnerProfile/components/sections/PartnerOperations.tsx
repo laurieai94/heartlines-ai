@@ -29,16 +29,19 @@ const PartnerOperations = ({
       <PartnerLoveLanguageCard
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
+        isComplete={!!(profileData.partnerLoveLanguage && profileData.partnerLoveLanguage.length > 0)}
       />
 
       <PartnerConflictCard
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
+        isComplete={!!(profileData.partnerConflictStyle && profileData.partnerConflictStyle.length > 0)}
       />
 
       <PartnerSelfAwarenessCard
         profileData={profileData}
         updateField={updateField}
+        isComplete={!!profileData.partnerSelfAwareness}
       />
     </div>
   );

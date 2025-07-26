@@ -2,15 +2,25 @@ import QuestionCard from "@/components/NewPersonalQuestionnaire/components/share
 import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_FAMILY_STRUCTURE_OPTIONS } from "../../constants";
+import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
 
 interface PartnerFamilyDynamicCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
+  isComplete?: boolean;
 }
 
-const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect }: PartnerFamilyDynamicCardProps) => {
+const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect, isComplete = false }: PartnerFamilyDynamicCardProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const questionId = "partner-family-dynamic-question";
+  
   return (
-    <QuestionCard className="space-y-4">
+    <QuestionCard 
+      className="space-y-4"
+      questionId={questionId}
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion(questionId)}
+    >
       <div>
         <h3 className="text-lg font-semibold text-white mb-2">
           What was their family dynamic growing up? Select all that resonate
