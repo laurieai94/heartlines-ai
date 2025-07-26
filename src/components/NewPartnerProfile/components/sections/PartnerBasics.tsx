@@ -1,6 +1,5 @@
 import { PartnerProfileData } from "../../types";
-import PartnerNameCard from "../questions/PartnerNameCard";
-import PartnerPronounsCard from "../questions/PartnerPronounsCard";
+import PartnerNamePronounsCard from "../questions/PartnerNamePronounsCard";
 import PartnerAgeCard from "../questions/PartnerAgeCard";
 import PartnerOrientationCard from "../questions/PartnerOrientationCard";
 import PartnerGenderCard from "../questions/PartnerGenderCard";
@@ -28,14 +27,10 @@ const PartnerBasics = ({
         <p className="text-white/70">Let's start with the fundamentals about your partner</p>
       </div>
 
-      <PartnerNameCard
+      <PartnerNamePronounsCard
         profileData={profileData}
         updateField={updateField}
-      />
-
-      <PartnerPronounsCard
-        profileData={profileData}
-        updateField={updateField}
+        isComplete={!!profileData.partnerName && !!profileData.partnerPronouns}
       />
 
       <PartnerAgeCard
