@@ -176,7 +176,7 @@ const ProfileBuilder = ({
             benefits={yourProfileBenefits}
             onStartProfile={handleStartPersonalProfile}
             buttonText={yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'}
-            iconElement={<Brain className="w-5 h-5 text-white" />}
+            iconElement={<Heart className="w-5 h-5 text-white" />}
             progressColor="text-orange-300"
             benefitColor="text-orange-300"
           />
