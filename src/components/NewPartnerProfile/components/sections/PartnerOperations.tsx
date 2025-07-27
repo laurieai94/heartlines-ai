@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
-import PartnerCommunicationResponseCard from "../questions/PartnerCommunicationResponseCard";
+
 import PartnerSelfAwarenessCard from "../questions/PartnerSelfAwarenessCard";
 
 interface PartnerOperationsProps {
@@ -43,11 +43,6 @@ const PartnerOperations = ({
         isComplete={!!(profileData.partnerConflictStyle && profileData.partnerConflictStyle.length > 0)}
       />
 
-      <PartnerCommunicationResponseCard
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-        isComplete={!!(profileData.partnerCommunicationResponse && profileData.partnerCommunicationResponse.length > 0)}
-      />
 
       <PartnerSelfAwarenessCard
         profileData={profileData}
