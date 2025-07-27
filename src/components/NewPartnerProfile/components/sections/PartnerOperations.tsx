@@ -41,8 +41,8 @@ const PartnerOperations = ({
 
       <PartnerCommunicationResponseCard
         profileData={profileData}
-        updateField={updateField}
-        isComplete={!!profileData.partnerCommunicationResponse}
+        handleMultiSelect={handleMultiSelect}
+        isComplete={!!(profileData.partnerCommunicationResponse && profileData.partnerCommunicationResponse.length > 0)}
       />
 
       <PartnerSelfAwarenessCard
