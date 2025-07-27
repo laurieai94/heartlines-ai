@@ -5,7 +5,7 @@ import { useCurrentSectionDetection } from "../../NewPersonalQuestionnaire/hooks
 import PartnerSectionNavigation from "./PartnerSectionNavigation";
 import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
-import EnhancedPartnerFooter from "./EnhancedPartnerFooter";
+import CleanPartnerFooter from "./CleanPartnerFooter";
 
 interface PartnerQuestionnaireLayoutProps {
   profileData: PartnerProfileData;
@@ -95,11 +95,10 @@ const PartnerQuestionnaireLayout = ({
           onSectionComplete={handleSectionAutoAdvance}
         />
 
-        <EnhancedPartnerFooter
-          currentSection={currentSection}
+        <CleanPartnerFooter
           profileData={profileData}
-          overallProgress={overallProgress}
           onComplete={onComplete}
+          autoCompleteEnabled={!!onAutoComplete}
         />
       </div>
     </div>
