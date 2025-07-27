@@ -108,7 +108,7 @@ const QuestionnaireLayout = ({
         <CleanQuestionnaireFooter
           profileData={profileData}
           onComplete={onComplete}
-          autoCompleteEnabled={!!onAutoComplete}
+          autoCompleteEnabled={false}
         />
       </div>
     </div>
