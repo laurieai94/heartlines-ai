@@ -24,7 +24,7 @@ const PartnerBasics = ({
           <User className="w-5 h-5 text-rose-400" />
           <h2 className="text-2xl font-bold text-white">The Basics</h2>
         </div>
-        <p className="text-white/70">Let's start with the fundamentals about your person</p>
+        <p className="text-white/70">The stats you'd put in a dating profile</p>
       </div>
 
       <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} />

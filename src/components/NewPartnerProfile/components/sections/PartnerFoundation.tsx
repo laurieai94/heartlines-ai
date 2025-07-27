@@ -26,7 +26,7 @@ const PartnerFoundation = ({
           <TreeDeciduous className="w-5 h-5 text-rose-400" />
           <h2 className="text-2xl font-bold text-white">Their Foundation</h2>
         </div>
-        <p className="text-white/70">The experiences that shaped them</p>
+        <p className="text-white/70">Family stuff, emotional wiring, the deep cuts</p>
       </div>
 
       <PartnerFamilyDynamicCard
