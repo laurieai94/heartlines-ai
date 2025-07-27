@@ -17,7 +17,7 @@ const GenderSelectionCard = ({
   const {
     scrollToNextQuestion
   } = useAutoScroll();
-  const genderOptions = ['Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 'Genderfluid', 'Questioning', 'Genderqueer', 'Prefer to self-describe'];
+  const genderOptions = ['Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 'Genderfluid', 'Questioning', 'Prefer to self-describe'];
   return <QuestionCard questionId="question-gender" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-gender')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your gender identity? <span className="text-red-400">*</span>

@@ -39,7 +39,6 @@ export const PARTNER_GENDER_OPTIONS = [
   'Trans woman',
   'Trans man',
   'Genderfluid',
-  'Genderqueer',
   'Questioning',
   'Other',
   'Not sure / still figuring this out'
