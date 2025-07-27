@@ -25,7 +25,7 @@ const PartnerFoundation = ({
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-2">
           <TreeDeciduous className="w-5 h-5 text-rose-400" />
-          <h2 className="text-2xl font-bold text-white">Their Foundation</h2>
+          <h2 className="text-xl font-bold text-white">Their Foundation</h2>
         </div>
         <p className="text-white/70">Family stuff, emotional wiring, the deep cuts</p>
       </div>

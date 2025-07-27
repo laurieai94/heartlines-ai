@@ -22,7 +22,7 @@ const PartnerBasics = ({
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-2">
           <User className="w-5 h-5 text-rose-400" />
-          <h2 className="text-2xl font-bold text-white">The Basics</h2>
+          <h2 className="text-xl font-bold text-white">The Basics</h2>
         </div>
         <p className="text-white/70">The stats you'd put in a dating profile</p>
       </div>
