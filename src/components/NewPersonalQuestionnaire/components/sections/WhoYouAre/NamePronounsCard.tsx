@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, MessageSquare } from "lucide-react";
@@ -15,50 +14,13 @@ interface NamePronounsCardProps {
 
 const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
-  const [customPronoun, setCustomPronoun] = useState("");
-
-  // Initialize custom pronoun from saved data
-  useEffect(() => {
-    const standardPronouns = ['She/her', 'He/him', 'They/them', 'Other'];
-    if (profileData.pronouns && !standardPronouns.includes(profileData.pronouns)) {
-      setCustomPronoun(profileData.pronouns);
-    }
-  }, [profileData.pronouns]);
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'Other'
+    'She/her', 'He/him', 'They/them'
   ];
 
-  // Helper function to check if pronouns are complete
-  const isPronounsComplete = () => {
-    if (!profileData.pronouns) return false;
-    if (profileData.pronouns === 'Other') {
-      return customPronoun.trim().length > 0;
-    }
-    return true;
-  };
-
-  // Handle custom pronoun blur event
-  const handleCustomPronounBlur = () => {
-    if (customPronoun.trim().length > 0) {
-      updateField('pronouns', customPronoun.trim());
-    } else {
-      updateField('pronouns', null);
-    }
-  };
-
   const handlePronounSelect = (pronoun: string) => {
-    if (pronoun === 'Other') {
-      updateField('pronouns', 'Other');
-      setCustomPronoun("");
-    } else {
-      updateField('pronouns', pronoun);
-      setCustomPronoun("");
-    }
-  };
-
-  const handleCustomPronounChange = (value: string) => {
-    setCustomPronoun(value);
+    updateField('pronouns', pronoun);
   };
 
   const generateAvatar = (name: string) => {
@@ -75,8 +37,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
       </div>
     );
   };
-
-  const isNamePronounsComplete = profileData.name && isPronounsComplete();
 
   return (
     <QuestionCard 
@@ -123,19 +83,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             columns={2}
           />
 
-          {/* Custom pronoun input */}
-          {(profileData.pronouns === 'Other' || (!['She/her', 'He/him', 'They/them'].includes(profileData.pronouns || '') && profileData.pronouns)) && (
-            <div className="mt-3 animate-fade-in">
-              <Input
-                type="text"
-                value={customPronoun}
-                onChange={(e) => handleCustomPronounChange(e.target.value)}
-                onBlur={handleCustomPronounBlur}
-                placeholder="Enter your pronouns"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
-              />
-            </div>
-          )}
         </div>
       </div>
     </QuestionCard>
