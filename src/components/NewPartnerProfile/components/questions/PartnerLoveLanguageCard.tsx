@@ -23,7 +23,7 @@ const PartnerLoveLanguageCard = ({ profileData, handleMultiSelect, isComplete = 
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        How do they seem to feel most loved? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        How do they seem to feel most loved?
       </Label>
       <div className="flex items-center gap-2 mb-3">
         <Heart className="w-3 h-3 text-pink-300" />
