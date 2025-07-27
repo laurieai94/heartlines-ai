@@ -96,9 +96,10 @@ const PartnerQuestionnaireLayout = ({
         />
 
         <EnhancedPartnerFooter
+          currentSection={currentSection}
           profileData={profileData}
+          overallProgress={overallProgress}
           onComplete={onComplete}
-          autoCompleteEnabled={!!onAutoComplete}
         />
       </div>
     </div>
