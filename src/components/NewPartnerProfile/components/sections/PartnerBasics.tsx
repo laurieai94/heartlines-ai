@@ -20,13 +20,10 @@ const PartnerBasics = ({
 }: PartnerBasicsProps) => {
   return <div className="space-y-6">
       {/* Flexibility Message */}
-      <div className="relative bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-rose-500/20 backdrop-blur-lg rounded-xl border border-white/20 p-4 mb-6 overflow-hidden">
-        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-xl"></div>
-        <div className="relative z-10 flex items-center justify-center gap-3">
-          <div className="p-1.5 rounded-full bg-white/10 backdrop-blur-sm">
-            <Sparkles className="w-4 h-4 text-purple-300 animate-pulse" />
-          </div>
-          <p className="text-sm text-white/80 font-medium">
+      <div className="bg-white/5 backdrop-blur-lg rounded-lg border border-white/15 p-3 mb-4">
+        <div className="flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4 text-purple-300" />
+          <p className="text-xs text-white/70">
             Half-crush, full-on partner, or undefined? This profile flexes to wherever you're at.
           </p>
         </div>
