@@ -23,9 +23,7 @@ const PartnerBasics = ({
       <div className="bg-gradient-to-r from-purple-500/10 via-rose-500/10 to-orange-500/10 backdrop-blur-lg rounded-lg border border-gradient-to-r from-purple-400/30 via-rose-400/30 to-orange-400/30 p-3 mb-4 hover:from-purple-500/15 hover:via-rose-500/15 hover:to-orange-500/15 transition-all duration-300 shadow-lg hover:shadow-purple-500/20">
         <div className="flex items-center justify-center gap-2">
           <Sparkles className="w-4 h-4 text-orange-400 animate-pulse" />
-          <p className="text-xs text-white font-medium drop-shadow-sm">
-            Half-crush, full-on partner, or undefined? This profile flexes to wherever you're at.
-          </p>
+          <p className="text-xs text-white font-medium drop-shadow-sm">Half-crush, full-on partner, or undefined? This profile flexes to wherever you're at. Everything is optional.</p>
         </div>
       </div>
 
