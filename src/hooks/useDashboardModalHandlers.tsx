@@ -64,7 +64,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowPersonalCompletionOptions(true);
   };
 
-  const handlePartnerQuestionnaireComplete = (questionnaireData: any) => {
+  const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
     console.log('Partner questionnaire completed with data:', questionnaireData);
     
     const existingProfile = temporaryProfiles.partner[0] || {};
@@ -100,7 +100,12 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     }
     
     modalStates.setShowPartnerQuestionnaireModal(false);
-    modalStates.setShowPartnerCompletionOptions(true);
+    
+    if (skipPopup) {
+      modalStates.setActiveTab("insights");
+    } else {
+      modalStates.setShowPartnerCompletionOptions(true);
+    }
   };
 
   const handleQuestionnaireClose = () => {

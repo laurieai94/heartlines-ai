@@ -6,7 +6,7 @@ import { useNavigation } from "@/contexts/NavigationContext";
 
 interface CleanPartnerFooterProps {
   profileData: PartnerProfileData;
-  onComplete: () => void;
+  onComplete: (skipPopup?: boolean) => void;
   autoCompleteEnabled?: boolean;
 }
 
@@ -19,8 +19,7 @@ const CleanPartnerFooter = ({
   const { goToCoach } = useNavigation();
 
   const handleUnlockCoaching = () => {
-    onComplete();
-    goToCoach();
+    onComplete(true); // Pass true to skip popup
   };
 
   return (
