@@ -54,7 +54,7 @@ export const PARTNER_LOVE_LANGUAGE_OPTIONS = [
   'Shared adventures and spontaneous plans',
   'Being their biggest cheerleader',
   'Feeling seen, safe, and appreciated for who they are',
-  'Not sure / still learning'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_CONFLICT_OPTIONS = [
@@ -67,7 +67,7 @@ export const PARTNER_CONFLICT_OPTIONS = [
   'Avoid it like it\'s the plague',
   'Stand their ground hard',
   'Shut down and go quiet',
-  'Not sure / still learning'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_COMMUNICATION_RESPONSE_OPTIONS = [
@@ -79,7 +79,7 @@ export const PARTNER_COMMUNICATION_RESPONSE_OPTIONS = [
   'Inconsistent — says they get it, but doesn\'t always follow through',
   'Avoids the convo — changes the subject or brushes it off',
   'Pushes back — gets defensive or frustrated when things change',
-  'Not sure / still learning'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_SELF_AWARENESS_OPTIONS = [
@@ -101,7 +101,7 @@ export const PARTNER_FAMILY_STRUCTURE_OPTIONS = [
   'Blended family/stepparents',
   'Raised by grandparents/relatives',
   'High-conflict household with lots of drama and chaos',
-  'Not sure / still learning',
+  'Not sure / still figuring this out',
   'None of these really fit'
 ];
 
@@ -124,5 +124,5 @@ export const PARTNER_ATTACHMENT_OPTIONS = [
   'Fearful-avoidant - want close relationships but push people away when they get too close',
   'Disorganized - your attachment responses are all over the place and conflicting',
   'Depends on the relationship - different people trigger different patterns',
-  'Not sure / still learning'
+  'Not sure / still figuring this out'
 ];
