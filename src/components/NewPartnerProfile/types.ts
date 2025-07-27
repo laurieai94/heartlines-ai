@@ -4,7 +4,7 @@ export interface PartnerProfileData {
   partnerPronouns: string;
   partnerAge: string;
   partnerOrientation: string;
-  partnerGender: string;
+  partnerGender: string[];
   
   // Section 2: How They Operate
   partnerLoveLanguage: string[];

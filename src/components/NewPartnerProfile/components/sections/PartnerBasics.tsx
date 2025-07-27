@@ -43,7 +43,7 @@ const PartnerBasics = ({
 
       <PartnerOrientationCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerOrientation} />
 
-      <PartnerGenderCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerGender} />
+      <PartnerGenderCard profileData={profileData} handleMultiSelect={handleMultiSelect} isComplete={!!profileData.partnerGender?.length} />
     </div>;
 };
 export default PartnerBasics;

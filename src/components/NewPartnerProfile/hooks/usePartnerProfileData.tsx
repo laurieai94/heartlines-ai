@@ -10,7 +10,7 @@ const defaultPartnerProfileData: PartnerProfileData = {
   partnerPronouns: '',
   partnerAge: '',
   partnerOrientation: '',
-  partnerGender: '',
+  partnerGender: [],
   
   // Section 2: How They Operate
   partnerLoveLanguage: [],
