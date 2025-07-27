@@ -54,8 +54,7 @@ export const PARTNER_LOVE_LANGUAGE_OPTIONS = [
   'Shared adventures and spontaneous plans',
   'Being their biggest cheerleader',
   'Feeling seen, safe, and appreciated for who they are',
-  'Not sure / still learning',
-  'None of these hit quite right'
+  'Not sure / still learning'
 ];
 
 export const PARTNER_CONFLICT_OPTIONS = [
