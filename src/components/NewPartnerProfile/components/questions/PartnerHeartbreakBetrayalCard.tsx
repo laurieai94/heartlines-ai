@@ -35,7 +35,7 @@ const PartnerHeartbreakBetrayalCard = ({ profileData, handleMultiSelect, isCompl
         options={PARTNER_HEARTBREAK_BETRAYAL_OPTIONS}
         selectedValues={profileData.partnerHeartbreakBetrayal || []}
         onToggle={(value) => handleMultiSelect('partnerHeartbreakBetrayal', value)}
-        columns={1}
+        columns={2}
       />
     </QuestionCard>
   );
