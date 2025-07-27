@@ -38,20 +38,13 @@ const CleanPartnerFooter = ({
 
         {/* Right side - Unlock button */}
         <div className="flex items-center gap-3">
-          {!autoCompleteEnabled ? (
-            <Button
-              onClick={handleUnlockCoaching}
-              className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 px-6 py-2 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
-            >
-              <Heart className="w-4 h-4" />
-              Unlock coaching
-            </Button>
-          ) : (
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse">
-              <Heart className="w-4 h-4" />
-              <span>Unlocking coaching...</span>
-            </div>
-          )}
+          <Button
+            onClick={handleUnlockCoaching}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-2 px-6 py-2 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
+          >
+            <Heart className="w-4 h-4" />
+            Unlock coaching
+          </Button>
         </div>
       </div>
     </div>
