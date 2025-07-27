@@ -112,7 +112,6 @@ export const PARTNER_HEARTBREAK_BETRAYAL_OPTIONS = [
   'Got ghosted or slow-faded after getting attached',
   'Learned a lot — it shaped what they actually want now',
   'Still carrying some of that hurt around',
-  'Honestly, nothing too deep — just a few standard breakups',
   'Not sure / still figuring this out'
 ];
 
