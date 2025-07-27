@@ -5,6 +5,7 @@ import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
+import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
   profileData: ProfileData;
@@ -14,13 +15,32 @@ interface NamePronounsCardProps {
 
 const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
+  const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them'
+    'She/her', 'He/him', 'They/them', 'Other'
   ];
 
+  // Initialize custom pronoun if it exists and isn't a standard option
+  useEffect(() => {
+    if (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Other'].includes(profileData.pronouns)) {
+      setCustomPronoun(profileData.pronouns);
+    }
+  }, [profileData.pronouns]);
+
   const handlePronounSelect = (pronoun: string) => {
+    if (pronoun === 'Other') {
+      updateField('pronouns', 'Other');
+      return;
+    }
     updateField('pronouns', pronoun);
+  };
+
+  const handleCustomPronounChange = (value: string) => {
+    setCustomPronoun(value);
+    if (value.trim()) {
+      updateField('pronouns', value.trim());
+    }
   };
 
   const generateAvatar = (name: string) => {
@@ -82,6 +102,21 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             onSelect={handlePronounSelect}
             columns={2}
           />
+
+          {/* Custom pronoun input */}
+          {(profileData.pronouns === 'Other' || customPronoun) && (
+            <div className="mt-3">
+              <Label className="text-xs font-medium text-white mb-1.5 block">
+                Please specify your pronouns:
+              </Label>
+              <Input
+                value={customPronoun}
+                onChange={(e) => handleCustomPronounChange(e.target.value)}
+                placeholder="e.g., xe/xir, fae/faer, etc."
+                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-8"
+              />
+            </div>
+          )}
 
         </div>
       </div>
