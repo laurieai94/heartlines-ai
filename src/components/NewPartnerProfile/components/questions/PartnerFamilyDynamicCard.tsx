@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import { Label } from "@/components/ui/label";
+import { Home } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_FAMILY_STRUCTURE_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect, isComplete =
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          What was their family dynamic growing up? Select all that resonate
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        What was their family dynamic growing up? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Home className="w-3 h-3 text-green-300" />
+        <p className="text-white/70 text-xs">
           This literally programmed their relationship blueprints
         </p>
-        <MultiSelect
-          options={PARTNER_FAMILY_STRUCTURE_OPTIONS}
-          selectedValues={profileData.partnerFamilyStructure || []}
-          onToggle={(value) => handleMultiSelect('partnerFamilyStructure', value)}
-          columns={1}
-        />
       </div>
+      <MultiSelect
+        options={PARTNER_FAMILY_STRUCTURE_OPTIONS}
+        selectedValues={profileData.partnerFamilyStructure || []}
+        onToggle={(value) => handleMultiSelect('partnerFamilyStructure', value)}
+        columns={1}
+      />
     </QuestionCard>
   );
 };

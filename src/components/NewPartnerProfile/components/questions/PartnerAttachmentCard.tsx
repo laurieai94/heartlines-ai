@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
+import { Label } from "@/components/ui/label";
+import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_ATTACHMENT_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }:
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          What's their attachment style (from what you can tell)?
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        What's their attachment style (from what you can tell)? <span className="text-red-400">*</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Heart className="w-3 h-3 text-red-300" />
+        <p className="text-white/70 text-xs">
           The psychological patterns that run their relationships
         </p>
-        <SingleSelect
-          options={PARTNER_ATTACHMENT_OPTIONS}
-          selectedValue={profileData.partnerAttachmentStyle}
-          onSelect={(value) => updateField('partnerAttachmentStyle', value)}
-          columns={1}
-        />
       </div>
+      <SingleSelect
+        options={PARTNER_ATTACHMENT_OPTIONS}
+        selectedValue={profileData.partnerAttachmentStyle}
+        onSelect={(value) => updateField('partnerAttachmentStyle', value)}
+        columns={1}
+      />
     </QuestionCard>
   );
 };

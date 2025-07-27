@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
+import { Label } from "@/components/ui/label";
+import { Calendar } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_AGE_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: Partne
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          What's their age?
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        What's their age? <span className="text-red-400">*</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Calendar className="w-3 h-3 text-orange-300" />
+        <p className="text-white/70 text-xs">
           Different stages = different relationship vibes
         </p>
-        <SingleSelect
-          options={PARTNER_AGE_OPTIONS}
-          selectedValue={profileData.partnerAge}
-          onSelect={(value) => updateField('partnerAge', value)}
-          columns={3}
-        />
       </div>
+      <SingleSelect
+        options={PARTNER_AGE_OPTIONS}
+        selectedValue={profileData.partnerAge}
+        onSelect={(value) => updateField('partnerAge', value)}
+        columns={3}
+      />
     </QuestionCard>
   );
 };

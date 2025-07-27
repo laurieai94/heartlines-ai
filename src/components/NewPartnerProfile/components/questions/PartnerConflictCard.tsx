@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import { Label } from "@/components/ui/label";
+import { Shield } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_CONFLICT_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerConflictCard = ({ profileData, handleMultiSelect, isComplete = fals
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          How do they usually handle conflict? Select all that resonate
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        How do they usually handle conflict? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Shield className="w-3 h-3 text-blue-300" />
+        <p className="text-white/70 text-xs">
           How they fight determines if your relationship will make it
         </p>
-        <MultiSelect
-          options={PARTNER_CONFLICT_OPTIONS}
-          selectedValues={profileData.partnerConflictStyle || []}
-          onToggle={(value) => handleMultiSelect('partnerConflictStyle', value)}
-          columns={1}
-        />
       </div>
+      <MultiSelect
+        options={PARTNER_CONFLICT_OPTIONS}
+        selectedValues={profileData.partnerConflictStyle || []}
+        onToggle={(value) => handleMultiSelect('partnerConflictStyle', value)}
+        columns={1}
+      />
     </QuestionCard>
   );
 };

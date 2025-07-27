@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import { Label } from "@/components/ui/label";
+import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_LOVE_LANGUAGE_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerLoveLanguageCard = ({ profileData, handleMultiSelect, isComplete = 
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          How do they seem to feel most loved? Select all that resonate
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        How do they seem to feel most loved? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Heart className="w-3 h-3 text-pink-300" />
+        <p className="text-white/70 text-xs">
           Knowing this helps us actually know what they need
         </p>
-        <MultiSelect
-          options={PARTNER_LOVE_LANGUAGE_OPTIONS}
-          selectedValues={profileData.partnerLoveLanguage || []}
-          onToggle={(value) => handleMultiSelect('partnerLoveLanguage', value)}
-          columns={1}
-        />
       </div>
+      <MultiSelect
+        options={PARTNER_LOVE_LANGUAGE_OPTIONS}
+        selectedValues={profileData.partnerLoveLanguage || []}
+        onToggle={(value) => handleMultiSelect('partnerLoveLanguage', value)}
+        columns={1}
+      />
     </QuestionCard>
   );
 };

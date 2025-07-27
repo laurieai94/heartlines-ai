@@ -1,5 +1,7 @@
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
+import { Label } from "@/components/ui/label";
+import { Brain } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_SELF_AWARENESS_OPTIONS } from "../../constants";
 import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
@@ -16,25 +18,25 @@ const PartnerSelfAwarenessCard = ({ profileData, updateField, isComplete = false
   
   return (
     <QuestionCard 
-      className="space-y-4"
       questionId={questionId}
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-2">
-          How self-aware are they about their relationship patterns?
-        </h3>
-        <p className="text-white/70 text-sm mb-4">
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        How self-aware are they about their relationship patterns? <span className="text-red-400">*</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Brain className="w-3 h-3 text-blue-300" />
+        <p className="text-white/70 text-xs">
           Be honest — growth isn't always linear.
         </p>
-        <SingleSelect
-          options={PARTNER_SELF_AWARENESS_OPTIONS}
-          selectedValue={profileData.partnerSelfAwareness}
-          onSelect={(value) => updateField('partnerSelfAwareness', value)}
-          columns={1}
-        />
       </div>
+      <SingleSelect
+        options={PARTNER_SELF_AWARENESS_OPTIONS}
+        selectedValue={profileData.partnerSelfAwareness}
+        onSelect={(value) => updateField('partnerSelfAwareness', value)}
+        columns={1}
+      />
     </QuestionCard>
   );
 };
