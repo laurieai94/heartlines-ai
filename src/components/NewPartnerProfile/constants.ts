@@ -71,15 +71,15 @@ export const PARTNER_CONFLICT_OPTIONS = [
 ];
 
 export const PARTNER_COMMUNICATION_RESPONSE_OPTIONS = [
-  'Respectful and receptive — they take it seriously and adjust',
-  'Open-minded — asks thoughtful questions and wants to understand',
-  'Still learning — they try, even if it\'s a little clunky sometimes',
+  'Respectful and receptive — takes it seriously and adjusts',
+  'Open and curious — asks thoughtful questions and wants to understand',
+  'Trying, even if clunky — they care, just still learning',
   'Gets a bit thrown — might feel hurt or unsure how to react',
   'Takes it personally — sees boundaries as rejection',
-  'Inconsistent — says they get it, but doesn\'t always follow through',
+  'Inconsistent — says they get it, but actions don\'t always match',
   'Avoids the convo — changes the subject or brushes it off',
   'Pushes back — gets defensive or frustrated when things change',
-  'Not sure / still figuring this out'
+  'Not sure yet / still figuring it out'
 ];
 
 export const PARTNER_SELF_AWARENESS_OPTIONS = [
