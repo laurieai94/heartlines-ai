@@ -11,7 +11,7 @@ interface PartnerQuestionnaireLayoutProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
-  onComplete: () => void;
+  onComplete: (skipPopup?: boolean) => void;
   onClose: () => void;
   isModal?: boolean;
   onAutoComplete?: () => void;

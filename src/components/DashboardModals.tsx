@@ -1,7 +1,7 @@
 
 import SignUpModal from "@/components/SignUpModal";
 import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
-import PartnerProfileQuestionnaire from "@/components/PartnerProfileQuestionnaire";
+import NewPartnerProfile from "@/components/NewPartnerProfile";
 import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 
 interface DashboardModalsProps {
@@ -13,7 +13,7 @@ interface DashboardModalsProps {
   onQuestionnaireClose: () => void;
   onQuestionnaireOpen: () => void;
   showPartnerQuestionnaireModal: boolean;
-  onPartnerQuestionnaireComplete: (data: any) => void;
+  onPartnerQuestionnaireComplete: (data: any, skipPopup?: boolean) => void;
   onPartnerQuestionnaireClose: () => void;
   showPersonalCompletionOptions: boolean;
   onPersonalAddPartnerProfile: () => void;
@@ -94,7 +94,7 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[90vh] sm:max-h-[92vh] lg:max-h-[88vh]">
-            <PartnerProfileQuestionnaire 
+            <NewPartnerProfile 
               onComplete={onPartnerQuestionnaireComplete} 
               onClose={onPartnerQuestionnaireClose} 
               isModal={true} 

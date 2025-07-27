@@ -3,7 +3,7 @@ import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
 
 interface NewPartnerProfileProps {
-  onComplete: (profileData: any) => void;
+  onComplete: (profileData: any, skipPopup?: boolean) => void;
   onClose: () => void;
   isModal?: boolean;
 }
@@ -13,7 +13,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
   
   const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = usePartnerProfileData(autoCompleteCallback);
 
-  const handleComplete = async () => {
+  const handleComplete = async (skipPopup?: boolean) => {
     try {
       await saveProfile();
       
@@ -27,7 +27,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
         type: 'partner',
         completionData: completedData,
         nextStep: 'start-coaching'
-      });
+      }, skipPopup);
     } catch (error) {
       console.error('Error completing partner questionnaire:', error);
     }
