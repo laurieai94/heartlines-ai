@@ -23,7 +23,7 @@ const PartnerSelfAwarenessCard = ({ profileData, updateField, isComplete = false
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        How self-aware are they about their relationship patterns? <span className="text-red-400">*</span>
+        How self-aware are they about their relationship patterns?
       </Label>
       <div className="flex items-center gap-2 mb-3">
         <Brain className="w-3 h-3 text-blue-300" />

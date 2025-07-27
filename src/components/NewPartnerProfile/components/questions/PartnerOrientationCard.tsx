@@ -23,7 +23,7 @@ const PartnerOrientationCard = ({ profileData, updateField, isComplete = false }
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        What's their sexual orientation? <span className="text-red-400">*</span>
+        What's their sexual orientation?
       </Label>
       <div className="flex items-center gap-2 mb-3">
         <Compass className="w-3 h-3 text-pink-300" />

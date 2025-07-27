@@ -23,7 +23,7 @@ const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: Partne
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        What's their age? <span className="text-red-400">*</span>
+        What's their age?
       </Label>
       <div className="flex items-center gap-2 mb-3">
         <Calendar className="w-3 h-3 text-orange-300" />

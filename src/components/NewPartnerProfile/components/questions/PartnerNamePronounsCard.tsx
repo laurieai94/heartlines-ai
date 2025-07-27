@@ -92,7 +92,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
           </div>
           <div className="flex-1 min-w-0">
             <Label htmlFor="partnerName" className="text-sm font-semibold text-white mb-2 block">
-              What should we call them? <span className="text-red-400">*</span>
+              What should we call them?
             </Label>
             <Input
               id="partnerName"
@@ -108,7 +108,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
           <Label className="text-sm font-semibold text-white mb-2 block">
-            What pronouns do they use? <span className="text-red-400">*</span>
+            What pronouns do they use?
           </Label>
           <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
