@@ -67,8 +67,7 @@ export const PARTNER_CONFLICT_OPTIONS = [
   'Avoid it like it\'s the plague',
   'Stand their ground hard',
   'Shut down and go quiet',
-  'Not sure / still learning',
-  'None of these feel like them'
+  'Not sure / still learning'
 ];
 
 export const PARTNER_COMMUNICATION_RESPONSE_OPTIONS = [
