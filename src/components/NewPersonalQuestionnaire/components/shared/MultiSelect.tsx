@@ -6,7 +6,7 @@ interface MultiSelectProps {
   columns?: number;
 }
 
-const MultiSelect = ({ options, selectedValues, onToggle, columns = 3 }: MultiSelectProps) => {
+const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSelectProps) => {
   const getGridCols = (cols: number) => {
     switch (cols) {
       case 1: return 'grid-cols-1';
