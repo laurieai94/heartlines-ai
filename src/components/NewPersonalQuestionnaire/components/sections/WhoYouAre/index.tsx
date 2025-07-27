@@ -18,10 +18,9 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
   // Helper function to check if pronouns are complete (duplicated here to avoid complex prop passing)
   const isPronounsComplete = () => {
     if (!profileData.pronouns) return false;
-    if (profileData.pronouns === 'Other') {
-      // For 'Other', we need to check if there's a custom value that's not just 'Other'
-      return profileData.pronouns !== 'Other';
-    }
+    // If "Other" is selected but no custom value entered yet, it's incomplete
+    if (profileData.pronouns === 'Other') return false;
+    // Any other value (including custom pronouns) means it's complete
     return true;
   };
 
