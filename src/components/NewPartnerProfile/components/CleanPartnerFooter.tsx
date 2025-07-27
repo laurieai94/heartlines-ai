@@ -26,19 +26,25 @@ const CleanPartnerFooter = ({
   return (
     <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
-        {/* Left side - Progress dots */}
-        <div className="flex items-center gap-2">
-          {[1, 2, 3].map((section) => {
+        {/* Left side - Progress dots with section names */}
+        <div className="flex items-center gap-4">
+          {[
+            { section: 1, name: "The Basics" },
+            { section: 2, name: "How They Operate" },
+            { section: 3, name: "Their Foundation" }
+          ].map(({ section, name }) => {
             const isComplete = validatePartnerSection(section, profileData);
             return (
-              <div
-                key={section}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  isComplete 
-                    ? 'bg-emerald-400 shadow-sm' 
-                    : 'border border-white/30 bg-transparent'
-                }`}
-              />
+              <div key={section} className="flex flex-col items-center gap-1">
+                <div
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    isComplete 
+                      ? 'bg-emerald-400 shadow-sm' 
+                      : 'border border-white/30 bg-transparent'
+                  }`}
+                />
+                <span className="text-white/60 text-xs font-medium">{name}</span>
+              </div>
             );
           })}
         </div>
