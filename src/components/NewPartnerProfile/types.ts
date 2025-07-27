@@ -9,6 +9,7 @@ export interface PartnerProfileData {
   // Section 2: How They Operate
   partnerLoveLanguage: string[];
   partnerConflictStyle: string[];
+  partnerCommunicationResponse: string;
   partnerSelfAwareness: string;
   
   // Section 3: Their Foundation

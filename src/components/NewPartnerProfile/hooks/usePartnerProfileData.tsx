@@ -15,6 +15,7 @@ const defaultPartnerProfileData: PartnerProfileData = {
   // Section 2: How They Operate
   partnerLoveLanguage: [],
   partnerConflictStyle: [],
+  partnerCommunicationResponse: '',
   partnerSelfAwareness: '',
   
   // Section 3: Their Foundation

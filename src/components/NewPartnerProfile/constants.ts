@@ -73,6 +73,18 @@ export const PARTNER_CONFLICT_OPTIONS = [
   'None of these feel like them'
 ];
 
+export const PARTNER_COMMUNICATION_RESPONSE_OPTIONS = [
+  'Respectful and receptive — they take it seriously and adjust',
+  'Open-minded — asks thoughtful questions and wants to understand',
+  'Still learning — they try, even if it\'s a little clunky sometimes',
+  'Gets a bit thrown — might feel hurt or unsure how to react',
+  'Takes it personally — sees boundaries as rejection',
+  'Inconsistent — says they get it, but doesn\'t always follow through',
+  'Avoids the convo — changes the subject or brushes it off',
+  'Pushes back — gets defensive or frustrated when things change',
+  'Not sure / still learning'
+];
+
 export const PARTNER_SELF_AWARENESS_OPTIONS = [
   'Deep in their growth era — always reflecting, learning, and calling themselves out',
   'Aware-ish — open to feedback and doing the work (most of the time)',

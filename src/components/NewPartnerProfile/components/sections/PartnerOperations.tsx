@@ -1,6 +1,7 @@
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
+import PartnerCommunicationResponseCard from "../questions/PartnerCommunicationResponseCard";
 import PartnerSelfAwarenessCard from "../questions/PartnerSelfAwarenessCard";
 
 interface PartnerOperationsProps {
@@ -36,6 +37,12 @@ const PartnerOperations = ({
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
         isComplete={!!(profileData.partnerConflictStyle && profileData.partnerConflictStyle.length > 0)}
+      />
+
+      <PartnerCommunicationResponseCard
+        profileData={profileData}
+        updateField={updateField}
+        isComplete={!!profileData.partnerCommunicationResponse}
       />
 
       <PartnerSelfAwarenessCard
