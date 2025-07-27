@@ -68,7 +68,7 @@ const CleanQuestionnaireFooter = ({
               } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm`}
             >
               <Heart className="w-3.5 h-3.5" />
-              <span>Unlock coaching</span>
+              <span>Unlock RealTalk</span>
             </button>
           )}
           
