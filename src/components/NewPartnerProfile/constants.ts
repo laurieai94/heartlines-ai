@@ -108,6 +108,18 @@ export const PARTNER_FAMILY_STRUCTURE_OPTIONS = [
   'None of these really fit'
 ];
 
+export const PARTNER_HEARTBREAK_BETRAYAL_OPTIONS = [
+  'Got blindsided — a serious relationship ended out of nowhere',
+  'Got cheated on or deeply betrayed',
+  'Stayed way too long in something that wasn\'t good for them',
+  'Fell for potential, not reality',
+  'Got ghosted or slow-faded after getting attached',
+  'Learned a lot — it shaped what they actually want now',
+  'Still carrying some of that hurt around',
+  'Honestly, nothing too deep — just a few standard breakups',
+  'Not sure / they haven\'t really opened up about this'
+];
+
 export const PARTNER_ATTACHMENT_OPTIONS = [
   'Secure - comfortable with intimacy and independence, conflict doesn\'t freak you out',
   'Anxious - crave closeness but constantly worry they\'ll leave, need lots of reassurance',

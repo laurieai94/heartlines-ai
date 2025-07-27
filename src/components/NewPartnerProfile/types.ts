@@ -13,6 +13,7 @@ export interface PartnerProfileData {
   partnerSelfAwareness: string;
   
   // Section 3: Their Foundation
+  partnerHeartbreakBetrayal: string[];
   partnerFamilyStructure: string[];
   partnerAttachmentStyle: string;
 }

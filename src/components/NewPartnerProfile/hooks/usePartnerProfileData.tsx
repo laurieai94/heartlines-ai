@@ -19,6 +19,7 @@ const defaultPartnerProfileData: PartnerProfileData = {
   partnerSelfAwareness: '',
   
   // Section 3: Their Foundation
+  partnerHeartbreakBetrayal: [],
   partnerFamilyStructure: [],
   partnerAttachmentStyle: ''
 };

@@ -1,0 +1,44 @@
+import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
+import MultiSelect from "@/components/NewPersonalQuestionnaire/components/shared/MultiSelect";
+import { Label } from "@/components/ui/label";
+import { Shield } from "lucide-react";
+import { PartnerProfileData } from "../../types";
+import { PARTNER_HEARTBREAK_BETRAYAL_OPTIONS } from "../../constants";
+import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+
+interface PartnerHeartbreakBetrayalCardProps {
+  profileData: PartnerProfileData;
+  handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
+  isComplete?: boolean;
+}
+
+const PartnerHeartbreakBetrayalCard = ({ profileData, handleMultiSelect, isComplete = false }: PartnerHeartbreakBetrayalCardProps) => {
+  const { scrollToNextQuestion } = useAutoScroll();
+  const questionId = "partner-heartbreak-betrayal-question";
+  
+  return (
+    <QuestionCard 
+      questionId={questionId}
+      showContinue={isComplete}
+      onContinue={() => scrollToNextQuestion(questionId)}
+    >
+      <Label className="text-sm font-semibold text-white mb-2 block">
+        Have they been through any major heartbreaks or betrayals? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+      </Label>
+      <div className="flex items-center gap-2 mb-3">
+        <Shield className="w-3 h-3 text-green-300" />
+        <p className="text-white/70 text-xs">
+          Past pain shapes how we protect ourselves.
+        </p>
+      </div>
+      <MultiSelect
+        options={PARTNER_HEARTBREAK_BETRAYAL_OPTIONS}
+        selectedValues={profileData.partnerHeartbreakBetrayal || []}
+        onToggle={(value) => handleMultiSelect('partnerHeartbreakBetrayal', value)}
+        columns={1}
+      />
+    </QuestionCard>
+  );
+};
+
+export default PartnerHeartbreakBetrayalCard;
