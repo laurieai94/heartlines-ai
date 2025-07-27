@@ -58,14 +58,13 @@ export const PARTNER_LOVE_LANGUAGE_OPTIONS = [
 ];
 
 export const PARTNER_CONFLICT_OPTIONS = [
-  'Wants to talk it out now — needs to resolve things ASAP',
-  'Needs space first — prefers to cool off before diving in',
-  'Tries to understand you — listens and asks where you\'re coming from',
-  'Fix-it fast mode — just wants to move on quickly',
-  'Gets overwhelmed — needs reassurance or emotional grounding',
-  'Goes full logic mode — analyzes everything like it\'s a debate',
-  'Avoids it completely — changes the subject or shuts it down',
-  'Stands their ground hard — digs in and holds their position',
+  'Wants to talk it out now — needs to resolve it ASAP',
+  'Needs space first — cools off before diving in',
+  'Tries to really understand you — listens and validates',
+  'Goes into fix-it mode — wants to move on fast',
+  'Gets overwhelmed — needs reassurance or emotional support',
+  'Gets super logical — analyzes everything like it\'s a debate',
+  'Avoids it entirely — dodges or shuts down the convo',
   'Not sure yet / still figuring it out'
 ];
 
