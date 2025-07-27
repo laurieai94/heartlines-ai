@@ -1,5 +1,5 @@
 import { PartnerProfileData } from "../types";
-import { calculatePartnerProgress } from "../utils/partnerValidation";
+import { calculatePartnerProgress, validatePartnerSection } from "../utils/partnerValidation";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -26,14 +26,21 @@ const CleanPartnerFooter = ({
   return (
     <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
-        {/* Left side - Progress indicator */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-sm font-medium">
-              AI coach Kai is ready ({overallProgress}% complete)
-            </span>
-          </div>
+        {/* Left side - Progress dots */}
+        <div className="flex items-center gap-2">
+          {[1, 2, 3].map((section) => {
+            const isComplete = validatePartnerSection(section, profileData);
+            return (
+              <div
+                key={section}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  isComplete 
+                    ? 'bg-emerald-400 shadow-sm' 
+                    : 'border border-white/30 bg-transparent'
+                }`}
+              />
+            );
+          })}
         </div>
 
         {/* Right side - Unlock button */}
