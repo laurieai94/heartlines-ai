@@ -5,7 +5,8 @@ export const heartbreakBetrayalOptions = [
   "Fell for potential — ignored red flags because the \"what if\" felt real",
   "Got ghosted or slow-faded — after you were already attached",
   "Still carrying some of it — that hurt hasn't fully healed",
-  "Learned a lot from it — helped shape what you actually want now"
+  "Learned a lot from it — helped shape what you actually want now",
+  "Haven't really been through that — not much past relationship baggage"
 ];
 
 export const familyStructureOptions = [
