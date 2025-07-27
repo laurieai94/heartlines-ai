@@ -16,8 +16,8 @@ const PartnerQuestionnaireFooter = ({
 }: PartnerQuestionnaireFooterProps) => {
   const overallProgress = calculatePartnerProgress(profileData);
   
-  // All questions are now optional
-  const canComplete = true;
+  // Check if minimum required fields are complete (name and pronouns)
+  const canComplete = !!profileData.partnerName?.trim() && !!profileData.partnerPronouns?.trim();
   
   // Get completion status for each section
   const sectionCompletions = [
@@ -26,8 +26,8 @@ const PartnerQuestionnaireFooter = ({
     validatePartnerSection(3, profileData)
   ];
 
-  // Show footer immediately since all questions are optional
-  if (overallProgress === 0) {
+  // Only show footer when all sections are complete (matching personal profile logic)
+  if (overallProgress < 100) {
     return null;
   }
 

@@ -1,8 +1,29 @@
 import { PartnerProfileData } from '../types';
 
 export const validatePartnerSection = (section: number, profileData: PartnerProfileData): boolean => {
-  // All sections are now optional - no requirements
-  return true;
+  let isValid = false;
+  
+  switch (section) {
+    case 1: {
+      // The Basics: only partnerName and partnerPronouns required
+      isValid = !!profileData.partnerName?.trim() && !!profileData.partnerPronouns?.trim();
+      break;
+    }
+    case 2: {
+      // How They Operate: all optional for now
+      isValid = true;
+      break;
+    }
+    case 3: {
+      // Their Foundation: all optional for now  
+      isValid = true;
+      break;
+    }
+    default:
+      isValid = true;
+  }
+  
+  return isValid;
 };
 
 export const calculatePartnerProgress = (profileData: PartnerProfileData): number => {
