@@ -88,7 +88,7 @@ export const PARTNER_SELF_AWARENESS_OPTIONS = [
   'Depends on the day — some moments of clarity, some "wait...what?"',
   'Low-key avoidant — tends to blame, deflect, or ghost the hard stuff',
   'Still living on autopilot — growth might not be on their radar yet',
-  'Not sure / still figuring it out'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_FAMILY_STRUCTURE_OPTIONS = [
@@ -114,7 +114,7 @@ export const PARTNER_HEARTBREAK_BETRAYAL_OPTIONS = [
   'Learned a lot — it shaped what they actually want now',
   'Still carrying some of that hurt around',
   'Honestly, nothing too deep — just a few standard breakups',
-  'Not sure / they haven\'t really opened up about this'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_ATTACHMENT_OPTIONS = [
