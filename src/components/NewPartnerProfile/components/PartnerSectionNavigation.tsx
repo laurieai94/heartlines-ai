@@ -1,4 +1,4 @@
-import { User, Heart, Users } from "lucide-react";
+import { User, Heart, TreeDeciduous } from "lucide-react";
 import { PartnerProfileData } from "../types";
 import { validatePartnerSection } from "../utils/partnerValidation";
 
@@ -21,7 +21,7 @@ const getSectionIcon = (section: number): JSX.Element | null => {
   switch (section) {
     case 1: return <User className="w-4 h-4" />;
     case 2: return <Heart className="w-4 h-4" />;
-    case 3: return <Users className="w-4 h-4" />;
+    case 3: return <TreeDeciduous className="w-4 h-4" />;
     default: return null;
   }
 };

@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
@@ -23,7 +24,10 @@ const PartnerOperations = ({
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-white mb-2">How They Operate</h2>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Heart className="w-5 h-5 text-rose-400" />
+          <h2 className="text-2xl font-bold text-white">How They Operate</h2>
+        </div>
         <p className="text-white/70">Understanding their patterns and preferences</p>
       </div>
 
