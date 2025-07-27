@@ -29,7 +29,6 @@ export const PARTNER_ORIENTATION_OPTIONS = [
   'Queer',
   'Asexual',
   'Questioning',
-  'Other',
   'Not sure / still figuring this out'
 ];
 
