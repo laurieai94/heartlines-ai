@@ -101,8 +101,7 @@ export const PARTNER_FAMILY_STRUCTURE_OPTIONS = [
   'Blended family/stepparents',
   'Raised by grandparents/relatives',
   'High-conflict household with lots of drama and chaos',
-  'Not sure / still figuring this out',
-  'None of these really fit'
+  'Not sure / still figuring this out'
 ];
 
 export const PARTNER_HEARTBREAK_BETRAYAL_OPTIONS = [
