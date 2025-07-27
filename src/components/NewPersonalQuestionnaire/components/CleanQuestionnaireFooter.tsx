@@ -35,12 +35,12 @@ const CleanQuestionnaireFooter = ({
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-2 flex-shrink-0">
-      <div className="max-w-lg mx-auto">
-        {/* Section Progress Indicators - More Compact */}
-        <div className="flex justify-center gap-2 mb-2">
+    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
+      <div className="flex justify-between items-center max-w-4xl mx-auto">
+        {/* Left side - Section Progress Indicators */}
+        <div className="flex gap-4">
           {sectionCompletions.map((section, index) => (
-            <div key={index} className="flex flex-col items-center gap-0.5">
+            <div key={index} className="flex items-center gap-2">
               <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                 section.isComplete 
                   ? 'bg-emerald-400 shadow-lg shadow-emerald-400/30' 
@@ -55,36 +55,31 @@ const CleanQuestionnaireFooter = ({
           ))}
         </div>
 
-        {/* Progress Text with Eye-catching Element - More Compact */}
-        <div className="text-center mb-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 mb-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-xs font-medium">AI relationship coach Kai is waiting</span>
-          </div>
-        </div>
-
-        {/* Completion Button - More Compact */}
-        {canComplete && !autoCompleteEnabled && (
-          <div className="flex justify-center">
+        {/* Right side - Unlock Coaching Button */}
+        <div className="flex items-center">
+          {!autoCompleteEnabled && (
             <button 
-              onClick={onComplete}
-              className="bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 hover:border-white/30 text-white px-6 py-2 rounded-xl font-semibold shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center gap-2 text-sm"
+              onClick={canComplete ? onComplete : undefined}
+              disabled={!canComplete}
+              className={`${
+                canComplete 
+                  ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02]' 
+                  : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
+              } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm`}
             >
-              <Heart className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Unlock RealTalk's AI Coach</span>
+              <Heart className="w-3.5 h-3.5" />
+              <span>Unlock coaching</span>
             </button>
-          </div>
-        )}
-        
-        {/* Auto-completion message */}
-        {canComplete && autoCompleteEnabled && (
-          <div className="flex justify-center">
+          )}
+          
+          {/* Auto-completion message */}
+          {autoCompleteEnabled && (
             <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse">
               <Heart className="w-3.5 h-3.5" />
               <span>Profile Complete! Unlocking RealTalk...</span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
