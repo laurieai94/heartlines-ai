@@ -27,7 +27,7 @@ export const PARTNER_ORIENTATION_OPTIONS = [
   'Bi',
   'Pan',
   'Queer',
-  'Ace',
+  'Asexual',
   'Questioning',
   'Other',
   'Not sure / still figuring this out'
