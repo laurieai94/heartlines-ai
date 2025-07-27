@@ -31,6 +31,7 @@ export interface ProfileData {
   loveLanguage: string[];
   
   // Section 4: Your Foundation
+  heartbreakBetrayal: string[];
   familyStructure: string[];
   attachmentStyle: string;
 }

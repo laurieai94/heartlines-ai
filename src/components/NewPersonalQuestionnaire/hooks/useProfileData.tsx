@@ -38,6 +38,7 @@ const defaultProfileData: ProfileData = {
   loveLanguage: [],
   
   // Section 4: Your Foundation
+  heartbreakBetrayal: [],
   familyStructure: [],
   attachmentStyle: ''
 };

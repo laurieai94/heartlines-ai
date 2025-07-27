@@ -1,3 +1,13 @@
+export const heartbreakBetrayalOptions = [
+  "Got blindsided — a serious relationship ended out of nowhere",
+  "Got cheated on or betrayed — your trust was broken in a big way",
+  "Stayed too long — kept trying in something that wasn't right",
+  "Fell for potential — ignored red flags because the \"what if\" felt real",
+  "Got ghosted or slow-faded — after you were already attached",
+  "Still carrying some of it — that hurt hasn't fully healed",
+  "Learned a lot from it — helped shape what you actually want now"
+];
+
 export const familyStructureOptions = [
   "Married parents with healthy, loving relationship",
   "Married parents who fought constantly but stayed together",
