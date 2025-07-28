@@ -46,11 +46,11 @@ const CleanQuestionnaireFooter = ({
                   ? 'bg-emerald-400 shadow-lg shadow-emerald-400/30' 
                   : 'bg-white/20'
               }`} />
-              <span className={`text-xs font-medium transition-colors duration-300 ${
-                section.isComplete ? 'text-emerald-400' : 'text-white/60'
-              }`}>
-                {section.name}
-              </span>
+               <span className={`text-xs font-medium transition-colors duration-300 ${
+                 section.isComplete ? 'text-emerald-400' : 'text-white/60'
+               }`}>
+                 The Basics
+               </span>
             </div>
           ))}
         </div>
