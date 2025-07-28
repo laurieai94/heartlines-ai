@@ -60,8 +60,9 @@ export const validateSection = (section: number, profileData: ProfileData): bool
       break;
     }
     case 4: {
-      // Your Foundation: familyStructure and attachmentStyle required
-      isValid = (profileData.familyStructure || []).length > 0 && 
+      // Your Foundation: heartbreakBetrayal, familyStructure and attachmentStyle required
+      isValid = (profileData.heartbreakBetrayal || []).length > 0 &&
+               (profileData.familyStructure || []).length > 0 && 
                !!profileData.attachmentStyle;
       break;
     }
@@ -140,8 +141,9 @@ export const calculateProgress = (profileData: ProfileData): number => {
   if ((profileData.loveLanguage || []).length > 0) totalCompleted += 1;
   if ((profileData.conflictStyle || []).length > 0) totalCompleted += 1;
   
-  // Section 4: 2 required fields (familyStructure and attachmentStyle)
-  totalRequired += 2;
+  // Section 4: 3 required fields (heartbreakBetrayal, familyStructure and attachmentStyle)
+  totalRequired += 3;
+  if ((profileData.heartbreakBetrayal || []).length > 0) totalCompleted += 1;
   if ((profileData.familyStructure || []).length > 0) totalCompleted += 1;
   if (profileData.attachmentStyle) totalCompleted += 1;
   
