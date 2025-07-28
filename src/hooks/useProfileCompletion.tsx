@@ -1,53 +1,53 @@
 
-import { useTemporaryProfile } from './useTemporaryProfile';
+import { useUnifiedProfileStorage } from './useUnifiedProfileStorage';
 
 export const useProfileCompletion = () => {
-  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
+  const personalStorage = useUnifiedProfileStorage('personal');
+  const partnerStorage = useUnifiedProfileStorage('partner');
 
   const calculateYourCompletion = () => {
-    if (!isLoaded) return 0;
+    if (!personalStorage.isReady) return 0;
     
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemo = temporaryDemographics.your;
+    const profileData = personalStorage.profileData;
     
-    if (!yourProfile && !yourDemo) return 0;
+    if (!profileData || Object.keys(profileData).length === 0) return 0;
     
     let completed = 0;
     let total = 8;
     
-    // Core required questions from the questionnaire
-    if (yourDemo?.name) completed++;
-    if (yourDemo?.age) completed++;
-    if (yourDemo?.gender?.length > 0) completed++;
-    if (yourDemo?.sexualOrientation?.length > 0) completed++;
-    if (yourDemo?.relationshipStatus) completed++;
-    if (yourDemo?.whyRealTalk?.length > 0) completed++;
-    if (yourDemo?.biggestChallenge?.length > 0) completed++;
-    if (yourDemo?.attachmentStyle) completed++;
+    // Core required questions from the new questionnaire structure
+    if (profileData?.name) completed++;
+    if (profileData?.age) completed++;
+    if (profileData?.gender) completed++;
+    if (profileData?.orientation) completed++;
+    if (profileData?.relationshipStatus) completed++;
+    if (profileData?.stressResponse?.length > 0) completed++;
+    if (profileData?.loveLanguage?.length > 0) completed++;
+    if (profileData?.attachmentStyle) completed++;
     
     const completion = Math.round((completed / total) * 100);
-    console.log('ProfileBuilder - Your profile completion:', { completed, total, completion });
+    console.log('ProfileBuilder - Your profile completion:', { completed, total, completion, profileData });
     return completion;
   };
 
   const calculatePartnerCompletion = () => {
-    if (!isLoaded) return 0;
+    if (!partnerStorage.isReady) return 0;
     
-    const partnerProfile = temporaryProfiles.partner[0];
-    const partnerDemo = temporaryDemographics.partner;
+    const profileData = partnerStorage.profileData;
     
-    if (!partnerProfile && !partnerDemo) return 0;
+    if (!profileData || Object.keys(profileData).length === 0) return 0;
     
     let completed = 0;
     let total = 4;
     
-    if (partnerDemo?.name) completed++;
-    if (partnerProfile?.communicationStyle || partnerDemo?.communicationStyle) completed++;
-    if (partnerProfile?.loveLanguages?.length > 0 || partnerDemo?.loveLanguages?.length > 0) completed++;
-    if (partnerProfile?.conflictStyle || partnerDemo?.conflictStyle) completed++;
+    // Core required questions from the new partner questionnaire structure
+    if (profileData?.partnerName) completed++;
+    if (profileData?.partnerCommunicationResponse?.length > 0) completed++;
+    if (profileData?.partnerLoveLanguage?.length > 0) completed++;
+    if (profileData?.partnerConflictStyle?.length > 0) completed++;
     
     const completion = Math.round((completed / total) * 100);
-    console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion });
+    console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion, profileData });
     return completion;
   };
 

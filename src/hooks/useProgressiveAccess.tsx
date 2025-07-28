@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useTemporaryProfile } from "./useTemporaryProfile";
+import { useUnifiedProfileStorage } from "./useUnifiedProfileStorage";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
 
@@ -16,14 +16,14 @@ export interface ProgressiveAccessState {
 
 export const useProgressiveAccess = () => {
   const { user } = useAuth();
-  const { temporaryProfiles, temporaryDemographics, isLoaded } = useTemporaryProfile();
+  const personalStorage = useUnifiedProfileStorage('personal');
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
   // Calculate profile completion percentage based on actual data
   const calculateProfileCompletion = () => {
     // Don't calculate until data is loaded
-    if (!isLoaded) {
+    if (!personalStorage.isReady) {
       console.log('Profile completion: waiting for data to load');
       return 0;
     }
@@ -31,24 +31,21 @@ export const useProgressiveAccess = () => {
     let totalFields = 0;
     let completedFields = 0;
 
-    console.log('Calculating profile completion with data:', { temporaryProfiles, temporaryDemographics });
+    const profileData = personalStorage.profileData;
+    console.log('Calculating profile completion with data:', profileData);
 
-    // Check personal profile completion (your profile)
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemographics = temporaryDemographics.your;
-    
-    if (yourProfile || yourDemographics) {
-      // Core personal fields - matching what the questionnaire actually saves
+    if (profileData && Object.keys(profileData).length > 0) {
+      // Core personal fields - matching the new questionnaire structure
       const personalFields = [
-        'name', 'age', 'stressReactions', 'attachmentStyles', 
-        'loveLanguages', 'receiveLove', 'familyDynamics', 'relationshipStatus'
+        'name', 'age', 'gender', 'orientation', 'relationshipStatus',
+        'stressResponse', 'loveLanguage', 'attachmentStyle'
       ];
       
       totalFields += personalFields.length;
       
-      // Check demographics and profile completion
+      // Check each field completion
       personalFields.forEach(field => {
-        const value = yourDemographics?.[field] || yourProfile?.[field];
+        const value = profileData[field];
         if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
           completedFields++;
           console.log(`Personal field ${field} completed:`, value);
@@ -63,64 +60,45 @@ export const useProgressiveAccess = () => {
 
   // Check if personal profile has essential information for chat access
   const hasEssentialPersonalProfile = () => {
-    if (!isLoaded) {
+    if (!personalStorage.isReady) {
       console.log('Data not loaded yet, returning false for hasEssentialPersonalProfile');
       return false;
     }
     
-    const yourProfile = temporaryProfiles.your[0];
-    const yourDemographics = temporaryDemographics.your;
-    
-    console.log('Checking essential personal profile:', { yourProfile, yourDemographics });
-    
-    // Comprehensive check - look in both data sources and merge them
-    const allData = { 
-      ...(yourProfile || {}), 
-      ...(yourDemographics || {}) 
-    };
-    
-    console.log('Merged personal profile data for checking:', allData);
+    const profileData = personalStorage.profileData;
+    console.log('Checking essential personal profile:', profileData);
     
     // Basic requirements
-    const hasName = allData?.name && allData.name.trim() !== '';
-    const hasAge = allData?.age && allData.age !== '';
+    const hasName = profileData?.name && profileData.name.trim() !== '';
+    const hasAge = profileData?.age && profileData.age !== '';
     
     // Core questionnaire fields that indicate completion
-    const hasStressReactions = Array.isArray(allData?.stressReactions) && allData.stressReactions.length > 0;
-    const hasAttachmentStyles = Array.isArray(allData?.attachmentStyles) && allData.attachmentStyles.length > 0;
-    const hasLoveLanguages = Array.isArray(allData?.loveLanguages) && allData.loveLanguages.length > 0;
-    const hasReceiveLove = Array.isArray(allData?.receiveLove) && allData.receiveLove.length > 0;
-    const hasFamilyDynamics = Array.isArray(allData?.familyDynamics) && allData.familyDynamics.length > 0;
-    const hasRelationshipStatus = Array.isArray(allData?.relationshipStatus) && allData.relationshipStatus.length > 0;
-    
-    // Check if profile was completed via questionnaire
-    const hasQuestionnaireSource = allData?.profileSource === 'personal-questionnaire';
+    const hasStressResponse = Array.isArray(profileData?.stressResponse) && profileData.stressResponse.length > 0;
+    const hasAttachmentStyle = profileData?.attachmentStyle && profileData.attachmentStyle !== '';
+    const hasLoveLanguage = Array.isArray(profileData?.loveLanguage) && profileData.loveLanguage.length > 0;
+    const hasRelationshipStatus = profileData?.relationshipStatus && profileData.relationshipStatus !== '';
     
     console.log('Essential profile check details:', {
       hasName,
       hasAge,
-      hasStressReactions,
-      hasAttachmentStyles,
-      hasLoveLanguages,
-      hasReceiveLove,
-      hasFamilyDynamics,
+      hasStressResponse,
+      hasAttachmentStyle,
+      hasLoveLanguage,
       hasRelationshipStatus,
-      hasQuestionnaireSource,
-      allDataKeys: Object.keys(allData)
+      allDataKeys: Object.keys(profileData || {})
     });
     
-    // Must have basic info AND at least 4 core questionnaire responses OR be marked as questionnaire complete
+    // Must have basic info AND at least 3 core questionnaire responses
     const hasBasicInfo = hasName && hasAge;
-    const coreResponses = [hasStressReactions, hasAttachmentStyles, hasLoveLanguages, hasReceiveLove, hasFamilyDynamics, hasRelationshipStatus].filter(Boolean).length;
-    const hasEnoughData = coreResponses >= 4 || hasQuestionnaireSource;
+    const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
+    const hasEnoughData = coreResponses >= 3;
     
     const isComplete = hasBasicInfo && hasEnoughData;
     console.log('Personal profile complete for access:', { 
       isComplete, 
       hasBasicInfo, 
       coreResponses, 
-      hasEnoughData,
-      hasQuestionnaireSource 
+      hasEnoughData
     });
     
     return isComplete;
