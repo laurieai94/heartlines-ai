@@ -66,6 +66,19 @@ export interface PersonContext {
     datingChallenges?: string[];
     datingGoals?: string[];
     datingContext?: string;
+    // New relationship-specific fields
+    talkingDescription?: string[];
+    talkingChallenges?: string[];
+    relationshipChallenges?: string[];
+    relationshipWorking?: string[];
+    // Status-specific fields
+    separationSituation?: string[];
+    datingReadiness?: string[];
+    timeSinceLoss?: string;
+    grievingProcess?: string[];
+    // Foundation fields
+    heartbreakBetrayal?: string[];
+    familyStructure?: string[];
   };
   partnerTraits: {
     name?: string;
@@ -87,6 +100,11 @@ export interface PersonContext {
     workSituation?: string;
     sexualOrientation?: string[];
     genderIdentity?: string[];
+    // New partner fields
+    communicationResponse?: string[];
+    selfAwareness?: string;
+    heartbreakBetrayal?: string[];
+    familyStructure?: string[];
   };
   dynamics: {
     loveLanguageMatch?: boolean;

@@ -17,18 +17,26 @@ export class PersonContextBuilder {
     if (partnerData.partnerStressResponse) mapped.stressResponse = partnerData.partnerStressResponse;
     if (partnerData.partnerConflictNeeds) mapped.conflictStyle = partnerData.partnerConflictNeeds;
     if (partnerData.partnerLoveLanguage) mapped.loveLanguages = partnerData.partnerLoveLanguage;
+    if (partnerData.partnerConflictStyle) mapped.conflictStyle = partnerData.partnerConflictStyle;
+    
+    // Map new partner questionnaire fields
+    if (partnerData.partnerCommunicationResponse) mapped.communicationResponse = partnerData.partnerCommunicationResponse;
+    if (partnerData.partnerSelfAwareness) mapped.selfAwareness = partnerData.partnerSelfAwareness;
+    if (partnerData.partnerHeartbreakBetrayal) mapped.heartbreakBetrayal = partnerData.partnerHeartbreakBetrayal;
+    if (partnerData.partnerFamilyStructure) mapped.familyStructure = partnerData.partnerFamilyStructure;
+    if (partnerData.partnerAttachmentStyle) mapped.attachmentStyle = partnerData.partnerAttachmentStyle;
     
     // Map deeper insights
     if (partnerData.partnerStressors) mapped.triggers = partnerData.partnerStressors;
     if (partnerData.partnerRelationshipNeeds) mapped.strengths = partnerData.partnerRelationshipNeeds;
-    if (partnerData.partnerConflictStyle) mapped.conflictStyle = partnerData.partnerConflictStyle;
     if (partnerData.partnerSuperpower) {
       mapped.strengths = mapped.strengths ? [...mapped.strengths, partnerData.partnerSuperpower] : [partnerData.partnerSuperpower];
     }
     
-    // Map family background information
+    // Map family background information (both old and new formats)
     const familyBackground: FamilyBackground = {};
     if (partnerData.partnerFamilyBackground) familyBackground.situation = partnerData.partnerFamilyBackground;
+    if (partnerData.partnerFamilyStructure) familyBackground.situation = partnerData.partnerFamilyStructure;
     if (partnerData.partnerEmotions) familyBackground.emotions = partnerData.partnerEmotions;
     if (partnerData.partnerValues) familyBackground.dynamics = partnerData.partnerValues;
     
@@ -38,6 +46,7 @@ export class PersonContextBuilder {
     
     // Keep legacy field for backwards compatibility
     if (partnerData.partnerFamilyBackground) mapped.familyDynamics = partnerData.partnerFamilyBackground;
+    if (partnerData.partnerFamilyStructure) mapped.familyDynamics = partnerData.partnerFamilyStructure;
     if (partnerData.partnerEmotions) mapped.attachmentStyle = partnerData.partnerEmotions;
     if (partnerData.partnerValues) mapped.whyRealTalk = partnerData.partnerValues;
     
@@ -67,6 +76,9 @@ export class PersonContextBuilder {
     if (personalData.relationshipPositives) {
       mapped.strengths = mapped.strengths ? [...mapped.strengths, ...personalData.relationshipPositives] : personalData.relationshipPositives;
     }
+    if (personalData.relationshipWorking) {
+      mapped.strengths = mapped.strengths ? [...mapped.strengths, ...personalData.relationshipWorking] : personalData.relationshipWorking;
+    }
     if (personalData.biggestChallenge) mapped.growthAreas = personalData.biggestChallenge;
     if (personalData.relationshipChallenges) {
       mapped.growthAreas = mapped.growthAreas ? [...mapped.growthAreas, ...personalData.relationshipChallenges] : personalData.relationshipChallenges;
@@ -74,13 +86,37 @@ export class PersonContextBuilder {
     if (personalData.motivations) mapped.whyRealTalk = personalData.motivations;
     if (personalData.relationshipInfluences) mapped.loveInfluences = personalData.relationshipInfluences;
     
-    // Map family background fields - preserve ALL family data
+    // Map new personal questionnaire fields
+    if (personalData.talkingDescription) mapped.talkingDescription = personalData.talkingDescription;
+    if (personalData.talkingChallenges) mapped.talkingChallenges = personalData.talkingChallenges;
+    if (personalData.datingChallenges) mapped.datingChallenges = personalData.datingChallenges;
+    if (personalData.separationSituation) mapped.separationSituation = personalData.separationSituation;
+    if (personalData.datingReadiness) mapped.datingReadiness = personalData.datingReadiness;
+    if (personalData.timeSinceLoss) mapped.timeSinceLoss = personalData.timeSinceLoss;
+    if (personalData.grievingProcess) mapped.grievingProcess = personalData.grievingProcess;
+    if (personalData.heartbreakBetrayal) mapped.heartbreakBetrayal = personalData.heartbreakBetrayal;
+    if (personalData.familyStructure) mapped.familyStructure = personalData.familyStructure;
+    
+    // Map family background fields - preserve ALL family data (both old and new formats)
     const familyBackground: FamilyBackground = {};
     
     if (personalData.familySituation) {
       familyBackground.situation = [personalData.familySituation];
       // Keep legacy field for backwards compatibility
       mapped.familyDynamics = [personalData.familySituation];
+    }
+    
+    // Map new familyStructure field
+    if (personalData.familyStructure) {
+      familyBackground.situation = mapped.familyBackground?.situation ? 
+        [...mapped.familyBackground.situation, ...personalData.familyStructure] : 
+        personalData.familyStructure;
+      // Add to familyDynamics for legacy support
+      if (mapped.familyDynamics) {
+        mapped.familyDynamics = [...mapped.familyDynamics, ...personalData.familyStructure];
+      } else {
+        mapped.familyDynamics = personalData.familyStructure;
+      }
     }
     
     if (personalData.familyEmotions) {
@@ -143,8 +179,30 @@ export class PersonContextBuilder {
     console.log('partnerData familyBackground:', partnerData.familyBackground);
     console.log('yourData keys:', Object.keys(yourData));
     console.log('partnerData keys:', Object.keys(partnerData));
+    
+    // Enhanced logging for new questionnaire fields
+    console.log('=== NEW QUESTIONNAIRE FIELDS CHECK ===');
+    console.log('Personal new fields found:');
+    console.log('  - talkingDescription:', yourData.talkingDescription);
+    console.log('  - talkingChallenges:', yourData.talkingChallenges);
+    console.log('  - relationshipChallenges:', yourData.relationshipChallenges);
+    console.log('  - relationshipWorking:', yourData.relationshipWorking);
+    console.log('  - datingChallenges:', yourData.datingChallenges);
+    console.log('  - heartbreakBetrayal:', yourData.heartbreakBetrayal);
+    console.log('  - familyStructure:', yourData.familyStructure);
+    console.log('  - separationSituation:', yourData.separationSituation);
+    console.log('  - datingReadiness:', yourData.datingReadiness);
+    console.log('  - timeSinceLoss:', yourData.timeSinceLoss);
+    console.log('  - grievingProcess:', yourData.grievingProcess);
+    
+    console.log('Partner new fields found:');
+    console.log('  - partnerCommunicationResponse:', yourData.partnerCommunicationResponse || partnerData.communicationResponse);
+    console.log('  - partnerSelfAwareness:', yourData.partnerSelfAwareness || partnerData.selfAwareness);
+    console.log('  - partnerHeartbreakBetrayal:', yourData.partnerHeartbreakBetrayal || partnerData.heartbreakBetrayal);
+    console.log('  - partnerFamilyStructure:', yourData.partnerFamilyStructure || partnerData.familyStructure);
+    console.log('  - partnerAttachmentStyle:', yourData.partnerAttachmentStyle || partnerData.attachmentStyle);
 
-    return {
+    const context = {
       relationship: {
         length: yourData.relationshipLength || yourData.relationshipStatus,
         livingTogether: yourData.livingTogether,
@@ -186,7 +244,20 @@ export class PersonContextBuilder {
         completedAt: yourData.completedAt,
         datingChallenges: yourData.datingChallenges || [],
         datingGoals: yourData.datingGoals || [],
-        datingContext: yourData.relationshipStatus
+        datingContext: yourData.relationshipStatus,
+        // New relationship-specific fields
+        talkingDescription: yourData.talkingDescription || [],
+        talkingChallenges: yourData.talkingChallenges || [],
+        relationshipChallenges: yourData.relationshipChallenges || [],
+        relationshipWorking: yourData.relationshipWorking || [],
+        // Status-specific fields
+        separationSituation: yourData.separationSituation || [],
+        datingReadiness: yourData.datingReadiness || [],
+        timeSinceLoss: yourData.timeSinceLoss,
+        grievingProcess: yourData.grievingProcess || [],
+        // Foundation fields
+        heartbreakBetrayal: yourData.heartbreakBetrayal || [],
+        familyStructure: yourData.familyStructure || []
       },
       partnerTraits: {
         name: partnerData.name || yourData.partnerName,
@@ -207,7 +278,12 @@ export class PersonContextBuilder {
         education: partnerData.education,
         workSituation: partnerData.workSituation,
         sexualOrientation: partnerData.sexualOrientation || partnerData.orientation || [],
-        genderIdentity: partnerData.genderIdentity || partnerData.gender || []
+        genderIdentity: partnerData.genderIdentity || partnerData.gender || [],
+        // New partner fields
+        communicationResponse: partnerData.communicationResponse || [],
+        selfAwareness: partnerData.selfAwareness,
+        heartbreakBetrayal: partnerData.heartbreakBetrayal || [],
+        familyStructure: partnerData.familyStructure || []
       },
       dynamics: {
         loveLanguageMatch: yourData.loveLanguages?.some(lang => 
@@ -222,5 +298,26 @@ export class PersonContextBuilder {
         conflictDynamic: `${yourData.conflictStyle || 'unknown'} + ${partnerData.conflictStyle || 'unknown'}`
       }
     };
+    
+    // Final logging of complete PersonContext for Kai
+    console.log('=== FINAL PersonContext FOR KAI ===');
+    console.log('Complete context keys:', Object.keys(context));
+    console.log('yourTraits with all new fields:', {
+      name: context.yourTraits.name,
+      relationshipChallenges: context.yourTraits.relationshipChallenges,
+      talkingDescription: context.yourTraits.talkingDescription,
+      heartbreakBetrayal: context.yourTraits.heartbreakBetrayal,
+      familyStructure: context.yourTraits.familyStructure,
+      datingChallenges: context.yourTraits.datingChallenges
+    });
+    console.log('partnerTraits with all new fields:', {
+      name: context.partnerTraits.name,
+      communicationResponse: context.partnerTraits.communicationResponse,
+      selfAwareness: context.partnerTraits.selfAwareness,
+      heartbreakBetrayal: context.partnerTraits.heartbreakBetrayal,
+      familyStructure: context.partnerTraits.familyStructure
+    });
+    
+    return context;
   }
 }
