@@ -46,7 +46,7 @@ const QuestionnaireContent = ({
     const sectionToFirstQuestion: Record<number, string> = {
       1: 'question-name-pronouns',           // WhoYouAre section
       2: 'question-relationship-status',    // YourRelationship section  
-      3: 'question-stress-response',        // HowYouOperate section
+      3: 'question-love-language',          // HowYouOperate section
       4: 'question-heartbreak-betrayal'     // YourFoundation section
     };
     
