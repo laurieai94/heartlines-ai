@@ -12,7 +12,10 @@ export class InsightBuilders {
       insights.push(`identifies as ${context.yourTraits.genderIdentity.join(', ')}`);
     }
     if (context.yourTraits.sexualOrientation?.length > 0) {
-      insights.push(`${context.yourTraits.sexualOrientation.join(', ')}`);
+      const orientationArray = Array.isArray(context.yourTraits.sexualOrientation) 
+        ? context.yourTraits.sexualOrientation 
+        : [context.yourTraits.sexualOrientation];
+      insights.push(`${orientationArray.join(', ')}`);
     }
     if (context.yourTraits.communicationStyle) {
       insights.push(`communicates in a ${context.yourTraits.communicationStyle} way`);
@@ -47,7 +50,10 @@ export class InsightBuilders {
       insights.push(`identifies as ${context.partnerTraits.genderIdentity.join(', ')}`);
     }
     if (context.partnerTraits.sexualOrientation?.length > 0) {
-      insights.push(`${context.partnerTraits.sexualOrientation.join(', ')}`);
+      const orientationArray = Array.isArray(context.partnerTraits.sexualOrientation) 
+        ? context.partnerTraits.sexualOrientation 
+        : [context.partnerTraits.sexualOrientation];
+      insights.push(`${orientationArray.join(', ')}`);
     }
     if (context.partnerTraits.communicationStyle) {
       insights.push(`tends to communicate in a ${context.partnerTraits.communicationStyle} way`);

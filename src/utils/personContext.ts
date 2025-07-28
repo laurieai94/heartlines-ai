@@ -1,6 +1,14 @@
 import { ProfileData, DemographicsData, PersonContext, FamilyBackground } from "@/types/AIInsights";
 
 export class PersonContextBuilder {
+  // Helper function to normalize data to arrays
+  private static normalizeToArray(value: any): any[] {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return [value];
+    return [];
+  }
+
   // Helper function to map partner questionnaire fields to standard field names
   private static mapPartnerQuestionnaireFields(partnerData: any): any {
     const mapped = { ...partnerData };
@@ -229,8 +237,8 @@ export class PersonContextBuilder {
         mentalHealthContext: yourData.mentalHealthContext,
         education: yourData.education,
         workSituation: yourData.workSituation,
-        sexualOrientation: yourData.sexualOrientation || yourData.orientation || [],
-        genderIdentity: yourData.genderIdentity || yourData.gender || [],
+        sexualOrientation: this.normalizeToArray(yourData.sexualOrientation || yourData.orientation),
+        genderIdentity: this.normalizeToArray(yourData.genderIdentity || yourData.gender),
         parentConflictStyle: yourData.parentConflictStyle || [],
         loveMessages: yourData.loveMessages || [],
         loveInfluences: yourData.loveInfluences || yourData.relationshipInfluences || [],
@@ -277,8 +285,8 @@ export class PersonContextBuilder {
         mentalHealthContext: partnerData.mentalHealthContext,
         education: partnerData.education,
         workSituation: partnerData.workSituation,
-        sexualOrientation: partnerData.sexualOrientation || partnerData.orientation || [],
-        genderIdentity: partnerData.genderIdentity || partnerData.gender || [],
+        sexualOrientation: this.normalizeToArray(partnerData.sexualOrientation || partnerData.orientation),
+        genderIdentity: this.normalizeToArray(partnerData.genderIdentity || partnerData.gender),
         // New partner fields
         communicationResponse: partnerData.communicationResponse || [],
         selfAwareness: partnerData.selfAwareness,
