@@ -42,24 +42,24 @@ const PartnerQuestionnaireHeader = ({
           </div>
         </div>
         
-        <button
-          onClick={onClose}
-          className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full transition-all duration-200"
-        >
-          <X className="w-3.5 h-3.5" />
-        </button>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 text-white/70">
+            <Lock className="w-3 h-3" />
+            <span className="text-xs font-medium">Private</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full transition-all duration-200"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
       
       {/* Prominent Progress Bar */}
       <div className="space-y-1">
         <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5">
-            <span className="text-white/70">Progress</span>
-            <div className="flex items-center gap-1 text-white/70">
-              <Lock className="w-3 h-3" />
-              <span className="text-xs font-medium">Private</span>
-            </div>
-          </div>
+          <span className="text-white/70">Progress</span>
           <span className="text-white font-medium">{overallProgress}%</span>
         </div>
         <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">

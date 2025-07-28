@@ -42,25 +42,25 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
           </div>
         </div>
         
-        <Button 
-          variant="ghost" 
-          onClick={onClose} 
-          className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-white/10"
-        >
-          <X className="w-4 h-4" />
-        </Button>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 text-white/70">
+            <Lock className="w-3 h-3" />
+            <span className="text-xs font-medium">Private</span>
+          </div>
+          <Button 
+            variant="ghost" 
+            onClick={onClose} 
+            className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-white/10"
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
       
       {/* Enhanced Progress Bar */}
       <div className="space-y-2 relative z-10">
         <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5">
-            <span className="text-white/70 font-medium tracking-wide">Progress</span>
-            <div className="flex items-center gap-1 text-white/70">
-              <Lock className="w-3 h-3" />
-              <span className="text-xs font-medium">Private</span>
-            </div>
-          </div>
+          <span className="text-white/70 font-medium tracking-wide">Progress</span>
           <span className="text-white font-semibold bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-sm">
             {overallProgress}%
           </span>
