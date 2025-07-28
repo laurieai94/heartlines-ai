@@ -78,7 +78,7 @@ const QuestionnaireContent = ({
         });
         
         container.scrollTo({
-          top: relativeTop - 80,
+          top: relativeTop - 150,
           behavior: 'smooth'
         });
         
