@@ -1,4 +1,4 @@
-import { Heart, X } from "lucide-react";
+import { Heart, X, Lock } from "lucide-react";
 import { PartnerProfileData } from "../types";
 
 interface PartnerQuestionnaireHeaderProps {
@@ -53,7 +53,13 @@ const PartnerQuestionnaireHeader = ({
       {/* Prominent Progress Bar */}
       <div className="space-y-1">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-white/70">Progress</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-white/70">Progress</span>
+            <div className="flex items-center gap-1 text-white/70">
+              <Lock className="w-3 h-3" />
+              <span className="text-xs font-medium">Private</span>
+            </div>
+          </div>
           <span className="text-white font-medium">{overallProgress}%</span>
         </div>
         <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">

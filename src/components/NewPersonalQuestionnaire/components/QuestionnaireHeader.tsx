@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { X, User, Heart } from "lucide-react";
+import { X, User, Heart, Lock } from "lucide-react";
 import { ProfileData } from "../types";
 
 interface QuestionnaireHeaderProps {
@@ -54,7 +54,13 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
       {/* Enhanced Progress Bar */}
       <div className="space-y-2 relative z-10">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-white/70 font-medium tracking-wide">Progress</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-white/70 font-medium tracking-wide">Progress</span>
+            <div className="flex items-center gap-1 text-white/70">
+              <Lock className="w-3 h-3" />
+              <span className="text-xs font-medium">Private</span>
+            </div>
+          </div>
           <span className="text-white font-semibold bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-sm">
             {overallProgress}%
           </span>
