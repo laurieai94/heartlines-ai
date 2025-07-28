@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 export const useDashboardModalState = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("profile");
-  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(true); // Temporarily true for testing
+  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showPartnerQuestionnaireModal, setShowPartnerQuestionnaireModal] = useState(false);
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
