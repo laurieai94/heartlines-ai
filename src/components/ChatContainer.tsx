@@ -92,10 +92,15 @@ const ChatContainer = ({
             {/* Chat Messages */}
             {chatHistory.map((message, index) => (
               <div key={message.id} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <AIChatMessage 
+                 <AIChatMessage 
                   message={message} 
                   userName={userName}
                 />
+                {/* Debug logging for userName */}
+                {(() => {
+                  console.log('ChatContainer - userName passed to AIChatMessage:', userName);
+                  return null;
+                })()}
               </div>
             ))}
             

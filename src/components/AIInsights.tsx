@@ -35,6 +35,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   useEffect(() => {
     console.log('=== AIInsights: Profile Data Sources ===');
     console.log('personalProfileData:', personalProfileData);
+    console.log('personalProfileData.name:', personalProfileData?.name);
     console.log('partnerProfileData:', partnerProfileData);
     console.log('temporaryProfiles:', temporaryProfiles);
     console.log('temporaryDemographics:', temporaryDemographics);
