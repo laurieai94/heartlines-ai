@@ -61,12 +61,13 @@ export const useProgressiveAccess = () => {
   // Check if personal profile has essential information for chat access
   const hasEssentialPersonalProfile = () => {
     if (!personalStorage.isReady) {
-      console.log('Data not loaded yet, returning false for hasEssentialPersonalProfile');
+      console.log('[ProgressiveAccess] Data not loaded yet, returning false for hasEssentialPersonalProfile');
       return false;
     }
     
     const profileData = personalStorage.profileData;
-    console.log('Checking essential personal profile:', profileData);
+    console.log('[ProgressiveAccess] ✅ Checking essential personal profile:', profileData);
+    console.log('[ProgressiveAccess] ✅ Available field keys:', Object.keys(profileData || {}));
     
     // Basic requirements
     const hasName = profileData?.name && profileData.name.trim() !== '';
@@ -78,14 +79,14 @@ export const useProgressiveAccess = () => {
     const hasLoveLanguage = Array.isArray(profileData?.loveLanguage) && profileData.loveLanguage.length > 0;
     const hasRelationshipStatus = profileData?.relationshipStatus && profileData.relationshipStatus !== '';
     
-    console.log('Essential profile check details:', {
-      hasName,
-      hasAge,
-      hasStressResponse,
-      hasAttachmentStyle,
-      hasLoveLanguage,
-      hasRelationshipStatus,
-      allDataKeys: Object.keys(profileData || {})
+    console.log('[ProgressiveAccess] ✅ Essential profile check details:', {
+      hasName: hasName ? `✓ "${profileData.name}"` : '✗ missing',
+      hasAge: hasAge ? `✓ "${profileData.age}"` : '✗ missing',
+      hasStressResponse: hasStressResponse ? `✓ ${profileData.stressResponse?.length} items` : '✗ missing/empty',
+      hasAttachmentStyle: hasAttachmentStyle ? `✓ "${profileData.attachmentStyle}"` : '✗ missing',
+      hasLoveLanguage: hasLoveLanguage ? `✓ ${profileData.loveLanguage?.length} items` : '✗ missing/empty',
+      hasRelationshipStatus: hasRelationshipStatus ? `✓ "${profileData.relationshipStatus}"` : '✗ missing',
+      totalFields: Object.keys(profileData || {}).length
     });
     
     // Must have basic info AND at least 3 core questionnaire responses
@@ -94,11 +95,11 @@ export const useProgressiveAccess = () => {
     const hasEnoughData = coreResponses >= 3;
     
     const isComplete = hasBasicInfo && hasEnoughData;
-    console.log('Personal profile complete for access:', { 
-      isComplete, 
-      hasBasicInfo, 
-      coreResponses, 
-      hasEnoughData
+    console.log('[ProgressiveAccess] ✅ Personal profile complete for access:', { 
+      isComplete: isComplete ? '✅ COMPLETE' : '❌ INCOMPLETE', 
+      hasBasicInfo: hasBasicInfo ? '✅' : '❌', 
+      coreResponses: `${coreResponses}/4`, 
+      hasEnoughData: hasEnoughData ? '✅' : '❌'
     });
     
     return isComplete;

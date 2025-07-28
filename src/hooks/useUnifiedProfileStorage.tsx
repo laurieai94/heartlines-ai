@@ -142,19 +142,26 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   // Unified save function with optimistic updates
   const saveData = useCallback(async (newData: Partial<ProfileData>) => {
     if (!newData || Object.keys(newData).length === 0) {
+      console.log(`[${profileType}] saveData called with empty data, skipping`);
       return;
     }
 
-    console.log(`Saving ${profileType} profile data:`, newData);
+    console.log(`[${profileType}] ✅ SAVING profile data:`, { newData, currentData: profileData });
     
     const currentData = profileData || {};
     const updatedData = { ...currentData, ...newData };
+    
+    console.log(`[${profileType}] ✅ MERGED data:`, updatedData);
     
     // Optimistic update
     setProfileData(updatedData);
     
     // Save to localStorage immediately (fast backup)
     saveToStorage(updatedData);
+    
+    // Verify localStorage save worked
+    const savedData = localStorage.getItem(config.localStorage);
+    console.log(`[${profileType}] ✅ VERIFIED localStorage save:`, savedData ? JSON.parse(savedData) : null);
     
     // Save to database with fallback
     if (user) {
@@ -164,12 +171,13 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         console.warn(`Database save failed for ${profileType}, data preserved locally`);
       }
     }
-  }, [profileData, saveToStorage, saveToDatabase, user, profileType]);
+  }, [profileData, saveToStorage, saveToDatabase, user, profileType, config.localStorage]);
 
   // Field update helpers
   const updateField = useCallback((field: string, value: any) => {
+    console.log(`[${profileType}] updateField called:`, { field, value, currentData: profileData });
     saveData({ [field]: value });
-  }, [saveData]);
+  }, [saveData, profileType, profileData]);
 
   const handleMultiSelect = useCallback((field: string, value: string) => {
     const currentValues = (profileData[field] as string[]) || [];

@@ -8,7 +8,7 @@ import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
-import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
+// import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
 
@@ -22,7 +22,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
-  const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
+  // const { profileData: personalProfilePersistence, isReady: persistenceReady } = usePersonalProfilePersistence();
   const { profileData: partnerProfileData, isLoading: partnerDataLoading } = usePartnerProfileData();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
@@ -35,19 +35,16 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   useEffect(() => {
     console.log('=== AIInsights: Profile Data Sources ===');
     console.log('personalProfileData:', personalProfileData);
-    console.log('personalProfilePersistence:', personalProfilePersistence);
     console.log('partnerProfileData:', partnerProfileData);
     console.log('temporaryProfiles:', temporaryProfiles);
     console.log('temporaryDemographics:', temporaryDemographics);
     console.log('personalDataReady:', personalDataReady);
-    console.log('persistenceReady:', persistenceReady);
     console.log('partnerDataLoading:', partnerDataLoading);
 
-    if (personalDataReady && persistenceReady && !partnerDataLoading) {
+    if (personalDataReady && !partnerDataLoading) {
       // Merge ALL personal profile data sources
       const mergedPersonalData = {
         ...temporaryDemographics.your,
-        ...personalProfilePersistence,
         ...personalProfileData
       };
 
@@ -80,7 +77,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       setUnifiedProfiles(newUnifiedProfiles);
       setUnifiedDemographics(newUnifiedDemographics);
     }
-  }, [personalProfileData, personalProfilePersistence, partnerProfileData, personalDataReady, persistenceReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
+  }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
 
   // Initialize Supabase configuration on mount
   useEffect(() => {
