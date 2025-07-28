@@ -41,9 +41,9 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className="min-h-screen h-screen overflow-hidden">
+      <div className="min-h-screen">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`h-full flex flex-col bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+        <div className={`min-h-screen flex flex-col bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
           <DashboardHeader 
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}

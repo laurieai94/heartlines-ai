@@ -171,7 +171,7 @@ const ProfileBuilder = ({
     icon: <Star className="w-3 h-3 text-pink-300" />,
     text: "Advice that considers both of you"
   }];
-  return <div className="h-full flex flex-col space-y-4">
+  return <div className="flex flex-col space-y-4 pb-6">
       {/* Main Header - Compact */}
       <div className="text-center space-y-2 flex-shrink-0">
         <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
@@ -191,7 +191,7 @@ const ProfileBuilder = ({
       </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="flex-1 min-h-0 space-y-4">
+      <div className="space-y-4">
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Your Profile Card */}
