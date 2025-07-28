@@ -36,12 +36,24 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
     return profileData.orientation;
   };
 
+  // Helper function to safely handle gender field - handle both string and array formats
+  const getGenderValue = () => {
+    if (!profileData.gender) return '';
+    // If it's an array, take the first value or empty string
+    if (Array.isArray(profileData.gender)) {
+      return profileData.gender.length > 0 ? profileData.gender[0] : '';
+    }
+    // If it's a string, return as is
+    return profileData.gender;
+  };
+
   // Question completion checks
   const isNamePronounsComplete = profileData.name && isPronounsComplete();
   const isAgeComplete = !!profileData.age;
   const orientationValue = getOrientationValue();
   const isOrientationComplete = !!(orientationValue && orientationValue.trim() !== '');
-  const isGenderComplete = !!(profileData.gender && profileData.gender.trim() !== '');
+  const genderValue = getGenderValue();
+  const isGenderComplete = !!(genderValue && genderValue.trim() !== '');
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
