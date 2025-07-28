@@ -89,8 +89,8 @@ const QuestionnaireLayout = ({
         />
 
         {/* Reassuring message banner */}
-        <div className="bg-gradient-to-r from-primary/10 to-accent/10 border-b border-white/10 px-6 py-3 flex-shrink-0 animate-fade-in">
-          <p className="text-sm text-muted-foreground text-center">
+        <div className="bg-gradient-to-r from-primary/30 to-accent/30 border-b border-white/20 px-6 py-4 flex-shrink-0 animate-fade-in shadow-lg backdrop-blur-md">
+          <p className="text-sm text-white text-center font-medium">
             Half-crush, full-on partner, or undefined? This profile flexes to wherever you're at. Everything is optional.
           </p>
         </div>
