@@ -15,7 +15,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
-      await saveProfile();
+      await saveProfile(profileData);
       
       const completedData = {
         ...profileData,

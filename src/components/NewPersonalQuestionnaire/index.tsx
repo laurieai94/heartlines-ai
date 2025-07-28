@@ -16,7 +16,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
 
   const handleComplete = async () => {
     try {
-      await saveProfile();
+      await saveProfile(profileData);
       
       const completedData = {
         ...profileData,
