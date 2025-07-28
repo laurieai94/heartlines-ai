@@ -88,6 +88,13 @@ const QuestionnaireLayout = ({
           profileData={profileData}
         />
 
+        {/* Reassuring message banner */}
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 border-b border-white/10 px-6 py-3 flex-shrink-0 animate-fade-in">
+          <p className="text-sm text-muted-foreground text-center">
+            Half-crush, full-on partner, or undefined? This profile flexes to wherever you're at. Everything is optional.
+          </p>
+        </div>
+
         <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
