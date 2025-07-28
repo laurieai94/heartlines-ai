@@ -1,3 +1,4 @@
+
 import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
 
@@ -24,12 +25,23 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
     return true;
   };
 
+  // Helper function to safely handle orientation field - handle both string and array formats
+  const getOrientationValue = () => {
+    if (!profileData.orientation) return '';
+    // If it's an array (from legacy data), take the first value or empty string
+    if (Array.isArray(profileData.orientation)) {
+      return profileData.orientation.length > 0 ? profileData.orientation[0] : '';
+    }
+    // If it's a string, return as is
+    return profileData.orientation;
+  };
+
   // Question completion checks
   const isNamePronounsComplete = profileData.name && isPronounsComplete();
   const isAgeComplete = !!profileData.age;
-  const isOrientationComplete = !!(profileData.orientation && profileData.orientation.trim() !== '');
+  const orientationValue = getOrientationValue();
+  const isOrientationComplete = !!(orientationValue && orientationValue.trim() !== '');
   const isGenderComplete = !!(profileData.gender && profileData.gender.trim() !== '');
-
 
   return (
     <div className={`space-y-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
