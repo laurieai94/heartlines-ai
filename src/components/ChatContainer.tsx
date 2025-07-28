@@ -1,6 +1,5 @@
 
 import { useRef, useEffect } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart, Bot } from "lucide-react";
 import { ChatMessage } from "@/types/AIInsights";
@@ -24,13 +23,13 @@ const ChatContainer = ({
   isHistoryLoaded 
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = (force = false) => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ 
-        behavior: force ? 'auto' : 'smooth',
-        block: 'end'
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: force ? 'auto' : 'smooth'
       });
     }
   };
@@ -53,7 +52,10 @@ const ChatContainer = ({
 
   return (
     <div className="flex-1 min-h-0 relative">
-      <ScrollArea className="h-full">
+      <div 
+        ref={scrollContainerRef}
+        className="h-full overflow-y-auto overflow-x-hidden scroll-smooth"
+      >
         <div className="px-6 py-6">
           <div className="space-y-6 max-w-3xl mx-auto">
             
@@ -135,7 +137,7 @@ const ChatContainer = ({
             <div ref={messagesEndRef} className="h-1" />
           </div>
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 };
