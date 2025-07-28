@@ -19,10 +19,10 @@ const CleanQuestionnaireFooter = ({
 
   // Section completion status
   const sectionCompletions = [{
-    name: "Who You Are",
+    name: "The Basics",
     isComplete: validateSection(1, profileData)
   }, {
-    name: "Your Situation",
+    name: "Your Situationship",
     isComplete: validateSection(2, profileData)
   }, {
     name: "How You Operate",
@@ -49,7 +49,7 @@ const CleanQuestionnaireFooter = ({
                <span className={`text-xs font-medium transition-colors duration-300 ${
                  section.isComplete ? 'text-emerald-400' : 'text-white/60'
                }`}>
-                 The Basics
+                 {section.name}
                </span>
             </div>
           ))}
