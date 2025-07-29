@@ -1,9 +1,11 @@
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Heart, Bot } from "lucide-react";
+import { Heart, Bot, ChevronDown } from "lucide-react";
 import { ChatMessage } from "@/types/AIInsights";
 import AIChatMessage from "./AIChatMessage";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -23,38 +25,44 @@ const ChatContainer = ({
   isHistoryLoaded 
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const [isNearBottom, setIsNearBottom] = useState(true);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
 
-  const scrollToBottom = (force = false) => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({
-        top: scrollContainerRef.current.scrollHeight,
-        behavior: force ? 'auto' : 'smooth'
-      });
-    }
-  };
+  const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
+  }, []);
 
-  useEffect(() => {
-    if (chatHistory.length > 0) {
-      setTimeout(() => scrollToBottom(), 100);
-    }
+  const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
+    const target = event.currentTarget;
+    const threshold = 100;
+    const isNear = target.scrollHeight - target.scrollTop - target.clientHeight < threshold;
+    
+    setIsNearBottom(isNear);
+    setShowScrollToBottom(!isNear && chatHistory.length > 0);
   }, [chatHistory.length]);
 
+  // Auto-scroll only when user is near bottom or when loading
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => scrollToBottom(), 100);
+    if ((isNearBottom || loading) && chatHistory.length > 0) {
+      const timeoutId = setTimeout(() => scrollToBottom('smooth'), 50);
+      return () => clearTimeout(timeoutId);
     }
-  }, [loading]);
+  }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
+  // Initial scroll to bottom
   useEffect(() => {
-    scrollToBottom(true);
-  }, []);
+    if (isHistoryLoaded) {
+      scrollToBottom('auto');
+    }
+  }, [isHistoryLoaded, scrollToBottom]);
 
   return (
     <div className="flex-1 min-h-0 relative">
-      <div 
-        ref={scrollContainerRef}
-        className="h-full overflow-y-auto overflow-x-hidden scroll-smooth"
+      <ScrollArea 
+        ref={scrollAreaRef}
+        className="h-full"
+        onScrollCapture={handleScroll}
       >
         <div className="px-6 py-6">
           <div className="space-y-6 max-w-3xl mx-auto">
@@ -137,7 +145,18 @@ const ChatContainer = ({
             <div ref={messagesEndRef} className="h-1" />
           </div>
         </div>
-      </div>
+      </ScrollArea>
+      
+      {/* Scroll to Bottom Button */}
+      {showScrollToBottom && (
+        <Button
+          onClick={() => scrollToBottom('smooth')}
+          size="sm"
+          className="absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 shadow-lg"
+        >
+          <ChevronDown className="w-4 h-4" />
+        </Button>
+      )}
     </div>
   );
 };
