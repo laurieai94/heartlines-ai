@@ -1,4 +1,5 @@
 import { Heart, X, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PartnerProfileData } from "../types";
 
 interface PartnerQuestionnaireHeaderProps {
@@ -19,56 +20,54 @@ const PartnerQuestionnaireHeader = ({
   const initial = getInitial(profileData);
 
   const getSubtitle = () => {
-    if (overallProgress === 100) return "For deeper insights into your dynamic";
-    if (overallProgress >= 75) return "Complete to access all features";
+    if (overallProgress === 100) return "Profile completed";
+    if (overallProgress > 0) return `${overallProgress}% complete`;
     return "For deeper insights into your dynamic";
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
-      <div className="flex items-center justify-between mb-1">
-        <div className="flex items-center gap-2">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-full flex items-center justify-center">
+    <div className="relative bg-gradient-to-br from-white/8 via-white/5 to-white/3 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0 shadow-lg shadow-black/10">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-rose-500/25">
             {initial ? (
-              <span className="text-lg font-bold text-white">{initial}</span>
+              <span className="text-sm font-bold text-white">{initial}</span>
             ) : (
-              <Heart className="w-6 h-6 text-white" />
+              <Heart className="w-5 h-5 text-white" />
             )}
           </div>
           
           <div>
             <h2 className="text-lg font-bold text-white">Partner Profile</h2>
-            <p className="text-sm text-white/70">{getSubtitle()}</p>
+            <p className="text-xs text-white/70">{getSubtitle()}</p>
           </div>
         </div>
         
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 text-white/70">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 text-white/70">
             <Lock className="w-4 h-4" />
             <span className="text-sm font-medium">Private</span>
           </div>
-          <button
-            onClick={onClose}
-            className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full transition-all duration-200"
+          
+          <Button 
+            variant="ghost" 
+            onClick={onClose} 
+            className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200"
           >
-            <X className="w-3.5 h-3.5" />
-          </button>
+            <X className="w-4 h-4" />
+          </Button>
         </div>
       </div>
       
-      {/* Prominent Progress Bar */}
-      <div className="space-y-1">
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-white/70">Progress</span>
-          <span className="text-white font-medium">{overallProgress}%</span>
-        </div>
-        <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+      {/* Subtle Progress Bar */}
+      {overallProgress > 0 && overallProgress < 100 && (
+        <div className="w-full h-1 bg-white/15 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
             style={{ width: `${overallProgress}%` }}
           />
         </div>
-      </div>
+      )}
     </div>
   );
 };
