@@ -44,8 +44,8 @@ const PartnerQuestionnaireHeader = ({
         
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1 text-white/70">
-            <Lock className="w-3 h-3" />
-            <span className="text-xs font-medium">Private</span>
+            <Lock className="w-4 h-4" />
+            <span className="text-sm font-medium">Private</span>
           </div>
           <button
             onClick={onClose}
