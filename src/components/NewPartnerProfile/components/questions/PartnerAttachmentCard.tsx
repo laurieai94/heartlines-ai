@@ -19,7 +19,7 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }:
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={isComplete}
+      showContinue={false}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
