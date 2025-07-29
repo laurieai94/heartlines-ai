@@ -45,13 +45,20 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
           </div>
         </div>
         
-        <Button 
-          variant="ghost" 
-          onClick={onClose} 
-          className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200"
-        >
-          <X className="w-4 h-4" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 text-white/70">
+            <Lock className="w-4 h-4" />
+            <span className="text-sm font-medium">Private</span>
+          </div>
+          
+          <Button 
+            variant="ghost" 
+            onClick={onClose} 
+            className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200"
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
       
       {/* Subtle Progress Bar */}
