@@ -17,7 +17,7 @@ const ConflictStyleQuestion = ({
     scrollToNextQuestion
   } = useAutoScroll();
   const isComplete = !!profileData.conflictStyle?.length;
-  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-conflict-style')}>
+  return <QuestionCard questionId="question-conflict-style" showContinue={false} onContinue={() => scrollToNextQuestion('question-conflict-style')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
