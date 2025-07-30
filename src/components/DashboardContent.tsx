@@ -27,7 +27,7 @@ const DashboardContent = ({
 }: DashboardContentProps) => {
   return (
     <div className="flex-1 min-h-0 max-h-full overflow-hidden">
-      <div className="h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 overflow-hidden">
+      <div className="h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
           <TabsContent value="profile" className="mt-0 h-full">
             <ProfileBuilder 

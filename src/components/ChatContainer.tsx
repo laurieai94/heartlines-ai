@@ -69,7 +69,7 @@ const ChatContainer = ({
             
             {/* Kai's Personalized Welcome Section */}
             {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
-              <div className="text-center py-8 animate-fade-in">
+              <div className="text-center py-4 animate-fade-in">
                 {/* Kai Avatar */}
                 <div className="w-16 h-16 mx-auto mb-4 relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
