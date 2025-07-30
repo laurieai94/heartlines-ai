@@ -33,14 +33,14 @@ const KeyTakeawaysCard = ({ chatHistory }: KeyTakeawaysCardProps) => {
   const takeaways = extractTakeaways();
 
   return (
-    <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.3s'}}>
+    <Card className="p-3 bg-white/5 backdrop-blur-sm border border-white/10 shadow-sm animate-slide-up" style={{animationDelay: '0.3s'}}>
       <div className="flex items-center gap-2 mb-2">
         <Target className="w-3 h-3 text-orange-300" />
         <h3 className="text-sm font-medium text-white">Key Takeaways</h3>
       </div>
       <div className="space-y-1">
         {chatHistory.length === 0 ? (
-          <p className="text-xs text-pink-200/80">Your insights and discoveries will appear here</p>
+          <p className="text-xs text-pink-200/60">Your insights and discoveries will appear here</p>
         ) : takeaways.length > 0 ? (
           <>
             <div className="space-y-2">
@@ -57,12 +57,12 @@ const KeyTakeawaysCard = ({ chatHistory }: KeyTakeawaysCardProps) => {
                 </div>
               ))}
             </div>
-            <div className="mt-2 p-2 bg-white/5 rounded text-xs text-pink-200/80 animate-fade-in">
+            <div className="mt-2 p-2 bg-white/5 rounded text-xs text-pink-200/60 animate-fade-in">
               <strong>Growing together:</strong> These insights help build stronger connection and understanding
             </div>
           </>
         ) : (
-          <p className="text-xs text-pink-200/80">Keep exploring together - insights will emerge as we talk</p>
+          <p className="text-xs text-pink-200/60">Keep exploring together - insights will emerge as we talk</p>
         )}
       </div>
     </Card>

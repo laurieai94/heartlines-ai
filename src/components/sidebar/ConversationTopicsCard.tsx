@@ -19,16 +19,16 @@ const ConversationTopicsCard = ({ chatHistory }: ConversationTopicsCardProps) =>
   });
 
   return (
-    <Card className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg animate-slide-up" style={{animationDelay: '0.2s'}}>
+    <Card className="p-3 bg-white/5 backdrop-blur-sm border border-white/10 shadow-sm animate-slide-up" style={{animationDelay: '0.2s'}}>
       <div className="flex items-center gap-2 mb-2">
         <MessageCircle className="w-3 h-3 text-orange-300" />
         <h3 className="text-sm font-medium text-white">What We've Covered</h3>
       </div>
       <div className="space-y-1">
         {loading ? (
-          <p className="text-xs text-pink-200/80">Loading topics...</p>
+          <p className="text-xs text-pink-200/60">Loading topics...</p>
         ) : chatHistory.length === 0 ? (
-          <p className="text-xs text-pink-200/80">Start chatting and I'll track our conversation themes</p>
+          <p className="text-xs text-pink-200/60">Start chatting and I'll track our conversation themes</p>
         ) : sortedTopics.length > 0 ? (
           <>
             <div className="space-y-1">
@@ -52,13 +52,13 @@ const ConversationTopicsCard = ({ chatHistory }: ConversationTopicsCardProps) =>
               ))}
             </div>
             {sortedTopics.length > 4 && (
-              <p className="text-xs text-pink-200/80 mt-1">
+              <p className="text-xs text-pink-200/60 mt-1">
                 +{sortedTopics.length - 4} more topics discussed
               </p>
             )}
           </>
         ) : (
-          <p className="text-xs text-pink-200/80">Keep chatting and I'll identify conversation themes</p>
+          <p className="text-xs text-pink-200/60">Keep chatting and I'll identify conversation themes</p>
         )}
       </div>
     </Card>
