@@ -139,35 +139,38 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
-    <div className="relative h-full min-h-0 max-h-full overflow-hidden">
-      {/* Chat Interface - Centered */}
-      <div className="h-full flex justify-center">
-        <div className="w-full max-w-4xl">
-          <ProgressiveAccessWrapper action="chat">
-            <AIChat 
-              profiles={unifiedProfiles}
-              demographicsData={unifiedDemographics}
-              chatHistory={chatHistory}
-              setChatHistory={setChatHistory}
-              isConfigured={isConfigured}
-              conversationStarter={conversationStarter}
-              onNewConversation={handleNewConversation}
-            />
-          </ProgressiveAccessWrapper>
+    <div className="h-full min-h-0 max-h-full overflow-hidden">
+      {/* Main layout with proper grid columns */}
+      <div className="h-full grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-4">
+        {/* Chat Interface - Takes available space */}
+        <div className="h-full flex justify-center min-w-0">
+          <div className="w-full max-w-4xl">
+            <ProgressiveAccessWrapper action="chat">
+              <AIChat 
+                profiles={unifiedProfiles}
+                demographicsData={unifiedDemographics}
+                chatHistory={chatHistory}
+                setChatHistory={setChatHistory}
+                isConfigured={isConfigured}
+                conversationStarter={conversationStarter}
+                onNewConversation={handleNewConversation}
+              />
+            </ProgressiveAccessWrapper>
+          </div>
         </div>
-      </div>
-      
-      {/* Sidebar - Positioned as overlay on the right */}
-      <div className="absolute top-0 right-0 w-60 h-full lg:block hidden">
-        <AISidebar 
-          profiles={unifiedProfiles}
-          demographicsData={unifiedDemographics}
-          chatHistory={chatHistory}
-          isConfigured={isConfigured}
-          onSupabaseConfigured={handleSupabaseConfigured}
-          onOpenProfileForm={handleOpenProfileForm}
-          onStartConversation={handleStartConversation}
-        />
+        
+        {/* Sidebar - Fixed width column on desktop, hidden on mobile */}
+        <div className="h-full lg:block hidden">
+          <AISidebar 
+            profiles={unifiedProfiles}
+            demographicsData={unifiedDemographics}
+            chatHistory={chatHistory}
+            isConfigured={isConfigured}
+            onSupabaseConfigured={handleSupabaseConfigured}
+            onOpenProfileForm={handleOpenProfileForm}
+            onStartConversation={handleStartConversation}
+          />
+        </div>
       </div>
       
       {/* Demographics Modal */}
