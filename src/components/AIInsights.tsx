@@ -139,9 +139,9 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
-    <div className="flex gap-4 h-full min-h-0 max-h-full overflow-hidden">
+    <div className="flex gap-6 h-full min-h-0 max-h-full overflow-hidden">
       <ProgressiveAccessWrapper action="chat">
-        <div className="flex-1 min-w-0 min-h-0">
+        <div className="flex-1 min-w-0 min-h-0 lg:mr-2">
           <AIChat 
             profiles={unifiedProfiles}
             demographicsData={unifiedDemographics}
@@ -153,7 +153,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           />
         </div>
       </ProgressiveAccessWrapper>
-      <div className="w-80 flex-shrink-0 min-h-0">
+      <div className="w-72 flex-shrink-0 min-h-0 lg:block hidden">
         <AISidebar 
           profiles={unifiedProfiles}
           demographicsData={unifiedDemographics}
