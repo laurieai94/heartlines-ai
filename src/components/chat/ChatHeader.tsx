@@ -2,14 +2,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Heart, RotateCcw } from "lucide-react";
+import { Heart, RotateCcw, Menu } from "lucide-react";
 
 interface ChatHeaderProps {
   userName?: string;
   onNewConversation: () => void;
+  onOpenSidebar?: () => void;
 }
 
-export const ChatHeader = ({ userName, onNewConversation }: ChatHeaderProps) => {
+export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatHeaderProps) => {
   return (
     <div className="shrink-0 border-b border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="p-3 max-w-5xl mx-auto">
@@ -38,24 +39,47 @@ export const ChatHeader = ({ userName, onNewConversation }: ChatHeaderProps) => 
             </div>
           </div>
 
-          {/* Refresh Button */}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onNewConversation}
-                  className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Start new conversation</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="flex items-center gap-2">
+            {/* Sidebar Button */}
+            {onOpenSidebar && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={onOpenSidebar}
+                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      <Menu className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Open sidebar</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+
+            {/* Refresh Button */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onNewConversation}
+                    className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Start new conversation</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
         </div>
       </div>
     </div>

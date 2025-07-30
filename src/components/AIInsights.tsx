@@ -11,6 +11,7 @@ import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 // import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -19,6 +20,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -140,38 +142,40 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   return (
     <div className="h-full min-h-0 max-h-full overflow-hidden">
-      {/* Main layout with proper grid columns */}
-      <div className="h-full grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-4">
-        {/* Chat Interface - Takes available space */}
-        <div className="h-full flex justify-center min-w-0">
-          <div className="w-full">
-            <ProgressiveAccessWrapper action="chat">
-              <AIChat 
-                profiles={unifiedProfiles}
-                demographicsData={unifiedDemographics}
-                chatHistory={chatHistory}
-                setChatHistory={setChatHistory}
-                isConfigured={isConfigured}
-                conversationStarter={conversationStarter}
-                onNewConversation={handleNewConversation}
-              />
-            </ProgressiveAccessWrapper>
-          </div>
-        </div>
-        
-        {/* Sidebar - Fixed width column on desktop, hidden on mobile */}
-        <div className="h-full lg:block hidden">
-          <AISidebar 
-            profiles={unifiedProfiles}
-            demographicsData={unifiedDemographics}
-            chatHistory={chatHistory}
-            isConfigured={isConfigured}
-            onSupabaseConfigured={handleSupabaseConfigured}
-            onOpenProfileForm={handleOpenProfileForm}
-            onStartConversation={handleStartConversation}
-          />
+      {/* Main chat interface - centered and front */}
+      <div className="h-full flex justify-center">
+        <div className="w-full max-w-4xl">
+          <ProgressiveAccessWrapper action="chat">
+            <AIChat 
+              profiles={unifiedProfiles}
+              demographicsData={unifiedDemographics}
+              chatHistory={chatHistory}
+              setChatHistory={setChatHistory}
+              isConfigured={isConfigured}
+              conversationStarter={conversationStarter}
+              onNewConversation={handleNewConversation}
+              onOpenSidebar={() => setSidebarOpen(true)}
+            />
+          </ProgressiveAccessWrapper>
         </div>
       </div>
+
+      {/* Sidebar as slide-out drawer */}
+      <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
+        <DrawerContent className="h-[80vh] max-h-[80vh]">
+          <div className="h-full overflow-hidden">
+            <AISidebar 
+              profiles={unifiedProfiles}
+              demographicsData={unifiedDemographics}
+              chatHistory={chatHistory}
+              isConfigured={isConfigured}
+              onSupabaseConfigured={handleSupabaseConfigured}
+              onOpenProfileForm={handleOpenProfileForm}
+              onStartConversation={handleStartConversation}
+            />
+          </div>
+        </DrawerContent>
+      </Drawer>
       
       {/* Demographics Modal */}
       {showDemographics && (
