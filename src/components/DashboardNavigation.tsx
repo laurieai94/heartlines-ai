@@ -11,7 +11,7 @@ const DashboardNavigation = ({ activeTab, onValueChange }: DashboardNavigationPr
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full">
-        <div className="flex justify-center pb-12">
+        <div className="flex justify-center pb-4">
           <TabsList className="grid grid-cols-4 w-full max-w-3xl h-12 bg-black/15 backdrop-blur-sm border border-white/15 rounded-xl p-1.5 gap-1">
             <TabsTrigger 
               value="profile" 
