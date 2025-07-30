@@ -31,7 +31,7 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="p-6 max-w-5xl mx-auto">
+      <div className="p-4 max-w-5xl mx-auto">
         <ProgressiveAccessWrapper action="chat">
           <AIChatInput 
             onSendMessage={onSendMessage} 

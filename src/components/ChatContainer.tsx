@@ -64,8 +64,8 @@ const ChatContainer = ({
         className="h-full"
         onScrollCapture={handleScroll}
       >
-        <div className="px-6 py-6">
-          <div className="space-y-6 max-w-3xl mx-auto">
+        <div className="px-6 py-4">
+          <div className="space-y-4 max-w-5xl mx-auto">
             
             {/* Kai's Personalized Welcome Section */}
             {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (

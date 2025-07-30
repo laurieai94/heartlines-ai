@@ -12,7 +12,7 @@ interface ChatHeaderProps {
 export const ChatHeader = ({ userName, onNewConversation }: ChatHeaderProps) => {
   return (
     <div className="shrink-0 border-b border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="p-4 max-w-3xl mx-auto">
+      <div className="p-3 max-w-5xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Kai Avatar */}
