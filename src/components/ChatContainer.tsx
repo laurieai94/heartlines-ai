@@ -6,6 +6,7 @@ import { ChatMessage } from "@/types/AIInsights";
 import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import ConversationStarters from "./ConversationStarters";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -14,6 +15,7 @@ interface ChatContainerProps {
   isConfigured: boolean;
   conversationStarter?: string;
   isHistoryLoaded: boolean;
+  onSendMessage: (message: string) => void;
 }
 
 const ChatContainer = ({ 
@@ -22,7 +24,8 @@ const ChatContainer = ({
   userName, 
   isConfigured, 
   conversationStarter, 
-  isHistoryLoaded 
+  isHistoryLoaded,
+  onSendMessage 
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -97,6 +100,11 @@ const ChatContainer = ({
                   </div>
                 </div>
               </div>
+            )}
+
+            {/* Conversation Starters */}
+            {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
+              <ConversationStarters onStarterSelect={onSendMessage} />
             )}
             
             {/* Chat Messages */}
