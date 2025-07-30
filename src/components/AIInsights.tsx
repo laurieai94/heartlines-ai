@@ -144,7 +144,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       <div className="h-full grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-4">
         {/* Chat Interface - Takes available space */}
         <div className="h-full flex justify-center min-w-0">
-          <div className="w-full max-w-4xl">
+          <div className="w-full">
             <ProgressiveAccessWrapper action="chat">
               <AIChat 
                 profiles={unifiedProfiles}
