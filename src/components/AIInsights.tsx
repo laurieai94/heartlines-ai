@@ -139,21 +139,26 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
-    <div className="flex gap-4 h-full min-h-0 max-h-full overflow-hidden">
-      <ProgressiveAccessWrapper action="chat">
-        <div className="flex-1 min-w-0 min-h-0 lg:mr-2">
-          <AIChat 
-            profiles={unifiedProfiles}
-            demographicsData={unifiedDemographics}
-            chatHistory={chatHistory}
-            setChatHistory={setChatHistory}
-            isConfigured={isConfigured}
-            conversationStarter={conversationStarter}
-            onNewConversation={handleNewConversation}
-          />
+    <div className="relative h-full min-h-0 max-h-full overflow-hidden">
+      {/* Chat Interface - Centered */}
+      <div className="h-full flex justify-center">
+        <div className="w-full max-w-4xl">
+          <ProgressiveAccessWrapper action="chat">
+            <AIChat 
+              profiles={unifiedProfiles}
+              demographicsData={unifiedDemographics}
+              chatHistory={chatHistory}
+              setChatHistory={setChatHistory}
+              isConfigured={isConfigured}
+              conversationStarter={conversationStarter}
+              onNewConversation={handleNewConversation}
+            />
+          </ProgressiveAccessWrapper>
         </div>
-      </ProgressiveAccessWrapper>
-      <div className="w-60 flex-shrink-0 min-h-0 lg:block hidden">
+      </div>
+      
+      {/* Sidebar - Positioned as overlay on the right */}
+      <div className="absolute top-0 right-0 w-60 h-full lg:block hidden">
         <AISidebar 
           profiles={unifiedProfiles}
           demographicsData={unifiedDemographics}
