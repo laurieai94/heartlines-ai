@@ -139,7 +139,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
-    <div className="flex gap-4 h-full min-h-0 overflow-hidden">
+    <div className="flex gap-4 h-full min-h-0 max-h-full overflow-hidden">
       <ProgressiveAccessWrapper action="chat">
         <div className="flex-1 min-w-0 min-h-0">
           <AIChat 
