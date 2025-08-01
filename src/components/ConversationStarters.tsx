@@ -54,7 +54,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
   };
 
   return (
-    <div className="max-w-2xl mx-auto animate-fade-in">
+    <div className="animate-fade-in">
       <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6 border border-white/20 shadow-xl">
         {!selectedCategory ? (
           <>
