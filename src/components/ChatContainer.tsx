@@ -67,37 +67,31 @@ const ChatContainer = ({
         className="h-full"
         onScrollCapture={handleScroll}
       >
-        <div className="px-4 py-2">
-          <div className="space-y-3">
+        <div className="px-3 py-1">
+          <div className="space-y-2">
             
             {/* Kai's Personalized Welcome Section */}
             {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
-              <div className="text-center py-2 animate-fade-in">
+              <div className="text-center py-1 animate-fade-in">
                 {/* Kai Avatar */}
-                <div className="w-12 h-12 mx-auto mb-2 relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
-                  <Avatar className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-2xl relative z-10">
+                <div className="w-8 h-8 mx-auto mb-1 relative">
+                  <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20 shadow-lg relative z-10">
                     <AvatarImage 
                       src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
                       alt="Kai" 
                       className="object-cover"
                     />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-6 h-6" />
+                      <Heart className="w-4 h-4" />
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse shadow-lg"></div>
                 </div>
                 
                 {/* Personalized Welcome Message */}
-                <div className="space-y-2 max-w-lg mx-auto">
-                  <h2 className="text-xl font-bold text-white leading-tight">
-                    Hello {userName ? `${userName}` : ''}, I'm Kai
+                <div className="max-w-lg mx-auto">
+                  <h2 className="text-lg font-medium text-white">
+                    Hello {userName ? `${userName}` : ''}, I'm Kai - your AI relationship coach
                   </h2>
-                  
-                  <div className="text-white/80 text-sm leading-relaxed">
-                    <p>I'm a clinical psychologist specializing in relationships. I'm here to help you navigate your relationship complexities with professional insight and care.</p>
-                  </div>
                 </div>
               </div>
             )}

@@ -55,20 +55,20 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in">
-      <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20 shadow-xl">
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-3 border border-white/20 shadow-lg">
         {!selectedCategory ? (
           <>
-            <h3 className="text-base font-medium text-white mb-3 text-center">
+            <h3 className="text-sm font-medium text-white mb-2 text-center">
               What's on your mind?
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {Object.keys(conversationCategories).map((category, index) => (
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-white/10 hover:bg-white/20 rounded-xl p-3 border border-white/10 hover:border-white/30 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                  className="group cursor-pointer bg-white/10 hover:bg-white/20 rounded-lg p-2 border border-white/10 hover:border-white/30 transition-all duration-200"
                 >
-                  <h4 className="font-medium text-white text-sm group-hover:text-white/90 transition-colors text-center">
+                  <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
                   </h4>
                 </div>
@@ -77,28 +77,28 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
           </>
         ) : (
           <>
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-2 mb-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-3 h-3" />
               </Button>
-              <h3 className="text-base font-medium text-white">
+              <h3 className="text-sm font-medium text-white">
                 {selectedCategory}
               </h3>
             </div>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-1">
               {conversationCategories[selectedCategory].map((starter, index) => (
                 <Button
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-white/10 rounded-xl px-3 py-2 text-sm text-left justify-start h-auto whitespace-normal transition-all duration-300 hover:shadow-md hover:scale-[1.01] border border-transparent hover:border-white/20"
+                  className="group text-white/80 hover:text-white hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border border-transparent hover:border-white/20"
                 >
-                  <span className="leading-relaxed">{starter}</span>
+                  <span className="leading-tight">{starter}</span>
                 </Button>
               ))}
             </div>

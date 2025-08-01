@@ -31,7 +31,7 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="p-3">
+      <div className="p-2">
         <ProgressiveAccessWrapper action="chat">
           <AIChatInput 
             onSendMessage={onSendMessage} 
@@ -43,8 +43,8 @@ export const ChatInputSection = ({
           />
         </ProgressiveAccessWrapper>
         {!isConfigured && accessLevel === 'full-access' && (
-          <p className="text-sm text-white/60 mt-3 text-center font-light">
-            Complete setup to start chatting
+          <p className="text-xs text-white/60 mt-2 text-center font-light">
+            Complete setup to chat
           </p>
         )}
       </div>
