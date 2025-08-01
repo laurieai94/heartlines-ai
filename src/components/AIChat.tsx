@@ -83,7 +83,6 @@ const AIChat = ({
         isConfigured={isConfigured}
         conversationStarter={conversationStarter}
         isHistoryLoaded={isHistoryLoaded}
-        onSendMessage={sendMessage}
       />
 
       <ChatInputSection

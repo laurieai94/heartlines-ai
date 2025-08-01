@@ -1,6 +1,7 @@
 
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
+import ConversationStarters from '../ConversationStarters';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 
@@ -32,6 +33,13 @@ export const ChatInputSection = ({
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="p-2">
+        {/* Conversation Starters - only show when no chat history */}
+        {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
+          <div className="mb-2">
+            <ConversationStarters onStarterSelect={onSendMessage} />
+          </div>
+        )}
+        
         <ProgressiveAccessWrapper action="chat">
           <AIChatInput 
             onSendMessage={onSendMessage} 
