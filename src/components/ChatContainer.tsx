@@ -66,7 +66,7 @@ const ChatContainer = ({
         className="h-full"
         onScrollCapture={handleScroll}
       >
-        <div className="px-3 py-1">
+        <div className="px-3 pt-4 pb-1">
           <div className="space-y-2">
             
             {/* Kai's Personalized Welcome Section */}
