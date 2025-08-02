@@ -18,6 +18,7 @@ interface AIChatProps {
   conversationStarter?: string;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
+  onSupabaseConfigured: (configured: boolean) => void;
 }
 
 const AIChat = ({ 
@@ -28,7 +29,8 @@ const AIChat = ({
   isConfigured, 
   conversationStarter,
   onNewConversation,
-  onOpenSidebar 
+  onOpenSidebar,
+  onSupabaseConfigured
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const { profile } = useUserProfile();
@@ -75,7 +77,16 @@ const AIChat = ({
   });
 
   return (
-    <ChatLayout userName={userName} onNewConversation={handleNewConversation} onOpenSidebar={onOpenSidebar}>
+    <ChatLayout 
+      userName={userName} 
+      onNewConversation={handleNewConversation} 
+      onOpenSidebar={onOpenSidebar}
+      profiles={profiles}
+      demographicsData={demographicsData}
+      chatHistory={chatHistory}
+      isConfigured={isConfigured}
+      onSupabaseConfigured={onSupabaseConfigured}
+    >
       <ChatContainer
         chatHistory={chatHistory}
         loading={loading}

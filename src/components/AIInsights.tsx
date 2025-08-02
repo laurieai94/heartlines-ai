@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
-import AISidebar from "./AISidebar";
 import ProfileForm from "./ProfileForm";
 import Demographics from "./Demographics";
 import { useChatHistory } from "@/hooks/useChatHistory";
@@ -11,7 +10,6 @@ import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 // import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
 import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
 import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -20,7 +18,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -142,40 +139,22 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   return (
     <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col">
-      {/* Main chat interface - centered and front */}
-      <div className="flex-1 min-h-0 flex justify-center">
-        <div className="w-full h-full">
-          <ProgressiveAccessWrapper action="chat">
-            <AIChat 
-              profiles={unifiedProfiles}
-              demographicsData={unifiedDemographics}
-              chatHistory={chatHistory}
-              setChatHistory={setChatHistory}
-              isConfigured={isConfigured}
-              conversationStarter={conversationStarter}
-              onNewConversation={handleNewConversation}
-              onOpenSidebar={() => setSidebarOpen(true)}
-            />
-          </ProgressiveAccessWrapper>
-        </div>
+      {/* Main chat interface with integrated sidebar */}
+      <div className="flex-1 min-h-0">
+        <ProgressiveAccessWrapper action="chat">
+          <AIChat 
+            profiles={unifiedProfiles}
+            demographicsData={unifiedDemographics}
+            chatHistory={chatHistory}
+            setChatHistory={setChatHistory}
+            isConfigured={isConfigured}
+            conversationStarter={conversationStarter}
+            onNewConversation={handleNewConversation}
+            onOpenSidebar={() => {}} 
+            onSupabaseConfigured={handleSupabaseConfigured}
+          />
+        </ProgressiveAccessWrapper>
       </div>
-
-      {/* Sidebar as slide-out drawer */}
-      <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
-        <DrawerContent className="h-[80vh] max-h-[80vh]">
-          <div className="h-full overflow-hidden">
-            <AISidebar 
-              profiles={unifiedProfiles}
-              demographicsData={unifiedDemographics}
-              chatHistory={chatHistory}
-              isConfigured={isConfigured}
-              onSupabaseConfigured={handleSupabaseConfigured}
-              onOpenProfileForm={handleOpenProfileForm}
-              onStartConversation={handleStartConversation}
-            />
-          </div>
-        </DrawerContent>
-      </Drawer>
       
       {/* Demographics Modal */}
       {showDemographics && (
