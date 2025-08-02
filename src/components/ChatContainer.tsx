@@ -71,7 +71,7 @@ const ChatContainer = ({
                 
                 {/* Personalized Welcome Message */}
                 <div className="max-w-lg mx-auto">
-                  <h2 className="text-lg font-medium text-white">Hi, I'm Kai. Here to help you thrive in your relationships.</h2>
+                  <h2 className="text-lg font-medium text-white">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
                 </div>
               </div>}
 
