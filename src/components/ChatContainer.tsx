@@ -52,7 +52,6 @@ const ChatContainer = ({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
-
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea ref={scrollAreaRef} className="h-full" onScrollCapture={handleScroll}>
         <div className="px-3 pt-4 pb-1">
@@ -124,7 +123,6 @@ const ChatContainer = ({
       {showScrollToBottom && <Button onClick={() => scrollToBottom('smooth')} size="sm" className="absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 shadow-lg">
           <ChevronDown className="w-4 h-4" />
         </Button>}
-
     </div>;
 };
 export default ChatContainer;
