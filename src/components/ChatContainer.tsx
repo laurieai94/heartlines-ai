@@ -54,14 +54,14 @@ const ChatContainer = ({
   }, [isHistoryLoaded, scrollToBottom]);
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea ref={scrollAreaRef} className="h-full" onScrollCapture={handleScroll}>
-        <div className="px-3 pt-4 pb-1">
-          <div className="space-y-2">
+        <div className="px-6 pt-6 pb-2">
+          <div className="space-y-4 max-w-4xl mx-auto">
             
             {/* Kai's Personalized Welcome Section */}
-            {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && <div className="text-center pt-3 pb-1 animate-fade-in">
+            {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && <div className="text-center py-4 animate-fade-in">
                 {/* Kai Avatar */}
-                <div className="w-8 h-8 mx-auto mb-1 relative">
-                  <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20 shadow-lg relative z-10">
+                <div className="w-10 h-10 mx-auto mb-3 relative">
+                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20 shadow-lg relative z-10">
                     <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                       <Heart className="w-4 h-4" />
@@ -70,8 +70,8 @@ const ChatContainer = ({
                 </div>
                 
                 {/* Personalized Welcome Message */}
-                <div className="max-w-lg mx-auto">
-                  <h2 className="text-lg font-medium text-white">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
+                <div className="max-w-md mx-auto">
+                  <h2 className="text-base font-medium text-white leading-relaxed">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
                 </div>
               </div>}
 

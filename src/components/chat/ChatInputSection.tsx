@@ -32,24 +32,26 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="p-2">
+      <div className="px-6 py-3">
         {/* Conversation Starters - only show when no chat history */}
         {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
-          <div className="mb-2">
+          <div className="mb-3 max-w-4xl mx-auto">
             <ConversationStarters onStarterSelect={onSendMessage} />
           </div>
         )}
         
-        <ProgressiveAccessWrapper action="chat">
-          <AIChatInput 
-            onSendMessage={onSendMessage} 
-            loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-            userName={userName} 
-            partnerName={partnerName}
-            chatHistory={chatHistory}
-            onSpeakResponse={onSpeakResponse}
-          />
-        </ProgressiveAccessWrapper>
+        <div className="max-w-4xl mx-auto">
+          <ProgressiveAccessWrapper action="chat">
+            <AIChatInput 
+              onSendMessage={onSendMessage} 
+              loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+              userName={userName} 
+              partnerName={partnerName}
+              chatHistory={chatHistory}
+              onSpeakResponse={onSpeakResponse}
+            />
+          </ProgressiveAccessWrapper>
+        </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
             Complete setup to chat
