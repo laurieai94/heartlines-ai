@@ -20,38 +20,46 @@ const PartnerQuestionnaireHeader = ({ onClose, currentSection, totalSections, pr
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
-      <div className="flex items-center justify-between mb-1">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-lg flex items-center justify-center">
+    <div className="bg-white/5 backdrop-blur-md border-b border-white/15 p-3 flex-shrink-0 animate-fade-in">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg animate-bounce-gentle">
             {overallProgress === 100 ? (
-              <Heart className="w-2 h-2 text-white" />
+              <Heart className="w-3 h-3 text-white" />
             ) : (
-              <Sparkles className="w-2 h-2 text-white" />
+              <Sparkles className="w-3 h-3 text-white" />
             )}
           </div>
           
           <div>
-            <h2 className="text-xs font-bold text-white">Partner Profile</h2>
-            <p className="text-xs text-white/70">{getSubtitle()}</p>
+            <h2 className="text-sm font-bold text-white tracking-wide">Partner Profile</h2>
+            <p className="text-xs text-white/80 font-medium">{getSubtitle()}</p>
           </div>
         </div>
         
-        <Button variant="ghost" onClick={onClose} className="text-white/80 hover:text-white hover:bg-white/10 p-1 rounded-full">
-          <X className="w-3.5 h-3.5" />
+        <Button 
+          variant="glassy" 
+          size="xs"
+          onClick={onClose} 
+          className="text-white/80 hover:text-white hover:bg-white/15 p-1.5 rounded-full transition-all duration-300"
+        >
+          <X className="w-4 h-4" />
         </Button>
       </div>
       
-      {/* Prominent Progress Bar */}
-      <div className="space-y-1">
+      {/* Enhanced Progress Bar */}
+      <div className="space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-white/70">Progress</span>
-          <span className="text-white font-medium">{overallProgress}%</span>
+          <span className="text-white/80 font-medium">Overall Progress</span>
+          <span className="text-white font-semibold text-sm">{overallProgress}%</span>
         </div>
-        <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-white/15 rounded-full overflow-hidden shadow-inner">
           <div 
-            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
-            style={{ width: `${overallProgress}%` }}
+            className="h-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 transition-all duration-1000 ease-out rounded-full shadow-sm"
+            style={{ 
+              width: `${overallProgress}%`,
+              boxShadow: overallProgress > 0 ? '0 0 10px rgba(16, 185, 129, 0.3)' : 'none'
+            }}
           />
         </div>
       </div>

@@ -57,23 +57,38 @@ const ChatContainer = ({
         <div className="px-6 pt-6 pb-2">
           <div className="space-y-4 max-w-4xl mx-auto">
             
-            {/* Kai's Personalized Welcome Section */}
-            {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && <div className="text-center py-4 animate-fade-in">
-                {/* Kai Avatar */}
-                <div className="w-10 h-10 mx-auto mb-3 relative">
-                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20 shadow-lg relative z-10">
+            {/* Kai's Enhanced Welcome Section */}
+            {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && (
+              <div className="text-center py-8 animate-fade-in">
+                {/* Enhanced Kai Avatar with glow effect */}
+                <div className="w-16 h-16 mx-auto mb-6 relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 to-pink-400/30 rounded-full blur-xl animate-pulse"></div>
+                  <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/30 shadow-2xl relative z-10 hover:scale-110 transition-transform duration-300">
                     <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-4 h-4" />
+                      <Heart className="w-6 h-6" />
                     </AvatarFallback>
                   </Avatar>
                 </div>
                 
-                {/* Personalized Welcome Message */}
-                <div className="max-w-md mx-auto">
-                  <h2 className="text-base font-medium text-white leading-relaxed">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
+                {/* Enhanced Welcome Message */}
+                <div className="max-w-lg mx-auto space-y-3">
+                  <h2 className="text-xl font-bold text-white leading-relaxed tracking-wide">
+                    Hi {userName || 'there'}, I'm Kai! 
+                  </h2>
+                  <p className="text-sm text-white/80 leading-relaxed">
+                    Your personal relationship coach, ready to help you navigate love, communication, and connection with confidence.
+                  </p>
                 </div>
-              </div>}
+                
+                {/* Floating conversation starters hint */}
+                <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 max-w-md mx-auto">
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    💬 Try asking about communication, conflict resolution, or any relationship challenge you're facing
+                  </p>
+                </div>
+              </div>
+            )}
 
             
             {/* Chat Messages */}
@@ -88,41 +103,49 @@ const ChatContainer = ({
             })()}
               </div>)}
             
-            {/* Typing Indicator */}
-            {loading && <div className="flex justify-start animate-fade-in">
-                <div className="flex gap-3 items-end">
+            {/* Enhanced Typing Indicator */}
+            {loading && (
+              <div className="flex justify-start animate-fade-in">
+                <div className="flex gap-4 items-end">
                   <div className="relative flex-shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                    <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border-2 border-white/30 shadow-lg">
                       <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                        <Bot className="w-4 h-4" />
+                        <Bot className="w-5 h-5" />
                       </AvatarFallback>
                     </Avatar>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
-                    <div className="flex gap-1.5">
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                    animationDelay: '0.1s'
-                  }}></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                    animationDelay: '0.2s'
-                  }}></div>
+                  <div className="bg-white/15 backdrop-blur-md rounded-3xl px-6 py-4 shadow-xl border border-white/20 min-w-[80px]">
+                    <div className="flex gap-2 items-center">
+                      <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 bg-white/70 rounded-full animate-bounce"></div>
+                        <div className="w-2.5 h-2.5 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></div>
+                        <div className="w-2.5 h-2.5 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></div>
+                      </div>
+                      <span className="text-xs text-white/60 ml-2 animate-pulse">Kai is thinking...</span>
                     </div>
                   </div>
                 </div>
-              </div>}
+              </div>
+            )}
             
             <div ref={messagesEndRef} className="h-1" />
           </div>
         </div>
       </ScrollArea>
       
-      {/* Scroll to Bottom Button */}
-      {showScrollToBottom && <Button onClick={() => scrollToBottom('smooth')} size="sm" className="absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 shadow-lg">
-          <ChevronDown className="w-4 h-4" />
-        </Button>}
+      {/* Enhanced Scroll to Bottom Button */}
+      {showScrollToBottom && (
+        <Button 
+          onClick={() => scrollToBottom('smooth')} 
+          variant="glassy"
+          size="sm" 
+          className="absolute bottom-6 right-6 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-white hover:bg-white/25 shadow-xl hover:scale-110 transition-all duration-300 p-3"
+        >
+          <ChevronDown className="w-5 h-5" />
+        </Button>
+      )}
     </div>;
 };
 export default ChatContainer;
