@@ -71,7 +71,10 @@ const ChatContainer = ({
                 
                 {/* Personalized Welcome Message */}
                 <div className="max-w-lg mx-auto">
-                  <h2 className="text-lg font-medium text-white">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
+                  <h2 className="text-lg font-medium text-white mb-2">Hi, I'm Kai!</h2>
+                  <p className="text-sm text-pink-200/80 leading-relaxed">
+                    Your AI relationship coach, trained on 15+ years of PhD-level clinical psychology and grounded in evidence-based practices. Built to help you grow, communicate, and connect in the moments that matter most.
+                  </p>
                 </div>
               </div>}
 
