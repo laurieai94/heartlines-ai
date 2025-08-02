@@ -17,14 +17,7 @@ const APIKeyInput = ({ onSupabaseConfigured, isConfigured }: APIKeyInputProps) =
   }, [onSupabaseConfigured]);
 
   if (isConfigured) {
-    return (
-      <Card className="p-2 bg-green-50 border-green-200">
-        <div className="flex items-center gap-2 text-green-700">
-          <Zap className="w-3 h-3" />
-          <span className="text-xs font-medium">Backend connected</span>
-        </div>
-      </Card>
-    );
+    return null;
   }
 
   return (
