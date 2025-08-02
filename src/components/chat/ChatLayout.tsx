@@ -29,9 +29,9 @@ export const ChatLayout = ({
 }: ChatLayoutProps) => {
   return (
     <div className="h-full flex flex-col max-h-full">
-      <div className="flex-1 min-h-0 max-h-full flex gap-4">
-        {/* Chat Section - Left Side */}
-        <div className="flex-1 min-h-0 max-h-full flex flex-col">
+      <div className="flex-1 min-h-0 max-h-full flex justify-center gap-4 px-4">
+        {/* Chat Section - Centered */}
+        <div className="w-full max-w-5xl min-h-0 max-h-full flex flex-col">
           <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 overflow-hidden">
             <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
             {children}
