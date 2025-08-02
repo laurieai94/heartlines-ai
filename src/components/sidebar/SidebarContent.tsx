@@ -1,7 +1,6 @@
 
 import KaiIntroCard from './KaiIntroCard';
 import SafeSpaceCard from './SafeSpaceCard';
-import ConversationTopicsCard from './ConversationTopicsCard';
 import KeyTakeawaysCard from './KeyTakeawaysCard';
 import APIKeyInput from '../APIKeyInput';
 
@@ -20,7 +19,6 @@ const SidebarContent = ({
     <div className="w-full h-full overflow-y-auto space-y-3">
       <KaiIntroCard />
       <SafeSpaceCard />
-      <ConversationTopicsCard chatHistory={chatHistory} />
       <KeyTakeawaysCard chatHistory={chatHistory} />
 
       <div className="animate-slide-up" style={{animationDelay: '0.6s'}}>
