@@ -89,7 +89,7 @@ const ChatContainer = ({
                 {/* Personalized Welcome Message */}
                 <div className="max-w-lg mx-auto">
                   <h2 className="text-lg font-medium text-white">
-                    Hello {userName ? `${userName}` : ''}, I'm Kai - your AI relationship coach
+                    Hi {userName ? `${userName}` : '[insert user name]'}, I'm Kai. Here to help you decode whatever relationship plot twist you're living through.
                   </h2>
                 </div>
               </div>
