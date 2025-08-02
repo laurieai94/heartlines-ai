@@ -121,21 +121,19 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      <div className="bg-gradient-to-br from-white/90 to-white/80 backdrop-blur-md rounded-3xl p-8 border border-gray-200/50 shadow-lg">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">Practice Difficult Conversations Before They Happen</h2>
-        <p className="text-gray-700 mb-3 text-lg leading-relaxed">
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Practice Difficult Conversations Before They Happen</h2>
+        <p className="text-gray-600 mb-2">
           Role-play with AI that acts like {partnerName}, while getting real-time coaching
         </p>
-        <p className="text-sm text-gray-600 leading-relaxed mb-4">
+        <p className="text-sm text-gray-500">
           Ever wish you could practice that difficult conversation before having it? Our AI becomes {partnerName} based on their profile, while simultaneously coaching you on communication strategies.
         </p>
         {hasProfiles && (
-          <div className="flex items-center gap-3 mt-6 px-4 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200 shadow-sm">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <Lightbulb className="w-4 h-4 text-white" />
-            </div>
-            <p className="text-sm text-emerald-800 font-medium">
+          <div className="flex items-center gap-2 mt-3 px-3 py-2 bg-green-50 rounded-lg border border-green-200">
+            <Lightbulb className="w-4 h-4 text-green-600" />
+            <p className="text-sm text-green-700">
               AI partner simulation ready - I know {partnerName}'s communication style and triggers
             </p>
           </div>
@@ -149,25 +147,20 @@ const ConversationPractice = ({ profiles = { your: [], partner: [] }, demographi
         onProfileSelect={setSelectedPartnerProfile}
       />
 
-      <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200/30">
-        <h3 className="text-xl font-bold text-gray-900 mb-6 tracking-wide">Quick Scenario Starters</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {scenarios.map((scenario, index) => (
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Scenario Starters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {scenarios.map((scenario) => (
             <ProgressiveAccessWrapper key={scenario.id} action="practice-scenario">
-              <div 
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <ScenarioCard
-                  id={scenario.id}
-                  icon={scenario.icon}
-                  title={scenario.title}
-                  subtitle={scenario.subtitle}
-                  description={scenario.description}
-                  isSelected={selectedScenario === scenario.id}
-                  onSelect={handleScenarioSelect}
-                />
-              </div>
+              <ScenarioCard
+                id={scenario.id}
+                icon={scenario.icon}
+                title={scenario.title}
+                subtitle={scenario.subtitle}
+                description={scenario.description}
+                isSelected={selectedScenario === scenario.id}
+                onSelect={handleScenarioSelect}
+              />
             </ProgressiveAccessWrapper>
           ))}
         </div>
