@@ -17,6 +17,10 @@ export class AICoachEngine {
     return ConversationalPromptBuilder.buildConversationalPrompt(context, conversationHistory);
   }
 
+  static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {
+    return ConversationalPromptBuilder.buildDebugPrompt(context, profiles, demographicsData);
+  }
+
   static async getAIResponse(
     userMessage: string, 
     context: PersonContext, 

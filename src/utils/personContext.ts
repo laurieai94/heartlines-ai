@@ -167,6 +167,9 @@ export class PersonContextBuilder {
   }
 
   static buildPersonContext(profiles: ProfileData, demographicsData: DemographicsData): PersonContext {
+    console.log('🔍 PersonContext Debug - Raw Input Data:');
+    console.log('  Profiles:', JSON.stringify(profiles, null, 2));
+    console.log('  Demographics:', JSON.stringify(demographicsData, null, 2));
     const yourProfile = profiles.your[0] || {};
     const partnerProfile = profiles.partner[0] || {};
     const yourDemo = demographicsData.your || {};

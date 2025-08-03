@@ -1,5 +1,5 @@
 
-import { PersonContext } from "@/types/AIInsights";
+import { PersonContext, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { InsightBuilders } from "./prompt/insightBuilders";
 import { FamilyBackgroundBuilder } from "./prompt/familyBackgroundBuilder";
 import { DynamicsBuilder } from "./prompt/dynamicsBuilder";
@@ -27,5 +27,9 @@ export class ConversationalPromptBuilder {
       dynamics,
       conversationHistory
     );
+  }
+
+  static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {
+    return PromptTemplate.buildDebugPrompt(context, profiles, demographicsData);
   }
 }

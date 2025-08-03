@@ -41,7 +41,18 @@ export const useChatMessageHandler = ({
 
     try {
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
-      const conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, chatHistory);
+      
+      // Check if this is a debug request
+      const isDebugRequest = /what do you know|what information|profile data|what have you learned|debug/i.test(userMessage);
+      
+      let conversationalPrompt;
+      if (isDebugRequest) {
+        // Use debug prompt that lists all available information
+        conversationalPrompt = AICoachEngine.buildDebugPrompt(context, profiles, demographicsData);
+      } else {
+        conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, chatHistory);
+      }
+      
       const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, conversationalPrompt);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);

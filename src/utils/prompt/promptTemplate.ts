@@ -1,5 +1,5 @@
 
-import { PersonContext } from "@/types/AIInsights";
+import { PersonContext, ProfileData, DemographicsData } from "@/types/AIInsights";
 
 export class PromptTemplate {
   static buildMainPrompt(
@@ -137,5 +137,50 @@ ${conversationHistory.length > 0 ?
 }
 
 Remember: You're texting with a friend. Keep it short, natural, and personal. Show you know them without being clinical. Ask one thing at a time and build understanding through natural back-and-forth conversation. Never repeat therapeutic phrases or over-validate. Most importantly, NEVER use emojis in your responses - maintain professionalism while being conversational and warm.`;
+  }
+
+  static buildDebugPrompt(context: PersonContext, profiles: ProfileData, demographicsData: DemographicsData): string {
+    const formatProfileData = (data: any, label: string): string => {
+      if (!data || typeof data !== 'object') return `${label}: No data available\n`;
+      
+      const formatted = Object.entries(data)
+        .filter(([_, value]) => value !== null && value !== undefined && value !== '')
+        .map(([key, value]) => {
+          if (Array.isArray(value)) {
+            return `  ${key}: [${value.join(', ')}]`;
+          }
+          return `  ${key}: ${value}`;
+        })
+        .join('\n');
+      
+      return formatted ? `${label}:\n${formatted}\n\n` : `${label}: No data available\n\n`;
+    };
+
+    const yourName = context.yourTraits?.name || 'User';
+    const partnerName = context.partnerTraits?.name || 'Partner';
+
+    return `You are Kai, a relationship expert. The user is asking what you know about their profile data. Please provide a comprehensive but conversational summary of all the information you have access to about them and their relationship.
+
+# DEBUG: Complete Profile Information Available
+
+## Personal Profile Data (Your Information)
+${formatProfileData(profiles.your, 'Personal Profile')}
+
+## Partner Profile Data
+${formatProfileData(profiles.partner, 'Partner Profile')}
+
+## Demographics Data (Your)
+${formatProfileData(demographicsData.your, 'Your Demographics')}
+
+## Demographics Data (Partner)
+${formatProfileData(demographicsData.partner, 'Partner Demographics')}
+
+## Processed Context
+${formatProfileData(context.yourTraits, 'Your Processed Traits')}
+${formatProfileData(context.partnerTraits, 'Partner Processed Traits')}
+${formatProfileData(context.relationship, 'Relationship Context')}
+${formatProfileData(context.dynamics, 'Relationship Dynamics')}
+
+Respond naturally and conversationally, summarizing what information you have about them and their relationship. Be thorough but keep your conversational tone. Don't just list data - explain what you know about them as people and their relationship in a way that shows you understand them personally.`;
   }
 }
