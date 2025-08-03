@@ -99,9 +99,6 @@ const ProfileCompletionOptions = ({
               </div>
             </> : <>
               <div className="text-center space-y-3 mb-6">
-                <h3 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
-                  Partner Profile Added!
-                </h3>
                 <p className="text-white/95 text-lg leading-normal font-medium"></p>
               </div>
 
