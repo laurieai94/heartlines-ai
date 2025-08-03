@@ -64,17 +64,11 @@ export const useTemporaryProfile = () => {
           const personalData = JSON.parse(personalQuestionnaire);
           console.log('Found personal questionnaire data:', personalData);
           
-          // Convert new format to temporary format
+          // Convert new format to temporary format - preserve ALL data
           if (personalData && Object.keys(personalData).length > 0) {
             profiles.your = [personalData];
-            // For demographics, extract basic info from questionnaire
-            demographics.your = {
-              name: personalData.name,
-              pronouns: personalData.pronouns,
-              age: personalData.age,
-              gender: personalData.gender,
-              orientation: personalData.orientation
-            };
+            // Keep ALL questionnaire data, not just basic demographics
+            demographics.your = personalData;
           }
         }
         
@@ -82,17 +76,11 @@ export const useTemporaryProfile = () => {
           const partnerData = JSON.parse(partnerQuestionnaire);
           console.log('Found partner questionnaire data:', partnerData);
           
-          // Convert new format to temporary format
+          // Convert new format to temporary format - preserve ALL data
           if (partnerData && Object.keys(partnerData).length > 0) {
             profiles.partner = [partnerData];
-            // For demographics, extract basic info from questionnaire
-            demographics.partner = {
-              name: partnerData.partnerName,
-              pronouns: partnerData.partnerPronouns,
-              age: partnerData.partnerAge,
-              gender: partnerData.partnerGender,
-              orientation: partnerData.partnerOrientation
-            };
+            // Keep ALL questionnaire data, not just basic demographics
+            demographics.partner = partnerData;
           }
         }
         
