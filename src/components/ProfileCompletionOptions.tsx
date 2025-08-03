@@ -43,7 +43,7 @@ const ProfileCompletionOptions = ({
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
-                  Profile complete!<br />What's your vibe?
+                  {isPersonalCompletion ? "Profile complete!\nWhat's your vibe?" : "Partner Profile Complete!"}
                 </h2>
               </div>
             </div>
