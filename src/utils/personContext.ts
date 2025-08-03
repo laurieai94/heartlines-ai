@@ -105,6 +105,12 @@ export class PersonContextBuilder {
     if (personalData.heartbreakBetrayal) mapped.heartbreakBetrayal = personalData.heartbreakBetrayal;
     if (personalData.familyStructure) mapped.familyStructure = personalData.familyStructure;
     
+    // Map current new questionnaire fields (make sure these match exactly)
+    if (personalData.stressResponse) mapped.stressResponse = personalData.stressResponse;
+    if (personalData.conflictStyle) mapped.conflictStyle = personalData.conflictStyle;
+    if (personalData.loveLanguage) mapped.loveLanguages = personalData.loveLanguage;
+    if (personalData.attachmentStyle) mapped.attachmentStyle = personalData.attachmentStyle;
+    
     // Map family background fields - preserve ALL family data (both old and new formats)
     const familyBackground: FamilyBackground = {};
     
