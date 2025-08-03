@@ -31,11 +31,11 @@ export const useProfileCompletion = () => {
       completed++;
       console.log('✓ age:', profileData.age);
     }
-    if (profileData?.gender) {
+    if (profileData?.gender?.length > 0) {
       completed++;
       console.log('✓ gender:', profileData.gender);
     }
-    if (profileData?.orientation) {
+    if (profileData?.orientation?.length > 0) {
       completed++;
       console.log('✓ orientation:', profileData.orientation);
     }
@@ -47,9 +47,9 @@ export const useProfileCompletion = () => {
       completed++;
       console.log('✓ stressResponse:', profileData.stressResponse);
     }
-    if (profileData?.loveLanguage?.length > 0) {
+    if (profileData?.feelLovedWhen?.length > 0) {
       completed++;
-      console.log('✓ loveLanguage:', profileData.loveLanguage);
+      console.log('✓ feelLovedWhen:', profileData.feelLovedWhen);
     }
     if (profileData?.attachmentStyle) {
       completed++;
@@ -72,10 +72,22 @@ export const useProfileCompletion = () => {
     let total = 4;
     
     // Core required questions from the new partner questionnaire structure
-    if (profileData?.partnerName) completed++;
-    if (profileData?.partnerCommunicationResponse?.length > 0) completed++;
-    if (profileData?.partnerLoveLanguage?.length > 0) completed++;
-    if (profileData?.partnerConflictStyle?.length > 0) completed++;
+    if (profileData?.partnerName) {
+      completed++;
+      console.log('✓ partnerName:', profileData.partnerName);
+    }
+    if (profileData?.partnerCommunicationResponse?.length > 0) {
+      completed++;
+      console.log('✓ partnerCommunicationResponse:', profileData.partnerCommunicationResponse);
+    }
+    if (profileData?.partnerLoveLanguage?.length > 0) {
+      completed++;
+      console.log('✓ partnerLoveLanguage:', profileData.partnerLoveLanguage);
+    }
+    if (profileData?.partnerConflictStyle?.length > 0) {
+      completed++;
+      console.log('✓ partnerConflictStyle:', profileData.partnerConflictStyle);
+    }
     
     const completion = Math.round((completed / total) * 100);
     console.log('ProfileBuilder - Partner profile completion:', { completed, total, completion, profileData });

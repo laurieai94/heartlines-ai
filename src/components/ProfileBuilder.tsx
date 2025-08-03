@@ -11,7 +11,6 @@ import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { useUnifiedProfileStorage } from "@/hooks/useUnifiedProfileStorage";
-import { calculateProgress } from "@/components/NewPersonalQuestionnaire/utils/validation";
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -54,6 +53,7 @@ const ProfileBuilder = ({
     isLoaded
   } = useTemporaryProfile();
   const {
+    calculateYourCompletion,
     calculatePartnerCompletion
   } = useProfileCompletion();
 
@@ -63,11 +63,8 @@ const ProfileBuilder = ({
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || personalProfileStorage.profileData?.name || '';
   
-  // Use the new questionnaire progress calculation for personal profile
-  const yourProfileCompletion = personalProfileStorage.isReady && personalProfileStorage.profileData 
-    ? calculateProgress(personalProfileStorage.profileData as any) 
-    : 0;
-  
+  // Use consistent completion calculation for both profiles
+  const yourProfileCompletion = calculateYourCompletion();
   const partnerProfileCompletion = calculatePartnerCompletion();
   const handleStartPersonalProfile = () => {
     console.log('handleStartPersonalProfile called, onOpenQuestionnaire exists:', !!onOpenQuestionnaire);
