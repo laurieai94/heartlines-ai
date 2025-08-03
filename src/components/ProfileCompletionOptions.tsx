@@ -1,8 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Sparkles, X } from "lucide-react";
 import { useEffect } from "react";
-
 interface ProfileCompletionOptionsProps {
   completionType: 'personal' | 'partner';
   onAddPartnerProfile: () => void;
@@ -11,24 +9,24 @@ interface ProfileCompletionOptionsProps {
   onEditProfile: () => void;
   hasPartnerProfile: boolean;
 }
-
-const ProfileCompletionOptions = ({ 
-  completionType, 
-  onAddPartnerProfile, 
-  onStartChatting, 
+const ProfileCompletionOptions = ({
+  completionType,
+  onAddPartnerProfile,
+  onStartChatting,
   onClose,
   onEditProfile,
-  hasPartnerProfile 
+  hasPartnerProfile
 }: ProfileCompletionOptionsProps) => {
   const isPersonalCompletion = completionType === 'personal';
 
   // Debug logging
   useEffect(() => {
-    console.log('ProfileCompletionOptions rendered:', { completionType, hasPartnerProfile });
+    console.log('ProfileCompletionOptions rendered:', {
+      completionType,
+      hasPartnerProfile
+    });
   }, [completionType, hasPartnerProfile]);
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-[60]">
+  return <div className="fixed inset-0 flex items-center justify-center p-4 z-[60]">
       {/* Enhanced Glassmorphism Container - No overlay background but more visible */}
       <div className="bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-fade-in">
         
@@ -49,11 +47,7 @@ const ProfileCompletionOptions = ({
                 </h2>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
-              onClick={onClose} 
-              className="text-white/70 hover:text-white hover:bg-white/15 rounded-full p-2 backdrop-blur-sm"
-            >
+            <Button variant="ghost" onClick={onClose} className="text-white/70 hover:text-white hover:bg-white/15 rounded-full p-2 backdrop-blur-sm">
               <X className="w-4 h-4" />
             </Button>
           </div>
@@ -61,14 +55,10 @@ const ProfileCompletionOptions = ({
 
         {/* Content with Better Contrast */}
         <div className="p-6 space-y-4 bg-gradient-to-b from-white/5 to-white/10">
-          {isPersonalCompletion ? (
-            <>
+          {isPersonalCompletion ? <>
               <div className="space-y-4">
                 {/* Main Button: Start Coaching */}
-                <div 
-                  onClick={onStartChatting}
-                  className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-emerald-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg"
-                >
+                <div onClick={onStartChatting} className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-emerald-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
                       <MessageCircle className="w-6 h-6 text-white" />
@@ -85,10 +75,7 @@ const ProfileCompletionOptions = ({
                 </div>
 
                 {/* Main Button: Add Partner Profile - Always show */}
-                <div 
-                  onClick={onAddPartnerProfile}
-                  className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-pink-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg"
-                >
+                <div onClick={onAddPartnerProfile} className="bg-white/15 hover:bg-white/25 backdrop-blur-lg border border-white/30 hover:border-pink-400/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group shadow-lg">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-pink-500/30 transition-all duration-300">
                       <Heart className="w-6 h-6 text-white" />
@@ -106,29 +93,19 @@ const ProfileCompletionOptions = ({
               </div>
 
               <div className="text-center pt-2">
-                <button 
-                  onClick={onEditProfile}
-                  className="text-white/70 hover:text-white text-xs underline hover:no-underline transition-all duration-200"
-                >
+                <button onClick={onEditProfile} className="text-white/70 hover:text-white text-xs underline hover:no-underline transition-all duration-200">
                   Make updates to my profile
                 </button>
               </div>
-            </>
-          ) : (
-            <>
+            </> : <>
               <div className="text-center space-y-3 mb-6">
                 <h3 className="text-2xl font-bold text-white drop-shadow-lg tracking-wide leading-tight">
                   Partner Profile Added!
                 </h3>
-                <p className="text-white/95 text-lg leading-normal font-medium">
-                  Now Kai can provide even more personalized guidance.
-                </p>
+                <p className="text-white/95 text-lg leading-normal font-medium"></p>
               </div>
 
-              <div 
-                onClick={onStartChatting}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-emerald-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group"
-              >
+              <div onClick={onStartChatting} className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/25 hover:border-emerald-400/40 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:shadow-emerald-500/30 transition-all duration-300">
                     <MessageCircle className="w-5 h-5 text-white" />
@@ -143,12 +120,9 @@ const ProfileCompletionOptions = ({
                   </div>
                 </div>
               </div>
-            </>
-          )}
+            </>}
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ProfileCompletionOptions;
