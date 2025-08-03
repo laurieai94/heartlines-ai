@@ -29,23 +29,78 @@ export const useTemporaryProfile = () => {
   useEffect(() => {
     const loadTemporaryData = () => {
       try {
+        // Load old format data
         const savedProfiles = localStorage.getItem('realtalk_temp_profiles');
         const savedDemographics = localStorage.getItem('realtalk_temp_demographics');
         
-        console.log('Loading temporary data from localStorage:', { savedProfiles, savedDemographics });
+        // Load new questionnaire format data
+        const personalQuestionnaire = localStorage.getItem('personal_profile_questionnaire');
+        const partnerQuestionnaire = localStorage.getItem('partner_profile_questionnaire');
         
+        console.log('Loading all profile data from localStorage:', { 
+          savedProfiles, 
+          savedDemographics, 
+          personalQuestionnaire, 
+          partnerQuestionnaire 
+        });
+        
+        // Initialize with default structure
+        let profiles = { your: [], partner: [] };
+        let demographics = { your: null, partner: null };
+        
+        // Parse old format data first
         if (savedProfiles) {
           const parsed = JSON.parse(savedProfiles);
-          console.log('Parsed profiles:', parsed);
-          setTemporaryProfiles(parsed);
+          profiles = { ...profiles, ...parsed };
         }
         
         if (savedDemographics) {
           const parsed = JSON.parse(savedDemographics);
-          console.log('Parsed demographics:', parsed);
-          setTemporaryDemographics(parsed);
+          demographics = { ...demographics, ...parsed };
         }
         
+        // Parse and merge new questionnaire data (prioritize over old data)
+        if (personalQuestionnaire) {
+          const personalData = JSON.parse(personalQuestionnaire);
+          console.log('Found personal questionnaire data:', personalData);
+          
+          // Convert new format to temporary format
+          if (personalData && Object.keys(personalData).length > 0) {
+            profiles.your = [personalData];
+            // For demographics, extract basic info from questionnaire
+            demographics.your = {
+              name: personalData.name,
+              pronouns: personalData.pronouns,
+              age: personalData.age,
+              gender: personalData.gender,
+              orientation: personalData.orientation
+            };
+          }
+        }
+        
+        if (partnerQuestionnaire) {
+          const partnerData = JSON.parse(partnerQuestionnaire);
+          console.log('Found partner questionnaire data:', partnerData);
+          
+          // Convert new format to temporary format
+          if (partnerData && Object.keys(partnerData).length > 0) {
+            profiles.partner = [partnerData];
+            // For demographics, extract basic info from questionnaire
+            demographics.partner = {
+              name: partnerData.partnerName,
+              pronouns: partnerData.partnerPronouns,
+              age: partnerData.partnerAge,
+              gender: partnerData.partnerGender,
+              orientation: partnerData.partnerOrientation
+            };
+          }
+        }
+        
+        console.log('Final merged profiles:', profiles);
+        console.log('Final merged demographics:', demographics);
+        
+        setTemporaryProfiles(profiles);
+        setTemporaryDemographics(demographics);
         setIsLoaded(true);
       } catch (error) {
         console.error('Error loading temporary data:', error);
