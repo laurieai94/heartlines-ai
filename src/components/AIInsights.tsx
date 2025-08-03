@@ -138,7 +138,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   console.log('unifiedDemographics:', unifiedDemographics);
 
   return (
-    <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col">
+    <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col p-4 sm:p-6 lg:p-8">
       {/* Main chat interface with integrated sidebar */}
       <div className="flex-1 min-h-0">
         <ProgressiveAccessWrapper action="chat">
