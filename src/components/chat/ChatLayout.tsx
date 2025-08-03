@@ -39,17 +39,15 @@ export const ChatLayout = ({
         </div>
         
         {/* Sidebar Section - Right Side */}
-        <div className="w-72 min-h-0 max-h-full flex-shrink-0">
-          <div className="h-full bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 overflow-hidden">
-            <div className="h-full overflow-y-auto p-4">
-              <AISidebar
-                profiles={profiles}
-                demographicsData={demographicsData}
-                chatHistory={chatHistory}
-                isConfigured={isConfigured}
-                onSupabaseConfigured={onSupabaseConfigured}
-              />
-            </div>
+        <div className="w-72 flex-shrink-0">
+          <div className="p-4">
+            <AISidebar
+              profiles={profiles}
+              demographicsData={demographicsData}
+              chatHistory={chatHistory}
+              isConfigured={isConfigured}
+              onSupabaseConfigured={onSupabaseConfigured}
+            />
           </div>
         </div>
       </div>
