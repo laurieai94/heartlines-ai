@@ -84,7 +84,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
               {isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-base">
-              {getActionMessage()}
+              Create your free account for personalized coaching and insights.
             </p>
           </div>
 
