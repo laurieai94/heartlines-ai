@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Heart, Bot, ChevronDown } from "lucide-react";
+import { Bot, ChevronDown } from "lucide-react";
 import { ChatMessage } from "@/types/AIInsights";
 import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -57,23 +57,6 @@ const ChatContainer = ({
         <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
             
-            {/* Kai's Personalized Welcome Section */}
-            {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && <div className="text-center py-4 animate-fade-in">
-                {/* Kai Avatar */}
-                <div className="w-10 h-10 mx-auto mb-3 relative">
-                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20 shadow-lg relative z-10">
-                    <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-4 h-4" />
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-                
-                {/* Personalized Welcome Message */}
-                <div className="max-w-md mx-auto">
-                  <h2 className="text-base font-medium text-white leading-relaxed">Hi, I'm Kai! Here to help you thrive in your relationships.</h2>
-                </div>
-              </div>}
 
             
             {/* Chat Messages */}
