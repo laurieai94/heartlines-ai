@@ -65,6 +65,42 @@ export type Database = {
         }
         Relationships: []
       }
+      conversations: {
+        Row: {
+          content: string
+          created_at: string
+          days_remaining: number
+          id: string
+          reflection_cadence: number
+          reflection_frequency: number
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          days_remaining: number
+          id?: string
+          reflection_cadence?: number
+          reflection_frequency?: number
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          days_remaining?: number
+          id?: string
+          reflection_cadence?: number
+          reflection_frequency?: number
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       onboarding_status: {
         Row: {
           created_at: string
