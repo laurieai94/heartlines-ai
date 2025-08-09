@@ -69,7 +69,7 @@ export const ChatInputSection = ({
           </div>
         )}
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {user ? (
             <ProgressiveAccessWrapper action="chat">
               <AIChatInput 
