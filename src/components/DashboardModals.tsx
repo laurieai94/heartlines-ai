@@ -7,6 +7,8 @@ import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 interface DashboardModalsProps {
   shouldShowSignUpModal: boolean;
   onCloseSignUpModal: () => void;
+  showSignInModal?: boolean;
+  onCloseSignInModal?: () => void;
   blockingAction?: string;
   showQuestionnaireModal: boolean;
   onQuestionnaireComplete: (data: any) => void;
@@ -28,6 +30,8 @@ interface DashboardModalsProps {
 const DashboardModals = ({
   shouldShowSignUpModal,
   onCloseSignUpModal,
+  showSignInModal,
+  onCloseSignInModal,
   blockingAction,
   showQuestionnaireModal,
   onQuestionnaireComplete,
@@ -50,12 +54,21 @@ const DashboardModals = ({
 
   return (
     <>
-      {/* Sign-up Modal */}
+      {/* Sign Up Modal */}
       <SignUpModal
         isOpen={shouldShowSignUpModal}
         onClose={onCloseSignUpModal}
         blockingAction={blockingAction}
       />
+
+      {/* Sign In Modal */}
+      {showSignInModal && onCloseSignInModal && (
+        <SignUpModal
+          isOpen={showSignInModal}
+          onClose={onCloseSignInModal}
+          initialMode="signIn"
+        />
+      )}
 
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (

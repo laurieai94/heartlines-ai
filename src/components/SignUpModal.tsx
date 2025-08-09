@@ -11,13 +11,15 @@ interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   blockingAction?: string;
+  initialMode?: 'signUp' | 'signIn';
 }
 const SignUpModal = ({
   isOpen,
   onClose,
-  blockingAction
+  blockingAction,
+  initialMode = 'signUp'
 }: SignUpModalProps) => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(initialMode === 'signUp');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);

@@ -9,6 +9,7 @@ export const useDashboardModalState = () => {
   const [showPartnerQuestionnaireModal, setShowPartnerQuestionnaireModal] = useState(false);
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
   // Debug logging for modal state changes
   useEffect(() => {
@@ -30,7 +31,7 @@ export const useDashboardModalState = () => {
 
   // Prevent body scroll when questionnaire modal is open
   useEffect(() => {
-    if (showQuestionnaireModal || showPartnerQuestionnaireModal) {
+    if (showQuestionnaireModal || showPartnerQuestionnaireModal || showSignInModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -39,7 +40,7 @@ export const useDashboardModalState = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showQuestionnaireModal, showPartnerQuestionnaireModal]);
+  }, [showQuestionnaireModal, showPartnerQuestionnaireModal, showSignInModal]);
 
   // Handle redirect from profile completion
   useEffect(() => {
@@ -65,7 +66,17 @@ export const useDashboardModalState = () => {
   };
 
   return {
-    ...modalStates,
-    ...modalSetters
+    activeTab,
+    setActiveTab,
+    showQuestionnaireModal,
+    setShowQuestionnaireModal,
+    showPartnerQuestionnaireModal,
+    setShowPartnerQuestionnaireModal,
+    showPersonalCompletionOptions,
+    setShowPersonalCompletionOptions,
+    showPartnerCompletionOptions,
+    setShowPartnerCompletionOptions,
+    showSignInModal,
+    setShowSignInModal
   };
 };

@@ -22,7 +22,19 @@ export const useDashboardModals = () => {
     setShowPartnerCompletionOptions: modalState.setShowPartnerCompletionOptions
   });
 
+  // Add sign-in modal state management
+  const { showSignInModal, setShowSignInModal } = modalState;
+
+  const openSignInModal = () => {
+    setShowSignInModal(true);
+  };
+
+  const closeSignInModal = () => {
+    setShowSignInModal(false);
+  };
+
   const isAnyModalOpen = shouldShowSignUpModal || 
+    showSignInModal ||
     modalState.showQuestionnaireModal || 
     modalState.showPartnerQuestionnaireModal || 
     modalState.showPersonalCompletionOptions || 
@@ -32,8 +44,11 @@ export const useDashboardModals = () => {
     // Modal state
     ...modalState,
     shouldShowSignUpModal,
+    showSignInModal,
     blockingAction,
     closeSignUpModal,
+    closeSignInModal,
+    openSignInModal,
     accessLevel,
     profileCompletion,
     isAnyModalOpen,

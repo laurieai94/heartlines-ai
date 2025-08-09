@@ -9,9 +9,10 @@ interface DashboardHeaderProps {
   compact?: boolean;
   user: User | null;
   onSignInClick: () => void;
+  onOpenProfile?: () => void;
 }
 
-const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, onSignInClick }: DashboardHeaderProps) => {
+const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   return (
     <div className="w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,7 +32,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             </div>
           </div>
           
-          <SignInButton user={user} onSignInClick={onSignInClick} />
+          <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
         </div>
       </div>
     </div>

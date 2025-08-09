@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -9,9 +9,10 @@ import type { User as SupabaseUser } from '@supabase/supabase-js';
 interface SignInButtonProps {
   onSignInClick: () => void;
   user: SupabaseUser | null;
+  onOpenProfile?: () => void;
 }
 
-const SignInButton = ({ onSignInClick, user }: SignInButtonProps) => {
+const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps) => {
   const { signOut } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -50,6 +51,30 @@ const SignInButton = ({ onSignInClick, user }: SignInButtonProps) => {
               <p className="font-medium text-gray-900">Signed in as</p>
               <p className="text-gray-600 truncate">{user.email}</p>
             </div>
+            
+            {onOpenProfile && (
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => {
+                  onOpenProfile();
+                  setShowUserMenu(false);
+                }}
+              >
+                <UserCircle className="mr-2 h-4 w-4" />
+                View Profile
+              </Button>
+            )}
+            
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+              onClick={() => setShowUserMenu(false)}
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              Account Settings
+            </Button>
+            
             <Button
               variant="ghost"
               className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"

@@ -17,8 +17,11 @@ const Dashboard = () => {
     showPersonalCompletionOptions,
     showPartnerCompletionOptions,
     shouldShowSignUpModal,
+    showSignInModal,
     blockingAction,
     closeSignUpModal,
+    closeSignInModal,
+    openSignInModal,
     accessLevel,
     profileCompletion,
     temporaryProfiles,
@@ -42,9 +45,11 @@ const Dashboard = () => {
   } = useDashboardModals();
 
   const handleSignInClick = () => {
-    // Open the existing SignUpModal in sign-in mode
-    // This will be handled by the existing modal system
-    console.log('Sign in clicked - this would open the sign-in modal');
+    openSignInModal();
+  };
+
+  const handleOpenProfile = () => {
+    handleOpenQuestionnaire();
   };
 
   return (
@@ -58,6 +63,7 @@ const Dashboard = () => {
             compact={activeTab === 'insights'}
             user={user}
             onSignInClick={handleSignInClick}
+            onOpenProfile={handleOpenProfile}
           />
 
           <DashboardNavigation 
@@ -81,6 +87,8 @@ const Dashboard = () => {
         <DashboardModals
           shouldShowSignUpModal={shouldShowSignUpModal}
           onCloseSignUpModal={closeSignUpModal}
+          showSignInModal={showSignInModal}
+          onCloseSignInModal={closeSignInModal}
           blockingAction={blockingAction}
           showQuestionnaireModal={showQuestionnaireModal}
           onQuestionnaireComplete={handleQuestionnaireComplete}
