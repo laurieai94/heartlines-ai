@@ -54,8 +54,8 @@ const ChatContainer = ({
   }, [isHistoryLoaded, scrollToBottom]);
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea ref={scrollAreaRef} className="h-full" onScrollCapture={handleScroll}>
-        <div className="px-6 pt-6 pb-2">
-          <div className="space-y-4 max-w-4xl mx-auto">
+        <div className="px-4 pt-3 pb-2">
+          <div className="space-y-3 max-w-4xl mx-auto">
             
             {/* Kai's Personalized Welcome Section */}
             {chatHistory.length === 0 && isConfigured && !conversationStarter && isHistoryLoaded && <div className="text-center py-4 animate-fade-in">

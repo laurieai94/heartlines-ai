@@ -47,11 +47,13 @@ const Dashboard = () => {
           <DashboardHeader 
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}
+            compact={activeTab === 'insights'}
           />
 
           <DashboardNavigation 
             activeTab={activeTab}
             onValueChange={setActiveTab}
+            compact={activeTab === 'insights'}
           />
 
           <DashboardContent
