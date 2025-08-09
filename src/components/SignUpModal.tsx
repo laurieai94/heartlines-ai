@@ -85,7 +85,10 @@ const SignUpModal = ({
               {isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
             <p className="text-gray-600 leading-relaxed text-base">
-              Create your free account for personalized coaching and insights.
+              {isSignUp 
+                ? "Create your free account for personalized coaching and insights."
+                : "Access your profiles and customized coaching with Kai."
+              }
             </p>
           </div>
 
