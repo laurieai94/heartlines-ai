@@ -67,11 +67,11 @@ const SignUpModal = ({
   };
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[360px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
-        <div className="rounded-2xl p-[1px] bg-gradient-to-br from-primary/40 via-accent/40 to-primary/20 shadow-3xl">
-          <div className="text-center space-y-5 p-5 rounded-2xl bg-background/70 backdrop-blur-md border border-border/60">
+        <div className="rounded-2xl p-[1px] bg-gradient-to-br from-[hsl(var(--primary))/0.5] via-[hsl(var(--coral))/0.4] to-[hsl(var(--peach))/0.4] shadow-3xl">
+          <div className="text-center space-y-5 p-5 rounded-2xl bg-background/60 supports-[backdrop-filter]:backdrop-blur-xl border border-border/50">
           {/* Kai Avatar */}
           <div className="w-16 h-16 mx-auto mb-6 relative">
-            <div className="absolute inset-0 rounded-full blur-xl opacity-30 animate-pulse shadow-glow"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[hsl(var(--primary))/0.3] via-[hsl(var(--coral))/0.3] to-[hsl(var(--peach))/0.3] blur-xl opacity-80 animate-pulse shadow-glow"></div>
             <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-glow relative z-10 border border-border">
               <Heart className="w-8 h-8" />
             </div>
@@ -94,21 +94,21 @@ const SignUpModal = ({
               <Label htmlFor="email" className="text-left block text-sm font-medium">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 h-12 text-base" placeholder="Enter your email" required />
+                <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 h-12 text-base border-border/60 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-0" placeholder="Enter your email" required />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-left block text-sm font-medium">Password</Label>
               <div className="relative">
-                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="pr-10 h-12 text-base" placeholder="Enter your password" required />
+                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="pr-10 h-12 text-base border-border/60 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-0" placeholder="Enter your password" required />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-muted-foreground hover:text-foreground">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold shadow-glow">
+            <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold shadow-glow bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--coral))] to-[hsl(var(--peach))] text-primary-foreground hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))]">
               {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
             </Button>
           </form>
