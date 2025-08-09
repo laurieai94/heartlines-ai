@@ -81,16 +81,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Animated Holographic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-900/30 via-purple-500/20 to-orange-900/30 animate-gradient"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-violet-400/10 via-purple-500/10 to-orange-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-violet-600/10 via-purple-400/10 to-orange-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-violet-300/30 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -106,7 +106,7 @@ const Index = () => {
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
+            className="absolute w-20 h-20 border border-violet-300/10 rounded-lg animate-spin"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -119,29 +119,29 @@ const Index = () => {
 
       {/* Code-like Background Elements */}
       <div className="absolute inset-0 overflow-hidden opacity-5">
-        <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
+        <div className="absolute top-20 left-10 font-mono text-xs text-violet-200">
           {`const love = { understanding: true, growth: infinite }`}
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-orange-200">
           {`if (relationship.status === 'complicated') { ai.help() }`}
         </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
+        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-violet-200">
           {`return personalized.advice.filter(advice => advice.isRelevant)`}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
+      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-violet-900/20 via-purple-900/10 to-orange-900/20 backdrop-blur-sm border-b border-violet-300/10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
+            <div className="w-8 h-8 bg-gradient-to-r from-violet-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-violet-300/20">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </div>
           <div className="flex items-center">
             <Link to="/dashboard">
-              <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
+              <Button variant="outline" className="border-violet-400/50 text-violet-400 hover:bg-violet-400/10 rounded-full font-thin backdrop-blur-sm">
                 Get Started - It's Free
               </Button>
             </Link>
@@ -150,29 +150,29 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
+      <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-violet-900/30 via-purple-900/20 to-orange-900/30 backdrop-blur-sm">
         {/* Accent decoration - floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-violet-400/10 to-orange-400/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-purple-400/15 to-orange-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/5 via-purple-500/10 to-orange-500/5"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <div 
-                className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30 shadow-lg transition-transform duration-300"
+                className="inline-flex items-center gap-3 bg-violet-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-violet-300/30 shadow-lg transition-transform duration-300"
                 style={{
                   transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-gradient-to-r from-violet-400 to-orange-400 rounded-full animate-pulse"></div>
                 <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
                 Your relationship isn't a rom-com.
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-orange-400">
                   Real growth needs real tools.
                 </span>
               </h1>
@@ -182,7 +182,7 @@ const Index = () => {
               </p>
               
               <Link to="/dashboard">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
+                <Button className="bg-gradient-to-r from-violet-600 via-purple-600 to-orange-500 hover:from-violet-700 hover:via-purple-700 hover:to-orange-600 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
@@ -209,8 +209,8 @@ const Index = () => {
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-coral-400">RealSwipe</h2>
-                        <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center">
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-orange-400">RealSwipe</h2>
+                        <div className="w-8 h-8 bg-gradient-to-r from-violet-400 to-orange-400 rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
                       </div>
@@ -223,7 +223,7 @@ const Index = () => {
                         className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
+                        <div className="w-full h-48 bg-gradient-to-br from-violet-400/20 to-orange-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
                           <img 
                             src={datingProfiles[currentProfile].photo} 
                             alt={datingProfiles[currentProfile].name}
@@ -244,8 +244,8 @@ const Index = () => {
                           <div className="w-12 h-12 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-red-400/30">
                             <span className="text-red-400 text-xl">✕</span>
                           </div>
-                          <div className="w-12 h-12 bg-pink-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-400/30">
-                            <Heart className="w-5 h-5 text-pink-400" />
+                          <div className="w-12 h-12 bg-violet-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-violet-400/30">
+                            <Heart className="w-5 h-5 text-violet-400" />
                           </div>
                           <div className="w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-blue-400/30">
                             <MessageCircle className="w-5 h-5 text-blue-400" />
@@ -260,7 +260,7 @@ const Index = () => {
                         <div
                           key={index}
                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentProfile ? 'bg-pink-400' : 'bg-white/30'
+                            index === currentProfile ? 'bg-violet-400' : 'bg-white/30'
                           }`}
                         />
                       ))}
@@ -272,11 +272,11 @@ const Index = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-8 -right-8 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse">
-                  <Heart className="w-6 h-6 text-pink-400" />
+                <div className="absolute -top-8 -right-8 w-16 h-16 bg-violet-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-violet-300/30 animate-pulse">
+                  <Heart className="w-6 h-6 text-violet-400" />
                 </div>
-                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-6 h-6 text-coral-400" />
+                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-orange-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-orange-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
+                  <MessageCircle className="w-6 h-6 text-orange-400" />
                 </div>
               </div>
             </div>
@@ -285,17 +285,17 @@ const Index = () => {
       </section>
 
       {/* Visual Break with Accent */}
-      <section className="px-6 py-8 relative bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10">
+      <section className="px-6 py-8 relative bg-gradient-to-r from-violet-900/20 via-purple-900/10 to-orange-900/20 backdrop-blur-sm border-y border-violet-400/10">
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line with floating dots */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"></div>
             {/* Accent dots */}
-            <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
-            <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute left-1/4 w-2 h-2 bg-violet-400/60 rounded-full animate-pulse"></div>
+            <div className="absolute right-1/4 w-2 h-2 bg-orange-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             {/* Center icon */}
-            <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
-              <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
+            <div className="absolute bg-gradient-to-r from-violet-900/50 to-orange-900/50 px-6 backdrop-blur-sm rounded-full">
+              <div className="w-12 h-12 bg-gradient-to-r from-violet-400 to-orange-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-violet-300/30">
                 <Heart className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -304,29 +304,29 @@ const Index = () => {
       </section>
 
       {/* Real Talk Section - Enhanced with combined content */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-violet-900/20 via-purple-900/15 to-orange-900/20 backdrop-blur-sm border-y border-violet-400/20">
         {/* Dramatic Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/8 via-purple-500/12 to-orange-500/8"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(139,69,193,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.15),transparent_50%)]"></div>
         
         {/* Accent Lines */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-400/60 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-400/60 to-transparent"></div>
         
         {/* Side Accent Elements */}
-        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
-        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-violet-400/40 to-orange-400/40"></div>
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-purple-400/40 to-orange-400/40"></div>
         
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
           <div className="text-center mb-16">
-            <div className="inline-block bg-gradient-to-r from-coral-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-coral-300/30">
-              <span className="text-coral-300 font-light tracking-wide">The Real Talk</span>
+            <div className="inline-block bg-gradient-to-r from-violet-500/20 to-orange-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-violet-300/30">
+              <span className="text-violet-300 font-light tracking-wide">The Real Talk</span>
             </div>
             
             <h2 className="text-5xl lg:text-6xl font-thin text-white mb-8 leading-tight">
               Dating apps taught us how to swipe.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-3 text-4xl lg:text-5xl">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-orange-400 mt-3 text-4xl lg:text-5xl">
                 Now what?
               </span>
             </h2>
@@ -343,8 +343,8 @@ const Index = () => {
 
           {/* Visual Separator with Icon */}
           <div className="relative flex items-center justify-center mb-16">
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
-            <div className="absolute bg-gradient-to-r from-coral-400 to-pink-400 rounded-full p-4 shadow-2xl border border-coral-300/30">
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"></div>
+            <div className="absolute bg-gradient-to-r from-violet-400 to-orange-400 rounded-full p-4 shadow-2xl border border-violet-300/30">
               <Sparkles className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -353,8 +353,8 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
             {/* Left Column - Better balanced */}
             <div className="space-y-8 flex items-center">
-              <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
-                <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
+              <div className="bg-gradient-to-br from-violet-500/15 via-purple-500/10 to-orange-500/15 backdrop-blur-xl rounded-3xl p-12 border border-violet-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
+                <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-orange-400 text-center leading-tight">
                   Enter RealTalk.
                 </h3>
               </div>
@@ -362,7 +362,7 @@ const Index = () => {
 
             {/* Right Column */}
             <div className="space-y-8 flex items-center">
-              <div className="bg-gradient-to-br from-pink-500/10 via-coral-500/5 to-pink-500/10 backdrop-blur-xl rounded-3xl p-8 border border-pink-300/20 shadow-2xl">
+              <div className="bg-gradient-to-br from-purple-500/10 via-orange-500/5 to-purple-500/10 backdrop-blur-xl rounded-3xl p-8 border border-purple-300/20 shadow-2xl">
                 <div className="space-y-6">
                   <p className="text-lg text-gray-200 leading-relaxed font-light">
                     We built this because most relationship tools just tell you what's wrong without teaching you how to actually fix it.
@@ -381,7 +381,7 @@ const Index = () => {
       </section>
 
       {/* How It Actually Works */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5">
+      <section className="px-6 py-20 relative bg-gradient-to-br from-violet-900/30 via-purple-900/20 to-orange-900/30 backdrop-blur-sm border-b border-violet-400/5">
         {/* Accent - connecting lines */}
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
@@ -400,9 +400,9 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Brain className="w-10 h-10 text-coral-400" />
+            <Card className="p-8 border-0 shadow-xl bg-violet-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-violet-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-400/20 to-orange-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-violet-300/30">
+                <Brain className="w-10 h-10 text-violet-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">We Get to Know You (For Real)</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -410,9 +410,9 @@ const Index = () => {
               </p>
             </Card>
 
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Target className="w-10 h-10 text-pink-400" />
+            <Card className="p-8 border-0 shadow-xl bg-violet-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-violet-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-400/20 to-orange-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-purple-300/30">
+                <Target className="w-10 h-10 text-purple-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Daily Tips You'll Actually Use</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -420,9 +420,9 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <MessageCircle className="w-10 h-10 text-pink-400" />
+            <Card className="p-8 border-0 shadow-xl bg-violet-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-violet-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-400/20 to-violet-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-orange-300/30">
+                <MessageCircle className="w-10 h-10 text-orange-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Practice Makes Progress</h3>
               <p className="text-gray-300 leading-relaxed font-light">
@@ -430,9 +430,9 @@ const Index = () => {
               </p>
             </Card>
             
-            <Card className="p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-coral-400/20">
-              <div className="w-20 h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Sparkles className="w-10 h-10 text-coral-400" />
+            <Card className="p-8 border-0 shadow-xl bg-violet-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-3xl group border border-violet-400/20">
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-400/20 to-violet-400/20 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-orange-300/30">
+                <Sparkles className="w-10 h-10 text-orange-400" />
               </div>
               <h3 className="text-2xl font-light text-white mb-4">Thoughtful Actions Made Easy</h3>
               <p className="text-gray-300 leading-relaxed font-light">
