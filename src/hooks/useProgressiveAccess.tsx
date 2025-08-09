@@ -15,7 +15,13 @@ export interface ProgressiveAccessState {
 }
 
 export const useProgressiveAccess = () => {
-  const { user } = useAuth();
+  // Be resilient if AuthProvider isn't mounted (e.g., during early render or outside tree)
+  let user: any = null;
+  try {
+    user = useAuth().user;
+  } catch {
+    user = null;
+  }
   const personalStorage = useUnifiedProfileStorage('personal');
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
