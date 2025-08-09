@@ -70,20 +70,35 @@ export const ChatInputSection = ({
         )}
         
         <div className="max-w-4xl mx-auto">
-          <ProgressiveAccessWrapper action="chat">
-            <AIChatInput 
-              onSendMessage={handleSend} 
-              loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-              disabled={!user}
-              placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
-              inputRef={inputRef}
-              onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
-              userName={userName} 
-              partnerName={partnerName}
-              chatHistory={chatHistory}
-              onSpeakResponse={onSpeakResponse}
-            />
-          </ProgressiveAccessWrapper>
+          {user ? (
+            <ProgressiveAccessWrapper action="chat">
+              <AIChatInput 
+                onSendMessage={handleSend} 
+                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+                disabled={!user}
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+                inputRef={inputRef}
+                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
+                userName={userName} 
+                partnerName={partnerName}
+                chatHistory={chatHistory}
+                onSpeakResponse={onSpeakResponse}
+              />
+            </ProgressiveAccessWrapper>
+          ) : (
+              <AIChatInput 
+                onSendMessage={handleSend} 
+                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+                disabled={!user}
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+                inputRef={inputRef}
+                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
+                userName={userName} 
+                partnerName={partnerName}
+                chatHistory={chatHistory}
+                onSpeakResponse={onSpeakResponse}
+              />
+          )}
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
