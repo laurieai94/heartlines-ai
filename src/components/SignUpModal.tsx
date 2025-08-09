@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Heart, Mail, Eye, EyeOff } from "lucide-react";
+import { Heart, Mail, Eye, EyeOff, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
@@ -20,6 +20,7 @@ const SignUpModal = ({
   initialMode = 'signUp'
 }: SignUpModalProps) => {
   const [isSignUp, setIsSignUp] = useState(initialMode === 'signUp');
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +50,7 @@ const SignUpModal = ({
     try {
       let result;
       if (isSignUp) {
-        result = await signUp(email, password);
+        result = await signUp(email, password, name);
       } else {
         result = await signIn(email, password);
       }
@@ -95,6 +96,16 @@ const SignUpModal = ({
 
           {/* Email Form */}
           <form onSubmit={handleEmailAuth} className="space-y-4">
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-left block text-sm font-medium text-pink-700">Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-pink-400" />
+                  <Input id="name" type="text" value={name} onChange={e => setName(e.target.value)} className="pl-10 h-12 text-base bg-white/80 border-gray-200 focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-0 focus-visible:border-pink-500" placeholder="Enter your name" required />
+                </div>
+              </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="email" className="text-left block text-sm font-medium text-pink-700">Email</Label>
               <div className="relative">
