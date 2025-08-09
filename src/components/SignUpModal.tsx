@@ -67,15 +67,11 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
-      const result = await signInWithGoogle();
-      if (result.error) {
-        toast.error(result.error.message);
-      } else {
-        // Transfer temporary profile data
-        await transferToUserAccount();
-        toast.success("Welcome to RealTalk!");
-        onClose();
+      const { error } = await signInWithGoogle();
+      if (error) {
+        toast.error(error.message);
       }
+      // Successful sign-in will redirect to the OAuth callback
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
@@ -85,22 +81,22 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-w-[95vw] bg-white/95 backdrop-blur-xl border-0 shadow-2xl mx-auto">
+      <DialogContent className="sm:max-w-lg max-w-[95vw] glass bg-background/80 border border-border shadow-3xl mx-auto">
         <div className="text-center space-y-6 p-4 lg:p-6">
           {/* Kai Avatar */}
           <div className="w-16 h-16 mx-auto mb-6 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full blur-lg opacity-40 animate-pulse"></div>
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl relative z-10">
-              <Heart className="w-8 h-8 text-white" />
+            <div className="absolute inset-0 rounded-full blur-xl opacity-30 animate-pulse shadow-glow"></div>
+            <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-glow relative z-10 border border-border">
+              <Heart className="w-8 h-8" />
             </div>
           </div>
 
           {/* Dynamic Message */}
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-foreground">
               {isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
-            <p className="text-gray-600 leading-relaxed text-base">
+            <p className="text-muted-foreground leading-relaxed text-base">
               {getActionMessage()}
             </p>
           </div>
@@ -109,7 +105,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
           <Button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-sm h-12 text-base font-medium"
+            className="w-full h-12 text-base font-medium bg-background border border-border text-foreground/90 hover:bg-accent/50 shadow-3xl"
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -122,10 +118,10 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">or</span>
+              <span className="px-2 bg-background text-muted-foreground">or</span>
             </div>
           </div>
 
@@ -134,7 +130,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
             <div className="space-y-2">
               <Label htmlFor="email" className="text-left block text-sm font-medium">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="email"
                   type="email"
@@ -162,7 +158,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -172,7 +168,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold h-12 text-base"
+              className="w-full h-12 text-base font-semibold shadow-glow"
             >
               {loading ? "Creating Account..." : (isSignUp ? "Create Free Account" : "Sign In")}
             </Button>
@@ -182,14 +178,14 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
           <div className="text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
             </button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="text-xs text-gray-500 space-y-1">
+          <div className="text-xs text-muted-foreground space-y-1">
             <p>• Free forever • No email confirmation needed</p>
             <p>• Your profile stays private to you</p>
           </div>
