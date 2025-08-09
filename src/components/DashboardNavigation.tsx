@@ -10,16 +10,16 @@ interface DashboardNavigationProps {
 
 const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: DashboardNavigationProps) => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 sticky top-0 z-30 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full">
         <nav role="navigation" aria-label="Primary" className={`flex justify-center ${compact ? 'pb-2' : 'pb-4'}`}>
           <TabsList 
-            className={`w-full max-w-3xl ${compact ? 'h-10' : 'h-12'} flex md:grid md:grid-cols-4 overflow-x-auto rounded-2xl p-1.5 gap-1 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm`}
+            className={`w-full max-w-3xl ${compact ? 'h-10' : 'h-12'} flex md:grid md:grid-cols-4 overflow-x-auto no-scrollbar rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm`}
           >
             <TabsTrigger 
               value="profile" 
               title="Profile"
-              className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-0 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <User className="w-4 h-4" />
               <span>Profile</span>
@@ -27,7 +27,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
             <TabsTrigger 
               value="insights" 
               title="Coach"
-              className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-0 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <Lightbulb className="w-4 h-4" />
               <span>Coach</span>
@@ -35,7 +35,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
             <TabsTrigger 
               value="conversation" 
               title="Practice"
-              className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-0 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Practice</span>
@@ -43,7 +43,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
             <TabsTrigger 
               value="actions" 
               title="Actions"
-              className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-0 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-lg text-pink-200/80 hover:text-white hover:bg-white/10"
+              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <Heart className="w-4 h-4" />
               <span>Actions</span>
