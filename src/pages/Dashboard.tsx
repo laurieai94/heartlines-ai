@@ -5,8 +5,10 @@ import DashboardNavigation from "@/components/DashboardNavigation";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Dashboard = () => {
+  const { user } = useAuth();
   const {
     activeTab,
     setActiveTab,
@@ -39,6 +41,12 @@ const Dashboard = () => {
     handleProfileUpdate
   } = useDashboardModals();
 
+  const handleSignInClick = () => {
+    // Open the existing SignUpModal in sign-in mode
+    // This will be handled by the existing modal system
+    console.log('Sign in clicked - this would open the sign-in modal');
+  };
+
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className="h-screen overflow-hidden">
@@ -48,6 +56,8 @@ const Dashboard = () => {
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}
             compact={activeTab === 'insights'}
+            user={user}
+            onSignInClick={handleSignInClick}
           />
 
           <DashboardNavigation 

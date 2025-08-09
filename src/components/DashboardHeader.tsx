@@ -1,13 +1,17 @@
 
 import { Heart } from "lucide-react";
+import SignInButton from "./SignInButton";
+import type { User } from '@supabase/supabase-js';
 
 interface DashboardHeaderProps {
   accessLevel: string;
   profileCompletion: number;
   compact?: boolean;
+  user: User | null;
+  onSignInClick: () => void;
 }
 
-const DashboardHeader = ({ accessLevel, profileCompletion, compact = false }: DashboardHeaderProps) => {
+const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, onSignInClick }: DashboardHeaderProps) => {
   return (
     <div className="w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,9 +27,11 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false }: Da
                   {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                    profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                 </p>
-              )}
+               )}
             </div>
           </div>
+          
+          <SignInButton user={user} onSignInClick={onSignInClick} />
         </div>
       </div>
     </div>
