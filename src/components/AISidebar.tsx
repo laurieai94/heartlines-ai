@@ -37,7 +37,6 @@ const AISidebar = ({
   return (
     <>
       <SidebarContent
-        chatHistory={chatHistory}
         isConfigured={isConfigured}
         onSupabaseConfigured={onSupabaseConfigured}
       />
