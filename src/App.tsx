@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback";
 
 const AppContent = () => {
   // DISABLED: Initialize data migration - replaced by unified storage system
@@ -19,6 +20,7 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

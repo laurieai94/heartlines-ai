@@ -6,8 +6,11 @@ import { supabase } from '@/integrations/supabase/client';
 interface AuthContextType {
   user: User | null;
   session: Session | null;
+  loading: boolean;
   signUp: (email: string, password: string) => Promise<{ error: any }>;
+  signUpWithEmail: (email: string, password: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signInWithEmail: (email: string, password: string) => Promise<{ error: any }>;
   signInWithGoogle: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -29,13 +32,17 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+          // Defer to avoid potential deadlocks
+          setTimeout(() => setLoading(false), 0);
+        }
       }
     );
 
@@ -43,13 +50,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/dashboard`;
+    const redirectUrl = `${window.location.origin}/auth/callback`;
     
     const { error } = await supabase.auth.signUp({
       email,
@@ -69,11 +77,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return { error };
   };
 
+  // Aliases for convenience
+  const signInWithEmail = signIn;
+  const signUpWithEmail = signUp;
+
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`
+        redirectTo: `${window.location.origin}/auth/callback`
       }
     });
     return { error };
@@ -86,8 +98,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value = {
     user,
     session,
+    loading,
     signUp,
+    signUpWithEmail,
     signIn,
+    signInWithEmail,
     signInWithGoogle,
     signOut
   };

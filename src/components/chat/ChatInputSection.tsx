@@ -1,9 +1,12 @@
-
+import { useEffect, useRef, useState } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
+import SignUpModal from '@/components/SignUpModal';
+import { useAuth } from '@/contexts/AuthContext';
+import { logEvent } from '@/utils/analytics';
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -29,6 +32,32 @@ export const ChatInputSection = ({
   isHistoryLoaded
 }: ChatInputSectionProps) => {
   const { accessLevel } = useProgressiveAccess();
+  const { user } = useAuth();
+  const [authOpen, setAuthOpen] = useState(false);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Refocus the chat input after successful auth
+  useEffect(() => {
+    if (user && localStorage.getItem('focusChatInputAfterAuth')) {
+      setAuthOpen(false);
+      setTimeout(() => inputRef.current?.focus(), 50);
+      localStorage.removeItem('focusChatInputAfterAuth');
+    }
+  }, [user]);
+
+  const openAuthModalFromChat = () => {
+    localStorage.setItem('focusChatInputAfterAuth', '1');
+    setAuthOpen(true);
+    logEvent('auth_modal_opened', { source: 'chat_input' });
+  };
+
+  const handleSend = (message: string) => {
+    if (!user) {
+      openAuthModalFromChat();
+      return;
+    }
+    onSendMessage(message);
+  };
 
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
@@ -36,15 +65,19 @@ export const ChatInputSection = ({
         {/* Conversation Starters - only show when no chat history */}
         {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
           <div className="mb-3 max-w-4xl mx-auto">
-            <ConversationStarters onStarterSelect={onSendMessage} />
+            <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
         <div className="max-w-4xl mx-auto">
           <ProgressiveAccessWrapper action="chat">
             <AIChatInput 
-              onSendMessage={onSendMessage} 
+              onSendMessage={handleSend} 
               loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+              disabled={!user}
+              placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+              inputRef={inputRef}
+              onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
               userName={userName} 
               partnerName={partnerName}
               chatHistory={chatHistory}
@@ -58,6 +91,7 @@ export const ChatInputSection = ({
           </p>
         )}
       </div>
+      <SignUpModal isOpen={authOpen} onClose={() => { setAuthOpen(false); logEvent('auth_modal_dismissed'); }} blockingAction="chat" />
     </div>
   );
 };

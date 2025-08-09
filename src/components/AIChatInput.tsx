@@ -7,6 +7,10 @@ import VoiceInterface from "./VoiceInterface";
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
   loading: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  inputRef?: React.RefObject<HTMLTextAreaElement>;
+  onInputFocus?: () => void;
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
@@ -16,13 +20,18 @@ interface AIChatInputProps {
 const AIChatInput = ({ 
   onSendMessage, 
   loading, 
+  disabled,
+  placeholder,
+  inputRef,
+  onInputFocus,
   userName, 
   partnerName, 
   chatHistory = [],
   onSpeakResponse 
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const internalRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = inputRef ?? internalRef;
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -60,10 +69,10 @@ const AIChatInput = ({
 
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
-    if (textareaRef.current && !loading) {
+    if (textareaRef.current && !loading && !disabled) {
       textareaRef.current.focus();
     }
-  }, [loading]);
+  }, [loading, disabled]);
 
   return (
     <div className="flex gap-3 items-end">
@@ -73,23 +82,23 @@ const AIChatInput = ({
           value={currentMessage}
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
-          placeholder={chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."}
-          disabled={loading}
+          onFocus={onInputFocus}
+          placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
+          disabled={loading || !!disabled}
           className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
           rows={1}
         />
       </div>
       
-      {/* Voice Interface - Compact */}
-      <VoiceInterface
+    <VoiceInterface
         onVoiceMessage={handleVoiceMessage}
         onSpeakResponse={onSpeakResponse}
-        disabled={loading}
+        disabled={loading || !!disabled}
       />
       
       <Button
         onClick={sendMessage}
-        disabled={!currentMessage.trim() || loading}
+        disabled={!currentMessage.trim() || loading || !!disabled}
         className="bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 rounded-2xl w-12 h-12 p-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:scale-100"
       >
         <Send className="w-4 h-4" />
