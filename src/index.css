@@ -333,4 +333,9 @@
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
   }
+
+  /* Hide scrollbars utility for overflow containers */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
+
