@@ -79,7 +79,7 @@ const SignUpModal = ({
 
           {/* Dynamic Message */}
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-orange-500 bg-clip-text text-transparent">
               {isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
             <p className="text-gray-600 leading-relaxed text-base">
@@ -91,24 +91,24 @@ const SignUpModal = ({
           {/* Email Form */}
           <form onSubmit={handleEmailAuth} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-left block text-sm font-medium text-gray-700">Email</Label>
+              <Label htmlFor="email" className="text-left block text-sm font-medium text-violet-700">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-violet-400" />
                 <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 h-12 text-base bg-white/80 border-gray-200 focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-0 focus-visible:border-violet-500" placeholder="Enter your email" required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-left block text-sm font-medium text-gray-700">Password</Label>
+              <Label htmlFor="password" className="text-left block text-sm font-medium text-violet-700">Password</Label>
               <div className="relative">
                 <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="pr-10 h-12 text-base bg-white/80 border-gray-200 focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-0 focus-visible:border-violet-500" placeholder="Enter your password" required />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-violet-400 hover:text-violet-600">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold bg-slate-800 hover:bg-slate-700 text-white border-0 shadow-lg transition-all duration-200">
+            <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold bg-gradient-to-r from-violet-600 via-purple-600 to-orange-500 hover:from-violet-700 hover:via-purple-700 hover:to-orange-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]">
               {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
             </Button>
           </form>
