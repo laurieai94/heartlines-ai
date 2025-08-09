@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -8,22 +7,28 @@ import { Heart, Mail, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
-
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   blockingAction?: string;
 }
-
-const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
+const SignUpModal = ({
+  isOpen,
+  onClose,
+  blockingAction
+}: SignUpModalProps) => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { signUp, signIn } = useAuth();
-  const { transferToUserAccount } = useTemporaryProfile();
-
+  const {
+    signUp,
+    signIn
+  } = useAuth();
+  const {
+    transferToUserAccount
+  } = useTemporaryProfile();
   const getActionMessage = () => {
     switch (blockingAction) {
       case 'chat':
@@ -36,11 +41,9 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
         return "Ready to get started with Kai? Create your free account to save your profile and unlock your tools.";
     }
   };
-
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       let result;
       if (isSignUp) {
@@ -48,7 +51,6 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
       } else {
         result = await signIn(email, password);
       }
-
       if (result.error) {
         toast.error(result.error.message);
       } else {
@@ -63,10 +65,7 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
       setLoading(false);
     }
   };
-
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+  return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[360px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="rounded-2xl p-[1px] bg-gradient-to-br from-primary/40 via-accent/40 to-primary/20 shadow-3xl">
           <div className="text-center space-y-5 p-5 rounded-2xl bg-background/70 backdrop-blur-md border border-border/60">
@@ -95,69 +94,37 @@ const SignUpModal = ({ isOpen, onClose, blockingAction }: SignUpModalProps) => {
               <Label htmlFor="email" className="text-left block text-sm font-medium">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 text-base"
-                  placeholder="Enter your email"
-                  required
-                />
+                <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 h-12 text-base" placeholder="Enter your email" required />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-left block text-sm font-medium">Password</Label>
               <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10 h-12 text-base"
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
-                >
+                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="pr-10 h-12 text-base" placeholder="Enter your password" required />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-muted-foreground hover:text-foreground">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full h-12 text-base font-semibold shadow-glow"
-            >
-              {loading ? "Creating Account..." : (isSignUp ? "Create Free Account" : "Sign In")}
+            <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold shadow-glow">
+              {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
             </Button>
           </form>
 
           {/* Toggle Sign In/Up */}
           <div className="text-center">
-            <button
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
+            <button onClick={() => setIsSignUp(!isSignUp)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
             </button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="text-xs text-muted-foreground space-y-1">
-            <p>• Free forever • No email confirmation needed</p>
-            <p>• Your profile stays private to you</p>
-          </div>
+          
           </div>
         </div>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 };
-
 export default SignUpModal;
