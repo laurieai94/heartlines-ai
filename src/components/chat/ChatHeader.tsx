@@ -2,8 +2,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Plus, Menu, Info } from "lucide-react";
+import { useState } from "react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -12,6 +13,8 @@ interface ChatHeaderProps {
 }
 
 export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatHeaderProps) => {
+  const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
+  
   return (
     <div className="shrink-0 border-b border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="p-3 max-w-5xl mx-auto">
@@ -40,39 +43,49 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             {/* Kai Info */}
             <div>
               <h3 className="text-white font-semibold text-sm">Kai</h3>
-              <p className="text-white/70 text-xs flex gap-0">
-                <span>Your AI Relationship Coach</span>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <button
+              <div className="flex items-center gap-1">
+                <span className="text-white/70 text-xs">Your AI Relationship Coach</span>
+                <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       aria-label="About Kai"
-                      className="w-[10px] h-[10px] -ml-1 self-start -mt-1 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center leading-none transition-colors"
+                      className="h-5 w-5 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white transition-all duration-200 ml-1"
                     >
-                      <Info className="w-2 h-2 text-white/70" />
-                    </button>
-                  </HoverCardTrigger>
-                    <HoverCardContent
-                      side="top"
-                      align="center"
-                      sideOffset={24}
-                      avoidCollisions
-                      collisionPadding={16}
-                      className="w-72 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl"
-                    >
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
-                          <Heart className="w-3 h-3 text-white" />
+                      <Info className="w-3 h-3" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    side="bottom"
+                    align="start"
+                    sideOffset={8}
+                    avoidCollisions
+                    collisionPadding={16}
+                    className="w-80 max-w-[calc(100vw-32px)] bg-slate-900/95 backdrop-blur-lg border border-slate-700 shadow-2xl z-50"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                          <Heart className="w-4 h-4 text-white" />
                         </div>
-                        <h3 className="font-semibold text-white">Meet Kai</h3>
+                        <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
                       </div>
-                      <p className="text-sm text-white/80 leading-relaxed">
-                        Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
-                      </p>
+                      <div className="space-y-3">
+                        <p className="text-sm text-slate-200 leading-relaxed">
+                          Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
+                        </p>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                          Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
+                        </p>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                          <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
+                        </p>
+                      </div>
                     </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </p>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
           </div>
 
