@@ -2,6 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Heart, RotateCcw, Menu } from "lucide-react";
 
 interface ChatHeaderProps {
@@ -19,7 +20,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             {/* Kai Avatar */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
-              <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white/20 shadow-lg relative z-10">
+              <Avatar className="w-10 h-10 bg-gradient-to-br from-coral-400 to-pink-500 border-2 border-white/20 shadow-lg relative z-10">
                 <AvatarImage 
                   src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
                   alt="Kai" 
@@ -29,7 +30,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                     e.currentTarget.style.display = 'none';
                   }}
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                   <Heart className="w-5 h-5" />
                 </AvatarFallback>
               </Avatar>
@@ -38,7 +39,24 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             
             {/* Kai Info */}
             <div>
-              <h3 className="text-white font-semibold text-sm">Kai</h3>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <h3 className="text-white font-semibold text-sm cursor-pointer hover:text-pink-200 transition-colors">Kai</h3>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
+                        <Heart className="w-3 h-3 text-white" />
+                      </div>
+                      <h3 className="font-semibold text-white">Meet Kai</h3>
+                    </div>
+                    <p className="text-sm text-white/80 leading-relaxed">
+                      Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
+                    </p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
               <p className="text-white/70 text-xs">Your AI Relationship Coach</p>
             </div>
           </div>
