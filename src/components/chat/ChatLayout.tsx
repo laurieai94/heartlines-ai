@@ -38,7 +38,7 @@ export const ChatLayout = ({
       <div className="flex-1 min-h-0 max-h-full flex">
         {/* Chat Section - Full Width */}
         <div className="flex-1 min-h-0 max-h-full flex flex-col">
-          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 overflow-hidden">
+          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 overflow-visible">
             <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             {children}
           </div>
