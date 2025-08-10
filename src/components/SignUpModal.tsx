@@ -137,11 +137,13 @@ const SignUpModal = ({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative min-h-[500px] flex items-center justify-center">
-          {/* Warm animated background orbs */}
+          {/* Warm burgundy animated background orbs */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl">
-            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-coral-400/30 to-peach-400/20 rounded-full blur-2xl animate-float"></div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-peach-300/25 to-coral-300/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-orange-400/20 to-coral-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-rose-500/40 to-pink-400/30 rounded-full blur-2xl animate-float"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-purple-500/35 to-rose-400/25 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-pink-500/30 to-purple-400/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+            <div className="absolute -top-5 -right-8 w-24 h-24 bg-gradient-to-br from-red-400/25 to-rose-500/15 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute -bottom-5 -left-8 w-36 h-36 bg-gradient-to-br from-pink-400/20 to-red-300/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '3s' }}></div>
           </div>
           
           {/* Glassmorphism card with warm tints */}
