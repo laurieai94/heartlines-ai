@@ -11,6 +11,7 @@ interface ChatEffectsProps {
   conversationStarter?: string;
   isConfigured: boolean;
   onSendMessage: (message: string) => void;
+  isStartingNewConversation?: boolean;
 }
 
 export const useChatEffects = ({
@@ -20,14 +21,15 @@ export const useChatEffects = ({
   isHistoryLoaded,
   conversationStarter,
   isConfigured,
-  onSendMessage
+  onSendMessage,
+  isStartingNewConversation = false
 }: ChatEffectsProps) => {
   const { saveConversation, loadMostRecentConversation, currentConversationId } = useChatHistory();
   const processedStarters = useRef(new Set<string>());
 
   // Load conversation history on mount
   useEffect(() => {
-    if (!isHistoryLoaded && canInteract) {
+    if (!isHistoryLoaded && canInteract && !isStartingNewConversation) {
       console.log('Loading conversation history...');
       const savedHistory = loadMostRecentConversation();
       if (savedHistory.length > 0) {
@@ -35,7 +37,7 @@ export const useChatEffects = ({
         setChatHistory(savedHistory);
       }
     }
-  }, [canInteract, isHistoryLoaded, loadMostRecentConversation, setChatHistory]);
+  }, [canInteract, isHistoryLoaded, loadMostRecentConversation, setChatHistory, isStartingNewConversation]);
 
   // Handle conversation starter
   useEffect(() => {

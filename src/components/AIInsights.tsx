@@ -177,6 +177,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             historyLoading={historyLoading}
             onLoadConversation={handleLoadConversation}
             onDeleteConversation={deleteConversation}
+            isStartingNewConversation={isStartingNewConversation}
           />
         </ProgressiveAccessWrapper>
       </div>

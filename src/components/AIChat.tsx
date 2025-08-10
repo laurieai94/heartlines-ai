@@ -25,6 +25,7 @@ interface AIChatProps {
   historyLoading?: boolean;
   onLoadConversation?: (conversationId: string) => void;
   onDeleteConversation?: (conversationId: string) => void;
+  isStartingNewConversation?: boolean;
 }
 
 const AIChat = ({ 
@@ -41,7 +42,8 @@ const AIChat = ({
   currentConversationId = null,
   historyLoading = false,
   onLoadConversation = () => {},
-  onDeleteConversation = () => {}
+  onDeleteConversation = () => {},
+  isStartingNewConversation = false
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const { profile } = useUserProfile();
@@ -84,7 +86,8 @@ const AIChat = ({
     isHistoryLoaded,
     conversationStarter,
     isConfigured,
-    onSendMessage: sendMessage
+    onSendMessage: sendMessage,
+    isStartingNewConversation
   });
 
   return (
