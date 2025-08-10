@@ -53,17 +53,18 @@ const DashboardHome = () => {
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
-      {/* Animated Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 animate-pulse"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/5 via-pink-500/5 to-purple-500/5" style={{ animationDelay: '1s' }}></div>
+    <div className="min-h-full bg-black relative overflow-hidden">
+      {/* Animated Holographic Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-primary/20 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -74,74 +75,106 @@ const DashboardHome = () => {
         ))}
       </div>
 
+      {/* Floating Geometric Shapes */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${10 + Math.random() * 20}s`,
+              transform: `rotate(${Math.random() * 360}deg)`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Code-like Background Elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-5">
+        <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
+          {`const love = { understanding: true, growth: infinite }`}
+        </div>
+        <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
+          {`if (relationship.status === 'complicated') { ai.help() }`}
+        </div>
+        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
+          {`return personalized.advice.filter(advice => advice.isRelevant)`}
+        </div>
+      </div>
+
       <div className="relative z-10 p-6 space-y-12">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 rounded-3xl p-8 border border-border/50 backdrop-blur-sm">
+        <section className="relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 rounded-3xl p-8 border border-coral-300/20 backdrop-blur-sm">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div 
-                className="inline-flex items-center gap-3 bg-primary/10 backdrop-blur-lg rounded-full px-6 py-3 border border-primary/20 transition-transform duration-300"
+                className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 border border-coral-300/30 transition-transform duration-300"
                 style={{
-                  transform: `translate(${mousePosition.x * 0.005}px, ${mousePosition.y * 0.005}px)`
+                  transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
                 }}
               >
-                <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-foreground/80">Finally, an app that gets your relationship</span>
+                <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-thin text-white leading-tight">
                 Your relationship isn't a rom-com.
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
                   Real growth needs real tools.
                 </span>
               </h1>
               
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed font-light">
                 We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Button 
                 onClick={handleGetStarted}
-                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm"
               >
                 Get Started - It's Free
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-6 h-6 ml-3" />
               </Button>
             </div>
             
             {/* Phone Mockup */}
             <div className="relative flex items-center justify-center">
               <div className="relative">
-                <div className="relative w-72 h-96 bg-card rounded-3xl p-3 shadow-2xl border border-border">
-                  <div className="w-full h-full bg-gradient-to-b from-background to-muted rounded-2xl overflow-hidden relative">
-                    {/* Phone Header */}
-                    <div className="flex justify-between items-center px-6 py-3 text-foreground text-sm">
+                {/* Phone Frame */}
+                <div className="relative w-80 h-[600px] bg-black rounded-[2.5rem] p-3 shadow-2xl border border-gray-700">
+                  {/* Phone Screen */}
+                  <div className="w-full h-full bg-gradient-to-b from-gray-900 to-black rounded-[2rem] overflow-hidden relative">
+                    {/* Status Bar */}
+                    <div className="flex justify-between items-center px-6 py-3 text-white text-sm">
                       <span>9:41 AM</span>
                       <div className="flex gap-1">
-                        <div className="w-4 h-2 bg-foreground rounded-sm"></div>
-                        <div className="w-4 h-2 bg-foreground/70 rounded-sm"></div>
-                        <div className="w-4 h-2 bg-foreground/40 rounded-sm"></div>
+                        <div className="w-4 h-2 bg-white rounded-sm"></div>
+                        <div className="w-4 h-2 bg-white/70 rounded-sm"></div>
+                        <div className="w-4 h-2 bg-white/40 rounded-sm"></div>
                       </div>
                     </div>
 
                     {/* App Header */}
                     <div className="px-6 pb-4">
                       <div className="flex items-center justify-between">
-                        <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">RealTalk</h2>
-                        <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
-                          <Heart className="w-4 h-4 text-primary-foreground" />
+                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-coral-400">RealSwipe</h2>
+                        <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center">
+                          <Heart className="w-4 h-4 text-white" />
                         </div>
                       </div>
                     </div>
 
-                    {/* Profile Card */}
+                    {/* Dating Profile Card */}
                     <div className="px-6 pb-6 flex-1">
                       <div 
                         key={currentProfile}
-                        className="bg-card/50 backdrop-blur-md rounded-2xl p-4 h-60 relative border border-border/50"
+                        className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
                       >
-                        <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl overflow-hidden mb-3 border border-border/30">
+                        {/* Profile Photo */}
+                        <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
                           <img 
                             src={datingProfiles[currentProfile].photo} 
                             alt={datingProfiles[currentProfile].name}
@@ -149,35 +182,52 @@ const DashboardHome = () => {
                           />
                         </div>
 
-                        <div className="text-foreground">
-                          <h3 className="text-lg font-medium mb-1">
+                        {/* Profile Info */}
+                        <div className="text-white">
+                          <h3 className="text-2xl font-light mb-1">
                             {datingProfiles[currentProfile].name}, {datingProfiles[currentProfile].age}
                           </h3>
-                          <p className="text-muted-foreground text-sm mb-3">{datingProfiles[currentProfile].bio}</p>
+                          <p className="text-gray-300 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
                         </div>
 
-                        <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-3">
-                          <div className="w-10 h-10 bg-destructive/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-destructive/30">
-                            <span className="text-destructive text-lg">✕</span>
+                        {/* Action Buttons */}
+                        <div className="absolute bottom-6 left-6 right-6 flex justify-center gap-4">
+                          <div className="w-12 h-12 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-red-400/30">
+                            <span className="text-red-400 text-xl">✕</span>
                           </div>
-                          <div className="w-10 h-10 bg-primary/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-primary/30">
-                            <Heart className="w-4 h-4 text-primary" />
+                          <div className="w-12 h-12 bg-pink-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-400/30">
+                            <Heart className="w-5 h-5 text-pink-400" />
                           </div>
-                          <div className="w-10 h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-blue-400/30">
-                            <MessageCircle className="w-4 h-4 text-blue-400" />
+                          <div className="w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-blue-400/30">
+                            <MessageCircle className="w-5 h-5 text-blue-400" />
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    {/* Navigation Dots */}
+                    <div className="flex justify-center gap-2 pb-6">
+                      {datingProfiles.map((_, index) => (
+                        <div
+                          key={index}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            index === currentProfile ? 'bg-pink-400' : 'bg-white/30'
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Phone Home Indicator */}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full"></div>
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-6 -right-6 w-12 h-12 bg-primary/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-primary/30 animate-pulse">
-                  <Heart className="w-5 h-5 text-primary" />
+                <div className="absolute -top-8 -right-8 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse">
+                  <Heart className="w-6 h-6 text-pink-400" />
                 </div>
-                <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-secondary/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-secondary/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-5 h-5 text-secondary" />
+                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
+                  <MessageCircle className="w-6 h-6 text-coral-400" />
                 </div>
               </div>
             </div>
@@ -187,76 +237,75 @@ const DashboardHome = () => {
         {/* Features Grid */}
         <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card 
-            className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20 hover:border-primary/40 transition-all duration-300 cursor-pointer group"
+            className="p-6 bg-gradient-to-b from-white/10 to-white/5 border-white/20 hover:border-coral-400/40 transition-all duration-300 cursor-pointer group backdrop-blur-md"
             onClick={() => navigate('/dashboard/profile')}
           >
-            <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Users className="w-6 h-6 text-primary-foreground" />
+            <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Users className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Build Your Profile</h3>
-            <p className="text-muted-foreground text-sm">Create detailed profiles for you and your partner to get personalized insights.</p>
+            <h3 className="text-lg font-semibold mb-2 text-white">Build Your Profile</h3>
+            <p className="text-gray-300 text-sm">Create detailed profiles for you and your partner to get personalized insights.</p>
           </Card>
 
           <Card 
-            className="p-6 bg-gradient-to-br from-secondary/5 to-accent/5 border-secondary/20 hover:border-secondary/40 transition-all duration-300 cursor-pointer group"
+            className="p-6 bg-gradient-to-b from-white/10 to-white/5 border-white/20 hover:border-pink-400/40 transition-all duration-300 cursor-pointer group backdrop-blur-md"
             onClick={() => navigate('/dashboard/coach')}
           >
-            <div className="w-12 h-12 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Brain className="w-6 h-6 text-secondary-foreground" />
+            <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Brain className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">AI Coach</h3>
-            <p className="text-muted-foreground text-sm">Get personalized relationship insights and advice tailored to your unique situation.</p>
+            <h3 className="text-lg font-semibold mb-2 text-white">AI Coach</h3>
+            <p className="text-gray-300 text-sm">Get personalized relationship insights and advice tailored to your unique situation.</p>
           </Card>
 
           <Card 
-            className="p-6 bg-gradient-to-br from-accent/5 to-primary/5 border-accent/20 hover:border-accent/40 transition-all duration-300 cursor-pointer group"
+            className="p-6 bg-gradient-to-b from-white/10 to-white/5 border-white/20 hover:border-coral-400/40 transition-all duration-300 cursor-pointer group backdrop-blur-md"
             onClick={() => navigate('/dashboard/practice')}
           >
-            <div className="w-12 h-12 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <MessageCircle className="w-6 h-6 text-accent-foreground" />
+            <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MessageCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Practice Conversations</h3>
-            <p className="text-muted-foreground text-sm">Practice difficult conversations in a safe environment before the real thing.</p>
+            <h3 className="text-lg font-semibold mb-2 text-white">Practice Conversations</h3>
+            <p className="text-gray-300 text-sm">Practice difficult conversations in a safe environment before the real thing.</p>
           </Card>
 
           <Card 
-            className="p-6 bg-gradient-to-br from-coral-400/10 to-pink-500/10 border-coral-400/20 hover:border-coral-400/40 transition-all duration-300 cursor-pointer group"
+            className="p-6 bg-gradient-to-b from-white/10 to-white/5 border-white/20 hover:border-pink-400/40 transition-all duration-300 cursor-pointer group backdrop-blur-md"
             onClick={() => navigate('/dashboard/actions')}
           >
-            <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">Thoughtful Actions</h3>
-            <p className="text-muted-foreground text-sm">Discover meaningful ways to show love and strengthen your connection.</p>
+            <h3 className="text-lg font-semibold mb-2 text-white">Thoughtful Actions</h3>
+            <p className="text-gray-300 text-sm">Discover meaningful ways to show love and strengthen your connection.</p>
           </Card>
         </section>
 
         {/* Value Proposition */}
-        <section className="bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 rounded-3xl p-8 border border-border/50">
+        <section className="bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8 rounded-3xl p-8 border border-coral-300/20 backdrop-blur-sm">
           <div className="text-center space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+            <h2 className="text-5xl lg:text-6xl font-thin text-white leading-tight">
               Dating apps taught us how to swipe.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mt-2">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-3 text-4xl lg:text-5xl">
                 Now what?
               </span>
             </h2>
             
-            <div className="max-w-3xl mx-auto space-y-4">
-              <p className="text-lg text-muted-foreground">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-2xl text-gray-300 leading-relaxed font-light">
                 Nobody prepared us for the actual relationship part. You know—the daily stuff.
               </p>
-              <p className="text-foreground/80">
+              <p className="text-xl text-gray-400 leading-relaxed font-light">
                 Like how to fight without losing your minds—or expecting mind-reading.
               </p>
             </div>
 
             <Button 
               onClick={handleGetStarted}
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm"
             >
               Start Your Journey
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-6 h-6 ml-3" />
             </Button>
           </div>
         </section>
