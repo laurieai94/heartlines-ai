@@ -48,21 +48,21 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Burgundy and pink color palette */
-    --coral-50: 345 100% 97%;
-    --coral-100: 345 92% 91%;
-    --coral-200: 345 88% 82%;
-    --coral-300: 345 84% 72%;
-    --coral-400: 345 80% 62%;
-    --coral-500: 345 76% 52%;
-    --coral-600: 345 72% 42%;
+    /* Custom warm colors */
+    --coral-50: 16 100% 97%;
+    --coral-100: 16 92% 91%;
+    --coral-200: 16 88% 82%;
+    --coral-300: 16 84% 72%;
+    --coral-400: 16 80% 62%;
+    --coral-500: 16 76% 52%;
+    --coral-600: 16 72% 42%;
     
-    --peach-50: 320 100% 97%;
-    --peach-100: 320 92% 91%;
-    --peach-200: 320 88% 82%;
-    --peach-300: 320 84% 72%;
-    --peach-400: 320 80% 62%;
-    --peach-500: 320 76% 52%;
+    --peach-50: 25 100% 97%;
+    --peach-100: 25 92% 91%;
+    --peach-200: 25 88% 82%;
+    --peach-300: 25 84% 72%;
+    --peach-400: 25 80% 62%;
+    --peach-500: 25 76% 52%;
 
     /* Premium questionnaire colors - Lightened slightly */
     --questionnaire-bg: 345 35% 55%;
@@ -72,10 +72,10 @@
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 90%;
     
-    /* Premium gradients - Burgundy with multi-color accents */
+    /* Premium gradients */
     --gradient-questionnaire: linear-gradient(135deg, hsl(345 35% 55%) 0%, hsl(345 40% 45%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, hsl(345 76% 52%) 0%, hsl(320 84% 62%) 50%, hsl(340 80% 45%) 100%);
-    --gradient-selected: linear-gradient(135deg, hsl(345 76% 52%) 0%, hsl(320 84% 62%) 50%, hsl(340 80% 45%) 100%);
+    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
   }
 
   .dark {
