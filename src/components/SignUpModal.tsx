@@ -3,9 +3,9 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Hand, Mail, Eye, EyeOff, User, Clock, ArrowRight } from "lucide-react";
+import { Mail, Eye, EyeOff, User, Clock, ArrowRight } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import BrandLogo from "./BrandLogo";
+import HeartAppIcon from "./HeartAppIcon";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
 import { logEvent } from "@/utils/analytics";
@@ -157,7 +157,7 @@ const SignUpModal = ({
                      : isSignUp ? "Create Your Profile" : "Welcome back"}
                   </h2>
                   {!showVerificationState && !showForgotPassword && !isSignUp && (
-                    <Hand className="h-6 w-6 text-coral-500" />
+                    <HeartAppIcon size={24} />
                   )}
                 </div>
                 <p className="text-muted-foreground text-sm">
@@ -306,6 +306,16 @@ const SignUpModal = ({
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
+
+                    {!isSignUp && (
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-sm text-muted-foreground hover:text-coral-500 transition-colors"
+                      >
+                        Oops, blanking rn
+                      </button>
+                    )}
                   </div>
 
                   <div className="space-y-3 pt-2">
@@ -324,16 +334,6 @@ const SignUpModal = ({
                         </>
                       )}
                     </Button>
-
-                    {!isSignUp && (
-                      <button
-                        type="button"
-                        onClick={() => setShowForgotPassword(true)}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        Oops, blanking rn
-                      </button>
-                    )}
                   </div>
                 </form>
               )}
