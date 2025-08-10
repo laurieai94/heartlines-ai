@@ -16,8 +16,21 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   return (
-    <div className="w-full sticky top-0 z-40">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className={`w-full sticky top-0 z-40 ${
+      activeTab === 'home' 
+        ? 'bg-black relative' 
+        : ''
+    }`}>
+      {/* Animated Background Layers - Only for Home Tab */}
+      {activeTab === 'home' && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+        </>
+      )}
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
