@@ -51,7 +51,14 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                       <Info className="w-2 h-2 text-white/70" />
                     </button>
                   </HoverCardTrigger>
-                  <HoverCardContent side="top" align="end" sideOffset={12} className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl">
+                    <HoverCardContent
+                      side="top"
+                      align="center"
+                      sideOffset={24}
+                      avoidCollisions
+                      collisionPadding={16}
+                      className="w-72 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl"
+                    >
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
