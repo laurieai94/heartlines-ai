@@ -48,21 +48,21 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom warm colors */
-    --coral-50: 16 100% 97%;
-    --coral-100: 16 92% 91%;
-    --coral-200: 16 88% 82%;
-    --coral-300: 16 84% 72%;
-    --coral-400: 16 80% 62%;
-    --coral-500: 16 76% 52%;
-    --coral-600: 16 72% 42%;
+    /* Custom pink and burgundy colors */
+    --coral-50: 340 100% 97%;  /* Light pink */
+    --coral-100: 340 92% 91%;  /* Soft pink */
+    --coral-200: 340 88% 82%;  /* Medium pink */
+    --coral-300: 340 84% 72%;  /* Rich pink */
+    --coral-400: 340 80% 62%;  /* Deep pink */
+    --coral-500: 340 76% 52%;  /* Hot pink */
+    --coral-600: 340 72% 42%;  /* Dark pink */
     
-    --peach-50: 25 100% 97%;
-    --peach-100: 25 92% 91%;
-    --peach-200: 25 88% 82%;
-    --peach-300: 25 84% 72%;
-    --peach-400: 25 80% 62%;
-    --peach-500: 25 76% 52%;
+    --peach-50: 345 100% 97%;  /* Light burgundy */
+    --peach-100: 345 92% 91%;  /* Soft burgundy */
+    --peach-200: 345 88% 82%;  /* Medium burgundy */
+    --peach-300: 345 84% 72%;  /* Rich burgundy */
+    --peach-400: 345 80% 62%;  /* Deep burgundy */
+    --peach-500: 345 76% 52%;  /* Dark burgundy */
 
     /* Premium questionnaire colors - Lightened slightly */
     --questionnaire-bg: 345 35% 55%;
@@ -74,8 +74,8 @@
     
     /* Premium gradients */
     --gradient-questionnaire: linear-gradient(135deg, hsl(345 35% 55%) 0%, hsl(345 40% 45%) 100%);
-    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
-    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    --gradient-primary-button: linear-gradient(135deg, #ff69b4 0%, #dc143c 100%);
+    --gradient-selected: linear-gradient(135deg, #ff69b4 0%, #dc143c 100%);
   }
 
   .dark {
@@ -310,7 +310,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
   }
   
   .questionnaire-button-secondary {
@@ -331,7 +331,7 @@
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
   }
 
   /* Hide scrollbars utility for overflow containers */

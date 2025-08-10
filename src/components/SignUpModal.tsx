@@ -137,15 +137,15 @@ const SignUpModal = ({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative min-h-[500px] flex items-center justify-center">
-          {/* Warm animated background orbs */}
+          {/* Pink and burgundy animated background orbs */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl">
             <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-coral-400/30 to-peach-400/20 rounded-full blur-2xl animate-float"></div>
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-peach-300/25 to-coral-300/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-orange-400/20 to-coral-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-coral-500/20 to-peach-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
           </div>
           
-          {/* Glassmorphism card with warm tints */}
-          <div className="relative glass rounded-3xl bg-gradient-to-br from-white/95 via-coral-50/80 to-peach-50/70 backdrop-blur-xl border border-white/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_40px_rgba(251,146,60,0.15)] overflow-hidden">
+          {/* Glassmorphism card with pink tints */}
+          <div className="relative glass rounded-3xl bg-gradient-to-br from-white/95 via-coral-50/80 to-peach-50/70 backdrop-blur-xl border border-white/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_40px_rgba(255,105,180,0.15)] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-coral-400/5 via-transparent to-peach-400/5"></div>
             <div className="relative p-8 space-y-6">
               {/* Header */}
