@@ -56,7 +56,20 @@ const Dashboard = () => {
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className="h-screen overflow-hidden">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`h-full flex flex-col ${activeTab === 'home' ? '' : 'bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F]'} ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+        <div className={`h-full flex flex-col relative ${
+          activeTab === 'home' 
+            ? 'bg-black' 
+            : 'bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F]'
+        } ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+          
+          {/* Unified Animated Background - Only for Home Tab */}
+          {activeTab === 'home' && (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+            </>
+          )}
           <DashboardHeader 
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}

@@ -79,11 +79,17 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
   }, []);
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated Holographic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+    <div className={`min-h-screen relative overflow-hidden ${
+      showMarketingTopBar ? 'bg-black' : 'bg-transparent'
+    }`}>
+      {/* Animated Holographic Background - Only show for marketing page */}
+      {showMarketingTopBar && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-purple-900/30 animate-gradient"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-purple-500/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-purple-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+        </>
+      )}
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
