@@ -33,7 +33,7 @@ const PartnerQuestionnaireHeader = ({
             {initial ? (
               <span className="text-sm font-bold text-white">{initial}</span>
             ) : (
-              <Heart className="w-5 h-5 text-white" />
+              <img src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" alt="RealTalk" className="w-6 h-6 object-contain" />
             )}
           </div>
           

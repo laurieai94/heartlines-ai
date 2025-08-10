@@ -135,8 +135,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
-                <Heart className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20 overflow-hidden">
+                <img src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" alt="RealTalk" className="w-5 h-5 object-contain" />
               </div>
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
             </div>
@@ -606,8 +606,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-coral-300/20">
-              <Heart className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-coral-300/20 overflow-hidden">
+              <img src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" alt="RealTalk" className="w-5 h-5 object-contain" />
             </div>
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>

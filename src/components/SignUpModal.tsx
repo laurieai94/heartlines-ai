@@ -122,8 +122,8 @@ const SignUpModal = ({
               {/* Kai Avatar */}
               <div className="w-16 h-16 mx-auto mb-6 relative">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-coral-400 to-peach-200 blur-xl opacity-80 animate-pulse" />
-                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-coral-500 to-peach-400 text-white flex items-center justify-center shadow-xl relative z-10 border border-white/20">
-                  <Heart className="w-8 h-8" />
+                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-coral-500 to-peach-400 text-white flex items-center justify-center shadow-xl relative z-10 border border-white/20 overflow-hidden">
+                  <img src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" alt="RealTalk" className="w-10 h-10 object-contain" />
                 </div>
               </div>
 
