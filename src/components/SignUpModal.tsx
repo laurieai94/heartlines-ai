@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Eye, EyeOff, User, Clock, ArrowRight } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import HeartAppIcon from "./HeartAppIcon";
+import BrandLogo from "@/components/BrandLogo";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
 import { logEvent } from "@/utils/analytics";
@@ -152,15 +152,18 @@ const SignUpModal = ({
             <div className="relative p-8 space-y-6">
               {/* Header */}
               <div className="text-center space-y-2">
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <BrandLogo 
+                    className="w-10 h-10" 
+                    variant="bare"
+                    imgSrc="/lovable-uploads/45c63ee1-bb0c-4f21-9969-0652ac0ba1c9.png"
+                    imgAlt="RealTalk logo"
+                  />
                   <h2 className="text-2xl font-semibold text-foreground">
                     {showVerificationState ? "Check Your Email" 
                      : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
                      : isSignUp ? "Create Your Profile" : "Welcome back"}
                   </h2>
-                  {!showVerificationState && !showForgotPassword && !isSignUp && (
-                    <HeartAppIcon size={24} />
-                  )}
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {showVerificationState 
