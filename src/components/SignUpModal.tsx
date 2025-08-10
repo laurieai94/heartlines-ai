@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Heart, Mail, Eye, EyeOff, User } from "lucide-react";
+import { Heart, Mail, Eye, EyeOff, User, Clock } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
+import { logEvent } from "@/utils/analytics";
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,13 +26,27 @@ const SignUpModal = ({
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showVerificationState, setShowVerificationState] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const [resendLoading, setResendLoading] = useState(false);
   const {
     signUp,
-    signIn
+    signIn,
+    resendVerification
   } = useAuth();
   const {
     transferToUserAccount
   } = useTemporaryProfile();
+
+  // Cooldown timer effect
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setTimeout(() => {
+        setResendCooldown(resendCooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [resendCooldown]);
   const getActionMessage = () => {
     switch (blockingAction) {
       case 'chat':
@@ -57,15 +72,41 @@ const SignUpModal = ({
       if (result.error) {
         toast.error(result.error.message);
       } else {
-        // Transfer temporary profile data
-        await transferToUserAccount();
-        toast.success(isSignUp ? "Welcome to RealTalk!" : "Welcome back!");
-        onClose();
+        if (isSignUp) {
+          // Show verification state for new signups
+          setShowVerificationState(true);
+          toast.success("Check your email to verify your account!");
+        } else {
+          // Transfer temporary profile data and close for sign-ins
+          await transferToUserAccount();
+          toast.success("Welcome back!");
+          onClose();
+        }
       }
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (resendCooldown > 0 || !email) return;
+    
+    setResendLoading(true);
+    try {
+      const result = await resendVerification(email);
+      if (result.error) {
+        toast.error(result.error.message);
+      } else {
+        toast.success("Verification email sent!");
+        setResendCooldown(60); // 60-second cooldown
+        logEvent("Auth:VerificationSent", { email });
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Failed to resend verification");
+    } finally {
+      setResendLoading(false);
     }
   };
   return <Dialog open={isOpen} onOpenChange={onClose}>
@@ -83,10 +124,12 @@ const SignUpModal = ({
           {/* Dynamic Message */}
           <div className="space-y-3">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-coral-500 bg-clip-text text-transparent">
-              {isSignUp ? "You're Almost There!" : "Welcome Back"}
+              {showVerificationState ? "Check Your Email" : isSignUp ? "You're Almost There!" : "Welcome Back"}
             </h2>
             <p className="text-gray-600 leading-relaxed text-base">
-              {isSignUp 
+              {showVerificationState 
+                ? "We've sent a verification link to your email. Click the link to activate your account."
+                : isSignUp 
                 ? "Create your free account for personalized coaching and insights."
                 : "Access your profiles and customized coaching with Kai."
               }
@@ -94,8 +137,45 @@ const SignUpModal = ({
           </div>
 
 
-          {/* Email Form */}
-          <form onSubmit={handleEmailAuth} className="space-y-4">
+          {/* Verification State or Email Form */}
+          {showVerificationState ? (
+            <div className="space-y-4">
+              <div className="text-center space-y-4">
+                <p className="text-sm text-gray-500">
+                  Didn't receive the email? Check your spam folder or request a new one.
+                </p>
+                
+                <Button
+                  onClick={handleResendVerification}
+                  disabled={resendCooldown > 0 || resendLoading}
+                  variant="outline"
+                  className="w-full h-12 text-base font-medium border-pink-200 text-pink-600 hover:bg-pink-50"
+                >
+                  {resendLoading ? (
+                    "Sending..."
+                  ) : resendCooldown > 0 ? (
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      Resend in {resendCooldown}s
+                    </div>
+                  ) : (
+                    "Resend verification email"
+                  )}
+                </Button>
+                
+                <button
+                  onClick={() => {
+                    setShowVerificationState(false);
+                    setIsSignUp(false);
+                  }}
+                  className="text-sm text-gray-500 hover:text-pink-600 transition-colors"
+                >
+                  Back to sign in
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleEmailAuth} className="space-y-4">
             {isSignUp && (
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-left block text-sm font-medium text-pink-700">Name</Label>
@@ -128,13 +208,16 @@ const SignUpModal = ({
               {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
             </Button>
           </form>
+          )}
 
           {/* Toggle Sign In/Up */}
-          <div className="text-center">
-            <button onClick={() => setIsSignUp(!isSignUp)} className="text-sm text-gray-500 hover:text-pink-600 transition-colors">
-              {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
-            </button>
-          </div>
+          {!showVerificationState && (
+            <div className="text-center">
+              <button onClick={() => setIsSignUp(!isSignUp)} className="text-sm text-gray-500 hover:text-pink-600 transition-colors">
+                {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
+              </button>
+            </div>
+          )}
 
           {/* Trust Indicators */}
           
