@@ -28,12 +28,15 @@ const SignUpModal = ({
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showVerificationState, setShowVerificationState] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [resendLoading, setResendLoading] = useState(false);
   const {
     signUp,
     signIn,
-    resendVerification
+    resendVerification,
+    resetPassword
   } = useAuth();
   const {
     transferToUserAccount
@@ -110,6 +113,27 @@ const SignUpModal = ({
       setResendLoading(false);
     }
   };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    setLoading(true);
+    try {
+      const result = await resetPassword(email);
+      if (result.error) {
+        toast.error(result.error.message);
+      } else {
+        setResetEmailSent(true);
+        toast.success("Password reset email sent!");
+        logEvent("Auth:PasswordResetSent", { email });
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Failed to send reset email");
+    } finally {
+      setLoading(false);
+    }
+  };
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[360px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative">
@@ -131,18 +155,22 @@ const SignUpModal = ({
               {/* Dynamic Message */}
               <div className="space-y-3">
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-[hsl(var(--coral-600))] to-[hsl(var(--peach-400))] bg-clip-text text-transparent">
-                  {showVerificationState ? "Check Your Email" : isSignUp ? "You're Almost There!" : "Welcome Back"}
+                  {showVerificationState ? "Check Your Email" 
+                   : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
+                   : isSignUp ? "You're Almost There!" : "Welcome Back"}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-base">
                   {showVerificationState 
                     ? "We've sent a verification link to your email. Click the link to activate your account."
+                    : showForgotPassword
+                    ? (resetEmailSent ? "We've sent a password reset link to your email." : "Enter your email to receive a password reset link.")
                     : isSignUp 
                     ? "Create your free account for personalized coaching and insights."
                     : "Access your profiles and customized coaching with Kai."}
                 </p>
               </div>
 
-              {/* Verification State or Email Form */}
+              {/* Verification State, Forgot Password, or Email Form */}
               {showVerificationState ? (
                 <div className="space-y-4">
                   <div className="text-center space-y-4">
@@ -178,6 +206,60 @@ const SignUpModal = ({
                       Back to sign in
                     </button>
                   </div>
+                </div>
+              ) : showForgotPassword ? (
+                <div className="space-y-4">
+                  {resetEmailSent ? (
+                    <div className="text-center space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        Check your email and follow the link to reset your password.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setShowForgotPassword(false);
+                          setResetEmailSent(false);
+                          setIsSignUp(false);
+                        }}
+                        className="text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                      >
+                        Back to sign in
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleResetPassword} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="reset-email" className="text-left block text-sm font-medium text-coral-700">Email</Label>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-3 h-4 w-4 text-coral-600" />
+                          <Input
+                            id="reset-email"
+                            type="email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            className="pl-10 h-12 text-base border-coral-200 focus:border-coral-300 focus:ring-coral-200/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            placeholder="Enter your email"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        disabled={loading}
+                        className="questionnaire-button-primary w-full h-12 text-base font-semibold rounded-xl shadow-neon transition-transform duration-200 hover:scale-[1.02]"
+                      >
+                        {loading ? "Sending..." : "Send Reset Link"}
+                      </Button>
+
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(false)}
+                        className="w-full text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                      >
+                        Back to sign in
+                      </button>
+                    </form>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleEmailAuth} className="space-y-4">
@@ -236,6 +318,15 @@ const SignUpModal = ({
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
+                    {!isSignUp && (
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-sm text-coral-600 hover:text-coral-700 transition-colors"
+                      >
+                        Forgot your password?
+                      </button>
+                    )}
                   </div>
 
                   <Button
@@ -249,7 +340,7 @@ const SignUpModal = ({
               )}
 
               {/* Toggle Sign In/Up */}
-              {!showVerificationState && (
+              {!showVerificationState && !showForgotPassword && (
                 <div className="text-center">
                   <button
                     onClick={() => setIsSignUp(!isSignUp)}
