@@ -1,5 +1,6 @@
 
 import { Tabs, TabsContent } from "@/components/ui/tabs";
+import DashboardHome from "@/components/DashboardHome";
 import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
 import ConversationPractice from "@/components/ConversationPractice";
@@ -29,6 +30,10 @@ const DashboardContent = ({
     <div className="flex-1 min-h-0 max-h-full overflow-hidden">
       <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
+          <TabsContent value="home" className="mt-0 h-full">
+            <DashboardHome />
+          </TabsContent>
+
           <TabsContent value="profile" className="mt-0 h-full">
             <ProfileBuilder 
               onProfileUpdate={onProfileUpdate}
