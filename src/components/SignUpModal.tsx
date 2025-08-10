@@ -156,7 +156,7 @@ const SignUpModal = ({
                   <BrandLogo 
                     className="w-10 h-10" 
                     variant="bare"
-                    imgSrc="/lovable-uploads/45c63ee1-bb0c-4f21-9969-0652ac0ba1c9.png"
+                    imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
                     imgAlt="RealTalk logo"
                   />
                   <h2 className="text-2xl font-semibold text-foreground">

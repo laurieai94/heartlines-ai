@@ -34,7 +34,12 @@ const PartnerQuestionnaireHeader = ({
             {initial ? (
               <span className="text-sm font-bold text-white">{initial}</span>
             ) : (
-              <BrandLogo className="w-6 h-6" variant="bare" />
+              <BrandLogo 
+                className="w-6 h-6" 
+                variant="bare" 
+                imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+                imgAlt="RealTalk logo"
+              />
             )}
           </div>
           

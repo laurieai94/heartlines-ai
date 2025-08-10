@@ -142,7 +142,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <BrandLogo className="w-8 h-8" variant="rounded" />
+              <BrandLogo 
+                className="w-8 h-8" 
+                variant="rounded" 
+                imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+                imgAlt="RealTalk logo"
+              />
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
             </div>
             <div className="flex items-center">
@@ -611,7 +616,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <BrandLogo className="w-8 h-8" variant="circle" />
+            <BrandLogo 
+              className="w-8 h-8" 
+              variant="circle" 
+              imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+              imgAlt="RealTalk logo"
+            />
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
