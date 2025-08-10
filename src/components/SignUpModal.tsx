@@ -136,9 +136,17 @@ const SignUpModal = ({
   };
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
-        <div className="relative">
-          {/* Simplified background gradient */}
-          <div className="rounded-3xl bg-gradient-to-br from-background via-background to-background/95 backdrop-blur-xl border border-border/20 shadow-2xl overflow-hidden">
+        <div className="relative min-h-[500px] flex items-center justify-center">
+          {/* Warm animated background orbs */}
+          <div className="absolute inset-0 overflow-hidden rounded-3xl">
+            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-coral-400/30 to-peach-400/20 rounded-full blur-2xl animate-float"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-peach-300/25 to-coral-300/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-orange-400/20 to-coral-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+          </div>
+          
+          {/* Glassmorphism card with warm tints */}
+          <div className="relative glass rounded-3xl bg-gradient-to-br from-white/95 via-coral-50/80 to-peach-50/70 backdrop-blur-xl border border-white/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_40px_rgba(251,146,60,0.15)] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-coral-400/5 via-transparent to-peach-400/5"></div>
             <div className="relative p-8 space-y-6">
               {/* Header */}
               <div className="text-center space-y-2">
@@ -149,7 +157,7 @@ const SignUpModal = ({
                      : isSignUp ? "Create Your Profile" : "Welcome back"}
                   </h2>
                   {!showVerificationState && !showForgotPassword && !isSignUp && (
-                    <Hand className="h-6 w-6 text-primary" />
+                    <Hand className="h-6 w-6 text-coral-500" />
                   )}
                 </div>
                 <p className="text-muted-foreground text-sm">
@@ -175,7 +183,7 @@ const SignUpModal = ({
                       onClick={handleResendVerification}
                       disabled={resendCooldown > 0 || resendLoading}
                       variant="outline"
-                      className="w-full h-11 text-base font-medium rounded-xl"
+                      className="w-full h-11 text-base font-medium rounded-xl bg-white/60 backdrop-blur-sm border-white/30 hover:bg-white/80 hover:border-coral-300 transition-all duration-200"
                     >
                       {resendLoading ? (
                         "Sending..."
@@ -226,7 +234,7 @@ const SignUpModal = ({
                           type="email"
                           value={email}
                           onChange={e => setEmail(e.target.value)}
-                          className="h-11 text-base rounded-xl border-input bg-background/50"
+                          className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
                           placeholder="Drop your email"
                           required
                         />
@@ -235,7 +243,7 @@ const SignUpModal = ({
                       <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-11 text-base font-medium rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground"
+                        className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-500 to-peach-500 hover:from-coral-600 hover:to-peach-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                       >
                         {loading ? "Sending..." : "Send Reset Link"}
                       </Button>
@@ -259,7 +267,7 @@ const SignUpModal = ({
                         type="text"
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        className="h-11 text-base rounded-xl border-input bg-background/50"
+                        className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
                         placeholder="What should we call you?"
                         required
                       />
@@ -272,7 +280,7 @@ const SignUpModal = ({
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
-                      className="h-11 text-base rounded-xl border-input bg-background/50"
+                      className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
                       placeholder="Drop your email"
                       required
                     />
@@ -285,7 +293,7 @@ const SignUpModal = ({
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        className="pr-10 h-11 text-base rounded-xl border-input bg-background/50"
+                        className="pr-10 h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
                         placeholder="Password"
                         required
                       />
@@ -304,7 +312,7 @@ const SignUpModal = ({
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full h-11 text-base font-medium rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground flex items-center justify-center gap-2"
+                      className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-500 to-peach-500 hover:from-coral-600 hover:to-peach-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         "Signing in..." 
