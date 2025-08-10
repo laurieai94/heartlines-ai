@@ -249,7 +249,7 @@ const SignUpModal = ({
                       <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-500 to-peach-500 hover:from-coral-600 hover:to-peach-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                        className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-500 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                       >
                         {loading ? "Sending..." : "Send Reset Link"}
                       </Button>
@@ -328,7 +328,7 @@ const SignUpModal = ({
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-500 to-peach-500 hover:from-coral-600 hover:to-peach-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+                      className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-500 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         "Signing in..." 
