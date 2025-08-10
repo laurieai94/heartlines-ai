@@ -36,9 +36,9 @@ const TopNavBar = ({
       : undefined;
 
   return (
-    <header className="sticky top-0 z-30">
+    <header className="sticky top-0 z-30 nav-safe pointer-events-none pt-3 sm:pt-5 mb-3 sm:mb-4">
       <div className={`mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 ${compact ? "py-2" : "py-3"}`}>
-        <div className="flex items-center justify-between nav-glass">
+        <div className="flex items-center justify-between nav-glass pointer-events-auto">
           {/* Left: Brand */}
           <button
             type="button"
