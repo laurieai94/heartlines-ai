@@ -35,8 +35,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           </div>
 
           {/* Center Navigation */}
-          <nav aria-label="Primary" className="flex flex-1 justify-center px-2">
-            <div className="max-w-3xl w-full rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm flex overflow-x-auto no-scrollbar">
+          <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
+            <div className="flex gap-8 overflow-x-auto no-scrollbar">
               {[
                 { value: 'profile', label: 'Profile' },
                 { value: 'insights', label: 'Coach' },
@@ -46,10 +46,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <button
                   key={tab.value}
                   onClick={() => onValueChange(tab.value)}
-                  className={`flex-1 rounded-full py-2 px-4 text-sm font-medium transition-all duration-200 ${
+                  className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTab === tab.value
-                      ? 'bg-primary/15 text-primary shadow-sm'
-                      : 'text-foreground/70 hover:text-foreground hover:bg-foreground/5'
+                      ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full'
+                      : 'text-white/70 hover:text-white'
                   }`}
                 >
                   {tab.label}
