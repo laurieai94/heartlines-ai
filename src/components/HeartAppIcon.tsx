@@ -17,12 +17,12 @@ export default function HeartAppIcon({ size = 256, className = "" }: Props) {
       style={{
         width: px,
         height: px,
-        // Base gradient (warm peach → coral)
+        // Base gradient (burgundy → rose → plum)
         background:
-          "radial-gradient(120% 120% at 50% 40%, #FFC76A 0%, #FF8B7A 45%, #FF6F98 75%, #E3476B 100%)",
+          "radial-gradient(120% 120% at 50% 40%, hsl(345 76% 52%) 0%, hsl(340 84% 62%) 35%, hsl(320 80% 55%) 65%, hsl(330 72% 42%) 100%)",
         // Soft outer shadow + subtle inner depth
         boxShadow:
-          "0 18px 40px rgba(227, 71, 107, .35), inset 0 2px 0 rgba(255,255,255,.35), inset 0 -10px 30px rgba(0,0,0,.12)",
+          "0 18px 40px rgba(134, 25, 87, .35), inset 0 2px 0 rgba(255,255,255,.35), inset 0 -10px 30px rgba(0,0,0,.12)",
       }}
     >
       {/* top-left glassy highlight */}
@@ -41,7 +41,7 @@ export default function HeartAppIcon({ size = 256, className = "" }: Props) {
       <span
         className="pointer-events-none absolute inset-0 rounded-[28%]"
         style={{
-          boxShadow: "inset 0 0 80px rgba(255, 210, 120, .35)",
+          boxShadow: "inset 0 0 80px rgba(220, 20, 60, .35)",
         }}
       />
 
