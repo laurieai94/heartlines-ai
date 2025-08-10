@@ -38,7 +38,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
             <div className="flex gap-8 overflow-x-auto no-scrollbar">
               {[
-                { value: 'home', label: 'Home' },
                 { value: 'profile', label: 'Profile' },
                 { value: 'insights', label: 'Coach' },
                 { value: 'conversation', label: 'Practice' },
