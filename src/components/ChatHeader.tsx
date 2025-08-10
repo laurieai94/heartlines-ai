@@ -44,7 +44,14 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
                 Kai - Your Relationship Coach
               </h2>
             </HoverCardTrigger>
-            <HoverCardContent className="w-80 bg-white/95 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
+            <HoverCardContent 
+              side="top" 
+              align="start" 
+              sideOffset={20} 
+              avoidCollisions={true}
+              collisionPadding={16}
+              className="w-72 bg-white/95 backdrop-blur-lg border border-white/20 shadow-xl"
+            >
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
