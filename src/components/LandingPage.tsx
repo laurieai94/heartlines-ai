@@ -5,6 +5,7 @@ import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BrandLogo from "./BrandLogo";
+import { BRAND } from "@/branding";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -145,7 +146,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <BrandLogo 
                 className="w-8 h-8" 
                 variant="rounded" 
-                imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+                 imgSrc={BRAND.logoSrc}
                 imgAlt="RealTalk logo"
               />
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
@@ -619,7 +620,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <BrandLogo 
               className="w-8 h-8" 
               variant="circle" 
-              imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+              imgSrc={BRAND.logoSrc}
               imgAlt="RealTalk logo"
             />
             <span className="text-2xl font-light text-white">RealTalk</span>

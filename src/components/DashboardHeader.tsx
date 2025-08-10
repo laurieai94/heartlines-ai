@@ -1,5 +1,6 @@
 
 import BrandLogo from "./BrandLogo";
+import { BRAND } from "@/branding";
 import SignInButton from "./SignInButton";
 import type { User } from '@supabase/supabase-js';
 
@@ -23,7 +24,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             <BrandLogo 
               className="w-10 h-10" 
               variant="rounded" 
-              imgSrc="/lovable-uploads/1667f188-8aea-4c45-a20f-aee6014317f6.png"
+              imgSrc={BRAND.logoSrc}
               imgAlt="RealTalk logo"
             />
             <div>
