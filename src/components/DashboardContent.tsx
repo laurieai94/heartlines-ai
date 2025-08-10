@@ -5,7 +5,6 @@ import AIInsights from "@/components/AIInsights";
 import ConversationPractice from "@/components/ConversationPractice";
 import ThoughtfulActions from "@/components/ThoughtfulActions";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
-import DashboardHome from "@/components/DashboardHome";
 
 interface DashboardContentProps {
   activeTab: string;
@@ -30,10 +29,6 @@ const DashboardContent = ({
     <div className="flex-1 min-h-0 max-h-full overflow-hidden">
       <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
-          <TabsContent value="home" className="mt-0 h-full">
-            <DashboardHome />
-          </TabsContent>
-
           <TabsContent value="profile" className="mt-0 h-full">
             <ProfileBuilder 
               onProfileUpdate={onProfileUpdate}

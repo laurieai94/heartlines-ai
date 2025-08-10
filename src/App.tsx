@@ -19,8 +19,7 @@ const AppContent = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
-        <Route path="/dashboard/home" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Navigate to="/dashboard/profile" replace />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
         <Route path="/dashboard/coach" element={<Dashboard />} />
         <Route path="/dashboard/practice" element={<Dashboard />} />
