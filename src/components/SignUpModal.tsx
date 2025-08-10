@@ -138,23 +138,23 @@ const SignUpModal = ({
       <DialogContent className="sm:max-w-[360px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative">
           {/* Colorful frosty glows */}
-          <div className="pointer-events-none absolute -top-16 -left-16 h-40 w-40 rounded-full bg-gradient-to-br from-coral-400 to-peach-200 blur-3xl opacity-40 animate-float" />
-          <div className="pointer-events-none absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-gradient-to-br from-peach-200 to-coral-400 blur-3xl opacity-40 animate-float" />
+          <div className="pointer-events-none absolute -top-16 -left-16 h-40 w-40 rounded-full bg-gradient-to-br from-rose-600 to-rose-800 blur-3xl opacity-40 animate-float" />
+          <div className="pointer-events-none absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-gradient-to-br from-rose-700 to-rose-600 blur-3xl opacity-40 animate-float" />
 
           {/* Gradient border wrapper */}
-          <div className="rounded-2xl p-[1px] bg-gradient-to-br from-coral-400 to-peach-200 shadow-3xl shadow-coral-200/50 animate-gradient">
+          <div className="rounded-2xl p-[1px] bg-gradient-to-br from-rose-500 to-rose-700 shadow-3xl shadow-rose-600/50 animate-gradient">
             <div className="questionnaire-modal-card text-center space-y-5 p-5 rounded-2xl">
               {/* Kai Avatar */}
               <div className="w-16 h-16 mx-auto mb-6 relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-coral-400 to-peach-200 blur-xl opacity-80 animate-pulse" />
-                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-coral-500 to-peach-400 text-white flex items-center justify-center shadow-xl relative z-10 border border-white/20 overflow-hidden">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-600 to-rose-800 blur-xl opacity-80 animate-pulse" />
+                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-600 to-rose-800 text-white flex items-center justify-center shadow-xl relative z-10 border border-white/20 overflow-hidden">
                   <BrandLogo className="w-10 h-10" variant="bare" />
                 </div>
               </div>
 
               {/* Dynamic Message */}
               <div className="space-y-3">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-[hsl(var(--coral-600))] to-[hsl(var(--peach-400))] bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-rose-800 bg-clip-text text-transparent">
                   {showVerificationState ? "Check Your Email" 
                    : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
                    : isSignUp ? "You're Almost There!" : "Welcome Back"}
@@ -182,7 +182,7 @@ const SignUpModal = ({
                       onClick={handleResendVerification}
                       disabled={resendCooldown > 0 || resendLoading}
                       variant="outline"
-                      className="w-full h-12 text-base font-medium border-coral-200 text-coral-700 hover:bg-coral-50"
+                      className="w-full h-12 text-base font-medium border-rose-600 text-rose-700 hover:bg-rose-50"
                     >
                       {resendLoading ? (
                         "Sending..."
@@ -201,7 +201,7 @@ const SignUpModal = ({
                         setShowVerificationState(false);
                         setIsSignUp(false);
                       }}
-                      className="text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                      className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
                     >
                       Back to sign in
                     </button>
@@ -220,7 +220,7 @@ const SignUpModal = ({
                           setResetEmailSent(false);
                           setIsSignUp(false);
                         }}
-                        className="text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                        className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
                       >
                         Back to sign in
                       </button>
@@ -228,15 +228,15 @@ const SignUpModal = ({
                   ) : (
                     <form onSubmit={handleResetPassword} className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="reset-email" className="text-left block text-sm font-medium text-coral-700">Email</Label>
+                        <Label htmlFor="reset-email" className="text-left block text-sm font-medium text-rose-700">Email</Label>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-coral-600" />
+                          <Mail className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
                           <Input
                             id="reset-email"
                             type="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
-                            className="pl-10 h-12 text-base border-coral-200 focus:border-coral-300 focus:ring-coral-200/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
                             placeholder="Enter your email"
                             required
                           />
@@ -254,7 +254,7 @@ const SignUpModal = ({
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(false)}
-                        className="w-full text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                        className="w-full text-sm text-muted-foreground hover:text-rose-600 transition-colors"
                       >
                         Back to sign in
                       </button>
@@ -265,15 +265,15 @@ const SignUpModal = ({
                 <form onSubmit={handleEmailAuth} className="space-y-4">
                   {isSignUp && (
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-left block text-sm font-medium text-coral-700">Name</Label>
+                      <Label htmlFor="name" className="text-left block text-sm font-medium text-rose-700">Name</Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-3 h-4 w-4 text-coral-600" />
+                        <User className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
                         <Input
                           id="name"
                           type="text"
                           value={name}
                           onChange={e => setName(e.target.value)}
-                          className="pl-10 h-12 text-base border-coral-200 focus:border-coral-300 focus:ring-coral-200/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+                          className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
                           placeholder="Enter your name"
                           required
                         />
@@ -282,15 +282,15 @@ const SignUpModal = ({
                   )}
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-left block text-sm font-medium text-coral-700">Email</Label>
+                    <Label htmlFor="email" className="text-left block text-sm font-medium text-rose-700">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-coral-600" />
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
                       <Input
                         id="email"
                         type="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        className="pl-10 h-12 text-base border-coral-200 focus:border-coral-300 focus:ring-coral-200/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
                         placeholder="Enter your email"
                         required
                       />
@@ -298,21 +298,21 @@ const SignUpModal = ({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="password" className="text-left block text-sm font-medium text-coral-700">Password</Label>
+                    <Label htmlFor="password" className="text-left block text-sm font-medium text-rose-700">Password</Label>
                     <div className="relative">
                       <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        className="pr-10 h-12 text-base border-coral-200 focus:border-coral-300 focus:ring-coral-200/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="pr-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
                         placeholder="Enter your password"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-coral-600 hover:text-coral-700"
+                        className="absolute right-3 top-3 text-rose-600 hover:text-rose-700"
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -332,7 +332,7 @@ const SignUpModal = ({
                     <button
                       type="button"
                       onClick={() => setShowForgotPassword(true)}
-                      className="text-sm text-coral-600 hover:text-coral-700 transition-colors"
+                      className="text-sm text-rose-600 hover:text-rose-700 transition-colors"
                     >
                       Forgot your password?
                     </button>
@@ -345,7 +345,7 @@ const SignUpModal = ({
                 <div className="text-center">
                   <button
                     onClick={() => setIsSignUp(!isSignUp)}
-                    className="text-sm text-muted-foreground hover:text-coral-600 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
                   >
                     {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
                   </button>
