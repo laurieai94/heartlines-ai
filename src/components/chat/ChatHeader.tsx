@@ -91,7 +91,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                       <span className="text-xs font-medium">Chats</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent side="top" sideOffset={12}>
                     <p>Open chat history</p>
                   </TooltipContent>
                 </Tooltip>
@@ -111,7 +111,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                     <span className="text-xs font-medium">New</span>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="top" sideOffset={12}>
                   <p>Start new conversation</p>
                 </TooltipContent>
               </Tooltip>
