@@ -3,7 +3,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
-import ConversationPractice from "@/components/ConversationPractice";
+
 import ThoughtfulActions from "@/components/ThoughtfulActions";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 
@@ -56,16 +56,6 @@ const DashboardContent = ({
           </div>
         </TabsContent>
 
-        <TabsContent value="conversation" className="mt-0 h-full">
-          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ProgressiveAccessWrapper action="practice">
-              <ConversationPractice 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </ProgressiveAccessWrapper>
-          </div>
-        </TabsContent>
 
         <TabsContent value="actions" className="mt-0 h-full">
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
