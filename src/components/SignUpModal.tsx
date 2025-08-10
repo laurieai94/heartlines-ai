@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Heart, Mail, Eye, EyeOff, User, Clock } from "lucide-react";
+import { Hand, Mail, Eye, EyeOff, User, Clock, ArrowRight } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import BrandLogo from "./BrandLogo";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
@@ -135,38 +135,31 @@ const SignUpModal = ({
     }
   };
   return <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[360px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
+      <DialogContent className="sm:max-w-[400px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative">
-          {/* Colorful frosty glows */}
-          <div className="pointer-events-none absolute -top-16 -left-16 h-40 w-40 rounded-full bg-gradient-to-br from-rose-600 to-rose-800 blur-3xl opacity-40 animate-float" />
-          <div className="pointer-events-none absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-gradient-to-br from-rose-700 to-rose-600 blur-3xl opacity-40 animate-float" />
-
-          {/* Gradient border wrapper */}
-          <div className="rounded-2xl p-[1px] bg-gradient-to-br from-rose-500 to-rose-700 shadow-3xl shadow-rose-600/50 animate-gradient">
-            <div className="questionnaire-modal-card text-center space-y-5 p-5 rounded-2xl">
-              {/* Kai Avatar */}
-              <div className="w-16 h-16 mx-auto mb-6 relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-600 to-rose-800 blur-xl opacity-80 animate-pulse" />
-                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-600 to-rose-800 text-white flex items-center justify-center shadow-xl relative z-10 border border-white/20 overflow-hidden">
-                  <BrandLogo className="w-10 h-10" variant="bare" />
+          {/* Simplified background gradient */}
+          <div className="rounded-3xl bg-gradient-to-br from-background via-background to-background/95 backdrop-blur-xl border border-border/20 shadow-2xl overflow-hidden">
+            <div className="relative p-8 space-y-6">
+              {/* Header */}
+              <div className="text-center space-y-2">
+                <div className="flex items-center justify-center gap-2">
+                  <h2 className="text-2xl font-semibold text-foreground">
+                    {showVerificationState ? "Check Your Email" 
+                     : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
+                     : isSignUp ? "Create Your Profile" : "Welcome back"}
+                  </h2>
+                  {!showVerificationState && !showForgotPassword && !isSignUp && (
+                    <Hand className="h-6 w-6 text-primary" />
+                  )}
                 </div>
-              </div>
-
-              {/* Dynamic Message */}
-              <div className="space-y-3">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-600 to-rose-800 bg-clip-text text-transparent">
-                  {showVerificationState ? "Check Your Email" 
-                   : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
-                   : isSignUp ? "You're Almost There!" : "Welcome Back"}
-                </h2>
-                <p className="text-muted-foreground leading-relaxed text-base">
+                <p className="text-muted-foreground text-sm">
                   {showVerificationState 
                     ? "We've sent a verification link to your email. Click the link to activate your account."
                     : showForgotPassword
                     ? (resetEmailSent ? "We've sent a password reset link to your email." : "Enter your email to receive a password reset link.")
                     : isSignUp 
-                    ? "Create your free account for personalized coaching and insights."
-                    : "Access your profiles and customized coaching with Kai."}
+                    ? "Join thousands improving their relationships with personalized AI coaching."
+                    : "Pick up right where you left off with Kai."}
                 </p>
               </div>
 
@@ -182,7 +175,7 @@ const SignUpModal = ({
                       onClick={handleResendVerification}
                       disabled={resendCooldown > 0 || resendLoading}
                       variant="outline"
-                      className="w-full h-12 text-base font-medium border-rose-600 text-rose-700 hover:bg-rose-50"
+                      className="w-full h-11 text-base font-medium rounded-xl"
                     >
                       {resendLoading ? (
                         "Sending..."
@@ -201,7 +194,7 @@ const SignUpModal = ({
                         setShowVerificationState(false);
                         setIsSignUp(false);
                       }}
-                      className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       Back to sign in
                     </button>
@@ -220,33 +213,29 @@ const SignUpModal = ({
                           setResetEmailSent(false);
                           setIsSignUp(false);
                         }}
-                        className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
                       >
                         Back to sign in
                       </button>
                     </div>
                   ) : (
                     <form onSubmit={handleResetPassword} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="reset-email" className="text-left block text-sm font-medium text-rose-700">Email</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
-                          <Input
-                            id="reset-email"
-                            type="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
-                            placeholder="Enter your email"
-                            required
-                          />
-                        </div>
+                      <div className="space-y-1">
+                        <Input
+                          id="reset-email"
+                          type="email"
+                          value={email}
+                          onChange={e => setEmail(e.target.value)}
+                          className="h-11 text-base rounded-xl border-input bg-background/50"
+                          placeholder="Drop your email"
+                          required
+                        />
                       </div>
 
                       <Button
                         type="submit"
                         disabled={loading}
-                        className="questionnaire-button-primary w-full h-12 text-base font-semibold rounded-xl shadow-neon transition-transform duration-200 hover:scale-[1.02]"
+                        className="w-full h-11 text-base font-medium rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         {loading ? "Sending..." : "Send Reset Link"}
                       </Button>
@@ -254,7 +243,7 @@ const SignUpModal = ({
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(false)}
-                        className="w-full text-sm text-muted-foreground hover:text-rose-600 transition-colors"
+                        className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
                       >
                         Back to sign in
                       </button>
@@ -264,55 +253,46 @@ const SignUpModal = ({
               ) : (
                 <form onSubmit={handleEmailAuth} className="space-y-4">
                   {isSignUp && (
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-left block text-sm font-medium text-rose-700">Name</Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
-                        <Input
-                          id="name"
-                          type="text"
-                          value={name}
-                          onChange={e => setName(e.target.value)}
-                          className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
-                          placeholder="Enter your name"
-                          required
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-left block text-sm font-medium text-rose-700">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-rose-600" />
+                    <div className="space-y-1">
                       <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className="pl-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
-                        placeholder="Enter your email"
+                        id="name"
+                        type="text"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        className="h-11 text-base rounded-xl border-input bg-background/50"
+                        placeholder="What should we call you?"
                         required
                       />
                     </div>
+                  )}
+
+                  <div className="space-y-1">
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="h-11 text-base rounded-xl border-input bg-background/50"
+                      placeholder="Drop your email"
+                      required
+                    />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-left block text-sm font-medium text-rose-700">Password</Label>
+                  <div className="space-y-1">
                     <div className="relative">
                       <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        className="pr-10 h-12 text-base border-rose-600 focus:border-rose-300 focus:ring-rose-600/30 focus-visible:ring-0 focus-visible:ring-offset-0"
-                        placeholder="Enter your password"
+                        className="pr-10 h-11 text-base rounded-xl border-input bg-background/50"
+                        placeholder="Password"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-rose-600 hover:text-rose-700"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -320,39 +300,47 @@ const SignUpModal = ({
                     </div>
                   </div>
 
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    className="questionnaire-button-primary w-full h-12 text-base font-semibold rounded-xl shadow-neon transition-transform duration-200 hover:scale-[1.02]"
-                  >
-                    {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
-                  </Button>
-
-                  {!isSignUp && (
-                    <button
-                      type="button"
-                      onClick={() => setShowForgotPassword(true)}
-                      className="text-sm text-rose-600 hover:text-rose-700 transition-colors"
+                  <div className="space-y-3 pt-2">
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full h-11 text-base font-medium rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground flex items-center justify-center gap-2"
                     >
-                      Forgot your password?
-                    </button>
-                  )}
+                      {loading ? (
+                        "Signing in..." 
+                      ) : isSignUp ? (
+                        "Create Account"
+                      ) : (
+                        <>
+                          Let's Go <ArrowRight className="h-4 w-4" />
+                        </>
+                      )}
+                    </Button>
+
+                    {!isSignUp && (
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        Oops, blanking rn
+                      </button>
+                    )}
+                  </div>
                 </form>
               )}
 
               {/* Toggle Sign In/Up */}
               {!showVerificationState && !showForgotPassword && (
-                <div className="text-center">
+                <div className="text-center pt-2">
                   <button
                     onClick={() => setIsSignUp(!isSignUp)}
-                    className="text-sm text-muted-foreground hover:text-rose-600 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
+                    {isSignUp ? "Already have an account? Sign in" : "New? Create your profile."}
                   </button>
                 </div>
               )}
-
-              {/* Trust Indicators */}
 
             </div>
           </div>
