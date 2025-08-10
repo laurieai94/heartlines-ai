@@ -39,25 +39,28 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             
             {/* Kai Info */}
             <div>
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <h3 className="text-white font-semibold text-sm cursor-pointer hover:text-pink-200 transition-colors">Kai</h3>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
-                        <Heart className="w-3 h-3 text-white" />
+              <h3 className="text-white font-semibold text-sm">Kai</h3>
+              <p className="text-white/70 text-xs">
+                Your AI Relationship{" "}
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <span className="cursor-pointer hover:text-pink-200 transition-colors">Coach</span>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
+                          <Heart className="w-3 h-3 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-white">Meet Kai</h3>
                       </div>
-                      <h3 className="font-semibold text-white">Meet Kai</h3>
+                      <p className="text-sm text-white/80 leading-relaxed">
+                        Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
+                      </p>
                     </div>
-                    <p className="text-sm text-white/80 leading-relaxed">
-                      Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
-                    </p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-              <p className="text-white/70 text-xs">Your AI Relationship Coach</p>
+                  </HoverCardContent>
+                </HoverCard>
+              </p>
             </div>
           </div>
 
