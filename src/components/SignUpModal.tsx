@@ -318,15 +318,6 @@ const SignUpModal = ({
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
-                    {!isSignUp && (
-                      <button
-                        type="button"
-                        onClick={() => setShowForgotPassword(true)}
-                        className="text-sm text-coral-600 hover:text-coral-700 transition-colors"
-                      >
-                        Forgot your password?
-                      </button>
-                    )}
                   </div>
 
                   <Button
@@ -336,6 +327,16 @@ const SignUpModal = ({
                   >
                     {loading ? "Creating Account..." : isSignUp ? "Create Free Account" : "Sign In"}
                   </Button>
+
+                  {!isSignUp && (
+                    <button
+                      type="button"
+                      onClick={() => setShowForgotPassword(true)}
+                      className="text-sm text-coral-600 hover:text-coral-700 transition-colors"
+                    >
+                      Forgot your password?
+                    </button>
+                  )}
                 </form>
               )}
 
