@@ -20,7 +20,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
       <div className="flex items-center gap-4">
         {/* AI Coach Avatar */}
         <div className="relative">
-          <Avatar className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-500 border-4 border-white shadow-lg">
+          <Avatar className="w-16 h-16 bg-gradient-to-br from-coral-400 to-pink-500 border-4 border-white shadow-lg">
             <AvatarImage 
               src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
               alt="Kai" 
@@ -47,7 +47,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
             <HoverCardContent className="w-80 bg-white/95 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
                     <Heart className="w-3 h-3 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-900">Meet Kai</h3>
