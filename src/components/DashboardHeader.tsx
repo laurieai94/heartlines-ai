@@ -16,7 +16,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   return (
-    <div className={`w-full sticky top-0 z-40 ${activeTab === 'home' ? 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10' : ''}`}>
+    <div className="w-full sticky top-0 z-40 bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center gap-4">
