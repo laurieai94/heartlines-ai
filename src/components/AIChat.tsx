@@ -19,6 +19,12 @@ interface AIChatProps {
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
   onSupabaseConfigured: (configured: boolean) => void;
+  // Chat history props
+  conversations?: any[];
+  currentConversationId?: string | null;
+  historyLoading?: boolean;
+  onLoadConversation?: (conversationId: string) => void;
+  onDeleteConversation?: (conversationId: string) => void;
 }
 
 const AIChat = ({ 
@@ -30,7 +36,12 @@ const AIChat = ({
   conversationStarter,
   onNewConversation,
   onOpenSidebar,
-  onSupabaseConfigured
+  onSupabaseConfigured,
+  conversations = [],
+  currentConversationId = null,
+  historyLoading = false,
+  onLoadConversation = () => {},
+  onDeleteConversation = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const { profile } = useUserProfile();
@@ -81,11 +92,11 @@ const AIChat = ({
       userName={userName} 
       onNewConversation={handleNewConversation} 
       onOpenSidebar={onOpenSidebar}
-      profiles={profiles}
-      demographicsData={demographicsData}
-      chatHistory={chatHistory}
-      isConfigured={isConfigured}
-      onSupabaseConfigured={onSupabaseConfigured}
+      conversations={conversations}
+      currentConversationId={currentConversationId}
+      loading={historyLoading}
+      onLoadConversation={onLoadConversation}
+      onDeleteConversation={onDeleteConversation}
     >
       <ChatContainer
         chatHistory={chatHistory}

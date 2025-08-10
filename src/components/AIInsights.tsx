@@ -25,7 +25,15 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const { profileData: partnerProfileData, isLoading: partnerDataLoading } = usePartnerProfileData();
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
   
-  const { conversations, currentConversationId, loadConversation, startNewConversation } = useChatHistory();
+  const { 
+    conversations, 
+    currentConversationId, 
+    loading: historyLoading,
+    loadConversation, 
+    loadMostRecentConversation,
+    startNewConversation,
+    deleteConversation
+  } = useChatHistory();
 
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
@@ -132,6 +140,14 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
   };
 
+  // Load most recent conversation on startup
+  useEffect(() => {
+    if (!historyLoading && conversations.length > 0 && chatHistory.length === 0) {
+      const messages = loadMostRecentConversation();
+      setChatHistory(messages);
+    }
+  }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation]);
+
   // Debug: Log what we're passing to AIChat
   console.log('=== Passing to AIChat ===');
   console.log('unifiedProfiles:', unifiedProfiles);
@@ -152,6 +168,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             onNewConversation={handleNewConversation}
             onOpenSidebar={() => {}} 
             onSupabaseConfigured={handleSupabaseConfigured}
+            conversations={conversations}
+            currentConversationId={currentConversationId}
+            historyLoading={historyLoading}
+            onLoadConversation={handleLoadConversation}
+            onDeleteConversation={deleteConversation}
           />
         </ProgressiveAccessWrapper>
       </div>
