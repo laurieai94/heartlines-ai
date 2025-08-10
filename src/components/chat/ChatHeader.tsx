@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Heart, RotateCcw, Menu } from "lucide-react";
+import { Heart, RotateCcw, Menu, Info } from "lucide-react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -40,11 +40,13 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             {/* Kai Info */}
             <div>
               <h3 className="text-white font-semibold text-sm">Kai</h3>
-              <p className="text-white/70 text-xs">
-                Your AI Relationship{" "}
+              <p className="text-white/70 text-xs flex items-center">
+                Your AI Relationship Coach
                 <HoverCard>
                   <HoverCardTrigger asChild>
-                    <span className="cursor-pointer hover:text-pink-200 transition-colors">Coach</span>
+                    <button className="w-3 h-3 ml-1 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                      <Info className="w-2 h-2 text-white/60 hover:text-white/80" />
+                    </button>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
                     <div className="space-y-3">
