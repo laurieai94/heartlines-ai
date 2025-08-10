@@ -38,7 +38,7 @@ const TopNavBar = ({
   return (
     <header className="sticky top-0 z-30">
       <div className={`mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 ${compact ? "py-2" : "py-3"}`}>
-        <div className="flex items-center justify-between rounded-2xl border border-border/60 bg-background/60 backdrop-blur-md shadow-sm">
+        <div className="flex items-center justify-between nav-glass">
           {/* Left: Brand */}
           <button
             type="button"
@@ -64,11 +64,11 @@ const TopNavBar = ({
           {/* Center: Tabs */}
           <nav role="navigation" aria-label="Primary" className="flex-1 flex justify-center px-2">
             <Tabs value={activeTab} onValueChange={onValueChange} className="w-full">
-              <TabsList className={`mx-auto ${compact ? "h-9" : "h-10"} w-full max-w-2xl rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm`}>
+              <TabsList className={`mx-auto ${compact ? "h-9" : "h-10"} w-full max-w-2xl p-0 gap-2 bg-transparent`}>
                 <TabsTrigger
                   value="profile"
                   title="Profile"
-                  className="flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs sm:text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
                 >
                   <User className="h-4 w-4" />
                   <span className="hidden sm:inline">Profile</span>
@@ -76,7 +76,7 @@ const TopNavBar = ({
                 <TabsTrigger
                   value="insights"
                   title="Coach"
-                  className="flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs sm:text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
                 >
                   <Lightbulb className="h-4 w-4" />
                   <span className="hidden sm:inline">Coach</span>
@@ -84,7 +84,7 @@ const TopNavBar = ({
                 <TabsTrigger
                   value="conversation"
                   title="Practice"
-                  className="flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs sm:text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
                 >
                   <MessageCircle className="h-4 w-4" />
                   <span className="hidden sm:inline">Practice</span>
@@ -92,7 +92,7 @@ const TopNavBar = ({
                 <TabsTrigger
                   value="actions"
                   title="Actions"
-                  className="flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs sm:text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
                 >
                   <Heart className="h-4 w-4" />
                   <span className="hidden sm:inline">Actions</span>

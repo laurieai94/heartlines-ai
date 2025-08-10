@@ -337,5 +337,39 @@
   /* Hide scrollbars utility for overflow containers */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Navigation utilities */
+  .nav-glass {
+    @apply rounded-2xl border border-border/60 bg-background/60 backdrop-blur-md shadow-sm;
+  }
+  .nav-trigger {
+    @apply relative font-medium text-foreground/70 transition-colors;
+  }
+  .nav-trigger:hover {
+    @apply text-foreground;
+  }
+  .nav-trigger::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem; /* 12px */
+    right: 0.75rem; /* 12px */
+    bottom: 0.35rem;
+    height: 2px;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 200ms ease;
+    border-radius: 2px;
+    opacity: 0.9;
+  }
+  .nav-trigger:hover::after,
+  .nav-trigger[data-state="active"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .nav-trigger[data-state="active"] {
+    color: hsl(var(--primary));
+  }
 }
+
 
