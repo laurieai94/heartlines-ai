@@ -24,6 +24,10 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                   src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
                   alt="Kai" 
                   className="object-cover"
+                  onError={(e) => {
+                    console.log('Kai avatar image failed to load');
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                   <Heart className="w-5 h-5" />

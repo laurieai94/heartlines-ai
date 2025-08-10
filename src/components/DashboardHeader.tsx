@@ -21,7 +21,15 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
-              <img src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" alt="RealTalk" className="w-6 h-6 object-contain" />
+              <img 
+                src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" 
+                alt="RealTalk" 
+                className="w-6 h-6 object-contain"
+                onError={(e) => {
+                  console.log('Dashboard header brand icon failed to load');
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
             <div>
               <h1 className={`${compact ? 'text-xl' : 'text-2xl'} font-bold text-white font-serif leading-tight`}>RealTalk</h1>
