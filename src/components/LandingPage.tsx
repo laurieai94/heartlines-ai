@@ -87,9 +87,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (
         <>
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-coral-500/20 to-pink-800/25 animate-gradient"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-pink-500/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute inset-0 bg-gradient-to-bl from-pink-600/10 via-coral-400/10 to-pink-700/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-coral-600/30 via-coral-500/20 to-coral-500/25 animate-gradient"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-bl from-coral-500/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
         </>
       )}
 
