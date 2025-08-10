@@ -1,7 +1,6 @@
-import { Heart, Lightbulb, MessageCircle, User } from "lucide-react";
+import { Heart } from "lucide-react";
 import SignInButton from "./SignInButton";
 import type { User as SupaUser } from "@supabase/supabase-js";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface TopNavBarProps {
   // Header bits
@@ -11,7 +10,7 @@ interface TopNavBarProps {
   user: SupaUser | null;
   onSignInClick: () => void;
   onOpenProfile?: () => void;
-  // Nav bits
+  // Nav bits (kept for compatibility, unused in minimal nav)
   activeTab: string;
   onValueChange: (value: string) => void;
 }
@@ -23,8 +22,6 @@ const TopNavBar = ({
   user,
   onSignInClick,
   onOpenProfile,
-  activeTab,
-  onValueChange,
 }: TopNavBarProps) => {
   const subtitle =
     accessLevel !== "full-access"
@@ -53,55 +50,14 @@ const TopNavBar = ({
               <h1 className={`${compact ? "text-base" : "text-lg"} font-bold font-serif text-foreground leading-tight`}>
                 RealTalk
               </h1>
-              {subtitle && (
-                <p className="text-xs text-foreground/60 font-medium leading-relaxed">
-                  {subtitle}
-                </p>
-              )}
+              {/* Minimal design: subtitle hidden intentionally */}
+              {/* {subtitle && (
+                <p className="text-xs text-foreground/60 font-medium leading-relaxed">{subtitle}</p>
+              )} */}
             </div>
           </button>
 
-          {/* Center: Tabs */}
-          <nav role="navigation" aria-label="Primary" className="flex-1 flex justify-center px-2">
-            <Tabs value={activeTab} onValueChange={onValueChange} className="w-full">
-              <TabsList className={`mx-auto ${compact ? "h-9" : "h-10"} w-full max-w-2xl p-0 gap-2 bg-transparent`}>
-                <TabsTrigger
-                  value="profile"
-                  title="Profile"
-                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
-                >
-                  <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">Profile</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  value="insights"
-                  title="Coach"
-                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
-                >
-                  <Lightbulb className="h-4 w-4" />
-                  <span className="hidden sm:inline">Coach</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  value="conversation"
-                  title="Practice"
-                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  <span className="hidden sm:inline">Practice</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  value="actions"
-                  title="Actions"
-                  className={`nav-trigger hover-scale rounded-full ${compact ? "py-1.5 px-2.5 text-xs" : "py-2 px-3 text-sm"} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
-                >
-                  <Heart className="h-4 w-4" />
-                  <span className="hidden sm:inline">Actions</span>
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </nav>
-
-          {/* Right: Auth/Profile */}
+          {/* Right: Auth/Profile - single frosted button */}
           <div className="pr-3 sm:pr-4 py-2.5">
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
