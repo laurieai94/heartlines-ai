@@ -35,27 +35,27 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="h-10 w-10 rounded-full p-0 bg-background/60 backdrop-blur-xl border border-border/60 text-foreground hover:bg-foreground/5 transition-all duration-300"
+            className="h-10 w-10 rounded-full p-0 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-500/10 hover:border-pink-400/30 transition-all duration-300"
           >
             <Avatar className="h-8 w-8">
               <AvatarImage src="" alt="User avatar" />
-              <AvatarFallback className="text-sm bg-primary text-primary-foreground">
+              <AvatarFallback className="text-sm bg-gradient-to-br from-pink-500 to-coral-500 text-white">
                 {getUserInitial()}
               </AvatarFallback>
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 bg-background/95 backdrop-blur-md border border-border/60 text-foreground shadow-sm" align="end">
+        <PopoverContent className="w-56 p-2 bg-white/95 backdrop-blur-sm border border-white/20" align="end">
           <div className="space-y-1">
             <div className="px-3 py-2 text-sm">
-              <p className="font-medium text-foreground/90">Signed in as</p>
-              <p className="text-foreground/70 truncate">{user.email}</p>
+              <p className="font-medium text-gray-900">Signed in as</p>
+              <p className="text-gray-600 truncate">{user.email}</p>
             </div>
             
             {onOpenProfile && (
               <Button
                 variant="ghost"
-                className="w-full justify-start text-foreground hover:bg-foreground/5"
+                className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 onClick={() => {
                   onOpenProfile();
                   setShowUserMenu(false);
@@ -68,7 +68,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             
             <Button
               variant="ghost"
-              className="w-full justify-start text-foreground hover:bg-foreground/5"
+              className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               onClick={() => setShowUserMenu(false)}
             >
               <Settings className="mr-2 h-4 w-4" />
@@ -77,7 +77,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             
             <Button
               variant="ghost"
-              className="w-full justify-start text-destructive hover:bg-destructive/10"
+              className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />
@@ -93,7 +93,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
   return (
     <Button
       onClick={onSignInClick}
-      className="rounded-full px-4 h-10 bg-background/60 backdrop-blur-xl border border-border/60 text-foreground hover:bg-foreground/5 transition-all duration-300"
+      className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-500/10 hover:border-pink-400/30 text-white hover:text-white transition-all duration-300 px-4 py-2 rounded-full"
     >
       <User className="mr-2 h-4 w-4" />
       <span className="hidden sm:inline">Sign In</span>

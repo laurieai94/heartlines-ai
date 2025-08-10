@@ -1,6 +1,7 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
-import TopNavBar from "@/components/TopNavBar";
+import DashboardHeader from "@/components/DashboardHeader";
+import DashboardNavigation from "@/components/DashboardNavigation";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
@@ -56,15 +57,19 @@ const Dashboard = () => {
       <div className="h-screen overflow-hidden">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
         <div className={`h-full flex flex-col bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-          <TopNavBar
+          <DashboardHeader 
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}
             compact={activeTab === 'insights'}
             user={user}
             onSignInClick={handleSignInClick}
             onOpenProfile={handleOpenProfile}
+          />
+
+          <DashboardNavigation 
             activeTab={activeTab}
             onValueChange={setActiveTab}
+            compact={activeTab === 'insights'}
           />
 
           <DashboardContent
