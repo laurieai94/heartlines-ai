@@ -18,6 +18,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [showDemographics, setShowDemographics] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
+  const [isStartingNewConversation, setIsStartingNewConversation] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -96,9 +97,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   // Handle new conversation
   const handleNewConversation = () => {
+    setIsStartingNewConversation(true);
     const messages = startNewConversation();
     setChatHistory(messages);
     setConversationStarter('');
+    // Reset the flag after a brief delay
+    setTimeout(() => setIsStartingNewConversation(false), 100);
   };
 
   const handleSupabaseConfigured = (configured: boolean) => {
@@ -142,11 +146,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   // Load most recent conversation on startup
   useEffect(() => {
-    if (!historyLoading && conversations.length > 0 && chatHistory.length === 0) {
+    if (!historyLoading && conversations.length > 0 && chatHistory.length === 0 && !isStartingNewConversation) {
       const messages = loadMostRecentConversation();
       setChatHistory(messages);
     }
-  }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation]);
+  }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation, isStartingNewConversation]);
 
   // Debug: Log what we're passing to AIChat
   console.log('=== Passing to AIChat ===');
