@@ -41,14 +41,13 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             <div>
               <h3 className="text-white font-semibold text-sm">Kai</h3>
               <p className="text-white/70 text-xs flex items-center">
-                Your AI Relationship Coach
-                <HoverCard>
+                Your AI Relationship Coac<HoverCard>
                   <HoverCardTrigger asChild>
-                    <button className="w-3 h-3 ml-1 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                    <button className="w-3 h-3 -ml-1 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
                       <Info className="w-2 h-2 text-white/60 hover:text-white/80" />
                     </button>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" align="start" sideOffset={8}>
+                  <HoverCardContent className="w-80 bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl" align="end" sideOffset={8}>
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
