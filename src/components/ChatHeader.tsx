@@ -1,7 +1,9 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Bot, Circle, User, Heart } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Bot, Circle, User, Heart, Info } from "lucide-react";
+import { useState } from "react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -11,6 +13,8 @@ interface ChatHeaderProps {
 }
 
 const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatHeaderProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  
   const getUserInitials = () => {
     return userName ? userName.charAt(0).toUpperCase() : 'U';
   };
@@ -38,33 +42,51 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
 
         {/* Coach Info */}
         <div className="flex-1">
-          <HoverCard>
-            <HoverCardTrigger asChild>
-              <h2 className="text-2xl font-bold text-gray-900 mb-1 cursor-pointer hover:text-gray-700 transition-colors">
-                Kai - Your Relationship Coach
-              </h2>
-            </HoverCardTrigger>
-            <HoverCardContent 
-              side="top" 
-              align="start" 
-              sideOffset={20} 
-              avoidCollisions={true}
-              collisionPadding={16}
-              className="w-72 bg-white/95 backdrop-blur-lg border border-white/20 shadow-xl"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center">
-                    <Heart className="w-3 h-3 text-white" />
+          <div className="flex items-center gap-2 mb-1">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Kai - Your Relationship Coach
+            </h2>
+            <Popover open={isOpen} onOpenChange={setIsOpen}>
+              <PopoverTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="h-7 w-7 p-0 rounded-full bg-primary/10 hover:bg-primary/20 text-primary"
+                  aria-label="Learn more about Kai"
+                >
+                  <Info className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent 
+                side="bottom" 
+                align="start" 
+                sideOffset={8}
+                avoidCollisions={true}
+                collisionPadding={16}
+                className="w-80 bg-slate-900/95 backdrop-blur-lg border border-slate-700 shadow-2xl z-50"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Heart className="w-4 h-4 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
                   </div>
-                  <h3 className="font-semibold text-gray-900">Meet Kai</h3>
+                  <div className="space-y-3">
+                    <p className="text-sm text-slate-200 leading-relaxed">
+                      Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
+                    </p>
+                    <p className="text-sm text-slate-300 leading-relaxed">
+                      Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
+                    </p>
+                    <p className="text-sm text-slate-300 leading-relaxed">
+                      <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
-                </p>
-              </div>
-            </HoverCardContent>
-          </HoverCard>
+              </PopoverContent>
+            </Popover>
+          </div>
           <p className="text-gray-600 font-medium mb-2">
             PhD Clinical Psychologist • Always here to help
           </p>
