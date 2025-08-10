@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
@@ -144,11 +144,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
   };
 
-  // Load most recent conversation on startup
+  // Load most recent conversation on first mount only
+  const hasLoadedMostRecentRef = useRef(false);
   useEffect(() => {
-    if (!historyLoading && conversations.length > 0 && chatHistory.length === 0 && !isStartingNewConversation) {
+    if (
+      !historyLoading &&
+      !hasLoadedMostRecentRef.current &&
+      conversations.length > 0 &&
+      chatHistory.length === 0 &&
+      !isStartingNewConversation
+    ) {
       const messages = loadMostRecentConversation();
       setChatHistory(messages);
+      hasLoadedMostRecentRef.current = true;
     }
   }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation, isStartingNewConversation]);
 
