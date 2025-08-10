@@ -5,7 +5,7 @@ import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const LandingPage = () => {
+const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentProfile, setCurrentProfile] = useState(0);
@@ -131,23 +131,25 @@ const LandingPage = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
-              <Heart className="w-5 h-5 text-white" />
+      {showMarketingTopBar && (
+        <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
+          <div className="max-w-6xl mx-auto flex justify-between items-center">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20">
+                <Heart className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
             </div>
-            <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
+            <div className="flex items-center">
+              <Link to="/dashboard">
+                <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
+                  Get Started - It's Free
+                </Button>
+              </Link>
+            </div>
           </div>
-          <div className="flex items-center">
-            <Link to="/dashboard">
-              <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
-                Get Started - It's Free
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* Hero Section */}
       <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
