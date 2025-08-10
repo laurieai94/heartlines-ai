@@ -6,6 +6,7 @@ import AIInsights from "@/components/AIInsights";
 
 import ThoughtfulActions from "@/components/ThoughtfulActions";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
+import Company from "@/components/Company";
 
 interface DashboardContentProps {
   activeTab: string;
@@ -65,6 +66,12 @@ const DashboardContent = ({
                 demographicsData={temporaryDemographics}
               />
             </ProgressiveAccessWrapper>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="company" className="mt-0 h-full">
+          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Company />
           </div>
         </TabsContent>
       </Tabs>
