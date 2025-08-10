@@ -1,6 +1,7 @@
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, MessageCircle, Lightbulb, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardNavigationProps {
   activeTab: string;
@@ -9,9 +10,24 @@ interface DashboardNavigationProps {
 }
 
 const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: DashboardNavigationProps) => {
+  const navigate = useNavigate();
+
+  const handleTabChange = (value: string) => {
+    // Map tab values to URL paths
+    const pathMap: Record<string, string> = {
+      'profile': '/dashboard/profile',
+      'insights': '/dashboard/coach',
+      'conversation': '/dashboard/practice',
+      'actions': '/dashboard/actions'
+    };
+    
+    navigate(pathMap[value] || '/dashboard/profile');
+    onValueChange(value);
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
-      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full">
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
         <nav role="navigation" aria-label="Primary" className={`flex justify-center ${compact ? 'pb-2' : 'pb-4'}`}>
           <TabsList 
             className={`w-full max-w-3xl ${compact ? 'h-10' : 'h-12'} flex md:grid md:grid-cols-4 overflow-x-auto no-scrollbar rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm`}

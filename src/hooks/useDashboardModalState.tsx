@@ -1,10 +1,30 @@
 
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const useDashboardModalState = () => {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState("profile");
+  const navigate = useNavigate();
+  
+  // Map URL paths to tab values
+  const getTabFromPath = (pathname: string) => {
+    if (pathname.includes('/dashboard/coach')) return 'insights';
+    if (pathname.includes('/dashboard/practice')) return 'conversation';
+    if (pathname.includes('/dashboard/actions')) return 'actions';
+    return 'profile'; // default
+  };
+
+  // Map tab values to URL paths
+  const getPathFromTab = (tab: string) => {
+    switch (tab) {
+      case 'insights': return '/dashboard/coach';
+      case 'conversation': return '/dashboard/practice';
+      case 'actions': return '/dashboard/actions';
+      default: return '/dashboard/profile';
+    }
+  };
+
+  const [activeTab, setActiveTabState] = useState(() => getTabFromPath(location.pathname));
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showPartnerQuestionnaireModal, setShowPartnerQuestionnaireModal] = useState(false);
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
@@ -42,12 +62,26 @@ export const useDashboardModalState = () => {
     };
   }, [showQuestionnaireModal, showPartnerQuestionnaireModal, showSignInModal]);
 
+  // Sync activeTab with URL
+  useEffect(() => {
+    const tabFromPath = getTabFromPath(location.pathname);
+    setActiveTabState(tabFromPath);
+  }, [location.pathname]);
+
   // Handle redirect from profile completion
   useEffect(() => {
     if (location.state?.activeTab) {
-      setActiveTab(location.state.activeTab);
+      const newTab = location.state.activeTab;
+      setActiveTabState(newTab);
+      navigate(getPathFromTab(newTab), { replace: true });
     }
-  }, [location.state]);
+  }, [location.state, navigate]);
+
+  // Custom setActiveTab that also updates URL
+  const setActiveTab = (tab: string) => {
+    setActiveTabState(tab);
+    navigate(getPathFromTab(tab));
+  };
 
   const modalStates = {
     activeTab,
