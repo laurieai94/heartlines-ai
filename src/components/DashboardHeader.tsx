@@ -8,13 +8,15 @@ interface DashboardHeaderProps {
   profileCompletion: number;
   compact?: boolean;
   user: User | null;
+  activeTab: string;
+  onValueChange: (value: string) => void;
   onSignInClick: () => void;
   onOpenProfile?: () => void;
 }
 
-const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
+const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center gap-4">
@@ -31,8 +33,34 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                )}
             </div>
           </div>
+
+          {/* Center Navigation */}
+          <nav aria-label="Primary" className="flex flex-1 justify-center px-2">
+            <div className="max-w-3xl w-full rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm flex overflow-x-auto no-scrollbar">
+              {[
+                { value: 'profile', label: 'Profile' },
+                { value: 'insights', label: 'Coach' },
+                { value: 'conversation', label: 'Practice' },
+                { value: 'actions', label: 'Actions' },
+              ].map((tab) => (
+                <button
+                  key={tab.value}
+                  onClick={() => onValueChange(tab.value)}
+                  className={`flex-1 rounded-full py-2 px-4 text-sm font-medium transition-all duration-200 ${
+                    activeTab === tab.value
+                      ? 'bg-primary/15 text-primary shadow-sm'
+                      : 'text-foreground/70 hover:text-foreground hover:bg-foreground/5'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </nav>
           
-          <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+          <div className="flex items-center">
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+          </div>
         </div>
       </div>
     </div>

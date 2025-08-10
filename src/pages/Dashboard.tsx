@@ -1,7 +1,7 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import DashboardHeader from "@/components/DashboardHeader";
-import DashboardNavigation from "@/components/DashboardNavigation";
+
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
@@ -62,15 +62,12 @@ const Dashboard = () => {
             profileCompletion={profileCompletion}
             compact={activeTab === 'insights'}
             user={user}
+            activeTab={activeTab}
+            onValueChange={setActiveTab}
             onSignInClick={handleSignInClick}
             onOpenProfile={handleOpenProfile}
           />
 
-          <DashboardNavigation 
-            activeTab={activeTab}
-            onValueChange={setActiveTab}
-            compact={activeTab === 'insights'}
-          />
 
           <DashboardContent
             activeTab={activeTab}
