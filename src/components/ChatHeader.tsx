@@ -1,6 +1,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, Circle, User } from "lucide-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Bot, Circle, User, Heart } from "lucide-react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -37,9 +38,26 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
 
         {/* Coach Info */}
         <div className="flex-1">
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">
-            Kai - Your Relationship Coach
-          </h2>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <h2 className="text-2xl font-bold text-gray-900 mb-1 cursor-pointer hover:text-gray-700 transition-colors">
+                Kai - Your Relationship Coach
+              </h2>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80 bg-white/95 backdrop-blur-lg border border-white/20 shadow-xl" sideOffset={8}>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center">
+                    <Heart className="w-3 h-3 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900">Meet Kai</h3>
+                </div>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Your AI relationship coach, trained in PhD-level psychology and real-world clinical care. Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
+                </p>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
           <p className="text-gray-600 font-medium mb-2">
             PhD Clinical Psychologist • Always here to help
           </p>
