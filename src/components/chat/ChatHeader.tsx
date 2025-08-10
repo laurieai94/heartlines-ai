@@ -76,7 +76,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Sidebar Button */}
             {onOpenSidebar && (
               <TooltipProvider>
@@ -84,15 +84,15 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                   <TooltipTrigger asChild>
                     <Button
                       variant="ghost"
-                      size="sm"
                       onClick={onOpenSidebar}
-                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors h-auto px-2 py-1.5 flex flex-col items-center gap-1"
                     >
                       <Menu className="w-4 h-4" />
+                      <span className="text-xs font-medium">Chats</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Open sidebar</p>
+                    <p>Open chat history</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -104,11 +104,11 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                 <TooltipTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="sm"
                     onClick={onNewConversation}
-                    className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                    className="text-white/70 hover:text-white hover:bg-white/10 transition-colors h-auto px-2 py-1.5 flex flex-col items-center gap-1"
                   >
                     <Plus className="w-4 h-4" />
+                    <span className="text-xs font-medium">New</span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
