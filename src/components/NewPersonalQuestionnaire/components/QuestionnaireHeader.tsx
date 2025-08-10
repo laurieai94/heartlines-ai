@@ -1,4 +1,5 @@
 
+import BrandLogo from "../../BrandLogo";
 import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock } from "lucide-react";
 import { ProfileData } from "../types";
@@ -30,15 +31,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
             {hasName ? (
               <span className="text-white font-bold text-sm relative z-10">{getInitial()}</span>
             ) : (
-              <img 
-                src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" 
-                alt="RealTalk" 
-                className="w-6 h-6 object-contain relative z-10"
-                onError={(e) => {
-                  console.log('Personal questionnaire header brand icon failed to load');
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+              <BrandLogo className="w-6 h-6" variant="bare" />
             )}
           </div>
           

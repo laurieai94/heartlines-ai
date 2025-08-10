@@ -1,4 +1,5 @@
 import { Heart, X, Lock } from "lucide-react";
+import BrandLogo from "../../BrandLogo";
 import { Button } from "@/components/ui/button";
 import { PartnerProfileData } from "../types";
 
@@ -33,15 +34,7 @@ const PartnerQuestionnaireHeader = ({
             {initial ? (
               <span className="text-sm font-bold text-white">{initial}</span>
             ) : (
-              <img 
-                src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" 
-                alt="RealTalk" 
-                className="w-6 h-6 object-contain"
-                onError={(e) => {
-                  console.log('Partner questionnaire header brand icon failed to load');
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+              <BrandLogo className="w-6 h-6" variant="bare" />
             )}
           </div>
           

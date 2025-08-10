@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import BrandLogo from "./BrandLogo";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -141,17 +142,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-pink-300/20 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" 
-                  alt="RealTalk" 
-                  className="w-5 h-5 object-contain"
-                  onError={(e) => {
-                    console.log('Landing nav brand icon failed to load');
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
+              <BrandLogo className="w-8 h-8" variant="rounded" />
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
             </div>
             <div className="flex items-center">
@@ -620,17 +611,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-coral-300/20 overflow-hidden">
-              <img 
-                src="/lovable-uploads/154e8af5-4c4b-4279-8b8e-7f73206021af.png" 
-                alt="RealTalk" 
-                className="w-5 h-5 object-contain"
-                onError={(e) => {
-                  console.log('Footer brand icon failed to load');
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
+            <BrandLogo className="w-8 h-8" variant="circle" />
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
