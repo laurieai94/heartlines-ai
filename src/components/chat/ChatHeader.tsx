@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Heart, RotateCcw, Menu, Info } from "lucide-react";
+import { Heart, Plus, Menu, Info } from "lucide-react";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -91,7 +91,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
               </TooltipProvider>
             )}
 
-            {/* Refresh Button */}
+            {/* New Chat Button */}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -101,7 +101,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                     onClick={onNewConversation}
                     className="text-white/70 hover:text-white hover:bg-white/10 transition-colors"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <Plus className="w-4 h-4" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
