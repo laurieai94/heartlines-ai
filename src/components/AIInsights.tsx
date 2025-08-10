@@ -33,7 +33,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     loadConversation, 
     loadMostRecentConversation,
     startNewConversation,
-    deleteConversation
+    deleteConversation,
+    saveConversation
   } = useChatHistory();
 
   // Create unified profiles and demographics data
@@ -180,6 +181,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             onNewConversation={handleNewConversation}
             onOpenSidebar={() => {}} 
             onSupabaseConfigured={handleSupabaseConfigured}
+            onPersistChat={saveConversation}
             conversations={conversations}
             currentConversationId={currentConversationId}
             historyLoading={historyLoading}

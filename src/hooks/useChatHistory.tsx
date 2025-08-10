@@ -148,6 +148,12 @@ export const useChatHistory = () => {
 
       localStorage.setItem('chat_conversations', JSON.stringify(conversations));
 
+      // Optimistically update in-memory state so sidebar reflects immediately
+      setConversations((prev) => {
+        const without = prev.filter((c) => c.id !== conversationData.id);
+        return [{ ...conversationForStorage }, ...without];
+      });
+
       // Also save to sessionStorage for immediate recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
         conversationId: conversationData.id,

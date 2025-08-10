@@ -19,6 +19,7 @@ interface AIChatProps {
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
   onSupabaseConfigured: (configured: boolean) => void;
+  onPersistChat?: (messages: ChatMessage[]) => void;
   // Chat history props
   conversations?: any[];
   currentConversationId?: string | null;
@@ -38,6 +39,7 @@ const AIChat = ({
   onNewConversation,
   onOpenSidebar,
   onSupabaseConfigured,
+  onPersistChat,
   conversations = [],
   currentConversationId = null,
   historyLoading = false,
@@ -79,16 +81,18 @@ const AIChat = ({
     }
   }, [canInteract]);
 
-  useChatEffects({
-    chatHistory,
-    setChatHistory,
-    canInteract,
-    isHistoryLoaded,
-    conversationStarter,
-    isConfigured,
-    onSendMessage: sendMessage,
-    isStartingNewConversation
-  });
+useChatEffects({
+  chatHistory,
+  setChatHistory,
+  canInteract,
+  isHistoryLoaded,
+  conversationStarter,
+  isConfigured,
+  onSendMessage: sendMessage,
+  isStartingNewConversation,
+  persistConversation: onPersistChat || (() => {}),
+  currentConversationId: currentConversationId || null
+});
 
   return (
     <ChatLayout 

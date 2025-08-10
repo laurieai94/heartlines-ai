@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ChatMessage } from '@/types/AIInsights';
-import { useChatHistory } from '@/hooks/useChatHistory';
+
 
 interface ChatEffectsProps {
   chatHistory: ChatMessage[];
@@ -12,6 +12,8 @@ interface ChatEffectsProps {
   isConfigured: boolean;
   onSendMessage: (message: string) => void;
   isStartingNewConversation?: boolean;
+  persistConversation: (messages: ChatMessage[]) => void;
+  currentConversationId: string | null;
 }
 
 export const useChatEffects = ({
@@ -22,22 +24,13 @@ export const useChatEffects = ({
   conversationStarter,
   isConfigured,
   onSendMessage,
-  isStartingNewConversation = false
+  isStartingNewConversation = false,
+  persistConversation,
+  currentConversationId
 }: ChatEffectsProps) => {
-  const { saveConversation, loadMostRecentConversation, currentConversationId } = useChatHistory();
+  
   const processedStarters = useRef(new Set<string>());
 
-  // Load conversation history on mount
-  useEffect(() => {
-    if (!isHistoryLoaded && canInteract && !isStartingNewConversation) {
-      console.log('Loading conversation history...');
-      const savedHistory = loadMostRecentConversation();
-      if (savedHistory.length > 0) {
-        console.log(`Restored ${savedHistory.length} messages from conversation history`);
-        setChatHistory(savedHistory);
-      }
-    }
-  }, [canInteract, isHistoryLoaded, loadMostRecentConversation, setChatHistory, isStartingNewConversation]);
 
   // Handle conversation starter
   useEffect(() => {
@@ -63,34 +56,34 @@ export const useChatEffects = ({
 
       // Debounced save to database and localStorage
       const timeoutId = setTimeout(() => {
-        saveConversation(chatHistory);
+        persistConversation(chatHistory);
       }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [chatHistory, saveConversation, canInteract, isHistoryLoaded, currentConversationId]);
+  }, [chatHistory, persistConversation, canInteract, isHistoryLoaded, currentConversationId]);
 
   // Listen for page visibility changes to save conversation
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden' && chatHistory.length > 0) {
-        saveConversation(chatHistory);
+        persistConversation(chatHistory);
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [chatHistory, saveConversation]);
+  }, [chatHistory, persistConversation]);
 
   // Save conversation before page unload
   useEffect(() => {
     const handleBeforeUnload = () => {
       if (chatHistory.length > 0) {
-        saveConversation(chatHistory);
+        persistConversation(chatHistory);
       }
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [chatHistory, saveConversation]);
+  }, [chatHistory, persistConversation]);
 };
