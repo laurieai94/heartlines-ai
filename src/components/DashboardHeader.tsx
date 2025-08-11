@@ -1,4 +1,3 @@
-
 import BrandLogo from "./BrandLogo";
 import { BRAND } from "@/branding";
 import SignInButton from "./SignInButton";
@@ -17,7 +16,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   return (
-    <div className="w-full sticky top-0 z-40">
+    <div className="w-full sticky top-0 z-40 mb-6 sm:mb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center gap-4">
