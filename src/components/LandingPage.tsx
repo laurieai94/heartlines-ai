@@ -82,7 +82,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
   return (
     <div className={`min-h-screen relative overflow-hidden ${
-      showMarketingTopBar ? 'bg-black' : 'bg-transparent'
+      showMarketingTopBar ? 'bg-burgundy-800' : 'bg-transparent'
     }`}>
       {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (

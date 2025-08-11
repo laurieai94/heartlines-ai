@@ -79,6 +79,18 @@ export default {
 					300: 'hsl(var(--peach-300))',
 					400: 'hsl(var(--peach-400))',
 					500: 'hsl(var(--peach-500))',
+				},
+				burgundy: {
+					50: 'hsl(var(--burgundy-50))',
+					100: 'hsl(var(--burgundy-100))',
+					200: 'hsl(var(--burgundy-200))',
+					300: 'hsl(var(--burgundy-300))',
+					400: 'hsl(var(--burgundy-400))',
+					500: 'hsl(var(--burgundy-500))',
+					600: 'hsl(var(--burgundy-600))',
+					700: 'hsl(var(--burgundy-700))',
+					800: 'hsl(var(--burgundy-800))',
+					900: 'hsl(var(--burgundy-900))',
 				}
 			},
 			fontFamily: {
