@@ -54,9 +54,9 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className="min-h-screen">
+      <div className="h-screen overflow-hidden">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`min-h-screen flex flex-col relative bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+        <div className={`h-full flex flex-col relative bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
 
           {/* Background overlays removed for unified burgundy theme */}
 
@@ -71,18 +71,16 @@ const Dashboard = () => {
             onOpenProfile={handleOpenProfile}
           />
 
-          {/* Scrollable content area under sticky header */}
-          <div className="flex-1 overflow-y-auto">
-            <DashboardContent
-              activeTab={activeTab}
-              onValueChange={setActiveTab}
-              temporaryProfiles={temporaryProfiles}
-              temporaryDemographics={temporaryDemographics}
-              onProfileUpdate={handleProfileUpdate}
-              onOpenQuestionnaire={handleOpenQuestionnaire}
-              onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-            />
-          </div>
+
+          <DashboardContent
+            activeTab={activeTab}
+            onValueChange={setActiveTab}
+            temporaryProfiles={temporaryProfiles}
+            temporaryDemographics={temporaryDemographics}
+            onProfileUpdate={handleProfileUpdate}
+            onOpenQuestionnaire={handleOpenQuestionnaire}
+            onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
+          />
         </div>
 
         {/* Modals - These stay sharp and are rendered outside the blurred content */}
