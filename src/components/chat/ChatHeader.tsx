@@ -62,7 +62,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                     sideOffset={8}
                     avoidCollisions
                     collisionPadding={16}
-                    className="w-80 max-w-[calc(100vw-32px)] bg-slate-900/95 backdrop-blur-lg border border-slate-700 shadow-2xl z-50"
+                    className="w-72 p-3 max-w-[calc(100vw-32px)] bg-slate-900/95 backdrop-blur-lg border border-slate-700 shadow-2xl z-50"
                   >
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
@@ -72,13 +72,13 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                         <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
                       </div>
                       <div className="space-y-3">
-                        <p className="text-sm text-slate-200 leading-relaxed">
+                        <p className="text-xs text-slate-200 leading-relaxed">
                           Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
                         </p>
-                        <p className="text-sm text-slate-300 leading-relaxed">
+                        <p className="text-xs text-slate-300 leading-relaxed">
                           Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
                         </p>
-                        <p className="text-sm text-slate-300 leading-relaxed">
+                        <p className="text-xs text-slate-300 leading-relaxed">
                           <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
                         </p>
                       </div>
@@ -104,7 +104,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                       <span className="text-xs font-medium">Chats</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="top" sideOffset={20}>
+                  <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
                     <p>Open chat history</p>
                   </TooltipContent>
                 </Tooltip>
@@ -124,7 +124,7 @@ export const ChatHeader = ({ userName, onNewConversation, onOpenSidebar }: ChatH
                     <span className="text-xs font-medium">New</span>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent side="top" sideOffset={20}>
+                <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
                   <p>Start new conversation</p>
                 </TooltipContent>
               </Tooltip>
