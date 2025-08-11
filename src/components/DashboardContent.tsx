@@ -46,13 +46,15 @@ const DashboardContent = ({
           </div>
         </TabsContent>
 
-        <TabsContent value="insights" className="mt-0 h-full">
-          <ProgressiveAccessWrapper action="insights">
-            <AIInsights 
-              profiles={temporaryProfiles}
-              demographicsData={temporaryDemographics}
-            />
-          </ProgressiveAccessWrapper>
+        <TabsContent value="insights" className="mt-0">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ProgressiveAccessWrapper action="insights">
+              <AIInsights 
+                profiles={temporaryProfiles}
+                demographicsData={temporaryDemographics}
+              />
+            </ProgressiveAccessWrapper>
+          </div>
         </TabsContent>
 
         <TabsContent value="actions" className="mt-0">
