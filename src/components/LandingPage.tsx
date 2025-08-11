@@ -11,6 +11,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentProfile, setCurrentProfile] = useState(0);
+  const isEmbedded = !showMarketingTopBar;
 
   const datingProfiles = [
     { 
@@ -161,7 +162,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       )}
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 lg:py-28 bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm">
+      <section className={`relative px-6 py-20 lg:py-28 ${isEmbedded ? 'bg-transparent' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm'}`}>
         {/* Accent decoration - floating orbs */}
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -296,7 +297,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* Visual Break with Accent */}
-      <section className="px-6 py-8 relative bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10">
+      <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="relative flex items-center justify-center">
             {/* Gradient line with floating dots */}
@@ -315,7 +316,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* Real Talk Section - Enhanced with combined content */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
+      <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20'}`}>
         {/* Dramatic Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
@@ -392,14 +393,18 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* How It Actually Works */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5">
+      <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-b-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5'}`}>
         {/* Accent - connecting lines */}
-        <div className="absolute inset-0 overflow-hidden opacity-20">
-          <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
-          <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-300/30 to-transparent"></div>
-        </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        {!isEmbedded && (
+          <>
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+              <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
+              <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-300/30 to-transparent"></div>
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+          </>
+        )}
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
@@ -455,13 +460,17 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* Why Different Section */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-coral-900/35 via-pink-900/25 to-coral-900/35 backdrop-blur-sm border-b border-coral-400/5">
+      <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-b-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/35 via-pink-900/25 to-coral-900/35 backdrop-blur-sm border-b border-coral-400/5'}`}>
         {/* Accent - grid pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        {!isEmbedded && (
+          <>
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+          </>
+        )}
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
@@ -500,15 +509,19 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* Final CTA Section - Reorganized with Better Visual Flow */}
-      <section className="px-6 py-20 relative bg-gradient-to-br from-pink-900/25 via-coral-900/25 to-pink-900/25 backdrop-blur-sm">
+      <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent backdrop-blur-0' : 'bg-gradient-to-br from-pink-900/25 via-coral-900/25 to-pink-900/25 backdrop-blur-sm'}`}>
         {/* Accent - radiating circles */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10">
-          <div className="w-96 h-96 border border-coral-300/30 rounded-full animate-pulse"></div>
-          <div className="absolute w-80 h-80 border border-pink-300/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute w-64 h-64 border border-coral-300/10 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
+        {!isEmbedded && (
+          <>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10">
+              <div className="w-96 h-96 border border-coral-300/30 rounded-full animate-pulse"></div>
+              <div className="absolute w-80 h-80 border border-pink-300/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute w-64 h-64 border border-coral-300/10 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
+          </>
+        )}
         <div className="max-w-5xl mx-auto text-center relative z-10">
           {/* Header with Icon */}
           <div className="mb-12">
