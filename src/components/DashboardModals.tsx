@@ -83,7 +83,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[90vh] sm:max-h-[92vh] lg:max-h-[88vh]">
+          <div className="relative z-10 w-full max-w-4xl mx-auto max-h-[85vh]">
             <NewPersonalQuestionnaire 
               onComplete={onQuestionnaireComplete} 
               onClose={onQuestionnaireClose} 
@@ -106,7 +106,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-6xl mx-auto max-h-[90vh] sm:max-h-[92vh] lg:max-h-[88vh]">
+          <div className="relative z-10 w-full max-w-4xl mx-auto max-h-[85vh]">
             <NewPartnerProfile 
               onComplete={onPartnerQuestionnaireComplete} 
               onClose={onPartnerQuestionnaireClose} 

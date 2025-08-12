@@ -28,7 +28,7 @@ const PartnerOperations = ({
           <Heart className="w-5 h-5 text-rose-400" />
           <h2 className="text-xl font-bold text-white">How They Operate</h2>
         </div>
-        <p className="text-white/70">how they love, fight, and show up</p>
+        <p className="text-white/80">how they love, fight, and show up</p>
       </div>
 
       <PartnerLoveLanguageCard
