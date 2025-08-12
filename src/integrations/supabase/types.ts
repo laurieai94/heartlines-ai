@@ -234,6 +234,7 @@ export type Database = {
           created_from_conversation: boolean
           id: string
           is_active: boolean
+          last_sent_at: string | null
           reminder_days: string[] | null
           reminder_text: string
           reminder_time: string
@@ -246,6 +247,7 @@ export type Database = {
           created_from_conversation?: boolean
           id?: string
           is_active?: boolean
+          last_sent_at?: string | null
           reminder_days?: string[] | null
           reminder_text: string
           reminder_time: string
@@ -258,6 +260,7 @@ export type Database = {
           created_from_conversation?: boolean
           id?: string
           is_active?: boolean
+          last_sent_at?: string | null
           reminder_days?: string[] | null
           reminder_text?: string
           reminder_time?: string
