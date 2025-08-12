@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 // import { useDataMigration } from "@/hooks/useDataMigration";
-import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
@@ -18,7 +17,7 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
