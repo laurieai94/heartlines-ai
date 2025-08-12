@@ -56,7 +56,7 @@ const Dashboard = () => {
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
       <div className="h-screen overflow-hidden">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`h-full flex flex-col relative bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+        <div className={`h-full flex flex-col relative ${activeTab === 'home' ? 'bg-burgundy-900' : 'bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700'} ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
 
           {/* Background overlays removed for unified burgundy theme */}
 
