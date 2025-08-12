@@ -1,1 +1,11 @@
 project_id = "relqmhrzyqckoaebscgx"
+
+[functions]
+
+[functions.send-sms-reminder]
+# Called from the app via supabase.functions.invoke, keep JWT verification enabled
+verify_jwt = true
+
+[functions.process-due-reminders]
+# Invoked by pg_cron via pg_net without auth headers
+verify_jwt = false

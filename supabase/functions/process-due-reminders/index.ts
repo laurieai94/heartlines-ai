@@ -9,9 +9,9 @@ const corsHeaders = {
 function normalizeToE164(input: string): string | null {
   if (!input) return null;
   const digits = input.replace(/\D/g, "");
-  if (digits.startsWith("+")) return digits; // already E.164
-  if (digits.length === 11 && digits.startsWith("1")) return "+" + digits; // US with country code
-  if (digits.length === 10) return "+1" + digits; // assume US default
+  if (input.startsWith("+")) return input;
+  if (digits.length === 11 && digits.startsWith("1")) return "+" + digits;
+  if (digits.length === 10) return "+1" + digits;
   return null;
 }
 
@@ -78,30 +78,57 @@ serve(async (req) => {
       );
     }
 
-    const { reminderIds } = await req.json();
+    // Determine current UTC HH:MM:00
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2, "0");
+    const mm = String(now.getUTCMinutes()).padStart(2, "0");
+    const currentTime = `${hh}:${mm}:00`;
 
-    if (!reminderIds || !Array.isArray(reminderIds) || reminderIds.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Invalid reminder IDs provided" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    // Current weekday in lowercase (e.g., 'monday') in UTC
+    const weekday = new Intl.DateTimeFormat("en-US", { weekday: "long", timeZone: "UTC" })
+      .format(now)
+      .toLowerCase();
 
-    // Fetch reminders
+    // Fetch due reminders for this minute
     const { data: reminders, error: remindersError } = await supabase
       .from("user_reminders")
-      .select("id, user_id, reminder_text, reminder_time, last_sent_at")
-      .in("id", reminderIds)
-      .eq("is_active", true);
+      .select("id, user_id, reminder_text, reminder_time, reminder_days, last_sent_at")
+      .eq("is_active", true)
+      .eq("reminder_time", currentTime);
 
     if (remindersError) {
-      console.error("Error fetching reminders:", remindersError);
+      console.error("Error fetching due reminders:", remindersError);
       throw remindersError;
     }
 
-    const userIds = Array.from(new Set((reminders || []).map((r: any) => r.user_id)));
+    const dueReminders = (reminders || []).filter((r: any) => {
+      // Day filter
+      if (r.reminder_days && Array.isArray(r.reminder_days)) {
+        if (!r.reminder_days.map((d: string) => d.toLowerCase()).includes(weekday)) return false;
+      }
+      // Already sent today filter
+      if (r.last_sent_at) {
+        const last = new Date(r.last_sent_at);
+        if (
+          last.getUTCFullYear() === now.getUTCFullYear() &&
+          last.getUTCMonth() === now.getUTCMonth() &&
+          last.getUTCDate() === now.getUTCDate()
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
 
-    // Fetch phone numbers
+    if (dueReminders.length === 0) {
+      return new Response(
+        JSON.stringify({ success: true, processed: 0, message: "No reminders due this minute" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userIds = Array.from(new Set(dueReminders.map((r: any) => r.user_id)));
+
     const { data: profiles, error: profilesError } = await supabase
       .from("profiles")
       .select("user_id, phone_number")
@@ -119,7 +146,7 @@ serve(async (req) => {
 
     const results: any[] = [];
 
-    for (const reminder of reminders || []) {
+    for (const reminder of dueReminders) {
       try {
         const rawPhone = phoneByUser.get(reminder.user_id);
         const to = rawPhone ? normalizeToE164(rawPhone) : null;
@@ -139,17 +166,18 @@ serve(async (req) => {
           TWILIO_MESSAGING_SERVICE_SID || undefined
         );
 
-        // Update last_sent_at
         const { error: updateError } = await supabase
           .from("user_reminders")
           .update({ last_sent_at: new Date().toISOString() })
           .eq("id", reminder.id);
-        if (updateError) console.error("Failed updating last_sent_at:", updateError);
+        if (updateError) {
+          console.error("Failed updating last_sent_at:", updateError);
+        }
 
         results.push({ reminderId: reminder.id, status: "sent" });
-      } catch (smsError: any) {
-        console.error(`Failed to send SMS for reminder ${reminder.id}:`, smsError);
-        results.push({ reminderId: reminder.id, status: "failed", error: smsError?.message || String(smsError) });
+      } catch (err: any) {
+        console.error(`Failed to process reminder ${reminder.id}:`, err);
+        results.push({ reminderId: reminder.id, status: "failed", error: err?.message || String(err) });
       }
     }
 
@@ -158,7 +186,7 @@ serve(async (req) => {
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error: any) {
-    console.error("Error in send-sms-reminder function:", error);
+    console.error("Error in process-due-reminders function:", error);
     return new Response(
       JSON.stringify({ error: error?.message || "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
