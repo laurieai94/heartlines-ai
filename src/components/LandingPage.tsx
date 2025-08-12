@@ -82,7 +82,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
   }, []);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700">
+    <div className={`min-h-screen relative overflow-x-hidden ${isEmbedded ? 'bg-burgundy-900' : 'bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700'}`}>
       {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (
         <>
@@ -93,49 +93,55 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       )}
 
       {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 3}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Floating Geometric Shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${10 + Math.random() * 20}s`,
-              transform: `rotate(${Math.random() * 360}deg)`
-            }}
-          />
-        ))}
-      </div>
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${10 + Math.random() * 20}s`,
+                transform: `rotate(${Math.random() * 360}deg)`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Code-like Background Elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-5">
-        <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
-          {`const love = { understanding: true, growth: infinite }`}
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden opacity-5">
+          <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
+            {`const love = { understanding: true, growth: infinite }`}
+          </div>
+          <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
+            {`if (relationship.status === 'complicated') { ai.help() }`}
+          </div>
+          <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
+            {`return personalized.advice.filter(advice => advice.isRelevant)`}
+          </div>
         </div>
-        <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
-          {`if (relationship.status === 'complicated') { ai.help() }`}
-        </div>
-        <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
-          {`return personalized.advice.filter(advice => advice.isRelevant)`}
-        </div>
-      </div>
+      )}
 
       {/* Navigation */}
       {showMarketingTopBar && (
@@ -164,10 +170,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Hero Section */}
       <section className={`relative px-6 py-20 lg:py-28 ${isEmbedded ? 'bg-transparent' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm'}`}>
         {/* Accent decoration - floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+        {!isEmbedded && (
+          <>
+            <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+          </>
+        )}
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
@@ -284,12 +294,16 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-8 -right-8 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse">
-                  <Heart className="w-6 h-6 text-pink-400" />
-                </div>
-                <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MessageCircle className="w-6 h-6 text-coral-400" />
-                </div>
+                {!isEmbedded && (
+                  <>
+                    <div className="absolute -top-8 -right-8 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse">
+                      <Heart className="w-6 h-6 text-pink-400" />
+                    </div>
+                    <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
+                      <MessageCircle className="w-6 h-6 text-coral-400" />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -299,35 +313,43 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Visual Break with Accent */}
       <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
         <div className="max-w-6xl mx-auto">
-          <div className="relative flex items-center justify-center">
-            {/* Gradient line with floating dots */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
-            {/* Accent dots */}
-            <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
-            <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-            {/* Center icon */}
-            <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
-              <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
-                <Heart className="w-6 h-6 text-white" />
+        <div className="relative flex items-center justify-center">
+          {!isEmbedded && (
+            <>
+              {/* Gradient line with floating dots */}
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+              {/* Accent dots */}
+              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
+              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Center icon */}
+              <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
+                <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
+        </div>
         </div>
       </section>
 
       {/* Real Talk Section - Enhanced with combined content */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20'}`}>
         {/* Dramatic Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
-        
-        {/* Accent Lines */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"></div>
-        
-        {/* Side Accent Elements */}
-        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
-        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
+        {!isEmbedded && (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
+            
+            {/* Accent Lines */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"></div>
+            
+            {/* Side Accent Elements */}
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
+            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
+          </>
+        )}
         
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
