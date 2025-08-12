@@ -54,13 +54,13 @@ export const ChatHeader = ({
                         <h3 className="font-semibold text-popover-foreground text-lg">Meet Kai</h3>
                       </div>
                       <div className="space-y-3">
-                        <p className="text-xs text-slate-200 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
                         </p>
-                        <p className="text-xs text-slate-300 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
                         </p>
-                        <p className="text-xs text-slate-300 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
                         </p>
                       </div>
