@@ -4,7 +4,7 @@ import DashboardHome from "@/components/DashboardHome";
 import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
 
-import ThoughtfulActions from "@/components/ThoughtfulActions";
+
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import Company from "@/components/Company";
 
@@ -58,16 +58,6 @@ const DashboardContent = ({
         </TabsContent>
 
 
-        <TabsContent value="actions" className="mt-0 h-full overflow-auto">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ProgressiveAccessWrapper action="actions">
-              <ThoughtfulActions 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
-            </ProgressiveAccessWrapper>
-          </div>
-        </TabsContent>
 
         <TabsContent value="company" className="mt-0 h-full overflow-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -10,7 +10,7 @@ export const useDashboardModalState = () => {
   const getTabFromPath = (pathname: string) => {
     if (pathname.includes('/dashboard/coach')) return 'insights';
     if (pathname.includes('/dashboard/practice')) return 'conversation';
-    if (pathname.includes('/dashboard/actions')) return 'actions';
+    
     if (pathname.includes('/dashboard/profile')) return 'profile';
     return 'home'; // default
   };
@@ -20,7 +20,7 @@ export const useDashboardModalState = () => {
     switch (tab) {
       case 'insights': return '/dashboard/coach';
       case 'conversation': return '/dashboard/practice';
-      case 'actions': return '/dashboard/actions';
+      
       case 'profile': return '/dashboard/profile';
       default: return '/dashboard/home';
     }

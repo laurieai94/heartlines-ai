@@ -24,7 +24,7 @@ const AppContent = () => {
         <Route path="/dashboard/profile" element={<Dashboard />} />
         <Route path="/dashboard/coach" element={<Dashboard />} />
         
-        <Route path="/dashboard/actions" element={<Dashboard />} />
+        <Route path="/dashboard/actions" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/company" element={<Dashboard />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="*" element={<NotFound />} />
