@@ -18,7 +18,7 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
