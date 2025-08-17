@@ -3,7 +3,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProfileBuilder from "@/components/ProfileBuilder";
 import AIInsights from "@/components/AIInsights";
-
+import { PrivacySettings } from "@/components/PrivacySettings";
 
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import Company from "@/components/Company";
@@ -58,6 +58,12 @@ const DashboardContent = ({
         </TabsContent>
 
 
+
+        <TabsContent value="privacy" className="mt-0 h-full overflow-auto">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <PrivacySettings />
+          </div>
+        </TabsContent>
 
         <TabsContent value="company" className="mt-0 h-full overflow-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

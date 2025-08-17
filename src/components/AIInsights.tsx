@@ -140,8 +140,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setShowDemographics(true);
   };
 
-  const handleLoadConversation = (conversationId: string) => {
-    const messages = loadConversation(conversationId);
+  const handleLoadConversation = async (conversationId: string) => {
+    const messages = await loadConversation(conversationId);
     setChatHistory(messages);
   };
 
@@ -155,9 +155,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       chatHistory.length === 0 &&
       !isStartingNewConversation
     ) {
-      const messages = loadMostRecentConversation();
-      setChatHistory(messages);
-      hasLoadedMostRecentRef.current = true;
+      const loadMessages = async () => {
+        const messages = await loadMostRecentConversation();
+        setChatHistory(messages);
+        hasLoadedMostRecentRef.current = true;
+      };
+      loadMessages();
     }
   }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation, isStartingNewConversation]);
 

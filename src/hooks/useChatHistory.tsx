@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
+import { PrivacyManager } from "@/utils/encryption";
 
 export interface ChatConversation {
   id: string;
@@ -104,11 +105,25 @@ export const useChatHistory = () => {
         messages.find(m => m.type === 'user')?.content.substring(0, 50) + '...' || 
         'New Conversation';
 
+      // Prepare messages for storage (encrypt if enabled)
+      let messagesToStore = messages;
+      let messagesForDB = JSON.stringify(messages);
+      
+      if (PrivacyManager.isEncryptionEnabled()) {
+        try {
+          const encryptedMessages = await PrivacyManager.encrypt(messages);
+          messagesForDB = JSON.stringify([{ role: 'system', content: `[ENCRYPTED:${encryptedMessages}]` }]);
+          messagesToStore = [{ id: 0, type: 'ai', content: `[ENCRYPTED:${encryptedMessages}]`, timestamp: new Date().toISOString() }] as ChatMessage[];
+        } catch (error) {
+          console.warn('Encryption failed, storing as plaintext:', error);
+        }
+      }
+
       const conversationData = {
         id: currentConversationId || crypto.randomUUID(),
         user_id: user.id,
         title: conversationTitle,
-        messages: JSON.stringify(messages), // Convert to JSON string for database
+        messages: messagesForDB,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
@@ -131,7 +146,7 @@ export const useChatHistory = () => {
       
       const conversationForStorage = {
         ...conversationData,
-        messages: messages // Keep as array for localStorage
+        messages: messagesToStore // Use encrypted version if enabled
       };
 
       if (currentConversationId) {
@@ -154,10 +169,10 @@ export const useChatHistory = () => {
         return [{ ...conversationForStorage }, ...without];
       });
 
-      // Also save to sessionStorage for immediate recovery
+      // Always save plaintext to sessionStorage for immediate recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
         conversationId: conversationData.id,
-        messages: messages,
+        messages: messages, // Always plaintext in session
         timestamp: Date.now()
       }));
 
@@ -191,13 +206,30 @@ export const useChatHistory = () => {
     }
   };
 
-  const loadConversation = (conversationId: string): ChatMessage[] => {
+  const loadConversation = async (conversationId: string): Promise<ChatMessage[]> => {
     const conversation = conversations.find(c => c.id === conversationId);
     if (conversation) {
       setCurrentConversationId(conversationId);
-      const messages = convertToMessages(conversation.messages);
       
-      // Also save to sessionStorage for quick recovery
+      // Check if messages are encrypted
+      const rawMessages = conversation.messages;
+      let messages: ChatMessage[] = [];
+      
+      if (Array.isArray(rawMessages) && rawMessages.length === 1 && 
+          rawMessages[0].content && rawMessages[0].content.startsWith('[ENCRYPTED:')) {
+        try {
+          const encryptedData = rawMessages[0].content.replace('[ENCRYPTED:', '').replace(']', '');
+          const decryptedMessages = await PrivacyManager.decrypt(encryptedData);
+          messages = convertToMessages(decryptedMessages);
+        } catch (error) {
+          console.warn('Failed to decrypt conversation, may be corrupted:', error);
+          return [];
+        }
+      } else {
+        messages = convertToMessages(rawMessages);
+      }
+      
+      // Save decrypted messages to sessionStorage for quick recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
         conversationId: conversationId,
         messages: messages,
