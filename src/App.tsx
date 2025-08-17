@@ -23,6 +23,7 @@ const AppContent = () => {
         <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
         <Route path="/dashboard/coach" element={<Dashboard />} />
+        <Route path="/dashboard/privacy" element={<Dashboard />} />
         
         <Route path="/dashboard/actions" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/company" element={<Dashboard />} />
