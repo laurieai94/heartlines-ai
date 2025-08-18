@@ -1,28 +1,53 @@
 
 // Dynamic CORS headers based on ALLOWED_ORIGINS secret
 export const getCorsHeaders = (origin?: string | null) => {
-  const allowedOrigins = Deno.env.get('ALLOWED_ORIGINS')?.split(',').map(o => o.trim()) || ['*'];
-  
+  const raw = Deno.env.get('ALLOWED_ORIGINS');
+  const allowedOrigins = raw ? raw.split(',').map(o => o.trim()).filter(Boolean) : ['*'];
+
   // If wildcard is allowed or no specific origins configured, allow all
   if (allowedOrigins.includes('*')) {
     return {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Vary': 'Origin',
     };
   }
-  
-  // Check if the origin is in the allowed list
-  const allowedOrigin = allowedOrigins.find(allowed => 
-    origin === allowed || 
-    (origin && allowed.endsWith('*') && origin.startsWith(allowed.slice(0, -1)))
-  );
-  
+
+  // If no origin provided, we cannot reflect it
+  if (!origin) {
+    return {
+      'Access-Control-Allow-Origin': 'null',
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Credentials': 'true',
+      'Vary': 'Origin',
+    };
+  }
+
+  // Match origin with support for wildcard patterns (e.g., https://*.lovable.app or prefix*)
+  const escapeRegex = (s: string) => s.replace(/[-/\\^$+?.()|[\]{}]/g, '\\$&');
+  const matched = allowedOrigins.find((allowed) => {
+    if (allowed === origin) return true;
+    if (allowed.includes('*')) {
+      const pattern = '^' + escapeRegex(allowed).replace(/\\\*/g, '.*') + '$';
+      try {
+        return new RegExp(pattern).test(origin);
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
+
+  const allow = matched ? origin : 'null';
+
   return {
-    'Access-Control-Allow-Origin': allowedOrigin || 'null',
+    'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Credentials': 'true',
+    'Vary': 'Origin',
   };
 };
 
