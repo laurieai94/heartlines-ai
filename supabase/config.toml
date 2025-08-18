@@ -9,3 +9,7 @@ verify_jwt = true
 [functions.process-due-reminders]
 # Invoked by pg_cron via pg_net without auth headers
 verify_jwt = false
+
+[functions.anthropic-chat]
+# Make public for easier debugging and CORS handling
+verify_jwt = false
