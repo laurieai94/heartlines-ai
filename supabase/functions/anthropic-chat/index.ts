@@ -1,10 +1,13 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { corsHeaders } from '../_shared/cors.ts'
+import { getCorsHeaders } from '../_shared/cors.ts'
 
 const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')
 
 serve(async (req) => {
+  const origin = req.headers.get('origin');
+  const corsHeaders = getCorsHeaders(origin);
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -25,7 +28,7 @@ serve(async (req) => {
       throw new Error('userMessage and systemPrompt are required')
     }
 
-    console.log('Processing chat request for user message:', userMessage.substring(0, 100) + '...')
+    console.log('Processing chat request...')
 
     const messages = [
       ...conversationHistory,
@@ -53,14 +56,14 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('Anthropic API Error:', response.status, errorText)
+      console.error('Anthropic API Error:', response.status)
       
       if (response.status === 401) {
-        throw new Error('Invalid Anthropic API key')
+        throw new Error('Authentication failed')
       } else if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please wait a moment and try again.')
       } else {
-        throw new Error(`Anthropic API request failed: ${response.status} - ${errorText}`)
+        throw new Error(`API request failed with status: ${response.status}`)
       }
     }
 
@@ -78,15 +81,21 @@ serve(async (req) => {
         },
       )
     } else {
-      console.error('Invalid response format from Anthropic API:', data)
-      throw new Error('Invalid response format from Anthropic API')
+      console.error('Invalid response format from API')
+      throw new Error('Invalid response format from API')
     }
 
   } catch (error) {
     console.error('Edge Function Error:', error.message)
+    
+    // Sanitize error message for security
+    const sanitizedError = error.message?.includes('Authentication') ? 'Authentication failed' :
+                          error.message?.includes('Rate limit') ? 'Rate limit exceeded' :
+                          'Service temporarily unavailable';
+    
     return new Response(
       JSON.stringify({ 
-        error: error.message || 'An unexpected error occurred'
+        error: sanitizedError
       }),
       { 
         status: 500,
