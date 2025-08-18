@@ -8,9 +8,17 @@ serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
   
+  console.log(`[CORS] Request from origin: ${origin || 'none'}`);
+  console.log(`[CORS] Method: ${req.method}`);
+  console.log(`[CORS] Headers being set:`, corsHeaders);
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    console.log('[CORS] Handling OPTIONS preflight request');
+    return new Response(null, { 
+      headers: corsHeaders,
+      status: 200
+    });
   }
 
   try {
