@@ -112,13 +112,13 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5">
+    <div className="min-h-screen bg-questionnaire-gradient">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent mb-6">
             Choose Your Growth Plan
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-pink-200/80 max-w-2xl mx-auto">
             Every relationship is unique. Find the coaching level that fits your journey.
           </p>
         </div>
@@ -129,48 +129,48 @@ const Pricing = () => {
             return (
               <Card 
                 key={plan.id} 
-                className={`relative transition-all duration-300 hover:shadow-elegant hover:-translate-y-1 ${
+                className={`questionnaire-card relative transition-all duration-300 hover:shadow-elegant hover:-translate-y-1 ${
                   plan.popular 
-                    ? 'border-primary shadow-elegant scale-105' 
-                    : 'border-border/50'
+                    ? 'questionnaire-card-primary shadow-elegant scale-105' 
+                    : ''
                 }`}
               >
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1">
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-peach-400 text-white px-4 py-1 shadow-lg">
                     Most Popular
                   </Badge>
                 )}
                 
                 <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10 w-fit">
-                    <IconComponent className="h-6 w-6 text-primary" />
+                  <div className="mx-auto mb-4 p-3 rounded-full bg-white/10 backdrop-blur-sm w-fit border border-white/20">
+                    <IconComponent className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-white">{plan.name}</CardTitle>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold text-primary">{plan.price}</span>
-                    <span className="text-muted-foreground">/{plan.period}</span>
+                    <span className="text-4xl font-bold text-white">{plan.price}</span>
+                    <span className="text-pink-200/70">/{plan.period}</span>
                   </div>
-                  <CardDescription className="text-sm italic text-primary/80">
+                  <CardDescription className="text-sm italic text-coral-200">
                     ✨ "{plan.tagline}"
                   </CardDescription>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-pink-200/80 text-sm">
                     {plan.description}
                   </p>
                 </CardHeader>
 
                 <CardContent className="space-y-6">
                   <div className="text-center">
-                    <div className="text-2xl font-semibold text-primary">
+                    <div className="text-2xl font-semibold text-white">
                       {plan.messages} messages
                     </div>
-                    <div className="text-sm text-muted-foreground">per month</div>
+                    <div className="text-sm text-pink-200/70">per month</div>
                   </div>
 
                   <ul className="space-y-3">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-3">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
+                        <Check className="h-5 w-5 text-coral-300 flex-shrink-0" />
+                        <span className="text-sm text-pink-100">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -178,12 +178,11 @@ const Pricing = () => {
                   <Button
                     onClick={() => handlePlanSelect(plan)}
                     disabled={loading === plan.tier}
-                    className={`w-full transition-all duration-300 ${
+                    className={`w-full ${
                       plan.popular 
-                        ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
-                        : ''
+                        ? 'questionnaire-button-primary' 
+                        : 'questionnaire-button-secondary'
                     }`}
-                    variant={plan.popular ? "default" : "outline"}
                   >
                     {loading === plan.tier ? "Loading..." : plan.buttonText}
                   </Button>
@@ -194,10 +193,14 @@ const Pricing = () => {
         </div>
 
         <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-4">
+          <p className="text-pink-200/70 mb-4">
             Questions about our plans? We're here to help.
           </p>
-          <Button variant="ghost" onClick={() => navigate("/dashboard/home")}>
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate("/dashboard/home")}
+            className="text-pink-200 hover:text-white hover:bg-white/10 backdrop-blur-sm border border-white/20"
+          >
             ← Back to Dashboard
           </Button>
         </div>
