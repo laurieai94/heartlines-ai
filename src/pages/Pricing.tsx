@@ -112,13 +112,18 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-questionnaire-gradient">
-      <div className="container mx-auto px-4 py-16">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700">
+      {/* Animated background overlays */}
+      <div className="absolute inset-0 bg-gradient-to-br from-coral-600/30 via-coral-500/20 to-coral-500/25 animate-gradient" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-coral-400/10 to-coral-600/10 animate-gradient delay-1000" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-pink-400/10 via-coral-400/5 to-burgundy-600/10 animate-gradient delay-2000" />
+      
+      <div className="relative container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent mb-6">
+          <h1 className="text-5xl md:text-7xl font-thin text-white mb-4">
             Choose Your Growth Plan
           </h1>
-          <p className="text-xl text-pink-200/80 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300/90 font-light max-w-2xl mx-auto">
             Every relationship is unique. Find the coaching level that fits your journey.
           </p>
         </div>
@@ -129,38 +134,38 @@ const Pricing = () => {
             return (
               <Card 
                 key={plan.id} 
-                className={`questionnaire-card relative transition-all duration-300 hover:shadow-elegant hover:-translate-y-1 ${
+                className={`glass rounded-3xl border-white/10 shadow-3xl transition-transform duration-300 hover:-translate-y-1 hover:shadow-3xl ${
                   plan.popular 
-                    ? 'questionnaire-card-primary shadow-elegant scale-105' 
+                    ? 'ring-1 ring-pink-400/30 scale-[1.02]' 
                     : ''
                 }`}
               >
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-peach-400 text-white px-4 py-1 shadow-lg">
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-1 rounded-full border border-white/10 shadow-neon text-sm">
                     Most Popular
                   </Badge>
                 )}
                 
                 <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-3 rounded-full bg-white/10 backdrop-blur-sm w-fit border border-white/20">
+                  <div className="mx-auto mb-4 p-3 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
                     <IconComponent className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-white">{plan.name}</CardTitle>
+                  <CardTitle className="text-2xl font-light text-white">{plan.name}</CardTitle>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold text-white">{plan.price}</span>
+                    <span className="text-5xl font-thin text-white">{plan.price}</span>
                     <span className="text-pink-200/70">/{plan.period}</span>
                   </div>
                   <CardDescription className="text-sm italic text-coral-200">
                     ✨ "{plan.tagline}"
                   </CardDescription>
-                  <p className="text-pink-200/80 text-sm">
+                  <p className="text-gray-300/90 text-sm">
                     {plan.description}
                   </p>
                 </CardHeader>
 
                 <CardContent className="space-y-6">
                   <div className="text-center">
-                    <div className="text-2xl font-semibold text-white">
+                    <div className="text-2xl font-light text-white">
                       {plan.messages} messages
                     </div>
                     <div className="text-sm text-pink-200/70">per month</div>
@@ -170,7 +175,7 @@ const Pricing = () => {
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-3">
                         <Check className="h-5 w-5 text-coral-300 flex-shrink-0" />
-                        <span className="text-sm text-pink-100">{feature}</span>
+                        <span className="text-sm text-white/80">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -178,7 +183,7 @@ const Pricing = () => {
                   <Button
                     onClick={() => handlePlanSelect(plan)}
                     disabled={loading === plan.tier}
-                    className={`w-full ${
+                    className={`w-full rounded-full py-5 text-base ${
                       plan.popular 
                         ? 'questionnaire-button-primary' 
                         : 'questionnaire-button-secondary'
@@ -199,7 +204,7 @@ const Pricing = () => {
           <Button 
             variant="ghost" 
             onClick={() => navigate("/dashboard/home")}
-            className="text-pink-200 hover:text-white hover:bg-white/10 backdrop-blur-sm border border-white/20"
+            className="rounded-full text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
           >
             ← Back to Dashboard
           </Button>
