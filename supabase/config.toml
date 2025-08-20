@@ -13,3 +13,15 @@ verify_jwt = false
 [functions.anthropic-chat]
 # Make public for easier debugging and CORS handling
 verify_jwt = false
+
+[functions.create-checkout]
+# Subscription checkout requires authentication
+verify_jwt = true
+
+[functions.check-subscription]
+# Subscription verification requires authentication
+verify_jwt = true
+
+[functions.customer-portal]
+# Customer portal requires authentication
+verify_jwt = true

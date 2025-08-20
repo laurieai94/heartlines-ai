@@ -1,6 +1,9 @@
 import BrandLogo from "./BrandLogo";
 import { BRAND } from "@/branding";
 import SignInButton from "./SignInButton";
+import { Button } from "@/components/ui/button";
+import { Crown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import type { User } from '@supabase/supabase-js';
 
 interface DashboardHeaderProps {
@@ -15,6 +18,8 @@ interface DashboardHeaderProps {
 }
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
+  const navigate = useNavigate();
+  
   return (
     <div className="w-full sticky top-0 z-40 mb-6 sm:mb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -61,7 +66,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             </div>
           </nav>
           
-          <div className="flex items-center">
+          <div className="flex items-center gap-3">
+            {user && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/pricing')}
+                className="text-white border-white/20 hover:bg-white/10 backdrop-blur-sm"
+              >
+                <Crown className="h-4 w-4 mr-2" />
+                Pricing
+              </Button>
+            )}
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>
