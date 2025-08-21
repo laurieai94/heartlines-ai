@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 // import { useDataMigration } from "@/hooks/useDataMigration";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
 import PrivacySecurity from "./pages/PrivacySecurity";
@@ -23,6 +24,7 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
         <Route path="/dashboard/coach" element={<Dashboard />} />
