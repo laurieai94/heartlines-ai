@@ -4,9 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useAuth } from '@/contexts/AuthContext';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 const AccountOverview = () => {
   const { user } = useAuth();
+  const { profile } = useUserProfile();
   const { 
     subscribed, 
     subscription_tier, 
@@ -42,7 +44,7 @@ const AccountOverview = () => {
       {/* Welcome Section */}
       <div className="text-center">
         <h2 className="text-2xl font-bold text-white mb-2">
-          Welcome back, {user?.email?.split('@')[0]}!
+          Welcome back, {profile?.name || user?.email?.split('@')[0] || 'there'}!
         </h2>
         <p className="text-white/70">
           Here's your account overview and usage summary
