@@ -50,7 +50,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 { value: 'profile', label: 'Profile' },
                 { value: 'insights', label: 'Coach' },
                 { value: 'company', label: 'Mission' },
-                { value: 'pricing', label: 'Pricing', isExternal: true },
+                { value: 'pricing', label: 'Membership', isExternal: true },
               ].map((tab) => (
                 <button
                   key={tab.value}
@@ -76,7 +76,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 className="text-white border-white/20 hover:bg-white/10 backdrop-blur-sm"
               >
                 <Crown className="h-4 w-4 mr-2" />
-                Pricing
+                Membership
               </Button>
             )}
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
