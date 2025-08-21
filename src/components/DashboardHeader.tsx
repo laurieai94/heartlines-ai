@@ -50,10 +50,11 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 { value: 'profile', label: 'Profile' },
                 { value: 'insights', label: 'Coach' },
                 { value: 'company', label: 'Mission' },
+                { value: 'pricing', label: 'Pricing', isExternal: true },
               ].map((tab) => (
                 <button
                   key={tab.value}
-                  onClick={() => onValueChange(tab.value)}
+                  onClick={() => tab.isExternal ? navigate('/pricing') : onValueChange(tab.value)}
                   className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTab === tab.value
                       ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full'
