@@ -13,6 +13,8 @@ import AuthCallback from "./pages/AuthCallback";
 import PrivacySecurity from "./pages/PrivacySecurity";
 import Pricing from "./pages/Pricing";
 import BillingSuccess from "./pages/BillingSuccess";
+import Account from "./pages/Account";
+import Auth from "./pages/Auth";
 
 const AppContent = () => {
   // DISABLED: Initialize data migration - replaced by unified storage system
@@ -34,6 +36,8 @@ const AppContent = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/billing/success" element={<BillingSuccess />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
