@@ -50,7 +50,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 { value: 'profile', label: 'Profile' },
                 { value: 'insights', label: 'Coach' },
                 { value: 'company', label: 'Mission' },
-                { value: 'pricing', label: 'Membership', isExternal: true },
+                { value: 'pricing', label: 'Plans', isExternal: true },
               ].map((tab) => (
                 <button
                   key={tab.value}
