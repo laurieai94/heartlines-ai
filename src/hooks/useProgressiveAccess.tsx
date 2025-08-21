@@ -114,30 +114,19 @@ export const useProgressiveAccess = () => {
   const profileCompletion = calculateProfileCompletion();
   const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // Determine access level based on authentication and profile completion
+  // UNLOCK: Always grant full access regardless of profile completion or authentication
   const getAccessLevel = (): AccessLevel => {
-    if (!user) return 'signup-required';
-    
-    const completion = calculateProfileCompletion();
-    const hasEssential = hasEssentialPersonalProfile();
-    
-    if (completion >= 80 && hasEssential) return 'full-access';
-    if (completion >= 30 || hasEssential) return 'profile-required';
-    
-    return 'signup-required';
+    console.log('UNLOCKED: Granting full access to all users');
+    return 'full-access';
   };
 
   const accessLevel = getAccessLevel();
   console.log('Current access level:', accessLevel, 'hasPersonalProfile:', hasPersonalProfileForChat);
 
-  // Check if user can interact with features
+  // Check if user can interact with features - always return true now
   const checkInteractionPermission = (action: string): boolean => {
-    if (accessLevel === 'full-access') return true;
-    
-    // Show modal for users who need to complete profile or sign up
-    setBlockingAction(action);
-    setShowSignUpModal(true);
-    return false;
+    console.log(`UNLOCKED: Granting permission for action: ${action}`);
+    return true;
   };
 
   const closeSignUpModal = () => {
@@ -147,8 +136,8 @@ export const useProgressiveAccess = () => {
 
   return {
     accessLevel,
-    canNavigate: accessLevel === 'full-access' || accessLevel === 'profile-required',
-    canInteract: accessLevel === 'full-access',
+    canNavigate: true,
+    canInteract: true, // Always allow interaction
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,

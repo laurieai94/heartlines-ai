@@ -1,15 +1,14 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import DashboardHeader from "@/components/DashboardHeader";
+
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const {
     activeTab,
     setActiveTab,
@@ -46,7 +45,7 @@ const Dashboard = () => {
   } = useDashboardModals();
 
   const handleSignInClick = () => {
-    navigate('/auth');
+    openSignInModal();
   };
 
   const handleOpenProfile = () => {
