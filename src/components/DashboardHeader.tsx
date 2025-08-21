@@ -68,17 +68,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           </nav>
           
           <div className="flex items-center gap-3">
-            {user && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('/pricing')}
-                className="text-white border-white/20 hover:bg-white/10 backdrop-blur-sm"
-              >
-                <Crown className="h-4 w-4 mr-2" />
-                Membership
-              </Button>
-            )}
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>
