@@ -155,9 +155,6 @@ const Pricing = () => {
                     <span className="text-5xl font-thin text-white">{plan.price}</span>
                     <span className="text-pink-200/70">/{plan.period}</span>
                   </div>
-                  <CardDescription className="text-sm italic text-coral-200">
-                    ✨ "{plan.tagline}"
-                  </CardDescription>
                   <p className="text-gray-300/90 text-sm">
                     {plan.description}
                   </p>
