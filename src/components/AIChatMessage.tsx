@@ -3,6 +3,7 @@ import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
+import { BRAND } from "@/branding";
 
 interface AIChatMessageProps {
   message: ChatMessage;
@@ -60,7 +61,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
             ) : (
               <>
                 <AvatarImage 
-                  src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" 
+                  src={BRAND.coach.avatarSrc} 
                   alt="Kai" 
                   className="object-cover"
                 />

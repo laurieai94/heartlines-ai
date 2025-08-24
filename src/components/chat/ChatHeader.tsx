@@ -4,6 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Plus, Menu, Info } from "lucide-react";
 import { useState } from "react";
+import { BRAND } from "@/branding";
 interface ChatHeaderProps {
   userName?: string;
   onNewConversation: () => void;
@@ -23,7 +24,7 @@ export const ChatHeader = ({
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
               <Avatar className="w-10 h-10 bg-gradient-to-br from-coral-400 to-pink-500 border-2 border-white/20 shadow-lg relative z-10">
-                <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" onError={e => {
+                <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" onError={e => {
                 console.log('Kai avatar image failed to load');
                 e.currentTarget.style.display = 'none';
               }} />
