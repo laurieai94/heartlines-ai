@@ -138,18 +138,17 @@ const SignUpModal = ({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] max-w-[92vw] p-0 bg-transparent border-0 shadow-none mx-auto">
         <div className="relative min-h-[500px] flex items-center justify-center">
-          {/* Warm burgundy animated background orbs */}
+          {/* Softened background orbs with site colors */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl">
-            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-red-800/45 to-red-600/35 rounded-full blur-2xl animate-float"></div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-red-900/40 to-red-700/30 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-red-700/35 to-red-800/25 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
-            <div className="absolute -top-5 -right-8 w-24 h-24 bg-gradient-to-br from-red-600/30 to-red-800/20 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute -bottom-5 -left-8 w-36 h-36 bg-gradient-to-br from-red-800/25 to-red-900/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '3s' }}></div>
+            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-coral-500/10 to-peach-500/8 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-burgundy-500/12 to-coral-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-gradient-to-br from-peach-400/8 to-coral-400/6 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
+            <div className="absolute -top-5 -right-8 w-24 h-24 bg-gradient-to-br from-coral-600/8 to-burgundy-600/6 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute -bottom-5 -left-8 w-36 h-36 bg-gradient-to-br from-burgundy-500/6 to-coral-500/4 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
           </div>
           
-          {/* Glassmorphism card with warm tints */}
-          <div className="relative glass rounded-3xl bg-gradient-to-br from-white/95 via-coral-50/80 to-peach-50/70 backdrop-blur-xl border border-white/30 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_40px_rgba(251,146,60,0.15)] overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-coral-400/5 via-transparent to-peach-400/5"></div>
+          {/* Questionnaire modal card */}
+          <div className="questionnaire-modal-card overflow-hidden">
             <div className="relative p-8 space-y-6">
               {/* Header */}
               <div className="text-center space-y-2">
@@ -160,13 +159,13 @@ const SignUpModal = ({
                     imgSrc={BRAND.logoSrc}
                     imgAlt="RealTalk logo"
                   />
-                  <h2 className="text-2xl font-semibold text-foreground">
+                  <h2 className="text-2xl font-semibold questionnaire-text">
                     {showVerificationState ? "Check Your Email" 
                      : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")
                      : isSignUp ? "Create Your Profile" : "Welcome back"}
                   </h2>
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="questionnaire-text-muted text-sm">
                   {showVerificationState 
                     ? "We've sent a verification link to your email. Click the link to activate your account."
                     : showForgotPassword
@@ -181,15 +180,14 @@ const SignUpModal = ({
               {showVerificationState ? (
                 <div className="space-y-4">
                   <div className="text-center space-y-4">
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm questionnaire-text-muted">
                       Didn't receive the email? Check your spam folder or request a new one.
                     </p>
 
-                    <Button
+                    <button
                       onClick={handleResendVerification}
                       disabled={resendCooldown > 0 || resendLoading}
-                      variant="outline"
-                      className="w-full h-11 text-base font-medium rounded-xl bg-white/60 backdrop-blur-sm border-white/30 hover:bg-white/80 hover:border-coral-300 transition-all duration-200"
+                      className="questionnaire-button-secondary w-full"
                     >
                       {resendLoading ? (
                         "Sending..."
@@ -201,14 +199,14 @@ const SignUpModal = ({
                       ) : (
                         "Resend verification email"
                       )}
-                    </Button>
+                    </button>
 
                     <button
                       onClick={() => {
                         setShowVerificationState(false);
                         setIsSignUp(false);
                       }}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                     >
                       Back to sign in
                     </button>
@@ -218,7 +216,7 @@ const SignUpModal = ({
                 <div className="space-y-4">
                   {resetEmailSent ? (
                     <div className="text-center space-y-4">
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm questionnaire-text-muted">
                         Check your email and follow the link to reset your password.
                       </p>
                       <button
@@ -227,7 +225,7 @@ const SignUpModal = ({
                           setResetEmailSent(false);
                           setIsSignUp(false);
                         }}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                       >
                         Back to sign in
                       </button>
@@ -235,29 +233,30 @@ const SignUpModal = ({
                   ) : (
                     <form onSubmit={handleResetPassword} className="space-y-4">
                       <div className="space-y-1">
-                        <Input
+                        <label htmlFor="reset-email" className="sr-only">Drop your email</label>
+                        <input
                           id="reset-email"
                           type="email"
                           value={email}
                           onChange={e => setEmail(e.target.value)}
-                          className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
+                          className="questionnaire-input"
                           placeholder="Drop your email"
                           required
                         />
                       </div>
 
-                      <Button
+                      <button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-500 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                        className="questionnaire-button-primary w-full"
                       >
                         {loading ? "Sending..." : "Send Reset Link"}
-                      </Button>
+                      </button>
 
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(false)}
-                        className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="w-full text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                       >
                         Back to sign in
                       </button>
@@ -268,12 +267,13 @@ const SignUpModal = ({
                 <form onSubmit={handleEmailAuth} className="space-y-4">
                   {isSignUp && (
                     <div className="space-y-1">
-                      <Input
+                      <label htmlFor="name" className="sr-only">What should we call you?</label>
+                      <input
                         id="name"
                         type="text"
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
+                        className="questionnaire-input"
                         placeholder="What should we call you?"
                         required
                       />
@@ -281,12 +281,13 @@ const SignUpModal = ({
                   )}
 
                   <div className="space-y-1">
-                    <Input
+                    <label htmlFor="email" className="sr-only">Drop your email</label>
+                    <input
                       id="email"
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
-                      className="h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
+                      className="questionnaire-input"
                       placeholder="Drop your email"
                       required
                     />
@@ -294,19 +295,20 @@ const SignUpModal = ({
 
                   <div className="space-y-1">
                     <div className="relative">
-                      <Input
+                      <label htmlFor="password" className="sr-only">Password</label>
+                      <input
                         id="password"
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        className="pr-10 h-11 text-base rounded-xl border-white/20 bg-white/60 backdrop-blur-sm focus:bg-white/80 focus:border-coral-300 transition-all duration-200 placeholder:text-muted-foreground/70"
+                        className="questionnaire-input pr-12"
                         placeholder="Password"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 questionnaire-text-muted hover:questionnaire-text transition-colors"
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -317,7 +319,7 @@ const SignUpModal = ({
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(true)}
-                        className="text-sm text-muted-foreground hover:text-coral-500 transition-colors"
+                        className="text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                       >
                         Oops, blanking rn
                       </button>
@@ -325,10 +327,10 @@ const SignUpModal = ({
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <Button
+                    <button
                       type="submit"
                       disabled={loading}
-                      className="w-full h-11 text-base font-medium rounded-xl bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-500 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+                      className="questionnaire-button-primary w-full flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         "Signing in..." 
@@ -339,7 +341,7 @@ const SignUpModal = ({
                           Let's Go <ArrowRight className="h-4 w-4" />
                         </>
                       )}
-                    </Button>
+                    </button>
                   </div>
                 </form>
               )}
@@ -349,7 +351,7 @@ const SignUpModal = ({
                 <div className="text-center pt-2">
                   <button
                     onClick={() => setIsSignUp(!isSignUp)}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                   >
                     {isSignUp ? "Already have an account? Sign in" : "New? Create your profile."}
                   </button>
