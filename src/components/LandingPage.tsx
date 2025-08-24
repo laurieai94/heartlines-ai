@@ -5,7 +5,7 @@ import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
-import BrandLogo from "./BrandLogo";
+import BrandMark from "./BrandMark";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -148,6 +148,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center">
+              <Link to="/dashboard">
+                <BrandMark 
+                  size="md"
+                  className="hover:opacity-80 transition-opacity"
+                />
+              </Link>
             </div>
             <div className="flex items-center gap-4">
               <Link to="/privacy-and-security">
@@ -647,8 +653,11 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Footer */}
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center">
-            <span className="text-2xl font-light text-white">RealTalk</span>
+          <div className="flex items-center justify-center mb-6">
+            <BrandMark 
+              size="lg"
+              className="opacity-90"
+            />
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>

@@ -95,6 +95,7 @@ export default {
 			},
 			fontFamily: {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
+				brand: ['ITC New Baskerville Pro', 'Libre Baskerville', 'Georgia', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

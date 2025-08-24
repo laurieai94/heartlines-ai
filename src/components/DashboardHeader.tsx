@@ -1,5 +1,4 @@
-import { BRAND } from "@/branding";
-import BrandLogo from "./BrandLogo";
+import BrandMark from "./BrandMark";
 import SignInButton from "./SignInButton";
 import { Button } from "@/components/ui/button";
 import { Crown } from "lucide-react";
@@ -26,12 +25,17 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center">
             <div className="flex items-center gap-3">
+              <BrandMark 
+                size={compact ? "sm" : "md"}
+                onClick={() => onValueChange('home')}
+                className="hover:opacity-80 transition-opacity"
+              />
               {accessLevel !== 'full-access' && (
                 <p className="text-xs text-pink-200/70 font-medium mt-1 leading-relaxed">
                   {accessLevel === 'profile-required' ? 'Start by building your profile' : 
                    profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
                 </p>
-               )}
+              )}
             </div>
           </div>
 
