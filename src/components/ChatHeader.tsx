@@ -4,6 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { Bot, Circle, User, Heart, Info } from "lucide-react";
 import { useState } from "react";
+import { BRAND } from "@/branding";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -26,7 +27,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
         <div className="relative">
           <Avatar className="w-16 h-16 bg-gradient-to-br from-coral-400 to-pink-500 border-4 border-white shadow-lg">
             <AvatarImage 
-              src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
+              src={BRAND.coach.avatarSrc} 
               alt="Kai" 
               className="object-cover"
             />
