@@ -44,6 +44,9 @@ const BrandMark: React.FC<BrandMarkProps> = ({
         src={BRAND.iconSrc}
         alt={BRAND.alt}
         className={`${config.iconSize} object-contain`}
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
       />
       <span className={`${config.textSize} font-brand text-white font-bold tracking-wide`}>
         {BRAND.name}
