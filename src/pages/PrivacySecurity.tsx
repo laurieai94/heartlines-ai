@@ -62,7 +62,7 @@ const PrivacySecurity = () => {
           <Link to="/" className="flex items-center gap-3">
             <BrandLogo 
               className="w-8 h-8" 
-              variant="rounded" 
+              variant="bare" 
               imgSrc={BRAND.logoSrc}
               imgAlt="RealTalk logo"
             />

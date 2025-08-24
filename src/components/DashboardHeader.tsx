@@ -27,7 +27,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           <div className="flex items-center gap-4">
             <BrandLogo 
               className="w-10 h-10" 
-              variant="rounded" 
+              variant="bare" 
               imgSrc={BRAND.logoSrc}
               imgAlt="RealTalk logo"
             />

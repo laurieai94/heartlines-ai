@@ -150,8 +150,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <div className="flex items-center gap-3">
               <BrandLogo 
                 className="w-8 h-8" 
-                variant="rounded" 
-                 imgSrc={BRAND.logoSrc}
+                variant="bare" 
+                imgSrc={BRAND.logoSrc}
                 imgAlt="RealTalk logo"
               />
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
@@ -657,7 +657,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           <div className="flex items-center justify-center gap-3 mb-6">
             <BrandLogo 
               className="w-8 h-8" 
-              variant="circle" 
+              variant="bare"
               imgSrc={BRAND.logoSrc}
               imgAlt="RealTalk logo"
             />
