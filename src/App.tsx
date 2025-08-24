@@ -15,10 +15,18 @@ import Pricing from "./pages/Pricing";
 import BillingSuccess from "./pages/BillingSuccess";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
+import { BRAND } from "@/branding";
 
 const AppContent = () => {
   // DISABLED: Initialize data migration - replaced by unified storage system
   // useDataMigration();
+  
+  React.useEffect(() => {
+    const img = new Image();
+    img.src = BRAND.iconSrc;
+    img.onload = () => console.info("[Brand Asset] Loaded:", BRAND.iconSrc);
+    img.onerror = () => console.error("[Brand Asset] Failed to load:", BRAND.iconSrc);
+  }, []);
   
   return (
     <BrowserRouter>

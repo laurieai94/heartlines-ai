@@ -47,7 +47,9 @@ const BrandMark: React.FC<BrandMarkProps> = ({
         width={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
         height={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
         onError={(e) => {
-          e.currentTarget.style.display = 'none';
+          const fallback = '/lovable-uploads/heart-logo.png';
+          if (e.currentTarget.src.endsWith(fallback)) return;
+          e.currentTarget.src = fallback;
         }}
       />
       <span className={`${config.textSize} font-brand text-white font-bold tracking-wide`}>
