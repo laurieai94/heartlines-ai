@@ -5,6 +5,7 @@ import { ChatMessage } from "@/types/AIInsights";
 import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { BRAND } from "@/branding";
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
@@ -77,7 +78,7 @@ const ChatContainer = ({
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
                     <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
-                      <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Kai" className="object-cover" />
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                         <Bot className="w-4 h-4" />
                       </AvatarFallback>
