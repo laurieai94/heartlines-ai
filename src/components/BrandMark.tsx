@@ -1,6 +1,5 @@
 import React from "react";
 import { BRAND } from "@/branding";
-import HeartAppIcon from "./HeartAppIcon";
 
 interface BrandMarkProps {
   className?: string;
@@ -41,11 +40,12 @@ const BrandMark: React.FC<BrandMarkProps> = ({
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
     >
-      <HeartAppIcon
-        size={size === 'sm' ? 24 : size === 'lg' ? 40 : 32}
-        className={config.iconSize}
+      <img
+        src={BRAND.iconSrc}
+        alt={BRAND.alt}
+        className={`${config.iconSize} object-contain`}
       />
-      <span className={`${config.textSize} font-brand text-white font-normal tracking-wide`}>
+      <span className={`${config.textSize} font-brand text-white font-bold tracking-wide`}>
         {BRAND.name}
       </span>
     </div>
