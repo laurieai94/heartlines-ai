@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Eye, EyeOff, User, Clock, ArrowRight } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import BrandLogo from "@/components/BrandLogo";
 import { BRAND } from "@/branding";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
@@ -152,13 +151,7 @@ const SignUpModal = ({
             <div className="relative p-8 space-y-6">
               {/* Header */}
               <div className="text-center space-y-2">
-                <div className="flex flex-col items-center justify-center gap-3">
-                  <BrandLogo 
-                    className="w-10 h-10" 
-                    variant="bare"
-                    imgSrc={BRAND.logoSrc}
-                    imgAlt="RealTalk logo"
-                  />
+                <div className="flex flex-col items-center justify-center">
                   <h2 className="text-2xl font-semibold questionnaire-text">
                     {showVerificationState ? "Check Your Email" 
                      : showForgotPassword ? (resetEmailSent ? "Check Your Email" : "Reset Password")

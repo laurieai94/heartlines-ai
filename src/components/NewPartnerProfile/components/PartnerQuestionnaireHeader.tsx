@@ -1,6 +1,4 @@
 import { Heart, X, Lock } from "lucide-react";
-import BrandLogo from "../../BrandLogo";
-import { BRAND } from "@/branding";
 import { Button } from "@/components/ui/button";
 import { PartnerProfileData } from "../types";
 
@@ -35,12 +33,7 @@ const PartnerQuestionnaireHeader = ({
             {initial ? (
               <span className="text-sm font-bold text-white">{initial}</span>
             ) : (
-              <BrandLogo 
-                className="w-6 h-6" 
-                variant="bare" 
-                imgSrc={BRAND.logoSrc}
-                imgAlt="RealTalk logo"
-              />
+              <Heart className="w-6 h-6 text-white" />
             )}
           </div>
           

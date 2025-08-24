@@ -1,6 +1,4 @@
 
-import BrandLogo from "../../BrandLogo";
-import { BRAND } from "@/branding";
 import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock } from "lucide-react";
 import { ProfileData } from "../types";
@@ -32,12 +30,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
             {hasName ? (
               <span className="text-white font-bold text-sm relative z-10">{getInitial()}</span>
             ) : (
-              <BrandLogo 
-                className="w-6 h-6" 
-                variant="bare" 
-                imgSrc={BRAND.logoSrc}
-                imgAlt="RealTalk logo"
-              />
+              <User className="w-6 h-6 text-white relative z-10" />
             )}
           </div>
           

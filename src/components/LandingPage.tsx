@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import BrandLogo from "./BrandLogo";
 import { BRAND } from "@/branding";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
@@ -147,13 +146,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {showMarketingTopBar && (
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <BrandLogo 
-                className="w-8 h-8" 
-                variant="bare" 
-                imgSrc={BRAND.logoSrc}
-                imgAlt="RealTalk logo"
-              />
+            <div className="flex items-center">
               <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
             </div>
             <div className="flex items-center gap-4">
@@ -654,13 +647,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Footer */}
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <BrandLogo 
-              className="w-8 h-8" 
-              variant="bare"
-              imgSrc={BRAND.logoSrc}
-              imgAlt="RealTalk logo"
-            />
+          <div className="flex items-center justify-center">
             <span className="text-2xl font-light text-white">RealTalk</span>
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>

@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle } from 'lucide-react';
-import BrandLogo from '@/components/BrandLogo';
 import { BRAND } from '@/branding';
 
 const PrivacySecurity = () => {
@@ -59,13 +58,7 @@ const PrivacySecurity = () => {
       {/* Navigation */}
       <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-3">
-            <BrandLogo 
-              className="w-8 h-8" 
-              variant="bare" 
-              imgSrc={BRAND.logoSrc}
-              imgAlt="RealTalk logo"
-            />
+          <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </Link>
           <div className="flex items-center gap-4">
