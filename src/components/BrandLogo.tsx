@@ -30,21 +30,11 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
             src={imgSrc} 
             alt={imgAlt || ariaLabel}
             className="w-full h-full object-contain drop-shadow-lg"
-            onError={(e) => {
-              // Fallback to heart icon if image fails to load
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-              target.nextElementSibling?.classList.remove('hidden');
+            onError={() => {
+              console.error('BrandLogo image failed to load:', imgSrc);
             }}
           />
         ) : null}
-        <svg 
-          className={`relative z-10 w-3/4 h-3/4 text-white ${imgSrc ? 'hidden' : ''}`} 
-          fill="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
       </div>
     );
   }
@@ -62,21 +52,11 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
           src={imgSrc} 
           alt={imgAlt || ariaLabel}
           className="relative z-10 w-3/4 h-3/4 object-contain drop-shadow-lg"
-          onError={(e) => {
-            // Fallback to heart icon if image fails to load
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            target.nextElementSibling?.classList.remove('hidden');
+          onError={() => {
+            console.error('BrandLogo image failed to load:', imgSrc);
           }}
         />
       ) : null}
-      <svg 
-        className={`relative z-10 w-3/4 h-3/4 text-white ${imgSrc ? 'hidden' : ''}`} 
-        fill="currentColor" 
-        viewBox="0 0 24 24"
-      >
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-      </svg>
     </div>
   );
 };
