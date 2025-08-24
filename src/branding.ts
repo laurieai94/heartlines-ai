@@ -1,5 +1,5 @@
 export const BRAND = {
-  logoSrc: "/lovable-uploads/d0b1ece4-3bc8-4ae5-9d7e-d736255230e3.png?v=1",
+  logoSrc: "/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png",
   name: "RealTalk",
   alt: "RealTalk heart logo",
   coach: {
