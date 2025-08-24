@@ -5,6 +5,7 @@ import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
+import BrandLogo from "./BrandLogo";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -147,7 +148,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
+              <BrandLogo 
+                kind="wordmark" 
+                width={120} 
+                height={40}
+                className="h-auto"
+              />
             </div>
             <div className="flex items-center gap-4">
               <Link to="/privacy-and-security">

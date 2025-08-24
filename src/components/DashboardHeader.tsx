@@ -1,4 +1,5 @@
 import { BRAND } from "@/branding";
+import BrandLogo from "./BrandLogo";
 import SignInButton from "./SignInButton";
 import { Button } from "@/components/ui/button";
 import { Crown } from "lucide-react";
@@ -24,8 +25,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center">
-            <div>
-              <h1 className={`${compact ? 'text-xl' : 'text-2xl'} font-bold text-white font-serif leading-tight`}>RealTalk</h1>
+            <div className="flex items-center gap-3">
+              <BrandLogo 
+                kind="wordmark" 
+                width={compact ? 100 : 120} 
+                height={compact ? 32 : 40}
+                className="h-auto"
+              />
               {accessLevel !== 'full-access' && (
                 <p className="text-xs text-pink-200/70 font-medium mt-1 leading-relaxed">
                   {accessLevel === 'profile-required' ? 'Start by building your profile' : 
