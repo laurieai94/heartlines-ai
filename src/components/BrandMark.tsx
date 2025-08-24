@@ -44,6 +44,8 @@ const BrandMark: React.FC<BrandMarkProps> = ({
         src={BRAND.iconSrc}
         alt={BRAND.alt}
         className={`${config.iconSize} object-contain`}
+        width={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
+        height={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
         onError={(e) => {
           e.currentTarget.style.display = 'none';
         }}
