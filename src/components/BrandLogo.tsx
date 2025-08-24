@@ -1,4 +1,5 @@
 import React from "react";
+import { BRAND } from "@/branding";
 
 interface BrandLogoProps {
   className?: string;
@@ -16,9 +17,9 @@ interface BrandLogoProps {
 const BrandLogo: React.FC<BrandLogoProps> = ({ 
   className = "w-20 h-20", 
   variant = "rounded", 
-  ariaLabel = "RealTalk",
-  imgSrc,
-  imgAlt 
+  ariaLabel = BRAND.name,
+  imgSrc = BRAND.logoSrc,
+  imgAlt = BRAND.alt 
 }) => {
   // For bare variant
   if (variant === "bare") {
