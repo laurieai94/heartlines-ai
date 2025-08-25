@@ -1,8 +1,11 @@
 
+import React, { Suspense } from "react";
 import SignUpModal from "@/components/SignUpModal";
-import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
-import NewPartnerProfile from "@/components/NewPartnerProfile";
-import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
+
+// Lazy load heavy modal components
+const NewPersonalQuestionnaire = React.lazy(() => import("@/components/NewPersonalQuestionnaire"));
+const NewPartnerProfile = React.lazy(() => import("@/components/NewPartnerProfile"));
+const ProfileCompletionOptions = React.lazy(() => import("@/components/ProfileCompletionOptions"));
 
 interface DashboardModalsProps {
   shouldShowSignUpModal: boolean;
@@ -49,8 +52,7 @@ const DashboardModals = ({
   onPartnerCompletionClose,
   temporaryProfiles
 }: DashboardModalsProps) => {
-  console.log('DashboardModals render - showQuestionnaireModal:', showQuestionnaireModal);
-  console.log('DashboardModals render - showPartnerQuestionnaireModal:', showPartnerQuestionnaireModal);
+  // Removed debug logs for better performance
 
   return (
     <>
@@ -84,11 +86,13 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <NewPersonalQuestionnaire 
-              onComplete={onQuestionnaireComplete} 
-              onClose={onQuestionnaireClose} 
-              isModal={true} 
-            />
+            <Suspense fallback={<div className="flex items-center justify-center h-96 bg-card rounded-lg"><div className="text-card-foreground">Loading questionnaire...</div></div>}>
+              <NewPersonalQuestionnaire 
+                onComplete={onQuestionnaireComplete} 
+                onClose={onQuestionnaireClose} 
+                isModal={true} 
+              />
+            </Suspense>
           </div>
         </div>
       )}
@@ -107,37 +111,43 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <NewPartnerProfile 
-              onComplete={onPartnerQuestionnaireComplete} 
-              onClose={onPartnerQuestionnaireClose} 
-              isModal={true} 
-            />
+            <Suspense fallback={<div className="flex items-center justify-center h-96 bg-card rounded-lg"><div className="text-card-foreground">Loading partner profile...</div></div>}>
+              <NewPartnerProfile 
+                onComplete={onPartnerQuestionnaireComplete} 
+                onClose={onPartnerQuestionnaireClose} 
+                isModal={true} 
+              />
+            </Suspense>
           </div>
         </div>
       )}
 
       {/* Personal Profile Completion Options */}
       {showPersonalCompletionOptions && (
-        <ProfileCompletionOptions
-          completionType="personal"
-          onAddPartnerProfile={onPersonalAddPartnerProfile}
-          onStartChatting={onPersonalStartChatting}
-          onClose={onPersonalCompletionClose}
-          onEditProfile={onQuestionnaireOpen}
-          hasPartnerProfile={temporaryProfiles.partner.length > 0}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"><div className="text-card-foreground">Loading...</div></div>}>
+          <ProfileCompletionOptions
+            completionType="personal"
+            onAddPartnerProfile={onPersonalAddPartnerProfile}
+            onStartChatting={onPersonalStartChatting}
+            onClose={onPersonalCompletionClose}
+            onEditProfile={onQuestionnaireOpen}
+            hasPartnerProfile={temporaryProfiles.partner.length > 0}
+          />
+        </Suspense>
       )}
 
       {/* Partner Profile Completion Options */}
       {showPartnerCompletionOptions && (
-        <ProfileCompletionOptions
-          completionType="partner"
-          onAddPartnerProfile={() => {}}
-          onStartChatting={onPartnerStartChatting}
-          onClose={onPartnerCompletionClose}
-          onEditProfile={onQuestionnaireOpen}
-          hasPartnerProfile={true}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"><div className="text-card-foreground">Loading...</div></div>}>
+          <ProfileCompletionOptions
+            completionType="partner"
+            onAddPartnerProfile={() => {}}
+            onStartChatting={onPartnerStartChatting}
+            onClose={onPartnerCompletionClose}
+            onEditProfile={onQuestionnaireOpen}
+            hasPartnerProfile={true}
+          />
+        </Suspense>
       )}
     </>
   );

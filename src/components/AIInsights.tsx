@@ -42,14 +42,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
 
   useEffect(() => {
-    console.log('=== AIInsights: Profile Data Sources ===');
-    console.log('personalProfileData:', personalProfileData);
-    console.log('personalProfileData.name:', personalProfileData?.name);
-    console.log('partnerProfileData:', partnerProfileData);
-    console.log('temporaryProfiles:', temporaryProfiles);
-    console.log('temporaryDemographics:', temporaryDemographics);
-    console.log('personalDataReady:', personalDataReady);
-    console.log('partnerDataLoading:', partnerDataLoading);
+    // Reduced logging for better performance
 
     if (personalDataReady && !partnerDataLoading) {
       // Merge ALL personal profile data sources
@@ -65,10 +58,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         ...partnerProfileData // This includes data from 'partner_profile_questionnaire' localStorage
       };
 
-      console.log('=== Merged Data ===');
-      console.log('mergedPersonalData:', mergedPersonalData);
-      console.log('mergedPartnerData:', mergedPartnerData);
-
       // Create unified profile structure - ensure we have data in both profile and demographics
       const newUnifiedProfiles = {
         your: Object.keys(mergedPersonalData).length > 0 ? [mergedPersonalData] : temporaryProfiles.your,
@@ -80,20 +69,18 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         partner: Object.keys(mergedPartnerData).length > 0 ? mergedPartnerData : temporaryDemographics.partner
       };
 
-      console.log('=== Final Unified Data ===');
-      console.log('newUnifiedProfiles:', newUnifiedProfiles);
-      console.log('newUnifiedDemographics:', newUnifiedDemographics);
-
       setUnifiedProfiles(newUnifiedProfiles);
       setUnifiedDemographics(newUnifiedDemographics);
     }
   }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
 
-  // Initialize Supabase configuration on mount
+  // Defer Supabase initialization to avoid blocking render
   useEffect(() => {
-    console.log('Initializing Supabase configuration...');
-    const configured = AICoachEngine.initializeSupabase();
-    setIsConfigured(configured);
+    const timer = setTimeout(() => {
+      const configured = AICoachEngine.initializeSupabase();
+      setIsConfigured(configured);
+    }, 100); // Small delay to allow UI to render first
+    return () => clearTimeout(timer);
   }, []);
 
   // Handle new conversation
@@ -164,10 +151,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation, isStartingNewConversation]);
 
-  // Debug: Log what we're passing to AIChat
-  console.log('=== Passing to AIChat ===');
-  console.log('unifiedProfiles:', unifiedProfiles);
-  console.log('unifiedDemographics:', unifiedDemographics);
+  // Removed debug logs for performance
 
   return (
     <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col p-2 sm:p-3 lg:p-4">

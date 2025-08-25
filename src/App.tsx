@@ -5,9 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import Dashboard from "./pages/Dashboard"; // Synchronous import for faster shell
 
-// Lazy load components for better performance
-const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+// Lazy load non-critical components
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const AuthCallback = React.lazy(() => import("./pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("./pages/PrivacySecurity"));
@@ -20,27 +20,59 @@ const Mission = React.lazy(() => import("./pages/Mission"));
 const AppContent = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div className="p-6 text-muted-foreground">Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/profile" element={<Dashboard />} />
-          <Route path="/coach" element={<Dashboard />} />
-          <Route path="/privacy" element={<Dashboard />} />
-          <Route path="/company" element={<Dashboard />} />
-          
-          {/* Legacy redirects */}
-          <Route path="/insights" element={<Navigate to="/coach" replace />} />
-          
-          <Route path="/mission" element={<Mission />} />
-          <Route path="/privacy-and-security" element={<PrivacySecurity />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/billing/success" element={<BillingSuccess />} />
-          <Route path="/auth/callback" element={<AuthCallback />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+      <Routes>
+        {/* Critical routes load synchronously for instant shell */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/profile" element={<Dashboard />} />
+        <Route path="/coach" element={<Dashboard />} />
+        <Route path="/privacy" element={<Dashboard />} />
+        <Route path="/company" element={<Dashboard />} />
+        
+        {/* Legacy redirects */}
+        <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        
+        {/* Non-critical routes can be lazy */}
+        <Route path="/mission" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <Mission />
+          </Suspense>
+        } />
+        <Route path="/privacy-and-security" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <PrivacySecurity />
+          </Suspense>
+        } />
+        <Route path="/pricing" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <Pricing />
+          </Suspense>
+        } />
+        <Route path="/billing/success" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <BillingSuccess />
+          </Suspense>
+        } />
+        <Route path="/auth/callback" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <AuthCallback />
+          </Suspense>
+        } />
+        <Route path="/auth" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <Auth />
+          </Suspense>
+        } />
+        <Route path="/account" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <Account />
+          </Suspense>
+        } />
+        <Route path="*" element={
+          <Suspense fallback={<div className="flex items-center justify-center h-screen bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+            <NotFound />
+          </Suspense>
+        } />
+      </Routes>
     </BrowserRouter>
   );
 };

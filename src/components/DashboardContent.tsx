@@ -1,12 +1,14 @@
 
+import React, { Suspense } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
-import ProfileBuilder from "@/components/ProfileBuilder";
-import AIInsights from "@/components/AIInsights";
-import { PrivacySettings } from "@/components/PrivacySettings";
-
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
-import Company from "@/components/Company";
+
+// Lazy load heavy components to improve initial render
+const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
+const AIInsights = React.lazy(() => import("@/components/AIInsights"));
+const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
+const Company = React.lazy(() => import("@/components/Company"));
 
 interface DashboardContentProps {
   activeTab: string;
@@ -36,38 +38,44 @@ const DashboardContent = ({
 
         <TabsContent value="profile" className="mt-0 h-full overflow-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ProfileBuilder 
-              onProfileUpdate={onProfileUpdate}
-              initialProfiles={temporaryProfiles}
-              initialDemographics={temporaryDemographics}
-              onOpenQuestionnaire={onOpenQuestionnaire}
-              onOpenPartnerQuestionnaire={onOpenPartnerQuestionnaire}
-            />
+            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading profile...</div></div>}>
+              <ProfileBuilder 
+                onProfileUpdate={onProfileUpdate}
+                initialProfiles={temporaryProfiles}
+                initialDemographics={temporaryDemographics}
+                onOpenQuestionnaire={onOpenQuestionnaire}
+                onOpenPartnerQuestionnaire={onOpenPartnerQuestionnaire}
+              />
+            </Suspense>
           </div>
         </TabsContent>
 
         <TabsContent value="insights" className="mt-0 h-full overflow-hidden">
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
-              <AIInsights 
-                profiles={temporaryProfiles}
-                demographicsData={temporaryDemographics}
-              />
+              <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading AI coach...</div></div>}>
+                <AIInsights 
+                  profiles={temporaryProfiles}
+                  demographicsData={temporaryDemographics}
+                />
+              </Suspense>
             </ProgressiveAccessWrapper>
           </div>
         </TabsContent>
 
-
-
         <TabsContent value="privacy" className="mt-0 h-full overflow-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <PrivacySettings />
+            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading privacy settings...</div></div>}>
+              <PrivacySettings />
+            </Suspense>
           </div>
         </TabsContent>
 
         <TabsContent value="company" className="mt-0 h-full overflow-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Company />
+            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading...</div></div>}>
+              <Company />
+            </Suspense>
           </div>
         </TabsContent>
       </Tabs>
