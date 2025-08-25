@@ -5,10 +5,12 @@ import { Progress } from '@/components/ui/progress';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserProfile } from '@/hooks/useUserProfile';
+import { useNavigate } from 'react-router-dom';
 
 const AccountOverview = () => {
   const { user } = useAuth();
   const { profile } = useUserProfile();
+  const navigate = useNavigate();
   const { 
     subscribed, 
     subscription_tier, 
@@ -133,7 +135,7 @@ const AccountOverview = () => {
           <Button 
             variant="outline"
             className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => navigate('/profile')}
           >
                 <User className="h-4 w-4 mr-2" />
             Edit Profile
