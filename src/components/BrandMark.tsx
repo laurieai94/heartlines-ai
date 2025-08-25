@@ -47,7 +47,7 @@ const BrandMark: React.FC<BrandMarkProps> = ({
         width={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
         height={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
         onError={(e) => {
-          const fallback = '/lovable-uploads/heart-logo.png';
+          const fallback = '/lovable-uploads/7025b8ab-2794-4a5d-912b-0972ae84e9ef.png';
           if (e.currentTarget.src.endsWith(fallback)) return;
           e.currentTarget.src = fallback;
         }}
