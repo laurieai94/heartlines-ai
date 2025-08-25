@@ -82,7 +82,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
   }, []);
 
   return (
-    <div className={`min-h-screen relative overflow-x-hidden ${isEmbedded ? 'bg-burgundy-900' : 'bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700'}`}>
+    <div className="min-h-screen relative overflow-x-hidden landing-page-bg">
       {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (
         <>
@@ -145,7 +145,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-        <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
+        <nav className="px-6 py-4 relative z-10 bg-burgundy-900/95 backdrop-blur-sm border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center">
               <Link to="/dashboard">
@@ -172,7 +172,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       )}
 
       {/* Hero Section */}
-      <section className={`relative px-6 py-20 lg:py-28 ${isEmbedded ? 'bg-transparent' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-purple-900/30 backdrop-blur-sm'}`}>
+      <section className="relative px-6 py-20 lg:py-28">
         {/* Accent decoration - floating orbs */}
         {!isEmbedded && (
           <>

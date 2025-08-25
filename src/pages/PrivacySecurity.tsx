@@ -50,13 +50,13 @@ const PrivacySecurity = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-700">
+    <div className="min-h-screen landing-page-bg">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-coral-600/30 via-coral-500/20 to-coral-500/25 animate-gradient"></div>
       <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-b border-pink-300/10">
+      <nav className="px-6 py-4 relative z-10 bg-burgundy-900/95 backdrop-blur-sm border-b border-pink-300/10">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
