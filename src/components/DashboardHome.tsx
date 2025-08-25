@@ -7,8 +7,7 @@ function DashboardHomeFallback() {
   return (
     <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
       <div className="text-center">
-        <BrandMark size="lg" className="mx-auto mb-4" />
-        <p className="text-white/80 text-lg">Welcome back</p>
+        <BrandMark size="lg" className="mx-auto" />
       </div>
     </div>
   );
