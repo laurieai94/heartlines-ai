@@ -14,10 +14,43 @@ interface VoiceInterfaceProps {
 const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInterfaceProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(false); // Changed from true to false
+  const [audioEnabled, setAudioEnabled] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const currentUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Helper function to convert blob to base64
+  const blobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        // Remove the data:audio/webm;base64, prefix
+        const base64 = base64String.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  // Get supported mime type for MediaRecorder
+  const getSupportedMimeType = () => {
+    const types = [
+      'audio/webm;codecs=opus',
+      'audio/webm',
+      'audio/mp4',
+      undefined // Let browser choose
+    ];
+    
+    for (const type of types) {
+      if (!type || MediaRecorder.isTypeSupported(type)) {
+        return type;
+      }
+    }
+    return undefined;
+  };
 
   // Register the speak function with parent component when audio is enabled
   React.useEffect(() => {
@@ -29,9 +62,8 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
-      });
+      const mimeType = getSupportedMimeType();
+      const mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : {});
 
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -43,7 +75,7 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
       };
 
       mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm;codecs=opus' });
+        const audioBlob = new Blob(audioChunksRef.current, { type: mimeType || 'audio/webm' });
         await transcribeAudio(audioBlob);
         
         // Clean up stream
@@ -69,16 +101,16 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
 
   const transcribeAudio = async (audioBlob: Blob) => {
     try {
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
+      // Convert blob to base64
+      const base64Audio = await blobToBase64(audioBlob);
 
       const { data, error } = await supabase.functions.invoke('voice-to-text', {
-        body: formData,
+        body: { audio: base64Audio },
       });
 
       if (error) {
         console.error('Transcription error:', error);
-        toast.error("Failed to transcribe audio");
+        toast.error(`Failed to transcribe audio: ${error.message || 'Unknown error'}`);
         return;
       }
 
@@ -102,24 +134,52 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
       if (currentUtteranceRef.current) {
         speechSynthesis.cancel();
       }
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+      }
 
       setIsSpeaking(true);
 
       // Try to use Supabase TTS first, fallback to browser TTS
       try {
         const { data, error } = await supabase.functions.invoke('text-to-speech', {
-          body: { text: text.substring(0, 1000) } // Limit text length
+          body: { 
+            text: text.substring(0, 1000), // Limit text length
+            voice: 'alloy' // Default voice
+          }
         });
 
-        if (!error && data?.audioUrl) {
-          const audio = new Audio(data.audioUrl);
-          audio.onended = () => setIsSpeaking(false);
+        if (!error && data?.audioContent) {
+          // Convert base64 to audio blob and play
+          const binaryString = atob(data.audioContent);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          
+          const audioBlob = new Blob([bytes], { type: 'audio/mp3' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+          
+          currentAudioRef.current = audio;
+          
+          audio.onended = () => {
+            setIsSpeaking(false);
+            URL.revokeObjectURL(audioUrl);
+            currentAudioRef.current = null;
+          };
+          
           audio.onerror = () => {
             console.log('TTS audio failed, falling back to browser speech');
+            URL.revokeObjectURL(audioUrl);
+            currentAudioRef.current = null;
             fallbackToSpeechSynthesis(text);
           };
+          
           await audio.play();
         } else {
+          console.log('TTS returned no audio content, using browser speech');
           fallbackToSpeechSynthesis(text);
         }
       } catch (error) {
@@ -153,6 +213,10 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
   const stopSpeaking = () => {
     if (currentUtteranceRef.current) {
       speechSynthesis.cancel();
+    }
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
     }
     setIsSpeaking(false);
   };
