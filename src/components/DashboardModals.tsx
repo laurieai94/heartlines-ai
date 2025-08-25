@@ -87,7 +87,7 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." /></div>}>
+            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
               <NewPersonalQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
                 onClose={onQuestionnaireClose} 
@@ -112,7 +112,7 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." /></div>}>
+            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
               <NewPartnerProfile 
                 onComplete={onPartnerQuestionnaireComplete} 
                 onClose={onPartnerQuestionnaireClose} 
@@ -125,7 +125,7 @@ const DashboardModals = ({
 
       {/* Personal Profile Completion Options */}
       {showPersonalCompletionOptions && (
-        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." /></div>}>
+        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
           <ProfileCompletionOptions
             completionType="personal"
             onAddPartnerProfile={onPersonalAddPartnerProfile}
@@ -139,7 +139,7 @@ const DashboardModals = ({
 
       {/* Partner Profile Completion Options */}
       {showPartnerCompletionOptions && (
-        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." /></div>}>
+        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
           <ProfileCompletionOptions
             completionType="partner"
             onAddPartnerProfile={() => {}}
