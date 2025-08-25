@@ -9,6 +9,6 @@ export const BRAND = {
   alt: "heartlines logo",
   coach: {
     name: "Kai",
-    avatarSrc: "/lovable-uploads/7025b8ab-2794-4a5d-912b-0972ae84e9ef.png"
+    avatarSrc: "/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png"
   }
 };

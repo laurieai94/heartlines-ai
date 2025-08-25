@@ -62,7 +62,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
               <>
                 <AvatarImage 
                   src={BRAND.coach.avatarSrc} 
-                  alt="Kai" 
+                  alt={BRAND.coach.name} 
                   className="object-cover"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">

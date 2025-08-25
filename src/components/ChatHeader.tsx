@@ -28,7 +28,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
           <Avatar className="w-16 h-16 bg-gradient-to-br from-coral-400 to-pink-500 border-4 border-white shadow-lg">
             <AvatarImage 
               src={BRAND.coach.avatarSrc} 
-              alt="Kai" 
+              alt={BRAND.coach.name} 
               className="object-cover"
             />
             <AvatarFallback className="text-white border-0 text-lg">

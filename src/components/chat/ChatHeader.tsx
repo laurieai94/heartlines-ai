@@ -24,7 +24,7 @@ export const ChatHeader = ({
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
               <Avatar className="w-10 h-10 bg-gradient-to-br from-coral-400 to-pink-500 border-2 border-white/20 shadow-lg relative z-10">
-                <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" onError={e => {
+                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
                 console.log('Kai avatar image failed to load');
                 e.currentTarget.style.display = 'none';
               }} />
