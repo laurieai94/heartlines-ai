@@ -14,7 +14,7 @@ const Index: React.FC = () => {
       sessionStorage.setItem("homepage-visited", "true");
       const timer = setTimeout(() => {
         setShowSplash(false);
-      }, 1800);
+      }, 2600);
       return () => clearTimeout(timer);
     }
   }, [showSplash]);
