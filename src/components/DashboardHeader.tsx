@@ -20,7 +20,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const navigate = useNavigate();
   
   return (
-    <div className="w-full sticky top-0 z-50 bg-burgundy-900 border-b border-white/10 shadow-sm mb-6 sm:mb-8">
+    <div className="w-full sticky top-0 z-50 bg-burgundy-900 mb-6 sm:mb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           <div className="flex items-center">
