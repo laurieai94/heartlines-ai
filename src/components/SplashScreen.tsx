@@ -25,7 +25,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ message }) => {
           </h1>
           {message && (
             <p 
-              className="text-white/70 text-lg sm:text-xl mt-4 opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
+              className="font-brand text-white/70 text-lg sm:text-xl mt-4 opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
               style={{ animationDelay: '1200ms', animationFillMode: 'forwards' }}
             >
               {message}

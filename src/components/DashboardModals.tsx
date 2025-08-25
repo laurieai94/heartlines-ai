@@ -1,6 +1,7 @@
 
 import React, { Suspense } from "react";
 import SignUpModal from "@/components/SignUpModal";
+import SplashScreen from "@/components/SplashScreen";
 
 // Lazy load heavy modal components
 const NewPersonalQuestionnaire = React.lazy(() => import("@/components/NewPersonalQuestionnaire"));
@@ -86,7 +87,7 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="flex items-center justify-center h-96 bg-card rounded-lg"><div className="text-card-foreground">Loading questionnaire...</div></div>}>
+            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." /></div>}>
               <NewPersonalQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
                 onClose={onQuestionnaireClose} 
@@ -111,7 +112,7 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="flex items-center justify-center h-96 bg-card rounded-lg"><div className="text-card-foreground">Loading partner profile...</div></div>}>
+            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." /></div>}>
               <NewPartnerProfile 
                 onComplete={onPartnerQuestionnaireComplete} 
                 onClose={onPartnerQuestionnaireClose} 
@@ -124,7 +125,7 @@ const DashboardModals = ({
 
       {/* Personal Profile Completion Options */}
       {showPersonalCompletionOptions && (
-        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"><div className="text-card-foreground">Loading...</div></div>}>
+        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." /></div>}>
           <ProfileCompletionOptions
             completionType="personal"
             onAddPartnerProfile={onPersonalAddPartnerProfile}
@@ -138,7 +139,7 @@ const DashboardModals = ({
 
       {/* Partner Profile Completion Options */}
       {showPartnerCompletionOptions && (
-        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"><div className="text-card-foreground">Loading...</div></div>}>
+        <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." /></div>}>
           <ProfileCompletionOptions
             completionType="partner"
             onAddPartnerProfile={() => {}}
