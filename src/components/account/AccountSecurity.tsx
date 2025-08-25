@@ -5,11 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const AccountSecurity = () => {
   const { user, resetPassword } = useAuth();
-  const { toast } = useToast();
+  
   const [email, setEmail] = useState(user?.email || '');
   const [sendingReset, setSendingReset] = useState(false);
 
@@ -21,15 +21,12 @@ const AccountSecurity = () => {
       const { error } = await resetPassword(email);
       if (error) throw error;
       
-      toast({
-        title: 'Password reset sent',
+      toast.success('Password reset sent', {
         description: 'Check your email for instructions to reset your password.'
       });
     } catch (error) {
-      toast({
-        title: 'Reset failed',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive'
+      toast.error('Reset failed', {
+        description: 'Something went wrong. Please try again.'
       });
     } finally {
       setSendingReset(false);

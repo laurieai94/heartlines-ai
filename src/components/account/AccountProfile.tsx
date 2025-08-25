@@ -6,13 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import AvatarUpload from '@/components/AvatarUpload';
 
 const AccountProfile = () => {
   const { user } = useAuth();
   const { profile, loading: profileLoading, updateProfile } = useUserProfile();
-  const { toast } = useToast();
+  
   
   const [formData, setFormData] = useState({
     name: profile?.name || '',
@@ -27,15 +27,12 @@ const AccountProfile = () => {
   const handleAvatarUpdate = async (url: string) => {
     try {
       await updateProfile({ avatar_url: url });
-      toast({
-        title: 'Avatar updated',
+      toast.success('Avatar updated', {
         description: 'Your profile picture has been successfully updated.'
       });
     } catch (error) {
-      toast({
-        title: 'Avatar update failed',
-        description: 'Something went wrong while updating your avatar.',
-        variant: 'destructive'
+      toast.error('Avatar update failed', {
+        description: 'Something went wrong while updating your avatar.'
       });
     }
   };
@@ -44,15 +41,12 @@ const AccountProfile = () => {
     setSaving(true);
     try {
       await updateProfile(formData);
-      toast({
-        title: 'Profile updated',
+      toast.success('Profile updated', {
         description: 'Your profile has been successfully updated.'
       });
     } catch (error) {
-      toast({
-        title: 'Update failed',
-        description: 'Something went wrong while updating your profile.',
-        variant: 'destructive'
+      toast.error('Update failed', {
+        description: 'Something went wrong while updating your profile.'
       });
     } finally {
       setSaving(false);

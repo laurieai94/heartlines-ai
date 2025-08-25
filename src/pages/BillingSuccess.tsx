@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 const BillingSuccess = () => {
   const navigate = useNavigate();
@@ -16,11 +16,9 @@ const BillingSuccess = () => {
     const sessionId = searchParams.get('session_id');
     
     if (!sessionId) {
-      toast({
-        title: "Invalid session",
-        description: "No session ID found. Redirecting to pricing.",
-        variant: "destructive"
-      });
+        toast.error("Invalid session", {
+          description: "No session ID found. Redirecting to pricing."
+        });
       navigate('/pricing');
       return;
     }
@@ -34,16 +32,13 @@ const BillingSuccess = () => {
         
         setSubscriptionDetails(data);
         
-        toast({
-          title: "Welcome to your new plan! 🎉",
-          description: `You now have ${data.message_limit} messages per month.`,
+        toast.success("Welcome to your new plan! 🎉", {
+          description: `You now have ${data.message_limit} messages per month.`
         });
       } catch (error) {
         console.error('Error refreshing subscription:', error);
-        toast({
-          title: "Error",
-          description: "Failed to refresh subscription status.",
-          variant: "destructive"
+        toast.error("Error", {
+          description: "Failed to refresh subscription status."
         });
       } finally {
         setLoading(false);

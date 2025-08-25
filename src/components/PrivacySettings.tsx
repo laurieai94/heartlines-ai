@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Shield, Download, Eye, Mail, Clock, BarChart3, AlertTriangle } from 'lucide-react';
 import { PrivacyManager } from '@/utils/encryption';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 export const PrivacySettings = () => {
-  const { toast } = useToast();
+  
   const [settings, setSettings] = useState(PrivacyManager.getPrivacySettings());
   const [showBackupPrompt, setShowBackupPrompt] = useState(false);
 
@@ -28,8 +28,7 @@ export const PrivacySettings = () => {
     setSettings(newSettings);
     PrivacyManager.updatePrivacySettings({ [key]: value });
     
-    toast({
-      title: "Privacy settings updated",
+    toast.success("Privacy settings updated", {
       description: "Your privacy preferences have been saved.",
     });
   };
@@ -43,15 +42,12 @@ export const PrivacySettings = () => {
       handleSettingChange('encryptionEnabled', true);
       setShowBackupPrompt(false);
       
-      toast({
-        title: "Encryption enabled",
+      toast.success("Encryption enabled", {
         description: `Backup created: ${filename}. Your future messages will be encrypted.`,
       });
     } catch (error) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to create backup. Encryption not enabled.",
-        variant: "destructive"
       });
     }
   };
@@ -59,15 +55,12 @@ export const PrivacySettings = () => {
   const createManualBackup = () => {
     try {
       const filename = PrivacyManager.createLocalBackup();
-      toast({
-        title: "Backup created",
+      toast.success("Backup created", {
         description: `Downloaded: ${filename}`,
       });
     } catch (error) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to create backup.",
-        variant: "destructive"
       });
     }
   };

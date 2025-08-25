@@ -10,15 +10,27 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
+      position="top-right"
+      closeButton
       toastOptions={{
+        style: {
+          zIndex: 999999,
+        },
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
+            "group toast questionnaire-card border-questionnaire-border shadow-3xl backdrop-blur-md",
+          title: "group-[.toast]:questionnaire-text font-medium text-base",
+          description: "group-[.toast]:questionnaire-text-muted text-sm",
           actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+            "group-[.toast]:questionnaire-button-primary rounded-lg px-3 py-1.5 text-sm font-medium",
           cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+            "group-[.toast]:questionnaire-button-secondary rounded-lg px-3 py-1.5 text-sm font-medium",
+          closeButton:
+            "group-[.toast]:questionnaire-text-muted hover:questionnaire-text bg-white/10 hover:bg-white/20 border-white/20 rounded-full",
+          success: "group-[.toast]:border-green-400/30 group-[.toast]:bg-green-400/10",
+          error: "group-[.toast]:border-red-400/30 group-[.toast]:bg-red-400/10",
+          warning: "group-[.toast]:border-orange-400/30 group-[.toast]:bg-orange-400/10",
+          info: "group-[.toast]:border-blue-400/30 group-[.toast]:bg-blue-400/10",
         },
       }}
       {...props}

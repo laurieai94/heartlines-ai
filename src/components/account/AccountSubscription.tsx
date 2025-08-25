@@ -3,10 +3,10 @@ import { Crown, RefreshCw, ExternalLink, Zap, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSubscription } from '@/hooks/useSubscription';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const AccountSubscription = () => {
-  const { toast } = useToast();
+  
   const { 
     subscribed, 
     subscription_tier, 
@@ -55,15 +55,12 @@ const AccountSubscription = () => {
     setUpgrading(tier);
     try {
       await upgrade(tier);
-      toast({
-        title: 'Redirecting to checkout',
+      toast.success('Redirecting to checkout', {
         description: 'Opening Stripe checkout in a new tab...'
       });
     } catch (error) {
-      toast({
-        title: 'Upgrade failed',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive'
+      toast.error('Upgrade failed', {
+        description: 'Something went wrong. Please try again.'
       });
     } finally {
       setUpgrading(null);
@@ -74,15 +71,12 @@ const AccountSubscription = () => {
     setManaging(true);
     try {
       await manageSubscription();
-      toast({
-        title: 'Opening customer portal',
+      toast.success('Opening customer portal', {
         description: 'Manage your subscription in a new tab...'
       });
     } catch (error) {
-      toast({
-        title: 'Failed to open portal',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive'
+      toast.error('Failed to open portal', {
+        description: 'Something went wrong. Please try again.'
       });
     } finally {
       setManaging(false);

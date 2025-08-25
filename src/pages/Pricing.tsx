@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import DashboardHeader from "@/components/DashboardHeader";
 
 
@@ -99,10 +99,8 @@ const Pricing = () => {
 
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
-      toast({
-        title: "Please sign in",
-        description: "You need to sign in to subscribe to a plan.",
-        variant: "destructive"
+      toast.error("Please sign in", {
+        description: "You need to sign in to subscribe to a plan."
       });
       return;
     }
@@ -125,10 +123,8 @@ const Pricing = () => {
       window.open(data.url, '_blank');
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      toast({
-        title: "Error",
-        description: "Failed to create checkout session. Please try again.",
-        variant: "destructive"
+      toast.error("Error", {
+        description: "Failed to create checkout session. Please try again."
       });
     } finally {
       setLoading(null);
