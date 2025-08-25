@@ -20,22 +20,22 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 py-2.5 flex-shrink-0 relative">
+    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 py-2 flex-shrink-0 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent"></div>
       
       <div className="flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md shadow-rose-500/20 relative overflow-hidden">
+         <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md shadow-rose-500/20 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
             {hasName ? (
-              <span className="text-white font-bold text-sm relative z-10">{getInitial()}</span>
+              <span className="text-white font-bold text-xs relative z-10">{getInitial()}</span>
             ) : (
-              <User className="w-6 h-6 text-white relative z-10" />
+              <User className="w-4 h-4 text-white relative z-10" />
             )}
           </div>
-          
+           
           <div>
-            <h2 className="text-lg font-bold text-white tracking-tight">Your Profile</h2>
+            <h2 className="text-base font-bold text-white tracking-tight">Your Profile</h2>
             {overallProgress > 0 && overallProgress < 100 && (
               <p className="text-xs text-white/60 font-medium">{overallProgress}% complete</p>
             )}
@@ -62,8 +62,8 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
       </div>
       
       {/* Subtle Progress Bar */}
-      <div className="mt-3 relative z-10">
-        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+      <div className="mt-2 relative z-10">
+        <div className="w-full h-0.5 bg-white/10 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
             style={{ width: `${overallProgress}%` }}

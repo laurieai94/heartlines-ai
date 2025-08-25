@@ -78,7 +78,7 @@ const QuestionnaireContent = ({
         });
         
         container.scrollTo({
-          top: relativeTop - 150,
+          top: relativeTop - 80,
           behavior: 'smooth'
         });
         
@@ -109,7 +109,7 @@ const QuestionnaireContent = ({
       ref={scrollContainerRef}
       className="flex-1 overflow-y-auto"
     >
-      <div className="px-8 py-6 space-y-8 sm:px-12 lg:px-16 xl:px-20">
+      <div className="px-6 py-4 space-y-6 sm:px-8 lg:px-12 xl:px-16">
         <div id="section-1" data-section="1">
         <WhoYouAre
           profileData={profileData}

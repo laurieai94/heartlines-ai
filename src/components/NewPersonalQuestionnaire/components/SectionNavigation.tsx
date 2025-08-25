@@ -22,10 +22,10 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
 
   const getSectionIcon = (section: number) => {
     switch (section) {
-      case 1: return <User className="w-3 h-3" />;
-      case 2: return <Heart className="w-3 h-3" />;
-      case 3: return <Zap className="w-3 h-3" />;
-      case 4: return <TreeDeciduous className="w-3 h-3" />;
+      case 1: return <User className="w-2.5 h-2.5" />;
+      case 2: return <Heart className="w-2.5 h-2.5" />;
+      case 3: return <Zap className="w-2.5 h-2.5" />;
+      case 4: return <TreeDeciduous className="w-2.5 h-2.5" />;
       default: return null;
     }
   };
@@ -42,7 +42,7 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
               console.log('🔵 SectionNavigation: Section button clicked:', section);
               onSectionClick(section);
             }}
-            className={`group py-2.5 px-3 rounded-xl transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-0.5 text-left relative overflow-hidden ${
+            className={`group py-1.5 px-2.5 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 text-left relative overflow-hidden ${
               isActive 
                 ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg shadow-rose-500/25' 
                 : isCompleted 
@@ -58,13 +58,13 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
                 <div className={`transition-all duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
                   {getSectionIcon(section)}
                 </div>
-                <span className="font-semibold text-xs tracking-wide leading-tight">{getSectionTitle(section)}</span>
+                <span className="font-semibold text-[10px] tracking-wide leading-tight">{getSectionTitle(section)}</span>
               </div>
               {isCompleted && (
-                <div className={`w-3.5 h-3.5 rounded-full flex items-center justify-center transition-all duration-300 ${
+                <div className={`w-3 h-3 rounded-full flex items-center justify-center transition-all duration-300 ${
                   isActive ? 'bg-white/25 scale-110' : 'bg-emerald-500 group-hover:scale-110 shadow-md shadow-emerald-500/30'
                 }`}>
-                  <Check className="w-2 h-2 text-white" />
+                  <Check className="w-1.5 h-1.5 text-white" />
                 </div>
               )}
             </div>
