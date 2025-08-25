@@ -13,13 +13,13 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
   const handleTabChange = (value: string) => {
     // Map tab values to URL paths
     const pathMap: Record<string, string> = {
-      'home': '/dashboard/home',
+      'home': '/',
       'profile': '/dashboard/profile',
       'insights': '/coach',
       'privacy': '/dashboard/privacy'
     };
     
-    navigate(pathMap[value] || '/dashboard/home');
+    navigate(pathMap[value] || '/');
     onValueChange(value);
   };
 

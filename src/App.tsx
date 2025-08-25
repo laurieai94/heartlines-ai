@@ -32,15 +32,15 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard/home" replace />} />
-        <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
-        <Route path="/dashboard/home" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Navigate to="/" replace />} />
+        <Route path="/dashboard/home" element={<Navigate to="/" replace />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
         <Route path="/dashboard/coach" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard/privacy" element={<Dashboard />} />
         <Route path="/coach" element={<Dashboard />} />
         
-        <Route path="/dashboard/actions" element={<Navigate to="/dashboard/home" replace />} />
+        <Route path="/dashboard/actions" element={<Navigate to="/" replace />} />
         <Route path="/dashboard/company" element={<Dashboard />} />
         <Route path="/mission" element={<Mission />} />
         <Route path="/insights" element={<Navigate to="/coach" replace />} />

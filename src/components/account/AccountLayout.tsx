@@ -40,7 +40,7 @@ const AccountLayout = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/dashboard/home')}
+            onClick={() => navigate('/')}
             className="text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />

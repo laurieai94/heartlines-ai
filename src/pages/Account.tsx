@@ -14,7 +14,7 @@ const Account = () => {
   }
 
   if (!user) {
-    return <Navigate to="/dashboard/home" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <AccountLayout />;

@@ -139,7 +139,7 @@ const BillingSuccess = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Button 
-                onClick={() => navigate('/dashboard/home')}
+                onClick={() => navigate('/')}
                 className="flex-1"
               >
                 Go to Dashboard

@@ -22,7 +22,7 @@ export const useDashboardModalState = () => {
       case 'conversation': return '/dashboard/practice';
       
       case 'profile': return '/dashboard/profile';
-      default: return '/dashboard/home';
+      default: return '/';
     }
   };
 

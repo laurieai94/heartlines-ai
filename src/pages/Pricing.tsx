@@ -106,7 +106,7 @@ const Pricing = () => {
     }
 
     if (plan.tier === "freemium") {
-      navigate("/dashboard/home");
+      navigate("/");
       return;
     }
 
@@ -141,7 +141,7 @@ const Pricing = () => {
           user={user}
           activeTab="pricing"
           onValueChange={(tab) => {
-            if (tab === 'home') navigate('/dashboard/home');
+            if (tab === 'home') navigate('/');
             else if (tab === 'profile') navigate('/dashboard/profile');
             else if (tab === 'insights') navigate('/coach');
             else if (tab === 'mission') navigate('/mission');
@@ -284,7 +284,7 @@ const Pricing = () => {
           <div className="text-center">
             <Button 
               variant="ghost" 
-              onClick={() => navigate("/dashboard/home")}
+              onClick={() => navigate("/")}
               className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
