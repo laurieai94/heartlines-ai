@@ -39,14 +39,6 @@ const AppContent = () => {
         <Route path="/company" element={<Dashboard />} />
         
         {/* Legacy redirects */}
-        <Route path="/dashboard" element={<Navigate to="/" replace />} />
-        <Route path="/dashboard/home" element={<Navigate to="/" replace />} />
-        <Route path="/dashboard/profile" element={<Navigate to="/profile" replace />} />
-        <Route path="/dashboard/coach" element={<Navigate to="/coach" replace />} />
-        <Route path="/dashboard/privacy" element={<Navigate to="/privacy" replace />} />
-        <Route path="/dashboard/actions" element={<Navigate to="/" replace />} />
-        <Route path="/dashboard/company" element={<Navigate to="/company" replace />} />
-        <Route path="/dashboard/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
         
         <Route path="/mission" element={<Mission />} />
