@@ -30,12 +30,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 onClick={() => onValueChange('home')}
                 className="hover:opacity-80 transition-opacity"
               />
-              {accessLevel !== 'full-access' && (
-                <p className="text-xs text-pink-200/70 font-medium mt-1 leading-relaxed">
-                  {accessLevel === 'profile-required' ? 'Start by building your profile' : 
-                   profileCompletion > 0 ? `${profileCompletion}% complete` : 'Complete your profile for full access'}
-                </p>
-              )}
             </div>
           </div>
 
