@@ -72,7 +72,7 @@ const QuestionnaireLayout = ({
     }
   };
   return <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
-      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[80vh] flex flex-col' : 'w-full max-w-6xl max-h-[90vh] flex flex-col'} border border-white/10 rounded-3xl bg-white/[0.08] backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none`}>
+      <div className={`${isModal ? 'w-full max-w-6xl mx-auto h-auto max-h-[90vh] flex flex-col' : 'w-full max-w-7xl max-h-[95vh] flex flex-col'} border border-white/10 rounded-3xl bg-white/[0.08] backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none`}>
         
         <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
