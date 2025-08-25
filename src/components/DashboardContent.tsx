@@ -29,14 +29,13 @@ const DashboardContent = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: DashboardContentProps) => {
-  return (
-    <div className="flex-1 min-h-0 max-h-full overflow-hidden">
-      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
-        <TabsContent value="home" className="mt-0 h-full overflow-auto p-0">
-          <DashboardHome />
-        </TabsContent>
-
-        <TabsContent value="profile" className="mt-0 h-full overflow-auto">
+  // Only render the active tab content to reduce initial mount cost
+  const renderActiveTabContent = () => {
+    switch (activeTab) {
+      case "home":
+        return <DashboardHome />;
+      case "profile":
+        return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading profile...</div></div>}>
               <ProfileBuilder 
@@ -48,9 +47,9 @@ const DashboardContent = ({
               />
             </Suspense>
           </div>
-        </TabsContent>
-
-        <TabsContent value="insights" className="mt-0 h-full overflow-hidden">
+        );
+      case "insights":
+        return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
               <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading AI coach...</div></div>}>
@@ -61,25 +60,35 @@ const DashboardContent = ({
               </Suspense>
             </ProgressiveAccessWrapper>
           </div>
-        </TabsContent>
-
-        <TabsContent value="privacy" className="mt-0 h-full overflow-auto">
+        );
+      case "privacy":
+        return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading privacy settings...</div></div>}>
               <PrivacySettings />
             </Suspense>
           </div>
-        </TabsContent>
-
-        <TabsContent value="company" className="mt-0 h-full overflow-auto">
+        );
+      case "company":
+        return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading...</div></div>}>
               <Company />
             </Suspense>
           </div>
-        </TabsContent>
-      </Tabs>
+        );
+      default:
+        return <DashboardHome />;
+    }
+  };
 
+  return (
+    <div className="flex-1 min-h-0 max-h-full overflow-hidden">
+      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
+        <div className="mt-0 h-full overflow-auto p-0">
+          {renderActiveTabContent()}
+        </div>
+      </Tabs>
     </div>
   );
 };

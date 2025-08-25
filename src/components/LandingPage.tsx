@@ -58,28 +58,31 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
     }
   ];
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowFloatingButton(true);
-    }, 3000);
+   useEffect(() => {
+     // Only run animations for full marketing page
+     if (!isEmbedded) {
+       const timer = setTimeout(() => {
+         setShowFloatingButton(true);
+       }, 3000);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+       const handleMouseMove = (e: MouseEvent) => {
+         setMousePosition({ x: e.clientX, y: e.clientY });
+       };
 
-    // Rotate profiles every 2 seconds
-    const profileTimer = setInterval(() => {
-      setCurrentProfile((prev) => (prev + 1) % datingProfiles.length);
-    }, 2000);
+       // Rotate profiles every 2 seconds
+       const profileTimer = setInterval(() => {
+         setCurrentProfile((prev) => (prev + 1) % datingProfiles.length);
+       }, 2000);
 
-    window.addEventListener('mousemove', handleMouseMove);
+       window.addEventListener('mousemove', handleMouseMove);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(profileTimer);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+       return () => {
+         clearTimeout(timer);
+         clearInterval(profileTimer);
+         window.removeEventListener('mousemove', handleMouseMove);
+       };
+     }
+   }, [isEmbedded]);
 
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
@@ -245,13 +248,21 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
                       >
                         {/* Profile Photo */}
-                        <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
-                          <img 
-                            src={datingProfiles[currentProfile].photo} 
-                            alt={datingProfiles[currentProfile].name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                         <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
+                           {isEmbedded ? (
+                             <div className="w-full h-full bg-gradient-to-br from-pink-400/30 to-coral-400/30 flex items-center justify-center">
+                               <Heart className="w-12 h-12 text-white/40" />
+                             </div>
+                           ) : (
+                             <img 
+                               src={datingProfiles[currentProfile].photo} 
+                               alt={datingProfiles[currentProfile].name}
+                               className="w-full h-full object-cover"
+                               loading="lazy"
+                               decoding="async"
+                             />
+                           )}
+                         </div>
 
                         {/* Profile Info */}
                         <div className="text-white">
