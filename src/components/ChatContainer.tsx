@@ -77,10 +77,10 @@ const ChatContainer = ({
                 <div className="flex gap-3 items-end">
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                    <Avatar className="w-9 h-9 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
                       <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                        <Bot className="w-5 h-5" />
+                        <Bot className="w-6 h-6" />
                       </AvatarFallback>
                     </Avatar>
                   </div>
