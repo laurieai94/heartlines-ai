@@ -16,7 +16,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ message }) => {
           <h1 
             className="font-brand font-normal tracking-wide text-white opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
             style={{ 
-              fontSize: 'clamp(3rem, 12vw, 12rem)',
+              fontSize: 'clamp(4rem, 18vw, 20rem)',
               animationDelay: '900ms', 
               animationFillMode: 'forwards' 
             }}
