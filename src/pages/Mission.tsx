@@ -3,13 +3,30 @@ import { BRAND } from "@/branding";
 import { Heart, Users, Shield, Target } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 const Mission = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignInClick = () => {
     // Handle sign in
+  };
+
+  const handleTabChange = (value: string) => {
+    switch (value) {
+      case 'home':
+        navigate('/');
+        break;
+      case 'profile':
+        navigate('/profile');
+        break;
+      case 'insights':
+        navigate('/coach');
+        break;
+      // pricing and mission tabs are handled by DashboardHeader internally
+    }
   };
 
   return (
@@ -26,7 +43,7 @@ const Mission = () => {
           profileCompletion={0}
           user={user}
           activeTab="mission"
-          onValueChange={() => {}}
+          onValueChange={handleTabChange}
           onSignInClick={handleSignInClick}
         />
         
