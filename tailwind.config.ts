@@ -185,12 +185,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.6s ease-out',
+				'fade-in': 'fade-in 0.9s ease-out',
 				'slide-up': 'slide-up 0.6s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
 				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
-				'line-grow': 'line-grow 0.8s ease-in-out forwards'
+				'line-grow': 'line-grow 1.1s ease-in-out forwards'
 			}
 		}
 	},

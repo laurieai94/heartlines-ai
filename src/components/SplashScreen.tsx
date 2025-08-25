@@ -10,7 +10,7 @@ const SplashScreen: React.FC = () => {
         {/* Text */}
         <h1 
           className="font-brand font-normal tracking-wide text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl opacity-0 animate-fade-in"
-          style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
+          style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}
         >
           heartlines
         </h1>
