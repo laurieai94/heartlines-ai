@@ -3,23 +3,30 @@ export const warmupNetwork = () => {
   // Only run in browser
   if (typeof window === 'undefined') return;
 
-  // Preload critical API endpoints
+  // Preload critical Supabase endpoints with actual fetch requests
+  const supabaseUrl = 'https://relqmhrzyqckoaebscgx.supabase.co';
   const criticalEndpoints = [
-    '/api/anthropic-chat', // AI chat endpoint
-    '/api/check-subscription' // User subscription check
+    `${supabaseUrl}/functions/v1/anthropic-chat`,
+    `${supabaseUrl}/functions/v1/check-subscription`
   ];
 
   criticalEndpoints.forEach(endpoint => {
-    // Create invisible image requests to warm up connections
-    const warmupRequest = new Image();
-    warmupRequest.src = `${window.location.origin}/supabase/functions${endpoint}?warmup=1`;
+    // Use fetch with no-cors to warm up connections without triggering CORS
+    fetch(endpoint, { 
+      method: 'HEAD', 
+      mode: 'no-cors',
+      cache: 'no-cache'
+    }).catch(() => {
+      // Silently ignore errors - this is just for connection warmup
+    });
   });
 
   // DNS prefetch for external resources
   const dnsPrefetchDomains = [
     'https://api.anthropic.com',
     'https://fonts.googleapis.com',
-    'https://fonts.gstatic.com'
+    'https://fonts.gstatic.com',
+    'https://images.unsplash.com'
   ];
 
   dnsPrefetchDomains.forEach(domain => {

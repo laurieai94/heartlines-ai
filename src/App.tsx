@@ -1,11 +1,14 @@
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Dashboard from "./pages/Dashboard"; // Synchronous import for faster shell
+import { warmupNetwork } from "@/utils/networkWarmup";
+import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
+import { performanceMonitor } from "@/utils/performanceMonitor";
 
 // Lazy load non-critical components
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -18,6 +21,17 @@ const Auth = React.lazy(() => import("./pages/Auth"));
 const Mission = React.lazy(() => import("./pages/Mission"));
 
 const AppContent = () => {
+  // Initialize performance optimizations
+  useIdlePrefetch();
+  
+  useEffect(() => {
+    // Initialize performance monitoring
+    performanceMonitor.init();
+    
+    // Warm up network connections
+    warmupNetwork();
+  }, []);
+  
   return (
     <BrowserRouter>
       <Routes>
