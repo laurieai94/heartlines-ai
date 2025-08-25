@@ -101,8 +101,22 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
 
   const transcribeAudio = async (audioBlob: Blob) => {
     try {
+      // Check if blob is empty or too small
+      if (audioBlob.size === 0) {
+        toast.error("No speech detected - recording was empty");
+        return;
+      }
+
+      // Log diagnostics
+      console.log('Recording details:', {
+        size: audioBlob.size,
+        type: audioBlob.type,
+        duration: 'unknown'
+      });
+
       // Convert blob to base64
       const base64Audio = await blobToBase64(audioBlob);
+      console.log('Base64 audio length:', base64Audio.length);
 
       const { data, error } = await supabase.functions.invoke('voice-to-text', {
         body: { audio: base64Audio },
@@ -110,11 +124,25 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
 
       if (error) {
         console.error('Transcription error:', error);
-        toast.error(`Failed to transcribe audio: ${error.message || 'Unknown error'}`);
+        
+        // Try to extract detailed error message
+        let errorMessage = 'Unknown error';
+        if (error.message) {
+          errorMessage = error.message;
+        } else if (error.context?.body) {
+          try {
+            const errorBody = JSON.parse(error.context.body);
+            errorMessage = errorBody.error || errorMessage;
+          } catch {
+            errorMessage = error.context.body;
+          }
+        }
+        
+        toast.error(`Failed to transcribe audio: ${errorMessage}`);
         return;
       }
 
-      if (data?.text) {
+      if (data?.text && data.text.trim()) {
         onVoiceMessage(data.text);
         toast.success("Voice message processed!");
       } else {

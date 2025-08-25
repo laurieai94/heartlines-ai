@@ -14,6 +14,10 @@ verify_jwt = false
 # Make public for easier debugging and CORS handling
 verify_jwt = false
 
+[functions.voice-to-text]
+# Make public for easier debugging and CORS handling
+verify_jwt = false
+
 [functions.create-checkout]
 # Subscription checkout requires authentication
 verify_jwt = true
