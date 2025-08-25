@@ -31,7 +31,7 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
   };
 
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid grid-cols-4 gap-1.5">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = validateSection(section, profileData);

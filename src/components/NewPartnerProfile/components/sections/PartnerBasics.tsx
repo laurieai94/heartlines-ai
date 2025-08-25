@@ -19,8 +19,8 @@ const PartnerBasics = ({
   onSectionComplete
 }: PartnerBasicsProps) => {
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
+    <div className="space-y-5">
+      <div className="text-center mb-5">
         <div className="flex items-center justify-center gap-2 mb-2">
           <User className="w-5 h-5 text-rose-400" />
           <h2 className="text-xl font-bold text-white">The Basics</h2>

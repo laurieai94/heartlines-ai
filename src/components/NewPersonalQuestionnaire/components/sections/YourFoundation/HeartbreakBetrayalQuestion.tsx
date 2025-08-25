@@ -28,7 +28,7 @@ const HeartbreakBetrayalQuestion = ({
         <span>Past pain shapes how you protect yourself</span>
       </div>
 
-      <MultiSelect options={heartbreakBetrayalOptions} selectedValues={profileData.heartbreakBetrayal || []} onToggle={value => handleMultiSelect("heartbreakBetrayal", value)} columns={2} />
+      <MultiSelect options={heartbreakBetrayalOptions} selectedValues={profileData.heartbreakBetrayal || []} onToggle={value => handleMultiSelect("heartbreakBetrayal", value)} columns={4} />
     </QuestionCard>;
 };
 export default HeartbreakBetrayalQuestion;

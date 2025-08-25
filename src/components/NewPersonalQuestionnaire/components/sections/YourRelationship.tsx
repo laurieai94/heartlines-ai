@@ -50,7 +50,7 @@ const YourRelationship = ({
     return !!profileData.relationshipStatus && !isSectionComplete;
   };
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
-      <div className="text-center mb-8">
+      <div className="text-center mb-5">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Heart className="w-5 h-5 text-rose-400" />
           <h3 className="text-xl font-bold text-white">Your Situationship</h3>
@@ -72,7 +72,7 @@ const YourRelationship = ({
           <Heart className="w-3 h-3 text-pink-300" />
           <span>Dating, taken, or somewhere in between? We get it</span>
         </div>
-        <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus || ''} onSelect={value => updateField('relationshipStatus', value)} columns={2} />
+        <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus || ''} onSelect={value => updateField('relationshipStatus', value)} columns={4} />
       </QuestionCard>
 
       {/* Render appropriate question flow based on relationship status */}

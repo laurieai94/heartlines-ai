@@ -57,7 +57,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
 
   return (
     <div className={`space-y-3 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
-      <div className="text-center mb-4">
+      <div className="text-center mb-3">
         <div className="flex items-center justify-center gap-2 mb-1">
           <User className="w-5 h-5 text-rose-400" />
           <h3 className="text-xl font-bold text-white">The Basics</h3>

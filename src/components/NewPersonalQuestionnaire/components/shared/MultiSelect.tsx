@@ -18,12 +18,12 @@ const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSe
   };
 
   return (
-    <div className={`grid ${getGridCols(columns)} gap-2`}>
+    <div className={`grid ${getGridCols(columns)} gap-1.5`}>
       {options.map((option) => (
         <button
           key={option}
           onClick={() => onToggle(option)}
-          className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+          className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
             (selectedValues || []).includes(option)
               ? 'questionnaire-button-selected'
               : 'questionnaire-button-secondary'

@@ -29,7 +29,7 @@ const TalkingStageQuestions = ({
           <MessageCircle className="w-3 h-3 text-green-300" />
           <span>Help us understand your unique situation</span>
         </div>
-        <MultiSelect options={talkingDescriptionOptions} selectedValues={profileData.talkingDescription || []} onToggle={value => handleMultiSelect('talkingDescription', value)} columns={2} />
+        <MultiSelect options={talkingDescriptionOptions} selectedValues={profileData.talkingDescription || []} onToggle={value => handleMultiSelect('talkingDescription', value)} columns={4} />
       </QuestionCard>
 
       <QuestionCard questionId="question-talking-challenges" showContinue={profileData.talkingChallenges && profileData.talkingChallenges.length > 0} onContinue={() => scrollToNextQuestion('question-talking-challenges')}>
@@ -41,7 +41,7 @@ const TalkingStageQuestions = ({
           <Brain className="w-3 h-3 text-green-300" />
           <span>The talking stage has its own unique energy</span>
         </div>
-        <MultiSelect options={talkingChallengesOptions} selectedValues={profileData.talkingChallenges || []} onToggle={value => handleMultiSelect('talkingChallenges', value)} columns={2} />
+        <MultiSelect options={talkingChallengesOptions} selectedValues={profileData.talkingChallenges || []} onToggle={value => handleMultiSelect('talkingChallenges', value)} columns={4} />
       </QuestionCard>
     </div>;
 };

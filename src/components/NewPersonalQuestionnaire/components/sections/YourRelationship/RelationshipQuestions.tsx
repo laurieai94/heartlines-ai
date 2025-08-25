@@ -40,7 +40,7 @@ const RelationshipQuestions = ({
           options={relationshipLengthOptions}
           selectedValue={profileData.relationshipLength || ''}
           onSelect={(value) => updateField('relationshipLength', value)}
-          columns={2}
+          columns={4}
         />
       </QuestionCard>
 
@@ -63,7 +63,7 @@ const RelationshipQuestions = ({
             options={relationshipChallengesOptions}
             selectedValues={profileData.relationshipChallenges || []}
             onToggle={(value) => handleMultiSelect('relationshipChallenges', value)}
-            columns={2}
+            columns={4}
           />
         </QuestionCard>
       )}
@@ -87,7 +87,7 @@ const RelationshipQuestions = ({
             options={relationshipWorkingOptions}
             selectedValues={profileData.relationshipWorking || []}
             onToggle={(value) => handleMultiSelect('relationshipWorking', value)}
-            columns={2}
+            columns={4}
           />
         </QuestionCard>
       )}
