@@ -35,7 +35,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="h-10 w-10 rounded-full p-0 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-500/10 hover:border-pink-400/30 transition-all duration-300"
+            className="h-10 w-10 rounded-full p-0 bg-white text-burgundy-900 hover:bg-gray-100 shadow-sm transition-all duration-300"
           >
             <Avatar className="h-8 w-8">
               <AvatarImage src="" alt="User avatar" />
@@ -45,7 +45,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 bg-white/95 backdrop-blur-sm border border-white/20" align="end">
+        <PopoverContent className="w-56 p-2 bg-white border border-gray-200 shadow-xl z-50" align="end">
           <div className="space-y-1">
             <div className="px-3 py-2 text-sm">
               <p className="font-medium text-gray-900">Signed in as</p>
@@ -96,7 +96,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
   return (
     <Button
       onClick={onSignInClick}
-      className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-500/10 hover:border-pink-400/30 text-white hover:text-white transition-all duration-300 px-4 py-2 rounded-full"
+      className="bg-white text-burgundy-900 hover:bg-gray-100 shadow-sm transition-all duration-300 px-4 py-2 rounded-full"
     >
       <User className="mr-2 h-4 w-4" />
       <span className="hidden sm:inline">Sign In</span>
