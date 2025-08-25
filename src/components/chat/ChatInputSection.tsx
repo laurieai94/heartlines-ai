@@ -14,7 +14,6 @@ interface ChatInputSectionProps {
   userName: string;
   partnerName: string;
   chatHistory: ChatMessage[];
-  onSpeakResponse: (speakFunction: (text: string) => void) => void;
   isConfigured: boolean;
   canInteract: boolean;
   isHistoryLoaded: boolean;
@@ -26,7 +25,6 @@ export const ChatInputSection = ({
   userName,
   partnerName,
   chatHistory,
-  onSpeakResponse,
   isConfigured,
   canInteract,
   isHistoryLoaded
@@ -82,7 +80,6 @@ export const ChatInputSection = ({
                 userName={userName} 
                 partnerName={partnerName}
                 chatHistory={chatHistory}
-                onSpeakResponse={onSpeakResponse}
               />
             </ProgressiveAccessWrapper>
           ) : (
@@ -96,7 +93,6 @@ export const ChatInputSection = ({
                 userName={userName} 
                 partnerName={partnerName}
                 chatHistory={chatHistory}
-                onSpeakResponse={onSpeakResponse}
               />
           )}
         </div>

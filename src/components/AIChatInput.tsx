@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
-import VoiceInterface from "./VoiceInterface";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -14,7 +13,6 @@ interface AIChatInputProps {
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
-  onSpeakResponse?: (speakFunction: (text: string) => void) => void;
 }
 
 const AIChatInput = ({ 
@@ -26,8 +24,7 @@ const AIChatInput = ({
   onInputFocus,
   userName, 
   partnerName, 
-  chatHistory = [],
-  onSpeakResponse 
+  chatHistory = []
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const internalRef = useRef<HTMLTextAreaElement>(null);
@@ -57,15 +54,6 @@ const AIChatInput = ({
     setCurrentMessage(e.target.value);
   };
 
-  const handleVoiceMessage = (message: string) => {
-    onSendMessage(message);
-    // Keep focus after voice message
-    requestAnimationFrame(() => {
-      if (textareaRef.current) {
-        textareaRef.current.focus();
-      }
-    });
-  };
 
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
@@ -90,12 +78,6 @@ const AIChatInput = ({
           rows={1}
         />
       </div>
-      
-    <VoiceInterface
-        onVoiceMessage={handleVoiceMessage}
-        onSpeakResponse={onSpeakResponse}
-        disabled={loading || !!disabled}
-      />
       
       <Button
         onClick={sendMessage}

@@ -58,7 +58,7 @@ const AIChat = ({
   console.log('AIChat - demographicsData.your:', demographicsData.your);
   console.log('AIChat - profile:', profile);
 
-  const { loading, sendMessage, handleSpeakResponse } = useChatMessageHandler({
+  const { loading, sendMessage } = useChatMessageHandler({
     profiles,
     demographicsData,
     chatHistory,
@@ -120,7 +120,6 @@ useChatEffects({
         userName={userName}
         partnerName={partnerName}
         chatHistory={chatHistory}
-        onSpeakResponse={handleSpeakResponse}
         isConfigured={isConfigured}
         canInteract={canInteract}
         isHistoryLoaded={isHistoryLoaded}
