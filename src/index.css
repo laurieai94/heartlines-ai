@@ -152,9 +152,8 @@
   }
 
   .font-brand {
-    font-family: 'ITC New Baskerville Pro', 'Libre Baskerville', Georgia, serif;
-    font-feature-settings: 'liga', 'dlig';
-    font-weight: 400;
+    font-family: 'Poppins', Inter, system-ui, sans-serif;
+    font-weight: 300;
   }
 }
 

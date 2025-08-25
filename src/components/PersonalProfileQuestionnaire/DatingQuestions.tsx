@@ -2,6 +2,7 @@
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface DatingQuestionsProps {
   profileData: any;
@@ -36,7 +37,7 @@ const DatingQuestions = ({ profileData, handleMultiSelect }: DatingQuestionsProp
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 mb-4 font-normal">
           <MessageSquare className="w-3 h-3 text-blue-300" />
-          <span>Understanding your specific dating struggles helps RealTalk provide targeted guidance</span>
+          <span>Understanding your specific dating struggles helps {BRAND.name} provide targeted guidance</span>
         </div>
       </div>
       

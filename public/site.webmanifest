@@ -1,6 +1,6 @@
 {
-  "name": "RealTalk",
-  "short_name": "RealTalk",
+  "name": "heartlines",
+  "short_name": "heartlines",
   "description": "Your relationship intelligence companion",
   "start_url": "/",
   "display": "standalone",

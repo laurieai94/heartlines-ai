@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { toast } from "sonner";
+import { BRAND } from "@/branding";
 
 interface ProgressiveAccessWrapperProps {
   children: ReactNode;
@@ -51,7 +52,7 @@ const ProgressiveAccessWrapper = ({
       // Show clickable toast message to go to profile
       toast.info(
         <div className="text-sm">
-          RealTalk works best when it knows you.{' '}
+          {BRAND.name} works best when it knows you.{' '}
           <button 
             onClick={handleProfileClick}
             className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"

@@ -1,6 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { UserCheck } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface PartnerPronounsSelectionProps {
   selectedPronouns: string;
@@ -35,7 +36,7 @@ const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: Partne
           </button>
         ))}
       </div>
-      <p className="text-xs text-white/60">So RealTalk doesn't misgender them</p>
+      <p className="text-xs text-white/60">So {BRAND.name} doesn't misgender them</p>
     </div>
   );
 };

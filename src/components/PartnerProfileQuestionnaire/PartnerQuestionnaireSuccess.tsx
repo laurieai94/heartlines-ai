@@ -1,5 +1,6 @@
 
 import { Check, Heart } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface PartnerQuestionnaireSuccessProps {
   isModal?: boolean;
@@ -17,7 +18,7 @@ const PartnerQuestionnaireSuccess = ({ isModal = false }: PartnerQuestionnaireSu
           <Heart className="w-6 h-6 text-rose-400 mx-auto mb-2 drop-shadow-lg" />
           <h2 className="text-2xl font-bold text-white mb-2 drop-shadow-lg">Partner Profile Complete!</h2>
           <p className="text-white/95 leading-relaxed drop-shadow-md">
-            Great work! Now RealTalk has a better understanding of your partner to give you more personalized relationship advice.
+            Great work! Now {BRAND.name} has a better understanding of your partner to give you more personalized relationship advice.
           </p>
         </div>
       </div>

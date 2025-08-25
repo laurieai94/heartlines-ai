@@ -5,8 +5,8 @@ export const BRAND = {
   iconSrc: "/lovable-uploads/ab1a3280-3e1a-4e9a-8e2f-c3122fe16b21.png",
   // Backward compatibility - defaults to icon
   logoSrc: "/lovable-uploads/ab1a3280-3e1a-4e9a-8e2f-c3122fe16b21.png",
-  name: "RealTalk",
-  alt: "RealTalk logo",
+  name: "heartlines",
+  alt: "heartlines logo",
   coach: {
     name: "Kai",
     avatarSrc: "/lovable-uploads/ab1a3280-3e1a-4e9a-8e2f-c3122fe16b21.png"

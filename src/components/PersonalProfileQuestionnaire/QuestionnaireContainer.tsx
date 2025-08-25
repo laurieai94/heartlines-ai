@@ -6,6 +6,7 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireFooter from "./QuestionnaireFooter";
 import QuestionnaireContent from "./QuestionnaireContent";
 import { validateSection, getRequiredCount, getCompletedCount } from "./ValidationLogic";
+import { BRAND } from "@/branding";
 
 interface QuestionnaireContainerProps {
   profileData: any;
@@ -82,7 +83,7 @@ const QuestionnaireContainer = ({
         profileSource: 'personal-questionnaire'
       };
       
-      toast.success("🎉 Profile Complete! Welcome to RealTalk!", {
+      toast.success(`🎉 Profile Complete! Welcome to ${BRAND.name}!`, {
         duration: 3000,
       });
       

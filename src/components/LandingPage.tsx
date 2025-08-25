@@ -204,7 +204,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-                We're tired of relationship advice that sounds like it was written in 1995. RealTalk gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
+                We're tired of relationship advice that sounds like it was written in 1995. {BRAND.name} gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
               <Link to="/dashboard">
@@ -393,7 +393,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <div className="space-y-8 flex items-center">
               <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
                 <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
-                  Enter RealTalk.
+                  Enter {BRAND.name}.
                 </h3>
               </div>
             </div>

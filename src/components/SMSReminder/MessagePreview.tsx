@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { ReminderType } from "./types";
+import { BRAND } from "@/branding";
 
 interface MessagePreviewProps {
   enabledReminders: ReminderType[];
@@ -39,7 +40,7 @@ const MessagePreview = ({ enabledReminders, showPreview, onTogglePreview }: Mess
               </div>
               <div className="bg-white p-3 rounded border border-gray-200">
                 <p className="text-sm text-gray-800">
-                  📱 RealTalk: {reminder.customMessage}
+                  📱 {BRAND.name}: {reminder.customMessage}
                 </p>
               </div>
             </div>

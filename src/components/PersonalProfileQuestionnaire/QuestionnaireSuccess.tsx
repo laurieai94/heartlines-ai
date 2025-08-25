@@ -1,5 +1,6 @@
 
 import { Heart, PartyPopper } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface QuestionnaireSuccessProps {
   isModal?: boolean;
@@ -18,7 +19,7 @@ const QuestionnaireSuccess = ({ isModal = false }: QuestionnaireSuccessProps) =>
           <div className="space-y-2">
             <h2 className="text-3xl font-bold text-white">Profile Complete!</h2>
             <p className="text-lg text-white/80">
-              🎉 Congratulations! You're ready to start using RealTalk
+              🎉 Congratulations! You're ready to start using {BRAND.name}
             </p>
           </div>
           
@@ -30,7 +31,7 @@ const QuestionnaireSuccess = ({ isModal = false }: QuestionnaireSuccessProps) =>
           </div>
           
           <p className="text-sm text-white/70">
-            Starting your RealTalk experience...
+            Starting your {BRAND.name} experience...
           </p>
         </div>
       </div>

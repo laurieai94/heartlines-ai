@@ -52,7 +52,7 @@ const BrandMark: React.FC<BrandMarkProps> = ({
           e.currentTarget.src = fallback;
         }}
       />
-      <span className={`${config.textSize} font-brand text-white font-bold tracking-wide`}>
+      <span className={`${config.textSize} font-brand text-white font-light tracking-wide`}>
         {BRAND.name}
       </span>
     </div>

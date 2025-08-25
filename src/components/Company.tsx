@@ -1,10 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BRAND } from "@/branding";
 
 const Company = () => {
   return (
     <div className="h-full py-6 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">About RealTalk</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">About {BRAND.name}</h1>
         <p className="text-muted-foreground">Learn more about our mission and team</p>
       </div>
 
@@ -16,7 +17,7 @@ const Company = () => {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              RealTalk is dedicated to providing AI-powered relationship coaching that helps 
+              {BRAND.name} is dedicated to providing AI-powered relationship coaching that helps 
               individuals and couples communicate more effectively, understand each other better, 
               and build stronger, healthier relationships.
             </p>

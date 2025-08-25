@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 import { calculateOverallProgress } from "./ValidationLogic";
+import { BRAND } from "@/branding";
 
 interface QuestionnaireFooterProps {
   currentSection: number;
@@ -83,7 +84,7 @@ const QuestionnaireFooter = ({
             } text-white flex items-center gap-2 px-5 py-2 text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 font-semibold`}
           >
             <Heart className="w-3 h-3" />
-            {overallProgress === 100 ? "Start Using RealTalk!" : "Complete & Unlock RealTalk"}
+            {overallProgress === 100 ? `Start Using ${BRAND.name}!` : `Complete & Unlock ${BRAND.name}`}
           </Button>
         )}
       </div>

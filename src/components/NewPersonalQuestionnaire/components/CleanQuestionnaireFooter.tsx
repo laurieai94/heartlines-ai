@@ -2,6 +2,7 @@
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import { Heart } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
@@ -68,7 +69,7 @@ const CleanQuestionnaireFooter = ({
               } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm`}
             >
               <Heart className="w-3.5 h-3.5" />
-              <span>Unlock RealTalk</span>
+              <span>Unlock {BRAND.name}</span>
             </button>
           )}
           
@@ -76,7 +77,7 @@ const CleanQuestionnaireFooter = ({
           {autoCompleteEnabled && (
             <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse">
               <Heart className="w-3.5 h-3.5" />
-              <span>Profile Complete! Unlocking RealTalk...</span>
+              <span>Profile Complete! Unlocking {BRAND.name}...</span>
             </div>
           )}
         </div>

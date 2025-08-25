@@ -5,6 +5,7 @@ import PartnerQuestionnaireSection2 from "./PartnerQuestionnaireSection2";
 import PartnerQuestionnaireSection3 from "./PartnerQuestionnaireSection3";
 import PartnerQuestionnaireSection4 from "./PartnerQuestionnaireSection4";
 import { Sparkles } from "lucide-react";
+import { BRAND } from "@/branding";
 
 interface PartnerQuestionnaireContentProps {
   currentSection: number;
@@ -58,7 +59,7 @@ const PartnerQuestionnaireContent = ({
                   Share what you know <span className="text-white/70">•</span> Skip what you don't
                 </div>
                 <div className="text-white/80 text-xs mt-1">
-                  RealTalk works with whatever you've got ✨
+                  {BRAND.name} works with whatever you've got ✨
                 </div>
               </div>
             </div>
