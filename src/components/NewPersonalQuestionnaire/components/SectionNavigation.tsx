@@ -22,10 +22,10 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
 
   const getSectionIcon = (section: number) => {
     switch (section) {
-      case 1: return <User className="w-2.5 h-2.5" />;
-      case 2: return <Heart className="w-2.5 h-2.5" />;
-      case 3: return <Zap className="w-2.5 h-2.5" />;
-      case 4: return <TreeDeciduous className="w-2.5 h-2.5" />;
+      case 1: return <User className="w-3.5 h-3.5" />;
+      case 2: return <Heart className="w-3.5 h-3.5" />;
+      case 3: return <Zap className="w-3.5 h-3.5" />;
+      case 4: return <TreeDeciduous className="w-3.5 h-3.5" />;
       default: return null;
     }
   };
@@ -58,7 +58,7 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
                 <div className={`transition-all duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
                   {getSectionIcon(section)}
                 </div>
-                <span className="font-semibold text-[10px] tracking-wide leading-tight">{getSectionTitle(section)}</span>
+                <span className="font-semibold text-xs tracking-wide leading-tight">{getSectionTitle(section)}</span>
               </div>
               {isCompleted && (
                 <div className={`w-3 h-3 rounded-full flex items-center justify-center transition-all duration-300 ${
