@@ -144,7 +144,7 @@ const Pricing = () => {
             if (tab === 'home') navigate('/dashboard/home');
             else if (tab === 'profile') navigate('/dashboard/profile');
             else if (tab === 'insights') navigate('/coach');
-            else if (tab === 'company') navigate('/dashboard/company');
+            else if (tab === 'mission') navigate('/mission');
           }}
           onSignInClick={() => navigate('/auth')}
           onOpenProfile={() => navigate('/dashboard/profile')}

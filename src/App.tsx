@@ -15,6 +15,7 @@ import Pricing from "./pages/Pricing";
 import BillingSuccess from "./pages/BillingSuccess";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
+import Mission from "./pages/Mission";
 import { BRAND } from "@/branding";
 
 const AppContent = () => {
@@ -41,6 +42,7 @@ const AppContent = () => {
         
         <Route path="/dashboard/actions" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/company" element={<Dashboard />} />
+        <Route path="/mission" element={<Mission />} />
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/privacy-and-security" element={<PrivacySecurity />} />
