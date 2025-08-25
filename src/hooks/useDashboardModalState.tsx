@@ -8,10 +8,10 @@ export const useDashboardModalState = () => {
   
   // Map URL paths to tab values
   const getTabFromPath = (pathname: string) => {
-    if (pathname.includes('/dashboard/coach') || pathname.includes('/coach')) return 'insights';
-    if (pathname.includes('/dashboard/practice')) return 'conversation';
-    
-    if (pathname.includes('/dashboard/profile')) return 'profile';
+    if (pathname.includes('/coach')) return 'insights';
+    if (pathname.includes('/practice')) return 'conversation';
+    if (pathname.includes('/profile')) return 'profile';
+    if (pathname.includes('/privacy')) return 'privacy';
     return 'home'; // default
   };
 
@@ -19,9 +19,9 @@ export const useDashboardModalState = () => {
   const getPathFromTab = (tab: string) => {
     switch (tab) {
       case 'insights': return '/coach';
-      case 'conversation': return '/dashboard/practice';
-      
-      case 'profile': return '/dashboard/profile';
+      case 'conversation': return '/practice';
+      case 'profile': return '/profile';
+      case 'privacy': return '/privacy';
       default: return '/';
     }
   };

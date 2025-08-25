@@ -145,7 +145,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center">
-              <Link to="/dashboard">
+              <Link to="/">
                 <BrandMark 
                   size="md"
                   className="hover:opacity-80 transition-opacity"
@@ -158,7 +158,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   Privacy & Security
                 </Button>
               </Link>
-              <Link to="/dashboard">
+              <Link to="/">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
                   Get Started - It's Free
                 </Button>
@@ -203,7 +203,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 We're tired of relationship advice that sounds like it was written in 1995. {BRAND.name} gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
-              <Link to="/dashboard">
+              <Link to="/">
                 <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
@@ -584,7 +584,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           {/* CTA Section */}
           <div className="mb-12">
             <h3 className="text-3xl font-light text-white mb-8">Ready to Love Smarter?</h3>
-            <Link to="/dashboard">
+            <Link to="/">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
                 Create Your Profile
                 <ArrowRight className="w-6 h-6 ml-3" />
@@ -637,7 +637,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Floating Try It Now Button */}
       {showFloatingButton && (
         <div className="fixed bottom-8 right-8 z-50 animate-fade-in">
-          <Link to="/dashboard">
+          <Link to="/">
             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-pink-300/20">
               Try It Now
               <ArrowRight className="w-5 h-5 ml-2" />

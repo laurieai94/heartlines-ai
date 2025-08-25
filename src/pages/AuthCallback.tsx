@@ -14,7 +14,7 @@ const AuthCallback = () => {
         
         if (error) {
           console.error('Auth callback error:', error);
-          window.location.replace('/dashboard');
+          window.location.replace('/');
           return;
         }
 
@@ -29,10 +29,10 @@ const AuthCallback = () => {
         logEvent("login_success");
         
         // Redirect to dashboard with a clean URL
-        window.location.replace('/dashboard');
+        window.location.replace('/');
       } catch (error) {
         console.error('Callback processing error:', error);
-        window.location.replace('/dashboard');
+        window.location.replace('/');
       }
     };
 

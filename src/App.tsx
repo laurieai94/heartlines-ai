@@ -33,18 +33,23 @@ const AppContent = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/profile" element={<Dashboard />} />
+        <Route path="/coach" element={<Dashboard />} />
+        <Route path="/privacy" element={<Dashboard />} />
+        <Route path="/company" element={<Dashboard />} />
+        
+        {/* Legacy redirects */}
         <Route path="/dashboard" element={<Navigate to="/" replace />} />
         <Route path="/dashboard/home" element={<Navigate to="/" replace />} />
-        <Route path="/dashboard/profile" element={<Dashboard />} />
+        <Route path="/dashboard/profile" element={<Navigate to="/profile" replace />} />
         <Route path="/dashboard/coach" element={<Navigate to="/coach" replace />} />
-        <Route path="/dashboard/privacy" element={<Dashboard />} />
-        <Route path="/coach" element={<Dashboard />} />
-        
+        <Route path="/dashboard/privacy" element={<Navigate to="/privacy" replace />} />
         <Route path="/dashboard/actions" element={<Navigate to="/" replace />} />
-        <Route path="/dashboard/company" element={<Dashboard />} />
-        <Route path="/mission" element={<Mission />} />
-        <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        <Route path="/dashboard/company" element={<Navigate to="/company" replace />} />
         <Route path="/dashboard/insights" element={<Navigate to="/coach" replace />} />
+        <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        
+        <Route path="/mission" element={<Mission />} />
         <Route path="/privacy-and-security" element={<PrivacySecurity />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/billing/success" element={<BillingSuccess />} />

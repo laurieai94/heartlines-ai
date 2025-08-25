@@ -60,13 +60,13 @@ const PrivacySecurity = () => {
             <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link to="/dashboard/privacy">
+            <Link to="/privacy">
               <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full">
                 <Settings className="w-4 h-4 mr-2" />
                 Privacy Settings
               </Button>
             </Link>
-            <Link to="/dashboard">
+            <Link to="/">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full">
                 Get Started Free
               </Button>
@@ -374,13 +374,13 @@ const PrivacySecurity = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/dashboard/privacy">
+              <Link to="/privacy">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full text-lg px-8 py-6">
                   <Settings className="w-5 h-5 mr-2" />
                   Manage Privacy Settings
                 </Button>
               </Link>
-              <Link to="/dashboard">
+              <Link to="/">
                 <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
                   Get Started Free
                   <Key className="w-5 h-5 ml-2" />

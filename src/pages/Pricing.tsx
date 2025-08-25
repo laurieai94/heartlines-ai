@@ -142,12 +142,12 @@ const Pricing = () => {
           activeTab="pricing"
           onValueChange={(tab) => {
             if (tab === 'home') navigate('/');
-            else if (tab === 'profile') navigate('/dashboard/profile');
+            else if (tab === 'profile') navigate('/profile');
             else if (tab === 'insights') navigate('/coach');
             else if (tab === 'mission') navigate('/mission');
           }}
           onSignInClick={() => navigate('/auth')}
-          onOpenProfile={() => navigate('/dashboard/profile')}
+          onOpenProfile={() => navigate('/profile')}
         />
         
         <div className="container mx-auto px-4 py-8">
