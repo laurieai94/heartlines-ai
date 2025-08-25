@@ -40,7 +40,6 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       const localData = localStorage.getItem(config.localStorage);
       if (localData) {
         const parsed = JSON.parse(localData);
-        console.log(`Loaded ${profileType} profile from localStorage:`, parsed);
         return parsed || {};
       }
     } catch (error) {
@@ -54,7 +53,6 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   const saveToStorage = useCallback((data: ProfileData) => {
     try {
       localStorage.setItem(config.localStorage, JSON.stringify(data));
-      console.log(`Saved ${profileType} profile to localStorage successfully`);
       setLastSaved(new Date());
     } catch (error) {
       console.error(`Error saving ${profileType} profile to localStorage:`, error);
@@ -84,7 +82,6 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           ? data[config.databaseColumn] 
           : {};
         
-        console.log(`Loaded ${profileType} profile from database:`, dbData);
         return dbData;
       }
     } catch (error) {
@@ -122,7 +119,6 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         toast.error(`Failed to sync ${profileType} profile to cloud`);
         return false;
       } else {
-        console.log(`Saved ${profileType} profile to database successfully`);
         setLastSaved(new Date());
         return true;
       }
@@ -142,16 +138,11 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   // Unified save function with optimistic updates
   const saveData = useCallback(async (newData: Partial<ProfileData>) => {
     if (!newData || Object.keys(newData).length === 0) {
-      console.log(`[${profileType}] saveData called with empty data, skipping`);
       return;
     }
-
-    console.log(`[${profileType}] ✅ SAVING profile data:`, { newData, currentData: profileData });
     
     const currentData = profileData || {};
     const updatedData = { ...currentData, ...newData };
-    
-    console.log(`[${profileType}] ✅ MERGED data:`, updatedData);
     
     // Optimistic update
     setProfileData(updatedData);
@@ -159,25 +150,19 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     // Save to localStorage immediately (fast backup)
     saveToStorage(updatedData);
     
-    // Verify localStorage save worked
-    const savedData = localStorage.getItem(config.localStorage);
-    console.log(`[${profileType}] ✅ VERIFIED localStorage save:`, savedData ? JSON.parse(savedData) : null);
-    
     // Save to database with fallback
     if (user) {
       const success = await saveToDatabase(updatedData);
       if (!success) {
-        // Database save failed, but localStorage succeeded
         console.warn(`Database save failed for ${profileType}, data preserved locally`);
       }
     }
-  }, [profileData, saveToStorage, saveToDatabase, user, profileType, config.localStorage]);
+  }, [profileData, saveToStorage, saveToDatabase, user, profileType]);
 
   // Field update helpers
   const updateField = useCallback((field: string, value: any) => {
-    console.log(`[${profileType}] updateField called:`, { field, value, currentData: profileData });
     saveData({ [field]: value });
-  }, [saveData, profileType, profileData]);
+  }, [saveData]);
 
   const handleMultiSelect = useCallback((field: string, value: string) => {
     const currentValues = (profileData[field] as string[]) || [];
@@ -235,18 +220,15 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
             // Merge database data (authoritative) with local data
             setProfileData(prev => {
               const merged = { ...prev, ...dbData };
-              // Update localStorage with the merged data
               saveToStorage(merged);
               return merged;
             });
           } else if (Object.keys(localData).length > 0) {
-            // Migrate local data to database
             await migrateLocalToDatabase();
           }
         }
       } catch (error) {
         console.error(`Error loading ${profileType} profile data:`, error);
-        // Attempt recovery if possible
         if (user) {
           const recovered = await recoverFromDatabase();
           if (!recovered) {
@@ -277,7 +259,6 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           const dbString = JSON.stringify(dbData);
           
           if (localString !== dbString && Object.keys(dbData).length > 0) {
-            console.log(`Syncing ${profileType} profile data from database`);
             setProfileData(dbData);
             saveToStorage(dbData);
           }

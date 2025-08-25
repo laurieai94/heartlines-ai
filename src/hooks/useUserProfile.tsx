@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface UserProfile {
   id: string;
@@ -11,38 +12,66 @@ export interface UserProfile {
   updated_at: string;
 }
 
+// Module-level cache to prevent duplicate requests
+let cachedProfile: UserProfile | null = null;
+let inflightPromise: Promise<UserProfile | null> | null = null;
+
 export const useUserProfile = () => {
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [profile, setProfile] = useState<UserProfile | null>(cachedProfile);
+  const [loading, setLoading] = useState(!cachedProfile);
 
   const fetchProfile = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    // Return cached result if available
+    if (cachedProfile) {
+      setProfile(cachedProfile);
+      setLoading(false);
+      return;
+    }
+
+    // Return inflight promise if already fetching
+    if (inflightPromise) {
+      const result = await inflightPromise;
+      setProfile(result);
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      inflightPromise = (async () => {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', user.id)
+          .maybeSingle();
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+        if (error && error.code !== 'PGRST116') {
+          throw error;
+        }
 
-      if (error && error.code !== 'PGRST116') { // PGRST116 means no rows returned
-        throw error;
-      }
+        cachedProfile = data;
+        return data;
+      })();
 
-      setProfile(data);
+      const result = await inflightPromise;
+      setProfile(result);
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {
+      inflightPromise = null;
       setLoading(false);
     }
   };
 
   const updateProfile = async (updates: Partial<UserProfile>) => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+    if (!user) return;
 
+    try {
       const { data, error } = await supabase
         .from('profiles')
         .upsert({
@@ -54,6 +83,9 @@ export const useUserProfile = () => {
         .single();
 
       if (error) throw error;
+      
+      // Update cache
+      cachedProfile = data;
       setProfile(data);
       return data;
     } catch (error) {
