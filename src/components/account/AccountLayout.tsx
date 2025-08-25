@@ -1,12 +1,26 @@
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { ArrowLeft, User, CreditCard, Shield, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Skeleton } from '@/components/ui/skeleton';
 import AccountOverview from './AccountOverview';
 import AccountSubscription from './AccountSubscription';
 import AccountProfile from './AccountProfile';
 import AccountSecurity from './AccountSecurity';
+
+const TabSkeleton = () => (
+  <div className="space-y-6">
+    <div className="space-y-4">
+      <Skeleton className="h-6 w-48 bg-white/10" />
+      <Skeleton className="h-32 w-full bg-white/10" />
+    </div>
+    <div className="space-y-4">
+      <Skeleton className="h-6 w-36 bg-white/10" />
+      <Skeleton className="h-24 w-full bg-white/10" />
+    </div>
+  </div>
+);
 
 const AccountLayout = () => {
   const navigate = useNavigate();
@@ -73,19 +87,27 @@ const AccountLayout = () => {
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
-              <AccountOverview />
+              <Suspense fallback={<TabSkeleton />}>
+                <AccountOverview />
+              </Suspense>
             </TabsContent>
 
             <TabsContent value="subscription" className="space-y-6">
-              <AccountSubscription />
+              <Suspense fallback={<TabSkeleton />}>
+                <AccountSubscription />
+              </Suspense>
             </TabsContent>
 
             <TabsContent value="profile" className="space-y-6">
-              <AccountProfile />
+              <Suspense fallback={<TabSkeleton />}>
+                <AccountProfile />
+              </Suspense>
             </TabsContent>
 
             <TabsContent value="security" className="space-y-6">
-              <AccountSecurity />
+              <Suspense fallback={<TabSkeleton />}>
+                <AccountSecurity />
+              </Suspense>
             </TabsContent>
           </Tabs>
         </div>

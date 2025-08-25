@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Crown, RefreshCw, ExternalLink, Zap, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useSubscription } from '@/hooks/useSubscription';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { toast } from 'sonner';
 
 const AccountSubscription = () => {
@@ -18,7 +19,7 @@ const AccountSubscription = () => {
     refresh,
     upgrade,
     manageSubscription 
-  } = useSubscription();
+  } = useOptimizedSubscription();
   
   const [upgrading, setUpgrading] = useState<string | null>(null);
   const [managing, setManaging] = useState(false);
@@ -82,6 +83,59 @@ const AccountSubscription = () => {
       setManaging(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="space-y-2">
+                <Skeleton className="h-6 w-48 bg-white/10" />
+                <Skeleton className="h-4 w-64 bg-white/10" />
+              </div>
+              <Skeleton className="h-8 w-8 bg-white/10 rounded" />
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-20 bg-white/10" />
+                <Skeleton className="h-6 w-16 bg-white/10" />
+              </div>
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-24 bg-white/10" />
+                <Skeleton className="h-6 w-20 bg-white/10" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <div>
+          <Skeleton className="h-6 w-32 bg-white/10 mb-4" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="bg-white/10 backdrop-blur-sm border border-white/20">
+                <CardHeader className="text-center space-y-2">
+                  <Skeleton className="h-6 w-16 bg-white/10 mx-auto" />
+                  <Skeleton className="h-8 w-20 bg-white/10 mx-auto" />
+                  <Skeleton className="h-4 w-32 bg-white/10 mx-auto" />
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    {[1, 2, 3].map((j) => (
+                      <Skeleton key={j} className="h-4 w-full bg-white/10" />
+                    ))}
+                  </div>
+                  <Skeleton className="h-10 w-full bg-white/10" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

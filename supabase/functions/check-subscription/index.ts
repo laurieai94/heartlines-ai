@@ -37,6 +37,44 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
+    // Parse request body to check if we should skip Stripe validation
+    const body = await req.text();
+    const params = body ? JSON.parse(body) : {};
+    const skipStripe = params.skipStripe === true;
+
+    // If skipStripe is true, return cached data from Supabase
+    if (skipStripe) {
+      logStep("Skipping Stripe validation, returning cached data");
+      
+      const { data: subData } = await supabaseClient
+        .from('subscribers')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      const { data: usageData } = await supabaseClient
+        .from('user_message_usage')
+        .select('current_month_usage, subscription_tier')
+        .eq('user_id', user.id)
+        .single();
+
+      const tier = subData?.subscription_tier || usageData?.subscription_tier || 'begin';
+      const messageLimit = tier === 'grow' ? 100 : tier === 'thrive' ? 300 : 25;
+      const messagesUsed = usageData?.current_month_usage || 0;
+
+      return new Response(JSON.stringify({
+        subscribed: subData?.subscribed || false,
+        subscription_tier: tier,
+        subscription_end: subData?.subscription_end || null,
+        message_limit: messageLimit,
+        messages_used: messagesUsed
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+    // Continue with Stripe validation for full check
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
       apiVersion: "2023-10-16" 
     });
