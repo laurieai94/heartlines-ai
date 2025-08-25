@@ -172,6 +172,14 @@ export default {
 						transform: 'translateX(5%) translateY(5%)',
 						opacity: '0.8'
 					}
+				},
+				'line-grow': {
+					'0%': {
+						width: '0%'
+					},
+					'100%': {
+						width: '100%'
+					}
 				}
 			},
 			animation: {
@@ -181,7 +189,8 @@ export default {
 				'slide-up': 'slide-up 0.6s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
-				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite'
+				'gradient-shift-reverse': 'gradient-shift-reverse 12s ease-in-out infinite',
+				'line-grow': 'line-grow 0.8s ease-in-out forwards'
 			}
 		}
 	},
