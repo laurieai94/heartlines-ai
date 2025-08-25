@@ -23,28 +23,50 @@ const ChatContainer = ({
   isHistoryLoaded
 }: ChatContainerProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const prevChatLengthRef = useRef(chatHistory.length);
+  const prevLoadingRef = useRef(loading);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    const distanceToBottom = viewport.scrollHeight - (viewport.scrollTop + viewport.clientHeight);
+    
+    // Use 'auto' for small distances to avoid bounce, 'smooth' for larger
+    const scrollBehavior = distanceToBottom < 48 ? 'auto' : behavior;
+    
     messagesEndRef.current?.scrollIntoView({
-      behavior
+      behavior: scrollBehavior
     });
   }, []);
+
   const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
     const target = event.currentTarget;
     const threshold = 100;
-    const isNear = target.scrollHeight - target.scrollTop - target.clientHeight < threshold;
+    const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+    const isNear = distanceToBottom < threshold;
     setIsNearBottom(isNear);
     setShowScrollToBottom(!isNear && chatHistory.length > 0);
   }, [chatHistory.length]);
 
-  // Auto-scroll only when user is near bottom or when loading
+  // Smart auto-scroll: only when near bottom and something actually changed
   useEffect(() => {
-    if ((isNearBottom || loading) && chatHistory.length > 0) {
+    const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
+    const loadingChanged = prevLoadingRef.current !== loading;
+    
+    if (isNearBottom && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
       const timeoutId = setTimeout(() => scrollToBottom('smooth'), 50);
+      
+      prevChatLengthRef.current = chatHistory.length;
+      prevLoadingRef.current = loading;
+      
       return () => clearTimeout(timeoutId);
     }
+    
+    prevChatLengthRef.current = chatHistory.length;
+    prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
   // Initial scroll to bottom
@@ -54,26 +76,23 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
   return <div className="flex-1 min-h-0 relative">
-      <ScrollArea ref={scrollAreaRef} className="h-full" onScrollCapture={handleScroll}>
+      <ScrollArea 
+        viewportRef={viewportRef} 
+        className="h-full overscroll-contain" 
+        onScroll={handleScroll}
+      >
         <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
-            
-
-            
             {/* Chat Messages */}
-            {chatHistory.map((message, index) => <div key={message.id} className="animate-fade-in" style={{
-            animationDelay: `${index * 0.1}s`
-          }}>
-                 <AIChatMessage message={message} userName={userName} />
-                {/* Debug logging for userName */}
-                {(() => {
-              console.log('ChatContainer - userName passed to AIChatMessage:', userName);
-              return null;
-            })()}
-              </div>)}
+            {chatHistory.map((message) => (
+              <div key={message.id}>
+                <AIChatMessage message={message} userName={userName} />
+              </div>
+            ))}
             
-            {/* Typing Indicator */}
-            {loading && <div className="flex justify-start animate-fade-in">
+            {/* Fixed space for typing indicator to prevent layout shifts */}
+            <div className="min-h-[72px] flex justify-start">
+              {loading && (
                 <div className="flex gap-3 items-end">
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
@@ -88,15 +107,16 @@ const ChatContainer = ({
                     <div className="flex gap-1.5">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                    animationDelay: '0.1s'
-                  }}></div>
+                        animationDelay: '0.1s'
+                      }}></div>
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                    animationDelay: '0.2s'
-                  }}></div>
+                        animationDelay: '0.2s'
+                      }}></div>
                     </div>
                   </div>
                 </div>
-              </div>}
+              )}
+            </div>
             
             <div ref={messagesEndRef} className="h-1" />
           </div>
