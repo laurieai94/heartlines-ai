@@ -14,7 +14,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
   messageSize = "lg" 
 }) => {
   const wordmarkSizeClasses = {
-    sm: 'clamp(2rem, 8vw, 4rem)',
+    sm: '30px',
     md: 'clamp(3rem, 12vw, 8rem)',
     lg: 'clamp(4rem, 16vw, 12rem)',
     xl: 'clamp(4rem, 18vw, 20rem)'
