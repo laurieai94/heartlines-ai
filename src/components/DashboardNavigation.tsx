@@ -15,7 +15,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
     const pathMap: Record<string, string> = {
       'home': '/dashboard/home',
       'profile': '/dashboard/profile',
-      'insights': '/dashboard/coach',
+      'insights': '/coach',
       'privacy': '/dashboard/privacy'
     };
     

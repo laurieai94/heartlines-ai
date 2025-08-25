@@ -35,11 +35,14 @@ const AppContent = () => {
         <Route path="/dashboard" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/home" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Dashboard />} />
-        <Route path="/dashboard/coach" element={<Dashboard />} />
+        <Route path="/dashboard/coach" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard/privacy" element={<Dashboard />} />
+        <Route path="/coach" element={<Dashboard />} />
         
         <Route path="/dashboard/actions" element={<Navigate to="/dashboard/home" replace />} />
         <Route path="/dashboard/company" element={<Dashboard />} />
+        <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        <Route path="/dashboard/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/privacy-and-security" element={<PrivacySecurity />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/billing/success" element={<BillingSuccess />} />

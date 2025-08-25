@@ -143,7 +143,7 @@ const Pricing = () => {
           onValueChange={(tab) => {
             if (tab === 'home') navigate('/dashboard/home');
             else if (tab === 'profile') navigate('/dashboard/profile');
-            else if (tab === 'insights') navigate('/dashboard/insights');
+            else if (tab === 'insights') navigate('/coach');
             else if (tab === 'company') navigate('/dashboard/company');
           }}
           onSignInClick={() => navigate('/auth')}
