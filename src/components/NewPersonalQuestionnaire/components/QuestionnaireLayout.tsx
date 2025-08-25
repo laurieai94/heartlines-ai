@@ -77,7 +77,7 @@ const QuestionnaireLayout = ({
         <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
         {/* Reassuring message banner */}
-        <div className="bg-gradient-to-r from-primary/10 to-accent/10 px-6 py-2.5 flex-shrink-0 animate-fade-in backdrop-blur-sm border-b border-white/[0.08] relative">
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 px-6 py-2 flex-shrink-0 animate-fade-in backdrop-blur-sm border-b border-white/[0.08] relative">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent animate-gradient-shift"></div>
           <p className="text-sm text-white/90 text-center font-medium tracking-wide relative z-10">Your journey starts here—be real, be honest, we got you. </p>
         </div>

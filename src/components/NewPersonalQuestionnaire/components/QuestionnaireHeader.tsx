@@ -20,7 +20,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] p-3 flex-shrink-0 relative">
+    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 py-2.5 flex-shrink-0 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent"></div>
       
       <div className="flex items-center justify-between relative z-10">

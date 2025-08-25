@@ -109,7 +109,7 @@ const QuestionnaireContent = ({
       ref={scrollContainerRef}
       className="flex-1 overflow-y-auto"
     >
-      <div className="px-8 py-10 space-y-8 sm:px-12 lg:px-16 xl:px-20">
+      <div className="px-8 py-6 space-y-8 sm:px-12 lg:px-16 xl:px-20">
         <div id="section-1" data-section="1">
         <WhoYouAre
           profileData={profileData}

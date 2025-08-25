@@ -36,7 +36,7 @@ const CleanQuestionnaireFooter = ({
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
+    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-4 py-3 flex-shrink-0">
       <div className="flex justify-between items-center max-w-4xl mx-auto">
         {/* Left side - Section Progress Indicators */}
         <div className="flex gap-4">
