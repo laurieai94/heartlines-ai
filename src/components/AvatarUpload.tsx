@@ -9,9 +9,10 @@ interface AvatarUploadProps {
   currentAvatarUrl?: string;
   onAvatarUpdate: (url: string) => void;
   userName?: string;
+  size?: 'compact' | 'full';
 }
 
-const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUploadProps) => {
+const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full' }: AvatarUploadProps) => {
   const [uploading, setUploading] = useState(false);
 
   const uploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,21 +47,26 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUplo
     }
   };
 
+  const isCompact = size === 'compact';
+  const avatarSize = isCompact ? 'w-16 h-16' : 'w-24 h-24';
+  const buttonSize = isCompact ? 'sm' : 'sm';
+  const layout = isCompact ? 'flex-row items-center gap-3' : 'flex-col items-center gap-4';
+
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className={`flex ${layout}`}>
       <div className="relative group">
-        <Avatar className="w-24 h-24 border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500">
+        <Avatar className={`${avatarSize} border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500`}>
           <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} />
           <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white text-2xl font-bold shadow-inner">
-            {userName ? userName.charAt(0).toUpperCase() : <User className="w-8 h-8" />}
+            {userName ? userName.charAt(0).toUpperCase() : <User className={isCompact ? "w-6 h-6" : "w-8 h-8"} />}
           </AvatarFallback>
         </Avatar>
         
         {/* Bright center indicator */}
-        <div className="absolute top-1 right-1 w-6 h-6 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg border-2 border-white"></div>
+        <div className={`absolute top-1 right-1 ${isCompact ? 'w-4 h-4' : 'w-6 h-6'} bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-pulse shadow-lg border-2 border-white`}></div>
         
         <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <Camera className="w-6 h-6 text-white" />
+          <Camera className={`${isCompact ? 'w-4 h-4' : 'w-6 h-6'} text-white`} />
         </div>
       </div>
 
@@ -75,12 +81,12 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName }: AvatarUplo
         />
         <Button 
           variant="outline" 
-          size="sm" 
+          size={buttonSize} 
           disabled={uploading}
           className="relative pointer-events-none bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:from-purple-600 hover:to-pink-600 shadow-lg"
         >
           <Upload className="w-4 h-4 mr-2" />
-          {uploading ? 'Uploading...' : 'Upload Photo'}
+          {uploading ? 'Uploading...' : isCompact ? 'Change' : 'Upload Photo'}
         </Button>
       </div>
     </div>

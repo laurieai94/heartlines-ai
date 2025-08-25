@@ -65,7 +65,7 @@ const AccountProfile = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
         <h3 className="text-xl font-semibold text-white mb-2">Profile Information</h3>
         <p className="text-white/70">
@@ -75,21 +75,19 @@ const AccountProfile = () => {
 
       {/* Avatar Upload */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <User className="h-5 w-5" />
-            Profile Picture
-          </CardTitle>
-          <CardDescription className="text-white/60">
-            Upload or change your profile picture
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <AvatarUpload 
-            currentAvatarUrl={profile?.avatar_url}
-            onAvatarUpdate={handleAvatarUpdate}
-            userName={profile?.name || user?.email || undefined}
-          />
+        <CardContent className="pt-4">
+          <div className="flex items-center gap-4">
+            <AvatarUpload 
+              currentAvatarUrl={profile?.avatar_url}
+              onAvatarUpdate={handleAvatarUpdate}
+              userName={profile?.name || user?.email || undefined}
+              size="compact"
+            />
+            <div className="flex-1">
+              <h4 className="text-white font-medium mb-1">Profile Picture</h4>
+              <p className="text-white/60 text-sm">Upload or change your profile picture</p>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
+import SplashScreen from "@/components/SplashScreen";
 
 // Lazy load heavy components to improve initial render
 const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
@@ -37,7 +38,7 @@ const DashboardContent = ({
       case "profile":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading profile...</div></div>}>
+            <Suspense fallback={<SplashScreen message="profiles loading" />}>
               <ProfileBuilder 
                 onProfileUpdate={onProfileUpdate}
                 initialProfiles={temporaryProfiles}
@@ -52,7 +53,7 @@ const DashboardContent = ({
         return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
-              <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading AI coach...</div></div>}>
+              <Suspense fallback={<SplashScreen message="AI coach loading" />}>
                 <AIInsights 
                   profiles={temporaryProfiles}
                   demographicsData={temporaryDemographics}
@@ -64,7 +65,7 @@ const DashboardContent = ({
       case "privacy":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading privacy settings...</div></div>}>
+            <Suspense fallback={<SplashScreen message="privacy settings loading" />}>
               <PrivacySettings />
             </Suspense>
           </div>
@@ -72,7 +73,7 @@ const DashboardContent = ({
       case "company":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<div className="flex items-center justify-center h-full"><div className="text-card-foreground">Loading...</div></div>}>
+            <Suspense fallback={<SplashScreen message="company info loading" />}>
               <Company />
             </Suspense>
           </div>
