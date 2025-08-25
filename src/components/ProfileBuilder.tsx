@@ -175,16 +175,6 @@ const ProfileBuilder = ({
         <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
           Build your relationship profiles to unlock personalized insights
         </p>
-        {/* Real-time overall progress indicator */}
-        {profileCompletion > 0 && <div className="flex items-center justify-center gap-2 text-sm text-pink-200/80">
-            <span>Overall Progress:</span>
-            <div className="w-32 h-2 bg-black/30 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-orange-400 to-pink-500 transition-all duration-500 ease-out" style={{
-            width: `${profileCompletion}%`
-          }} />
-            </div>
-            <span className="font-semibold text-white">{profileCompletion}%</span>
-          </div>}
       </div>
 
       {/* Main Content Area - Scrollable */}
