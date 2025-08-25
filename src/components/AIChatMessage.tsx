@@ -38,16 +38,16 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-3 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+    <div className={`flex gap-4 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
-        <div className="relative w-8 h-8">
+        <div className="relative w-9 h-9">
           {/* Subtle glow for avatars */}
           <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
             isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
           }`}></div>
           
-          <Avatar className={`w-8 h-8 relative z-10 border-2 border-white shadow-lg overflow-visible ${
+          <Avatar className={`w-9 h-9 relative z-10 border-2 border-white shadow-lg overflow-visible ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -56,7 +56,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5" />}
               </AvatarFallback>
             ) : (
               <>
@@ -66,7 +66,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
                   className="object-cover"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                  <Bot className="w-4 h-4" />
+                  <Bot className="w-5 h-5" />
                 </AvatarFallback>
               </>
             )}
