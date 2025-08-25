@@ -95,7 +95,7 @@ export default {
 			},
 			fontFamily: {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
-				brand: ['Poppins', 'Inter', 'system-ui', 'sans-serif'],
+				brand: ['Shrikhand', 'Inter', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
