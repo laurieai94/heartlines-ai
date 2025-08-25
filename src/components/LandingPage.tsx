@@ -86,9 +86,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (
         <>
-          <div className="absolute inset-0 bg-gradient-to-br from-coral-600/30 via-coral-500/20 to-coral-500/25 animate-gradient"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute inset-0 bg-gradient-to-bl from-coral-500/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '2s' }}></div>
         </>
       )}
 
@@ -145,7 +142,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-        <nav className="px-6 py-4 relative z-10 bg-burgundy-900/95 backdrop-blur-sm border-b border-pink-300/10">
+        <nav className="px-6 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center">
               <Link to="/dashboard">
@@ -179,7 +176,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
             <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
             
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
           </>
         )}
         <div className="max-w-6xl mx-auto relative z-10">

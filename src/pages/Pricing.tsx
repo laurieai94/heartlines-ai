@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/hooks/use-toast";
 import DashboardHeader from "@/components/DashboardHeader";
-import BubbleBackground from "@/components/BubbleBackground";
+
 
 const pricingPlans = [
   {
@@ -137,7 +137,6 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-burgundy-900">
-      <BubbleBackground />
       <div className="relative z-10">
         <DashboardHeader 
           accessLevel="freemium"
