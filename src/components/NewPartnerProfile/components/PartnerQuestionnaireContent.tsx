@@ -39,7 +39,7 @@ const PartnerQuestionnaireContent = ({
 
     const containerTop = container.getBoundingClientRect().top;
     const targetTop = targetElement.getBoundingClientRect().top;
-    const offsetPosition = container.scrollTop + (targetTop - containerTop) - 20;
+    const offsetPosition = container.scrollTop + (targetTop - containerTop) - 10;
 
     container.scrollTo({
       top: offsetPosition,
@@ -57,7 +57,7 @@ const PartnerQuestionnaireContent = ({
       ref={scrollContainerRef}
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
-      <div className="px-6 py-8 space-y-12">
+      <div className="px-6 py-6 space-y-8">
         <div id="partner-section-1">
           <PartnerBasics
             profileData={profileData}

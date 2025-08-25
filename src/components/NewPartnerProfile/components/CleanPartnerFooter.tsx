@@ -23,7 +23,7 @@ const CleanPartnerFooter = ({
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-4 flex-shrink-0">
+    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 p-3 flex-shrink-0">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         {/* Left side - Progress dots with section names */}
         <div className="flex items-center gap-4">
@@ -36,13 +36,13 @@ const CleanPartnerFooter = ({
             return (
               <div key={section} className="flex flex-col items-center gap-1">
                 <div
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
                     isComplete 
                       ? 'bg-emerald-400 shadow-sm' 
                       : 'border border-white/30 bg-transparent'
                   }`}
                 />
-                <span className="text-white/60 text-xs font-medium">{name}</span>
+                <span className="text-white/60 text-[10px] font-medium">{name}</span>
               </div>
             );
           })}

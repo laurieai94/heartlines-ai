@@ -19,9 +19,9 @@ const getSectionTitle = (section: number): string => {
 
 const getSectionIcon = (section: number): JSX.Element | null => {
   switch (section) {
-    case 1: return <User className="w-4 h-4" />;
-    case 2: return <Heart className="w-4 h-4" />;
-    case 3: return <TreeDeciduous className="w-4 h-4" />;
+    case 1: return <User className="w-3.5 h-3.5" />;
+    case 2: return <Heart className="w-3.5 h-3.5" />;
+    case 3: return <TreeDeciduous className="w-3.5 h-3.5" />;
     default: return null;
   }
 };
@@ -35,7 +35,7 @@ const PartnerSectionNavigation = ({
   const sections = [1, 2, 3];
 
   return (
-    <div className="grid grid-cols-3 gap-1">
+    <div className="grid grid-cols-3 gap-2">
       {sections.map((section) => {
         const isActive = currentSection === section;
         const isCompleted = validatePartnerSection(section, profileData);
@@ -46,27 +46,27 @@ const PartnerSectionNavigation = ({
           <button
             key={section}
             onClick={() => onSectionClick(section)}
-            className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
+            className={`group relative py-2 px-3 rounded-xl transition-all duration-200 border text-center ${
               isActive 
-                ? 'bg-gradient-to-br from-rose-400 via-pink-500 to-rose-600 text-white shadow-lg' 
+                ? 'bg-gradient-to-br from-primary/80 to-primary text-white border-primary/30 shadow-lg shadow-primary/20' 
                 : isCompleted 
-                  ? 'bg-white/15 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20' 
-                  : 'bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 hover:bg-white/15'
+                  ? 'bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30' 
+                  : 'bg-white/5 border-white/15 text-white/70 hover:bg-white/10 hover:text-white/90 hover:border-white/25'
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1.5 relative">
+              <div className={`transition-all duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
                 {sectionIcon}
-                <span className="font-semibold text-xs">{sectionTitle}</span>
               </div>
-              {isCompleted && (
-                <div className={`w-3 h-3 rounded-full flex items-center justify-center ${
-                  isActive ? 'bg-white/20' : 'bg-emerald-500'
-                }`}>
-                  <span className="text-white text-xs">✓</span>
-                </div>
-              )}
+              <span className="font-semibold text-xs tracking-wide leading-tight">{sectionTitle}</span>
             </div>
+            {isCompleted && (
+              <div className={`w-3 h-3 rounded-full flex items-center justify-center transition-all duration-300 ${
+                isActive ? 'bg-white/25' : 'bg-emerald-500/90'
+              } absolute -top-1 -right-1`}>
+                <span className="text-white text-[10px] leading-none">✓</span>
+              </div>
+            )}
           </button>
         );
       })}

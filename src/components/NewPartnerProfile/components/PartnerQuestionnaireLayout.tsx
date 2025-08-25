@@ -67,12 +67,7 @@ const PartnerQuestionnaireLayout = ({
         
         <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-        {/* Reassuring message banner */}
-        <div className="bg-gradient-to-r from-primary/15 to-accent/15 px-6 py-3 flex-shrink-0 animate-fade-in backdrop-blur-sm">
-          <p className="text-sm text-white/90 text-center">Situationship or soulmate? This profile flexes to your vibe—totally optional.</p>
-        </div>
-
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-2 flex-shrink-0">
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
           <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
         </div>
 
