@@ -50,7 +50,7 @@ const PrivacySecurity = () => {
   ];
 
   return (
-    <div className="min-h-screen landing-page-bg">
+    <div className="min-h-screen bg-burgundy-900">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-coral-600/30 via-coral-500/20 to-coral-500/25 animate-gradient"></div>
       <div className="absolute inset-0 bg-gradient-to-tr from-coral-400/10 via-coral-400/10 to-coral-600/10 animate-gradient" style={{ animationDelay: '1s' }}></div>

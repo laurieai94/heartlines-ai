@@ -136,7 +136,7 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen landing-page-bg">
+    <div className="min-h-screen bg-burgundy-900">
       <BubbleBackground />
       <div className="relative z-10">
         <DashboardHeader 
