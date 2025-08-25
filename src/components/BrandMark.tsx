@@ -34,24 +34,12 @@ const BrandMark: React.FC<BrandMarkProps> = ({
 
   return (
     <div 
-      className={`flex items-center ${config.gap} ${onClick ? 'cursor-pointer' : ''} ${className}`}
+      className={`${onClick ? 'cursor-pointer' : ''} ${className}`}
       onClick={onClick}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
     >
-      <img
-        src={BRAND.iconSrc}
-        alt={BRAND.alt}
-        className={`${config.iconSize} object-contain`}
-        width={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
-        height={size === 'sm' ? 24 : size === 'md' ? 32 : 40}
-        onError={(e) => {
-          const fallback = '/lovable-uploads/ab1a3280-3e1a-4e9a-8e2f-c3122fe16b21.png';
-          if (e.currentTarget.src.endsWith(fallback)) return;
-          e.currentTarget.src = fallback;
-        }}
-      />
       <span className={`${config.textSize} font-brand text-white font-normal tracking-wide`}>
         {BRAND.name}
       </span>
