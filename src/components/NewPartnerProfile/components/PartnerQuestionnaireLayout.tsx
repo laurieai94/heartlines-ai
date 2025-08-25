@@ -62,12 +62,13 @@ const PartnerQuestionnaireLayout = ({
       scrollToSectionFn.current(section);
     }
   };
-  return <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
-      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[80vh] flex flex-col' : 'w-full max-w-6xl max-h-[90vh] flex flex-col'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
+    return <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
+      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[80vh] flex flex-col' : 'w-full max-w-6xl max-h-[90vh] flex flex-col'} border border-white/10 rounded-3xl bg-white/[0.08] backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none`}>
         
         <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-3 flex-shrink-0">
+        <div className="bg-white/[0.03] backdrop-blur-sm border-b border-white/[0.08] px-3 py-1.5 flex-shrink-0 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent"></div>
           <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
         </div>
 
