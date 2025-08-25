@@ -6,7 +6,7 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ message }) => {
   return (
-    <div className="min-h-screen bg-burgundy-600 flex items-center justify-center">
+    <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
       <div className="relative flex items-center space-x-8">
         {/* Left line */}
         <div className="w-24 sm:w-32 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />
