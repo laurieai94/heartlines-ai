@@ -72,7 +72,7 @@ const DashboardContent = ({
         return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
-              <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" />}>
+              <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" showWordmark={false} />}>
                 <AIInsights 
                   profiles={temporaryProfiles}
                   demographicsData={temporaryDemographics}
@@ -84,7 +84,7 @@ const DashboardContent = ({
       case "privacy":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <Suspense fallback={<SplashScreen message="privacy settings loading" wordmarkSize="sm" />}>
+            <Suspense fallback={<SplashScreen message="privacy settings loading" wordmarkSize="sm" showWordmark={false} />}>
               <PrivacySettings />
             </Suspense>
           </div>
@@ -92,7 +92,7 @@ const DashboardContent = ({
       case "company":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<SplashScreen message="company info loading" wordmarkSize="sm" />}>
+            <Suspense fallback={<SplashScreen message="company info loading" wordmarkSize="sm" showWordmark={false} />}>
               <Company />
             </Suspense>
           </div>
