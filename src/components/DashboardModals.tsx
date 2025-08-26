@@ -86,7 +86,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
+          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92svh]">
             <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
               <NewPersonalQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
@@ -111,7 +111,7 @@ const DashboardModals = ({
             onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
+          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92svh]">
             <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
               <NewPartnerProfile 
                 onComplete={onPartnerQuestionnaireComplete} 

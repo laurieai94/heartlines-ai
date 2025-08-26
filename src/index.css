@@ -287,7 +287,7 @@
   /* Questionnaire premium styling */
   .questionnaire-bg {
     background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
-    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .questionnaire-bg-modal {
@@ -381,5 +381,22 @@
   /* Hide scrollbars utility for overflow containers */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Safe Area Support for mobile devices */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
