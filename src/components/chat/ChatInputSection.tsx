@@ -7,6 +7,7 @@ import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import SignUpModal from '@/components/SignUpModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { logEvent } from '@/utils/analytics';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -33,6 +34,7 @@ export const ChatInputSection = ({
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const isMobile = useIsMobile();
 
   // Refocus the chat input after successful auth
   useEffect(() => {
@@ -58,7 +60,9 @@ export const ChatInputSection = ({
   };
 
   return (
-    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
+    <div className={`flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm ${
+      isMobile ? 'sticky bottom-0 z-30' : ''
+    }`} style={isMobile ? { paddingBottom: 'env(safe-area-inset-bottom)' } : {}}>
       <div className="px-4 py-3">
         {/* Conversation Starters - only show when no chat history */}
         {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
