@@ -19,7 +19,11 @@ export const useIdlePrefetch = () => {
         () => import('@/pages/Mission'),
         () => import('@/pages/Pricing'),
         () => import('@/components/AIInsights'),
-        () => import('@/components/PrivacySettings')
+        () => import('@/components/PrivacySettings'),
+        // Profile experience chunks
+        () => import('@/components/ProfileBuilder'),
+        () => import('@/components/NewPersonalQuestionnaire'),
+        () => import('@/components/NewPartnerProfile')
       ];
       
       routesToPrefetch.forEach((importFn, index) => {

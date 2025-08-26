@@ -1,9 +1,10 @@
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import SplashScreen from "@/components/SplashScreen";
+import { performanceMonitor } from "@/utils/performanceMonitor";
 
 // Lazy load heavy components to improve initial render
 const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
@@ -30,6 +31,14 @@ const DashboardContent = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: DashboardContentProps) => {
+  
+  // Performance monitoring for tab switches
+  useEffect(() => {
+    if (activeTab === 'profile') {
+      performanceMonitor.mark('profile-chunk-load');
+    }
+  }, [activeTab]);
+  
   // Only render the active tab content to reduce initial mount cost
   const renderActiveTabContent = () => {
     switch (activeTab) {

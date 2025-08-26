@@ -3,6 +3,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
+// Module-level cache and inflight promise tracking to prevent duplicate requests
+const cachedDataByType = new Map<ProfileType, ProfileData>();
+const inflightRequestsByType = new Map<ProfileType, Promise<ProfileData>>();
+
 export type ProfileType = 'personal' | 'partner';
 
 interface ProfileData {
@@ -60,34 +64,61 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     }
   }, [config.localStorage, profileType]);
 
-  // Load from database with error handling
+  // Load from database with error handling and caching
   const loadFromDatabase = useCallback(async (): Promise<ProfileData> => {
     if (!user) return {};
 
-    try {
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .select(`${config.databaseColumn}`)
-        .eq('user_id', user.id)
-        .eq('profile_type', profileType === 'personal' ? 'your' : 'partner')
-        .maybeSingle();
-
-      if (error) {
-        console.error(`Database load error for ${profileType}:`, error);
-        return {};
-      }
-
-      if (data && data[config.databaseColumn]) {
-        const dbData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
-          ? data[config.databaseColumn] 
-          : {};
-        
-        return dbData;
-      }
-    } catch (error) {
-      console.error(`Error loading ${profileType} profile from database:`, error);
+    // Check cache first
+    if (cachedDataByType.has(profileType)) {
+      return cachedDataByType.get(profileType)!;
     }
-    return {};
+
+    // Check if request is already in flight
+    if (inflightRequestsByType.has(profileType)) {
+      return await inflightRequestsByType.get(profileType)!;
+    }
+
+    // Create new request
+    const requestPromise = (async (): Promise<ProfileData> => {
+      try {
+        const { data, error } = await supabase
+          .from('user_profiles')
+          .select(`${config.databaseColumn}`)
+          .eq('user_id', user.id)
+          .eq('profile_type', profileType === 'personal' ? 'your' : 'partner')
+          .maybeSingle();
+
+        if (error) {
+          console.error(`Database load error for ${profileType}:`, error);
+          return {};
+        }
+
+        if (data && data[config.databaseColumn]) {
+          const dbData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
+            ? data[config.databaseColumn] 
+            : {};
+          
+          // Cache the result
+          cachedDataByType.set(profileType, dbData);
+          return dbData;
+        }
+      } catch (error) {
+        console.error(`Error loading ${profileType} profile from database:`, error);
+      }
+      
+      const emptyData = {};
+      cachedDataByType.set(profileType, emptyData);
+      return emptyData;
+    })();
+
+    // Store inflight request
+    inflightRequestsByType.set(profileType, requestPromise);
+    
+    // Clean up inflight tracking when done
+    const result = await requestPromise;
+    inflightRequestsByType.delete(profileType);
+    
+    return result;
   }, [user, config.databaseColumn, profileType]);
 
   // Save to database with error handling and retry
@@ -120,6 +151,8 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         return false;
       } else {
         setLastSaved(new Date());
+        // Update cache with fresh data
+        cachedDataByType.set(profileType, data);
         return true;
       }
     } catch (error) {

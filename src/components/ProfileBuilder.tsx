@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
 import { Brain, Heart, Target, Lightbulb, Star } from "lucide-react";
 import ProfileForm from "@/components/ProfileForm";
 import Demographics from "@/components/Demographics";
 import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
 import ProfileCard from "@/components/ProfileBuilder/ProfileCard";
-import ValueProposition from "@/components/ProfileBuilder/ValueProposition";
-import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { useUnifiedProfileStorage } from "@/hooks/useUnifiedProfileStorage";
+import { performanceMonitor } from "@/utils/performanceMonitor";
+
+// Lazy load secondary components to reduce initial bundle size
+const ValueProposition = lazy(() => import("@/components/ProfileBuilder/ValueProposition"));
+const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -62,6 +65,16 @@ const ProfileBuilder = ({
   
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || personalProfileStorage.profileData?.name || '';
+  
+  // Performance monitoring
+  useEffect(() => {
+    performanceMonitor.mark('profile-data-load');
+    performanceMonitor.measure('profile-chunk-load', 100); // Measure chunk load time
+    
+    if (personalProfileStorage.isReady) {
+      performanceMonitor.measure('profile-data-load', 100);
+    }
+  }, [personalProfileStorage.isReady]);
   
   // Use consistent completion calculation for both profiles
   const yourProfileCompletion = calculateYourCompletion();
@@ -189,10 +202,14 @@ const ProfileBuilder = ({
         </div>
 
         {/* Compact Value Proposition */}
-        <ValueProposition />
+        <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-32" />}>
+          <ValueProposition />
+        </Suspense>
 
         {/* Collapsible Tips Section */}
-        <ProfileTips />
+        <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-24" />}>
+          <ProfileTips />
+        </Suspense>
       </div>
 
       {/* Modals for partner profile only */}
