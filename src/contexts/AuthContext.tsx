@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface AuthContextType {
   user: User | null;
@@ -41,9 +42,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
-          // Defer to avoid potential deadlocks
-          setTimeout(() => setLoading(false), 0);
+        
+        if (event === 'SIGNED_IN') {
+          // Check if this is a callback login or regular login
+          setTimeout(() => {
+            const isCallbackLogin = localStorage.getItem('auth_callback_login');
+            if (isCallbackLogin) {
+              localStorage.removeItem('auth_callback_login');
+              toast.success("Welcome back!");
+            } else {
+              // Regular login (direct email/password)
+              toast.success("Welcome back!");
+            }
+            setLoading(false);
+          }, 0);
+        } else if (event === 'SIGNED_OUT') {
+          setTimeout(() => {
+            toast.success("Signed out successfully");
+            setLoading(false);
+          }, 0);
         }
       }
     );
