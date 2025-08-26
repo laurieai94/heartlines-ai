@@ -1,9 +1,10 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
 import { Brain, Heart, Target, Lightbulb, Star } from "lucide-react";
-import ProfileForm from "@/components/ProfileForm";
-import Demographics from "@/components/Demographics";
-import ProfileCompletionOptions from "@/components/ProfileCompletionOptions";
+// Lazy load heavy components to reduce initial bundle size
+const ProfileForm = lazy(() => import("@/components/ProfileForm"));
+const Demographics = lazy(() => import("@/components/Demographics"));
+const ProfileCompletionOptions = lazy(() => import("@/components/ProfileCompletionOptions"));
 import ProfileCard from "@/components/ProfileBuilder/ProfileCard";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
@@ -213,14 +214,24 @@ const ProfileBuilder = ({
       </div>
 
       {/* Modals for partner profile only */}
-      {showDemographics && <Demographics profileType={activeProfileType} onComplete={handleDemographicsComplete} onClose={handleDemographicsClose} initialData={temporaryDemographics[activeProfileType]} />}
+      {showDemographics && (
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
+          <Demographics profileType={activeProfileType} onComplete={handleDemographicsComplete} onClose={handleDemographicsClose} initialData={temporaryDemographics[activeProfileType]} />
+        </Suspense>
+      )}
 
-      {showForm && <ProfileForm profileType={activeProfileType} onClose={() => setShowForm(false)} onComplete={handleProfileComplete} initialProfiles={temporaryProfiles} initialDemographics={temporaryDemographics} />}
+      {showForm && (
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
+          <ProfileForm profileType={activeProfileType} onClose={() => setShowForm(false)} onComplete={handleProfileComplete} initialProfiles={temporaryProfiles} initialDemographics={temporaryDemographics} />
+        </Suspense>
+      )}
 
       {/* Partner Profile Completion Options */}
-      {showPartnerCompletionOptions && <ProfileCompletionOptions completionType="partner" onAddPartnerProfile={() => {}} // Not used for partner completion
-    onStartChatting={handlePartnerCompletionStartChat} onClose={handlePartnerCompletionClose} onEditProfile={() => {}} // Not used in ProfileBuilder context
-    hasPartnerProfile={true} />}
+      {showPartnerCompletionOptions && (
+        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
+          <ProfileCompletionOptions completionType="partner" onAddPartnerProfile={() => {}} onStartChatting={handlePartnerCompletionStartChat} onClose={handlePartnerCompletionClose} onEditProfile={() => {}} hasPartnerProfile={true} />
+        </Suspense>
+      )}
     </div>;
 };
 export default ProfileBuilder;
