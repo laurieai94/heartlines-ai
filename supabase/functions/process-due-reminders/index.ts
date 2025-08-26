@@ -1,10 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { getCorsHeaders } from '../_shared/cors.ts';
 
 function normalizeToE164(input: string): string | null {
   if (!input) return null;
@@ -53,12 +49,28 @@ async function sendTwilioSMS(
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
+  const origin = req.headers.get('origin');
+  const corsHeaders = getCorsHeaders(origin);
+  
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Verify scheduler authorization header
+    const cronKey = req.headers.get('x-cron-key');
+    const expectedKey = Deno.env.get('CRON_SECRET_KEY');
+    
+    if (!expectedKey) {
+      throw new Error('CRON_SECRET_KEY not configured');
+    }
+    
+    if (cronKey !== expectedKey) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized: Invalid or missing X-CRON-KEY header" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);

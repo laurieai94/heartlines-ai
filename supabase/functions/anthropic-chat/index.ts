@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 import { getCorsHeaders } from '../_shared/cors.ts'
 
 const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')
@@ -8,13 +9,8 @@ serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
   
-  console.log(`[CORS] Request from origin: ${origin || 'none'}`);
-  console.log(`[CORS] Method: ${req.method}`);
-  console.log(`[CORS] Headers being set:`, corsHeaders);
-  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    console.log('[CORS] Handling OPTIONS preflight request');
     return new Response(null, { 
       headers: corsHeaders,
       status: 200
@@ -22,10 +18,25 @@ serve(async (req) => {
   }
 
   try {
-    console.log('Edge function called, checking API key...')
-    
+    // Verify JWT token
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new Error('Missing or invalid authorization header');
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: { persistSession: false }
+    });
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      throw new Error('Invalid authentication token');
+    }
+
     if (!anthropicApiKey) {
-      console.error('ANTHROPIC_API_KEY not found in environment variables')
       throw new Error('ANTHROPIC_API_KEY not found in environment variables')
     }
 

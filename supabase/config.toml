@@ -11,12 +11,16 @@ verify_jwt = true
 verify_jwt = false
 
 [functions.anthropic-chat]
-# Make public for easier debugging and CORS handling
-verify_jwt = false
+# Require authentication for AI services
+verify_jwt = true
 
 [functions.voice-to-text]
-# Make public for easier debugging and CORS handling
-verify_jwt = false
+# Require authentication for speech services  
+verify_jwt = true
+
+[functions.text-to-speech]
+# Require authentication for speech services
+verify_jwt = true
 
 [functions.create-checkout]
 # Subscription checkout requires authentication
