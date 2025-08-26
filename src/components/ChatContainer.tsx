@@ -6,7 +6,6 @@ import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
-import { useIsMobile } from "@/hooks/use-mobile";
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
@@ -29,7 +28,6 @@ const ChatContainer = ({
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
-  const isMobile = useIsMobile();
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -80,10 +78,10 @@ const ChatContainer = ({
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
-        className={`h-full overscroll-contain ${isMobile ? 'pb-28' : ''}`}
+        className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className={`px-4 pt-3 ${isMobile ? 'pb-28' : 'pb-2'}`}>
+        <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
             {/* Chat Messages */}
             {chatHistory.map((message) => (
