@@ -381,6 +381,10 @@
   /* Hide scrollbars utility for overflow containers */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  
+  /* Alternative scrollbar hide utility */
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
   /* Safe Area Support for mobile devices */
   .safe-top {

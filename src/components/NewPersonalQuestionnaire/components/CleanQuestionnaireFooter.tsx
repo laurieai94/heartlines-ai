@@ -36,10 +36,10 @@ const CleanQuestionnaireFooter = ({
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-4 py-2.5 flex-shrink-0">
-      <div className="flex justify-between items-center max-w-4xl mx-auto">
-        {/* Left side - Section Progress Indicators */}
-        <div className="flex gap-4">
+    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-2 md:px-4 md:py-2.5 flex-shrink-0 safe-bottom">
+      <div className="flex flex-col sm:flex-row justify-between items-center max-w-4xl mx-auto gap-3 sm:gap-0">
+        {/* Section Progress Indicators */}
+        <div className="hidden sm:flex gap-4">
           {sectionCompletions.map((section, index) => (
             <div key={index} className="flex items-center gap-2">
               <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
@@ -56,8 +56,13 @@ const CleanQuestionnaireFooter = ({
           ))}
         </div>
 
-        {/* Right side - Unlock Coaching Button */}
-        <div className="flex items-center">
+        {/* Mobile progress indicator */}
+        <div className="flex sm:hidden text-xs text-white/60 font-medium">
+          {completedSections}/4 sections complete
+        </div>
+
+        {/* Unlock Coaching Button */}
+        <div className="flex items-center w-full sm:w-auto">
           {!autoCompleteEnabled && (
             <button 
               onClick={canComplete ? onComplete : undefined}
@@ -66,7 +71,7 @@ const CleanQuestionnaireFooter = ({
                 canComplete 
                   ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02]' 
                   : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
-              } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm`}
+              } backdrop-blur-md border px-6 py-3 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center justify-center gap-2 text-sm w-full sm:w-auto min-h-11`}
             >
               <Heart className="w-3.5 h-3.5" />
               <span>Unlock coaching</span>
@@ -75,7 +80,7 @@ const CleanQuestionnaireFooter = ({
           
           {/* Auto-completion message */}
           {autoCompleteEnabled && (
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse">
+            <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-sm font-medium animate-pulse w-full sm:w-auto">
               <Heart className="w-3.5 h-3.5" />
               <span>Profile Complete! Unlocking {BRAND.name}...</span>
             </div>
