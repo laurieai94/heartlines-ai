@@ -199,18 +199,14 @@ const Auth = () => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-white/70">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}
-            </p>
-            <Button
-              variant="ghost"
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="mt-2 text-pink-300 hover:text-white hover:bg-white/10"
-            >
-              {isSignUp ? 'Sign In' : 'Sign Up'}
-            </Button>
-          </div>
+          {/* Sign up option hidden during setup phase */}
+          {!isSignUp && (
+            <div className="mt-6 text-center">
+              <p className="text-white/70 text-sm">
+                Need access? Contact us for an invitation.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

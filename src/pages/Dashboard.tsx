@@ -1,9 +1,9 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import DashboardHeader from "@/components/DashboardHeader";
-
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
+import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -54,61 +54,62 @@ const Dashboard = () => {
   };
 
   return (
-    <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className="h-screen overflow-hidden">
-        {/* Main Dashboard Content - This gets blurred when modals are open */}
-        <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+    <AuthGuard>
+      <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
+        <div className="h-screen overflow-hidden">
+          {/* Main Dashboard Content - This gets blurred when modals are open */}
+          <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
 
-          {/* Background overlays removed for unified burgundy theme */}
+            {/* Background overlays removed for unified burgundy theme */}
 
-          <DashboardHeader 
-            accessLevel={accessLevel}
-            profileCompletion={profileCompletion}
-            compact={false}
-            user={user}
-            activeTab={activeTab}
-            onValueChange={setActiveTab}
-            onSignInClick={handleSignInClick}
-            onOpenProfile={handleOpenProfile}
-          />
+            <DashboardHeader 
+              accessLevel={accessLevel}
+              profileCompletion={profileCompletion}
+              compact={false}
+              user={user}
+              activeTab={activeTab}
+              onValueChange={setActiveTab}
+              onSignInClick={handleSignInClick}
+              onOpenProfile={handleOpenProfile}
+            />
 
+            <DashboardContent
+              activeTab={activeTab}
+              onValueChange={setActiveTab}
+              temporaryProfiles={temporaryProfiles}
+              temporaryDemographics={temporaryDemographics}
+              onProfileUpdate={handleProfileUpdate}
+              onOpenQuestionnaire={handleOpenQuestionnaire}
+              onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
+            />
+          </div>
 
-          <DashboardContent
-            activeTab={activeTab}
-            onValueChange={setActiveTab}
+          {/* Modals - These stay sharp and are rendered outside the blurred content */}
+          <DashboardModals
+            shouldShowSignUpModal={shouldShowSignUpModal}
+            onCloseSignUpModal={closeSignUpModal}
+            showSignInModal={showSignInModal}
+            onCloseSignInModal={closeSignInModal}
+            blockingAction={blockingAction}
+            showQuestionnaireModal={showQuestionnaireModal}
+            onQuestionnaireComplete={handleQuestionnaireComplete}
+            onQuestionnaireClose={handleQuestionnaireClose}
+            onQuestionnaireOpen={handleOpenQuestionnaire}
+            showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
+            onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
+            onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
+            showPersonalCompletionOptions={showPersonalCompletionOptions}
+            onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
+            onPersonalStartChatting={handlePersonalStartChatting}
+            onPersonalCompletionClose={handlePersonalCompletionClose}
+            showPartnerCompletionOptions={showPartnerCompletionOptions}
+            onPartnerStartChatting={handlePartnerStartChatting}
+            onPartnerCompletionClose={handlePartnerCompletionClose}
             temporaryProfiles={temporaryProfiles}
-            temporaryDemographics={temporaryDemographics}
-            onProfileUpdate={handleProfileUpdate}
-            onOpenQuestionnaire={handleOpenQuestionnaire}
-            onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
           />
         </div>
-
-        {/* Modals - These stay sharp and are rendered outside the blurred content */}
-        <DashboardModals
-          shouldShowSignUpModal={shouldShowSignUpModal}
-          onCloseSignUpModal={closeSignUpModal}
-          showSignInModal={showSignInModal}
-          onCloseSignInModal={closeSignInModal}
-          blockingAction={blockingAction}
-          showQuestionnaireModal={showQuestionnaireModal}
-          onQuestionnaireComplete={handleQuestionnaireComplete}
-          onQuestionnaireClose={handleQuestionnaireClose}
-          onQuestionnaireOpen={handleOpenQuestionnaire}
-          showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
-          onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
-          onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
-          showPersonalCompletionOptions={showPersonalCompletionOptions}
-          onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
-          onPersonalStartChatting={handlePersonalStartChatting}
-          onPersonalCompletionClose={handlePersonalCompletionClose}
-          showPartnerCompletionOptions={showPartnerCompletionOptions}
-          onPartnerStartChatting={handlePartnerStartChatting}
-          onPartnerCompletionClose={handlePartnerCompletionClose}
-          temporaryProfiles={temporaryProfiles}
-        />
-      </div>
-    </NavigationProvider>
+      </NavigationProvider>
+    </AuthGuard>
   );
 };
 
