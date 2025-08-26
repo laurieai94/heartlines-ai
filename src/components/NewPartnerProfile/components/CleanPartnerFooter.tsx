@@ -23,7 +23,7 @@ const CleanPartnerFooter = ({
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-2 md:px-4 md:py-2.5 flex-shrink-0 safe-bottom">
+    <div className="sticky bottom-0 z-20 md:static bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-2 md:px-4 md:py-2.5 flex-shrink-0 safe-bottom">
       <div className="flex flex-col sm:flex-row justify-between items-center max-w-4xl mx-auto gap-3 sm:gap-0">
         {/* Section Progress Indicators */}
         <div className="hidden sm:flex gap-4">

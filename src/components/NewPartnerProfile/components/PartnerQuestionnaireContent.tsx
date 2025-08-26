@@ -55,7 +55,7 @@ const PartnerQuestionnaireContent = ({
   return (
     <div 
       ref={scrollContainerRef}
-      className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+      className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pb-24 sm:pb-6"
     >
       <div className="px-6 py-5 space-y-7">
         <div id="partner-section-1">

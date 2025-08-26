@@ -19,7 +19,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   return (
     <div 
-      className={`group bg-white/[0.08] backdrop-blur-xl rounded-xl border border-white/12 px-4 py-2.5 md:px-5 md:py-3 space-y-2.5 transition-all duration-300 hover:bg-white/[0.12] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 hover:-translate-y-0.5 relative overflow-hidden ${className}`}
+      className={`group bg-white/[0.08] backdrop-blur-xl rounded-xl border border-white/12 px-4 py-2.5 md:px-5 md:py-3 space-y-2.5 transition-all duration-300 hover:bg-white/[0.12] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 hover:-translate-y-0.5 relative overflow-hidden scroll-mb-24 md:scroll-mb-0 ${className}`}
       data-question-card
       id={questionId}
     >

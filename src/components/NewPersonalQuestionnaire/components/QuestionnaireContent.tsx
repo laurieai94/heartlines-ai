@@ -107,7 +107,7 @@ const QuestionnaireContent = ({
   return (
     <div 
       ref={scrollContainerRef}
-      className="flex-1 overflow-y-auto"
+      className="flex-1 overflow-y-auto pb-24 sm:pb-6"
     >
       <div className="px-3 py-2 space-y-3 sm:px-6 lg:px-10 sm:space-y-4">
         <div id="section-1" data-section="1">
