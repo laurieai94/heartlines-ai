@@ -109,7 +109,7 @@ const Demographics = ({ profileType, onComplete, onClose, initialData = {} }: De
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-[#8B2635] via-[#A0334A] to-[#B8405F] backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90svh] overflow-y-auto border border-white/20">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
         {/* Header */}
         <div className="p-6 border-b border-orange-100 bg-gradient-to-r from-orange-50 via-pink-50 to-red-50">
           <div className="flex items-center justify-between mb-4">

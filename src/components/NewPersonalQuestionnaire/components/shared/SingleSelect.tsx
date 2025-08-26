@@ -24,7 +24,7 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3 }: SingleS
           <button
             key={option}
             onClick={() => onSelect(option)}
-            className={`w-full min-h-11 p-2 md:p-1.5 rounded-lg text-left text-sm md:text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+            className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
               selectedValue === option
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

@@ -79,7 +79,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
               type="text"
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
-              onFocus={() => setTimeout(() => document.getElementById('question-name-pronouns')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 50)}
               placeholder="Your name"
               className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
             />
@@ -113,7 +112,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
               <Input
                 value={customPronoun}
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
-                onFocus={() => setTimeout(() => document.getElementById('question-name-pronouns')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 50)}
                 placeholder="e.g., xe/xir, fae/faer, etc."
                 className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-8"
               />

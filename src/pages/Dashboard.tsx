@@ -62,7 +62,7 @@ const Dashboard = () => {
 
   return (
     <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-      <div className="min-h-[100svh] overflow-hidden">
+      <div className="h-screen overflow-hidden">
         {/* Main Dashboard Content - This gets blurred when modals are open */}
         <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
 

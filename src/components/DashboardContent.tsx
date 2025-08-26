@@ -4,7 +4,6 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import SplashScreen from "@/components/SplashScreen";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load heavy components to improve initial render
 const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
@@ -31,7 +30,6 @@ const DashboardContent = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: DashboardContentProps) => {
-  const isMobile = useIsMobile();
   // Only render the active tab content to reduce initial mount cost
   const renderActiveTabContent = () => {
     switch (activeTab) {
@@ -40,7 +38,7 @@ const DashboardContent = ({
       case "profile":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<SplashScreen message="profiles loading" wordmarkSize={isMobile ? "sm" : "xl"} />}>
+            <Suspense fallback={<SplashScreen message="profiles loading" wordmarkSize="sm" />}>
               <ProfileBuilder 
                 onProfileUpdate={onProfileUpdate}
                 initialProfiles={temporaryProfiles}
@@ -55,7 +53,7 @@ const DashboardContent = ({
         return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
-              <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize={isMobile ? "sm" : "xl"} />}>
+              <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" />}>
                 <AIInsights 
                   profiles={temporaryProfiles}
                   demographicsData={temporaryDemographics}
@@ -67,7 +65,7 @@ const DashboardContent = ({
       case "privacy":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <Suspense fallback={<SplashScreen message="privacy settings loading" wordmarkSize={isMobile ? "sm" : "xl"} />}>
+            <Suspense fallback={<SplashScreen message="privacy settings loading" wordmarkSize="sm" />}>
               <PrivacySettings />
             </Suspense>
           </div>
@@ -75,7 +73,7 @@ const DashboardContent = ({
       case "company":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<SplashScreen message="company info loading" wordmarkSize={isMobile ? "sm" : "xl"} />}>
+            <Suspense fallback={<SplashScreen message="company info loading" wordmarkSize="sm" />}>
               <Company />
             </Suspense>
           </div>
