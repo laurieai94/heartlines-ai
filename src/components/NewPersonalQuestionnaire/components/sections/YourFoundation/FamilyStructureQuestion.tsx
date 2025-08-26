@@ -51,7 +51,7 @@ const FamilyStructureQuestion = ({
         options={familyStructureOptions}
         selectedValues={profileData.familyStructure || []}
         onToggle={(value) => handleMultiSelect("familyStructure", value)}
-        columns={4}
+        columns={3}
       />
     </QuestionCard>
   );

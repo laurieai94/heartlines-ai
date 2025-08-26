@@ -8,11 +8,12 @@ interface MultiSelectProps {
 
 const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSelectProps) => {
   const getGridCols = (cols: number) => {
-    switch (cols) {
+    // Cap columns at 3 maximum
+    const cappedCols = Math.min(cols, 3);
+    switch (cappedCols) {
       case 1: return 'grid-cols-1';
       case 2: return 'grid-cols-2 sm:grid-cols-2';
       case 3: return 'grid-cols-3';
-      case 4: return 'grid-cols-2 sm:grid-cols-4 lg:grid-cols-4';
       default: return 'grid-cols-3';
     }
   };
