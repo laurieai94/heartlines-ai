@@ -19,6 +19,16 @@ interface DashboardHeaderProps {
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   
+  const handleTabHover = (tabValue: string) => {
+    if (tabValue === 'profile') {
+      import('@/components/ProfileBuilder').catch(() => {});
+    } else if (tabValue === 'pricing') {
+      import('@/pages/Pricing').catch(() => {});
+    } else if (tabValue === 'mission') {
+      import('@/pages/Mission').catch(() => {});
+    }
+  };
+  
   return (
     <div className="w-full sticky top-0 z-50 bg-burgundy-900 mb-6 sm:mb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -45,6 +55,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               ].map((tab) => (
                 <button
                   key={tab.value}
+                  onMouseEnter={() => handleTabHover(tab.value)}
                   onClick={() => {
                     if (tab.isExternal) {
                       if (tab.value === 'pricing') navigate('/pricing');

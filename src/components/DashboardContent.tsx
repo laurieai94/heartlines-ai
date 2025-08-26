@@ -47,7 +47,17 @@ const DashboardContent = ({
       case "profile":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<SplashScreen message="profiles loading" wordmarkSize="sm" />}>
+            <Suspense 
+              fallback={
+                <div className="space-y-4">
+                  <div className="animate-pulse h-6 w-48 bg-white/10 rounded" />
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="animate-pulse h-48 bg-white/5 rounded-xl" />
+                    <div className="animate-pulse h-48 bg-white/5 rounded-xl" />
+                  </div>
+                </div>
+              }
+            >
               <ProfileBuilder 
                 onProfileUpdate={onProfileUpdate}
                 initialProfiles={temporaryProfiles}

@@ -1,7 +1,12 @@
 // Network warmup utility to preload critical resources
+let hasRun = false;
+
 export const warmupNetwork = () => {
-  // Only run in browser
-  if (typeof window === 'undefined') return;
+  // Only run in browser and prevent duplicate execution
+  if (typeof window === 'undefined' || hasRun) return;
+  hasRun = true;
+  
+  const runWarmup = () => {
 
   // Preload critical Supabase endpoints with actual fetch requests
   const supabaseUrl = 'https://relqmhrzyqckoaebscgx.supabase.co';
@@ -30,10 +35,13 @@ export const warmupNetwork = () => {
   ];
 
   dnsPrefetchDomains.forEach(domain => {
-    const link = document.createElement('link');
-    link.rel = 'dns-prefetch';
-    link.href = domain;
-    document.head.appendChild(link);
+    // Avoid duplicate dns-prefetch links
+    if (!document.querySelector(`link[rel="dns-prefetch"][href="${domain}"]`)) {
+      const link = document.createElement('link');
+      link.rel = 'dns-prefetch';
+      link.href = domain;
+      document.head.appendChild(link);
+    }
   });
 
   // Preconnect to critical resources
@@ -42,10 +50,21 @@ export const warmupNetwork = () => {
   ];
 
   preconnectDomains.forEach(domain => {
-    const link = document.createElement('link');
-    link.rel = 'preconnect';
-    link.href = domain;
-    link.crossOrigin = 'anonymous';
-    document.head.appendChild(link);
+    // Avoid duplicate preconnect links
+    if (!document.querySelector(`link[rel="preconnect"][href="${domain}"]`)) {
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = domain;
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+    }
   });
+  };
+  
+  // Schedule warmup during idle time to avoid competing with first paint
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(runWarmup, { timeout: 2000 });
+  } else {
+    setTimeout(runWarmup, 1500);
+  }
 };

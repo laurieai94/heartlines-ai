@@ -6,16 +6,9 @@ import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
-import { useEffect } from "react";
-import { warmupNetwork } from "@/utils/networkWarmup";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  
-  // Warmup network connections on first load
-  useEffect(() => {
-    warmupNetwork();
-  }, []);
   
   const {
     activeTab,

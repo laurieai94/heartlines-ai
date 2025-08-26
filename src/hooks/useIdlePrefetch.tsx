@@ -15,10 +15,10 @@ export const useIdlePrefetch = () => {
       
       // Prefetch critical route chunks during idle time
       const routesToPrefetch = [
+        () => import('@/pages/Dashboard'),
         () => import('@/pages/Account'),
         () => import('@/pages/Mission'),
         () => import('@/pages/Pricing'),
-        () => import('@/components/AIInsights'),
         () => import('@/components/PrivacySettings'),
         // Profile experience chunks
         () => import('@/components/ProfileBuilder'),
