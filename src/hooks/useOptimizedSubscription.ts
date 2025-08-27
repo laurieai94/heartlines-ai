@@ -47,7 +47,7 @@ export const useOptimizedSubscription = () => {
         .from('user_message_usage')
         .select('current_month_usage, subscription_tier')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
       const messageLimit = getMessageLimit(tier);

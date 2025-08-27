@@ -2,7 +2,7 @@ import { MessageCircle, Crown, RefreshCw, Zap, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { useSubscription } from '@/hooks/useSubscription';
+import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ const AccountOverview = () => {
     usagePercentage,
     refresh,
     upgrade 
-  } = useSubscription();
+  } = useOptimizedSubscription();
 
   const getPlanColor = (tier: string | null) => {
     switch (tier?.toLowerCase()) {
