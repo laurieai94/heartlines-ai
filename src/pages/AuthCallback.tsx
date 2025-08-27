@@ -28,9 +28,6 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Set flag for welcome back notification
-        localStorage.setItem('auth_callback_login', 'true');
-        
         // Redirect to dashboard with a clean URL
         window.location.replace('/');
       } catch (error) {

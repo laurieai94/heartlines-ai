@@ -44,18 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(session?.user ?? null);
         
         if (event === 'SIGNED_IN') {
-          // Check if this is a callback login or regular login
-          setTimeout(() => {
-            const isCallbackLogin = localStorage.getItem('auth_callback_login');
-            if (isCallbackLogin) {
-              localStorage.removeItem('auth_callback_login');
-              toast.success("Welcome back!");
-            } else {
-              // Regular login (direct email/password)
-              toast.success("Welcome back!");
-            }
-            setLoading(false);
-          }, 0);
+          setLoading(false);
         } else if (event === 'SIGNED_OUT') {
           setTimeout(() => {
             toast.success("Signed out successfully");

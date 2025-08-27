@@ -83,7 +83,6 @@ const SignUpModal = ({
         } else {
           // Transfer temporary profile data and close for sign-ins
           await transferToUserAccount();
-          toast.success("Welcome back!");
           onClose();
         }
       }
