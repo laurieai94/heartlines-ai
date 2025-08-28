@@ -22,7 +22,7 @@ const Auth = () => {
 
   // Redirect if already authenticated
   if (user && !loading) {
-    return <Navigate to="/account" replace />;
+    return <Navigate to="/coach" replace />;
   }
 
   // Show loading state
@@ -78,6 +78,8 @@ const Auth = () => {
       } else {
         const { error } = await signIn(formData.email, formData.password);
         if (error) throw error;
+        // Redirect to coach page after successful sign-in
+        window.location.href = '/coach';
       }
     } catch (error: any) {
       setFormErrors([error.message || 'An error occurred']);
