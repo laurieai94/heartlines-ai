@@ -19,7 +19,9 @@ export const useDashboardModals = () => {
     setShowQuestionnaireModal: modalState.setShowQuestionnaireModal,
     setShowPartnerQuestionnaireModal: modalState.setShowPartnerQuestionnaireModal,
     setShowPersonalCompletionOptions: modalState.setShowPersonalCompletionOptions,
-    setShowPartnerCompletionOptions: modalState.setShowPartnerCompletionOptions
+    setShowPartnerCompletionOptions: modalState.setShowPartnerCompletionOptions,
+    suppressPartnerCompletionPopup: modalState.suppressPartnerCompletionPopup,
+    setSuppressPartnerCompletionPopup: modalState.setSuppressPartnerCompletionPopup
   });
 
   // Add sign-in modal state management

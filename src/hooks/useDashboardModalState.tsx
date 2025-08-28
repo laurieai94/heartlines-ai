@@ -32,6 +32,17 @@ export const useDashboardModalState = () => {
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  
+  // Persistent suppress flag for partner completion popup
+  const [suppressPartnerCompletionPopup, setSuppressPartnerCompletionPopupState] = useState(() => {
+    const stored = localStorage.getItem('suppressPartnerCompletionPopup');
+    return stored === 'true';
+  });
+
+  const setSuppressPartnerCompletionPopup = (value: boolean) => {
+    setSuppressPartnerCompletionPopupState(value);
+    localStorage.setItem('suppressPartnerCompletionPopup', value.toString());
+  };
 
   // Debug logging for modal state changes
   useEffect(() => {
@@ -113,6 +124,8 @@ export const useDashboardModalState = () => {
     showPartnerCompletionOptions,
     setShowPartnerCompletionOptions,
     showSignInModal,
-    setShowSignInModal
+    setShowSignInModal,
+    suppressPartnerCompletionPopup,
+    setSuppressPartnerCompletionPopup
   };
 };

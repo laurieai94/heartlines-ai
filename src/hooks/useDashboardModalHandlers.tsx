@@ -8,6 +8,8 @@ interface ModalStates {
   setShowPartnerQuestionnaireModal: (show: boolean) => void;
   setShowPersonalCompletionOptions: (show: boolean) => void;
   setShowPartnerCompletionOptions: (show: boolean) => void;
+  suppressPartnerCompletionPopup: boolean;
+  setSuppressPartnerCompletionPopup: (value: boolean) => void;
 }
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
@@ -91,13 +93,15 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete partner questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // Note: Partner data now persists via useProfileStoreV2 during questionnaire completion
-    
     modalStates.setShowPartnerQuestionnaireModal(false);
     
     if (skipPopup) {
       // Skip the completion modal and go straight to coaching
       modalStates.setActiveTab("insights");
+    } else if (modalStates.suppressPartnerCompletionPopup) {
+      // Don't show popup if user has chosen to continue editing before
+      // Keep questionnaire open - don't close it
+      modalStates.setShowPartnerQuestionnaireModal(true);
     } else {
       // Show the completion modal instead of auto-navigating
       modalStates.setShowPartnerCompletionOptions(true);
@@ -140,6 +144,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   };
 
   const handlePartnerContinueEditing = () => {
+    modalStates.setSuppressPartnerCompletionPopup(true);
     modalStates.setShowPartnerCompletionOptions(false);
     modalStates.setShowPartnerQuestionnaireModal(true);
   };
