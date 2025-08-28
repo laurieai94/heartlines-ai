@@ -41,11 +41,13 @@ export const useSubscription = () => {
       
       if (subError) throw subError;
 
-      // Get message usage
+      // Get message usage for current month
+      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
       const { data: usageData, error: usageError } = await supabase
         .from('user_message_usage')
         .select('current_month_usage, subscription_tier')
         .eq('user_id', user.id)
+        .eq('usage_month', currentMonth)
         .single();
 
       if (usageError && usageError.code !== 'PGRST116') {

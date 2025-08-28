@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import { ChatMessage, ProfileData, DemographicsData } from '@/types/AIInsights';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
+import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -22,6 +23,7 @@ export const useChatMessageHandler = ({
   const [loading, setLoading] = useState(false);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
+  const { refresh: refreshSubscription } = useOptimizedSubscription();
 
   const sendMessage = async (userMessage: string) => {
     if (!canInteract) return;
@@ -66,6 +68,13 @@ export const useChatMessageHandler = ({
       };
 
       setChatHistory(prev => [...prev, aiMessage]);
+
+      // Refresh subscription data to update usage count
+      try {
+        await refreshSubscription();
+      } catch (err) {
+        console.warn('Failed to refresh subscription after message:', err);
+      }
 
       if (speakResponseRef.current) {
         speakResponseRef.current(aiResponse);

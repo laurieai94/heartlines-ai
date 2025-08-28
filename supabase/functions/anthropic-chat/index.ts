@@ -27,7 +27,15 @@ serve(async (req) => {
     const token = authHeader.replace('Bearer ', '');
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    
+    // Client for auth verification
     const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: { persistSession: false }
+    });
+    
+    // Service role client for database operations
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey, {
       auth: { persistSession: false }
     });
 
@@ -90,6 +98,26 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
+      // Increment message usage after successful AI response
+      try {
+        const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
+        console.log(`Incrementing message usage for user ${user.id}, month ${currentMonth}`);
+        
+        const { error: usageError } = await supabaseService.rpc('increment_message_usage', {
+          p_user_id: user.id,
+          p_usage_month: currentMonth,
+          p_delta: 1
+        });
+        
+        if (usageError) {
+          console.error('Failed to increment message usage:', usageError);
+        } else {
+          console.log('Message usage incremented successfully');
+        }
+      } catch (usageErr) {
+        console.error('Error incrementing message usage:', usageErr);
+      }
+      
       return new Response(
         JSON.stringify({ response: data.content[0].text }),
         { 

@@ -42,11 +42,13 @@ export const useOptimizedSubscription = () => {
         .eq('user_id', user.id)
         .maybeSingle();
 
-      // Also get message usage
+      // Also get message usage for current month
+      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
       const { data: usageData } = await supabase
         .from('user_message_usage')
         .select('current_month_usage, subscription_tier')
         .eq('user_id', user.id)
+        .eq('usage_month', currentMonth)
         .maybeSingle();
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
