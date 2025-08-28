@@ -209,7 +209,9 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
 
       const { error } = await supabase
         .from('user_profiles')
-        .upsert(upsertData);
+        .upsert(upsertData, {
+          onConflict: 'user_id,profile_type'
+        });
       
       if (error) {
         console.error(`Database save error for ${profileType}:`, error);
@@ -221,7 +223,10 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           return saveToDatabase(data, retryCount + 1);
         }
         
-        toast.error(`Failed to sync ${profileType} profile to cloud`);
+        // Don't show toast for duplicate key errors (they're handled by upsert)
+        if (error.code !== '23505') {
+          toast.error(`Failed to sync ${profileType} profile to cloud`);
+        }
         return false;
       } else {
         setLastSaved(new Date());

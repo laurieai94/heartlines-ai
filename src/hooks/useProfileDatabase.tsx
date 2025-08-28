@@ -19,7 +19,7 @@ export const useProfileDatabase = () => {
         .select('profile_data, demographics_data')
         .eq('user_id', user.id)
         .eq('profile_type', 'your')
-        .single();
+        .maybeSingle();
 
       if (data && !error) {
         const dbData = {
@@ -47,6 +47,8 @@ export const useProfileDatabase = () => {
         profile_data: data,
         demographics_data: data,
         updated_at: new Date().toISOString()
+      }, {
+        onConflict: 'user_id,profile_type'
       });
       
       if (error) {
