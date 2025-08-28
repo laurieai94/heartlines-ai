@@ -29,6 +29,73 @@ const STORAGE_CONFIG: Record<ProfileType, StorageKeys> = {
   }
 };
 
+// Field normalization mappings for personal profiles
+const PERSONAL_FIELD_MAPPINGS = {
+  // New Questionnaire -> Demographics
+  toStorage: {
+    'orientation': 'sexualOrientation',
+    'gender': 'genderIdentity'
+  },
+  // Demographics -> New Questionnaire  
+  fromStorage: {
+    'sexualOrientation': 'orientation',
+    'genderIdentity': 'gender'
+  }
+};
+
+// Helper function to normalize field names when loading data
+const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType): ProfileData => {
+  if (profileType !== 'personal') return data;
+  
+  const normalized = { ...data };
+  const mappings = PERSONAL_FIELD_MAPPINGS.fromStorage;
+  
+  Object.entries(mappings).forEach(([oldField, newField]) => {
+    if (data[oldField] !== undefined) {
+      // Handle array fields - convert single values to arrays if needed
+      if (oldField === 'sexualOrientation' && typeof data[oldField] === 'string') {
+        normalized[newField] = data[oldField];
+        delete normalized[oldField];
+      } else if (oldField === 'genderIdentity' && Array.isArray(data[oldField])) {
+        // Convert array to single string for gender field
+        normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+        delete normalized[oldField];
+      } else {
+        normalized[newField] = data[oldField];
+        delete normalized[oldField];
+      }
+    }
+  });
+  
+  return normalized;
+};
+
+// Helper function to normalize field names when saving data
+const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): ProfileData => {
+  if (profileType !== 'personal') return data;
+  
+  const normalized = { ...data };
+  const mappings = PERSONAL_FIELD_MAPPINGS.toStorage;
+  
+  Object.entries(mappings).forEach(([oldField, newField]) => {
+    if (data[oldField] !== undefined) {
+      // Handle field type conversions
+      if (oldField === 'orientation' && typeof data[oldField] === 'string') {
+        normalized[newField] = [data[oldField]];
+        delete normalized[oldField];
+      } else if (oldField === 'gender' && typeof data[oldField] === 'string') {
+        normalized[newField] = data[oldField] ? [data[oldField]] : [];
+        delete normalized[oldField];
+      } else {
+        normalized[newField] = data[oldField];
+        delete normalized[oldField];
+      }
+    }
+  });
+  
+  return normalized;
+};
+
 export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   const { user } = useAuth();
   const [profileData, setProfileData] = useState<ProfileData>({});
@@ -86,7 +153,8 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       let localData = localStorage.getItem(config.localStorage);
       if (localData) {
         const parsed = JSON.parse(localData);
-        return parsed || {};
+        const normalized = normalizeFieldsFromStorage(parsed || {}, profileType);
+        return normalized;
       }
 
       // For personal profiles, migrate from old keys (exclude canonical key!)
@@ -109,14 +177,15 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         
         // Save migrated data to canonical key and clean up old keys (not including canonical!)
         if (Object.keys(migratedData).length > 0) {
-          localStorage.setItem(config.localStorage, JSON.stringify(migratedData));
+          const normalized = normalizeFieldsFromStorage(migratedData, profileType);
+          localStorage.setItem(config.localStorage, JSON.stringify(normalized));
           // Only remove the old keys, not the canonical key
           oldKeys.forEach(key => {
             if (key !== config.localStorage) {
               localStorage.removeItem(key);
             }
           });
-          return migratedData;
+          return normalized;
         }
       }
     } catch (error) {
@@ -129,7 +198,8 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   // Save to localStorage with error handling
   const saveToStorage = useCallback((data: ProfileData) => {
     try {
-      localStorage.setItem(config.localStorage, JSON.stringify(data));
+      const normalizedData = normalizeFieldsToStorage(data, profileType);
+      localStorage.setItem(config.localStorage, JSON.stringify(normalizedData));
       setLastSaved(new Date());
     } catch (error) {
       console.error(`Error saving ${profileType} profile to localStorage:`, error);
@@ -175,10 +245,11 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           if (data) {
             const profileData = data.profile_data || {};
             const demographicsData = data.demographics_data || {};
-            result = {
+            const merged = {
               ...(typeof profileData === 'object' && profileData !== null ? profileData : {}),
               ...(typeof demographicsData === 'object' && demographicsData !== null ? demographicsData : {})
             };
+            result = normalizeFieldsFromStorage(merged, profileType);
           }
           
           console.log(`Loaded ${profileType} profile from database (merged):`, result);
@@ -199,9 +270,10 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           }
 
           if (data && data[config.databaseColumn]) {
-            const dbData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
+            const rawData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
               ? data[config.databaseColumn] 
               : {};
+            const dbData = normalizeFieldsFromStorage(rawData, profileType);
             
             console.log(`Loaded ${profileType} profile from database:`, dbData);
             cachedDataByType.set(profileType, dbData);
@@ -237,18 +309,20 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       // For personal profiles, save to both columns for compatibility
       let upsertData;
       if (profileType === 'personal') {
+        const normalizedData = normalizeFieldsToStorage(data, profileType);
         upsertData = {
           user_id: user.id,
           profile_type: dbProfileType,
-          profile_data: data,
-          demographics_data: data,
+          profile_data: normalizedData,
+          demographics_data: normalizedData,
           updated_at: new Date().toISOString()
         };
       } else {
+        const normalizedData = normalizeFieldsToStorage(data, profileType);
         upsertData = {
           user_id: user.id,
           profile_type: dbProfileType,
-          [config.databaseColumn]: data,
+          [config.databaseColumn]: normalizedData,
           updated_at: new Date().toISOString()
         };
       }
