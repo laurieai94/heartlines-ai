@@ -40,14 +40,19 @@ const PERSONAL_FIELD_MAPPINGS = {
     'orientation': 'sexualOrientation',
     'gender': 'genderIdentity',
     'loveLanguage': 'feelLovedWhen',
-    'conflictStyle': 'conflictNeeds' // Map new -> legacy
+    'conflictStyle': 'conflictNeeds', // Map new -> legacy
+    'stressResponse': 'stressReactions' // Map new -> legacy
   },
   // Demographics/Legacy -> New Questionnaire (from storage)
   fromStorage: {
     'sexualOrientation': 'orientation',
     'genderIdentity': 'gender',
     'feelLovedWhen': 'loveLanguage',
-    'conflictNeeds': 'conflictStyle' // Map legacy -> new
+    'conflictNeeds': 'conflictStyle', // Map legacy -> new
+    'stressReactions': 'stressResponse', // Map legacy -> new
+    'workingWell': 'relationshipWorking', // Map legacy -> new
+    'relationshipPositives': 'relationshipWorking', // Map legacy -> new
+    'biggestChallenge': 'relationshipChallenges' // Map legacy -> new
   }
 };
 
@@ -65,8 +70,8 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
         if (Array.isArray(data[oldField])) {
           // Convert array to single string for new questionnaire
           normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
-          // Keep original array for legacy UI components
-          normalized[oldField] = data[oldField];
+          // Keep original array for legacy UI components - CLONE to avoid aliasing
+          normalized[oldField] = [...data[oldField]];
         } else if (typeof data[oldField] === 'string') {
           normalized[newField] = data[oldField];
           normalized[oldField] = data[oldField] ? [data[oldField]] : [];
@@ -77,8 +82,8 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
         if (Array.isArray(data[oldField])) {
           // Convert array to single string for new questionnaire
           normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
-          // Keep original array for legacy UI components
-          normalized[oldField] = data[oldField];
+          // Keep original array for legacy UI components - CLONE to avoid aliasing
+          normalized[oldField] = [...data[oldField]];
         } else if (typeof data[oldField] === 'string') {
           normalized[newField] = data[oldField];
           normalized[oldField] = data[oldField] ? [data[oldField]] : [];
@@ -87,10 +92,21 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
       // Handle feelLovedWhen -> loveLanguage (keep original for backward compatibility)
       else if (oldField === 'feelLovedWhen') {
         const arr = Array.isArray(data[oldField])
-          ? data[oldField]
+          ? [...data[oldField]] // CLONE to avoid aliasing
           : (data[oldField] ? [data[oldField]] : []);
         normalized[newField] = arr;
         // Do NOT delete feelLovedWhen so legacy readers still work
+      }
+      // Handle other legacy field mappings with proper cloning
+      else if (['stressReactions', 'workingWell', 'relationshipPositives', 'biggestChallenge'].includes(oldField)) {
+        const value = data[oldField];
+        if (Array.isArray(value)) {
+          normalized[newField] = [...value]; // CLONE to avoid aliasing
+        } else {
+          normalized[newField] = value;
+        }
+        // Keep original field for backward compatibility
+        normalized[oldField] = Array.isArray(value) ? [...value] : value;
       }
       else {
         normalized[newField] = data[oldField];
@@ -158,10 +174,21 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
       // Handle loveLanguage -> feelLovedWhen (keep both for runtime compatibility)
       else if (oldField === 'loveLanguage') {
         const arr = Array.isArray(data[oldField])
-          ? data[oldField]
+          ? [...data[oldField]] // CLONE to avoid aliasing
           : (data[oldField] ? [data[oldField]] : []);
         normalized[newField] = arr;
         // Do NOT delete loveLanguage so new UI keeps working
+      }
+      // Handle stressResponse -> stressReactions mapping
+      else if (oldField === 'stressResponse') {
+        const value = data[oldField];
+        if (Array.isArray(value)) {
+          normalized[newField] = [...value]; // CLONE to avoid aliasing
+        } else {
+          normalized[newField] = value;
+        }
+        // Keep both fields for compatibility
+        normalized[oldField] = Array.isArray(value) ? [...value] : value;
       }
       else {
         normalized[newField] = data[oldField];
@@ -208,7 +235,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     });
   }, []);
 
-  // Smart merge function that prefers non-empty values
+  // Smart merge function that prefers non-empty values and handles aliased arrays
   const smartMerge = useCallback((existing: ProfileData, incoming: ProfileData): ProfileData => {
     const result = { ...existing };
     
@@ -218,22 +245,41 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       // Always keep non-empty incoming values
       if (typeof incomingValue === 'string' && incomingValue.trim()) {
         result[key] = incomingValue;
-      } else if (Array.isArray(incomingValue) && incomingValue.length > 0) {
-        // For arrays, prefer non-empty arrays
+      } else if (Array.isArray(incomingValue)) {
+        // For arrays, check if they have meaningful content
         const hasContent = incomingValue.some(item => 
           typeof item === 'string' ? item.trim() : item != null
         );
         if (hasContent) {
-          result[key] = incomingValue;
+          // CLONE array to prevent aliasing issues
+          result[key] = [...incomingValue];
+        } else if (!Array.isArray(existingValue) || existingValue.length === 0) {
+          // Only overwrite if existing is also empty
+          result[key] = [];
         }
+        // Otherwise keep existing non-empty array
       } else if (incomingValue != null && incomingValue !== '' && incomingValue !== undefined) {
         result[key] = incomingValue;
       }
       // If incoming is empty but existing has content, keep existing
+      else if (existingValue != null && existingValue !== '' && existingValue !== undefined) {
+        // Preserve existing meaningful value when incoming is empty
+        if (Array.isArray(existingValue)) {
+          result[key] = [...existingValue]; // CLONE to prevent aliasing
+        } else {
+          result[key] = existingValue;
+        }
+      }
+    });
+    
+    console.log(`🔄 Smart merge for ${profileType}:`, {
+      existingKeys: Object.keys(existing),
+      incomingKeys: Object.keys(incoming),
+      resultKeys: Object.keys(result)
     });
     
     return result;
-  }, []);
+  }, [profileType]);
 
   // Load from localStorage with error handling and migration
   const loadFromStorage = useCallback((): ProfileData => {
@@ -299,8 +345,14 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       const normalizedData = normalizeFieldsToStorage(data, profileType);
       localStorage.setItem(config.localStorage, JSON.stringify(normalizedData));
       
-      // Keep in-memory cache in UI shape for instant cross-hook reads
-      cachedDataByType.set(profileType, data);
+      // Keep in-memory cache in UI shape for instant cross-hook reads - CLONE to prevent aliasing
+      const cachedData = Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [
+          key, 
+          Array.isArray(value) ? [...value] : value
+        ])
+      );
+      cachedDataByType.set(profileType, cachedData);
       setLastSaved(new Date());
       console.log(`💾 Saved ${profileType} profile to localStorage:`, Object.keys(normalizedData));
     } catch (error) {
@@ -439,9 +491,22 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       } else {
         profileSyncDiagnostics.logSyncSuccess(profileTypeName);
         setLastSaved(new Date());
-        // Update cache with fresh data
+        
+        // Update cache and state with fresh data from RPC response
         const freshData = normalizeFieldsFromStorage(result || {}, profileType);
         cachedDataByType.set(profileType, freshData);
+        
+        // **CRITICAL**: Update local state with the RPC response to ensure consistency
+        setProfileData(prev => {
+          const updated = smartMerge(prev, freshData);
+          console.log(`🔄 Updated state from RPC response for ${profileType}:`, {
+            previousKeys: Object.keys(prev),
+            freshKeys: Object.keys(freshData),
+            updatedKeys: Object.keys(updated)
+          });
+          return updated;
+        });
+        
         console.log(`✅ RPC saved ${profileType} profile successfully, got back:`, freshData);
         return true;
       }
