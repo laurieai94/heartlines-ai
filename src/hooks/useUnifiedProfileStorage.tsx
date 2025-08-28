@@ -57,25 +57,29 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
   
   Object.entries(mappings).forEach(([oldField, newField]) => {
     if (data[oldField] !== undefined) {
-      // Handle sexualOrientation -> orientation
+      // Handle sexualOrientation -> orientation (keep both for UI compatibility)
       if (oldField === 'sexualOrientation') {
         if (Array.isArray(data[oldField])) {
-          // Convert array to single string
+          // Convert array to single string for new questionnaire
           normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+          // Keep original array for legacy UI components
+          normalized[oldField] = data[oldField];
         } else if (typeof data[oldField] === 'string') {
           normalized[newField] = data[oldField];
+          normalized[oldField] = data[oldField] ? [data[oldField]] : [];
         }
-        delete normalized[oldField];
       }
-      // Handle genderIdentity -> gender  
+      // Handle genderIdentity -> gender (keep both for UI compatibility)
       else if (oldField === 'genderIdentity') {
         if (Array.isArray(data[oldField])) {
-          // Convert array to single string for gender field
+          // Convert array to single string for new questionnaire
           normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+          // Keep original array for legacy UI components
+          normalized[oldField] = data[oldField];
         } else if (typeof data[oldField] === 'string') {
           normalized[newField] = data[oldField];
+          normalized[oldField] = data[oldField] ? [data[oldField]] : [];
         }
-        delete normalized[oldField];
       }
       // Handle feelLovedWhen -> loveLanguage (keep original for backward compatibility)
       else if (oldField === 'feelLovedWhen') {
@@ -102,6 +106,24 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
   const normalized = { ...data };
   const mappings = PERSONAL_FIELD_MAPPINGS.toStorage;
   
+  // Handle direct legacy field updates (from PersonalIdentity component)
+  if (data.sexualOrientation !== undefined) {
+    normalized.sexualOrientation = Array.isArray(data.sexualOrientation) 
+      ? data.sexualOrientation 
+      : (data.sexualOrientation ? [data.sexualOrientation] : []);
+    // Also update the new field for questionnaire compatibility
+    normalized.orientation = normalized.sexualOrientation.length > 0 ? normalized.sexualOrientation[0] : '';
+  }
+  
+  if (data.genderIdentity !== undefined) {
+    normalized.genderIdentity = Array.isArray(data.genderIdentity) 
+      ? data.genderIdentity 
+      : (data.genderIdentity ? [data.genderIdentity] : []);
+    // Also update the new field for questionnaire compatibility  
+    normalized.gender = normalized.genderIdentity.length > 0 ? normalized.genderIdentity[0] : '';
+  }
+  
+  // Handle new field updates (from new questionnaire)
   Object.entries(mappings).forEach(([oldField, newField]) => {
     if (data[oldField] !== undefined) {
       // Handle orientation -> sexualOrientation
@@ -113,7 +135,8 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
         } else {
           normalized[newField] = [];
         }
-        delete normalized[oldField];
+        // Keep both fields for compatibility
+        normalized[oldField] = data[oldField];
       }
       // Handle gender -> genderIdentity
       else if (oldField === 'gender') {
@@ -124,7 +147,8 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
         } else {
           normalized[newField] = [];
         }
-        delete normalized[oldField];
+        // Keep both fields for compatibility
+        normalized[oldField] = data[oldField];
       }
       // Handle loveLanguage -> feelLovedWhen (keep both for runtime compatibility)
       else if (oldField === 'loveLanguage') {
