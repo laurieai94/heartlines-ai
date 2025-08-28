@@ -1,6 +1,7 @@
 
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { useProfileCompletion } from './useProfileCompletion';
+import { calculatePartnerProgress } from '@/components/NewPartnerProfile/utils/partnerValidation';
 import { toast } from 'sonner';
 
 interface ModalStates {
@@ -67,8 +68,11 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowQuestionnaireModal(false);
     
     // Check if partner profile is complete - if so, redirect straight to coach
-    const partnerCompletion = calculatePartnerCompletion();
-    if (partnerCompletion === 100) {
+    const partnerCompletionFromStore = calculatePartnerCompletion();
+    const partnerCompletionFromTemp = calculatePartnerProgress(temporaryProfiles.partner[0] || {});
+    const effectivePartnerCompletion = Math.max(partnerCompletionFromStore, partnerCompletionFromTemp);
+    
+    if (effectivePartnerCompletion === 100) {
       console.log('Partner profile is complete, redirecting to coach');
       modalStates.setActiveTab("insights");
     } else {
@@ -144,10 +148,18 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
 
   // Centralized handler for "Unlock coaching" from personal profile
   const handlePersonalUnlockCoaching = () => {
-    const partnerCompletion = calculatePartnerCompletion();
-    console.log('Personal unlock coaching - partner completion:', partnerCompletion);
+    // Check completion from both stored and temporary profiles
+    const partnerCompletionFromStore = calculatePartnerCompletion();
+    const partnerCompletionFromTemp = calculatePartnerProgress(temporaryProfiles.partner[0] || {});
+    const effectivePartnerCompletion = Math.max(partnerCompletionFromStore, partnerCompletionFromTemp);
     
-    if (partnerCompletion === 100) {
+    console.log('Personal unlock coaching - partner completions:', {
+      fromStore: partnerCompletionFromStore,
+      fromTemp: partnerCompletionFromTemp,
+      effective: effectivePartnerCompletion
+    });
+    
+    if (effectivePartnerCompletion === 100) {
       console.log('Partner profile is complete, redirecting to coach');
       modalStates.setShowPersonalCompletionOptions(false);
       modalStates.setActiveTab("insights");

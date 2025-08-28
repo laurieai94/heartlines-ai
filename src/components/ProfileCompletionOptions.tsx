@@ -52,9 +52,11 @@ const ProfileCompletionOptions = ({
                 Start Coaching with Kai
               </Button>
               
-              <Button onClick={onAddPartnerProfile} className="w-full questionnaire-button-secondary">
-                Add your person's details
-              </Button>
+              {!hasPartnerProfile && (
+                <Button onClick={onAddPartnerProfile} className="w-full questionnaire-button-secondary">
+                  Add your person's details
+                </Button>
+              )}
 
               <div className="text-center mt-4">
                 <button onClick={onEditProfile} className="text-white/70 hover:text-white text-sm underline underline-offset-2">
