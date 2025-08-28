@@ -108,47 +108,57 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
   
   // Handle direct legacy field updates (from PersonalIdentity component)
   if (data.sexualOrientation !== undefined) {
-    normalized.sexualOrientation = Array.isArray(data.sexualOrientation) 
-      ? data.sexualOrientation 
-      : (data.sexualOrientation ? [data.sexualOrientation] : []);
-    // Also update the new field for questionnaire compatibility
-    normalized.orientation = normalized.sexualOrientation.length > 0 ? normalized.sexualOrientation[0] : '';
+    // Only update if incoming data is meaningful (not empty)
+    if (Array.isArray(data.sexualOrientation) && data.sexualOrientation.length > 0) {
+      normalized.sexualOrientation = data.sexualOrientation;
+      normalized.orientation = data.sexualOrientation[0];
+    } else if (typeof data.sexualOrientation === 'string' && data.sexualOrientation.trim()) {
+      normalized.sexualOrientation = [data.sexualOrientation];
+      normalized.orientation = data.sexualOrientation;
+    }
+    // Don't clear existing data with empty values
   }
   
   if (data.genderIdentity !== undefined) {
-    normalized.genderIdentity = Array.isArray(data.genderIdentity) 
-      ? data.genderIdentity 
-      : (data.genderIdentity ? [data.genderIdentity] : []);
-    // Also update the new field for questionnaire compatibility  
-    normalized.gender = normalized.genderIdentity.length > 0 ? normalized.genderIdentity[0] : '';
+    // Only update if incoming data is meaningful (not empty)  
+    if (Array.isArray(data.genderIdentity) && data.genderIdentity.length > 0) {
+      normalized.genderIdentity = data.genderIdentity;
+      normalized.gender = data.genderIdentity[0];
+    } else if (typeof data.genderIdentity === 'string' && data.genderIdentity.trim()) {
+      normalized.genderIdentity = [data.genderIdentity];
+      normalized.gender = data.genderIdentity;
+    }
+    // Don't clear existing data with empty values
   }
   
   // Handle new field updates (from new questionnaire)
   Object.entries(mappings).forEach(([oldField, newField]) => {
     if (data[oldField] !== undefined) {
-      // Handle orientation -> sexualOrientation
+      // Handle orientation -> sexualOrientation (prevent empty string from clearing arrays)
       if (oldField === 'orientation') {
-        if (typeof data[oldField] === 'string' && data[oldField].trim()) {
+        if (data[oldField] && typeof data[oldField] === 'string' && data[oldField].trim()) {
           normalized[newField] = [data[oldField]];
-        } else if (Array.isArray(data[oldField])) {
+        } else if (Array.isArray(data[oldField]) && data[oldField].length > 0) {
           normalized[newField] = data[oldField];
-        } else {
-          normalized[newField] = [];
         }
-        // Keep both fields for compatibility
-        normalized[oldField] = data[oldField];
+        // Keep both fields for compatibility, but don't overwrite meaningful data with empty
+        if (data[oldField] && ((typeof data[oldField] === 'string' && data[oldField].trim()) || 
+                              (Array.isArray(data[oldField]) && data[oldField].length > 0))) {
+          normalized[oldField] = data[oldField];
+        }
       }
-      // Handle gender -> genderIdentity
+      // Handle gender -> genderIdentity (prevent empty string from clearing arrays)  
       else if (oldField === 'gender') {
-        if (typeof data[oldField] === 'string' && data[oldField].trim()) {
+        if (data[oldField] && typeof data[oldField] === 'string' && data[oldField].trim()) {
           normalized[newField] = [data[oldField]];
-        } else if (Array.isArray(data[oldField])) {
+        } else if (Array.isArray(data[oldField]) && data[oldField].length > 0) {
           normalized[newField] = data[oldField];
-        } else {
-          normalized[newField] = [];
         }
-        // Keep both fields for compatibility
-        normalized[oldField] = data[oldField];
+        // Keep both fields for compatibility, but don't overwrite meaningful data with empty
+        if (data[oldField] && ((typeof data[oldField] === 'string' && data[oldField].trim()) ||
+                              (Array.isArray(data[oldField]) && data[oldField].length > 0))) {
+          normalized[oldField] = data[oldField];
+        }
       }
       // Handle loveLanguage -> feelLovedWhen (keep both for runtime compatibility)
       else if (oldField === 'loveLanguage') {
@@ -290,6 +300,13 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     try {
       const normalizedData = normalizeFieldsToStorage(data, profileType);
       localStorage.setItem(config.localStorage, JSON.stringify(normalizedData));
+      
+      // For personal profiles, also mirror to the legacy questionnaire key for compatibility
+      if (profileType === 'personal') {
+        localStorage.setItem('personal_profile_questionnaire', JSON.stringify(normalizedData));
+        console.log('🔄 Mirrored personal profile to legacy questionnaire storage');
+      }
+      
       // Keep in-memory cache in UI shape for instant cross-hook reads
       cachedDataByType.set(profileType, data);
       setLastSaved(new Date());
@@ -468,13 +485,19 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     }
   }, [user, config.databaseColumn, profileType]);
 
-  // Unified save function with optimistic updates
+  // Unified save function with optimistic updates and "prefer non-empty" merge strategy
   const saveData = useCallback(async (newData: Partial<ProfileData>) => {
     if (!newData || Object.keys(newData).length === 0) {
+      console.log('🚫 saveData: No meaningful data to save');
       return;
     }
+    
     const currentData = profileData || {};
-    const updatedData = { ...currentData, ...newData };
+    console.log('💾 saveData: Merging data', { current: currentData, new: newData });
+    
+    // Use "prefer non-empty" merge strategy to prevent data loss
+    const updatedData = mergePreferNonEmpty(currentData, newData);
+    console.log('✅ saveData: Merged result', updatedData);
 
     // Optimistic update for this hook instance
     setProfileData(updatedData);
@@ -497,7 +520,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         console.warn(`Database save failed for ${profileType}, data preserved locally`);
       }
     }
-  }, [profileData, saveToStorage, saveToDatabase, user, profileType]);
+  }, [profileData, saveToStorage, saveToDatabase, user, profileType, mergePreferNonEmpty]);
 
 // Field update helpers
 const updateField = useCallback((field: string, value: any) => {
@@ -613,6 +636,22 @@ useEffect(() => {
   const data = profileData || {};
   const updates: Record<string, any> = {};
 
+  console.log('🔧 Self-heal check for personal profile:', data);
+
+  // Restore from legacy questionnaire storage if current data is empty but legacy has data
+  try {
+    const legacyData = localStorage.getItem('personal_profile_questionnaire');
+    if (legacyData && !isMeaningfullyFilled(data)) {
+      const parsed = JSON.parse(legacyData);
+      if (isMeaningfullyFilled(parsed)) {
+        console.log('🚑 Recovering personal profile from legacy questionnaire storage');
+        Object.assign(updates, parsed);
+      }
+    }
+  } catch (error) {
+    console.error('Error during self-heal recovery:', error);
+  }
+
   // Ensure both loveLanguage and feelLovedWhen exist and are arrays
   const ll = Array.isArray(data.loveLanguage)
     ? data.loveLanguage
@@ -623,15 +662,23 @@ useEffect(() => {
   if (ll.length > 0 && flw.length === 0) updates.feelLovedWhen = ll;
   if (flw.length > 0 && ll.length === 0) updates.loveLanguage = flw;
 
+  // Ensure sexualOrientation/genderIdentity arrays exist if orientation/gender strings exist
+  if (data.orientation && !data.sexualOrientation) {
+    updates.sexualOrientation = [data.orientation];
+  }
+  if (data.gender && !data.genderIdentity) {
+    updates.genderIdentity = [data.gender];
+  }
+
   // Ensure orientation/gender are strings (pick first if arrays snuck in)
   if (Array.isArray(data.orientation)) updates.orientation = data.orientation[0] || '';
   if (Array.isArray(data.gender)) updates.gender = data.gender[0] || '';
 
   if (Object.keys(updates).length > 0) {
-    console.log('🛠 Repairing personal profile data aliases/shapes:', updates);
+    console.log('🛠 Repairing personal profile data:', updates);
     saveData(updates);
   }
-}, [isReady, profileType, profileData, saveData]);
+}, [isReady, profileType, profileData, saveData, isMeaningfullyFilled]);
 
 // Safe periodic sync for data consistency (every 5 minutes when user is active)
 useEffect(() => {
