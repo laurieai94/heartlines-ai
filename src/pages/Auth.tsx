@@ -144,7 +144,7 @@ const Auth = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={(e) => handleInputChange('password', e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="Keep it secret"
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
                   required
                 />
