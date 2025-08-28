@@ -128,7 +128,7 @@ const Auth = () => {
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                placeholder="Enter your email"
+                placeholder="Drop your email"
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
                 required
               />
