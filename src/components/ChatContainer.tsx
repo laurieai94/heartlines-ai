@@ -90,21 +90,6 @@ const ChatContainer = ({
       >
         <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
-            {/* Profile completion nudge for signed-in users with incomplete profiles */}
-            {accessLevel === 'profile-required' && user && chatHistory.length === 0 && (
-              <div className="text-center py-8 space-y-3">
-                <p className="text-white/80 text-lg">
-                  Complete your profile to start chatting with Kai
-                </p>
-                <Button 
-                  onClick={goToProfile}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  Complete Your Profile
-                </Button>
-              </div>
-            )}
             
             {/* Chat Messages */}
             {chatHistory.map((message) => (

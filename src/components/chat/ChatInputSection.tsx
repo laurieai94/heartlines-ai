@@ -4,9 +4,12 @@ import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
+import { useNavigation } from '@/contexts/NavigationContext';
 import SignUpModal from '@/components/SignUpModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { logEvent } from '@/utils/analytics';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -30,6 +33,7 @@ export const ChatInputSection = ({
   isHistoryLoaded
 }: ChatInputSectionProps) => {
   const { accessLevel } = useProgressiveAccess();
+  const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -68,7 +72,22 @@ export const ChatInputSection = ({
         )}
         
         <div className="max-w-3xl mx-auto">
-          {user ? (
+          {accessLevel === 'profile-required' && user ? (
+            <div className="flex gap-2 items-end">
+              <Textarea
+                disabled
+                placeholder="Complete your profile to chat with Kai…"
+                className="flex-1 min-h-[50px] max-h-[200px] resize-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 focus:border-pink-300/50 focus:ring-pink-300/20"
+              />
+              <Button 
+                onClick={goToProfile}
+                variant="outline"
+                className="px-4 py-3 h-auto bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:border-white/30"
+              >
+                Complete Profile
+              </Button>
+            </div>
+          ) : user ? (
             <ProgressiveAccessWrapper action="chat">
               <AIChatInput 
                 onSendMessage={handleSend} 
