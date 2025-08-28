@@ -28,8 +28,8 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     profileData,
     isLoading,
     isReady,
-    updateField,
-    handleMultiSelect,
+    updateField: rawUpdateField,
+    handleMultiSelect: rawHandleMultiSelect,
     saveData
   } = useProfileStoreV2('partner');
 
@@ -47,14 +47,45 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     }
   }, [profileData, onAutoComplete, isReady]);
 
+  // Normalize data types at write time
+  const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {
+    let normalizedValue = value;
+    
+    // Ensure correct data types for specific fields
+    const arrayFields: (keyof PartnerProfileData)[] = [
+      'partnerGender', 'partnerLoveLanguage', 'partnerConflictStyle', 
+      'partnerCommunicationResponse', 'partnerHeartbreakBetrayal', 'partnerFamilyStructure'
+    ];
+    
+    const stringFields: (keyof PartnerProfileData)[] = [
+      'partnerName', 'partnerPronouns', 'partnerAge', 'partnerOrientation', 
+      'partnerSelfAwareness', 'partnerAttachmentStyle'
+    ];
+    
+    if (arrayFields.includes(field)) {
+      normalizedValue = Array.isArray(value) ? value : (value ? [value] : []);
+    } else if (stringFields.includes(field)) {
+      normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
+    }
+    
+    console.log(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
+    rawUpdateField(field, normalizedValue);
+  };
+
+  // Normalize multi-select handling
+  const normalizedHandleMultiSelect = (field: keyof PartnerProfileData, value: string) => {
+    console.log(`[Partner] Multi-select ${field}:`, value);
+    rawHandleMultiSelect(field, value);
+  };
+
   // Merge with default data to ensure all expected fields exist
   const mergedProfileData = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
 
   return {
     profileData: mergedProfileData,
     isLoading,
-    updateField: updateField as (field: keyof PartnerProfileData, value: any) => void,
-    handleMultiSelect: handleMultiSelect as (field: keyof PartnerProfileData, value: string) => void,
+    updateField: normalizedUpdateField,
+    handleMultiSelect: normalizedHandleMultiSelect,
     saveProfile: saveData
   };
 };

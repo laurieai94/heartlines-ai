@@ -141,12 +141,46 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const migrateLegacyData = useCallback((data: any): Partial<PersonalProfileV2 | PartnerProfileV2> => {
     const migrated: any = { ...data };
     
-    // Apply legacy field mappings (only for personal profiles)
+    // Apply legacy field mappings for personal profiles
     if (profileType === 'personal') {
       Object.entries(PERSONAL_LEGACY_MAPPINGS).forEach(([oldKey, newKey]) => {
         if (migrated[oldKey] && !migrated[newKey]) {
           migrated[newKey] = migrated[oldKey];
           delete migrated[oldKey];
+        }
+      });
+    }
+    
+    // Apply partner profile data normalization
+    if (profileType === 'partner') {
+      // Ensure partnerOrientation is a string (not array)
+      if (Array.isArray(migrated.partnerOrientation)) {
+        migrated.partnerOrientation = migrated.partnerOrientation[0] || '';
+      }
+      
+      // Ensure array fields are arrays
+      const arrayFields = [
+        'partnerGender', 'partnerLoveLanguage', 'partnerConflictStyle', 
+        'partnerCommunicationResponse', 'partnerHeartbreakBetrayal', 'partnerFamilyStructure'
+      ];
+      
+      arrayFields.forEach(field => {
+        if (migrated[field] && !Array.isArray(migrated[field])) {
+          // Convert string to array
+          migrated[field] = [migrated[field]];
+        } else if (!migrated[field]) {
+          // Ensure field exists as empty array
+          migrated[field] = [];
+        }
+      });
+      
+      // Ensure string fields are strings
+      const stringFields = ['partnerName', 'partnerPronouns', 'partnerAge', 'partnerOrientation', 'partnerSelfAwareness', 'partnerAttachmentStyle'];
+      stringFields.forEach(field => {
+        if (Array.isArray(migrated[field])) {
+          migrated[field] = migrated[field][0] || '';
+        } else if (!migrated[field]) {
+          migrated[field] = '';
         }
       });
     }
