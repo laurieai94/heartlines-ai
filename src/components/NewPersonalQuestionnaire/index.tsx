@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useProfileData } from "./hooks/useProfileData";
+import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 
 interface NewPersonalQuestionnaireProps {
@@ -12,11 +12,11 @@ interface NewPersonalQuestionnaireProps {
 const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewPersonalQuestionnaireProps) => {
   const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
   
-  const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = useProfileData(autoCompleteCallback);
+  const { profileData, updateField, handleMultiSelect, isLoading, saveData } = usePersonalProfileData();
 
   const handleComplete = async () => {
     try {
-      await saveProfile(profileData);
+      await saveData(profileData);
       
       const completedData = {
         ...profileData,
