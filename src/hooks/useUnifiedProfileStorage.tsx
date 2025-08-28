@@ -39,13 +39,15 @@ const PERSONAL_FIELD_MAPPINGS = {
   toStorage: {
     'orientation': 'sexualOrientation',
     'gender': 'genderIdentity',
-    'loveLanguage': 'feelLovedWhen'
+    'loveLanguage': 'feelLovedWhen',
+    'conflictStyle': 'conflictNeeds' // Map new -> legacy
   },
   // Demographics/Legacy -> New Questionnaire (from storage)
   fromStorage: {
     'sexualOrientation': 'orientation',
     'genderIdentity': 'gender',
-    'feelLovedWhen': 'loveLanguage'
+    'feelLovedWhen': 'loveLanguage',
+    'conflictNeeds': 'conflictStyle' // Map legacy -> new
   }
 };
 
@@ -204,6 +206,33 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       
       return value !== null && value !== undefined && value !== '';
     });
+  }, []);
+
+  // Smart merge function that prefers non-empty values
+  const smartMerge = useCallback((existing: ProfileData, incoming: ProfileData): ProfileData => {
+    const result = { ...existing };
+    
+    Object.entries(incoming).forEach(([key, incomingValue]) => {
+      const existingValue = existing[key];
+      
+      // Always keep non-empty incoming values
+      if (typeof incomingValue === 'string' && incomingValue.trim()) {
+        result[key] = incomingValue;
+      } else if (Array.isArray(incomingValue) && incomingValue.length > 0) {
+        // For arrays, prefer non-empty arrays
+        const hasContent = incomingValue.some(item => 
+          typeof item === 'string' ? item.trim() : item != null
+        );
+        if (hasContent) {
+          result[key] = incomingValue;
+        }
+      } else if (incomingValue != null && incomingValue !== '' && incomingValue !== undefined) {
+        result[key] = incomingValue;
+      }
+      // If incoming is empty but existing has content, keep existing
+    });
+    
+    return result;
   }, []);
 
   // Load from localStorage with error handling and migration
@@ -476,13 +505,20 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     }
   }, [profileData, saveToStorage, saveToDatabase, user, profileType]);
 
-  // Field update helpers
+  // Field update helpers with enhanced compatibility
   const updateField = useCallback((field: string, value: any) => {
     // Mirror between legacy and new keys for personal profile
-    if (profileType === 'personal' && (field === 'loveLanguage' || field === 'feelLovedWhen')) {
-      const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
-      saveData({ [field]: value, [mirroredKey]: Array.isArray(value) ? value : (value ? [value] : []) });
-      return;
+    if (profileType === 'personal') {
+      if (field === 'loveLanguage' || field === 'feelLovedWhen') {
+        const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
+        saveData({ [field]: value, [mirroredKey]: Array.isArray(value) ? value : (value ? [value] : []) });
+        return;
+      }
+      if (field === 'conflictStyle' || field === 'conflictNeeds') {
+        const mirroredKey = field === 'conflictStyle' ? 'conflictNeeds' : 'conflictStyle';
+        saveData({ [field]: value, [mirroredKey]: Array.isArray(value) ? value : (value ? [value] : []) });
+        return;
+      }
     }
     saveData({ [field]: value });
   }, [saveData, profileType]);
@@ -493,12 +529,20 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       ? currentValues.filter(v => v !== value)
       : [...currentValues, value];
     
-    // Mirror for loveLanguage/feelLovedWhen
-    if (profileType === 'personal' && (field === 'loveLanguage' || field === 'feelLovedWhen')) {
-      const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
-      updateField(field, newValues);
-      updateField(mirroredKey, newValues);
-      return;
+    // Mirror for loveLanguage/feelLovedWhen and conflictStyle/conflictNeeds
+    if (profileType === 'personal') {
+      if (field === 'loveLanguage' || field === 'feelLovedWhen') {
+        const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
+        updateField(field, newValues);
+        updateField(mirroredKey, newValues);
+        return;
+      }
+      if (field === 'conflictStyle' || field === 'conflictNeeds') {
+        const mirroredKey = field === 'conflictStyle' ? 'conflictNeeds' : 'conflictStyle';
+        updateField(field, newValues);
+        updateField(mirroredKey, newValues);
+        return;
+      }
     }
     updateField(field, newValues);
   }, [profileData, updateField, profileType]);
@@ -547,22 +591,41 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         // Load from database if user is authenticated
         if (user) {
           const dbData = await loadFromDatabase();
+          
+          // Enhanced diagnostics for data comparison
+          const localMeaningful = isMeaningfullyFilled(localData);
+          const dbMeaningful = isMeaningfullyFilled(dbData);
           console.log(`📊 ${profileType} data comparison:`, {
-            localMeaningful: isMeaningfullyFilled(localData),
-            dbMeaningful: isMeaningfullyFilled(dbData),
-            localKeys: Object.keys(localData),
-            dbKeys: Object.keys(dbData)
+            localMeaningful,
+            dbMeaningful,
+            localKeys: Object.keys(localData).sort(),
+            dbKeys: Object.keys(dbData).sort(),
+            localSample: Object.fromEntries(Object.entries(localData).slice(0, 3)),
+            dbSample: Object.fromEntries(Object.entries(dbData).slice(0, 3))
           });
           
-          if (isMeaningfullyFilled(dbData)) {
-            // Use database data (it's the source of truth now)
+          if (localMeaningful && dbMeaningful) {
+            // Both have data - smart merge preferring non-empty values
+            console.log(`🔄 Smart merging ${profileType} data (both sources meaningful)`);
+            const mergedData = smartMerge(dbData, localData);
+            console.log(`📋 Merge result keys:`, Object.keys(mergedData).sort());
+            setProfileData(mergedData);
+            saveToStorage(mergedData);
+            // Save merged result to database to keep it in sync
+            await saveToDatabase(mergedData);
+          } else if (dbMeaningful && !localMeaningful) {
+            // Database has data, local doesn't
             console.log(`🔄 Using ${profileType} profile data from database`);
             setProfileData(dbData);
             saveToStorage(dbData);
-          } else if (isMeaningfullyFilled(localData)) {
-            // Migrate local data to database if it's meaningful
+          } else if (localMeaningful && !dbMeaningful) {
+            // Local has data, database doesn't
             console.log(`⬆️ Migrating meaningful ${profileType} data to database`);
+            setProfileData(localData);
             await migrateLocalToDatabase();
+          } else {
+            // Neither has meaningful data
+            console.log(`📭 No meaningful ${profileType} data in either source`);
           }
         }
       } catch (error) {
@@ -613,6 +676,16 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       : (data.feelLovedWhen ? [data.feelLovedWhen] : []);
     if (ll.length > 0 && flw.length === 0) updates.feelLovedWhen = ll;
     if (flw.length > 0 && ll.length === 0) updates.loveLanguage = flw;
+
+    // Ensure both conflictStyle and conflictNeeds exist and are arrays
+    const cs = Array.isArray(data.conflictStyle)
+      ? data.conflictStyle
+      : (data.conflictStyle ? [data.conflictStyle] : []);
+    const cn = Array.isArray(data.conflictNeeds)
+      ? data.conflictNeeds
+      : (data.conflictNeeds ? [data.conflictNeeds] : []);
+    if (cs.length > 0 && cn.length === 0) updates.conflictNeeds = cs;
+    if (cn.length > 0 && cs.length === 0) updates.conflictStyle = cn;
 
     // Ensure sexualOrientation/genderIdentity arrays exist if orientation/gender strings exist
     if (data.orientation && !data.sexualOrientation) {
@@ -666,16 +739,31 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     return () => clearInterval(syncInterval);
   }, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, saveToDatabase, profileType, isMeaningfullyFilled]);
 
-  // Real-time sync across hook instances via a tiny event bus
+  // Real-time sync across hook instances via a tiny event bus with smart merging
   useEffect(() => {
     const handler = (e: any) => {
       try {
         const detail = e.detail as { profileType: ProfileType; data: ProfileData };
         if (detail?.profileType === profileType) {
           setProfileData(prev => {
-            const prevStr = JSON.stringify(prev || {});
-            const nextStr = JSON.stringify(detail.data || {});
-            return prevStr === nextStr ? prev : detail.data;
+            const prevData = prev || {};
+            const incomingData = detail.data || {};
+            
+            // Use smart merge instead of direct replacement
+            const mergedData = smartMerge(prevData, incomingData);
+            
+            const prevStr = JSON.stringify(prevData);
+            const mergedStr = JSON.stringify(mergedData);
+            
+            if (prevStr !== mergedStr) {
+              console.log(`🔄 Cross-instance sync for ${profileType}:`, {
+                prevKeys: Object.keys(prevData).sort(),
+                incomingKeys: Object.keys(incomingData).sort(),
+                mergedKeys: Object.keys(mergedData).sort()
+              });
+            }
+            
+            return prevStr === mergedStr ? prev : mergedData;
           });
         }
       } catch (err) {
@@ -684,17 +772,37 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     };
     window.addEventListener(PROFILE_UPDATED_EVENT as any, handler as any);
     return () => window.removeEventListener(PROFILE_UPDATED_EVENT as any, handler as any);
-  }, [profileType]);
+  }, [profileType, smartMerge]);
 
-  // Cross-tab/localStorage synchronization listener
+  // Cross-tab/localStorage synchronization listener with smart merging
   useEffect(() => {
     const onStorage = (e: StorageEvent) => {
       if (e.key === config.localStorage && typeof e.newValue === 'string') {
         try {
           const parsed = JSON.parse(e.newValue || '{}');
           const normalized = normalizeFieldsFromStorage(parsed, profileType);
-          cachedDataByType.set(profileType, normalized);
-          setProfileData(normalized);
+          
+          setProfileData(prev => {
+            const prevData = prev || {};
+            const mergedData = smartMerge(prevData, normalized);
+            
+            // Only update cache and state if data actually changed
+            const prevStr = JSON.stringify(prevData);
+            const mergedStr = JSON.stringify(mergedData);
+            
+            if (prevStr !== mergedStr) {
+              console.log(`🔄 Cross-tab sync for ${profileType}:`, {
+                source: 'localStorage',
+                prevKeys: Object.keys(prevData).sort(),
+                incomingKeys: Object.keys(normalized).sort(),
+                mergedKeys: Object.keys(mergedData).sort()
+              });
+              cachedDataByType.set(profileType, mergedData);
+              return mergedData;
+            }
+            
+            return prev;
+          });
         } catch (err) {
           console.warn('Failed to process storage event for profile data', err);
         }
@@ -702,7 +810,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     };
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
-  }, [config.localStorage, profileType]);
+  }, [config.localStorage, profileType, smartMerge]);
 
   return {
     profileData,
