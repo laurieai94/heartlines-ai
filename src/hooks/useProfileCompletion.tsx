@@ -1,5 +1,6 @@
 
-import { useUnifiedProfileStorage } from './useUnifiedProfileStorage';
+import { usePersonalProfileData } from './usePersonalProfileData';
+import { usePartnerProfileData } from './usePartnerProfileData';
 
 export const useProfileCompletion = () => {
   const personalStorage = useUnifiedProfileStorage('personal');

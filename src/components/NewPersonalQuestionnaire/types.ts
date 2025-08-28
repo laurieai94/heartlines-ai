@@ -3,8 +3,8 @@ export interface ProfileData {
   // Section 1: The Basics
   name: string;
   age: string;
-  gender: string;
-  orientation: string;
+  gender: string[];
+  orientation: string[];
   pronouns: string;
   
   // Section 2: Your Relationship

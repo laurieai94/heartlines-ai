@@ -1,13 +1,13 @@
 
-import { useUnifiedProfileStorage } from './useUnifiedProfileStorage';
+import { useProfileStoreV2 } from './useProfileStoreV2';
 
 interface PartnerProfileData {
   [key: string]: any;
 }
 
 export const usePartnerProfileData = () => {
-  // Use the new unified storage system
-  const storage = useUnifiedProfileStorage('partner');
+  // Use the new V2 storage system
+  const storage = useProfileStoreV2('partner');
 
   return {
     profileData: storage.profileData,

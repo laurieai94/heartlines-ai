@@ -1,5 +1,5 @@
 
-import { useUnifiedProfileStorage } from './useUnifiedProfileStorage';
+import { useProfileStoreV2 } from './useProfileStoreV2';
 
 interface PersonalProfileData {
   // Section 1 - The Basics
@@ -40,15 +40,15 @@ interface PersonalProfileData {
 }
 
 export const usePersonalProfileData = () => {
-  // Use the new unified storage system
-  const storage = useUnifiedProfileStorage('personal');
+  // Use the new V2 storage system
+  const v2Store = useProfileStoreV2('personal');
 
   return {
-    profileData: storage.profileData,
-    isLoading: storage.isLoading,
-    isReady: storage.isReady,
-    saveData: storage.saveData,
-    updateField: storage.updateField,
-    handleMultiSelect: storage.handleMultiSelect
+    profileData: v2Store.profileData,
+    isLoading: v2Store.isLoading,
+    isReady: v2Store.isReady,
+    saveData: v2Store.saveData,
+    updateField: v2Store.updateField,
+    handleMultiSelect: v2Store.handleMultiSelect
   };
 };

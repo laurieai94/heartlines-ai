@@ -2,14 +2,14 @@
 import { useEffect } from 'react';
 import { ProfileData } from '../types';
 import { calculateProgress } from '../utils/validation';
-import { useUnifiedProfileStorage } from '@/hooks/useUnifiedProfileStorage';
+import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
 
 const defaultProfileData: ProfileData = {
   // Section 1: The Basics
   name: '',
   age: '',
-  gender: '',
-  orientation: '',
+  gender: [],
+  orientation: [],
   pronouns: '',
   
   // Section 2: Your Relationship
@@ -49,7 +49,7 @@ export const useProfileData = (onAutoComplete?: () => void) => {
     updateField,
     handleMultiSelect,
     saveData
-  } = useUnifiedProfileStorage('personal');
+  } = useProfileStoreV2('personal');
 
   // Auto-completion detection
   useEffect(() => {
