@@ -111,10 +111,7 @@ const Auth = () => {
               We missed you
             </h1>
             <p className="text-white/70">
-              {isSignUp 
-                ? 'Sign up to start your journey with RealTalk' 
-                : 'Sign in to continue your coaching experience'
-              }
+              Tap in to keep leveling up
             </p>
           </div>
 
