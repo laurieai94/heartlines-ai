@@ -47,10 +47,10 @@ export const useProfileCompletion = () => {
       completed++;
       console.log('✓ stressResponse:', profileData.stressResponse);
     }
-    if (profileData?.feelLovedWhen?.length > 0) {
-      completed++;
-      console.log('✓ feelLovedWhen:', profileData.feelLovedWhen);
-    }
+if (profileData?.loveLanguage?.length > 0) {
+  completed++;
+  console.log('✓ loveLanguage:', profileData.loveLanguage);
+}
     if (profileData?.attachmentStyle) {
       completed++;
       console.log('✓ attachmentStyle:', profileData.attachmentStyle);

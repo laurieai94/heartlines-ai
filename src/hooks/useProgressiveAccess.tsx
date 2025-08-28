@@ -66,26 +66,26 @@ export const useProgressiveAccess = () => {
       return false;
     }
     
-    const profileData = personalStorage.profileData;
-    
-    // Basic requirements
-    const hasName = profileData?.name && profileData.name.trim() !== '';
-    const hasAge = profileData?.age && profileData.age !== '';
-    
-    // Core questionnaire fields that indicate completion
-    const hasStressResponse = Array.isArray(profileData?.stressResponse) && profileData.stressResponse.length > 0;
-    const hasAttachmentStyle = profileData?.attachmentStyle && profileData.attachmentStyle !== '';
-    const hasLoveLanguage = Array.isArray(profileData?.loveLanguage) && profileData.loveLanguage.length > 0;
-    const hasRelationshipStatus = profileData?.relationshipStatus && profileData.relationshipStatus !== '';
-    
-    
-    // Must have basic info AND at least 3 core questionnaire responses
-    const hasBasicInfo = hasName && hasAge;
-    const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
-    const hasEnoughData = coreResponses >= 3;
-    
-    const isComplete = hasBasicInfo && hasEnoughData;
-    return isComplete;
+const profileData = personalStorage.profileData;
+
+// Basic requirements
+const hasName = profileData?.name && profileData.name.trim() !== '';
+const hasAge = profileData?.age && profileData.age !== '';
+
+// Core questionnaire fields that indicate completion
+const hasStressResponse = Array.isArray(profileData?.stressResponse) && profileData.stressResponse.length > 0;
+const hasAttachmentStyle = profileData?.attachmentStyle && profileData.attachmentStyle !== '';
+const hasLoveLanguage = Array.isArray(profileData?.loveLanguage) && profileData.loveLanguage.length > 0;
+const hasRelationshipStatus = profileData?.relationshipStatus && profileData.relationshipStatus !== '';
+
+// Must have basic info AND at least 3 core questionnaire responses
+const hasBasicInfo = hasName && hasAge;
+const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
+const hasEnoughData = coreResponses >= 3;
+
+const isComplete = hasBasicInfo && hasEnoughData;
+console.log('🔐 Chat access check:', { hasName, hasAge, hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus, coreResponses, isComplete, keys: Object.keys(profileData || {}) });
+return isComplete;
   };
 
   const profileCompletion = calculateProfileCompletion();

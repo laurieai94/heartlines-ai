@@ -31,15 +31,17 @@ const STORAGE_CONFIG: Record<ProfileType, StorageKeys> = {
 
 // Field normalization mappings for personal profiles
 const PERSONAL_FIELD_MAPPINGS = {
-  // New Questionnaire -> Demographics
+  // New Questionnaire -> Demographics (to storage)
   toStorage: {
     'orientation': 'sexualOrientation',
-    'gender': 'genderIdentity'
+    'gender': 'genderIdentity',
+    'loveLanguage': 'feelLovedWhen'
   },
-  // Demographics -> New Questionnaire  
+  // Demographics/Legacy -> New Questionnaire (from storage)
   fromStorage: {
     'sexualOrientation': 'orientation',
-    'genderIdentity': 'gender'
+    'genderIdentity': 'gender',
+    'feelLovedWhen': 'loveLanguage'
   }
 };
 
@@ -71,7 +73,16 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
           normalized[newField] = data[oldField];
         }
         delete normalized[oldField];
-      } else {
+      }
+      // Handle feelLovedWhen -> loveLanguage (keep original for backward compatibility)
+      else if (oldField === 'feelLovedWhen') {
+        const arr = Array.isArray(data[oldField])
+          ? data[oldField]
+          : (data[oldField] ? [data[oldField]] : []);
+        normalized[newField] = arr;
+        // Do NOT delete feelLovedWhen so legacy readers still work
+      }
+      else {
         normalized[newField] = data[oldField];
         delete normalized[oldField];
       }
@@ -111,7 +122,16 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
           normalized[newField] = [];
         }
         delete normalized[oldField];
-      } else {
+      }
+      // Handle loveLanguage -> feelLovedWhen (keep both for runtime compatibility)
+      else if (oldField === 'loveLanguage') {
+        const arr = Array.isArray(data[oldField])
+          ? data[oldField]
+          : (data[oldField] ? [data[oldField]] : []);
+        normalized[newField] = arr;
+        // Do NOT delete loveLanguage so new UI keeps working
+      }
+      else {
         normalized[newField] = data[oldField];
         delete normalized[oldField];
       }
@@ -435,18 +455,31 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     }
   }, [profileData, saveToStorage, saveToDatabase, user, profileType]);
 
-  // Field update helpers
-  const updateField = useCallback((field: string, value: any) => {
-    saveData({ [field]: value });
-  }, [saveData]);
+// Field update helpers
+const updateField = useCallback((field: string, value: any) => {
+  // Mirror between legacy and new keys for personal profile
+  if (profileType === 'personal' && (field === 'loveLanguage' || field === 'feelLovedWhen')) {
+    const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
+    saveData({ [field]: value, [mirroredKey]: Array.isArray(value) ? value : (value ? [value] : []) });
+    return;
+  }
+  saveData({ [field]: value });
+}, [saveData, profileType]);
 
-  const handleMultiSelect = useCallback((field: string, value: string) => {
-    const currentValues = (profileData[field] as string[]) || [];
-    const newValues = currentValues.includes(value)
-      ? currentValues.filter(v => v !== value)
-      : [...currentValues, value];
+const handleMultiSelect = useCallback((field: string, value: string) => {
+  const currentValues = (profileData[field] as string[]) || [];
+  const newValues = currentValues.includes(value)
+    ? currentValues.filter(v => v !== value)
+    : [...currentValues, value];
+  // Mirror for loveLanguage/feelLovedWhen
+  if (profileType === 'personal' && (field === 'loveLanguage' || field === 'feelLovedWhen')) {
+    const mirroredKey = field === 'loveLanguage' ? 'feelLovedWhen' : 'loveLanguage';
     updateField(field, newValues);
-  }, [profileData, updateField]);
+    updateField(mirroredKey, newValues);
+    return;
+  }
+  updateField(field, newValues);
+}, [profileData, updateField, profileType]);
 
   // Data migration when user authenticates (only if local data is meaningful)
   const migrateLocalToDatabase = useCallback(async () => {
@@ -530,40 +563,66 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     loadData();
   }, [user, profileType, loadFromStorage, loadFromDatabase, saveToStorage, migrateLocalToDatabase, recoverFromDatabase, isMeaningfullyFilled, mergePreferNonEmpty]);
 
-  // Safe periodic sync for data consistency (every 5 minutes when user is active)
-  useEffect(() => {
-    if (!user || !isReady) return;
+// One-time self-heal/repair for aliases and shapes
+useEffect(() => {
+  if (!isReady || profileType !== 'personal') return;
+  const data = profileData || {};
+  const updates: Record<string, any> = {};
 
-    const syncInterval = setInterval(async () => {
-      if (document.visibilityState === 'visible') {
-        try {
-          const dbData = await loadFromDatabase();
-          const localData = loadFromStorage();
+  // Ensure both loveLanguage and feelLovedWhen exist and are arrays
+  const ll = Array.isArray(data.loveLanguage)
+    ? data.loveLanguage
+    : (data.loveLanguage ? [data.loveLanguage] : []);
+  const flw = Array.isArray(data.feelLovedWhen)
+    ? data.feelLovedWhen
+    : (data.feelLovedWhen ? [data.feelLovedWhen] : []);
+  if (ll.length > 0 && flw.length === 0) updates.feelLovedWhen = ll;
+  if (flw.length > 0 && ll.length === 0) updates.loveLanguage = flw;
+
+  // Ensure orientation/gender are strings (pick first if arrays snuck in)
+  if (Array.isArray(data.orientation)) updates.orientation = data.orientation[0] || '';
+  if (Array.isArray(data.gender)) updates.gender = data.gender[0] || '';
+
+  if (Object.keys(updates).length > 0) {
+    console.log('🛠 Repairing personal profile data aliases/shapes:', updates);
+    saveData(updates);
+  }
+}, [isReady, profileType, profileData, saveData]);
+
+// Safe periodic sync for data consistency (every 5 minutes when user is active)
+useEffect(() => {
+  if (!user || !isReady) return;
+
+  const syncInterval = setInterval(async () => {
+    if (document.visibilityState === 'visible') {
+      try {
+        const dbData = await loadFromDatabase();
+        const localData = loadFromStorage();
+        
+        // Only sync if database has meaningful data AND it's different from local
+        if (isMeaningfullyFilled(dbData)) {
+          const localString = JSON.stringify(localData);
+          const dbString = JSON.stringify(dbData);
           
-          // Only sync if database has meaningful data AND it's different from local
-          if (isMeaningfullyFilled(dbData)) {
-            const localString = JSON.stringify(localData);
-            const dbString = JSON.stringify(dbData);
-            
-            if (localString !== dbString) {
-              console.log(`🔄 Syncing ${profileType} profile from database (meaningful changes detected)`);
-              const merged = mergePreferNonEmpty(localData, dbData);
-              setProfileData(merged);
-              saveToStorage(merged);
-            }
-          } else if (isMeaningfullyFilled(localData)) {
-            // If local has data but database doesn't, push local to database
-            console.log(`⬆️ Pushing local ${profileType} data to database`);
-            await saveToDatabase(localData);
+          if (localString !== dbString) {
+            console.log(`🔄 Syncing ${profileType} profile from database (meaningful changes detected)`);
+            const merged = mergePreferNonEmpty(localData, dbData);
+            setProfileData(merged);
+            saveToStorage(merged);
           }
-        } catch (error) {
-          console.error(`Error during periodic sync for ${profileType}:`, error);
+        } else if (isMeaningfullyFilled(localData)) {
+          // If local has data but database doesn't, push local to database
+          console.log(`⬆️ Pushing local ${profileType} data to database`);
+          await saveToDatabase(localData);
         }
+      } catch (error) {
+        console.error(`Error during periodic sync for ${profileType}:`, error);
       }
-    }, 5 * 60 * 1000); // 5 minutes
+    }
+  }, 5 * 60 * 1000); // 5 minutes
 
-    return () => clearInterval(syncInterval);
-  }, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, saveToDatabase, profileType, isMeaningfullyFilled, mergePreferNonEmpty]);
+  return () => clearInterval(syncInterval);
+}, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, saveToDatabase, profileType, isMeaningfullyFilled, mergePreferNonEmpty]);
 
   return {
     profileData,
