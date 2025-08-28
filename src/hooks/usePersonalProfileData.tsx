@@ -1,4 +1,3 @@
-
 import { useProfileStoreV2 } from './useProfileStoreV2';
 
 interface PersonalProfileData {
