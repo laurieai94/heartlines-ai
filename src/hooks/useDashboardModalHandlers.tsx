@@ -103,7 +103,8 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       // Keep questionnaire open - don't close it
       modalStates.setShowPartnerQuestionnaireModal(true);
     } else {
-      // Show the completion modal instead of auto-navigating
+      // Show the completion modal for the first time and mark as seen
+      modalStates.setSuppressPartnerCompletionPopup(true);
       modalStates.setShowPartnerCompletionOptions(true);
     }
   };
@@ -139,6 +140,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
 
   const handlePartnerStartChatting = () => {
     console.log('Starting chat from partner completion, navigating to coach');
+    modalStates.setSuppressPartnerCompletionPopup(true);
     modalStates.setShowPartnerCompletionOptions(false);
     modalStates.setActiveTab("insights");
   };
