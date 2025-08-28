@@ -1,5 +1,6 @@
 
 import { useTemporaryProfile } from './useTemporaryProfile';
+import { useProfileCompletion } from './useProfileCompletion';
 import { toast } from 'sonner';
 
 interface ModalStates {
@@ -14,6 +15,7 @@ interface ModalStates {
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
+  const { calculatePartnerCompletion } = useProfileCompletion();
 
   const handleGoToProfile = () => {
     console.log('Navigating to profile tab');
@@ -63,7 +65,15 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     updateTemporaryProfile(newProfiles, newDemographics);
     
     modalStates.setShowQuestionnaireModal(false);
-    modalStates.setShowPersonalCompletionOptions(true);
+    
+    // Check if partner profile is complete - if so, redirect straight to coach
+    const partnerCompletion = calculatePartnerCompletion();
+    if (partnerCompletion === 100) {
+      console.log('Partner profile is complete, redirecting to coach');
+      modalStates.setActiveTab("insights");
+    } else {
+      modalStates.setShowPersonalCompletionOptions(true);
+    }
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
@@ -135,7 +145,16 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handlePersonalStartChatting = () => {
     console.log('Starting chat, navigating to coach');
     modalStates.setShowPersonalCompletionOptions(false);
-    modalStates.setActiveTab("insights");
+    
+    // Check if partner profile is complete - if so, redirect straight to coach
+    const partnerCompletion = calculatePartnerCompletion();
+    if (partnerCompletion === 100) {
+      console.log('Partner profile is complete, redirecting to coach');
+      modalStates.setActiveTab("insights");
+    } else {
+      // Partner profile not complete, stay on current tab for now
+      modalStates.setActiveTab("insights");
+    }
   };
 
   const handlePartnerStartChatting = () => {
