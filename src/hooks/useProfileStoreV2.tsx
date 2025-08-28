@@ -188,8 +188,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return migrated;
   }, [profileType]);
 
-  // Load from localStorage with migration
+  // Load from localStorage with enhanced migration support
   const loadFromStorage = useCallback((): PersonalProfileV2 | PartnerProfileV2 => {
+    // Check for migration sentinel to avoid repeat migrations
+    const migrationSentinel = localStorage.getItem(`${config.storageKey}_migrated`);
+    
     try {
       // Try new format first
       const v2Data = localStorage.getItem(config.storageKey);
@@ -198,26 +201,71 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         console.log(`[ProfileV2-${profileType}] Loaded from v2 storage:`, parsed);
         return { ...defaultProfile, ...parsed };
       }
+    } catch (error) {
+      console.error(`[ProfileV2-${profileType}] V2 storage load error:`, error);
+    }
 
-      // Try legacy formats
-      for (const key of config.legacyKeys) {
+    // Skip migration if already performed
+    if (migrationSentinel) {
+      console.log(`[ProfileV2-${profileType}] Migration already completed, skipping legacy lookup`);
+      return defaultProfile;
+    }
+
+    // Try legacy formats for one-time promotion
+    for (const key of config.legacyKeys) {
+      try {
         const legacyData = localStorage.getItem(key);
         if (legacyData) {
           const parsed = JSON.parse(legacyData);
-          const migrated = migrateLegacyData(parsed);
-          console.log(`[ProfileV2-${profileType}] Migrated from ${key}:`, migrated);
-          
-          // Save migrated data to new format
-          const fullProfile = { ...defaultProfile, ...migrated, version: '2.0' };
-          localStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
-          
-          return fullProfile;
+          if (parsed && Object.keys(parsed).length > 0) {
+            console.log(`🔄 One-time promotion: Migrating ${profileType} profile from legacy key: ${key}`);
+            
+            // Migrate and enhance with V2 metadata
+            const migrated = migrateLegacyData(parsed);
+            const now = new Date().toISOString();
+            const fullProfile = { 
+              ...defaultProfile, 
+              ...migrated, 
+              lastUpdated: now,
+              version: '2.0' 
+            };
+            
+            // Save migrated data to V2 storage
+            localStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
+            
+            // Create migration sentinel
+            localStorage.setItem(`${config.storageKey}_migrated`, JSON.stringify({
+              from: key,
+              at: now
+            }));
+            
+            // Optional cleanup of legacy keys (partner profiles only for now)
+            const CLEANUP_LEGACY = profileType === 'partner';
+            if (CLEANUP_LEGACY) {
+              try {
+                config.legacyKeys.forEach(legacyKey => {
+                  if (localStorage.getItem(legacyKey)) {
+                    localStorage.removeItem(legacyKey);
+                    console.log(`🧹 Cleaned up legacy key: ${legacyKey}`);
+                  }
+                });
+              } catch (cleanupError) {
+                console.warn(`Non-critical: Failed to cleanup some legacy keys:`, cleanupError);
+              }
+            }
+            
+            console.log(`✅ Successfully promoted ${profileType} profile to V2 storage from ${key}${CLEANUP_LEGACY ? ' (cleaned legacy keys)' : ''}`);
+            
+            // Note: Immediate DB sync will be triggered by the useEffect after this returns
+            return fullProfile;
+          }
         }
+      } catch (error) {
+        console.error(`[ProfileV2-${profileType}] Migration error from ${key}:`, error);
       }
-    } catch (error) {
-      console.error(`[ProfileV2-${profileType}] Storage load error:`, error);
     }
     
+    console.log(`[ProfileV2-${profileType}] No existing data found, using defaults`);
     return defaultProfile;
   }, [config, defaultProfile, migrateLegacyData, profileType]);
 
@@ -258,6 +306,16 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       console.error(`[ProfileV2-${profileType}] Database sync error:`, error);
     }
   }, [user, config.dbType, defaultProfile, saveToStorage, profileType]);
+
+  // Add flush method to syncToDatabase for immediate execution
+  (syncToDatabase as any).flush = () => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      const toSync = { ...pendingUpdates.current };
+      pendingUpdates.current = {};
+      syncToDatabase(toSync);
+    }
+  };
 
   // Load from database
   const loadFromDatabase = useCallback(async (): Promise<PersonalProfileV2 | PartnerProfileV2> => {
