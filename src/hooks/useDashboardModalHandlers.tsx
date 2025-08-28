@@ -94,12 +94,10 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     // Note: Partner data now persists via useProfileStoreV2 during questionnaire completion
     
     modalStates.setShowPartnerQuestionnaireModal(false);
+    modalStates.setShowPartnerCompletionOptions(false); // Ensure it's always false
     
-    if (skipPopup) {
-      modalStates.setActiveTab("insights");
-    } else {
-      modalStates.setShowPartnerCompletionOptions(true);
-    }
+    // Always go straight to coaching after partner profile completion
+    modalStates.setActiveTab("insights");
   };
 
   const handleQuestionnaireClose = () => {

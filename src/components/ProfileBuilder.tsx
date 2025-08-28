@@ -136,13 +136,8 @@ const ProfileBuilder = ({
     updateTemporaryProfile(newProfiles, temporaryDemographics);
     setShowForm(false);
 
-    // Check if this is partner profile completion
-    if (activeProfileType === 'partner') {
-      setShowPartnerCompletionOptions(true);
-      toast.success('Partner profile completed!');
-    } else {
-      toast.success(`${activeProfileType === 'your' ? userName ? `${userName}'s` : 'Your' : 'Partner'} profile saved successfully!`);
-    }
+    // Show success message only
+    toast.success(`${activeProfileType === 'your' ? userName ? `${userName}'s` : 'Your' : 'Partner'} profile saved successfully!`);
 
     // Call the callback if provided
     if (onProfileUpdate) {
@@ -226,12 +221,6 @@ const ProfileBuilder = ({
         </Suspense>
       )}
 
-      {/* Partner Profile Completion Options */}
-      {showPartnerCompletionOptions && (
-        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
-          <ProfileCompletionOptions completionType="partner" onAddPartnerProfile={() => {}} onStartChatting={handlePartnerCompletionStartChat} onClose={handlePartnerCompletionClose} onEditProfile={() => {}} hasPartnerProfile={true} />
-        </Suspense>
-      )}
     </div>;
 };
 export default ProfileBuilder;
