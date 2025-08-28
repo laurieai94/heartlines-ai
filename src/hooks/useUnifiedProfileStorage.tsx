@@ -21,7 +21,7 @@ interface StorageKeys {
 const STORAGE_CONFIG: Record<ProfileType, StorageKeys> = {
   personal: {
     localStorage: 'personal_profile_questionnaire',
-    databaseColumn: 'profile_data'
+    databaseColumn: 'demographics_data' // Will read from both columns, save to both
   },
   partner: {
     localStorage: 'partner_profile_questionnaire', 
@@ -38,13 +38,40 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
 
   const config = STORAGE_CONFIG[profileType];
 
-  // Load from localStorage with error handling
+  // Load from localStorage with error handling and migration
   const loadFromStorage = useCallback((): ProfileData => {
     try {
-      const localData = localStorage.getItem(config.localStorage);
+      // First try the canonical key
+      let localData = localStorage.getItem(config.localStorage);
       if (localData) {
         const parsed = JSON.parse(localData);
         return parsed || {};
+      }
+
+      // For personal profiles, migrate from old keys
+      if (profileType === 'personal') {
+        const oldKeys = ['personal_profile_data', 'personal_profile_questionnaire'];
+        let migratedData = {};
+        
+        for (const oldKey of oldKeys) {
+          const oldData = localStorage.getItem(oldKey);
+          if (oldData) {
+            try {
+              const parsed = JSON.parse(oldData);
+              migratedData = { ...migratedData, ...parsed };
+              console.log(`Migrated data from ${oldKey} to ${config.localStorage}`);
+            } catch (error) {
+              console.error(`Error parsing data from ${oldKey}:`, error);
+            }
+          }
+        }
+        
+        // Save migrated data to canonical key and clean up old keys
+        if (Object.keys(migratedData).length > 0) {
+          localStorage.setItem(config.localStorage, JSON.stringify(migratedData));
+          oldKeys.forEach(key => localStorage.removeItem(key));
+          return migratedData;
+        }
       }
     } catch (error) {
       console.error(`Error loading ${profileType} profile from localStorage:`, error);
@@ -81,26 +108,59 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     // Create new request
     const requestPromise = (async (): Promise<ProfileData> => {
       try {
-        const { data, error } = await supabase
-          .from('user_profiles')
-          .select(`${config.databaseColumn}`)
-          .eq('user_id', user.id)
-          .eq('profile_type', profileType === 'personal' ? 'your' : 'partner')
-          .maybeSingle();
+        const dbProfileType = profileType === 'personal' ? 'your' : 'partner';
+        
+        // For personal profiles, read from both columns and merge
+        if (profileType === 'personal') {
+          const { data, error } = await supabase
+            .from('user_profiles')
+            .select('profile_data, demographics_data')
+            .eq('user_id', user.id)
+            .eq('profile_type', dbProfileType)
+            .maybeSingle();
 
-        if (error) {
-          console.error(`Database load error for ${profileType}:`, error);
-          return {};
-        }
+          if (error) {
+            console.error(`Database load error for ${profileType}:`, error);
+            return {};
+          }
 
-        if (data && data[config.databaseColumn]) {
-          const dbData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
-            ? data[config.databaseColumn] 
-            : {};
+          // Merge both profile_data and demographics_data
+          let result = {};
+          if (data) {
+            const profileData = data.profile_data || {};
+            const demographicsData = data.demographics_data || {};
+            result = {
+              ...(typeof profileData === 'object' && profileData !== null ? profileData : {}),
+              ...(typeof demographicsData === 'object' && demographicsData !== null ? demographicsData : {})
+            };
+          }
           
-          // Cache the result
-          cachedDataByType.set(profileType, dbData);
-          return dbData;
+          console.log(`Loaded ${profileType} profile from database (merged):`, result);
+          cachedDataByType.set(profileType, result);
+          return result;
+        } else {
+          // For partner profiles, use demographics_data as before
+          const { data, error } = await supabase
+            .from('user_profiles')
+            .select(`${config.databaseColumn}`)
+            .eq('user_id', user.id)
+            .eq('profile_type', dbProfileType)
+            .maybeSingle();
+
+          if (error) {
+            console.error(`Database load error for ${profileType}:`, error);
+            return {};
+          }
+
+          if (data && data[config.databaseColumn]) {
+            const dbData = typeof data[config.databaseColumn] === 'object' && data[config.databaseColumn] !== null 
+              ? data[config.databaseColumn] 
+              : {};
+            
+            console.log(`Loaded ${profileType} profile from database:`, dbData);
+            cachedDataByType.set(profileType, dbData);
+            return dbData;
+          }
         }
       } catch (error) {
         console.error(`Error loading ${profileType} profile from database:`, error);
@@ -126,12 +186,26 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     if (!user) return false;
 
     try {
-      const upsertData = {
-        user_id: user.id,
-        profile_type: profileType === 'personal' ? 'your' : 'partner',
-        [config.databaseColumn]: data,
-        updated_at: new Date().toISOString()
-      };
+      const dbProfileType = profileType === 'personal' ? 'your' : 'partner';
+      
+      // For personal profiles, save to both columns for compatibility
+      let upsertData;
+      if (profileType === 'personal') {
+        upsertData = {
+          user_id: user.id,
+          profile_type: dbProfileType,
+          profile_data: data,
+          demographics_data: data,
+          updated_at: new Date().toISOString()
+        };
+      } else {
+        upsertData = {
+          user_id: user.id,
+          profile_type: dbProfileType,
+          [config.databaseColumn]: data,
+          updated_at: new Date().toISOString()
+        };
+      }
 
       const { error } = await supabase
         .from('user_profiles')
@@ -153,6 +227,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         setLastSaved(new Date());
         // Update cache with fresh data
         cachedDataByType.set(profileType, data);
+        console.log(`Saved ${profileType} profile to database successfully`);
         return true;
       }
     } catch (error) {
