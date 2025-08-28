@@ -308,6 +308,10 @@ export type Database = {
         Args: { p_delta?: number; p_usage_month?: string; p_user_id: string }
         Returns: undefined
       }
+      upsert_user_profile_patch: {
+        Args: { p_patch: Json; p_profile_type: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

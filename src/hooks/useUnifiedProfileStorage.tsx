@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -387,7 +388,8 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       
       console.log(`🔄 Calling upsert_user_profile_patch for ${profileType} with data:`, normalizedData);
       
-      const { data: result, error } = await supabase.rpc('upsert_user_profile_patch', {
+      // Use type assertion since the new RPC isn't in generated types yet
+      const { data: result, error } = await (supabase as any).rpc('upsert_user_profile_patch', {
         p_profile_type: profileType,
         p_patch: normalizedData
       });
