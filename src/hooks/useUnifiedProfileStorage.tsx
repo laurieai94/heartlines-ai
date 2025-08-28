@@ -52,13 +52,24 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
   
   Object.entries(mappings).forEach(([oldField, newField]) => {
     if (data[oldField] !== undefined) {
-      // Handle array fields - convert single values to arrays if needed
-      if (oldField === 'sexualOrientation' && typeof data[oldField] === 'string') {
-        normalized[newField] = data[oldField];
+      // Handle sexualOrientation -> orientation
+      if (oldField === 'sexualOrientation') {
+        if (Array.isArray(data[oldField])) {
+          // Convert array to single string
+          normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+        } else if (typeof data[oldField] === 'string') {
+          normalized[newField] = data[oldField];
+        }
         delete normalized[oldField];
-      } else if (oldField === 'genderIdentity' && Array.isArray(data[oldField])) {
-        // Convert array to single string for gender field
-        normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+      }
+      // Handle genderIdentity -> gender  
+      else if (oldField === 'genderIdentity') {
+        if (Array.isArray(data[oldField])) {
+          // Convert array to single string for gender field
+          normalized[newField] = data[oldField].length > 0 ? data[oldField][0] : '';
+        } else if (typeof data[oldField] === 'string') {
+          normalized[newField] = data[oldField];
+        }
         delete normalized[oldField];
       } else {
         normalized[newField] = data[oldField];
@@ -70,7 +81,7 @@ const normalizeFieldsFromStorage = (data: ProfileData, profileType: ProfileType)
   return normalized;
 };
 
-// Helper function to normalize field names when saving data
+// Helper function to normalize field names when saving data  
 const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): ProfileData => {
   if (profileType !== 'personal') return data;
   
@@ -79,12 +90,26 @@ const normalizeFieldsToStorage = (data: ProfileData, profileType: ProfileType): 
   
   Object.entries(mappings).forEach(([oldField, newField]) => {
     if (data[oldField] !== undefined) {
-      // Handle field type conversions
-      if (oldField === 'orientation' && typeof data[oldField] === 'string') {
-        normalized[newField] = [data[oldField]];
+      // Handle orientation -> sexualOrientation
+      if (oldField === 'orientation') {
+        if (typeof data[oldField] === 'string' && data[oldField].trim()) {
+          normalized[newField] = [data[oldField]];
+        } else if (Array.isArray(data[oldField])) {
+          normalized[newField] = data[oldField];
+        } else {
+          normalized[newField] = [];
+        }
         delete normalized[oldField];
-      } else if (oldField === 'gender' && typeof data[oldField] === 'string') {
-        normalized[newField] = data[oldField] ? [data[oldField]] : [];
+      }
+      // Handle gender -> genderIdentity
+      else if (oldField === 'gender') {
+        if (typeof data[oldField] === 'string' && data[oldField].trim()) {
+          normalized[newField] = [data[oldField]];
+        } else if (Array.isArray(data[oldField])) {
+          normalized[newField] = data[oldField];
+        } else {
+          normalized[newField] = [];
+        }
         delete normalized[oldField];
       } else {
         normalized[newField] = data[oldField];
@@ -115,10 +140,19 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
       
       // Check for meaningful values
       if (typeof value === 'string') return value.trim().length > 0;
-      if (Array.isArray(value)) return value.length > 0;
-      if (typeof value === 'object' && value !== null) return Object.keys(value).length > 0;
+      if (Array.isArray(value)) {
+        // Check if array has meaningful items (not just empty strings)
+        return value.some(item => 
+          typeof item === 'string' ? item.trim().length > 0 : item != null
+        );
+      }
+      if (typeof value === 'object' && value !== null) {
+        return Object.values(value).some(v => 
+          typeof v === 'string' ? v.trim().length > 0 : v != null
+        );
+      }
       
-      return value !== null && value !== undefined;
+      return value !== null && value !== undefined && value !== '';
     });
   }, []);
 
@@ -159,7 +193,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
 
       // For personal profiles, migrate from old keys (exclude canonical key!)
       if (profileType === 'personal') {
-        const oldKeys = ['personal_profile_data']; // Don't include the canonical key here!
+        const oldKeys = ['personal_profile_data', 'realtalk_temp_profiles'];
         let migratedData = {};
         
         for (const oldKey of oldKeys) {
@@ -167,8 +201,17 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           if (oldData) {
             try {
               const parsed = JSON.parse(oldData);
-              migratedData = { ...migratedData, ...parsed };
-              console.log(`Migrated data from ${oldKey} to ${config.localStorage}`);
+              if (oldKey === 'realtalk_temp_profiles') {
+                // Extract 'your' profile from realtalk structure
+                if (parsed.your && Array.isArray(parsed.your) && parsed.your[0]) {
+                  migratedData = { ...migratedData, ...parsed.your[0] };
+                } else if (parsed.your && typeof parsed.your === 'object') {
+                  migratedData = { ...migratedData, ...parsed.your };
+                }
+              } else {
+                migratedData = { ...migratedData, ...parsed };
+              }
+              console.log(`✅ Migrated data from ${oldKey} to ${config.localStorage}`);
             } catch (error) {
               console.error(`Error parsing data from ${oldKey}:`, error);
             }
@@ -449,15 +492,24 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         // Load from database if user is authenticated
         if (user) {
           const dbData = await loadFromDatabase();
+          console.log(`📊 ${profileType} data comparison:`, {
+            localMeaningful: isMeaningfullyFilled(localData),
+            dbMeaningful: isMeaningfullyFilled(dbData),
+            localKeys: Object.keys(localData),
+            dbKeys: Object.keys(dbData)
+          });
+          
           if (isMeaningfullyFilled(dbData)) {
             // Use intelligent merge that prefers non-empty values
             setProfileData(prev => {
               const merged = mergePreferNonEmpty(prev, dbData);
+              console.log(`🔄 Merged ${profileType} profile data:`, merged);
               saveToStorage(merged);
               return merged;
             });
           } else if (isMeaningfullyFilled(localData)) {
             // Migrate local data to database if it's meaningful
+            console.log(`⬆️ Migrating meaningful ${profileType} data to database`);
             await migrateLocalToDatabase();
           }
         }
@@ -478,7 +530,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     loadData();
   }, [user, profileType, loadFromStorage, loadFromDatabase, saveToStorage, migrateLocalToDatabase, recoverFromDatabase, isMeaningfullyFilled, mergePreferNonEmpty]);
 
-  // Periodic sync for data consistency (every 5 minutes when user is active)
+  // Safe periodic sync for data consistency (every 5 minutes when user is active)
   useEffect(() => {
     if (!user || !isReady) return;
 
@@ -488,13 +540,21 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           const dbData = await loadFromDatabase();
           const localData = loadFromStorage();
           
-          // Check if data is out of sync
-          const localString = JSON.stringify(localData);
-          const dbString = JSON.stringify(dbData);
-          
-          if (localString !== dbString && Object.keys(dbData).length > 0) {
-            setProfileData(dbData);
-            saveToStorage(dbData);
+          // Only sync if database has meaningful data AND it's different from local
+          if (isMeaningfullyFilled(dbData)) {
+            const localString = JSON.stringify(localData);
+            const dbString = JSON.stringify(dbData);
+            
+            if (localString !== dbString) {
+              console.log(`🔄 Syncing ${profileType} profile from database (meaningful changes detected)`);
+              const merged = mergePreferNonEmpty(localData, dbData);
+              setProfileData(merged);
+              saveToStorage(merged);
+            }
+          } else if (isMeaningfullyFilled(localData)) {
+            // If local has data but database doesn't, push local to database
+            console.log(`⬆️ Pushing local ${profileType} data to database`);
+            await saveToDatabase(localData);
           }
         } catch (error) {
           console.error(`Error during periodic sync for ${profileType}:`, error);
@@ -503,7 +563,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     }, 5 * 60 * 1000); // 5 minutes
 
     return () => clearInterval(syncInterval);
-  }, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, profileType]);
+  }, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, saveToDatabase, profileType, isMeaningfullyFilled, mergePreferNonEmpty]);
 
   return {
     profileData,
