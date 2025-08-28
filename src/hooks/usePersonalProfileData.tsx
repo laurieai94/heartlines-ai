@@ -14,6 +14,21 @@ export const usePersonalProfileData = () => {
   // Use the new V2 storage system
   const v2Store = useProfileStoreV2('personal');
 
+  // Field name normalization mappings
+  const FIELD_NORMALIZATIONS: Record<string, string> = {
+    'sexualOrientation': 'orientation',
+    'genderIdentity': 'gender',
+    'relationshipWorkingWell': 'relationshipWorking',
+    'conflictNeeds': 'conflictStyle',
+    'feelLovedWhen': 'loveLanguage',
+    'stressReactions': 'stressResponse'
+  };
+
+  // Normalize field name when writing
+  const normalizeFieldName = (field: string): string => {
+    return FIELD_NORMALIZATIONS[field] || field;
+  };
+
   // Create default values to ensure all required fields are present
   const defaultProfileData: ExtendedProfileData = {
     name: '',
@@ -44,12 +59,26 @@ export const usePersonalProfileData = () => {
   // Merge with defaults to ensure all fields exist
   const mergedProfileData = { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
 
+  // Wrap updateField to normalize field names
+  const normalizedUpdateField = (field: string, value: any) => {
+    const normalizedField = normalizeFieldName(field);
+    console.log(`[NORMALIZE] Writing ${field} -> ${normalizedField}:`, value);
+    v2Store.updateField(normalizedField, value);
+  };
+
+  // Wrap handleMultiSelect to normalize field names
+  const normalizedHandleMultiSelect = (field: string, value: string) => {
+    const normalizedField = normalizeFieldName(field);
+    console.log(`[NORMALIZE] Multi-select ${field} -> ${normalizedField}:`, value);
+    v2Store.handleMultiSelect(normalizedField, value);
+  };
+
   return {
     profileData: mergedProfileData,
     isLoading: v2Store.isLoading,
     isReady: v2Store.isReady,
     saveData: v2Store.saveData,
-    updateField: v2Store.updateField as (field: string, value: any) => void,
-    handleMultiSelect: v2Store.handleMultiSelect as (field: string, value: string) => void
+    updateField: normalizedUpdateField,
+    handleMultiSelect: normalizedHandleMultiSelect
   };
 };

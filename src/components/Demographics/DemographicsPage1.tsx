@@ -83,18 +83,18 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
       const required = ['name', 'pronouns', 'age', 'education', 'workSituation'];
       const missing = required.filter(field => !currentData[field]);
       
-      if (!currentData.sexualOrientation || currentData.sexualOrientation.length === 0) {
-        missing.push('sexualOrientation');
+      if (!currentData.orientation || currentData.orientation.length === 0) {
+        missing.push('orientation');
       }
-      if (!currentData.genderIdentity || currentData.genderIdentity.length === 0) {
-        missing.push('genderIdentity');
+      if (!currentData.gender || currentData.gender.length === 0) {
+        missing.push('gender');
       }
       
       if (missing.length > 0) {
         const fieldNames = missing.map(field => {
           switch (field) {
-            case 'sexualOrientation': return 'Sexual Orientation';
-            case 'genderIdentity': return 'Gender Identity';
+            case 'orientation': return 'Sexual Orientation';
+            case 'gender': return 'Gender Identity';
             case 'workSituation': return 'Work Situation';
             default: return field;
           }
@@ -125,11 +125,11 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   const completedFields = requiredFields.filter(field => currentData[field]);
   
   if (isPersonal) {
-    if (currentData.sexualOrientation && currentData.sexualOrientation.length > 0) {
-      completedFields.push('sexualOrientation');
+    if (currentData.orientation && currentData.orientation.length > 0) {
+      completedFields.push('orientation');
     }
-    if (currentData.genderIdentity && currentData.genderIdentity.length > 0) {
-      completedFields.push('genderIdentity');
+    if (currentData.gender && currentData.gender.length > 0) {
+      completedFields.push('gender');
     }
   }
   

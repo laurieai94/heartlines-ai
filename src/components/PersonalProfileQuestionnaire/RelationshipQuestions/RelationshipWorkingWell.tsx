@@ -29,9 +29,9 @@ const RelationshipWorkingWell = ({ config, profileData, handleMultiSelect }: Rel
         {config.options.map((item) => (
           <button
             key={item}
-            onClick={() => handleMultiSelect('relationshipWorkingWell', item)}
+            onClick={() => handleMultiSelect('relationshipWorking', item)}
             className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
-              (profileData.relationshipWorkingWell || []).includes(item)
+              (profileData.relationshipWorking || profileData.relationshipWorkingWell || []).includes(item)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
             }`}

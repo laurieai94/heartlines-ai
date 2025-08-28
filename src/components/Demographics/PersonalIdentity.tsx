@@ -158,8 +158,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={orientation} className="flex items-center space-x-2">
               <Checkbox
                 id={`orientation-${orientation}-${profileType}`}
-                checked={currentData.sexualOrientation?.includes(orientation) || false}
-                onCheckedChange={() => currentHandleMultiSelect('sexualOrientation', orientation)}
+                checked={currentData.orientation?.includes(orientation) || currentData.sexualOrientation?.includes(orientation) || false}
+                onCheckedChange={() => currentHandleMultiSelect('orientation', orientation)}
               />
               <Label htmlFor={`orientation-${orientation}-${profileType}`} className="text-sm">
                 {orientation}
@@ -181,8 +181,8 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             <div key={gender} className="flex items-center space-x-2">
               <Checkbox
                 id={`gender-${gender}-${profileType}`}
-                checked={currentData.genderIdentity?.includes(gender) || false}
-                onCheckedChange={() => currentHandleMultiSelect('genderIdentity', gender)}
+                checked={currentData.gender?.includes(gender) || currentData.genderIdentity?.includes(gender) || false}
+                onCheckedChange={() => currentHandleMultiSelect('gender', gender)}
               />
               <Label htmlFor={`gender-${gender}-${profileType}`} className="text-sm">
                 {gender}

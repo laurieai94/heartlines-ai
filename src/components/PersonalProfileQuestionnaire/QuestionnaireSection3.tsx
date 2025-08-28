@@ -157,9 +157,9 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 {conflictNeedsOptions.map((need) => (
                   <button
                     key={need}
-                    onClick={() => handleMultiSelect('conflictNeeds', need)}
+                    onClick={() => handleMultiSelect('conflictStyle', need)}
                     className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-                      (profileData.conflictNeeds || []).includes(need)
+                      (profileData.conflictStyle || profileData.conflictNeeds || []).includes(need)
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'
                     }`}

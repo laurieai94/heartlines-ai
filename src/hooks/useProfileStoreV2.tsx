@@ -92,7 +92,10 @@ const PERSONAL_LEGACY_MAPPINGS: Record<string, string> = {
   'feelLovedWhen': 'loveLanguage',
   'workingWell': 'relationshipWorking',
   'relationshipPositives': 'relationshipWorking',
-  'biggestChallenge': 'relationshipChallenges'
+  'relationshipWorkingWell': 'relationshipWorking',
+  'biggestChallenge': 'relationshipChallenges',
+  'sexualOrientation': 'orientation',
+  'genderIdentity': 'gender'
 };
 
 const STORAGE_CONFIG = {
