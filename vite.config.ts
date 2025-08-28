@@ -37,7 +37,6 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-progress',
             '@radix-ui/react-select',
             '@radix-ui/react-separator',
-            '@radix-ui/react-sheet',
             '@radix-ui/react-tabs',
             '@radix-ui/react-toast',
             'class-variance-authority',
