@@ -31,11 +31,17 @@ export class InsightBuilders {
       };
       insights.push(conflictMap[context.yourTraits.conflictStyle] || `handles conflict by ${context.yourTraits.conflictStyle}`);
     }
-    if (context.yourTraits.loveLanguages?.length > 0) {
-      insights.push(`feels loved through: ${context.yourTraits.loveLanguages.join(', ')}`);
+    const loveLangs = Array.isArray(context.yourTraits.loveLanguages)
+      ? context.yourTraits.loveLanguages
+      : (context.yourTraits.loveLanguages ? [context.yourTraits.loveLanguages as any] : []);
+    if (loveLangs.length > 0) {
+      insights.push(`feels loved through: ${loveLangs.join(', ')}`);
     }
-    if (context.yourTraits.stressResponse?.length > 0) {
-      insights.push(`under stress: ${context.yourTraits.stressResponse.join(', ')}`);
+    const stressResp = Array.isArray(context.yourTraits.stressResponse)
+      ? context.yourTraits.stressResponse
+      : (context.yourTraits.stressResponse ? [context.yourTraits.stressResponse as any] : []);
+    if (stressResp.length > 0) {
+      insights.push(`under stress: ${stressResp.join(', ')}`);
     }
     
     return insights.length > 0 ? insights.join(', ') + '.' : '';
@@ -72,12 +78,19 @@ export class InsightBuilders {
       };
       insights.push(conflictMap[context.partnerTraits.conflictStyle] || `handles conflict by ${context.partnerTraits.conflictStyle}`);
     }
-    if (context.partnerTraits.stressResponse?.length > 0) {
-      insights.push(`under stress: ${context.partnerTraits.stressResponse.join(', ')}`);
+    const partnerStress = Array.isArray(context.partnerTraits.stressResponse)
+      ? context.partnerTraits.stressResponse
+      : (context.partnerTraits.stressResponse ? [context.partnerTraits.stressResponse as any] : []);
+    if (partnerStress.length > 0) {
+      insights.push(`under stress: ${partnerStress.join(', ')}`);
     }
-    if (context.partnerTraits.loveLanguages?.length > 0) {
-      insights.push(`feels loved through: ${context.partnerTraits.loveLanguages.join(', ')}`);
+    const partnerLoveLangs = Array.isArray(context.partnerTraits.loveLanguages)
+      ? context.partnerTraits.loveLanguages
+      : (context.partnerTraits.loveLanguages ? [context.partnerTraits.loveLanguages as any] : []);
+    if (partnerLoveLangs.length > 0) {
+      insights.push(`feels loved through: ${partnerLoveLangs.join(', ')}`);
     }
+    
     
     return insights.length > 0 ? insights.join(', ') + '.' : '';
   }

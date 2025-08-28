@@ -320,19 +320,23 @@ Respond naturally and conversationally, summarizing what information you have ab
     }
     
     // Key stress responses
-    if (context.yourTraits?.stressResponse?.length > 0) {
-      snapshot.push(`Your stress responses: ${context.yourTraits.stressResponse.join(', ')}`);
+    const yourSR = Array.isArray(context.yourTraits?.stressResponse) ? context.yourTraits!.stressResponse : (context.yourTraits?.stressResponse ? [context.yourTraits.stressResponse as any] : []);
+    if (yourSR.length > 0) {
+      snapshot.push(`Your stress responses: ${yourSR.join(', ')}`);
     }
-    if (context.partnerTraits?.stressResponse?.length > 0) {
-      snapshot.push(`Partner's stress responses: ${context.partnerTraits.stressResponse.join(', ')}`);
+    const partnerSR = Array.isArray(context.partnerTraits?.stressResponse) ? context.partnerTraits!.stressResponse : (context.partnerTraits?.stressResponse ? [context.partnerTraits.stressResponse as any] : []);
+    if (partnerSR.length > 0) {
+      snapshot.push(`Partner's stress responses: ${partnerSR.join(', ')}`);
     }
     
     // Triggers if available
-    if (context.yourTraits?.triggers?.length > 0) {
-      snapshot.push(`Your triggers: ${context.yourTraits.triggers.slice(0, 3).join(', ')}`);
+    const yourTriggers = Array.isArray(context.yourTraits?.triggers) ? context.yourTraits!.triggers : (context.yourTraits?.triggers ? [context.yourTraits.triggers as any] : []);
+    if (yourTriggers.length > 0) {
+      snapshot.push(`Your triggers: ${yourTriggers.slice(0, 3).join(', ')}`);
     }
-    if (context.partnerTraits?.triggers?.length > 0) {
-      snapshot.push(`Partner's triggers: ${context.partnerTraits.triggers.slice(0, 3).join(', ')}`);
+    const partnerTriggers = Array.isArray(context.partnerTraits?.triggers) ? context.partnerTraits!.triggers : (context.partnerTraits?.triggers ? [context.partnerTraits.triggers as any] : []);
+    if (partnerTriggers.length > 0) {
+      snapshot.push(`Partner's triggers: ${partnerTriggers.slice(0, 3).join(', ')}`);
     }
     
     return snapshot.length > 0 ? `\nAdditional context: ${snapshot.join('. ')}.` : '';
