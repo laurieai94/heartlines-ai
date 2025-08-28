@@ -6,6 +6,10 @@ import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
+import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useNavigation } from "@/contexts/NavigationContext";
+import { useAuth } from "@/contexts/AuthContext";
+
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
@@ -22,6 +26,9 @@ const ChatContainer = ({
   conversationStarter,
   isHistoryLoaded
 }: ChatContainerProps) => {
+  const { accessLevel } = useProgressiveAccess();
+  const { goToProfile } = useNavigation();
+  const { user } = useAuth();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
@@ -83,6 +90,22 @@ const ChatContainer = ({
       >
         <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
+            {/* Profile completion nudge for signed-in users with incomplete profiles */}
+            {accessLevel === 'profile-required' && user && chatHistory.length === 0 && (
+              <div className="text-center py-8 space-y-3">
+                <p className="text-white/80 text-lg">
+                  Complete your profile to start chatting with Kai
+                </p>
+                <Button 
+                  onClick={goToProfile}
+                  variant="outline"
+                  className="text-sm"
+                >
+                  Complete Your Profile
+                </Button>
+              </div>
+            )}
+            
             {/* Chat Messages */}
             {chatHistory.map((message) => (
               <div key={message.id}>

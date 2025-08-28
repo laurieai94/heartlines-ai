@@ -29,35 +29,9 @@ const ProgressiveAccessWrapper = ({
     return <>{children}</>;
   }
 
-  // For signed-in users with incomplete profiles, show overlay
+  // For chat actions with profile required, let the chat component handle the nudge
   if (accessLevel === 'profile-required' && user && action === 'chat') {
-    return (
-      <div className={`relative ${className}`}>
-        {children}
-        
-        {/* Branded overlay for profile completion */}
-        <div className="absolute inset-0 z-20 bg-background/80 backdrop-blur-sm border border-border/50 rounded-lg flex items-center justify-center">
-          <div className="text-center max-w-md mx-auto p-6 space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold text-foreground">
-                Let's get {BRAND.name} to know you first
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Complete your personal profile to unlock personalized insights and coaching from Kai.
-              </p>
-            </div>
-            
-            <Button 
-              onClick={goToProfile}
-              className="w-full"
-              size="lg"
-            >
-              Complete Your Profile
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
+    return <>{children}</>;
   }
 
   // For signup required or other access levels with interactions
