@@ -29,14 +29,10 @@ export const ChatInputSection = ({
   canInteract,
   isHistoryLoaded
 }: ChatInputSectionProps) => {
-  const { accessLevel, hasPersonalProfileForChat } = useProgressiveAccess();
+  const { accessLevel } = useProgressiveAccess();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  // Determine if chat functionality should be blocked
-  const isChatBlocked = !user || !hasPersonalProfileForChat;
-  const showConversationStarters = chatHistory.length === 0 && isConfigured && isHistoryLoaded && !isChatBlocked;
 
   // Refocus the chat input after successful auth
   useEffect(() => {
@@ -58,20 +54,14 @@ export const ChatInputSection = ({
       openAuthModalFromChat();
       return;
     }
-    
-    if (!hasPersonalProfileForChat) {
-      // Don't send message, user needs to complete profile
-      return;
-    }
-    
     onSendMessage(message);
   };
 
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm">
       <div className="px-4 py-3">
-        {/* Conversation Starters - only show when profile is complete */}
-        {showConversationStarters && (
+        {/* Conversation Starters - only show when no chat history */}
+        {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
           <div className="mb-3 max-w-4xl mx-auto">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
@@ -83,12 +73,8 @@ export const ChatInputSection = ({
               <AIChatInput 
                 onSendMessage={handleSend} 
                 loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={isChatBlocked}
-                placeholder={
-                  !hasPersonalProfileForChat 
-                    ? "Complete your profile to chat with Kai..." 
-                    : "Message Kai…"
-                }
+                disabled={!user}
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
                 inputRef={inputRef}
                 onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
                 userName={userName} 
@@ -101,7 +87,7 @@ export const ChatInputSection = ({
                 onSendMessage={handleSend} 
                 loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
                 disabled={!user}
-                placeholder="Sign in to start chatting…"
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
                 inputRef={inputRef}
                 onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
                 userName={userName} 
@@ -110,13 +96,6 @@ export const ChatInputSection = ({
               />
           )}
         </div>
-        
-        {/* Status messages */}
-        {user && !hasPersonalProfileForChat && (
-          <p className="text-xs text-white/60 mt-2 text-center font-light">
-            Complete your personal profile to unlock chat with Kai
-          </p>
-        )}
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
             Complete setup to chat
