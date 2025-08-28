@@ -12,6 +12,7 @@ export const usePartnerProfileData = () => {
   return {
     profileData: storage.profileData,
     isLoading: storage.isLoading,
+    isReady: storage.isReady,
     updateField: storage.updateField,
     handleMultiSelect: storage.handleMultiSelect,
     saveData: storage.saveData

@@ -9,7 +9,7 @@ import ProfileCard from "@/components/ProfileBuilder/ProfileCard";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
-import { useUnifiedProfileStorage } from "@/hooks/useUnifiedProfileStorage";
+import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
 
 // Lazy load secondary components to reduce initial bundle size
@@ -62,20 +62,20 @@ const ProfileBuilder = ({
   } = useProfileCompletion();
 
   // Get actual personal profile data for accurate progress calculation
-  const personalProfileStorage = useUnifiedProfileStorage('personal');
+  const { profileData: personalProfileData } = usePersonalProfileData();
   
   // Get user's name for personalization
-  const userName = temporaryDemographics.your?.name || personalProfileStorage.profileData?.name || '';
+  const userName = temporaryDemographics.your?.name || (personalProfileData as any)?.name || '';
   
   // Performance monitoring
   useEffect(() => {
     performanceMonitor.mark('profile-data-load');
     performanceMonitor.measure('profile-chunk-load', 100); // Measure chunk load time
     
-    if (personalProfileStorage.isReady) {
+    if (personalProfileData) {
       performanceMonitor.measure('profile-data-load', 100);
     }
-  }, [personalProfileStorage.isReady]);
+  }, [personalProfileData]);
   
   // Use consistent completion calculation for both profiles
   const yourProfileCompletion = calculateYourCompletion();

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, HelpCircle, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
+import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
 
@@ -17,7 +17,7 @@ interface DemographicsPage1Props {
 
 const DemographicsPage1 = ({ profileType, onComplete, initialData }: DemographicsPage1Props) => {
   const { temporaryDemographics, updateTemporaryProfile, temporaryProfiles } = useTemporaryProfile();
-  const { profileData, isReady, updateField, isLoading } = usePersonalProfilePersistence();
+  const { profileData, isReady, updateField, isLoading } = usePersonalProfileData();
   const isPersonal = profileType === 'your';
   
   // Initialize form data based on profile type

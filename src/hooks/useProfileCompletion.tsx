@@ -1,15 +1,16 @@
 
 import { usePersonalProfileData } from './usePersonalProfileData';
 import { usePartnerProfileData } from './usePartnerProfileData';
+import type { PersonalProfileV2, PartnerProfileV2 } from './useProfileStoreV2';
 
 export const useProfileCompletion = () => {
-  const personalStorage = useUnifiedProfileStorage('personal');
-  const partnerStorage = useUnifiedProfileStorage('partner');
+  const { profileData: personalData, isReady: personalReady } = usePersonalProfileData();
+  const { profileData: partnerData, isReady: partnerReady } = usePartnerProfileData();
 
   const calculateYourCompletion = () => {
-    if (!personalStorage.isReady) return 0;
+    if (!personalReady) return 0;
     
-    const profileData = personalStorage.profileData;
+    const profileData = personalData as PersonalProfileV2;
     
     if (!profileData || Object.keys(profileData).length === 0) {
       console.log('ProfileBuilder - No profile data found:', profileData);
@@ -48,10 +49,10 @@ export const useProfileCompletion = () => {
       completed++;
       console.log('✓ stressResponse:', profileData.stressResponse);
     }
-if (profileData?.loveLanguage?.length > 0) {
-  completed++;
-  console.log('✓ loveLanguage:', profileData.loveLanguage);
-}
+    if (profileData?.loveLanguage?.length > 0) {
+      completed++;
+      console.log('✓ loveLanguage:', profileData.loveLanguage);
+    }
     if (profileData?.attachmentStyle) {
       completed++;
       console.log('✓ attachmentStyle:', profileData.attachmentStyle);
@@ -63,9 +64,9 @@ if (profileData?.loveLanguage?.length > 0) {
   };
 
   const calculatePartnerCompletion = () => {
-    if (!partnerStorage.isReady) return 0;
+    if (!partnerReady) return 0;
     
-    const profileData = partnerStorage.profileData;
+    const profileData = partnerData as PartnerProfileV2;
     
     if (!profileData || Object.keys(profileData).length === 0) return 0;
     

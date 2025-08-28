@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { PartnerProfileData } from '../types';
 import { calculatePartnerProgress } from '../utils/partnerValidation';
-import { useUnifiedProfileStorage } from '@/hooks/useUnifiedProfileStorage';
+import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
 
 const defaultPartnerProfileData: PartnerProfileData = {
   // Section 1: The Basics
@@ -31,7 +31,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     updateField,
     handleMultiSelect,
     saveData
-  } = useUnifiedProfileStorage('partner');
+  } = useProfileStoreV2('partner');
 
   // Auto-completion logic
   useEffect(() => {
