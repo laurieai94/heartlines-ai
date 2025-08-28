@@ -191,7 +191,7 @@ const Auth = () => {
             >
               {isSubmitting 
                 ? 'Processing...' 
-                : isSignUp ? 'Create Account' : 'Sign In'
+                : 'Let\'s Go'
               }
             </Button>
           </form>
