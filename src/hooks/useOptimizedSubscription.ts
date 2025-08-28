@@ -85,8 +85,9 @@ export const useOptimizedSubscription = () => {
       return cachedData;
     },
     enabled: !!user,
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    gcTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: false, // Prevent excessive refetching
   });
 
   const upgrade = async (tier: 'grow' | 'thrive') => {

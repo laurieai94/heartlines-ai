@@ -36,6 +36,8 @@ const DashboardContent = ({
   useEffect(() => {
     if (activeTab === 'profile') {
       performanceMonitor.mark('profile-chunk-load');
+    } else if (activeTab === 'insights') {
+      performanceMonitor.mark('insights-chunk-load');
     }
   }, [activeTab]);
   

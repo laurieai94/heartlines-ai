@@ -1,9 +1,11 @@
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, Suspense, lazy } from 'react';
 import { ChatHeader } from './ChatHeader';
-import { ChatHistorySidebar } from './ChatHistorySidebar';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+
+// Lazy load the sidebar for better performance
+const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
 
 interface ChatLayoutProps {
   children: ReactNode;
@@ -45,23 +47,33 @@ export const ChatLayout = ({
         </div>
       </div>
 
-      {/* Chat History Sidebar */}
+      {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
         <SheetContent side="left" className="bg-background/10 backdrop-blur-xl border border-white/10 shadow-2xl ring-1 ring-white/5 sm:max-w-sm p-0">
-          <ChatHistorySidebar
-            conversations={conversations}
-            currentConversationId={currentConversationId}
-            loading={loading}
-            onNewConversation={() => {
-              onNewConversation();
-              setIsSidebarOpen(false);
-            }}
-            onLoadConversation={(id) => {
-              onLoadConversation(id);
-              setIsSidebarOpen(false);
-            }}
-            onDeleteConversation={onDeleteConversation}
-          />
+          <Suspense fallback={
+            <div className="p-4">
+              <div className="animate-pulse space-y-4">
+                <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                <div className="h-4 bg-white/10 rounded w-1/2"></div>
+                <div className="h-4 bg-white/10 rounded w-5/6"></div>
+              </div>
+            </div>
+          }>
+            <ChatHistorySidebar
+              conversations={conversations}
+              currentConversationId={currentConversationId}
+              loading={loading}
+              onNewConversation={() => {
+                onNewConversation();
+                setIsSidebarOpen(false);
+              }}
+              onLoadConversation={(id) => {
+                onLoadConversation(id);
+                setIsSidebarOpen(false);
+              }}
+              onDeleteConversation={onDeleteConversation}
+            />
+          </Suspense>
         </SheetContent>
       </Sheet>
     </div>

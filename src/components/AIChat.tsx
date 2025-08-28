@@ -54,9 +54,12 @@ const AIChat = ({
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
   
-  console.log('AIChat - userName resolved:', userName);
-  console.log('AIChat - demographicsData.your:', demographicsData.your);
-  console.log('AIChat - profile:', profile);
+  // Only log in development
+  if (import.meta.env.DEV) {
+    console.log('AIChat - userName resolved:', userName);
+    console.log('AIChat - demographicsData.your:', demographicsData.your);
+    console.log('AIChat - profile:', profile);
+  }
 
   const { loading, sendMessage } = useChatMessageHandler({
     profiles,

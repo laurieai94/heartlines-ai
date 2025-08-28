@@ -1,9 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
 import { AICoachEngine } from "./AICoachEngine";
 import AIChat from "./AIChat";
-import ProfileForm from "./ProfileForm";
-import Demographics from "./Demographics";
+import { performanceMonitor } from "@/utils/performanceMonitor";
+
+// Lazy load non-critical modals
+const ProfileForm = lazy(() => import("./ProfileForm"));
+const Demographics = lazy(() => import("./Demographics"));
 import { useChatHistory } from "@/hooks/useChatHistory";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
@@ -40,6 +43,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
+
+  // Measure insights chunk load performance
+  useEffect(() => {
+    performanceMonitor.measure('insights-chunk-load');
+  }, []);
 
   useEffect(() => {
     // Reduced logging for better performance
@@ -179,26 +187,30 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         </ProgressiveAccessWrapper>
       </div>
       
-      {/* Demographics Modal */}
+      {/* Demographics Modal - Lazy loaded */}
       {showDemographics && (
-        <Demographics 
-          profileType={activeProfileType}
-          onClose={() => setShowDemographics(false)}
-          onComplete={handleDemographicsComplete}
-          initialData={unifiedDemographics[activeProfileType]}
-        />
+        <Suspense fallback={null}>
+          <Demographics 
+            profileType={activeProfileType}
+            onClose={() => setShowDemographics(false)}
+            onComplete={handleDemographicsComplete}
+            initialData={unifiedDemographics[activeProfileType]}
+          />
+        </Suspense>
       )}
       
-      {/* Profile Form Modal */}
+      {/* Profile Form Modal - Lazy loaded */}
       {showProfileForm && (
-        <ProfileForm 
-          profileType={activeProfileType}
-          onClose={() => setShowProfileForm(false)}
-          onComplete={handleProfileComplete}
-          onBackToDemographics={handleBackToDemographics}
-          initialProfiles={unifiedProfiles}
-          initialDemographics={unifiedDemographics}
-        />
+        <Suspense fallback={null}>
+          <ProfileForm 
+            profileType={activeProfileType}
+            onClose={() => setShowProfileForm(false)}
+            onComplete={handleProfileComplete}
+            onBackToDemographics={handleBackToDemographics}
+            initialProfiles={unifiedProfiles}
+            initialDemographics={unifiedDemographics}
+          />
+        </Suspense>
       )}
     </div>
   );
