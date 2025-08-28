@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 
 interface AuthContextType {
   user: User | null;
@@ -46,10 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (event === 'SIGNED_IN') {
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
-          setTimeout(() => {
-            toast.success("Signed out successfully");
-            setLoading(false);
-          }, 0);
+          setLoading(false);
         }
       }
     );
