@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useUnifiedProfileStorage } from "./useUnifiedProfileStorage";
+import { usePersonalProfileData } from "./usePersonalProfileData";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
 
@@ -22,7 +22,7 @@ export const useProgressiveAccess = () => {
   } catch {
     user = null;
   }
-  const personalStorage = useUnifiedProfileStorage('personal');
+  const personalStorage = usePersonalProfileData();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
