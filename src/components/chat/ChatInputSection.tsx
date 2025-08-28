@@ -32,7 +32,7 @@ export const ChatInputSection = ({
   canInteract,
   isHistoryLoaded
 }: ChatInputSectionProps) => {
-  const { accessLevel } = useProgressiveAccess();
+  const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
@@ -73,19 +73,26 @@ export const ChatInputSection = ({
         
         <div className="max-w-3xl mx-auto">
           {accessLevel === 'profile-required' && user ? (
-            <div className="flex gap-2 items-end">
-              <Textarea
-                disabled
-                placeholder="Complete your profile to chat with Kai…"
-                className="flex-1 min-h-[50px] max-h-[200px] resize-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 focus:border-pink-300/50 focus:ring-pink-300/20"
-              />
-              <Button 
-                onClick={goToProfile}
-                variant="outline"
-                className="px-4 py-3 h-auto bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:border-white/30"
-              >
-                Complete Profile
-              </Button>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2 items-end">
+                <Textarea
+                  disabled
+                  placeholder="Complete your profile to chat with Kai…"
+                  className="flex-1 min-h-[50px] max-h-[200px] resize-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 focus:border-pink-300/50 focus:ring-pink-300/20"
+                />
+                <Button 
+                  onClick={goToProfile}
+                  variant="outline"
+                  className="px-4 py-3 h-auto bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:border-white/30"
+                >
+                  Complete Profile
+                </Button>
+              </div>
+              {missingFieldsForChat && missingFieldsForChat.length > 0 && (
+                <p className="text-xs text-white/70">
+                  Needed to unlock chat: {missingFieldsForChat.join(', ')}
+                </p>
+              )}
             </div>
           ) : user ? (
             <ProgressiveAccessWrapper action="chat">

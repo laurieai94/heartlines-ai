@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 // Module-level cache and inflight promise tracking to prevent duplicate requests
 const cachedDataByType = new Map<ProfileType, ProfileData>();
 const inflightRequestsByType = new Map<ProfileType, Promise<ProfileData>>();
+const PROFILE_UPDATED_EVENT = 'profile:updated';
 
 export type ProfileType = 'personal' | 'partner';
 
@@ -263,6 +264,8 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     try {
       const normalizedData = normalizeFieldsToStorage(data, profileType);
       localStorage.setItem(config.localStorage, JSON.stringify(normalizedData));
+      // Keep in-memory cache in UI shape for instant cross-hook reads
+      cachedDataByType.set(profileType, data);
       setLastSaved(new Date());
     } catch (error) {
       console.error(`Error saving ${profileType} profile to localStorage:`, error);
@@ -436,16 +439,23 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     if (!newData || Object.keys(newData).length === 0) {
       return;
     }
-    
     const currentData = profileData || {};
     const updatedData = { ...currentData, ...newData };
-    
-    // Optimistic update
+
+    // Optimistic update for this hook instance
     setProfileData(updatedData);
-    
-    // Save to localStorage immediately (fast backup)
+
+    // Persist locally and update shared cache
     saveToStorage(updatedData);
-    
+    cachedDataByType.set(profileType, updatedData);
+
+    // Broadcast to other hook instances immediately
+    try {
+      window.dispatchEvent(new CustomEvent(PROFILE_UPDATED_EVENT, { detail: { profileType, data: updatedData } }));
+    } catch (e) {
+      console.warn('Profile update event dispatch failed', e);
+    }
+
     // Save to database with fallback
     if (user) {
       const success = await saveToDatabase(updatedData);
@@ -624,14 +634,52 @@ useEffect(() => {
   return () => clearInterval(syncInterval);
 }, [user, isReady, loadFromDatabase, loadFromStorage, saveToStorage, saveToDatabase, profileType, isMeaningfullyFilled, mergePreferNonEmpty]);
 
-  return {
-    profileData,
-    isLoading,
-    isReady,
-    saveData,
-    updateField,
-    handleMultiSelect,
-    lastSaved,
-    recoverFromDatabase
+// Real-time sync across hook instances via a tiny event bus
+useEffect(() => {
+  const handler = (e: any) => {
+    try {
+      const detail = e.detail as { profileType: ProfileType; data: ProfileData };
+      if (detail?.profileType === profileType) {
+        setProfileData(prev => {
+          const prevStr = JSON.stringify(prev || {});
+          const nextStr = JSON.stringify(detail.data || {});
+          return prevStr === nextStr ? prev : detail.data;
+        });
+      }
+    } catch (err) {
+      console.warn('Error handling profile update event', err);
+    }
   };
+  window.addEventListener(PROFILE_UPDATED_EVENT as any, handler as any);
+  return () => window.removeEventListener(PROFILE_UPDATED_EVENT as any, handler as any);
+}, [profileType]);
+
+// Cross-tab/localStorage synchronization listener
+useEffect(() => {
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === config.localStorage && typeof e.newValue === 'string') {
+      try {
+        const parsed = JSON.parse(e.newValue || '{}');
+        const normalized = normalizeFieldsFromStorage(parsed, profileType);
+        cachedDataByType.set(profileType, normalized);
+        setProfileData(normalized);
+      } catch (err) {
+        console.warn('Failed to process storage event for profile data', err);
+      }
+    }
+  };
+  window.addEventListener('storage', onStorage);
+  return () => window.removeEventListener('storage', onStorage);
+}, [config.localStorage, profileType]);
+
+return {
+  profileData,
+  isLoading,
+  isReady,
+  saveData,
+  updateField,
+  handleMultiSelect,
+  lastSaved,
+  recoverFromDatabase
+};
 };

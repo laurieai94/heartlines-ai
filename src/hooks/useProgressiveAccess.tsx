@@ -60,36 +60,60 @@ export const useProgressiveAccess = () => {
     return completion;
   };
 
-  // Check if personal profile has essential information for chat access
-  const hasEssentialPersonalProfile = () => {
-    if (!personalStorage.isReady) {
-      return false;
+  // Compute essential info for chat access, resilient to legacy fields
+  const computeChatReadiness = () => {
+    if (!personalStorage.isReady) return { isComplete: false, missingFields: ['profile loading'] };
+
+    const pd = personalStorage.profileData || {} as any;
+
+    // Basic requirements
+    const hasName = !!(pd.name && pd.name.trim() !== '');
+    const hasAge = !!(pd.age && pd.age !== '');
+
+    // Coalesce new and legacy fields
+    const loveLangArr: any[] = Array.isArray(pd.loveLanguage)
+      ? pd.loveLanguage
+      : Array.isArray(pd.feelLovedWhen)
+        ? pd.feelLovedWhen
+        : (pd.loveLanguage || pd.feelLovedWhen ? [pd.loveLanguage || pd.feelLovedWhen] : []);
+
+    const hasStressResponse = Array.isArray(pd.stressResponse) && pd.stressResponse.length > 0;
+    const hasAttachmentStyle = !!(pd.attachmentStyle && pd.attachmentStyle !== '');
+    const hasLoveLanguage = loveLangArr.length > 0;
+    const hasRelationshipStatus = !!(pd.relationshipStatus && pd.relationshipStatus !== '');
+
+    const hasBasicInfo = hasName && hasAge;
+    const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
+    const hasEnoughData = coreResponses >= 3;
+    const isComplete = hasBasicInfo && hasEnoughData;
+
+    const missing: string[] = [];
+    if (!hasName) missing.push('name');
+    if (!hasAge) missing.push('age');
+
+    const coreMissing: string[] = [];
+    if (!hasStressResponse) coreMissing.push('stress response');
+    if (!hasAttachmentStyle) coreMissing.push('attachment style');
+    if (!hasLoveLanguage) coreMissing.push('love language');
+    if (!hasRelationshipStatus) coreMissing.push('relationship status');
+
+    console.log('🔐 Chat access check:', {
+      hasName, hasAge, hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus,
+      coreResponses, isComplete, keys: Object.keys(pd || {})
+    });
+
+    // Only include the instruction for core fields if basic info is present
+    if (hasBasicInfo && coreMissing.length > 0) {
+      missing.push(`add any 3: ${coreMissing.join(', ')}`);
     }
-    
-const profileData = personalStorage.profileData;
 
-// Basic requirements
-const hasName = profileData?.name && profileData.name.trim() !== '';
-const hasAge = profileData?.age && profileData.age !== '';
-
-// Core questionnaire fields that indicate completion
-const hasStressResponse = Array.isArray(profileData?.stressResponse) && profileData.stressResponse.length > 0;
-const hasAttachmentStyle = profileData?.attachmentStyle && profileData.attachmentStyle !== '';
-const hasLoveLanguage = Array.isArray(profileData?.loveLanguage) && profileData.loveLanguage.length > 0;
-const hasRelationshipStatus = profileData?.relationshipStatus && profileData.relationshipStatus !== '';
-
-// Must have basic info AND at least 3 core questionnaire responses
-const hasBasicInfo = hasName && hasAge;
-const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
-const hasEnoughData = coreResponses >= 3;
-
-const isComplete = hasBasicInfo && hasEnoughData;
-console.log('🔐 Chat access check:', { hasName, hasAge, hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus, coreResponses, isComplete, keys: Object.keys(profileData || {}) });
-return isComplete;
+    return { isComplete, missingFields: missing.length ? missing : [] };
   };
 
   const profileCompletion = calculateProfileCompletion();
-  const hasPersonalProfileForChat = hasEssentialPersonalProfile();
+  const readiness = computeChatReadiness();
+  const hasPersonalProfileForChat = readiness.isComplete;
+  const missingFieldsForChat = readiness.missingFields;
   
   // Determine access level based on authentication and profile completion
   const getAccessLevel = (): AccessLevel => {
@@ -136,6 +160,7 @@ return isComplete;
     blockingAction,
     checkInteractionPermission,
     closeSignUpModal,
-    hasPersonalProfileForChat
+    hasPersonalProfileForChat,
+    missingFieldsForChat
   };
 };
