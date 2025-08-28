@@ -76,6 +76,32 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
+  // Window resize and ResizeObserver for responsive auto-scroll
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (isNearBottom) {
+        scrollToBottom('auto');
+      }
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (viewportRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        if (isNearBottom) {
+          scrollToBottom('auto');
+        }
+      });
+      resizeObserver.observe(viewportRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+      resizeObserver?.disconnect();
+    };
+  }, [isNearBottom, scrollToBottom]);
+
   // Initial scroll to bottom
   useEffect(() => {
     if (isHistoryLoaded) {

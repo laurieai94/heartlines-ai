@@ -56,7 +56,7 @@ const Dashboard = () => {
   return (
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-        <div className="h-screen overflow-hidden">
+        <div className="h-[100dvh] overflow-hidden">
           {/* Main Dashboard Content - This gets blurred when modals are open */}
           <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
 

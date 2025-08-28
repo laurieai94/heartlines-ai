@@ -134,6 +134,11 @@
     @apply border-border;
   }
 
+  /* Full-height root chain for reliable h-full layouts */
+  html, body, #root {
+    height: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -158,6 +163,20 @@
 }
 
 @layer utilities {
+  /* Dynamic viewport and safe area utilities */
+  .h-dvh {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  .min-h-dvh {
+    min-height: 100dvh;
+  }
+
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+
   .animate-gradient {
     background-size: 400% 400%;
     animation: gradient 8s ease infinite;
@@ -376,7 +395,6 @@
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
   }
-
 
   /* Hide scrollbars utility for overflow containers */
   .no-scrollbar::-webkit-scrollbar { display: none; }
