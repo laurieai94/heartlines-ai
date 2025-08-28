@@ -11,11 +11,11 @@ interface NewPartnerProfileProps {
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
   const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
   
-  const { profileData, updateField, handleMultiSelect, isLoading, saveProfile } = usePartnerProfileData(autoCompleteCallback);
+  const { profileData, updateField, handleMultiSelect, isLoading } = usePartnerProfileData(autoCompleteCallback);
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
-      await saveProfile(profileData);
+      // Rely on incremental saves from useProfileStoreV2 to avoid overwriting fields on completion
       
       const completedData = {
         ...profileData,
