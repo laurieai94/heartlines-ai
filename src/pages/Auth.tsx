@@ -108,7 +108,7 @@ const Auth = () => {
         <div className="questionnaire-card p-8 animate-fade-in">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
+              We missed you
             </h1>
             <p className="text-white/70">
               {isSignUp 
