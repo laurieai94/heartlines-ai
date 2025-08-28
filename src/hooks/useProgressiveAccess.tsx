@@ -91,15 +91,34 @@ export const useProgressiveAccess = () => {
   const profileCompletion = calculateProfileCompletion();
   const hasPersonalProfileForChat = hasEssentialPersonalProfile();
   
-  // UNLOCK: Always grant full access regardless of profile completion or authentication
+  // Determine access level based on authentication and profile completion
   const getAccessLevel = (): AccessLevel => {
+    // If no user is logged in, require signup
+    if (!user) {
+      return 'signup-required';
+    }
+    
+    // If user is logged in but doesn't have essential personal profile, require profile completion
+    if (!hasPersonalProfileForChat) {
+      return 'profile-required';
+    }
+    
+    // User is authenticated and has completed their personal profile
     return 'full-access';
   };
 
   const accessLevel = getAccessLevel();
 
-  // Check if user can interact with features - always return true now
+  // Check if user can interact with features based on access level
   const checkInteractionPermission = (action: string): boolean => {
+    if (accessLevel === 'full-access') {
+      return true;
+    }
+    
+    if (action === 'chat') {
+      return false;
+    }
+    
     return true;
   };
 
@@ -111,7 +130,7 @@ export const useProgressiveAccess = () => {
   return {
     accessLevel,
     canNavigate: true,
-    canInteract: true, // Always allow interaction
+    canInteract: accessLevel === 'full-access',
     profileCompletion,
     shouldShowSignUpModal: showSignUpModal,
     blockingAction,

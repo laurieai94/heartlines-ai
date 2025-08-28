@@ -2,8 +2,10 @@
 import { ReactNode } from "react";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { BRAND } from "@/branding";
+import { Button } from "@/components/ui/button";
 
 interface ProgressiveAccessWrapperProps {
   children: ReactNode;
@@ -18,69 +20,70 @@ const ProgressiveAccessWrapper = ({
   fallbackTab = "profile",
   className = ""
 }: ProgressiveAccessWrapperProps) => {
-  const { accessLevel, checkInteractionPermission, hasPersonalProfileForChat } = useProgressiveAccess();
+  const { accessLevel, checkInteractionPermission } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
+  const { user } = useAuth();
 
-  const handleInteraction = (e: React.MouseEvent) => {
-    // Only prevent default if we have an action to check
-    if (!action) return;
-
-    // If user has full access, don't block anything
-    if (accessLevel === 'full-access') {
-      return;
-    }
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const canProceed = checkInteractionPermission(action);
-    
-    if (!canProceed && accessLevel === 'profile-required') {
-      const handleProfileClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Use navigation context to switch to profile
-        goToProfile();
-        
-        // Small delay to ensure tab switch completes
-        setTimeout(() => {
-          toast.dismiss();
-        }, 100);
-      };
-
-      // Show clickable toast message to go to profile
-      toast.info(
-        <div className="text-sm">
-          {BRAND.name} works best when it knows you.{' '}
-          <button 
-            onClick={handleProfileClick}
-            className="text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
-          >
-            Let's build your profile first.
-          </button>
-        </div>,
-        {
-          duration: 6000,
-        }
-      );
-    }
-  };
-
-  // For full access (including personal profile completion), allow unrestricted access
+  // For full access, allow unrestricted access
   if (accessLevel === 'full-access') {
     return <>{children}</>;
   }
 
-  // For non-full-access users, wrap interactive elements
+  // For signed-in users with incomplete profiles, show overlay
+  if (accessLevel === 'profile-required' && user && action === 'chat') {
+    return (
+      <div className={`relative ${className}`}>
+        {children}
+        
+        {/* Branded overlay for profile completion */}
+        <div className="absolute inset-0 z-20 bg-background/80 backdrop-blur-sm border border-border/50 rounded-lg flex items-center justify-center">
+          <div className="text-center max-w-md mx-auto p-6 space-y-4">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-foreground">
+                Let's get {BRAND.name} to know you first
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Complete your personal profile to unlock personalized insights and coaching from Kai.
+              </p>
+            </div>
+            
+            <Button 
+              onClick={goToProfile}
+              className="w-full"
+              size="lg"
+            >
+              Complete Your Profile
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // For signup required or other access levels with interactions
+  const handleInteraction = (e: React.MouseEvent) => {
+    if (!action) return;
+
+    if (!checkInteractionPermission(action)) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (accessLevel === 'signup-required') {
+        toast.info("Sign in to access all features");
+      }
+    }
+  };
+
+  // For non-chat actions or other access levels, use click blocking
   return (
     <div 
       className={`relative ${className}`}
       onClick={handleInteraction}
     >
       {children}
-      {/* Invisible overlay to catch clicks only if we have an action */}
-      {action && <div className="absolute inset-0 z-10 cursor-pointer bg-transparent" />}
+      {action && !checkInteractionPermission(action) && (
+        <div className="absolute inset-0 z-10 cursor-pointer bg-transparent" />
+      )}
     </div>
   );
 };
