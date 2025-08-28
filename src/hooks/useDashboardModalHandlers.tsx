@@ -142,19 +142,25 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowPartnerQuestionnaireModal(true);
   };
 
+  // Centralized handler for "Unlock coaching" from personal profile
+  const handlePersonalUnlockCoaching = () => {
+    const partnerCompletion = calculatePartnerCompletion();
+    console.log('Personal unlock coaching - partner completion:', partnerCompletion);
+    
+    if (partnerCompletion === 100) {
+      console.log('Partner profile is complete, redirecting to coach');
+      modalStates.setShowPersonalCompletionOptions(false);
+      modalStates.setActiveTab("insights");
+    } else {
+      console.log('Partner profile incomplete, showing completion options');
+      modalStates.setShowPersonalCompletionOptions(true);
+    }
+  };
+
   const handlePersonalStartChatting = () => {
     console.log('Starting chat, navigating to coach');
     modalStates.setShowPersonalCompletionOptions(false);
-    
-    // Check if partner profile is complete - if so, redirect straight to coach
-    const partnerCompletion = calculatePartnerCompletion();
-    if (partnerCompletion === 100) {
-      console.log('Partner profile is complete, redirecting to coach');
-      modalStates.setActiveTab("insights");
-    } else {
-      // Partner profile not complete, stay on current tab for now
-      modalStates.setActiveTab("insights");
-    }
+    modalStates.setActiveTab("insights");
   };
 
   const handlePartnerStartChatting = () => {
@@ -189,6 +195,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     handlePersonalCompletionClose,
     handlePartnerCompletionClose,
     handlePersonalAddPartnerProfile,
+    handlePersonalUnlockCoaching,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handlePartnerContinueEditing,

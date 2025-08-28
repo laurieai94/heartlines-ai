@@ -40,6 +40,7 @@ const Dashboard = () => {
     handlePersonalCompletionClose,
     handlePartnerCompletionClose,
     handlePersonalAddPartnerProfile,
+    handlePersonalUnlockCoaching,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handlePartnerContinueEditing,
@@ -101,7 +102,7 @@ const Dashboard = () => {
             onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
             showPersonalCompletionOptions={showPersonalCompletionOptions}
             onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
-            onPersonalStartChatting={handlePersonalStartChatting}
+            onPersonalStartChatting={handlePersonalUnlockCoaching}
             onPersonalCompletionClose={handlePersonalCompletionClose}
             showPartnerCompletionOptions={showPartnerCompletionOptions}
             onPartnerStartChatting={handlePartnerStartChatting}
