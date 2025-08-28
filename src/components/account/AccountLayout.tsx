@@ -45,9 +45,9 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-4 py-8 max-w-4xl">
+      <div className="relative z-10 container mx-auto px-4 py-6 max-w-3xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-6">
           <Button
             variant="ghost"
             size="sm"
@@ -59,40 +59,40 @@ const AccountLayout = () => {
           </Button>
         </div>
 
-        <div className="questionnaire-card p-8 animate-fade-in">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">My Account</h1>
-            <p className="text-white/70">Manage your profile, subscription, and security settings</p>
+        <div className="questionnaire-card p-6 md:p-7 animate-fade-in">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold text-white mb-2">My Account</h1>
+            <p className="text-white/70 text-sm md:text-base">Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8 bg-white/10 backdrop-blur-sm border border-white/20">
+            <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/10 backdrop-blur-sm border border-white/20 h-9 gap-1 p-1">
               <TabsTrigger 
                 value="overview" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-2 py-1 text-xs sm:text-sm"
               >
-                <Home className="h-4 w-4 mr-2" />
+                <Home className="h-4 w-4 mr-1.5" />
                 <span className="hidden sm:inline">Overview</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="subscription"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-2 py-1 text-xs sm:text-sm"
               >
-                <CreditCard className="h-4 w-4 mr-2" />
+                <CreditCard className="h-4 w-4 mr-1.5" />
                 <span className="hidden sm:inline">Subscription</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="profile"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-2 py-1 text-xs sm:text-sm"
               >
-                <User className="h-4 w-4 mr-2" />
+                <User className="h-4 w-4 mr-1.5" />
                 <span className="hidden sm:inline">Profile</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="security"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-2 py-1 text-xs sm:text-sm"
               >
-                <Shield className="h-4 w-4 mr-2" />
+                <Shield className="h-4 w-4 mr-1.5" />
                 <span className="hidden sm:inline">Security</span>
               </TabsTrigger>
             </TabsList>

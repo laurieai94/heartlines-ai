@@ -42,24 +42,24 @@ const AccountOverview = () => {
   const isHighUsage = usagePercentage > 80;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Welcome Section */}
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">
+        <h2 className="text-xl font-bold text-white mb-2">
           Welcome back, {profile?.name || user?.email?.split('@')[0] || 'there'}!
         </h2>
-        <p className="text-white/70">
+        <p className="text-white/70 text-sm">
           Here's your account overview and usage summary
         </p>
       </div>
 
       {/* Current Plan Card */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
+        <CardHeader className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Crown className={`h-5 w-5 ${getPlanColor(subscription_tier)}`} />
-              <CardTitle className="text-white">Current Plan</CardTitle>
+              <CardTitle className="text-white text-lg">Current Plan</CardTitle>
             </div>
             <Button 
               variant="ghost" 
@@ -75,9 +75,9 @@ const AccountOverview = () => {
             {subscribed ? `Active until ${subscription_end ? new Date(subscription_end).toLocaleDateString() : 'N/A'}` : 'Free plan with limited features'}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between mb-4">
-            <span className={`text-lg font-semibold ${getPlanColor(subscription_tier)}`}>
+        <CardContent className="p-4 pt-0">
+          <div className="flex items-center justify-between mb-3">
+            <span className={`text-base font-semibold ${getPlanColor(subscription_tier)}`}>
               {getPlanName(subscription_tier)}
             </span>
             {!subscribed && (
@@ -96,8 +96,8 @@ const AccountOverview = () => {
 
       {/* Usage Statistics */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
+        <CardHeader className="p-4">
+          <CardTitle className="text-white flex items-center gap-2 text-lg">
             <MessageCircle className="h-5 w-5" />
             Message Usage
           </CardTitle>
@@ -105,14 +105,14 @@ const AccountOverview = () => {
             Your monthly message usage and limits
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 pt-0 space-y-4">
           <div className="flex justify-between text-sm">
             <span className="text-white/80">Messages used this month</span>
             <span className={`font-medium ${isHighUsage ? 'text-orange-400' : 'text-white'}`}>
               {messages_used} / {message_limit}
             </span>
           </div>
-          <Progress value={usagePercentage} className="h-3" />
+          <Progress value={usagePercentage} className="h-2" />
           {isHighUsage && (
             <div className="p-3 rounded-lg bg-orange-500/20 border border-orange-400/30">
               <p className="text-orange-200 text-sm">
@@ -125,16 +125,16 @@ const AccountOverview = () => {
 
       {/* Quick Actions */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white">Quick Actions</CardTitle>
+        <CardHeader className="p-4">
+          <CardTitle className="text-white text-lg">Quick Actions</CardTitle>
           <CardDescription className="text-white/60">
             Common account management tasks
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CardContent className="p-4 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Button 
             variant="outline"
-            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30"
+            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2.5"
             onClick={() => navigate('/profile')}
           >
                 <User className="h-4 w-4 mr-2" />
@@ -142,7 +142,7 @@ const AccountOverview = () => {
           </Button>
           <Button 
             variant="outline"
-            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30"
+            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2.5"
             onClick={refresh}
             disabled={loading}
           >

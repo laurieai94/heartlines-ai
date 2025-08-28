@@ -67,7 +67,7 @@ const AccountProfile = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-xl font-semibold text-white mb-2">Profile Information</h3>
+        <h3 className="text-lg font-semibold text-white mb-2">Profile Information</h3>
         <p className="text-white/70">
           Manage your personal information and profile picture
         </p>
@@ -75,7 +75,7 @@ const AccountProfile = () => {
 
       {/* Avatar Upload */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardContent className="pt-4">
+        <CardContent className="pt-4 p-4">
           <div className="flex items-center gap-4">
             <AvatarUpload 
               currentAvatarUrl={profile?.avatar_url}
@@ -93,13 +93,13 @@ const AccountProfile = () => {
 
       {/* Basic Information */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white">Basic Information</CardTitle>
+        <CardHeader className="p-4">
+          <CardTitle className="text-white text-lg">Basic Information</CardTitle>
           <CardDescription className="text-white/60">
             Your personal details and contact information
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="p-4 pt-0 space-y-5">
           {/* Email (read-only) */}
           <div className="space-y-2">
             <Label htmlFor="email" className="text-white flex items-center gap-2">
@@ -165,13 +165,13 @@ const AccountProfile = () => {
 
       {/* Profile Completion Status */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white">Profile Completion</CardTitle>
+        <CardHeader className="p-4">
+          <CardTitle className="text-white text-lg">Profile Completion</CardTitle>
           <CardDescription className="text-white/60">
             Complete your profile to get better AI coaching
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 pt-0">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-white/80">Email verified</span>

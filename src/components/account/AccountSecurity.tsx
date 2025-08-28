@@ -34,9 +34,9 @@ const AccountSecurity = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
-        <h3 className="text-xl font-semibold text-white mb-2">Security Settings</h3>
+        <h3 className="text-lg font-semibold text-white mb-2">Security Settings</h3>
         <p className="text-white/70">
           Manage your account security and authentication preferences
         </p>
@@ -44,8 +44,8 @@ const AccountSecurity = () => {
 
       {/* Account Security Status */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
+        <CardHeader className="p-4">
+          <CardTitle className="text-white flex items-center gap-2 text-lg">
             <Shield className="h-5 w-5" />
             Security Overview
           </CardTitle>
@@ -53,9 +53,9 @@ const AccountSecurity = () => {
             Your account security status and recommendations
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 pt-0 space-y-4">
           <div className="grid gap-4">
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/10">
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-400" />
                 <div>
@@ -66,7 +66,7 @@ const AccountSecurity = () => {
               <div className="text-green-400 text-sm font-medium">Secure</div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/10">
               <div className="flex items-center gap-3">
                 <Key className="h-5 w-5 text-blue-400" />
                 <div>
@@ -77,7 +77,7 @@ const AccountSecurity = () => {
               <div className="text-blue-400 text-sm font-medium">Active</div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/10">
               <div className="flex items-center gap-3">
                 <Smartphone className="h-5 w-5 text-orange-400" />
                 <div>
@@ -93,8 +93,8 @@ const AccountSecurity = () => {
 
       {/* Password Management */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
+        <CardHeader className="p-4">
+          <CardTitle className="text-white flex items-center gap-2 text-lg">
             <Key className="h-5 w-5" />
             Password Management
           </CardTitle>
@@ -102,7 +102,7 @@ const AccountSecurity = () => {
             Reset your password or update security settings
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 pt-0 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="reset-email" className="text-white flex items-center gap-2">
               <Mail className="h-4 w-4" />
@@ -143,13 +143,13 @@ const AccountSecurity = () => {
 
       {/* Session Management */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white">Session Management</CardTitle>
+        <CardHeader className="p-4">
+          <CardTitle className="text-white text-lg">Session Management</CardTitle>
           <CardDescription className="text-white/60">
             Manage your active sessions and devices
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 pt-0 space-y-4">
           <div className="p-4 rounded-lg bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-2">
               <p className="text-white font-medium">Current Session</p>
@@ -183,13 +183,13 @@ const AccountSecurity = () => {
 
       {/* Security Recommendations */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
-          <CardTitle className="text-white">Security Tips</CardTitle>
+        <CardHeader className="p-4">
+          <CardTitle className="text-white text-lg">Security Tips</CardTitle>
           <CardDescription className="text-white/60">
             Keep your account safe with these recommendations
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 pt-0">
           <ul className="space-y-3 text-sm text-white/80">
             <li className="flex items-start gap-3">
               <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />

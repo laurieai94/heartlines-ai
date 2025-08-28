@@ -138,13 +138,13 @@ const AccountSubscription = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Current Subscription Status */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader>
+        <CardHeader className="p-4">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-white flex items-center gap-2">
+              <CardTitle className="text-white flex items-center gap-2 text-lg">
                 <Crown className="h-5 w-5" />
                 Subscription Status
               </CardTitle>
@@ -163,7 +163,7 @@ const AccountSubscription = () => {
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="p-4 pt-0 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-white/60">Current Plan</p>
@@ -201,8 +201,8 @@ const AccountSubscription = () => {
 
       {/* Available Plans */}
       <div>
-        <h3 className="text-xl font-semibold text-white mb-4">Available Plans</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h3 className="text-lg font-semibold text-white mb-3">Available Plans</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {plans.map((plan) => (
             <Card 
               key={plan.name}
@@ -220,9 +220,9 @@ const AccountSubscription = () => {
                 </div>
               )}
               
-              <CardHeader className="text-center">
-                <CardTitle className="text-white">{plan.name}</CardTitle>
-                <div className="text-3xl font-bold text-white">
+              <CardHeader className="text-center p-4">
+                <CardTitle className="text-white text-lg">{plan.name}</CardTitle>
+                <div className="text-2xl font-bold text-white">
                   {plan.price}
                   <span className="text-sm font-normal text-white/60">/month</span>
                 </div>
@@ -231,8 +231,8 @@ const AccountSubscription = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-4">
-                <ul className="space-y-2">
+              <CardContent className="p-4 pt-0 space-y-3">
+                <ul className="space-y-1.5">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-center gap-2 text-sm text-white/80">
                       <Check className="h-4 w-4 text-green-400" />
