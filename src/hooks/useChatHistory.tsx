@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
 import { PrivacyManager } from "@/utils/encryption";
+import { chatReliabilityQueue } from "@/utils/chatQueue";
+import { logger } from "@/utils/logger";
 
 export interface ChatConversation {
   id: string;
@@ -128,16 +130,34 @@ export const useChatHistory = () => {
         updated_at: new Date().toISOString()
       };
 
-      // Save to database
+      // Save to database with reliability queue backup
       const { error: dbError } = await supabase
         .from('chat_conversations')
-        .upsert(conversationData, { 
+        .upsert({
+          id: conversationData.id,
+          user_id: conversationData.user_id,
+          title: conversationData.title,
+          messages: conversationData.messages,
+          created_at: conversationData.created_at,
+          updated_at: conversationData.updated_at
+        }, { 
           onConflict: 'id',
           ignoreDuplicates: false 
         });
 
       if (dbError) {
-        console.error('Database save error:', dbError);
+        logger.error('Database save failed, adding to reliability queue', dbError);
+        // Add to reliability queue for later retry
+        chatReliabilityQueue.enqueue({
+          id: conversationData.id,
+          user_id: conversationData.user_id,
+          title: conversationData.title,
+          messages: messages, // Use original messages, not encrypted version
+          created_at: conversationData.created_at,
+          updated_at: conversationData.updated_at
+        });
+      } else {
+        logger.info('Chat conversation saved to database successfully', { id: conversationData.id });
       }
 
       // Always save to localStorage as backup

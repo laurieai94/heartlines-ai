@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { profileSyncDiagnostics } from '@/utils/profileSyncDiagnostics';
+import { logger } from '@/utils/logger';
 
 // Module-level cache and inflight promise tracking to prevent duplicate requests
 const cachedDataByType = new Map<ProfileType, ProfileData>();
@@ -341,13 +343,16 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
               : {};
             const dbData = normalizeFieldsFromStorage(rawData, profileType);
             
-            console.log(`Loaded ${profileType} profile from database:`, dbData);
+        logger.info(`Loaded ${profileType} profile from database:`, { 
+          fieldCount: Object.keys(dbData).length,
+          hasData: Object.keys(dbData).length > 0
+        });
             cachedDataByType.set(profileType, dbData);
             return dbData;
           }
         }
       } catch (error) {
-        console.error(`Error loading ${profileType} profile from database:`, error);
+        logger.error(`Error loading ${profileType} profile from database:`, error);
       }
       
       const emptyData = {};
@@ -368,6 +373,9 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
   // Save to database with error handling and retry
   const saveToDatabase = useCallback(async (data: ProfileData, retryCount = 0): Promise<boolean> => {
     if (!user) return false;
+
+    const profileTypeName = profileType === 'personal' ? 'personal' : 'partner';
+    profileSyncDiagnostics.logSyncAttempt(profileTypeName, data);
 
     try {
       const dbProfileType = profileType === 'personal' ? 'your' : 'partner';
@@ -400,11 +408,12 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         });
       
       if (error) {
-        console.error(`Database save error for ${profileType}:`, error);
+        profileSyncDiagnostics.logSyncFailure(profileTypeName, error);
+        logger.error(`Database save error for ${profileType}:`, error);
         
         // Retry logic for transient errors
         if (retryCount < 2 && error.code !== '23505') { // Don't retry constraint violations
-          console.log(`Retrying database save for ${profileType}, attempt ${retryCount + 1}`);
+          logger.info(`Retrying database save for ${profileType}, attempt ${retryCount + 1}`);
           await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
           return saveToDatabase(data, retryCount + 1);
         }
@@ -415,10 +424,11 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         }
         return false;
       } else {
+        profileSyncDiagnostics.logSyncSuccess(profileTypeName);
         setLastSaved(new Date());
         // Update cache with fresh data
         cachedDataByType.set(profileType, data);
-        console.log(`Saved ${profileType} profile to database successfully`);
+        logger.info(`Saved ${profileType} profile to database successfully`);
         return true;
       }
     } catch (error) {
