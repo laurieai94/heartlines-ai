@@ -34,6 +34,9 @@ export class InsightBuilders {
     if (context.yourTraits.loveLanguages?.length > 0) {
       insights.push(`feels loved through: ${context.yourTraits.loveLanguages.join(', ')}`);
     }
+    if (context.yourTraits.stressResponse?.length > 0) {
+      insights.push(`under stress: ${context.yourTraits.stressResponse.join(', ')}`);
+    }
     
     return insights.length > 0 ? insights.join(', ') + '.' : '';
   }

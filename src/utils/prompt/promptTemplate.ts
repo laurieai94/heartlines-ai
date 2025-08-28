@@ -238,6 +238,9 @@ ${familyBackgroundInsights || ''}
 
 ${dynamics || ''}
 
+## Context Snapshot:
+${PromptTemplate.buildContextSnapshot(context)}
+
 ## How to Use This Knowledge:
 - Let it guide your understanding and empathy
 - Use it to ask more relevant and deeper questions  
@@ -300,5 +303,38 @@ ${formatProfileData(context.relationship, 'Relationship Context')}
 ${formatProfileData(context.dynamics, 'Relationship Dynamics')}
 
 Respond naturally and conversationally, summarizing what information you have about them and their relationship. Be thorough but keep your conversational tone. Don't just list data - explain what you know about them as people and their relationship in a way that shows you understand them personally.`;
+  }
+
+  static buildContextSnapshot(context: PersonContext): string {
+    const snapshot = [];
+    
+    // Relationship context
+    if (context.relationship?.length) {
+      snapshot.push(`Together for: ${context.relationship.length}`);
+    }
+    if (context.relationship?.stage) {
+      snapshot.push(`Relationship stage: ${context.relationship.stage}`);
+    }
+    if (context.relationship?.livingTogether) {
+      snapshot.push(`Living together`);
+    }
+    
+    // Key stress responses
+    if (context.yourTraits?.stressResponse?.length > 0) {
+      snapshot.push(`Your stress responses: ${context.yourTraits.stressResponse.join(', ')}`);
+    }
+    if (context.partnerTraits?.stressResponse?.length > 0) {
+      snapshot.push(`Partner's stress responses: ${context.partnerTraits.stressResponse.join(', ')}`);
+    }
+    
+    // Triggers if available
+    if (context.yourTraits?.triggers?.length > 0) {
+      snapshot.push(`Your triggers: ${context.yourTraits.triggers.slice(0, 3).join(', ')}`);
+    }
+    if (context.partnerTraits?.triggers?.length > 0) {
+      snapshot.push(`Partner's triggers: ${context.partnerTraits.triggers.slice(0, 3).join(', ')}`);
+    }
+    
+    return snapshot.length > 0 ? `\nAdditional context: ${snapshot.join('. ')}.` : '';
   }
 }
