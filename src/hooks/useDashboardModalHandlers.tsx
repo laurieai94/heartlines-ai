@@ -94,10 +94,14 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     // Note: Partner data now persists via useProfileStoreV2 during questionnaire completion
     
     modalStates.setShowPartnerQuestionnaireModal(false);
-    modalStates.setShowPartnerCompletionOptions(false); // Ensure it's always false
     
-    // Always go straight to coaching after partner profile completion
-    modalStates.setActiveTab("insights");
+    if (skipPopup) {
+      // Skip the completion modal and go straight to coaching
+      modalStates.setActiveTab("insights");
+    } else {
+      // Show the completion modal instead of auto-navigating
+      modalStates.setShowPartnerCompletionOptions(true);
+    }
   };
 
   const handleQuestionnaireClose = () => {
@@ -135,6 +139,11 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setActiveTab("insights");
   };
 
+  const handlePartnerContinueEditing = () => {
+    modalStates.setShowPartnerCompletionOptions(false);
+    modalStates.setShowPartnerQuestionnaireModal(true);
+  };
+
   const handleProfileUpdate = (newProfiles: any, newDemographics: any) => {
     updateTemporaryProfile(newProfiles, newDemographics);
   };
@@ -156,6 +165,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     handlePersonalAddPartnerProfile,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
+    handlePartnerContinueEditing,
     handleProfileUpdate
   };
 };

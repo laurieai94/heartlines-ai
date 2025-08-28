@@ -63,8 +63,18 @@ const ProfileCompletionOptions = ({
               </div>
             </> : <>
               <Button onClick={onStartChatting} className="w-full questionnaire-button-primary">
-                Ready to Start Coaching
+                Start Coaching with Kai
               </Button>
+              
+              <Button onClick={onAddPartnerProfile} className="w-full questionnaire-button-secondary">
+                Continue to update your person's deets
+              </Button>
+
+              <div className="text-center mt-4">
+                <button onClick={onEditProfile} className="text-white/70 hover:text-white text-sm underline underline-offset-2">
+                  Make updates to my profile
+                </button>
+              </div>
             </>}
         </div>
       </div>

@@ -28,6 +28,7 @@ interface DashboardModalsProps {
   showPartnerCompletionOptions: boolean;
   onPartnerStartChatting: () => void;
   onPartnerCompletionClose: () => void;
+  onPartnerContinueEditing: () => void;
   temporaryProfiles: any;
 }
 
@@ -51,6 +52,7 @@ const DashboardModals = ({
   showPartnerCompletionOptions,
   onPartnerStartChatting,
   onPartnerCompletionClose,
+  onPartnerContinueEditing,
   temporaryProfiles
 }: DashboardModalsProps) => {
   // Removed debug logs for better performance
@@ -142,7 +144,7 @@ const DashboardModals = ({
         <Suspense fallback={<div className="fixed inset-0 z-50"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
           <ProfileCompletionOptions
             completionType="partner"
-            onAddPartnerProfile={() => {}}
+            onAddPartnerProfile={onPartnerContinueEditing}
             onStartChatting={onPartnerStartChatting}
             onClose={onPartnerCompletionClose}
             onEditProfile={onQuestionnaireOpen}
