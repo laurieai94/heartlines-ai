@@ -76,18 +76,18 @@
     --burgundy-800: 350 100% 20%;
     --burgundy-900: 350 100% 15%;
 
-    /* Premium questionnaire colors - Rich Burgundy */
-    --questionnaire-bg: 350 100% 20%;
-    --questionnaire-bg-dark: 350 100% 15%;
+    /* Premium questionnaire colors - Softer Burgundy */
+    --questionnaire-bg: 350 80% 22%;
+    --questionnaire-bg-dark: 350 80% 18%;
     --questionnaire-card: 0 0% 100% / 0.1;
     --questionnaire-border: 0 0% 100% / 0.2;
     --questionnaire-text: 0 0% 100%;
     --questionnaire-text-muted: 0 0% 90%;
     
-    /* Premium gradients */
+    /* Premium gradients - Softer tones */
     --gradient-questionnaire: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
-    --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
-    --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    --gradient-primary-button: linear-gradient(135deg, hsl(var(--peach-300)) 0%, hsl(var(--coral-300)) 100%);
+    --gradient-selected: linear-gradient(135deg, hsl(var(--peach-300)) 0%, hsl(var(--coral-300)) 100%);
   }
 
   .dark {
@@ -372,7 +372,7 @@
   
   .questionnaire-button-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.18);
   }
   
   .questionnaire-button-secondary {
@@ -393,7 +393,7 @@
     color: white;
     border: none;
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 138, 80, 0.18);
   }
 
   /* Hide scrollbars utility for overflow containers */
