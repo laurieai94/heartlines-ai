@@ -38,6 +38,47 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
 
   const config = STORAGE_CONFIG[profileType];
 
+  // Helper function to check if data has meaningful content
+  const isMeaningfullyFilled = useCallback((data: ProfileData): boolean => {
+    if (!data || Object.keys(data).length === 0) return false;
+    
+    return Object.entries(data).some(([key, value]) => {
+      // Skip metadata fields
+      if (key === 'completedAt' || key === 'profileSource') return false;
+      
+      // Check for meaningful values
+      if (typeof value === 'string') return value.trim().length > 0;
+      if (Array.isArray(value)) return value.length > 0;
+      if (typeof value === 'object' && value !== null) return Object.keys(value).length > 0;
+      
+      return value !== null && value !== undefined;
+    });
+  }, []);
+
+  // Helper function to merge data preferring non-empty values
+  const mergePreferNonEmpty = useCallback((localData: ProfileData, dbData: ProfileData): ProfileData => {
+    const result = { ...localData };
+    
+    Object.entries(dbData).forEach(([key, value]) => {
+      const localValue = localData[key];
+      
+      // If local value is empty/meaningless, use db value
+      if (!localValue || 
+          (typeof localValue === 'string' && localValue.trim().length === 0) ||
+          (Array.isArray(localValue) && localValue.length === 0)) {
+        result[key] = value;
+      }
+      // If db value is meaningful and local value is also meaningful, prefer local (user's latest work)
+      // But for arrays, we might want to merge unique values
+      else if (Array.isArray(localValue) && Array.isArray(value)) {
+        const uniqueValues = Array.from(new Set([...localValue, ...value]));
+        result[key] = uniqueValues;
+      }
+    });
+    
+    return result;
+  }, []);
+
   // Load from localStorage with error handling and migration
   const loadFromStorage = useCallback((): ProfileData => {
     try {
@@ -48,9 +89,9 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         return parsed || {};
       }
 
-      // For personal profiles, migrate from old keys
+      // For personal profiles, migrate from old keys (exclude canonical key!)
       if (profileType === 'personal') {
-        const oldKeys = ['personal_profile_data', 'personal_profile_questionnaire'];
+        const oldKeys = ['personal_profile_data']; // Don't include the canonical key here!
         let migratedData = {};
         
         for (const oldKey of oldKeys) {
@@ -66,10 +107,15 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
           }
         }
         
-        // Save migrated data to canonical key and clean up old keys
+        // Save migrated data to canonical key and clean up old keys (not including canonical!)
         if (Object.keys(migratedData).length > 0) {
           localStorage.setItem(config.localStorage, JSON.stringify(migratedData));
-          oldKeys.forEach(key => localStorage.removeItem(key));
+          // Only remove the old keys, not the canonical key
+          oldKeys.forEach(key => {
+            if (key !== config.localStorage) {
+              localStorage.removeItem(key);
+            }
+          });
           return migratedData;
         }
       }
@@ -285,16 +331,16 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     updateField(field, newValues);
   }, [profileData, updateField]);
 
-  // Data migration when user authenticates
+  // Data migration when user authenticates (only if local data is meaningful)
   const migrateLocalToDatabase = useCallback(async () => {
     if (!user) return;
 
     const localData = loadFromStorage();
-    if (Object.keys(localData).length > 0) {
-      console.log(`Migrating ${profileType} profile data to database`);
+    if (isMeaningfullyFilled(localData)) {
+      console.log(`Migrating meaningful ${profileType} profile data to database`);
       await saveToDatabase(localData);
     }
-  }, [user, loadFromStorage, saveToDatabase, profileType]);
+  }, [user, loadFromStorage, saveToDatabase, profileType, isMeaningfullyFilled]);
 
   // Data recovery from database if localStorage is corrupted
   const recoverFromDatabase = useCallback(async () => {
@@ -329,14 +375,15 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
         // Load from database if user is authenticated
         if (user) {
           const dbData = await loadFromDatabase();
-          if (Object.keys(dbData).length > 0) {
-            // Merge database data (authoritative) with local data
+          if (isMeaningfullyFilled(dbData)) {
+            // Use intelligent merge that prefers non-empty values
             setProfileData(prev => {
-              const merged = { ...prev, ...dbData };
+              const merged = mergePreferNonEmpty(prev, dbData);
               saveToStorage(merged);
               return merged;
             });
-          } else if (Object.keys(localData).length > 0) {
+          } else if (isMeaningfullyFilled(localData)) {
+            // Migrate local data to database if it's meaningful
             await migrateLocalToDatabase();
           }
         }
@@ -355,7 +402,7 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     };
 
     loadData();
-  }, [user, profileType, loadFromStorage, loadFromDatabase, saveToStorage, migrateLocalToDatabase, recoverFromDatabase]);
+  }, [user, profileType, loadFromStorage, loadFromDatabase, saveToStorage, migrateLocalToDatabase, recoverFromDatabase, isMeaningfullyFilled, mergePreferNonEmpty]);
 
   // Periodic sync for data consistency (every 5 minutes when user is active)
   useEffect(() => {
