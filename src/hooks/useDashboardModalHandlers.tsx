@@ -91,13 +91,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete partner questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // Save to localStorage with the key that usePartnerProfileData expects
-    try {
-      localStorage.setItem('partner_profile_questionnaire', JSON.stringify(mergedData));
-      console.log('Successfully saved partner data to localStorage with key "partner_profile_questionnaire":', mergedData);
-    } catch (error) {
-      console.error('Error saving partner data to localStorage:', error);
-    }
+    // Note: Partner data now persists via useProfileStoreV2 during questionnaire completion
     
     modalStates.setShowPartnerQuestionnaireModal(false);
     
