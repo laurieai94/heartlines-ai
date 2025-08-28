@@ -1,11 +1,11 @@
 
-import { useUnifiedProfileStorage } from './useUnifiedProfileStorage';
+import { usePersonalProfileData } from './usePersonalProfileData';
 
 export const usePersonalProfilePersistence = () => {
-  // Redirect to unified storage system to prevent conflicts
+  // Redirect to new V2 storage system to prevent conflicts
   console.warn('usePersonalProfilePersistence is deprecated. Use usePersonalProfileData instead.');
   
-  const storage = useUnifiedProfileStorage('personal');
+  const storage = usePersonalProfileData();
   
   return {
     profileData: storage.profileData,
