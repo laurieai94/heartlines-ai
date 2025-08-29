@@ -2,7 +2,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
 interface NavigationContextType {
-  goToProfile: () => void;
+  goToProfile: (origin?: 'header' | 'chat') => void;
   goToCoach: () => void;
 }
 
@@ -18,7 +18,7 @@ export const useNavigation = () => {
 
 interface NavigationProviderProps {
   children: ReactNode;
-  goToProfile: () => void;
+  goToProfile: (origin?: 'header' | 'chat') => void;
   goToCoach?: () => void;
 }
 

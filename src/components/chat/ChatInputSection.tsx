@@ -68,7 +68,7 @@ export const ChatInputSection = ({
       return;
     }
     if (accessLevel === 'profile-required') {
-      goToProfile();
+      goToProfile('chat');
       return;
     }
     onSendMessage(message);
@@ -102,7 +102,7 @@ export const ChatInputSection = ({
                 inputRef={inputRef}
                 onInputFocus={() => { 
                   if (!user) openAuthModalFromChat();
-                  else if (accessLevel === 'profile-required') goToProfile();
+                  else if (accessLevel === 'profile-required') goToProfile('chat');
                 }}
                 userName={userName} 
                 partnerName={partnerName}

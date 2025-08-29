@@ -20,6 +20,8 @@ export const useDashboardModals = () => {
     setShowPartnerQuestionnaireModal: modalState.setShowPartnerQuestionnaireModal,
     setShowPersonalCompletionOptions: modalState.setShowPersonalCompletionOptions,
     setShowPartnerCompletionOptions: modalState.setShowPartnerCompletionOptions,
+    questionnaireOrigin: modalState.questionnaireOrigin,
+    setQuestionnaireOrigin: modalState.setQuestionnaireOrigin,
     suppressPartnerCompletionPopup: modalState.suppressPartnerCompletionPopup,
     setSuppressPartnerCompletionPopup: modalState.setSuppressPartnerCompletionPopup,
     suppressPersonalCompletionPopup: modalState.suppressPersonalCompletionPopup,

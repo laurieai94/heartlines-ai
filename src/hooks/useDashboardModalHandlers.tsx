@@ -8,6 +8,8 @@ interface ModalStates {
   setShowPartnerQuestionnaireModal: (show: boolean) => void;
   setShowPersonalCompletionOptions: (show: boolean) => void;
   setShowPartnerCompletionOptions: (show: boolean) => void;
+  questionnaireOrigin: 'header' | 'chat' | null;
+  setQuestionnaireOrigin: (origin: 'header' | 'chat' | null) => void;
   suppressPartnerCompletionPopup: boolean;
   setSuppressPartnerCompletionPopup: (value: boolean) => void;
   suppressPersonalCompletionPopup: boolean;
@@ -17,8 +19,9 @@ interface ModalStates {
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
 
-  const handleGoToProfile = () => {
-    console.log('Opening profile questionnaire modal');
+  const handleGoToProfile = (origin: 'header' | 'chat' = 'header') => {
+    console.log('Opening profile questionnaire modal from:', origin);
+    modalStates.setQuestionnaireOrigin(origin);
     modalStates.setShowQuestionnaireModal(true);
   };
 
@@ -27,8 +30,9 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setActiveTab("insights");
   };
 
-  const handleOpenQuestionnaire = () => {
-    console.log('handleOpenQuestionnaire called - setting showQuestionnaireModal to true');
+  const handleOpenQuestionnaire = (origin: 'header' | 'chat' = 'header') => {
+    console.log('handleOpenQuestionnaire called - setting showQuestionnaireModal to true from:', origin);
+    modalStates.setQuestionnaireOrigin(origin);
     modalStates.setShowQuestionnaireModal(true);
   };
 
@@ -65,12 +69,24 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     updateTemporaryProfile(newProfiles, newDemographics);
     
     modalStates.setShowQuestionnaireModal(false);
+    modalStates.setQuestionnaireOrigin(null);
     
-    if (modalStates.suppressPersonalCompletionPopup) {
+    // If opened from chat, go directly back to chat without popup
+    if (modalStates.questionnaireOrigin === 'chat') {
+      modalStates.setSuppressPersonalCompletionPopup(true);
+      modalStates.setActiveTab("insights");
+      // Focus chat input after a brief delay
+      setTimeout(() => {
+        const chatInput = document.querySelector('textarea[placeholder*="Message Kai"]') as HTMLTextAreaElement;
+        if (chatInput) {
+          chatInput.focus();
+        }
+      }, 100);
+    } else if (modalStates.suppressPersonalCompletionPopup) {
       // User has completed profile before, go directly to coach
       modalStates.setActiveTab("insights");
     } else {
-      // First time completion, show modal and mark as seen
+      // First time completion from header, show modal and mark as seen
       modalStates.setSuppressPersonalCompletionPopup(true);
       modalStates.setShowPersonalCompletionOptions(true);
     }
@@ -122,6 +138,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handleQuestionnaireClose = () => {
     console.log('Closing questionnaire modal');
     modalStates.setShowQuestionnaireModal(false);
+    modalStates.setQuestionnaireOrigin(null);
   };
 
   const handlePartnerQuestionnaireClose = () => {
