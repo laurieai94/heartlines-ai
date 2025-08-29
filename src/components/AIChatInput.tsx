@@ -59,10 +59,10 @@ const AIChatInput = ({
 
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
-    if (textareaRef.current && !loading && !disabled) {
+    if (textareaRef.current && !loading && !disabled && !readOnly) {
       textareaRef.current.focus();
     }
-  }, [loading, disabled]);
+  }, [loading, disabled, readOnly]);
 
   return (
     <div className="flex gap-3 items-end">
@@ -75,9 +75,9 @@ const AIChatInput = ({
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
-          disabled={loading || disabled}
+          disabled={readOnly ? false : (loading || disabled)}
           readOnly={readOnly}
-          className="border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed"
+          className={`border-2 border-coral-200/50 focus:border-coral-300 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm transition-all duration-300 focus:shadow-lg focus:bg-white leading-relaxed ${readOnly ? 'cursor-pointer' : ''}`}
           rows={1}
         />
       </div>

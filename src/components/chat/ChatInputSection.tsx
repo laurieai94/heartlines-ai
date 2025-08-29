@@ -79,7 +79,7 @@ export const ChatInputSection = ({
               <AIChatInput 
                 onSendMessage={handleSend} 
                 loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={!user}
+                disabled={!user && accessLevel !== 'profile-required'}
                 readOnly={accessLevel === 'profile-required' && !!user}
                 placeholder={
                   !user 
