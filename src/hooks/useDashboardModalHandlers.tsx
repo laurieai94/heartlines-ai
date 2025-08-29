@@ -1,7 +1,5 @@
 
 import { useTemporaryProfile } from './useTemporaryProfile';
-import { useProfileCompletion } from './useProfileCompletion';
-import { calculatePartnerProgress } from '@/components/NewPartnerProfile/utils/partnerValidation';
 import { toast } from 'sonner';
 
 interface ModalStates {
@@ -16,7 +14,6 @@ interface ModalStates {
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
-  const { calculatePartnerCompletion } = useProfileCompletion();
 
   const handleGoToProfile = () => {
     console.log('Navigating to profile tab');
@@ -66,18 +63,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     updateTemporaryProfile(newProfiles, newDemographics);
     
     modalStates.setShowQuestionnaireModal(false);
-    
-    // Check if partner profile is complete - if so, redirect straight to coach
-    const partnerCompletionFromStore = calculatePartnerCompletion();
-    const partnerCompletionFromTemp = calculatePartnerProgress(temporaryProfiles.partner[0] || {});
-    const effectivePartnerCompletion = Math.max(partnerCompletionFromStore, partnerCompletionFromTemp);
-    
-    if (effectivePartnerCompletion === 100) {
-      console.log('Partner profile is complete, redirecting to coach');
-      modalStates.setActiveTab("insights");
-    } else {
-      modalStates.setShowPersonalCompletionOptions(true);
-    }
+    modalStates.setShowPersonalCompletionOptions(true);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
@@ -146,29 +132,6 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowPartnerQuestionnaireModal(true);
   };
 
-  // Centralized handler for "Unlock coaching" from personal profile
-  const handlePersonalUnlockCoaching = () => {
-    // Check completion from both stored and temporary profiles
-    const partnerCompletionFromStore = calculatePartnerCompletion();
-    const partnerCompletionFromTemp = calculatePartnerProgress(temporaryProfiles.partner[0] || {});
-    const effectivePartnerCompletion = Math.max(partnerCompletionFromStore, partnerCompletionFromTemp);
-    
-    console.log('Personal unlock coaching - partner completions:', {
-      fromStore: partnerCompletionFromStore,
-      fromTemp: partnerCompletionFromTemp,
-      effective: effectivePartnerCompletion
-    });
-    
-    if (effectivePartnerCompletion === 100) {
-      console.log('Partner profile is complete, redirecting to coach');
-      modalStates.setShowPersonalCompletionOptions(false);
-      modalStates.setActiveTab("insights");
-    } else {
-      console.log('Partner profile incomplete, showing completion options');
-      modalStates.setShowPersonalCompletionOptions(true);
-    }
-  };
-
   const handlePersonalStartChatting = () => {
     console.log('Starting chat, navigating to coach');
     modalStates.setShowPersonalCompletionOptions(false);
@@ -207,7 +170,6 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     handlePersonalCompletionClose,
     handlePartnerCompletionClose,
     handlePersonalAddPartnerProfile,
-    handlePersonalUnlockCoaching,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handlePartnerContinueEditing,

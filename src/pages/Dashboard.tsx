@@ -3,7 +3,7 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
-
+import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -40,7 +40,6 @@ const Dashboard = () => {
     handlePersonalCompletionClose,
     handlePartnerCompletionClose,
     handlePersonalAddPartnerProfile,
-    handlePersonalUnlockCoaching,
     handlePersonalStartChatting,
     handlePartnerStartChatting,
     handlePartnerContinueEditing,
@@ -56,7 +55,8 @@ const Dashboard = () => {
   };
 
   return (
-    <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
+    <AuthGuard>
+      <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
         <div className="h-[100dvh] overflow-hidden">
           {/* Main Dashboard Content - This gets blurred when modals are open */}
           <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
@@ -101,7 +101,7 @@ const Dashboard = () => {
             onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
             showPersonalCompletionOptions={showPersonalCompletionOptions}
             onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
-            onPersonalStartChatting={handlePersonalUnlockCoaching}
+            onPersonalStartChatting={handlePersonalStartChatting}
             onPersonalCompletionClose={handlePersonalCompletionClose}
             showPartnerCompletionOptions={showPartnerCompletionOptions}
             onPartnerStartChatting={handlePartnerStartChatting}
@@ -111,6 +111,7 @@ const Dashboard = () => {
           />
         </div>
       </NavigationProvider>
+    </AuthGuard>
   );
 };
 

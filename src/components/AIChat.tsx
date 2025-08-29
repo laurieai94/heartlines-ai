@@ -84,14 +84,6 @@ const AIChat = ({
     }
   }, [canInteract]);
 
-  // For preview users (unauthenticated), allow them to see conversation starters
-  const { accessLevel } = useProgressiveAccess();
-  useEffect(() => {
-    if (accessLevel === 'preview') {
-      setIsHistoryLoaded(true);
-    }
-  }, [accessLevel]);
-
 useChatEffects({
   chatHistory,
   setChatHistory,

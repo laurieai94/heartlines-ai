@@ -33,12 +33,8 @@ const ChatContainer = ({
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-  const [messageWindowSize, setMessageWindowSize] = useState(200);
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
-  const lastIsNearBottomRef = useRef(true);
-  const lastShowScrollBtnRef = useRef(false);
-  const scrollHandleRef = useRef<number>();
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -54,28 +50,12 @@ const ChatContainer = ({
   }, []);
 
   const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
-    if (scrollHandleRef.current) {
-      cancelAnimationFrame(scrollHandleRef.current);
-    }
-    
-    scrollHandleRef.current = requestAnimationFrame(() => {
-      const target = event.currentTarget;
-      const threshold = 100;
-      const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-      const isNear = distanceToBottom < threshold;
-      const shouldShowBtn = !isNear && chatHistory.length > 0;
-      
-      // Only update state if values actually changed
-      if (lastIsNearBottomRef.current !== isNear) {
-        setIsNearBottom(isNear);
-        lastIsNearBottomRef.current = isNear;
-      }
-      
-      if (lastShowScrollBtnRef.current !== shouldShowBtn) {
-        setShowScrollToBottom(shouldShowBtn);
-        lastShowScrollBtnRef.current = shouldShowBtn;
-      }
-    });
+    const target = event.currentTarget;
+    const threshold = 100;
+    const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+    const isNear = distanceToBottom < threshold;
+    setIsNearBottom(isNear);
+    setShowScrollToBottom(!isNear && chatHistory.length > 0);
   }, [chatHistory.length]);
 
   // Smart auto-scroll: only when near bottom and something actually changed
@@ -128,72 +108,49 @@ const ChatContainer = ({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
-
-  // Calculate visible messages for windowing
-  const displayedMessages = chatHistory.length > messageWindowSize 
-    ? chatHistory.slice(-messageWindowSize)
-    : chatHistory;
-
-  const hasHiddenMessages = chatHistory.length > messageWindowSize;
-
-  const loadMoreMessages = () => {
-    setMessageWindowSize(prev => Math.min(prev + 200, chatHistory.length));
-  };
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className="px-2 pt-2 pb-0">
-          <div className="space-y-3 px-2 sm:px-4 lg:px-6">
-            
-            {/* Load More Messages Button */}
-            {hasHiddenMessages && (
-              <div className="flex justify-center py-2">
-                <Button 
-                  onClick={loadMoreMessages}
-                  variant="outline"
-                  size="sm"
-                  className="bg-white/5 border-white/20 text-white/70 hover:bg-white/10 hover:text-white"
-                >
-                  Load older messages ({chatHistory.length - messageWindowSize} hidden)
-                </Button>
-              </div>
-            )}
+        <div className="px-4 pt-3 pb-2">
+          <div className="space-y-3 max-w-3xl mx-auto">
             
             {/* Chat Messages */}
-            {displayedMessages.map((message) => (
+            {chatHistory.map((message) => (
               <div key={message.id}>
                 <AIChatMessage message={message} userName={userName} />
               </div>
             ))}
             
-            {/* Typing indicator - conditional without fixed height */}
-            {loading && (
-              <div className="flex gap-3 items-end">
-                <div className="relative flex-shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Bot className="w-6 h-6" />
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                      animationDelay: '0.1s'
-                    }}></div>
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                      animationDelay: '0.2s'
-                    }}></div>
+            {/* Fixed space for typing indicator to prevent layout shifts */}
+            <div className="min-h-[72px] flex justify-start">
+              {loading && (
+                <div className="flex gap-3 items-end">
+                  <div className="relative flex-shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                        <Bot className="w-6 h-6" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
+                    <div className="flex gap-1.5">
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                        animationDelay: '0.1s'
+                      }}></div>
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                        animationDelay: '0.2s'
+                      }}></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
             
             <div ref={messagesEndRef} className="h-1" />
           </div>

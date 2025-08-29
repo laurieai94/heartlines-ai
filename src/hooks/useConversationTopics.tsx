@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface ConversationTopic {
@@ -12,7 +12,6 @@ export interface ConversationTopic {
 export const useConversationTopics = () => {
   const [topics, setTopics] = useState<ConversationTopic[]>([]);
   const [loading, setLoading] = useState(true);
-  const debounceTimeoutRef = useRef<NodeJS.Timeout>();
 
   const fetchTopics = async () => {
     try {
@@ -33,15 +32,6 @@ export const useConversationTopics = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const debouncedFetchTopics = () => {
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-    }
-    debounceTimeoutRef.current = setTimeout(() => {
-      fetchTopics();
-    }, 1500);
   };
 
   const addOrUpdateTopic = async (topicText: string) => {
@@ -81,57 +71,10 @@ export const useConversationTopics = () => {
         if (error) throw error;
       }
 
-      // Debounced refresh to avoid multiple calls
-      debouncedFetchTopics();
+      // Refresh topics
+      fetchTopics();
     } catch (error) {
       console.error('Error adding/updating topic:', error);
-    }
-  };
-
-  const addOrUpdateTopicsBatch = async (topicTexts: string[]) => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user || !topicTexts.length) return;
-
-      // Dedupe topics
-      const uniqueTopics = [...new Set(topicTexts)];
-      
-      // First, get existing topics in a single query
-      const { data: existingTopics } = await supabase
-        .from('conversation_topics')
-        .select('*')
-        .eq('user_id', user.id)
-        .in('topic', uniqueTopics);
-
-      const existingTopicsMap = new Map(
-        (existingTopics || []).map(t => [t.topic, t])
-      );
-
-      // Build upsert payload
-      const upsertData = uniqueTopics.map(topicText => {
-        const existing = existingTopicsMap.get(topicText);
-        return {
-          user_id: user.id,
-          topic: topicText,
-          frequency: existing ? existing.frequency + 1 : 1,
-          mentioned_at: new Date().toISOString()
-        };
-      });
-
-      // Single upsert operation
-      const { error } = await supabase
-        .from('conversation_topics')
-        .upsert(upsertData, { 
-          onConflict: 'user_id,topic',
-          ignoreDuplicates: false 
-        });
-
-      if (error) throw error;
-
-      // Debounced refresh
-      debouncedFetchTopics();
-    } catch (error) {
-      console.error('Error batch adding/updating topics:', error);
     }
   };
 
@@ -191,7 +134,6 @@ export const useConversationTopics = () => {
     topics,
     loading,
     addOrUpdateTopic,
-    addOrUpdateTopicsBatch,
     extractTopicsFromMessage,
     refetchTopics: fetchTopics
   };

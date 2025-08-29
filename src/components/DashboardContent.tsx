@@ -72,7 +72,7 @@ const DashboardContent = ({
         );
       case "insights":
         return (
-          <div className="flex-1 min-h-0 flex flex-col w-full max-w-none px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
               <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" showWordmark={false} />}>
                 <AIInsights 
@@ -107,7 +107,7 @@ const DashboardContent = ({
   return (
     <div className="flex-1 min-h-0 max-h-full overflow-hidden">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
-        <div className="mt-0 h-full flex flex-col overflow-hidden p-0">
+        <div className="mt-0 h-full overflow-auto p-0">
           {renderActiveTabContent()}
         </div>
       </Tabs>

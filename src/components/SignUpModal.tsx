@@ -81,9 +81,9 @@ const SignUpModal = ({
           setShowVerificationState(true);
           toast.success("Check your email to verify your account!");
         } else {
-          // Transfer temporary profile data and redirect to coach for sign-ins
+          // Transfer temporary profile data and close for sign-ins
           await transferToUserAccount();
-          window.location.href = '/coach';
+          onClose();
         }
       }
     } catch (error: any) {

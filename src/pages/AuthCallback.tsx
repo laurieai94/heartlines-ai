@@ -28,8 +28,8 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Redirect to coach page with a clean URL
-        window.location.replace('/coach');
+        // Redirect to dashboard with a clean URL
+        window.location.replace('/');
       } catch (error) {
         console.error('Callback processing error:', error);
         window.location.replace('/');

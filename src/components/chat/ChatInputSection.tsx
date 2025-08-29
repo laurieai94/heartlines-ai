@@ -61,48 +61,66 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
-  // Handle input focus for authentication check
-  const handleInputFocus = () => {
-    if (!user) {
-      openAuthModalFromChat();
-    } else if (accessLevel === 'profile-required') {
-      goToProfile();
-    }
-  };
-
-  // Determine loading state - don't disable for guests
-  const effectiveLoading = user ? (loading || !isConfigured || !isHistoryLoaded) : false;
-  
-  // Determine placeholder text
-  const getPlaceholder = () => {
-    if (!user) return "Sign up to chat with Kai…";
-    if (accessLevel === 'profile-required') return "Complete your profile to chat with Kai…";
-    return "Message Kai…";
-  };
-
   return (
-    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-0">
-      <div className="px-2 py-2">
-        {/* Conversation Starters - show for guests or when no chat history and configured */}
-        {chatHistory.length === 0 && (!user || (isConfigured && isHistoryLoaded)) && (
-          <div className="mb-2 px-2 sm:px-4 lg:px-6">
+    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-safe">
+      <div className="px-4 py-3">
+        {/* Conversation Starters - only show when no chat history */}
+        {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
+          <div className="mb-3 max-w-4xl mx-auto">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <div className="px-2 sm:px-4 lg:px-6">
-          <AIChatInput 
-            onSendMessage={handleSend} 
-            loading={effectiveLoading} 
-            disabled={false}
-            placeholder={getPlaceholder()}
-            inputRef={inputRef}
-            onInputFocus={handleInputFocus}
-            userName={userName} 
-            partnerName={partnerName}
-            chatHistory={chatHistory}
-            autoFocus={!!user}
-          />
+        <div className="max-w-3xl mx-auto">
+          {accessLevel === 'profile-required' && user ? (
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2 items-end">
+                <Textarea
+                  disabled
+                  placeholder="Complete your profile to chat with Kai…"
+                  className="flex-1 min-h-[50px] max-h-[200px] resize-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 focus:border-pink-300/50 focus:ring-pink-300/20"
+                />
+                <Button 
+                  onClick={goToProfile}
+                  variant="outline"
+                  className="px-4 py-3 h-auto bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:border-white/30"
+                >
+                  Complete Profile
+                </Button>
+              </div>
+              {missingFieldsForChat && missingFieldsForChat.length > 0 && (
+                <p className="text-xs text-white/70">
+                  Needed to unlock chat: {missingFieldsForChat.join(', ')}
+                </p>
+              )}
+            </div>
+          ) : user ? (
+            <ProgressiveAccessWrapper action="chat">
+              <AIChatInput 
+                onSendMessage={handleSend} 
+                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+                disabled={!user}
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+                inputRef={inputRef}
+                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
+                userName={userName} 
+                partnerName={partnerName}
+                chatHistory={chatHistory}
+              />
+            </ProgressiveAccessWrapper>
+          ) : (
+              <AIChatInput 
+                onSendMessage={handleSend} 
+                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
+                disabled={!user}
+                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+                inputRef={inputRef}
+                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
+                userName={userName} 
+                partnerName={partnerName}
+                chatHistory={chatHistory}
+              />
+          )}
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">

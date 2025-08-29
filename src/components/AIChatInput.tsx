@@ -13,7 +13,6 @@ interface AIChatInputProps {
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
-  autoFocus?: boolean;
 }
 
 const AIChatInput = ({ 
@@ -25,8 +24,7 @@ const AIChatInput = ({
   onInputFocus,
   userName, 
   partnerName, 
-  chatHistory = [],
-  autoFocus = true
+  chatHistory = []
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const internalRef = useRef<HTMLTextAreaElement>(null);
@@ -59,10 +57,10 @@ const AIChatInput = ({
 
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
-    if (textareaRef.current && !loading && !disabled && autoFocus) {
+    if (textareaRef.current && !loading && !disabled) {
       textareaRef.current.focus();
     }
-  }, [loading, disabled, autoFocus]);
+  }, [loading, disabled]);
 
   return (
     <div className="flex gap-3 items-end">

@@ -76,7 +76,7 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
       </div>
 
       {/* Message Bubble */}
-      <div className={`flex flex-col max-w-[90%] ${isUser ? 'items-end' : 'items-start'}`}>
+      <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
             px-4 py-3 rounded-3xl transition-all duration-300 group-hover:shadow-xl
