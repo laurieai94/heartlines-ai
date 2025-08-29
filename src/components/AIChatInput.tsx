@@ -78,10 +78,10 @@ const AIChatInput = ({
           disabled={readOnly ? false : (loading || disabled)}
           readOnly={readOnly}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
-          className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm transition-all duration-300 leading-relaxed ${
+          className={`rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] transition-all duration-300 leading-relaxed ${
             readOnly 
-              ? 'cursor-pointer border-pink-300/50 brand-gradient-soft text-white placeholder:text-white/85 caret-white hover:brand-gradient-hover focus:ring-4 focus:ring-white/30 hover:shadow-lg hover:shadow-pink-300/25 focus:shadow-lg focus:shadow-white/20' 
-              : 'border-coral-200/50 focus:border-coral-300 focus:ring-2 focus:ring-coral-200/30 bg-white/70 focus:shadow-lg focus:bg-white'
+              ? 'cursor-pointer brand-glass text-white/95 placeholder:text-white/90 caret-white hover:brand-glass focus:ring-2 focus:ring-white/20 hover:shadow-lg focus:shadow-lg' 
+              : 'border-2 border-coral-200/50 focus:border-coral-300 focus:ring-2 focus:ring-coral-200/30 bg-white/70 backdrop-blur-sm focus:shadow-lg focus:bg-white'
           }`}
           rows={1}
         />
@@ -91,7 +91,7 @@ const AIChatInput = ({
         onClick={sendMessage}
         disabled={!currentMessage.trim() || loading || !!disabled}
         className={`rounded-2xl w-12 h-12 p-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:scale-100 ${
-          readOnly ? 'brand-gradient-soft hover:brand-gradient' : 'brand-gradient hover:brand-gradient-hover'
+          readOnly ? 'brand-glass hover:brand-glass' : 'brand-gradient hover:brand-gradient-hover'
         }`}
       >
         <Send className="w-4 h-4" />
