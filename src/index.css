@@ -93,10 +93,6 @@
     --gradient-brand: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-500)) 100%);
     --gradient-brand-soft: linear-gradient(135deg, rgba(255, 107, 157, 0.7) 0%, hsl(var(--coral-500) / 0.7) 100%);
     --gradient-brand-hover: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-600)) 100%);
-    
-    /* Brand glass for glassmorphism effect */
-    --gradient-brand-tint: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-brand-tint-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
   }
 
   .dark {
@@ -420,18 +416,6 @@
   
   .hover\:brand-gradient-hover:hover {
     background: var(--gradient-brand-hover);
-  }
-  
-  /* Brand glass utilities for glassmorphism */
-  .brand-glass {
-    background: var(--gradient-brand-tint);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .hover\:brand-glass:hover {
-    background: var(--gradient-brand-tint-hover);
-    border-color: rgba(255, 255, 255, 0.3);
   }
 
   /* Hide scrollbars utility for overflow containers */
