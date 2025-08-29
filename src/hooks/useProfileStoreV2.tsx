@@ -112,7 +112,7 @@ const STORAGE_CONFIG = {
 };
 
 const DEBOUNCE_MS = 2000;
-
+const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
@@ -269,12 +269,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return defaultProfile;
   }, [config, defaultProfile, migrateLegacyData, profileType]);
 
-  // Save to localStorage (immediate)
+  // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
     try {
       const toSave = { ...data, lastUpdated: new Date().toISOString() };
       localStorage.setItem(config.storageKey, JSON.stringify(toSave));
-      console.log(`[ProfileV2-${profileType}] Saved to localStorage:`, toSave);
+      setLastSaved(new Date());
+      // Broadcast to other hook instances in this tab
+      window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
+        detail: { profileType, storageKey: config.storageKey, lastUpdated: toSave.lastUpdated }
+      }));
+      console.log(`[ProfileV2-${profileType}] Saved to localStorage & broadcasted:`, toSave);
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] Storage save error:`, error);
     }
@@ -418,6 +423,48 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       clearTimeout(safetyTimeout);
     };
   }, [user, loadFromStorage, loadFromDatabase, saveToStorage, profileType, defaultProfile]);
+
+  // Listen for in-tab and cross-tab profile updates to keep instances in sync
+  useEffect(() => {
+    const applyLatestFromStorage = (raw: string | null) => {
+      try {
+        const json = raw ?? localStorage.getItem(config.storageKey);
+        if (!json) return;
+        const parsed = JSON.parse(json);
+        const currentTs = new Date((profile as any).lastUpdated || 0).getTime();
+        const incomingTs = new Date(parsed.lastUpdated || 0).getTime();
+        if (incomingTs > currentTs) {
+          const merged = { ...defaultProfile, ...parsed, version: '2.0' } as any;
+          setProfile(merged);
+          setLastSaved(new Date());
+          setIsReady(true);
+          console.log(`[ProfileV2-${profileType}] State updated from external change (ts ${incomingTs})`);
+        }
+      } catch (e) {
+        console.warn(`[ProfileV2-${profileType}] Failed to apply external update`, e);
+      }
+    };
+
+    const onCustomEvent = (e: Event) => {
+      const detail = (e as CustomEvent).detail || {};
+      if (detail.profileType !== profileType || detail.storageKey !== config.storageKey) return;
+      applyLatestFromStorage(null);
+    };
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === config.storageKey && e.newValue) {
+        applyLatestFromStorage(e.newValue);
+      }
+    };
+
+    window.addEventListener(IN_TAB_PROFILE_UPDATE_EVENT, onCustomEvent as EventListener);
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      window.removeEventListener(IN_TAB_PROFILE_UPDATE_EVENT, onCustomEvent as EventListener);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, [config.storageKey, defaultProfile, profileType, profile]);
 
   // Update profile data
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {

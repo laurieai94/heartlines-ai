@@ -30,11 +30,6 @@ export const useProgressiveAccess = () => {
 
   // Calculate profile completion percentage using the official validation logic
   const calculateProfileCompletion = () => {
-    // Don't calculate until data is loaded
-    if (!personalStorage.isReady) {
-      return 0;
-    }
-
     const profileData = personalStorage.profileData;
     if (!profileData || Object.keys(profileData).length === 0) {
       return 0;
@@ -46,13 +41,6 @@ export const useProgressiveAccess = () => {
 
   // Compute detailed profile status for chat access - requires 100% completion
   const computeChatReadiness = () => {
-    if (!personalStorage.isReady) return { 
-      isComplete: false, 
-      missingFields: ['Profile loading...'],
-      incompleteSections: [],
-      overallProgress: 0
-    };
-
     const profileData = personalStorage.profileData as ProfileData;
     if (!profileData || Object.keys(profileData).length === 0) {
       return { 
