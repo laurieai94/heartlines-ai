@@ -39,8 +39,12 @@ export const ChatLayout = ({
     <div className="h-full flex flex-col max-h-full">
       <div className="flex-1 min-h-0 max-h-full flex">
         {/* Chat Section - Full Width */}
-        <div className="flex-1 min-h-0 max-h-full flex flex-col">
-          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 overflow-visible">
+        <div className="flex-1 min-h-0 max-h-full flex flex-col relative">
+          {/* Gradient frame and ambient glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-3xl blur-xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-3xl -z-10"></div>
+          
+          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl ring-1 ring-coral-400/10 overflow-visible relative z-10">
             <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             {children}
           </div>

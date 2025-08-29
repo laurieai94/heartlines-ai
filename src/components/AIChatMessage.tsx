@@ -82,7 +82,7 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
             px-4 py-3 rounded-3xl transition-all duration-300 group-hover:shadow-xl
             ${isUser
               ? 'bg-white/5 backdrop-blur-md text-white rounded-br-lg border border-coral-400/30 shadow-md shadow-coral-400/10 ring-1 ring-coral-400/20'
-              : 'bg-white/5 backdrop-blur-md text-white rounded-bl-lg border border-white/15 shadow-lg shadow-black/10 ring-1 ring-white/10'
+              : 'bg-white/8 backdrop-blur-md text-white rounded-bl-lg border border-white/25 shadow-lg shadow-black/15 ring-1 ring-white/15'
             }
           `}
         >
