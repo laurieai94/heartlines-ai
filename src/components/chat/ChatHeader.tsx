@@ -16,7 +16,7 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
-  return <div className="shrink-0 border-b border-white/10 bg-white/5 backdrop-blur-sm">
+  return <div className="sticky top-0 z-40 shrink-0 border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10">
       <div className="p-3 max-w-5xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
