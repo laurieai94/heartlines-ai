@@ -6,9 +6,11 @@ import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import SplashScreen from "@/components/SplashScreen";
 import { performanceMonitor } from "@/utils/performanceMonitor";
 
-// Lazy load heavy components to improve initial render
+// Import AIInsights directly to avoid dynamic loading issues
+import AIInsights from "@/components/AIInsights";
+
+// Lazy load other heavy components to improve initial render
 const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
-const AIInsights = React.lazy(() => import("@/components/AIInsights"));
 const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
 const Company = React.lazy(() => import("@/components/Company"));
 
@@ -74,12 +76,10 @@ const DashboardContent = ({
         return (
           <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
-              <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" showWordmark={false} />}>
-                <AIInsights 
-                  profiles={temporaryProfiles}
-                  demographicsData={temporaryDemographics}
-                />
-              </Suspense>
+              <AIInsights 
+                profiles={temporaryProfiles}
+                demographicsData={temporaryDemographics}
+              />
             </ProgressiveAccessWrapper>
           </div>
         );
