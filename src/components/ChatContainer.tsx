@@ -33,8 +33,12 @@ const ChatContainer = ({
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const [messageWindowSize, setMessageWindowSize] = useState(200);
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
+  const lastIsNearBottomRef = useRef(true);
+  const lastShowScrollBtnRef = useRef(false);
+  const scrollHandleRef = useRef<number>();
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -50,12 +54,28 @@ const ChatContainer = ({
   }, []);
 
   const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
-    const target = event.currentTarget;
-    const threshold = 100;
-    const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-    const isNear = distanceToBottom < threshold;
-    setIsNearBottom(isNear);
-    setShowScrollToBottom(!isNear && chatHistory.length > 0);
+    if (scrollHandleRef.current) {
+      cancelAnimationFrame(scrollHandleRef.current);
+    }
+    
+    scrollHandleRef.current = requestAnimationFrame(() => {
+      const target = event.currentTarget;
+      const threshold = 100;
+      const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+      const isNear = distanceToBottom < threshold;
+      const shouldShowBtn = !isNear && chatHistory.length > 0;
+      
+      // Only update state if values actually changed
+      if (lastIsNearBottomRef.current !== isNear) {
+        setIsNearBottom(isNear);
+        lastIsNearBottomRef.current = isNear;
+      }
+      
+      if (lastShowScrollBtnRef.current !== shouldShowBtn) {
+        setShowScrollToBottom(shouldShowBtn);
+        lastShowScrollBtnRef.current = shouldShowBtn;
+      }
+    });
   }, [chatHistory.length]);
 
   // Smart auto-scroll: only when near bottom and something actually changed
@@ -108,6 +128,17 @@ const ChatContainer = ({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
+
+  // Calculate visible messages for windowing
+  const displayedMessages = chatHistory.length > messageWindowSize 
+    ? chatHistory.slice(-messageWindowSize)
+    : chatHistory;
+
+  const hasHiddenMessages = chatHistory.length > messageWindowSize;
+
+  const loadMoreMessages = () => {
+    setMessageWindowSize(prev => Math.min(prev + 200, chatHistory.length));
+  };
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
@@ -117,8 +148,22 @@ const ChatContainer = ({
         <div className="px-4 pt-3 pb-2">
           <div className="space-y-3 max-w-3xl mx-auto">
             
+            {/* Load More Messages Button */}
+            {hasHiddenMessages && (
+              <div className="flex justify-center py-2">
+                <Button 
+                  onClick={loadMoreMessages}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/5 border-white/20 text-white/70 hover:bg-white/10 hover:text-white"
+                >
+                  Load older messages ({chatHistory.length - messageWindowSize} hidden)
+                </Button>
+              </div>
+            )}
+            
             {/* Chat Messages */}
-            {chatHistory.map((message) => (
+            {displayedMessages.map((message) => (
               <div key={message.id}>
                 <AIChatMessage message={message} userName={userName} />
               </div>
