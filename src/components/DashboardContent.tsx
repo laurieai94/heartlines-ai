@@ -72,7 +72,7 @@ const DashboardContent = ({
         );
       case "insights":
         return (
-          <div className="h-full flex flex-col max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-full flex flex-col w-full max-w-none px-4 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
               <Suspense fallback={<SplashScreen message="AI coach loading" wordmarkSize="sm" showWordmark={false} />}>
                 <AIInsights 
