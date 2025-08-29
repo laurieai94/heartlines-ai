@@ -64,9 +64,9 @@ const CleanQuestionnaireFooter = ({
               disabled={!canComplete}
               className={`${
                 canComplete 
-                  ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02]' 
+                  ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20' 
                   : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
-              } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm`}
+              } backdrop-blur-md border px-6 py-2 rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-2 text-sm motion-reduce:animate-none`}
             >
               <Heart className="w-3.5 h-3.5" />
               <span>Unlock coaching</span>
