@@ -20,7 +20,7 @@ const Index: React.FC = () => {
   }, [showSplash]);
 
   if (showSplash) {
-    return <SplashScreen />;
+    return <SplashScreen titleText="heartlines loading..." />;
   }
 
   return (

@@ -5,13 +5,15 @@ interface SplashScreenProps {
   showWordmark?: boolean;
   wordmarkSize?: "sm" | "md" | "lg" | "xl";
   messageSize?: "sm" | "md" | "lg";
+  titleText?: string;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ 
   message, 
   showWordmark = true, 
   wordmarkSize = "xl", 
-  messageSize = "lg" 
+  messageSize = "lg",
+  titleText = "heartlines"
 }) => {
   const wordmarkSizeClasses = {
     sm: '30px',
@@ -42,7 +44,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
                 animationFillMode: 'forwards' 
               }}
             >
-              heartlines
+              {titleText}
             </h1>
           )}
           {message && (
