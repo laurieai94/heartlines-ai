@@ -138,17 +138,17 @@ const AccountSubscription = () => {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       {/* Current Subscription Status */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-3">
+        <CardHeader className="p-2.5">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-white flex items-center gap-2 text-base">
-                <Crown className="h-4 w-4" />
+              <CardTitle className="text-white flex items-center gap-2 text-sm">
+                <Crown className="h-3.5 w-3.5" />
                 Subscription Status
               </CardTitle>
-              <CardDescription className="text-white/60 text-sm">
+              <CardDescription className="text-white/60 text-xs">
                 Current plan and usage information
               </CardDescription>
             </div>
@@ -157,23 +157,23 @@ const AccountSubscription = () => {
               size="sm" 
               onClick={refresh}
               disabled={loading}
-              className="text-white/70 hover:text-white hover:bg-white/10"
+              className="text-white/70 hover:text-white hover:bg-white/10 h-7 w-7 p-0"
             >
-              <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="p-3 pt-0 space-y-3">
-          <div className="grid grid-cols-2 gap-4">
+        <CardContent className="p-2.5 pt-0 space-y-2.5">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <p className="text-sm text-white/60">Current Plan</p>
-              <p className="text-lg font-semibold text-white">
+              <p className="text-xs text-white/60">Current Plan</p>
+              <p className="text-sm font-semibold text-white">
                 {subscription_tier ? subscription_tier.charAt(0).toUpperCase() + subscription_tier.slice(1) : 'Free'}
               </p>
             </div>
             <div>
-              <p className="text-sm text-white/60">Messages Used</p>
-              <p className="text-lg font-semibold text-white">
+              <p className="text-xs text-white/60">Messages Used</p>
+              <p className="text-sm font-semibold text-white">
                 {messages_used} / {message_limit}
               </p>
             </div>
@@ -181,8 +181,8 @@ const AccountSubscription = () => {
           
           {subscribed && subscription_end && (
             <div>
-              <p className="text-sm text-white/60">Next Billing Date</p>
-              <p className="text-white">{new Date(subscription_end).toLocaleDateString()}</p>
+              <p className="text-xs text-white/60">Next Billing Date</p>
+              <p className="text-white text-xs">{new Date(subscription_end).toLocaleDateString()}</p>
             </div>
           )}
 
@@ -190,9 +190,9 @@ const AccountSubscription = () => {
             <Button 
               onClick={handleManageSubscription}
               disabled={managing}
-              className="questionnaire-button-secondary"
+              className="questionnaire-button-secondary text-xs py-1.5"
             >
-              <ExternalLink className="h-4 w-4 mr-2" />
+              <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
               {managing ? 'Opening...' : 'Manage Subscription'}
             </Button>
           )}
@@ -201,8 +201,8 @@ const AccountSubscription = () => {
 
       {/* Available Plans */}
       <div>
-        <h3 className="text-base font-semibold text-white mb-2">Available Plans</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <h3 className="text-sm font-medium text-white mb-1.5 px-1">Available Plans</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
           {plans.map((plan) => (
             <Card 
               key={plan.name}
@@ -213,29 +213,29 @@ const AccountSubscription = () => {
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-pink-500 to-coral-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-pink-500 to-coral-500 text-white px-2.5 py-[3px] rounded-full text-[10px] font-medium">
                     Most Popular
                   </span>
                 </div>
               )}
               
-              <CardHeader className="text-center p-3">
-                <CardTitle className="text-white text-base">{plan.name}</CardTitle>
-                <div className="text-xl font-bold text-white">
+              <CardHeader className="text-center p-2.5">
+                <CardTitle className="text-white text-sm">{plan.name}</CardTitle>
+                <div className="text-lg font-bold text-white">
                   {plan.price}
-                  <span className="text-sm font-normal text-white/60">/month</span>
+                  <span className="text-[11px] font-normal text-white/60">/month</span>
                 </div>
-                <CardDescription className="text-white/60 text-sm">
+                <CardDescription className="text-white/60 text-xs">
                   {plan.messages} messages per month
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="p-3 pt-0 space-y-2">
-                <ul className="space-y-1.5">
+              <CardContent className="p-2.5 pt-0 space-y-1.5">
+                <ul className="space-y-1">
                   {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm text-white/80">
-                      <Check className="h-4 w-4 text-green-400" />
+                    <li key={index} className="flex items-center gap-1.5 text-xs text-white/80">
+                      <Check className="h-3 w-3 text-green-400" />
                       {feature}
                     </li>
                   ))}
@@ -244,25 +244,25 @@ const AccountSubscription = () => {
                 {plan.current ? (
                   <Button 
                     disabled 
-                    className="w-full bg-green-500/20 text-green-400 border border-green-400/30"
+                    className="w-full bg-green-500/20 text-green-400 border border-green-400/30 mt-3 text-xs py-1.5"
                   >
-                    <Check className="h-4 w-4 mr-2" />
+                    <Check className="h-3 w-3 mr-1.5" />
                     Current Plan
                   </Button>
                 ) : plan.tier ? (
                   <Button 
                     onClick={() => handleUpgrade(plan.tier as 'grow' | 'thrive')}
                     disabled={upgrading === plan.tier}
-                    className="w-full questionnaire-button-primary"
+                    className="w-full questionnaire-button-primary mt-3 text-xs py-1.5"
                   >
-                    <Zap className="h-4 w-4 mr-2" />
+                    <Zap className="h-3 w-3 mr-1.5" />
                     {upgrading === plan.tier ? 'Processing...' : `Upgrade to ${plan.name}`}
                   </Button>
                 ) : (
                   <Button 
                     disabled 
                     variant="outline"
-                    className="w-full bg-white/5 border-white/20 text-white/60"
+                    className="w-full bg-white/5 border-white/20 text-white/60 mt-3 text-xs py-1.5"
                   >
                     Current Plan
                   </Button>
@@ -276,12 +276,12 @@ const AccountSubscription = () => {
       {/* Usage Warning */}
       {usagePercentage > 80 && !subscribed && (
         <Card className="bg-orange-500/20 border border-orange-400/30">
-          <CardContent className="pt-6">
+          <CardContent className="pt-5">
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 bg-orange-400 rounded-full animate-pulse" />
               <div>
-                <h4 className="font-medium text-orange-200">Usage Alert</h4>
-                <p className="text-sm text-orange-300/80">
+                <h4 className="font-medium text-orange-200 text-xs">Usage Alert</h4>
+                <p className="text-xs text-orange-300/80">
                   You've used {Math.round(usagePercentage)}% of your monthly messages. 
                   Upgrade to continue chatting without interruption.
                 </p>

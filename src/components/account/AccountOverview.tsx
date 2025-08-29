@@ -42,51 +42,51 @@ const AccountOverview = () => {
   const isHighUsage = usagePercentage > 80;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       {/* Welcome Section */}
       <div className="text-center">
-        <h2 className="text-lg font-bold text-white mb-1">
+        <h2 className="text-base font-semibold text-white mb-1">
           Welcome back, {profile?.name || user?.email?.split('@')[0] || 'there'}!
         </h2>
-        <p className="text-white/70 text-sm">
+        <p className="text-white/70 text-xs">
           Here's your account overview and usage summary
         </p>
       </div>
 
       {/* Current Plan Card */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-3">
+        <CardHeader className="p-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Crown className={`h-4 w-4 ${getPlanColor(subscription_tier)}`} />
-              <CardTitle className="text-white text-base">Current Plan</CardTitle>
+              <Crown className={`h-3.5 w-3.5 ${getPlanColor(subscription_tier)}`} />
+              <CardTitle className="text-white text-sm">Current Plan</CardTitle>
             </div>
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={refresh}
               disabled={loading}
-              className="text-white/70 hover:text-white hover:bg-white/10"
+              className="text-white/70 hover:text-white hover:bg-white/10 h-7 w-7 p-0"
             >
-              <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             </Button>
           </div>
-          <CardDescription className="text-white/60">
+          <CardDescription className="text-white/60 text-xs">
             {subscribed ? `Active until ${subscription_end ? new Date(subscription_end).toLocaleDateString() : 'N/A'}` : 'Free plan with limited features'}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-3 pt-0">
-          <div className="flex items-center justify-between mb-2">
-            <span className={`text-sm font-semibold ${getPlanColor(subscription_tier)}`}>
+        <CardContent className="p-2.5 pt-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className={`text-xs font-semibold ${getPlanColor(subscription_tier)}`}>
               {getPlanName(subscription_tier)}
             </span>
             {!subscribed && (
               <Button 
                 size="sm"
                 onClick={() => upgrade('grow')}
-                className="questionnaire-button-primary"
+                className="questionnaire-button-primary text-xs py-1 px-2"
               >
-                <Zap className="h-4 w-4 mr-1" />
+                <Zap className="h-3 w-3 mr-1" />
                 Upgrade
               </Button>
             )}
@@ -96,26 +96,26 @@ const AccountOverview = () => {
 
       {/* Usage Statistics */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-3">
-          <CardTitle className="text-white flex items-center gap-2 text-base">
-            <MessageCircle className="h-4 w-4" />
+        <CardHeader className="p-2.5">
+          <CardTitle className="text-white flex items-center gap-2 text-sm">
+            <MessageCircle className="h-3.5 w-3.5" />
             Message Usage
           </CardTitle>
-          <CardDescription className="text-white/60 text-sm">
+          <CardDescription className="text-white/60 text-xs">
             Your monthly message usage and limits
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-3 pt-0 space-y-3">
-          <div className="flex justify-between text-sm">
+        <CardContent className="p-2.5 pt-0 space-y-2.5">
+          <div className="flex justify-between text-xs">
             <span className="text-white/80">Messages used this month</span>
             <span className={`font-medium ${isHighUsage ? 'text-orange-400' : 'text-white'}`}>
               {messages_used} / {message_limit}
             </span>
           </div>
-          <Progress value={usagePercentage} className="h-2" />
+          <Progress value={usagePercentage} className="h-1.5" />
           {isHighUsage && (
-            <div className="p-3 rounded-lg bg-orange-500/20 border border-orange-400/30">
-              <p className="text-orange-200 text-sm">
+            <div className="p-2.5 rounded-lg bg-orange-500/20 border border-orange-400/30">
+              <p className="text-orange-200 text-xs">
                 ⚠️ You're approaching your monthly limit. Consider upgrading for more messages.
               </p>
             </div>
@@ -125,28 +125,28 @@ const AccountOverview = () => {
 
       {/* Quick Actions */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-3">
-          <CardTitle className="text-white text-base">Quick Actions</CardTitle>
-          <CardDescription className="text-white/60 text-sm">
+        <CardHeader className="p-2.5">
+          <CardTitle className="text-white text-sm">Quick Actions</CardTitle>
+          <CardDescription className="text-white/60 text-xs">
             Common account management tasks
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-3 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <CardContent className="p-2.5 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <Button 
             variant="outline"
-            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2.5"
+            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2 text-xs"
             onClick={() => navigate('/profile')}
           >
-                <User className="h-4 w-4 mr-2" />
+                <User className="h-3.5 w-3.5 mr-1.5" />
             Edit Profile
           </Button>
           <Button 
             variant="outline"
-            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2.5"
+            className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2 text-xs"
             onClick={refresh}
             disabled={loading}
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh Data
           </Button>
         </CardContent>
