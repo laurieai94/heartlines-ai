@@ -82,12 +82,12 @@ export const ChatInputSection = ({
       <div className="px-4 py-3">
         {/* Conversation Starters - show for guests or when no chat history and configured */}
         {chatHistory.length === 0 && (!user || (isConfigured && isHistoryLoaded)) && (
-          <div className="mb-3 max-w-5xl mx-auto">
+          <div className="mb-3 max-w-7xl mx-auto">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {accessLevel === 'profile-required' && user ? (
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 items-end">

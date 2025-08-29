@@ -146,7 +146,7 @@ const ChatContainer = ({
         onScroll={handleScroll}
       >
         <div className="px-4 pt-3 pb-2">
-          <div className="space-y-3 max-w-5xl mx-auto">
+          <div className="space-y-3 max-w-7xl mx-auto">
             
             {/* Load More Messages Button */}
             {hasHiddenMessages && (
