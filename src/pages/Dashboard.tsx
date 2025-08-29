@@ -13,7 +13,6 @@ const Dashboard = () => {
   const {
     activeTab,
     setActiveTab,
-    setActiveTabGuard,
     showQuestionnaireModal,
     showPartnerQuestionnaireModal,
     showPersonalCompletionOptions,
@@ -70,14 +69,14 @@ const Dashboard = () => {
               compact={false}
               user={user}
               activeTab={activeTab}
-              onValueChange={setActiveTabGuard}
+              onValueChange={setActiveTab}
               onSignInClick={handleSignInClick}
               onOpenProfile={handleOpenProfile}
             />
 
             <DashboardContent
               activeTab={activeTab}
-              onValueChange={setActiveTabGuard}
+              onValueChange={setActiveTab}
               temporaryProfiles={temporaryProfiles}
               temporaryDemographics={temporaryDemographics}
               onProfileUpdate={handleProfileUpdate}

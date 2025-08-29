@@ -38,24 +38,7 @@ export const useDashboardModals = () => {
     setShowSignInModal(false);
   };
 
-  // Guard for coach navigation - require sign-in for unauthenticated users
-  const setActiveTabGuard = (tab: string) => {
-    if (tab === 'coach' && accessLevel === 'preview') {
-      // Prevent navigation and open sign-in modal
-      openSignInModal();
-      return;
-    }
-    modalState.setActiveTab(tab);
-  };
-
-  // Effect to catch direct URL loads to /coach for unauthenticated users
-  useEffect(() => {
-    if (modalState.activeTab === 'coach' && accessLevel === 'preview') {
-      // Redirect to home and open sign-in modal
-      modalState.setActiveTab('home');
-      openSignInModal();
-    }
-  }, [modalState.activeTab, accessLevel, modalState.setActiveTab]);
+  // No guard needed - let users see coach interface, auth prompts only on interaction
 
   // Auto-hide personal completion popup when both profiles are complete
   useEffect(() => {
@@ -91,7 +74,7 @@ export const useDashboardModals = () => {
     accessLevel,
     profileCompletion,
     isAnyModalOpen,
-    setActiveTabGuard,
+    
     // Handler functions and data
     ...modalHandlers
   };
