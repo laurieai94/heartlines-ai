@@ -76,7 +76,7 @@ export const ChatInputSection = ({
   };
 
   return (
-    <div className="flex-shrink-0 border-t border-white/25 bg-black/30 backdrop-blur-xl shadow-xl shadow-black/30 ring-1 ring-white/10 pb-safe">
+    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-xl shadow-lg shadow-black/20 pb-safe">
       <div className="px-4 py-3">
         {/* Conversation Starters - only show when no chat history */}
         {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
