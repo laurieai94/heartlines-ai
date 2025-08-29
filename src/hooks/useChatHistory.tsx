@@ -6,6 +6,8 @@ import { PrivacyManager } from "@/utils/encryption";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
 import { logger } from "@/utils/logger";
 
+const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
 export interface ChatConversation {
   id: string;
   user_id: string;
@@ -280,6 +282,16 @@ export const useChatHistory = () => {
     // Then check for most recent conversation
     if (conversations.length > 0) {
       const mostRecent = conversations[0];
+      const conversationAge = Date.now() - new Date(mostRecent.updated_at).getTime();
+      
+      // If the most recent conversation is older than 24 hours, start fresh
+      if (conversationAge > TWENTY_FOUR_HOURS) {
+        logger.info('Most recent conversation is older than 24 hours, starting fresh chat');
+        setCurrentConversationId(null);
+        sessionStorage.removeItem('current_chat');
+        return [];
+      }
+      
       setCurrentConversationId(mostRecent.id);
       return convertToMessages(mostRecent.messages);
     }
