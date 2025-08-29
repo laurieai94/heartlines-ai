@@ -16,8 +16,8 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const { temporaryProfiles, temporaryDemographics, updateTemporaryProfile } = useTemporaryProfile();
 
   const handleGoToProfile = () => {
-    console.log('Navigating to profile tab');
-    modalStates.setActiveTab("profile");
+    console.log('Opening profile questionnaire modal');
+    modalStates.setShowQuestionnaireModal(true);
   };
 
   const handleGoToCoach = () => {

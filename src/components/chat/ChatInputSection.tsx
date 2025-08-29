@@ -85,7 +85,7 @@ export const ChatInputSection = ({
                   !user 
                     ? "Sign in to start chatting…" 
                     : accessLevel === 'profile-required' 
-                      ? "Complete your profile to chat with Kai…"
+                      ? "Click here to complete your profile and start chatting with Kai…"
                       : "Message Kai…"
                 }
                 inputRef={inputRef}
