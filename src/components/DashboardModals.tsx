@@ -2,6 +2,7 @@
 import React, { Suspense, Component, ReactNode } from "react";
 import SignUpModal from "@/components/SignUpModal";
 import SplashScreen from "@/components/SplashScreen";
+import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
 
 // Simple error boundary for chunk loading failures
 class ChunkErrorBoundary extends Component<
@@ -42,7 +43,6 @@ class ChunkErrorBoundary extends Component<
 }
 
 // Lazy load heavy modal components
-const NewPersonalQuestionnaire = React.lazy(() => import("@/components/NewPersonalQuestionnaire"));
 const NewPartnerProfile = React.lazy(() => import("@/components/NewPartnerProfile"));
 const ProfileCompletionOptions = React.lazy(() => import("@/components/ProfileCompletionOptions"));
 
@@ -127,22 +127,11 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <ChunkErrorBoundary onRetry={() => import('@/components/NewPersonalQuestionnaire')}>
-              <Suspense fallback={
-                <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="questionnaire-text-muted">Loading your profile...</p>
-                  </div>
-                </div>
-              }>
-                <NewPersonalQuestionnaire 
-                  onComplete={onQuestionnaireComplete} 
-                  onClose={onQuestionnaireClose} 
-                  isModal={true} 
-                />
-              </Suspense>
-            </ChunkErrorBoundary>
+            <NewPersonalQuestionnaire 
+              onComplete={onQuestionnaireComplete} 
+              onClose={onQuestionnaireClose} 
+              isModal={true} 
+            />
           </div>
         </div>
       )}
