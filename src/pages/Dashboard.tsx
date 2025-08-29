@@ -6,6 +6,7 @@ import DashboardModals from "@/components/DashboardModals";
 import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -45,6 +46,13 @@ const Dashboard = () => {
     handlePartnerContinueEditing,
     handleProfileUpdate
   } = useDashboardModals();
+
+  // Preload questionnaire chunk for gated users
+  useEffect(() => {
+    if (accessLevel === 'profile-required' && user) {
+      import('@/components/NewPersonalQuestionnaire').catch(() => {});
+    }
+  }, [accessLevel, user]);
 
   const handleSignInClick = () => {
     openSignInModal();

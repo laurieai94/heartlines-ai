@@ -1,7 +1,45 @@
 
-import React, { Suspense } from "react";
+import React, { Suspense, Component, ReactNode } from "react";
 import SignUpModal from "@/components/SignUpModal";
 import SplashScreen from "@/components/SplashScreen";
+
+// Simple error boundary for chunk loading failures
+class ChunkErrorBoundary extends Component<
+  { children: ReactNode; onRetry: () => void }, 
+  { hasError: boolean }
+> {
+  constructor(props: { children: ReactNode; onRetry: () => void }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
+          <div className="text-center">
+            <p className="questionnaire-text-muted mb-4">Couldn't load profile. Please try again.</p>
+            <button 
+              onClick={() => {
+                this.setState({ hasError: false });
+                this.props.onRetry();
+              }}
+              className="px-4 py-2 bg-coral-500 text-white rounded-lg hover:bg-coral-600 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 // Lazy load heavy modal components
 const NewPersonalQuestionnaire = React.lazy(() => import("@/components/NewPersonalQuestionnaire"));
@@ -89,20 +127,22 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={
-              <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="questionnaire-text-muted">Loading your profile...</p>
+            <ChunkErrorBoundary onRetry={() => import('@/components/NewPersonalQuestionnaire')}>
+              <Suspense fallback={
+                <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="questionnaire-text-muted">Loading your profile...</p>
+                  </div>
                 </div>
-              </div>
-            }>
-              <NewPersonalQuestionnaire 
-                onComplete={onQuestionnaireComplete} 
-                onClose={onQuestionnaireClose} 
-                isModal={true} 
-              />
-            </Suspense>
+              }>
+                <NewPersonalQuestionnaire 
+                  onComplete={onQuestionnaireComplete} 
+                  onClose={onQuestionnaireClose} 
+                  isModal={true} 
+                />
+              </Suspense>
+            </ChunkErrorBoundary>
           </div>
         </div>
       )}

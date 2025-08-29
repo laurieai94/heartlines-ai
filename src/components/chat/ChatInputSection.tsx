@@ -51,8 +51,8 @@ export const ChatInputSection = ({
   // Prefetch profile questionnaire when profile is required for better UX
   useEffect(() => {
     if (accessLevel === 'profile-required' && user) {
-      // Trigger component prefetch by importing it
-      NewPersonalQuestionnaire;
+      // Actually preload the module chunk
+      import('@/components/NewPersonalQuestionnaire').catch(() => {});
     }
   }, [accessLevel, user]);
 
