@@ -41,7 +41,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     }
   }, [autoCompleteCallback, handleComplete]);
 
-  if (isLoading) {
+  if (!profileData || Object.keys(profileData).length === 0) {
     return (
       <div className="flex items-center justify-center p-8">
         <div className="text-center">
