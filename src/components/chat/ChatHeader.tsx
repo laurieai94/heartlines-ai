@@ -17,7 +17,7 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   return <div className="shrink-0 border-b border-white/10 bg-white/5 backdrop-blur-sm">
-      <div className="p-3 max-w-7xl mx-auto">
+      <div className="p-3 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Kai Avatar */}
