@@ -88,6 +88,11 @@
     --gradient-questionnaire: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
     --gradient-primary-button: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
     --gradient-selected: linear-gradient(135deg, #ff8a50 0%, #ff6b9d 100%);
+    
+    /* Brand gradients for consistent UI */
+    --gradient-brand: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-500)) 100%);
+    --gradient-brand-soft: linear-gradient(135deg, rgba(255, 107, 157, 0.7) 0%, hsl(var(--coral-500) / 0.7) 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #ff6b9d 0%, hsl(var(--coral-600)) 100%);
   }
 
   .dark {
@@ -394,6 +399,23 @@
     border: none;
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(255, 138, 80, 0.3);
+  }
+
+  /* Brand gradient utilities */
+  .brand-gradient {
+    background: var(--gradient-brand);
+  }
+  
+  .brand-gradient-soft {
+    background: var(--gradient-brand-soft);
+  }
+  
+  .hover\:brand-gradient:hover {
+    background: var(--gradient-brand);
+  }
+  
+  .hover\:brand-gradient-hover:hover {
+    background: var(--gradient-brand-hover);
   }
 
   /* Hide scrollbars utility for overflow containers */
