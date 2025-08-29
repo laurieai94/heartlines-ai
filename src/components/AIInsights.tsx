@@ -162,7 +162,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   // Removed debug logs for performance
 
   return (
-    <div className="flex-1 min-h-0 h-full max-h-full overflow-hidden flex flex-col p-0">
+    <div className="flex-1 min-h-0 h-full max-h-full overflow-hidden flex flex-col p-1 sm:p-2 lg:p-3">
       {/* Main chat interface with integrated sidebar */}
       <div className="flex-1 min-h-0">
         <ProgressiveAccessWrapper action="chat">
