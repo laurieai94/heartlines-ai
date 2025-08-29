@@ -45,9 +45,9 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-4 py-6 max-w-3xl">
+      <div className="relative z-10 container mx-auto px-4 py-4 max-w-3xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-4">
           <Button
             variant="ghost"
             size="sm"
@@ -59,14 +59,14 @@ const AccountLayout = () => {
           </Button>
         </div>
 
-        <div className="questionnaire-card p-6 md:p-7 animate-fade-in">
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-white mb-2">My Account</h1>
-            <p className="text-white/70 text-sm md:text-base">Manage your profile, subscription, and security settings</p>
+        <div className="questionnaire-card p-4 md:p-5 animate-fade-in">
+          <div className="text-center mb-4">
+            <h1 className="text-xl font-bold text-white mb-1">My Account</h1>
+            <p className="text-white/70 text-sm">Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/10 backdrop-blur-sm border border-white/20 h-9 gap-1 p-1">
+            <TabsList className="grid w-full grid-cols-4 mb-4 bg-white/10 backdrop-blur-sm border border-white/20 h-8 gap-1 p-1">
               <TabsTrigger 
                 value="overview" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-2 py-1 text-xs sm:text-sm"
@@ -97,25 +97,25 @@ const AccountLayout = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="overview" className="space-y-6">
+            <TabsContent value="overview" className="space-y-3">
               <Suspense fallback={<TabSkeleton />}>
                 <AccountOverview />
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="subscription" className="space-y-6">
+            <TabsContent value="subscription" className="space-y-3">
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSubscription />
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="profile" className="space-y-6">
+            <TabsContent value="profile" className="space-y-3">
               <Suspense fallback={<TabSkeleton />}>
                 <AccountProfile />
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="security" className="space-y-6">
+            <TabsContent value="security" className="space-y-3">
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSecurity />
               </Suspense>

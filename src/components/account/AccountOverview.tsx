@@ -42,10 +42,10 @@ const AccountOverview = () => {
   const isHighUsage = usagePercentage > 80;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Welcome Section */}
       <div className="text-center">
-        <h2 className="text-xl font-bold text-white mb-2">
+        <h2 className="text-lg font-bold text-white mb-1">
           Welcome back, {profile?.name || user?.email?.split('@')[0] || 'there'}!
         </h2>
         <p className="text-white/70 text-sm">
@@ -55,11 +55,11 @@ const AccountOverview = () => {
 
       {/* Current Plan Card */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
+        <CardHeader className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Crown className={`h-5 w-5 ${getPlanColor(subscription_tier)}`} />
-              <CardTitle className="text-white text-lg">Current Plan</CardTitle>
+              <Crown className={`h-4 w-4 ${getPlanColor(subscription_tier)}`} />
+              <CardTitle className="text-white text-base">Current Plan</CardTitle>
             </div>
             <Button 
               variant="ghost" 
@@ -75,9 +75,9 @@ const AccountOverview = () => {
             {subscribed ? `Active until ${subscription_end ? new Date(subscription_end).toLocaleDateString() : 'N/A'}` : 'Free plan with limited features'}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0">
-          <div className="flex items-center justify-between mb-3">
-            <span className={`text-base font-semibold ${getPlanColor(subscription_tier)}`}>
+        <CardContent className="p-3 pt-0">
+          <div className="flex items-center justify-between mb-2">
+            <span className={`text-sm font-semibold ${getPlanColor(subscription_tier)}`}>
               {getPlanName(subscription_tier)}
             </span>
             {!subscribed && (
@@ -96,16 +96,16 @@ const AccountOverview = () => {
 
       {/* Usage Statistics */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white flex items-center gap-2 text-lg">
-            <MessageCircle className="h-5 w-5" />
+        <CardHeader className="p-3">
+          <CardTitle className="text-white flex items-center gap-2 text-base">
+            <MessageCircle className="h-4 w-4" />
             Message Usage
           </CardTitle>
-          <CardDescription className="text-white/60">
+          <CardDescription className="text-white/60 text-sm">
             Your monthly message usage and limits
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-4">
+        <CardContent className="p-3 pt-0 space-y-3">
           <div className="flex justify-between text-sm">
             <span className="text-white/80">Messages used this month</span>
             <span className={`font-medium ${isHighUsage ? 'text-orange-400' : 'text-white'}`}>
@@ -125,13 +125,13 @@ const AccountOverview = () => {
 
       {/* Quick Actions */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white text-lg">Quick Actions</CardTitle>
-          <CardDescription className="text-white/60">
+        <CardHeader className="p-3">
+          <CardTitle className="text-white text-base">Quick Actions</CardTitle>
+          <CardDescription className="text-white/60 text-sm">
             Common account management tasks
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CardContent className="p-3 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Button 
             variant="outline"
             className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2.5"

@@ -34,26 +34,26 @@ const AccountSecurity = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div>
-        <h3 className="text-lg font-semibold text-white mb-2">Security Settings</h3>
-        <p className="text-white/70">
+        <h3 className="text-base font-semibold text-white mb-1">Security Settings</h3>
+        <p className="text-white/70 text-sm">
           Manage your account security and authentication preferences
         </p>
       </div>
 
       {/* Account Security Status */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white flex items-center gap-2 text-lg">
-            <Shield className="h-5 w-5" />
+        <CardHeader className="p-3">
+          <CardTitle className="text-white flex items-center gap-2 text-base">
+            <Shield className="h-4 w-4" />
             Security Overview
           </CardTitle>
-          <CardDescription className="text-white/60">
+          <CardDescription className="text-white/60 text-sm">
             Your account security status and recommendations
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-4">
+        <CardContent className="p-3 pt-0 space-y-3">
           <div className="grid gap-4">
             <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/10">
               <div className="flex items-center gap-3">
@@ -93,16 +93,16 @@ const AccountSecurity = () => {
 
       {/* Password Management */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white flex items-center gap-2 text-lg">
-            <Key className="h-5 w-5" />
+        <CardHeader className="p-3">
+          <CardTitle className="text-white flex items-center gap-2 text-base">
+            <Key className="h-4 w-4" />
             Password Management
           </CardTitle>
-          <CardDescription className="text-white/60">
+          <CardDescription className="text-white/60 text-sm">
             Reset your password or update security settings
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-4">
+        <CardContent className="p-3 pt-0 space-y-3">
           <div className="space-y-2">
             <Label htmlFor="reset-email" className="text-white flex items-center gap-2">
               <Mail className="h-4 w-4" />
@@ -143,13 +143,13 @@ const AccountSecurity = () => {
 
       {/* Session Management */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white text-lg">Session Management</CardTitle>
-          <CardDescription className="text-white/60">
+        <CardHeader className="p-3">
+          <CardTitle className="text-white text-base">Session Management</CardTitle>
+          <CardDescription className="text-white/60 text-sm">
             Manage your active sessions and devices
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-4">
+        <CardContent className="p-3 pt-0 space-y-3">
           <div className="p-4 rounded-lg bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-2">
               <p className="text-white font-medium">Current Session</p>
@@ -183,13 +183,13 @@ const AccountSecurity = () => {
 
       {/* Security Recommendations */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-4">
-          <CardTitle className="text-white text-lg">Security Tips</CardTitle>
-          <CardDescription className="text-white/60">
+        <CardHeader className="p-3">
+          <CardTitle className="text-white text-base">Security Tips</CardTitle>
+          <CardDescription className="text-white/60 text-sm">
             Keep your account safe with these recommendations
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 pt-0">
+        <CardContent className="p-3 pt-0">
           <ul className="space-y-3 text-sm text-white/80">
             <li className="flex items-start gap-3">
               <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
