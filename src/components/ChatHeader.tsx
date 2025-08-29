@@ -21,7 +21,8 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 mb-6 border border-white/20 shadow-xl">
+    <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg rounded-2xl p-6 mb-6 border border-white/20 shadow-xl ring-1 ring-white/10">
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       <div className="flex items-center gap-4">
         {/* AI Coach Avatar */}
         <div className="relative">
