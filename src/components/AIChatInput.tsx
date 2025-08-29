@@ -54,7 +54,8 @@ const AIChatInput = ({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       if (loading) {
-        // Allow Enter to insert newline when AI is thinking
+        // Prevent Enter from creating newlines while AI is thinking
+        e.preventDefault();
         return;
       }
       e.preventDefault();
