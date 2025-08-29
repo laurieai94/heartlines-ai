@@ -78,16 +78,16 @@ export const ChatInputSection = ({
   };
 
   return (
-    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-0">
+    <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-1">
       <div className="px-2 py-2">
         {/* Conversation Starters - show for guests or when no chat history and configured */}
         {chatHistory.length === 0 && (!user || (isConfigured && isHistoryLoaded)) && (
-          <div className="mb-1 px-2 sm:px-3 lg:px-4">
+          <div className="mb-2 px-2 sm:px-4 lg:px-6">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <div className="px-2 sm:px-3 lg:px-4">
+        <div className="px-2 sm:px-4 lg:px-6">
           {accessLevel === 'profile-required' && user ? (
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 items-end">
