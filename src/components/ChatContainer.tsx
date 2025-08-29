@@ -169,33 +169,31 @@ const ChatContainer = ({
               </div>
             ))}
             
-            {/* Fixed space for typing indicator to prevent layout shifts */}
-            <div className="min-h-[72px] flex justify-start">
-              {loading && (
-                <div className="flex gap-3 items-end">
-                  <div className="relative flex-shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
-                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
-                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                        <Bot className="w-6 h-6" />
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
-                    <div className="flex gap-1.5">
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                        animationDelay: '0.1s'
-                      }}></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
-                        animationDelay: '0.2s'
-                      }}></div>
-                    </div>
+            {/* Typing indicator - conditional without fixed height */}
+            {loading && (
+              <div className="flex gap-3 items-end">
+                <div className="relative flex-shrink-0">
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
+                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                      <Bot className="w-6 h-6" />
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
+                  <div className="flex gap-1.5">
+                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.1s'
+                    }}></div>
+                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.2s'
+                    }}></div>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
             
             <div ref={messagesEndRef} className="h-1" />
           </div>
