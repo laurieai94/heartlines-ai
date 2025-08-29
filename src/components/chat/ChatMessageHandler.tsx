@@ -27,7 +27,7 @@ export const useChatMessageHandler = ({
   const { refresh: refreshSubscription } = useOptimizedSubscription();
 
   const sendMessage = async (userMessage: string) => {
-    if (!canInteract) return;
+    if (!canInteract || loading) return; // Don't send while AI is thinking
 
     const newUserMessage: ChatMessage = {
       id: Date.now(),

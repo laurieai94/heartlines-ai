@@ -63,6 +63,7 @@ export const ChatInputSection = ({
   };
 
   const handleSend = (message: string) => {
+    if (loading) return; // Don't send while AI is thinking
     if (!user) {
       openAuthModalFromChat();
       return;

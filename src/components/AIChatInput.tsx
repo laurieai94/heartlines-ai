@@ -34,6 +34,7 @@ const AIChatInput = ({
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
+    if (loading) return; // Don't send while AI is thinking
     if (disabled) {
       // If disabled, trigger onInputFocus to show auth/profile modal
       onInputFocus?.();
@@ -52,6 +53,10 @@ const AIChatInput = ({
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
+      if (loading) {
+        // Allow Enter to insert newline when AI is thinking
+        return;
+      }
       e.preventDefault();
       sendMessage();
     }
