@@ -102,7 +102,7 @@ const AIChatInput = ({
         className={`rounded-2xl w-12 h-12 p-0 shadow-lg ring-2 transition-all duration-300 hover:shadow-xl hover:scale-105 text-white transform-gpu ${
           readOnly 
             ? 'brand-gradient-soft ring-white/15 hover:brand-gradient-soft-hover hover:brightness-105 group-hover:scale-110 group-hover:-translate-y-px group-hover:ring-white/20' 
-            : 'brand-gradient ring-coral-200/30 hover:brand-gradient-hover hover:ring-coral-300/40'
+            : 'brand-gradient ring-white/15 hover:brand-gradient-hover hover:ring-white/25'
         }`}
       >
         <Send className="w-4 h-4" />

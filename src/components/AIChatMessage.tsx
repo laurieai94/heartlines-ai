@@ -81,8 +81,8 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
           className={`
             px-4 py-3 rounded-3xl transition-all duration-300 group-hover:shadow-xl
             ${isUser
-              ? 'bg-gradient-to-br from-coral-400 to-pink-400 text-white rounded-br-lg shadow-coral-200/50'
-              : 'bg-gradient-to-br from-orange-50 to-peach-50 text-gray-800 rounded-bl-lg border border-orange-100/60 shadow-lg'
+              ? 'bg-gradient-to-br from-coral-400 to-pink-400 text-white rounded-br-lg shadow-lg shadow-coral-400/20 ring-1 ring-white/10'
+              : 'bg-white/5 backdrop-blur-md text-white rounded-bl-lg border border-white/10 shadow-lg shadow-black/10 ring-1 ring-white/5'
             }
           `}
         >
@@ -102,7 +102,7 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
         )}
         
         {/* Timestamp */}
-        <p className={`text-xs text-gray-400 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+        <p className={`text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
           {formatTime(message.timestamp)}
         </p>
       </div>
