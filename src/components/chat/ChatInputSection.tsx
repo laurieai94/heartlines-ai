@@ -110,11 +110,7 @@ export const ChatInputSection = ({
                 chatHistory={chatHistory}
               />
             </ProgressiveAccessWrapper>
-            {accessLevel === 'profile-required' && user && missingFieldsForChat && missingFieldsForChat.length > 0 && (
-              <p className="text-xs text-white/70 text-center">
-                Complete these to unlock chat: {missingFieldsForChat.join(', ')}
-              </p>
-            )}
+            {/* Removed "Complete these to unlock chat" text */}
           </div>
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
