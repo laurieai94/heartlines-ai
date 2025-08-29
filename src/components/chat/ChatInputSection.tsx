@@ -61,6 +61,7 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
+  // Handle input focus for authentication check
   const handleInputFocus = () => {
     if (!user) {
       openAuthModalFromChat();
