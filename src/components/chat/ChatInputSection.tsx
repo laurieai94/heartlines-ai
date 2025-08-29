@@ -94,32 +94,17 @@ export const ChatInputSection = ({
                 </p>
               )}
             </div>
-          ) : user ? (
-            <ProgressiveAccessWrapper action="chat">
-              <AIChatInput 
-                onSendMessage={handleSend} 
-                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={!user}
-                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
-                inputRef={inputRef}
-                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
-                userName={userName} 
-                partnerName={partnerName}
-                chatHistory={chatHistory}
-              />
-            </ProgressiveAccessWrapper>
           ) : (
-              <AIChatInput 
-                onSendMessage={handleSend} 
-                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={!user}
-                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
-                inputRef={inputRef}
-                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
-                userName={userName} 
-                partnerName={partnerName}
-                chatHistory={chatHistory}
-              />
+            <AIChatInput 
+              onSendMessage={handleSend} 
+              loading={loading || !isConfigured || !isHistoryLoaded} 
+              disabled={false}
+              placeholder="Message Kai…"
+              inputRef={inputRef}
+              userName={userName} 
+              partnerName={partnerName}
+              chatHistory={chatHistory}
+            />
           )}
         </div>
         {!isConfigured && accessLevel === 'full-access' && (

@@ -117,9 +117,9 @@ export const useProgressiveAccess = () => {
   
   // Determine access level based on authentication and profile completion
   const getAccessLevel = (): AccessLevel => {
-    // If no user is logged in, require signup
+    // If no user is logged in, allow preview access
     if (!user) {
-      return 'signup-required';
+      return 'preview';
     }
     
     // If user is logged in but doesn't have essential personal profile, require profile completion
@@ -143,6 +143,7 @@ export const useProgressiveAccess = () => {
       return false;
     }
     
+    // Allow all other actions for preview users
     return true;
   };
 
