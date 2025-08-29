@@ -89,7 +89,14 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
+            <Suspense fallback={
+              <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="questionnaire-text-muted">Loading your profile...</p>
+                </div>
+              </div>
+            }>
               <NewPersonalQuestionnaire 
                 onComplete={onQuestionnaireComplete} 
                 onClose={onQuestionnaireClose} 
@@ -114,7 +121,14 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
-            <Suspense fallback={<div className="fixed inset-0 z-[99999]"><SplashScreen message="profile loading..." showWordmark={false} messageSize="lg" /></div>}>
+            <Suspense fallback={
+              <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="questionnaire-text-muted">Loading partner profile...</p>
+                </div>
+              </div>
+            }>
               <NewPartnerProfile 
                 onComplete={onPartnerQuestionnaireComplete} 
                 onClose={onPartnerQuestionnaireClose} 

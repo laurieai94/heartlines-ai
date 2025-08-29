@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
@@ -8,6 +8,9 @@ import { useNavigation } from '@/contexts/NavigationContext';
 import SignUpModal from '@/components/SignUpModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { logEvent } from '@/utils/analytics';
+
+// Prefetch the profile questionnaire for faster loading
+const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -44,6 +47,14 @@ export const ChatInputSection = ({
       localStorage.removeItem('focusChatInputAfterAuth');
     }
   }, [user]);
+
+  // Prefetch profile questionnaire when profile is required for better UX
+  useEffect(() => {
+    if (accessLevel === 'profile-required' && user) {
+      // Trigger component prefetch by importing it
+      NewPersonalQuestionnaire;
+    }
+  }, [accessLevel, user]);
 
   const openAuthModalFromChat = () => {
     localStorage.setItem('focusChatInputAfterAuth', '1');
