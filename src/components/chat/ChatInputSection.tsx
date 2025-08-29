@@ -89,8 +89,8 @@ export const ChatInputSection = ({
             <ProgressiveAccessWrapper action="chat">
               <AIChatInput 
                 onSendMessage={handleSend} 
-                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={!user && accessLevel !== 'profile-required'}
+                loading={loading}
+                disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded}
                 readOnly={accessLevel === 'profile-required' && !!user}
                 placeholder={
                   !user 

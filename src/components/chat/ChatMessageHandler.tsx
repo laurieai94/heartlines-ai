@@ -20,7 +20,8 @@ export const useChatMessageHandler = ({
   setChatHistory,
   canInteract
 }: ChatMessageHandlerProps) => {
-  const [loading, setLoading] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
+  const loading = pendingCount > 0;
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
@@ -36,7 +37,10 @@ export const useChatMessageHandler = ({
     };
 
     setChatHistory(prev => [...prev, newUserMessage]);
-    setLoading(true);
+    setPendingCount(c => c + 1);
+
+    // Create history snapshot including the new user message for this request
+    const historySnapshot = [...chatHistory, newUserMessage];
 
     const topics = extractTopicsFromMessage(userMessage);
     topics.forEach(topic => addOrUpdateTopic(topic));
@@ -52,10 +56,10 @@ export const useChatMessageHandler = ({
         // Use debug prompt that lists all available information
         conversationalPrompt = AICoachEngine.buildDebugPrompt(context, profiles, demographicsData);
       } else {
-        conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, chatHistory);
+        conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, historySnapshot);
       }
       
-      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, chatHistory, conversationalPrompt);
+      const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, conversationalPrompt);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
@@ -90,7 +94,7 @@ export const useChatMessageHandler = ({
       };
       setChatHistory(prev => [...prev, errorMessage]);
     } finally {
-      setLoading(false);
+      setPendingCount(c => Math.max(0, c - 1));
     }
   };
 

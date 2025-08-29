@@ -59,10 +59,10 @@ const AIChatInput = ({
 
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
-    if (textareaRef.current && !loading && !disabled && !readOnly) {
+    if (textareaRef.current && !disabled && !readOnly) {
       textareaRef.current.focus();
     }
-  }, [loading, disabled, readOnly]);
+  }, [disabled, readOnly]);
 
   return (
     <div className={`flex gap-3 items-end ${readOnly ? 'group' : ''}`}>
@@ -75,7 +75,7 @@ const AIChatInput = ({
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
-          disabled={readOnly ? false : (loading || disabled)}
+          disabled={readOnly ? false : !!disabled}
           readOnly={readOnly}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
           className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm transition-all duration-300 leading-relaxed ${
@@ -89,7 +89,7 @@ const AIChatInput = ({
       
       <Button
         onClick={sendMessage}
-        disabled={!currentMessage.trim() || loading || !!disabled}
+        disabled={!currentMessage.trim() || !!disabled}
         className={`rounded-2xl w-12 h-12 p-0 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:scale-100 text-white ${
           readOnly ? 'brand-gradient-soft hover:brand-gradient-soft-hover hover:brightness-105 transform-gpu group-hover:scale-110 group-hover:-translate-y-px group-hover:shadow-xl group-hover:ring-2 group-hover:ring-white/15' : 'brand-gradient hover:brand-gradient-hover'
         }`}
