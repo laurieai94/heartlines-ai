@@ -10,6 +10,8 @@ interface ModalStates {
   setShowPartnerCompletionOptions: (show: boolean) => void;
   suppressPartnerCompletionPopup: boolean;
   setSuppressPartnerCompletionPopup: (value: boolean) => void;
+  suppressPersonalCompletionPopup: boolean;
+  setSuppressPersonalCompletionPopup: (value: boolean) => void;
 }
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
@@ -63,7 +65,15 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     updateTemporaryProfile(newProfiles, newDemographics);
     
     modalStates.setShowQuestionnaireModal(false);
-    modalStates.setShowPersonalCompletionOptions(true);
+    
+    if (modalStates.suppressPersonalCompletionPopup) {
+      // User has completed profile before, go directly to coach
+      modalStates.setActiveTab("insights");
+    } else {
+      // First time completion, show modal and mark as seen
+      modalStates.setSuppressPersonalCompletionPopup(true);
+      modalStates.setShowPersonalCompletionOptions(true);
+    }
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {

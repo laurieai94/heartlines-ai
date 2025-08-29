@@ -43,6 +43,17 @@ export const useDashboardModalState = () => {
     setSuppressPartnerCompletionPopupState(value);
     localStorage.setItem('suppressPartnerCompletionPopup', value.toString());
   };
+  
+  // Persistent suppress flag for personal completion popup
+  const [suppressPersonalCompletionPopup, setSuppressPersonalCompletionPopupState] = useState(() => {
+    const stored = localStorage.getItem('suppressPersonalCompletionPopup');
+    return stored === 'true';
+  });
+
+  const setSuppressPersonalCompletionPopup = (value: boolean) => {
+    setSuppressPersonalCompletionPopupState(value);
+    localStorage.setItem('suppressPersonalCompletionPopup', value.toString());
+  };
 
   // Debug logging for modal state changes
   useEffect(() => {
@@ -126,6 +137,8 @@ export const useDashboardModalState = () => {
     showSignInModal,
     setShowSignInModal,
     suppressPartnerCompletionPopup,
-    setSuppressPartnerCompletionPopup
+    setSuppressPartnerCompletionPopup,
+    suppressPersonalCompletionPopup,
+    setSuppressPersonalCompletionPopup
   };
 };

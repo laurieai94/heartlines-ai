@@ -21,7 +21,9 @@ export const useDashboardModals = () => {
     setShowPersonalCompletionOptions: modalState.setShowPersonalCompletionOptions,
     setShowPartnerCompletionOptions: modalState.setShowPartnerCompletionOptions,
     suppressPartnerCompletionPopup: modalState.suppressPartnerCompletionPopup,
-    setSuppressPartnerCompletionPopup: modalState.setSuppressPartnerCompletionPopup
+    setSuppressPartnerCompletionPopup: modalState.setSuppressPartnerCompletionPopup,
+    suppressPersonalCompletionPopup: modalState.suppressPersonalCompletionPopup,
+    setSuppressPersonalCompletionPopup: modalState.setSuppressPersonalCompletionPopup
   });
 
   // Add sign-in modal state management
