@@ -65,7 +65,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
                 sideOffset={8}
                 avoidCollisions={true}
                 collisionPadding={16}
-                className="w-72 p-3 bg-slate-900/95 backdrop-blur-lg border border-slate-700 shadow-2xl z-50"
+                className="w-72 p-4 bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50"
               >
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -75,13 +75,13 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
                     <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs text-slate-200 leading-relaxed">
+                    <p className="text-sm text-white/90 leading-relaxed">
                       Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
                     </p>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-sm text-white/80 leading-relaxed">
                       Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
                     </p>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-sm text-white/80 leading-relaxed">
                       <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
                     </p>
                   </div>

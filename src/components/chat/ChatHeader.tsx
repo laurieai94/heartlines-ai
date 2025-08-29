@@ -46,22 +46,22 @@ export const ChatHeader = ({
                       <Info className="w-3 h-3" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-3 max-w-[calc(100vw-32px)] bg-popover text-popover-foreground border border-border shadow-2xl backdrop-blur-lg z-50">
+                  <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                           <Heart className="w-4 h-4 text-white" />
                         </div>
-                        <h3 className="font-semibold text-popover-foreground text-lg">Meet Kai</h3>
+                        <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
                       </div>
                       <div className="space-y-3">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-sm text-white/90 leading-relaxed">
                           Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
                         </p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-sm text-white/80 leading-relaxed">
                           Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
                         </p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-sm text-white/80 leading-relaxed">
                           <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
                         </p>
                       </div>
