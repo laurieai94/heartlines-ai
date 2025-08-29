@@ -68,11 +68,20 @@ export const ChatInputSection = ({
     }
   };
 
+  // Determine loading state - don't disable for guests
+  const effectiveLoading = user ? (loading || !isConfigured || !isHistoryLoaded) : false;
+  
+  // Determine placeholder text
+  const getPlaceholder = () => {
+    if (!user) return "Sign up to chat with Kai…";
+    return "Message Kai…";
+  };
+
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-safe">
       <div className="px-4 py-3">
-        {/* Conversation Starters - only show when no chat history */}
-        {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
+        {/* Conversation Starters - show for guests or when no chat history and configured */}
+        {chatHistory.length === 0 && (!user || (isConfigured && isHistoryLoaded)) && (
           <div className="mb-3 max-w-4xl mx-auto">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
@@ -104,9 +113,9 @@ export const ChatInputSection = ({
           ) : (
             <AIChatInput 
               onSendMessage={handleSend} 
-              loading={loading || !isConfigured || !isHistoryLoaded} 
+              loading={effectiveLoading} 
               disabled={false}
-              placeholder="Message Kai…"
+              placeholder={getPlaceholder()}
               inputRef={inputRef}
               onInputFocus={handleInputFocus}
               userName={userName} 
