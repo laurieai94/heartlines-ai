@@ -80,7 +80,7 @@ const AIChatInput = ({
           aria-label={readOnly ? "Click to complete your profile" : undefined}
           className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm transition-all duration-300 leading-relaxed ${
             readOnly 
-              ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white hover:brand-gradient-soft-hover hover:brightness-105 hover:shadow-md focus:ring-2 focus:ring-white/15 focus:shadow-md transform-gpu group-hover:brightness-110 group-hover:ring-2 group-hover:ring-white/20 group-hover:shadow-lg group-hover:shadow-white/10 group-hover:-translate-y-px group-hover:backdrop-blur-md' 
+              ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white motion-safe:animate-bounce-gentle hover:animate-none focus:animate-none hover:brand-gradient-soft-hover hover:brightness-105 hover:scale-[1.02] hover:shadow-md focus:ring-2 focus:ring-white/15 focus:shadow-md transform-gpu group-hover:brightness-110 group-hover:ring-2 group-hover:ring-white/20 group-hover:shadow-lg group-hover:shadow-white/10 group-hover:-translate-y-px group-hover:backdrop-blur-md group-hover:scale-[1.02]' 
               : 'border-coral-200/50 focus:border-coral-300 focus:ring-2 focus:ring-coral-200/30 bg-white/70 focus:shadow-lg focus:bg-white'
           }`}
           rows={1}
