@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
+import { calculateProgress, validateSection } from "@/components/NewPersonalQuestionnaire/utils/validation";
+import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
 
@@ -26,94 +28,91 @@ export const useProgressiveAccess = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
-  // Calculate profile completion percentage based on actual data
+  // Calculate profile completion percentage using the official validation logic
   const calculateProfileCompletion = () => {
     // Don't calculate until data is loaded
     if (!personalStorage.isReady) {
-    return 0;
-  }
-
-  let totalFields = 0;
-  let completedFields = 0;
-
-  const profileData = personalStorage.profileData;
-
-    if (profileData && Object.keys(profileData).length > 0) {
-      // Core personal fields - matching the new questionnaire structure
-      const personalFields = [
-        'name', 'age', 'gender', 'orientation', 'relationshipStatus',
-        'stressResponse', 'loveLanguage', 'attachmentStyle'
-      ];
-      
-      totalFields += personalFields.length;
-      
-      // Check each field completion
-      personalFields.forEach(field => {
-        const value = profileData[field];
-        if (value && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
-          completedFields++;
-        }
-      });
+      return 0;
     }
 
-    const completion = totalFields > 0 ? Math.round((completedFields / totalFields) * 100) : 0;
-    return completion;
+    const profileData = personalStorage.profileData;
+    if (!profileData || Object.keys(profileData).length === 0) {
+      return 0;
+    }
+
+    // Use the official calculateProgress function from validation utils
+    return calculateProgress(profileData as ProfileData);
   };
 
-  // Compute essential info for chat access, resilient to legacy fields
+  // Compute detailed profile status for chat access - requires 100% completion
   const computeChatReadiness = () => {
-    if (!personalStorage.isReady) return { isComplete: false, missingFields: ['profile loading'] };
+    if (!personalStorage.isReady) return { 
+      isComplete: false, 
+      missingFields: ['Profile loading...'],
+      incompleteSections: [],
+      overallProgress: 0
+    };
 
-    const pd = personalStorage.profileData || {} as any;
-
-    // Basic requirements
-    const hasName = !!(pd.name && pd.name.trim() !== '');
-    const hasAge = !!(pd.age && pd.age !== '');
-
-    // Coalesce new and legacy fields
-    const loveLangArr: any[] = Array.isArray(pd.loveLanguage)
-      ? pd.loveLanguage
-      : Array.isArray(pd.feelLovedWhen)
-        ? pd.feelLovedWhen
-        : (pd.loveLanguage || pd.feelLovedWhen ? [pd.loveLanguage || pd.feelLovedWhen] : []);
-
-    const hasStressResponse = Array.isArray(pd.stressResponse) && pd.stressResponse.length > 0;
-    const hasAttachmentStyle = !!(pd.attachmentStyle && pd.attachmentStyle !== '');
-    const hasLoveLanguage = loveLangArr.length > 0;
-    const hasRelationshipStatus = !!(pd.relationshipStatus && pd.relationshipStatus !== '');
-
-    const hasBasicInfo = hasName && hasAge;
-    const coreResponses = [hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus].filter(Boolean).length;
-    const hasEnoughData = coreResponses >= 3;
-    const isComplete = hasBasicInfo && hasEnoughData;
-
-    const missing: string[] = [];
-    if (!hasName) missing.push('name');
-    if (!hasAge) missing.push('age');
-
-    const coreMissing: string[] = [];
-    if (!hasStressResponse) coreMissing.push('stress response');
-    if (!hasAttachmentStyle) coreMissing.push('attachment style');
-    if (!hasLoveLanguage) coreMissing.push('love language');
-    if (!hasRelationshipStatus) coreMissing.push('relationship status');
-
-    console.log('🔐 Chat access check:', {
-      hasName, hasAge, hasStressResponse, hasAttachmentStyle, hasLoveLanguage, hasRelationshipStatus,
-      coreResponses, isComplete, keys: Object.keys(pd || {})
-    });
-
-    // Only include the instruction for core fields if basic info is present
-    if (hasBasicInfo && coreMissing.length > 0) {
-      missing.push(`add any 3: ${coreMissing.join(', ')}`);
+    const profileData = personalStorage.profileData as ProfileData;
+    if (!profileData || Object.keys(profileData).length === 0) {
+      return { 
+        isComplete: false, 
+        missingFields: ['Please complete your profile'],
+        incompleteSections: [1, 2, 3, 4],
+        overallProgress: 0
+      };
     }
 
-    return { isComplete, missingFields: missing.length ? missing : [] };
+    // Check completion of each section
+    const sectionStatus = [1, 2, 3, 4].map(section => ({
+      section,
+      isComplete: validateSection(section, profileData)
+    }));
+
+    const incompleteSections = sectionStatus
+      .filter(s => !s.isComplete)
+      .map(s => s.section);
+
+    const overallProgress = calculateProgress(profileData);
+    const isComplete = overallProgress === 100;
+
+    // Generate detailed missing fields message
+    const missingFields: string[] = [];
+    
+    if (incompleteSections.includes(1)) {
+      missingFields.push('Complete "Who You Are" section');
+    }
+    if (incompleteSections.includes(2)) {
+      missingFields.push('Complete "Your Relationship" section');
+    }
+    if (incompleteSections.includes(3)) {
+      missingFields.push('Complete "How You Operate" section');
+    }
+    if (incompleteSections.includes(4)) {
+      missingFields.push('Complete "Your Foundation" section');
+    }
+
+    console.log('🔐 Chat access check (100% requirement):', {
+      overallProgress,
+      isComplete,
+      incompleteSections,
+      missingFields
+    });
+
+    return { 
+      isComplete, 
+      missingFields, 
+      incompleteSections,
+      overallProgress
+    };
   };
 
   const profileCompletion = calculateProfileCompletion();
   const readiness = computeChatReadiness();
   const hasPersonalProfileForChat = readiness.isComplete;
   const missingFieldsForChat = readiness.missingFields;
+  const incompleteSections = readiness.incompleteSections;
+  const detailedProgress = readiness.overallProgress;
   
   // Determine access level based on authentication and profile completion
   const getAccessLevel = (): AccessLevel => {
@@ -161,6 +160,8 @@ export const useProgressiveAccess = () => {
     checkInteractionPermission,
     closeSignUpModal,
     hasPersonalProfileForChat,
-    missingFieldsForChat
+    missingFieldsForChat,
+    incompleteSections,
+    detailedProgress
   };
 };
