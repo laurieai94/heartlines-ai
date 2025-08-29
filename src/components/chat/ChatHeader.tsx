@@ -2,9 +2,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
 import { Heart, Plus, Menu, Info } from "lucide-react";
 import { useState } from "react";
 import { BRAND } from "@/branding";
+import { useOptimizedSubscription } from "@/hooks/useOptimizedSubscription";
 interface ChatHeaderProps {
   userName?: string;
   onNewConversation: () => void;
@@ -16,6 +18,20 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
+  const { 
+    messages_used, 
+    message_limit, 
+    usagePercentage, 
+    subscription_tier, 
+    subscribed, 
+    upgrade, 
+    manageSubscription 
+  } = useOptimizedSubscription();
+
+  // Show usage chip when approaching limit or at limit
+  const showUsageChip = usagePercentage >= 80 || (message_limit > 0 && messages_used >= message_limit);
+  const atLimit = message_limit > 0 && messages_used >= message_limit;
+  const nextTier = subscription_tier?.toLowerCase() === 'grow' ? 'thrive' : 'grow';
   return <div className="sticky top-0 z-40 shrink-0 border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10">
       <div className="p-3 max-w-5xl mx-auto">
         <div className="flex items-center justify-between">
@@ -73,6 +89,23 @@ export const ChatHeader = ({
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Usage Chip */}
+            {showUsageChip && (
+              <Badge 
+                variant={atLimit ? "destructive" : "secondary"}
+                className="text-xs px-2 py-1 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() => {
+                  if (subscription_tier?.toLowerCase() === 'thrive') {
+                    manageSubscription();
+                  } else {
+                    upgrade(nextTier as 'grow' | 'thrive');
+                  }
+                }}
+              >
+                {messages_used} / {message_limit} • {subscription_tier?.toLowerCase() === 'thrive' ? 'Manage' : 'Upgrade'}
+              </Badge>
+            )}
+
             {/* Sidebar Button */}
             {onOpenSidebar && <TooltipProvider>
                 <Tooltip>
