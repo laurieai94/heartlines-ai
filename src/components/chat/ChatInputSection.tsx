@@ -61,6 +61,12 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
+  const handleInputFocus = () => {
+    if (!user) {
+      openAuthModalFromChat();
+    }
+  };
+
   return (
     <div className="flex-shrink-0 border-t border-white/10 bg-white/5 backdrop-blur-sm pb-safe">
       <div className="px-4 py-3">
@@ -101,6 +107,7 @@ export const ChatInputSection = ({
               disabled={false}
               placeholder="Message Kai…"
               inputRef={inputRef}
+              onInputFocus={handleInputFocus}
               userName={userName} 
               partnerName={partnerName}
               chatHistory={chatHistory}
