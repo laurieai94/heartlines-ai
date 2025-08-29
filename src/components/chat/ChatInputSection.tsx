@@ -8,8 +8,6 @@ import { useNavigation } from '@/contexts/NavigationContext';
 import SignUpModal from '@/components/SignUpModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { logEvent } from '@/utils/analytics';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 
 interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
@@ -58,6 +56,10 @@ export const ChatInputSection = ({
       openAuthModalFromChat();
       return;
     }
+    if (accessLevel === 'profile-required') {
+      goToProfile();
+      return;
+    }
     onSendMessage(message);
   };
 
@@ -72,55 +74,36 @@ export const ChatInputSection = ({
         )}
         
         <div className="max-w-3xl mx-auto">
-          {accessLevel === 'profile-required' && user ? (
-            <div className="flex flex-col gap-2">
-              <div className="flex gap-2 items-end">
-                <Textarea
-                  disabled
-                  placeholder="Complete your profile to chat with Kai…"
-                  className="flex-1 min-h-[50px] max-h-[200px] resize-none bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/60 focus:border-pink-300/50 focus:ring-pink-300/20"
-                />
-                <Button 
-                  onClick={goToProfile}
-                  variant="outline"
-                  className="px-4 py-3 h-auto bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:border-white/30"
-                >
-                  Complete Profile
-                </Button>
-              </div>
-              {missingFieldsForChat && missingFieldsForChat.length > 0 && (
-                <p className="text-xs text-white/70">
-                  Needed to unlock chat: {missingFieldsForChat.join(', ')}
-                </p>
-              )}
-            </div>
-          ) : user ? (
+          <div className="flex flex-col gap-2">
             <ProgressiveAccessWrapper action="chat">
               <AIChatInput 
                 onSendMessage={handleSend} 
                 loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
                 disabled={!user}
-                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
+                readOnly={accessLevel === 'profile-required' && !!user}
+                placeholder={
+                  !user 
+                    ? "Sign in to start chatting…" 
+                    : accessLevel === 'profile-required' 
+                      ? "Complete your profile to chat with Kai…"
+                      : "Message Kai…"
+                }
                 inputRef={inputRef}
-                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
+                onInputFocus={() => { 
+                  if (!user) openAuthModalFromChat();
+                  else if (accessLevel === 'profile-required') goToProfile();
+                }}
                 userName={userName} 
                 partnerName={partnerName}
                 chatHistory={chatHistory}
               />
             </ProgressiveAccessWrapper>
-          ) : (
-              <AIChatInput 
-                onSendMessage={handleSend} 
-                loading={loading || !isConfigured || !canInteract || !isHistoryLoaded} 
-                disabled={!user}
-                placeholder={user ? "Message Kai…" : "Sign in to start chatting…"}
-                inputRef={inputRef}
-                onInputFocus={() => { if (!user) openAuthModalFromChat(); }}
-                userName={userName} 
-                partnerName={partnerName}
-                chatHistory={chatHistory}
-              />
-          )}
+            {accessLevel === 'profile-required' && user && missingFieldsForChat && missingFieldsForChat.length > 0 && (
+              <p className="text-xs text-white/70 text-center">
+                Complete these to unlock chat: {missingFieldsForChat.join(', ')}
+              </p>
+            )}
+          </div>
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
