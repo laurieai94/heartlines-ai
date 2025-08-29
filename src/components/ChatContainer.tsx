@@ -145,8 +145,8 @@ const ChatContainer = ({
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className="px-4 pt-3 pb-2">
-          <div className="space-y-3 px-4 sm:px-6 lg:px-8">
+        <div className="px-2 pt-2 pb-1">
+          <div className="space-y-3 px-2 sm:px-4 lg:px-6">
             
             {/* Load More Messages Button */}
             {hasHiddenMessages && (
