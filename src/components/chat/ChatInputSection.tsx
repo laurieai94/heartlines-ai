@@ -112,6 +112,7 @@ export const ChatInputSection = ({
               userName={userName} 
               partnerName={partnerName}
               chatHistory={chatHistory}
+              autoFocus={!!user}
             />
           )}
         </div>
