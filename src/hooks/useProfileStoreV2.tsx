@@ -352,31 +352,72 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Initialize and load data
   useEffect(() => {
     const initialize = async () => {
+      console.log(`[ProfileV2-${profileType}] Starting initialization...`);
       setIsLoading(true);
       
-      // Load from localStorage first (instant)
-      const localProfile = loadFromStorage();
-      setProfile(localProfile);
-      setIsReady(true);
-      
-      // Then sync with database if authenticated
-      if (user) {
-        const dbProfile = await loadFromDatabase();
+      try {
+        // Load from localStorage first (instant)
+        const localProfile = loadFromStorage();
+        setProfile(localProfile);
+        setIsReady(true);
+        console.log(`[ProfileV2-${profileType}] Local profile loaded, isReady set to true`);
         
-        // Merge local and remote, preferring newer data
-        const localTime = new Date(localProfile.lastUpdated || 0).getTime();
-        const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+        // Then sync with database if authenticated
+        if (user) {
+          console.log(`[ProfileV2-${profileType}] User authenticated, loading from database...`);
+          
+          // Add timeout for database operations
+          const dbProfilePromise = loadFromDatabase();
+          const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
+            setTimeout(() => reject(new Error('Database load timeout')), 10000);
+          });
+          
+          try {
+            const dbProfile = await Promise.race([dbProfilePromise, timeoutPromise]);
+            
+            // Merge local and remote, preferring newer data
+            const localTime = new Date(localProfile.lastUpdated || 0).getTime();
+            const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+            
+            const finalProfile = dbTime > localTime ? dbProfile : localProfile;
+            setProfile(finalProfile);
+            saveToStorage(finalProfile);
+            console.log(`[ProfileV2-${profileType}] Database sync completed successfully`);
+          } catch (dbError) {
+            console.error(`[ProfileV2-${profileType}] Database sync failed, using local profile:`, dbError);
+            // Continue with local profile - don't let DB errors block the UI
+          }
+        } else {
+          console.log(`[ProfileV2-${profileType}] No user authenticated, using local profile only`);
+        }
         
-        const finalProfile = dbTime > localTime ? dbProfile : localProfile;
-        setProfile(finalProfile);
-        saveToStorage(finalProfile);
+      } catch (error) {
+        console.error(`[ProfileV2-${profileType}] Initialization error:`, error);
+        // Ensure we still have a valid profile state
+        setProfile(defaultProfile);
+        setIsReady(true);
+      } finally {
+        // Always ensure loading state is cleared
+        setIsLoading(false);
+        console.log(`[ProfileV2-${profileType}] Initialization completed, isLoading set to false`);
       }
-      
-      setIsLoading(false);
     };
 
-    initialize();
-  }, [user, loadFromStorage, loadFromDatabase, saveToStorage]);
+    // Add a safety timeout to ensure loading state is always cleared
+    const safetyTimeout = setTimeout(() => {
+      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing loading to complete`);
+      setIsLoading(false);
+      setIsReady(true);
+    }, 15000);
+
+    initialize().finally(() => {
+      clearTimeout(safetyTimeout);
+    });
+
+    return () => {
+      clearTimeout(safetyTimeout);
+    };
+  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, profileType, defaultProfile]);
 
   // Update profile data
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
