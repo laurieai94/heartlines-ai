@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import SplashScreen from '@/components/SplashScreen';
 
 interface AuthGuardProps {
   children: ReactNode;
@@ -12,11 +13,7 @@ const AuthGuard = ({ children, fallbackPath = '/auth' }: AuthGuardProps) => {
 
   // Show loading while auth state is being determined
   if (loading) {
-    return (
-      <div className="min-h-screen questionnaire-bg flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-      </div>
-    );
+    return <SplashScreen titleText="heartlines loading..." />;
   }
 
   // Redirect to auth if not authenticated

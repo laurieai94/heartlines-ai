@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard"; // Synchronous import for faster shel
 import { warmupNetwork } from "@/utils/networkWarmup";
 import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { performanceMonitor } from "@/utils/performanceMonitor";
+import SplashScreen from "@/components/SplashScreen";
 
 // Lazy load non-critical components
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -47,42 +48,42 @@ const AppContent = () => {
         
         {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Mission />
           </Suspense>
         } />
         <Route path="/privacy-and-security" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <PrivacySecurity />
           </Suspense>
         } />
         <Route path="/pricing" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Pricing />
           </Suspense>
         } />
         <Route path="/billing/success" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <BillingSuccess />
           </Suspense>
         } />
         <Route path="/auth/callback" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <AuthCallback />
           </Suspense>
         } />
         <Route path="/auth" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Auth />
           </Suspense>
         } />
         <Route path="/account" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Account />
           </Suspense>
         } />
         <Route path="*" element={
-          <Suspense fallback={<div className="flex items-center justify-center h-[100dvh] bg-burgundy-900"><div className="text-card-foreground">Loading...</div></div>}>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <NotFound />
           </Suspense>
         } />

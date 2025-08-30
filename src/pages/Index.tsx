@@ -24,7 +24,7 @@ const Index: React.FC = () => {
   }
 
   return (
-    <Suspense fallback={<SplashScreen />}>
+    <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
       <LandingPage />
     </Suspense>
   );
