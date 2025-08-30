@@ -29,16 +29,16 @@ const AccountSubscription = () => {
       name: 'Free',
       tier: null,
       price: '$0',
-      messages: 25,
-      features: ['Basic AI coaching', '25 messages/month', 'Community support'],
+      messages: 50,
+      features: ['Basic AI coaching', '50 messages/month', 'Community support'],
       current: !subscribed && !subscription_tier
     },
     {
       name: 'Grow',
       tier: 'grow',
       price: '$15',
-      messages: 100,
-      features: ['Everything in Free', '100 messages/month', 'Priority support', 'Advanced insights'],
+      messages: 150,
+      features: ['Everything in Free', '150 messages/month', 'Priority support', 'Advanced insights'],
       current: subscription_tier?.toLowerCase() === 'grow',
       popular: true
     },

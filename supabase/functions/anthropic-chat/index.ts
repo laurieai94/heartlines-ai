@@ -93,9 +93,9 @@ serve(async (req) => {
       // Determine message limit based on tier
       const getMessageLimit = (tier: string | null): number => {
         switch (tier?.toLowerCase()) {
-          case 'grow': return 100;
+          case 'grow': return 150;
           case 'thrive': return 300;
-          default: return 25; // free tier
+          default: return 50; // free tier
         }
       };
 

@@ -64,7 +64,7 @@ serve(async (req) => {
             currency: "usd",
             product_data: { 
               name: pricing[tier as keyof typeof pricing].name,
-              description: tier === "grow" ? "100 messages per month" : "300 messages per month"
+              description: tier === "grow" ? "150 messages per month" : "300 messages per month"
             },
             unit_amount: pricing[tier as keyof typeof pricing].amount,
             recurring: { interval: "month" },

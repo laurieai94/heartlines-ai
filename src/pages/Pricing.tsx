@@ -18,10 +18,10 @@ const pricingPlans = [
     period: "month",
     description: "Light check-ins to start building awareness",
     tagline: "From first steps to stronger bonds",
-    messages: 25,
+    messages: 50,
     icon: Sparkles,
     features: [
-      "25 messages per month",
+      "50 messages per month",
       "Basic relationship insights",
       "Try-before-you-commit approach",
       "Email support"
@@ -37,10 +37,10 @@ const pricingPlans = [
     period: "month", 
     description: "Steady coaching to strengthen daily connection",
     tagline: "Build momentum in your relationship",
-    messages: 100,
+    messages: 150,
     icon: Heart,
     features: [
-      "100 messages per month",
+      "150 messages per month",
       "Advanced relationship coaching",
       "Conversation starters & reminders",
       "Progress tracking",

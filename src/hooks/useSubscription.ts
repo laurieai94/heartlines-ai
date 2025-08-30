@@ -16,7 +16,7 @@ export const useSubscription = () => {
     subscribed: false,
     subscription_tier: null,
     subscription_end: null,
-    message_limit: 25, // Default free tier
+    message_limit: 50, // Default free tier
     messages_used: 0
   });
   const [loading, setLoading] = useState(true);
@@ -24,9 +24,9 @@ export const useSubscription = () => {
 
   const getMessageLimit = (tier: string | null): number => {
     switch (tier?.toLowerCase()) {
-      case 'grow': return 100;
+      case 'grow': return 150;
       case 'thrive': return 300;
-      default: return 25; // free tier
+      default: return 50; // free tier
     }
   };
 

@@ -16,9 +16,9 @@ export const useOptimizedSubscription = () => {
 
   const getMessageLimit = (tier: string | null): number => {
     switch (tier?.toLowerCase()) {
-      case 'grow': return 100;
+      case 'grow': return 150;
       case 'thrive': return 300;
-      default: return 25; // free tier
+      default: return 50; // free tier
     }
   };
 
@@ -141,7 +141,7 @@ export const useOptimizedSubscription = () => {
     subscribed: false,
     subscription_tier: null,
     subscription_end: null,
-    message_limit: 25,
+    message_limit: 50,
     messages_used: 0
   };
 
