@@ -163,6 +163,33 @@ serve(async (req) => {
     console.log('Anthropic API response received successfully')
     
     if (data.content && data.content[0] && data.content[0].text) {
+      // Log token usage
+      try {
+        const inputTokens = data.usage?.input_tokens || 0;
+        const outputTokens = data.usage?.output_tokens || 0;
+        const model = 'claude-3-5-sonnet-20241022';
+        
+        // Calculate cost (Claude 3.5 Sonnet: $3/1M input, $15/1M output tokens)
+        const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
+        
+        const { error: tokenError } = await supabaseService
+          .from('user_token_usage')
+          .insert({
+            user_id: user.id,
+            model: model,
+            input_tokens: inputTokens,
+            output_tokens: outputTokens,
+            estimated_cost: estimatedCost
+          });
+        
+        if (tokenError) {
+          console.error('Failed to log token usage:', tokenError);
+        } else {
+          console.log(`Logged token usage: ${inputTokens} input, ${outputTokens} output, $${estimatedCost.toFixed(6)} cost`);
+        }
+      } catch (tokenErr) {
+        console.error('Error logging token usage:', tokenErr);
+      }
       // Increment message usage after successful AI response
       try {
         const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format

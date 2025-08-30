@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft } from "lucide-react";
+import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, BarChart3, TrendingUp } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import DashboardHeader from "@/components/DashboardHeader";
+import { useTokenAnalytics } from "@/hooks/useTokenAnalytics";
+import { formatCost } from "@/utils/modelPricing";
 
 
 const pricingPlans = [
@@ -96,6 +98,7 @@ const Pricing = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
+  const { data: tokenAnalytics, isLoading: analyticsLoading } = useTokenAnalytics();
 
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
@@ -176,6 +179,70 @@ const Pricing = () => {
               <span className="text-sm">10,000+ Happy Couples</span>
             </div>
           </div>
+
+          {/* Usage Analytics - Only show if user has token data */}
+          {user && tokenAnalytics && tokenAnalytics.totalMessages > 0 && (
+            <div className="max-w-4xl mx-auto mb-12">
+              <Card className="questionnaire-card">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-2 p-3 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
+                    <BarChart3 className="h-6 w-6 questionnaire-text" />
+                  </div>
+                  <CardTitle className="text-2xl font-light questionnaire-text">Your Usage & Cost Analysis</CardTitle>
+                  <CardDescription className="questionnaire-text-muted">
+                    Based on your conversation history with our AI coach
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-light questionnaire-text">
+                        {tokenAnalytics.totalMessages}
+                      </div>
+                      <div className="text-sm questionnaire-text-muted">Total Messages</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-light questionnaire-text">
+                        {formatCost(tokenAnalytics.averageCostPerMessage)}
+                      </div>
+                      <div className="text-sm questionnaire-text-muted">Avg Cost/Message</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-light questionnaire-text">
+                        {Math.round(tokenAnalytics.averageTokensPerMessage)}
+                      </div>
+                      <div className="text-sm questionnaire-text-muted">Avg Tokens/Message</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-light questionnaire-text">
+                        {formatCost(tokenAnalytics.last30Days.totalCost)}
+                      </div>
+                      <div className="text-sm questionnaire-text-muted">Last 30 Days Cost</div>
+                    </div>
+                  </div>
+                  
+                  {tokenAnalytics.last30Days.totalMessages > 0 && (
+                    <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-coral-400/10 to-pink-400/10 border border-questionnaire-border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <TrendingUp className="h-4 w-4 text-coral-400" />
+                        <span className="text-sm font-medium questionnaire-text">Usage Insight</span>
+                      </div>
+                      <p className="text-sm questionnaire-text-muted">
+                        At your current usage of {tokenAnalytics.last30Days.totalMessages} messages in the last 30 days, 
+                        you're averaging {formatCost(tokenAnalytics.last30Days.averageCostPerMessage)} per message. 
+                        {tokenAnalytics.last30Days.totalMessages <= 25 ? 
+                          " The Begin plan covers your usage perfectly." :
+                          tokenAnalytics.last30Days.totalMessages <= 100 ?
+                          " The Grow plan would be ideal for your usage level." :
+                          " The Thrive plan gives you plenty of room for deeper conversations."
+                        }
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">

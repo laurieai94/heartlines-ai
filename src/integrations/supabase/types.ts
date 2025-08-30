@@ -323,6 +323,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_token_usage: {
+        Row: {
+          created_at: string
+          estimated_cost: number
+          id: string
+          input_tokens: number
+          message_id: string | null
+          model: string
+          output_tokens: number
+          total_tokens: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          estimated_cost?: number
+          id?: string
+          input_tokens?: number
+          message_id?: string | null
+          model: string
+          output_tokens?: number
+          total_tokens?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          estimated_cost?: number
+          id?: string
+          input_tokens?: number
+          message_id?: string | null
+          model?: string
+          output_tokens?: number
+          total_tokens?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
