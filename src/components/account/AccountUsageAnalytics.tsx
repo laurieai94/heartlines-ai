@@ -1,5 +1,6 @@
 import { BarChart3, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTokenAnalytics } from "@/hooks/useTokenAnalytics";
 import { useAuth } from "@/contexts/AuthContext";
 import { formatCost } from "@/utils/modelPricing";
@@ -14,9 +15,60 @@ const AccountUsageAnalytics = () => {
     enabled: isAdmin 
   });
 
-  // Don't render if not admin or no data
-  if (!isAdmin || !tokenAnalytics || tokenAnalytics.totalMessages === 0 || isLoading) {
+  // Don't render if not admin
+  if (!isAdmin) {
     return null;
+  }
+
+  if (isLoading) {
+    return (
+      <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+        <CardHeader className="p-2.5">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20">
+              <BarChart3 className="h-3.5 w-3.5 text-white" />
+            </div>
+            <CardTitle className="text-white text-sm">Usage & Cost Analysis</CardTitle>
+          </div>
+          <CardDescription className="text-white/60 text-xs">
+            Loading your conversation analytics...
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-2.5 pt-0 space-y-2.5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="text-center p-2 rounded-lg bg-white/5">
+                <Skeleton className="h-4 w-8 mx-auto mb-1 bg-white/20" />
+                <Skeleton className="h-3 w-16 mx-auto bg-white/10" />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!tokenAnalytics || tokenAnalytics.totalMessages === 0) {
+    return (
+      <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+        <CardHeader className="p-2.5">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20">
+              <BarChart3 className="h-3.5 w-3.5 text-white" />
+            </div>
+            <CardTitle className="text-white text-sm">Usage & Cost Analysis</CardTitle>
+          </div>
+          <CardDescription className="text-white/60 text-xs">
+            No conversation data yet
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-2.5 pt-0">
+          <div className="text-center py-4">
+            <p className="text-white/60 text-sm">Start chatting with your AI coach to see usage analytics here.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
