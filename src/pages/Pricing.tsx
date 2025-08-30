@@ -98,7 +98,13 @@ const Pricing = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
-  const { data: tokenAnalytics, isLoading: analyticsLoading } = useTokenAnalytics();
+  
+  // Check if current user is admin
+  const isAdmin = user?.email?.toLowerCase() === 'swortman1994@gmail.com';
+  
+  const { data: tokenAnalytics, isLoading: analyticsLoading } = useTokenAnalytics({ 
+    enabled: isAdmin 
+  });
 
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
@@ -180,8 +186,8 @@ const Pricing = () => {
             </div>
           </div>
 
-          {/* Usage Analytics - Only show if user has token data */}
-          {user && tokenAnalytics && tokenAnalytics.totalMessages > 0 && (
+          {/* Usage Analytics - Only show for admin */}
+          {isAdmin && tokenAnalytics && tokenAnalytics.totalMessages > 0 && (
             <div className="max-w-4xl mx-auto mb-12">
               <Card className="questionnaire-card">
                 <CardHeader className="text-center">
