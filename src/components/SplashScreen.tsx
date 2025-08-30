@@ -11,13 +11,13 @@ interface SplashScreenProps {
 const SplashScreen: React.FC<SplashScreenProps> = ({ 
   message, 
   showWordmark = true, 
-  wordmarkSize = "xl", 
+  wordmarkSize = "md", 
   messageSize = "lg",
   titleText = "heartlines"
 }) => {
   const wordmarkSizeClasses = {
     sm: '30px',
-    md: 'clamp(3rem, 12vw, 8rem)',
+    md: '40px',
     lg: 'clamp(4rem, 16vw, 12rem)',
     xl: 'clamp(4rem, 18vw, 20rem)'
   };
