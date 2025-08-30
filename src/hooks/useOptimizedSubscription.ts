@@ -42,6 +42,14 @@ export const useOptimizedSubscription = () => {
         .eq('user_id', user.id)
         .maybeSingle();
 
+      // Check for account override first
+      const { data: override } = await supabase
+        .from('account_overrides')
+        .select('unlimited_messages')
+        .eq('email', user.email)
+        .eq('unlimited_messages', true)
+        .maybeSingle();
+
       // Also get message usage for current month
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
       const { data: usageData } = await supabase
@@ -52,7 +60,8 @@ export const useOptimizedSubscription = () => {
         .maybeSingle();
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
-      const messageLimit = getMessageLimit(tier);
+      // If user has unlimited override, set message limit to 0 (unlimited)
+      const messageLimit = override ? 0 : getMessageLimit(tier);
       const messagesUsed = usageData?.current_month_usage || 0;
 
       // Return cached data immediately

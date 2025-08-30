@@ -57,55 +57,69 @@ serve(async (req) => {
 
     console.log('Processing chat request...')
 
-    // Check message limit before processing
-    const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
+    // Check for account override first
+    const { data: userWithEmail } = await supabaseService.auth.getUser(token);
+    const userEmail = userWithEmail?.user?.email;
     
-    // Get current usage and subscription info
-    const { data: usageData } = await supabaseService
-      .from('user_message_usage')
-      .select('current_month_usage, subscription_tier')
-      .eq('user_id', user.id)
-      .eq('usage_month', currentMonth)
+    const { data: override } = await supabaseService
+      .from('account_overrides')
+      .select('unlimited_messages')
+      .eq('email', userEmail)
+      .eq('unlimited_messages', true)
       .maybeSingle();
 
-    const { data: subData } = await supabaseService
-      .from('subscribers')
-      .select('subscription_tier, subscribed')
-      .eq('user_id', user.id)
-      .maybeSingle();
+    // Skip message limit check if user has unlimited override
+    if (!override) {
+      // Check message limit before processing
+      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
+      
+      // Get current usage and subscription info
+      const { data: usageData } = await supabaseService
+        .from('user_message_usage')
+        .select('current_month_usage, subscription_tier')
+        .eq('user_id', user.id)
+        .eq('usage_month', currentMonth)
+        .maybeSingle();
 
-    const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
-    const currentUsage = usageData?.current_month_usage || 0;
-    
-    // Determine message limit based on tier
-    const getMessageLimit = (tier: string | null): number => {
-      switch (tier?.toLowerCase()) {
-        case 'grow': return 100;
-        case 'thrive': return 300;
-        default: return 25; // free tier
-      }
-    };
+      const { data: subData } = await supabaseService
+        .from('subscribers')
+        .select('subscription_tier, subscribed')
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-    const messageLimit = getMessageLimit(tier);
-    
-    // Check if user has exceeded their limit
-    if (currentUsage >= messageLimit) {
-      console.log(`User ${user.id} has exceeded message limit: ${currentUsage}/${messageLimit}`);
-      return new Response(
-        JSON.stringify({ 
-          error: 'limit_reached',
-          message: 'Monthly message limit reached. Upgrade to continue.',
-          current_usage: currentUsage,
-          message_limit: messageLimit
-        }),
-        { 
-          status: 402, // Payment Required
-          headers: { 
-            ...corsHeaders,
-            'Content-Type': 'application/json',
-          },
+      const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
+      const currentUsage = usageData?.current_month_usage || 0;
+      
+      // Determine message limit based on tier
+      const getMessageLimit = (tier: string | null): number => {
+        switch (tier?.toLowerCase()) {
+          case 'grow': return 100;
+          case 'thrive': return 300;
+          default: return 25; // free tier
         }
-      );
+      };
+
+      const messageLimit = getMessageLimit(tier);
+      
+      // Check if user has exceeded their limit
+      if (currentUsage >= messageLimit) {
+        console.log(`User ${user.id} has exceeded message limit: ${currentUsage}/${messageLimit}`);
+        return new Response(
+          JSON.stringify({ 
+            error: 'limit_reached',
+            message: 'Monthly message limit reached. Upgrade to continue.',
+            current_usage: currentUsage,
+            message_limit: messageLimit
+          }),
+          { 
+            status: 402, // Payment Required
+            headers: { 
+              ...corsHeaders,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
     }
 
     const messages = [

@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      account_overrides: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          unlimited_messages: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          unlimited_messages?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          unlimited_messages?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string
