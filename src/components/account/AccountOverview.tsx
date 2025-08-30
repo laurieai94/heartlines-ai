@@ -6,6 +6,7 @@ import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useNavigate } from 'react-router-dom';
+import AccountUsageAnalytics from './AccountUsageAnalytics';
 
 const AccountOverview = () => {
   const { user } = useAuth();
@@ -122,6 +123,9 @@ const AccountOverview = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Usage Analytics - Admin Only */}
+      <AccountUsageAnalytics />
 
       {/* Quick Actions */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
