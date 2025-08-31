@@ -27,6 +27,8 @@ interface AIChatProps {
   onLoadConversation?: (conversationId: string) => void;
   onDeleteConversation?: (conversationId: string) => void;
   isStartingNewConversation?: boolean;
+  showStarters?: boolean;
+  onCloseStarters?: () => void;
 }
 
 const AIChat = ({ 
@@ -45,7 +47,9 @@ const AIChat = ({
   historyLoading = false,
   onLoadConversation = () => {},
   onDeleteConversation = () => {},
-  isStartingNewConversation = false
+  isStartingNewConversation = false,
+  showStarters = false,
+  onCloseStarters = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const { profile } = useUserProfile();
@@ -77,12 +81,12 @@ const AIChat = ({
     }
   };
 
-  // Mark history as loaded after effects have run
+  // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
-    if (canInteract) {
+    if (canInteract && !historyLoading) {
       setIsHistoryLoaded(true);
     }
-  }, [canInteract]);
+  }, [canInteract, historyLoading]);
 
 useChatEffects({
   chatHistory,
@@ -126,6 +130,8 @@ useChatEffects({
         isConfigured={isConfigured}
         canInteract={canInteract}
         isHistoryLoaded={isHistoryLoaded}
+        showStarters={showStarters}
+        onCloseStarters={onCloseStarters}
       />
     </ChatLayout>
   );

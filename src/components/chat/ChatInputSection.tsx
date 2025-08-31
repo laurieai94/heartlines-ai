@@ -24,6 +24,8 @@ interface ChatInputSectionProps {
   isConfigured: boolean;
   canInteract: boolean;
   isHistoryLoaded: boolean;
+  showStarters?: boolean;
+  onCloseStarters?: () => void;
 }
 
 export const ChatInputSection = ({
@@ -34,7 +36,9 @@ export const ChatInputSection = ({
   chatHistory,
   isConfigured,
   canInteract,
-  isHistoryLoaded
+  isHistoryLoaded,
+  showStarters = false,
+  onCloseStarters = () => {}
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -93,6 +97,8 @@ export const ChatInputSection = ({
       // Handle at limit in onInputFocus instead
       return;
     }
+    // Hide starters after sending a message
+    onCloseStarters();
     onSendMessage(message);
   };
 
@@ -118,8 +124,8 @@ export const ChatInputSection = ({
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0 bg-black/20 backdrop-blur-sm border-t border-white/10">
       <div className="px-2 py-2 md:px-4 md:py-3">
-        {/* Conversation Starters - only show when no chat history */}
-        {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (
+        {/* Conversation Starters - only show when showStarters is true */}
+        {showStarters && isConfigured && isHistoryLoaded && (
           <div className="mb-2 md:mb-3 md:max-w-4xl md:mx-auto">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>

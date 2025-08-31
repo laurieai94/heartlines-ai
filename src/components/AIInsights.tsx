@@ -22,6 +22,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [conversationStarter, setConversationStarter] = useState<string>('');
   const [isStartingNewConversation, setIsStartingNewConversation] = useState(false);
+  const [showStarters, setShowStarters] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -97,8 +98,13 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     const messages = startNewConversation();
     setChatHistory(messages);
     setConversationStarter('');
+    setShowStarters(true); // Show starters when starting new conversation
     // Reset the flag after a brief delay
     setTimeout(() => setIsStartingNewConversation(false), 100);
+  };
+
+  const handleCloseStarters = () => {
+    setShowStarters(false);
   };
 
   const handleSupabaseConfigured = (configured: boolean) => {
@@ -183,6 +189,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             onLoadConversation={handleLoadConversation}
             onDeleteConversation={deleteConversation}
             isStartingNewConversation={isStartingNewConversation}
+            showStarters={showStarters}
+            onCloseStarters={handleCloseStarters}
           />
         </ProgressiveAccessWrapper>
       </div>
