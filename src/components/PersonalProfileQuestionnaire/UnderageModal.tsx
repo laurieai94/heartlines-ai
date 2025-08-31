@@ -11,9 +11,9 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-      {/* Enhanced backdrop with vignette and ambient glow */}
+      {/* Simple backdrop blur */}
       <div 
-        className="absolute inset-0 modal-backdrop modal-vignette modal-ambient-glow"
+        className="absolute inset-0 backdrop-blur-md"
         onClick={onClose}
       />
       
