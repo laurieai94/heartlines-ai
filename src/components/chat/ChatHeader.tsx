@@ -28,8 +28,8 @@ export const ChatHeader = ({
         {/* Mobile Layout - Stacked */}
         {isMobile && (
           <div className="flex flex-col gap-2">
-            {/* Top row - Just Kai info */}
-            <div className="flex items-center">
+            {/* Top row - Kai info left, New Chat button right */}
+            <div className="flex items-center justify-between">
               <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2 px-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
@@ -68,31 +68,8 @@ export const ChatHeader = ({
                   </div>
                 </PopoverContent>
               </Popover>
-            </div>
-            
-            {/* Bottom row - Action buttons aligned left */}
-            <div className="flex items-center gap-1">
-              {/* Sidebar Button */}
-              {onOpenSidebar && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        onClick={onOpenSidebar} 
-                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
-                      >
-                        <Menu className="w-4 h-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
-                      <p>Open chat history</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
 
-              {/* New Chat Button */}
+              {/* New Chat Button - moved to top right */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -110,6 +87,28 @@ export const ChatHeader = ({
                 </Tooltip>
               </TooltipProvider>
             </div>
+            
+            {/* Second row - Just hamburger menu under Kai */}
+            {onOpenSidebar && (
+              <div className="flex items-center">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        variant="ghost" 
+                        onClick={onOpenSidebar} 
+                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
+                      >
+                        <Menu className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                      <p>Open chat history</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            )}
           </div>
         )}
 
