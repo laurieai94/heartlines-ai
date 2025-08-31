@@ -27,7 +27,7 @@ const YourRelationship = ({
   onSectionComplete
 }: YourRelationshipProps) => {
   const {
-    scrollToNextQuestion
+    scrollToNextRequiredQuestion
   } = useAutoScroll();
   const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const isTalking = profileData.relationshipStatus === 'Talking to someone';
@@ -61,10 +61,7 @@ const YourRelationship = ({
 
       {/* Relationship Status */}
       <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={() => {
-      const nextQuestionId = getNextQuestionAfterStatus();
-      if (nextQuestionId) {
-        scrollToNextQuestion('question-relationship-status');
-      }
+      scrollToNextRequiredQuestion('question-relationship-status');
     }}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span>

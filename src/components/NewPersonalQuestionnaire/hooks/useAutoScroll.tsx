@@ -109,9 +109,43 @@ export const useAutoScroll = () => {
     }
   }, [scrollToElement]);
 
+  const scrollToNextRequiredQuestion = useCallback((currentQuestionId: string) => {
+    console.log('🟡 useAutoScroll: scrollToNextRequiredQuestion called with:', currentQuestionId);
+    
+    // Define the order of required questions based on requirements.ts
+    const requiredQuestionFlow = [
+      'question-name-pronouns',     // Section 1: name, pronouns
+      'question-relationship-status', // Section 2: relationshipStatus  
+      'question-love-language',     // Section 3: loveLanguage
+      'question-attachment-style'   // Section 4: attachmentStyle
+    ];
+    
+    const currentIndex = requiredQuestionFlow.indexOf(currentQuestionId);
+    console.log('🟡 useAutoScroll: Current question index:', currentIndex);
+    
+    if (currentIndex !== -1 && currentIndex < requiredQuestionFlow.length - 1) {
+      const nextQuestionId = requiredQuestionFlow[currentIndex + 1];
+      console.log('🟡 useAutoScroll: Scrolling to next required question:', nextQuestionId);
+      scrollToElement(nextQuestionId, 300);
+    } else {
+      console.log('🟡 useAutoScroll: No more required questions, looking for next section');
+      // If no more required questions, try to scroll to next section
+      const currentElement = document.getElementById(currentQuestionId);
+      if (currentElement) {
+        const currentSection = currentElement.closest('[id^="section-"]');
+        if (currentSection) {
+          const currentSectionId = currentSection.id;
+          const sectionNumber = parseInt(currentSectionId.replace('section-', ''));
+          scrollToNextSection(sectionNumber);
+        }
+      }
+    }
+  }, [scrollToElement, scrollToNextSection]);
+
   return {
     scrollToNextQuestion,
     scrollToNextSection,
+    scrollToNextRequiredQuestion,
     clearScrollTimeout
   };
 };

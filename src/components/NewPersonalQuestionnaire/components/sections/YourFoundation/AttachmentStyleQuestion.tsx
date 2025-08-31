@@ -19,10 +19,10 @@ const AttachmentStyleQuestion = ({
   onQuestionComplete
 }: AttachmentStyleQuestionProps) => {
   const {
-    scrollToNextQuestion
+    scrollToNextRequiredQuestion
   } = useAutoScroll();
   const isComplete = !!profileData.attachmentStyle;
-  return <QuestionCard questionId="question-attachment-style" showContinue={false}>
+  return <QuestionCard questionId="question-attachment-style" showContinue={isComplete} onContinue={() => scrollToNextRequiredQuestion('question-attachment-style')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select one</span>
@@ -36,17 +36,9 @@ const AttachmentStyleQuestion = ({
         selectedValue={profileData.attachmentStyle || ''} 
         onSelect={value => {
           updateField('attachmentStyle', value);
-          if (onQuestionComplete) {
-            setTimeout(() => {
-              onQuestionComplete();
-            }, 300);
-          }
-        }} 
+        }}
         columns={1} 
       />
-      {isComplete && onComplete && <div className="flex justify-center mt-4 animate-fade-in">
-          
-        </div>}
     </QuestionCard>;
 };
 export default AttachmentStyleQuestion;

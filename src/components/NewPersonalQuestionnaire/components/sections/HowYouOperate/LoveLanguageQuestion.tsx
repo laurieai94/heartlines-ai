@@ -16,14 +16,14 @@ const LoveLanguageQuestion = ({
   profileData, 
   handleMultiSelect 
 }: LoveLanguageQuestionProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { scrollToNextRequiredQuestion } = useAutoScroll();
   const isComplete = !!(profileData.loveLanguage?.length);
 
   return (
     <QuestionCard 
       questionId="question-love-language"
       showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion('question-love-language')}
+      onContinue={() => scrollToNextRequiredQuestion('question-love-language')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you feel most loved? <span className="text-red-400">*</span>
