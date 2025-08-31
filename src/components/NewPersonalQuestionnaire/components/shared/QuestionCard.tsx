@@ -26,9 +26,6 @@ const QuestionCard = ({
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-burgundy-600/20 rounded-2xl pointer-events-none"></div>
       
-      {/* Shimmer effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full pointer-events-none"></div>
-      
       <div className="relative z-10 space-y-2.5">
         {children}
         <QuestionContinueButton 
