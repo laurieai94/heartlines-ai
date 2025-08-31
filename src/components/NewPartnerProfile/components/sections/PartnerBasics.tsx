@@ -1,3 +1,4 @@
+
 import { User } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerNamePronounsCard from "../questions/PartnerNamePronounsCard";
@@ -5,6 +6,7 @@ import PartnerAgeCard from "../questions/PartnerAgeCard";
 import PartnerOrientationCard from "../questions/PartnerOrientationCard";
 import PartnerGenderCard from "../questions/PartnerGenderCard";
 import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
+
 interface PartnerBasicsProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
@@ -12,6 +14,7 @@ interface PartnerBasicsProps {
   isActive: boolean;
   onSectionComplete: () => void;
 }
+
 const PartnerBasics = ({
   profileData,
   updateField,
@@ -34,7 +37,10 @@ const PartnerBasics = ({
 
       <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} />
 
-      <OptionalGroup title="More basics (optional)">
+      <OptionalGroup 
+        title="Share a few details about their vibe and your dynamic"
+        subtitle="Helps Kai understand your connection at a glance"
+      >
         <PartnerAgeCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerAge} />
 
         <PartnerOrientationCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerOrientation} />
@@ -44,4 +50,5 @@ const PartnerBasics = ({
     </div>
   );
 };
+
 export default PartnerBasics;

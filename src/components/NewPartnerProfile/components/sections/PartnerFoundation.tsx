@@ -1,3 +1,4 @@
+
 import { TreeDeciduous } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerHeartbreakBetrayalCard from "../questions/PartnerHeartbreakBetrayalCard";
@@ -40,7 +41,10 @@ const PartnerFoundation = ({
         isComplete={!!profileData.partnerAttachmentStyle}
       />
 
-      <OptionalGroup title="More about their foundation (optional)">
+      <OptionalGroup 
+        title="Share a few details about their vibe and your dynamic"
+        subtitle="Helps Kai understand your connection at a glance"
+      >
         <PartnerHeartbreakBetrayalCard
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}

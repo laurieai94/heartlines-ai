@@ -1,3 +1,4 @@
+
 import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
@@ -40,7 +41,10 @@ const PartnerOperations = ({
         isComplete={!!(profileData.partnerLoveLanguage && profileData.partnerLoveLanguage.length > 0)}
       />
 
-      <OptionalGroup title="More about how they operate (optional)">
+      <OptionalGroup 
+        title="Share a few details about their vibe and your dynamic"
+        subtitle="Helps Kai understand your connection at a glance"
+      >
         <PartnerConflictCard
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}
