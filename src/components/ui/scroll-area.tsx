@@ -14,7 +14,8 @@ interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAr
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, onScroll, viewportRef, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => (
+>(({ className, children, onScroll, viewportRef, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => {
+  return (
   <ScrollAreaPrimitive.Root
     ref={ref}
     className={cn("relative overflow-hidden", className)}
@@ -33,7 +34,8 @@ const ScrollArea = React.forwardRef<
     <ScrollBar />
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
-))
+  );
+})
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
 
 const ScrollBar = React.forwardRef<
