@@ -69,8 +69,19 @@ const AIChatInput = ({
     }
   };
 
+  // Auto-resize textarea based on content
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      const scrollHeight = textareaRef.current.scrollHeight;
+      const maxHeight = window.innerWidth < 768 ? 88 : 100; // Match max-h classes
+      textareaRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentMessage(e.target.value);
+    adjustTextareaHeight();
   };
 
 
@@ -78,8 +89,14 @@ const AIChatInput = ({
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
       textareaRef.current.focus();
+      adjustTextareaHeight();
     }
   }, [disabled, readOnly]);
+
+  // Adjust height on message clear
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [currentMessage]);
 
   return (
     <div className={`flex gap-2 md:gap-3 items-end px-1 md:px-0 ${readOnly ? 'group' : ''}`}>
@@ -97,6 +114,9 @@ const AIChatInput = ({
           inputMode="text"
           autoCapitalize="sentences"
           autoCorrect="on"
+          autoComplete="off"
+          spellCheck={true}
+          enterKeyHint="send"
           className={`rounded-2xl px-3 py-2 md:px-4 md:py-3 text-sm md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] backdrop-blur-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
             readOnly 
               ? 'cursor-pointer brand-gradient-soft text-white placeholder:text-white/90 caret-white border-0 md:border-2 md:border-white/20' 

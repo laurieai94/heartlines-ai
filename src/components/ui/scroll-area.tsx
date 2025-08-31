@@ -6,12 +6,15 @@ import { cn } from "@/lib/utils"
 interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> {
   onScroll?: React.UIEventHandler<HTMLDivElement>;
   viewportRef?: React.RefObject<HTMLDivElement>;
+  role?: string;
+  'aria-live'?: 'polite' | 'assertive' | 'off';
+  'aria-label'?: string;
 }
 
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, onScroll, viewportRef, ...props }, ref) => (
+>(({ className, children, onScroll, viewportRef, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
     className={cn("relative overflow-hidden", className)}
@@ -21,6 +24,9 @@ const ScrollArea = React.forwardRef<
       ref={viewportRef}
       className="h-full w-full rounded-[inherit]"
       onScroll={onScroll}
+      role={role}
+      aria-live={ariaLive}
+      aria-label={ariaLabel}
     >
       {children}
     </ScrollAreaPrimitive.Viewport>

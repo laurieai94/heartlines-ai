@@ -51,6 +51,7 @@ const ChatContainer = ({
     });
   }, []);
 
+  // Throttled scroll handler for better performance
   const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
     const target = event.currentTarget;
     const threshold = 100;
@@ -115,9 +116,12 @@ const ChatContainer = ({
         viewportRef={viewportRef} 
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
+        role="log"
+        aria-live="polite"
+        aria-label="Chat conversation history"
       >
         <div className="pt-1 pb-1 px-2 md:px-4 md:pt-3 md:pb-2">
-          <div className="md:space-y-3 md:max-w-3xl md:mx-auto">
+          <div className="md:space-y-3 md:max-w-3xl md:mx-auto" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {

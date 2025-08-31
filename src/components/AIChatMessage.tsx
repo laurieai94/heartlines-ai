@@ -42,7 +42,11 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-2 md:gap-4 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-4'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+    <div 
+      className={`flex gap-2 md:gap-4 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-4'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+      role="listitem"
+      aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
+    >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
         <div className={`relative w-6 h-6 md:w-10 md:h-10 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
@@ -90,8 +94,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
           className={`
             transition-all duration-300 group-hover:shadow-xl px-3 py-2 md:px-4 md:py-3 rounded-2xl md:rounded-3xl
             ${isUser
-              ? 'bg-white/10 md:bg-white/5 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
-              : 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
+              ? 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
+              : 'bg-white/20 md:bg-white/12 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
             }
           `}
         >
