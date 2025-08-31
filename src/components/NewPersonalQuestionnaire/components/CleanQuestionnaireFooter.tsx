@@ -16,8 +16,7 @@ const CleanQuestionnaireFooter = ({
   autoCompleteEnabled = false
 }: CleanQuestionnaireFooterProps) => {
   const overallProgress = calculateProgress(profileData);
-  const canComplete = overallProgress === 100;
-
+  
   // Section completion status
   const sectionCompletions = [{
     name: "The Basics",
@@ -32,6 +31,9 @@ const CleanQuestionnaireFooter = ({
     name: "Your Foundation",
     isComplete: validateSection(4, profileData)
   }];
+
+  // Enable button when all required sections are complete (not 100% progress)
+  const canComplete = sectionCompletions.every(section => section.isComplete);
 
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
 
