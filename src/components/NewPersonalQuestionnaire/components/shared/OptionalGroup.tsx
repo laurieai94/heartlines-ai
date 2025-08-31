@@ -1,7 +1,8 @@
 
+
 import { ChevronDown, Star } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -10,6 +11,25 @@ interface OptionalGroupProps {
 
 const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Auto-scroll to first question when opened
+  useEffect(() => {
+    if (isOpen) {
+      // Small delay to ensure the content is fully expanded
+      setTimeout(() => {
+        // Find the first question card within this collapsible content
+        const collapsibleContent = document.querySelector('[data-state="open"] [data-question-card]');
+        if (collapsibleContent) {
+          console.log('🟡 OptionalGroup: Scrolling to first question in expanded section');
+          collapsibleContent.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+          });
+        }
+      }, 300); // Allow time for expansion animation
+    }
+  }, [isOpen]);
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
@@ -33,3 +53,4 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
 };
 
 export default OptionalGroup;
+
