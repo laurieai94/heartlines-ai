@@ -24,7 +24,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950/60 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-2 py-2 md:max-w-5xl md:mx-auto md:p-3">
+      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3">
         <div className="flex items-center justify-between gap-2 md:gap-3">
           {/* Desktop: Full Kai section */}
           {!isMobile && (
