@@ -20,9 +20,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const navigate = useNavigate();
   
   const handleTabHover = (tabValue: string) => {
-    if (tabValue === 'profile') {
-      import('@/components/ProfileBuilder').catch(() => {});
-    } else if (tabValue === 'pricing') {
+    if (tabValue === 'pricing') {
       import('@/pages/Pricing').catch(() => {});
     } else if (tabValue === 'mission') {
       import('@/pages/Mission').catch(() => {});

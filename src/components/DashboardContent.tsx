@@ -8,9 +8,10 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 
 // Import AIInsights directly to avoid dynamic loading issues
 import AIInsights from "@/components/AIInsights";
+// Temporarily import ProfileBuilder directly to fix loading issue
+import ProfileBuilder from "@/components/ProfileBuilder";
 
 // Lazy load other heavy components to improve initial render
-const ProfileBuilder = React.lazy(() => import("@/components/ProfileBuilder"));
 const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
 const Company = React.lazy(() => import("@/components/Company"));
 
@@ -51,25 +52,13 @@ const DashboardContent = ({
       case "profile":
         return (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense 
-              fallback={
-                <div className="space-y-4">
-                  <div className="animate-pulse h-6 w-48 bg-white/10 rounded" />
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="animate-pulse h-48 bg-white/5 rounded-xl" />
-                    <div className="animate-pulse h-48 bg-white/5 rounded-xl" />
-                  </div>
-                </div>
-              }
-            >
-              <ProfileBuilder 
-                onProfileUpdate={onProfileUpdate}
-                initialProfiles={temporaryProfiles}
-                initialDemographics={temporaryDemographics}
-                onOpenQuestionnaire={onOpenQuestionnaire}
-                onOpenPartnerQuestionnaire={onOpenPartnerQuestionnaire}
-              />
-            </Suspense>
+            <ProfileBuilder 
+              onProfileUpdate={onProfileUpdate}
+              initialProfiles={temporaryProfiles}
+              initialDemographics={temporaryDemographics}
+              onOpenQuestionnaire={onOpenQuestionnaire}
+              onOpenPartnerQuestionnaire={onOpenPartnerQuestionnaire}
+            />
           </div>
         );
       case "insights":
