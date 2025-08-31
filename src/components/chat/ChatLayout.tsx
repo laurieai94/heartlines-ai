@@ -36,7 +36,7 @@ export const ChatLayout = ({
     setIsSidebarOpen(true);
   };
   return (
-    <div className="h-full flex flex-col max-h-full px-2 sm:px-4 lg:px-8 pt-0 sm:pt-0 lg:pt-1 pb-2 sm:pb-4 lg:pb-6">
+    <div className="h-full flex flex-col max-h-full px-2 sm:px-4 lg:px-8 pt-0 sm:pt-0 lg:pt-0 pb-2 sm:pb-4 lg:pb-6">
       <div className="flex-1 min-h-0 max-h-full flex">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 min-h-0 max-h-full flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px]">

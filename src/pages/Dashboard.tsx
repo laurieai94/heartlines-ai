@@ -76,7 +76,7 @@ const Dashboard = () => {
             <DashboardHeader 
               accessLevel={accessLevel}
               profileCompletion={profileCompletion}
-              compact={false}
+              compact={activeTab === 'insights'}
               user={user}
               activeTab={activeTab}
               onValueChange={setActiveTab}
