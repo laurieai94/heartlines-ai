@@ -32,10 +32,10 @@ export const ChatHeader = ({
             <div className="flex items-center justify-between">
               <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 px-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
+                  <Button variant="ghost" className="flex items-center gap-2 pl-0 pr-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
-                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-8 h-8 border border-white/20">
+                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-6 h-6 border border-white/20">
                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                           <Heart className="w-2.5 h-2.5" />
@@ -43,7 +43,7 @@ export const ChatHeader = ({
                       </Avatar>
                       <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-green-400 rounded-full border border-white"></div>
                     </div>
-                    <h3 className="text-white font-medium text-sm">Kai</h3>
+                    <h3 className="text-white font-medium text-sm leading-none">Kai</h3>
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
@@ -77,9 +77,9 @@ export const ChatHeader = ({
                         <Button 
                         variant="ghost" 
                         onClick={onNewConversation} 
-                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-8 h-8 p-0 rounded-xl"
+                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-6 h-6 p-0 rounded-xl"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
@@ -95,9 +95,9 @@ export const ChatHeader = ({
                         <Button 
                           variant="ghost" 
                           onClick={onOpenSidebar} 
-                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-8 h-8 p-0 rounded-xl"
+                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-6 h-6 p-0 rounded-xl"
                         >
-                          <Menu className="w-4 h-4" />
+                          <Menu className="w-3 h-3" />
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
