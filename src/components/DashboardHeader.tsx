@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Crown, Menu, Home, User as UserIcon, Brain, CreditCard, Target } from "lucide-react";
+import { Crown, Menu, Home, User as UserIcon, Brain, CreditCard, Target, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { User } from '@supabase/supabase-js';
 
@@ -44,14 +44,16 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     { value: 'home', label: 'Home', icon: Home },
     { value: 'profile', label: 'Profile', icon: UserIcon },
     { value: 'insights', label: 'Coach', icon: Brain },
-    { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
     { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
+    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
+    { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
   ];
 
   const handleNavigation = (item: any) => {
     if (item.isExternal) {
       if (item.value === 'pricing') navigate('/pricing');
       else if (item.value === 'mission') navigate('/mission');
+      else if (item.value === 'account') navigate('/account');
     } else {
       onValueChange(item.value);
     }
@@ -112,9 +114,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             />
           </div>
           
-          <div className="flex items-center">
-            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
-          </div>
         </div>
 
         {/* Desktop Navigation - Hidden on mobile */}
