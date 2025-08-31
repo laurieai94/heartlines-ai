@@ -66,7 +66,7 @@ const ReminderButton = ({ suggestedText, messageId }: ReminderButtonProps) => {
         <Button 
           variant="outline" 
           size="sm" 
-          className="mt-2 text-xs bg-gradient-to-r from-coral-50 to-peach-50 border-coral-200 hover:from-coral-100 hover:to-peach-100 text-coral-700"
+          className="mt-2 text-xs bg-gradient-to-r from-coral-50 to-peach-50 md:border-coral-200 border-transparent hover:from-coral-100 hover:to-peach-100 text-coral-700"
         >
           <Bell className="w-2.5 h-2.5 md:w-3 md:h-3 mr-1" />
           Set Reminder

@@ -116,7 +116,7 @@ const ChatContainer = ({
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className="px-1 pt-2 pb-1 md:px-4 md:pt-3 md:pb-2">
+        <div className="pt-2 pb-1 md:px-4 md:pt-3 md:pb-2">
           <div className="space-y-2 md:space-y-3 md:max-w-3xl md:mx-auto">
             
             {/* Chat Messages */}

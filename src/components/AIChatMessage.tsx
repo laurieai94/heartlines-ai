@@ -40,10 +40,10 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-4 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+    <div className={`flex gap-2 md:gap-4 mb-4 px-3 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
-        <div className={`relative ${isMobile ? 'w-7 h-7' : 'w-10 h-10'}`}>
+        <div className="relative w-6 h-6 md:w-10 md:h-10">
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
@@ -51,7 +51,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
             }`}></div>
           )}
           
-          <Avatar className={`relative z-10 shadow-lg ${isMobile ? 'w-7 h-7' : 'w-10 h-10 border-2 border-white'} ${
+          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-10 md:h-10 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -82,10 +82,10 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
       <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-xl ${isMobile ? 'px-3 py-2 rounded-2xl' : 'px-4 py-3 rounded-3xl'}
+            transition-all duration-300 group-hover:shadow-xl px-3 py-2 md:px-4 md:py-3 rounded-2xl md:rounded-3xl
             ${isUser
-              ? `${isMobile ? 'bg-white/10 backdrop-blur-sm text-white rounded-br-md' : 'bg-white/5 backdrop-blur-md text-white rounded-br-lg border border-coral-400/30 shadow-md shadow-coral-400/10 ring-1 ring-coral-400/20'}`
-              : `${isMobile ? 'bg-white/15 backdrop-blur-sm text-white rounded-bl-md' : 'bg-white/8 backdrop-blur-md text-white rounded-bl-lg border border-white/25 shadow-lg shadow-black/15 ring-1 ring-white/15'}`
+              ? 'bg-white/10 md:bg-white/5 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
+              : 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
             }
           `}
         >

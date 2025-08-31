@@ -76,7 +76,7 @@ const AIChatInput = ({
   }, [disabled, readOnly]);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-end ${readOnly ? 'group' : ''}`}>
+    <div className={`flex gap-2 md:gap-3 items-end px-3 md:px-0 ${readOnly ? 'group' : ''}`}>
       <div className="flex-1">
         <Textarea
           ref={textareaRef}

@@ -36,15 +36,15 @@ export const ChatLayout = ({
     setIsSidebarOpen(true);
   };
   return (
-    <div className="h-full flex flex-col max-h-full px-1 sm:px-4 lg:px-8 pt-0 sm:pt-0 lg:pt-0 pb-2 sm:pb-4 lg:pb-6">
+    <div className="h-full flex flex-col max-h-full md:px-4 lg:px-8 md:pt-0 lg:pt-0 md:pb-4 lg:pb-6">
       <div className="flex-1 min-h-0 max-h-full flex">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 min-h-0 max-h-full flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px]">
           {/* Gradient frame and ambient glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-none md:rounded-2xl lg:rounded-3xl blur-xl -z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-none md:rounded-2xl lg:rounded-3xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 md:rounded-2xl lg:rounded-3xl blur-xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10"></div>
           
-          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 md:backdrop-blur-xl rounded-none md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-900/30 overflow-visible relative z-10">
+          <div className="flex-1 min-h-0 max-h-full flex flex-col md:bg-white/5 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-900/30 overflow-visible relative z-10">
             <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             {children}
           </div>

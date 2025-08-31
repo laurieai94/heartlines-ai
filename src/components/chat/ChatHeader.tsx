@@ -23,22 +23,22 @@ export const ChatHeader = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className={`sticky top-0 z-40 shrink-0 ${isMobile ? 'bg-white/5 backdrop-blur-sm' : 'border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10'}`}>
-      <div className={`${isMobile ? 'w-full px-2 py-2' : 'max-w-5xl mx-auto p-3'}`}>
-        <div className={`flex items-center justify-between ${isMobile ? 'gap-2' : 'gap-3'}`}>
-          <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
+    <div className="sticky top-0 z-40 shrink-0 md:border-b md:border-white/10 md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
+      <div className="w-full px-3 py-2 md:max-w-5xl md:mx-auto md:p-3">
+        <div className="flex items-center justify-between gap-2 md:gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             {/* Kai Avatar */}
             <div className="relative">
               {!isMobile && (
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
               )}
-              <Avatar className={`bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 ${isMobile ? 'w-6 h-6' : 'w-10 h-10 border-2 border-white/20'}`}>
+              <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-6 h-6 md:w-10 md:h-10 md:border-2 md:border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
                   console.log('Kai avatar image failed to load');
                   e.currentTarget.style.display = 'none';
                 }} />
                 <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                  <Heart className={isMobile ? 'w-3 h-3' : 'w-5 h-5'} />
+                  <Heart className="w-3 h-3 md:w-5 md:h-5" />
                 </AvatarFallback>
               </Avatar>
               {!isMobile && (
@@ -48,7 +48,7 @@ export const ChatHeader = ({
             
             {/* Kai Info */}
             <div>
-              <h3 className={`text-white font-semibold ${isMobile ? 'text-sm' : 'text-sm'}`}>Kai</h3>
+              <h3 className="text-white font-semibold text-sm">Kai</h3>
               {!isMobile && (
                 <div className="flex items-center gap-1">
                   <span className="text-white/70 text-sm">Your AI Relationship Coach</span>
@@ -85,7 +85,7 @@ export const ChatHeader = ({
             </div>
           </div>
 
-          <div className={`flex items-center ${isMobile ? 'gap-1' : 'gap-3'}`}>
+          <div className="flex items-center gap-1 md:gap-3">
             {/* Sidebar Button */}
             {onOpenSidebar && (
               <TooltipProvider>
@@ -94,14 +94,10 @@ export const ChatHeader = ({
                     <Button 
                       variant="ghost" 
                       onClick={onOpenSidebar} 
-                      className={`text-white/70 hover:text-white hover:bg-white/10 transition-colors ${
-                        isMobile 
-                          ? 'h-8 w-8 p-0 rounded-full' 
-                          : 'h-auto px-2 py-1.5 flex flex-col items-center gap-1'
-                      }`}
+                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors h-8 w-8 md:h-auto md:px-2 md:py-1.5 p-0 rounded-full md:flex md:flex-col md:items-center md:gap-1"
                     >
-                      <Menu className={isMobile ? 'w-3 h-3' : 'w-4 h-4'} />
-                      {!isMobile && <span className="text-xs font-medium">Chats</span>}
+                      <Menu className="w-3 h-3 md:w-4 md:h-4" />
+                      <span className="text-xs font-medium hidden md:inline">Chats</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
@@ -118,14 +114,10 @@ export const ChatHeader = ({
                   <Button 
                     variant="ghost" 
                     onClick={onNewConversation} 
-                    className={`text-white/70 hover:text-white hover:bg-white/10 transition-colors ${
-                      isMobile 
-                        ? 'h-8 w-8 p-0 rounded-full' 
-                        : 'h-auto px-2 py-1.5 flex flex-col items-center gap-1'
-                    }`}
+                    className="text-white/70 hover:text-white hover:bg-white/10 transition-colors h-8 w-8 md:h-auto md:px-2 md:py-1.5 p-0 rounded-full md:flex md:flex-col md:items-center md:gap-1"
                   >
-                    <Plus className={isMobile ? 'w-3 h-3' : 'w-4 h-4'} />
-                    {!isMobile && <span className="text-xs font-medium">New</span>}
+                    <Plus className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="text-xs font-medium hidden md:inline">New</span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
