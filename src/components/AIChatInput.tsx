@@ -100,12 +100,13 @@ const AIChatInput = ({
 
   return (
     <div className={`flex gap-2 md:gap-3 items-end px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
-      <div className={`flex-1 rounded-2xl overflow-hidden ${
+      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
       }`}>
         <Textarea
+          unstyled
           ref={textareaRef}
           value={currentMessage}
           onChange={handleInputChange}
@@ -121,7 +122,8 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="rounded-none bg-transparent border-0 shadow-none px-2 py-2 md:px-4 md:py-3 text-base md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] leading-relaxed focus-visible:ring-0 focus:outline-none text-white placeholder:text-white/90 caret-white"
+          className="w-full bg-transparent border-0 px-2 py-2 md:px-4 md:py-3 text-base md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] leading-relaxed text-white placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
+          style={{ WebkitTapHighlightColor: 'transparent', WebkitAppearance: 'none' }}
           rows={1}
         />
       </div>
