@@ -24,7 +24,7 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
           console.log('🟡 OptionalGroup: Scrolling to first question in expanded section');
           firstQuestionCard.scrollIntoView({ 
             behavior: 'smooth', 
-            block: 'center',
+            block: 'start',
             inline: 'nearest'
           });
         }

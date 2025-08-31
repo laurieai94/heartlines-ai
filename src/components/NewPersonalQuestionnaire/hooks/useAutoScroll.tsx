@@ -28,7 +28,7 @@ export const useAutoScroll = () => {
         console.log('🟡 useAutoScroll: Scrolling to element:', element.id);
         element.scrollIntoView({ 
           behavior: 'smooth', 
-          block: 'center',
+          block: 'start',
           inline: 'nearest'
         });
       } else {

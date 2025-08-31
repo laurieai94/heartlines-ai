@@ -19,7 +19,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   return (
     <div 
-      className={`group bg-gradient-to-br from-burgundy-900/80 to-burgundy-800/70 backdrop-blur-xl rounded-xl border border-white/25 px-5 py-3 space-y-2.5 transition-all duration-300 hover:from-burgundy-800/85 hover:to-burgundy-700/75 hover:border-white/35 hover:shadow-lg hover:shadow-burgundy-500/10 hover:-translate-y-0.5 relative overflow-hidden ${className}`}
+      className={`group bg-gradient-to-br from-burgundy-900/80 to-burgundy-800/70 backdrop-blur-xl rounded-xl border border-white/25 px-5 py-3 space-y-2.5 transition-all duration-300 hover:from-burgundy-800/85 hover:to-burgundy-700/75 hover:border-white/35 hover:shadow-lg hover:shadow-burgundy-500/10 hover:-translate-y-0.5 relative overflow-hidden scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 ${className}`}
       data-question-card
       id={questionId}
     >
