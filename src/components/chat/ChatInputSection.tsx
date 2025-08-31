@@ -123,7 +123,7 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0 bg-black/20 backdrop-blur-sm border-t border-white/10">
-      <div className="px-2 py-2 md:px-4 md:py-3">
+      <div className="px-1 py-2 md:px-4 md:py-3">
         {/* Conversation Starters - only show when showStarters is true */}
         {showStarters && isConfigured && isHistoryLoaded && (
           <div className="mb-2 md:mb-3 md:max-w-4xl md:mx-auto">
