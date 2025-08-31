@@ -122,7 +122,7 @@ export const ChatInputSection = ({
   }, [nearLimit, messages_used, message_limit, nextTier, upgrade]);
 
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0 bg-black/20 backdrop-blur-sm border-t border-white/10">
+    <div className="flex-shrink-0 pb-safe sticky bottom-0">
       <div className="px-0 py-2 md:px-4 md:py-3">
         {/* Conversation Starters - only show when showStarters is true */}
         {showStarters && isConfigured && isHistoryLoaded && (
