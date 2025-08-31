@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Crown, Menu } from "lucide-react";
+import { Crown, Menu, Home, User as UserIcon, Brain, CreditCard, Target } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { User } from '@supabase/supabase-js';
 
@@ -41,11 +41,11 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   };
 
   const navigationItems = [
-    { value: 'home', label: 'Home' },
-    { value: 'profile', label: 'Profile' },
-    { value: 'insights', label: 'Coach' },
-    { value: 'pricing', label: 'Plans', isExternal: true },
-    { value: 'mission', label: 'Mission', isExternal: true },
+    { value: 'home', label: 'Home', icon: Home },
+    { value: 'profile', label: 'Profile', icon: UserIcon },
+    { value: 'insights', label: 'Coach', icon: Brain },
+    { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
+    { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
   ];
 
   const handleNavigation = (item: any) => {
@@ -71,33 +71,40 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     <Button 
                       variant="ghost" 
                       size="icon"
-                      className="text-white hover:bg-white/10 h-8 w-8"
+                      className="text-white h-8 w-8"
                     >
                       <Menu className="h-5 w-5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent 
                     align="start" 
-                    className="w-48 bg-burgundy-800/95 backdrop-blur-md border-burgundy-700 text-white"
+                    className="w-56 bg-gradient-to-br from-burgundy-800/98 via-burgundy-900/96 to-burgundy-950/98 backdrop-blur-xl border-0 text-white shadow-2xl shadow-burgundy-950/50 rounded-xl p-2"
                   >
-                    {navigationItems.map((item) => (
-                      <DropdownMenuItem
-                        key={item.value}
-                        onMouseEnter={() => handleTabHover(item.value)}
-                        onClick={() => handleNavigation(item)}
-                        className={`hover:bg-burgundy-700/50 focus:bg-burgundy-700/50 cursor-pointer ${
-                          activeTab === item.value ? 'bg-burgundy-700/30 text-white font-medium' : 'text-white/90'
-                        }`}
-                      >
-                        {item.label}
-                      </DropdownMenuItem>
-                    ))}
+                    {navigationItems.map((item) => {
+                      const IconComponent = item.icon;
+                      const isActive = activeTab === item.value;
+                      return (
+                        <DropdownMenuItem
+                          key={item.value}
+                          onMouseEnter={() => handleTabHover(item.value)}
+                          onClick={() => handleNavigation(item)}
+                          className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
+                            isActive 
+                              ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
+                              : 'text-white/85 hover:bg-white/5 hover:text-white'
+                          }`}
+                        >
+                          <IconComponent className="h-4 w-4 flex-shrink-0" />
+                          <span className="text-sm">{item.label}</span>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuContent>
                 </DropdownMenu>
                 
                 <HeartlinesWordmark 
                   size="sm" 
-                  className="text-white cursor-pointer hover:opacity-80 transition-opacity" 
+                  className="text-white cursor-pointer" 
                   onClick={() => onValueChange('home')}
                 />
               </div>
