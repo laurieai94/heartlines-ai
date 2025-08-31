@@ -1,3 +1,4 @@
+
 import { ChevronDown, Star } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
@@ -7,7 +8,7 @@ interface OptionalGroupProps {
   title?: string;
 }
 
-const OptionalGroup = ({ children, title = "Share more for more personalized insights" }: OptionalGroupProps) => {
+const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
