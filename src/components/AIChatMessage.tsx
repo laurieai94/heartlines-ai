@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
 import { BRAND } from "@/branding";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AIChatMessageProps {
   message: ChatMessage;
@@ -14,6 +15,7 @@ interface AIChatMessageProps {
 
 const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
+  const isMobile = useIsMobile();
   
   // Format time to show only hours and minutes
   const formatTime = (timestamp: string) => {
@@ -42,13 +44,15 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
     <div className={`flex gap-4 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
-        <div className="relative w-10 h-10">
+        <div className={`relative ${isMobile ? 'w-7 h-7' : 'w-10 h-10'}`}>
           {/* Subtle glow for avatars */}
-          <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-            isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
-          }`}></div>
+          {!isMobile && (
+            <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
+              isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
+            }`}></div>
+          )}
           
-          <Avatar className={`w-10 h-10 relative z-10 border-2 border-white shadow-lg overflow-visible ${
+          <Avatar className={`relative z-10 shadow-lg ${isMobile ? 'w-7 h-7' : 'w-10 h-10 border-2 border-white'} ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -79,10 +83,10 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
       <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            px-4 py-3 rounded-3xl transition-all duration-300 group-hover:shadow-xl
+            transition-all duration-300 group-hover:shadow-xl ${isMobile ? 'px-3 py-2 rounded-2xl' : 'px-4 py-3 rounded-3xl'}
             ${isUser
-              ? 'bg-white/5 backdrop-blur-md text-white rounded-br-lg border border-coral-400/30 shadow-md shadow-coral-400/10 ring-1 ring-coral-400/20'
-              : 'bg-white/8 backdrop-blur-md text-white rounded-bl-lg border border-white/25 shadow-lg shadow-black/15 ring-1 ring-white/15'
+              ? `${isMobile ? 'bg-white/10 backdrop-blur-sm text-white rounded-br-md' : 'bg-white/5 backdrop-blur-md text-white rounded-br-lg border border-coral-400/30 shadow-md shadow-coral-400/10 ring-1 ring-coral-400/20'}`
+              : `${isMobile ? 'bg-white/15 backdrop-blur-sm text-white rounded-bl-md' : 'bg-white/8 backdrop-blur-md text-white rounded-bl-lg border border-white/25 shadow-lg shadow-black/15 ring-1 ring-white/15'}`
             }
           `}
         >

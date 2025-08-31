@@ -23,8 +23,8 @@ export const ChatHeader = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className="sticky top-0 z-40 shrink-0 border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10">
-      <div className={`${isMobile ? 'w-full px-1 py-1' : 'max-w-5xl mx-auto p-3'}`}>
+    <div className={`sticky top-0 z-40 shrink-0 ${isMobile ? 'bg-white/5 backdrop-blur-sm' : 'border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10'}`}>
+      <div className={`${isMobile ? 'w-full px-2 py-2' : 'max-w-5xl mx-auto p-3'}`}>
         <div className={`flex items-center justify-between ${isMobile ? 'gap-2' : 'gap-3'}`}>
           <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
             {/* Kai Avatar */}
@@ -32,7 +32,7 @@ export const ChatHeader = ({
               {!isMobile && (
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
               )}
-              <Avatar className={`bg-gradient-to-br from-coral-400 to-pink-500 border-2 border-white/20 shadow-lg relative z-10 ${isMobile ? 'w-7 h-7 border' : 'w-10 h-10'}`}>
+              <Avatar className={`bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 ${isMobile ? 'w-6 h-6' : 'w-10 h-10 border-2 border-white/20'}`}>
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
                   console.log('Kai avatar image failed to load');
                   e.currentTarget.style.display = 'none';

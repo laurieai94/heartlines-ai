@@ -91,10 +91,10 @@ const AIChatInput = ({
           inputMode="text"
           autoCapitalize="sentences"
           autoCorrect="on"
-          className={`border-2 rounded-2xl px-3 py-2 md:px-4 md:py-3 text-sm md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] backdrop-blur-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
+          className={`rounded-2xl px-3 py-2 md:px-4 md:py-3 text-sm md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] backdrop-blur-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
             readOnly 
-              ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white' 
-              : 'border-white/15 bg-white/5 supports-[backdrop-filter]:backdrop-blur-md text-white placeholder:text-white/75 caret-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] cursor-text'
+              ? 'cursor-pointer brand-gradient-soft text-white placeholder:text-white/90 caret-white border-0 md:border-2 md:border-white/20' 
+              : 'bg-white/5 supports-[backdrop-filter]:backdrop-blur-md text-white placeholder:text-white/75 caret-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] cursor-text border-0 md:border-2 md:border-white/15'
           }`}
           rows={1}
         />

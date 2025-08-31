@@ -9,6 +9,7 @@ import { BRAND } from "@/branding";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -29,6 +30,7 @@ const ChatContainer = ({
   const { accessLevel } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
+  const isMobile = useIsMobile();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
@@ -135,7 +137,7 @@ const ChatContainer = ({
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-3 py-2 md:px-5 md:py-3 shadow-xl border border-white/10">
+                <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
                   <div className="flex gap-1 md:gap-1.5">
                     <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
                     <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
@@ -155,7 +157,7 @@ const ChatContainer = ({
       </ScrollArea>
       
       {/* Scroll to Bottom Button */}
-      {showScrollToBottom && <Button onClick={() => scrollToBottom('smooth')} size="sm" className="absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 shadow-lg">
+      {showScrollToBottom && <Button onClick={() => scrollToBottom('smooth')} size="sm" className={`absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}>
           <ChevronDown className="w-4 h-4" />
         </Button>}
     </div>;
