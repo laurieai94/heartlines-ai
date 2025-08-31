@@ -40,7 +40,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-2 md:gap-4 mb-4 px-1 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+    <div className={`flex gap-2 md:gap-4 mb-2 md:mb-4 px-1 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
         <div className="relative w-6 h-6 md:w-10 md:h-10">
@@ -105,7 +105,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
         )}
         
         {/* Timestamp */}
-        <p className={`text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+        <p className={`text-xs md:text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
           {formatTime(message.timestamp)}
         </p>
       </div>

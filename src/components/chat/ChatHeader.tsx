@@ -24,32 +24,29 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 md:border-b md:border-white/10 md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-2 py-2 md:max-w-5xl md:mx-auto md:p-3">
+      <div className="w-full px-1 py-1.5 md:max-w-5xl md:mx-auto md:p-3">
         <div className="flex items-center justify-between gap-2 md:gap-3">
-          <div className="flex items-center gap-2 md:gap-3">
-            {/* Kai Avatar */}
-            <div className="relative">
-              {!isMobile && (
+          {/* Mobile: Hide left section completely */}
+          {!isMobile && (
+            <div className="flex items-center gap-3">
+              {/* Kai Avatar */}
+              <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
-              )}
-              <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-6 h-6 md:w-10 md:h-10 md:border-2 md:border-white/20">
-                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
-                  console.log('Kai avatar image failed to load');
-                  e.currentTarget.style.display = 'none';
-                }} />
-                <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                  <Heart className="w-3 h-3 md:w-5 md:h-5" />
-                </AvatarFallback>
-              </Avatar>
-              {!isMobile && (
+                <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-10 h-10 border-2 border-white/20">
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
+                    console.log('Kai avatar image failed to load');
+                    e.currentTarget.style.display = 'none';
+                  }} />
+                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                    <Heart className="w-5 h-5" />
+                  </AvatarFallback>
+                </Avatar>
                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
-              )}
-            </div>
-            
-            {/* Kai Info */}
-            <div>
-              <h3 className="text-white font-semibold text-sm">Kai</h3>
-              {!isMobile && (
+              </div>
+              
+              {/* Kai Info */}
+              <div>
+                <h3 className="text-white font-semibold text-sm">Kai</h3>
                 <div className="flex items-center gap-1">
                   <span className="text-white/70 text-sm">Your AI Relationship Coach</span>
                   <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
@@ -81,9 +78,14 @@ export const ChatHeader = ({
                     </PopoverContent>
                   </Popover>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Mobile: Show Kai name only, desktop: empty div for spacing */}
+          {isMobile && (
+            <h3 className="text-white font-medium text-sm">Kai</h3>
+          )}
 
           <div className="flex items-center gap-1 md:gap-3">
             {/* Sidebar Button */}
