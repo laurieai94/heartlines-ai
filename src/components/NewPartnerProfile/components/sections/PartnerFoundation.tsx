@@ -43,7 +43,6 @@ const PartnerFoundation = ({
 
       <OptionalGroup 
         title="Share a few details about their vibe and your dynamic"
-        subtitle="Helps Kai understand your connection at a glance"
       >
         <PartnerHeartbreakBetrayalCard
           profileData={profileData}

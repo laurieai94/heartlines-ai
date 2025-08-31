@@ -39,7 +39,6 @@ const PartnerBasics = ({
 
       <OptionalGroup 
         title="Share a few details about their vibe and your dynamic"
-        subtitle="Helps Kai understand your connection at a glance"
       >
         <PartnerAgeCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerAge} />
 
