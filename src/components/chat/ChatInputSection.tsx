@@ -116,7 +116,7 @@ export const ChatInputSection = ({
   }, [nearLimit, messages_used, message_limit, nextTier, upgrade]);
 
   return (
-    <div className="flex-shrink-0 pb-safe md:sticky md:bottom-0 md:bg-black/20 md:backdrop-blur-sm md:border-t md:border-white/10">
+    <div className="flex-shrink-0 pb-safe sticky bottom-0 bg-black/20 backdrop-blur-sm border-t border-white/10">
       <div className="px-2 py-2 md:px-4 md:py-3">
         {/* Conversation Starters - only show when no chat history */}
         {chatHistory.length === 0 && isConfigured && isHistoryLoaded && (

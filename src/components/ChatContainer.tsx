@@ -105,6 +105,21 @@ const ChatContainer = ({
     };
   }, [isNearBottom, scrollToBottom]);
 
+  // Handle mobile keyboard visibility changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.visualViewport) return;
+    
+    const handleViewportChange = () => {
+      if (isNearBottom) {
+        // Small delay to ensure the viewport has stabilized
+        setTimeout(() => scrollToBottom('auto'), 100);
+      }
+    };
+    
+    window.visualViewport.addEventListener('resize', handleViewportChange);
+    return () => window.visualViewport?.removeEventListener('resize', handleViewportChange);
+  }, [isNearBottom, scrollToBottom]);
+
   // Initial scroll to bottom
   useEffect(() => {
     if (isHistoryLoaded) {
