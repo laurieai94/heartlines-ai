@@ -113,7 +113,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
+          placeholder={placeholder ?? (chatHistory.length === 0 ? "Message Kai..." : "Continue the conversation...")}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
           inputMode="text"
@@ -122,7 +122,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-2 py-2 md:px-4 md:py-3 text-base md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] leading-relaxed text-white placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
+          className="w-full bg-transparent border-0 px-2 py-2 md:px-4 md:py-3 text-base md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] leading-relaxed text-white placeholder:text-white/90 placeholder:text-center caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
           style={{ WebkitTapHighlightColor: 'transparent', WebkitAppearance: 'none' }}
           rows={1}
         />
