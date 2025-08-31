@@ -100,7 +100,7 @@ export const ChatHeader = ({
                           : 'h-auto px-2 py-1.5 flex flex-col items-center gap-1'
                       }`}
                     >
-                      <Menu className={isMobile ? 'w-4 h-4' : 'w-4 h-4'} />
+                      <Menu className={isMobile ? 'w-3 h-3' : 'w-4 h-4'} />
                       {!isMobile && <span className="text-xs font-medium">Chats</span>}
                     </Button>
                   </TooltipTrigger>
@@ -124,7 +124,7 @@ export const ChatHeader = ({
                         : 'h-auto px-2 py-1.5 flex flex-col items-center gap-1'
                     }`}
                   >
-                    <Plus className={isMobile ? 'w-4 h-4' : 'w-4 h-4'} />
+                    <Plus className={isMobile ? 'w-3 h-3' : 'w-4 h-4'} />
                     {!isMobile && <span className="text-xs font-medium">New</span>}
                   </Button>
                 </TooltipTrigger>

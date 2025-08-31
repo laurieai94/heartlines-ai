@@ -57,7 +57,7 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-6 h-6" />}
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5 md:w-6 md:h-6" />}
               </AvatarFallback>
             ) : (
               <>
@@ -67,7 +67,7 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
                   className="object-cover"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                  <Bot className="w-6 h-6" />
+                  <Bot className="w-5 h-5 md:w-6 md:h-6" />
                 </AvatarFallback>
               </>
             )}
