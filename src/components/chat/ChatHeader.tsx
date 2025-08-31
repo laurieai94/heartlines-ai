@@ -23,10 +23,10 @@ export const ChatHeader = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className="sticky top-0 z-40 shrink-0 md:border-b md:border-white/10 md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-1 py-1.5 md:max-w-5xl md:mx-auto md:p-3">
+    <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950/60 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
+      <div className="w-full px-2 py-2 md:max-w-5xl md:mx-auto md:p-3">
         <div className="flex items-center justify-between gap-2 md:gap-3">
-          {/* Mobile: Hide left section completely */}
+          {/* Desktop: Full Kai section */}
           {!isMobile && (
             <div className="flex items-center gap-3">
               {/* Kai Avatar */}
@@ -82,9 +82,46 @@ export const ChatHeader = ({
             </div>
           )}
 
-          {/* Mobile: Show Kai name only, desktop: empty div for spacing */}
+          {/* Mobile: Compact Kai section with avatar */}
           {isMobile && (
-            <h3 className="text-white font-medium text-sm">Kai</h3>
+            <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2 px-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
+                  {/* Mobile Kai Avatar */}
+                  <div className="relative">
+                    <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-5 h-5 border border-white/20">
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                        <Heart className="w-2.5 h-2.5" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-green-400 rounded-full border border-white"></div>
+                  </div>
+                  <h3 className="text-white font-medium text-sm">Kai</h3>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Heart className="w-4 h-4 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-sm text-white/90 leading-relaxed">
+                      Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
+                    </p>
+                    <p className="text-sm text-white/80 leading-relaxed">
+                      Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
+                    </p>
+                    <p className="text-sm text-white/80 leading-relaxed">
+                      <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
+                    </p>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           )}
 
           <div className="flex items-center gap-1 md:gap-3">
