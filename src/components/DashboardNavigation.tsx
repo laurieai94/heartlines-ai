@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Home, User, Lightbulb, Shield } from "lucide-react";
+import { Home, User, MessageSquare, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 interface DashboardNavigationProps {
   activeTab: string;
@@ -51,7 +51,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
               title="Coach"
               className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
-              <Lightbulb className="w-4 h-4" />
+              <MessageSquare className="w-4 h-4" />
               <span>Coach</span>
             </TabsTrigger>
             <TabsTrigger 
