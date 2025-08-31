@@ -78,7 +78,12 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   </DropdownMenuTrigger>
                   <DropdownMenuContent 
                     align="start" 
-                    className="w-56 bg-gradient-to-br from-burgundy-800/98 via-burgundy-900/96 to-burgundy-950/98 backdrop-blur-xl border-0 text-white shadow-2xl shadow-burgundy-950/50 rounded-xl p-2"
+                    className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
+                    style={{
+                      background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
+                      backdropFilter: 'blur(20px)',
+                      color: 'white'
+                    }}
                   >
                     {navigationItems.map((item) => {
                       const IconComponent = item.icon;
