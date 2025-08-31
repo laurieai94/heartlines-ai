@@ -59,8 +59,66 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   
   return (
     <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-6 sm:mb-8'}`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
+      <div className="max-w-6xl mx-auto px-3 py-2 md:px-4 md:py-6 lg:px-8 relative">
+        
+        {/* Mobile Navigation - Always visible on mobile */}
+        <div className="flex items-center justify-between md:hidden">
+          <div className="flex items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white h-8 w-8"
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="start" 
+                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
+                  backdropFilter: 'blur(20px)',
+                  color: 'white'
+                }}
+              >
+                {navigationItems.map((item) => {
+                  const IconComponent = item.icon;
+                  const isActive = activeTab === item.value;
+                  return (
+                    <DropdownMenuItem
+                      key={item.value}
+                      onMouseEnter={() => handleTabHover(item.value)}
+                      onClick={() => handleNavigation(item)}
+                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
+                        isActive 
+                          ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
+                          : 'text-white/85 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <IconComponent className="h-4 w-4 flex-shrink-0" />
+                      <span className="text-sm">{item.label}</span>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            <HeartlinesWordmark 
+              size="sm" 
+              className="text-white text-xl leading-none cursor-pointer" 
+              onClick={() => onValueChange('home')}
+            />
+          </div>
+          
+          <div className="flex items-center">
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+          </div>
+        </div>
+
+        {/* Desktop Navigation - Hidden on mobile */}
+        <div className={`hidden md:flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
           
           {isCoachMode ? (
             // Coach Mode Layout: Hamburger + Wordmark + User Avatar
