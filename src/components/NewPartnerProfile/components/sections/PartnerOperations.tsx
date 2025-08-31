@@ -2,8 +2,8 @@ import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
-
 import PartnerSelfAwarenessCard from "../questions/PartnerSelfAwarenessCard";
+import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
 
 interface PartnerOperationsProps {
   profileData: PartnerProfileData;
@@ -37,18 +37,19 @@ const PartnerOperations = ({
         isComplete={!!(profileData.partnerLoveLanguage && profileData.partnerLoveLanguage.length > 0)}
       />
 
-      <PartnerConflictCard
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-        isComplete={!!(profileData.partnerConflictStyle && profileData.partnerConflictStyle.length > 0)}
-      />
+      <OptionalGroup title="More about how they operate (optional)">
+        <PartnerConflictCard
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+          isComplete={!!(profileData.partnerConflictStyle && profileData.partnerConflictStyle.length > 0)}
+        />
 
-
-      <PartnerSelfAwarenessCard
-        profileData={profileData}
-        updateField={updateField}
-        isComplete={!!profileData.partnerSelfAwareness}
-      />
+        <PartnerSelfAwarenessCard
+          profileData={profileData}
+          updateField={updateField}
+          isComplete={!!profileData.partnerSelfAwareness}
+        />
+      </OptionalGroup>
     </div>
   );
 };

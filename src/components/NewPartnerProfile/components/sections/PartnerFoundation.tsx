@@ -3,6 +3,7 @@ import { PartnerProfileData } from "../../types";
 import PartnerHeartbreakBetrayalCard from "../questions/PartnerHeartbreakBetrayalCard";
 import PartnerFamilyDynamicCard from "../questions/PartnerFamilyDynamicCard";
 import PartnerAttachmentCard from "../questions/PartnerAttachmentCard";
+import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
 
 interface PartnerFoundationProps {
   profileData: PartnerProfileData;
@@ -30,23 +31,25 @@ const PartnerFoundation = ({
         <p className="text-white/70">early scripts, family stuff & emotional wiring</p>
       </div>
 
-      <PartnerHeartbreakBetrayalCard
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-        isComplete={!!(profileData.partnerHeartbreakBetrayal && profileData.partnerHeartbreakBetrayal.length > 0)}
-      />
-
-      <PartnerFamilyDynamicCard
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-        isComplete={!!(profileData.partnerFamilyStructure && profileData.partnerFamilyStructure.length > 0)}
-      />
-
       <PartnerAttachmentCard
         profileData={profileData}
         updateField={updateField}
         isComplete={!!profileData.partnerAttachmentStyle}
       />
+
+      <OptionalGroup title="More about their foundation (optional)">
+        <PartnerHeartbreakBetrayalCard
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+          isComplete={!!(profileData.partnerHeartbreakBetrayal && profileData.partnerHeartbreakBetrayal.length > 0)}
+        />
+
+        <PartnerFamilyDynamicCard
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+          isComplete={!!(profileData.partnerFamilyStructure && profileData.partnerFamilyStructure.length > 0)}
+        />
+      </OptionalGroup>
     </div>
   );
 };
