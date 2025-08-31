@@ -35,6 +35,11 @@ const BillingSuccess = () => {
         toast.success("Welcome to your new plan! 🎉", {
           description: `You now have ${data.message_limit} messages per month.`
         });
+        
+        // Redirect to coach page after successful subscription
+        setTimeout(() => {
+          navigate('/coach');
+        }, 2000);
       } catch (error) {
         console.error('Error refreshing subscription:', error);
         toast.error("Error", {
@@ -139,17 +144,17 @@ const BillingSuccess = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Button 
+                onClick={() => navigate('/coach')}
+                className="flex-1"
+              >
+                Start Coaching
+              </Button>
+              <Button 
+                variant="outline" 
                 onClick={() => navigate('/')}
                 className="flex-1"
               >
                 Go to Dashboard
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/pricing')}
-                className="flex-1"
-              >
-                View Pricing
               </Button>
             </div>
           </CardContent>
