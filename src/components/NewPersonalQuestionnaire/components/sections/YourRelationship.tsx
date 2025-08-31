@@ -51,7 +51,7 @@ const YourRelationship = ({
   };
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
       {/* Sticky Section Header */}
-      <div className="sticky top-0 z-20 -mx-4 px-4 py-3 backdrop-blur-xl bg-black/40 border-b border-white/10">
+      <div className="sticky top-0 z-20 py-2 bg-transparent">
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Heart className="w-5 h-5 text-rose-400" />
