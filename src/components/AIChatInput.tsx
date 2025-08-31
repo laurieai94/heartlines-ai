@@ -76,7 +76,7 @@ const AIChatInput = ({
   }, [disabled, readOnly]);
 
   return (
-    <div className={`flex gap-3 items-end ${readOnly ? 'group' : ''}`}>
+    <div className={`flex gap-2 md:gap-3 items-end ${readOnly ? 'group' : ''}`}>
       <div className="flex-1">
         <Textarea
           ref={textareaRef}
@@ -88,7 +88,10 @@ const AIChatInput = ({
           placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
-          className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
+          inputMode="text"
+          autoCapitalize="sentences"
+          autoCorrect="on"
+          className={`border-2 rounded-2xl px-3 py-2 md:px-4 md:py-3 text-sm md:text-sm resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] backdrop-blur-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
             readOnly 
               ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white' 
               : 'border-white/15 bg-white/5 supports-[backdrop-filter]:backdrop-blur-md text-white placeholder:text-white/75 caret-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] cursor-text'
@@ -99,13 +102,13 @@ const AIChatInput = ({
       
       <Button
         onClick={sendMessage}
-        className={`rounded-2xl w-12 h-12 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+        className={`rounded-2xl w-10 h-10 md:w-12 md:h-12 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
         }`}
       >
-        <Send className="w-4 h-4" />
+        <Send className="w-3 h-3 md:w-4 md:h-4" />
       </Button>
     </div>
   );

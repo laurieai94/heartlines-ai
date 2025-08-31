@@ -114,8 +114,8 @@ const ChatContainer = ({
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className="px-4 pt-3 pb-2">
-          <div className="space-y-3 max-w-3xl mx-auto">
+        <div className="px-3 pt-2 pb-2 md:px-4 md:pt-3 md:pb-2">
+          <div className="space-y-2 md:space-y-3 max-w-3xl mx-auto">
             
             {/* Chat Messages */}
             {chatHistory.map((message) => (
@@ -126,23 +126,22 @@ const ChatContainer = ({
             
             {/* Typing indicator - only show when loading */}
             {loading && (
-              <div className="flex gap-3 items-end">
+              <div className="flex gap-2 md:gap-3 items-end">
                 <div className="relative flex-shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-lg animate-pulse"></div>
-                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 relative z-10 border border-white/20">
+                  <Avatar className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Bot className="w-6 h-6" />
+                      <Bot className="w-4 h-4 md:w-6 md:h-6" />
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-xl border border-white/10">
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                <div className="bg-white/10 backdrop-blur-sm rounded-3xl px-3 py-2 md:px-5 md:py-3 shadow-xl border border-white/10">
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
                       animationDelay: '0.1s'
                     }}></div>
-                    <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
                       animationDelay: '0.2s'
                     }}></div>
                   </div>

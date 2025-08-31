@@ -41,10 +41,10 @@ export const ChatLayout = ({
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 min-h-0 max-h-full flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px]">
           {/* Gradient frame and ambient glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-2xl sm:rounded-3xl blur-xl -z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-2xl sm:rounded-3xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 rounded-xl md:rounded-2xl lg:rounded-3xl blur-xl -z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-xl md:rounded-2xl lg:rounded-3xl -z-10"></div>
           
-          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/30 shadow-2xl shadow-black/30 ring-1 ring-white/10 ring-offset-1 ring-offset-burgundy-900/30 overflow-visible relative z-10">
+          <div className="flex-1 min-h-0 max-h-full flex flex-col bg-white/5 md:backdrop-blur-xl rounded-xl md:rounded-2xl lg:rounded-3xl border border-white/20 md:border-white/30 shadow-lg md:shadow-2xl shadow-black/20 md:shadow-black/30 ring-1 ring-white/5 md:ring-white/10 ring-offset-1 ring-offset-burgundy-900/30 overflow-visible relative z-10">
             <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             {children}
           </div>
