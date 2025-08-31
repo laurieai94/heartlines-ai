@@ -4,6 +4,7 @@ import PartnerNamePronounsCard from "../questions/PartnerNamePronounsCard";
 import PartnerAgeCard from "../questions/PartnerAgeCard";
 import PartnerOrientationCard from "../questions/PartnerOrientationCard";
 import PartnerGenderCard from "../questions/PartnerGenderCard";
+import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
 interface PartnerBasicsProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
@@ -30,11 +31,13 @@ const PartnerBasics = ({
 
       <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} />
 
-      <PartnerAgeCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerAge} />
+      <OptionalGroup title="More basics (optional)">
+        <PartnerAgeCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerAge} />
 
-      <PartnerOrientationCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerOrientation} />
+        <PartnerOrientationCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerOrientation} />
 
-      <PartnerGenderCard profileData={profileData} handleMultiSelect={handleMultiSelect} isComplete={!!profileData.partnerGender?.length} />
+        <PartnerGenderCard profileData={profileData} handleMultiSelect={handleMultiSelect} isComplete={!!profileData.partnerGender?.length} />
+      </OptionalGroup>
     </div>
   );
 };
