@@ -29,7 +29,7 @@ const UnderageModal = ({ isOpen, onClose }: UnderageModalProps) => {
         </div>
         
         {/* Questionnaire modal card */}
-        <div className="questionnaire-modal-card max-w-md w-full overflow-hidden border-2 border-white/20 shadow-2xl shadow-coral-500/20">
+        <div className="questionnaire-modal-card max-w-md w-full overflow-hidden border border-transparent ring-1 ring-inset ring-white/20 shadow-2xl shadow-black/40">
           <div className="relative p-8 space-y-6">
             {/* Header */}
             <div className="text-center space-y-2">
