@@ -10,9 +10,11 @@ interface AIChatMessageProps {
   message: ChatMessage;
   userAvatarUrl?: string;
   userName?: string;
+  isFirstInGroup?: boolean;
+  isLastInGroup?: boolean;
 }
 
-const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
+const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   const isMobile = useIsMobile();
   
@@ -40,10 +42,10 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-2 md:gap-4 mb-2 md:mb-4 px-1 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
-      {/* Avatar Container - Fixed sizing */}
+    <div className={`flex gap-2 md:gap-4 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-4'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+      {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className="relative w-6 h-6 md:w-10 md:h-10">
+        <div className={`relative w-6 h-6 md:w-10 md:h-10 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
@@ -79,7 +81,11 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
       </div>
 
       {/* Message Bubble */}
-      <div className={`flex flex-col max-w-[86%] md:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
+      <div className={`flex flex-col ${
+        isMobile 
+          ? (isFirstInGroup ? 'max-w-[86%]' : 'max-w-[94%]') 
+          : 'max-w-[75%]'
+      } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
             transition-all duration-300 group-hover:shadow-xl px-3 py-2 md:px-4 md:py-3 rounded-2xl md:rounded-3xl
@@ -104,10 +110,12 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
           </div>
         )}
         
-        {/* Timestamp */}
-        <p className={`text-xs md:text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
-          {formatTime(message.timestamp)}
-        </p>
+        {/* Timestamp - Only show for last message in group */}
+        {(isLastInGroup || !isMobile) && (
+          <p className={`text-xs md:text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+            {formatTime(message.timestamp)}
+          </p>
+        )}
       </div>
     </div>
   );

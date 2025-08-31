@@ -116,15 +116,35 @@ const ChatContainer = ({
         className="h-full overscroll-contain" 
         onScroll={handleScroll}
       >
-        <div className="pt-1 pb-1 md:px-4 md:pt-3 md:pb-2">
+        <div className="pt-1 pb-1 px-2 md:px-4 md:pt-3 md:pb-2">
           <div className="md:space-y-3 md:max-w-3xl md:mx-auto">
             
             {/* Chat Messages */}
-            {chatHistory.map((message) => (
-              <div key={message.id}>
-                <AIChatMessage message={message} userName={userName} />
-              </div>
-            ))}
+            {chatHistory.map((message, index) => {
+              const isUser = message.type === 'user';
+              const prevMessage = index > 0 ? chatHistory[index - 1] : null;
+              const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
+              
+              // Group consecutive messages from the same sender within 5 minutes
+              const isFirstInGroup = !prevMessage || 
+                prevMessage.type !== message.type || 
+                (new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime()) > 300000;
+              
+              const isLastInGroup = !nextMessage || 
+                nextMessage.type !== message.type || 
+                (nextMessage ? new Date(nextMessage.timestamp).getTime() - new Date(message.timestamp).getTime() : 0) > 300000;
+
+              return (
+                <div key={message.id}>
+                  <AIChatMessage 
+                    message={message} 
+                    userName={userName}
+                    isFirstInGroup={isFirstInGroup}
+                    isLastInGroup={isLastInGroup}
+                  />
+                </div>
+              );
+            })}
             
             {/* Typing indicator - only show when loading */}
             {loading && (
