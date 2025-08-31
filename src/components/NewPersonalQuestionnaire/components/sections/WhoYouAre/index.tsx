@@ -58,12 +58,15 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
 
   return (
     <div className={`space-y-3 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
-      <div className="text-center mb-3">
-        <div className="flex items-center justify-center gap-2 mb-1">
-          <User className="w-5 h-5 text-rose-400" />
-          <h3 className="text-xl font-bold text-white">The Basics</h3>
+      {/* Sticky Section Header */}
+      <div className="sticky top-0 z-20 -mx-4 px-4 py-3 backdrop-blur-xl bg-black/40 border-b border-white/10">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <User className="w-5 h-5 text-rose-400" />
+            <h3 className="text-xl font-bold text-white">The Basics</h3>
+          </div>
+          <p className="text-white/70">stuff you'd put in a dating app</p>
         </div>
-        <p className="text-white/70">stuff you'd put in a dating app</p>
       </div>
 
       {/* Required Fields */}
