@@ -25,13 +25,13 @@ const PartnerFoundation = ({
   return (
     <div className="space-y-5">
       {/* Section Header */}
-      <div className="py-2 bg-transparent">
+      <div className="py-1 bg-transparent">
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <TreeDeciduous className="w-5 h-5 text-rose-400" />
             <h2 className="text-xl font-bold text-white">Their Foundation</h2>
           </div>
-          <p className="text-white/70">early scripts, family stuff & emotional wiring</p>
+          <p className="text-white/70 hidden sm:block">early scripts, family stuff & emotional wiring</p>
         </div>
       </div>
 

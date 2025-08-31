@@ -24,19 +24,21 @@ const PartnerQuestionnaireContent = ({
 }: PartnerQuestionnaireContentProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to top when section changes
-  const scrollToTop = () => {
+  // Auto-scroll to first question when section changes
+  const scrollToFirstQuestion = () => {
     if (contentRef.current) {
-      contentRef.current.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      const firstQuestionCard = contentRef.current.querySelector('[data-question-card]');
+      if (firstQuestionCard) {
+        firstQuestionCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        contentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
   // Trigger scroll when section changes
   useEffect(() => {
-    scrollToTop();
+    scrollToFirstQuestion();
   }, [currentSection]);
 
   return (
@@ -45,9 +47,9 @@ const PartnerQuestionnaireContent = ({
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
       <div className="px-1.5 py-1">
-        {/* Prominent Opening Note - only show on section 1 */}
+        {/* Prominent Opening Note - only show on section 1 and hide on small screens */}
         {currentSection === 1 && (
-          <div className="bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-2.5 mb-1.5 relative overflow-hidden">
+          <div className="hidden sm:block bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-2.5 mb-1.5 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-purple-500/10 animate-pulse"></div>
             <div className="relative flex items-start gap-2.5">
               <div className="w-5 h-5 bg-gradient-to-br from-rose-400 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">

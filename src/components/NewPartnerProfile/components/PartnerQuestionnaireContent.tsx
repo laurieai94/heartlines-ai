@@ -23,7 +23,14 @@ const PartnerQuestionnaireContent = ({
 }: PartnerQuestionnaireContentProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Function to scroll to a specific section
+  // Mapping of first question anchors per section
+  const firstQuestionAnchors: { [key: number]: string } = {
+    1: '#question-partner-name-pronouns',
+    2: '#partner-love-language-question', 
+    3: '#partner-attachment-question'
+  };
+
+  // Function to scroll to the first question of a specific section
   const scrollToSection = (sectionNumber: number): void => {
     const container = scrollContainerRef.current;
     if (!container) {
@@ -31,21 +38,30 @@ const PartnerQuestionnaireContent = ({
       return;
     }
 
-    const targetElement = container.querySelector(`#partner-section-${sectionNumber}`);
+    const anchor = firstQuestionAnchors[sectionNumber];
+    const targetElement = container.querySelector(anchor);
+    
     if (!targetElement) {
-      console.warn('🔴 Partner Profile: Target section not found:', sectionNumber);
+      console.warn('🔴 Partner Profile: Target question not found:', anchor);
       return;
     }
 
     const containerTop = container.getBoundingClientRect().top;
     const targetTop = targetElement.getBoundingClientRect().top;
-    const offsetPosition = container.scrollTop + (targetTop - containerTop) - 10;
+    const offsetPosition = container.scrollTop + (targetTop - containerTop) - 5;
 
     container.scrollTo({
       top: offsetPosition,
       behavior: 'smooth'
     });
   };
+
+  // Scroll to first question on mount (section 1)
+  useEffect(() => {
+    if (currentSection === 1) {
+      setTimeout(() => scrollToSection(1), 100);
+    }
+  }, []);
 
   // Expose scroll function to parent
   useEffect(() => {
@@ -57,7 +73,7 @@ const PartnerQuestionnaireContent = ({
       ref={scrollContainerRef}
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
-      <div className="px-6 py-5 space-y-7">
+      <div className="px-6 py-3 space-y-5">
         <div id="partner-section-1">
           <PartnerBasics
             profileData={profileData}
