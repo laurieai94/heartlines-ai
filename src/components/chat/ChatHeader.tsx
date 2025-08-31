@@ -69,46 +69,45 @@ export const ChatHeader = ({
                 </PopoverContent>
               </Popover>
 
-              {/* New Chat Button - moved to top right */}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      onClick={onNewConversation} 
-                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
-                    <p>Start new conversation</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            
-            {/* Second row - Just hamburger menu under Kai */}
-            {onOpenSidebar && (
-              <div className="flex items-center">
+              {/* Action buttons - New Chat + Hamburger */}
+              <div className="flex items-center gap-1">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button 
                         variant="ghost" 
-                        onClick={onOpenSidebar} 
+                        onClick={onNewConversation} 
                         className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
                       >
-                        <Menu className="w-4 h-4" />
+                        <Plus className="w-4 h-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
-                      <p>Open chat history</p>
+                      <p>Start new conversation</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+
+                {onOpenSidebar && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          variant="ghost" 
+                          onClick={onOpenSidebar} 
+                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
+                        >
+                          <Menu className="w-4 h-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                        <p>Open chat history</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
-            )}
+            </div>
           </div>
         )}
 
