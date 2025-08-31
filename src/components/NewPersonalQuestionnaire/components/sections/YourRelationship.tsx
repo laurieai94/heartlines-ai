@@ -47,8 +47,7 @@ const YourRelationship = ({
   };
   const shouldShowContinueAfterStatus = () => {
     // Show continue button immediately after selecting a relationship status
-    // This will guide users to the next question in their flow
-    return !!profileData.relationshipStatus && !isSectionComplete;
+    return !!profileData.relationshipStatus;
   };
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
       <div className="text-center mb-5">
