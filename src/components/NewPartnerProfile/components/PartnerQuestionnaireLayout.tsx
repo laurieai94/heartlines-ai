@@ -62,7 +62,7 @@ const PartnerQuestionnaireLayout = ({
       scrollToSectionFn.current(section);
     }
   };
-    return <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'}`}>
+    return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'}`}>
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/20 rounded-3xl bg-white/[0.08] backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
         <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />

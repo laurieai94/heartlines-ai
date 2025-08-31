@@ -13,7 +13,7 @@ const QuestionnaireCompletion = ({
   isModal = false 
 }: QuestionnaireCompletionProps) => {
   return (
-    <div className={`${isModal ? 'questionnaire-bg-modal w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
+    <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center'}`}>
       <div className={`${isModal ? 'w-full max-w-lg mx-auto' : 'w-full max-w-lg'} border border-white/15 rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden`}>
         
         {/* Header */}
