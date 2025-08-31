@@ -3,6 +3,7 @@ import { Heart } from "lucide-react";
 import { ProfileData } from "../../types";
 import QuestionCard from "../shared/QuestionCard";
 import SingleSelect from "../shared/SingleSelect";
+import OptionalGroup from "../shared/OptionalGroup";
 import { useAutoScroll } from "../../hooks/useAutoScroll";
 import { validateSection } from "../../utils/validation";
 import { relationshipStatusOptions } from "./YourRelationship/constants";
@@ -75,16 +76,16 @@ const YourRelationship = ({
         <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus || ''} onSelect={value => updateField('relationshipStatus', value)} columns={3} />
       </QuestionCard>
 
-      {/* Render appropriate question flow based on relationship status */}
-      {isSingle && <SinglePersonQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
-
-      {isTalking && <TalkingStageQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
-
-      {hasRelationship && <RelationshipQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
-
-      {isSeparatedDivorced && <SeparatedDivorcedQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
-
-      {isWidowed && <WidowedQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+      {/* Optional Follow-up Questions */}
+      {(isSingle || isTalking || hasRelationship || isSeparatedDivorced || isWidowed) && (
+        <OptionalGroup>
+          {isSingle && <SinglePersonQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
+          {isTalking && <TalkingStageQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+          {hasRelationship && <RelationshipQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+          {isSeparatedDivorced && <SeparatedDivorcedQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
+          {isWidowed && <WidowedQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+        </OptionalGroup>
+      )}
     </div>;
 };
 export default YourRelationship;

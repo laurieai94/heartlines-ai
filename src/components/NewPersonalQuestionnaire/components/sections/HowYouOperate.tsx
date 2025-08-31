@@ -1,6 +1,7 @@
 
 import { Zap } from "lucide-react";
 import { ProfileData } from "../../types";
+import OptionalGroup from "../shared/OptionalGroup";
 import LoveLanguageQuestion from "./HowYouOperate/LoveLanguageQuestion";
 import ConflictStyleQuestion from "./HowYouOperate/ConflictStyleQuestion";
 
@@ -32,15 +33,19 @@ const HowYouOperate = ({
         <p className="text-white/70">how you love, fight, and show up</p>
       </div>
 
+      {/* Required Field */}
       <LoveLanguageQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
       />
 
-      <ConflictStyleQuestion
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-      />
+      {/* Optional Fields */}
+      <OptionalGroup>
+        <ConflictStyleQuestion
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+        />
+      </OptionalGroup>
     </div>
   );
 };

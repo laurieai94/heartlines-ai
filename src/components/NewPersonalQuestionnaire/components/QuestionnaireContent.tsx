@@ -47,7 +47,7 @@ const QuestionnaireContent = ({
       1: 'question-name-pronouns',           // WhoYouAre section
       2: 'question-relationship-status',    // YourRelationship section  
       3: 'question-love-language',          // HowYouOperate section
-      4: 'question-heartbreak-betrayal'     // YourFoundation section
+      4: 'question-attachment-style'        // YourFoundation section (AttachmentStyle is now first)
     };
     
     const firstQuestionId = sectionToFirstQuestion[sectionNumber];

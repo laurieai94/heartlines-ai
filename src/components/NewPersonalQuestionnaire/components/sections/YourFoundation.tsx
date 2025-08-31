@@ -1,6 +1,7 @@
 
 import { TreeDeciduous } from "lucide-react";
 import { ProfileData } from "../../types";
+import OptionalGroup from "../shared/OptionalGroup";
 import AttachmentStyleQuestion from "./YourFoundation/AttachmentStyleQuestion";
 import FamilyStructureQuestion from "./YourFoundation/FamilyStructureQuestion";
 import HeartbreakBetrayalQuestion from "./YourFoundation/HeartbreakBetrayalQuestion";
@@ -33,21 +34,25 @@ const YourFoundation = ({
         <p className="text-white/70">early scripts, family stuff & emotional wiring</p>
       </div>
 
-      <HeartbreakBetrayalQuestion
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-      />
-
-      <FamilyStructureQuestion
-        profileData={profileData}
-        handleMultiSelect={handleMultiSelect}
-      />
-
+      {/* Required Field */}
       <AttachmentStyleQuestion
         profileData={profileData}
         updateField={updateField}
         onComplete={onSectionComplete}
       />
+
+      {/* Optional Fields */}
+      <OptionalGroup>
+        <HeartbreakBetrayalQuestion
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+        />
+
+        <FamilyStructureQuestion
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+        />
+      </OptionalGroup>
     </div>
   );
 };

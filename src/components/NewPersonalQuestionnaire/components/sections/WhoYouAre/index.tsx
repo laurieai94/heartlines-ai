@@ -1,6 +1,7 @@
 
 import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
+import OptionalGroup from "../../shared/OptionalGroup";
 
 import NamePronounsCard from "./NamePronounsCard";
 import AgeSelectionCard from "./AgeSelectionCard";
@@ -65,34 +66,33 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
         <p className="text-white/70">stuff you'd put in a dating app</p>
       </div>
 
-      {/* Name and Pronouns Combined */}
+      {/* Required Fields */}
       <NamePronounsCard
         profileData={profileData}
         updateField={updateField}
         isComplete={isNamePronounsComplete}
       />
 
-      {/* Age */}
       <AgeSelectionCard
         profileData={profileData}
         updateField={updateField}
         isComplete={isAgeComplete}
       />
 
-      {/* Sexual Orientation */}
-      <OrientationSelectionCard
-        profileData={profileData}
-        updateField={updateField}
-        isComplete={isOrientationComplete}
-      />
+      {/* Optional Fields */}
+      <OptionalGroup>
+        <OrientationSelectionCard
+          profileData={profileData}
+          updateField={updateField}
+          isComplete={isOrientationComplete}
+        />
 
-      {/* Gender Identity */}
-      <GenderSelectionCard
-        profileData={profileData}
-        updateField={updateField}
-        isComplete={isGenderComplete}
-      />
-
+        <GenderSelectionCard
+          profileData={profileData}
+          updateField={updateField}
+          isComplete={isGenderComplete}
+        />
+      </OptionalGroup>
     </div>
   );
 };

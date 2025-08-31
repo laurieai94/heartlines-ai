@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
 import { calculateProgress, validateSection } from "@/components/NewPersonalQuestionnaire/utils/validation";
+import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/NewPersonalQuestionnaire/utils/requirements";
 import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
@@ -39,7 +40,7 @@ export const useProgressiveAccess = () => {
     return calculateProgress(profileData as ProfileData);
   };
 
-  // Compute detailed profile status for chat access - requires 100% completion
+  // Compute detailed profile status for chat access - requires only 6 required fields
   const computeChatReadiness = () => {
     const profileData = personalStorage.profileData as ProfileData;
     if (!profileData || Object.keys(profileData).length === 0) {
@@ -51,7 +52,13 @@ export const useProgressiveAccess = () => {
       };
     }
 
-    // Check completion of each section
+    // Use requirements-based validation
+    const totalRequired = getTotalRequiredFieldsCount();
+    const totalCompleted = getCompletedRequiredFieldsCount(profileData);
+    const overallProgress = totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
+    const isComplete = overallProgress === 100;
+
+    // Check completion of each section using new validation
     const sectionStatus = [1, 2, 3, 4].map(section => ({
       section,
       isComplete: validateSection(section, profileData)
@@ -61,28 +68,27 @@ export const useProgressiveAccess = () => {
       .filter(s => !s.isComplete)
       .map(s => s.section);
 
-    const overallProgress = calculateProgress(profileData);
-    const isComplete = overallProgress === 100;
-
-    // Generate detailed missing fields message
+    // Generate missing fields message based on required fields
     const missingFields: string[] = [];
     
     if (incompleteSections.includes(1)) {
-      missingFields.push('Complete "Who You Are" section');
+      missingFields.push('Complete required fields in "The Basics"');
     }
     if (incompleteSections.includes(2)) {
-      missingFields.push('Complete "Your Relationship" section');
+      missingFields.push('Complete "Your Situationship" status');
     }
     if (incompleteSections.includes(3)) {
-      missingFields.push('Complete "How You Operate" section');
+      missingFields.push('Complete required fields in "How You Operate"');
     }
     if (incompleteSections.includes(4)) {
-      missingFields.push('Complete "Your Foundation" section');
+      missingFields.push('Complete required fields in "Your Foundation"');
     }
 
-    console.log('🔐 Chat access check (100% requirement):', {
+    console.log('🔐 Chat access check (6 required fields):', {
       overallProgress,
       isComplete,
+      totalRequired,
+      totalCompleted,
       incompleteSections,
       missingFields
     });
