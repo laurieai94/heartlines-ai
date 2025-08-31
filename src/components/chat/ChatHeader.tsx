@@ -24,7 +24,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 border-b border-white/10 bg-white/10 backdrop-blur-lg supports-[backdrop-filter]:bg-white/10">
-      <div className={`max-w-5xl mx-auto ${isMobile ? 'p-2' : 'p-3'}`}>
+      <div className={`${isMobile ? 'w-full px-1 py-1' : 'max-w-5xl mx-auto p-3'}`}>
         <div className={`flex items-center justify-between ${isMobile ? 'gap-2' : 'gap-3'}`}>
           <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
             {/* Kai Avatar */}
