@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,7 +12,7 @@ interface AIChatMessageProps {
   userName?: string;
 }
 
-const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
+const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   const isMobile = useIsMobile();
   
@@ -112,14 +111,6 @@ const AIChatMessage = React.memo(({ message, userAvatarUrl, userName }: AIChatMe
       </div>
     </div>
   );
-}, (prevProps, nextProps) => {
-  // Only re-render if message content or id changes
-  return prevProps.message.id === nextProps.message.id && 
-         prevProps.message.content === nextProps.message.content &&
-         prevProps.userAvatarUrl === nextProps.userAvatarUrl &&
-         prevProps.userName === nextProps.userName;
-});
-
-AIChatMessage.displayName = 'AIChatMessage';
+};
 
 export default AIChatMessage;
