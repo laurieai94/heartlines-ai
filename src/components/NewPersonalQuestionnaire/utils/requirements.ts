@@ -7,8 +7,8 @@ export interface SectionRequirements {
 
 export const SECTION_REQUIREMENTS: Record<number, SectionRequirements> = {
   1: {
-    required: ['name', 'age', 'pronouns'],
-    optional: ['orientation', 'gender']
+    required: ['name', 'pronouns'],
+    optional: ['age', 'orientation', 'gender']
   },
   2: {
     required: ['relationshipStatus'],

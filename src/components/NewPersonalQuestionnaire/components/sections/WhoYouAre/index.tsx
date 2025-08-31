@@ -73,14 +73,14 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
         isComplete={isNamePronounsComplete}
       />
 
-      <AgeSelectionCard
-        profileData={profileData}
-        updateField={updateField}
-        isComplete={isAgeComplete}
-      />
-
       {/* Optional Fields */}
       <OptionalGroup>
+        <AgeSelectionCard
+          profileData={profileData}
+          updateField={updateField}
+          isComplete={isAgeComplete}
+        />
+
         <OrientationSelectionCard
           profileData={profileData}
           updateField={updateField}
