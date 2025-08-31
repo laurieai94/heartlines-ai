@@ -88,10 +88,10 @@ const AIChatInput = ({
           placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
-          className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm transition-all duration-300 leading-relaxed ${
+          className={`border-2 rounded-2xl px-4 py-3 text-sm resize-none min-h-[50px] max-h-[100px] backdrop-blur-sm transition-all duration-300 leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0 ${
             readOnly 
-              ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white motion-safe:animate-bounce-gentle hover:animate-none focus:animate-none hover:brand-gradient-soft-hover hover:brightness-105 hover:scale-[1.02] hover:shadow-md focus:ring-2 focus:ring-white/15 focus:shadow-md transform-gpu group-hover:brightness-110 group-hover:ring-2 group-hover:ring-white/20 group-hover:shadow-lg group-hover:shadow-white/10 group-hover:-translate-y-px group-hover:backdrop-blur-md group-hover:scale-[1.02]' 
-              : 'border-white/15 ring-1 ring-white/10 bg-white/5 supports-[backdrop-filter]:backdrop-blur-md text-white placeholder:text-white/75 caret-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] focus:ring-2 focus:ring-white/20 focus:border-white/25 cursor-text'
+              ? 'cursor-pointer border-white/20 brand-gradient-soft text-white placeholder:text-white/90 caret-white motion-safe:animate-bounce-gentle hover:animate-none focus:animate-none hover:brand-gradient-soft-hover hover:brightness-105 hover:scale-[1.02] hover:shadow-md focus:shadow-md transform-gpu group-hover:brightness-110 group-hover:shadow-lg group-hover:shadow-white/10 group-hover:-translate-y-px group-hover:backdrop-blur-md group-hover:scale-[1.02]' 
+              : 'border-white/15 bg-white/5 supports-[backdrop-filter]:backdrop-blur-md text-white placeholder:text-white/75 caret-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] focus:border-white/25 cursor-text'
           }`}
           rows={1}
         />
@@ -99,10 +99,10 @@ const AIChatInput = ({
       
       <Button
         onClick={sendMessage}
-        className={`rounded-2xl w-12 h-12 p-0 shadow-lg ring-2 transition-all duration-300 hover:shadow-xl hover:scale-105 text-white transform-gpu ${
+        className={`rounded-2xl w-12 h-12 p-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 text-white transform-gpu focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
-            ? 'brand-gradient-soft ring-white/15 hover:brand-gradient-soft-hover hover:brightness-105 group-hover:scale-110 group-hover:-translate-y-px group-hover:ring-white/20' 
-            : 'brand-gradient ring-white/15 hover:brand-gradient-hover hover:ring-white/25'
+            ? 'brand-gradient-soft hover:brand-gradient-soft-hover hover:brightness-105 group-hover:scale-110 group-hover:-translate-y-px' 
+            : 'brand-gradient hover:brand-gradient-hover'
         }`}
       >
         <Send className="w-4 h-4" />
