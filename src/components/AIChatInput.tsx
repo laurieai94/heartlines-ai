@@ -43,10 +43,16 @@ const AIChatInput = ({
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
     
-    // Keep focus in the textarea after sending
+    // Keep focus in the textarea after sending - strengthen for mobile
     requestAnimationFrame(() => {
       if (textareaRef.current) {
         textareaRef.current.focus();
+        // Additional focus attempt for mobile keyboards
+        setTimeout(() => {
+          if (textareaRef.current) {
+            textareaRef.current.focus();
+          }
+        }, 50);
       }
     });
   };
