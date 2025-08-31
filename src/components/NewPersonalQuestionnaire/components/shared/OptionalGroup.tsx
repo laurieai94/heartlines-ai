@@ -2,7 +2,7 @@
 
 import { ChevronDown, Star } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -11,17 +11,18 @@ interface OptionalGroupProps {
 
 const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to first question when opened
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && contentRef.current) {
       // Small delay to ensure the content is fully expanded
       setTimeout(() => {
-        // Find the first question card within this collapsible content
-        const collapsibleContent = document.querySelector('[data-state="open"] [data-question-card]');
-        if (collapsibleContent) {
+        // Find the first question card within this specific collapsible content
+        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
+        if (firstQuestionCard) {
           console.log('🟡 OptionalGroup: Scrolling to first question in expanded section');
-          collapsibleContent.scrollIntoView({ 
+          firstQuestionCard.scrollIntoView({ 
             behavior: 'smooth', 
             block: 'center',
             inline: 'nearest'
@@ -43,7 +44,7 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
         <ChevronDown className={`w-4 h-4 text-white/50 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </CollapsibleTrigger>
       
-      <CollapsibleContent className="pt-3">
+      <CollapsibleContent ref={contentRef} className="pt-3">
         <div className="space-y-3">
           {children}
         </div>
