@@ -1,7 +1,14 @@
 import BrandMark from "./BrandMark";
 import SignInButton from "./SignInButton";
+import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
-import { Crown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Crown, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { User } from '@supabase/supabase-js';
 
@@ -18,6 +25,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
+  const isCoachMode = activeTab === 'insights';
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'pricing') {
@@ -31,57 +39,111 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       import('@/components/chat/ChatInputSection').catch(() => {});
     }
   };
+
+  const navigationItems = [
+    { value: 'home', label: 'Home' },
+    { value: 'profile', label: 'Profile' },
+    { value: 'insights', label: 'Coach' },
+    { value: 'pricing', label: 'Plans', isExternal: true },
+    { value: 'mission', label: 'Mission', isExternal: true },
+  ];
+
+  const handleNavigation = (item: any) => {
+    if (item.isExternal) {
+      if (item.value === 'pricing') navigate('/pricing');
+      else if (item.value === 'mission') navigate('/mission');
+    } else {
+      onValueChange(item.value);
+    }
+  };
   
   return (
     <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-6 sm:mb-8'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
-          <div className="flex items-center">
-            <div className="flex items-center gap-3">
-              <BrandMark 
-                size={compact ? "sm" : "md"}
-                onClick={() => onValueChange('home')}
-                className="hover:opacity-80 transition-opacity"
-              />
-            </div>
-          </div>
-
-          {/* Center Navigation */}
-          <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
-            <div className="flex gap-8 overflow-x-auto no-scrollbar">
-              {[
-                { value: 'home', label: 'Home' },
-                { value: 'profile', label: 'Profile' },
-                { value: 'insights', label: 'Coach' },
-                { value: 'pricing', label: 'Plans', isExternal: true },
-                { value: 'mission', label: 'Mission', isExternal: true },
-              ].map((tab) => (
-                <button
-                  key={tab.value}
-                  onMouseEnter={() => handleTabHover(tab.value)}
-                  onClick={() => {
-                    if (tab.isExternal) {
-                      if (tab.value === 'pricing') navigate('/pricing');
-                      else if (tab.value === 'mission') navigate('/mission');
-                    } else {
-                      onValueChange(tab.value);
-                    }
-                  }}
-                  className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeTab === tab.value
-                      ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full'
-                      : 'text-white/70 hover:text-white'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </nav>
           
-          <div className="flex items-center gap-3">
-            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
-          </div>
+          {isCoachMode ? (
+            // Coach Mode Layout: Hamburger + Wordmark + User Avatar
+            <>
+              <div className="flex items-center gap-3">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="text-white hover:bg-white/10 h-8 w-8"
+                    >
+                      <Menu className="h-5 w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent 
+                    align="start" 
+                    className="w-48 bg-burgundy-800/95 backdrop-blur-md border-burgundy-700 text-white"
+                  >
+                    {navigationItems.map((item) => (
+                      <DropdownMenuItem
+                        key={item.value}
+                        onMouseEnter={() => handleTabHover(item.value)}
+                        onClick={() => handleNavigation(item)}
+                        className={`hover:bg-burgundy-700/50 focus:bg-burgundy-700/50 cursor-pointer ${
+                          activeTab === item.value ? 'bg-burgundy-700/30 text-white font-medium' : 'text-white/90'
+                        }`}
+                      >
+                        {item.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <HeartlinesWordmark 
+                  size="sm" 
+                  className="text-white cursor-pointer hover:opacity-80 transition-opacity" 
+                  onClick={() => onValueChange('home')}
+                />
+              </div>
+              
+              <div className="flex items-center">
+                <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+              </div>
+            </>
+          ) : (
+            // Default Layout: Brand + Center Navigation + User
+            <>
+              <div className="flex items-center">
+                <div className="flex items-center gap-3">
+                  <BrandMark 
+                    size={compact ? "sm" : "md"}
+                    onClick={() => onValueChange('home')}
+                    className="hover:opacity-80 transition-opacity"
+                  />
+                </div>
+              </div>
+
+              {/* Center Navigation */}
+              <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
+                <div className="flex gap-8 overflow-x-auto no-scrollbar">
+                  {navigationItems.map((tab) => (
+                    <button
+                      key={tab.value}
+                      onMouseEnter={() => handleTabHover(tab.value)}
+                      onClick={() => handleNavigation(tab)}
+                      className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                        activeTab === tab.value
+                          ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full'
+                          : 'text-white/70 hover:text-white'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              </nav>
+              
+              <div className="flex items-center gap-3">
+                <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

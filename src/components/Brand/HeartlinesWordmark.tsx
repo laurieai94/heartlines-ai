@@ -3,11 +3,13 @@ import React from "react";
 interface HeartlinesWordmarkProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
+  onClick?: () => void;
 }
 
 const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({ 
   className = "", 
-  size = "lg"
+  size = "lg",
+  onClick
 }) => {
   const sizeClasses = {
     sm: "text-2xl",
@@ -17,7 +19,10 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
   };
 
   return (
-    <h1 className={`font-brand font-normal tracking-wide text-burgundy-600 ${sizeClasses[size]} ${className}`}>
+    <h1 
+      className={`font-brand font-normal tracking-wide text-burgundy-600 ${sizeClasses[size]} ${className} ${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
+    >
       heartlines
     </h1>
   );
