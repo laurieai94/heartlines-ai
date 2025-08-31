@@ -40,7 +40,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
   const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
-    <div className={`flex gap-2 md:gap-4 mb-4 px-3 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
+    <div className={`flex gap-2 md:gap-4 mb-4 px-1 md:px-0 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}>
       {/* Avatar Container - Fixed sizing */}
       <div className="flex-shrink-0">
         <div className="relative w-6 h-6 md:w-10 md:h-10">
@@ -79,7 +79,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName }: AIChatMessageProps)
       </div>
 
       {/* Message Bubble */}
-      <div className={`flex flex-col max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
+      <div className={`flex flex-col max-w-[86%] md:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
             transition-all duration-300 group-hover:shadow-xl px-3 py-2 md:px-4 md:py-3 rounded-2xl md:rounded-3xl
