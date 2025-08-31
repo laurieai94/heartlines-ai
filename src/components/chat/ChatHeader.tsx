@@ -24,7 +24,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950/60 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-3 py-2 md:max-w-5xl md:mx-auto md:p-3">
+      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3">
         {/* Mobile Layout - Stacked */}
         {isMobile && (
           <div className="flex flex-col gap-2">
@@ -35,7 +35,7 @@ export const ChatHeader = ({
                   <Button variant="ghost" className="flex items-center gap-2 px-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
-                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-5 h-5 border border-white/20">
+                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-8 h-8 border border-white/20">
                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                           <Heart className="w-2.5 h-2.5" />
@@ -74,10 +74,10 @@ export const ChatHeader = ({
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button 
+                        <Button 
                         variant="ghost" 
                         onClick={onNewConversation} 
-                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
+                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-8 h-8 p-0 rounded-xl"
                       >
                         <Plus className="w-4 h-4" />
                       </Button>
@@ -95,7 +95,7 @@ export const ChatHeader = ({
                         <Button 
                           variant="ghost" 
                           onClick={onOpenSidebar} 
-                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl"
+                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors w-8 h-8 p-0 rounded-xl"
                         >
                           <Menu className="w-4 h-4" />
                         </Button>
