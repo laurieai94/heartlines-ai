@@ -38,8 +38,8 @@ export const calculatePartnerProgress = (profileData: PartnerProfileData): numbe
   // Count all possible fields
   const allFields = [
     'partnerName', 'partnerPronouns', 'partnerAge', 'partnerOrientation', 'partnerGender',
-    'partnerLoveLanguage', 'partnerConflictStyle', 'partnerSelfAwareness',
-    'partnerFamilyStructure', 'partnerAttachmentStyle'
+    'partnerLoveLanguage', 'partnerConflictStyle', 'partnerCommunicationResponse', 'partnerSelfAwareness',
+    'partnerHeartbreakBetrayal', 'partnerFamilyStructure', 'partnerAttachmentStyle'
   ];
   
   allFields.forEach(field => {
