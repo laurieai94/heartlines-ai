@@ -1,5 +1,46 @@
 import { ProfileData } from '../types';
-import { areRequiredFieldsComplete, getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount, SECTION_REQUIREMENTS, isFieldComplete } from './requirements';
+import { areRequiredFieldsComplete, getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from './requirements';
+
+// Local constants to avoid import issues
+const SECTION_REQUIREMENTS = {
+  1: {
+    required: ['name', 'pronouns'],
+    optional: ['age', 'orientation', 'gender']
+  },
+  2: {
+    required: ['relationshipStatus'],
+    optional: [
+      'datingChallenges',
+      'talkingDescription',
+      'talkingChallenges',
+      'relationshipLength',
+      'relationshipChallenges', 
+      'relationshipWorking',
+      'separationSituation',
+      'datingReadiness',
+      'timeSinceLoss',
+      'grievingProcess'
+    ]
+  },
+  3: {
+    required: ['loveLanguage'],
+    optional: ['conflictStyle']
+  },
+  4: {
+    required: ['attachmentStyle'],
+    optional: ['heartbreakBetrayal', 'familyStructure']
+  }
+};
+
+// Helper function to check if a field value is complete
+const isFieldComplete = (value: any): boolean => {
+  if (typeof value === 'string') {
+    return value && value.trim() !== '';
+  } else if (Array.isArray(value)) {
+    return value && value.length > 0;
+  }
+  return !!value;
+};
 
 export const validateSection = (section: number, profileData: ProfileData): boolean => {
   // Use new requirements-based validation for sections 1, 3, and 4
