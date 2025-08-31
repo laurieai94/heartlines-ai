@@ -6,10 +6,9 @@ import { useState, useEffect, useRef } from "react";
 interface OptionalGroupProps {
   children: React.ReactNode;
   title?: string;
-  subtitle?: string;
 }
 
-const OptionalGroup = ({ children, title = "Share more so we can show up better", subtitle }: OptionalGroupProps) => {
+const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -37,16 +36,9 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
       <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 hover:border-white/20 group">
         <div className="flex items-center gap-3">
           <Star className="w-4 h-4 text-yellow-400/70" />
-          <div className="flex flex-col text-left">
-            <span className="text-sm font-medium text-white/70 group-hover:text-white/90">
-              {title}
-            </span>
-            {subtitle && (
-              <span className="text-xs text-white/50 mt-0.5">
-                {subtitle}
-              </span>
-            )}
-          </div>
+          <span className="text-sm font-medium text-white/70 group-hover:text-white/90">
+            {title}
+          </span>
         </div>
         <ChevronDown className={`w-4 h-4 text-white/50 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </CollapsibleTrigger>
