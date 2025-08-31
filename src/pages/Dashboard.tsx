@@ -3,12 +3,10 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
-import DashboardSidebar from "@/components/DashboardSidebar";
 import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
-import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -64,64 +62,37 @@ const Dashboard = () => {
     handleOpenQuestionnaire();
   };
 
-  const isCoachTab = activeTab === 'insights';
-
   return (
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
         <div className="h-[100dvh] overflow-hidden">
           {/* Main Dashboard Content - This gets blurred when modals are open */}
-          <div className={`h-full ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-            {isCoachTab ? (
-              <SidebarProvider>
-                <div className="flex min-h-screen w-full bg-burgundy-900">
-                  <DashboardSidebar 
-                    activeTab={activeTab}
-                    onValueChange={setActiveTab}
-                  />
-                  <main className="flex-1 flex flex-col">
-                    {/* Ambient glow for chat interface separation */}
-                    <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-                    
-                    <DashboardContent
-                      activeTab={activeTab}
-                      onValueChange={setActiveTab}
-                      temporaryProfiles={temporaryProfiles}
-                      temporaryDemographics={temporaryDemographics}
-                      onProfileUpdate={handleProfileUpdate}
-                      onOpenQuestionnaire={handleOpenQuestionnaire}
-                      onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-                    />
-                  </main>
-                </div>
-              </SidebarProvider>
-            ) : (
-              <div className="h-full flex flex-col relative bg-burgundy-900">
-                {/* Ambient glow for chat interface separation */}
-                <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+          <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+            {/* Ambient glow for chat interface separation */}
+            <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
-                <DashboardHeader 
-                  accessLevel={accessLevel}
-                  profileCompletion={profileCompletion}
-                  compact={false}
-                  user={user}
-                  activeTab={activeTab}
-                  onValueChange={setActiveTab}
-                  onSignInClick={handleSignInClick}
-                  onOpenProfile={handleOpenProfile}
-                />
+            {/* Background overlays removed for unified burgundy theme */}
 
-                <DashboardContent
-                  activeTab={activeTab}
-                  onValueChange={setActiveTab}
-                  temporaryProfiles={temporaryProfiles}
-                  temporaryDemographics={temporaryDemographics}
-                  onProfileUpdate={handleProfileUpdate}
-                  onOpenQuestionnaire={handleOpenQuestionnaire}
-                  onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-                />
-              </div>
-            )}
+            <DashboardHeader 
+              accessLevel={accessLevel}
+              profileCompletion={profileCompletion}
+              compact={activeTab === 'insights'}
+              user={user}
+              activeTab={activeTab}
+              onValueChange={setActiveTab}
+              onSignInClick={handleSignInClick}
+              onOpenProfile={handleOpenProfile}
+            />
+
+            <DashboardContent
+              activeTab={activeTab}
+              onValueChange={setActiveTab}
+              temporaryProfiles={temporaryProfiles}
+              temporaryDemographics={temporaryDemographics}
+              onProfileUpdate={handleProfileUpdate}
+              onOpenQuestionnaire={handleOpenQuestionnaire}
+              onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
+            />
           </div>
 
           {/* Modals - These stay sharp and are rendered outside the blurred content */}
