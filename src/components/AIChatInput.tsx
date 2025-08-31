@@ -99,7 +99,7 @@ const AIChatInput = ({
   }, [currentMessage]);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-end px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
+    <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
