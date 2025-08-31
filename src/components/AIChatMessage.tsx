@@ -87,7 +87,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
       {/* Message Bubble */}
       <div className={`flex flex-col ${
         isMobile 
-          ? (isFirstInGroup ? 'max-w-[86%]' : 'max-w-[94%]') 
+          ? (isFirstInGroup ? 'max-w-[90%]' : 'max-w-[94%]') 
           : 'max-w-[75%]'
       } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
