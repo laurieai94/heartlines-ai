@@ -109,7 +109,7 @@ const QuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div className="px-4 py-2 space-y-4 sm:px-6 lg:px-10">
+    <div className="px-4 py-2 space-y-4 sm:px-8 lg:px-10">
         <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
         <WhoYouAre
           profileData={profileData}

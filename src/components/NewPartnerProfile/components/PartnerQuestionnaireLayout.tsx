@@ -30,8 +30,8 @@ const PartnerQuestionnaireLayout = ({
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
   const overallProgress = calculatePartnerProgress(profileData);
 
-  // Auto section detection hook (same as personal profile)
-  useCurrentSectionDetection(setCurrentSection);
+  // Auto section detection hook with partner section prefix
+  useCurrentSectionDetection(setCurrentSection, 'partner-section-');
 
   // Measure sticky header height on tablet and desktop
   useEffect(() => {

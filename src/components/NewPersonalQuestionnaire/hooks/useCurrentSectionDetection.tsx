@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-export const useCurrentSectionDetection = (onSectionChange: (section: number) => void) => {
+export const useCurrentSectionDetection = (onSectionChange: (section: number) => void, prefix = 'section-') => {
   const [currentSection, setCurrentSection] = useState(1);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const sectionVisibility = useRef<Record<number, number>>({});
@@ -14,7 +14,8 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
       (entries) => {
         entries.forEach((entry) => {
           const sectionId = entry.target.id;
-          const sectionNumber = parseInt(sectionId.split('-')[1]);
+          const parts = sectionId.split('-');
+          const sectionNumber = parseInt(parts[parts.length - 1]);
           
           if (!isNaN(sectionNumber)) {
             sectionVisibility.current[sectionNumber] = entry.intersectionRatio;
@@ -39,8 +40,8 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
       }
     );
 
-    // Observe all section elements
-    const sections = document.querySelectorAll('[id^="section-"]');
+    // Observe all section elements with the given prefix
+    const sections = document.querySelectorAll(`[id^="${prefix}"]`);
     sections.forEach((section) => {
       observerRef.current?.observe(section);
     });
@@ -48,7 +49,7 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [currentSection, onSectionChange]);
+  }, [currentSection, onSectionChange, prefix]);
 
   return currentSection;
 };

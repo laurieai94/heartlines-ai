@@ -93,7 +93,7 @@ const QuestionnaireLayout = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-4'}`}>
-      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/15 md:border-white/20 rounded-2xl md:rounded-3xl bg-burgundy-900/90 md:bg-gradient-to-br md:from-burgundy-900/95 md:to-burgundy-800/90 backdrop-blur-xl md:backdrop-blur-2xl shadow-xl md:shadow-2xl shadow-black/20 md:shadow-black/30 ring-1 ring-white/8 md:ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-2xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/3 md:before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
+      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/15 sm:border-white/20 rounded-2xl sm:rounded-3xl bg-burgundy-900/90 sm:bg-gradient-to-br sm:from-burgundy-900/95 sm:to-burgundy-800/90 backdrop-blur-xl sm:backdrop-blur-2xl shadow-xl sm:shadow-2xl shadow-black/20 sm:shadow-black/30 ring-1 ring-white/8 sm:ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-2xl sm:before:rounded-3xl before:bg-gradient-to-br before:from-white/3 sm:before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
           {/* Sticky header and navigation on tablet and desktop */}
