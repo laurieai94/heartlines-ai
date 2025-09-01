@@ -56,8 +56,8 @@ const RelationshipContext = ({ formData, updateField }: RelationshipContextProps
             <Label htmlFor="type-1">Dating</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="In a relationship" id="type-2" />
-            <Label htmlFor="type-2">In a relationship</Label>
+            <RadioGroupItem value="In a relationship (official)" id="type-2" />
+            <Label htmlFor="type-2">In a relationship (official)</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Living together" id="type-3" />

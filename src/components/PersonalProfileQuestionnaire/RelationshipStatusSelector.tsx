@@ -13,7 +13,7 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
     'Single & taking a break from dating',
     'Casually seeing people',
     'Talking stage',
-    'In a relationship',
+    'In a relationship (official)',
     'Engaged',
     'Married',
     'Separated/Divorced',
