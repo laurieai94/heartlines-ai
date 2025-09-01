@@ -126,12 +126,12 @@ export const ChatInputSection = ({
       <div className="px-0 py-2 md:px-4 md:py-3">
         {/* Conversation Starters - only show when showStarters is true */}
         {showStarters && isConfigured && isHistoryLoaded && (
-          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-16">
+          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <div className="md:max-w-[54rem] md:mx-auto md:px-16">
+        <div className="md:max-w-[54rem] md:mx-auto md:px-12">
           <ProgressiveAccessWrapper action="chat">
             <AIChatInput
               onSendMessage={handleSend} 
