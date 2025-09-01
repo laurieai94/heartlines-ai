@@ -31,29 +31,36 @@ const BubbleBackground = () => {
   useEffect(() => {
     const generateBubbles = () => {
       const newBubbles: Bubble[] = [];
-      for (let i = 0; i < 15; i++) {
+      // Reduce bubble count for cleaner look - fewer on mobile
+      const bubbleCount = window.innerWidth < 768 ? 6 : 10;
+      
+      for (let i = 0; i < bubbleCount; i++) {
         newBubbles.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 80 + 20,
+          size: Math.random() * 50 + 15, // Smaller bubbles (15-65px vs 20-100px)
           color: colors[Math.floor(Math.random() * colors.length)],
-          animationDuration: Math.random() * 20 + 15,
-          delay: Math.random() * 5
+          animationDuration: Math.random() * 25 + 20, // Slower, more gentle movement
+          delay: Math.random() * 8
         });
       }
       setBubbles(newBubbles);
     };
 
-    generateBubbles();
+    // Respect user's motion preferences
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!prefersReducedMotion.matches) {
+      generateBubbles();
+    }
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-      {bubbles.map((bubble) => (
+      {bubbles.map((bubble, index) => (
         <div
           key={bubble.id}
-          className="absolute rounded-full opacity-25 animate-float"
+          className="absolute rounded-full animate-float"
           style={{
             left: `${bubble.x}%`,
             top: `${bubble.y}%`,
@@ -62,7 +69,9 @@ const BubbleBackground = () => {
             backgroundColor: bubble.color,
             animationDuration: `${bubble.animationDuration}s`,
             animationDelay: `${bubble.delay}s`,
-            filter: 'blur(1px)'
+            filter: 'blur(2px)',
+            // Vary opacity for more natural look - some more subtle than others
+            opacity: 0.08 + (index % 3) * 0.04 // Creates 0.08, 0.12, 0.16 opacity levels
           }}
         />
       ))}
