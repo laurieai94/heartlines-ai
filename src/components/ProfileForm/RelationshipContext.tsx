@@ -71,6 +71,10 @@ const RelationshipContext = ({ formData, updateField }: RelationshipContextProps
             <RadioGroupItem value="Married" id="type-5" />
             <Label htmlFor="type-5">Married</Label>
           </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="Domestic partnership" id="type-6" />
+            <Label htmlFor="type-6">Domestic partnership</Label>
+          </div>
         </RadioGroup>
       </div>
     </div>

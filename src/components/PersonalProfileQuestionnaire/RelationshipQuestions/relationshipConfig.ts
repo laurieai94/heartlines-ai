@@ -29,6 +29,18 @@ export const getRelationshipLengthConfig = (relationshipStatus?: string) => {
           '20+ years'
         ]
       };
+    case 'Domestic partnership':
+      return {
+        label: 'How long have you been in a domestic partnership?',
+        options: [
+          'Less than 1 year',
+          '1-3 years',
+          '3-5 years',
+          '5-10 years',
+          '10-20 years',
+          '20+ years'
+        ]
+      };
     case 'Separated/Divorced':
       return {
         label: 'How long were you together?',
@@ -127,6 +139,22 @@ export const getWorkingWellConfig = (relationshipStatus?: string) => {
     case 'Married':
       return {
         label: 'What\'s working well in your marriage?',
+        subtitle: 'The foundations that keep you strong',
+        options: [
+          'Deep trust and commitment',
+          'Great communication',
+          'Strong physical connection',
+          'Shared life goals',
+          'Good teamwork on daily life',
+          'Emotional support',
+          'Maintaining individual interests',
+          'Handling conflict well',
+          'Growing together over time'
+        ]
+      };
+    case 'Domestic partnership':
+      return {
+        label: 'What\'s working well in your domestic partnership?',
         subtitle: 'The foundations that keep you strong',
         options: [
           'Deep trust and commitment',

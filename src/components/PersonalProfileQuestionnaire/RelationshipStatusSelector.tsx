@@ -16,6 +16,7 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
     'In a relationship (official)',
     'Engaged',
     'Married',
+    'Domestic partnership',
     'Separated/Divorced',
     'Widowed',
     'Situationship',

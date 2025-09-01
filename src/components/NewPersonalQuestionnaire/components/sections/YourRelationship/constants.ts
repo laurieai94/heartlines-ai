@@ -7,6 +7,7 @@ export const relationshipStatusOptions = [
   'In a relationship (official)',
   'Engaged',
   'Married',
+  'Domestic partnership',
   'Separated/Divorced',
   'Widowed',
   'Situationship',

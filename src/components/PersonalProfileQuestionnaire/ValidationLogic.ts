@@ -19,7 +19,7 @@ export const validateSection = (section: number, profileData: any) => {
       // Check conditional requirements based on relationship status
       if (profileData.relationshipStatus) {
         const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
-        const hasRelationship = ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+        const hasRelationship = ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married', 'Domestic partnership'].includes(profileData.relationshipStatus);
         
         if (isSingle) {
           if (!profileData.datingChallenges || profileData.datingChallenges.length === 0) isValid = false;
@@ -59,7 +59,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
       let base = 1;
       if (profileData.relationshipStatus) {
         const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
-        const hasRelationship = ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+        const hasRelationship = ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married', 'Domestic partnership'].includes(profileData.relationshipStatus);
         
         if (isSingle) base += 1;
         if (hasRelationship) base += 2;
@@ -86,7 +86,7 @@ export const getCompletedCount = (section: number, profileData: any) => {
       if (profileData.relationshipStatus) completed++;
       
       const isSingle = profileData.relationshipStatus && ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
-      const hasRelationship = profileData.relationshipStatus && ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
+      const hasRelationship = profileData.relationshipStatus && ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married', 'Domestic partnership'].includes(profileData.relationshipStatus);
       
       if (isSingle && profileData.datingChallenges && profileData.datingChallenges.length > 0) completed++;
       if (hasRelationship) {
