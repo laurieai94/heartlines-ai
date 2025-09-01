@@ -25,7 +25,7 @@ const QuestionnaireFooter = ({
   }
 
   return (
-    <div className="p-6 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
+    <div className="p-6 pb-10 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-center items-center flex-shrink-0">
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-2 text-emerald-400 mb-2">
           <div className="w-8 h-8 rounded-full bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 flex items-center justify-center">

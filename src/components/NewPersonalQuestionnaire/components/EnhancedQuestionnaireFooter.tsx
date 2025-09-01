@@ -202,7 +202,7 @@ const EnhancedQuestionnaireFooter = ({
 
       {/* Action Button */}
       {canComplete && (
-        <div className="flex justify-center pt-2">
+        <div className="flex justify-center pt-2 pb-4">
           <Button
             onClick={onComplete}
             className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-3 px-8 py-3 text-base rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"

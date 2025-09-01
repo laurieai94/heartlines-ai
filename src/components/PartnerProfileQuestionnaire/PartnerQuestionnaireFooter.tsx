@@ -40,7 +40,7 @@ const PartnerQuestionnaireFooter = ({
   };
 
   return (
-    <div className="p-2 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
+    <div className="p-2 pb-6 border-t border-white/15 bg-white/5 backdrop-blur-sm flex justify-between items-center flex-shrink-0">
       <Button
         variant="outline"
         onClick={onBack}
