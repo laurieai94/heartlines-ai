@@ -1,5 +1,4 @@
 
-import { TreeDeciduous } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerHeartbreakBetrayalCard from "../questions/PartnerHeartbreakBetrayalCard";
 import PartnerFamilyDynamicCard from "../questions/PartnerFamilyDynamicCard";
@@ -23,18 +22,7 @@ const PartnerFoundation = ({
 }: PartnerFoundationProps) => {
   
   return (
-    <div className="space-y-5">
-      {/* Section Header */}
-      <div className="py-1 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <TreeDeciduous className="w-5 h-5 text-rose-400" />
-            <h2 className="text-xl font-bold text-white">Their Foundation</h2>
-          </div>
-          <p className="text-white/70 hidden sm:block">early scripts, family stuff & emotional wiring</p>
-        </div>
-      </div>
-
+    <div className="space-y-3">
       <PartnerAttachmentCard
         profileData={profileData}
         updateField={updateField}

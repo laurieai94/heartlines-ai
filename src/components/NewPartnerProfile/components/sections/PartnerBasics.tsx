@@ -1,5 +1,4 @@
 
-import { User } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerNamePronounsCard from "../questions/PartnerNamePronounsCard";
 import PartnerAgeCard from "../questions/PartnerAgeCard";
@@ -23,18 +22,7 @@ const PartnerBasics = ({
   onSectionComplete
 }: PartnerBasicsProps) => {
   return (
-    <div className="space-y-5">
-      {/* Section Header */}
-      <div className="py-1 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <User className="w-5 h-5 text-rose-400" />
-            <h2 className="text-xl font-bold text-white">The Basics</h2>
-          </div>
-          <p className="text-white/80 hidden sm:block">stuff they'd put in a dating app</p>
-        </div>
-      </div>
-
+    <div className="space-y-3">
       <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} />
 
       <OptionalGroup 

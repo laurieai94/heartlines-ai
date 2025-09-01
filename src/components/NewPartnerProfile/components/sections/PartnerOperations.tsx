@@ -1,5 +1,4 @@
 
-import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
@@ -23,18 +22,7 @@ const PartnerOperations = ({
 }: PartnerOperationsProps) => {
   
   return (
-    <div className="space-y-5">
-      {/* Section Header */}
-      <div className="py-1 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Heart className="w-5 h-5 text-rose-400" />
-            <h2 className="text-xl font-bold text-white">How They Operate</h2>
-          </div>
-          <p className="text-white/80 hidden sm:block">how they love, fight, and show up</p>
-        </div>
-      </div>
-
+    <div className="space-y-3">
       <PartnerLoveLanguageCard
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}

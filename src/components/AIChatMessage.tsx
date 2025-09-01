@@ -43,13 +43,13 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
   
   return (
     <div 
-      className={`flex gap-2 md:gap-4 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-4'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+      className={`flex gap-1.5 md:gap-3 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
       role="listitem"
       aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
     >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-6 h-6 md:w-10 md:h-10 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-5 h-5 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
@@ -57,7 +57,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
             }`}></div>
           )}
           
-          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-10 md:h-10 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg w-5 h-5 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -66,7 +66,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5 md:w-6 md:h-6" />}
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-3 h-3 md:w-4 md:h-4" />}
               </AvatarFallback>
             ) : (
               <>
@@ -76,7 +76,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
                   className="object-cover"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                  <Bot className="w-5 h-5 md:w-6 md:h-6" />
+                  <Bot className="w-3 h-3 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
             )}
@@ -92,14 +92,14 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
       } ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`
-            transition-all duration-300 group-hover:shadow-xl px-3 py-2 md:px-4 md:py-3 rounded-2xl md:rounded-3xl
+            transition-all duration-300 group-hover:shadow-xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
             ${isUser
               ? 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
               : 'bg-white/20 md:bg-white/12 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
             }
           `}
         >
-          <div className="text-sm leading-relaxed whitespace-pre-wrap font-light">
+          <div className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap font-light">
             {cleanedContent}
           </div>
         </div>

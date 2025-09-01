@@ -139,13 +139,13 @@ const AIChatInput = ({
             textareaRef.current.focus();
           }
         }}
-        className={`rounded-2xl w-10 h-10 md:w-10 md:h-10 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+        className={`rounded-2xl w-8 h-8 md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
         }`}
       >
-        <Send className="w-2.5 h-2.5 md:w-3.5 md:h-3.5" />
+        <Send className="w-2 h-2 md:w-3 md:h-3" />
       </Button>
     </div>
   );
