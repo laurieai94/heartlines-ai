@@ -116,7 +116,7 @@ const QuestionnaireContainer = ({
           profileData={profileData}
         />
 
-        <div className="bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
+        <div className="hidden md:block bg-white/5 backdrop-blur-sm border-b border-white/15 p-1.5 flex-shrink-0">
           <SectionNavigation
             currentSection={currentSection}
             sectionReadiness={sectionReadiness}

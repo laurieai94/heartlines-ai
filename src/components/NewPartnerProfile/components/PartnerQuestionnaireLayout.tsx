@@ -67,7 +67,7 @@ const PartnerQuestionnaireLayout = ({
         
         <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-        <div className="bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
+        <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
           <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
         </div>
