@@ -18,7 +18,8 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
     'Married',
     'Separated/Divorced',
     'Widowed',
-    'Situationship'
+    'Situationship',
+    'Honestly, I don\'t even know.'
   ];
 
   return (

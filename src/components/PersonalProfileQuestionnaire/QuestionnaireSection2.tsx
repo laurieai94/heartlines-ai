@@ -17,6 +17,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   const relationshipStatus = profileData.relationshipStatus;
   const isSingle = relationshipStatus && ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(relationshipStatus);
   const hasRelationship = relationshipStatus && ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married'].includes(relationshipStatus);
+  const isSituationship = relationshipStatus && ['Situationship', 'Honestly, I don\'t even know.'].includes(relationshipStatus);
 
   return (
     <div className="space-y-4">
@@ -46,6 +47,15 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
             relationshipStatus={relationshipStatus}
           />
         </>
+      )}
+
+      {isSituationship && (
+        <RelationshipQuestions 
+          profileData={profileData}
+          updateField={updateField}
+          handleMultiSelect={handleMultiSelect}
+          relationshipStatus={relationshipStatus}
+        />
       )}
     </div>
   );
