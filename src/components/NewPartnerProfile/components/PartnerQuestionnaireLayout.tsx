@@ -68,14 +68,17 @@ const PartnerQuestionnaireLayout = ({
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
-          <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
+          {/* Sticky header and navigation on desktop */}
+          <div className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
+            <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-          <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
-            <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+            <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
+              <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+            </div>
           </div>
 
-          <PartnerQuestionnaireContent 
+          <PartnerQuestionnaireContent
             profileData={profileData} 
             updateField={updateField} 
             handleMultiSelect={handleMultiSelect} 
