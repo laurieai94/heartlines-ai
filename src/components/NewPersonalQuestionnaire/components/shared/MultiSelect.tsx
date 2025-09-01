@@ -24,11 +24,14 @@ const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSe
         <button
           key={option}
           onClick={() => onToggle(option)}
-          className={`w-full p-1.5 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
-            (selectedValues || []).includes(option)
-              ? 'questionnaire-button-selected'
-              : 'questionnaire-button-secondary'
-          }`}
+            className={`w-full p-2 md:p-1.5 rounded-lg text-left text-sm md:text-xs font-medium transition-all duration-200 hover:scale-[1.01] min-h-[44px] md:min-h-auto flex items-center ${
+              (selectedValues || []).includes(option)
+                ? 'questionnaire-button-selected'
+                : 'questionnaire-button-secondary'
+            }`}
+            aria-pressed={(selectedValues || []).includes(option)}
+            role="button"
+            tabIndex={0}
         >
           {option}
         </button>

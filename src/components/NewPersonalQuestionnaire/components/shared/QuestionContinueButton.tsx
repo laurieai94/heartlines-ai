@@ -28,7 +28,7 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
     <div className={`flex justify-center mt-4 animate-fade-in ${className}`}>
       <Button
         onClick={handleClick}
-        className="bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 hover:border-white/30 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-[1.02] shadow-sm"
+        className="bg-white/15 md:bg-white/10 hover:bg-white/20 md:hover:bg-white/15 backdrop-blur-sm md:backdrop-blur-md border border-white/30 md:border-white/20 hover:border-white/40 md:hover:border-white/30 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 hover:scale-[1.02] shadow-sm min-h-[44px] md:min-h-auto"
       >
         <span className="text-sm font-medium">Continue</span>
         <ArrowDown className="w-4 h-4" />

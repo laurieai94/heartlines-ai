@@ -432,6 +432,18 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* Mobile-first optimizations - reduce glass effects on smaller screens */
+  @media (max-width: 767px) {
+    .glass {
+      @apply backdrop-blur-sm;
+    }
+    
+    /* Reduce complex gradients on mobile for better performance */
+    .bg-gradient-to-br {
+      background: hsl(var(--burgundy-900) / 0.85);
+    }
+  }
+
   /* Modal backdrop utilities */
   .modal-backdrop {
     background: linear-gradient(135deg, 
