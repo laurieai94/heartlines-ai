@@ -9,6 +9,7 @@ interface PartnerQuestionnaireContentProps {
   updateField: (field: keyof PartnerProfileData, value: any) => void;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
   currentSection: number;
+  containerRef?: React.RefObject<HTMLDivElement>;
   onScrollToSection: (scrollFn: (section: number) => void) => void;
   onSectionComplete: (nextSection: number) => void;
 }
@@ -18,10 +19,11 @@ const PartnerQuestionnaireContent = ({
   updateField,
   handleMultiSelect,
   currentSection,
+  containerRef,
   onScrollToSection,
   onSectionComplete
 }: PartnerQuestionnaireContentProps) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
 
   // Mapping of first question anchors per section
   const firstQuestionAnchors: { [key: number]: string } = {
@@ -69,11 +71,7 @@ const PartnerQuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div 
-      ref={scrollContainerRef}
-      className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
-    >
-      <div className="px-6 py-3 space-y-5">
+    <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent px-6 py-3 space-y-5">
         <div id="partner-section-1">
           <PartnerBasics
             profileData={profileData}
@@ -104,7 +102,6 @@ const PartnerQuestionnaireContent = ({
           />
         </div>
       </div>
-    </div>
   );
 };
 

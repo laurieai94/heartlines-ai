@@ -12,6 +12,7 @@ interface QuestionnaireContentProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   currentSection: number;
+  containerRef?: React.RefObject<HTMLDivElement>;
   onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
   onSectionComplete?: (nextSection: number) => void;
 }
@@ -21,10 +22,11 @@ const QuestionnaireContent = ({
   updateField,
   handleMultiSelect,
   currentSection,
+  containerRef,
   onScrollToSection,
   onSectionComplete
 }: QuestionnaireContentProps) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
   const { scrollToNextQuestion } = useAutoScroll();
 
   const scrollToSection = (sectionNumber: number) => {
@@ -105,11 +107,7 @@ const QuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div 
-      ref={scrollContainerRef}
-      className="flex-1 overflow-y-auto"
-    >
-      <div className="px-4 py-2 space-y-4 sm:px-6 lg:px-10">
+    <div className="px-4 py-2 space-y-4 sm:px-6 lg:px-10">
         <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
         <WhoYouAre
           profileData={profileData}
@@ -151,7 +149,6 @@ const QuestionnaireContent = ({
           />
         </div>
       </div>
-    </div>
   );
 };
 

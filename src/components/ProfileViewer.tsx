@@ -24,17 +24,23 @@ const ProfileViewer = ({ profileType, profileData, demographicsData, onEdit, onC
     return (
       <Card className="p-4">
         <h4 className="font-semibold text-gray-900 mb-3">{title}</h4>
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {fields.map(field => {
             if (!data[field] || data[field] === '') return null;
             
-            const value = Array.isArray(data[field]) ? data[field].join(', ') : data[field];
+            const value = Array.isArray(data[field]) ? data[field] : [data[field]];
             const label = field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
             
             return (
-              <div key={field} className="flex flex-wrap gap-2">
-                <span className="font-medium text-gray-700">{label}:</span>
-                <Badge variant="outline" className="text-sm">{value}</Badge>
+              <div key={field} className="space-y-1">
+                <span className="font-medium text-gray-700 text-sm">{label}:</span>
+                <div className="flex flex-wrap gap-1">
+                  {value.map((val: string, index: number) => (
+                    <Badge key={`${field}-${index}`} variant="outline" className="text-sm">
+                      {val}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             );
           })}
