@@ -74,7 +74,7 @@ const AIChatInput = ({
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       const scrollHeight = textareaRef.current.scrollHeight;
-      const maxHeight = window.innerWidth < 768 ? 88 : 100; // Match max-h classes
+      const maxHeight = window.innerWidth < 768 ? 88 : 88; // Match max-h classes
       textareaRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
     }
   };
@@ -122,7 +122,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-2 pt-[12px] pb-[10px] md:px-4 md:pt-[15px] md:pb-[13px] text-base resize-none min-h-[44px] md:min-h-[50px] max-h-[88px] md:max-h-[100px] leading-[22px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
+          className="w-full bg-transparent border-0 px-2 pt-[12px] pb-[10px] md:px-3 md:pt-[12px] md:pb-[10px] text-base resize-none min-h-[44px] md:min-h-[44px] max-h-[88px] md:max-h-[88px] leading-[22px] md:leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
           style={{ WebkitTapHighlightColor: 'transparent', WebkitAppearance: 'none' }}
           rows={1}
         />
@@ -139,13 +139,13 @@ const AIChatInput = ({
             textareaRef.current.focus();
           }
         }}
-        className={`rounded-2xl w-10 h-10 md:w-12 md:h-12 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+        className={`rounded-2xl w-10 h-10 md:w-10 md:h-10 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
         }`}
       >
-        <Send className="w-2.5 h-2.5 md:w-4 md:h-4" />
+        <Send className="w-2.5 h-2.5 md:w-3.5 md:h-3.5" />
       </Button>
     </div>
   );
