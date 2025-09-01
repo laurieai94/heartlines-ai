@@ -451,8 +451,8 @@
   /* Mobile-first design tokens - clean and lightweight */
   .questionnaire-chip {
     @apply px-3 py-2 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-lg text-sm sm:text-sm font-medium transition-all duration-200;
-    @apply bg-white/8 text-white/95 border border-white/15;
-    @apply hover:bg-white/12 hover:border-white/25;
+    @apply bg-white/10 text-white/95 border border-white/20;
+    @apply hover:bg-white/20 hover:border-white/30;
     @apply focus:outline-none focus:ring-2 focus:ring-white/30;
     @apply min-h-[44px] sm:min-h-[36px] inline-flex items-center justify-center;
     @apply active:scale-95 touch-manipulation;
@@ -464,15 +464,15 @@
   }
   
   .questionnaire-card-mobile {
-    @apply bg-white/8 backdrop-blur-sm rounded-xl border border-white/15;
-    @apply hover:bg-white/12 hover:border-white/20;
+    @apply bg-white/10 backdrop-blur-sm rounded-xl border border-white/20;
+    @apply hover:bg-white/20 hover:border-white/30;
     @apply transition-all duration-200;
     @apply shadow-sm;
   }
   
   .questionnaire-continue-elegant {
-    @apply bg-white/12 hover:bg-white/18 backdrop-blur-sm;
-    @apply border border-white/25 hover:border-white/35;
+    @apply bg-white/20 hover:bg-white/30 backdrop-blur-sm;
+    @apply border border-white/30 hover:border-white/40;
     @apply text-white px-5 py-3 rounded-xl transition-all duration-200;
     @apply text-sm font-semibold flex items-center gap-2;
     @apply min-h-[44px] active:scale-95 touch-manipulation;
@@ -483,7 +483,7 @@
     @apply min-h-[48px] text-base px-4 py-3 rounded-xl;
     @apply bg-white/10 border border-white/20;
     @apply text-white placeholder:text-white/60;
-    @apply focus:bg-white/15 focus:border-white/30 focus:ring-2 focus:ring-white/20;
+    @apply focus:bg-white/20 focus:border-white/40 focus:ring-2 focus:ring-white/20;
   }
   
   .questionnaire-label-mobile {
