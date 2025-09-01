@@ -33,7 +33,7 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-2.5 sm:p-4 rounded-xl bg-white/15 hover:bg-white/20 transition-all duration-200 border border-white/25 hover:border-white/35 ring-1 ring-white/10 focus-visible:ring-2 focus-visible:ring-white/30 group shadow-sm">
+      <CollapsibleTrigger className="flex items-center justify-between w-full p-2.5 sm:p-4 rounded-xl bg-white/20 hover:bg-white/25 sm:bg-white/15 sm:hover:bg-white/20 transition-all duration-200 border border-white/30 hover:border-white/40 sm:border-white/25 sm:hover:border-white/35 ring-1 ring-white/15 sm:ring-white/10 focus-visible:ring-2 focus-visible:ring-white/30 group shadow-sm">
         <div className="flex items-center gap-2 sm:gap-3 flex-1">
           <span className="px-2 py-0.5 text-xs font-medium bg-white/15 text-white/90 rounded-full border border-white/30 flex-shrink-0">
             Optional
