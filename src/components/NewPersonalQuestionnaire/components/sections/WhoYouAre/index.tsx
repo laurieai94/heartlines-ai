@@ -57,7 +57,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
   const isGenderComplete = !!(genderValue && genderValue.trim() !== '');
 
   return (
-    <div className={`space-y-3 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+    <div className="space-y-3 transition-opacity duration-300 opacity-100">
       {/* Section Header */}
       <div className="py-2 bg-transparent">
         <div className="text-center">

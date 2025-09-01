@@ -433,7 +433,7 @@
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   /* Mobile-first optimizations - reduce glass effects on smaller screens */
-  @media (max-width: 767px) {
+  @media (max-width: 639px) {
     .glass {
       @apply backdrop-blur-sm;
     }
