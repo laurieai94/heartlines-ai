@@ -191,7 +191,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               {/* Center Navigation */}
               <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
                 <div className="flex gap-8 overflow-x-auto no-scrollbar">
-                  {navigationItems.map((tab) => (
+                  {navigationItems.filter(item => item.value !== 'account').map((tab) => (
                     <button
                       key={tab.value}
                       onMouseEnter={() => handleTabHover(tab.value)}
