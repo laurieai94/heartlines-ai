@@ -126,13 +126,14 @@ export const ChatInputSection = ({
       <div className="px-0 py-2 md:px-4 md:py-3">
         {/* Conversation Starters - only show when showStarters is true */}
         {showStarters && isConfigured && isHistoryLoaded && (
-          <div className="mb-2 md:mb-3 md:max-w-4xl md:mx-auto">
+          <div className="mb-2 md:mb-3 md:max-w-4xl md:mx-auto md:pl-16">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <ProgressiveAccessWrapper action="chat">
-          <AIChatInput
+        <div className="md:max-w-4xl md:mx-auto md:pl-16">
+          <ProgressiveAccessWrapper action="chat">
+            <AIChatInput
               onSendMessage={handleSend} 
               loading={loading}
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
@@ -162,7 +163,8 @@ export const ChatInputSection = ({
               partnerName={partnerName}
               chatHistory={chatHistory}
             />
-        </ProgressiveAccessWrapper>
+          </ProgressiveAccessWrapper>
+        </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
             Complete setup to chat
