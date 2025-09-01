@@ -42,7 +42,7 @@ const FamilyStructureQuestion = ({
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <TreeDeciduous className="w-3 h-3 text-green-300" />
         <span>This literally programmed your relationship blueprints</span>
       </div>

@@ -32,7 +32,7 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
         <Label className="text-sm font-semibold text-white">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="text-orange-300 font-medium text-xs ml-2">(Select the answer that resonates most)</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal">
           <Heart className="w-3 h-3 text-pink-300" />
           <span>From situationship to married - we meet you where you are</span>
         </div>

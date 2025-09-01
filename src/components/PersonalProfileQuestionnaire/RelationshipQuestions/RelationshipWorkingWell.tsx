@@ -19,7 +19,7 @@ const RelationshipWorkingWell = ({ config, profileData, handleMultiSelect }: Rel
         <Label className="text-sm font-medium text-white">
           {config.label} (Select all that apply)
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal">
           <Heart className="w-3 h-3 text-pink-300" />
           <span>{config.subtitle}</span>
         </div>

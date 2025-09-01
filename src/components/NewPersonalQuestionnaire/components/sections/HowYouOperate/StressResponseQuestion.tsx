@@ -22,7 +22,7 @@ const StressResponseQuestion = ({
         When life gets chaotic, where do you run?
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <Zap className="w-3 h-3 text-orange-300" />
         <span>Stress patterns affect how you show up for people</span>
       </div>

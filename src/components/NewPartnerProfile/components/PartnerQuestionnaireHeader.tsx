@@ -19,7 +19,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   const hasName = profileData.partnerName && profileData.partnerName.trim();
   
   return (
-    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 py-2 flex-shrink-0 relative">
+    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 pt-safe pt-2.5 pb-1.5 sm:py-2 flex-shrink-0 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent"></div>
       
       <div className="flex items-center justify-between relative z-10">

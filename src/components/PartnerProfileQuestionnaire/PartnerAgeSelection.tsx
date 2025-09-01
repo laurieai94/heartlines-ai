@@ -30,7 +30,7 @@ const PartnerAgeSelection = ({ selectedAge, onAgeSelect }: PartnerAgeSelectionPr
         <Label className="text-sm font-semibold text-white">
           How old are they? <span className="text-red-400">*</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal">
           <Calendar className="w-3 h-3 text-orange-300" />
           <span>Different life stages = different relationship vibes</span>
         </div>

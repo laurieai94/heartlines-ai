@@ -26,7 +26,7 @@ const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQ
         What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/70 mb-3 font-normal">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 mb-3 font-normal">
         <Target className="w-3 h-3 text-orange-300" />
         <span>This shapes how you navigate connection challenges</span>
       </div>

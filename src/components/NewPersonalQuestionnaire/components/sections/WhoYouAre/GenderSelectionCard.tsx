@@ -39,7 +39,7 @@ const GenderSelectionCard = ({
         What's your gender identity? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <User className="w-3 h-3 text-purple-300" />
         <span>We're way past thinking it's just two options</span>
       </div>

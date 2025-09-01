@@ -27,7 +27,7 @@ const AttachmentStyleQuestion = ({
         What's your attachment style? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select one</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <Link className="w-3 h-3 text-purple-300" />
         <span>The psychological patterns that run your relationships</span>
       </div>

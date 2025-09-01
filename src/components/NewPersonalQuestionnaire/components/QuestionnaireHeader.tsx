@@ -20,7 +20,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 py-1.5 sm:px-4 sm:py-3 pt-safe flex-shrink-0 relative z-10">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 pt-safe pt-2.5 pb-1.5 sm:px-4 sm:py-3 flex-shrink-0 relative z-10">
       <div className="flex items-center justify-between">
         {/* Profile section */}
         <div className="flex items-center gap-1.5 sm:gap-2">

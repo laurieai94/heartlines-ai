@@ -23,7 +23,7 @@ const HeartbreakBetrayalQuestion = ({
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <HeartCrack className="w-3 h-3 text-red-300" />
         <span>Past pain shapes how you protect yourself</span>
       </div>

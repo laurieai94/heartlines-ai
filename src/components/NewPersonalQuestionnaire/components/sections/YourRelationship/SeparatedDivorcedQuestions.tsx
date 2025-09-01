@@ -30,7 +30,7 @@ const SeparatedDivorcedQuestions = ({
           What's your situation right now? <span className="text-red-400">*</span>
           <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Heart className="w-3 h-3 text-blue-300" />
           <span>Help us understand your journey</span>
         </div>
@@ -53,7 +53,7 @@ const SeparatedDivorcedQuestions = ({
             Where are you at with dating/relationships? <span className="text-red-400">*</span>
             <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
-          <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <Heart className="w-3 h-3 text-purple-300" />
             <span>We want to support you wherever you are</span>
           </div>

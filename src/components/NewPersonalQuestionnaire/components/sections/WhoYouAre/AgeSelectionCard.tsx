@@ -40,7 +40,7 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelection
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your age?
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Calendar className="w-3 h-3 text-orange-300" />
           <span>Different life stages = different relationship challenges</span>
         </div>

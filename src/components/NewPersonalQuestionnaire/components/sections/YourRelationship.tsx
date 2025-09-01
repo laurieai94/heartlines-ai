@@ -65,7 +65,7 @@ const YourRelationship = ({
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="text-orange-300 font-medium text-xs ml-2">(Select the answer that resonates most)</span>
         </Label>
-        <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Heart className="w-3 h-3 text-pink-300" />
           <span>Dating, taken, or somewhere in between? We get it</span>
         </div>

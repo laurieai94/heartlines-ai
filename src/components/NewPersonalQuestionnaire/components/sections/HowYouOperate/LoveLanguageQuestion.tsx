@@ -29,7 +29,7 @@ const LoveLanguageQuestion = ({
         How do you feel most loved? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+      <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <Heart className="w-3 h-3 text-pink-300" />
         <span> Knowing this helps you actually ask for what you need</span>
       </div>
