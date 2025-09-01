@@ -11,6 +11,8 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
   const relationshipStatusOptions = [
     'On the apps',
     'Single & taking a break from dating',
+    'Single & living my best life',
+    'Recently single',
     'Casually seeing people',
     'Talking stage',
     'Soft launching someone new',
