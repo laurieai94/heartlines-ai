@@ -10,6 +10,7 @@ interface PartnerQuestionnaireContentProps {
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
   currentSection: number;
   containerRef?: React.RefObject<HTMLDivElement>;
+  headerOffsetPx?: number;
   onScrollToSection: (scrollFn: (section: number) => void) => void;
   onSectionComplete: (nextSection: number) => void;
 }
@@ -20,6 +21,7 @@ const PartnerQuestionnaireContent = ({
   handleMultiSelect,
   currentSection,
   containerRef,
+  headerOffsetPx = 0,
   onScrollToSection,
   onSectionComplete
 }: PartnerQuestionnaireContentProps) => {
@@ -50,7 +52,7 @@ const PartnerQuestionnaireContent = ({
 
     const containerTop = container.getBoundingClientRect().top;
     const targetTop = targetElement.getBoundingClientRect().top;
-    const offsetPosition = container.scrollTop + (targetTop - containerTop) - 5;
+    const offsetPosition = container.scrollTop + (targetTop - containerTop) - Math.max(20, headerOffsetPx + 20);
 
     container.scrollTo({
       top: offsetPosition,

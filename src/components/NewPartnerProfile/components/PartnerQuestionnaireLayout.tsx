@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { PartnerProfileData } from "../types";
 import { validatePartnerSection, calculatePartnerProgress } from "../utils/partnerValidation";
 import { useCurrentSectionDetection } from "../../NewPersonalQuestionnaire/hooks/useCurrentSectionDetection";
@@ -25,11 +25,29 @@ const PartnerQuestionnaireLayout = ({
   onAutoComplete
 }: PartnerQuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
+  const stickyHeaderRef = useRef<HTMLDivElement>(null);
   const overallProgress = calculatePartnerProgress(profileData);
 
   // Auto section detection hook (same as personal profile)
   useCurrentSectionDetection(setCurrentSection);
+
+  // Measure sticky header height on desktop
+  useEffect(() => {
+    const measureHeaderHeight = () => {
+      if (stickyHeaderRef.current && window.innerWidth >= 768) {
+        const height = stickyHeaderRef.current.offsetHeight;
+        setHeaderHeight(height);
+      } else {
+        setHeaderHeight(0);
+      }
+    };
+
+    measureHeaderHeight();
+    window.addEventListener('resize', measureHeaderHeight);
+    return () => window.removeEventListener('resize', measureHeaderHeight);
+  }, []);
 
   // Handle section completion via continue buttons with auto-advance
   const handleSectionComplete = (nextSection: number) => {
@@ -67,9 +85,9 @@ const PartnerQuestionnaireLayout = ({
     return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-4'}`}>
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
           {/* Sticky header and navigation on desktop */}
-          <div className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
+          <div ref={stickyHeaderRef} className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
             <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
             <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
@@ -84,6 +102,7 @@ const PartnerQuestionnaireLayout = ({
             handleMultiSelect={handleMultiSelect} 
             currentSection={currentSection} 
             containerRef={scrollContainerRef}
+            headerOffsetPx={headerHeight}
             onScrollToSection={scrollFn => {
               scrollToSectionFn.current = scrollFn;
             }} 

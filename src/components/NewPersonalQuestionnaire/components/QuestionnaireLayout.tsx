@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import SectionNavigation from "./SectionNavigation";
@@ -25,13 +25,32 @@ const QuestionnaireLayout = ({
   onAutoComplete
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
+  const stickyHeaderRef = useRef<HTMLDivElement>(null);
 
   // Use intersection observer to detect current section during scroll
   const handleSectionChange = (section: number) => {
     setCurrentSection(section);
   };
   useCurrentSectionDetection(handleSectionChange);
+  
+  // Measure sticky header height on desktop
+  useEffect(() => {
+    const measureHeaderHeight = () => {
+      if (stickyHeaderRef.current && window.innerWidth >= 768) {
+        const height = stickyHeaderRef.current.offsetHeight;
+        setHeaderHeight(height);
+      } else {
+        setHeaderHeight(0);
+      }
+    };
+
+    measureHeaderHeight();
+    window.addEventListener('resize', measureHeaderHeight);
+    return () => window.removeEventListener('resize', measureHeaderHeight);
+  }, []);
+  
   const overallProgress = calculateProgress(profileData);
 
   // Handle section completion via continue buttons
@@ -76,9 +95,9 @@ const QuestionnaireLayout = ({
   return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-4'}`}>
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/15 md:border-white/20 rounded-2xl md:rounded-3xl bg-burgundy-900/90 md:bg-gradient-to-br md:from-burgundy-900/95 md:to-burgundy-800/90 backdrop-blur-xl md:backdrop-blur-2xl shadow-xl md:shadow-2xl shadow-black/20 md:shadow-black/30 ring-1 ring-white/8 md:ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-2xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/3 md:before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
           {/* Sticky header and navigation on desktop */}
-          <div className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
+          <div ref={stickyHeaderRef} className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
             <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
@@ -93,6 +112,7 @@ const QuestionnaireLayout = ({
             handleMultiSelect={handleMultiSelect} 
             currentSection={currentSection} 
             containerRef={scrollContainerRef}
+            headerOffsetPx={headerHeight}
             onScrollToSection={scrollFn => {
               scrollToSectionFn.current = scrollFn;
             }} 

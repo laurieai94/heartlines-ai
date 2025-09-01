@@ -13,6 +13,7 @@ interface QuestionnaireContentProps {
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   currentSection: number;
   containerRef?: React.RefObject<HTMLDivElement>;
+  headerOffsetPx?: number;
   onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
   onSectionComplete?: (nextSection: number) => void;
 }
@@ -23,6 +24,7 @@ const QuestionnaireContent = ({
   handleMultiSelect,
   currentSection,
   containerRef,
+  headerOffsetPx = 0,
   onScrollToSection,
   onSectionComplete
 }: QuestionnaireContentProps) => {
@@ -80,7 +82,7 @@ const QuestionnaireContent = ({
         });
         
         container.scrollTo({
-          top: relativeTop - 80,
+          top: relativeTop - Math.max(80, headerOffsetPx + 20),
           behavior: 'smooth'
         });
         
