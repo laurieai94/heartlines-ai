@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
+import BrandLoadingText from "../BrandLoadingText";
 
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
@@ -43,10 +44,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white/80">Loading partner profile...</p>
-        </div>
+        <BrandLoadingText text="profile loading..." color="light" />
       </div>
     );
   }

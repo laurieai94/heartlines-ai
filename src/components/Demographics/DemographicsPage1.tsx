@@ -8,6 +8,7 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import PersonalIdentity from "./PersonalIdentity";
 import BackgroundLifestyle from "./BackgroundLifestyle";
+import BrandLoadingText from "../BrandLoadingText";
 
 interface DemographicsPage1Props {
   profileType: 'your' | 'partner';
@@ -140,10 +141,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   if (isPersonal && (isLoading || !isReady)) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your profile...</p>
-        </div>
+        <BrandLoadingText text="profile loading..." color="dark" />
       </div>
     );
   }

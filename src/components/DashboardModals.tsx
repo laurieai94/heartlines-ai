@@ -3,6 +3,7 @@ import React, { Suspense, Component, ReactNode } from "react";
 import SignUpModal from "@/components/SignUpModal";
 import SplashScreen from "@/components/SplashScreen";
 import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
+import BrandLoadingText from "@/components/BrandLoadingText";
 
 // Simple error boundary for chunk loading failures
 class ChunkErrorBoundary extends Component<
@@ -152,10 +153,7 @@ const DashboardModals = ({
           <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
             <Suspense fallback={
               <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-8 h-8 border-4 border-coral-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="questionnaire-text-muted">Loading partner profile...</p>
-                </div>
+                <BrandLoadingText text="profile loading..." color="light" />
               </div>
             }>
               <NewPartnerProfile 
