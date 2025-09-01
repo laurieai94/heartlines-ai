@@ -19,10 +19,10 @@ export const loveLanguageOptions = [
   'Someone doing things to make my life easier',
   'Thoughtful gifts that show they get me',
   'Deep 3am conversations about everything',
+  'These don\'t capture my experience',
   'Adventures and making memories together',
   'Having them support my dreams and goals',
-  'Feeling genuinely appreciated for who I am',
-  'These don\'t capture my experience'
+  'Feeling genuinely appreciated for who I am'
 ];
 
 export const conflictStyleOptions = [
