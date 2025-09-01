@@ -14,6 +14,7 @@ export const challengeOptions = [
 export const getRelationshipLengthConfig = (relationshipStatus?: string) => {
   switch (relationshipStatus) {
     case 'Talking to someone':
+    case 'Talking stage':
     case 'Engaged': // Skip length question for Engaged users (already answered in main form)
       return null;
     case 'Married':
@@ -74,6 +75,7 @@ export const getRelationshipLengthConfig = (relationshipStatus?: string) => {
 export const getWorkingWellConfig = (relationshipStatus?: string) => {
   switch (relationshipStatus) {
     case 'Talking to someone':
+    case 'Talking stage':
       return {
         label: 'What\'s going well so far?',
         subtitle: 'Early connections that feel promising',

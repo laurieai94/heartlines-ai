@@ -30,7 +30,7 @@ const YourRelationship = ({
     scrollToNextRequiredQuestion
   } = useAutoScroll();
   const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
-  const isTalking = profileData.relationshipStatus === 'Talking to someone';
+  const isTalking = profileData.relationshipStatus === 'Talking stage' || profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
   const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
   const isWidowed = profileData.relationshipStatus === 'Widowed';
@@ -72,7 +72,7 @@ const YourRelationship = ({
           <Heart className="w-3 h-3 text-pink-300" />
           <span>Dating, taken, or somewhere in between? We get it</span>
         </div>
-        <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus === "It's complicated" ? "Situationship" : (profileData.relationshipStatus || '')} onSelect={value => updateField('relationshipStatus', value)} columns={3} />
+        <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus === "It's complicated" ? "Situationship" : (profileData.relationshipStatus === "Talking to someone" ? "Talking stage" : (profileData.relationshipStatus || ''))} onSelect={value => updateField('relationshipStatus', value)} columns={3} />
       </QuestionCard>
 
       {/* Optional Follow-up Questions */}

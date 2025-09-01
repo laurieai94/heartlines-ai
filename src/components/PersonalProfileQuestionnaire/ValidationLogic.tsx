@@ -32,7 +32,7 @@ export const validateSection = (section: number, profileData: any) => {
       if (profileData.relationshipStatus && 
           !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus)) {
         
-        if (!['It\'s complicated'].includes(profileData.relationshipStatus)) {
+        if (!['It\'s complicated', 'Situationship'].includes(profileData.relationshipStatus)) {
           if (!profileData.relationshipLength) {
             isValid = false;
           }
@@ -82,7 +82,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
         base += 2;
       } else if (profileData.relationshipStatus && 
                  !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus)) {
-        if (!['It\'s complicated'].includes(profileData.relationshipStatus)) {
+        if (!['It\'s complicated', 'Situationship'].includes(profileData.relationshipStatus)) {
           base += 1;
         }
         base += 2;
@@ -120,7 +120,7 @@ export const getCompletedCount = (section: number, profileData: any) => {
         if (profileData.datingGoals && profileData.datingGoals.length > 0) completed++;
       } else if (profileData.relationshipStatus && 
                  !['Single, actively dating', 'Single, not dating', 'Casually dating/seeing people'].includes(profileData.relationshipStatus)) {
-        if (!['It\'s complicated'].includes(profileData.relationshipStatus)) {
+        if (!['It\'s complicated', 'Situationship'].includes(profileData.relationshipStatus)) {
           if (profileData.relationshipLength) completed++;
         }
         if (profileData.workingWell && profileData.workingWell.length > 0) completed++;
