@@ -43,7 +43,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
   
   return (
     <div 
-      className={`flex gap-1.5 md:gap-3 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+      className={`flex gap-2 md:gap-3 ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
       role="listitem"
       aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
     >
