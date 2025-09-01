@@ -1,5 +1,5 @@
 
-import { User } from "lucide-react";
+
 import { ProfileData } from "../../../types";
 import OptionalGroup from "../../shared/OptionalGroup";
 
@@ -58,17 +58,6 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
 
   return (
     <div className="space-y-3 transition-opacity duration-300 opacity-100">
-      {/* Section Header */}
-      <div className="py-2 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-1">
-            <User className="w-5 h-5 text-rose-400" />
-            <h3 className="text-xl font-bold text-white">The Basics</h3>
-          </div>
-          <p className="text-white/70">stuff you'd put in a dating app</p>
-        </div>
-      </div>
-
       {/* Required Fields */}
       <NamePronounsCard
         profileData={profileData}

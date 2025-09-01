@@ -1,5 +1,5 @@
 
-import { Zap } from "lucide-react";
+
 import { ProfileData } from "../../types";
 import OptionalGroup from "../shared/OptionalGroup";
 import LoveLanguageQuestion from "./HowYouOperate/LoveLanguageQuestion";
@@ -25,17 +25,6 @@ const HowYouOperate = ({
 
   return (
     <div className="space-y-3 transition-opacity duration-300 opacity-100">
-      {/* Section Header */}
-      <div className="py-2 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-1">
-            <Zap className="w-5 h-5 text-rose-400" />
-            <h3 className="text-xl font-bold text-white">How You Operate</h3>
-          </div>
-          <p className="text-white/70">how you love, fight, and show up</p>
-        </div>
-      </div>
-
       {/* Required Field */}
       <LoveLanguageQuestion
         profileData={profileData}

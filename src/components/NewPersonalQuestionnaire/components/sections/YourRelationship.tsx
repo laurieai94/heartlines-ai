@@ -50,17 +50,6 @@ const YourRelationship = ({
     return !!profileData.relationshipStatus;
   };
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
-      {/* Section Header */}
-      <div className="py-2 bg-transparent">
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Heart className="w-5 h-5 text-rose-400" />
-            <h3 className="text-xl font-bold text-white">Your Situationship</h3>
-          </div>
-          <p className="text-white/70">where you're at, emotionally and relationally</p>
-        </div>
-      </div>
-
       {/* Relationship Status */}
       <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={() => {
       scrollToNextRequiredQuestion('question-relationship-status');
