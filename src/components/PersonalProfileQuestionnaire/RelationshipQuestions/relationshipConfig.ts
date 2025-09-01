@@ -41,6 +41,7 @@ export const getRelationshipLengthConfig = (relationshipStatus?: string) => {
         ]
       };
     case 'It\'s complicated':
+    case 'Situationship':
       return {
         label: 'How long have you known each other?',
         options: [
@@ -105,6 +106,7 @@ export const getWorkingWellConfig = (relationshipStatus?: string) => {
         ]
       };
     case 'It\'s complicated':
+    case 'Situationship':
       return {
         label: 'What\'s working despite the complications?',
         subtitle: 'The good parts worth acknowledging',

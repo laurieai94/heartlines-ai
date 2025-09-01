@@ -18,7 +18,7 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
     'Married',
     'Separated/Divorced',
     'Widowed',
-    'It\'s complicated'
+    'Situationship'
   ];
 
   return (
@@ -29,7 +29,7 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal">
           <Heart className="w-3 h-3 text-pink-300" />
-          <span>From 'it's complicated' to married - we meet you where you are</span>
+          <span>From situationship to married - we meet you where you are</span>
         </div>
       </div>
       

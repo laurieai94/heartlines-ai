@@ -9,7 +9,7 @@ export const relationshipStatusOptions = [
   'Married',
   'Separated/Divorced',
   'Widowed',
-  'It\'s complicated'
+  'Situationship'
 ];
 
 export const relationshipLengthOptions = [
