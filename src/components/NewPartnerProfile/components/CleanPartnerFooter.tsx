@@ -23,9 +23,9 @@ const CleanPartnerFooter = ({
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-2 pb-safe flex-shrink-0">
-      <div className="flex justify-between items-center max-w-4xl mx-auto">
-        {/* Left side - Section Progress Indicators */}
+    <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-6 pb-10 pb-safe flex-shrink-0">
+      <div className="flex flex-col items-center justify-center gap-6 max-w-4xl mx-auto">
+        {/* Section Progress Indicators */}
         <div className="flex gap-2 sm:gap-4">
           {[
             { section: 1, name: "The Basics" },
@@ -51,7 +51,7 @@ const CleanPartnerFooter = ({
           })}
         </div>
 
-        {/* Right side - Unlock button */}
+        {/* Unlock button */}
         <div className="flex items-center">
           <button 
             onClick={handleUnlockCoaching}
