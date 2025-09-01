@@ -20,24 +20,24 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 pt-safe pt-3.5 pb-1.5 sm:px-4 sm:py-3 flex-shrink-0 relative z-10">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 pt-safe pt-6 pb-2 sm:px-4 sm:py-3 flex-shrink-0 relative z-10">
       <div className="flex items-center justify-between">
         {/* Profile section */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Profile initial or icon */}
-          <div className="w-6 h-6 sm:w-7 sm:h-7 bg-white/10 rounded-full flex items-center justify-center">
+          <div className="w-7 h-7 sm:w-7 sm:h-7 bg-white/10 rounded-full flex items-center justify-center">
             {hasName ? (
-              <span className="text-white font-medium text-xs">
+              <span className="text-white font-medium text-sm sm:text-xs">
                 {getInitial()}
               </span>
             ) : (
-              <Heart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+              <Heart className="w-3 h-3 sm:w-3 sm:h-3 text-white" />
             )}
           </div>
           
           {/* Title and progress text */}
           <div>
-            <h2 className="text-white font-medium text-xs sm:text-base leading-tight">
+            <h2 className="text-white font-medium text-sm sm:text-base leading-tight">
               Your Profile
             </h2>
             {overallProgress > 0 && overallProgress < 100 && (
