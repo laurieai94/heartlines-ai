@@ -63,7 +63,7 @@ const YourRelationship = ({
       scrollToNextRequiredQuestion('question-relationship-status');
     }}>
         <Label className="text-sm font-semibold text-white mb-2 block">
-          What is your current relationship status? <span className="text-red-400">*</span>
+          What is your current relationship status? <span className="text-red-400">*</span> <span className="text-white/60 font-normal">(Select the answer that resonates most)</span>
         </Label>
         <div className="flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Heart className="w-3 h-3 text-pink-300" />
