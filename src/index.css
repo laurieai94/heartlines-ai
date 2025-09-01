@@ -464,10 +464,9 @@
   }
   
   .questionnaire-card-mobile {
-    @apply bg-white/10 backdrop-blur-sm rounded-xl border border-white/20;
-    @apply hover:bg-white/20 hover:border-white/30;
+    @apply bg-white/[0.02] backdrop-blur-sm rounded-lg border border-white/[0.06];
+    @apply hover:bg-white/[0.04] hover:border-white/[0.08];
     @apply transition-all duration-200;
-    @apply shadow-sm;
   }
   
   .questionnaire-continue-elegant {
