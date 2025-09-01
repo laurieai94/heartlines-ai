@@ -26,6 +26,7 @@ const QuestionnaireLayout = ({
 }: QuestionnaireLayoutProps) => {
   const [currentSection, setCurrentSection] = useState(1);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
 
@@ -35,10 +36,13 @@ const QuestionnaireLayout = ({
   };
   useCurrentSectionDetection(handleSectionChange);
   
-  // Measure sticky header height on tablet and desktop
+  // Track tablet/desktop state and measure header height
   useEffect(() => {
-    const measureHeaderHeight = () => {
-      if (stickyHeaderRef.current && window.innerWidth >= 640) {
+    const updateLayout = () => {
+      const isTabletOrDesktop = window.innerWidth >= 640;
+      setIsTabletDesktop(isTabletOrDesktop);
+      
+      if (stickyHeaderRef.current && isTabletOrDesktop) {
         const height = stickyHeaderRef.current.offsetHeight;
         setHeaderHeight(height);
       } else {
@@ -46,9 +50,9 @@ const QuestionnaireLayout = ({
       }
     };
 
-    measureHeaderHeight();
-    window.addEventListener('resize', measureHeaderHeight);
-    return () => window.removeEventListener('resize', measureHeaderHeight);
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    return () => window.removeEventListener('resize', updateLayout);
   }, []);
   
   const overallProgress = calculateProgress(profileData);
@@ -93,17 +97,28 @@ const QuestionnaireLayout = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-4'}`}>
-      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/15 sm:border-white/20 rounded-2xl sm:rounded-3xl bg-burgundy-900/90 sm:bg-gradient-to-br sm:from-burgundy-900/95 sm:to-burgundy-800/90 backdrop-blur-xl sm:backdrop-blur-2xl shadow-xl sm:shadow-2xl shadow-black/20 sm:shadow-black/30 ring-1 ring-white/8 sm:ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-2xl sm:before:rounded-3xl before:bg-gradient-to-br before:from-white/3 sm:before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
+      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} ${
+        // Force desktop styling on tablet and above
+        isTabletDesktop 
+          ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
+          : 'border border-white/15 rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
+      } overflow-hidden relative ${
+        isTabletDesktop
+          ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'
+          : 'before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
+      } animate-scale-in`}>
         
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
           {/* Sticky header and navigation on tablet and desktop */}
-          <div ref={stickyHeaderRef} className="sm:sticky sm:top-0 sm:z-20 sm:backdrop-blur-sm">
+          <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : ''}>
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-            <div className="hidden sm:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
-              <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
-            </div>
+            {isTabletDesktop && (
+              <div className="bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
+                <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+              </div>
+            )}
           </div>
 
           <QuestionnaireContent

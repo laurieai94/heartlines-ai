@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { PartnerProfileData } from "../types";
 import PartnerBasics from "./sections/PartnerBasics";
 import PartnerOperations from "./sections/PartnerOperations";
@@ -25,7 +25,18 @@ const PartnerQuestionnaireContent = ({
   onScrollToSection,
   onSectionComplete
 }: PartnerQuestionnaireContentProps) => {
+  const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
+
+  // Track tablet/desktop state
+  useEffect(() => {
+    const updateLayout = () => {
+      setIsTabletDesktop(window.innerWidth >= 640);
+    };
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    return () => window.removeEventListener('resize', updateLayout);
+  }, []);
 
   // Mapping of first question anchors per section
   const firstQuestionAnchors: { [key: number]: string } = {
@@ -73,7 +84,7 @@ const PartnerQuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent px-4 py-3 space-y-5 sm:px-8 lg:px-10">
+    <div className={`bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-3 space-y-5 ${isTabletDesktop ? 'px-8' : 'px-4'}`}>
         <div id="partner-section-1">
           <PartnerBasics
             profileData={profileData}

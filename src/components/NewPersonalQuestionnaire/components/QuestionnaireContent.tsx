@@ -1,5 +1,5 @@
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ProfileData } from "../types";
 import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
@@ -28,8 +28,19 @@ const QuestionnaireContent = ({
   onScrollToSection,
   onSectionComplete
 }: QuestionnaireContentProps) => {
+  const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
   const { scrollToNextQuestion } = useAutoScroll();
+
+  // Track tablet/desktop state
+  useEffect(() => {
+    const updateLayout = () => {
+      setIsTabletDesktop(window.innerWidth >= 640);
+    };
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    return () => window.removeEventListener('resize', updateLayout);
+  }, []);
 
   const scrollToSection = (sectionNumber: number) => {
     console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
@@ -109,7 +120,7 @@ const QuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div className="px-4 py-2 space-y-4 sm:px-8 lg:px-10">
+    <div className={`py-2 space-y-4 ${isTabletDesktop ? 'px-8' : 'px-4'}`}>
         <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
         <WhoYouAre
           profileData={profileData}
