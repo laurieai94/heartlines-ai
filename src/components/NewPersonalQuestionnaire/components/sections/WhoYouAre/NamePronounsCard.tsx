@@ -18,12 +18,12 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'Other'
+    'She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'
   ];
 
   // Initialize custom pronoun if it exists and isn't a standard option
   useEffect(() => {
-    if (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'Other'].includes(profileData.pronouns)) {
+    if (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'].includes(profileData.pronouns)) {
       setCustomPronoun(profileData.pronouns);
     }
   }, [profileData.pronouns]);
