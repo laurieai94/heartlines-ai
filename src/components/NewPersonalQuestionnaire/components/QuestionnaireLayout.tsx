@@ -136,6 +136,9 @@ const QuestionnaireLayout = ({
             }} 
             onSectionComplete={handleSectionComplete} 
           />
+          
+          {/* Extra bottom padding for mobile to prevent content being hidden by footer */}
+          <div className="pb-16 sm:pb-4" />
         </div>
 
         <CleanQuestionnaireFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={false} />

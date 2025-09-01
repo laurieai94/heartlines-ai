@@ -71,7 +71,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             {generateAvatar(profileData.name || '')}
           </div>
           <div className="flex-1 min-w-0">
-            <Label htmlFor="name" className="text-sm font-semibold text-white mb-2 block">
+            <Label htmlFor="name" className="questionnaire-label-mobile">
               What should we call you? <span className="text-red-400">*</span>
             </Label>
             <Input
@@ -80,14 +80,14 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
               placeholder="Your name"
-              className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
+              className="questionnaire-input-mobile font-medium w-full"
             />
           </div>
         </div>
 
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
-          <Label className="text-sm font-semibold text-white mb-2 block">
+          <Label className="questionnaire-label-mobile">
             What pronouns do you use? <span className="text-red-400">*</span>
           </Label>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
@@ -106,14 +106,14 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
           {/* Custom pronoun input */}
           {(profileData.pronouns === 'Other' || customPronoun) && (
             <div className="mt-3">
-              <Label className="text-xs font-medium text-white mb-1.5 block">
+              <Label className="text-sm font-medium text-white mb-2 block">
                 Please specify your pronouns:
               </Label>
               <Input
                 value={customPronoun}
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
                 placeholder="e.g., xe/xir, fae/faer, etc."
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-8"
+                className="questionnaire-input-mobile"
               />
             </div>
           )}
