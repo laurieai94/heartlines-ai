@@ -1,7 +1,7 @@
 
 export const relationshipStatusOptions = [
-  'Single & actively dating',
-  'Single & taking a break', 
+  'On the apps',
+  'Single & taking a break',
   'Casually seeing people',
   'Talking to someone',
   'In a relationship',

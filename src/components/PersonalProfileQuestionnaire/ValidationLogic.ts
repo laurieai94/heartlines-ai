@@ -18,7 +18,7 @@ export const validateSection = (section: number, profileData: any) => {
       
       // Check conditional requirements based on relationship status
       if (profileData.relationshipStatus) {
-        const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+        const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
         const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
         
         if (isSingle) {
@@ -58,7 +58,7 @@ export const getRequiredCount = (section: number, profileData: any) => {
     case 2: {
       let base = 1;
       if (profileData.relationshipStatus) {
-        const isSingle = ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+        const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
         const hasRelationship = ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
         
         if (isSingle) base += 1;
@@ -85,7 +85,7 @@ export const getCompletedCount = (section: number, profileData: any) => {
       let completed = 0;
       if (profileData.relationshipStatus) completed++;
       
-      const isSingle = profileData.relationshipStatus && ['Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+      const isSingle = profileData.relationshipStatus && ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
       const hasRelationship = profileData.relationshipStatus && ['Talking to someone', 'In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
       
       if (isSingle && profileData.datingChallenges && profileData.datingChallenges.length > 0) completed++;
