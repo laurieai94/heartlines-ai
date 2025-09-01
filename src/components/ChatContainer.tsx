@@ -10,6 +10,7 @@ import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -31,12 +32,14 @@ const ChatContainer = ({
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const isMobile = useIsMobile();
+  const { setVisible } = useMobileHeaderVisibility();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
+  const lastScrollTopRef = useRef(0);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -59,7 +62,29 @@ const ChatContainer = ({
     const isNear = distanceToBottom < threshold;
     setIsNearBottom(isNear);
     setShowScrollToBottom(!isNear && chatHistory.length > 0);
-  }, [chatHistory.length]);
+
+    // Mobile header visibility logic
+    if (isMobile) {
+      const currentScrollTop = target.scrollTop;
+      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+      const scrollThreshold = 8;
+
+      if (currentScrollTop < 16) {
+        // Near top - always show header
+        setVisible(true);
+      } else if (Math.abs(scrollDelta) > scrollThreshold) {
+        if (scrollDelta > 0) {
+          // Scrolling down - hide header
+          setVisible(false);
+        } else {
+          // Scrolling up - show header
+          setVisible(true);
+        }
+      }
+
+      lastScrollTopRef.current = currentScrollTop;
+    }
+  }, [chatHistory.length, isMobile, setVisible]);
 
   // Smart auto-scroll: only when near bottom and something actually changed
   useEffect(() => {
