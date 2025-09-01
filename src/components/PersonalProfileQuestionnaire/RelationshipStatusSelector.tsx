@@ -38,12 +38,12 @@ const RelationshipStatusSelector = ({ profileData, updateField }: RelationshipSt
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div className="flex flex-wrap gap-2 w-full">
         {relationshipStatusOptions.map((status) => (
           <button
             key={status}
             onClick={() => updateField('relationshipStatus', status)}
-            className={`w-full p-1.5 rounded-lg text-left transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-lg transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
               profileData.relationshipStatus === status
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

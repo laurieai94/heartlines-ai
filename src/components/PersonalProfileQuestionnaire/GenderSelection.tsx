@@ -49,12 +49,12 @@ const GenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelf
               <span>We get that gender is complex and personal</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div className="flex flex-wrap gap-2">
             {genderOptions.map((gender) => (
               <button
                 key={gender}
                 onClick={() => onGenderSelect(gender)}
-                className={`p-1.5 rounded-lg text-xs font-medium transition-all text-left hover:scale-[1.01] ${
+                className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-[1.01] ${
                   selectedGenders.includes(gender)
                     ? 'questionnaire-button-selected'
                     : 'questionnaire-button-secondary'

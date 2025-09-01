@@ -78,12 +78,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="flex flex-wrap gap-2">
           {stressResponseOptions.map((response) => (
             <button
               key={response}
               onClick={() => handleMultiSelect('stressResponse', response)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-2 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.stressResponse || []).includes(response)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -109,12 +109,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="flex flex-wrap gap-2">
           {loveLanguageOptions.map((language) => (
             <button
               key={language}
               onClick={() => handleMultiSelect('loveLanguage', language)}
-              className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+              className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-2 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                 (profileData.loveLanguage || []).includes(language)
                   ? 'questionnaire-button-selected'
                   : 'questionnaire-button-secondary'
@@ -153,12 +153,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {conflictNeedsOptions.map((need) => (
                   <button
                     key={need}
                     onClick={() => handleMultiSelect('conflictStyle', need)}
-                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-2 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                       (profileData.conflictStyle || profileData.conflictNeeds || []).includes(need)
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'
@@ -182,12 +182,12 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {attachmentOptions.map((style) => (
                   <button
                     key={style}
                     onClick={() => updateField('attachmentStyle', style)}
-                    className={`w-full p-2 rounded-lg text-left text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
+                    className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-2 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.01] ${
                       profileData.attachmentStyle === style
                         ? 'questionnaire-button-selected'
                         : 'questionnaire-button-secondary'

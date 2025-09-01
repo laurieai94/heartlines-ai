@@ -22,12 +22,12 @@ const RelationshipChallenges = ({ profileData, handleMultiSelect }: Relationship
         </div>
       </div>
       
-      <div className="grid gap-2 w-full [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))]">
+      <div className="flex flex-wrap gap-2 w-full">
         {challengeOptions.map((challenge) => (
           <button
             key={challenge}
             onClick={() => handleMultiSelect('relationshipChallenges', challenge)}
-            className={`w-full p-2 rounded-lg text-left break-words transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-2 rounded-lg transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
               (profileData.relationshipChallenges || []).includes(challenge)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

@@ -25,12 +25,12 @@ const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect,
           <span className="text-orange-300 font-normal text-xs ml-2">Select all that apply</span>
         </Label>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="flex flex-wrap gap-2">
         {genderOptions.map((gender) => (
           <button
             key={gender}
             onClick={() => onGenderSelect(gender)}
-            className={`p-1.5 rounded-md text-xs font-medium transition-all text-left hover:scale-[1.01] ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-md text-xs font-medium transition-all hover:scale-[1.01] ${
               selectedGenders.includes(gender)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

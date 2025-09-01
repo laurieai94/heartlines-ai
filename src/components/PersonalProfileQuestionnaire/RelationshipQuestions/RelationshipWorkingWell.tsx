@@ -25,12 +25,12 @@ const RelationshipWorkingWell = ({ config, profileData, handleMultiSelect }: Rel
         </div>
       </div>
       
-      <div className="grid gap-2 w-full [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))]">
+      <div className="flex flex-wrap gap-2 w-full">
         {config.options.map((item) => (
           <button
             key={item}
             onClick={() => handleMultiSelect('relationshipWorking', item)}
-            className={`w-full p-1.5 rounded-lg text-left break-words transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-lg transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
               (profileData.relationshipWorking || profileData.relationshipWorkingWell || []).includes(item)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

@@ -19,12 +19,12 @@ const RelationshipLength = ({ config, profileData, updateField }: RelationshipLe
         </Label>
       </div>
       
-      <div className="grid gap-2 w-full [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]">
+      <div className="flex flex-wrap gap-2 w-full">
         {config.options.map((length) => (
           <button
             key={length}
             onClick={() => updateField('relationshipLengthContext', length)}
-            className={`p-1.5 rounded-lg text-center break-words transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-lg transition-all duration-200 hover:scale-[1.01] text-xs font-medium ${
               profileData.relationshipLengthContext === length
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'

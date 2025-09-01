@@ -21,12 +21,12 @@ const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: Partne
           What pronouns do they use? <span className="text-red-400">*</span>
         </Label>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="flex flex-wrap gap-2">
         {pronounsOptions.map((pronoun) => (
           <button
             key={pronoun}
             onClick={() => onPronounsSelect(pronoun)}
-            className={`p-1.5 rounded-md text-xs font-medium transition-all hover:scale-[1.01] ${
+            className={`inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full p-1.5 rounded-md text-xs font-medium transition-all hover:scale-[1.01] ${
               selectedPronouns === pronoun
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
