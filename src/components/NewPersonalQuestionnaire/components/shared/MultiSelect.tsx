@@ -19,12 +19,12 @@ const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSe
   };
 
   return (
-    <div className="flex flex-wrap gap-2 w-full">
+    <div className={`grid ${getGridCols(columns)} gap-2 w-full`}>
       {options.map((option) => (
         <button
           key={option}
           onClick={() => onToggle(option)}
-          className={`questionnaire-chip inline-flex items-center justify-start text-left break-words whitespace-normal max-w-full ${
+          className={`questionnaire-chip flex items-center justify-center text-center break-words whitespace-normal w-full ${
             (selectedValues || []).includes(option)
               ? 'questionnaire-chip-selected'
               : ''
