@@ -448,23 +448,17 @@
     }
   }
 
-  /* Unified questionnaire font size */
-  :root {
-    --q-font-size: 1rem;
-    --q-line-height: 1.5rem;
-  }
-
   /* Mobile-optimized design tokens - force mobile styles across all viewports */
   .questionnaire-chip {
-    @apply px-2.5 py-2 rounded-lg font-medium transition-all duration-200;
+    @apply px-2.5 py-2 rounded-lg text-sm font-medium transition-all duration-200;
     @apply text-white border border-white/15;
     @apply hover:border-white/25;
     @apply focus:outline-none focus:ring-1 focus:ring-white/20;
     @apply min-h-[40px] inline-flex items-center justify-center;
     @apply active:scale-95 touch-manipulation;
-    /* Unified font sizing for questions and answers */
-    font-size: var(--q-font-size) !important;
-    line-height: var(--q-line-height) !important;
+    /* Force mobile-first sizing */
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
     background-color: rgba(255, 255, 255, 0.08);
   }
   
@@ -505,13 +499,12 @@
 
   /* Mobile input and label - forced mobile styling */
   .questionnaire-input-mobile {
-    @apply min-h-[44px] px-3 py-2.5 rounded-lg;
+    @apply min-h-[44px] text-sm px-3 py-2.5 rounded-lg;
     @apply border border-white/15;
     @apply text-white placeholder:text-white/50;
     @apply focus:border-white/30 focus:ring-1 focus:ring-white/15;
-    /* Unified font sizing */
-    font-size: var(--q-font-size) !important;
-    line-height: var(--q-line-height) !important;
+    /* Force consistent mobile sizing */
+    font-size: 0.875rem !important;
     background-color: rgba(255, 255, 255, 0.08);
   }
   
@@ -520,10 +513,10 @@
   }
   
   .questionnaire-label-mobile {
-    @apply font-semibold text-white mb-2;
-    /* Unified font sizing for questions */
-    font-size: var(--q-font-size) !important;
-    line-height: var(--q-line-height) !important;
+    @apply text-sm font-semibold text-white mb-2;
+    /* Force mobile text size */
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
   }
   
   /* Hide scrollbar on mobile section navigation */

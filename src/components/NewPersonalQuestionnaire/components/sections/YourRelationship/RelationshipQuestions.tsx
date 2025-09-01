@@ -29,7 +29,7 @@ const RelationshipQuestions = ({
         showContinue={!!profileData.relationshipLength}
         onContinue={() => scrollToNextQuestion('question-relationship-length')}
       >
-        <Label className="questionnaire-label-mobile block">
+        <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been together? <span className="text-red-400">*</span>
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
@@ -51,7 +51,7 @@ const RelationshipQuestions = ({
           showContinue={!!(profileData.relationshipChallenges?.length)}
           onContinue={() => scrollToNextQuestion('question-relationship-challenges')}
         >
-          <Label className="questionnaire-label-mobile block">
+          <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
             <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
@@ -75,7 +75,7 @@ const RelationshipQuestions = ({
           showContinue={!!(profileData.relationshipWorking?.length)}
           onContinue={() => scrollToNextQuestion('question-relationship-working')}
         >
-          <Label className="questionnaire-label-mobile block">
+          <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>
             <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>

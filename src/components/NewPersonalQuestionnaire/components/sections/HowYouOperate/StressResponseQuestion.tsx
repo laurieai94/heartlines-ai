@@ -18,7 +18,7 @@ const StressResponseQuestion = ({
   } = useAutoScroll();
   const isComplete = !!profileData.stressResponse?.length;
   return <QuestionCard questionId="question-stress-response" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-stress-response')}>
-      <Label className="questionnaire-label-mobile block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         When life gets chaotic, where do you run?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>

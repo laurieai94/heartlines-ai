@@ -18,7 +18,7 @@ const HeartbreakBetrayalQuestion = ({
   } = useAutoScroll();
   const isComplete = profileData.heartbreakBetrayal && profileData.heartbreakBetrayal.length > 0;
   return <QuestionCard questionId="question-heartbreak-betrayal" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-heartbreak-betrayal')}>
-      <Label className="questionnaire-label-mobile block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         Have you been through any major heartbreaks or betrayals?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>

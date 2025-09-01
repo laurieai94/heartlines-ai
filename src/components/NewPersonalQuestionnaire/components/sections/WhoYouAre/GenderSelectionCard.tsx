@@ -35,7 +35,7 @@ const GenderSelectionCard = ({
       showContinue={isComplete} 
       onContinue={() => scrollToNextQuestion('question-gender')}
     >
-      <Label className="questionnaire-label-mobile block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         What's your gender identity? <span className="text-red-400">*</span>
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>

@@ -23,7 +23,7 @@ const AttachmentStyleQuestion = ({
   } = useAutoScroll();
   const isComplete = !!profileData.attachmentStyle;
   return <QuestionCard questionId="question-attachment-style">
-      <Label className="questionnaire-label-mobile block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
         <span className="text-orange-300 font-medium text-xs ml-2">Select one</span>
       </Label>

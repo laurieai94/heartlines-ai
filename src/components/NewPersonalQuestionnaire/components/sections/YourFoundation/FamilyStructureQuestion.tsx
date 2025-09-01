@@ -37,7 +37,7 @@ const FamilyStructureQuestion = ({
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion('question-family-structure')}
     >
-      <Label className="questionnaire-label-mobile block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         What was your family dynamic growing up? <span className="text-red-400">*</span>
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
