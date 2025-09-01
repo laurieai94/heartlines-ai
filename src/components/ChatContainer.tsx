@@ -52,7 +52,16 @@ const ChatContainer = ({
     messagesEndRef.current?.scrollIntoView({
       behavior: scrollBehavior
     });
-  }, []);
+    
+    // Update scroll reference after scrolling to bottom on mobile
+    if (isMobile) {
+      setTimeout(() => {
+        if (viewportRef.current) {
+          lastScrollTopRef.current = viewportRef.current.scrollTop;
+        }
+      }, 100);
+    }
+  }, [isMobile]);
 
   // Throttled scroll handler for better performance
   const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
@@ -66,6 +75,13 @@ const ChatContainer = ({
     // Mobile header visibility logic
     if (isMobile) {
       const currentScrollTop = target.scrollTop;
+      
+      // Initialize lastScrollTopRef on first scroll to prevent jumping
+      if (lastScrollTopRef.current === 0 && currentScrollTop > 0) {
+        lastScrollTopRef.current = currentScrollTop;
+        return; // Skip first scroll calculation
+      }
+      
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
       const scrollThreshold = 8;
 
