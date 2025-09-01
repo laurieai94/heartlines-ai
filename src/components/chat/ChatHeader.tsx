@@ -102,7 +102,7 @@ export const ChatHeader = ({
                         <Button 
                           variant="ghost" 
                           onClick={onOpenSidebar} 
-                          className="text-white/70 hover:text-white hover:bg-transparent transition-colors w-5 h-5 p-0 rounded-xl"
+                          className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-5 h-5 p-0 rounded-xl"
                         >
                           <Menu className="w-2.5 h-2.5" />
                         </Button>
@@ -184,7 +184,7 @@ export const ChatHeader = ({
                       <Button 
                         variant="ghost" 
                         onClick={onOpenSidebar} 
-                        className="text-white/70 hover:text-white hover:bg-transparent transition-colors min-h-[28px] min-w-[28px] rounded-xl flex flex-col items-center gap-0.5"
+                        className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors min-h-[28px] min-w-[28px] rounded-xl flex flex-col items-center gap-0.5"
                       >
                         <Menu className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-medium">Chats</span>

@@ -71,7 +71,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white h-8 w-8 hover:bg-transparent hover:text-white active:bg-transparent data-[state=open]:bg-transparent"
+                  className="text-white h-8 w-8 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -128,7 +128,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     <Button 
                       variant="ghost" 
                       size="icon"
-                      className="text-white h-8 w-8 hover:bg-transparent hover:text-white active:bg-transparent data-[state=open]:bg-transparent"
+                      className="text-white h-8 w-8 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent"
                     >
                       <Menu className="h-5 w-5" />
                     </Button>
