@@ -26,7 +26,7 @@ const ConflictStyleQuestion = ({
         <Shield className="w-3 h-3 text-blue-300" />
         <span>How you fight determines if you make it</span>
       </div>
-      <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} columns={2} />
+      <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} />
     </QuestionCard>;
 };
 export default ConflictStyleQuestion;

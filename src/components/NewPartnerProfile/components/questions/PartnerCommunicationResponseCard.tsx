@@ -28,7 +28,7 @@ const PartnerCommunicationResponseCard = ({
         <MessageSquare className="w-3 h-3 text-blue-300" />
         <p className="text-white/70 text-xs">Think about their typical reaction to boundaries and needs.</p>
       </div>
-      <MultiSelect options={PARTNER_COMMUNICATION_RESPONSE_OPTIONS} selectedValues={profileData.partnerCommunicationResponse} onToggle={value => handleMultiSelect('partnerCommunicationResponse', value)} columns={2} />
+      <MultiSelect options={PARTNER_COMMUNICATION_RESPONSE_OPTIONS} selectedValues={profileData.partnerCommunicationResponse} onToggle={value => handleMultiSelect('partnerCommunicationResponse', value)} />
     </QuestionCard>;
 };
 export default PartnerCommunicationResponseCard;

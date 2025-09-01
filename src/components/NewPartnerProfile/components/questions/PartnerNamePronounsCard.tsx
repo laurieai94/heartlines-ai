@@ -120,7 +120,6 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
             options={primaryPronounOptions}
             selectedValue={profileData.partnerPronouns || ''}
             onSelect={handlePronounSelect}
-            columns={2}
           />
 
           {/* Custom pronoun input */}

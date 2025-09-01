@@ -35,7 +35,6 @@ const PartnerConflictCard = ({ profileData, handleMultiSelect, isComplete = fals
         options={PARTNER_CONFLICT_OPTIONS}
         selectedValues={profileData.partnerConflictStyle || []}
         onToggle={(value) => handleMultiSelect('partnerConflictStyle', value)}
-        columns={2}
       />
     </QuestionCard>
   );

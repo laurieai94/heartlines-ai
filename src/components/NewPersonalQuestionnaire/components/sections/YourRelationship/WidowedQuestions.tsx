@@ -39,7 +39,6 @@ const WidowedQuestions = ({
           options={timeSinceLossOptions}
           selectedValue={profileData.timeSinceLoss || ''}
           onSelect={(value) => updateField('timeSinceLoss', value)}
-          columns={2}
         />
       </QuestionCard>
 
@@ -62,7 +61,6 @@ const WidowedQuestions = ({
             options={grievingProcessOptions}
             selectedValues={profileData.grievingProcess || []}
             onToggle={(value) => handleMultiSelect('grievingProcess', value)}
-            columns={2}
           />
         </QuestionCard>
       )}

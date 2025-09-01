@@ -47,7 +47,6 @@ const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: Partne
           options={PARTNER_AGE_OPTIONS}
           selectedValue={profileData.partnerAge}
           onSelect={handleAgeSelect}
-          columns={3}
         />
       </QuestionCard>
       

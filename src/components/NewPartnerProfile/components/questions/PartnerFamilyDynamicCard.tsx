@@ -35,7 +35,6 @@ const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect, isComplete =
         options={PARTNER_FAMILY_STRUCTURE_OPTIONS}
         selectedValues={profileData.partnerFamilyStructure || []}
         onToggle={(value) => handleMultiSelect('partnerFamilyStructure', value)}
-        columns={2}
       />
     </QuestionCard>
   );

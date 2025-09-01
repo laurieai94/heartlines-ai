@@ -26,7 +26,7 @@ const StressResponseQuestion = ({
         <Zap className="w-3 h-3 text-orange-300" />
         <span>Stress patterns affect how you show up for people</span>
       </div>
-      <MultiSelect options={stressResponseOptions} selectedValues={profileData.stressResponse || []} onToggle={value => handleMultiSelect('stressResponse', value)} columns={2} />
+      <MultiSelect options={stressResponseOptions} selectedValues={profileData.stressResponse || []} onToggle={value => handleMultiSelect('stressResponse', value)} />
     </QuestionCard>;
 };
 export default StressResponseQuestion;

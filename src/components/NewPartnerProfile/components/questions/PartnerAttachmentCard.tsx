@@ -35,7 +35,6 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }:
         options={PARTNER_ATTACHMENT_OPTIONS}
         selectedValue={profileData.partnerAttachmentStyle}
         onSelect={(value) => updateField('partnerAttachmentStyle', value)}
-        columns={1}
       />
     </QuestionCard>
   );

@@ -35,7 +35,6 @@ const PartnerSelfAwarenessCard = ({ profileData, updateField, isComplete = false
         options={PARTNER_SELF_AWARENESS_OPTIONS}
         selectedValue={profileData.partnerSelfAwareness}
         onSelect={(value) => updateField('partnerSelfAwareness', value)}
-        columns={1}
       />
     </QuestionCard>
   );

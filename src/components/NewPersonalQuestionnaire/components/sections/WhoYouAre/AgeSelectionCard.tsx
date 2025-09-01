@@ -48,7 +48,6 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelection
           options={ageOptions}
           selectedValue={profileData.age || ''}
           onSelect={handleAgeSelect}
-          columns={2}
         />
       </QuestionCard>
 

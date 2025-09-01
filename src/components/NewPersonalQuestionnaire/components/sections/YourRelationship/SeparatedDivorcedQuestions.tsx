@@ -38,7 +38,6 @@ const SeparatedDivorcedQuestions = ({
           options={separationSituationOptions}
           selectedValues={profileData.separationSituation || []}
           onToggle={(value) => handleMultiSelect('separationSituation', value)}
-          columns={2}
         />
       </QuestionCard>
 
@@ -61,7 +60,6 @@ const SeparatedDivorcedQuestions = ({
             options={datingReadinessOptions}
             selectedValues={profileData.datingReadiness || []}
             onToggle={(value) => handleMultiSelect('datingReadiness', value)}
-            columns={2}
           />
         </QuestionCard>
       )}

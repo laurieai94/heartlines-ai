@@ -35,7 +35,6 @@ const PartnerOrientationCard = ({ profileData, updateField, isComplete = false }
         options={PARTNER_ORIENTATION_OPTIONS}
         selectedValue={profileData.partnerOrientation}
         onSelect={(value) => updateField('partnerOrientation', value)}
-        columns={3}
       />
     </QuestionCard>
   );

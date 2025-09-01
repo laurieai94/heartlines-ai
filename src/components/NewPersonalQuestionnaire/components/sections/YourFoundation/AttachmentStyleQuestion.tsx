@@ -37,7 +37,6 @@ const AttachmentStyleQuestion = ({
         onSelect={value => {
           updateField('attachmentStyle', value);
         }}
-        columns={1} 
       />
     </QuestionCard>;
 };

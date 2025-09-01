@@ -100,7 +100,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             options={primaryPronounOptions}
             selectedValue={profileData.pronouns || ''}
             onSelect={handlePronounSelect}
-            columns={2}
           />
 
           {/* Custom pronoun input */}

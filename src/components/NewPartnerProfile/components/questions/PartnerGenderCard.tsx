@@ -37,7 +37,6 @@ const PartnerGenderCard = ({ profileData, handleMultiSelect, isComplete = false 
         options={PARTNER_GENDER_OPTIONS}
         selectedValues={profileData.partnerGender || []}
         onToggle={(value) => handleMultiSelect('partnerGender', value)}
-        columns={3}
       />
     </QuestionCard>
   );
