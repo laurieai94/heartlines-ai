@@ -39,7 +39,7 @@ const SectionNavigation = ({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-1">
+    <div className="grid grid-cols-4 gap-1 sm:gap-2">
       {[1, 2, 3, 4].map((section) => {
         const isActive = section === currentSection;
         const isCompleted = section < currentSection || validateSection(section);

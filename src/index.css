@@ -448,7 +448,7 @@
     }
   }
 
-  /* Mobile-optimized design tokens - force mobile styles across all viewports */
+  /* Profile answer text styling - reduced font size */
   .questionnaire-chip {
     @apply px-2.5 py-2 rounded-lg text-sm font-medium transition-all duration-200;
     @apply text-white border border-white/15;
@@ -456,8 +456,8 @@
     @apply focus:outline-none focus:ring-1 focus:ring-white/20;
     @apply min-h-[40px] inline-flex items-center justify-center;
     @apply active:scale-95 touch-manipulation;
-    /* Force mobile-first sizing */
-    font-size: 0.875rem !important;
+    /* Reduced font size for profile answers - mobile-first sizing */
+    font-size: 0.8125rem !important; /* 13px - slightly smaller */
     line-height: 1.25rem !important;
     background-color: rgba(255, 255, 255, 0.08);
   }
@@ -495,6 +495,12 @@
   
   .questionnaire-continue-elegant:hover {
     background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Profile answer text styling */
+  .profile-answer-text {
+    font-size: 0.8125rem; /* 13px - slightly smaller than default */
+    line-height: 1.4;
   }
 
   /* Mobile input and label - forced mobile styling */
