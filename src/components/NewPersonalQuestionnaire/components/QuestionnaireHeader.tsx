@@ -20,7 +20,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 py-2 sm:px-4 sm:py-3 pt-safe flex-shrink-0 relative">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 py-1.5 sm:px-4 sm:py-3 pt-safe flex-shrink-0 relative z-10">
       <div className="flex items-center justify-between">
         {/* Profile section */}
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -37,14 +37,14 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
           
           {/* Title and progress text */}
           <div>
-            <h2 className="text-white font-medium text-sm sm:text-base leading-tight">
+            <h2 className="text-white font-medium text-xs sm:text-base leading-tight">
               Your Profile
             </h2>
             {overallProgress > 0 && overallProgress < 100 && (
-              <p className="text-white/70 text-xs">{overallProgress}% complete</p>
+              <p className="text-white/70 text-[11px] sm:text-xs">{overallProgress}% complete</p>
             )}
             {overallProgress === 100 && (
-              <p className="text-xs text-emerald-400">Complete! Ready to start</p>
+              <p className="text-[11px] sm:text-xs text-emerald-400">Complete! Ready to start</p>
             )}
           </div>
         </div>
@@ -67,7 +67,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
       </div>
 
       {/* Progress bar */}
-      <div className="mt-1.5 sm:mt-2">
+      <div className="mt-1 sm:mt-2">
         <div className="w-full bg-white/5 rounded-full h-0.5 sm:h-1 overflow-hidden">
           <div 
             className="h-full bg-white/40 rounded-full transition-all duration-500 ease-out"

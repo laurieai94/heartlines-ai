@@ -108,9 +108,9 @@ const QuestionnaireLayout = ({
           : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
       } animate-scale-in`}>
         
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overscroll-contain" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain' }}>
           {/* Sticky header and navigation on tablet and desktop */}
-          <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : ''}>
+          <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'relative z-10'}>
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
             {isTabletDesktop && (
@@ -120,6 +120,9 @@ const QuestionnaireLayout = ({
               </div>
             )}
           </div>
+
+          {/* Add spacing on mobile after header */}
+          {!isTabletDesktop && <div className="pt-1" />}
 
           <QuestionnaireContent
             profileData={profileData} 

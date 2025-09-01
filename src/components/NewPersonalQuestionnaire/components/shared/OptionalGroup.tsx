@@ -1,5 +1,5 @@
 
-import { ChevronDown, Star } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState, useEffect, useRef } from "react";
 
@@ -33,14 +33,13 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-4 rounded-xl bg-white/8 hover:bg-white/12 transition-all duration-200 border border-white/15 hover:border-white/25 group shadow-sm">
-        <div className="flex items-center gap-3 flex-1">
-          <Star className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-          <span className="text-sm font-medium text-white/85 group-hover:text-white text-left">
-            {title}
-          </span>
-          <span className="ml-auto px-2 py-0.5 text-xs font-medium bg-white/10 text-white/70 rounded-full border border-white/20 flex-shrink-0">
+      <CollapsibleTrigger className="flex items-center justify-between w-full p-2.5 sm:p-4 rounded-xl bg-white/8 hover:bg-white/12 transition-all duration-200 border border-white/15 hover:border-white/25 group shadow-sm">
+        <div className="flex items-center gap-2 sm:gap-3 flex-1">
+          <span className="px-2 py-0.5 text-xs font-medium bg-white/10 text-white/70 rounded-full border border-white/20 flex-shrink-0">
             Optional
+          </span>
+          <span className="hidden sm:block text-sm font-medium text-white/85 group-hover:text-white text-left">
+            {title}
           </span>
         </div>
         <ChevronDown className={`w-4 h-4 text-white/60 transition-transform ml-2 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
