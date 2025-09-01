@@ -3,7 +3,6 @@ import { ReactNode, useState, Suspense, lazy } from 'react';
 import { ChatHeader } from './ChatHeader';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
 
 // Lazy load the sidebar for better performance
 const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
@@ -46,10 +45,8 @@ export const ChatLayout = ({
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10"></div>
           
           <div className="flex-1 min-h-0 max-h-full flex flex-col md:bg-white/5 md:backdrop-blur-xl md:rounded-2xl lg:rounded-3xl md:border md:border-white/30 md:shadow-2xl md:shadow-black/30 md:ring-1 md:ring-white/10 md:ring-offset-1 md:ring-offset-burgundy-900/30 overflow-visible relative z-10">
-            <MobileHeaderVisibilityProvider>
-              <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
-              {children}
-            </MobileHeaderVisibilityProvider>
+            <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
+            {children}
           </div>
         </div>
       </div>

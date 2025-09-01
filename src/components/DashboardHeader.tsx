@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { User } from '@supabase/supabase-js';
 
 interface DashboardHeaderProps {
@@ -25,6 +27,8 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
   
   const handleTabHover = (tabValue: string) => {
@@ -63,8 +67,12 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-6 sm:mb-8'}`}>
       <div className="max-w-6xl mx-auto px-3 py-2 md:px-4 md:py-6 lg:px-8 relative">
         
-        {/* Mobile Navigation - Always visible on mobile */}
-        <div className="flex items-center justify-between md:hidden">
+        {/* Mobile Navigation - Hide in coach mode when scrolling */}
+        <div className={`flex items-center justify-between md:hidden transition-all duration-300 ${
+          isMobile && isCoachMode && !visible 
+            ? '-translate-y-full opacity-0 h-0 py-0 overflow-hidden' 
+            : 'translate-y-0 opacity-100'
+        }`}>
           <div className="flex items-center gap-3">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

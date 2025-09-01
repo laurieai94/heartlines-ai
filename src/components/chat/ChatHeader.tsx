@@ -7,7 +7,6 @@ import { Heart, Plus, Menu, Info } from "lucide-react";
 import { useState } from "react";
 import { BRAND } from "@/branding";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { cn } from "@/lib/utils";
 
 interface ChatHeaderProps {
@@ -23,15 +22,10 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   const isMobile = useIsMobile();
-  const { visible } = useMobileHeaderVisibility();
 
   return (
     <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950/60 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className={cn(
-        "w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3 transition-transform duration-200 ease-out will-change-transform",
-        visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none",
-        "md:translate-y-0 md:opacity-100 md:pointer-events-auto"
-      )}>
+      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Stacked */}
         {isMobile && (
           <div className="flex flex-col gap-2">

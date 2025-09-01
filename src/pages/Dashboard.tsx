@@ -1,5 +1,6 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
+import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
@@ -65,35 +66,36 @@ const Dashboard = () => {
   return (
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
-        <div className="h-[100dvh] overflow-hidden">
-          {/* Main Dashboard Content - This gets blurred when modals are open */}
-          <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-            {/* Ambient glow for chat interface separation */}
-            <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+        <MobileHeaderVisibilityProvider>
+          <div className="h-[100dvh] overflow-hidden">
+            {/* Main Dashboard Content - This gets blurred when modals are open */}
+            <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+              {/* Ambient glow for chat interface separation */}
+              <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
-            {/* Background overlays removed for unified burgundy theme */}
+              {/* Background overlays removed for unified burgundy theme */}
 
-            <DashboardHeader 
-              accessLevel={accessLevel}
-              profileCompletion={profileCompletion}
-              compact={activeTab === 'insights'}
-              user={user}
-              activeTab={activeTab}
-              onValueChange={setActiveTab}
-              onSignInClick={handleSignInClick}
-              onOpenProfile={handleOpenProfile}
-            />
+              <DashboardHeader 
+                accessLevel={accessLevel}
+                profileCompletion={profileCompletion}
+                compact={activeTab === 'insights'}
+                user={user}
+                activeTab={activeTab}
+                onValueChange={setActiveTab}
+                onSignInClick={handleSignInClick}
+                onOpenProfile={handleOpenProfile}
+              />
 
-            <DashboardContent
-              activeTab={activeTab}
-              onValueChange={setActiveTab}
-              temporaryProfiles={temporaryProfiles}
-              temporaryDemographics={temporaryDemographics}
-              onProfileUpdate={handleProfileUpdate}
-              onOpenQuestionnaire={handleOpenQuestionnaire}
-              onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-            />
-          </div>
+              <DashboardContent
+                activeTab={activeTab}
+                onValueChange={setActiveTab}
+                temporaryProfiles={temporaryProfiles}
+                temporaryDemographics={temporaryDemographics}
+                onProfileUpdate={handleProfileUpdate}
+                onOpenQuestionnaire={handleOpenQuestionnaire}
+                onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
+              />
+            </div>
 
           {/* Modals - These stay sharp and are rendered outside the blurred content */}
           <DashboardModals
@@ -120,6 +122,7 @@ const Dashboard = () => {
             temporaryProfiles={temporaryProfiles}
           />
         </div>
+        </MobileHeaderVisibilityProvider>
       </NavigationProvider>
     </AuthGuard>
   );
