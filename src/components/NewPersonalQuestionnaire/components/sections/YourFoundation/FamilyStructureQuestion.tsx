@@ -39,7 +39,7 @@ const FamilyStructureQuestion = ({
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What was your family dynamic growing up? <span className="text-red-400">*</span>
-        <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       
       <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">

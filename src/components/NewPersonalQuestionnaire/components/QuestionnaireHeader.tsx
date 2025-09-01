@@ -20,7 +20,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 pt-safe pt-2.5 pb-1.5 sm:px-4 sm:py-3 flex-shrink-0 relative z-10">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 pt-safe pt-3.5 pb-1.5 sm:px-4 sm:py-3 flex-shrink-0 relative z-10">
       <div className="flex items-center justify-between">
         {/* Profile section */}
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -67,7 +67,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
       </div>
 
       {/* Progress bar */}
-      <div className="mt-1 sm:mt-2">
+      <div className="mt-1.5 sm:mt-2">
         <div className="w-full bg-white/5 rounded-full h-0.5 sm:h-1 overflow-hidden">
           <div 
             className="h-full bg-white/40 rounded-full transition-all duration-500 ease-out"

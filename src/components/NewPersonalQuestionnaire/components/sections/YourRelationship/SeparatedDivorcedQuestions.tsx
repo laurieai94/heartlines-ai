@@ -28,7 +28,7 @@ const SeparatedDivorcedQuestions = ({
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your situation right now? <span className="text-red-400">*</span>
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Heart className="w-3 h-3 text-blue-300" />
@@ -51,7 +51,7 @@ const SeparatedDivorcedQuestions = ({
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>
-            <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+            <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
           </Label>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <Heart className="w-3 h-3 text-purple-300" />

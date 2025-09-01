@@ -22,7 +22,7 @@ const TalkingStageQuestions = ({
       <QuestionCard questionId="question-talking-description" showContinue={profileData.talkingDescription && profileData.talkingDescription.length > 0} onContinue={() => scrollToNextQuestion('question-talking-description')}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           How would you describe what you have right now? <span className="text-red-400">*</span>
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
@@ -35,7 +35,7 @@ const TalkingStageQuestions = ({
       <QuestionCard questionId="question-talking-challenges" showContinue={profileData.talkingChallenges && profileData.talkingChallenges.length > 0} onContinue={() => scrollToNextQuestion('question-talking-challenges')}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           What feels most challenging about the talking stage? <span className="text-red-400">*</span>
-          <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+          <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
           <Brain className="w-3 h-3 text-green-300" />

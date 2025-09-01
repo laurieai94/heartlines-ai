@@ -24,7 +24,7 @@ const PartnerGenderCard = ({ profileData, handleMultiSelect, isComplete = false 
     >
       <div className="mb-2">
         <Label className="text-sm font-semibold text-white">
-          What's their gender identity? <span className="text-orange-400 text-xs font-normal">Select all that resonate</span>
+          What's their gender identity? <span className="hidden sm:inline text-orange-400 text-xs font-normal">Select all that resonate</span>
         </Label>
       </div>
       <div className="hidden sm:flex items-center gap-2 mb-3">

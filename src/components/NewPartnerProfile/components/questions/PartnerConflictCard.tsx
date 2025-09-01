@@ -23,7 +23,7 @@ const PartnerConflictCard = ({ profileData, handleMultiSelect, isComplete = fals
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        How do they usually handle conflict? <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        How do they usually handle conflict? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 mb-3">
         <Shield className="w-3 h-3 text-blue-300" />

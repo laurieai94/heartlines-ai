@@ -20,7 +20,7 @@ const HeartbreakBetrayalQuestion = ({
   return <QuestionCard questionId="question-heartbreak-betrayal" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-heartbreak-betrayal')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         Have you been through any major heartbreaks or betrayals?
-        <span className="text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       
       <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">

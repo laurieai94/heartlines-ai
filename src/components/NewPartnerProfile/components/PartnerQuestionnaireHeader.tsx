@@ -19,7 +19,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   const hasName = profileData.partnerName && profileData.partnerName.trim();
   
   return (
-    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 pt-safe pt-2.5 pb-1.5 sm:py-2 flex-shrink-0 relative">
+    <div className="bg-white/[0.04] backdrop-blur-md border-b border-white/[0.08] px-3 pt-safe pt-3.5 pb-1.5 sm:py-2 flex-shrink-0 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent"></div>
       
       <div className="flex items-center justify-between relative z-10">
@@ -61,7 +61,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
       </div>
       
       {/* Subtle Progress Bar */}
-      <div className="mt-2 relative z-10">
+      <div className="mt-1.5 relative z-10">
         <div className="w-full h-0.5 bg-white/10 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
