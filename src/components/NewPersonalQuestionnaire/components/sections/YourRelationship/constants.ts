@@ -4,6 +4,7 @@ export const relationshipStatusOptions = [
   'Single & taking a break from dating',
   'Casually seeing people',
   'Talking stage',
+  'Soft launching someone new',
   'In a relationship (official)',
   'Engaged',
   'Married',
