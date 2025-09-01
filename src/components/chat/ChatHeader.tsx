@@ -120,9 +120,9 @@ export const ChatHeader = ({
 
         {/* Desktop Layout - Single row */}
         {!isMobile && (
-          <div className="flex items-center justify-between gap-2 md:gap-3">
-            {/* Desktop: Full Kai section */}
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-2 md:gap-3 md:max-w-4xl md:mx-auto md:pr-4">
+            {/* Desktop: Full Kai section - aligned with chat messages */}
+            <div className="flex items-center gap-3 md:pl-16">
               {/* Kai Avatar */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>

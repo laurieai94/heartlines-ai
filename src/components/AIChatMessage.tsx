@@ -89,7 +89,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
         isMobile 
           ? (isFirstInGroup ? 'max-w-[90%]' : 'max-w-[94%]') 
           : 'max-w-[75%]'
-      } ${isUser ? 'items-end' : 'items-start'}`}>
+      } ${isUser ? 'items-end mr-2 md:mr-0' : 'items-start'}`}>
         <div
           className={`
             transition-all duration-300 group-hover:shadow-xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
