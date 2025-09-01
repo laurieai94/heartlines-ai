@@ -49,7 +49,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
     >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-5 h-5 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
@@ -57,7 +57,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
             }`}></div>
           )}
           
-          <Avatar className={`relative z-10 shadow-lg w-5 h-5 md:w-8 md:h-8 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -65,8 +65,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-3 h-3 md:w-4 md:h-4" />}
+              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
               </AvatarFallback>
             ) : (
               <>
@@ -75,8 +75,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
                   alt={BRAND.coach.name} 
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                  <Bot className="w-3 h-3 md:w-4 md:h-4" />
+                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
+                  <Bot className="w-4 h-4 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
             )}
@@ -99,7 +99,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
             }
           `}
         >
-          <div className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap font-light">
+          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light">
             {cleanedContent}
           </div>
         </div>

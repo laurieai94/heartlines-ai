@@ -42,10 +42,10 @@ export const ChatHeader = ({
                   <Button variant="ghost" className="flex items-center gap-2 pl-0 pr-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
-                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-5 h-5 border border-white/20">
+                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-6 h-6 border border-white/20">
                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                          <Heart className="w-2 h-2" />
+                          <Heart className="w-3 h-3" />
                         </AvatarFallback>
                       </Avatar>
                       <div className="absolute -top-0.5 -right-0.5 w-1 h-1 bg-green-400 rounded-full border border-white"></div>
