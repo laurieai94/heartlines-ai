@@ -121,6 +121,9 @@ const PartnerQuestionnaireLayout = ({
             }} 
             onSectionComplete={handleSectionAutoAdvance} 
           />
+          
+          {/* Minimal bottom padding */}
+          <div className="pb-12" />
         </div>
 
         <CleanPartnerFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={!!onAutoComplete} />

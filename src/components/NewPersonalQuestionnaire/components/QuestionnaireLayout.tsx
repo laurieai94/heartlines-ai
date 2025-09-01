@@ -136,7 +136,7 @@ const QuestionnaireLayout = ({
           />
           
           {/* Minimal bottom padding */}
-          <div className="pb-14 sm:pb-4" />
+          <div className="pb-12" />
         </div>
 
         <CleanQuestionnaireFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={false} />
