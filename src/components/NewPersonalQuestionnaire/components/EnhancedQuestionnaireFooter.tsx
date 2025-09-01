@@ -41,7 +41,7 @@ const EnhancedQuestionnaireFooter = ({
         
         // Add conditional fields based on relationship status
         if (profileData.relationshipStatus) {
-          const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+          const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
           const isTalking = profileData.relationshipStatus === 'Talking stage' || profileData.relationshipStatus === 'Talking to someone';
           const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
           const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';

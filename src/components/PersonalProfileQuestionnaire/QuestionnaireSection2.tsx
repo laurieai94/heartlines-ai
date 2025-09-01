@@ -15,7 +15,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   if (!isReady) return null;
 
   const relationshipStatus = profileData.relationshipStatus;
-  const isSingle = relationshipStatus && ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(relationshipStatus);
+  const isSingle = relationshipStatus && ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(relationshipStatus);
   const hasRelationship = relationshipStatus && ['Talking to someone', 'Talking stage', 'In a relationship', 'Engaged', 'Married'].includes(relationshipStatus);
 
   return (

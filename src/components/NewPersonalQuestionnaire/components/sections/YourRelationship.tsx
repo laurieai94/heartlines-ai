@@ -29,7 +29,13 @@ const YourRelationship = ({
   const {
     scrollToNextRequiredQuestion
   } = useAutoScroll();
-  const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Casually seeing people'].includes(profileData.relationshipStatus);
+
+  // Normalize old saved values to new display labels for backward compatibility
+  const normalizedValue = profileData.relationshipStatus === 'Single & taking a break' 
+    ? 'Single & taking a break from dating' 
+    : profileData.relationshipStatus;
+
+  const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
   const isTalking = profileData.relationshipStatus === 'Talking stage' || profileData.relationshipStatus === 'Talking to someone';
   const hasRelationship = ['In a relationship', 'Engaged', 'Married'].includes(profileData.relationshipStatus);
   const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
@@ -61,7 +67,7 @@ const YourRelationship = ({
           <Heart className="w-3 h-3 text-pink-300" />
           <span>Dating, taken, or somewhere in between? We get it</span>
         </div>
-        <SingleSelect options={relationshipStatusOptions} selectedValue={profileData.relationshipStatus === "It's complicated" ? "Situationship" : (profileData.relationshipStatus === "Talking to someone" ? "Talking stage" : (profileData.relationshipStatus || ''))} onSelect={value => updateField('relationshipStatus', value)} columns={3} />
+        <SingleSelect options={relationshipStatusOptions} selectedValue={normalizedValue === "It's complicated" ? "Situationship" : (normalizedValue === "Talking to someone" ? "Talking stage" : (normalizedValue || ''))} onSelect={value => updateField('relationshipStatus', value)} columns={3} />
       </QuestionCard>
 
       {/* Optional Follow-up Questions */}
