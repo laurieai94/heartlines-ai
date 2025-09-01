@@ -19,19 +19,19 @@ const MultiSelect = ({ options, selectedValues, onToggle, columns = 2 }: MultiSe
   };
 
   return (
-    <div className={`grid ${getGridCols(columns)} gap-1.5`}>
+    <div className="flex flex-wrap gap-2">
       {options.map((option) => (
         <button
           key={option}
           onClick={() => onToggle(option)}
-            className={`w-full p-2 md:p-1.5 rounded-lg text-left text-sm md:text-xs font-medium transition-all duration-200 hover:scale-[1.01] min-h-[44px] md:min-h-auto flex items-center ${
-              (selectedValues || []).includes(option)
-                ? 'questionnaire-button-selected'
-                : 'questionnaire-button-secondary'
-            }`}
-            aria-pressed={(selectedValues || []).includes(option)}
-            role="button"
-            tabIndex={0}
+          className={`questionnaire-chip ${
+            (selectedValues || []).includes(option)
+              ? 'questionnaire-chip-selected'
+              : ''
+          }`}
+          aria-pressed={(selectedValues || []).includes(option)}
+          role="button"
+          tabIndex={0}
         >
           {option}
         </button>

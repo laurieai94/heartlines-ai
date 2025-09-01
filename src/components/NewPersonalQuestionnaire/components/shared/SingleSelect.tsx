@@ -19,25 +19,23 @@ const SingleSelect = ({ options, selectedValue, onSelect, columns = 3 }: SingleS
   };
 
   return (
-    <div className="space-y-3">
-      <div className={`grid ${getGridCols(columns)} gap-1.5`}>
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => onSelect(option)}
-            className={`w-full p-2 md:p-1.5 rounded-lg text-left text-sm md:text-xs font-medium transition-all duration-200 hover:scale-[1.01] min-h-[44px] md:min-h-auto flex items-center ${
-              selectedValue === option
-                ? 'questionnaire-button-selected'
-                : 'questionnaire-button-secondary'
-            }`}
-            aria-pressed={selectedValue === option}
-            role="button"
-            tabIndex={0}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-wrap gap-2">
+      {options.map((option) => (
+        <button
+          key={option}
+          onClick={() => onSelect(option)}
+          className={`questionnaire-chip ${
+            selectedValue === option
+              ? 'questionnaire-chip-selected'
+              : ''
+          }`}
+          aria-pressed={selectedValue === option}
+          role="button"
+          tabIndex={0}
+        >
+          {option}
+        </button>
+      ))}
     </div>
   );
 };

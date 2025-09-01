@@ -20,53 +20,61 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/[0.02] md:bg-white/[0.04] backdrop-blur-sm md:backdrop-blur-md border-b border-white/[0.06] md:border-white/[0.08] px-3 py-2 flex-shrink-0 relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-white/[0.01] md:from-white/[0.02] to-transparent"></div>
-      
-      <div className="flex items-center justify-between relative z-10">
-         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md shadow-rose-500/20 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
-            {hasName ? (
-              <span className="text-white font-bold text-xs relative z-10">{getInitial()}</span>
-            ) : (
-              <User className="w-4 h-4 text-white relative z-10" />
-            )}
-          </div>
-           
-          <div>
-            <h2 className="text-base font-bold text-white tracking-tight">Your Profile</h2>
-            {overallProgress > 0 && overallProgress < 100 && (
-              <p className="text-xs text-white/60 font-medium">{overallProgress}% complete</p>
-            )}
-            {overallProgress === 100 && (
-              <p className="text-xs text-emerald-400 font-medium">Complete! Ready to start</p>
-            )}
-          </div>
-        </div>
-        
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-4 py-3 flex-shrink-0 relative">
+      <div className="flex items-center justify-between">
+        {/* Profile section */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 text-white/70">
-            <Lock className="w-4 h-4" />
-            <span className="text-sm font-medium">Private</span>
+          {/* Profile initial or icon */}
+          <div className="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center">
+            {hasName ? (
+              <span className="text-white font-medium text-xs">
+                {getInitial()}
+              </span>
+            ) : (
+              <Heart className="w-3 h-3 text-white" />
+            )}
           </div>
           
-          <Button 
-            variant="ghost" 
-            onClick={onClose} 
-            className="text-white/70 hover:text-white hover:bg-white/12 p-2 rounded-full transition-all duration-200"
+          {/* Title and progress text */}
+          <div>
+            <h2 className="text-white font-medium text-base leading-tight">
+              Your Profile
+            </h2>
+            {overallProgress > 0 && overallProgress < 100 && (
+              <p className="text-white/70 text-xs">{overallProgress}% complete</p>
+            )}
+            {overallProgress === 100 && (
+              <p className="text-xs text-emerald-400">Complete! Ready to start</p>
+            )}
+          </div>
+        </div>
+
+        {/* Close button */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 text-white/70">
+            <Lock className="w-3 h-3" />
+            <span className="text-xs">Private</span>
+          </div>
+          
+          <button
+            onClick={onClose}
+            className="text-white/70 hover:text-white w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors duration-200"
+            aria-label="Close questionnaire"
           >
             <X className="w-4 h-4" />
-          </Button>
+          </button>
         </div>
       </div>
-      
-      {/* Subtle Progress Bar */}
-      <div className="mt-2 relative z-10">
-        <div className="w-full h-0.5 bg-white/10 rounded-full overflow-hidden">
+
+      {/* Progress bar */}
+      <div className="mt-2">
+        <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 rounded-full"
-            style={{ width: `${overallProgress}%` }}
+            className="h-full bg-white/40 rounded-full transition-all duration-500 ease-out"
+            style={{ 
+              width: `${Math.max(overallProgress, 5)}%`,
+              minWidth: overallProgress > 0 ? '4px' : '0px'
+            }}
           />
         </div>
       </div>
