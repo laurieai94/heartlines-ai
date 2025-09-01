@@ -489,6 +489,16 @@
   .questionnaire-label-mobile {
     @apply text-base sm:text-sm font-semibold text-white mb-3;
   }
+  
+  /* Hide scrollbar on mobile section navigation */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 
   /* Modal backdrop utilities */
   .modal-backdrop {

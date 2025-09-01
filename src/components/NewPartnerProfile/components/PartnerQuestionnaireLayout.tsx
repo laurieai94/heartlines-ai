@@ -99,16 +99,14 @@ const PartnerQuestionnaireLayout = ({
       } animate-scale-in`}>
         
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
-          {/* Sticky header and navigation on tablet and desktop */}
-          <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : ''}>
+          {/* Sticky header and navigation - always visible, responsive design */}
+          <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-            {isTabletDesktop && (
-              <div className="bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
-                <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
-              </div>
-            )}
+            <div className="bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
+              <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+            </div>
           </div>
 
           <PartnerQuestionnaireContent
