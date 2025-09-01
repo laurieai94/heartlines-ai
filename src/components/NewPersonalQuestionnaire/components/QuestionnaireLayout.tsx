@@ -35,10 +35,10 @@ const QuestionnaireLayout = ({
   };
   useCurrentSectionDetection(handleSectionChange);
   
-  // Measure sticky header height on desktop
+  // Measure sticky header height on tablet and desktop
   useEffect(() => {
     const measureHeaderHeight = () => {
-      if (stickyHeaderRef.current && window.innerWidth >= 768) {
+      if (stickyHeaderRef.current && window.innerWidth >= 640) {
         const height = stickyHeaderRef.current.offsetHeight;
         setHeaderHeight(height);
       } else {
@@ -96,11 +96,11 @@ const QuestionnaireLayout = ({
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[90vh] flex flex-col'} border border-white/15 md:border-white/20 rounded-2xl md:rounded-3xl bg-burgundy-900/90 md:bg-gradient-to-br md:from-burgundy-900/95 md:to-burgundy-800/90 backdrop-blur-xl md:backdrop-blur-2xl shadow-xl md:shadow-2xl shadow-black/20 md:shadow-black/30 ring-1 ring-white/8 md:ring-white/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-2xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/3 md:before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in`}>
         
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
-          {/* Sticky header and navigation on desktop */}
-          <div ref={stickyHeaderRef} className="md:sticky md:top-0 md:z-20 md:backdrop-blur-sm">
+          {/* Sticky header and navigation on tablet and desktop */}
+          <div ref={stickyHeaderRef} className="sm:sticky sm:top-0 sm:z-20 sm:backdrop-blur-sm">
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-            <div className="hidden md:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
+            <div className="hidden sm:block bg-burgundy-800/30 backdrop-blur-sm border-b border-white/[0.12] px-3 py-1.5 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/20 to-transparent"></div>
               <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
             </div>
