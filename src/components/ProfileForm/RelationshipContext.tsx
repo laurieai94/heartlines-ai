@@ -22,23 +22,23 @@ const RelationshipContext = ({ formData, updateField }: RelationshipContextProps
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Less than 6 months" id="length-1" />
-            <Label htmlFor="length-1">Less than 6 months</Label>
+            <Label htmlFor="length-1" className="text-sm">Less than 6 months</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="6 months - 1 year" id="length-2" />
-            <Label htmlFor="length-2">6 months - 1 year</Label>
+            <Label htmlFor="length-2" className="text-sm">6 months - 1 year</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="1-2 years" id="length-3" />
-            <Label htmlFor="length-3">1-2 years</Label>
+            <Label htmlFor="length-3" className="text-sm">1-2 years</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="2-5 years" id="length-4" />
-            <Label htmlFor="length-4">2-5 years</Label>
+            <Label htmlFor="length-4" className="text-sm">2-5 years</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="5+ years" id="length-5" />
-            <Label htmlFor="length-5">5+ years</Label>
+            <Label htmlFor="length-5" className="text-sm">5+ years</Label>
           </div>
         </RadioGroup>
       </div>
@@ -53,27 +53,27 @@ const RelationshipContext = ({ formData, updateField }: RelationshipContextProps
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Dating" id="type-1" />
-            <Label htmlFor="type-1">Dating</Label>
+            <Label htmlFor="type-1" className="text-sm">Dating</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="In a relationship (official)" id="type-2" />
-            <Label htmlFor="type-2">In a relationship (official)</Label>
+            <Label htmlFor="type-2" className="text-sm">In a relationship (official)</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Living together" id="type-3" />
-            <Label htmlFor="type-3">Living together</Label>
+            <Label htmlFor="type-3" className="text-sm">Living together</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Engaged" id="type-4" />
-            <Label htmlFor="type-4">Engaged</Label>
+            <Label htmlFor="type-4" className="text-sm">Engaged</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Married" id="type-5" />
-            <Label htmlFor="type-5">Married</Label>
+            <Label htmlFor="type-5" className="text-sm">Married</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Domestic partnership" id="type-6" />
-            <Label htmlFor="type-6">Domestic partnership</Label>
+            <Label htmlFor="type-6" className="text-sm">Domestic partnership</Label>
           </div>
         </RadioGroup>
       </div>

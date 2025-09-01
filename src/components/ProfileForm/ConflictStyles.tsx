@@ -55,23 +55,23 @@ const ConflictStyles = ({ profileType, formData, updateField }: ConflictStylesPr
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Address it directly and quickly" id="conflict-direct" />
-            <Label htmlFor="conflict-direct">Address it directly and quickly</Label>
+            <Label htmlFor="conflict-direct" className="text-sm">Address it directly and quickly</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Need time to process first" id="conflict-process" />
-            <Label htmlFor="conflict-process">Need time to process first</Label>
+            <Label htmlFor="conflict-process" className="text-sm">Need time to process first</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Try to avoid or minimize it" id="conflict-avoid" />
-            <Label htmlFor="conflict-avoid">Try to avoid or minimize it</Label>
+            <Label htmlFor="conflict-avoid" className="text-sm">Try to avoid or minimize it</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Get emotional or overwhelmed" id="conflict-emotional" />
-            <Label htmlFor="conflict-emotional">Get emotional or overwhelmed</Label>
+            <Label htmlFor="conflict-emotional" className="text-sm">Get emotional or overwhelmed</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Shut down or withdraw" id="conflict-withdraw" />
-            <Label htmlFor="conflict-withdraw">Shut down or withdraw</Label>
+            <Label htmlFor="conflict-withdraw" className="text-sm">Shut down or withdraw</Label>
           </div>
         </RadioGroup>
       </div>

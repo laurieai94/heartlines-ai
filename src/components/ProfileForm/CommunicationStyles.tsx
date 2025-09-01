@@ -63,19 +63,19 @@ const CommunicationStyles = ({ profileType, formData, updateField }: Communicati
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Talk right away when it comes up" id="talk-immediate" />
-            <Label htmlFor="talk-immediate">Talk right away when it comes up</Label>
+            <Label htmlFor="talk-immediate" className="text-sm">Talk right away when it comes up</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Think about it first, then bring it up" id="talk-planned" />
-            <Label htmlFor="talk-planned">Think about it first, then bring it up</Label>
+            <Label htmlFor="talk-planned" className="text-sm">Think about it first, then bring it up</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Wait for the right moment" id="talk-timing" />
-            <Label htmlFor="talk-timing">Wait for the right moment</Label>
+            <Label htmlFor="talk-timing" className="text-sm">Wait for the right moment</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Hope it resolves itself" id="talk-avoid" />
-            <Label htmlFor="talk-avoid">Hope it resolves itself</Label>
+            <Label htmlFor="talk-avoid" className="text-sm">Hope it resolves itself</Label>
           </div>
         </RadioGroup>
       </div>

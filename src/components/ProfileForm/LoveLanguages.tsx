@@ -60,7 +60,7 @@ const LoveLanguages = ({ profileType, formData, handleMultiSelect, updateField }
                 disabled={formData.loveLanguages?.length >= 2 && !formData.loveLanguages?.includes(option.value)}
               />
               <div className="flex-1">
-                <Label htmlFor={`love-${option.value}`} className="font-medium cursor-pointer">
+                <Label htmlFor={`love-${option.value}`} className="font-medium cursor-pointer text-sm">
                   {option.label}
                 </Label>
                 <p className="text-sm text-gray-600 mt-1">{option.desc}</p>

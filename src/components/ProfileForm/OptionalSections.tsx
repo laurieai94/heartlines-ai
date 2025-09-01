@@ -48,7 +48,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
               {radioOptions.map((option) => (
                 <div key={option} className="flex items-center space-x-2">
                   <RadioGroupItem value={option} id={`family-${option.replace(' ', '-').toLowerCase()}`} />
-                  <Label htmlFor={`family-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+                  <Label htmlFor={`family-${option.replace(' ', '-').toLowerCase()}`} className="text-sm">{option}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -65,7 +65,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
               {radioOptions.map((option) => (
                 <div key={option} className="flex items-center space-x-2">
                   <RadioGroupItem value={option} id={`social-${option.replace(' ', '-').toLowerCase()}`} />
-                  <Label htmlFor={`social-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+                  <Label htmlFor={`social-${option.replace(' ', '-').toLowerCase()}`} className="text-sm">{option}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -95,7 +95,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
               {radioOptions.map((option) => (
                 <div key={option} className="flex items-center space-x-2">
                   <RadioGroupItem value={option} id={`communication-${option.replace(' ', '-').toLowerCase()}`} />
-                  <Label htmlFor={`communication-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+                  <Label htmlFor={`communication-${option.replace(' ', '-').toLowerCase()}`} className="text-sm">{option}</Label>
                 </div>
               ))}
             </RadioGroup>
@@ -112,7 +112,7 @@ const OptionalSections = ({ profileType, formData, updateField, expandedSections
               {radioOptions.map((option) => (
                 <div key={option} className="flex items-center space-x-2">
                   <RadioGroupItem value={option} id={`development-${option.replace(' ', '-').toLowerCase()}`} />
-                  <Label htmlFor={`development-${option.replace(' ', '-').toLowerCase()}`}>{option}</Label>
+                  <Label htmlFor={`development-${option.replace(' ', '-').toLowerCase()}`} className="text-sm">{option}</Label>
                 </div>
               ))}
             </RadioGroup>
