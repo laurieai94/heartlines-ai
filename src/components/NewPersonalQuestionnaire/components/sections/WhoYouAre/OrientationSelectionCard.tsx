@@ -48,7 +48,7 @@ const OrientationSelectionCard = ({
       showContinue={isComplete} 
       onContinue={() => scrollToNextQuestion('question-orientation')}
     >
-      <Label className="text-sm font-semibold text-white mb-2 block">
+      <Label className="questionnaire-label-mobile block">
         What's your sexual orientation? <span className="text-red-400">*</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">

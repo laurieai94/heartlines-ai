@@ -62,7 +62,7 @@ const YourRelationship = ({
       <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={() => {
       scrollToNextRequiredQuestion('question-relationship-status');
     }}>
-        <Label className="text-sm font-semibold text-white mb-2 block">
+        <Label className="questionnaire-label-mobile block">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select the answer that resonates most</span>
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">

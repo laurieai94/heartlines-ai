@@ -37,7 +37,7 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelection
         showContinue={isComplete}
         onContinue={() => scrollToNextQuestion('question-age')}
       >
-        <Label className="text-sm font-semibold text-white mb-2 block">
+        <Label className="questionnaire-label-mobile block">
           What's your age?
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">

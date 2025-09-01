@@ -25,7 +25,7 @@ const LoveLanguageQuestion = ({
       showContinue={isComplete}
       onContinue={() => scrollToNextRequiredQuestion('question-love-language')}
     >
-      <Label className="text-sm font-semibold text-white mb-2 block">
+      <Label className="questionnaire-label-mobile block">
         How do you feel most loved? <span className="text-red-400">*</span>
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
