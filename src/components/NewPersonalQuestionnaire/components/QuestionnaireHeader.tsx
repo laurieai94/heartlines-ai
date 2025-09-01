@@ -20,24 +20,24 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const hasName = profileData.name && profileData.name.trim();
   
   return (
-    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-4 py-3 flex-shrink-0 relative">
+    <div className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-3 py-2 sm:px-4 sm:py-3 pt-safe flex-shrink-0 relative">
       <div className="flex items-center justify-between">
         {/* Profile section */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Profile initial or icon */}
-          <div className="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 bg-white/10 rounded-full flex items-center justify-center">
             {hasName ? (
               <span className="text-white font-medium text-xs">
                 {getInitial()}
               </span>
             ) : (
-              <Heart className="w-3 h-3 text-white" />
+              <Heart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
             )}
           </div>
           
           {/* Title and progress text */}
           <div>
-            <h2 className="text-white font-medium text-base leading-tight">
+            <h2 className="text-white font-medium text-sm sm:text-base leading-tight">
               Your Profile
             </h2>
             {overallProgress > 0 && overallProgress < 100 && (
@@ -50,25 +50,25 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
         </div>
 
         {/* Close button */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 text-white/70">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="hidden sm:flex items-center gap-1.5 text-white/70">
             <Lock className="w-3 h-3" />
             <span className="text-xs">Private</span>
           </div>
           
           <button
             onClick={onClose}
-            className="text-white/70 hover:text-white w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors duration-200"
+            className="text-white/70 hover:text-white w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors duration-200"
             aria-label="Close questionnaire"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="mt-2">
-        <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden">
+      <div className="mt-1.5 sm:mt-2">
+        <div className="w-full bg-white/5 rounded-full h-0.5 sm:h-1 overflow-hidden">
           <div 
             className="h-full bg-white/40 rounded-full transition-all duration-500 ease-out"
             style={{ 
