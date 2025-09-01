@@ -35,29 +35,41 @@ export const useOptimizedSubscription = () => {
         throw new Error('User not authenticated');
       }
 
-      // First, try to load from Supabase subscribers table (fast)
-      const { data: subData } = await supabase
-        .from('subscribers')
-        .select('*')
-        .eq('user_id', user.id)
-        .maybeSingle();
+      performance.mark('subscription-query-start');
 
-      // Check for account override first
-      const { data: override } = await supabase
-        .from('account_overrides')
-        .select('unlimited_messages')
-        .eq('email', user.email)
-        .eq('unlimited_messages', true)
-        .maybeSingle();
-
-      // Also get message usage for current month
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01'; // YYYY-MM-01 format
-      const { data: usageData } = await supabase
-        .from('user_message_usage')
-        .select('current_month_usage, subscription_tier')
-        .eq('user_id', user.id)
-        .eq('usage_month', currentMonth)
-        .maybeSingle();
+      
+      // Parallelize all Supabase queries for faster loading
+      const [subResult, overrideResult, usageResult] = await Promise.all([
+        // Subscription data (minimal select)
+        supabase
+          .from('subscribers')
+          .select('subscribed, subscription_tier, subscription_end')
+          .eq('user_id', user.id)
+          .maybeSingle(),
+        
+        // Account override check
+        supabase
+          .from('account_overrides')
+          .select('unlimited_messages')
+          .eq('email', user.email)
+          .eq('unlimited_messages', true)
+          .maybeSingle(),
+        
+        // Message usage (minimal select)
+        supabase
+          .from('user_message_usage')
+          .select('current_month_usage, subscription_tier')
+          .eq('user_id', user.id)
+          .eq('usage_month', currentMonth)
+          .maybeSingle()
+      ]);
+
+      performance.mark('subscription-query-end');
+
+      const { data: subData } = subResult;
+      const { data: override } = overrideResult;
+      const { data: usageData } = usageResult;
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || null;
       // If user has unlimited override, set message limit to 0 (unlimited)
@@ -72,24 +84,6 @@ export const useOptimizedSubscription = () => {
         message_limit: messageLimit,
         messages_used: messagesUsed
       };
-
-      // For paid users, revalidate in background with Stripe
-      if (subData?.subscribed) {
-        // Background revalidation with Stripe
-        setTimeout(async () => {
-          try {
-            const { data: freshData } = await supabase.functions.invoke('check-subscription');
-            if (freshData && JSON.stringify(freshData) !== JSON.stringify(cachedData)) {
-              queryClient.setQueryData(['subscription', user.id], {
-                ...cachedData,
-                ...freshData
-              });
-            }
-          } catch (error) {
-            console.warn('Background subscription refresh failed:', error);
-          }
-        }, 100);
-      }
 
       return cachedData;
     },
@@ -137,6 +131,26 @@ export const useOptimizedSubscription = () => {
     await refetch();
   };
 
+  // On-demand Stripe revalidation for when users need fresh data
+  const revalidateWithStripe = async () => {
+    if (!user) return;
+    
+    try {
+      performance.mark('stripe-revalidation-start');
+      const { data: freshData } = await supabase.functions.invoke('check-subscription');
+      
+      if (freshData) {
+        queryClient.setQueryData(['subscription', user.id], {
+          ...defaultData,
+          ...freshData
+        });
+        performance.mark('stripe-revalidation-end');
+      }
+    } catch (error) {
+      console.warn('Stripe revalidation failed:', error);
+    }
+  };
+
   const defaultData: SubscriptionData = {
     subscribed: false,
     subscription_tier: null,
@@ -152,6 +166,7 @@ export const useOptimizedSubscription = () => {
     loading: isLoading,
     error: error?.message || null,
     refresh,
+    revalidateWithStripe,
     upgrade,
     manageSubscription,
     usagePercentage: data.message_limit > 0 ? (data.messages_used / data.message_limit) * 100 : 0

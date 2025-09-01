@@ -1,13 +1,15 @@
-import { useState, Suspense, useEffect } from 'react';
+import { useState, Suspense, useEffect, lazy } from 'react';
 import { ArrowLeft, User, CreditCard, Shield, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
-import AccountOverview from './AccountOverview';
-import AccountSubscription from './AccountSubscription';
-import AccountProfile from './AccountProfile';
-import AccountSecurity from './AccountSecurity';
+
+// Lazy load account components for better performance
+const AccountOverview = lazy(() => import('./AccountOverview'));
+const AccountSubscription = lazy(() => import('./AccountSubscription'));
+const AccountProfile = lazy(() => import('./AccountProfile'));
+const AccountSecurity = lazy(() => import('./AccountSecurity'));
 
 const TabSkeleton = () => (
   <div className="space-y-6">
@@ -27,12 +29,23 @@ const AccountLayout = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [showBackgroundEffects, setShowBackgroundEffects] = useState(false);
 
+  // Performance tracking
+  useEffect(() => {
+    performance.mark('account-layout-start');
+  }, []);
+
   // Defer background effects to improve perceived loading speed
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const deferEffect = () => {
       setShowBackgroundEffects(true);
-    }, 100);
-    return () => clearTimeout(timer);
+      performance.mark('account-background-loaded');
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(deferEffect, { timeout: 200 });
+    } else {
+      setTimeout(deferEffect, 100);
+    }
   }, []);
 
   return (
@@ -40,8 +53,8 @@ const AccountLayout = () => {
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-xl md:blur-3xl animate-gradient-shift"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-xl md:blur-3xl animate-gradient-shift-reverse"></div>
         </div>
       )}
 
