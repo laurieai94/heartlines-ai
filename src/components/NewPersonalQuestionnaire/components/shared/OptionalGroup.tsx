@@ -45,9 +45,6 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
                     </span>
                     <span className="inline text-xs text-emerald-300">+Better insights</span>
                   </div>
-                <span className="sm:hidden text-sm font-medium text-white/90 group-hover:text-white text-left">
-                  {title}
-                </span>
               </div>
               <ChevronDown className="w-4 h-4 sm:w-4 sm:h-4 text-white/60 group-hover:text-white transition-all transform group-data-[state=open]:rotate-180" />
             </CollapsibleTrigger>
