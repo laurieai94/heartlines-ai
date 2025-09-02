@@ -81,35 +81,16 @@ const ChatContainer = ({
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
-      // Mobile header visibility logic with improved thresholds
+      // Simplified mobile header visibility: hide once chatting starts
       if (isMobile) {
         const currentScrollTop = target.scrollTop;
         
-        // Initialize on first meaningful scroll
-        if (!isInitializedRef.current && currentScrollTop > 10) {
-          lastScrollTopRef.current = currentScrollTop;
-          isInitializedRef.current = true;
-          return;
-        }
-        
-        if (!isInitializedRef.current) return;
-        
-        const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-        const scrollThreshold = 20; // Increased from 8px to reduce sensitivity
-
-        if (currentScrollTop < 30) {
-          // Near top - always show header
+        // Show header only when no chat content OR at very top (within 10px)
+        if (chatHistory.length === 0 || currentScrollTop < 10) {
           debouncedSetVisible(true);
-        } else if (Math.abs(scrollDelta) > scrollThreshold) {
-          if (scrollDelta > 0) {
-            // Scrolling down - hide header
-            debouncedSetVisible(false);
-          } else {
-            // Scrolling up - show header
-            debouncedSetVisible(true);
-          }
-          
-          lastScrollTopRef.current = currentScrollTop;
+        } else {
+          // Hide header when there's chat content and user has scrolled
+          debouncedSetVisible(false);
         }
       }
     }, 16), // 60fps throttling
