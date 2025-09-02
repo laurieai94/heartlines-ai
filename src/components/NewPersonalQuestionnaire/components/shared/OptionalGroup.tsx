@@ -40,7 +40,7 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
             <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-none touch-manipulation active:scale-98">
                 <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="px-1.5 py-0.5 text-xs font-medium bg-transparent text-white border border-white flex-shrink-0 rounded-md">
+                    <span className="px-2 py-0.5 text-xs font-semibold bg-transparent text-white border-2 border-white flex-shrink-0 rounded-md drop-shadow">
                       Optional
                     </span>
                     <span className="inline text-xs font-semibold text-green-400 drop-shadow-sm">+Better insights</span>
