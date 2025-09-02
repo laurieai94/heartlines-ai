@@ -123,7 +123,7 @@ const PartnerQuestionnaireLayout = ({
           />
           
           {/* Minimal bottom padding */}
-          <div className="pb-10" />
+          <div className="pb-6 sm:pb-10" />
         </div>
 
         <CleanPartnerFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={!!onAutoComplete} />

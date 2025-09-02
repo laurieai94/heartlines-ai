@@ -84,7 +84,7 @@ const PartnerQuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div className={`bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-3 space-y-5 ${isTabletDesktop ? 'px-8' : 'px-4'}`}>
+    <div className={`bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         <div id="partner-section-1">
           <PartnerBasics
             profileData={profileData}

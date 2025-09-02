@@ -450,11 +450,11 @@
 
   /* Profile answer text styling - reduced font size */
   .questionnaire-chip {
-    @apply px-2 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+    @apply px-2 py-1.5 rounded-lg text-sm font-medium transition-all duration-200;
     @apply text-white border border-white/15;
     @apply hover:border-white/25;
     @apply focus:outline-none focus:ring-1 focus:ring-white/20;
-    @apply min-h-[44px] inline-flex items-center justify-center;
+    @apply min-h-[36px] inline-flex items-center justify-center;
     @apply active:scale-95 touch-manipulation;
     /* Reduced font size for profile answers - mobile-first sizing */
     font-size: 0.8125rem !important; /* 13px - slightly smaller */

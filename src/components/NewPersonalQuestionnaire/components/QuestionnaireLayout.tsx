@@ -120,7 +120,7 @@ const QuestionnaireLayout = ({
           </div>
 
           {/* Minimal spacing on mobile after header */}
-          {!isTabletDesktop && <div className="pt-0.5" />}
+          {!isTabletDesktop && <div className="pt-0" />}
 
           <QuestionnaireContent
             profileData={profileData} 
@@ -136,7 +136,7 @@ const QuestionnaireLayout = ({
           />
           
           {/* Minimal bottom padding */}
-          <div className="pb-10" />
+          <div className="pb-6 sm:pb-10" />
         </div>
 
         <CleanQuestionnaireFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={false} />

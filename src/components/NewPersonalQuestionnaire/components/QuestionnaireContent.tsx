@@ -120,7 +120,7 @@ const QuestionnaireContent = ({
   }, [onScrollToSection]);
 
   return (
-    <div className={`py-2 space-y-4 ${isTabletDesktop ? 'px-8' : 'px-4'}`}>
+    <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
         <WhoYouAre
           profileData={profileData}
