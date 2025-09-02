@@ -45,6 +45,9 @@ const ChatContainer = ({
   const vvPrevHeightRef = useRef<number | null>(null);
   const userIntentLockRef = useRef(false);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
+  const keyboardHeightRef = useRef(0);
+  const isKeyboardOpenRef = useRef(false);
+  
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -85,7 +88,8 @@ const ChatContainer = ({
   const handleScroll = useMemo(
     () => throttle((event: React.UIEvent<HTMLDivElement>) => {
       const target = event.currentTarget;
-      const threshold = 48;
+      // Use stricter threshold when keyboard is open for better catch behavior
+      const threshold = isKeyboardOpenRef.current ? 120 : 48;
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
       const isNear = distanceToBottom < threshold;
       const currentScrollTop = target.scrollTop;
@@ -96,9 +100,12 @@ const ChatContainer = ({
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
       
-      // Detect user scrolling up to lock auto-scroll
+      // Detect user scrolling up to lock auto-scroll - more sensitive when keyboard is open
       if (scrollDirection.current === 'up' && !isNear) {
-        userIntentLockRef.current = true;
+        // When keyboard is open, be less aggressive about locking scroll
+        if (!isKeyboardOpenRef.current || Math.abs(scrollDelta) > 20) {
+          userIntentLockRef.current = true;
+        }
       }
       
       // Unlock when user reaches bottom
@@ -162,14 +169,15 @@ const ChatContainer = ({
       const heightDiff = prev - vv.height;
       vvPrevHeightRef.current = vv.height;
 
-      // Keyboard likely opened if viewport height decreased significantly
-      const keyboardLikelyOpen = heightDiff > 150;
+      // Update keyboard state and height
+      keyboardHeightRef.current = Math.max(0, heightDiff);
+      isKeyboardOpenRef.current = heightDiff > 150;
 
       const v = viewportRef.current;
       const distanceToBottom = v.scrollHeight - v.scrollTop - v.clientHeight;
-      const nearBottom = distanceToBottom < 48;
+      const nearBottom = distanceToBottom < (isKeyboardOpenRef.current ? 120 : 48);
 
-      if (keyboardLikelyOpen && nearBottom && !userIntentLockRef.current) {
+      if (isKeyboardOpenRef.current && nearBottom && !userIntentLockRef.current) {
         // Small delay to ensure the viewport has stabilized
         setTimeout(() => scrollToBottom('auto'), 50);
       }
@@ -195,7 +203,14 @@ const ChatContainer = ({
         aria-live="polite"
         aria-label="Chat conversation history"
       >
-        <div className="pt-1 pb-1 px-1 md:px-4 md:pt-3 md:pb-2">
+        <div 
+          className="pt-1 px-1 md:px-4 md:pt-3 md:pb-2"
+          style={{
+            paddingBottom: isMobile && isKeyboardOpenRef.current 
+              ? `${Math.max(keyboardHeightRef.current * 0.1, 4)}px` 
+              : '4px'
+          }}
+        >
           <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:px-12" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
