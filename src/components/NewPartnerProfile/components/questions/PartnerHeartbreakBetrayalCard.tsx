@@ -25,7 +25,7 @@ const PartnerHeartbreakBetrayalCard = ({ profileData, handleMultiSelect, isCompl
       <Label className="text-sm font-semibold text-white mb-2 block">
         Have they been through any major heartbreaks or betrayals? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
-      <div className="flex items-center gap-2 mb-3">
+      <div className="hidden sm:flex items-center gap-2 mb-3">
         <Shield className="w-3 h-3 text-green-300" />
         <p className="text-white/70 text-xs">
           Past pain shapes how we protect ourselves.

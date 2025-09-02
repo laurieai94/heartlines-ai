@@ -25,7 +25,7 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }:
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's their attachment style (from what you can tell)?
       </Label>
-      <div className="flex items-center gap-2 mb-3">
+      <div className="hidden sm:flex items-center gap-2 mb-3">
         <Heart className="w-3 h-3 text-red-300" />
         <p className="text-white/70 text-xs">
           The psychological patterns that run their relationships
