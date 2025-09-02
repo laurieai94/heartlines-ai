@@ -24,7 +24,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
         <div className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-md flex items-center justify-center">
             {hasName ? (
-              <span className="text-sm sm:text-sm font-bold text-white">{getInitial(profileData)}</span>
+              <span className="text-base sm:text-sm font-bold text-white">{getInitial(profileData)}</span>
             ) : (
               <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
             )}

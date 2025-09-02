@@ -23,7 +23,7 @@ const PartnerGenderCard = ({ profileData, handleMultiSelect, isComplete = false 
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <div className="mb-2">
-        <Label className="text-sm font-semibold text-white">
+        <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white">
           What's their gender identity? <span className="hidden sm:inline text-orange-400 text-xs font-normal">Select all that resonate</span>
         </Label>
       </div>
