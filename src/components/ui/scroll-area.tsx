@@ -28,7 +28,11 @@ const ScrollArea = React.forwardRef<
       role={role}
       aria-live={ariaLive}
       aria-label={ariaLabel}
-      style={{ WebkitOverflowScrolling: 'touch' }}
+      style={{ 
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehaviorY: 'contain',
+        touchAction: 'pan-y'
+      }}
     >
       {children}
     </ScrollAreaPrimitive.Viewport>

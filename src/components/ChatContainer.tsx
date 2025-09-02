@@ -43,18 +43,26 @@ const ChatContainer = ({
   const lastScrollTopRef = useRef(0);
   const isInitializedRef = useRef(false);
   const vvPrevHeightRef = useRef<number | null>(null);
+  const userIntentLockRef = useRef(false);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    const distanceToBottom = viewport.scrollHeight - (viewport.scrollTop + viewport.clientHeight);
     
-    // Use 'auto' for small distances to avoid bounce, 'smooth' for larger
-    const scrollBehavior = distanceToBottom < 48 ? 'auto' : behavior;
+    // Use viewport.scrollTo for better control instead of scrollIntoView
+    const targetScrollTop = viewport.scrollHeight - viewport.clientHeight;
     
-    messagesEndRef.current?.scrollIntoView({
-      behavior: scrollBehavior
-    });
+    if (behavior === 'smooth') {
+      viewport.scrollTo({
+        top: targetScrollTop,
+        behavior: 'smooth'
+      });
+    } else {
+      viewport.scrollTop = targetScrollTop;
+    }
+    
+    // Unlock user intent when manually scrolling to bottom
+    userIntentLockRef.current = false;
     
     // Update scroll reference after scrolling to bottom on mobile
     if (isMobile) {
@@ -72,20 +80,31 @@ const ChatContainer = ({
     [setVisible]
   );
 
-  // Optimized scroll handler with throttling
+  // Optimized scroll handler with throttling and user intent detection
   const handleScroll = useMemo(
     () => throttle((event: React.UIEvent<HTMLDivElement>) => {
       const target = event.currentTarget;
       const threshold = 48;
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
       const isNear = distanceToBottom < threshold;
+      const currentScrollTop = target.scrollTop;
+      
+      // Detect user scrolling up to lock auto-scroll
+      if (currentScrollTop < lastScrollTopRef.current) {
+        userIntentLockRef.current = true;
+      }
+      
+      // Unlock when user reaches bottom
+      if (isNear) {
+        userIntentLockRef.current = false;
+      }
+      
+      lastScrollTopRef.current = currentScrollTop;
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
       // Simplified mobile header visibility: hide once chatting starts
       if (isMobile) {
-        const currentScrollTop = target.scrollTop;
-        
         // Show header only when no chat content OR at very top (within 10px)
         if (chatHistory.length === 0 || currentScrollTop < 10) {
           debouncedSetVisible(true);
@@ -98,12 +117,12 @@ const ChatContainer = ({
     [chatHistory.length, isMobile, debouncedSetVisible]
   );
 
-  // Smart auto-scroll: only when near bottom and something actually changed
+  // Smart auto-scroll: only when near bottom, not locked by user intent, and something actually changed
   useEffect(() => {
     const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
     const loadingChanged = prevLoadingRef.current !== loading;
     
-    if (isNearBottom && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
+    if (isNearBottom && !userIntentLockRef.current && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
       const timeoutId = setTimeout(() => scrollToBottom('smooth'), 50);
       
       prevChatLengthRef.current = chatHistory.length;
@@ -143,7 +162,7 @@ const ChatContainer = ({
       const distanceToBottom = v.scrollHeight - v.scrollTop - v.clientHeight;
       const nearBottom = distanceToBottom < 48;
 
-      if (keyboardLikelyOpen && nearBottom) {
+      if (keyboardLikelyOpen && nearBottom && !userIntentLockRef.current) {
         // Small delay to ensure the viewport has stabilized
         setTimeout(() => scrollToBottom('auto'), 50);
       }
@@ -230,9 +249,16 @@ const ChatContainer = ({
       </ScrollArea>
       
       {/* Scroll to Bottom Button */}
-      {showScrollToBottom && <Button onClick={() => scrollToBottom('smooth')} size="sm" className={`absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}>
-          <ChevronDown className="w-4 h-4" />
-        </Button>}
+      {showScrollToBottom && <Button 
+        onClick={() => {
+          userIntentLockRef.current = false; // Unlock when user clicks button
+          scrollToBottom('smooth');
+        }} 
+        size="sm" 
+        className={`absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}
+      >
+        <ChevronDown className="w-4 h-4" />
+      </Button>}
     </div>;
 };
 export default ChatContainer;
