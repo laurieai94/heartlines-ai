@@ -47,6 +47,8 @@ const ChatContainer = ({
   const scrollDirection = useRef<'up' | 'down' | null>(null);
   const keyboardHeightRef = useRef(0);
   const isKeyboardOpenRef = useRef(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const loadingStickyInterval = useRef<NodeJS.Timeout | null>(null);
   
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
@@ -88,8 +90,10 @@ const ChatContainer = ({
   const handleScroll = useMemo(
     () => throttle((event: React.UIEvent<HTMLDivElement>) => {
       const target = event.currentTarget;
-      // Use stricter threshold when keyboard is open for better catch behavior
-      const threshold = isKeyboardOpenRef.current ? 120 : 48;
+      // More refined threshold calculation
+      const baseThreshold = isMobile ? 60 : 48;
+      const keyboardThreshold = isKeyboardOpenRef.current ? 150 : baseThreshold;
+      const threshold = keyboardThreshold;
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
       const isNear = distanceToBottom < threshold;
       const currentScrollTop = target.scrollTop;
@@ -103,7 +107,7 @@ const ChatContainer = ({
       // Detect user scrolling up to lock auto-scroll - more sensitive when keyboard is open
       if (scrollDirection.current === 'up' && !isNear) {
         // When keyboard is open, be less aggressive about locking scroll
-        if (!isKeyboardOpenRef.current || Math.abs(scrollDelta) > 20) {
+        if (!isKeyboardOpenRef.current || Math.abs(scrollDelta) > 30) {
           userIntentLockRef.current = true;
         }
       }
@@ -131,7 +135,7 @@ const ChatContainer = ({
     [chatHistory.length, isMobile, debouncedSetVisible]
   );
 
-  // Smart auto-scroll: only when near bottom, not locked by user intent, and something actually changed
+  // Enhanced auto-scroll with ResizeObserver for content growth detection
   useEffect(() => {
     const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
     const loadingChanged = prevLoadingRef.current !== loading;
@@ -149,7 +153,56 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
-  // Removed auto-scroll on window/viewport resize to prevent scroll catching on mobile
+  // ResizeObserver for content growth detection and auto-scroll
+  useEffect(() => {
+    if (!contentRef.current || !viewportRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      // Only auto-scroll if near bottom and not locked by user intent
+      if (isNearBottom && !userIntentLockRef.current) {
+        // Small delay to ensure content has rendered
+        setTimeout(() => scrollToBottom('smooth'), 20);
+      }
+    });
+
+    resizeObserver.observe(contentRef.current);
+    return () => resizeObserver.disconnect();
+  }, [isNearBottom, scrollToBottom]);
+
+  // Loading state sticky bottom with interval
+  useEffect(() => {
+    if (loading && isNearBottom && !userIntentLockRef.current) {
+      loadingStickyInterval.current = setInterval(() => {
+        if (viewportRef.current && isNearBottom && !userIntentLockRef.current) {
+          const viewport = viewportRef.current;
+          const distanceToBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
+          if (distanceToBottom > 10) { // Only scroll if there's meaningful distance
+            scrollToBottom('auto');
+          }
+        }
+      }, 100);
+    } else if (loadingStickyInterval.current) {
+      clearInterval(loadingStickyInterval.current);
+      loadingStickyInterval.current = null;
+    }
+
+    return () => {
+      if (loadingStickyInterval.current) {
+        clearInterval(loadingStickyInterval.current);
+        loadingStickyInterval.current = null;
+      }
+    };
+  }, [loading, isNearBottom, scrollToBottom]);
+
+  // Strengthened initial scroll and conversation switches
+  useEffect(() => {
+    if (isHistoryLoaded) {
+      scrollToBottom('auto');
+      // Double-check with delay to ensure all content is rendered
+      setTimeout(() => scrollToBottom('auto'), 100);
+      setTimeout(() => scrollToBottom('auto'), 300);
+    }
+  }, [isHistoryLoaded, scrollToBottom]);
 
   // Handle mobile keyboard visibility changes (guarded)
   useEffect(() => {
@@ -175,7 +228,7 @@ const ChatContainer = ({
 
       const v = viewportRef.current;
       const distanceToBottom = v.scrollHeight - v.scrollTop - v.clientHeight;
-      const nearBottom = distanceToBottom < (isKeyboardOpenRef.current ? 120 : 48);
+      const nearBottom = distanceToBottom < (isKeyboardOpenRef.current ? 150 : 48);
 
       if (isKeyboardOpenRef.current && nearBottom && !userIntentLockRef.current) {
         // Small delay to ensure the viewport has stabilized
@@ -186,13 +239,6 @@ const ChatContainer = ({
     vv.addEventListener('resize', handleViewportChange);
     return () => vv.removeEventListener('resize', handleViewportChange);
   }, [isMobile, scrollToBottom]);
-
-  // Initial scroll to bottom
-  useEffect(() => {
-    if (isHistoryLoaded) {
-      scrollToBottom('auto');
-    }
-  }, [isHistoryLoaded, scrollToBottom]);
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
@@ -211,7 +257,7 @@ const ChatContainer = ({
               : '4px'
           }}
         >
-          <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:px-12" role="list" aria-label="Chat messages">
+          <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:px-12" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {
