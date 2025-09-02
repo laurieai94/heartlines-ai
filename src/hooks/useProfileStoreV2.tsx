@@ -121,6 +121,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const [profile, setProfile] = useState<PersonalProfileV2 | PartnerProfileV2>(defaultProfile);
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   
   const debounceTimer = useRef<NodeJS.Timeout>();
@@ -365,11 +366,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const localProfile = loadFromStorage();
         setProfile(localProfile);
         setIsReady(true);
-        console.log(`[ProfileV2-${profileType}] Local profile loaded, isReady set to true`);
+        setIsLoading(false); // UI can render immediately with local data
+        console.log(`[ProfileV2-${profileType}] Local profile loaded, UI ready`);
         
         // Then sync with database if authenticated
         if (user) {
-          console.log(`[ProfileV2-${profileType}] User authenticated, loading from database...`);
+          setIsSyncing(true);
+          console.log(`[ProfileV2-${profileType}] User authenticated, syncing with database...`);
           
           // Add timeout for database operations
           const dbProfilePromise = loadFromDatabase();
@@ -391,6 +394,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           } catch (dbError) {
             console.error(`[ProfileV2-${profileType}] Database sync failed, using local profile:`, dbError);
             // Continue with local profile - don't let DB errors block the UI
+          } finally {
+            setIsSyncing(false);
           }
         } else {
           console.log(`[ProfileV2-${profileType}] No user authenticated, using local profile only`);
@@ -401,18 +406,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         // Ensure we still have a valid profile state
         setProfile(defaultProfile);
         setIsReady(true);
-      } finally {
-        // Always ensure loading state is cleared
         setIsLoading(false);
-        console.log(`[ProfileV2-${profileType}] Initialization completed, isLoading set to false`);
+        setIsSyncing(false);
       }
     };
 
-    // Add a safety timeout to ensure loading state is always cleared
+    // Add a safety timeout to ensure states are always cleared
     const safetyTimeout = setTimeout(() => {
-      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing loading to complete`);
+      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
       setIsLoading(false);
       setIsReady(true);
+      setIsSyncing(false);
     }, 15000);
 
     initialize().finally(() => {
@@ -511,6 +515,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     profileData: profile,
     isLoading,
     isReady,
+    isSyncing,
     updateField,
     handleMultiSelect,
     saveData: updateProfile,

@@ -77,6 +77,7 @@ export const usePersonalProfileData = () => {
     profileData: mergedProfileData,
     isLoading: v2Store.isLoading,
     isReady: v2Store.isReady,
+    isSyncing: v2Store.isSyncing,
     saveData: v2Store.saveData,
     updateField: normalizedUpdateField,
     handleMultiSelect: normalizedHandleMultiSelect

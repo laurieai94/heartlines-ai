@@ -12,7 +12,7 @@ interface NewPartnerProfileProps {
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
   const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
   
-  const { profileData, updateField, handleMultiSelect, isLoading } = usePartnerProfileData(autoCompleteCallback);
+  const { profileData, updateField, handleMultiSelect, isReady } = usePartnerProfileData(autoCompleteCallback);
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
@@ -41,7 +41,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
     }
   }, [autoCompleteCallback, handleComplete]);
 
-  if (isLoading) {
+  if (!isReady) {
     return (
       <div className="flex items-center justify-center p-8">
         <BrandLoadingText text="profile loading..." color="light" />

@@ -28,6 +28,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     profileData,
     isLoading,
     isReady,
+    isSyncing,
     updateField: rawUpdateField,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
@@ -84,6 +85,8 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
   return {
     profileData: mergedProfileData,
     isLoading,
+    isReady,
+    isSyncing,
     updateField: normalizedUpdateField,
     handleMultiSelect: normalizedHandleMultiSelect,
     saveProfile: saveData
