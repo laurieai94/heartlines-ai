@@ -28,14 +28,16 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
       <div className="bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-white/20 p-2.5 space-y-1.5 transition-all duration-200" data-scroll-id="family-context">
         <CollapsibleTrigger className="w-full">
           <div className="flex items-center justify-between">
-            <div className="text-left">
-              <Label className="text-sm font-semibold text-white">
-                Want to share more family context?
-                <span className="text-white font-medium text-xs ml-2">(Optional)</span>
-              </Label>
-              <div className="text-xs text-white/70 mt-1">
-                Helps us understand your relationship patterns
+            <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="px-1.5 py-0.5 text-xs font-medium bg-white/10 text-white rounded-md border border-white/30 flex-shrink-0">
+                  Optional
+                </span>
+                <span className="inline text-xs text-emerald-300">+Better insights</span>
               </div>
+              <span className="sm:hidden text-sm font-medium text-white/90 text-left">
+                Want to share more family context?
+              </span>
             </div>
             <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>

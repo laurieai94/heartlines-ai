@@ -33,10 +33,13 @@ const RelationshipOptionalSection = ({
             <CollapsibleTrigger className="w-full">
               <div className="bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 rounded-xl border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 p-2.5 sm:p-3 transition-all duration-200 shadow-none">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 text-xs font-medium bg-white/10 text-white rounded-full border border-white/30 flex-shrink-0">
-                      Optional
-                    </span>
+                  <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="px-2 py-0.5 text-xs font-medium bg-white/10 text-white rounded-full border border-white/30 flex-shrink-0">
+                        Optional
+                      </span>
+                      <span className="inline text-xs text-emerald-300">+Better insights</span>
+                    </div>
                     <Label className="sm:hidden text-sm font-medium text-white/80">
                       Want to share more context?
                     </Label>
