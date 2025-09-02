@@ -38,13 +38,16 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
         <Tooltip>
           <TooltipTrigger asChild>
             <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-none touch-manipulation active:scale-98">
-                <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap">
+                <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="px-1.5 py-0.5 text-xs font-medium bg-white/10 text-white rounded-md border border-white/30 flex-shrink-0">
                       Optional
                     </span>
                     <span className="inline text-xs text-emerald-300">+Better insights</span>
                   </div>
+                  <span className="sm:hidden text-sm font-medium text-white/90 group-hover:text-white text-left truncate">
+                    {title}
+                  </span>
               </div>
               <ChevronDown className="w-4 h-4 sm:w-4 sm:h-4 text-white/60 group-hover:text-white transition-all transform group-data-[state=open]:rotate-180" />
             </CollapsibleTrigger>
