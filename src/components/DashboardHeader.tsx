@@ -68,10 +68,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       <div className="max-w-6xl mx-auto px-3 py-2 md:px-4 md:py-6 lg:px-8 relative">
         
         {/* Mobile Navigation - Hide in coach mode when scrolling */}
-        <div className={`flex items-center justify-between md:hidden transition-all duration-300 ${
+        <div className={`flex items-center justify-between md:hidden transition-all duration-300 min-h-[56px] ${
           isMobile && isCoachMode && !visible 
-            ? '-translate-y-full opacity-0 h-0 py-0 overflow-hidden' 
-            : 'translate-y-0 opacity-100'
+            ? '-translate-y-full opacity-0 pointer-events-none' 
+            : 'translate-y-0 opacity-100 pointer-events-auto'
         }`}>
           <div className="flex items-center gap-3">
             <DropdownMenu>

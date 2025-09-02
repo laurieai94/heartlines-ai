@@ -44,6 +44,7 @@ const ChatContainer = ({
   const isInitializedRef = useRef(false);
   const vvPrevHeightRef = useRef<number | null>(null);
   const userIntentLockRef = useRef(false);
+  const scrollDirection = useRef<'up' | 'down' | null>(null);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -89,8 +90,14 @@ const ChatContainer = ({
       const isNear = distanceToBottom < threshold;
       const currentScrollTop = target.scrollTop;
       
+      // Detect scroll direction
+      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+      if (Math.abs(scrollDelta) > 5) { // Only track significant scrolls
+        scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
+      }
+      
       // Detect user scrolling up to lock auto-scroll
-      if (currentScrollTop < lastScrollTopRef.current) {
+      if (scrollDirection.current === 'up' && !isNear) {
         userIntentLockRef.current = true;
       }
       
@@ -103,13 +110,13 @@ const ChatContainer = ({
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
-      // Simplified mobile header visibility: hide once chatting starts
-      if (isMobile) {
-        // Show header only when no chat content OR at very top (within 10px)
-        if (chatHistory.length === 0 || currentScrollTop < 10) {
+      // Direction-aware mobile header visibility
+      if (isMobile && chatHistory.length > 0) {
+        // Show header when scrolling up OR at very top
+        if (scrollDirection.current === 'up' || currentScrollTop < 20) {
           debouncedSetVisible(true);
-        } else {
-          // Hide header when there's chat content and user has scrolled
+        } else if (scrollDirection.current === 'down' && currentScrollTop > 60) {
+          // Hide header when scrolling down past initial area
           debouncedSetVisible(false);
         }
       }
@@ -255,7 +262,8 @@ const ChatContainer = ({
           scrollToBottom('smooth');
         }} 
         size="sm" 
-        className={`absolute bottom-4 right-4 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}
+        className={`absolute bottom-4 right-4 z-40 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}
+        style={{ touchAction: 'manipulation' }}
       >
         <ChevronDown className="w-4 h-4" />
       </Button>}
