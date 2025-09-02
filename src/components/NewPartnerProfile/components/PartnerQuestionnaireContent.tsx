@@ -98,8 +98,8 @@ const PartnerQuestionnaireContent = ({
   );
 
   return (
-    <div className={`scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-1 space-y-3 ${isTabletDesktop ? 'px-8 bg-black/5' : 'px-1'}`}>
-        <div id="partner-section-1">
+    <div className={`py-1 space-y-4 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
+        <div id="partner-section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
           <Suspense fallback={<SectionSkeleton />}>
             <PartnerBasics
               profileData={profileData}
@@ -113,7 +113,7 @@ const PartnerQuestionnaireContent = ({
         
         {/* Only render section 2 when section 1 is accessed or completed */}
         {(currentSection >= 2) && (
-          <div id="partner-section-2">
+          <div id="partner-section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
             <Suspense fallback={<SectionSkeleton />}>
               <PartnerOperations
                 profileData={profileData}
@@ -128,7 +128,7 @@ const PartnerQuestionnaireContent = ({
         
         {/* Only render section 3 when section 2 is accessed or completed */}
         {(currentSection >= 3) && (
-          <div id="partner-section-3">
+          <div id="partner-section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
             <Suspense fallback={<SectionSkeleton />}>
               <PartnerFoundation
                 profileData={profileData}
@@ -140,6 +140,14 @@ const PartnerQuestionnaireContent = ({
             </Suspense>
           </div>
         )}
+        
+        {/* Add extra spacing to match personal profile height */}
+        <div className="py-8 sm:py-12">
+          <div className="text-center text-white/40 text-sm">
+            <div className="h-1 w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mb-3" />
+            <p>You're building a complete picture of your partner</p>
+          </div>
+        </div>
       </div>
   );
 };

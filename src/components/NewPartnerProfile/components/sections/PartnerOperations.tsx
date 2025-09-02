@@ -22,7 +22,7 @@ const PartnerOperations = ({
 }: PartnerOperationsProps) => {
   
   return (
-    <div className="space-y-3">
+    <div className="space-y-4 transition-opacity duration-300 opacity-100">
       <PartnerLoveLanguageCard
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
