@@ -19,14 +19,14 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
 
   // Initialize custom pronoun from saved data
   useEffect(() => {
-    const standardPronouns = ['She/her', 'He/him', 'They/them', 'Other'];
+    const standardPronouns = ['She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'];
     if (profileData.partnerPronouns && !standardPronouns.includes(profileData.partnerPronouns)) {
       setCustomPronoun(profileData.partnerPronouns);
     }
   }, [profileData.partnerPronouns]);
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'Other'
+    'She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'
   ];
 
   // Helper function to check if pronouns are complete
@@ -123,7 +123,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
           />
 
           {/* Custom pronoun input */}
-          {(profileData.partnerPronouns === 'Other' || (!['She/her', 'He/him', 'They/them'].includes(profileData.partnerPronouns || '') && profileData.partnerPronouns)) && (
+          {(profileData.partnerPronouns === 'Other' || (!['She/her', 'He/him', 'They/them', 'She/they', 'He/they'].includes(profileData.partnerPronouns || '') && profileData.partnerPronouns)) && (
             <div className="mt-3 animate-fade-in">
               <Input
                 type="text"

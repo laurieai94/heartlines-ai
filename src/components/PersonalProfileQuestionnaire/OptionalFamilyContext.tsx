@@ -31,7 +31,7 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
             <div className="text-left">
               <Label className="text-sm font-semibold text-white">
                 Want to share more family context?
-                <span className="text-orange-300 font-medium text-xs ml-2">(Optional)</span>
+                <span className="text-white font-medium text-xs ml-2">(Optional)</span>
               </Label>
               <div className="text-xs text-white/70 mt-1">
                 Helps us understand your relationship patterns

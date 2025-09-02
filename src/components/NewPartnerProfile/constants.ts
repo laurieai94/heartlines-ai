@@ -4,8 +4,9 @@ export const PARTNER_PRONOUNS_OPTIONS = [
   'She/her',
   'He/him',
   'They/them',
-  'Other',
-  'Not sure / still figuring this out'
+  'She/they',
+  'He/they',
+  'Other'
 ];
 
 export const PARTNER_AGE_OPTIONS = [
