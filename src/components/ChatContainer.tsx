@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, ChevronDown } from "lucide-react";
 import { ChatMessage } from "@/types/AIInsights";
@@ -11,6 +11,7 @@ import { useNavigation } from "@/contexts/NavigationContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
+import { throttle, debounce } from "@/utils/throttle";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -40,6 +41,7 @@ const ChatContainer = ({
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
   const lastScrollTopRef = useRef(0);
+  const isInitializedRef = useRef(false);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -63,44 +65,56 @@ const ChatContainer = ({
     }
   }, [isMobile]);
 
-  // Throttled scroll handler for better performance
-  const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
-    const target = event.currentTarget;
-    const threshold = 100;
-    const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-    const isNear = distanceToBottom < threshold;
-    setIsNearBottom(isNear);
-    setShowScrollToBottom(!isNear && chatHistory.length > 0);
+  // Debounced header visibility update to prevent rapid state changes
+  const debouncedSetVisible = useMemo(
+    () => debounce((visible: boolean) => setVisible(visible), 50),
+    [setVisible]
+  );
 
-    // Mobile header visibility logic
-    if (isMobile) {
-      const currentScrollTop = target.scrollTop;
-      
-      // Initialize lastScrollTopRef on first scroll to prevent jumping
-      if (lastScrollTopRef.current === 0 && currentScrollTop > 0) {
-        lastScrollTopRef.current = currentScrollTop;
-        return; // Skip first scroll calculation
-      }
-      
-      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      const scrollThreshold = 8;
+  // Optimized scroll handler with throttling
+  const handleScroll = useMemo(
+    () => throttle((event: React.UIEvent<HTMLDivElement>) => {
+      const target = event.currentTarget;
+      const threshold = 100;
+      const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+      const isNear = distanceToBottom < threshold;
+      setIsNearBottom(isNear);
+      setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
-      if (currentScrollTop < 16) {
-        // Near top - always show header
-        setVisible(true);
-      } else if (Math.abs(scrollDelta) > scrollThreshold) {
-        if (scrollDelta > 0) {
-          // Scrolling down - hide header
-          setVisible(false);
-        } else {
-          // Scrolling up - show header
-          setVisible(true);
+      // Mobile header visibility logic with improved thresholds
+      if (isMobile) {
+        const currentScrollTop = target.scrollTop;
+        
+        // Initialize on first meaningful scroll
+        if (!isInitializedRef.current && currentScrollTop > 10) {
+          lastScrollTopRef.current = currentScrollTop;
+          isInitializedRef.current = true;
+          return;
+        }
+        
+        if (!isInitializedRef.current) return;
+        
+        const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+        const scrollThreshold = 20; // Increased from 8px to reduce sensitivity
+
+        if (currentScrollTop < 30) {
+          // Near top - always show header
+          debouncedSetVisible(true);
+        } else if (Math.abs(scrollDelta) > scrollThreshold) {
+          if (scrollDelta > 0) {
+            // Scrolling down - hide header
+            debouncedSetVisible(false);
+          } else {
+            // Scrolling up - show header
+            debouncedSetVisible(true);
+          }
+          
+          lastScrollTopRef.current = currentScrollTop;
         }
       }
-
-      lastScrollTopRef.current = currentScrollTop;
-    }
-  }, [chatHistory.length, isMobile, setVisible]);
+    }, 16), // 60fps throttling
+    [chatHistory.length, isMobile, debouncedSetVisible]
+  );
 
   // Smart auto-scroll: only when near bottom and something actually changed
   useEffect(() => {
@@ -170,7 +184,8 @@ const ChatContainer = ({
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
-        className="h-full overscroll-contain" 
+        className={`h-full ${isMobile ? '' : 'overscroll-contain'}`}
+        style={isMobile ? { WebkitOverflowScrolling: 'touch' } : undefined}
         onScroll={handleScroll}
         role="log"
         aria-live="polite"
