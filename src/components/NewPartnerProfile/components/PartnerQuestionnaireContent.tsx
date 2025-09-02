@@ -1,8 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { PartnerProfileData } from "../types";
-import PartnerBasics from "./sections/PartnerBasics";
-import PartnerOperations from "./sections/PartnerOperations";
-import PartnerFoundation from "./sections/PartnerFoundation";
+
+// Lazy load sections for better initial performance
+const PartnerBasics = lazy(() => import("./sections/PartnerBasics"));
+const PartnerOperations = lazy(() => import("./sections/PartnerOperations"));
+const PartnerFoundation = lazy(() => import("./sections/PartnerFoundation"));
 
 interface PartnerQuestionnaireContentProps {
   profileData: PartnerProfileData;
@@ -83,37 +85,61 @@ const PartnerQuestionnaireContent = ({
     onScrollToSection(scrollToSection);
   }, [onScrollToSection]);
 
+  // Component to show loading state for sections
+  const SectionSkeleton = () => (
+    <div className="space-y-4 p-4">
+      <div className="h-6 bg-white/10 rounded animate-pulse" />
+      <div className="h-4 bg-white/5 rounded animate-pulse w-3/4" />
+      <div className="space-y-2">
+        <div className="h-12 bg-white/5 rounded animate-pulse" />
+        <div className="h-12 bg-white/5 rounded animate-pulse" />
+      </div>
+    </div>
+  );
+
   return (
-    <div className={`bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
+    <div className={`scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-1 space-y-3 ${isTabletDesktop ? 'px-8 bg-black/5' : 'px-1'}`}>
         <div id="partner-section-1">
-          <PartnerBasics
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 1}
-            onSectionComplete={() => onSectionComplete(2)}
-          />
+          <Suspense fallback={<SectionSkeleton />}>
+            <PartnerBasics
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={currentSection === 1}
+              onSectionComplete={() => onSectionComplete(2)}
+            />
+          </Suspense>
         </div>
         
-        <div id="partner-section-2">
-          <PartnerOperations
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 2}
-            onSectionComplete={() => onSectionComplete(3)}
-          />
-        </div>
+        {/* Only render section 2 when section 1 is accessed or completed */}
+        {(currentSection >= 2) && (
+          <div id="partner-section-2">
+            <Suspense fallback={<SectionSkeleton />}>
+              <PartnerOperations
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 2}
+                onSectionComplete={() => onSectionComplete(3)}
+              />
+            </Suspense>
+          </div>
+        )}
         
-        <div id="partner-section-3">
-          <PartnerFoundation
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 3}
-            onSectionComplete={() => {}}
-          />
-        </div>
+        {/* Only render section 3 when section 2 is accessed or completed */}
+        {(currentSection >= 3) && (
+          <div id="partner-section-3">
+            <Suspense fallback={<SectionSkeleton />}>
+              <PartnerFoundation
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 3}
+                onSectionComplete={() => {}}
+              />
+            </Suspense>
+          </div>
+        )}
       </div>
   );
 };
