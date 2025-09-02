@@ -515,7 +515,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     profileData: profile,
     isLoading,
     isReady,
-    isSyncing,
+    isSyncing: isSyncing || false,
     updateField,
     handleMultiSelect,
     saveData: updateProfile,
