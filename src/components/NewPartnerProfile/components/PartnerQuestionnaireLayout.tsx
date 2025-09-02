@@ -98,7 +98,7 @@ const PartnerQuestionnaireLayout = ({
           : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
       } animate-scale-in`}>
         
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pb-safe" style={{ scrollPaddingTop: `${headerHeight}px` }}>
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overscroll-contain pb-safe" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain' }}>
           {/* Sticky header and navigation - always visible, responsive design */}
           <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
