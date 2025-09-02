@@ -19,7 +19,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   return (
     <div 
-      className={`questionnaire-card-mobile px-2.5 py-2.5 space-y-2 scroll-mt-14 ${className}`}
+      className={`questionnaire-card-mobile px-2 py-2 space-y-2 scroll-mt-14 ${className}`}
       data-question-card
       id={questionId}
     >

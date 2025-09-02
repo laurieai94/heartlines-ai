@@ -7,7 +7,7 @@ interface MultiSelectProps {
 
 const MultiSelect = ({ options, selectedValues, onToggle }: MultiSelectProps) => {
   return (
-    <div className="flex flex-wrap gap-2 w-full">
+    <div className="flex flex-wrap gap-1.5 w-full">
       {options.map((option) => (
         <button
           key={option}
