@@ -42,6 +42,7 @@ const ChatContainer = ({
   const prevLoadingRef = useRef(loading);
   const lastScrollTopRef = useRef(0);
   const isInitializedRef = useRef(false);
+  const vvPrevHeightRef = useRef<number | null>(null);
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
@@ -75,7 +76,7 @@ const ChatContainer = ({
   const handleScroll = useMemo(
     () => throttle((event: React.UIEvent<HTMLDivElement>) => {
       const target = event.currentTarget;
-      const threshold = 100;
+      const threshold = 48;
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
       const isNear = distanceToBottom < threshold;
       setIsNearBottom(isNear);
@@ -115,46 +116,42 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
-  // Window resize and ResizeObserver for responsive auto-scroll
-  useEffect(() => {
-    const handleWindowResize = () => {
-      if (isNearBottom) {
-        scrollToBottom('auto');
-      }
-    };
+  // Removed auto-scroll on window/viewport resize to prevent scroll catching on mobile
 
-    window.addEventListener('resize', handleWindowResize);
-
-    let resizeObserver: ResizeObserver | undefined;
-    if (viewportRef.current) {
-      resizeObserver = new ResizeObserver(() => {
-        if (isNearBottom) {
-          scrollToBottom('auto');
-        }
-      });
-      resizeObserver.observe(viewportRef.current);
-    }
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-      resizeObserver?.disconnect();
-    };
-  }, [isNearBottom, scrollToBottom]);
-
-  // Handle mobile keyboard visibility changes
+  // Handle mobile keyboard visibility changes (guarded)
   useEffect(() => {
     if (typeof window === 'undefined' || !window.visualViewport) return;
-    
+    if (!isMobile) return;
+
+    const vv = window.visualViewport;
+    // Initialize previous height
+    vvPrevHeightRef.current = vvPrevHeightRef.current ?? vv.height;
+
     const handleViewportChange = () => {
-      if (isNearBottom) {
+      if (!viewportRef.current) {
+        vvPrevHeightRef.current = vv.height;
+        return;
+      }
+      const prev = vvPrevHeightRef.current ?? vv.height;
+      const heightDiff = prev - vv.height;
+      vvPrevHeightRef.current = vv.height;
+
+      // Keyboard likely opened if viewport height decreased significantly
+      const keyboardLikelyOpen = heightDiff > 150;
+
+      const v = viewportRef.current;
+      const distanceToBottom = v.scrollHeight - v.scrollTop - v.clientHeight;
+      const nearBottom = distanceToBottom < 48;
+
+      if (keyboardLikelyOpen && nearBottom) {
         // Small delay to ensure the viewport has stabilized
-        setTimeout(() => scrollToBottom('auto'), 100);
+        setTimeout(() => scrollToBottom('auto'), 50);
       }
     };
-    
-    window.visualViewport.addEventListener('resize', handleViewportChange);
-    return () => window.visualViewport?.removeEventListener('resize', handleViewportChange);
-  }, [isNearBottom, scrollToBottom]);
+
+    vv.addEventListener('resize', handleViewportChange);
+    return () => vv.removeEventListener('resize', handleViewportChange);
+  }, [isMobile, scrollToBottom]);
 
   // Initial scroll to bottom
   useEffect(() => {
