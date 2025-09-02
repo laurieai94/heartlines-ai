@@ -22,7 +22,7 @@ const PartnerConflictCard = ({ profileData, handleMultiSelect, isComplete = fals
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+      <Label className="questionnaire-label-mobile">
         How do they usually handle conflict? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 mb-3">

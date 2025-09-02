@@ -22,7 +22,7 @@ const PartnerOrientationCard = ({ profileData, updateField, isComplete = false }
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+      <Label className="questionnaire-label-mobile">
         What's their sexual orientation?
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">

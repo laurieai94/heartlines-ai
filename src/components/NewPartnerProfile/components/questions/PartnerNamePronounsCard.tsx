@@ -91,7 +91,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
             {generateAvatar(profileData.partnerName || '')}
           </div>
           <div className="flex-1 min-w-0">
-            <Label htmlFor="partnerName" className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+            <Label htmlFor="partnerName" className="questionnaire-label-mobile">
               What should we call them?
             </Label>
             <Input
@@ -100,14 +100,14 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
               value={profileData.partnerName || ''}
               onChange={(e) => updateField('partnerName', e.target.value)}
               placeholder="Their name"
-              className="questionnaire-input-mobile questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
+              className="questionnaire-input-mobile questionnaire-button-secondary font-medium w-full"
             />
           </div>
         </div>
 
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
-          <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+          <Label className="questionnaire-label-mobile">
             What pronouns do they use?
           </Label>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
@@ -131,7 +131,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
                 onBlur={handleCustomPronounBlur}
                 placeholder="Enter their pronouns"
-                className="questionnaire-input-mobile questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
+                className="questionnaire-input-mobile questionnaire-button-secondary"
               />
             </div>
           )}
