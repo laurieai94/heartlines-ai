@@ -93,7 +93,7 @@ const QuestionnaireContent = ({
         });
         
         container.scrollTo({
-          top: relativeTop - Math.max(80, headerOffsetPx + 20),
+          top: relativeTop - Math.max(100, headerOffsetPx + 40),
           behavior: 'smooth'
         });
         
@@ -121,7 +121,7 @@ const QuestionnaireContent = ({
 
   return (
     <div className={`py-2 space-y-4 ${isTabletDesktop ? 'px-8' : 'px-4'}`}>
-        <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        <div id="section-1" data-section="1" className="scroll-mt-24 sm:scroll-mt-20 lg:scroll-mt-24">
         <WhoYouAre
           profileData={profileData}
           updateField={updateField}
@@ -131,7 +131,7 @@ const QuestionnaireContent = ({
         />
         </div>
 
-        <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        <div id="section-2" data-section="2" className="scroll-mt-24 sm:scroll-mt-20 lg:scroll-mt-24">
           <YourRelationship
             profileData={profileData}
             updateField={updateField}
@@ -141,7 +141,7 @@ const QuestionnaireContent = ({
           />
         </div>
 
-        <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        <div id="section-3" data-section="3" className="scroll-mt-24 sm:scroll-mt-20 lg:scroll-mt-24">
           <HowYouOperate
             profileData={profileData}
             updateField={updateField}
@@ -152,7 +152,7 @@ const QuestionnaireContent = ({
           />
         </div>
 
-        <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        <div id="section-4" data-section="4" className="scroll-mt-24 sm:scroll-mt-20 lg:scroll-mt-24">
           <YourFoundation
             profileData={profileData}
             updateField={updateField}
