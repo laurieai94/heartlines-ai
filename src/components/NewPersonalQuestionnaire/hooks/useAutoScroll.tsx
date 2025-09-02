@@ -85,7 +85,7 @@ export const useAutoScroll = () => {
       nextElement = nextElement.nextElementSibling;
     }
 
-    // If no sibling found, look more broadly in the document
+    // If no sibling found, look more broadly in the document but skip collapsed optional content
     if (!nextElement) {
       console.log('🟡 useAutoScroll: No next sibling found, searching all question cards');
       const allQuestionCards = document.querySelectorAll('[data-question-card]');
@@ -95,8 +95,24 @@ export const useAutoScroll = () => {
       console.log('🟡 useAutoScroll: Current question index:', currentIndex);
       
       if (currentIndex !== -1 && currentIndex < allQuestionCards.length - 1) {
-        nextElement = allQuestionCards[currentIndex + 1] as Element;
-        console.log('🟡 useAutoScroll: Found next element by index:', nextElement?.id);
+        // Look for next visible question (not in collapsed optional group)
+        for (let i = currentIndex + 1; i < allQuestionCards.length; i++) {
+          const candidateElement = allQuestionCards[i] as Element;
+          const optionalContent = candidateElement.closest('[data-optional-content]');
+          
+          if (optionalContent) {
+            // Check if this optional group is open
+            const isOpen = optionalContent.getAttribute('data-optional-open') === 'true';
+            if (!isOpen) {
+              console.log('🟡 useAutoScroll: Skipping question in collapsed optional group:', candidateElement.id);
+              continue; // Skip questions in collapsed optional groups
+            }
+          }
+          
+          nextElement = candidateElement;
+          console.log('🟡 useAutoScroll: Found next visible element:', nextElement?.id);
+          break;
+        }
       }
     }
 
