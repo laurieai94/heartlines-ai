@@ -131,7 +131,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
                 onBlur={handleCustomPronounBlur}
                 placeholder="Enter their pronouns"
-                className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
+                className="questionnaire-input-mobile questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
               />
             </div>
           )}
