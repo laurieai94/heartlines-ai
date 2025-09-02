@@ -30,10 +30,10 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="px-1.5 py-0.5 text-xs font-medium bg-white/10 text-white rounded-md border border-white/30 flex-shrink-0">
+                <span className="px-1.5 py-0.5 text-xs font-medium bg-white/20 text-white border border-white/40 flex-shrink-0 rounded-md shadow-sm">
                   Optional
                 </span>
-                <span className="inline text-xs text-emerald-300">+Better insights</span>
+                <span className="inline text-xs font-semibold text-green-400 drop-shadow-sm">+Better insights</span>
               </div>
               <span className="sm:hidden text-sm font-medium text-white/90 text-left">
                 Want to share more family context?
