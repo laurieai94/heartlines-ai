@@ -9,7 +9,7 @@ interface OptionalGroupProps {
   title?: string;
 }
 
-const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
+const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
