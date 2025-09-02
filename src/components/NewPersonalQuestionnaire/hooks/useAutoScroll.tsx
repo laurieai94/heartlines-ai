@@ -11,29 +11,62 @@ export const useAutoScroll = () => {
     }
   }, []);
 
-  const scrollToElement = useCallback((elementId: string, delay: number = 500) => {
+  const scrollToElement = useCallback((elementId: string, delay: number = 150) => {
     console.log('🟡 useAutoScroll: scrollToElement called with elementId:', elementId, 'delay:', delay);
     clearScrollTimeout();
     
     timeoutRef.current = setTimeout(() => {
-      console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
-      
-      const element = document.getElementById(elementId) || 
-                     document.querySelector(`[data-question-card][id="${elementId}"]`) ||
-                     document.querySelector(`[data-question-card*="${elementId}"]`);
-      
-      console.log('🟡 useAutoScroll: Found element:', !!element, element?.id);
-      
-      if (element) {
-        console.log('🟡 useAutoScroll: Scrolling to element:', element.id);
-        element.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start',
-          inline: 'nearest'
+      requestAnimationFrame(() => {
+        console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
+        
+        const element = document.getElementById(elementId) || 
+                       document.querySelector(`[data-question-card][id="${elementId}"]`) ||
+                       document.querySelector(`[data-question-card*="${elementId}"]`);
+        
+        console.log('🟡 useAutoScroll: Found element:', !!element, element?.id);
+        
+        if (!element) {
+          console.warn('🔴 useAutoScroll: Element not found:', elementId);
+          return;
+        }
+
+        // Find scroll container by walking up from element or fallback to document search
+        let container = element.closest('[data-scroll-container]') as HTMLElement;
+        if (!container) {
+          container = document.querySelector('[data-scroll-container]') as HTMLElement;
+        }
+
+        if (!container) {
+          console.warn('🔴 useAutoScroll: No scroll container found, falling back to scrollIntoView');
+          element.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'nearest'
+          });
+          return;
+        }
+
+        // Get header height from sticky header
+        const stickyHeader = container.querySelector('[data-sticky-header]') as HTMLElement;
+        const headerHeight = stickyHeader?.offsetHeight || 0;
+        
+        // Calculate precise scroll position
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
+        const finalTop = Math.max(0, relativeTop - (headerHeight + 12)); // 12px breathing room
+        
+        console.log('🟡 useAutoScroll: Scrolling to element with container scroll', {
+          elementId,
+          headerHeight,
+          finalTop
         });
-      } else {
-        console.warn('🔴 useAutoScroll: Element not found:', elementId);
-      }
+
+        container.scrollTo({
+          top: finalTop,
+          behavior: 'smooth'
+        });
+      });
     }, delay);
   }, [clearScrollTimeout]);
 
