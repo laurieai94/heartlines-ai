@@ -113,7 +113,7 @@ const QuestionnaireLayout = ({
           <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-            <div className="bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
+            <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
               <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
             </div>
