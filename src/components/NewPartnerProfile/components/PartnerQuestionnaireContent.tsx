@@ -63,7 +63,7 @@ const PartnerQuestionnaireContent = ({
 
     const containerTop = container.getBoundingClientRect().top;
     const targetTop = targetElement.getBoundingClientRect().top;
-    const offsetPosition = container.scrollTop + (targetTop - containerTop) - Math.max(40, headerOffsetPx + 40);
+    const offsetPosition = container.scrollTop + (targetTop - containerTop) - Math.max(20, headerOffsetPx + 20);
 
     container.scrollTo({
       top: offsetPosition,

@@ -3,7 +3,6 @@ import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -11,16 +10,8 @@ interface OptionalGroupProps {
 }
 
 const OptionalGroup = ({ children, title = "Share more so we can show up better" }: OptionalGroupProps) => {
-  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  // Auto-open on mobile for better discoverability
-  useEffect(() => {
-    if (isMobile) {
-      setIsOpen(true);
-    }
-  }, [isMobile]);
 
   // Auto-scroll to first question when opened
   useEffect(() => {
@@ -46,11 +37,7 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
         <Tooltip>
           <TooltipTrigger asChild>
-            <CollapsibleTrigger className={`flex items-center justify-between w-full transition-all duration-200 focus-visible:ring-1 focus-visible:ring-white/20 group touch-manipulation active:scale-98 ${
-              isMobile && isOpen 
-                ? 'p-2 rounded-lg bg-white/10 border border-white/20' 
-                : 'p-3 rounded-lg bg-white/20 hover:bg-white/25 border border-white/30 hover:border-white/40 shadow-sm'
-            } sm:p-3 sm:bg-transparent sm:hover:bg-white/5 sm:border-white/10 sm:hover:border-white/20 sm:shadow-none`}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/20 hover:bg-white/25 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/30 hover:border-white/40 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-sm sm:shadow-none touch-manipulation active:scale-98">
               <div className="flex items-center gap-2 sm:gap-3 flex-1">
                 <div className="flex items-center gap-1.5">
                   <span className="px-1.5 py-0.5 text-xs font-medium bg-emerald-400/15 sm:bg-emerald-400/10 text-emerald-100 sm:text-emerald-200 rounded-md border border-emerald-400/40 sm:border-emerald-400/30 flex-shrink-0">
