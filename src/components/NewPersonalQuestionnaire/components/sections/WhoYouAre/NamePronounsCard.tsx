@@ -52,7 +52,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
       );
     }
     return (
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold border border-white">
         {name.charAt(0).toUpperCase()}
       </div>
     );
