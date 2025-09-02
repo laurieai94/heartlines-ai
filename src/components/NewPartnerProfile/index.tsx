@@ -41,13 +41,7 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
     }
   }, [autoCompleteCallback, handleComplete]);
 
-  if (!isReady) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <BrandLoadingText text="profile loading..." color="light" />
-      </div>
-    );
-  }
+  // Render immediately with local data - no more blocking on isReady
 
   return (
     <PartnerQuestionnaireLayout

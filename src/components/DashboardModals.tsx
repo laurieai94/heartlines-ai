@@ -1,5 +1,5 @@
 
-import React, { Suspense, Component, ReactNode } from "react";
+import React, { Suspense, Component, ReactNode, useEffect } from "react";
 import SignUpModal from "@/components/SignUpModal";
 import SplashScreen from "@/components/SplashScreen";
 import NewPersonalQuestionnaire from "@/components/NewPersonalQuestionnaire";
@@ -94,7 +94,15 @@ const DashboardModals = ({
   onPartnerContinueEditing,
   temporaryProfiles
 }: DashboardModalsProps) => {
-  // Removed debug logs for better performance
+  // Prefetch partner profile chunk to warm it up before modal opens
+  useEffect(() => {
+    const prefetchTimeout = setTimeout(() => {
+      import('@/components/NewPartnerProfile').catch(() => {
+        // Silently ignore prefetch failures
+      });
+    }, 100);
+    return () => clearTimeout(prefetchTimeout);
+  }, []);
 
   return (
     <>

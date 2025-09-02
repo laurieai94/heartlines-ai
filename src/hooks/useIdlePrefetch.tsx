@@ -3,8 +3,7 @@ import { useEffect } from 'react';
 // Idle prefetching for route chunks to improve navigation speed
 export const useIdlePrefetch = () => {
   useEffect(() => {
-    // Only prefetch in production and when network conditions are good
-    if (import.meta.env.DEV) return;
+    // Prefetch in both dev and production for faster navigation
     
     const prefetchRoutes = () => {
       // Check if we're on a fast connection

@@ -74,7 +74,7 @@ const PartnerQuestionnaireContent = ({
   // Scroll to first question on mount (section 1)
   useEffect(() => {
     if (currentSection === 1) {
-      setTimeout(() => scrollToSection(1), 100);
+      requestAnimationFrame(() => scrollToSection(1));
     }
   }, []);
 
@@ -83,38 +83,58 @@ const PartnerQuestionnaireContent = ({
     onScrollToSection(scrollToSection);
   }, [onScrollToSection]);
 
+  // Render only active section initially for faster initial load
+  const renderSection = (sectionNum: number) => {
+    if (currentSection < sectionNum) return null; // Don't render future sections until needed
+    
+    switch (sectionNum) {
+      case 1:
+        return (
+          <div id="partner-section-1">
+            <PartnerBasics
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={currentSection === 1}
+              onSectionComplete={() => onSectionComplete(2)}
+            />
+          </div>
+        );
+      case 2:
+        return (
+          <div id="partner-section-2">
+            <PartnerOperations
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={currentSection === 2}
+              onSectionComplete={() => onSectionComplete(3)}
+            />
+          </div>
+        );
+      case 3:
+        return (
+          <div id="partner-section-3">
+            <PartnerFoundation
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={currentSection === 3}
+              onSectionComplete={() => {}}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className={`bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
-        <div id="partner-section-1">
-          <PartnerBasics
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 1}
-            onSectionComplete={() => onSectionComplete(2)}
-          />
-        </div>
-        
-        <div id="partner-section-2">
-          <PartnerOperations
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 2}
-            onSectionComplete={() => onSectionComplete(3)}
-          />
-        </div>
-        
-        <div id="partner-section-3">
-          <PartnerFoundation
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 3}
-            onSectionComplete={() => {}}
-          />
-        </div>
-      </div>
+      {renderSection(1)}
+      {renderSection(2)}
+      {renderSection(3)}
+    </div>
   );
 };
 
