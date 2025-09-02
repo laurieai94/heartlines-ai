@@ -487,9 +487,9 @@
   .questionnaire-continue-elegant {
     @apply backdrop-blur-sm;
     @apply border border-white/25 hover:border-white/35;
-    @apply text-white px-4 py-2.5 rounded-lg transition-all duration-200;
-    @apply text-sm font-semibold flex items-center gap-2;
-    @apply min-h-[44px] active:scale-95 touch-manipulation;
+    @apply text-white px-3 py-1.5 rounded-lg transition-all duration-200;
+    @apply text-xs font-semibold flex items-center gap-1.5;
+    @apply min-h-[36px] active:scale-95 touch-manipulation;
     background-color: rgba(255, 255, 255, 0.15);
   }
   
