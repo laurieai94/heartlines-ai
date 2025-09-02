@@ -34,7 +34,7 @@ const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: Partne
         showContinue={isComplete}
         onContinue={() => scrollToNextQuestion(questionId)}
       >
-        <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+        <Label className="text-sm font-semibold text-white mb-2 block">
           What's their age?
         </Label>
         <div className="hidden sm:flex items-center gap-2 mb-3">

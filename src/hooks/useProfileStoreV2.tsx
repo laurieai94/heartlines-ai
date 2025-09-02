@@ -113,22 +113,6 @@ const STORAGE_CONFIG = {
 
 const DEBOUNCE_MS = 2000;
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
-// Module-level cache and in-flight tracking to prevent duplicate database requests
-const dbCache = new Map<string, { data: any; timestamp: number; }>();
-const inFlightRequests = new Map<string, Promise<any>>();
-const CACHE_TTL_MS = 30000; // 30 seconds cache
-
-const getCacheKey = (userId: string, profileType: ProfileType) => `${userId}:${profileType}`;
-
-const clearExpiredCache = () => {
-  const now = Date.now();
-  for (const [key, value] of dbCache.entries()) {
-    if (now - value.timestamp > CACHE_TTL_MS) {
-      dbCache.delete(key);
-    }
-  }
-};
-
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
@@ -339,68 +323,36 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
   };
 
-  // Load from database with deduplication and caching
+  // Load from database
   const loadFromDatabase = useCallback(async (): Promise<PersonalProfileV2 | PartnerProfileV2> => {
     if (!user) return defaultProfile;
 
-    const cacheKey = getCacheKey(user.id, profileType);
-    
-    // Check cache first
-    clearExpiredCache();
-    const cached = dbCache.get(cacheKey);
-    if (cached) {
-      console.log(`[ProfileV2-${profileType}] Using cached database result`);
-      return cached.data;
-    }
+    try {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('profile_data, demographics_data')
+        .eq('user_id', user.id)
+        .eq('profile_type', config.dbType)
+        .single();
 
-    // Check for in-flight request
-    const existingRequest = inFlightRequests.get(cacheKey);
-    if (existingRequest) {
-      console.log(`[ProfileV2-${profileType}] Joining existing database request`);
-      return existingRequest;
-    }
+      if (error && error.code !== 'PGRST116') throw error;
 
-    // Create new request
-    const requestPromise = (async () => {
-      try {
-        const { data, error } = await supabase
-          .from('user_profiles')
-          .select('profile_data, demographics_data')
-          .eq('user_id', user.id)
-          .eq('profile_type', config.dbType)
-          .maybeSingle(); // Use maybeSingle to avoid throws on empty results
-
-        if (error) {
-          console.error(`[ProfileV2-${profileType}] Database query error:`, error);
-          throw error;
-        }
-
-        let result = defaultProfile;
-        if (data) {
-          const profileData = (data.profile_data && typeof data.profile_data === 'object') ? data.profile_data : {};
-          const demographicsData = (data.demographics_data && typeof data.demographics_data === 'object') ? data.demographics_data : {};
-          
-          const merged = { 
-            ...(profileData as any), 
-            ...(demographicsData as any) 
-          };
-          const migrated = migrateLegacyData(merged);
-          result = { ...defaultProfile, ...migrated, version: '2.0' };
-        }
-
-        // Cache the result
-        dbCache.set(cacheKey, { data: result, timestamp: Date.now() });
-        return result;
-      } catch (error) {
-        console.error(`[ProfileV2-${profileType}] Database load error:`, error);
-        return defaultProfile;
-      } finally {
-        inFlightRequests.delete(cacheKey);
+      if (data) {
+        const profileData = (data.profile_data && typeof data.profile_data === 'object') ? data.profile_data : {};
+        const demographicsData = (data.demographics_data && typeof data.demographics_data === 'object') ? data.demographics_data : {};
+        
+        const merged = { 
+          ...(profileData as any), 
+          ...(demographicsData as any) 
+        };
+        const migrated = migrateLegacyData(merged);
+        return { ...defaultProfile, ...migrated, version: '2.0' };
       }
-    })();
+    } catch (error) {
+      console.error(`[ProfileV2-${profileType}] Database load error:`, error);
+    }
 
-    inFlightRequests.set(cacheKey, requestPromise);
-    return requestPromise;
+    return defaultProfile;
   }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
 
   // Initialize and load data

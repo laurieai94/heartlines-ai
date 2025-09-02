@@ -22,7 +22,7 @@ const PartnerSelfAwarenessCard = ({ profileData, updateField, isComplete = false
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <Label className="questionnaire-label-mobile">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         How self-aware are they about their relationship patterns?
       </Label>
       <div className="flex items-center gap-2 mb-3">

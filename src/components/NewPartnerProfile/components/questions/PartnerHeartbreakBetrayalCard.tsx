@@ -22,7 +22,7 @@ const PartnerHeartbreakBetrayalCard = ({ profileData, handleMultiSelect, isCompl
       showContinue={isComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <Label className="questionnaire-label-mobile text-sm sm:text-sm font-semibold text-white mb-2 block">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         Have they been through any major heartbreaks or betrayals? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="flex items-center gap-2 mb-3">

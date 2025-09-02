@@ -22,7 +22,7 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }:
       showContinue={false}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
-      <Label className="questionnaire-label-mobile">
+      <Label className="text-sm font-semibold text-white mb-2 block">
         What's their attachment style (from what you can tell)?
       </Label>
       <div className="flex items-center gap-2 mb-3">
