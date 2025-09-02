@@ -37,10 +37,10 @@ const OptionalGroup = ({ children, title = "Share more so we can show up better"
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
         <Tooltip>
           <TooltipTrigger asChild>
-            <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/20 hover:bg-white/25 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/30 hover:border-white/40 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-sm sm:shadow-none touch-manipulation active:scale-98">
+            <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-none touch-manipulation active:scale-98">
               <div className="flex items-center gap-2 sm:gap-3 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="px-1.5 py-0.5 text-xs font-medium bg-emerald-400/15 sm:bg-emerald-400/10 text-emerald-100 sm:text-emerald-200 rounded-md border border-emerald-400/40 sm:border-emerald-400/30 flex-shrink-0">
+                  <span className="px-1.5 py-0.5 text-xs font-medium bg-emerald-400/10 text-emerald-200 rounded-md border border-emerald-400/30 flex-shrink-0">
                     Optional
                   </span>
                   <span className="hidden sm:inline text-xs text-emerald-200/70">+Better insights</span>
