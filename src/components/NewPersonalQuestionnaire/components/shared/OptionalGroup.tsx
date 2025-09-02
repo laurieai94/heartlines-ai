@@ -37,7 +37,7 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
         <Tooltip>
           <TooltipTrigger asChild>
-            <CollapsibleTrigger className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/20 group shadow-none touch-manipulation active:scale-98">
+            <CollapsibleTrigger aria-label={title || "Optional section"} aria-expanded={isOpen} className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/30 group shadow-none touch-manipulation active:scale-98">
                 <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="px-2 py-0.5 text-xs font-semibold bg-transparent text-white border-2 border-white flex-shrink-0 rounded-md drop-shadow">

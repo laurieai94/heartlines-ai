@@ -87,7 +87,7 @@ const PartnerQuestionnaireLayout = ({
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4'}`}>
-      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88vh] flex flex-col' : 'w-full max-w-5xl max-h-[95vh] sm:max-h-[90vh] flex flex-col'} ${
+      <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[88dvh] flex flex-col' : 'w-full max-w-5xl max-h-[95dvh] sm:max-h-[90dvh] flex flex-col'} ${
         // Force desktop styling on tablet and above
         isTabletDesktop 
           ? 'border border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
@@ -98,7 +98,7 @@ const PartnerQuestionnaireLayout = ({
           : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
       } animate-scale-in`}>
         
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto" style={{ scrollPaddingTop: `${headerHeight}px` }}>
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pb-safe" style={{ scrollPaddingTop: `${headerHeight}px` }}>
           {/* Sticky header and navigation - always visible, responsive design */}
           <div ref={stickyHeaderRef} className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
