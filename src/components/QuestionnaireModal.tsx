@@ -30,7 +30,7 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
         </button>
         
         {/* Questionnaire Content */}
-        <div className="h-full w-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+        <div className="h-full w-full overflow-hidden">
           <PersonalProfileQuestionnaire onComplete={onClose} onClose={onClose} isModal={true} />
         </div>
       </div>
