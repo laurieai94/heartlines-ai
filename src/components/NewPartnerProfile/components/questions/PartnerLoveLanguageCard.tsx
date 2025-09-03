@@ -9,17 +9,19 @@ interface PartnerLoveLanguageCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
   isComplete?: boolean;
+  onSectionComplete?: () => void;
 }
 const PartnerLoveLanguageCard = ({
   profileData,
   handleMultiSelect,
-  isComplete = false
+  isComplete = false,
+  onSectionComplete
 }: PartnerLoveLanguageCardProps) => {
   const {
     scrollToNextQuestion
   } = useAutoScroll();
   const questionId = "partner-love-language-question";
-  return <QuestionCard questionId={questionId} showContinue={isComplete} onContinue={() => scrollToNextQuestion(questionId)}>
+  return <QuestionCard questionId={questionId} showContinue={isComplete} onContinue={onSectionComplete || (() => scrollToNextQuestion(questionId))}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do they seem to feel most loved? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>

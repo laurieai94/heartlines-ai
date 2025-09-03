@@ -23,7 +23,7 @@ const PartnerBasics = ({
 }: PartnerBasicsProps) => {
   return (
     <div className="space-y-4 transition-opacity duration-300 opacity-100">
-      <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} />
+      <PartnerNamePronounsCard profileData={profileData} updateField={updateField} isComplete={!!profileData.partnerName && !!profileData.partnerPronouns} onSectionComplete={onSectionComplete} />
 
       <OptionalGroup 
         title="Share a few details about their vibe and your dynamic"

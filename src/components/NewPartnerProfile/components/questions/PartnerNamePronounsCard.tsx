@@ -11,9 +11,10 @@ interface PartnerNamePronounsCardProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
   isComplete: boolean;
+  onSectionComplete?: () => void;
 }
 
-const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: PartnerNamePronounsCardProps) => {
+const PartnerNamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: PartnerNamePronounsCardProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
   const [customPronoun, setCustomPronoun] = useState("");
 
@@ -82,7 +83,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete }: Partn
     <QuestionCard 
       questionId="question-partner-name-pronouns"
       showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion('question-partner-name-pronouns')}
+      onContinue={onSectionComplete || (() => scrollToNextQuestion('question-partner-name-pronouns'))}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}

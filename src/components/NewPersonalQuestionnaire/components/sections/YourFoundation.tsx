@@ -31,6 +31,7 @@ const YourFoundation = ({
         profileData={profileData}
         updateField={updateField}
         onComplete={onSectionComplete}
+        onSectionComplete={onSectionComplete}
       />
 
       {/* Optional Fields */}

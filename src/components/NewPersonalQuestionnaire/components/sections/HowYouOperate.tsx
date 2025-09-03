@@ -29,6 +29,7 @@ const HowYouOperate = ({
       <LoveLanguageQuestion
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
+        onSectionComplete={onSectionComplete}
       />
 
       {/* Optional Fields */}

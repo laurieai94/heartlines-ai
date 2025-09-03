@@ -63,6 +63,7 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
         profileData={profileData}
         updateField={updateField}
         isComplete={isNamePronounsComplete}
+        onSectionComplete={onSectionComplete}
       />
 
       {/* Optional Fields */}

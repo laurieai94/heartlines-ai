@@ -27,6 +27,7 @@ const PartnerOperations = ({
         profileData={profileData}
         handleMultiSelect={handleMultiSelect}
         isComplete={!!(profileData.partnerLoveLanguage && profileData.partnerLoveLanguage.length > 0)}
+        onSectionComplete={onSectionComplete}
       />
 
       <OptionalGroup 

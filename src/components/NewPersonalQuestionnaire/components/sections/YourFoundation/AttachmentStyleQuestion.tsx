@@ -11,12 +11,14 @@ interface AttachmentStyleQuestionProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   onComplete?: () => void;
   onQuestionComplete?: () => void;
+  onSectionComplete?: () => void;
 }
 const AttachmentStyleQuestion = ({
   profileData,
   updateField,
   onComplete,
-  onQuestionComplete
+  onQuestionComplete,
+  onSectionComplete
 }: AttachmentStyleQuestionProps) => {
   const {
     scrollToNextQuestion
@@ -25,7 +27,7 @@ const AttachmentStyleQuestion = ({
   return <QuestionCard 
     questionId="question-attachment-style"
     showContinue={isComplete}
-    onContinue={() => scrollToNextQuestion('question-attachment-style')}
+    onContinue={onSectionComplete || (() => scrollToNextQuestion('question-attachment-style'))}
   >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
