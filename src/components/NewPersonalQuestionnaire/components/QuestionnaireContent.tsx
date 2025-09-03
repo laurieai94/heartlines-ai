@@ -32,7 +32,7 @@ const QuestionnaireContent = ({
 }: QuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { scrollToElement } = useAutoScroll();
 
   // Track tablet/desktop state
   useEffect(() => {
@@ -76,7 +76,7 @@ const QuestionnaireContent = ({
       
       if (targetElement?.id) {
         console.log('🟠 QuestionnaireContent: Using shared scrollToElement for consistent behavior');
-        scrollToNextQuestion(targetElement.id, 0);
+        scrollToElement(targetElement.id, 300);
       } else {
         console.error('🔴 QuestionnaireContent: Neither first question nor section element found for section:', sectionNumber);
       }

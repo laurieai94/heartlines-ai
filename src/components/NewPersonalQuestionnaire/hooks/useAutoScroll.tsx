@@ -73,9 +73,19 @@ export const useAutoScroll = () => {
           const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
           targetScrollTop = relativeElementTop - headerHeight - margin;
         } else if (elementBottom > viewBottom) {
-          // Element extends below viewport - scroll down to show it fully
-          const relativeElementBottom = elementRect.bottom - containerRect.top + container.scrollTop;
-          targetScrollTop = relativeElementBottom - container.clientHeight + margin;
+          // Element extends below viewport
+          const availableViewHeight = viewBottom - viewTop;
+          const elementHeight = elementRect.height;
+          
+          // If element is taller than viewport, position its top just under header
+          if (elementHeight > availableViewHeight) {
+            const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
+            targetScrollTop = relativeElementTop - headerHeight - margin;
+          } else {
+            // Otherwise, show it fully by scrolling down
+            const relativeElementBottom = elementRect.bottom - containerRect.top + container.scrollTop;
+            targetScrollTop = relativeElementBottom - container.clientHeight + margin;
+          }
         }
         
         // Clamp scroll position to valid range
@@ -176,13 +186,37 @@ export const useAutoScroll = () => {
             continue;
           }
           
-          // Skip questions in collapsed optional groups
+          // Handle questions in collapsed optional groups
           const optionalContent = candidateElement.closest('[data-optional-content]');
           if (optionalContent) {
             const isOpen = optionalContent.getAttribute('data-optional-open') === 'true';
             if (!isOpen) {
-              console.log('🟡 useAutoScroll: Skipping question in collapsed optional group:', candidateElement.id);
-              continue;
+              // Try to auto-open the collapsed optional group
+              console.log('🟡 useAutoScroll: Found question in collapsed optional group, attempting to open:', candidateElement.id);
+              const optionalGroup = optionalContent.closest('[data-optional-group]');
+              const triggerElement = optionalGroup?.querySelector('[data-optional-trigger]') as HTMLElement;
+              
+              if (triggerElement) {
+                console.log('🟡 useAutoScroll: Opening collapsed optional group');
+                triggerElement.click();
+                
+                // Wait for the group to open, then retry scrolling
+                setTimeout(() => {
+                  if (candidateElement.id) {
+                    scrollToElement(candidateElement.id, 100);
+                  } else {
+                    // Assign temporary ID if none exists
+                    const tempId = `auto-expanded-${Date.now()}`;
+                    candidateElement.id = tempId;
+                    scrollToElement(tempId, 100);
+                  }
+                }, 350); // Allow time for expansion animation
+                
+                return candidateElement;
+              } else {
+                console.log('🟡 useAutoScroll: Could not find trigger to open optional group, skipping');
+                continue;
+              }
             }
           }
           
