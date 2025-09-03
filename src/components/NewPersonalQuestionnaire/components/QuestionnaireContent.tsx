@@ -1,11 +1,13 @@
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { ProfileData } from "../types";
 import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
-import YourRelationship from "./sections/YourRelationship";
-import HowYouOperate from "./sections/HowYouOperate";
-import YourFoundation from "./sections/YourFoundation";
+
+// Lazy load sections for better initial performance
+const YourRelationship = lazy(() => import("./sections/YourRelationship"));
+const HowYouOperate = lazy(() => import("./sections/HowYouOperate"));
+const YourFoundation = lazy(() => import("./sections/YourFoundation"));
 
 interface QuestionnaireContentProps {
   profileData: ProfileData;
@@ -119,6 +121,18 @@ const QuestionnaireContent = ({
     }
   }, [onScrollToSection]);
 
+  // Component to show loading state for sections
+  const SectionSkeleton = () => (
+    <div className="space-y-4 p-4">
+      <div className="h-6 bg-white/10 rounded animate-pulse" />
+      <div className="h-4 bg-white/5 rounded animate-pulse w-3/4" />
+      <div className="space-y-2">
+        <div className="h-12 bg-white/5 rounded animate-pulse" />
+        <div className="h-12 bg-white/5 rounded animate-pulse" />
+      </div>
+    </div>
+  );
+
   return (
     <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
@@ -131,36 +145,50 @@ const QuestionnaireContent = ({
         />
         </div>
 
-        <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
-          <YourRelationship
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 2}
-            onSectionComplete={() => onSectionComplete?.(3)}
-          />
-        </div>
+        {/* Only render section 2 when section 1 is accessed or completed */}
+        {(currentSection >= 2) && (
+          <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+            <Suspense fallback={<SectionSkeleton />}>
+              <YourRelationship
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 2}
+                onSectionComplete={() => onSectionComplete?.(3)}
+              />
+            </Suspense>
+          </div>
+        )}
 
-        <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
-          <HowYouOperate
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 3}
-            
-            onSectionComplete={() => onSectionComplete?.(4)}
-          />
-        </div>
+        {/* Only render section 3 when section 2 is accessed or completed */}
+        {(currentSection >= 3) && (
+          <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+            <Suspense fallback={<SectionSkeleton />}>
+              <HowYouOperate
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 3}
+                onSectionComplete={() => onSectionComplete?.(4)}
+              />
+            </Suspense>
+          </div>
+        )}
 
-        <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
-          <YourFoundation
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            isActive={currentSection === 4}
-            onSectionComplete={() => {}} // Final section, no next section
-          />
-        </div>
+        {/* Only render section 4 when section 3 is accessed or completed */}
+        {(currentSection >= 4) && (
+          <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+            <Suspense fallback={<SectionSkeleton />}>
+              <YourFoundation
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 4}
+                onSectionComplete={() => {}} // Final section, no next section
+              />
+            </Suspense>
+          </div>
+        )}
       </div>
   );
 };
