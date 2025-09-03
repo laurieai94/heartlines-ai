@@ -15,11 +15,12 @@ interface PartnerAttachmentCardProps {
 const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }: PartnerAttachmentCardProps) => {
   const { scrollToNextQuestion } = useAutoScroll();
   const questionId = "partner-attachment-question";
+  const cardIsComplete = !!profileData.partnerAttachmentStyle;
   
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={false}
+      showContinue={cardIsComplete}
       onContinue={() => scrollToNextQuestion(questionId)}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
