@@ -74,10 +74,10 @@ const QuestionnaireLayout = ({
       requestAnimationFrame(() => {
         scrollToSectionFn.current!(nextSection);
         
-        // Release lock after scroll completes - increased timeout for stability
+        // Release lock after scroll completes - increased timeout for stability and lazy loading
         setTimeout(() => {
           navLock.current = false;
-        }, 800);
+        }, 1200);
       });
     } else {
       // Release lock if no scroll function

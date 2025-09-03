@@ -4,7 +4,6 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
   const [currentSection, setCurrentSection] = useState(1);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const sectionVisibility = useRef<Record<number, number>>({});
-  const isProgrammaticScrollRef = useRef(false);
 
   useEffect(() => {
     if (observerRef.current) {
@@ -13,9 +12,10 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        // Skip updates during programmatic scrolling to prevent conflicts
-        if (isProgrammaticScrollRef.current) {
-          console.log('🟡 useCurrentSectionDetection: Skipping intersection updates during programmatic scroll');
+        // Check if a programmatic scroll is in progress to avoid interference
+        const isProgrammaticScroll = document.documentElement.hasAttribute('data-programmatic-scroll');
+        if (isProgrammaticScroll) {
+          console.log('🟡 useCurrentSectionDetection: Skipping intersection update - programmatic scroll in progress');
           return;
         }
         
@@ -37,6 +37,7 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
           }, { section: 1, ratio: 0 });
 
         if (mostVisibleSection.section !== currentSection) {
+          console.log('🟡 useCurrentSectionDetection: Section changed to:', mostVisibleSection.section, 'visibility:', mostVisibleSection.ratio);
           setCurrentSection(mostVisibleSection.section);
           onSectionChange(mostVisibleSection.section);
         }
@@ -53,22 +54,8 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
       observerRef.current?.observe(section);
     });
 
-    // Listen for programmatic scroll events from useAutoScroll
-    const checkProgrammaticScroll = () => {
-      // Try to access the isProgrammaticScrollRef from useAutoScroll if available
-      const scrollContainer = document.querySelector('[data-scroll-container]');
-      if (scrollContainer) {
-        // Check if any scroll is happening programmatically
-        const autoScrollElement = document.querySelector('[data-auto-scroll="true"]');
-        isProgrammaticScrollRef.current = !!autoScrollElement;
-      }
-    };
-    
-    const intervalId = setInterval(checkProgrammaticScroll, 100);
-
     return () => {
       observerRef.current?.disconnect();
-      clearInterval(intervalId);
     };
   }, [currentSection, onSectionChange, prefix]);
 

@@ -57,11 +57,22 @@ const YourRelationship = ({
     // Show continue button immediately after selecting a relationship status
     return !!profileData.relationshipStatus;
   };
+
+  const handleContinueAfterStatus = () => {
+    // Use onSectionComplete if provided (layout-managed navigation)
+    // Otherwise use scroll-based navigation as fallback
+    if (onSectionComplete) {
+      console.log('🟢 YourRelationship: Using onSectionComplete for navigation');
+      onSectionComplete();
+    } else {
+      console.log('🟢 YourRelationship: Using scrollToNextRequiredQuestion fallback');
+      scrollToNextRequiredQuestion('question-relationship-status');
+    }
+  };
+
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
       {/* Relationship Status */}
-      <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={onSectionComplete || (() => {
-        scrollToNextRequiredQuestion('question-relationship-status');
-      })}>
+      <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={handleContinueAfterStatus}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select the answer that resonates most</span>
         </Label>

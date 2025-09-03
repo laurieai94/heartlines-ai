@@ -58,6 +58,10 @@ export const useAutoScroll = () => {
         
         // Mark as programmatic scroll to ignore intersection observer updates
         isProgrammaticScrollRef.current = true;
+        
+        // Set programmatic scroll attribute for intersection observer coordination
+        document.documentElement.setAttribute('data-programmatic-scroll', 'true');
+        
         console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
         
         const element = document.getElementById(elementId) || 
@@ -203,6 +207,7 @@ export const useAutoScroll = () => {
                   // Release programmatic scroll flag after successful verification
                   setTimeout(() => {
                     isProgrammaticScrollRef.current = false;
+                    document.documentElement.removeAttribute('data-programmatic-scroll');
                   }, 150);
                 }
               });
@@ -216,6 +221,7 @@ export const useAutoScroll = () => {
           // Still release programmatic scroll flag even if we don't scroll
           setTimeout(() => {
             isProgrammaticScrollRef.current = false;
+            document.documentElement.removeAttribute('data-programmatic-scroll');
           }, 100);
         }
       });
@@ -354,9 +360,8 @@ export const useAutoScroll = () => {
     }
   }, [scrollToElement]);
 
-  const scrollToNextRequiredQuestion = useCallback((currentQuestionId: string) => {
-    console.log('🔵 DEBUG: scrollToNextRequiredQuestion called with:', currentQuestionId);
-    console.log('🔵 DEBUG: Function is working and being called');
+  const scrollToNextRequiredQuestion = useCallback((currentQuestionId: string, retryCount: number = 0) => {
+    console.log('🔵 DEBUG: scrollToNextRequiredQuestion called with:', currentQuestionId, 'retry:', retryCount);
     
     // Define the order of required questions based on requirements.ts
     const requiredQuestionFlow = [
@@ -371,8 +376,54 @@ export const useAutoScroll = () => {
     
     if (currentIndex !== -1 && currentIndex < requiredQuestionFlow.length - 1) {
       const nextQuestionId = requiredQuestionFlow[currentIndex + 1];
-      console.log('🟡 useAutoScroll: Scrolling to next required question:', nextQuestionId);
-      scrollToElement(nextQuestionId, 300);
+      console.log('🟡 useAutoScroll: Looking for next required question:', nextQuestionId);
+      
+      // Check if target element exists and is visible (lazy loading coordination)
+      const targetElement = document.getElementById(nextQuestionId);
+      
+      if (!targetElement && retryCount < 3) {
+        // Element doesn't exist yet - likely lazy loading, retry
+        console.log('🟡 useAutoScroll: Target element not found, retrying in 300ms (lazy loading)');
+        setTimeout(() => {
+          scrollToNextRequiredQuestion(currentQuestionId, retryCount + 1);
+        }, 300);
+        return;
+      }
+      
+      if (targetElement) {
+        // Check if element is in a collapsed section that needs expansion
+        const targetSection = targetElement.closest('[id^="section-"]');
+        if (targetSection) {
+          // Check if this is a cross-section transition requiring special handling
+          const currentElement = document.getElementById(currentQuestionId);
+          const currentSection = currentElement?.closest('[id^="section-"]');
+          
+          if (currentSection && targetSection && currentSection !== targetSection) {
+            console.log('🟡 useAutoScroll: Cross-section transition detected, adding delay for lazy loading');
+            // Add extra delay for cross-section transitions with lazy loading
+            setTimeout(() => {
+              scrollToElement(nextQuestionId, 100);
+            }, 200);
+            return;
+          }
+        }
+        
+        console.log('🟡 useAutoScroll: Scrolling to next required question:', nextQuestionId);
+        scrollToElement(nextQuestionId, 300);
+      } else {
+        console.warn('🔴 useAutoScroll: Target element still not found after retries:', nextQuestionId);
+        // Fallback to next section
+        const currentElement = document.getElementById(currentQuestionId);
+        if (currentElement) {
+          const currentSection = currentElement.closest('[id^="section-"]');
+          if (currentSection) {
+            const currentSectionId = currentSection.id;
+            const sectionNumber = parseInt(currentSectionId.replace('section-', ''));
+            console.log('🟡 useAutoScroll: Falling back to next section:', sectionNumber + 1);
+            scrollToNextSection(sectionNumber);
+          }
+        }
+      }
     } else {
       console.log('🟡 useAutoScroll: No more required questions, looking for next section');
       // If no more required questions, try to scroll to next section
