@@ -84,8 +84,8 @@ const QuestionnaireContent = ({
     
     // Use requestAnimationFrame to ensure DOM is ready
     requestAnimationFrame(() => {
-      // Add small delay to ensure all components are rendered
-      setTimeout(attemptScroll, 100);
+      // Add longer delay to ensure all components are rendered and stabilized
+      setTimeout(attemptScroll, 250);
     });
   };
 

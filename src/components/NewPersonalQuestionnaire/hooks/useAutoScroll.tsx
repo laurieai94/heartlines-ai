@@ -12,11 +12,44 @@ export const useAutoScroll = () => {
     }
   }, []);
 
+  // Helper to wait for layout stability before scrolling
+  const waitForLayoutStability = useCallback(async (): Promise<void> => {
+    return new Promise((resolve) => {
+      let stableCount = 0;
+      let lastHeight = document.body.scrollHeight;
+      
+      const checkStability = () => {
+        const currentHeight = document.body.scrollHeight;
+        if (currentHeight === lastHeight) {
+          stableCount++;
+          if (stableCount >= 3) { // 3 consecutive stable measurements
+            resolve();
+            return;
+          }
+        } else {
+          stableCount = 0;
+          lastHeight = currentHeight;
+        }
+        
+        setTimeout(checkStability, 50);
+      };
+      
+      // Start checking
+      setTimeout(checkStability, 50);
+      
+      // Safety timeout - don't wait forever
+      setTimeout(() => resolve(), 500);
+    });
+  }, []);
+
   const scrollToElement = useCallback((elementId: string, delay: number = 150) => {
     console.log('🟡 useAutoScroll: scrollToElement called with elementId:', elementId, 'delay:', delay);
     clearScrollTimeout();
     
-    timeoutRef.current = setTimeout(() => {
+    timeoutRef.current = setTimeout(async () => {
+      // Wait for layout stability first
+      await waitForLayoutStability();
+      
       requestAnimationFrame(() => {
         // Blur active element to prevent focus conflicts during scrolling
         if (document.activeElement && document.activeElement !== document.body) {
@@ -54,45 +87,49 @@ export const useAutoScroll = () => {
           return;
         }
 
-        // Get header height from sticky header
+        // Get header height from sticky header with enhanced detection
         const stickyHeader = container.querySelector('[data-sticky-header]') as HTMLElement;
         const headerHeight = stickyHeader?.offsetHeight || 0;
-        const margin = 16; // Breathing room
+        const topMargin = 20; // More breathing room at top
+        const bottomMargin = 24; // Extra space at bottom for Continue button
         
-        // Calculate element and container positions for full visibility
+        // Calculate element and container positions for COMPLETE visibility
         const containerRect = container.getBoundingClientRect();
         const elementRect = element.getBoundingClientRect();
         
-        // Get current scroll position and viewport bounds
+        // Enhanced viewport calculation ensuring complete visibility
         const containerTop = containerRect.top;
-        const containerBottom = containerRect.bottom;
-        const viewTop = containerTop + headerHeight + margin;
-        const viewBottom = containerBottom - margin;
+        const containerHeight = containerRect.height;
+        const availableViewTop = containerTop + headerHeight + topMargin;
+        const availableViewBottom = containerTop + containerHeight - bottomMargin;
+        const availableViewHeight = availableViewBottom - availableViewTop;
         
-        // Element positions relative to viewport
+        // Element positions and dimensions
         const elementTop = elementRect.top;
         const elementBottom = elementRect.bottom;
+        const elementHeight = elementRect.height;
         
         let targetScrollTop = container.scrollTop;
+        let needsScroll = false;
         
-        // Check if element needs to be scrolled into view
-        if (elementTop < viewTop) {
-          // Element is hidden under header - scroll up to show it
-          const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
-          targetScrollTop = relativeElementTop - headerHeight - margin;
-        } else if (elementBottom > viewBottom) {
-          // Element extends below viewport
-          const availableViewHeight = viewBottom - viewTop;
-          const elementHeight = elementRect.height;
+        // GUARANTEE: Entire element must be completely visible
+        const isFullyVisible = elementTop >= availableViewTop && elementBottom <= availableViewBottom;
+        
+        if (!isFullyVisible) {
+          needsScroll = true;
           
-          // If element is taller than viewport, position its top just under header
           if (elementHeight > availableViewHeight) {
+            // Element is taller than viewport - position top under header
             const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
-            targetScrollTop = relativeElementTop - headerHeight - margin;
-          } else {
-            // Otherwise, show it fully by scrolling down
+            targetScrollTop = relativeElementTop - headerHeight - topMargin;
+          } else if (elementTop < availableViewTop) {
+            // Element is hidden under header - scroll up
+            const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
+            targetScrollTop = relativeElementTop - headerHeight - topMargin;
+          } else if (elementBottom > availableViewBottom) {
+            // Element extends below viewport - scroll down to show bottom
             const relativeElementBottom = elementRect.bottom - containerRect.top + container.scrollTop;
-            targetScrollTop = relativeElementBottom - container.clientHeight + margin;
+            targetScrollTop = relativeElementBottom - containerHeight + bottomMargin;
           }
         }
         
@@ -100,48 +137,82 @@ export const useAutoScroll = () => {
         const maxScroll = container.scrollHeight - container.clientHeight;
         const finalTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
         
-        // Only scroll if position changed significantly
-        if (Math.abs(finalTop - container.scrollTop) > 5) {
-          console.log('🟡 useAutoScroll: Scrolling to ensure full visibility', {
+        // Only scroll if needed and position changed significantly
+        if (needsScroll && Math.abs(targetScrollTop - container.scrollTop) > 3) {
+          console.log('🟡 useAutoScroll: Scrolling to ensure COMPLETE visibility', {
             elementId,
             headerHeight,
+            elementHeight,
+            availableViewHeight,
+            isFullyVisible,
             currentScroll: container.scrollTop,
-            targetScroll: finalTop,
-            elementVisible: elementTop >= viewTop && elementBottom <= viewBottom
+            targetScroll: targetScrollTop,
+            elementTop,
+            elementBottom,
+            availableViewTop,
+            availableViewBottom
           });
 
           container.scrollTo({
-            top: finalTop,
+            top: targetScrollTop,
             behavior: 'smooth'
           });
           
-          // Post-scroll verification - check once more after animation
-          setTimeout(() => {
-            requestAnimationFrame(() => {
-              const updatedElementRect = element.getBoundingClientRect();
-              const updatedContainerRect = container.getBoundingClientRect();
-              const updatedViewTop = updatedContainerRect.top + headerHeight + margin;
-              const updatedViewBottom = updatedContainerRect.bottom - margin;
-              
-              if (updatedElementRect.top < updatedViewTop || updatedElementRect.bottom > updatedViewBottom) {
-                console.log('🟡 useAutoScroll: Re-adjusting scroll position after verification');
-                const adjustedTop = updatedElementRect.top - updatedContainerRect.top + container.scrollTop - headerHeight - margin;
-                const clampedTop = Math.max(0, Math.min(adjustedTop, container.scrollHeight - container.clientHeight));
+          // Enhanced post-scroll verification with retry loop
+          const verifyAndCorrect = (attemptCount = 0) => {
+            if (attemptCount >= 3) {
+              console.log('🟡 useAutoScroll: Max verification attempts reached');
+              isProgrammaticScrollRef.current = false;
+              return;
+            }
+            
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                const updatedElementRect = element.getBoundingClientRect();
+                const updatedContainerRect = container.getBoundingClientRect();
+                const updatedAvailableTop = updatedContainerRect.top + headerHeight + topMargin;
+                const updatedAvailableBottom = updatedContainerRect.top + updatedContainerRect.height - bottomMargin;
                 
-                container.scrollTo({
-                  top: clampedTop,
-                  behavior: 'smooth'
-                });
-              }
-              
-              // Release programmatic scroll flag after verification
-              setTimeout(() => {
-                isProgrammaticScrollRef.current = false;
-              }, 200);
-            });
-          }, 500);
+                const isNowFullyVisible = updatedElementRect.top >= updatedAvailableTop && 
+                                        updatedElementRect.bottom <= updatedAvailableBottom;
+                
+                if (!isNowFullyVisible) {
+                  console.log(`🟡 useAutoScroll: Verification ${attemptCount + 1} - still not fully visible, correcting`);
+                  
+                  let correctedTop = container.scrollTop;
+                  
+                  if (updatedElementRect.top < updatedAvailableTop) {
+                    // Still hidden under header
+                    correctedTop = updatedElementRect.top - updatedContainerRect.top + container.scrollTop - headerHeight - topMargin;
+                  } else if (updatedElementRect.bottom > updatedAvailableBottom) {
+                    // Still extends below viewport
+                    correctedTop = updatedElementRect.bottom - updatedContainerRect.top + container.scrollTop - updatedContainerRect.height + bottomMargin;
+                  }
+                  
+                  const clampedTop = Math.max(0, Math.min(correctedTop, container.scrollHeight - container.clientHeight));
+                  
+                  container.scrollTo({
+                    top: clampedTop,
+                    behavior: 'smooth'
+                  });
+                  
+                  // Try again
+                  verifyAndCorrect(attemptCount + 1);
+                } else {
+                  console.log('🟡 useAutoScroll: Element is now fully visible');
+                  // Release programmatic scroll flag after successful verification
+                  setTimeout(() => {
+                    isProgrammaticScrollRef.current = false;
+                  }, 150);
+                }
+              });
+            }, 600); // Allow more time for smooth scroll to complete
+          };
+          
+          // Start verification
+          verifyAndCorrect();
         } else {
-          console.log('🟡 useAutoScroll: Element already in optimal view, skipping scroll');
+          console.log('🟡 useAutoScroll: Element already completely visible, no scroll needed');
           // Still release programmatic scroll flag even if we don't scroll
           setTimeout(() => {
             isProgrammaticScrollRef.current = false;
@@ -149,7 +220,7 @@ export const useAutoScroll = () => {
         }
       });
     }, delay);
-  }, [clearScrollTimeout]);
+  }, [clearScrollTimeout, waitForLayoutStability]);
 
   const scrollToNextQuestion = useCallback((currentQuestionId: string, retryCount: number = 0) => {
     console.log('🟡 useAutoScroll: scrollToNextQuestion called with:', currentQuestionId, 'retry:', retryCount);
