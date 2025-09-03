@@ -119,9 +119,6 @@ const QuestionnaireLayout = ({
             </div>
           </div>
 
-          {/* Minimal spacing on mobile after header */}
-          {!isTabletDesktop && <div className="pt-0" />}
-
           <QuestionnaireContent
             profileData={profileData} 
             updateField={updateField} 
