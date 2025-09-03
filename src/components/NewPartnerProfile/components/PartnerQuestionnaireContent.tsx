@@ -98,7 +98,7 @@ const PartnerQuestionnaireContent = ({
   );
 
   return (
-    <div className={`py-1 space-y-4 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
+    <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         <div id="partner-section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
           <Suspense fallback={<SectionSkeleton />}>
             <PartnerBasics
@@ -140,14 +140,6 @@ const PartnerQuestionnaireContent = ({
             </Suspense>
           </div>
         )}
-        
-        {/* Add extra spacing to match personal profile height */}
-        <div className="py-8 sm:py-12">
-          <div className="text-center text-white/40 text-sm">
-            <div className="h-1 w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mb-3" />
-            <p>You're building a complete picture of your partner</p>
-          </div>
-        </div>
       </div>
   );
 };

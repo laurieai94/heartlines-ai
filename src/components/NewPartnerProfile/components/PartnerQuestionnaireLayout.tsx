@@ -86,17 +86,17 @@ const PartnerQuestionnaireLayout = ({
   };
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 questionnaire-bg backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4'}`}>
+    return <div className={`${isModal ? 'w-full h-auto min-h-fit' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
       <div className={`${isModal ? 'w-full max-w-4xl mx-auto h-auto max-h-[92dvh] flex flex-col' : 'w-full max-w-5xl max-h-[98dvh] sm:max-h-[90dvh] flex flex-col'} ${
-        // Light styling on mobile, rich on desktop
+        // Force desktop styling on tablet and above
         isTabletDesktop 
-          ? 'border border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
-          : 'border border-white/10 rounded-lg bg-burgundy-900/80 shadow-lg shadow-black/10'
+          ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
+          : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
       } overflow-hidden relative ${
         isTabletDesktop
-          ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none animate-scale-in'
-          : ''
-      }`}>
+          ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'
+          : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
+      } animate-scale-in`}>
         
         <div ref={scrollContainerRef} data-scroll-container className="flex-1 overflow-y-auto overscroll-contain pb-safe scrollbar-sleek" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           {/* Sticky header and navigation - always visible, responsive design */}
@@ -119,7 +119,7 @@ const PartnerQuestionnaireLayout = ({
             onScrollToSection={scrollFn => {
               scrollToSectionFn.current = scrollFn;
             }} 
-            onSectionComplete={handleSectionAutoAdvance} 
+            onSectionComplete={handleSectionComplete} 
           />
           
           {/* Minimal bottom padding */}
