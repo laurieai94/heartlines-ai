@@ -255,11 +255,11 @@ const ChatContainer = ({
             paddingBottom: isMobile && isKeyboardOpenRef.current 
               ? `${Math.max(keyboardHeightRef.current * 0.1, 4)}px` 
               : '4px',
-            paddingLeft: isMobile ? 'max(8px, env(safe-area-inset-left))' : '16px',
-            paddingRight: isMobile ? 'max(8px, env(safe-area-inset-right))' : '16px'
+            paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
+            paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
         >
-          <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:px-12" role="list" aria-label="Chat messages">
+          <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {
