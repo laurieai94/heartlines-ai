@@ -70,8 +70,8 @@ export const useAutoScroll = () => {
     }, delay);
   }, [clearScrollTimeout]);
 
-  const scrollToNextQuestion = useCallback((currentQuestionId: string) => {
-    console.log('🟡 useAutoScroll: scrollToNextQuestion called with:', currentQuestionId);
+  const scrollToNextQuestion = useCallback((currentQuestionId: string, retryCount: number = 0) => {
+    console.log('🟡 useAutoScroll: scrollToNextQuestion called with:', currentQuestionId, 'retry:', retryCount);
     
     const currentElement = document.getElementById(currentQuestionId);
     if (!currentElement) {
@@ -79,52 +79,88 @@ export const useAutoScroll = () => {
       return;
     }
 
-    // First try to find the next question card as a sibling
-    let nextElement = currentElement.nextElementSibling;
-    while (nextElement && !nextElement.hasAttribute('data-question-card')) {
-      nextElement = nextElement.nextElementSibling;
-    }
+    const findNextVisibleQuestion = () => {
+      // Strategy 1: Look within the same OptionalGroup first (group-aware prioritization)
+      const currentOptionalGroup = currentElement.closest('[data-optional-content]');
+      if (currentOptionalGroup) {
+        console.log('🟡 useAutoScroll: Current question is in optional group, looking for next within group');
+        const questionsInGroup = currentOptionalGroup.querySelectorAll('[data-question-card]');
+        const currentIndex = Array.from(questionsInGroup).findIndex(el => el.id === currentQuestionId);
+        
+        if (currentIndex !== -1 && currentIndex < questionsInGroup.length - 1) {
+          const nextInGroup = questionsInGroup[currentIndex + 1] as Element;
+          // Check if the next question in group is visible and has proper height
+          if (nextInGroup && isElementVisible(nextInGroup)) {
+            console.log('🟡 useAutoScroll: Found next question within same optional group:', nextInGroup.id);
+            return nextInGroup;
+          }
+        }
+      }
 
-    // If no sibling found, look more broadly in the document but skip collapsed optional content
-    if (!nextElement) {
+      // Strategy 2: Look for immediate sibling question cards
+      let nextElement = currentElement.nextElementSibling;
+      while (nextElement && !nextElement.hasAttribute('data-question-card')) {
+        nextElement = nextElement.nextElementSibling;
+      }
+      
+      if (nextElement && isElementVisible(nextElement)) {
+        console.log('🟡 useAutoScroll: Found next sibling question:', nextElement.id);
+        return nextElement;
+      }
+
+      // Strategy 3: Search globally but prioritize visible questions
       console.log('🟡 useAutoScroll: No next sibling found, searching all question cards');
       const allQuestionCards = document.querySelectorAll('[data-question-card]');
-      console.log('🟡 useAutoScroll: Found', allQuestionCards.length, 'question cards total');
-      
       const currentIndex = Array.from(allQuestionCards).findIndex(el => el.id === currentQuestionId);
-      console.log('🟡 useAutoScroll: Current question index:', currentIndex);
       
       if (currentIndex !== -1 && currentIndex < allQuestionCards.length - 1) {
-        // Look for next visible question (not in collapsed optional group)
         for (let i = currentIndex + 1; i < allQuestionCards.length; i++) {
           const candidateElement = allQuestionCards[i] as Element;
-          const optionalContent = candidateElement.closest('[data-optional-content]');
           
+          // Skip questions in collapsed optional groups
+          const optionalContent = candidateElement.closest('[data-optional-content]');
           if (optionalContent) {
-            // Check if this optional group is open
             const isOpen = optionalContent.getAttribute('data-optional-open') === 'true';
             if (!isOpen) {
               console.log('🟡 useAutoScroll: Skipping question in collapsed optional group:', candidateElement.id);
-              continue; // Skip this question, it's in a collapsed optional group
+              continue;
             }
           }
           
-          nextElement = candidateElement;
-          console.log('🟡 useAutoScroll: Found next visible element:', nextElement?.id);
-          break;
+          // Check if element is visible and properly rendered
+          if (isElementVisible(candidateElement)) {
+            console.log('🟡 useAutoScroll: Found next visible question globally:', candidateElement.id);
+            return candidateElement;
+          }
         }
       }
-    }
+
+      return null;
+    };
+
+    // Helper function to check if element is visible and has proper dimensions
+    const isElementVisible = (element: Element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.height > 0 && rect.width > 0 && !element.closest('[style*="display: none"]');
+    };
+
+    const nextElement = findNextVisibleQuestion();
 
     if (nextElement) {
       const nextId = nextElement.id;
       if (nextId) {
         console.log('🟡 useAutoScroll: Scrolling to next question:', nextId);
-        scrollToElement(nextId, 300); // Shorter delay for better UX
+        scrollToElement(nextId, 300);
       }
+    } else if (retryCount < 3) {
+      // Retry mechanism for conditionally rendered content
+      console.log('🟡 useAutoScroll: No visible next question found, retrying in 200ms...');
+      setTimeout(() => {
+        scrollToNextQuestion(currentQuestionId, retryCount + 1);
+      }, 200);
     } else {
-      console.log('🟡 useAutoScroll: No next question found, looking for next section');
-      // If no next question in current section, look for next section
+      console.log('🟡 useAutoScroll: No next question found after retries, looking for next section');
+      // If no next question found after retries, look for next section
       const currentSection = currentElement.closest('[id^="section-"]');
       if (currentSection) {
         const currentSectionId = currentSection.id;
