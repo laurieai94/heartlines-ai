@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { PartnerProfileData } from "../types";
+import { useAutoScroll } from "../../NewPersonalQuestionnaire/hooks/useAutoScroll";
 
 // Lazy load sections for better initial performance
 const PartnerBasics = lazy(() => import("./sections/PartnerBasics"));
@@ -29,6 +30,7 @@ const PartnerQuestionnaireContent = ({
 }: PartnerQuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
+  const { scrollToElement } = useAutoScroll();
 
   // Track tablet/desktop state
   useEffect(() => {
@@ -40,43 +42,28 @@ const PartnerQuestionnaireContent = ({
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
-  // Mapping of first question anchors per section
-  const firstQuestionAnchors: { [key: number]: string } = {
-    1: '#question-partner-name-pronouns',
-    2: '#partner-love-language-question', 
-    3: '#partner-attachment-question'
+  // Mapping of first question IDs per section
+  const firstQuestionIds: { [key: number]: string } = {
+    1: 'question-partner-name-pronouns',
+    2: 'partner-love-language-question', 
+    3: 'partner-attachment-question'
   };
 
-  // Function to scroll to the first question of a specific section
+  // Function to scroll to the first question of a specific section using unified auto-scroll
   const scrollToSection = (sectionNumber: number): void => {
-    const container = scrollContainerRef.current;
-    if (!container) {
-      console.warn('🔴 Partner Profile: Scroll container not found');
-      return;
+    const questionId = firstQuestionIds[sectionNumber];
+    if (questionId) {
+      // Use unified scrollToElement with delay for stability
+      scrollToElement(questionId, 250);
+    } else {
+      console.warn('🔴 Partner Profile: No question ID mapped for section:', sectionNumber);
     }
-
-    const anchor = firstQuestionAnchors[sectionNumber];
-    const targetElement = container.querySelector(anchor);
-    
-    if (!targetElement) {
-      console.warn('🔴 Partner Profile: Target question not found:', anchor);
-      return;
-    }
-
-    const containerTop = container.getBoundingClientRect().top;
-    const targetTop = targetElement.getBoundingClientRect().top;
-    const offsetPosition = container.scrollTop + (targetTop - containerTop) - Math.max(20, headerOffsetPx + 20);
-
-    container.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
   };
 
-  // Scroll to first question on mount (section 1)
+  // Scroll to first question on mount (section 1) with stability delay
   useEffect(() => {
     if (currentSection === 1) {
-      setTimeout(() => scrollToSection(1), 100);
+      setTimeout(() => scrollToSection(1), 150);
     }
   }, []);
 

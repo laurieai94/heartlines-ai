@@ -47,7 +47,8 @@ const PartnerQuestionnaireLayout = ({
       const isTabletOrDesktop = window.innerWidth >= 640;
       setIsTabletDesktop(isTabletOrDesktop);
       
-      if (stickyHeaderRef.current && isTabletOrDesktop) {
+      // Always measure header height on all screen sizes
+      if (stickyHeaderRef.current) {
         const height = stickyHeaderRef.current.offsetHeight;
         setHeaderHeight(height);
       } else {
@@ -65,6 +66,9 @@ const PartnerQuestionnaireLayout = ({
     // Lock navigation to prevent intersection observer interference
     navLock.current = true;
     
+    // Set programmatic scroll attribute for coordination
+    document.documentElement.setAttribute('data-programmatic-scroll', 'true');
+    
     // Immediately update section
     setCurrentSection(nextSection);
 
@@ -73,15 +77,18 @@ const PartnerQuestionnaireLayout = ({
       requestAnimationFrame(() => {
         scrollToSectionFn.current!(nextSection);
         
-        // Release lock after scroll completes
+        // Release lock after scroll completes with longer timeout
         setTimeout(() => {
           navLock.current = false;
-        }, 500);
+          // Remove programmatic scroll attribute after verification window
+          document.documentElement.removeAttribute('data-programmatic-scroll');
+        }, 1200);
       });
     } else {
       // Release lock if no scroll function
       setTimeout(() => {
         navLock.current = false;
+        document.documentElement.removeAttribute('data-programmatic-scroll');
       }, 100);
     }
   };
