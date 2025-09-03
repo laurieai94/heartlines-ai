@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef, Suspense, lazy } from "react";
-import { ChatMessage, AIInsightsProps } from "@/types/AIInsights";
-import { AICoachEngine } from "./AICoachEngine";
-import AIChat from "./AIChat";
-import { performanceMonitor } from "@/utils/performanceMonitor";
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import { ChatMessage, AIInsightsProps } from '@/types/AIInsights';
+import { AICoachEngine } from './AICoachEngine';
+import { useChatHistory } from '@/hooks/useChatHistory';
+import { useTemporaryProfile } from '@/hooks/useTemporaryProfile';
+import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
+import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
+import { useProfileGoals } from '@/hooks/useProfileGoals';
+import AIChat from './AIChat';
+import ProgressiveAccessWrapper from './ProgressiveAccessWrapper';
+import { performanceMonitor } from '@/utils/performanceMonitor';
 
 // Lazy load non-critical modals
-const ProfileForm = lazy(() => import("./ProfileForm"));
-const Demographics = lazy(() => import("./Demographics"));
-import { useChatHistory } from "@/hooks/useChatHistory";
-import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
-// import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
-import { usePartnerProfileData } from "@/hooks/usePartnerProfileData";
-import ProgressiveAccessWrapper from "./ProgressiveAccessWrapper";
+const ProfileForm = lazy(() => import('./ProfileForm'));
+const Demographics = lazy(() => import('./Demographics'));
 
 const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = { your: null, partner: null } }: AIInsightsProps) => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -44,6 +44,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   // Create unified profiles and demographics data
   const [unifiedProfiles, setUnifiedProfiles] = useState({ your: [], partner: [] });
   const [unifiedDemographics, setUnifiedDemographics] = useState({ your: null, partner: null });
+
+  // Get profile goals from unified data
+  const profileGoals = useProfileGoals(
+    unifiedProfiles.your[0] || personalProfileData,
+    unifiedProfiles.partner[0] || partnerProfileData
+  );
 
   // Measure insights chunk load performance
   useEffect(() => {
@@ -175,6 +181,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
           <AIChat 
             profiles={unifiedProfiles}
             demographicsData={unifiedDemographics}
+            profileGoals={profileGoals}
             chatHistory={chatHistory}
             setChatHistory={setChatHistory}
             isConfigured={isConfigured}

@@ -1,4 +1,5 @@
 import { ProfileData, DemographicsData, PersonContext, FamilyBackground } from "@/types/AIInsights";
+import { ProfileGoalsUtility } from "@/utils/profileGoals";
 
 export class PersonContextBuilder {
   // Helper function to normalize data to arrays

@@ -22,6 +22,7 @@ export interface PersonalProfileV2 {
   relationshipChallenges: string[];
   relationshipWorking: string[];
   datingChallenges: string[];
+  datingGoals: string[]; // Added for goals functionality
   separationSituation: string[];
   datingReadiness: string[];
   timeSinceLoss: string;
@@ -71,8 +72,8 @@ const defaultPersonalProfile: PersonalProfileV2 = {
   name: '', age: '', gender: [], orientation: [], pronouns: '',
   relationshipStatus: '', relationshipLength: '', talkingDuration: '',
   talkingDescription: [], talkingChallenges: [], relationshipChallenges: [],
-  relationshipWorking: [], datingChallenges: [], separationSituation: [],
-  datingReadiness: [], timeSinceLoss: '', grievingProcess: [],
+  relationshipWorking: [], datingChallenges: [], datingGoals: [],
+  separationSituation: [], datingReadiness: [], timeSinceLoss: '', grievingProcess: [],
   stressResponse: [], conflictStyle: [], loveLanguage: [],
   heartbreakBetrayal: [], familyStructure: [], attachmentStyle: '',
   lastUpdated: '', version: '2.0'
@@ -95,7 +96,10 @@ const PERSONAL_LEGACY_MAPPINGS: Record<string, string> = {
   'relationshipWorkingWell': 'relationshipWorking',
   'biggestChallenge': 'relationshipChallenges',
   'sexualOrientation': 'orientation',
-  'genderIdentity': 'gender'
+  'genderIdentity': 'gender',
+  // Goals field mappings
+  'relationshipGoals': 'datingGoals',
+  'goals': 'datingGoals'
 };
 
 const STORAGE_CONFIG = {

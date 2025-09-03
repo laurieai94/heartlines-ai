@@ -1,6 +1,7 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
+import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import ChatContainer from "./ChatContainer";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
@@ -12,6 +13,7 @@ import { ChatInputSection } from "./chat/ChatInputSection";
 interface AIChatProps {
   profiles: ProfileData;
   demographicsData: DemographicsData;
+  profileGoals?: UseProfileGoalsReturn;
   chatHistory: ChatMessage[];
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   isConfigured: boolean;
@@ -34,6 +36,7 @@ interface AIChatProps {
 const AIChat = ({ 
   profiles, 
   demographicsData, 
+  profileGoals,
   chatHistory, 
   setChatHistory, 
   isConfigured, 
@@ -68,6 +71,7 @@ const AIChat = ({
   const { loading, sendMessage } = useChatMessageHandler({
     profiles,
     demographicsData,
+    profileGoals,
     chatHistory,
     setChatHistory,
     canInteract

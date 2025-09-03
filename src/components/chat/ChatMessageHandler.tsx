@@ -1,6 +1,7 @@
 
 import { useState, useRef } from 'react';
 import { ChatMessage, ProfileData, DemographicsData } from '@/types/AIInsights';
+import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
@@ -8,6 +9,7 @@ import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
   demographicsData: DemographicsData;
+  profileGoals?: UseProfileGoalsReturn;
   chatHistory: ChatMessage[];
   setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   canInteract: boolean;
@@ -16,6 +18,7 @@ interface ChatMessageHandlerProps {
 export const useChatMessageHandler = ({
   profiles,
   demographicsData,
+  profileGoals,
   chatHistory,
   setChatHistory,
   canInteract
@@ -57,6 +60,18 @@ export const useChatMessageHandler = ({
         conversationalPrompt = AICoachEngine.buildDebugPrompt(context, profiles, demographicsData);
       } else {
         conversationalPrompt = AICoachEngine.buildConversationalPrompt(context, historySnapshot);
+        
+        // Enhance with goals if available
+        if (profileGoals?.hasGoals) {
+          const { GoalsBuilder } = await import('@/utils/prompt/goalsBuilder');
+          const goalsInsights = GoalsBuilder.buildGoalsInsights(
+            profileGoals.derivedGoals,
+            profileGoals.partnerGoals,
+            profileGoals.goalsSummary,
+            profileGoals.priorityChallenges
+          );
+          conversationalPrompt += goalsInsights;
+        }
       }
       
       const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, conversationalPrompt);

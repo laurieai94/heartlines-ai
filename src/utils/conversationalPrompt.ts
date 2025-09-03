@@ -4,6 +4,8 @@ import { InsightBuilders } from "./prompt/insightBuilders";
 import { FamilyBackgroundBuilder } from "./prompt/familyBackgroundBuilder";
 import { DynamicsBuilder } from "./prompt/dynamicsBuilder";
 import { PromptTemplate } from "./prompt/promptTemplate";
+import { GoalsBuilder } from "./prompt/goalsBuilder";
+import { ProfileGoalsUtility } from "./profileGoals";
 
 export class ConversationalPromptBuilder {
   static buildConversationalPrompt(context: PersonContext, conversationHistory: any[] = []): string {
@@ -16,6 +18,14 @@ export class ConversationalPromptBuilder {
     const familyBackgroundInsights = FamilyBackgroundBuilder.buildFamilyBackgroundInsights(context);
     const dynamics = DynamicsBuilder.buildDynamics(context);
     
+    // Build goals insights from profile data
+    const goalsInsights = GoalsBuilder.buildGoalsInsights(
+      null, // derivedGoals - will be null here, goals derived in AI component
+      null, // partnerGoals - will be null here 
+      [], // goalsSummary - empty array as fallback
+      [] // priorityChallenges - empty array as fallback
+    );
+    
     // Build the complete prompt using the template
     return PromptTemplate.buildMainPrompt(
       yourName,
@@ -25,7 +35,8 @@ export class ConversationalPromptBuilder {
       context,
       familyBackgroundInsights,
       dynamics,
-      conversationHistory
+      conversationHistory,
+      goalsInsights
     );
   }
 

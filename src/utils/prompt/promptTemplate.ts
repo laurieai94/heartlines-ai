@@ -10,7 +10,8 @@ export class PromptTemplate {
     context: PersonContext,
     familyBackgroundInsights: string,
     dynamics: string,
-    conversationHistory: any[]
+    conversationHistory: any[] = [],
+    goalsInsights: string = ''
   ): string {
     return `# Kai - Your Relationship Guide
 
@@ -237,6 +238,8 @@ ${context.relationship && Object.keys(context.relationship).length > 0 ?
 ${familyBackgroundInsights || ''}
 
 ${dynamics || ''}
+
+${goalsInsights || ''}
 
 ## Context Snapshot:
 ${PromptTemplate.buildContextSnapshot(context)}
