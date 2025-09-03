@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
-import BrandLoadingText from "../BrandLoadingText";
 
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
@@ -12,7 +11,7 @@ interface NewPartnerProfileProps {
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
   const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
   
-  const { profileData, updateField, handleMultiSelect, isReady } = usePartnerProfileData(autoCompleteCallback);
+  const { profileData, updateField, handleMultiSelect } = usePartnerProfileData(autoCompleteCallback);
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
@@ -40,14 +39,6 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
       setAutoCompleteCallback(() => handleComplete);
     }
   }, [autoCompleteCallback, handleComplete]);
-
-  if (!isReady) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <BrandLoadingText text="profile loading..." color="light" />
-      </div>
-    );
-  }
 
   return (
     <PartnerQuestionnaireLayout
