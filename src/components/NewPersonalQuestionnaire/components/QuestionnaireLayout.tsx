@@ -46,9 +46,11 @@ const QuestionnaireLayout = ({
       const isTabletOrDesktop = window.innerWidth >= 640;
       setIsTabletDesktop(isTabletOrDesktop);
       
-      if (stickyHeaderRef.current && isTabletOrDesktop) {
+      // Measure header height on ALL screen sizes for better mobile scrolling
+      if (stickyHeaderRef.current) {
         const height = stickyHeaderRef.current.offsetHeight;
         setHeaderHeight(height);
+        console.log('📏 QuestionnaireLayout: Header height measured:', height, 'isTabletDesktop:', isTabletOrDesktop);
       } else {
         setHeaderHeight(0);
       }

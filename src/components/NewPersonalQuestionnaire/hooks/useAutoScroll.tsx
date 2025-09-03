@@ -94,18 +94,31 @@ export const useAutoScroll = () => {
         // Get header height from sticky header with enhanced detection
         const stickyHeader = container.querySelector('[data-sticky-header]') as HTMLElement;
         const headerHeight = stickyHeader?.offsetHeight || 0;
-        const topMargin = 20; // More breathing room at top
-        const bottomMargin = 24; // Extra space at bottom for Continue button
+        
+        // Increase margins for better mobile scrolling, especially for cross-section navigation
+        const isMobile = window.innerWidth < 640;
+        const topMargin = isMobile ? 32 : 20; // More generous top margin on mobile
+        const bottomMargin = isMobile ? 40 : 24; // Extra space on mobile for Continue button
+        const containerPadding = isMobile ? 16 : 32; // Account for container padding
+        
+        console.log('📱 useAutoScroll: Mobile scroll adjustments:', {
+          elementId,
+          isMobile,
+          headerHeight,
+          topMargin,
+          bottomMargin,
+          containerPadding
+        });
         
         // Calculate element and container positions for COMPLETE visibility
         const containerRect = container.getBoundingClientRect();
         const elementRect = element.getBoundingClientRect();
         
-        // Enhanced viewport calculation ensuring complete visibility
+        // Enhanced viewport calculation ensuring complete visibility with container padding
         const containerTop = containerRect.top;
         const containerHeight = containerRect.height;
-        const availableViewTop = containerTop + headerHeight + topMargin;
-        const availableViewBottom = containerTop + containerHeight - bottomMargin;
+        const availableViewTop = containerTop + headerHeight + topMargin + containerPadding;
+        const availableViewBottom = containerTop + containerHeight - bottomMargin - containerPadding;
         const availableViewHeight = availableViewBottom - availableViewTop;
         
         // Element positions and dimensions
@@ -123,17 +136,17 @@ export const useAutoScroll = () => {
           needsScroll = true;
           
           if (elementHeight > availableViewHeight) {
-            // Element is taller than viewport - position top under header
+            // Element is taller than viewport - position top under header with container padding
             const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
-            targetScrollTop = relativeElementTop - headerHeight - topMargin;
+            targetScrollTop = relativeElementTop - headerHeight - topMargin - containerPadding;
           } else if (elementTop < availableViewTop) {
-            // Element is hidden under header - scroll up
+            // Element is hidden under header - scroll up with container padding
             const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
-            targetScrollTop = relativeElementTop - headerHeight - topMargin;
+            targetScrollTop = relativeElementTop - headerHeight - topMargin - containerPadding;
           } else if (elementBottom > availableViewBottom) {
-            // Element extends below viewport - scroll down to show bottom
+            // Element extends below viewport - scroll down to show bottom with container padding
             const relativeElementBottom = elementRect.bottom - containerRect.top + container.scrollTop;
-            targetScrollTop = relativeElementBottom - containerHeight + bottomMargin;
+            targetScrollTop = relativeElementBottom - containerHeight + bottomMargin + containerPadding;
           }
         }
         
