@@ -15,7 +15,7 @@ interface NamePronounsCardProps {
 }
 
 const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: NamePronounsCardProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { scrollToNextRequiredQuestion } = useAutoScroll();
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
@@ -63,7 +63,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionCompl
     <QuestionCard 
       questionId="question-name-pronouns"
       showContinue={isComplete}
-      onContinue={onSectionComplete || (() => scrollToNextQuestion('question-name-pronouns'))}
+      onContinue={onSectionComplete || (() => scrollToNextRequiredQuestion('question-name-pronouns'))}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}

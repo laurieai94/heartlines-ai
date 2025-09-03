@@ -15,29 +15,7 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { scrollToElement } = useAutoScroll();
 
-  // Auto-scroll to first question when opened
-  useEffect(() => {
-    if (isOpen && contentRef.current) {
-      // Small delay to ensure the content is fully expanded
-      setTimeout(() => {
-        // Find the first question card within this specific collapsible content
-        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]') as HTMLElement;
-        if (firstQuestionCard) {
-          console.log('🟡 OptionalGroup: Scrolling to first question in expanded section');
-          
-          // Use shared scroll helper that accounts for sticky header
-          if (firstQuestionCard.id) {
-            scrollToElement(firstQuestionCard.id, 0);
-          } else {
-            // Assign temporary ID if none exists
-            const tempId = `auto-optional-${Date.now()}`;
-            firstQuestionCard.id = tempId;
-            scrollToElement(tempId, 0);
-          }
-        }
-      }, 280); // Allow time for expansion animation
-    }
-  }, [isOpen, scrollToElement]);
+  // Optional sections remain user-driven - no auto-scroll when expanded
 
   return (
     <TooltipProvider>
