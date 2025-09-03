@@ -29,10 +29,17 @@ const PartnerQuestionnaireLayout = ({
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
+  const navLock = useRef(false);
   const overallProgress = calculatePartnerProgress(profileData);
 
   // Auto section detection hook with partner section prefix
-  useCurrentSectionDetection(setCurrentSection, 'partner-section-');
+  const handleSectionChange = (section: number) => {
+    // Only update section if not in the middle of programmatic navigation
+    if (!navLock.current) {
+      setCurrentSection(section);
+    }
+  };
+  useCurrentSectionDetection(handleSectionChange, 'partner-section-');
 
   // Track tablet/desktop state and measure header height
   useEffect(() => {
@@ -55,13 +62,27 @@ const PartnerQuestionnaireLayout = ({
 
   // Handle section completion via continue buttons with auto-advance
   const handleSectionComplete = (nextSection: number) => {
+    // Lock navigation to prevent intersection observer interference
+    navLock.current = true;
+    
+    // Immediately update section
     setCurrentSection(nextSection);
 
-    // Scroll to the next section using ref
+    // Scroll to the next section using ref with animation frame
     if (scrollToSectionFn.current) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         scrollToSectionFn.current!(nextSection);
-      }, 200);
+        
+        // Release lock after scroll completes
+        setTimeout(() => {
+          navLock.current = false;
+        }, 500);
+      });
+    } else {
+      // Release lock if no scroll function
+      setTimeout(() => {
+        navLock.current = false;
+      }, 100);
     }
   };
 

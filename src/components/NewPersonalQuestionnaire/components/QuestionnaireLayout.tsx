@@ -29,10 +29,14 @@ const QuestionnaireLayout = ({
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
+  const navLock = useRef(false);
 
   // Use intersection observer to detect current section during scroll
   const handleSectionChange = (section: number) => {
-    setCurrentSection(section);
+    // Only update section if not in the middle of programmatic navigation
+    if (!navLock.current) {
+      setCurrentSection(section);
+    }
   };
   useCurrentSectionDetection(handleSectionChange);
   
@@ -59,13 +63,27 @@ const QuestionnaireLayout = ({
 
   // Handle section completion via continue buttons
   const handleSectionComplete = (nextSection: number) => {
+    // Lock navigation to prevent intersection observer interference
+    navLock.current = true;
+    
+    // Immediately update section
     setCurrentSection(nextSection);
 
-    // Scroll to the next section using ref
+    // Scroll to the next section using ref with animation frame
     if (scrollToSectionFn.current) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         scrollToSectionFn.current!(nextSection);
-      }, 200);
+        
+        // Release lock after scroll completes
+        setTimeout(() => {
+          navLock.current = false;
+        }, 500);
+      });
+    } else {
+      // Release lock if no scroll function
+      setTimeout(() => {
+        navLock.current = false;
+      }, 100);
     }
   };
   const handleSectionClick = (section: number) => {
