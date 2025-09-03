@@ -250,11 +250,13 @@ const ChatContainer = ({
         aria-label="Chat conversation history"
       >
         <div 
-          className="pt-1 px-1 md:px-4 md:pt-3 md:pb-2"
+          className="pt-1 md:px-4 md:pt-3 md:pb-2"
           style={{
             paddingBottom: isMobile && isKeyboardOpenRef.current 
               ? `${Math.max(keyboardHeightRef.current * 0.1, 4)}px` 
-              : '4px'
+              : '4px',
+            paddingLeft: isMobile ? 'max(8px, env(safe-area-inset-left))' : '16px',
+            paddingRight: isMobile ? 'max(8px, env(safe-area-inset-right))' : '16px'
           }}
         >
           <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:px-12" role="list" aria-label="Chat messages">
@@ -288,7 +290,7 @@ const ChatContainer = ({
             
             {/* Typing indicator - only show when loading */}
             {loading && (
-              <div className="flex gap-2 md:gap-3 items-end">
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
                   <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
