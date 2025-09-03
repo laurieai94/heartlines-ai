@@ -104,13 +104,8 @@ export const useAutoScroll = () => {
             // Check if this optional group is open
             const isOpen = optionalContent.getAttribute('data-optional-open') === 'true';
             if (!isOpen) {
-              console.log('🟡 useAutoScroll: Found question in collapsed optional group, opening it:', candidateElement.id);
-              // Automatically open the optional group by clicking its toggle
-              const toggleButton = optionalContent.querySelector('[data-optional-trigger]') as HTMLElement;
-              if (toggleButton) {
-                toggleButton.click();
-                console.log('🟡 useAutoScroll: Opened optional group for question:', candidateElement.id);
-              }
+              console.log('🟡 useAutoScroll: Skipping question in collapsed optional group:', candidateElement.id);
+              continue; // Skip this question, it's in a collapsed optional group
             }
           }
           
