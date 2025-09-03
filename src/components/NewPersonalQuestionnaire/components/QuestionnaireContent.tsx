@@ -53,12 +53,6 @@ const QuestionnaireContent = ({
       return;
     }
     
-    const container = scrollContainerRef.current;
-    if (!container) {
-      console.error('🔴 QuestionnaireContent: No scroll container found');
-      return;
-    }
-    
     // Map section numbers to their first question IDs
     const sectionToFirstQuestion: Record<number, string> = {
       1: 'question-name-pronouns',           // WhoYouAre section
@@ -80,26 +74,9 @@ const QuestionnaireContent = ({
       
       const targetElement = element || fallbackElement;
       
-      if (targetElement) {
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = targetElement.getBoundingClientRect();
-        const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
-        
-        console.log('🟠 QuestionnaireContent: Scroll calculation:', {
-          targetElementId: targetElement.id,
-          containerTop: containerRect.top,
-          elementTop: elementRect.top,
-          currentScrollTop: container.scrollTop,
-          relativeTop,
-          finalScrollPosition: relativeTop - 80
-        });
-        
-        container.scrollTo({
-          top: relativeTop - Math.max(80, headerOffsetPx + 20),
-          behavior: 'smooth'
-        });
-        
-        console.log('🟠 QuestionnaireContent: Scroll executed successfully to:', targetElement.id);
+      if (targetElement?.id) {
+        console.log('🟠 QuestionnaireContent: Using shared scrollToElement for consistent behavior');
+        scrollToNextQuestion(targetElement.id, 0);
       } else {
         console.error('🔴 QuestionnaireContent: Neither first question nor section element found for section:', sectionNumber);
       }

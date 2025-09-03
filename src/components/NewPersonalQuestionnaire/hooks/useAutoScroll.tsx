@@ -49,23 +49,77 @@ export const useAutoScroll = () => {
         // Get header height from sticky header
         const stickyHeader = container.querySelector('[data-sticky-header]') as HTMLElement;
         const headerHeight = stickyHeader?.offsetHeight || 0;
+        const margin = 16; // Breathing room
         
-        // Calculate precise scroll position
+        // Calculate element and container positions for full visibility
         const containerRect = container.getBoundingClientRect();
         const elementRect = element.getBoundingClientRect();
-        const relativeTop = elementRect.top - containerRect.top + container.scrollTop;
-        const finalTop = Math.max(0, relativeTop - (headerHeight + 12)); // 12px breathing room
         
-        console.log('🟡 useAutoScroll: Scrolling to element with container scroll', {
-          elementId,
-          headerHeight,
-          finalTop
-        });
+        // Get current scroll position and viewport bounds
+        const containerTop = containerRect.top;
+        const containerBottom = containerRect.bottom;
+        const viewTop = containerTop + headerHeight + margin;
+        const viewBottom = containerBottom - margin;
+        
+        // Element positions relative to viewport
+        const elementTop = elementRect.top;
+        const elementBottom = elementRect.bottom;
+        
+        let targetScrollTop = container.scrollTop;
+        
+        // Check if element needs to be scrolled into view
+        if (elementTop < viewTop) {
+          // Element is hidden under header - scroll up to show it
+          const relativeElementTop = elementRect.top - containerRect.top + container.scrollTop;
+          targetScrollTop = relativeElementTop - headerHeight - margin;
+        } else if (elementBottom > viewBottom) {
+          // Element extends below viewport - scroll down to show it fully
+          const relativeElementBottom = elementRect.bottom - containerRect.top + container.scrollTop;
+          targetScrollTop = relativeElementBottom - container.clientHeight + margin;
+        }
+        
+        // Clamp scroll position to valid range
+        const maxScroll = container.scrollHeight - container.clientHeight;
+        const finalTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
+        
+        // Only scroll if position changed significantly
+        if (Math.abs(finalTop - container.scrollTop) > 5) {
+          console.log('🟡 useAutoScroll: Scrolling to ensure full visibility', {
+            elementId,
+            headerHeight,
+            currentScroll: container.scrollTop,
+            targetScroll: finalTop,
+            elementVisible: elementTop >= viewTop && elementBottom <= viewBottom
+          });
 
-        container.scrollTo({
-          top: finalTop,
-          behavior: 'smooth'
-        });
+          container.scrollTo({
+            top: finalTop,
+            behavior: 'smooth'
+          });
+          
+          // Post-scroll verification - check once more after animation
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              const updatedElementRect = element.getBoundingClientRect();
+              const updatedContainerRect = container.getBoundingClientRect();
+              const updatedViewTop = updatedContainerRect.top + headerHeight + margin;
+              const updatedViewBottom = updatedContainerRect.bottom - margin;
+              
+              if (updatedElementRect.top < updatedViewTop || updatedElementRect.bottom > updatedViewBottom) {
+                console.log('🟡 useAutoScroll: Re-adjusting scroll position after verification');
+                const adjustedTop = updatedElementRect.top - updatedContainerRect.top + container.scrollTop - headerHeight - margin;
+                const clampedTop = Math.max(0, Math.min(adjustedTop, container.scrollHeight - container.clientHeight));
+                
+                container.scrollTo({
+                  top: clampedTop,
+                  behavior: 'smooth'
+                });
+              }
+            });
+          }, 350);
+        } else {
+          console.log('🟡 useAutoScroll: Element already in optimal view, skipping scroll');
+        }
       });
     }, delay);
   }, [clearScrollTimeout]);
@@ -117,6 +171,11 @@ export const useAutoScroll = () => {
         for (let i = currentIndex + 1; i < allQuestionCards.length; i++) {
           const candidateElement = allQuestionCards[i] as Element;
           
+          // Skip zero-height or hidden elements
+          if (!isElementVisible(candidateElement)) {
+            continue;
+          }
+          
           // Skip questions in collapsed optional groups
           const optionalContent = candidateElement.closest('[data-optional-content]');
           if (optionalContent) {
@@ -127,11 +186,8 @@ export const useAutoScroll = () => {
             }
           }
           
-          // Check if element is visible and properly rendered
-          if (isElementVisible(candidateElement)) {
-            console.log('🟡 useAutoScroll: Found next visible question globally:', candidateElement.id);
-            return candidateElement;
-          }
+          console.log('🟡 useAutoScroll: Found next visible question globally:', candidateElement.id);
+          return candidateElement;
         }
       }
 
@@ -147,11 +203,17 @@ export const useAutoScroll = () => {
     const nextElement = findNextVisibleQuestion();
 
     if (nextElement) {
-      const nextId = nextElement.id;
-      if (nextId) {
-        console.log('🟡 useAutoScroll: Scrolling to next question:', nextId);
-        scrollToElement(nextId, 300);
+      let nextId = nextElement.id;
+      
+      // If no ID exists, assign a temporary one for scrolling
+      if (!nextId) {
+        nextId = `auto-q-${Date.now()}`;
+        nextElement.id = nextId;
+        console.log('🟡 useAutoScroll: Assigned temporary ID to next question:', nextId);
       }
+      
+      console.log('🟡 useAutoScroll: Scrolling to next question:', nextId);
+      scrollToElement(nextId, 300);
     } else if (retryCount < 3) {
       // Retry mechanism for conditionally rendered content
       console.log('🟡 useAutoScroll: No visible next question found, retrying in 200ms...');
@@ -228,6 +290,7 @@ export const useAutoScroll = () => {
   }, [scrollToElement, scrollToNextSection]);
 
   return {
+    scrollToElement,
     scrollToNextQuestion,
     scrollToNextSection,
     scrollToNextRequiredQuestion,

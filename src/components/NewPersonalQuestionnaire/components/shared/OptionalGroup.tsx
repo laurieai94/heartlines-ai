@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface OptionalGroupProps {
 const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { scrollToElement } = useAutoScroll();
 
   // Auto-scroll to first question when opened
   useEffect(() => {
@@ -19,18 +21,23 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
       // Small delay to ensure the content is fully expanded
       setTimeout(() => {
         // Find the first question card within this specific collapsible content
-        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
+        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]') as HTMLElement;
         if (firstQuestionCard) {
           console.log('🟡 OptionalGroup: Scrolling to first question in expanded section');
-          firstQuestionCard.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start',
-            inline: 'nearest'
-          });
+          
+          // Use shared scroll helper that accounts for sticky header
+          if (firstQuestionCard.id) {
+            scrollToElement(firstQuestionCard.id, 0);
+          } else {
+            // Assign temporary ID if none exists
+            const tempId = `auto-optional-${Date.now()}`;
+            firstQuestionCard.id = tempId;
+            scrollToElement(tempId, 0);
+          }
         }
-      }, 300); // Allow time for expansion animation
+      }, 280); // Allow time for expansion animation
     }
-  }, [isOpen]);
+  }, [isOpen, scrollToElement]);
 
   return (
     <TooltipProvider>
