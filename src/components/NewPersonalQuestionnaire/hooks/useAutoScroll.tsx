@@ -3,6 +3,7 @@ import { useCallback, useRef } from 'react';
 
 export const useAutoScroll = () => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isProgrammaticScrollRef = useRef(false);
 
   const clearScrollTimeout = useCallback(() => {
     if (timeoutRef.current) {
@@ -17,6 +18,13 @@ export const useAutoScroll = () => {
     
     timeoutRef.current = setTimeout(() => {
       requestAnimationFrame(() => {
+        // Blur active element to prevent focus conflicts during scrolling
+        if (document.activeElement && document.activeElement !== document.body) {
+          (document.activeElement as HTMLElement)?.blur();
+        }
+        
+        // Mark as programmatic scroll to ignore intersection observer updates
+        isProgrammaticScrollRef.current = true;
         console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
         
         const element = document.getElementById(elementId) || 
@@ -125,10 +133,19 @@ export const useAutoScroll = () => {
                   behavior: 'smooth'
                 });
               }
+              
+              // Release programmatic scroll flag after verification
+              setTimeout(() => {
+                isProgrammaticScrollRef.current = false;
+              }, 200);
             });
-          }, 350);
+          }, 500);
         } else {
           console.log('🟡 useAutoScroll: Element already in optimal view, skipping scroll');
+          // Still release programmatic scroll flag even if we don't scroll
+          setTimeout(() => {
+            isProgrammaticScrollRef.current = false;
+          }, 100);
         }
       });
     }, delay);
@@ -328,6 +345,7 @@ export const useAutoScroll = () => {
     scrollToNextQuestion,
     scrollToNextSection,
     scrollToNextRequiredQuestion,
-    clearScrollTimeout
+    clearScrollTimeout,
+    isProgrammaticScrollRef
   };
 };

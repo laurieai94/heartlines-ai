@@ -4,6 +4,7 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
   const [currentSection, setCurrentSection] = useState(1);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const sectionVisibility = useRef<Record<number, number>>({});
+  const isProgrammaticScrollRef = useRef(false);
 
   useEffect(() => {
     if (observerRef.current) {
@@ -12,6 +13,12 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
+        // Skip updates during programmatic scrolling to prevent conflicts
+        if (isProgrammaticScrollRef.current) {
+          console.log('🟡 useCurrentSectionDetection: Skipping intersection updates during programmatic scroll');
+          return;
+        }
+        
         entries.forEach((entry) => {
           const sectionId = entry.target.id;
           const parts = sectionId.split('-');
@@ -46,8 +53,22 @@ export const useCurrentSectionDetection = (onSectionChange: (section: number) =>
       observerRef.current?.observe(section);
     });
 
+    // Listen for programmatic scroll events from useAutoScroll
+    const checkProgrammaticScroll = () => {
+      // Try to access the isProgrammaticScrollRef from useAutoScroll if available
+      const scrollContainer = document.querySelector('[data-scroll-container]');
+      if (scrollContainer) {
+        // Check if any scroll is happening programmatically
+        const autoScrollElement = document.querySelector('[data-auto-scroll="true"]');
+        isProgrammaticScrollRef.current = !!autoScrollElement;
+      }
+    };
+    
+    const intervalId = setInterval(checkProgrammaticScroll, 100);
+
     return () => {
       observerRef.current?.disconnect();
+      clearInterval(intervalId);
     };
   }, [currentSection, onSectionChange, prefix]);
 

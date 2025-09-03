@@ -11,10 +11,17 @@ interface QuestionContinueButtonProps {
 const QuestionContinueButton = ({ isVisible, onClick, className = "" }: QuestionContinueButtonProps) => {
   if (!isVisible) return null;
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
     console.log('🟠 Continue button clicked, onClick function exists:', !!onClick);
     console.log('🟠 Continue button - isVisible:', isVisible);
     console.log('🟠 Continue button - className:', className);
+    
+    // Defocus the button and any active element to prevent scroll conflicts
+    console.log('🟠 Continue button - defocusing elements before scroll');
+    (e.target as HTMLElement)?.blur();
+    if (document.activeElement && document.activeElement !== document.body) {
+      (document.activeElement as HTMLElement)?.blur();
+    }
     
     if (onClick) {
       console.log('🟠 Continue button - calling onClick function');
