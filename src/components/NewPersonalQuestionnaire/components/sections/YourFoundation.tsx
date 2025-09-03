@@ -35,17 +35,19 @@ const YourFoundation = ({
       />
 
       {/* Optional Fields */}
-      <OptionalGroup>
-        <HeartbreakBetrayalQuestion
-          profileData={profileData}
-          handleMultiSelect={handleMultiSelect}
-        />
+      <div id="foundation-optional-group">
+        <OptionalGroup>
+          <HeartbreakBetrayalQuestion
+            profileData={profileData}
+            handleMultiSelect={handleMultiSelect}
+          />
 
-        <FamilyStructureQuestion
-          profileData={profileData}
-          handleMultiSelect={handleMultiSelect}
-        />
-      </OptionalGroup>
+          <FamilyStructureQuestion
+            profileData={profileData}
+            handleMultiSelect={handleMultiSelect}
+          />
+        </OptionalGroup>
+      </div>
     </div>
   );
 };

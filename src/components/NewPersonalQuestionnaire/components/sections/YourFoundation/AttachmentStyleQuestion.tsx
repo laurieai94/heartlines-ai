@@ -21,13 +21,13 @@ const AttachmentStyleQuestion = ({
   onSectionComplete
 }: AttachmentStyleQuestionProps) => {
   const {
-    scrollToNextRequiredQuestion
+    scrollToElement
   } = useAutoScroll();
   const isComplete = !!profileData.attachmentStyle;
   return <QuestionCard 
     questionId="question-attachment-style"
     showContinue={isComplete}
-    onContinue={onSectionComplete || (() => scrollToNextRequiredQuestion('question-attachment-style'))}
+    onContinue={() => scrollToElement('foundation-optional-group', 300)}
   >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>
