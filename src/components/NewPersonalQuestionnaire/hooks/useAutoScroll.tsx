@@ -106,7 +106,7 @@ export const useAutoScroll = () => {
             if (!isOpen) {
               console.log('🟡 useAutoScroll: Found question in collapsed optional group, opening it:', candidateElement.id);
               // Automatically open the optional group by clicking its toggle
-              const toggleButton = optionalContent.querySelector('[data-optional-toggle]') as HTMLElement;
+              const toggleButton = optionalContent.querySelector('[data-optional-trigger]') as HTMLElement;
               if (toggleButton) {
                 toggleButton.click();
                 console.log('🟡 useAutoScroll: Opened optional group for question:', candidateElement.id);

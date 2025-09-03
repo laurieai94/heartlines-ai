@@ -60,13 +60,8 @@ const YourRelationship = ({
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
       {/* Relationship Status */}
       <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={() => {
-      const nextQuestionId = getNextQuestionAfterStatus();
-      if (nextQuestionId) {
-        scrollToNextQuestion(nextQuestionId);
-      } else {
         scrollToNextQuestion('question-relationship-status');
-      }
-    }}>
+      }}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select the answer that resonates most</span>
         </Label>
