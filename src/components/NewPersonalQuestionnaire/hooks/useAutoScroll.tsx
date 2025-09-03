@@ -355,7 +355,8 @@ export const useAutoScroll = () => {
   }, [scrollToElement]);
 
   const scrollToNextRequiredQuestion = useCallback((currentQuestionId: string) => {
-    console.log('🟡 useAutoScroll: scrollToNextRequiredQuestion called with:', currentQuestionId);
+    console.log('🔵 DEBUG: scrollToNextRequiredQuestion called with:', currentQuestionId);
+    console.log('🔵 DEBUG: Function is working and being called');
     
     // Define the order of required questions based on requirements.ts
     const requiredQuestionFlow = [

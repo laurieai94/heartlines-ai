@@ -16,6 +16,9 @@ interface NamePronounsCardProps {
 
 const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: NamePronounsCardProps) => {
   const { scrollToNextRequiredQuestion } = useAutoScroll();
+  
+  console.log('🔵 DEBUG: NamePronounsCard rendered, isComplete:', isComplete);
+  console.log('🔵 DEBUG: NamePronounsCard scrollToNextRequiredQuestion function exists:', !!scrollToNextRequiredQuestion);
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [

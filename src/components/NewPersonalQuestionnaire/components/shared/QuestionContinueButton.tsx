@@ -12,9 +12,9 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
   if (!isVisible) return null;
 
   const handleClick = (e: React.MouseEvent) => {
-    console.log('🟠 Continue button clicked, onClick function exists:', !!onClick);
-    console.log('🟠 Continue button - isVisible:', isVisible);
-    console.log('🟠 Continue button - className:', className);
+    console.log('🔵 DEBUG: Continue button clicked, onClick function exists:', !!onClick);
+    console.log('🔵 DEBUG: Continue button - isVisible:', isVisible);
+    console.log('🔵 DEBUG: Continue button - className:', className);
     
     // Defocus the button and any active element to prevent scroll conflicts
     console.log('🟠 Continue button - defocusing elements before scroll');
