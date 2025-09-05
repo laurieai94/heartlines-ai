@@ -191,140 +191,34 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             
           </>
         )}
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative z-10">
-              <div 
-                className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30 shadow-lg transition-transform duration-300"
-                style={{
-                  transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-                }}
-              >
-                <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
-              </div>
-              
-              <h1 className="text-5xl lg:text-7xl font-playfair text-white mb-8 leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                  Modern love is messy.
-                </span>
-              </h1>
-              
-              <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-                Your relationship isn't a rom-com. Kai helps you figure out how to actually show up.
-              </p>
-              
-              <Link to="/auth">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
-                  Get Started
-                  <ArrowRight className="w-6 h-6 ml-3" />
-                </Button>
-              </Link>
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <div className="relative z-10">
+            <div 
+              className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30 shadow-lg transition-transform duration-300"
+              style={{
+                transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
+              }}
+            >
+              <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
             </div>
             
-            {/* Phone with Dating App */}
-            <div className="relative flex items-center justify-center">
-              <div className="relative">
-                {/* Phone Frame */}
-                <div className="relative w-80 h-[600px] bg-black rounded-[2.5rem] p-3 shadow-2xl border border-gray-700">
-                  {/* Phone Screen */}
-                  <div className="w-full h-full bg-gradient-to-b from-gray-900 to-black rounded-[2rem] overflow-hidden relative">
-                    {/* Status Bar */}
-                    <div className="flex justify-between items-center px-6 py-3 text-white text-sm">
-                      <span>9:41 AM</span>
-                      <div className="flex gap-1">
-                        <div className="w-4 h-2 bg-white rounded-sm"></div>
-                        <div className="w-4 h-2 bg-white/70 rounded-sm"></div>
-                        <div className="w-4 h-2 bg-white/40 rounded-sm"></div>
-                      </div>
-                    </div>
-
-                    {/* App Header */}
-                    <div className="px-6 pb-4">
-                      <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-coral-400">RealSwipe</h2>
-                        <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-coral-400 rounded-full flex items-center justify-center">
-                          <Heart className="w-4 h-4 text-white" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Dating Profile Card */}
-                    <div className="px-6 pb-6 flex-1">
-                      <div 
-                        key={currentProfile}
-                        className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 h-96 relative border border-white/20 animate-fade-in"
-                      >
-                        {/* Profile Photo */}
-                         <div className="w-full h-48 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-2xl overflow-hidden mb-4 border border-white/10">
-                           {isEmbedded ? (
-                             <div className="w-full h-full bg-gradient-to-br from-pink-400/30 to-coral-400/30 flex items-center justify-center">
-                               <Heart className="w-12 h-12 text-white/40" />
-                             </div>
-                           ) : (
-                             <img 
-                               src={datingProfiles[currentProfile].photo} 
-                               alt={datingProfiles[currentProfile].name}
-                               className="w-full h-full object-cover"
-                               loading="lazy"
-                               decoding="async"
-                             />
-                           )}
-                         </div>
-
-                        {/* Profile Info */}
-                        <div className="text-white">
-                          <h3 className="text-2xl font-light mb-1">
-                            {datingProfiles[currentProfile].name}, {datingProfiles[currentProfile].age}
-                          </h3>
-                          <p className="text-gray-300 text-sm mb-4">{datingProfiles[currentProfile].bio}</p>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="absolute bottom-6 left-6 right-6 flex justify-center gap-4">
-                          <div className="w-12 h-12 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-red-400/30">
-                            <span className="text-red-400 text-xl">✕</span>
-                          </div>
-                          <div className="w-12 h-12 bg-pink-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-400/30">
-                            <Heart className="w-5 h-5 text-pink-400" />
-                          </div>
-                          <div className="w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-blue-400/30">
-                            <MessageCircle className="w-5 h-5 text-blue-400" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Navigation Dots */}
-                    <div className="flex justify-center gap-2 pb-6">
-                      {datingProfiles.map((_, index) => (
-                        <div
-                          key={index}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentProfile ? 'bg-pink-400' : 'bg-white/30'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Phone Home Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full"></div>
-                </div>
-
-                {/* Floating Elements */}
-                {!isEmbedded && (
-                  <>
-                    <div className="absolute -top-8 -right-8 w-16 h-16 bg-pink-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-pink-300/30 animate-pulse">
-                      <Heart className="w-6 h-6 text-pink-400" />
-                    </div>
-                    <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-coral-400/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-coral-300/30 animate-pulse" style={{ animationDelay: '1s' }}>
-                      <MessageCircle className="w-6 h-6 text-coral-400" />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+            <h1 className="text-5xl lg:text-7xl font-playfair text-white mb-8 leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
+                Modern love is messy.
+              </span>
+            </h1>
+            
+            <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
+              Your relationship isn't a rom-com. Kai helps you figure out how to actually show up.
+            </p>
+            
+            <Link to="/auth">
+              <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
+                Get Started
+                <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
