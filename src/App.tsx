@@ -20,6 +20,7 @@ const Pricing = React.lazy(() => import("./pages/Pricing"));
 const BillingSuccess = React.lazy(() => import("./pages/BillingSuccess"));
 const Account = React.lazy(() => import("./pages/Account"));
 const Auth = React.lazy(() => import("./pages/Auth"));
+const GetStarted = React.lazy(() => import("./pages/GetStarted"));
 const Mission = React.lazy(() => import("./pages/Mission"));
 
 const AppContent = () => {
@@ -82,6 +83,11 @@ const AppContent = () => {
         <Route path="/auth" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Auth />
+          </Suspense>
+        } />
+        <Route path="/get-started" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <GetStarted />
           </Suspense>
         } />
         <Route path="/account" element={
