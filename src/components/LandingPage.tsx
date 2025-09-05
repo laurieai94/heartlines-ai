@@ -161,7 +161,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   Privacy & Security
                 </Button>
               </Link>
-              <Link to="/">
+              <Link to="/auth">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
                   Get Started - It's Free
                 </Button>
@@ -206,7 +206,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 We're tired of relationship advice that sounds like it was written in 1995. {BRAND.name} gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
               </p>
               
-              <Link to="/">
+              <Link to="/auth">
                 <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
                   Get Started - It's Free
                   <ArrowRight className="w-6 h-6 ml-3" />
@@ -316,6 +316,41 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="px-6 py-16 relative bg-gradient-to-br from-coral-900/10 via-pink-900/5 to-coral-900/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-block bg-gradient-to-r from-coral-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-coral-300/30">
+            <span className="text-coral-300 font-light tracking-wide">How It Works</span>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
+                <span className="text-white font-bold text-xl">1</span>
+              </div>
+              <h3 className="text-xl font-light text-white mb-4">Sign Up</h3>
+              <p className="text-gray-300 font-light">Create your free account in seconds. No credit card required.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
+                <span className="text-white font-bold text-xl">2</span>
+              </div>
+              <h3 className="text-xl font-light text-white mb-4">Complete Your Profile</h3>
+              <p className="text-gray-300 font-light">Answer thoughtful questions to help Kai understand your relationship dynamics.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
+                <span className="text-white font-bold text-xl">3</span>
+              </div>
+              <h3 className="text-xl font-light text-white mb-4">Talk to Kai</h3>
+              <p className="text-gray-300 font-light">Get personalized relationship coaching tailored to your unique situation.</p>
             </div>
           </div>
         </div>
@@ -595,7 +630,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           {/* CTA Section */}
           <div className="mb-12">
             <h3 className="text-3xl font-light text-white mb-8">Ready to Love Smarter?</h3>
-            <Link to="/">
+            <Link to="/auth">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 border-0 mb-6 font-light">
                 Create Your Profile
                 <ArrowRight className="w-6 h-6 ml-3" />
@@ -648,7 +683,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       {/* Floating Try It Now Button */}
       {showFloatingButton && (
         <div className="fixed bottom-8 right-8 z-50 animate-fade-in">
-          <Link to="/">
+          <Link to="/auth">
             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-pink-300/20">
               Try It Now
               <ArrowRight className="w-5 h-5 ml-2" />

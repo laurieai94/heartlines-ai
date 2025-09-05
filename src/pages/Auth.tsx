@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const Auth = () => {
   const { user, loading, signIn, signUp } = useAuth();
   const navigate = useNavigate();
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -22,7 +22,7 @@ const Auth = () => {
 
   // Redirect if already authenticated
   if (user && !loading) {
-    return <Navigate to="/account" replace />;
+    return <Navigate to="/profile" replace />;
   }
 
   // Show loading state
@@ -102,16 +102,16 @@ const Auth = () => {
           className="mb-6 text-white/80 hover:text-white hover:bg-white/10"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Dashboard
+          Back to Home
         </Button>
 
         <div className="questionnaire-card p-8 animate-fade-in">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">
-              We missed you
+              {isSignUp ? 'Create Your Free Account' : 'We missed you'}
             </h1>
             <p className="text-white/70">
-              Tap in to keep leveling up
+              {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
             </p>
           </div>
 
@@ -191,19 +191,25 @@ const Auth = () => {
             >
               {isSubmitting 
                 ? 'Processing...' 
-                : 'Let\'s Go'
+                : isSignUp ? 'Create Account' : 'Sign In'
               }
             </Button>
           </form>
 
-          {/* Sign up option hidden during setup phase */}
-          {!isSignUp && (
-            <div className="mt-6 text-center">
-              <p className="text-white/70 text-sm">
-                Need access? Contact us for an invitation.
-              </p>
-            </div>
-          )}
+          {/* Toggle between sign up and sign in */}
+          <div className="mt-6 text-center">
+            <p className="text-white/70 text-sm">
+              {isSignUp ? 'Already have an account?' : 'Need an account?'}
+              {' '}
+              <button
+                type="button"
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-coral-400 hover:text-coral-300 underline font-medium"
+              >
+                {isSignUp ? 'Sign In' : 'Sign Up'}
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>

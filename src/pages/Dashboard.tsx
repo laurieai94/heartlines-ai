@@ -55,6 +55,24 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
+  // Auto-open Personal Questionnaire when on profile tab with incomplete profile
+  useEffect(() => {
+    if (activeTab === 'profile' && 
+        accessLevel === 'profile-required' && 
+        user && 
+        !showQuestionnaireModal &&
+        !localStorage.getItem('profileAutoOpenedOnce')) {
+      
+      // Set one-time flag to avoid reopening repeatedly
+      localStorage.setItem('profileAutoOpenedOnce', 'true');
+      
+      // Small delay to ensure component is mounted
+      setTimeout(() => {
+        handleOpenQuestionnaire('header');
+      }, 100);
+    }
+  }, [activeTab, accessLevel, user, showQuestionnaireModal, handleOpenQuestionnaire]);
+
   const handleSignInClick = () => {
     openSignInModal();
   };

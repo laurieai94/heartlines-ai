@@ -29,10 +29,10 @@ const AuthCallback = () => {
         logEvent("login_success");
         
         // Redirect to dashboard with a clean URL
-        window.location.replace('/');
+        window.location.replace('/profile');
       } catch (error) {
         console.error('Callback processing error:', error);
-        window.location.replace('/');
+        window.location.replace('/profile');
       }
     };
 

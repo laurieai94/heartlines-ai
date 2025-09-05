@@ -12,6 +12,7 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 
 // Lazy load non-critical components
+const Index = React.lazy(() => import("./pages/Index"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const AuthCallback = React.lazy(() => import("./pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("./pages/PrivacySecurity"));
@@ -36,8 +37,14 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Critical routes load synchronously for instant shell */}
-        <Route path="/" element={<Dashboard />} />
+        {/* Public landing page */}
+        <Route path="/" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Index />
+          </Suspense>
+        } />
+        
+        {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/coach" element={<Dashboard />} />
         <Route path="/privacy" element={<Dashboard />} />
