@@ -163,7 +163,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </Link>
               <Link to="/auth">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
-                  Get Started - It's Free
+                  Get Started
                 </Button>
               </Link>
             </div>
@@ -195,20 +195,18 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
-                Your relationship isn't a rom-com.
-                <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                  Real growth needs real tools.
+                  Modern love is messy.
                 </span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-                We're tired of relationship advice that sounds like it was written in 1995. {BRAND.name} gets it—modern love is complicated, you're both busy AF, and sometimes you need help figuring out how to show up for each other.
+                Your relationship isn't a rom-com. Kai helps you figure out how to actually show up.
               </p>
               
               <Link to="/auth">
                 <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
-                  Get Started - It's Free
+                  Get Started
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Button>
               </Link>
