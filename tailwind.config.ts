@@ -96,6 +96,7 @@ export default {
 			fontFamily: {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
 				brand: ['Shrikhand', 'Inter', 'system-ui', 'sans-serif'],
+				playfair: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

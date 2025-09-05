@@ -156,6 +156,16 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </Link>
             </div>
             <div className="flex items-center gap-4">
+              <a 
+                href="#how-it-works" 
+                className="text-white/80 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                How it works
+              </a>
               <Link to="/privacy-and-security">
                 <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10 rounded-full font-thin">
                   Privacy & Security
@@ -194,7 +204,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
               </div>
               
-              <h1 className="text-5xl lg:text-7xl font-thin text-white mb-8 leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-playfair text-white mb-8 leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
                   Modern love is messy.
                 </span>
@@ -320,36 +330,72 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* How It Works Section */}
-      <section className="px-6 py-16 relative bg-gradient-to-br from-coral-900/10 via-pink-900/5 to-coral-900/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block bg-gradient-to-r from-coral-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-coral-300/30">
-            <span className="text-coral-300 font-light tracking-wide">How It Works</span>
+      <section id="how-it-works" className="px-6 py-20 relative">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-white/5 backdrop-blur-xl rounded-full px-8 py-3 mb-8 border border-white/15 shadow-xl">
+              <span className="text-coral-300 font-light tracking-wide text-lg">How It Works</span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-playfair text-white mb-6">
+              Three steps to{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
+                better relationships
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-light">
+              No generic advice. No outdated relationship rules. Just personalized guidance for your unique situation.
+            </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
-                <span className="text-white font-bold text-xl">1</span>
+            {[
+              {
+                step: "1",
+                title: "Sign Up",
+                description: "Create your free account in seconds. No credit card required.",
+                icon: <Users className="w-8 h-8" />
+              },
+              {
+                step: "2", 
+                title: "Complete Your Profile",
+                description: "Answer thoughtful questions to help Kai understand your relationship dynamics.",
+                icon: <Target className="w-8 h-8" />
+              },
+              {
+                step: "3",
+                title: "Talk to Kai",
+                description: "Get personalized relationship coaching tailored to your unique situation.",
+                icon: <Brain className="w-8 h-8" />
+              }
+            ].map((item, index) => (
+              <div 
+                key={index}
+                className="group bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/15 shadow-xl hover:shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-coral-400/30 hover:ring-1 hover:ring-coral-400/20 transform hover:-translate-y-2"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-500 rounded-2xl mb-6 mx-auto group-hover:shadow-lg group-hover:shadow-coral-400/25 transition-shadow duration-300">
+                  <div className="text-white font-bold text-xl">{item.step}</div>
+                </div>
+                
+                <div className="text-center">
+                  <h3 className="text-2xl font-light text-white mb-4 group-hover:text-coral-200 transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-300 font-light leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-light text-white mb-4">Sign Up</h3>
-              <p className="text-gray-300 font-light">Create your free account in seconds. No credit card required.</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
-                <span className="text-white font-bold text-xl">2</span>
-              </div>
-              <h3 className="text-xl font-light text-white mb-4">Complete Your Profile</h3>
-              <p className="text-gray-300 font-light">Answer thoughtful questions to help Kai understand your relationship dynamics.</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
-                <span className="text-white font-bold text-xl">3</span>
-              </div>
-              <h3 className="text-xl font-light text-white mb-4">Talk to Kai</h3>
-              <p className="text-gray-300 font-light">Get personalized relationship coaching tailored to your unique situation.</p>
-            </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-16">
+            <Link to="/auth">
+              <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-6 text-xl rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
+                Try It Now - It's Free
+                <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
