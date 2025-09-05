@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Mail, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { logEvent } from '@/utils/analytics';
 
 const Auth = () => {
-  const { user, loading, signIn, signUp } = useAuth();
+  const { user, loading, signIn, signUp, resendVerification } = useAuth();
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,9 @@ const Auth = () => {
   });
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [isResendingVerification, setIsResendingVerification] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
 
   // Redirect if already authenticated
   if (user && !loading) {
@@ -59,6 +63,22 @@ const Auth = () => {
     return errors;
   };
 
+  const getErrorMessage = (error: any) => {
+    const message = error.message || 'An error occurred';
+    
+    if (message.includes('User already registered')) {
+      return 'This email is already registered. Try signing in instead, or use a different email.';
+    }
+    if (message.includes('Invalid login credentials')) {
+      return 'Invalid email or password. Please check your credentials and try again.';
+    }
+    if (message.includes('Email not confirmed')) {
+      return 'Please check your email and click the verification link before signing in.';
+    }
+    
+    return message;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -73,16 +93,57 @@ const Auth = () => {
 
     try {
       if (isSignUp) {
+        logEvent('auth_signup_started');
         const { error } = await signUp(formData.email, formData.password);
-        if (error) throw error;
+        if (error) {
+          if (error.message?.includes('User already registered')) {
+            // Suggest switching to sign in
+            setFormErrors([getErrorMessage(error)]);
+            setTimeout(() => setIsSignUp(false), 3000);
+          } else {
+            throw error;
+          }
+        } else {
+          logEvent('auth_signup_completed');
+          setShowEmailVerification(true);
+        }
       } else {
+        logEvent('auth_signin_started');
         const { error } = await signIn(formData.email, formData.password);
         if (error) throw error;
+        logEvent('auth_signin_completed');
       }
     } catch (error: any) {
-      setFormErrors([error.message || 'An error occurred']);
+      setFormErrors([getErrorMessage(error)]);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (resendCooldown > 0 || !formData.email) return;
+    
+    setIsResendingVerification(true);
+    try {
+      const { error } = await resendVerification(formData.email);
+      if (error) throw error;
+      
+      // Start cooldown
+      setResendCooldown(60);
+      const interval = setInterval(() => {
+        setResendCooldown(prev => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      
+    } catch (error: any) {
+      setFormErrors([getErrorMessage(error)]);
+    } finally {
+      setIsResendingVerification(false);
     }
   };
 
@@ -128,14 +189,63 @@ const Auth = () => {
         </Button>
 
         <div className="questionnaire-card p-8 animate-fade-in">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">
-              {isSignUp ? 'Create Your Free Account' : 'We missed you'}
-            </h1>
-            <p className="text-white/70">
-              {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
-            </p>
-          </div>
+          {showEmailVerification ? (
+            <div className="text-center space-y-6">
+              <div className="mx-auto w-16 h-16 bg-coral-500/20 rounded-full flex items-center justify-center mb-4">
+                <Mail className="h-8 w-8 text-coral-400" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-white mb-2">Check your email</h1>
+                <p className="text-white/70 mb-4">
+                  We sent a verification link to <span className="text-coral-400 font-medium">{formData.email}</span>
+                </p>
+                <p className="text-white/60 text-sm">
+                  Click the link in your inbox to activate your account and continue to your profile.
+                </p>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-coral-500/10 border border-coral-400/20">
+                <p className="text-coral-300 text-sm mb-3">Didn't receive the email?</p>
+                <Button
+                  onClick={handleResendVerification}
+                  disabled={isResendingVerification || resendCooldown > 0}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/5 border-white/20 text-white hover:bg-white/10"
+                >
+                  {isResendingVerification ? (
+                    <RotateCcw className="h-4 w-4 mr-2 animate-spin" />
+                  ) : null}
+                  {resendCooldown > 0 
+                    ? `Resend in ${resendCooldown}s` 
+                    : 'Resend verification email'
+                  }
+                </Button>
+              </div>
+
+              <div className="text-center">
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setShowEmailVerification(false);
+                    setFormData({ email: '', password: '', confirmPassword: '' });
+                  }}
+                  className="text-white/60 hover:text-white"
+                >
+                  ← Try a different email
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  {isSignUp ? 'Create Your Free Account' : 'We missed you'}
+                </h1>
+                <p className="text-white/70">
+                  {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
+                </p>
+              </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -218,20 +328,26 @@ const Auth = () => {
             </Button>
           </form>
 
-          {/* Toggle between sign up and sign in */}
-          <div className="mt-6 text-center">
-            <p className="text-white/70 text-sm">
-              {isSignUp ? 'Already have an account?' : 'Need an account?'}
-              {' '}
-              <button
-                type="button"
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-coral-400 hover:text-coral-300 underline font-medium"
-              >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
-              </button>
-            </p>
-          </div>
+              {/* Toggle between sign up and sign in */}
+              <div className="mt-6 text-center">
+                <p className="text-white/70 text-sm">
+                  {isSignUp ? 'Already have an account?' : 'Need an account?'}
+                  {' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSignUp(!isSignUp);
+                      setFormErrors([]);
+                      setFormData({ email: '', password: '', confirmPassword: '' });
+                    }}
+                    className="text-coral-400 hover:text-coral-300 underline font-medium"
+                  >
+                    {isSignUp ? 'Sign In' : 'Sign Up'}
+                  </button>
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
