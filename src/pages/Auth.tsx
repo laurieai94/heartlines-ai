@@ -95,6 +95,28 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-md">
+        {/* Progress Header */}
+        <div className="mb-8 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center">
+                <div className="w-8 h-8 rounded-full bg-coral-400 flex items-center justify-center text-white text-sm font-semibold">1</div>
+                <span className="ml-2 text-white font-medium">Sign Up</span>
+              </div>
+              <div className="w-8 h-0.5 bg-white/20"></div>
+              <div className="flex items-center">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white/60 text-sm font-semibold">2</div>
+                <span className="ml-2 text-white/60">Profile</span>
+              </div>
+              <div className="w-8 h-0.5 bg-white/20"></div>
+              <div className="flex items-center">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white/60 text-sm font-semibold">3</div>
+                <span className="ml-2 text-white/60">Talk to Kai</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-white/70 text-sm">✨ Takes just 2-3 minutes to get your personalized AI relationship coach</p>
+        </div>
         {/* Back button */}
         <Button
           variant="ghost"
