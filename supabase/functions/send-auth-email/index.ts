@@ -28,8 +28,11 @@ Deno.serve(async (req) => {
   }
 
   try {
+    console.log('🚀 Auth email webhook received!')
     const payload = await req.text()
     const headers = Object.fromEntries(req.headers)
+    console.log('📧 Webhook headers:', Object.keys(headers))
+    
     const wh = new Webhook(hookSecret)
     
     const {
