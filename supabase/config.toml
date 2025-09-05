@@ -2,6 +2,10 @@ project_id = "relqmhrzyqckoaebscgx"
 
 [functions]
 
+[functions.send-auth-email]
+# Called by Supabase Auth webhooks, no JWT needed
+verify_jwt = false
+
 [functions.send-sms-reminder]
 # Called from the app via supabase.functions.invoke, keep JWT verification enabled
 verify_jwt = true
