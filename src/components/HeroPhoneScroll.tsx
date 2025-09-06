@@ -56,44 +56,87 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   }, [visibleMessages, isTyping]);
 
   useEffect(() => {
-    const animateMessages = () => {
-      if (currentMessageIndex < DEMO_CONVERSATION.length) {
-        const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
-        const nextMessage = DEMO_CONVERSATION[currentMessageIndex + 1];
+    let timeoutId: NodeJS.Timeout;
+    
+    const showNextMessage = () => {
+      if (currentMessageIndex >= DEMO_CONVERSATION.length) return;
+      
+      const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
+      const nextMessage = DEMO_CONVERSATION[currentMessageIndex + 1];
+      
+      // Show typing indicator if next message is from assistant
+      if (nextMessage && nextMessage.type === 'assistant') {
+        setIsTyping(true);
         
-        // Show typing indicator only if next message is from assistant
-        if (nextMessage && nextMessage.type === 'assistant') {
-          setIsTyping(true);
-        }
-        
-        // Typing time: 1200ms to 2000ms based on content length
-        const typingTime = Math.max(1200, Math.min(2000, currentMessage.content.length * 40));
-        
-        setTimeout(() => {
+        // Show typing for 1 second, then message
+        timeoutId = setTimeout(() => {
+          setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
-          setIsTyping(false);
           
-          // Reading delay: 2500ms to 6000ms based on content length
-          const readingDelay = Math.max(2500, Math.min(6000, currentMessage.content.length * 55));
-          
-          setTimeout(() => {
-            animateMessages();
-          }, readingDelay);
-        }, typingTime);
+          // Wait 2 seconds before next message
+          timeoutId = setTimeout(showNextMessage, 2000);
+        }, 1000);
+      } else {
+        // Show message immediately for user messages
+        setVisibleMessages(prev => [...prev, currentMessage]);
+        setCurrentMessageIndex(prev => prev + 1);
+        
+        // Wait 2 seconds before next message
+        timeoutId = setTimeout(showNextMessage, 2000);
       }
     };
 
-    // Start animation sequence after component mounts
-    setTimeout(() => {
-      animateMessages();
-    }, 1000);
+    // Start animation sequence after 1 second
+    if (currentMessageIndex === 0) {
+      timeoutId = setTimeout(showNextMessage, 1000);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [currentMessageIndex]);
 
   return (
     <div className={`relative ${className}`} style={style}>
+      {/* Pop-out Maya Avatar - Left side */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none hidden sm:block">
+        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
+          <Avatar className="w-16 h-16 ring-4 ring-pink-400/30 shadow-xl">
+            <AvatarImage 
+              src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face" 
+              alt="Maya - App User"
+            />
+            <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-lg">
+              M
+            </AvatarFallback>
+          </Avatar>
+          <div className="text-center mt-2">
+            <p className="text-white/80 text-sm font-medium">Maya</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Pop-out Jake Avatar - Right side */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 pointer-events-none hidden sm:block">
+        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
+          <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
+            <AvatarImage 
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" 
+              alt="Jake - Maya's Partner"
+            />
+            <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
+              J
+            </AvatarFallback>
+          </Avatar>
+          <div className="text-center mt-2">
+            <p className="text-white/80 text-sm font-medium">Jake</p>
+          </div>
+        </div>
+      </div>
+
       {/* Phone container - full area focused on chat */}
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center z-20">
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
