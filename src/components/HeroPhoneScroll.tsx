@@ -25,7 +25,7 @@ const DEMO_CONVERSATION = [
   {
     id: 4,
     type: 'assistant',
-    content: "try: \"when you scroll, i feel ignored. can we do no-phone dinners?\"",
+    content: 'try: "when you scroll, i feel ignored. can we do no-phone dinners?"',
     timestamp: new Date().toISOString(),
   },
   {
@@ -141,14 +141,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {visibleMessages.map((message, index) => (
                 <div key={message.id} className={`flex items-start gap-2 animate-fade-in ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                   {/* Avatar */}
-                  <Avatar className="w-8 h-8 flex-shrink-0">
+                  <Avatar className={`w-8 h-8 flex-shrink-0 ${message.type === 'user' ? 'ring-2 ring-pink-400/50' : 'ring-2 ring-burgundy-400/50'}`}>
                     {message.type === 'user' ? (
                       <>
                         <AvatarImage 
                           src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face" 
                           alt="Maya" 
                         />
-                        <AvatarFallback className="bg-gradient-to-r from-coral-400 to-pink-400 text-white text-xs font-semibold">
+                        <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white text-xs font-semibold">
                           M
                         </AvatarFallback>
                       </>
@@ -174,7 +174,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {/* Typing indicator with avatar */}
               {isTyping && (
                 <div className="flex items-start gap-2 animate-fade-in">
-                  <Avatar className="w-8 h-8 flex-shrink-0">
+                  <Avatar className="w-8 h-8 flex-shrink-0 ring-2 ring-burgundy-400/50">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
                     <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white text-xs font-semibold">
                       {BRAND.coach.name[0]}

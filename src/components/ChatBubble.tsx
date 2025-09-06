@@ -16,10 +16,10 @@ const ChatBubble = ({ children, isUser = false, className = '', variant = 'defau
     }
     
     if (variant === 'heartlines') {
-      // Glassmorphic bubbles with Heartlines burgundy/coral palette
+      // Solid burgundy bubbles with Heartlines palette
       return isUser
-        ? 'bg-burgundy-700/70 backdrop-blur-md text-white border border-white/15 shadow-lg shadow-burgundy-500/10'
-        : 'bg-burgundy-600/70 backdrop-blur-md text-white border border-white/15 shadow-lg shadow-coral-400/10';
+        ? 'bg-burgundy-600 text-white shadow-lg'
+        : 'bg-burgundy-700 text-white shadow-lg';
     }
     
     // Default variant
