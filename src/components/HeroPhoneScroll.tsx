@@ -169,7 +169,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-2 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
               width: 'clamp(300px, 70vw, 360px)',
               aspectRatio: '9/16',
@@ -177,7 +177,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             }}
           >
             {/* Status bar */}
-            <div className="bg-burgundy-800 px-6 py-2 flex justify-between items-center text-white text-xs">
+            <div className="bg-burgundy-800 px-6 py-1 flex justify-between items-center text-white text-xs">
               <span>9:41</span>
               <div className="flex items-center gap-1">
                 <div className="w-4 h-2 border border-white/50 rounded-sm">
@@ -187,8 +187,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header with Kai styling */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-4 py-3 flex items-center">
-              <Avatar className="w-10 h-10 mr-3 ring-2 ring-white/20">
+            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-4 py-2 flex items-center">
+              <Avatar className="w-9 h-9 mr-3 ring-2 ring-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
                 <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                   {BRAND.coach.name[0]}
@@ -203,7 +203,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-3 space-y-2 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto"
+              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
@@ -271,16 +271,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area with Kai styling */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-3">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-2">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 flex items-center">
                 <input 
                   type="text" 
                   placeholder="Type your message..." 
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-burgundy-500 to-coral-500 w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <button className="bg-gradient-to-r from-burgundy-500 to-coral-500 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   </svg>
                 </button>
