@@ -194,7 +194,7 @@ const Auth = () => {
           <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
         </div>
 
-        <div className="questionnaire-card p-6 sm:p-8 animate-fade-in">
+        <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto">
           {showEmailVerification ? (
             <div className="text-center space-y-6">
               <div className="mx-auto w-16 h-16 bg-coral-500/20 rounded-full flex items-center justify-center mb-4">
@@ -263,7 +263,7 @@ const Auth = () => {
                 </Button>
               </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-white">
                 Email Address
