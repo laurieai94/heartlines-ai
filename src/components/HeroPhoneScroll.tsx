@@ -107,29 +107,33 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         
         // Variable typing time for more natural feel
-        const typingTime = 1200 + (currentMessage.content.length * 30);
+        const typingTime = 1200 + (currentMessage.content.length * 20);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
-          
-          // Wait 1.5-2 seconds before next message for natural pacing
-          timeoutId = setTimeout(showNextMessage, 1500 + Math.random() * 500);
         }, typingTime);
       } else {
         // Show user messages instantly (they're already typed)
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentMessageIndex(prev => prev + 1);
-        
-        // Shorter delay for user messages (600-900ms)
-        timeoutId = setTimeout(showNextMessage, 600 + Math.random() * 300);
       }
     };
 
-    // Start animation sequence after 800ms
+    // Start animation or continue with next message
     if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
+    } else if (currentMessageIndex < DEMO_CONVERSATION.length) {
+      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 600 : 1500;
+      timeoutId = setTimeout(showNextMessage, delay);
+    } else {
+      // All messages shown, reset after delay
+      timeoutId = setTimeout(() => {
+        setVisibleMessages([]);
+        setCurrentMessageIndex(0);
+        setIsTyping(false);
+      }, 2500);
     }
 
     return () => {
@@ -157,17 +161,17 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </div>
 
-      {/* Pop-out Kai Avatar - Right side */}
+      {/* Pop-out Rory Avatar - Right side */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 pointer-events-none hidden sm:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Rory" />
             <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
-              K
+              R
             </AvatarFallback>
           </Avatar>
           <div className="text-center mt-2">
-            <p className="text-white/80 text-sm font-medium">Kai</p>
+            <p className="text-white/80 text-sm font-medium">Rory</p>
           </div>
         </div>
       </div>
