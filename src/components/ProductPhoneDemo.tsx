@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot } from "lucide-react";
+import { Bot, Info } from "lucide-react";
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 
@@ -97,31 +97,42 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
         <div className="relative w-full h-full bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 overflow-hidden">
           
           {/* Chat Header */}
-          <div className="relative z-10 px-4 py-6 border-b border-white/10 backdrop-blur-sm bg-white/5">
-            <div className="flex items-center gap-3">
-              <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                  <Bot className="w-6 h-6" />
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
-                <p className="text-white/70 text-xs">Your AI relationship coach</p>
+          <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-white/5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                      <Bot className="w-6 h-6" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-sm">Kai</h3>
+                  <p className="text-white/70 text-xs">Online</p>
+                </div>
               </div>
+              <Info className="w-5 h-5 text-white/50" />
             </div>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 px-4 py-4 space-y-4 h-[420px] overflow-y-auto">
-            {visibleMessages.map((message) => (
-              <ChatBubble
-                key={message.id}
-                isUser={message.type === 'user'}
-                className="animate-fade-in text-sm leading-relaxed"
-              >
-                {message.content}
-              </ChatBubble>
+          <div className="flex-1 px-4 py-4 space-y-3 h-[430px] overflow-y-auto">
+            {visibleMessages.map((message, index) => (
+              <div key={message.id} className="animate-fade-in">
+                <ChatBubble
+                  isUser={message.type === 'user'}
+                  variant="kai"
+                  className="text-sm leading-relaxed"
+                >
+                  {message.content}
+                </ChatBubble>
+                <div className={`text-xs text-white/40 mt-1 ${message.type === 'user' ? 'text-right' : 'text-left ml-1'}`}>
+                  {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
+              </div>
             ))}
             
             {/* Typing Indicator */}
@@ -135,7 +146,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm px-4 py-3 rounded-2xl border border-white/10">
+                <div className="bg-purple-600/90 backdrop-blur-sm px-4 py-3 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-900/20">
                   <div className="flex gap-1">
                     <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce"></div>
                     <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -149,10 +160,10 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           {/* Chat Input Area */}
           <div className="absolute bottom-0 left-0 right-0 px-4 py-4 bg-gradient-to-t from-black/20 to-transparent backdrop-blur-sm">
             <div className="flex gap-2 items-center">
-              <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
-                <div className="text-white/50 text-sm">How can Kai help you today?</div>
+              <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2.5 border border-white/20">
+                <div className="text-white/50 text-sm">Message Kai...</div>
               </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
