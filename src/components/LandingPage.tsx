@@ -193,18 +193,18 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           </>
         )}
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[600px]">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-start min-h-[600px]">
             {/* Left Column - Text Content */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
+            <div className="text-left max-w-[620px] self-start order-2 md:order-1">
               
-              <div className="space-y-4 mb-12">
-                <h1 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in">
+              <div className="space-y-3 mb-10">
+                <h1 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight animate-fade-in">
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                     Modern love is messy.
                   </span>
                 </h1>
                 
-                <h3 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <h3 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                     Kai helps you actually connect.
                   </span>
@@ -220,7 +220,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
 
             {/* Right Column - Live Kai Demo */}
-            <div className="relative flex justify-center lg:justify-start order-1 lg:order-2">
+            <div className="relative flex justify-center md:justify-end order-1 md:order-2">
               <ProductPhoneDemo className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
             </div>
           </div>
