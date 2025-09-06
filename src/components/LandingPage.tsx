@@ -157,7 +157,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
+                    className="h-10 w-10 text-white/80 hover:text-white hover:bg-white/5 focus:bg-white/5 transition-colors"
                     aria-label="Open menu"
                   >
                     <Menu className="h-5 w-5" />
