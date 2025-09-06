@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { Eye, EyeOff, ArrowLeft, Mail, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -105,7 +106,15 @@ const Auth = () => {
           }
         } else {
           logEvent('auth_signup_completed');
-          setShowEmailVerification(true);
+          // Check if user is immediately signed in (no email verification required)
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            // User is signed in immediately, redirect to profile
+            navigate('/profile');
+          } else {
+            // No session, show email verification
+            setShowEmailVerification(true);
+          }
         }
       } else {
         logEvent('auth_signin_started');

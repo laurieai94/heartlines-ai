@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,9 +78,18 @@ const SignUpModal = ({
         toast.error(result.error.message);
       } else {
         if (isSignUp) {
-          // Show verification state for new signups
-          setShowVerificationState(true);
-          toast.success("Check your email to verify your account!");
+          // Check if user is immediately signed in (no email verification required)
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            // User is signed in immediately, transfer data and redirect
+            await transferToUserAccount();
+            onClose();
+            window.location.href = '/profile';
+          } else {
+            // No session, show verification state
+            setShowVerificationState(true);
+            toast.success("Check your email to verify your account!");
+          }
         } else {
           // Transfer temporary profile data and close for sign-ins
           await transferToUserAccount();
