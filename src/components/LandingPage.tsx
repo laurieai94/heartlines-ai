@@ -203,15 +203,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </Link>
             </div>
             
-            {/* Mobile Sign In */}
+            {/* Mobile Get Started */}
             <div className="md:hidden">
-              <Link
-                to="/auth?mode=signin"
-                className="text-white/70 hover:text-white text-sm px-3 py-1 rounded-full hover:bg-white/5 transition-colors flex items-center gap-1"
-                aria-label="Sign in"
-              >
-                <User className="w-4 h-4" />
-                Sign in
+              <Link to="/auth">
+                <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm text-sm px-4 py-2">
+                  Get Started
+                </Button>
               </Link>
             </div>
             <div className="hidden md:flex items-center gap-4">
