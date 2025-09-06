@@ -246,7 +246,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid lg:grid-cols-2 gap-8 items-start min-h-full">
+                <div className="grid md:grid-cols-2 gap-8 items-start min-h-full">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-[580px] self-center">
                     <div className="space-y-3 mb-6">
@@ -271,8 +271,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </div>
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
-                  <div className="relative flex justify-center items-start lg:-mt-2">
-                    <div className="w-full max-w-sm" style={{ height: 'min(56vh, 520px)' }}>
+                  <div className="relative flex justify-center items-start self-start md:-mt-2">
+                    <div className="w-full max-w-sm">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>

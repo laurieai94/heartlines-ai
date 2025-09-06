@@ -155,7 +155,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(260px, 24vw, 320px)',
+              width: 'clamp(240px, 20vw, 300px)',
               aspectRatio: '9/18',
               animationDelay: '0.6s'
             }}
