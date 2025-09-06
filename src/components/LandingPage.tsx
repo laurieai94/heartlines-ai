@@ -285,7 +285,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
-                    <div className="w-full max-w-md md:scale-100 scale-[0.96] origin-top">
+                    <div className="w-full max-w-md md:scale-100 scale-100 origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
@@ -325,7 +325,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div className="w-full max-w-md" style={{ height: 'min(56vh, 520px)' }}>
+                  <div className="w-full max-w-md" style={{ height: 'min(52vh, 500px)' }}>
                     <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>

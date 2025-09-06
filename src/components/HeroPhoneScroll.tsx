@@ -150,19 +150,15 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
-          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl ring-1 ring-white/5"></div>
+          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-xl ring-1 ring-white/5"></div>
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(280px, 26vw, 360px)',
-              aspectRatio: '9/18',
-              animationDelay: '0.6s',
-              transform: 'perspective(1200px) rotateX(2.5deg) rotateY(-5deg)',
-              transition: 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
-              willChange: 'transform',
-              boxShadow: '0 24px 64px rgba(0,0,0,0.45), 0 10px 24px rgba(102,0,51,0.25)'
+              width: 'clamp(300px, 70vw, 360px)',
+              aspectRatio: '9/16',
+              animationDelay: '0.6s'
             }}
           >
             {/* Status bar */}
