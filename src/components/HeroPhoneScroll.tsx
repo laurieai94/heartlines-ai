@@ -53,16 +53,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
         setIsTyping(true);
         
-        // Dynamic typing time based on message length (more realistic)
-        const typingTime = Math.max(1200, Math.min(3000, currentMessage.content.length * 50));
+        // Slower typing time for better readability
+        const typingTime = Math.max(1800, Math.min(4000, currentMessage.content.length * 60));
         
         setTimeout(() => {
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
           setIsTyping(false);
           
-          // Dynamic reading pause based on message length for readability
-          const readingTime = Math.max(2000, Math.min(4500, currentMessage.content.length * 45));
+          // Longer reading pause for better comprehension
+          const readingTime = Math.max(3000, Math.min(6000, currentMessage.content.length * 60));
           
           setTimeout(() => {
             animateMessages();
