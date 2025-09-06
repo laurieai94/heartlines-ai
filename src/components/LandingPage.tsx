@@ -229,37 +229,38 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           </>
         )}
         
-        {/* Embedded version - simple layout */}
+        {/* Embedded version - vertical layout for above fold */}
         {isEmbedded && (
-          <div className="px-6 py-12 lg:py-16">
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-start min-h-[calc(100vh-3rem)]">
-                {/* Left Column - Text Content */}
-                <div className="text-left max-w-[620px] self-start order-2 md:order-1">
-                  <div className="space-y-3 mb-6">
-                    <h1 className="text-3xl lg:text-5xl xl:text-6xl font-playfair font-normal leading-tight animate-fade-in">
+          <div className="px-6 py-8 lg:py-12">
+            <div className="max-w-4xl mx-auto relative z-10">
+              <div className="flex flex-col items-center text-center space-y-8 min-h-[calc(100vh-4rem)]">
+                {/* Text Content - Top */}
+                <div className="max-w-2xl">
+                  <div className="space-y-4 mb-6">
+                    <h1 className="text-3xl lg:text-4xl xl:text-5xl font-playfair font-normal leading-tight animate-fade-in">
                       <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                         Modern love is messy.
                       </span>
                     </h1>
                     
-                    <h3 className="text-xl lg:text-2xl xl:text-3xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                    <h3 className="text-lg lg:text-xl xl:text-2xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
                       Kai helps you actually connect.
                     </h3>
                   </div>
 
-                  
                   <Link to="/get-started">
-                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-5 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
                       Get Started
                       <ArrowRight className="w-5 h-5 ml-3" />
                     </Button>
                   </Link>
                 </div>
 
-                {/* Right Column - Static Demo */}
-                <div className="relative flex justify-center md:justify-end order-1 md:order-2">
-                  <ProductPhoneDemo className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
+                {/* Chat Animation - Bottom */}
+                <div className="relative flex justify-center">
+                  <div style={{ height: 'min(60vh, 680px)' }}>
+                    <HeroPhoneScroll className="animate-fade-in h-full" style={{ animationDelay: '1.6s' }} />
+                  </div>
                 </div>
               </div>
             </div>

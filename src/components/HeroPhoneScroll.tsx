@@ -6,44 +6,62 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 const DEMO_CONVERSATION = [
   {
     id: 1,
-    type: 'user',
-    content: "things feel different with jake lately",
+    type: 'assistant',
+    content: "Hey Maya 👋 What's on your mind today?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 2,
-    type: 'assistant',
-    content: "how so? what's shifted?",
+    type: 'user',
+    content: "Tbh… I feel like me + Alex keep having the same fight about texting.",
     timestamp: new Date().toISOString(),
   },
   {
     id: 3,
-    type: 'user',
-    content: "like the honeymoon phase is over and now it's just... normal?",
+    type: 'assistant',
+    content: "Got it. Classic. When does it usually come up?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 4,
-    type: 'assistant',
-    content: "normal can feel scary after all that intensity. what are you missing most?",
+    type: 'user',
+    content: "Mostly when I don't reply fast. He thinks I'm ignoring him.",
     timestamp: new Date().toISOString(),
   },
   {
     id: 5,
-    type: 'user',
-    content: "the excitement i guess? like we barely text during the day now",
+    type: 'assistant',
+    content: "So it's less about the text, more about feeling unseen.",
     timestamp: new Date().toISOString(),
   },
   {
     id: 6,
-    type: 'assistant',
-    content: 'try: "hey, i miss our random texts. can we bring that back?"',
+    type: 'user',
+    content: "Yeah… that hits.",
     timestamp: new Date().toISOString(),
   },
   {
     id: 7,
+    type: 'assistant',
+    content: 'One move you could try: agree on a "no-stress" text window. Like, "I\'ll get back to you in a few hours, but I\'m not ghosting."',
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 8,
     type: 'user',
-    content: "omg yes! simple but perfect 💕",
+    content: "That actually sounds doable.",
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 9,
+    type: 'assistant',
+    content: "Want me to draft a sample text you could send him?",
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 10,
+    type: 'user',
+    content: "Yes pls 🙏",
     timestamp: new Date().toISOString(),
   }
 ];
@@ -71,7 +89,15 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     let timeoutId: NodeJS.Timeout;
     
     const showNextMessage = () => {
-      if (currentMessageIndex >= DEMO_CONVERSATION.length) return;
+      if (currentMessageIndex >= DEMO_CONVERSATION.length) {
+        // Reset after 2.5 seconds to loop the conversation
+        timeoutId = setTimeout(() => {
+          setVisibleMessages([]);
+          setCurrentMessageIndex(0);
+          setIsTyping(false);
+        }, 2500);
+        return;
+      }
       
       const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
       
@@ -80,22 +106,24 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         // Show typing indicator first for assistant messages
         setIsTyping(true);
         
-        // Show typing for 800ms, then the message
+        // Variable typing time for more natural feel
+        const typingTime = 1200 + (currentMessage.content.length * 30);
+        
         timeoutId = setTimeout(() => {
           setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
           
-          // Wait 1.2 seconds before next message
-          timeoutId = setTimeout(showNextMessage, 1200);
-        }, 800);
+          // Wait 1.5-2 seconds before next message for natural pacing
+          timeoutId = setTimeout(showNextMessage, 1500 + Math.random() * 500);
+        }, typingTime);
       } else {
-        // Show user messages immediately
+        // Show user messages instantly (they're already typed)
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentMessageIndex(prev => prev + 1);
         
-        // Wait 1 second before next message
-        timeoutId = setTimeout(showNextMessage, 1000);
+        // Shorter delay for user messages (600-900ms)
+        timeoutId = setTimeout(showNextMessage, 600 + Math.random() * 300);
       }
     };
 
@@ -129,20 +157,17 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </div>
 
-      {/* Pop-out Jake Avatar - Right side */}
+      {/* Pop-out Kai Avatar - Right side */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 pointer-events-none hidden sm:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage 
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" 
-              alt="Jake - Maya's Partner"
-            />
+            <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
             <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
-              J
+              K
             </AvatarFallback>
           </Avatar>
           <div className="text-center mt-2">
-            <p className="text-white/80 text-sm font-medium">Jake</p>
+            <p className="text-white/80 text-sm font-medium">Kai</p>
           </div>
         </div>
       </div>
