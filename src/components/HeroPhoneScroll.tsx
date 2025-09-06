@@ -7,227 +7,124 @@ const DEMO_CONVERSATION = [
   {
     id: 1,
     type: 'user',
-    content: "My partner and I keep fighting about phone usage during dinner. It's becoming a real issue.",
+    content: "my bf always on his phone at dinner 😭",
     timestamp: new Date().toISOString(),
   },
   {
     id: 2,
     type: 'assistant',
-    content: "That's a really common challenge for couples today. Let me help you navigate this. First, can you tell me - when these phone discussions happen, how does your partner typically respond?",
+    content: "ouch, feels like you're not getting his attention?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 3,
     type: 'user',
-    content: "They get defensive and say I'm being controlling. But I just want us to actually talk to each other.",
+    content: "yeah, i snap and it turns into a fight lol",
     timestamp: new Date().toISOString(),
   },
   {
     id: 4,
     type: 'assistant',
-    content: "I hear you both wanting connection, just in different ways. Based on your attachment style and communication patterns, let's try reframing this. Instead of focusing on the phone itself, what if you expressed the underlying need?",
+    content: "try: \"when you scroll, i feel ignored. can we do no-phone dinners?\"",
     timestamp: new Date().toISOString(),
   },
   {
     id: 5,
     type: 'user',
-    content: "What do you mean?",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 6,
-    type: 'assistant',
-    content: "Try something like: 'I love our dinner time together and I've been missing our conversations lately. Could we create some phone-free time to reconnect?' This shifts from criticism to expressing your needs.",
+    content: "ok that actually hits. imma use that 👀",
     timestamp: new Date().toISOString(),
   }
 ];
 
-interface MillennialCharacter {
-  name: string;
-  image: string;
-  description: string;
-  side: 'left' | 'right';
-}
-
-const MILLENNIAL_CHARACTERS: MillennialCharacter[] = [
-  {
-    name: 'Emma',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-    description: 'Millennial navigating modern relationships',
-    side: 'left'
-  },
-  {
-    name: 'Jake',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face', 
-    description: 'Learning to communicate better with his partner',
-    side: 'right'
-  }
-];
 
 interface HeroPhoneScrollProps {
   className?: string;
+  style?: React.CSSProperties;
 }
 
-const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '' }) => {
+const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style }) => {
   const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [charactersVisible, setCharactersVisible] = useState({ left: false, right: false });
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
   useEffect(() => {
-    // Start animation sequence after component mounts
-    const startAnimation = () => {
-      // Show phone drop-in animation first
-      setTimeout(() => {
-        // Show left character
-        setCharactersVisible(prev => ({ ...prev, left: true }));
-      }, 800);
-
-      setTimeout(() => {
-        // Show right character
-        setCharactersVisible(prev => ({ ...prev, right: true }));
-      }, 1400);
-
-      // Start message animation sequence
-      setTimeout(() => {
-        animateMessages();
-      }, 2000);
-    };
-
     const animateMessages = () => {
       if (currentMessageIndex < DEMO_CONVERSATION.length) {
+        const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
         setIsTyping(true);
         
+        // Dynamic typing time based on message length (more realistic)
+        const typingTime = Math.max(1200, Math.min(3000, currentMessage.content.length * 50));
+        
         setTimeout(() => {
-          setVisibleMessages(prev => [...prev, DEMO_CONVERSATION[currentMessageIndex]]);
+          setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
           setIsTyping(false);
           
-          // Continue to next message
+          // Dynamic reading pause based on message length for readability
+          const readingTime = Math.max(2000, Math.min(4500, currentMessage.content.length * 45));
+          
           setTimeout(() => {
             animateMessages();
-          }, 1500);
-        }, 1000);
+          }, readingTime);
+        }, typingTime);
       }
     };
 
-    startAnimation();
+    // Start animation sequence after component mounts
+    setTimeout(() => {
+      animateMessages();
+    }, 1000);
   }, [currentMessageIndex]);
 
   return (
-    <div className={`relative ${className}`}>
-      {/* Phone container with animated characters */}
+    <div className={`relative ${className}`} style={style}>
+      {/* Phone container with static portrait characters */}
       <div className="relative flex items-center justify-center">
-        {/* Left Character - leaning against phone */}
-        <div 
-          className={`absolute -left-16 top-1/2 transform -translate-y-1/2 transition-all duration-1000 ease-out ${
-            charactersVisible.left 
-              ? 'translate-x-0 opacity-100 rotate-12' 
-              : '-translate-x-full opacity-0 rotate-0'
-          }`}
-          style={{ transformOrigin: 'bottom right' }}
-        >
-          {/* Illustrated character SVG */}
-          <div className="relative w-32 h-40">
-            <svg viewBox="0 0 120 160" className="w-full h-full">
-              {/* Character illustration */}
-              <defs>
-                <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FDBCB4" />
-                  <stop offset="100%" stopColor="#F4A094" />
-                </linearGradient>
-                <linearGradient id="hairGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8B4513" />
-                  <stop offset="100%" stopColor="#6B3410" />
-                </linearGradient>
-              </defs>
-              {/* Body */}
-              <ellipse cx="60" cy="140" rx="25" ry="15" fill="#FF6B6B" />
-              {/* Torso */}
-              <rect x="35" y="80" width="50" height="60" rx="25" fill="#FF6B6B" />
-              {/* Head */}
-              <circle cx="60" cy="50" r="25" fill="url(#skinGradient)" />
-              {/* Hair */}
-              <path d="M35 35 Q60 25 85 35 Q85 50 60 55 Q35 50 35 35" fill="url(#hairGradient)" />
-              {/* Eyes */}
-              <circle cx="52" cy="45" r="2" fill="#333" />
-              <circle cx="68" cy="45" r="2" fill="#333" />
-              {/* Smile */}
-              <path d="M50 55 Q60 65 70 55" stroke="#333" strokeWidth="2" fill="none" />
-              {/* Arms */}
-              <circle cx="25" cy="90" r="8" fill="url(#skinGradient)" />
-              <circle cx="95" cy="90" r="8" fill="url(#skinGradient)" />
-              <rect x="17" y="85" width="16" height="35" rx="8" fill="#FF6B6B" />
-              <rect x="87" y="85" width="16" height="35" rx="8" fill="#FF6B6B" />
-            </svg>
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-              <div className="bg-burgundy-500/20 backdrop-blur-md rounded-lg px-3 py-1 border border-white/10">
-                <p className="text-white text-xs font-medium">{MILLENNIAL_CHARACTERS[0].name}</p>
+        {/* Left Portrait - static behind phone */}
+        <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 hidden lg:block">
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face"
+              alt="Maya"
+              className="w-24 h-24 rounded-full object-cover shadow-lg ring-2 ring-white/20 rotate-12 transform"
+              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+            />
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="bg-burgundy-500/20 backdrop-blur-md rounded-lg px-2 py-1 border border-white/10">
+                <p className="text-white text-xs font-medium">Maya</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Character - leaning against phone */}
-        <div 
-          className={`absolute -right-16 top-1/2 transform -translate-y-1/2 transition-all duration-1000 ease-out ${
-            charactersVisible.right 
-              ? 'translate-x-0 opacity-100 -rotate-12' 
-              : 'translate-x-full opacity-0 rotate-0'
-          }`}
-          style={{ transformOrigin: 'bottom left' }}
-        >
-          {/* Illustrated character SVG */}
-          <div className="relative w-32 h-40">
-            <svg viewBox="0 0 120 160" className="w-full h-full">
-              {/* Character illustration */}
-              <defs>
-                <linearGradient id="skinGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#DEB887" />
-                  <stop offset="100%" stopColor="#CD853F" />
-                </linearGradient>
-                <linearGradient id="hairGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#4A4A4A" />
-                  <stop offset="100%" stopColor="#2A2A2A" />
-                </linearGradient>
-              </defs>
-              {/* Body */}
-              <ellipse cx="60" cy="140" rx="25" ry="15" fill="#4ECDC4" />
-              {/* Torso */}
-              <rect x="35" y="80" width="50" height="60" rx="25" fill="#4ECDC4" />
-              {/* Head */}
-              <circle cx="60" cy="50" r="25" fill="url(#skinGradient2)" />
-              {/* Hair */}
-              <path d="M35 30 Q60 20 85 30 Q85 45 60 50 Q35 45 35 30" fill="url(#hairGradient2)" />
-              {/* Eyes */}
-              <circle cx="52" cy="45" r="2" fill="#333" />
-              <circle cx="68" cy="45" r="2" fill="#333" />
-              {/* Smile */}
-              <path d="M50 55 Q60 65 70 55" stroke="#333" strokeWidth="2" fill="none" />
-              {/* Arms */}
-              <circle cx="25" cy="90" r="8" fill="url(#skinGradient2)" />
-              <circle cx="95" cy="90" r="8" fill="url(#skinGradient2)" />
-              <rect x="17" y="85" width="16" height="35" rx="8" fill="#4ECDC4" />
-              <rect x="87" y="85" width="16" height="35" rx="8" fill="#4ECDC4" />
-            </svg>
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-              <div className="bg-coral-500/20 backdrop-blur-md rounded-lg px-3 py-1 border border-white/10">
-                <p className="text-white text-xs font-medium">{MILLENNIAL_CHARACTERS[1].name}</p>
+        {/* Right Portrait - static behind phone */}
+        <div className="absolute -right-20 top-1/2 transform -translate-y-1/2 hidden lg:block">
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+              alt="Chris"
+              className="w-24 h-24 rounded-full object-cover shadow-lg ring-2 ring-white/20 -rotate-12 transform"
+              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+            />
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="bg-coral-500/20 backdrop-blur-md rounded-lg px-2 py-1 border border-white/10">
+                <p className="text-white text-xs font-medium">Chris</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Phone mockup with glassmorphism and drop-in animation */}
+        {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl ring-1 ring-white/5"></div>
           
-          {/* Phone container */}
+          {/* Phone container with responsive sizing */}
           <div 
             className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in"
             style={{
-              width: '320px',
+              width: 'clamp(280px, 28vw, 380px)',
               aspectRatio: '9/19',
               animationDelay: '0.6s'
             }}

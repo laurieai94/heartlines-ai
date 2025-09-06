@@ -225,8 +225,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </div>
 
                   {/* Right Column - Animated Phone Demo */}
-                  <div className="relative flex justify-center lg:justify-end">
-                    <HeroPhoneScroll className="animate-fade-in" />
+                  <div className="relative flex justify-center lg:justify-center items-center">
+                    <HeroPhoneScroll className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>
               </div>
