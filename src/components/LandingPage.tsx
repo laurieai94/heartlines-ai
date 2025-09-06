@@ -233,15 +233,15 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {!isEmbedded && (
           <>
             {/* Primary hero section with two-column layout */}
-            <div className="px-6 py-12 lg:py-16">
+            <div className="px-6 py-6 md:py-12 lg:py-16">
               {/* Accent decoration - floating orbs with glassmorphism */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-7xl mx-auto relative z-10">
-                <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-5rem)]">
+                <div className="grid lg:grid-cols-2 gap-8 items-start lg:items-center min-h-[calc(100vh-5rem)]">
                   {/* Left Column - Text Content */}
-                  <div className="text-left max-w-[620px] self-center">
+                  <div className="text-left max-w-[620px] self-center order-2 lg:order-1">
                     <div className="space-y-4 mb-6">
                       <h1 className="text-4xl lg:text-5xl xl:text-6xl font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
@@ -264,7 +264,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </div>
 
                   {/* Right Column - Animated Phone Demo */}
-                  <div className="relative flex justify-center lg:justify-center items-center">
+                  <div className="relative flex justify-center lg:justify-center items-center order-1 lg:order-2">
                     <HeroPhoneScroll className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>

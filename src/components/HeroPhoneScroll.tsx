@@ -144,7 +144,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div className={`relative ${className}`} style={style}>
       {/* Pop-out Maya Avatar - Left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-none hidden sm:block">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[70%] z-30 pointer-events-none hidden sm:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-pink-400/30 shadow-xl">
             <AvatarImage 
@@ -162,10 +162,10 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       </div>
 
       {/* Pop-out Rory Avatar - Right side */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-30 pointer-events-none hidden sm:block">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[70%] z-30 pointer-events-none hidden sm:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src="/lovable-uploads/301e21a4-c89d-4fd5-81d2-ba6a4f2a9414.png" alt="Rory" />
+            <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Rory" />
             <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
               R
             </AvatarFallback>
