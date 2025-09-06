@@ -46,27 +46,40 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const messagesRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when new messages appear
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  }, [visibleMessages, isTyping]);
 
   useEffect(() => {
     const animateMessages = () => {
       if (currentMessageIndex < DEMO_CONVERSATION.length) {
         const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
-        setIsTyping(true);
+        const nextMessage = DEMO_CONVERSATION[currentMessageIndex + 1];
         
-        // Slower typing time for better readability
-        const typingTime = Math.max(1800, Math.min(4000, currentMessage.content.length * 60));
+        // Show typing indicator only if next message is from assistant
+        if (nextMessage && nextMessage.type === 'assistant') {
+          setIsTyping(true);
+        }
+        
+        // Typing time: 1200ms to 2000ms based on content length
+        const typingTime = Math.max(1200, Math.min(2000, currentMessage.content.length * 40));
         
         setTimeout(() => {
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
           setIsTyping(false);
           
-          // Longer reading pause for better comprehension
-          const readingTime = Math.max(3000, Math.min(6000, currentMessage.content.length * 60));
+          // Reading delay: 2500ms to 6000ms based on content length
+          const readingDelay = Math.max(2500, Math.min(6000, currentMessage.content.length * 55));
           
           setTimeout(() => {
             animateMessages();
-          }, readingTime);
+          }, readingDelay);
         }, typingTime);
       }
     };
@@ -86,9 +99,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           {/* Glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl ring-1 ring-white/5"></div>
           
-          {/* Phone container with responsive sizing */}
+          {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in"
+            className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
               width: 'clamp(280px, 28vw, 380px)',
               aspectRatio: '9/19',
@@ -119,8 +132,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               </div>
             </div>
 
-            {/* Messages area - fills more of the phone */}
-            <div className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto" style={{ minHeight: '400px' }}>
+            {/* Messages area - fills remaining phone space */}
+            <div 
+              ref={messagesRef}
+              className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto"
+              aria-live="polite"
+            >
               {visibleMessages.map((message, index) => (
                 <div key={message.id} className={`flex items-start gap-2 animate-fade-in ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                   {/* Avatar */}
@@ -145,13 +162,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     )}
                   </Avatar>
                   
-                  {/* Message bubble */}
-                  <div className={`max-w-[75%] px-3 py-2 rounded-2xl ${
-                    message.type === 'user' 
-                      ? 'bg-coral-500/80 backdrop-blur-md text-white border border-white/15 shadow-lg rounded-br-sm' 
-                      : 'bg-white/95 text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm'
-                  }`}>
-                    <p className="text-sm leading-relaxed">{message.content}</p>
+                  {/* Message bubble using ChatBubble component */}
+                  <div className="max-w-[80%]">
+                    <ChatBubble isUser={message.type === 'user'} variant="heartlines">
+                      {message.content}
+                    </ChatBubble>
                   </div>
                 </div>
               ))}
@@ -165,13 +180,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       {BRAND.coach.name[0]}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="bg-white/95 border border-gray-100 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm">
+                  <ChatBubble variant="heartlines">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
-                  </div>
+                  </ChatBubble>
                 </div>
               )}
             </div>
