@@ -13,7 +13,7 @@ const DEMO_CONVERSATION = [
   {
     id: 2,
     type: 'user',
-    content: "Tbh… I feel like me + Alex keep having the same fight about texting.",
+    content: "Tbh… I feel like me + Rory keep having the same fight about texting.",
     timestamp: new Date().toISOString(),
   },
   {
@@ -149,7 +149,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <Avatar className="w-14 h-14 ring-4 ring-pink-400/30 shadow-xl">
             <AvatarImage 
               src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
-              alt="Maya - App User"
+              alt="Maya — dating Rory"
             />
             <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-sm">
               M
@@ -165,7 +165,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[90%] z-30 pointer-events-none hidden lg:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
           <Avatar className="w-14 h-14 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=face" alt="Rory" />
+            <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=face" alt="Rory — dating Maya" />
             <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-sm">
               R
             </AvatarFallback>
@@ -203,16 +203,27 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header with glassmorphism */}
-            <div className="bg-burgundy-800 border-b border-burgundy-700 px-4 py-3 flex items-center">
-              <Avatar className="w-10 h-10 mr-3 ring-2 ring-burgundy-400/30">
-                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white font-semibold">
-                  {BRAND.coach.name[0]}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
-                <p className="text-white/70 text-xs">Your AI relationship coach</p>
+            <div className="bg-burgundy-800 border-b border-burgundy-700 px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center">
+                <Avatar className="w-10 h-10 mr-3 ring-2 ring-burgundy-400/30">
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                  <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white font-semibold">
+                    {BRAND.coach.name[0]}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
+                  <p className="text-white/70 text-xs">Your AI relationship coach</p>
+                </div>
+              </div>
+              
+              {/* Relationship indicator */}
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-2 py-1 flex items-center gap-1">
+                <span className="text-white/80 text-xs font-medium">Maya</span>
+                <svg className="w-3 h-3 text-pink-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                </svg>
+                <span className="text-white/80 text-xs font-medium">Rory</span>
               </div>
             </div>
 
