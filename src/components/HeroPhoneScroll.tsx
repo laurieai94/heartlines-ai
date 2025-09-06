@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import MayaAvatar from '@/assets/millennial-woman-portrait.jpg';
 
 const DEMO_CONVERSATION = [
   {
@@ -155,9 +156,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(260px, 22vw, 320px)',
+              width: 'clamp(280px, 26vw, 360px)',
               aspectRatio: '9/18',
-              animationDelay: '0.6s'
+              animationDelay: '0.6s',
+              transform: 'perspective(1200px) rotateX(2.5deg) rotateY(-5deg)',
+              transition: 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+              willChange: 'transform',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.45), 0 10px 24px rgba(102,0,51,0.25)'
             }}
           >
             {/* Status bar */}
@@ -205,6 +210,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                   </ChatBubble>
                   {message.type === 'user' && (
                     <Avatar className="w-6 h-6 flex-shrink-0">
+                      <AvatarImage src={MayaAvatar} alt="Maya" />
                       <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                         M
                       </AvatarFallback>

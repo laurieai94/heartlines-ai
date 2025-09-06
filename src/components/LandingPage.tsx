@@ -10,7 +10,6 @@ import BrandMark from "./BrandMark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
-import millennialWomanPortrait from "@/assets/millennial-woman-portrait.jpg";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -286,15 +285,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
-                    {/* Stock Image */}
-                    <div className="absolute -left-8 top-12 md:-left-16 md:top-16 z-10 animate-fade-in" style={{ animationDelay: '2.2s' }}>
-                      <img 
-                        src={millennialWomanPortrait} 
-                        alt="Happy user" 
-                        className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-white/20 shadow-lg"
-                      />
-                    </div>
-                    <div className="w-full max-w-sm md:scale-100 scale-[0.92] origin-top">
+                    <div className="w-full max-w-md md:scale-100 scale-[0.96] origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
@@ -334,7 +325,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div className="w-full max-w-sm" style={{ height: 'min(56vh, 520px)' }}>
+                  <div className="w-full max-w-md" style={{ height: 'min(56vh, 520px)' }}>
                     <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>
