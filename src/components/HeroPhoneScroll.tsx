@@ -155,7 +155,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(240px, 20vw, 300px)',
+              width: 'clamp(260px, 22vw, 320px)',
               aspectRatio: '9/18',
               animationDelay: '0.6s'
             }}
@@ -191,17 +191,38 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
-                <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <ChatBubble isUser={message.type === 'user'} variant="kai" className="animate-fade-in">
+                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  {message.type === 'assistant' && (
+                    <Avatar className="w-6 h-6 flex-shrink-0">
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                      <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
+                        {BRAND.coach.name[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
+                  <ChatBubble isUser={message.type === 'user'} variant="kai" className="animate-fade-in max-w-[86%]">
                     {message.content}
                   </ChatBubble>
+                  {message.type === 'user' && (
+                    <Avatar className="w-6 h-6 flex-shrink-0">
+                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
+                        M
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
                 </div>
               ))}
 
               {/* Typing indicator */}
               {isTyping && (
-                <div className="flex justify-start animate-fade-in">
-                  <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[80%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
+                <div className="flex gap-2 items-end justify-start animate-fade-in">
+                  <Avatar className="w-6 h-6 flex-shrink-0">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                    <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
+                      {BRAND.coach.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>

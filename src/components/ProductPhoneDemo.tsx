@@ -92,7 +92,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
   return (
     <div className={`relative ${className}`} style={style}>
       {/* Phone Frame */}
-      <div className="relative mx-auto w-[280px] h-[580px] bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-2xl overflow-hidden">
+      <div className="relative mx-auto w-[300px] h-[600px] bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-2xl overflow-hidden">
         {/* Phone Screen */}
         <div className="relative w-full h-full bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-coral-900 overflow-hidden">
           
@@ -119,17 +119,34 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 px-4 py-4 space-y-3 h-[430px] overflow-y-auto">
+          <div className="flex-1 px-4 py-4 space-y-3 h-[450px] overflow-y-auto">
             {visibleMessages.map((message, index) => (
               <div key={message.id} className="animate-fade-in">
-                <ChatBubble
-                  isUser={message.type === 'user'}
-                  variant="kai"
-                  className="text-sm leading-relaxed"
-                >
-                  {message.content}
-                </ChatBubble>
-                <div className={`text-xs text-white/40 mt-1 ${message.type === 'user' ? 'text-right' : 'text-left ml-1'}`}>
+                <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  {message.type === 'assistant' && (
+                    <Avatar className="w-6 h-6 flex-shrink-0">
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
+                        K
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
+                  <ChatBubble
+                    isUser={message.type === 'user'}
+                    variant="kai"
+                    className="text-sm leading-relaxed max-w-[86%]"
+                  >
+                    {message.content}
+                  </ChatBubble>
+                  {message.type === 'user' && (
+                    <Avatar className="w-6 h-6 flex-shrink-0">
+                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
+                        M
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
+                </div>
+                <div className={`text-xs text-white/40 mt-1 ${message.type === 'user' ? 'text-right mr-8' : 'text-left ml-8'}`}>
                   {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
@@ -137,15 +154,13 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
             
             {/* Typing Indicator */}
             {isTyping && (
-              <div className="flex gap-3 items-end animate-fade-in">
-                <div className="relative flex-shrink-0">
-                  <Avatar className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Bot className="w-4 h-4" />
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
+              <div className="flex gap-2 items-end animate-fade-in">
+                <Avatar className="w-6 h-6 flex-shrink-0">
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                  <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
+                    K
+                  </AvatarFallback>
+                </Avatar>
                 <div className="bg-purple-600/90 backdrop-blur-sm px-4 py-3 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-900/20">
                   <div className="flex gap-1">
                     <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce"></div>
