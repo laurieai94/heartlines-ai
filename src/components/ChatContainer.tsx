@@ -88,10 +88,12 @@ const ChatContainer = ({
 
   // Optimized scroll handler with throttling and user intent detection
   const handleScroll = useMemo(
-    () => throttle((event: React.UIEvent<HTMLDivElement>) => {
-      const target = event.currentTarget;
+    () => throttle(() => {
+      const target = viewportRef.current;
+      if (!target) return;
       // More refined threshold calculation
-      const baseThreshold = isMobile ? 60 : 48;
+      const isMobileLocal = isMobile; // capture
+      const baseThreshold = isMobileLocal ? 60 : 48;
       const keyboardThreshold = isKeyboardOpenRef.current ? 150 : baseThreshold;
       const threshold = keyboardThreshold;
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
@@ -122,7 +124,7 @@ const ChatContainer = ({
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
       // Direction-aware mobile header visibility
-      if (isMobile && chatHistory.length > 0) {
+      if (isMobileLocal && chatHistory.length > 0) {
         // Show header when scrolling up OR at very top
         if (scrollDirection.current === 'up' || currentScrollTop < 20) {
           debouncedSetVisible(true);
