@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu } from "lucide-react";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
@@ -10,6 +10,7 @@ import BrandMark from "./BrandMark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
+import millennialWomanPortrait from "@/assets/millennial-woman-portrait.jpg";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -207,9 +208,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <div className="md:hidden">
               <Link
                 to="/auth?mode=signin"
-                className="text-white/70 hover:text-white text-sm px-3 py-1 rounded-full hover:bg-white/5 transition-colors"
+                className="text-white/70 hover:text-white text-sm px-3 py-1 rounded-full hover:bg-white/5 transition-colors flex items-center gap-1"
                 aria-label="Sign in"
               >
+                <User className="w-4 h-4" />
                 Sign in
               </Link>
             </div>
@@ -284,6 +286,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
+                    {/* Stock Image */}
+                    <div className="absolute -left-8 top-12 md:-left-16 md:top-16 z-10 animate-fade-in" style={{ animationDelay: '2.2s' }}>
+                      <img 
+                        src={millennialWomanPortrait} 
+                        alt="Happy user" 
+                        className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-white/20 shadow-lg"
+                      />
+                    </div>
                     <div className="w-full max-w-sm md:scale-100 scale-[0.92] origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
