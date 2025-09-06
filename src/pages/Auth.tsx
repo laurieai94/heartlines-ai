@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Eye, EyeOff, ArrowLeft, Mail, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { logEvent } from '@/utils/analytics';
 const Auth = () => {
   const { user, loading, signIn, signUp, resendVerification } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,6 +25,14 @@ const Auth = () => {
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [isResendingVerification, setIsResendingVerification] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
+
+  // Check for mode parameter on mount
+  useEffect(() => {
+    const mode = searchParams.get('mode');
+    if (mode === 'signin') {
+      setIsSignUp(false);
+    }
+  }, [searchParams]);
 
   // Redirect if already authenticated
   if (user && !loading) {
