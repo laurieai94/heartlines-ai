@@ -144,8 +144,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div className={`relative ${className}`} style={style}>
 
-      {/* Phone container - full area focused on chat */}
-      <div className="relative flex items-center justify-center z-20">
+      {/* Phone container - positioned to align with hero text */}
+      <div className="relative flex items-start justify-center z-20 pt-8">
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
