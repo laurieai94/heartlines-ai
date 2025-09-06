@@ -206,29 +206,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       </h1>
                       
                       <h3 className="text-3xl lg:text-4xl xl:text-5xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
-                        Get AI-powered conversation scripts, practice scenarios, and thoughtful reminders for your relationship.
+                        Kai helps you actually connect.
                       </h3>
                     </div>
 
-                    {/* Feature Chips */}
-                    <div className="flex flex-wrap gap-3 mb-12 animate-fade-in" style={{ animationDelay: '1s' }}>
-                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
-                        <MessageSquare className="w-4 h-4 inline mr-2" />
-                        Conversation Scripts
-                      </div>
-                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
-                        <Brain className="w-4 h-4 inline mr-2" />
-                        Practice Scenarios
-                      </div>
-                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
-                        <Heart className="w-4 h-4 inline mr-2" />
-                        Thoughtful Reminders
-                      </div>
-                    </div>
-                    
-                    <p className="text-lg lg:text-xl text-white/70 mb-12 font-light max-w-xl animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                      Personalized coaching that understands your unique relationship dynamics and communication style.
-                    </p>
                     
                     <Link to="/get-started">
                       <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-8 text-xl rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
@@ -263,25 +244,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </h1>
                     
                     <h3 className="text-2xl lg:text-3xl xl:text-4xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
-                      Get AI-powered conversation scripts, practice scenarios, and thoughtful reminders for your relationship.
+                      Kai helps you actually connect.
                     </h3>
                   </div>
 
-                  {/* Feature Chips */}
-                  <div className="flex flex-wrap gap-2 mb-8 animate-fade-in" style={{ animationDelay: '1s' }}>
-                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
-                      <MessageSquare className="w-3 h-3 inline mr-1.5" />
-                      Scripts
-                    </div>
-                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
-                      <Brain className="w-3 h-3 inline mr-1.5" />
-                      Practice
-                    </div>
-                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
-                      <Heart className="w-3 h-3 inline mr-1.5" />
-                      Reminders
-                    </div>
-                  </div>
                   
                   <Link to="/get-started">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>

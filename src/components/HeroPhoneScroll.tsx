@@ -7,31 +7,43 @@ const DEMO_CONVERSATION = [
   {
     id: 1,
     type: 'user',
-    content: "my bf always on his phone at dinner 😭",
+    content: "things feel different with jake lately",
     timestamp: new Date().toISOString(),
   },
   {
     id: 2,
     type: 'assistant',
-    content: "ouch, feels like you're not getting his attention?",
+    content: "how so? what's shifted?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 3,
     type: 'user',
-    content: "yeah, i snap and it turns into a fight lol",
+    content: "like the honeymoon phase is over and now it's just... normal?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 4,
     type: 'assistant',
-    content: 'try: "when you scroll, i feel ignored. can we do no-phone dinners?"',
+    content: "normal can feel scary after all that intensity. what are you missing most?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 5,
     type: 'user',
-    content: "ok that actually hits. imma use that 👀",
+    content: "the excitement i guess? like we barely text during the day now",
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 6,
+    type: 'assistant',
+    content: 'try: "hey, i miss our random texts. can we bring that back?"',
+    timestamp: new Date().toISOString(),
+  },
+  {
+    id: 7,
+    type: 'user',
+    content: "omg yes! simple but perfect 💕",
     timestamp: new Date().toISOString(),
   }
 ];
@@ -62,34 +74,34 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       if (currentMessageIndex >= DEMO_CONVERSATION.length) return;
       
       const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
-      const nextMessage = DEMO_CONVERSATION[currentMessageIndex + 1];
       
-      // Show typing indicator if next message is from assistant
-      if (nextMessage && nextMessage.type === 'assistant') {
+      // Show current message
+      if (currentMessage.type === 'assistant') {
+        // Show typing indicator first for assistant messages
         setIsTyping(true);
         
-        // Show typing for 1 second, then message
+        // Show typing for 800ms, then the message
         timeoutId = setTimeout(() => {
           setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
           
-          // Wait 2 seconds before next message
-          timeoutId = setTimeout(showNextMessage, 2000);
-        }, 1000);
+          // Wait 1.2 seconds before next message
+          timeoutId = setTimeout(showNextMessage, 1200);
+        }, 800);
       } else {
-        // Show message immediately for user messages
+        // Show user messages immediately
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentMessageIndex(prev => prev + 1);
         
-        // Wait 2 seconds before next message
-        timeoutId = setTimeout(showNextMessage, 2000);
+        // Wait 1 second before next message
+        timeoutId = setTimeout(showNextMessage, 1000);
       }
     };
 
-    // Start animation sequence after 1 second
+    // Start animation sequence after 800ms
     if (currentMessageIndex === 0) {
-      timeoutId = setTimeout(showNextMessage, 1000);
+      timeoutId = setTimeout(showNextMessage, 800);
     }
 
     return () => {
@@ -104,7 +116,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-pink-400/30 shadow-xl">
             <AvatarImage 
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face" 
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
               alt="Maya - App User"
             />
             <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-lg">
@@ -122,7 +134,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
           <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
             <AvatarImage 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" 
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" 
               alt="Jake - Maya's Partner"
             />
             <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
@@ -188,7 +200,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     {message.type === 'user' ? (
                       <>
                         <AvatarImage 
-                          src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face" 
+                          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
                           alt="Maya" 
                         />
                         <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white text-xs font-semibold">
