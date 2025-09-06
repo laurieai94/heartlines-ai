@@ -718,17 +718,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </div>
       </section>
 
-      {/* Floating Try It Now Button */}
-      {showFloatingButton && (
-        <div className="fixed bottom-8 right-8 z-50 animate-fade-in">
-          <Link to="/auth">
-            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 backdrop-blur-sm border border-pink-300/20">
-              Try It Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
