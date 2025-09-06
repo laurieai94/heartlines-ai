@@ -99,11 +99,11 @@ const AIChatInput = ({
   }, [currentMessage]);
 
   return (
-    <div className={`flex gap-3 items-end px-4 py-4 ${readOnly ? 'group' : ''}`}>
-      <div className={`flex-1 relative rounded-full overflow-hidden border-2 ${
+    <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
+      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? 'bg-gray-100 border-gray-200' 
-          : 'bg-white border-gray-300 focus-within:border-gray-400'
+          ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
+          : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
       }`}>
         <Textarea
           unstyled
@@ -113,7 +113,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (chatHistory.length === 0 ? "Message" : "Message")}
+          placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile" : undefined}
           inputMode="text"
@@ -122,7 +122,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-4 py-3 text-[16px] resize-none min-h-[44px] max-h-[120px] leading-[20px] text-gray-900 placeholder:text-gray-500 ring-0 focus:ring-0 focus-visible:ring-0 outline-none focus:outline-none focus-visible:outline-none"
+          className="w-full bg-transparent border-0 px-2 py-[8px] md:px-3 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
           style={{ WebkitTapHighlightColor: 'transparent', WebkitAppearance: 'none' }}
           rows={1}
         />
@@ -134,14 +134,18 @@ const AIChatInput = ({
         onMouseDown={(e) => e.preventDefault()}
         onTouchStart={(e) => {
           e.preventDefault();
+          // Immediately re-focus textarea on mobile
           if (textareaRef.current) {
             textareaRef.current.focus();
           }
         }}
-        className="rounded-full w-11 h-11 p-0 bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 shadow-lg text-white border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-        disabled={loading || disabled}
+        className={`rounded-2xl w-8 h-8 md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+          readOnly 
+            ? 'brand-gradient-soft' 
+            : 'brand-gradient'
+        }`}
       >
-        <Send className="w-5 h-5" />
+        <Send className="w-2 h-2 md:w-3 md:h-3" />
       </Button>
     </div>
   );

@@ -252,16 +252,16 @@ const ChatContainer = ({
         aria-label="Chat conversation history"
       >
         <div 
-          className={`${isMobile ? 'pt-4' : 'pt-1 md:px-4 md:pt-3'} md:pb-2`}
+          className="pt-1 md:px-4 md:pt-3 md:pb-2"
           style={{
             paddingBottom: isMobile && isKeyboardOpenRef.current 
               ? `${Math.max(keyboardHeightRef.current * 0.1, 4)}px` 
               : '4px',
-            paddingLeft: isMobile ? '16px' : '16px',
-            paddingRight: isMobile ? '16px' : '16px'
+            paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
+            paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
         >
-          <div ref={contentRef} className={`${isMobile ? 'space-y-1' : 'md:space-y-3'} ${isMobile ? '' : 'md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4'}`} role="list" aria-label="Chat messages">
+          <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {
@@ -292,22 +292,22 @@ const ChatContainer = ({
             
             {/* Typing indicator - only show when loading */}
             {loading && (
-              <div className={`flex ${isMobile ? 'gap-3' : 'gap-3'} items-end ${isMobile ? 'mb-4' : ''}`}>
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
-                  <Avatar className={`${isMobile ? 'w-8 h-8' : 'w-10 h-10'} bg-gradient-to-br from-gray-600 to-gray-700`}>
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
-                    <AvatarFallback className="bg-gradient-to-br from-gray-600 to-gray-700 text-white">
-                      <Bot className={`${isMobile ? 'w-4 h-4' : 'w-6 h-6'}`} />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                      <Bot className="w-4 h-4 md:w-6 md:h-6" />
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className={`bg-white shadow-lg px-4 py-3 rounded-2xl border border-gray-100`}>
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{
+                <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
                       animationDelay: '0.1s'
                     }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
                       animationDelay: '0.2s'
                     }}></div>
                   </div>

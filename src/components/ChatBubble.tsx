@@ -14,8 +14,8 @@ const ChatBubble = ({ children, isUser = false, className = '' }: ChatBubbleProp
         className={`
           max-w-[80%] px-4 py-3 rounded-2xl
             ${isUser
-              ? 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg'
-              : 'bg-white text-gray-800 shadow-lg border border-gray-100'
+              ? 'bg-white/5 backdrop-blur-md text-white border border-coral-400/30 rounded-br-sm shadow-md shadow-coral-400/10 ring-1 ring-coral-400/20'
+              : 'bg-white/95 text-gray-800 border border-gray-100 rounded-bl-sm shadow-sm'
             }
           ${className}
         `}

@@ -12,10 +12,8 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Import the landing page gate for resilient loading
-import LandingPageGate from "@/components/LandingPageGate";
-
 // Lazy load components directly
+const LandingPage = React.lazy(() => import("@/components/LandingPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const AuthCallback = React.lazy(() => import("./pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("./pages/PrivacySecurity"));
@@ -41,8 +39,14 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - resilient loading with timeout fallback */}
-        <Route path="/" element={<LandingPageGate />} />
+        {/* Public landing page - direct load to avoid double lazy loading */}
+        <Route path="/" element={
+          <ErrorBoundary>
+            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+              <LandingPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
         
         {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
         <Route path="/profile" element={<Dashboard />} />

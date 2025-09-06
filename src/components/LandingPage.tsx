@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
-import { LazySection } from "./LazySection";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -234,9 +233,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </div>
       </section>
 
-      {/* How It Works Section - Lazy loaded */}
-      <LazySection className="px-6 py-20 relative">
-        <section id="how-it-works">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="px-6 py-20 relative">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-block bg-white/5 backdrop-blur-xl rounded-full px-8 py-3 mb-8 border border-white/15 shadow-xl">
@@ -304,12 +302,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </Link>
           </div>
         </div>
-        </section>
-      </LazySection>
+      </section>
 
-      {/* Visual Break with Accent - Lazy loaded */}
-      <LazySection className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
-        <section>
+      {/* Visual Break with Accent */}
+      <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
         <div className="max-w-6xl mx-auto">
         <div className="relative flex items-center justify-center">
           {!isEmbedded && (
@@ -329,8 +325,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           )}
         </div>
         </div>
-        </section>
-      </LazySection>
+      </section>
 
       {/* Real Talk Section - Enhanced with combined content */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20'}`}>
