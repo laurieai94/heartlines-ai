@@ -202,6 +202,17 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 />
               </Link>
             </div>
+            
+            {/* Mobile Sign In */}
+            <div className="md:hidden">
+              <Link
+                to="/auth?mode=signin"
+                className="text-white/70 hover:text-white text-sm px-3 py-1 rounded-full hover:bg-white/5 transition-colors"
+                aria-label="Sign in"
+              >
+                Sign in
+              </Link>
+            </div>
             <div className="hidden md:flex items-center gap-4">
               <a 
                 href="#how-it-works" 
@@ -273,7 +284,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
-                    <div className="w-full max-w-sm">
+                    <div className="w-full max-w-sm md:scale-100 scale-[0.92] origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
