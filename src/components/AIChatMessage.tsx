@@ -3,6 +3,7 @@ import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
+import ChatBubble from "./ChatBubble";
 import { BRAND } from "@/branding";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -85,24 +86,23 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
       </div>
 
       {/* Message Bubble */}
-      <div className={`flex flex-col ${
-        isMobile 
-          ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
-          : 'max-w-[80%]'
-      } ${isUser ? 'items-end' : 'items-start'}`}>
-        <div
-          className={`
-            transition-all duration-300 group-hover:shadow-xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
-            ${isUser
-              ? 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
-              : 'bg-white/20 md:bg-white/12 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
-            }
-          `}
+      <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
+        <ChatBubble
+          isUser={isUser}
+          className={[
+            'animate-fade-in',
+            isMobile 
+              ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
+              : 'max-w-[80%]',
+            isUser
+              ? (isLastInGroup ? 'rounded-br-sm' : 'rounded-br-2xl')
+              : (isLastInGroup ? 'rounded-bl-sm' : 'rounded-bl-2xl'),
+          ].filter(Boolean).join(' ')}
         >
           <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light">
             {cleanedContent}
           </div>
-        </div>
+        </ChatBubble>
         
         {/* Reminder Button for AI messages with suggestions */}
         {!isUser && suggestionText && (
