@@ -46,9 +46,10 @@ const DEMO_CONVERSATION = [
 interface ProductPhoneDemoProps {
   className?: string;
   style?: React.CSSProperties;
+  videoUrl?: string; // Optional video URL for custom demo content
 }
 
-const ProductPhoneDemo = ({ className = '', style }: ProductPhoneDemoProps) => {
+const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoProps) => {
   const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -1,5 +1,14 @@
 import { useEffect } from 'react';
 
+// Safari-safe polyfill for requestIdleCallback
+const requestIdleCallbackSafe = (callback: () => void) => {
+  if ('requestIdleCallback' in window) {
+    return requestIdleCallback(callback);
+  }
+  // Fallback for Safari and older browsers
+  return setTimeout(callback, 100);
+};
+
 // Idle prefetching for route chunks to improve navigation speed
 export const useIdlePrefetch = () => {
   useEffect(() => {
@@ -29,7 +38,7 @@ export const useIdlePrefetch = () => {
       routesToPrefetch.forEach((importFn, index) => {
         // Stagger prefetching to avoid overwhelming the network
         setTimeout(() => {
-          requestIdleCallback(() => {
+          requestIdleCallbackSafe(() => {
             importFn().catch(() => {
               // Silently ignore prefetch failures
             });

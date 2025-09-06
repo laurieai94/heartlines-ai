@@ -10,9 +10,10 @@ import { warmupNetwork } from "@/utils/networkWarmup";
 import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Lazy load non-critical components
-const Index = React.lazy(() => import("./pages/Index"));
+// Lazy load components directly
+const LandingPage = React.lazy(() => import("@/components/LandingPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const AuthCallback = React.lazy(() => import("./pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("./pages/PrivacySecurity"));
@@ -38,11 +39,13 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page */}
+        {/* Public landing page - direct load to avoid double lazy loading */}
         <Route path="/" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-            <Index />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+              <LandingPage />
+            </Suspense>
+          </ErrorBoundary>
         } />
         
         {/* Authenticated app routes protected by AuthGuard inside Dashboard */}

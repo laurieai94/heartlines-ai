@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 interface ChatBubbleProps {
   children: React.ReactNode;
   isUser?: boolean;
