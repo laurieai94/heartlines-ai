@@ -20,6 +20,7 @@ interface ChatContainerProps {
   isConfigured: boolean;
   conversationStarter?: string;
   isHistoryLoaded: boolean;
+  userTyping?: boolean;
 }
 const ChatContainer = ({
   chatHistory,
@@ -27,7 +28,8 @@ const ChatContainer = ({
   userName,
   isConfigured,
   conversationStarter,
-  isHistoryLoaded
+  isHistoryLoaded,
+  userTyping = false
 }: ChatContainerProps) => {
   const { accessLevel } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -312,6 +314,31 @@ const ChatContainer = ({
                     }}></div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* User typing indicator */}
+            {userTyping && (
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end`} aria-live="polite">
+                <div className={`bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                      animationDelay: '0.1s'
+                    }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                      animationDelay: '0.2s'
+                    }}></div>
+                  </div>
+                </div>
+                <div className="relative flex-shrink-0">
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
+                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                      {userName ? userName[0]?.toUpperCase() : 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <span className="sr-only">{userName || 'User'} is typing...</span>
               </div>
             )}
             

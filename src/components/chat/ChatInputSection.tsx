@@ -26,6 +26,7 @@ interface ChatInputSectionProps {
   isHistoryLoaded: boolean;
   showStarters?: boolean;
   onCloseStarters?: () => void;
+  onUserTypingChange?: (typing: boolean) => void;
 }
 
 export const ChatInputSection = ({
@@ -38,13 +39,16 @@ export const ChatInputSection = ({
   canInteract,
   isHistoryLoaded,
   showStarters = false,
-  onCloseStarters = () => {}
+  onCloseStarters = () => {},
+  onUserTypingChange = () => {}
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
+  const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { 
     messages_used, 
     message_limit, 
@@ -121,6 +125,36 @@ export const ChatInputSection = ({
     }
   }, [nearLimit, messages_used, message_limit, nextTier, upgrade]);
 
+  // Handle user typing with debouncing
+  const handleUserTyping = (typing: boolean) => {
+    if (typingDebounceRef.current) {
+      clearTimeout(typingDebounceRef.current);
+    }
+    
+    if (typing) {
+      setIsComposing(true);
+      onUserTypingChange(true);
+      
+      // Set timeout to stop typing indicator
+      typingDebounceRef.current = setTimeout(() => {
+        setIsComposing(false);
+        onUserTypingChange(false);
+      }, 800);
+    } else {
+      setIsComposing(false);
+      onUserTypingChange(false);
+    }
+  };
+
+  // Cleanup typing timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingDebounceRef.current) {
+        clearTimeout(typingDebounceRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0">
       <div className="px-0 py-2 md:px-4 md:py-3">
@@ -159,6 +193,7 @@ export const ChatInputSection = ({
                   }
                 }
               }}
+              onTypingChange={handleUserTyping}
               userName={userName} 
               partnerName={partnerName}
               chatHistory={chatHistory}

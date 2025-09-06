@@ -76,6 +76,7 @@ interface HeroPhoneScrollProps {
 const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style }) => {
   const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [typingSide, setTypingSide] = useState<'assistant' | 'user' | null>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const messagesRef = useRef<HTMLDivElement>(null);
 
@@ -96,6 +97,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
           setIsTyping(false);
+          setTypingSide(null);
         }, 3000);
         return;
       }
@@ -106,19 +108,31 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       if (currentMessage.type === 'assistant') {
         // Show typing indicator first for assistant messages
         setIsTyping(true);
+        setTypingSide('assistant');
         
         // Variable typing time for more natural feel - slower for demo
         const typingTime = 2800 + (currentMessage.content.length * 55);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
+          setTypingSide(null);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentMessageIndex(prev => prev + 1);
         }, typingTime);
       } else {
-        // Show user messages instantly (they're already typed)
-        setVisibleMessages(prev => [...prev, currentMessage]);
-        setCurrentMessageIndex(prev => prev + 1);
+        // Show user typing first, then message
+        setIsTyping(true);
+        setTypingSide('user');
+        
+        // Shorter, natural delay for user messages
+        const typingTime = Math.min(Math.max(600 + (currentMessage.content.length * 15), 500), 1200);
+        
+        timeoutId = setTimeout(() => {
+          setIsTyping(false);
+          setTypingSide(null);
+          setVisibleMessages(prev => [...prev, currentMessage]);
+          setCurrentMessageIndex(prev => prev + 1);
+        }, typingTime);
       }
     };
 
@@ -134,6 +148,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setVisibleMessages([]);
         setCurrentMessageIndex(0);
         setIsTyping(false);
+        setTypingSide(null);
       }, 3000);
     }
 
@@ -215,9 +230,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 </div>
               ))}
 
-              {/* Typing indicator */}
-              {isTyping && (
-                <div className="flex gap-2 items-end justify-start animate-fade-in">
+              {/* Typing indicators */}
+              {isTyping && typingSide === 'assistant' && (
+                <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
                   <Avatar className="w-6 h-6 flex-shrink-0">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
                     <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
@@ -231,6 +246,26 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
+                  <span className="sr-only">Kai is typing...</span>
+                </div>
+              )}
+
+              {isTyping && typingSide === 'user' && (
+                <div className="flex gap-2 items-end justify-end animate-fade-in" aria-live="polite">
+                  <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                  </div>
+                  <Avatar className="w-6 h-6 flex-shrink-0">
+                    <AvatarImage src={MayaAvatar} alt="Maya" />
+                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
+                      M
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="sr-only">Maya is typing...</span>
                 </div>
               )}
             </div>

@@ -55,6 +55,7 @@ const AIChat = ({
   onCloseStarters = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
+  const [userTyping, setUserTyping] = useState(false);
   const { profile } = useUserProfile();
   const { canInteract } = useProgressiveAccess();
 
@@ -123,6 +124,7 @@ useChatEffects({
         isConfigured={isConfigured}
         conversationStarter={conversationStarter}
         isHistoryLoaded={isHistoryLoaded}
+        userTyping={userTyping}
       />
 
       <ChatInputSection
@@ -136,6 +138,7 @@ useChatEffects({
         isHistoryLoaded={isHistoryLoaded}
         showStarters={showStarters}
         onCloseStarters={onCloseStarters}
+        onUserTypingChange={setUserTyping}
       />
     </ChatLayout>
   );

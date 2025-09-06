@@ -11,6 +11,7 @@ interface AIChatInputProps {
   placeholder?: string;
   inputRef?: React.RefObject<HTMLTextAreaElement>;
   onInputFocus?: () => void;
+  onTypingChange?: (typing: boolean) => void;
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
@@ -24,6 +25,7 @@ const AIChatInput = ({
   placeholder,
   inputRef,
   onInputFocus,
+  onTypingChange,
   userName, 
   partnerName, 
   chatHistory = []
@@ -31,6 +33,7 @@ const AIChatInput = ({
   const [currentMessage, setCurrentMessage] = useState("");
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -40,6 +43,15 @@ const AIChatInput = ({
       onInputFocus?.();
       return;
     }
+    
+    // Clear typing indicator when sending
+    if (onTypingChange) {
+      onTypingChange(false);
+    }
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
     
@@ -80,8 +92,27 @@ const AIChatInput = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCurrentMessage(e.target.value);
+    const newValue = e.target.value;
+    setCurrentMessage(newValue);
     adjustTextareaHeight();
+    
+    // Handle typing indicator
+    if (onTypingChange) {
+      const isTyping = newValue.trim().length > 0;
+      onTypingChange(isTyping);
+      
+      // Clear existing timeout
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      
+      // Set timeout to stop typing after inactivity
+      if (isTyping) {
+        typingTimeoutRef.current = setTimeout(() => {
+          onTypingChange(false);
+        }, 1000);
+      }
+    }
   };
 
 
@@ -97,6 +128,15 @@ const AIChatInput = ({
   useEffect(() => {
     adjustTextareaHeight();
   }, [currentMessage]);
+
+  // Cleanup typing timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
