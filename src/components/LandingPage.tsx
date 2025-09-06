@@ -193,9 +193,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           </>
         )}
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[600px]">
             {/* Left Column - Text Content */}
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left order-2 lg:order-1">
               
               <div className="space-y-4 mb-12">
                 <h1 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in">
@@ -220,7 +220,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
 
             {/* Right Column - Live Kai Demo */}
-            <div className="relative flex justify-center lg:justify-end">
+            <div className="relative flex justify-center lg:justify-start order-1 lg:order-2">
               <ProductPhoneDemo className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
             </div>
           </div>
