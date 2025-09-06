@@ -204,12 +204,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </span>
                 </h1>
                 
-                <h2 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                    Ghosting isn't closure.
-                  </span>
-                </h2>
-                
                 <h3 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                     Kai helps you actually connect.
