@@ -213,11 +213,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               >
                 How it works
               </a>
-              <Link to="/privacy-and-security">
-                <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10 rounded-full font-thin">
-                  Privacy & Security
-                </Button>
-              </Link>
               <Link to="/auth">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
                   Get Started
