@@ -143,39 +143,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      {/* Pop-out Maya Avatar - Left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[90%] z-30 pointer-events-none hidden lg:block">
-        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
-          <Avatar className="w-14 h-14 ring-4 ring-pink-400/30 shadow-xl">
-            <AvatarImage 
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
-              alt="Maya - App User"
-            />
-            <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-sm">
-              M
-            </AvatarFallback>
-          </Avatar>
-          <div className="text-center mt-2">
-            <p className="text-white/80 text-xs font-medium">Maya</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Pop-out Rory Avatar - Right side */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[90%] z-30 pointer-events-none hidden lg:block">
-        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
-          <Avatar className="w-14 h-14 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=face" alt="Rory" />
-            <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-sm">
-              R
-            </AvatarFallback>
-          </Avatar>
-          <div className="text-center mt-2">
-            <p className="text-white/80 text-xs font-medium">Rory</p>
-          </div>
-        </div>
-      </div>
-
       {/* Phone container - full area focused on chat */}
       <div className="relative flex items-center justify-center z-20">
         {/* Phone mockup with glassmorphism and proportional sizing */}
@@ -185,61 +152,70 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-gradient-to-br from-slate-800/90 via-slate-900/95 to-black/98 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col backdrop-blur-xl"
             style={{
-              width: 'clamp(260px, 24vw, 320px)',
+              width: 'clamp(280px, 28vw, 340px)',
+              height: 'min(62vh, 560px)',
               aspectRatio: '9/18',
               animationDelay: '0.6s'
             }}
           >
             {/* Status bar */}
-            <div className="bg-burgundy-800 px-6 py-2 flex justify-between items-center text-white text-xs">
-              <span>9:41</span>
-              <div className="flex items-center gap-1">
-                <div className="w-4 h-2 border border-white/50 rounded-sm">
-                  <div className="w-3 h-1 bg-white rounded-sm m-0.5"></div>
+            <div className="bg-black/20 backdrop-blur-sm px-6 py-2 flex justify-between items-center text-white text-xs border-b border-white/5">
+              <span className="font-medium">9:41</span>
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 bg-white/80 rounded-full"></div>
+                  <div className="w-1 h-1 bg-white/80 rounded-full"></div>
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                </div>
+                <div className="w-6 h-3 border border-white/50 rounded-sm relative">
+                  <div className="w-4 h-1.5 bg-white/90 rounded-sm m-0.5"></div>
                 </div>
               </div>
             </div>
 
-            {/* Chat header with glassmorphism */}
-            <div className="bg-burgundy-800 border-b border-burgundy-700 px-4 py-3 flex items-center">
-              <Avatar className="w-10 h-10 mr-3 ring-2 ring-burgundy-400/30">
+            {/* Chat header with Kai-inspired design */}
+            <div className="bg-gradient-to-r from-purple-900/20 via-purple-800/30 to-indigo-900/20 backdrop-blur-sm border-b border-purple-500/20 px-4 py-4 flex items-center">
+              <Avatar className="w-11 h-11 mr-3 ring-2 ring-purple-400/40 shadow-lg">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white font-semibold">
+                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-semibold text-sm">
                   {BRAND.coach.name[0]}
                 </AvatarFallback>
               </Avatar>
-              <div>
-                <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
-                <p className="text-white/70 text-xs">Your AI relationship coach</p>
+              <div className="flex-1">
+                <h3 className="text-white font-semibold text-sm tracking-wide">{BRAND.coach.name}</h3>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                  <p className="text-purple-200/90 text-xs font-medium">Active now</p>
+                </div>
               </div>
             </div>
 
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-3 space-y-2 bg-gradient-to-br from-burgundy-900 to-burgundy-800 overflow-y-auto"
+              className="flex-1 p-4 space-y-3 bg-gradient-to-br from-slate-900/50 via-slate-800/30 to-purple-900/20 overflow-y-auto backdrop-blur-sm"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
-                <div key={message.id} className={`flex items-start gap-2 animate-fade-in ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div key={message.id} className={`flex items-end gap-2 animate-fade-in ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                   {/* Avatar */}
-                  <Avatar className={`w-8 h-8 flex-shrink-0 ${message.type === 'user' ? 'ring-2 ring-pink-400/50' : 'ring-2 ring-burgundy-400/50'}`}>
+                  <Avatar className={`w-8 h-8 flex-shrink-0 ${message.type === 'user' ? 'ring-2 ring-blue-400/60 shadow-lg shadow-blue-400/20' : 'ring-2 ring-purple-400/60 shadow-lg shadow-purple-400/20'}`}>
                     {message.type === 'user' ? (
                       <>
                         <AvatarImage 
                           src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
                           alt="Maya" 
                         />
-                        <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white text-xs font-semibold">
+                        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white text-xs font-semibold">
                           M
                         </AvatarFallback>
                       </>
                     ) : (
                       <>
                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                        <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white text-xs font-semibold">
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-xs font-semibold">
                           {BRAND.coach.name[0]}
                         </AvatarFallback>
                       </>
@@ -247,8 +223,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                   </Avatar>
                   
                   {/* Message bubble using ChatBubble component */}
-                  <div className="max-w-[80%]">
-                    <ChatBubble isUser={message.type === 'user'} variant="heartlines">
+                  <div className="max-w-[75%]">
+                    <ChatBubble isUser={message.type === 'user'} variant="kai">
                       {message.content}
                     </ChatBubble>
                   </div>
@@ -257,36 +233,36 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
               {/* Typing indicator with avatar */}
               {isTyping && (
-                <div className="flex items-start gap-2 animate-fade-in">
-                  <Avatar className="w-8 h-8 flex-shrink-0 ring-2 ring-burgundy-400/50">
+                <div className="flex items-end gap-2 animate-fade-in">
+                  <Avatar className="w-8 h-8 flex-shrink-0 ring-2 ring-purple-400/60 shadow-lg shadow-purple-400/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                    <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white text-xs font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-xs font-semibold">
                       {BRAND.coach.name[0]}
                     </AvatarFallback>
                   </Avatar>
-                  <ChatBubble variant="heartlines">
+                  <ChatBubble variant="kai">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </ChatBubble>
                 </div>
               )}
             </div>
 
-            {/* Input area with glassmorphism */}
-            <div className="bg-burgundy-800 border-t border-burgundy-700 p-3">
-              <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-4 py-2 flex items-center">
+            {/* Input area with Kai-inspired design */}
+            <div className="bg-gradient-to-r from-slate-900/80 via-slate-800/60 to-purple-900/40 backdrop-blur-md border-t border-purple-500/20 p-4">
+              <div className="bg-white/5 backdrop-blur-xl border border-purple-400/30 rounded-full px-5 py-3 flex items-center shadow-lg shadow-purple-900/20">
                 <input 
                   type="text" 
-                  placeholder="Type your message..." 
-                  className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
+                  placeholder="Message Kai..." 
+                  className="flex-1 bg-transparent text-white placeholder-purple-200/60 text-sm focus:outline-none font-medium"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-burgundy-500 to-coral-400 w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                <button className="bg-gradient-to-r from-purple-500 to-indigo-600 w-9 h-9 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 hover:shadow-purple-400/40 transition-all">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                   </svg>
                 </button>
               </div>
