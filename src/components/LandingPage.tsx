@@ -229,7 +229,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       )}
 
       {/* Hero Section - Locked layout with flame background */}
-      <section className="relative min-h-screen">
+      <section 
+        className="relative overflow-hidden"
+        style={{ minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh' }}
+      >
         {/* Flame Background */}
         <FlameBackground />
         
@@ -237,13 +240,13 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {!isEmbedded && (
           <>
             {/* Primary hero section with locked two-column layout */}
-            <div className="px-4 sm:px-6 py-4 sm:py-6 lg:py-12">
+            <div className="px-4 sm:px-6 py-4 sm:py-6">
               {/* Accent decoration - floating orbs with glassmorphism */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
+                <div className="grid lg:grid-cols-2 gap-8 items-center min-h-full">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-[580px] self-center">
                     <div className="space-y-3 mb-6">
@@ -269,7 +272,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-center">
-                    <div className="w-full max-w-sm" style={{ height: 'min(62vh, 560px)' }}>
+                    <div className="w-full max-w-sm" style={{ height: 'min(56vh, 520px)' }}>
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
@@ -309,7 +312,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div className="w-full max-w-sm" style={{ height: 'min(62vh, 560px)' }}>
+                  <div className="w-full max-w-sm" style={{ height: 'min(56vh, 520px)' }}>
                     <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>

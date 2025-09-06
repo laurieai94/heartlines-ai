@@ -7,8 +7,13 @@ interface FlameBackgroundProps {
 const FlameBackground: React.FC<FlameBackgroundProps> = ({ className = '' }) => {
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      {/* Soft glow background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white rounded-full opacity-[0.06] blur-[100px]" />
+        <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-white rounded-full opacity-[0.06] blur-[80px]" />
+      </div>
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.04]"
+        className="absolute inset-0 w-full h-full opacity-[0.09]"
         viewBox="0 0 1200 800"
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
