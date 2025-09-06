@@ -166,26 +166,32 @@ const Auth = () => {
 
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-md">
         {/* Progress Header */}
-        <div className="mb-8 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-          <div className="flex items-center justify-center mb-4 overflow-x-auto">
+        <div className="mb-8 p-4 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg">
+          <div className="flex items-center justify-center mb-3 overflow-x-auto">
             <div className="flex items-center space-x-2 flex-nowrap min-w-max">
               <div className="flex items-center whitespace-nowrap">
-                <div className="w-8 h-8 rounded-full bg-coral-400 flex items-center justify-center text-white text-sm font-semibold">1</div>
-                <span className="ml-2 text-white font-medium">SIGN UP</span>
+                <div className="w-7 h-7 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
+                <span className="ml-2 text-white font-medium text-sm">SIGN UP</span>
               </div>
-              <div className="w-6 h-0.5 bg-white/20"></div>
+              <div className="w-4 h-px bg-white/15"></div>
               <div className="flex items-center whitespace-nowrap">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white/60 text-sm font-semibold">2</div>
-                <span className="ml-2 text-white/60">Profile</span>
+                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
+                <span className="ml-2 text-white/50 text-sm">Profile</span>
               </div>
-              <div className="w-6 h-0.5 bg-white/20"></div>
+              <div className="w-4 h-px bg-white/15"></div>
               <div className="flex items-center whitespace-nowrap">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white/60 text-sm font-semibold">3</div>
-                <span className="ml-2 text-white/60">Talk to Kai</span>
+                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
+                <span className="ml-2 text-white/50 text-sm">Talk to Kai</span>
               </div>
             </div>
           </div>
-          <p className="text-white/70 text-sm text-center">~2 MINUTES personalized relationship INSIGHTS</p>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-white/10 rounded-full h-1 mb-3">
+            <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
+          </div>
+          
+          <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
         </div>
         {/* Back button */}
         <Button
