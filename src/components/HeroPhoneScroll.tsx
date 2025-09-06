@@ -161,9 +161,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     <div className={`relative ${className}`} style={style}>
 
       {/* Phone container - positioned to align with hero text */}
-      <div className="relative flex items-start justify-center z-20 p-4 sm:p-6 lg:p-8">
+      <div className="relative flex items-start justify-center z-20 p-2 sm:p-4 lg:p-6">
         {/* Phone mockup with glassmorphism and proportional sizing */}
-        <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
+        <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-xl ring-1 ring-white/5"></div>
           
@@ -171,8 +171,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(260px, min(55vw, 75vh * 9/16), 300px)',
+              width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 300px)',
               aspectRatio: '9/16',
+              maxHeight: 'min(85svh, 85dvh)',
               animationDelay: '0.6s'
             }}
           >

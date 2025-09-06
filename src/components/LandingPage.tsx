@@ -325,7 +325,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div className="w-full max-w-md" style={{ height: 'min(52vh, 500px)' }}>
+                  <div className="w-full max-w-md" style={{ height: 'min(min(52svh, 52dvh), 500px)' }}>
                     <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>
