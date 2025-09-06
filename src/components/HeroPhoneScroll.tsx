@@ -171,7 +171,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(300px, 70vw, 360px)',
+              width: 'clamp(300px, min(70vw, 85vh * 9/16), 360px)',
               aspectRatio: '9/16',
               animationDelay: '0.6s'
             }}
@@ -216,9 +216,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       </AvatarFallback>
                     </Avatar>
                   )}
-                  <ChatBubble isUser={message.type === 'user'} variant="kai" className="animate-fade-in max-w-[86%]">
-                    {message.content}
-                  </ChatBubble>
+                   <ChatBubble 
+                     isUser={message.type === 'user'} 
+                     variant={message.type === 'user' ? 'maya' : 'kai'} 
+                     className="animate-fade-in max-w-[86%]"
+                   >
+                     {message.content}
+                   </ChatBubble>
                   {message.type === 'user' && (
                     <Avatar className="w-6 h-6 flex-shrink-0">
                       <AvatarImage src={MayaAvatar} alt="Maya" />

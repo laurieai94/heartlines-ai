@@ -5,14 +5,19 @@ interface ChatBubbleProps {
   children: React.ReactNode;
   isUser?: boolean;
   className?: string;
-  variant?: 'default' | 'kai' | 'heartlines';
+  variant?: 'default' | 'kai' | 'heartlines' | 'maya';
 }
 
 const ChatBubble = ({ children, isUser = false, className = '', variant = 'default' }: ChatBubbleProps) => {
   const getVariantStyles = () => {
     if (variant === 'kai') {
-      // Both user and assistant bubbles are burgundy-tinted glass with white outline for Kai
+      // Kai's messages - burgundy-tinted glass with white outline
       return 'bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30';
+    }
+    
+    if (variant === 'maya') {
+      // Maya's messages - subtle coral/pink glass gradient to differentiate from Kai
+      return 'bg-gradient-to-br from-coral-400/20 to-pink-500/30 backdrop-blur-sm text-white border-2 border-coral-400/40 shadow-lg shadow-coral-400/20';
     }
     
     if (variant === 'heartlines') {
@@ -33,7 +38,7 @@ const ChatBubble = ({ children, isUser = false, className = '', variant = 'defau
       <div
         className={`
           max-w-[80%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed
-          ${variant === 'kai' ? '' : isUser ? 'rounded-br-sm' : 'rounded-bl-sm'}
+          ${variant === 'kai' || variant === 'maya' ? '' : isUser ? 'rounded-br-sm' : 'rounded-bl-sm'}
           ${getVariantStyles()}
           ${className}
         `}
