@@ -9,7 +9,6 @@ import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
-import FlameBackground from "./FlameBackground";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -91,9 +90,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
-      {/* Flame Background - Only show for marketing page */}
+      {/* Animated Holographic Background - Only show for marketing page */}
       {showMarketingTopBar && (
-        <FlameBackground />
+        <>
+        </>
       )}
 
       {/* Floating Particles */}
@@ -239,16 +239,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center min-h-[90vh] lg:min-h-[calc(100vh-5rem)]">
-                  {/* Left Column - Animated Phone Demo (Always Left) */}
-                  <div className="relative flex justify-center lg:justify-start items-center order-1">
-                    <div className="h-[min(65vh,580px)] flex items-center">
-                      <HeroPhoneScroll className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
-                    </div>
-                  </div>
-                  
-                  {/* Right Column - Text Content (Always Right) */}
-                  <div className="text-left lg:text-left max-w-[580px] self-center order-2">
+                <div className="grid lg:grid-cols-2 gap-4 lg:gap-8 items-start lg:items-center min-h-[90vh] lg:min-h-[calc(100vh-5rem)]">
+                  {/* Left Column - Text Content */}
+                  <div className="text-left max-w-[580px] self-center order-2 lg:order-1">
                     <div className="space-y-3 mb-6">
                       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
@@ -268,6 +261,13 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                     </Link>
+                  </div>
+
+                  {/* Right Column - Animated Phone Demo */}
+                  <div className="relative flex justify-center items-start lg:items-center order-1 lg:order-2">
+                    <div className="max-h-[60vh] lg:max-h-none">
+                      <HeroPhoneScroll className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
+                    </div>
                   </div>
                 </div>
               </div>
