@@ -161,17 +161,17 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     <div className={`relative ${className}`} style={style}>
 
       {/* Phone container - positioned to align with hero text */}
-      <div className="relative flex items-start justify-center z-20">
+      <div className="relative flex items-start justify-center z-20 p-4 sm:p-6 lg:p-8">
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
-          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-xl ring-1 ring-white/5"></div>
+          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-xl ring-1 ring-white/5"></div>
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
             className="relative bg-burgundy-900 border-2 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(300px, min(70vw, 85vh * 9/16), 360px)',
+              width: 'clamp(260px, min(55vw, 75vh * 9/16), 300px)',
               aspectRatio: '9/16',
               animationDelay: '0.6s'
             }}
@@ -188,7 +188,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
             {/* Chat header with Kai styling */}
             <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-4 py-2 flex items-center">
-              <Avatar className="w-9 h-9 mr-3 ring-2 ring-white/20">
+              <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
                 <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                   {BRAND.coach.name[0]}
@@ -223,14 +223,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                    >
                      {message.content}
                    </ChatBubble>
-                  {message.type === 'user' && (
-                    <Avatar className="w-6 h-6 flex-shrink-0">
-                      <AvatarImage src={MayaAvatar} alt="Maya" />
-                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                        M
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
+                   {message.type === 'user' && (
+                     <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
+                       <AvatarImage src={MayaAvatar} alt="Maya" />
+                       <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
+                         M
+                       </AvatarFallback>
+                     </Avatar>
+                   )}
                 </div>
               ))}
 
@@ -263,12 +263,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                  <Avatar className="w-6 h-6 flex-shrink-0">
-                    <AvatarImage src={MayaAvatar} alt="Maya" />
-                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                      M
-                    </AvatarFallback>
-                  </Avatar>
+                   <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
+                     <AvatarImage src={MayaAvatar} alt="Maya" />
+                     <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
+                       M
+                     </AvatarFallback>
+                   </Avatar>
                   <span className="sr-only">Maya is typing...</span>
                 </div>
               )}
