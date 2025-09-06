@@ -193,17 +193,8 @@ const Auth = () => {
           
           <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
         </div>
-        {/* Back button */}
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/')}
-          className="mb-6 text-white/80 hover:text-white hover:bg-white/10"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Home
-        </Button>
 
-        <div className="questionnaire-card p-8 animate-fade-in">
+        <div className="questionnaire-card p-6 sm:p-8 animate-fade-in">
           {showEmailVerification ? (
             <div className="text-center space-y-6">
               <div className="mx-auto w-16 h-16 bg-coral-500/20 rounded-full flex items-center justify-center mb-4">
@@ -253,13 +244,23 @@ const Auth = () => {
             </div>
           ) : (
             <>
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <h1 className="text-3xl font-bold text-white mb-2">
                   {isSignUp ? 'Create Your Free Account' : 'We missed you'}
                 </h1>
-                <p className="text-white/70">
+                <p className="text-white/70 mb-4">
                   {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
                 </p>
+                
+                {/* Back button */}
+                <Button
+                  variant="ghost"
+                  onClick={() => navigate('/')}
+                  className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-1" />
+                  Back to Home
+                </Button>
               </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
