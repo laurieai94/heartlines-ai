@@ -79,42 +79,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      {/* Phone container with static portrait characters */}
+      {/* Phone container - full area focused on chat */}
       <div className="relative flex items-center justify-center">
-        {/* Left Portrait - static behind phone */}
-        <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 hidden lg:block">
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face"
-              alt="Maya"
-              className="w-24 h-24 rounded-full object-cover shadow-lg ring-2 ring-white/20 rotate-12 transform"
-              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
-            />
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="bg-burgundy-500/20 backdrop-blur-md rounded-lg px-2 py-1 border border-white/10">
-                <p className="text-white text-xs font-medium">Maya</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Portrait - static behind phone */}
-        <div className="absolute -right-20 top-1/2 transform -translate-y-1/2 hidden lg:block">
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-              alt="Chris"
-              className="w-24 h-24 rounded-full object-cover shadow-lg ring-2 ring-white/20 -rotate-12 transform"
-              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
-            />
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="bg-coral-500/20 backdrop-blur-md rounded-lg px-2 py-1 border border-white/10">
-                <p className="text-white text-xs font-medium">Chris</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
@@ -153,27 +119,57 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               </div>
             </div>
 
-            {/* Messages area */}
-            <div className="flex-1 p-4 space-y-4 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto" style={{ maxHeight: '300px' }}>
+            {/* Messages area - fills more of the phone */}
+            <div className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto" style={{ minHeight: '400px' }}>
               {visibleMessages.map((message, index) => (
-                <ChatBubble
-                  key={message.id}
-                  isUser={message.type === 'user'}
-                  variant="heartlines"
-                  className="animate-fade-in"
-                >
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                </ChatBubble>
+                <div key={message.id} className={`flex items-start gap-2 animate-fade-in ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                  {/* Avatar */}
+                  <Avatar className="w-8 h-8 flex-shrink-0">
+                    {message.type === 'user' ? (
+                      <>
+                        <AvatarImage 
+                          src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face" 
+                          alt="Maya" 
+                        />
+                        <AvatarFallback className="bg-gradient-to-r from-coral-400 to-pink-400 text-white text-xs font-semibold">
+                          M
+                        </AvatarFallback>
+                      </>
+                    ) : (
+                      <>
+                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                        <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white text-xs font-semibold">
+                          {BRAND.coach.name[0]}
+                        </AvatarFallback>
+                      </>
+                    )}
+                  </Avatar>
+                  
+                  {/* Message bubble */}
+                  <div className={`max-w-[75%] px-3 py-2 rounded-2xl ${
+                    message.type === 'user' 
+                      ? 'bg-coral-500/80 backdrop-blur-md text-white border border-white/15 shadow-lg rounded-br-sm' 
+                      : 'bg-white/95 text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm'
+                  }`}>
+                    <p className="text-sm leading-relaxed">{message.content}</p>
+                  </div>
+                </div>
               ))}
 
-              {/* Typing indicator with glassmorphism */}
+              {/* Typing indicator with avatar */}
               {isTyping && (
-                <div className="flex justify-start animate-fade-in">
-                  <div className="bg-burgundy-600/80 backdrop-blur-md border border-white/15 px-4 py-3 rounded-2xl rounded-bl-sm shadow-lg">
+                <div className="flex items-start gap-2 animate-fade-in">
+                  <Avatar className="w-8 h-8 flex-shrink-0">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                    <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white text-xs font-semibold">
+                      {BRAND.coach.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="bg-white/95 border border-gray-100 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
