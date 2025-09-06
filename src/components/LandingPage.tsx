@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
+import ProductPhoneDemo from "./ProductPhoneDemo";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -233,104 +234,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </Link>
             </div>
 
-            {/* Right Column - Kai Product Shot */}
-            <div className="relative animate-fade-in" style={{ animationDelay: '1.6s' }}>
-              {/* Decorative glow behind the product shot */}
-              <div className="absolute inset-0 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-3xl blur-3xl transform rotate-6 scale-110"></div>
-              
-              {/* Main product shot container */}
-              <div className="relative group">
-                <div className="transform transition-all duration-700 hover:scale-105 hover:-rotate-1">
-                  <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8 overflow-hidden">
-                    {/* Subtle inner glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-coral-400/5 to-pink-400/5 rounded-3xl"></div>
-                    
-                    {/* Phone Mockup with Kai Chat */}
-                    <div className="relative z-10">
-                      <div className="max-w-sm mx-auto">
-                        {/* Phone Frame */}
-                        <div className="relative bg-slate-900 rounded-[3rem] p-2 shadow-2xl">
-                          <div className="bg-black rounded-[2.5rem] overflow-hidden">
-                            {/* Phone Screen */}
-                            <div className="bg-gradient-to-b from-slate-50 to-white h-[600px] relative">
-                              {/* Status Bar */}
-                              <div className="flex justify-between items-center px-6 py-2 text-xs text-slate-900">
-                                <span>9:41</span>
-                                <div className="flex items-center gap-1">
-                                  <div className="w-4 h-2 bg-slate-900 rounded-sm"></div>
-                                  <div className="text-slate-900">100%</div>
-                                </div>
-                              </div>
-                              
-                              {/* Chat Header */}
-                              <div className="bg-white border-b border-slate-200 px-4 py-3 flex items-center gap-3">
-                                <img 
-                                  src="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" 
-                                  alt="Kai avatar"
-                                  className="w-10 h-10 rounded-full"
-                                />
-                                <div>
-                                  <div className="font-semibold text-slate-900">Kai</div>
-                                  <div className="text-xs text-green-500">● Online</div>
-                                </div>
-                              </div>
-                              
-                              {/* Chat Messages */}
-                              <div className="p-4 space-y-4 flex-1">
-                                {/* Kai's message */}
-                                <div className="flex items-start gap-3">
-                                  <div className="bg-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs">
-                                    <p className="text-sm text-slate-800">I can see you're feeling frustrated about the communication patterns in your relationship. Let's work on some specific strategies that fit your attachment style.</p>
-                                  </div>
-                                </div>
-                                
-                                {/* User's message */}
-                                <div className="flex justify-end">
-                                  <div className="bg-gradient-to-r from-coral-400 to-pink-400 rounded-2xl rounded-tr-sm px-4 py-3 max-w-xs">
-                                    <p className="text-sm text-white">That would be really helpful, thanks Kai</p>
-                                  </div>
-                                </div>
-                                
-                                {/* Kai typing indicator */}
-                                <div className="flex items-start gap-3">
-                                  <div className="bg-slate-100 rounded-2xl px-4 py-3">
-                                    <div className="flex space-x-1">
-                                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-pulse"></div>
-                                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              {/* Input Area */}
-                              <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4">
-                                <div className="flex items-center gap-3">
-                                  <div className="flex-1 bg-slate-100 rounded-full px-4 py-2">
-                                    <span className="text-slate-500 text-sm">Message Kai...</span>
-                                  </div>
-                                  <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
-                                    <ArrowRight className="w-4 h-4 text-white" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Floating UI elements for visual enhancement */}
-                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg animate-pulse">
-                  ✨ AI-powered
-                </div>
-                
-                <div className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-lg text-white px-4 py-2 rounded-full text-sm border border-white/20 shadow-lg">
-                  💬 Real conversations
-                </div>
-              </div>
+            {/* Right Column - Live Kai Demo */}
+            <div className="relative flex justify-center lg:justify-end">
+              <ProductPhoneDemo className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
             </div>
           </div>
         </div>
