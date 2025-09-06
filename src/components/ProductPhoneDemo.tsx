@@ -94,10 +94,10 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
       {/* Phone Frame */}
       <div className="relative mx-auto w-[280px] h-[580px] bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-2xl overflow-hidden">
         {/* Phone Screen */}
-        <div className="relative w-full h-full bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 overflow-hidden">
+        <div className="relative w-full h-full bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-coral-900 overflow-hidden">
           
           {/* Chat Header */}
-          <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-white/5">
+          <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-burgundy-800/35">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -172,8 +172,8 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           </div>
 
           {/* Decorative glow effects */}
-          <div className="absolute top-20 left-4 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-4 w-28 h-28 bg-pink-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-20 left-4 w-32 h-32 bg-burgundy-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-4 w-28 h-28 bg-coral-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
 
         {/* Phone Details */}
@@ -182,8 +182,8 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
       </div>
 
       {/* Floating Elements */}
-      <div className="absolute -top-8 -left-8 w-16 h-16 bg-gradient-to-br from-coral-400/30 to-transparent rounded-full blur-xl animate-float"></div>
-      <div className="absolute -bottom-12 -right-8 w-20 h-20 bg-gradient-to-br from-purple-400/20 to-transparent rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute -top-8 -left-8 w-16 h-16 bg-gradient-to-br from-burgundy-400/30 to-transparent rounded-full blur-xl animate-float"></div>
+      <div className="absolute -bottom-12 -right-8 w-20 h-20 bg-gradient-to-br from-coral-400/20 to-transparent rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }}></div>
     </div>
   );
 };

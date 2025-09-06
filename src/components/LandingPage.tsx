@@ -187,8 +187,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {/* Accent decoration - floating orbs */}
         {!isEmbedded && (
           <>
-            <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-pink-400/15 to-coral-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
             
           </>
         )}
