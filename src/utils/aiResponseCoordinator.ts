@@ -47,8 +47,8 @@ export class AIResponseCoordinator {
         }))
       );
 
-      // Return the AI response directly - let the prompt guide the behavior
-      return response;
+      // Post-process response to ensure brevity
+      return this.enforceResponseBrevity(response);
     } catch (error) {
       console.error('Error in getAIResponse:', error);
       
@@ -66,5 +66,40 @@ export class AIResponseCoordinator {
         return `${userName}, something went wonky - try that again? I'm here to help you figure out what's going on with ${partnerName}.`;
       }
     }
+  }
+
+  private static enforceResponseBrevity(response: string): string {
+    // Count words (simple split by spaces)
+    const words = response.trim().split(/\s+/);
+    const wordCount = words.length;
+    
+    // If under 60 words, return as-is
+    if (wordCount <= 60) {
+      return response;
+    }
+    
+    // If over 60 words, try to find natural break points
+    const sentences = response.split(/[.!?]+/).filter(s => s.trim());
+    
+    if (sentences.length === 1) {
+      // Single sentence that's too long - truncate at 60 words
+      return words.slice(0, 60).join(' ') + '...';
+    }
+    
+    // Keep adding sentences until we approach 60 words
+    let truncated = '';
+    let currentWordCount = 0;
+    
+    for (const sentence of sentences) {
+      const sentenceWords = sentence.trim().split(/\s+/).length;
+      if (currentWordCount + sentenceWords <= 60) {
+        truncated += sentence.trim() + '. ';
+        currentWordCount += sentenceWords;
+      } else {
+        break;
+      }
+    }
+    
+    return truncated.trim() || words.slice(0, 60).join(' ') + '...';
   }
 }
