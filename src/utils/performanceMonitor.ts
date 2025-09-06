@@ -78,6 +78,12 @@ class PerformanceMonitor {
       });
     }
   }
+
+  // Log landing page loading diagnostics
+  logLandingPageLoad(type: 'full' | 'shell' | 'error', loadTime?: number) {
+    const message = `Landing page loaded: ${type}${loadTime ? ` in ${loadTime.toFixed(2)}ms` : ''}`;
+    logger.info(message);
+  }
 }
 
 export const performanceMonitor = new PerformanceMonitor();
