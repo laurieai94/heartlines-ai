@@ -5,7 +5,7 @@ interface ChatBubbleProps {
   children: React.ReactNode;
   isUser?: boolean;
   className?: string;
-  variant?: 'default' | 'kai';
+  variant?: 'default' | 'kai' | 'heartlines';
 }
 
 const ChatBubble = ({ children, isUser = false, className = '', variant = 'default' }: ChatBubbleProps) => {
@@ -13,6 +13,13 @@ const ChatBubble = ({ children, isUser = false, className = '', variant = 'defau
     if (variant === 'kai') {
       // Both user and assistant bubbles are purple for Kai
       return 'bg-purple-600/90 backdrop-blur-sm text-white border border-purple-500/30 shadow-lg shadow-purple-900/20';
+    }
+    
+    if (variant === 'heartlines') {
+      // Glassmorphic bubbles with Heartlines burgundy/coral palette
+      return isUser
+        ? 'bg-burgundy-700/70 backdrop-blur-md text-white border border-white/15 shadow-lg shadow-burgundy-500/10'
+        : 'bg-burgundy-600/70 backdrop-blur-md text-white border border-white/15 shadow-lg shadow-coral-400/10';
     }
     
     // Default variant
