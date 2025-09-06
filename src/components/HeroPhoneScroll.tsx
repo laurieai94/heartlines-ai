@@ -71,111 +71,165 @@ interface HeroPhoneScrollProps {
 const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '' }) => {
   const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [charactersVisible, setCharactersVisible] = useState({ left: false, right: false });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const containerTop = rect.top;
-      const containerHeight = rect.height;
-      
-      // Calculate scroll progress (0 to 1)
-      const progress = Math.max(0, Math.min(1, (windowHeight - containerTop) / (windowHeight + containerHeight)));
-      setScrollProgress(progress);
-      
-      // Show characters based on scroll progress
-      setCharactersVisible({
-        left: progress > 0.3,
-        right: progress > 0.6
-      });
-      
-      // Show messages based on scroll progress
-      const totalMessages = DEMO_CONVERSATION.length;
-      const messagesToShow = Math.floor(progress * totalMessages * 1.2); // Slightly faster reveal
-      
-      if (messagesToShow > visibleMessages.length && messagesToShow <= totalMessages) {
+    // Start animation sequence after component mounts
+    const startAnimation = () => {
+      // Show phone drop-in animation first
+      setTimeout(() => {
+        // Show left character
+        setCharactersVisible(prev => ({ ...prev, left: true }));
+      }, 800);
+
+      setTimeout(() => {
+        // Show right character
+        setCharactersVisible(prev => ({ ...prev, right: true }));
+      }, 1400);
+
+      // Start message animation sequence
+      setTimeout(() => {
+        animateMessages();
+      }, 2000);
+    };
+
+    const animateMessages = () => {
+      if (currentMessageIndex < DEMO_CONVERSATION.length) {
         setIsTyping(true);
+        
         setTimeout(() => {
-          setVisibleMessages(DEMO_CONVERSATION.slice(0, messagesToShow));
+          setVisibleMessages(prev => [...prev, DEMO_CONVERSATION[currentMessageIndex]]);
+          setCurrentMessageIndex(prev => prev + 1);
           setIsTyping(false);
-        }, 800);
+          
+          // Continue to next message
+          setTimeout(() => {
+            animateMessages();
+          }, 1500);
+        }, 1000);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [visibleMessages.length]);
+    startAnimation();
+  }, [currentMessageIndex]);
 
   return (
-    <div ref={containerRef} className={`relative min-h-[300vh] ${className}`}>
-      {/* Sticky phone container */}
-      <div className="sticky top-1/2 transform -translate-y-1/2 h-screen flex items-center justify-center">
-        {/* Left Character */}
+    <div className={`relative ${className}`}>
+      {/* Phone container with animated characters */}
+      <div className="relative flex items-center justify-center">
+        {/* Left Character - leaning against phone */}
         <div 
-          className={`absolute left-8 lg:left-20 transition-all duration-1000 ease-out ${
+          className={`absolute -left-16 top-1/2 transform -translate-y-1/2 transition-all duration-1000 ease-out ${
             charactersVisible.left 
-              ? 'translate-x-0 opacity-100' 
-              : '-translate-x-full opacity-0'
+              ? 'translate-x-0 opacity-100 rotate-12' 
+              : '-translate-x-full opacity-0 rotate-0'
           }`}
+          style={{ transformOrigin: 'bottom right' }}
         >
-          <div className="relative">
-            {/* Glassmorphic base */}
-            <div className="absolute inset-0 bg-burgundy-500/20 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl"></div>
-            <div className="relative p-6 max-w-xs">
-              <Avatar className="w-20 h-20 mb-4 ring-2 ring-burgundy-400/30">
-                <AvatarImage src={MILLENNIAL_CHARACTERS[0].image} alt={MILLENNIAL_CHARACTERS[0].name} />
-                <AvatarFallback className="bg-burgundy-600 text-white text-xl font-semibold">
-                  {MILLENNIAL_CHARACTERS[0].name[0]}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="text-white text-lg font-medium mb-2">{MILLENNIAL_CHARACTERS[0].name}</h3>
-              <p className="text-white/70 text-sm">{MILLENNIAL_CHARACTERS[0].description}</p>
+          {/* Illustrated character SVG */}
+          <div className="relative w-32 h-40">
+            <svg viewBox="0 0 120 160" className="w-full h-full">
+              {/* Character illustration */}
+              <defs>
+                <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FDBCB4" />
+                  <stop offset="100%" stopColor="#F4A094" />
+                </linearGradient>
+                <linearGradient id="hairGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8B4513" />
+                  <stop offset="100%" stopColor="#6B3410" />
+                </linearGradient>
+              </defs>
+              {/* Body */}
+              <ellipse cx="60" cy="140" rx="25" ry="15" fill="#FF6B6B" />
+              {/* Torso */}
+              <rect x="35" y="80" width="50" height="60" rx="25" fill="#FF6B6B" />
+              {/* Head */}
+              <circle cx="60" cy="50" r="25" fill="url(#skinGradient)" />
+              {/* Hair */}
+              <path d="M35 35 Q60 25 85 35 Q85 50 60 55 Q35 50 35 35" fill="url(#hairGradient)" />
+              {/* Eyes */}
+              <circle cx="52" cy="45" r="2" fill="#333" />
+              <circle cx="68" cy="45" r="2" fill="#333" />
+              {/* Smile */}
+              <path d="M50 55 Q60 65 70 55" stroke="#333" strokeWidth="2" fill="none" />
+              {/* Arms */}
+              <circle cx="25" cy="90" r="8" fill="url(#skinGradient)" />
+              <circle cx="95" cy="90" r="8" fill="url(#skinGradient)" />
+              <rect x="17" y="85" width="16" height="35" rx="8" fill="#FF6B6B" />
+              <rect x="87" y="85" width="16" height="35" rx="8" fill="#FF6B6B" />
+            </svg>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+              <div className="bg-burgundy-500/20 backdrop-blur-md rounded-lg px-3 py-1 border border-white/10">
+                <p className="text-white text-xs font-medium">{MILLENNIAL_CHARACTERS[0].name}</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Right Character */}
+        {/* Right Character - leaning against phone */}
         <div 
-          className={`absolute right-8 lg:right-20 transition-all duration-1000 ease-out ${
+          className={`absolute -right-16 top-1/2 transform -translate-y-1/2 transition-all duration-1000 ease-out ${
             charactersVisible.right 
-              ? 'translate-x-0 opacity-100' 
-              : 'translate-x-full opacity-0'
+              ? 'translate-x-0 opacity-100 -rotate-12' 
+              : 'translate-x-full opacity-0 rotate-0'
           }`}
+          style={{ transformOrigin: 'bottom left' }}
         >
-          <div className="relative">
-            {/* Glassmorphic base */}
-            <div className="absolute inset-0 bg-coral-500/20 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl"></div>
-            <div className="relative p-6 max-w-xs">
-              <Avatar className="w-20 h-20 mb-4 ring-2 ring-coral-400/30">
-                <AvatarImage src={MILLENNIAL_CHARACTERS[1].image} alt={MILLENNIAL_CHARACTERS[1].name} />
-                <AvatarFallback className="bg-coral-600 text-white text-xl font-semibold">
-                  {MILLENNIAL_CHARACTERS[1].name[0]}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="text-white text-lg font-medium mb-2">{MILLENNIAL_CHARACTERS[1].name}</h3>
-              <p className="text-white/70 text-sm">{MILLENNIAL_CHARACTERS[1].description}</p>
+          {/* Illustrated character SVG */}
+          <div className="relative w-32 h-40">
+            <svg viewBox="0 0 120 160" className="w-full h-full">
+              {/* Character illustration */}
+              <defs>
+                <linearGradient id="skinGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#DEB887" />
+                  <stop offset="100%" stopColor="#CD853F" />
+                </linearGradient>
+                <linearGradient id="hairGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#4A4A4A" />
+                  <stop offset="100%" stopColor="#2A2A2A" />
+                </linearGradient>
+              </defs>
+              {/* Body */}
+              <ellipse cx="60" cy="140" rx="25" ry="15" fill="#4ECDC4" />
+              {/* Torso */}
+              <rect x="35" y="80" width="50" height="60" rx="25" fill="#4ECDC4" />
+              {/* Head */}
+              <circle cx="60" cy="50" r="25" fill="url(#skinGradient2)" />
+              {/* Hair */}
+              <path d="M35 30 Q60 20 85 30 Q85 45 60 50 Q35 45 35 30" fill="url(#hairGradient2)" />
+              {/* Eyes */}
+              <circle cx="52" cy="45" r="2" fill="#333" />
+              <circle cx="68" cy="45" r="2" fill="#333" />
+              {/* Smile */}
+              <path d="M50 55 Q60 65 70 55" stroke="#333" strokeWidth="2" fill="none" />
+              {/* Arms */}
+              <circle cx="25" cy="90" r="8" fill="url(#skinGradient2)" />
+              <circle cx="95" cy="90" r="8" fill="url(#skinGradient2)" />
+              <rect x="17" y="85" width="16" height="35" rx="8" fill="#4ECDC4" />
+              <rect x="87" y="85" width="16" height="35" rx="8" fill="#4ECDC4" />
+            </svg>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+              <div className="bg-coral-500/20 backdrop-blur-md rounded-lg px-3 py-1 border border-white/10">
+                <p className="text-white text-xs font-medium">{MILLENNIAL_CHARACTERS[1].name}</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Phone mockup with glassmorphism */}
-        <div className="relative">
+        {/* Phone mockup with glassmorphism and drop-in animation */}
+        <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {/* Glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl ring-1 ring-white/5"></div>
           
-          {/* Phone container with responsive sizing */}
+          {/* Phone container */}
           <div 
-            className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500"
+            className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in"
             style={{
-              width: `clamp(280px, ${30 + scrollProgress * 10}vw, 380px)`,
-              aspectRatio: '9/19'
+              width: '320px',
+              aspectRatio: '9/19',
+              animationDelay: '0.6s'
             }}
           >
             {/* Status bar */}
@@ -203,8 +257,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '' }) => 
             </div>
 
             {/* Messages area */}
-            <div className="flex-1 p-4 space-y-4 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto max-h-[60vh]">
-              {visibleMessages.map((message) => (
+            <div className="flex-1 p-4 space-y-4 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto" style={{ maxHeight: '300px' }}>
+              {visibleMessages.map((message, index) => (
                 <ChatBubble
                   key={message.id}
                   isUser={message.type === 'user'}
@@ -217,7 +271,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '' }) => 
 
               {/* Typing indicator with glassmorphism */}
               {isTyping && (
-                <div className="flex justify-start">
+                <div className="flex justify-start animate-fade-in">
                   <div className="bg-burgundy-600/80 backdrop-blur-md border border-white/15 px-4 py-3 rounded-2xl rounded-bl-sm shadow-lg">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
