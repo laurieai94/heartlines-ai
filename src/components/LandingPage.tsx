@@ -196,15 +196,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <div 
-                className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30 shadow-lg transition-transform duration-300"
-                style={{
-                  transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-                }}
-              >
-                <div className="w-2 h-2 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
-              </div>
               
               <div className="space-y-4 mb-12">
                 <h1 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight text-balance animate-fade-in">
