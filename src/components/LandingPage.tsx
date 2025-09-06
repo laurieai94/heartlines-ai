@@ -198,22 +198,36 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
                   {/* Left Column - Text Content */}
                   <div className="text-left max-w-[620px] self-center">
-                    <div className="space-y-6 mb-12">
+                    <div className="space-y-6 mb-8">
                       <h1 className="text-5xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           Modern love is messy.
                         </span>
                       </h1>
                       
-                      <h3 className="text-4xl lg:text-5xl xl:text-6xl font-playfair font-normal leading-tight animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                          Kai helps you actually connect.
-                        </span>
+                      <h3 className="text-3xl lg:text-4xl xl:text-5xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                        Get AI-powered conversation scripts, practice scenarios, and thoughtful reminders for your relationship.
                       </h3>
                     </div>
+
+                    {/* Feature Chips */}
+                    <div className="flex flex-wrap gap-3 mb-12 animate-fade-in" style={{ animationDelay: '1s' }}>
+                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
+                        <MessageSquare className="w-4 h-4 inline mr-2" />
+                        Conversation Scripts
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
+                        <Brain className="w-4 h-4 inline mr-2" />
+                        Practice Scenarios
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-4 py-2 text-white/80 text-sm font-light">
+                        <Heart className="w-4 h-4 inline mr-2" />
+                        Thoughtful Reminders
+                      </div>
+                    </div>
                     
-                    <p className="text-xl lg:text-2xl text-white/80 mb-12 font-light max-w-xl animate-fade-in" style={{ animationDelay: '1s' }}>
-                      Get personalized relationship coaching that actually understands your unique situation.
+                    <p className="text-lg lg:text-xl text-white/70 mb-12 font-light max-w-xl animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                      Personalized coaching that understands your unique relationship dynamics and communication style.
                     </p>
                     
                     <Link to="/get-started">
@@ -241,18 +255,32 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-start min-h-[600px]">
                 {/* Left Column - Text Content */}
                 <div className="text-left max-w-[620px] self-start order-2 md:order-1">
-                  <div className="space-y-3 mb-10">
+                  <div className="space-y-3 mb-8">
                     <h1 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight animate-fade-in">
                       <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                         Modern love is messy.
                       </span>
                     </h1>
                     
-                    <h3 className="text-4xl lg:text-6xl xl:text-7xl font-playfair font-normal leading-tight animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                        Kai helps you actually connect.
-                      </span>
+                    <h3 className="text-2xl lg:text-3xl xl:text-4xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                      Get AI-powered conversation scripts, practice scenarios, and thoughtful reminders for your relationship.
                     </h3>
+                  </div>
+
+                  {/* Feature Chips */}
+                  <div className="flex flex-wrap gap-2 mb-8 animate-fade-in" style={{ animationDelay: '1s' }}>
+                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
+                      <MessageSquare className="w-3 h-3 inline mr-1.5" />
+                      Scripts
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
+                      <Brain className="w-3 h-3 inline mr-1.5" />
+                      Practice
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm border border-coral-400/20 rounded-full px-3 py-1.5 text-white/80 text-sm font-light">
+                      <Heart className="w-3 h-3 inline mr-1.5" />
+                      Reminders
+                    </div>
                   </div>
                   
                   <Link to="/get-started">
