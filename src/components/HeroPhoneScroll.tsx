@@ -144,34 +144,34 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div className={`relative ${className}`} style={style}>
       {/* Pop-out Maya Avatar - Left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[70%] z-30 pointer-events-none hidden sm:block">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[90%] z-30 pointer-events-none hidden lg:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
-          <Avatar className="w-16 h-16 ring-4 ring-pink-400/30 shadow-xl">
+          <Avatar className="w-14 h-14 ring-4 ring-pink-400/30 shadow-xl">
             <AvatarImage 
               src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
               alt="Maya - App User"
             />
-            <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-lg">
+            <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-sm">
               M
             </AvatarFallback>
           </Avatar>
           <div className="text-center mt-2">
-            <p className="text-white/80 text-sm font-medium">Maya</p>
+            <p className="text-white/80 text-xs font-medium">Maya</p>
           </div>
         </div>
       </div>
 
       {/* Pop-out Rory Avatar - Right side */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[70%] z-30 pointer-events-none hidden sm:block">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[90%] z-30 pointer-events-none hidden lg:block">
         <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
-          <Avatar className="w-16 h-16 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Rory" />
-            <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-lg">
+          <Avatar className="w-14 h-14 ring-4 ring-coral-400/30 shadow-xl">
+            <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=face" alt="Rory" />
+            <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-sm">
               R
             </AvatarFallback>
           </Avatar>
           <div className="text-center mt-2">
-            <p className="text-white/80 text-sm font-medium">Rory</p>
+            <p className="text-white/80 text-xs font-medium">Rory</p>
           </div>
         </div>
       </div>
@@ -185,10 +185,10 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-burgundy-900 border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-4 border-gray-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(280px, 28vw, 380px)',
-              aspectRatio: '9/19',
+              width: 'clamp(260px, 24vw, 320px)',
+              aspectRatio: '9/18',
               animationDelay: '0.6s'
             }}
           >
@@ -219,7 +219,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900 to-burgundy-800 overflow-y-auto"
+              className="flex-1 p-3 space-y-2 bg-gradient-to-br from-burgundy-900 to-burgundy-800 overflow-y-auto"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
@@ -276,7 +276,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area with glassmorphism */}
-            <div className="bg-burgundy-800 border-t border-burgundy-700 p-4">
+            <div className="bg-burgundy-800 border-t border-burgundy-700 p-3">
               <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-4 py-2 flex items-center">
                 <input 
                   type="text" 
