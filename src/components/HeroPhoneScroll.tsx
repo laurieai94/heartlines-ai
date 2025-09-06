@@ -156,7 +156,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           
           {/* Phone container with responsive sizing - flex column layout */}
           <div 
-            className="relative bg-black/80 backdrop-blur-sm border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-8 border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
               width: 'clamp(280px, 28vw, 380px)',
               aspectRatio: '9/19',
@@ -164,7 +164,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             }}
           >
             {/* Status bar */}
-            <div className="bg-black px-6 py-2 flex justify-between items-center text-white text-xs">
+            <div className="bg-burgundy-800 px-6 py-2 flex justify-between items-center text-white text-xs">
               <span>9:41</span>
               <div className="flex items-center gap-1">
                 <div className="w-4 h-2 border border-white/50 rounded-sm">
@@ -174,7 +174,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header with glassmorphism */}
-            <div className="bg-burgundy-800/80 backdrop-blur-md border-b border-white/10 px-4 py-3 flex items-center">
+            <div className="bg-burgundy-800 border-b border-burgundy-700 px-4 py-3 flex items-center">
               <Avatar className="w-10 h-10 mr-3 ring-2 ring-burgundy-400/30">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
                 <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white font-semibold">
@@ -190,7 +190,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900/90 to-burgundy-800/90 backdrop-blur-sm overflow-y-auto"
+              className="flex-1 p-4 space-y-3 bg-gradient-to-br from-burgundy-900 to-burgundy-800 overflow-y-auto"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
@@ -247,7 +247,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area with glassmorphism */}
-            <div className="bg-burgundy-800/60 backdrop-blur-md border-t border-white/10 p-4">
+            <div className="bg-burgundy-800 border-t border-burgundy-700 p-4">
               <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-4 py-2 flex items-center">
                 <input 
                   type="text" 
