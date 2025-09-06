@@ -203,15 +203,25 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <span className="text-sm font-light text-white/90 tracking-wide">Finally, an app that gets your relationship</span>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl font-playfair text-white mb-8 leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                Modern love is messy.
-              </span>
-            </h1>
-            
-            <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-              Your relationship isn't a rom-com. Kai helps you figure out how to actually show up.
-            </p>
+            <div className="space-y-4 mb-12">
+              <h1 className="text-4xl lg:text-6xl font-playfair font-normal leading-tight text-balance animate-fade-in">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                  Modern love is messy.
+                </span>
+              </h1>
+              
+              <h2 className="text-4xl lg:text-6xl font-playfair font-normal leading-tight text-balance animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                  Ghosting isn't closure.
+                </span>
+              </h2>
+              
+              <h3 className="text-4xl lg:text-6xl font-playfair font-normal leading-tight text-balance animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                  Kai helps you actually connect.
+                </span>
+              </h3>
+            </div>
             
             <Link to="/get-started">
               <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm">
