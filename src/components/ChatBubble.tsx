@@ -11,8 +11,8 @@ interface ChatBubbleProps {
 const ChatBubble = ({ children, isUser = false, className = '', variant = 'default' }: ChatBubbleProps) => {
   const getVariantStyles = () => {
     if (variant === 'kai') {
-      // Both user and assistant bubbles are purple for Kai
-      return 'bg-purple-600/90 backdrop-blur-sm text-white border border-purple-500/30 shadow-lg shadow-purple-900/20';
+      // Both user and assistant bubbles are purple with white outline for Kai
+      return 'bg-purple-600/90 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-purple-900/20';
     }
     
     if (variant === 'heartlines') {

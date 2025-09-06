@@ -9,6 +9,7 @@ import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
+import FlameBackground from "./FlameBackground";
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
@@ -227,21 +228,24 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </nav>
       )}
 
-      {/* Hero Section - Apple-style two-column layout */}
-      <section className="relative">
+      {/* Hero Section - Locked layout with flame background */}
+      <section className="relative min-h-screen">
+        {/* Flame Background */}
+        <FlameBackground />
+        
         {/* Glassmorphic background layers */}
         {!isEmbedded && (
           <>
-            {/* Primary hero section with two-column layout */}
+            {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 py-4 sm:py-6 lg:py-12">
               {/* Accent decoration - floating orbs with glassmorphism */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid lg:grid-cols-2 gap-4 lg:gap-8 items-start lg:items-center min-h-[90vh] lg:min-h-[calc(100vh-5rem)]">
-                  {/* Left Column - Text Content */}
-                  <div className="text-left max-w-[580px] self-center order-2 lg:order-1">
+                <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
+                  {/* Left Column - Hero Copy (Always Left) */}
+                  <div className="text-left max-w-[580px] self-center">
                     <div className="space-y-3 mb-6">
                       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
@@ -263,10 +267,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </Link>
                   </div>
 
-                  {/* Right Column - Animated Phone Demo */}
-                  <div className="relative flex justify-center items-start lg:items-center order-1 lg:order-2">
-                    <div className="max-h-[60vh] lg:max-h-none">
-                      <HeroPhoneScroll className="animate-fade-in" style={{ animationDelay: '1.6s' }} />
+                  {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
+                  <div className="relative flex justify-center items-center">
+                    <div className="w-full max-w-sm" style={{ height: 'min(62vh, 560px)' }}>
+                      <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
                 </div>
@@ -275,13 +279,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
           </>
         )}
         
-        {/* Embedded version - vertical layout for above fold */}
+        {/* Embedded version - horizontal layout with flame background */}
         {isEmbedded && (
           <div className="px-6 py-8 lg:py-12">
-            <div className="max-w-4xl mx-auto relative z-10">
-              <div className="flex flex-col items-center text-center space-y-8 min-h-[calc(100vh-4rem)]">
-                {/* Text Content - Top */}
-                <div className="max-w-2xl">
+            <FlameBackground />
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
+                {/* Left - Text Content */}
+                <div className="max-w-[580px]">
                   <div className="space-y-4 mb-6">
                     <h1 className="text-3xl lg:text-4xl xl:text-5xl font-playfair font-normal leading-tight animate-fade-in">
                       <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
@@ -302,10 +307,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </Link>
                 </div>
 
-                {/* Chat Animation - Bottom */}
+                {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div style={{ height: 'min(60vh, 680px)' }}>
-                    <HeroPhoneScroll className="animate-fade-in h-full" style={{ animationDelay: '1.6s' }} />
+                  <div className="w-full max-w-sm" style={{ height: 'min(62vh, 560px)' }}>
+                    <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>
               </div>

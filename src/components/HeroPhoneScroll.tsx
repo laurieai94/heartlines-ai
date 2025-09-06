@@ -106,8 +106,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         // Show typing indicator first for assistant messages
         setIsTyping(true);
         
-        // Variable typing time for more natural feel
-        const typingTime = 1200 + (currentMessage.content.length * 20);
+        // Variable typing time for more natural feel - slower for demo
+        const typingTime = 2000 + (currentMessage.content.length * 30);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -123,9 +123,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
     // Start animation or continue with next message
     if (currentMessageIndex === 0) {
-      timeoutId = setTimeout(showNextMessage, 800);
+      timeoutId = setTimeout(showNextMessage, 1200);
     } else if (currentMessageIndex < DEMO_CONVERSATION.length) {
-      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 600 : 1500;
+      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2500;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
       // All messages shown, reset after delay
@@ -143,38 +143,6 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      {/* Pop-out Maya Avatar - Left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[90%] z-30 pointer-events-none hidden lg:block">
-        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.2s' }}>
-          <Avatar className="w-14 h-14 ring-4 ring-pink-400/30 shadow-xl">
-            <AvatarImage 
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" 
-              alt="Maya - App User"
-            />
-            <AvatarFallback className="bg-gradient-to-r from-pink-400 to-coral-400 text-white font-bold text-sm">
-              M
-            </AvatarFallback>
-          </Avatar>
-          <div className="text-center mt-2">
-            <p className="text-white/80 text-xs font-medium">Maya</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Pop-out Rory Avatar - Right side */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[90%] z-30 pointer-events-none hidden lg:block">
-        <div className="animate-fade-in hover-scale" style={{ animationDelay: '1.4s' }}>
-          <Avatar className="w-14 h-14 ring-4 ring-coral-400/30 shadow-xl">
-            <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=face" alt="Rory" />
-            <AvatarFallback className="bg-gradient-to-r from-coral-400 to-burgundy-400 text-white font-bold text-sm">
-              R
-            </AvatarFallback>
-          </Avatar>
-          <div className="text-center mt-2">
-            <p className="text-white/80 text-xs font-medium">Rory</p>
-          </div>
-        </div>
-      </div>
 
       {/* Phone container - full area focused on chat */}
       <div className="relative flex items-center justify-center z-20">
@@ -202,11 +170,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               </div>
             </div>
 
-            {/* Chat header with glassmorphism */}
-            <div className="bg-burgundy-800 border-b border-burgundy-700 px-4 py-3 flex items-center">
-              <Avatar className="w-10 h-10 mr-3 ring-2 ring-burgundy-400/30">
+            {/* Chat header with Kai styling */}
+            <div className="bg-gradient-to-r from-purple-600/20 to-purple-700/20 backdrop-blur-md border-b border-white/10 px-4 py-3 flex items-center">
+              <Avatar className="w-10 h-10 mr-3 ring-2 ring-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                <AvatarFallback className="bg-gradient-to-r from-burgundy-400 to-coral-400 text-white font-semibold">
+                <AvatarFallback className="bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold">
                   {BRAND.coach.name[0]}
                 </AvatarFallback>
               </Avatar>
@@ -219,7 +187,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-3 space-y-2 bg-gradient-to-br from-burgundy-900 to-burgundy-800 overflow-y-auto"
+              className="flex-1 p-3 space-y-2 bg-gradient-to-br from-purple-900/50 to-purple-800/50 backdrop-blur-sm overflow-y-auto"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
@@ -248,7 +216,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                   
                   {/* Message bubble using ChatBubble component */}
                   <div className="max-w-[80%]">
-                    <ChatBubble isUser={message.type === 'user'} variant="heartlines">
+                    <ChatBubble isUser={message.type === 'user'} variant="kai">
                       {message.content}
                     </ChatBubble>
                   </div>
@@ -264,7 +232,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       {BRAND.coach.name[0]}
                     </AvatarFallback>
                   </Avatar>
-                  <ChatBubble variant="heartlines">
+                  <ChatBubble variant="kai">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -275,16 +243,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               )}
             </div>
 
-            {/* Input area with glassmorphism */}
-            <div className="bg-burgundy-800 border-t border-burgundy-700 p-3">
-              <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-4 py-2 flex items-center">
+            {/* Input area with Kai styling */}
+            <div className="bg-gradient-to-r from-purple-600/20 to-purple-700/20 backdrop-blur-md border-t border-white/10 p-3">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 flex items-center">
                 <input 
                   type="text" 
                   placeholder="Type your message..." 
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-burgundy-500 to-coral-400 w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+                <button className="bg-gradient-to-r from-purple-500 to-purple-600 w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   </svg>
