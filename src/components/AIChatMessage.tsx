@@ -44,30 +44,23 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
   
   return (
     <div 
-      className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+      className={`flex ${isMobile ? 'gap-3' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-4' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
       role="listitem"
       aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
     >
-      {/* Avatar Container - Show only for first message in group on mobile */}
+      {/* Avatar Container - Show only for first message in group */}
       <div className="flex-shrink-0">
-        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
-          {/* Subtle glow for avatars */}
-          {!isMobile && (
-            <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-              isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
-            }`}></div>
-          )}
-          
-          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
+        <div className={`relative ${isMobile ? 'w-8 h-8' : 'w-8 h-8'} ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+          <Avatar className={`shadow-lg ${isMobile ? 'w-8 h-8' : 'w-8 h-8'} ${
             isUser 
-              ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
-              : 'bg-gradient-to-br from-purple-500 to-pink-500'
+              ? 'bg-gradient-to-br from-red-500 to-red-600' 
+              : 'bg-gradient-to-br from-gray-600 to-gray-700'
           }`}>
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
+              <AvatarFallback className="bg-gradient-to-br from-red-500 to-red-600 text-white text-sm font-medium">
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
               </AvatarFallback>
             ) : (
               <>
@@ -76,8 +69,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
                   alt={BRAND.coach.name} 
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
-                  <Bot className="w-4 h-4 md:w-4 md:h-4" />
+                <AvatarFallback className="bg-gradient-to-br from-gray-600 to-gray-700 text-white text-sm font-medium">
+                  <Bot className="w-4 h-4" />
                 </AvatarFallback>
               </>
             )}
@@ -86,20 +79,15 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
       </div>
 
       {/* Message Bubble */}
-      <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
+      <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} flex-1`}>
         <ChatBubble
           isUser={isUser}
           className={[
             'animate-fade-in',
-            isMobile 
-              ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
-              : 'max-w-[80%]',
-            isUser
-              ? (isLastInGroup ? 'rounded-br-sm' : 'rounded-br-2xl')
-              : (isLastInGroup ? 'rounded-bl-sm' : 'rounded-bl-2xl'),
+            isMobile ? 'max-w-[75%]' : 'max-w-[80%]',
           ].filter(Boolean).join(' ')}
         >
-          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light">
+          <div className="text-[15px] leading-relaxed whitespace-pre-wrap">
             {cleanedContent}
           </div>
         </ChatBubble>
@@ -116,7 +104,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (
-          <p className={`text-xs md:text-xs text-white/50 mt-1 px-1 font-light ${isUser ? 'text-right' : 'text-left'}`}>
+          <p className={`text-xs text-gray-500 mt-1 px-1 ${isUser ? 'text-right' : 'text-left'}`}>
             {formatTime(message.timestamp)}
           </p>
         )}
