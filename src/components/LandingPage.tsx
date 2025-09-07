@@ -194,18 +194,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 </PopoverContent>
               </Popover>
               
-              <Link to="/">
-                <HeartlinesWordmark 
-                  size="sm"
-                  className="text-white/90 text-xl hover:text-white transition-colors"
-                />
-              </Link>
             </div>
             
             {/* Mobile Get Started */}
             <div className="md:hidden">
               <Link to="/auth">
-                <Button variant="ghost" className="bg-white/25 backdrop-blur-lg border-2 border-white/60 text-white hover:bg-white/35 hover:shadow-2xl hover:shadow-white/20 hover:ring-2 hover:ring-white/50 active:scale-[0.98] shadow-xl shadow-white/10 rounded-full font-thin text-sm px-4 py-2 transition-all duration-200">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white hover:shadow-2xl hover:shadow-pink-500/20 active:scale-[0.98] shadow-xl shadow-pink-500/10 rounded-full font-medium text-sm px-4 py-2 transition-all duration-200">
                   Get Started
                 </Button>
               </Link>
@@ -228,7 +222,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 Sign in
               </Link>
               <Link to="/auth">
-                <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full font-thin backdrop-blur-sm">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white hover:shadow-lg hover:shadow-pink-500/20 rounded-full font-medium backdrop-blur-sm px-6 py-2 transition-all duration-200">
                   Get Started
                 </Button>
               </Link>
@@ -266,7 +260,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       </h1>
                       
                       <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
-                        Kai helps you actually connect.
+                        <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
 
@@ -307,7 +301,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </h1>
                     
                     <h3 className="text-lg lg:text-xl xl:text-2xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
-                      Kai helps you actually connect.
+                      <span className="font-brand">heartlines</span> helps you connect.
                     </h3>
                   </div>
 

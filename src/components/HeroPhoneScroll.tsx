@@ -205,7 +205,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {/* Messages area - fills remaining phone space */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto"
+              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
               {visibleMessages.map((message, index) => (
