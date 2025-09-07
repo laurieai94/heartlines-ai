@@ -189,7 +189,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header with Kai styling */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-4 py-2 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-2 flex items-center">
               <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
                 <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
