@@ -114,6 +114,9 @@ const StepCard = ({
           <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
             {title}
           </h3>
+          <p className="mt-1 text-xs md:text-sm text-white/70 leading-snug font-light">
+            {description}
+          </p>
         </div>
 
         {/* Subtle Sheen Effect on Hover */}
