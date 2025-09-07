@@ -159,9 +159,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-        <nav className="px-6 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
+        <nav className="px-3 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -172,18 +172,16 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     <Menu className="w-4 h-4" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-64 p-3 bg-gradient-to-br from-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border border-white/12 shadow-2xl shadow-burgundy-900/50">
-                  <div className="flex flex-col gap-1">
+                <PopoverContent side="bottom" align="start" className="w-48 p-2 bg-gradient-to-br from-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border border-white/12 shadow-2xl shadow-burgundy-900/50">
+                  <div className="flex flex-col gap-0">
                     {navItems.map((item) => {
-                      const Icon = item.icon;
                       return (
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-200 text-sm px-3 py-2.5 rounded-lg group"
+                          className="text-white/70 hover:text-white transition-all duration-200 text-sm px-3 py-2 rounded"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          <Icon className="w-4 h-4 group-hover:text-coral-300 transition-colors" />
                           {item.label}
                         </Link>
                       );
