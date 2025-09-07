@@ -11,132 +11,141 @@ import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
-const LandingPage = ({
-  showMarketingTopBar = true
-}: {
-  showMarketingTopBar?: boolean;
-}) => {
+
+const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0
-  });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isEmbedded = !showMarketingTopBar;
-  const navItems = [{
-    to: '/',
-    label: 'Home',
-    icon: Home
-  }, {
-    to: '/profile',
-    label: 'Profile',
-    icon: User
-  }, {
-    to: '/coach',
-    label: 'Coach',
-    icon: MessageSquare
-  }, {
-    to: '/mission',
-    label: 'Mission',
-    icon: Target
-  }, {
-    to: '/account',
-    label: 'My Account',
-    icon: Settings
-  }, {
-    to: '/pricing',
-    label: 'Plans',
-    icon: CreditCard
-  }];
-  const datingProfiles = [{
-    name: "Emma",
-    age: 28,
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-    bio: "Photographer & dog mom"
-  }, {
-    name: "Jake",
-    age: 31,
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-    bio: "Chef & weekend surfer"
-  }, {
-    name: "Zoe",
-    age: 24,
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
-    bio: "Designer & music lover"
-  }, {
-    name: "Chris",
-    age: 33,
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    bio: "Teacher & rock climber"
-  }, {
-    name: "Lily",
-    age: 27,
-    photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=400&fit=crop&crop=face",
-    bio: "Writer & coffee enthusiast"
-  }, {
-    name: "Alex",
-    age: 30,
-    photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face",
-    bio: "Engineer & marathon runner"
-  }, {
-    name: "Maya",
-    age: 25,
-    photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face",
-    bio: "Artist & yoga instructor"
-  }];
-  useEffect(() => {
-    // Only run animations for full marketing page
-    if (!isEmbedded) {
-      const timer = setTimeout(() => {
-        setShowFloatingButton(true);
-      }, 3000);
-      const handleMouseMove = (e: MouseEvent) => {
-        setMousePosition({
-          x: e.clientX,
-          y: e.clientY
-        });
-      };
 
-      // Rotate profiles every 2 seconds
-      const profileTimer = setInterval(() => {
-        setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
-      }, 2000);
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => {
-        clearTimeout(timer);
-        clearInterval(profileTimer);
-        window.removeEventListener('mousemove', handleMouseMove);
-      };
+  const navItems = [
+    { to: '/', label: 'Home', icon: Home },
+    { to: '/profile', label: 'Profile', icon: User },
+    { to: '/coach', label: 'Coach', icon: MessageSquare },
+    { to: '/mission', label: 'Mission', icon: Target },
+    { to: '/account', label: 'My Account', icon: Settings },
+    { to: '/pricing', label: 'Plans', icon: CreditCard },
+  ];
+
+  const datingProfiles = [
+    { 
+      name: "Emma", 
+      age: 28, 
+      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face", 
+      bio: "Photographer & dog mom" 
+    },
+    { 
+      name: "Jake", 
+      age: 31, 
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face", 
+      bio: "Chef & weekend surfer" 
+    },
+    { 
+      name: "Zoe", 
+      age: 24, 
+      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face", 
+      bio: "Designer & music lover" 
+    },
+    { 
+      name: "Chris", 
+      age: 33, 
+      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face", 
+      bio: "Teacher & rock climber" 
+    },
+    { 
+      name: "Lily", 
+      age: 27, 
+      photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=400&fit=crop&crop=face", 
+      bio: "Writer & coffee enthusiast" 
+    },
+    { 
+      name: "Alex", 
+      age: 30, 
+      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face", 
+      bio: "Engineer & marathon runner" 
+    },
+    { 
+      name: "Maya", 
+      age: 25, 
+      photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face", 
+      bio: "Artist & yoga instructor" 
     }
-  }, [isEmbedded]);
-  return <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
+  ];
+
+   useEffect(() => {
+     // Only run animations for full marketing page
+     if (!isEmbedded) {
+       const timer = setTimeout(() => {
+         setShowFloatingButton(true);
+       }, 3000);
+
+       const handleMouseMove = (e: MouseEvent) => {
+         setMousePosition({ x: e.clientX, y: e.clientY });
+       };
+
+       // Rotate profiles every 2 seconds
+       const profileTimer = setInterval(() => {
+         setCurrentProfile((prev) => (prev + 1) % datingProfiles.length);
+       }, 2000);
+
+       window.addEventListener('mousemove', handleMouseMove);
+
+       return () => {
+         clearTimeout(timer);
+         clearInterval(profileTimer);
+         window.removeEventListener('mousemove', handleMouseMove);
+       };
+     }
+   }, [isEmbedded]);
+
+  return (
+    <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
       {/* Animated Holographic Background - Only show for marketing page */}
-      {showMarketingTopBar && <>
-        </>}
+      {showMarketingTopBar && (
+        <>
+        </>
+      )}
 
       {/* Floating Particles */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`
-      }} />)}
-        </div>}
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 3}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Floating Geometric Shapes */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDuration: `${10 + Math.random() * 20}s`,
-        transform: `rotate(${Math.random() * 360}deg)`
-      }} />)}
-        </div>}
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${10 + Math.random() * 20}s`,
+                transform: `rotate(${Math.random() * 360}deg)`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Code-like Background Elements */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
+      {!isEmbedded && (
+        <div className="absolute inset-0 overflow-hidden opacity-5">
           <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
             {`const love = { understanding: true, growth: infinite }`}
           </div>
@@ -146,31 +155,47 @@ const LandingPage = ({
           <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
             {`return personalized.advice.filter(advice => advice.isRelevant)`}
           </div>
-        </div>}
+        </div>
+      )}
 
       {/* Navigation */}
-      {showMarketingTopBar && <nav className="px-2 py-3 relative z-10 bg-burgundy-900/95 backdrop-blur-sm">
+      {showMarketingTopBar && (
+        <nav className="px-2 py-3 relative z-10 bg-burgundy-900/95 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent p-1 transition-colors duration-200" aria-label="Open menu">
+                  <Button
+                    variant="ghost"
+                    className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent p-1 transition-colors duration-200"
+                    aria-label="Open menu"
+                  >
                     <Menu className="w-3.5 h-3.5" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent side="bottom" align="start" className="w-36 p-1 bg-black/40 backdrop-blur-sm border-0 shadow-none">
                   <div className="flex flex-col">
-                    {navItems.map(item => {
-                  return <Link key={item.to} to={item.to} className="text-white/60 hover:text-white transition-colors duration-150 text-sm px-2 py-1.5 font-light" onClick={() => setIsMenuOpen(false)}>
+                    {navItems.map((item) => {
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          className="text-white/60 hover:text-white transition-colors duration-150 text-sm px-2 py-1.5 font-light"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
                           {item.label}
-                        </Link>;
-                })}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </PopoverContent>
               </Popover>
               
               <Link to="/">
-                <HeartlinesWordmark size="sm" className="text-white/90 text-xl hover:text-white transition-colors" />
+                <HeartlinesWordmark 
+                  size="sm"
+                  className="text-white/90 text-xl hover:text-white transition-colors"
+                />
               </Link>
             </div>
             
@@ -183,15 +208,20 @@ const LandingPage = ({
               </Link>
             </div>
             <div className="hidden md:flex items-center gap-4">
-              <a href="#how-it-works" className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5" onClick={e => {
-            e.preventDefault();
-            document.getElementById('how-it-works')?.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }}>
+              <a 
+                href="#how-it-works" 
+                className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 How it works
               </a>
-              <Link to="/auth?mode=signin" className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5 text-sm">
+              <Link 
+                to="/auth?mode=signin"
+                className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5 text-sm"
+              >
                 Sign in
               </Link>
               <Link to="/auth">
@@ -201,24 +231,25 @@ const LandingPage = ({
               </Link>
             </div>
           </div>
-        </nav>}
+        </nav>
+      )}
 
       {/* Hero Section - Locked layout with flame background */}
-      <section className="relative overflow-hidden" style={{
-      minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
-    }}>
+      <section 
+        className="relative overflow-hidden"
+        style={{ minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh' }}
+      >
         {/* Flame Background */}
         <FlameBackground />
         
         {/* Glassmorphic background layers */}
-        {!isEmbedded && <>
+        {!isEmbedded && (
+          <>
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 py-2 sm:py-4">
               {/* Accent decoration - floating orbs with glassmorphism */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{
-            animationDelay: '1s'
-          }}></div>
+              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
               <div className="max-w-6xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 items-start min-h-full">
@@ -231,17 +262,14 @@ const LandingPage = ({
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
-                    animationDelay: '0.8s'
-                  }}> 
-heartlineshelps you actually connect.</h3>
+                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                        Kai helps you actually connect.
+                      </h3>
                     </div>
 
                     
                     <Link to="/get-started" className="hidden md:inline-block">
-                      <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{
-                    animationDelay: '1.2s'
-                  }}>
+                      <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
                         Get Started
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
@@ -251,18 +279,18 @@ heartlineshelps you actually connect.</h3>
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
                     <div className="w-full max-w-md md:scale-100 scale-100 origin-top">
-                      <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{
-                    animationDelay: '1.6s'
-                  }} />
+                      <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </>}
+          </>
+        )}
         
         {/* Embedded version - horizontal layout with flame background */}
-        {isEmbedded && <div className="px-6 py-8 lg:py-12">
+        {isEmbedded && (
+          <div className="px-6 py-8 lg:py-12">
             <FlameBackground />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
@@ -275,17 +303,13 @@ heartlineshelps you actually connect.</h3>
                       </span>
                     </h1>
                     
-                    <h3 className="text-lg lg:text-xl xl:text-2xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
-                  animationDelay: '0.8s'
-                }}>
+                    <h3 className="text-lg lg:text-xl xl:text-2xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
                       Kai helps you actually connect.
                     </h3>
                   </div>
 
                   <Link to="/get-started">
-                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{
-                  animationDelay: '1.2s'
-                }}>
+                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
                       Get Started
                       <ArrowRight className="w-5 h-5 ml-3" />
                     </Button>
@@ -294,17 +318,14 @@ heartlineshelps you actually connect.</h3>
 
                 {/* Right - Chat Animation */}
                 <div className="relative flex justify-center">
-                  <div className="w-full max-w-md" style={{
-                height: 'min(min(52svh, 52dvh), 500px)'
-              }}>
-                    <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{
-                  animationDelay: '1.6s'
-                }} />
+                  <div className="w-full max-w-md" style={{ height: 'min(min(52svh, 52dvh), 500px)' }}>
+                    <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                   </div>
                 </div>
               </div>
             </div>
-          </div>}
+          </div>
+        )}
       </section>
 
       {/* How It Works Section */}
@@ -326,24 +347,31 @@ heartlineshelps you actually connect.</h3>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[{
-            step: "1",
-            title: "Sign Up",
-            description: "Create your free account in seconds. No credit card required.",
-            icon: <Users className="w-8 h-8" />
-          }, {
-            step: "2",
-            title: "Complete Your Profile",
-            description: "Answer thoughtful questions to help Kai understand your relationship dynamics.",
-            icon: <Target className="w-8 h-8" />
-          }, {
-            step: "3",
-            title: "Talk to Kai",
-            description: "Get personalized relationship coaching tailored to your unique situation.",
-            icon: <Brain className="w-8 h-8" />
-          }].map((item, index) => <div key={index} className="group bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/15 shadow-xl hover:shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-coral-400/30 hover:ring-1 hover:ring-coral-400/20 transform hover:-translate-y-2" style={{
-            animationDelay: `${index * 0.2}s`
-          }}>
+            {[
+              {
+                step: "1",
+                title: "Sign Up",
+                description: "Create your free account in seconds. No credit card required.",
+                icon: <Users className="w-8 h-8" />
+              },
+              {
+                step: "2", 
+                title: "Complete Your Profile",
+                description: "Answer thoughtful questions to help Kai understand your relationship dynamics.",
+                icon: <Target className="w-8 h-8" />
+              },
+              {
+                step: "3",
+                title: "Talk to Kai",
+                description: "Get personalized relationship coaching tailored to your unique situation.",
+                icon: <Brain className="w-8 h-8" />
+              }
+            ].map((item, index) => (
+              <div 
+                key={index}
+                className="group bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/15 shadow-xl hover:shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-coral-400/30 hover:ring-1 hover:ring-coral-400/20 transform hover:-translate-y-2"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-500 rounded-2xl mb-6 mx-auto group-hover:shadow-lg group-hover:shadow-coral-400/25 transition-shadow duration-300">
                   <div className="text-white font-bold text-xl">{item.step}</div>
                 </div>
@@ -356,7 +384,8 @@ heartlineshelps you actually connect.</h3>
                     {item.description}
                   </p>
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
 
           <div className="text-center mt-16">
@@ -374,21 +403,21 @@ heartlineshelps you actually connect.</h3>
       <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
         <div className="max-w-6xl mx-auto">
         <div className="relative flex items-center justify-center">
-          {!isEmbedded && <>
+          {!isEmbedded && (
+            <>
               {/* Gradient line with floating dots */}
               <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
               {/* Accent dots */}
               <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
-              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{
-              animationDelay: '0.5s'
-            }}></div>
+              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
               {/* Center icon */}
               <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
                 <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
               </div>
-            </>}
+            </>
+          )}
         </div>
         </div>
       </section>
@@ -396,7 +425,8 @@ heartlineshelps you actually connect.</h3>
       {/* Real Talk Section - Enhanced with combined content */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20'}`}>
         {/* Dramatic Background Effects */}
-        {!isEmbedded && <>
+        {!isEmbedded && (
+          <>
             <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
             
@@ -407,7 +437,8 @@ heartlineshelps you actually connect.</h3>
             {/* Side Accent Elements */}
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
-          </>}
+          </>
+        )}
         
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Problem Setup Section */}
@@ -475,14 +506,16 @@ heartlineshelps you actually connect.</h3>
       {/* How It Actually Works */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-b-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5'}`}>
         {/* Accent - connecting lines */}
-        {!isEmbedded && <>
+        {!isEmbedded && (
+          <>
             <div className="absolute inset-0 overflow-hidden opacity-20">
               <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
               <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-300/30 to-transparent"></div>
             </div>
             
             <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
-          </>}
+          </>
+        )}
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
@@ -540,13 +573,15 @@ heartlineshelps you actually connect.</h3>
       {/* Why Different Section */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-b-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/35 via-pink-900/25 to-coral-900/35 backdrop-blur-sm border-b border-coral-400/5'}`}>
         {/* Accent - grid pattern */}
-        {!isEmbedded && <>
+        {!isEmbedded && (
+          <>
             <div className="absolute inset-0 opacity-5">
               <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
             </div>
             
             <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
-          </>}
+          </>
+        )}
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="w-16 h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-6 mx-auto border border-coral-300/30">
@@ -587,19 +622,17 @@ heartlineshelps you actually connect.</h3>
       {/* Final CTA Section - Reorganized with Better Visual Flow */}
       <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent backdrop-blur-0' : 'bg-gradient-to-br from-pink-900/25 via-coral-900/25 to-pink-900/25 backdrop-blur-sm'}`}>
         {/* Accent - radiating circles */}
-        {!isEmbedded && <>
+        {!isEmbedded && (
+          <>
             <div className="absolute inset-0 flex items-center justify-center opacity-10">
               <div className="w-96 h-96 border border-coral-300/30 rounded-full animate-pulse"></div>
-              <div className="absolute w-80 h-80 border border-pink-300/20 rounded-full animate-pulse" style={{
-            animationDelay: '1s'
-          }}></div>
-              <div className="absolute w-64 h-64 border border-coral-300/10 rounded-full animate-pulse" style={{
-            animationDelay: '2s'
-          }}></div>
+              <div className="absolute w-80 h-80 border border-pink-300/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute w-64 h-64 border border-coral-300/10 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
             </div>
             
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-coral-500/5 to-pink-500/5"></div>
-          </>}
+          </>
+        )}
         <div className="max-w-5xl mx-auto text-center relative z-10">
           {/* Header with Icon */}
           <div className="mb-12">
@@ -695,11 +728,16 @@ heartlineshelps you actually connect.</h3>
       <footer className="px-6 py-16 bg-black/50 backdrop-blur-sm relative border-t border-coral-300/10">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center mb-6">
-            <BrandMark size="lg" className="opacity-90" />
+            <BrandMark 
+              size="lg"
+              className="opacity-90"
+            />
           </div>
           <p className="text-gray-300 font-light text-lg">Finally, an app that gets your relationship.</p>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default LandingPage;
