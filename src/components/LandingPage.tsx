@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User } from "lucide-react";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
@@ -17,6 +17,15 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isEmbedded = !showMarketingTopBar;
+
+  const navItems = [
+    { to: '/', label: 'Home', icon: Home },
+    { to: '/profile', label: 'Profile', icon: User },
+    { to: '/coach', label: 'Coach', icon: MessageSquare },
+    { to: '/mission', label: 'Mission', icon: Target },
+    { to: '/account', label: 'My Account', icon: Settings },
+    { to: '/pricing', label: 'Plans', icon: CreditCard },
+  ];
 
   const datingProfiles = [
     { 
@@ -165,6 +174,23 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 bg-burgundy-900/95 backdrop-blur-xl border-pink-300/20">
                   <div className="flex flex-col gap-6 mt-8">
+                    {navItems.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          className="flex items-center gap-3 text-white/80 hover:text-white transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-white/5"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <Icon className="w-5 h-5" />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                    
+                    <Separator className="my-3 bg-white/10" />
+                    
                     <a 
                       href="#how-it-works" 
                       className="text-white/80 hover:text-white transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-white/5"
