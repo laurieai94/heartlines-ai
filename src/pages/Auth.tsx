@@ -188,12 +188,12 @@ const Auth = () => {
               <div className="flex items-center space-x-1.5 flex-nowrap min-w-max">
                 <div className="flex items-center whitespace-nowrap">
                   <div className="w-6 h-6 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
-                  <span className="ml-1.5 text-white font-medium text-xs">SIGN UP</span>
+                  <span className="ml-1.5 text-white font-medium text-xs">Join Free</span>
                 </div>
                 <div className="w-3 h-px bg-white/15"></div>
                 <div className="flex items-center whitespace-nowrap">
                   <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
-                  <span className="ml-1.5 text-white/50 text-xs">Profile</span>
+                  <span className="ml-1.5 text-white/50 text-xs">Build Profiles (You & Partner)</span>
                 </div>
                 <div className="w-3 h-px bg-white/15"></div>
                 <div className="flex items-center whitespace-nowrap">
@@ -269,16 +269,6 @@ const Auth = () => {
                 <p className="text-white/70 mb-3 text-sm">
                   {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
                 </p>
-                
-                {/* Back button */}
-                <Button
-                  variant="ghost"
-                  onClick={() => navigate('/')}
-                  className="text-white/60 hover:text-white/80 hover:bg-white/5 text-xs py-1 h-auto"
-                >
-                  <ArrowLeft className="h-3 w-3 mr-1" />
-                  Back to Home
-                </Button>
               </div>
 
           <form onSubmit={handleSubmit} className="space-y-3 flex-1">
@@ -379,6 +369,16 @@ const Auth = () => {
                     {isSignUp ? 'Sign In' : 'Sign Up'}
                   </button>
                 </p>
+                
+                {/* Back to Home button */}
+                <Button
+                  variant="ghost"
+                  onClick={() => navigate('/')}
+                  className="text-white/60 hover:text-white/80 hover:bg-white/5 text-xs py-1 h-auto mt-3"
+                >
+                  <ArrowLeft className="h-3 w-3 mr-1" />
+                  Back to Home
+                </Button>
               </div>
             </>
           )}
