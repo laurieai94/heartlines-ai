@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
+import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
@@ -159,27 +160,27 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-        <nav className="px-3 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
+        <nav className="px-2 py-3 relative z-10 bg-burgundy-900/95 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-8 h-8 p-0 rounded-lg"
+                    className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent p-1 transition-colors duration-200"
                     aria-label="Open menu"
                   >
-                    <Menu className="w-4 h-4" />
+                    <Menu className="w-3.5 h-3.5" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-48 p-2 bg-gradient-to-br from-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border border-white/12 shadow-2xl shadow-burgundy-900/50">
-                  <div className="flex flex-col gap-0">
+                <PopoverContent side="bottom" align="start" className="w-36 p-1 bg-black/40 backdrop-blur-sm border-0 shadow-none">
+                  <div className="flex flex-col">
                     {navItems.map((item) => {
                       return (
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="text-white/70 hover:text-white transition-all duration-200 text-sm px-3 py-2 rounded"
+                          className="text-white/60 hover:text-white transition-colors duration-150 text-sm px-2 py-1.5 font-light"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           {item.label}
@@ -191,9 +192,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </Popover>
               
               <Link to="/">
-                <BrandMark 
-                  size="md"
-                  className="hover:opacity-80 transition-opacity"
+                <HeartlinesWordmark 
+                  size="sm"
+                  className="text-white/90 text-xl hover:text-white transition-colors"
                 />
               </Link>
             </div>
