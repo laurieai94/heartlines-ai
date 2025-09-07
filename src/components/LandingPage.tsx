@@ -288,7 +288,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 ml-2 rounded-xl ring-2 ring-white/80 ring-offset-2 ring-offset-burgundy-900 transition-all duration-200"
+                    className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 ml-2 rounded-xl transition-all duration-200"
                     aria-label="Open menu"
                   >
                     <Menu className="w-8 h-8" />
