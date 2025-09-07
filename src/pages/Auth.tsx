@@ -176,31 +176,31 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8 max-w-md">
+      <div className="relative z-10 container mx-auto px-4 py-2 max-w-md min-h-screen flex flex-col">
         {/* Progress Header - Only show for sign-up flow */}
         {showProgressSteps && (
-          <div className="mb-8 p-4 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg">
-            <div className="flex items-center justify-center mb-3 overflow-x-auto">
-              <div className="flex items-center space-x-2 flex-nowrap min-w-max">
+          <div className="mb-3 p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg flex-shrink-0">
+            <div className="flex items-center justify-center mb-2 overflow-x-auto">
+              <div className="flex items-center space-x-1.5 flex-nowrap min-w-max">
                 <div className="flex items-center whitespace-nowrap">
-                  <div className="w-7 h-7 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
-                  <span className="ml-2 text-white font-medium text-sm">SIGN UP</span>
+                  <div className="w-6 h-6 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
+                  <span className="ml-1.5 text-white font-medium text-xs">SIGN UP</span>
                 </div>
-                <div className="w-4 h-px bg-white/15"></div>
+                <div className="w-3 h-px bg-white/15"></div>
                 <div className="flex items-center whitespace-nowrap">
-                  <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
-                  <span className="ml-2 text-white/50 text-sm">Profile</span>
+                  <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
+                  <span className="ml-1.5 text-white/50 text-xs">Profile</span>
                 </div>
-                <div className="w-4 h-px bg-white/15"></div>
+                <div className="w-3 h-px bg-white/15"></div>
                 <div className="flex items-center whitespace-nowrap">
-                  <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
-                  <span className="ml-2 text-white/50 text-sm">Talk to Kai</span>
+                  <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
+                  <span className="ml-1.5 text-white/50 text-xs">Talk to Kai</span>
                 </div>
               </div>
             </div>
             
             {/* Progress Bar */}
-            <div className="w-full bg-white/10 rounded-full h-1 mb-3">
+            <div className="w-full bg-white/10 rounded-full h-1 mb-2">
               <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
             </div>
             
@@ -208,24 +208,24 @@ const Auth = () => {
           </div>
         )}
 
-        <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto">
+        <div className="questionnaire-card p-3 sm:p-4 animate-fade-in max-w-sm mx-auto flex-1 flex flex-col min-h-0 max-h-[calc(100vh-2rem)] overflow-y-auto">
           {showEmailVerification ? (
-            <div className="text-center space-y-6">
-              <div className="mx-auto w-16 h-16 bg-coral-500/20 rounded-full flex items-center justify-center mb-4">
-                <Mail className="h-8 w-8 text-coral-400" />
+            <div className="text-center space-y-4">
+              <div className="mx-auto w-12 h-12 bg-coral-500/20 rounded-full flex items-center justify-center mb-3">
+                <Mail className="h-6 w-6 text-coral-400" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white mb-2">Check your email</h1>
-                <p className="text-white/70 mb-4">
+                <h1 className="text-2xl font-bold text-white mb-2">Check your email</h1>
+                <p className="text-white/70 mb-3 text-sm">
                   We sent a verification link to <span className="text-coral-400 font-medium">{formData.email}</span>
                 </p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/60 text-xs">
                   Click the link in your inbox to activate your account and continue to your profile.
                 </p>
               </div>
               
-              <div className="p-4 rounded-lg bg-coral-500/10 border border-coral-400/20">
-                <p className="text-coral-300 text-sm mb-3">Didn't receive the email?</p>
+              <div className="p-3 rounded-lg bg-coral-500/10 border border-coral-400/20">
+                <p className="text-coral-300 text-xs mb-2">Didn't receive the email?</p>
                 <Button
                   onClick={handleResendVerification}
                   disabled={isResendingVerification || resendCooldown > 0}
@@ -258,11 +258,11 @@ const Auth = () => {
             </div>
           ) : (
             <>
-              <div className="text-center mb-6">
-                <h1 className="text-3xl font-bold text-white mb-2">
+              <div className="text-center mb-4">
+                <h1 className="text-2xl font-bold text-white mb-2">
                   {isSignUp ? 'Create Your Free Account' : 'We missed you'}
                 </h1>
-                <p className="text-white/70 mb-4">
+                <p className="text-white/70 mb-3 text-sm">
                   {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
                 </p>
                 
@@ -270,16 +270,16 @@ const Auth = () => {
                 <Button
                   variant="ghost"
                   onClick={() => navigate('/')}
-                  className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm"
+                  className="text-white/60 hover:text-white/80 hover:bg-white/5 text-xs py-1 h-auto"
                 >
-                  <ArrowLeft className="h-4 w-4 mr-1" />
+                  <ArrowLeft className="h-3 w-3 mr-1" />
                   Back to Home
                 </Button>
               </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-white">
+          <form onSubmit={handleSubmit} className="space-y-3 flex-1">
+            <div className="space-y-1">
+              <Label htmlFor="email" className="text-white text-sm">
                 Email Address
               </Label>
               <Input
@@ -293,8 +293,8 @@ const Auth = () => {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-white">
+            <div className="space-y-1">
+              <Label htmlFor="password" className="text-white text-sm">
                 Password
               </Label>
               <div className="relative">
@@ -320,8 +320,8 @@ const Auth = () => {
             </div>
 
             {isSignUp && (
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-white">
+              <div className="space-y-1">
+                <Label htmlFor="confirmPassword" className="text-white text-sm">
                   Confirm Password
                 </Label>
                 <Input
@@ -337,9 +337,9 @@ const Auth = () => {
             )}
 
             {formErrors.length > 0 && (
-              <div className="p-4 rounded-lg bg-red-500/20 border border-red-400/30">
+              <div className="p-3 rounded-lg bg-red-500/20 border border-red-400/30">
                 {formErrors.map((error, index) => (
-                  <p key={index} className="text-red-300 text-sm">
+                  <p key={index} className="text-red-300 text-xs">
                     {error}
                   </p>
                 ))}
@@ -349,7 +349,7 @@ const Auth = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full questionnaire-button-primary"
+              className="w-full questionnaire-button-primary py-2 text-sm"
             >
               {isSubmitting 
                 ? 'Processing...' 
@@ -359,8 +359,8 @@ const Auth = () => {
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className="mt-6 text-center">
-                <p className="text-white/70 text-sm">
+              <div className="mt-4 text-center">
+                <p className="text-white/70 text-xs">
                   {isSignUp ? 'Already have an account?' : 'Need an account?'}
                   {' '}
                   <button
