@@ -34,6 +34,9 @@ const Auth = () => {
     }
   }, [searchParams]);
 
+  // Check if we should show progress steps (hide for direct sign-in)
+  const showProgressSteps = searchParams.get('mode') !== 'signin';
+
   // Redirect if already authenticated
   if (user && !loading) {
     return <Navigate to="/profile" replace />;
@@ -174,34 +177,36 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-md">
-        {/* Progress Header */}
-        <div className="mb-8 p-4 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg">
-          <div className="flex items-center justify-center mb-3 overflow-x-auto">
-            <div className="flex items-center space-x-2 flex-nowrap min-w-max">
-              <div className="flex items-center whitespace-nowrap">
-                <div className="w-7 h-7 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
-                <span className="ml-2 text-white font-medium text-sm">SIGN UP</span>
-              </div>
-              <div className="w-4 h-px bg-white/15"></div>
-              <div className="flex items-center whitespace-nowrap">
-                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
-                <span className="ml-2 text-white/50 text-sm">Profile</span>
-              </div>
-              <div className="w-4 h-px bg-white/15"></div>
-              <div className="flex items-center whitespace-nowrap">
-                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
-                <span className="ml-2 text-white/50 text-sm">Talk to Kai</span>
+        {/* Progress Header - Only show for sign-up flow */}
+        {showProgressSteps && (
+          <div className="mb-8 p-4 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg">
+            <div className="flex items-center justify-center mb-3 overflow-x-auto">
+              <div className="flex items-center space-x-2 flex-nowrap min-w-max">
+                <div className="flex items-center whitespace-nowrap">
+                  <div className="w-7 h-7 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
+                  <span className="ml-2 text-white font-medium text-sm">SIGN UP</span>
+                </div>
+                <div className="w-4 h-px bg-white/15"></div>
+                <div className="flex items-center whitespace-nowrap">
+                  <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
+                  <span className="ml-2 text-white/50 text-sm">Profile</span>
+                </div>
+                <div className="w-4 h-px bg-white/15"></div>
+                <div className="flex items-center whitespace-nowrap">
+                  <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
+                  <span className="ml-2 text-white/50 text-sm">Talk to Kai</span>
+                </div>
               </div>
             </div>
+            
+            {/* Progress Bar */}
+            <div className="w-full bg-white/10 rounded-full h-1 mb-3">
+              <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
+            </div>
+            
+            <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
           </div>
-          
-          {/* Progress Bar */}
-          <div className="w-full bg-white/10 rounded-full h-1 mb-3">
-            <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
-          </div>
-          
-          <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
-        </div>
+        )}
 
         <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto">
           {showEmailVerification ? (

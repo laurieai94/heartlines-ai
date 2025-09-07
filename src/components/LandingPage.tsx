@@ -412,6 +412,11 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         </>
                       ) : (
                         <>
+                          <Link to="/auth?mode=signin">
+                            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-6 py-4 text-base rounded-full transition-all duration-300 animate-fade-in mr-4" style={{ animationDelay: '1.2s' }}>
+                              Sign In
+                            </Button>
+                          </Link>
                           <Link to="/get-started">
                             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                               Get Started

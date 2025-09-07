@@ -94,7 +94,7 @@ const GetStarted = () => {
           
           <p className="text-white/60 text-sm">
             Already have an account?{' '}
-            <Link to="/auth" className="text-coral-400 hover:text-coral-300 underline">
+            <Link to="/auth?mode=signin" className="text-coral-400 hover:text-coral-300 underline">
               Sign in here
             </Link>
           </p>
