@@ -310,7 +310,7 @@ const Auth = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-12 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                    className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
@@ -346,7 +346,7 @@ const Auth = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-12 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                    className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
                   >
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
