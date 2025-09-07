@@ -37,7 +37,7 @@ export const ChatHeader = ({
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
                       <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-6 h-6 border border-white/20">
-                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                           <Heart className="w-3 h-3" />
                         </AvatarFallback>
@@ -121,7 +121,7 @@ export const ChatHeader = ({
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
                 <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 border-2 border-white/20">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" onError={e => {
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" onError={e => {
                     console.log('Kai avatar image failed to load');
                     e.currentTarget.style.display = 'none';
                   }} />

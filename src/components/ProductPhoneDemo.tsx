@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, Info } from "lucide-react";
+import { Bot, Info, Heart } from "lucide-react";
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 
@@ -102,9 +102,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" />
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Bot className="w-6 h-6" />
+                      <Heart className="w-6 h-6" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
@@ -125,9 +125,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                 <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                     <Avatar className="w-6 h-6 flex-shrink-0">
-                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
-                        K
+                        <Heart className="w-3 h-3" />
                       </AvatarFallback>
                     </Avatar>
                   )}
@@ -156,9 +156,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
             {isTyping && (
               <div className="flex gap-2 items-end animate-fade-in">
                 <Avatar className="w-6 h-6 flex-shrink-0">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
                   <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
-                    K
+                    <Heart className="w-3 h-3" />
                   </AvatarFallback>
                 </Avatar>
                 <div className="bg-purple-600/90 backdrop-blur-sm px-4 py-3 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-900/20">

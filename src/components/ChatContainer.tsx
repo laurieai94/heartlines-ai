@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, ChevronDown } from "lucide-react";
+import { Bot, ChevronDown, Heart } from "lucide-react";
 import { ChatMessage } from "@/types/AIInsights";
 import AIChatMessage from "./AIChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -297,9 +297,9 @@ const ChatContainer = ({
               <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
                   <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Bot className="w-4 h-4 md:w-6 md:h-6" />
+                      <Heart className="w-4 h-4 md:w-6 md:h-6" />
                     </AvatarFallback>
                   </Avatar>
                 </div>

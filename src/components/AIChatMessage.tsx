@@ -1,7 +1,7 @@
 import React from "react";
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, User } from "lucide-react";
+import { Bot, User, Heart } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
 import { BRAND } from "@/branding";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -74,9 +74,12 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
                   src={BRAND.coach.avatarSrc} 
                   alt={BRAND.coach.name} 
                   className="object-cover"
+                  loading="eager" 
+                  decoding="async" 
+                  fetchPriority="high"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
-                  <Bot className="w-4 h-4 md:w-4 md:h-4" />
+                  <Heart className="w-4 h-4 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
             )}
