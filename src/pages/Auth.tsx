@@ -196,7 +196,7 @@ const Auth = () => {
           <div className="grid grid-cols-3 gap-2 items-center mb-2">
             {/* Step 1 - active */}
             <div className="flex items-center justify-center gap-1.5">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-r from-orange-400 to-purple-500 text-white text-xs font-semibold flex items-center justify-center">1</div>
+              <div className="w-6 h-6 rounded-full text-white text-xs font-semibold flex items-center justify-center" style={{background: 'var(--gradient-primary-button)'}}>1</div>
               <span className="text-white text-[12px] leading-tight font-medium">Join Free</span>
             </div>
             {/* Step 2 */}
@@ -213,7 +213,7 @@ const Auth = () => {
           
           {/* Progress Bar */}
           <div className="w-full bg-white/10 rounded-full h-1">
-            <div className="h-1 rounded-full w-1/3 bg-gradient-to-r from-orange-400 to-purple-500"></div>
+            <div className="h-1 rounded-full w-1/3" style={{background: 'var(--gradient-primary-button)'}}></div>
           </div>
         </div>
 
