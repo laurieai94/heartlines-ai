@@ -178,12 +178,12 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           {/* Chat Input Area */}
           <div className="absolute bottom-0 left-0 right-0 px-4 py-4 bg-gradient-to-t from-black/20 to-transparent backdrop-blur-sm">
             <div className="flex gap-2 items-center">
-              <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2.5 border border-white/20">
-                <div className="text-white/50 text-sm">Message Kai...</div>
+              <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-2.5 border border-white/20">
+                <div className="text-white/50 text-sm">Chat with Kai</div>
               </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-r from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                 </svg>
               </div>
             </div>

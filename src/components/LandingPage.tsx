@@ -163,7 +163,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-        <nav className="px-1 py-3 relative z-10 bg-burgundy-900/95 backdrop-blur-sm">
+      <nav className="px-1 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
