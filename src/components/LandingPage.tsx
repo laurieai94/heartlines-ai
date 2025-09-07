@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
@@ -129,6 +130,7 @@ const StepCard = ({
 };
 
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
+  const { user } = useAuth();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentProfile, setCurrentProfile] = useState(0);
@@ -309,16 +311,55 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </div>
                 </PopoverContent>
               </Popover>
-              
             </div>
             
-            {/* Mobile Get Started */}
+            {/* Desktop Navigation CTAs */}
+            <div className="hidden md:flex items-center gap-3">
+              {user ? (
+                <>
+                  <Link to="/profile">
+                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </Button>
+                  </Link>
+                  <Link to="/dashboard">
+                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                      Dashboard
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth?mode=signin">
+                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/get-started">
+                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
+            
+            {/* Mobile CTA */}
             <div className="md:hidden mr-2">
-              <Link to="/auth">
-                <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                  Get Started
-                </Button>
-              </Link>
+              {user ? (
+                <Link to="/dashboard">
+                  <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                    Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/get-started">
+                  <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                    Get Started
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </nav>
@@ -359,12 +400,38 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </div>
 
                     
-                    <Link to="/get-started" className="hidden md:inline-block">
-                      <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                        Get Started
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </Button>
-                    </Link>
+                    <div className="hidden md:flex items-center gap-4">
+                      {user ? (
+                        <>
+                          <Link to="/profile">
+                            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-6 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                              <User className="w-5 h-5 mr-2" />
+                              View Profile
+                            </Button>
+                          </Link>
+                          <Link to="/dashboard">
+                            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                              Open Dashboard
+                              <ArrowRight className="w-5 h-5 ml-2" />
+                            </Button>
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link to="/auth?mode=signin">
+                            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-6 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                              Sign In
+                            </Button>
+                          </Link>
+                          <Link to="/get-started">
+                            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                              Get Started
+                              <ArrowRight className="w-5 h-5 ml-2" />
+                            </Button>
+                          </Link>
+                        </>
+                      )}
+                    </div>
                   </div>
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
@@ -400,12 +467,38 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </h3>
                   </div>
 
-                  <Link to="/get-started">
-                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                      Get Started
-                      <ArrowRight className="w-5 h-5 ml-3" />
-                    </Button>
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    {user ? (
+                      <>
+                        <Link to="/profile">
+                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                            <User className="w-5 h-5 mr-2" />
+                            View Profile
+                          </Button>
+                        </Link>
+                        <Link to="/dashboard">
+                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                            Open Dashboard
+                            <ArrowRight className="w-5 h-5 ml-3" />
+                          </Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/auth?mode=signin">
+                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                            Sign In
+                          </Button>
+                        </Link>
+                        <Link to="/get-started">
+                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                            Get Started
+                            <ArrowRight className="w-5 h-5 ml-3" />
+                          </Button>
+                        </Link>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 {/* Right - Chat Animation */}
