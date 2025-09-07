@@ -12,6 +12,7 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
+import MiniFlamesOverlay from "./MiniFlamesOverlay";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({ 
@@ -330,6 +331,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       >
         {/* Flame Background */}
         <FlameBackground variant="duotone-outline" density="normal" />
+        <MiniFlamesOverlay density="light" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && (
@@ -381,6 +383,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {isEmbedded && (
           <div className="px-6 py-8 lg:py-12">
             <FlameBackground variant="ethereal" density="sparse" />
+            <MiniFlamesOverlay density="light" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
