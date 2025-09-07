@@ -38,5 +38,5 @@ export const validatePasswordPolicy = (password: string): { isValid: boolean; me
 };
 
 export const getPasswordPolicyText = (): string => {
-  return 'Keep it strong: upper, lower, number, special.';
+  return "Not your dog's name: 8+, upper, lower, number, special";
 };
