@@ -281,8 +281,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-      <nav className="px-1 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
-          <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <nav className="px-0 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
@@ -346,7 +346,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
             
             {/* Mobile CTA */}
-            <div className="md:hidden mr-2">
+            <div className="md:hidden mr-0">
               {user ? (
                 <Link to="/dashboard">
                   <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
@@ -354,11 +354,18 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </Button>
                 </Link>
               ) : (
-                <Link to="/get-started">
-                  <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                    Get Started
-                  </Button>
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link to="/auth?mode=signin">
+                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/get-started">
+                    <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
