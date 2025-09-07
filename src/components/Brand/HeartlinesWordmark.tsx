@@ -23,7 +23,7 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
       className={`font-brand font-normal tracking-wide text-burgundy-600 ${sizeClasses[size]} ${className} ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
     >
-      heartlines
+      
     </h1>
   );
 };
