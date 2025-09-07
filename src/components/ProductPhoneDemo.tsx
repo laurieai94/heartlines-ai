@@ -91,8 +91,11 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   return (
     <div className={`relative ${className}`} style={style}>
-      {/* Phone Frame */}
-      <div className="relative mx-auto w-[300px] h-[600px] bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-2xl overflow-hidden">
+      {/* Subtle halo behind phone */}
+      <div className="absolute inset-0 mx-auto w-[300px] h-[600px] bg-gradient-radial from-white/6 via-white/2 to-transparent blur-3xl scale-110 rounded-[3rem]"></div>
+      
+      {/* Enhanced Phone Frame */}
+      <div className="relative mx-auto w-[300px] h-[600px] bg-gray-900 rounded-[3rem] border-8 border-white/15 shadow-2xl ring-2 ring-white/8 overflow-hidden">
         {/* Phone Screen */}
         <div className="relative w-full h-full bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-coral-900 overflow-hidden">
           

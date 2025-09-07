@@ -165,12 +165,15 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       <div className="relative flex items-start justify-center z-20 p-2 sm:p-4 lg:p-6">
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]" style={{ animationDelay: '0.4s' }}>
-          {/* Glassmorphic outer shell */}
-          <div className="absolute inset-0 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-xl ring-1 ring-white/5"></div>
+          {/* Subtle halo behind phone */}
+          <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
-          {/* Phone container with responsive sizing - flex column layout */}
+          {/* Enhanced glassmorphic outer shell */}
+          <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
+          
+          {/* Phone container with enhanced definition */}
           <div 
-            className="relative bg-burgundy-900 border-2 border-gray-800 rounded-[2.5rem] shadow-xl overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
               width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 300px)',
               aspectRatio: '9/16',
