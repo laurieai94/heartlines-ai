@@ -203,18 +203,18 @@ const Auth = () => {
             <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{background: 'var(--gradient-primary-button)'}}>1</div>
-                <span className="text-white text-[10px] sm:text-[12px] leading-tight font-medium whitespace-nowrap">Join Free</span>
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{background: 'var(--gradient-primary-button)'}}>1</div>
+                <span className="text-white text-[11px] sm:text-[12px] leading-tight font-medium whitespace-nowrap">Join Free</span>
               </div>
               {/* Step 2 */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
-                <span className="text-white/70 text-[10px] sm:text-[12px] leading-tight whitespace-nowrap">Build Profiles</span>
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
+                <span className="text-white/70 text-[11px] sm:text-[12px] leading-tight whitespace-nowrap">Build Profiles</span>
               </div>
               {/* Step 3 */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
-                <span className="text-white/70 text-[10px] sm:text-[12px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
+                <span className="text-white/70 text-[11px] sm:text-[12px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
               </div>
             </div>
             
