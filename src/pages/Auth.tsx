@@ -277,7 +277,13 @@ const Auth = () => {
             <>
               <div className="text-center mb-4">
                 <h1 className="text-2xl font-bold text-white mb-2">
-                  {isSignUp ? 'Tap In' : 'We missed you'}
+                  {isSignUp ? (
+                    <>
+                      Tap into <span className="font-brand">heartlines</span>
+                    </>
+                  ) : (
+                    'We missed you'
+                  )}
                 </h1>
               </div>
 
