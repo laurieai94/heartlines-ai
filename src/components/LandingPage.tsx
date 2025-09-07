@@ -46,7 +46,7 @@ const StepCard = ({
       className={`
         relative group cursor-pointer
         w-full max-w-md mx-auto md:max-w-none
-        mb-6 md:mb-0
+        mb-3 md:mb-0
         motion-safe:animate-fade-in
         focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none
         ${index === 0 ? 'motion-safe:animation-delay-0' : ''}
@@ -66,7 +66,7 @@ const StepCard = ({
         relative overflow-hidden
         rounded-2xl bg-white/10 backdrop-blur-md 
         border border-white/15 shadow-xl
-        p-6
+        p-4 md:p-6
         motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
         motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
         motion-safe:hover:shadow-coral-400/20
@@ -78,8 +78,8 @@ const StepCard = ({
         {/* Edge Light - Inner Border */}
         <div className="absolute inset-px rounded-2xl border border-white/8"></div>
 
-        {/* Ghosted Artsy Background Number */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Ghosted Artsy Background Number - Hidden on mobile */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
           <div className="
             absolute -top-4 -right-6
             text-[180px] md:text-[200px] font-black 
@@ -92,12 +92,12 @@ const StepCard = ({
 
 
         {/* Content Container */}
-        <div className="relative z-10 text-center pt-8">
+        <div className="relative z-10 text-center pt-3 md:pt-8">
           {/* Icon with Flame Halo */}
-          <div className="mb-4 flex justify-center">
+          <div className="mb-2 md:mb-4 flex justify-center">
             <FlameIconHalo intensity="medium" size="md" animated={true}>
               <div className="
-                relative w-12 h-12 
+                relative w-8 h-8 md:w-12 md:h-12 
                 bg-white/25 backdrop-blur-sm border-2 border-white/40 
                 rounded-full flex items-center justify-center
                 text-coral-300
@@ -106,16 +106,18 @@ const StepCard = ({
                 group-hover:text-pink-300 group-hover:bg-white/35
                 shadow-xl shadow-coral-400/30
               " aria-label={`${iconName} icon`}>
-                {icon}
+                <div className="scale-75 md:scale-100">
+                  {icon}
+                </div>
               </div>
             </FlameIconHalo>
           </div>
 
           {/* Text Content */}
-          <h3 className="text-lg font-semibold text-white/95 mb-2 leading-7">
+          <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
             {title}
           </h3>
-          <p className="text-sm text-white/80 leading-6 max-w-xs mx-auto">
+          <p className="text-xs md:text-sm text-white/80 leading-5 md:leading-6 max-w-xs mx-auto">
             {description}
           </p>
         </div>
@@ -455,9 +457,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </div>
 
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-2xl md:text-4xl font-semibold text-white/95 mb-4 md:mb-6">How It Works</h2>
-            <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto">Quick sign-up to personalized advice in three simple steps</p>
+          <div className="text-center mb-4 md:mb-16">
+            <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <p className="text-white/70 text-sm md:text-lg max-w-2xl mx-auto">Quick sign-up to personalized advice in three simple steps</p>
           </div>
           
           {/* Mobile-First Card Stack with Dotted Connector */}
