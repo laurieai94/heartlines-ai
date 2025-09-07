@@ -93,33 +93,27 @@ const StepCard = ({
 
         {/* Content Container */}
         <div className="relative z-10 text-center pt-3 md:pt-8">
-          {/* Icon with Flame Halo */}
+          {/* Icon */}
           <div className="mb-2 md:mb-4 flex justify-center">
-            <FlameIconHalo intensity="medium" size="md" animated={true}>
-              <div className="
-                relative w-8 h-8 md:w-12 md:h-12 
-                bg-white/25 backdrop-blur-sm border-2 border-white/40 
-                rounded-full flex items-center justify-center
-                text-coral-300
-                motion-safe:transition-all motion-safe:duration-200
-                group-hover:scale-105 group-hover:-translate-y-0.5
-                group-hover:text-pink-300 group-hover:bg-white/35
-                shadow-xl shadow-coral-400/30
-              " aria-label={`${iconName} icon`}>
-                <div className="scale-75 md:scale-100">
-                  {icon}
-                </div>
+            <div className="
+              relative w-8 h-8 md:w-12 md:h-12 
+              bg-white/25 backdrop-blur-sm border-2 border-white/40 
+              rounded-full flex items-center justify-center
+              text-coral-300
+              motion-safe:transition-all motion-safe:duration-200
+              group-hover:scale-105 group-hover:-translate-y-0.5
+              group-hover:text-pink-300 group-hover:bg-white/35
+            " aria-label={`${iconName} icon`}>
+              <div className="scale-75 md:scale-100">
+                {icon}
               </div>
-            </FlameIconHalo>
+            </div>
           </div>
 
           {/* Text Content */}
           <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
             {title}
           </h3>
-          <p className="text-xs md:text-sm text-white/80 leading-5 md:leading-6 max-w-xs mx-auto">
-            {description}
-          </p>
         </div>
 
         {/* Subtle Sheen Effect on Hover */}
@@ -436,7 +430,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
             <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
-            <p className="text-white/70 text-sm md:text-lg max-w-2xl mx-auto">Quick sign-up to personalized advice in three simple steps</p>
           </div>
           
           {/* Mobile-First Card Stack with Dotted Connector */}
