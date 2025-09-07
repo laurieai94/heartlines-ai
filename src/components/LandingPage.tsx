@@ -347,26 +347,18 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             
             {/* Mobile CTA */}
             <div className="md:hidden mr-6">
-              {user ? (
-                <Link to="/dashboard">
-                  <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                    Dashboard
+              <div className="flex items-center gap-2">
+                <Link to="/auth?mode=signin">
+                  <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                    Sign In
                   </Button>
                 </Link>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Link to="/auth?mode=signin">
-                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link to="/auth">
-                    <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                      Get Started
-                    </Button>
-                  </Link>
-                </div>
-              )}
+                <Link to="/auth">
+                  <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </nav>
