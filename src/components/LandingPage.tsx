@@ -483,6 +483,51 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </div>
       </section>
 
+      {/* Why It's Different Section */}
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">Why It's Different</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                title: "No toxic positivity — conflict happens, we help.",
+                icon: <CircleSlash className="w-6 h-6" aria-hidden="true" />
+              },
+              {
+                title: "Actually personal — not horoscope-generic.", 
+                icon: <Sparkles className="w-6 h-6" aria-hidden="true" />
+              },
+              {
+                title: "Built for busy — tiny, high-impact actions.",
+                icon: <Bolt className="w-6 h-6" aria-hidden="true" />
+              },
+              {
+                title: "Private by design — your convo stays yours.",
+                icon: <Shield className="w-6 h-6" aria-hidden="true" />
+              }
+            ].map((item, index) => (
+              <article
+                key={index}
+                className={`${glassCard} p-4 group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-left relative overflow-hidden`}
+                tabIndex={0}
+                role="article"
+                aria-label={item.title}
+              >
+                <div className="flex items-start gap-3 relative z-10">
+                  <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400 group-hover:scale-110 transition-transform shadow-sm flex-shrink-0 mt-0.5">
+                    {item.icon}
+                  </div>
+                  <p className="font-medium text-white/95 text-sm md:text-base leading-relaxed">{item.title}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Visual Break with Accent */}
       <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
         <div className="max-w-6xl mx-auto">
@@ -654,115 +699,50 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         </div>
       </section>
 
-      {/* Why It's Different Section */}
-      <section className="py-12 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-2xl md:text-4xl font-semibold text-white/95 mb-4 md:mb-6">Why It's Different</h2>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-6">
-            {[
-              {
-                title: "No toxic positivity",
-                description: "Real relationships have rough patches, and that's normal",
-                icon: <CircleSlash className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
-              },
-              {
-                title: "Actually personalized", 
-                description: "Not horoscope-level generic advice",
-                icon: <Sparkles className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
-              },
-              {
-                title: "Built for busy",
-                description: "Quick daily insights that fit into your actual life",
-                icon: <Bolt className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
-              },
-              {
-                title: "Privacy-first",
-                description: "Your relationship details stay between you, your partner, and our very secure servers",
-                icon: <Shield className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
-              }
-            ].map((item, index) => (
-              <article
-                key={index}
-                className={`${glassCard} p-3 md:p-6 group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-center sm:text-left before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden`}
-                tabIndex={0}
-                role="article"
-                aria-label={item.title}
-              >
-                <div className="flex items-center justify-center sm:justify-start mb-2 md:mb-4 relative z-10">
-                  <div className="w-7 h-7 md:w-10 md:h-10 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400 group-hover:scale-110 transition-transform shadow-sm">
-                    {item.icon}
-                  </div>
-                </div>
-                <h3 className="font-semibold text-white/95 mb-1.5 md:mb-2 text-xs md:text-base relative z-10">{item.title}</h3>
-                <p className="text-white/70 text-xs md:text-sm leading-relaxed relative z-10">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-        
-        {/* Flame divider at bottom */}
-        <FlameDivider orientation="bottom" intensity="medium" className="absolute bottom-0 left-0 right-0" />
-      </section>
 
       {/* Philosophy Section */}
       <section className="py-16 md:py-20">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
-          <div className="border-t border-white/10 pt-16"></div>
-          <div className="max-w-prose mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-white/95">
-              We believe the best relationships aren't about{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400">
-                perfection
-              </span>
-              —they're about{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400">
-                two people
-              </span>{" "}
-              who keep choosing to understand each other better.
-            </h2>
-            <p className="text-xl text-white/70 leading-relaxed">
-              Not Instagram perfect, but real-life strong. Not conflict-free, but conflict-smart. 
-              Not always easy, but always worth it.
-            </p>
+          <div className="max-w-2xl mx-auto text-center space-y-8">
+            <div className="space-y-4 text-xl md:text-2xl font-light text-white/90 leading-relaxed">
+              <p>
+                Not Instagram-perfect — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">real-life strong</span>.
+              </p>
+              <p>
+                Not fight-free — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">fight-smart</span>.
+              </p>
+              <p>
+                Not always easy — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">always worth it</span>.
+              </p>
+            </div>
           </div>
-          <div className="border-b border-white/10 pt-16"></div>
         </div>
       </section>
 
       {/* Privacy & Security Section */}
-      <section className="py-16 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`${glassCard} p-6 md:p-8 max-w-3xl mx-auto text-center`}>
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-xl flex items-center justify-center border border-coral-300/30 mr-3">
-                <Lock className="w-6 h-6 text-coral-400" aria-label="Privacy & Security" />
+      <section className="py-12 md:py-16">
+        <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`${glassCard} p-4 md:p-6 max-w-3xl mx-auto`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30">
+                <Lock className="w-4 h-4 text-coral-400" aria-label="Privacy & Security" />
               </div>
-              <h3 className="text-xl font-semibold text-white/95">Privacy & Security</h3>
+              <p className="text-white/90 font-medium text-sm md:text-base">
+                Locked on your device. Only you can see it. Analytics are optional.
+              </p>
             </div>
             
-            <p className="text-white/80 mb-4 font-medium">
-              Locked on your device. Only you can see it. Analytics are optional.
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70 mb-4">
-              <div className="text-left md:text-right">
-                <p>• Encrypted on your device before anything is sent</p>
-                <p>• Only your account can access your data</p>
-              </div>
-              <div className="text-left">
-                <p>• Analytics are opt-in (anonymous, off by default)</p>
-                <p>• Your conversations stay private</p>
-              </div>
+            <div className="space-y-2 text-sm text-white/70 mb-4">
+              <p>• Encrypted on your device before anything is sent</p>
+              <p>• Only your account can access your data</p>
+              <p>• Analytics are opt-in (anonymous, off by default)</p>
             </div>
             
             <Link 
-              to="/privacy-and-security" 
+              to="/privacy" 
               className="text-white/70 hover:text-white/90 underline underline-offset-2 text-sm motion-safe:transition-colors motion-safe:duration-150"
             >
-              Read our full privacy policy
+              Read more
             </Link>
           </div>
         </div>
@@ -772,17 +752,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       <section className="py-16 md:py-20">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`${glassCard} p-8 md:p-12 text-center`}>
-            <h2 className="text-3xl md:text-4xl font-semibold text-white/95 mb-6">
-              Ready to Love Smarter?
+            <h2 className="text-3xl md:text-4xl font-semibold text-white/95 mb-8">
+              Ready to love smarter?
             </h2>
-            <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-              Join thousands building stronger relationships with personalized AI guidance.
-            </p>
             
-            <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+            <div className="flex flex-col gap-3 justify-center max-w-md mx-auto">
               <Link to="/auth">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full px-5 py-3 text-base md:text-lg font-medium motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
-                  Get Started Free
+                <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full px-6 py-3 text-base md:text-lg font-medium motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
+                  Start free
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
@@ -790,9 +767,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               <Link to="/mission">
                 <Button 
                   variant="ghost" 
-                  className="bg-white/10 border border-white/15 rounded-full text-white/90 hover:bg-white/15 px-5 py-3 text-base md:text-lg motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5"
+                  className="w-full bg-white/10 border border-white/15 rounded-full text-white/90 hover:bg-white/15 px-6 py-3 text-base md:text-lg motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5"
                 >
-                  Learn More
+                  Watch a 45-sec demo
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             </div>
@@ -801,38 +779,32 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* Footer */}
-      <footer className="py-16 bg-black/50 backdrop-blur-sm border-t border-white/10">
+      <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-8">
-            <BrandMark 
-              size="lg"
-              className="opacity-90 mx-auto mb-4"
-            />
-            <p className="text-white/60 text-sm mb-6 max-w-md mx-auto">
-              We're building tools to help you two communicate, not just consume.
+          <div className="mb-6">
+            <p className="text-white/70 text-sm mb-4">
+              Free to start • Premium when you're ready • Built by humans figuring it out too
             </p>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
             <Link 
-              to="/privacy-and-security" 
-              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-1"
+              to="/privacy" 
+              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center"
             >
               Privacy
             </Link>
-            <span className="text-white/40">•</span>
+            <Link 
+              to="/privacy-and-security" 
+              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center"
+            >
+              Terms
+            </Link>
             <Link 
               to="/company" 
-              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-1"
+              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center"
             >
               Contact
-            </Link>
-            <span className="text-white/40">•</span>
-            <Link 
-              to="/company" 
-              className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-1"
-            >
-              About
             </Link>
           </div>
         </div>
