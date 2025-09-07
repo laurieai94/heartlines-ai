@@ -333,44 +333,44 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto">Quick sign-up to personalized advice in three simple steps</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-8">
             {[
               {
                 step: "01",
                 title: "Join Free",
                 description: "Quick sign-up. No card needed.",
-                icon: <UserPlus className="w-5 md:w-6 h-5 md:h-6" aria-hidden="true" />
+                icon: <UserPlus className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
               },
               {
                 step: "02", 
                 title: "Share Your Story",
                 description: "A few answers so Kai gets you.",
-                icon: <MessageSquare className="w-5 md:w-6 h-5 md:h-6" aria-hidden="true" />
+                icon: <MessageSquare className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
               },
               {
                 step: "03",
                 title: "Talk It Out",
                 description: "Fresh advice, not recycled tips.",
-                icon: <MessageCircleHeart className="w-5 md:w-6 h-5 md:h-6" aria-hidden="true" />
+                icon: <MessageCircleHeart className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
               }
             ].map((item, index) => (
               <article 
                 key={index}
-                className={`${glassCard} p-4 md:p-6 relative group motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none`}
+                className={`${glassCard} p-3 md:p-6 relative group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300`}
                 tabIndex={0}
                 role="article"
                 aria-label={item.title}
               >
-                <span className="absolute top-3 md:top-4 left-3 md:left-4 text-xs px-2 py-1 rounded-full bg-gradient-to-r from-coral-400 to-pink-500 text-white/95">
+                <span className="absolute top-2 md:top-4 left-2 md:left-4 text-xs px-1.5 py-0.5 md:px-2 md:py-1 rounded-full bg-gradient-to-r from-coral-400 to-pink-500 text-white/95 shadow-sm">
                   {item.step}
                 </span>
                 
-                <div className="mt-6 md:mt-8 text-center">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-xl flex items-center justify-center mb-3 md:mb-4 mx-auto border border-coral-300/30 text-coral-400 group-hover:text-pink-400 motion-safe:transition-colors motion-safe:duration-200">
+                <div className="mt-5 md:mt-8 text-center">
+                  <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-xl flex items-center justify-center mb-2 md:mb-4 mx-auto border border-coral-300/30 text-coral-400 group-hover:text-pink-400 group-hover:scale-110 motion-safe:transition-all motion-safe:duration-200 shadow-sm">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-white/95 mb-2">{item.title}</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">{item.description}</p>
+                  <h3 className="text-base md:text-xl font-semibold text-white/95 mb-1.5 md:mb-2">{item.title}</h3>
+                  <p className="text-white/70 text-xs md:text-sm leading-relaxed">{item.description}</p>
                 </div>
               </article>
             ))}
@@ -505,43 +505,43 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
-            <Card className="p-5 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl md:rounded-3xl group border border-coral-400/20">
-              <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Brain className="w-7 h-7 md:w-10 md:h-10 text-coral-400" />
+          <div className="grid md:grid-cols-2 gap-3 md:gap-8">
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Brain className="w-5 h-5 md:w-10 md:h-10 text-coral-400" />
               </div>
-              <h3 className="text-lg md:text-2xl font-light text-white mb-3 md:mb-4">We Get to Know You (For Real)</h3>
-              <p className="text-gray-300 leading-relaxed font-light text-sm md:text-base">
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">We Get to Know You (For Real)</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
                 Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, what makes you feel loved, and yes, even your weird quirks. The more honest you are, the better we can help.
               </p>
             </Card>
 
-            <Card className="p-5 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl md:rounded-3xl group border border-coral-400/20">
-              <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Target className="w-7 h-7 md:w-10 md:h-10 text-pink-400" />
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Target className="w-5 h-5 md:w-10 md:h-10 text-pink-400" />
               </div>
-              <h3 className="text-lg md:text-2xl font-light text-white mb-3 md:mb-4">Daily Tips You'll Actually Use</h3>
-              <p className="text-gray-300 leading-relaxed font-light text-sm md:text-base">
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Daily Tips You'll Actually Use</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
                 Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
               </p>
             </Card>
             
-            <Card className="p-5 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl md:rounded-3xl group border border-coral-400/20">
-              <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <MessageCircle className="w-7 h-7 md:w-10 md:h-10 text-pink-400" />
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <MessageCircle className="w-5 h-5 md:w-10 md:h-10 text-pink-400" />
               </div>
-              <h3 className="text-lg md:text-2xl font-light text-white mb-3 md:mb-4">Practice Makes Progress</h3>
-              <p className="text-gray-300 leading-relaxed font-light text-sm md:text-base">
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Practice Makes Progress</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
                 Scared to bring up that thing? Practice the conversation with our AI first. It knows both your communication styles, so you can figure out the best approach without the drama.
               </p>
             </Card>
             
-            <Card className="p-5 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-2xl md:rounded-3xl group border border-coral-400/20">
-              <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30">
-                <Sparkles className="w-7 h-7 md:w-10 md:h-10 text-coral-400" />
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Sparkles className="w-5 h-5 md:w-10 md:h-10 text-coral-400" />
               </div>
-              <h3 className="text-lg md:text-2xl font-light text-white mb-3 md:mb-4">Thoughtful Actions Made Easy</h3>
-              <p className="text-gray-300 leading-relaxed font-light text-sm md:text-base">
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Thoughtful Actions Made Easy</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
                 Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
               </p>
             </Card>
@@ -556,43 +556,43 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <h2 className="text-2xl md:text-4xl font-semibold text-white/95 mb-4 md:mb-6">Why It's Different</h2>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-6">
             {[
               {
                 title: "No toxic positivity",
                 description: "Real relationships have rough patches, and that's normal",
-                icon: <CircleSlash className="w-4 md:w-5 h-4 md:h-5" aria-hidden="true" />
+                icon: <CircleSlash className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
               },
               {
                 title: "Actually personalized", 
                 description: "Not horoscope-level generic advice",
-                icon: <Sparkles className="w-4 md:w-5 h-4 md:h-5" aria-hidden="true" />
+                icon: <Sparkles className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
               },
               {
                 title: "Built for busy",
                 description: "Quick daily insights that fit into your actual life",
-                icon: <Bolt className="w-4 md:w-5 h-4 md:h-5" aria-hidden="true" />
+                icon: <Bolt className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
               },
               {
                 title: "Privacy-first",
                 description: "Your relationship details stay between you, your partner, and our very secure servers",
-                icon: <Shield className="w-4 md:w-5 h-4 md:h-5" aria-hidden="true" />
+                icon: <Shield className="w-3.5 md:w-5 h-3.5 md:h-5" aria-hidden="true" />
               }
             ].map((item, index) => (
               <article
                 key={index}
-                className={`${glassCard} p-4 md:p-6 group motion-safe:hover:-translate-y-0.5 motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-center sm:text-left`}
+                className={`${glassCard} p-3 md:p-6 group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-center sm:text-left before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden`}
                 tabIndex={0}
                 role="article"
                 aria-label={item.title}
               >
-                <div className="flex items-center justify-center sm:justify-start mb-3 md:mb-4">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400">
+                <div className="flex items-center justify-center sm:justify-start mb-2 md:mb-4 relative z-10">
+                  <div className="w-7 h-7 md:w-10 md:h-10 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400 group-hover:scale-110 transition-transform shadow-sm">
                     {item.icon}
                   </div>
                 </div>
-                <h3 className="font-semibold text-white/95 mb-2 text-sm md:text-base">{item.title}</h3>
-                <p className="text-white/70 text-xs md:text-sm leading-relaxed">{item.description}</p>
+                <h3 className="font-semibold text-white/95 mb-1.5 md:mb-2 text-xs md:text-base relative z-10">{item.title}</h3>
+                <p className="text-white/70 text-xs md:text-sm leading-relaxed relative z-10">{item.description}</p>
               </article>
             ))}
           </div>
