@@ -181,36 +181,32 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pb-safe min-h-screen flex flex-col justify-center max-w-md">
-        {/* Progress Header - Only show for sign-up flow */}
-        {showProgressSteps && (
-          <div className="mb-4 p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg flex-shrink-0 sticky top-4 z-20">
-            <div className="flex items-center justify-center mb-2 overflow-x-auto pb-1">
-              <div className="flex items-center space-x-1.5 flex-nowrap min-w-max px-2">
-                <div className="flex items-center whitespace-nowrap">
-                  <div className="w-6 h-6 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
-                  <span className="ml-1.5 text-white font-medium text-xs">Join Free</span>
-                </div>
-                <div className="w-3 h-px bg-white/15"></div>
-                <div className="flex items-center whitespace-nowrap">
-                  <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
-                  <span className="ml-1.5 text-white/50 text-xs">Build Profiles (You & Partner)</span>
-                </div>
-                <div className="w-3 h-px bg-white/15"></div>
-                <div className="flex items-center whitespace-nowrap">
-                  <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
-                  <span className="ml-1.5 text-white/50 text-xs">Talk to Kai</span>
-                </div>
+        {/* Progress Header - Always visible */}
+        <div className="mb-4 p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg flex-shrink-0 sticky top-4 z-20">
+          <div className="flex items-center justify-center mb-2 overflow-x-auto pb-1">
+            <div className="flex items-center space-x-1.5 flex-nowrap min-w-max px-2">
+              <div className="flex items-center whitespace-nowrap">
+                <div className="w-6 h-6 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
+                <span className="ml-1.5 text-white font-medium text-xs">Join Free</span>
+              </div>
+              <div className="w-3 h-px bg-white/15"></div>
+              <div className="flex items-center whitespace-nowrap">
+                <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">2</div>
+                <span className="ml-1.5 text-white/50 text-xs">Build Profiles (You & Partner)</span>
+              </div>
+              <div className="w-3 h-px bg-white/15"></div>
+              <div className="flex items-center whitespace-nowrap">
+                <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center text-white/50 text-xs font-semibold">3</div>
+                <span className="ml-1.5 text-white/50 text-xs">Talk to Kai</span>
               </div>
             </div>
-            
-            {/* Progress Bar */}
-            <div className="w-full bg-white/10 rounded-full h-1 mb-2">
-              <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
-            </div>
-            
-            <p className="text-white/60 text-xs text-center tracking-wide font-medium">~2 MINUTES personalized relationship INSIGHTS</p>
           </div>
-        )}
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-white/10 rounded-full h-1">
+            <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
+          </div>
+        </div>
 
         <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? (
@@ -264,11 +260,8 @@ const Auth = () => {
             <>
               <div className="text-center mb-4">
                 <h1 className="text-2xl font-bold text-white mb-2">
-                  {isSignUp ? 'Create Your Free Account' : 'We missed you'}
+                  Tap In
                 </h1>
-                <p className="text-white/70 mb-3 text-sm">
-                  {isSignUp ? 'Next, we\'ll guide you through your profile to unlock Kai.' : 'Tap in to keep leveling up'}
-                </p>
               </div>
 
           <form onSubmit={handleSubmit} className="space-y-3">
