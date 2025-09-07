@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import Dashboard from "./pages/Dashboard"; // Synchronous import for faster shell
+import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shell
 import { warmupNetwork } from "@/utils/networkWarmup";
 import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { performanceMonitor } from "@/utils/performanceMonitor";
@@ -14,15 +14,15 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy load components directly
 const LandingPage = React.lazy(() => import("@/components/LandingPage"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
-const AuthCallback = React.lazy(() => import("./pages/AuthCallback"));
-const PrivacySecurity = React.lazy(() => import("./pages/PrivacySecurity"));
-const Pricing = React.lazy(() => import("./pages/Pricing"));
-const BillingSuccess = React.lazy(() => import("./pages/BillingSuccess"));
-const Account = React.lazy(() => import("./pages/Account"));
-const Auth = React.lazy(() => import("./pages/Auth"));
-const GetStarted = React.lazy(() => import("./pages/GetStarted"));
-const Mission = React.lazy(() => import("./pages/Mission"));
+const NotFound = React.lazy(() => import("@/pages/NotFound"));
+const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
+const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
+const Pricing = React.lazy(() => import("@/pages/Pricing"));
+const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
+const Account = React.lazy(() => import("@/pages/Account"));
+const Auth = React.lazy(() => import("@/pages/Auth"));
+const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
+const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
   // Initialize performance optimizations
