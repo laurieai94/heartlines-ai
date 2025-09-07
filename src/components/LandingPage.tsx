@@ -286,10 +286,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="text-white/50 hover:text-white/80 bg-transparent hover:bg-transparent p-2 ml-2 transition-colors duration-200"
+                    className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 ml-2 rounded-xl ring-2 ring-white/80 ring-offset-2 ring-offset-burgundy-900 transition-all duration-200"
                     aria-label="Open menu"
                   >
-                    <Menu className="w-6 h-6" />
+                    <Menu className="w-8 h-8" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent side="bottom" align="start" className="w-36 p-1 bg-black/40 backdrop-blur-sm border-0 shadow-none">
@@ -331,7 +331,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       >
         {/* Flame Background */}
         <FlameBackground variant="duotone-outline" density="normal" />
-        <MiniFlamesOverlay density="light" />
+        <MiniFlamesOverlay density="dense" size="lg" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && (
@@ -383,7 +383,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {isEmbedded && (
           <div className="px-6 py-8 lg:py-12">
             <FlameBackground variant="ethereal" density="sparse" />
-            <MiniFlamesOverlay density="light" />
+            <MiniFlamesOverlay density="dense" size="lg" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}

@@ -3,11 +3,13 @@ import React, { useMemo } from "react";
 interface MiniFlamesOverlayProps {
   className?: string;
   density?: "light" | "normal" | "dense";
+  size?: "sm" | "md" | "lg";
 }
 
 const MiniFlamesOverlay: React.FC<MiniFlamesOverlayProps> = ({ 
   className = "", 
-  density = "light" 
+  density = "light",
+  size = "md"
 }) => {
   const getFlameCount = () => {
     switch (density) {
@@ -18,19 +20,38 @@ const MiniFlamesOverlay: React.FC<MiniFlamesOverlayProps> = ({
     }
   };
 
+  const getSizeRange = () => {
+    switch (size) {
+      case "lg": return { min: 12, max: 28 }; // 12-28px
+      case "md": return { min: 8, max: 18 }; // 8-18px  
+      case "sm": return { min: 6, max: 12 }; // 6-12px
+      default: return { min: 8, max: 18 };
+    }
+  };
+
+  const getStrokeWidth = () => {
+    switch (size) {
+      case "lg": return "1.2";
+      case "md": return "0.8";
+      case "sm": return "0.6";
+      default: return "0.8";
+    }
+  };
+
   const flames = useMemo(() => {
     const flameCount = getFlameCount();
+    const sizeRange = getSizeRange();
     return Array.from({ length: flameCount }, (_, i) => ({
       id: i,
       left: Math.random() * 90 + 5, // 5-95% to avoid edges
       top: Math.random() * 90 + 5, // 5-95% to avoid edges
-      size: Math.random() * 12 + 6, // 6-18px
+      size: Math.random() * (sizeRange.max - sizeRange.min) + sizeRange.min,
       rotation: Math.random() * 360,
       opacity: Math.random() * 0.3 + 0.2, // 0.2-0.5 opacity
       animationDelay: Math.random() * 3,
       animationDuration: Math.random() * 2 + 4, // 4-6s
     }));
-  }, [density]);
+  }, [density, size]);
 
   const getFlameShape = (size: number) => {
     const scale = size / 20;
@@ -50,7 +71,7 @@ const MiniFlamesOverlay: React.FC<MiniFlamesOverlayProps> = ({
               d={getFlameShape(flame.size)}
               fill="none"
               stroke="hsl(var(--coral-400))"
-              strokeWidth="0.8"
+              strokeWidth={getStrokeWidth()}
               opacity={flame.opacity}
               transform={`translate(${flame.left * 10}, ${flame.top * 10}) rotate(${flame.rotation}) translate(-10, -10)`}
               style={{
