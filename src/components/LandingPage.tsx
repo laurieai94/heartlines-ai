@@ -336,7 +336,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/get-started">
+                  <Link to="/auth">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                       Get Started
                     </Button>
@@ -360,7 +360,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/get-started">
+                  <Link to="/auth">
                     <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
                       Get Started
                     </Button>
@@ -424,7 +424,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                               Sign In
                             </Button>
                           </Link>
-                          <Link to="/get-started">
+                          <Link to="/auth">
                             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
@@ -491,7 +491,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                             Sign In
                           </Button>
                         </Link>
-                        <Link to="/get-started">
+                        <Link to="/auth">
                           <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-3" />
