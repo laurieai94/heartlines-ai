@@ -12,7 +12,6 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
-import FlameIconHalo from "./FlameIconHalo";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({ 
@@ -59,7 +58,7 @@ const StepCard = ({
       }}
       tabIndex={0}
       role="article"
-      aria-label={`${title}: ${description}`}
+      aria-label={title}
     >
       {/* Premium Glass Card with Enhanced Effects */}
       <div className="
@@ -114,9 +113,6 @@ const StepCard = ({
           <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
             {title}
           </h3>
-          <p className="mt-1 text-xs md:text-sm text-white/70 leading-snug font-light">
-            {description}
-          </p>
         </div>
 
         {/* Subtle Sheen Effect on Hover */}
