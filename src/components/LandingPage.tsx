@@ -281,8 +281,8 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-      <nav className="px-0 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <nav className="px-4 sm:px-6 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
+          <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
@@ -423,7 +423,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </div>
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
-                  <div className="relative flex justify-center items-start self-start md:-mt-2 -mt-4">
+                  <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
                     <div className="w-full max-w-md md:scale-100 scale-100 origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
