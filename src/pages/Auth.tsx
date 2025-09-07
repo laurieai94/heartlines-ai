@@ -17,6 +17,7 @@ const Auth = () => {
   const [searchParams] = useSearchParams();
   const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -194,6 +195,10 @@ const Auth = () => {
     }
   };
 
+  const isConfirmPasswordValid = () => {
+    return isSignUp && formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
+  };
+
   return (
     <div className="min-h-screen questionnaire-bg">
       {/* Animated background elements */}
@@ -274,7 +279,7 @@ const Auth = () => {
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   placeholder="Drop your email"
-                  className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isEmailValid() ? 'pr-10' : ''}`}
+                  className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isEmailValid() ? 'pr-12' : ''}`}
                   required
                 />
                 {isEmailValid() && (
@@ -297,11 +302,11 @@ const Auth = () => {
                     placeholder="Keep it secret"
                     pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
                     title={isSignUp ? getPasswordPolicyText() : undefined}
-                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isPasswordValid() ? 'pr-16' : 'pr-10'}`}
+                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isPasswordValid() ? 'pr-20' : 'pr-12'}`}
                     required
                   />
                   {isPasswordValid() && (
-                    <CheckCircle className="absolute right-10 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                    <CheckCircle className="absolute right-12 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
                   )}
                   <Button
                     type="button"
@@ -326,15 +331,29 @@ const Auth = () => {
                 <Label htmlFor="confirmPassword" className="text-white text-sm">
                   Confirm Password
                 </Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                  placeholder="Confirm your password"
-                  className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
-                  required
-                />
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={formData.confirmPassword}
+                    onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                    placeholder="Confirm your password"
+                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isConfirmPasswordValid() ? 'pr-20' : 'pr-12'}`}
+                    required
+                  />
+                  {isConfirmPasswordValid() && (
+                    <CheckCircle className="absolute right-12 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                  )}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                </div>
               </div>
             )}
 
