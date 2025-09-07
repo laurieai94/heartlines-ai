@@ -202,7 +202,7 @@ const Auth = () => {
             {/* Step 2 */}
             <div className="flex items-center justify-center gap-1.5">
               <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">2</div>
-              <span className="text-white/70 text-[12px] leading-tight text-center">Build Profiles (You & Partner)</span>
+              <span className="text-white/70 text-[12px] leading-tight text-center">Build Profiles</span>
             </div>
             {/* Step 3 */}
             <div className="flex items-center justify-center gap-1.5">
