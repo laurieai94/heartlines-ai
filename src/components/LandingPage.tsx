@@ -314,7 +314,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
             
             {/* Desktop Navigation CTAs */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-3 mr-6">
               {user ? (
                 <>
                   <Link to="/profile">
@@ -346,7 +346,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
             
             {/* Mobile CTA */}
-            <div className="md:hidden mr-0">
+            <div className="md:hidden mr-6">
               {user ? (
                 <Link to="/dashboard">
                   <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
@@ -419,11 +419,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         </>
                       ) : (
                         <>
-                          <Link to="/auth?mode=signin">
-                            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-6 py-4 text-base rounded-full transition-all duration-300 animate-fade-in mr-4" style={{ animationDelay: '1.2s' }}>
-                              Sign In
-                            </Button>
-                          </Link>
                           <Link to="/auth">
                             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                               Get Started
@@ -486,11 +481,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       </>
                     ) : (
                       <>
-                        <Link to="/auth?mode=signin">
-                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                            Sign In
-                          </Button>
-                        </Link>
                         <Link to="/auth">
                           <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                             Get Started
