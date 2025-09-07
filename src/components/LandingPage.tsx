@@ -377,23 +377,23 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {!isEmbedded && (
           <>
             {/* Primary hero section with locked two-column layout */}
-            <div className="px-4 sm:px-6 py-2 sm:py-4">
+            <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
               {/* Accent decoration - floating orbs with glassmorphism */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{ animationDelay: '1s' }}></div>
               
-              <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid md:grid-cols-2 gap-4 md:gap-8 items-start min-h-full">
+              <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-[580px] self-center">
                     <div className="space-y-3 mb-4 md:mb-6">
-                      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-normal leading-tight animate-fade-in">
+                      <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           Modern love is messy.
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                      <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -424,7 +424,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
-                    <div className="w-full max-w-md md:scale-100 scale-100 origin-top">
+                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
