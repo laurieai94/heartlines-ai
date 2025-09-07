@@ -197,9 +197,18 @@ const Auth = () => {
             className="text-white md:text-4xl text-3xl" 
           />
         </div>
+        {/* Header - Only show during sign-up */}
+        {isSignUp && (
+          <div className="text-center mb-3">
+            <h1 className="text-2xl font-bold text-white">
+              Tap into <span className="font-brand">heartlines</span>
+            </h1>
+          </div>
+        )}
+
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-4 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
+          <div className="mb-3 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
             <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -225,67 +234,20 @@ const Auth = () => {
           </div>
         )}
 
-        <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto w-full">
+        <div className="questionnaire-card p-4 sm:p-5 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? (
             <div className="text-center space-y-4">
-              <div className="mx-auto w-12 h-12 bg-coral-500/20 rounded-full flex items-center justify-center mb-3">
-                <Mail className="h-6 w-6 text-coral-400" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white mb-2">Check your email</h1>
-                <p className="text-white/70 mb-3 text-sm">
-                  We sent a verification link to <span className="text-coral-400 font-medium">{formData.email}</span>
-                </p>
-                <p className="text-white/60 text-xs">
-                  Click the link in your inbox to activate your account and continue to your profile.
-                </p>
-              </div>
-              
-              <div className="p-3 rounded-lg bg-coral-500/10 border border-coral-400/20">
-                <p className="text-coral-300 text-xs mb-2">Didn't receive the email?</p>
-                <Button
-                  onClick={handleResendVerification}
-                  disabled={isResendingVerification || resendCooldown > 0}
-                  variant="outline"
-                  size="sm"
-                  className="bg-white/5 border-white/20 text-white hover:bg-white/10"
-                >
-                  {isResendingVerification ? (
-                    <RotateCcw className="h-4 w-4 mr-2 animate-spin" />
-                  ) : null}
-                  {resendCooldown > 0 
-                    ? `Resend in ${resendCooldown}s` 
-                    : 'Resend verification email'
-                  }
-                </Button>
-              </div>
-
-              <div className="text-center">
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setShowEmailVerification(false);
-                    setFormData({ email: '', password: '', confirmPassword: '' });
-                  }}
-                  className="text-white/60 hover:text-white"
-                >
-                  ← Try a different email
-                </Button>
-              </div>
+...
             </div>
           ) : (
             <>
-              <div className="text-center mb-4">
-                <h1 className="text-2xl font-bold text-white mb-2">
-                  {isSignUp ? (
-                    <>
-                      Tap into <span className="font-brand">heartlines</span>
-                    </>
-                  ) : (
-                    'We missed you'
-                  )}
-                </h1>
-              </div>
+              {!isSignUp && (
+                <div className="text-center mb-4">
+                  <h1 className="text-2xl font-bold text-white mb-2">
+                    We missed you
+                  </h1>
+                </div>
+              )}
 
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
@@ -338,7 +300,7 @@ const Auth = () => {
               </div>
             </div>
 
-            {isSignUp && (
+            {isSignUp && validatePasswordPolicy(formData.password).isValid && (
               <div className="space-y-1">
                 <Label htmlFor="confirmPassword" className="text-white text-sm">
                   Confirm Password
