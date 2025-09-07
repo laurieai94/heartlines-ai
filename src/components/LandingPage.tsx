@@ -197,7 +197,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
             
             {/* Mobile Get Started */}
-            <div className="md:hidden">
+            <div className="md:hidden mr-2">
               <Link to="/auth">
                 <Button className="bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 hover:shadow-lg active:scale-[0.98] shadow-md rounded-full font-medium text-xs px-3 py-1.5 transition-all duration-200">
                   Get Started
