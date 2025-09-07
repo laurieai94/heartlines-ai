@@ -221,7 +221,7 @@ const Auth = () => {
 
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-8 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
+          <div className="mb-8 p-4 sm:p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
             <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
