@@ -28,10 +28,8 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Check intent parameter to determine redirect destination
-        const urlParams = new URLSearchParams(window.location.search);
-        const intent = urlParams.get('intent');
-        const redirectUrl = intent === 'signin' ? '/coach' : '/profile';
+        // Redirect to profiles page for email confirmations
+        const redirectUrl = '/profile';
         
         // Redirect with a clean URL
         window.location.replace(redirectUrl);
