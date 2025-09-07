@@ -106,7 +106,7 @@ const AccountSecurity = () => {
           <div className="space-y-1.5">
             <Label htmlFor="reset-email" className="text-white flex items-center gap-1.5 text-xs">
               <Mail className="h-3.5 w-3.5" />
-              Email Address
+              Email
             </Label>
             <Input
               id="reset-email"

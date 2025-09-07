@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
+import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 const Auth = () => {
   const { user, loading, signIn, signUp, resendVerification } = useAuth();
@@ -189,6 +190,13 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
+        {/* Heartlines Logo */}
+        <div className="flex justify-center mb-8">
+          <HeartlinesWordmark 
+            size="lg" 
+            className="text-white md:text-4xl text-3xl" 
+          />
+        </div>
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
           <div className="mb-4 p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
@@ -276,7 +284,7 @@ const Auth = () => {
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
-                Email Address
+                Email
               </Label>
               <Input
                 id="email"
@@ -284,7 +292,7 @@ const Auth = () => {
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 placeholder="Drop your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
+                className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
                 required
               />
             </div>
@@ -303,7 +311,7 @@ const Auth = () => {
                     placeholder="Keep it secret"
                     pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
                     title={isSignUp ? getPasswordPolicyText() : undefined}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
+                    className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
                     required
                   />
                   <Button
@@ -335,7 +343,7 @@ const Auth = () => {
                   value={formData.confirmPassword}
                   onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                   placeholder="Confirm your password"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
+                  className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
                   required
                 />
               </div>
