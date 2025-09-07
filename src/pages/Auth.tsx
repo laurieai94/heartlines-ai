@@ -190,15 +190,13 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
-        {/* Heartlines Logo - Only show on sign-in */}
-        {!isSignUp && (
-          <div className="flex justify-center mb-8">
-            <HeartlinesWordmark 
-              size="lg" 
-              className="text-white md:text-4xl text-3xl" 
-            />
-          </div>
-        )}
+        {/* Heartlines Logo */}
+        <div className="flex justify-center mb-8">
+          <HeartlinesWordmark 
+            size="lg" 
+            className="text-white md:text-4xl text-3xl" 
+          />
+        </div>
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
           <div className="mb-4 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
@@ -278,7 +276,7 @@ const Auth = () => {
           ) : (
             <>
               <div className="text-center mb-4">
-                <h1 className={`font-bold text-white mb-2 ${isSignUp ? 'text-3xl sm:text-4xl leading-tight' : 'text-2xl'}`}>
+                <h1 className="text-2xl font-bold text-white mb-2">
                   {isSignUp ? (
                     <>
                       Tap into <span className="font-brand">heartlines</span>
