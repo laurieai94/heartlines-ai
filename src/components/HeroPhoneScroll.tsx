@@ -4,6 +4,7 @@ import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
 import MayaAvatar from '@/assets/millennial-woman-portrait.jpg';
+import FlameIconHalo from './FlameIconHalo';
 
 const DEMO_CONVERSATION = [
   {
@@ -193,12 +194,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
             {/* Chat header with Kai styling */}
             <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-2 flex items-center">
-              <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
-                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
-                <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
-                  <Heart className="w-4 h-4" />
-                </AvatarFallback>
-              </Avatar>
+              <FlameIconHalo intensity="subtle" size="sm" animated={true}>
+                <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
+                  <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
+                    <Heart className="w-4 h-4" />
+                  </AvatarFallback>
+                </Avatar>
+              </FlameIconHalo>
               <div>
                 <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
                 <p className="text-white/70 text-xs">Your AI relationship coach</p>
@@ -214,12 +217,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {visibleMessages.map((message, index) => (
                 <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
-                   <Avatar className="w-6 h-6 flex-shrink-0">
-                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
-                      <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
-                        <Heart className="w-3 h-3" />
-                      </AvatarFallback>
-                    </Avatar>
+                   <FlameIconHalo intensity="subtle" size="sm" animated={false}>
+                     <Avatar className="w-6 h-6 flex-shrink-0">
+                       <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
+                       <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
+                         <Heart className="w-3 h-3" />
+                       </AvatarFallback>
+                     </Avatar>
+                   </FlameIconHalo>
                   )}
                    <ChatBubble 
                      isUser={message.type === 'user'} 

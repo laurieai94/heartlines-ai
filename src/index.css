@@ -432,6 +432,79 @@
     background: var(--gradient-brand-hover);
   }
 
+  /* Flame animation keyframes */
+  @keyframes flame-flicker {
+    0%, 100% { 
+      opacity: 0.1; 
+      transform: scale(1) rotate(0deg); 
+    }
+    25% { 
+      opacity: 0.15; 
+      transform: scale(1.05) rotate(2deg); 
+    }
+    50% { 
+      opacity: 0.12; 
+      transform: scale(0.98) rotate(-1deg); 
+    }
+    75% { 
+      opacity: 0.16; 
+      transform: scale(1.02) rotate(1deg); 
+    }
+  }
+
+  @keyframes flame-drift {
+    0% { 
+      transform: translateY(0px) translateX(0px) rotate(0deg); 
+    }
+    33% { 
+      transform: translateY(-3px) translateX(2px) rotate(1deg); 
+    }
+    66% { 
+      transform: translateY(2px) translateX(-2px) rotate(-1deg); 
+    }
+    100% { 
+      transform: translateY(0px) translateX(0px) rotate(0deg); 
+    }
+  }
+
+  @keyframes flame-sheen {
+    0% { 
+      opacity: 0; 
+      transform: translateX(-100%) skewX(-15deg); 
+    }
+    50% { 
+      opacity: 0.6; 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translateX(100%) skewX(-15deg); 
+    }
+  }
+
+  /* Flame utility classes */
+  .animate-flame-flicker {
+    animation: flame-flicker 4s ease-in-out infinite;
+  }
+
+  .animate-flame-drift {
+    animation: flame-drift 6s ease-in-out infinite;
+  }
+
+  .animate-flame-sheen {
+    animation: flame-sheen 3s ease-in-out infinite;
+  }
+
+  /* Flame glow effects */
+  .flame-glow {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
+            drop-shadow(0 0 16px rgba(255, 255, 255, 0.15));
+  }
+
+  .flame-glow-strong {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)) 
+            drop-shadow(0 0 24px rgba(255, 255, 255, 0.2));
+  }
+
   /* Hide scrollbars utility for overflow containers */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -11,6 +11,8 @@ import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
+import FlameDivider from "./FlameDivider";
+import FlameIconHalo from "./FlameIconHalo";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({ 
@@ -90,24 +92,22 @@ const StepCard = ({
 
         {/* Content Container */}
         <div className="relative z-10 text-center pt-8">
-          {/* Icon with Gradient Halo */}
+          {/* Icon with Flame Halo */}
           <div className="mb-4 flex justify-center">
-            {/* Gradient Halo Behind Icon */}
-            <div className="absolute w-16 h-16 bg-gradient-to-r from-coral-400/25 to-pink-400/25 rounded-full blur-lg"></div>
-            
-            {/* Icon Container with Glass Effect */}
-            <div className="
-              relative w-12 h-12 
-              bg-white/10 backdrop-blur-sm border border-white/20 
-              rounded-full flex items-center justify-center
-              text-coral-400
-              motion-safe:transition-all motion-safe:duration-200
-              group-hover:scale-105 group-hover:-translate-y-0.5
-              group-hover:text-pink-400 group-hover:bg-white/15
-              shadow-lg
-            " aria-label={`${iconName} icon`}>
-              {icon}
-            </div>
+            <FlameIconHalo intensity="medium" size="md" animated={true}>
+              <div className="
+                relative w-12 h-12 
+                bg-white/10 backdrop-blur-sm border border-white/20 
+                rounded-full flex items-center justify-center
+                text-coral-400
+                motion-safe:transition-all motion-safe:duration-200
+                group-hover:scale-105 group-hover:-translate-y-0.5
+                group-hover:text-pink-400 group-hover:bg-white/15
+                shadow-lg
+              " aria-label={`${iconName} icon`}>
+                {icon}
+              </div>
+            </FlameIconHalo>
           </div>
 
           {/* Text Content */}
@@ -356,7 +356,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         style={{ minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh' }}
       >
         {/* Flame Background */}
-        <FlameBackground />
+        <FlameBackground variant="duotone-outline" density="normal" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && (
@@ -407,7 +407,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         {/* Embedded version - horizontal layout with flame background */}
         {isEmbedded && (
           <div className="px-6 py-8 lg:py-12">
-            <FlameBackground />
+            <FlameBackground variant="ethereal" density="sparse" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
@@ -729,6 +729,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             ))}
           </div>
         </div>
+        
+        {/* Flame divider at bottom */}
+        <FlameDivider orientation="bottom" intensity="medium" className="absolute bottom-0 left-0 right-0" />
       </section>
 
       {/* Philosophy Section */}

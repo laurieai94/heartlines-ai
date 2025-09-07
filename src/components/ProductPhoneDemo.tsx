@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, Info, Heart } from "lucide-react";
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
+import FlameBackground from './FlameBackground';
+import FlameIconHalo from './FlameIconHalo';
 
 const DEMO_CONVERSATION = [
   {
@@ -91,6 +93,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   return (
     <div className={`relative ${className}`} style={style}>
+      {/* Flame Background */}
+      <FlameBackground variant="ethereal" density="sparse" className="rounded-[3rem]" />
+      
       {/* Subtle halo behind phone */}
       <div className="absolute inset-0 mx-auto w-[300px] h-[600px] bg-gradient-radial from-white/6 via-white/2 to-transparent blur-3xl scale-110 rounded-[3rem]"></div>
       
@@ -103,15 +108,17 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           <div className="relative z-10 px-4 py-4 border-b border-white/10 backdrop-blur-sm bg-burgundy-800/35">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative">
-                  <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-6 h-6" />
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-                </div>
+                <FlameIconHalo intensity="medium" size="sm" animated={true}>
+                  <div className="relative">
+                    <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                        <Heart className="w-6 h-6" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                  </div>
+                </FlameIconHalo>
                 <div>
                   <h3 className="text-white font-semibold text-sm">Kai</h3>
                   <p className="text-white/70 text-xs">Online</p>
@@ -127,12 +134,14 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
               <div key={message.id} className="animate-fade-in">
                 <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
-                    <Avatar className="w-6 h-6 flex-shrink-0">
-                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
-                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
-                        <Heart className="w-3 h-3" />
-                      </AvatarFallback>
-                    </Avatar>
+                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
+                      <Avatar className="w-6 h-6 flex-shrink-0">
+                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
+                          <Heart className="w-3 h-3" />
+                        </AvatarFallback>
+                      </Avatar>
+                    </FlameIconHalo>
                   )}
                   <ChatBubble
                     isUser={message.type === 'user'}
