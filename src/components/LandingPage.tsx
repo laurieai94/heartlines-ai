@@ -281,14 +281,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-      <nav className="px-4 sm:px-6 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
-          <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <nav className="px-4 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
+          <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 ml-2 rounded-xl transition-all duration-200"
+                    className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all duration-200"
                     aria-label="Open menu"
                   >
                     <Menu className="w-8 h-8" />
