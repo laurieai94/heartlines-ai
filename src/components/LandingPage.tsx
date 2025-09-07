@@ -210,7 +210,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             <div className="hidden md:flex items-center gap-4">
               <a 
                 href="#how-it-works" 
-                className="text-white/80 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5"
+                className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -220,7 +220,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
               </a>
               <Link 
                 to="/auth?mode=signin"
-                className="text-white/70 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5 text-sm"
+                className="text-white/90 hover:text-white transition-colors font-thin px-4 py-2 rounded-full hover:bg-white/5 text-sm"
               >
                 Sign in
               </Link>
