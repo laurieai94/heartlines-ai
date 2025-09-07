@@ -20,10 +20,13 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
 
   return (
     <h1 
-      className={`font-brand font-normal tracking-wide text-burgundy-600 ${sizeClasses[size]} ${className} ${onClick ? 'cursor-pointer' : ''}`}
+      className={`font-brand font-normal tracking-wide ${sizeClasses[size]} ${className} ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
     >
-      
+      heartlines
     </h1>
   );
 };

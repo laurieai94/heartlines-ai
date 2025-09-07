@@ -1,5 +1,5 @@
 /* Import modern fonts with serif options */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -164,6 +164,11 @@
 
   .font-serif {
     font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+    font-feature-settings: 'liga', 'dlig';
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     font-feature-settings: 'liga', 'dlig';
   }
 

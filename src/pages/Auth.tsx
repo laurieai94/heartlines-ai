@@ -218,7 +218,7 @@ const Auth = () => {
         {/* Header - Only show during sign-up */}
         {isSignUp && (
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl font-bold text-white">
+            <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl font-bold text-white flex-wrap">
               <span className="font-playfair">Tap into</span>
               <HeartlinesWordmark size="md" className="text-white" />
             </div>
