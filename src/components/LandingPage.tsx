@@ -157,11 +157,10 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 <SheetTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="icon"
-                    className="h-10 w-10 text-white/80 hover:text-white hover:bg-white/5 focus:bg-white/5 transition-colors"
+                    className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-5 h-5 p-0 rounded-xl"
                     aria-label="Open menu"
                   >
-                    <Menu className="h-5 w-5" />
+                    <Menu className="w-2.5 h-2.5" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 bg-burgundy-900/95 backdrop-blur-xl border-pink-300/20">
