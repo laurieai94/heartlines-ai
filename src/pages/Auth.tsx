@@ -180,12 +180,12 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-2 max-w-md min-h-screen flex flex-col">
+      <div className="relative z-10 container mx-auto px-4 pb-safe min-h-screen flex flex-col justify-center max-w-md">
         {/* Progress Header - Only show for sign-up flow */}
         {showProgressSteps && (
-          <div className="mb-3 p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg flex-shrink-0">
-            <div className="flex items-center justify-center mb-2 overflow-x-auto">
-              <div className="flex items-center space-x-1.5 flex-nowrap min-w-max">
+          <div className="mb-4 p-3 rounded-xl bg-white/3 backdrop-blur-md border border-white/5 shadow-lg flex-shrink-0 sticky top-4 z-20">
+            <div className="flex items-center justify-center mb-2 overflow-x-auto pb-1">
+              <div className="flex items-center space-x-1.5 flex-nowrap min-w-max px-2">
                 <div className="flex items-center whitespace-nowrap">
                   <div className="w-6 h-6 rounded-full bg-coral-400 flex items-center justify-center text-white text-xs font-semibold shadow-sm">1</div>
                   <span className="ml-1.5 text-white font-medium text-xs">Join Free</span>
@@ -208,11 +208,11 @@ const Auth = () => {
               <div className="bg-coral-400 h-1 rounded-full w-1/3 transition-all duration-300"></div>
             </div>
             
-            <p className="text-white/60 text-xs text-center tracking-wide">~2 MINUTES personalized relationship INSIGHTS</p>
+            <p className="text-white/60 text-xs text-center tracking-wide font-medium">~2 MINUTES personalized relationship INSIGHTS</p>
           </div>
         )}
 
-        <div className="questionnaire-card p-3 sm:p-4 animate-fade-in max-w-sm mx-auto flex-1 flex flex-col min-h-0 max-h-[calc(100vh-2rem)] overflow-y-auto">
+        <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? (
             <div className="text-center space-y-4">
               <div className="mx-auto w-12 h-12 bg-coral-500/20 rounded-full flex items-center justify-center mb-3">
@@ -271,7 +271,7 @@ const Auth = () => {
                 </p>
               </div>
 
-          <form onSubmit={handleSubmit} className="space-y-3 flex-1">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
                 Email Address
@@ -353,7 +353,7 @@ const Auth = () => {
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className="mt-4 text-center">
+              <div className="mt-6 text-center">
                 <p className="text-white/70 text-xs">
                   {isSignUp ? 'Already have an account?' : 'Need an account?'}
                   {' '}
