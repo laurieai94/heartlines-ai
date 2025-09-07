@@ -28,8 +28,13 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Redirect to dashboard with a clean URL
-        window.location.replace('/profile');
+        // Check intent parameter to determine redirect destination
+        const urlParams = new URLSearchParams(window.location.search);
+        const intent = urlParams.get('intent');
+        const redirectUrl = intent === 'signin' ? '/coach' : '/profile';
+        
+        // Redirect with a clean URL
+        window.location.replace(redirectUrl);
       } catch (error) {
         console.error('Callback processing error:', error);
         window.location.replace('/profile');

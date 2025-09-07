@@ -39,7 +39,9 @@ const Auth = () => {
 
   // Redirect if already authenticated
   if (user && !loading) {
-    return <Navigate to="/profile" replace />;
+    const mode = searchParams.get('mode');
+    const redirectTarget = mode === 'signin' ? '/coach' : '/profile';
+    return <Navigate to={redirectTarget} replace />;
   }
 
   // Show loading state
@@ -133,6 +135,8 @@ const Auth = () => {
         const { error } = await signIn(formData.email, formData.password);
         if (error) throw error;
         logEvent('auth_signin_completed');
+        // Navigate to coach page for sign-in
+        navigate('/coach');
       }
     } catch (error: any) {
       setFormErrors([getErrorMessage(error)]);
