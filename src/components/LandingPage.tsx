@@ -172,7 +172,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     <Menu className="w-4 h-4" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-64 p-2 bg-background/95 backdrop-blur-xl border border-border/20 shadow-xl">
+                <PopoverContent side="bottom" align="start" className="w-64 p-3 bg-gradient-to-br from-burgundy-800/90 to-burgundy-900/95 backdrop-blur-xl border border-white/12 shadow-2xl shadow-burgundy-900/50">
                   <div className="flex flex-col gap-1">
                     {navItems.map((item) => {
                       const Icon = item.icon;
@@ -180,20 +180,20 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
+                          className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg group"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          <Icon className="w-4 h-4" />
+                          <Icon className="w-4 h-4 group-hover:text-coral-300 transition-colors" />
                           {item.label}
                         </Link>
                       );
                     })}
                     
-                    <Separator className="my-1" />
+                    <Separator className="my-2 bg-white/10" />
                     
                     <a 
                       href="#how-it-works" 
-                      className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
+                      className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg"
                       onClick={(e) => {
                         e.preventDefault();
                         document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -204,14 +204,14 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </a>
                     <Link 
                       to="/privacy-and-security"
-                      className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
+                      className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Privacy & Security
                     </Link>
                     <Link 
                       to="/auth"
-                      className="flex items-center gap-3 text-coral-400 hover:text-coral-300 hover:bg-coral-400/10 transition-colors text-sm px-3 py-2 rounded-md border border-coral-400/30 mt-1"
+                      className="flex items-center gap-3 text-coral-300 hover:text-coral-200 bg-gradient-to-r from-coral-400/15 to-coral-500/10 hover:from-coral-400/25 hover:to-coral-500/20 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg border border-coral-400/20 mt-2 backdrop-blur-sm"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Get Started
