@@ -78,13 +78,28 @@ const StepCard = ({
         {/* Edge Light - Inner Border */}
         <div className="absolute inset-px rounded-2xl border border-white/8"></div>
 
-        {/* Step Badge with Gradient */}
-        <div className="absolute top-3 left-3">
+        {/* Ghosted Artsy Background Number */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="
-            px-3 py-1.5 rounded-full text-xs font-semibold text-white
-            bg-gradient-to-r from-coral-400 to-pink-500
-            shadow-lg shadow-coral-400/25
+            absolute -top-4 -right-6
+            text-[180px] md:text-[200px] font-black 
+            text-white/5 leading-none select-none
+            num-ghost animate-float-slow
+          ">
+            {displayStep}
+          </div>
+        </div>
+
+        {/* Floating Gradient Coin Badge */}
+        <div className="absolute -top-3 -right-3 z-20">
+          <div className="
+            w-16 h-16 rounded-full text-lg font-bold text-white
+            bg-gradient-to-br from-coral-400 via-pink-500 to-purple-500
+            shadow-2xl shadow-coral-400/40
+            flex items-center justify-center
             motion-safe:transition-all motion-safe:duration-300
+            animate-float-slow border-2 border-white/20
+            backdrop-blur-sm
           ">
             {displayStep}
           </div>

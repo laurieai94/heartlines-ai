@@ -500,6 +500,25 @@
             drop-shadow(0 0 16px rgba(255, 255, 255, 0.15));
   }
 
+  /* Artsy number animations */
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 4s ease-in-out infinite;
+  }
+
+  .num-ghost {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 0 30px rgba(255,255,255,0.1);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  }
+
   .flame-glow-strong {
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)) 
             drop-shadow(0 0 24px rgba(255, 255, 255, 0.2));
