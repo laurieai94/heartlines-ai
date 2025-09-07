@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -162,38 +162,38 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <nav className="px-6 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <SheetTrigger asChild>
+              <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-5 h-5 p-0 rounded-xl"
+                    className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-8 h-8 p-0 rounded-lg"
                     aria-label="Open menu"
                   >
-                    <Menu className="w-2.5 h-2.5" />
+                    <Menu className="w-4 h-4" />
                   </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-80 bg-burgundy-900/95 backdrop-blur-xl border-pink-300/20">
-                  <div className="flex flex-col gap-6 mt-8">
+                </PopoverTrigger>
+                <PopoverContent side="bottom" align="start" className="w-64 p-2 bg-background/95 backdrop-blur-xl border border-border/20 shadow-xl">
+                  <div className="flex flex-col gap-1">
                     {navItems.map((item) => {
                       const Icon = item.icon;
                       return (
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="flex items-center gap-3 text-white/80 hover:text-white transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-white/5"
+                          className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          <Icon className="w-5 h-5" />
+                          <Icon className="w-4 h-4" />
                           {item.label}
                         </Link>
                       );
                     })}
                     
-                    <Separator className="my-3 bg-white/10" />
+                    <Separator className="my-1" />
                     
                     <a 
                       href="#how-it-works" 
-                      className="text-white/80 hover:text-white transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-white/5"
+                      className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
                       onClick={(e) => {
                         e.preventDefault();
                         document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -204,21 +204,21 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     </a>
                     <Link 
                       to="/privacy-and-security"
-                      className="text-white/80 hover:text-white transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-white/5"
+                      className="flex items-center gap-3 text-foreground/80 hover:text-foreground hover:bg-muted transition-colors text-sm px-3 py-2 rounded-md"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Privacy & Security
                     </Link>
                     <Link 
                       to="/auth"
-                      className="text-coral-400 hover:text-coral-300 transition-colors font-light text-lg px-4 py-3 rounded-lg hover:bg-coral-400/10 border border-coral-400/30"
+                      className="flex items-center gap-3 text-coral-400 hover:text-coral-300 hover:bg-coral-400/10 transition-colors text-sm px-3 py-2 rounded-md border border-coral-400/30 mt-1"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Get Started
                     </Link>
                   </div>
-                </SheetContent>
-              </Sheet>
+                </PopoverContent>
+              </Popover>
               
               <Link to="/">
                 <BrandMark 
