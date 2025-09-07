@@ -222,7 +222,7 @@ const Auth = () => {
         {isSignUp && (
           <div className="text-center mb-8">
             <div className="flex items-baseline justify-center gap-2 text-3xl md:text-4xl font-bold text-white flex-wrap">
-              <span className="font-playfair leading-none">Tap into</span>
+              <span className="font-sans leading-none">Tap into</span>
               <HeartlinesWordmark size="md" className="text-white leading-none md:text-[1.1em] lg:text-[1.12em]" />
             </div>
           </div>
