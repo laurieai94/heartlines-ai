@@ -305,18 +305,18 @@ const Auth = () => {
                     className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isPasswordValid() ? 'pr-20' : 'pr-12'}`}
                     required
                   />
-                  {isPasswordValid() && (
-                    <CheckCircle className="absolute right-12 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
-                  )}
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                    className="absolute right-12 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
+                  {isPasswordValid() && (
+                    <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                  )}
                 </div>
                 {isSignUp && (
                   <p className="text-xs text-white/60 leading-tight">
@@ -341,18 +341,18 @@ const Auth = () => {
                     className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isConfirmPasswordValid() ? 'pr-20' : 'pr-12'}`}
                     required
                   />
-                  {isConfirmPasswordValid() && (
-                    <CheckCircle className="absolute right-12 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
-                  )}
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                    className="absolute right-12 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
                   >
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
+                  {isConfirmPasswordValid() && (
+                    <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                  )}
                 </div>
               </div>
             )}
