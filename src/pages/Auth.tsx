@@ -219,7 +219,7 @@ const Auth = () => {
         {isSignUp && (
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Tap into <span className="font-brand italic" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>heartlines</span>
+              Tap into <span className="font-playfair italic" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>heartlines</span>
             </h1>
           </div>
         )}
@@ -227,21 +227,21 @@ const Auth = () => {
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
           <div className="mb-8 p-4 sm:p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
-            <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
+            <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
                 <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{background: 'var(--gradient-primary-button)'}}>1</div>
-                <span className="text-white text-[11px] sm:text-[12px] leading-tight font-medium whitespace-nowrap">Join Free</span>
+                <span className="text-white text-[12px] sm:text-[13px] leading-tight font-medium whitespace-nowrap">Join Free</span>
               </div>
               {/* Step 2 */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
                 <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
-                <span className="text-white/70 text-[11px] sm:text-[12px] leading-tight whitespace-nowrap">Build Profiles</span>
+                <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Build Profiles</span>
               </div>
               {/* Step 3 */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
                 <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
-                <span className="text-white/70 text-[11px] sm:text-[12px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
+                <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
               </div>
             </div>
             
