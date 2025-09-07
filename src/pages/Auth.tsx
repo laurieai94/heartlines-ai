@@ -199,16 +199,16 @@ const Auth = () => {
         </div>
         {/* Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="text-center mb-3">
-            <h1 className="text-2xl font-bold text-white">
-              Tap into <span className="font-brand">heartlines</span>
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              Tap into <span className="font-brand italic" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>heartlines</span>
             </h1>
           </div>
         )}
 
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-3 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
+          <div className="mb-8 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
             <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
