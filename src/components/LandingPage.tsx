@@ -188,34 +188,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         </Link>
                       );
                     })}
-                    
-                    <Separator className="my-2 bg-white/10" />
-                    
-                    <a 
-                      href="#how-it-works" 
-                      className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      How it works
-                    </a>
-                    <Link 
-                      to="/privacy-and-security"
-                      className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Privacy & Security
-                    </Link>
-                    <Link 
-                      to="/auth"
-                      className="flex items-center gap-3 text-coral-300 hover:text-coral-200 bg-gradient-to-r from-coral-400/15 to-coral-500/10 hover:from-coral-400/25 hover:to-coral-500/20 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg border border-coral-400/20 mt-2 backdrop-blur-sm"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Get Started
-                    </Link>
                   </div>
                 </PopoverContent>
               </Popover>
