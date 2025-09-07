@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 interface MiniFlamesOverlayProps {
   className?: string;
@@ -18,21 +18,19 @@ const MiniFlamesOverlay: React.FC<MiniFlamesOverlayProps> = ({
     }
   };
 
-  const generateFlames = () => {
+  const flames = useMemo(() => {
     const flameCount = getFlameCount();
     return Array.from({ length: flameCount }, (_, i) => ({
       id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      size: Math.random() * 16 + 8, // 8-24px
+      left: Math.random() * 90 + 5, // 5-95% to avoid edges
+      top: Math.random() * 90 + 5, // 5-95% to avoid edges
+      size: Math.random() * 12 + 6, // 6-18px
       rotation: Math.random() * 360,
-      opacity: Math.random() * 0.15 + 0.05, // 0.05-0.2 opacity
+      opacity: Math.random() * 0.3 + 0.2, // 0.2-0.5 opacity
       animationDelay: Math.random() * 3,
       animationDuration: Math.random() * 2 + 4, // 4-6s
     }));
-  };
-
-  const flames = generateFlames();
+  }, [density]);
 
   const getFlameShape = (size: number) => {
     const scale = size / 20;
@@ -40,27 +38,28 @@ const MiniFlamesOverlay: React.FC<MiniFlamesOverlayProps> = ({
   };
 
   return (
-    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none z-[5] ${className}`}>
       <svg 
-        className="absolute inset-0 w-full h-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full mix-blend-soft-light"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="xMidYMid slice"
       >
         {flames.map((flame) => (
-          <path
-            key={flame.id}
-            d={getFlameShape(flame.size)}
-            fill="none"
-            stroke="hsl(var(--coral-400))"
-            strokeWidth="0.05"
-            opacity={flame.opacity}
-            transform={`translate(${flame.left}%, ${flame.top}%) rotate(${flame.rotation}deg)`}
-            style={{
-              transformOrigin: "center",
-              animation: `pulse ${flame.animationDuration}s ease-in-out infinite`,
-              animationDelay: `${flame.animationDelay}s`,
-            }}
-          />
+          <g key={flame.id}>
+            <path
+              d={getFlameShape(flame.size)}
+              fill="none"
+              stroke="hsl(var(--coral-400))"
+              strokeWidth="0.8"
+              opacity={flame.opacity}
+              transform={`translate(${flame.left * 10}, ${flame.top * 10}) rotate(${flame.rotation}) translate(-10, -10)`}
+              style={{
+                transformOrigin: "10px 10px",
+                animation: `pulse ${flame.animationDuration}s ease-in-out infinite`,
+                animationDelay: `${flame.animationDelay}s`,
+              }}
+            />
+          </g>
         ))}
       </svg>
     </div>
