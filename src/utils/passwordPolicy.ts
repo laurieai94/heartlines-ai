@@ -38,5 +38,5 @@ export const validatePasswordPolicy = (password: string): { isValid: boolean; me
 };
 
 export const getPasswordPolicyText = (): string => {
-  return 'Must be 8+ characters with uppercase, lowercase, number, and special character (@$!%*?&)';
+  return 'Keep it strong: upper, lower, number, special.';
 };
