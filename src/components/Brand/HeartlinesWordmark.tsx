@@ -1,30 +1,36 @@
 import React from "react";
+import { BRAND } from "@/branding";
 
 interface HeartlinesWordmarkProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
   onClick?: () => void;
+  ariaLabel?: string;
 }
 
-const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({ 
-  className = "", 
+const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
+  className = "",
   size = "lg",
-  onClick
+  onClick,
+  ariaLabel
 }) => {
-  const sizeClasses = {
-    sm: "text-2xl",
-    md: "text-3xl", 
-    lg: "text-4xl",
-    xl: "text-6xl"
+  const sizeClasses: Record<NonNullable<typeof size>, string> = {
+    sm: "h-5 md:h-6",
+    md: "h-6 md:h-8",
+    lg: "h-8 md:h-10",
+    xl: "h-10 md:h-12",
   };
 
   return (
-    <h1 
-      className={`font-brand font-normal tracking-wide text-burgundy-600 ${sizeClasses[size]} ${className} ${onClick ? 'cursor-pointer' : ''}`}
+    <img
+      src={BRAND.wordmarkSrc}
+      alt={ariaLabel || BRAND.alt}
+      className={`${sizeClasses[size]} object-contain align-middle ${onClick ? "cursor-pointer" : ""} ${className}`}
       onClick={onClick}
-    >
-      
-    </h1>
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => e.key === "Enter" && onClick() : undefined}
+    />
   );
 };
 
