@@ -210,14 +210,17 @@ const Auth = () => {
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
         {/* Heartlines Logo */}
         <div className="flex justify-center mb-8">
-          <HeartlinesWordmark size="lg" ariaLabel="heartlines logo" />
+          <HeartlinesWordmark 
+            size="lg" 
+            className="text-white md:text-4xl text-3xl" 
+          />
         </div>
         {/* Header - Only show during sign-up */}
         {isSignUp && (
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 md:gap-4 text-3xl md:text-4xl font-bold text-white leading-none">
-              <span className="font-playfair tracking-tight">Tap into</span>
-              <HeartlinesWordmark size="md" className="h-8 md:h-10" ariaLabel="heartlines logo" />
+            <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl font-bold text-white">
+              <span className="font-playfair">Tap into</span>
+              <HeartlinesWordmark size="md" className="text-white" />
             </div>
           </div>
         )}
