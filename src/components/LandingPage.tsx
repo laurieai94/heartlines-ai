@@ -12,6 +12,125 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 
+// Premium StepCard Component with Glass Effects and Micro-animations
+const StepCard = ({ 
+  step, 
+  title, 
+  description, 
+  icon, 
+  iconName, 
+  index 
+}: {
+  step: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  iconName: string;
+  index: number;
+}) => {
+  const [displayStep, setDisplayStep] = useState("00");
+
+  useEffect(() => {
+    // Count-up animation for step badge
+    const timer = setTimeout(() => {
+      setDisplayStep(step);
+    }, 500 + index * 80); // Stagger the count-up
+
+    return () => clearTimeout(timer);
+  }, [step, index]);
+
+  return (
+    <article 
+      className={`
+        relative group cursor-pointer
+        w-full max-w-md mx-auto md:max-w-none
+        mb-6 md:mb-0
+        motion-safe:animate-fade-in
+        focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none
+        ${index === 0 ? 'motion-safe:animation-delay-0' : ''}
+        ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
+        ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
+      `}
+      style={{ 
+        animationDelay: `${index * 80}ms`,
+        animationFillMode: 'both'
+      }}
+      tabIndex={0}
+      role="article"
+      aria-label={`${title}: ${description}`}
+    >
+      {/* Premium Glass Card with Enhanced Effects */}
+      <div className="
+        relative overflow-hidden
+        rounded-2xl bg-white/10 backdrop-blur-md 
+        border border-white/15 shadow-xl
+        p-6
+        motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
+        motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
+        motion-safe:hover:shadow-coral-400/20
+        motion-reduce:transform-none motion-reduce:transition-none
+      ">
+        {/* Inner Highlight Overlay */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/12 via-white/3 to-transparent opacity-60"></div>
+        
+        {/* Edge Light - Inner Border */}
+        <div className="absolute inset-px rounded-2xl border border-white/8"></div>
+
+        {/* Step Badge with Gradient */}
+        <div className="absolute top-3 left-3">
+          <div className="
+            px-3 py-1.5 rounded-full text-xs font-semibold text-white
+            bg-gradient-to-r from-coral-400 to-pink-500
+            shadow-lg shadow-coral-400/25
+            motion-safe:transition-all motion-safe:duration-300
+          ">
+            {displayStep}
+          </div>
+        </div>
+
+        {/* Content Container */}
+        <div className="relative z-10 text-center pt-8">
+          {/* Icon with Gradient Halo */}
+          <div className="mb-4 flex justify-center">
+            {/* Gradient Halo Behind Icon */}
+            <div className="absolute w-16 h-16 bg-gradient-to-r from-coral-400/25 to-pink-400/25 rounded-full blur-lg"></div>
+            
+            {/* Icon Container with Glass Effect */}
+            <div className="
+              relative w-12 h-12 
+              bg-white/10 backdrop-blur-sm border border-white/20 
+              rounded-full flex items-center justify-center
+              text-coral-400
+              motion-safe:transition-all motion-safe:duration-200
+              group-hover:scale-105 group-hover:-translate-y-0.5
+              group-hover:text-pink-400 group-hover:bg-white/15
+              shadow-lg
+            " aria-label={`${iconName} icon`}>
+              {icon}
+            </div>
+          </div>
+
+          {/* Text Content */}
+          <h3 className="text-lg font-semibold text-white/95 mb-2 leading-7">
+            {title}
+          </h3>
+          <p className="text-sm text-white/80 leading-6 max-w-xs mx-auto">
+            {description}
+          </p>
+        </div>
+
+        {/* Subtle Sheen Effect on Hover */}
+        <div className="
+          absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
+          bg-gradient-to-br from-transparent via-white/5 to-transparent
+          motion-safe:transition-opacity motion-safe:duration-500
+          pointer-events-none
+        "></div>
+      </div>
+    </article>
+  );
+};
+
 const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boolean }) => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -325,54 +444,67 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         )}
       </section>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="py-12 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* How It Works Section - Premium Mobile-First */}
+      <section id="how-it-works" className="py-12 md:py-20 relative overflow-hidden">
+        {/* Background Ambient Orbs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-coral-400/5 to-pink-400/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-peach-400/5 to-coral-400/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/5 to-peach-400/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-semibold text-white/95 mb-4 md:mb-6">How It Works</h2>
             <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto">Quick sign-up to personalized advice in three simple steps</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-8">
+          {/* Mobile-First Card Stack with Dotted Connector */}
+          <div className="relative max-w-md mx-auto md:max-w-none md:grid md:grid-cols-3 md:gap-8 md:max-w-4xl">
+            {/* Dotted Connector - Mobile */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-coral-400/20 to-transparent transform -translate-x-1/2 md:hidden">
+              <div className="absolute top-1/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute top-2/3 w-2 h-2 bg-pink-400/40 rounded-full transform -translate-x-1/2"></div>
+            </div>
+
+            {/* Dotted Connector - Desktop */}
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-coral-400/20 to-transparent transform -translate-y-1/2">
+              <div className="absolute left-1/3 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute right-1/3 w-2 h-2 bg-pink-400/40 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+            </div>
+
             {[
               {
                 step: "01",
                 title: "Join Free",
                 description: "Quick sign-up. No card needed.",
-                icon: <UserPlus className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
+                icon: <UserPlus className="w-5 h-5" />,
+                iconName: "user-plus"
               },
               {
                 step: "02", 
                 title: "Share Your Story",
                 description: "A few answers so Kai gets you.",
-                icon: <MessageSquare className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
+                icon: <MessageSquare className="w-5 h-5" />,
+                iconName: "message-square"
               },
               {
                 step: "03",
                 title: "Talk It Out",
                 description: "Fresh advice, not recycled tips.",
-                icon: <MessageCircleHeart className="w-4 md:w-6 h-4 md:h-6" aria-hidden="true" />
+                icon: <MessageCircleHeart className="w-5 h-5" />,
+                iconName: "message-heart"
               }
             ].map((item, index) => (
-              <article 
+              <StepCard 
                 key={index}
-                className={`${glassCard} p-3 md:p-6 relative group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300`}
-                tabIndex={0}
-                role="article"
-                aria-label={item.title}
-              >
-                <span className="absolute top-2 md:top-4 left-2 md:left-4 text-xs px-1.5 py-0.5 md:px-2 md:py-1 rounded-full bg-gradient-to-r from-coral-400 to-pink-500 text-white/95 shadow-sm">
-                  {item.step}
-                </span>
-                
-                <div className="mt-5 md:mt-8 text-center">
-                  <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-xl flex items-center justify-center mb-2 md:mb-4 mx-auto border border-coral-300/30 text-coral-400 group-hover:text-pink-400 group-hover:scale-110 motion-safe:transition-all motion-safe:duration-200 shadow-sm">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-base md:text-xl font-semibold text-white/95 mb-1.5 md:mb-2">{item.title}</h3>
-                  <p className="text-white/70 text-xs md:text-sm leading-relaxed">{item.description}</p>
-                </div>
-              </article>
+                step={item.step}
+                title={item.title}
+                description={item.description}
+                icon={item.icon}
+                iconName={item.iconName}
+                index={index}
+              />
             ))}
           </div>
         </div>
