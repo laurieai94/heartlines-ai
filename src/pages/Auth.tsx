@@ -199,22 +199,22 @@ const Auth = () => {
         </div>
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-4 p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
-            <div className="grid grid-cols-3 gap-2 items-center mb-2">
+          <div className="mb-4 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
+            <div className="grid grid-cols-3 gap-1 sm:gap-2 items-center mb-2">
               {/* Step 1 - active */}
-              <div className="flex items-center justify-center gap-1.5">
-                <div className="w-6 h-6 rounded-full text-white text-xs font-semibold flex items-center justify-center" style={{background: 'var(--gradient-primary-button)'}}>1</div>
-                <span className="text-white text-[12px] leading-tight font-medium">Join Free</span>
+              <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{background: 'var(--gradient-primary-button)'}}>1</div>
+                <span className="text-white text-[10px] sm:text-[12px] leading-tight font-medium whitespace-nowrap">Join Free</span>
               </div>
               {/* Step 2 */}
-              <div className="flex items-center justify-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">2</div>
-                <span className="text-white/70 text-[12px] leading-tight text-center">Build Profiles</span>
+              <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
+                <span className="text-white/70 text-[10px] sm:text-[12px] leading-tight whitespace-nowrap">Build Profiles</span>
               </div>
               {/* Step 3 */}
-              <div className="flex items-center justify-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">3</div>
-                <span className="text-white/70 text-[12px] leading-tight">Chat w/ Kai</span>
+              <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[10px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
+                <span className="text-white/70 text-[10px] sm:text-[12px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
               </div>
             </div>
             
