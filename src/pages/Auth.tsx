@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Eye, EyeOff, ArrowLeft, Mail, RotateCcw } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Mail, RotateCcw, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -181,6 +181,19 @@ const Auth = () => {
     }
   };
 
+  // Helper functions for validation checks
+  const isEmailValid = () => {
+    return formData.email && formData.email.includes('@') && formData.email.length > 0;
+  };
+
+  const isPasswordValid = () => {
+    if (isSignUp) {
+      return validatePasswordPolicy(formData.password).isValid;
+    } else {
+      return formData.password && formData.password.length >= 6;
+    }
+  };
+
   return (
     <div className="min-h-screen questionnaire-bg">
       {/* Animated background elements */}
@@ -254,15 +267,20 @@ const Auth = () => {
               <Label htmlFor="email" className="text-white text-sm">
                 Email
               </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                placeholder="Drop your email"
-                className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20"
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  placeholder="Drop your email"
+                  className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isEmailValid() ? 'pr-10' : ''}`}
+                  required
+                />
+                {isEmailValid() && (
+                  <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                )}
+              </div>
             </div>
 
             <div className="space-y-1">
@@ -279,9 +297,12 @@ const Auth = () => {
                     placeholder="Keep it secret"
                     pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
                     title={isSignUp ? getPasswordPolicyText() : undefined}
-                    className="bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
+                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isPasswordValid() ? 'pr-16' : 'pr-10'}`}
                     required
                   />
+                  {isPasswordValid() && (
+                    <CheckCircle className="absolute right-10 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
+                  )}
                   <Button
                     type="button"
                     variant="ghost"
