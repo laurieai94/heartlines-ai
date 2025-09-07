@@ -180,7 +180,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm px-3 py-2.5 rounded-lg group"
+                          className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-200 text-sm px-3 py-2.5 rounded-lg group"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           <Icon className="w-4 h-4 group-hover:text-coral-300 transition-colors" />
