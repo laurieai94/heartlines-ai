@@ -320,7 +320,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   <Link to="/profile">
                     <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">
                       <User className="w-4 h-4 mr-2" />
-                      Profile
+                    Sign in
                     </Button>
                   </Link>
                   <Link to="/dashboard">
