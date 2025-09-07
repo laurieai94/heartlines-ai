@@ -325,7 +325,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   </Link>
                   <Link to="/dashboard">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                      Dashboard
+                    Get Started
                     </Button>
                   </Link>
                 </>
