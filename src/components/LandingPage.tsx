@@ -90,20 +90,6 @@ const StepCard = ({
           </div>
         </div>
 
-        {/* Floating Gradient Coin Badge */}
-        <div className="absolute -top-3 -right-3 z-20">
-          <div className="
-            w-16 h-16 rounded-full text-lg font-bold text-white
-            bg-gradient-to-br from-coral-400 via-pink-500 to-purple-500
-            shadow-2xl shadow-coral-400/40
-            flex items-center justify-center
-            motion-safe:transition-all motion-safe:duration-300
-            animate-float-slow border-2 border-white/20
-            backdrop-blur-sm
-          ">
-            {displayStep}
-          </div>
-        </div>
 
         {/* Content Container */}
         <div className="relative z-10 text-center pt-8">
