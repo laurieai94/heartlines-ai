@@ -281,7 +281,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
       {/* Navigation */}
       {showMarketingTopBar && (
-      <nav className="px-4 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
+      <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-burgundy-900/95 backdrop-blur-sm border-b border-white/10">
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -346,7 +346,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
             </div>
             
             {/* Mobile CTA */}
-            <div className="md:hidden mr-6">
+            <div className="md:hidden mr-2">
               <div className="flex items-center gap-2">
                 <Link to="/auth?mode=signin">
                   <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
