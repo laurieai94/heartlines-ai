@@ -35,8 +35,6 @@ const Auth = () => {
     }
   }, [searchParams]);
 
-  // Check if we should show progress steps (hide for direct sign-in)
-  const showProgressSteps = searchParams.get('mode') !== 'signin';
 
   // Redirect if already authenticated
   if (user && !loading) {
@@ -191,31 +189,33 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
-        {/* Progress Header - Always visible */}
-        <div className="mb-4 p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
-          <div className="grid grid-cols-3 gap-2 items-center mb-2">
-            {/* Step 1 - active */}
-            <div className="flex items-center justify-center gap-1.5">
-              <div className="w-6 h-6 rounded-full text-white text-xs font-semibold flex items-center justify-center" style={{background: 'var(--gradient-primary-button)'}}>1</div>
-              <span className="text-white text-[12px] leading-tight font-medium">Join Free</span>
+        {/* Progress Header - Only show during sign-up */}
+        {isSignUp && (
+          <div className="mb-4 p-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20">
+            <div className="grid grid-cols-3 gap-2 items-center mb-2">
+              {/* Step 1 - active */}
+              <div className="flex items-center justify-center gap-1.5">
+                <div className="w-6 h-6 rounded-full text-white text-xs font-semibold flex items-center justify-center" style={{background: 'var(--gradient-primary-button)'}}>1</div>
+                <span className="text-white text-[12px] leading-tight font-medium">Join Free</span>
+              </div>
+              {/* Step 2 */}
+              <div className="flex items-center justify-center gap-1.5">
+                <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">2</div>
+                <span className="text-white/70 text-[12px] leading-tight text-center">Build Profiles</span>
+              </div>
+              {/* Step 3 */}
+              <div className="flex items-center justify-center gap-1.5">
+                <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">3</div>
+                <span className="text-white/70 text-[12px] leading-tight">Chat with Kai</span>
+              </div>
             </div>
-            {/* Step 2 */}
-            <div className="flex items-center justify-center gap-1.5">
-              <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">2</div>
-              <span className="text-white/70 text-[12px] leading-tight text-center">Build Profiles</span>
-            </div>
-            {/* Step 3 */}
-            <div className="flex items-center justify-center gap-1.5">
-              <div className="w-6 h-6 rounded-full bg-white/15 text-white/60 text-xs font-semibold flex items-center justify-center">3</div>
-              <span className="text-white/70 text-[12px] leading-tight">Chat with Kai</span>
+            
+            {/* Progress Bar */}
+            <div className="w-full bg-white/10 rounded-full h-1">
+              <div className="h-1 rounded-full w-1/3" style={{background: 'var(--gradient-primary-button)'}}></div>
             </div>
           </div>
-          
-          {/* Progress Bar */}
-          <div className="w-full bg-white/10 rounded-full h-1">
-            <div className="h-1 rounded-full w-1/3" style={{background: 'var(--gradient-primary-button)'}}></div>
-          </div>
-        </div>
+        )}
 
         <div className="questionnaire-card p-4 sm:p-6 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? (
