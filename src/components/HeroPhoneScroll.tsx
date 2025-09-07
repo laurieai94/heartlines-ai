@@ -284,7 +284,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1.5 flex items-center">
                 <input 
                   type="text" 
-                  placeholder="Chat with Kai" 
+                  placeholder="Chat with Kai..." 
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
