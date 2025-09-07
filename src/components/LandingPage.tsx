@@ -98,13 +98,13 @@ const StepCard = ({
             <FlameIconHalo intensity="medium" size="md" animated={true}>
               <div className="
                 relative w-12 h-12 
-                bg-white/10 backdrop-blur-sm border border-white/20 
+                bg-white/25 backdrop-blur-sm border-2 border-white/40 
                 rounded-full flex items-center justify-center
-                text-coral-400
+                text-coral-300
                 motion-safe:transition-all motion-safe:duration-200
                 group-hover:scale-105 group-hover:-translate-y-0.5
-                group-hover:text-pink-400 group-hover:bg-white/15
-                shadow-lg
+                group-hover:text-pink-300 group-hover:bg-white/35
+                shadow-xl shadow-coral-400/30
               " aria-label={`${iconName} icon`}>
                 {icon}
               </div>
