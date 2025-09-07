@@ -10,6 +10,7 @@ import { BRAND } from "@/branding";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { toast } from "sonner";
 import { logEvent } from "@/utils/analytics";
+import { validatePasswordPolicy, getPasswordPolicyText } from "@/utils/passwordPolicy";
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -66,6 +67,16 @@ const SignUpModal = ({
   };
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate password policy for sign-up only
+    if (isSignUp) {
+      const passwordValidation = validatePasswordPolicy(password);
+      if (!passwordValidation.isValid) {
+        toast.error(passwordValidation.message);
+        return;
+      }
+    }
+    
     setLoading(true);
     try {
       let result;
@@ -296,25 +307,34 @@ const SignUpModal = ({
                   </div>
 
                   <div className="space-y-1">
-                    <div className="relative">
-                      <label htmlFor="password" className="sr-only">Password</label>
-                      <input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        className="questionnaire-input pr-12"
-                        placeholder="Password"
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 questionnaire-text-muted hover:questionnaire-text transition-colors"
-                        aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
+                    <div className="space-y-2">
+                      <div className="relative">
+                        <label htmlFor="password" className="sr-only">Password</label>
+                        <input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={e => setPassword(e.target.value)}
+                          className="questionnaire-input pr-12"
+                          placeholder="Password"
+                          pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
+                          title={isSignUp ? getPasswordPolicyText() : undefined}
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 questionnaire-text-muted hover:questionnaire-text transition-colors"
+                          aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        >
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                      {isSignUp && (
+                        <p className="text-xs questionnaire-text-muted leading-tight">
+                          {getPasswordPolicyText()}
+                        </p>
+                      )}
                     </div>
 
                     {!isSignUp && (

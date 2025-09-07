@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
+import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 
 const Auth = () => {
   const { user, loading, signIn, signUp, resendVerification } = useAuth();
@@ -67,8 +68,17 @@ const Auth = () => {
       errors.push('Please enter a valid email address');
     }
 
-    if (!formData.password || formData.password.length < 6) {
-      errors.push('Password must be at least 6 characters long');
+    if (isSignUp) {
+      // Use strong password policy for sign-up
+      const passwordValidation = validatePasswordPolicy(formData.password);
+      if (!passwordValidation.isValid) {
+        errors.push(passwordValidation.message);
+      }
+    } else {
+      // Basic validation for sign-in
+      if (!formData.password || formData.password.length < 6) {
+        errors.push('Password must be at least 6 characters long');
+      }
     }
 
     if (isSignUp && formData.password !== formData.confirmPassword) {
@@ -284,25 +294,34 @@ const Auth = () => {
               <Label htmlFor="password" className="text-white text-sm">
                 Password
               </Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
-                  placeholder="Keep it secret"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
-                  required
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </Button>
+              <div className="space-y-2">
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={formData.password}
+                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    placeholder="Keep it secret"
+                    pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
+                    title={isSignUp ? getPasswordPolicyText() : undefined}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 pr-10"
+                    required
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                </div>
+                {isSignUp && (
+                  <p className="text-xs text-white/60 leading-tight">
+                    {getPasswordPolicyText()}
+                  </p>
+                )}
               </div>
             </div>
 
