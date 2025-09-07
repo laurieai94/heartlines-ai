@@ -5,6 +5,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
 
 const Mission = () => {
   const { user } = useAuth();
@@ -37,7 +38,8 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, AI coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-900">
+      <MobileHeaderVisibilityProvider>
+        <div className="min-h-screen bg-burgundy-900">
         <DashboardHeader 
           accessLevel="free"
           profileCompletion={0}
@@ -133,6 +135,7 @@ const Mission = () => {
           </div>
         </div>
       </div>
+      </MobileHeaderVisibilityProvider>
     </>
   );
 };

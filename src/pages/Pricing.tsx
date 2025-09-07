@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import DashboardHeader from "@/components/DashboardHeader";
+import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
 
 
 const pricingPlans = [
@@ -132,7 +133,8 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-burgundy-900">
+    <MobileHeaderVisibilityProvider>
+      <div className="min-h-screen bg-burgundy-900">
       <div className="relative z-10">
         <DashboardHeader 
           accessLevel="freemium"
@@ -295,6 +297,7 @@ const Pricing = () => {
         </div>
       </div>
     </div>
+    </MobileHeaderVisibilityProvider>
   );
 };
 
