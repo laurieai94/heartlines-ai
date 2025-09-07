@@ -446,7 +446,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
       </section>
 
       {/* How It Works Section - Premium Mobile-First */}
-      <section id="how-it-works" className="py-12 md:py-20 relative overflow-hidden">
+      <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
         {/* Background Ambient Orbs */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-coral-400/5 to-pink-400/5 rounded-full blur-3xl"></div>
