@@ -14,6 +14,7 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 import MiniFlamesOverlay from "./MiniFlamesOverlay";
+import GlassCreditCards from "./decor/GlassCreditCards";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({ 
@@ -403,7 +404,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       {user ? (
                         <>
                           <Link to="/auth">
-                            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                            <Button 
+                              size="lg" 
+                              variant="glass"
+                              className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" 
+                              style={{ animationDelay: '1.4s' }}
+                            >
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
@@ -412,7 +418,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                       ) : (
                         <>
                           <Link to="/auth">
-                            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                            <Button 
+                              size="lg" 
+                              variant="glass"
+                              className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" 
+                              style={{ animationDelay: '1.4s' }}
+                            >
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
@@ -424,7 +435,9 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
-                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top">
+                    {/* Glass Cards Behind Phone */}
+                    <GlassCreditCards />
+                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
                   </div>
@@ -474,7 +487,12 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     ) : (
                       <>
                         <Link to="/auth">
-                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                          <Button 
+                            size="lg" 
+                            variant="glass"
+                            className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" 
+                            style={{ animationDelay: '1.4s' }}
+                          >
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-3" />
                           </Button>
