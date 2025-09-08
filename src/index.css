@@ -811,5 +811,33 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.25);
     transform: translateY(-1px);
   }
+
+  /* Burgundy glass effect for forms and UI components */
+  .glass-burgundy {
+    background: hsl(var(--burgundy-900) / 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--burgundy-500) / 0.2);
+    box-shadow: 
+      0 8px 32px hsl(var(--burgundy-900) / 0.3),
+      inset 0 1px 0 hsl(var(--burgundy-300) / 0.1);
+  }
+
+  .glass-burgundy-input {
+    background: hsl(var(--burgundy-900) / 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--burgundy-500) / 0.3);
+    color: white;
+  }
+
+  .glass-burgundy-input::placeholder {
+    color: hsl(var(--burgundy-100) / 0.6);
+  }
+
+  .glass-burgundy-input:focus {
+    border-color: hsl(var(--coral-400) / 0.5);
+    box-shadow: 0 0 0 1px hsl(var(--coral-400) / 0.2);
+  }
 }
 

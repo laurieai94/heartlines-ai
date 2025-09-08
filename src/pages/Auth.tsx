@@ -230,7 +230,7 @@ const Auth = () => {
 
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-8 p-4 sm:p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
+          <div className="mb-8 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
             <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -277,15 +277,15 @@ const Auth = () => {
                 Email
               </Label>
               <div className="relative">
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder="Drop your email"
-                  className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isEmailValid() ? 'pr-12' : ''}`}
-                  required
-                />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    placeholder="Drop your email"
+                    className={isEmailValid() ? 'pr-12' : ''}
+                    required
+                  />
                 {isEmailValid() && (
                   <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
                 )}
@@ -306,7 +306,7 @@ const Auth = () => {
                     placeholder="Keep it secret"
                     pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined}
                     title={isSignUp ? getPasswordPolicyText() : undefined}
-                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isPasswordValid() ? 'pr-20' : 'pr-12'}`}
+                    className={isPasswordValid() ? 'pr-20' : 'pr-12'}
                     required
                   />
                   <Button
@@ -342,7 +342,7 @@ const Auth = () => {
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                     placeholder="Confirm your password"
-                    className={`bg-white/10 border-white/20 text-white text-sm placeholder:text-white/50 focus:border-pink-400/50 focus:ring-pink-400/20 ${isConfirmPasswordValid() ? 'pr-20' : 'pr-12'}`}
+                    className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'}
                     required
                   />
                   <Button

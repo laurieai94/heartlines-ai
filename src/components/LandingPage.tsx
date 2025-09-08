@@ -58,8 +58,7 @@ const StepCard = ({
       {/* Premium Glass Card with Enhanced Effects */}
       <div className="
         relative overflow-hidden
-        rounded-2xl bg-white/10 backdrop-blur-md 
-        border border-white/15 shadow-xl
+        rounded-2xl glass-burgundy shadow-xl
         p-4 md:p-6
         motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
         motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
@@ -91,12 +90,12 @@ const StepCard = ({
           <div className="mb-2 md:mb-4 flex justify-center">
             <div className="
               relative w-8 h-8 md:w-12 md:h-12 
-              bg-white/25 backdrop-blur-sm border-2 border-white/40 
+              glass-burgundy border-2 border-burgundy-400/40 
               rounded-full flex items-center justify-center
               text-coral-300
               motion-safe:transition-all motion-safe:duration-200
               group-hover:scale-105 group-hover:-translate-y-0.5
-              group-hover:text-pink-300 group-hover:bg-white/35
+              group-hover:text-pink-300 group-hover:bg-burgundy-300/35
             " aria-label={`${iconName} icon`}>
               <div className="scale-75 md:scale-100">
                 {icon}
@@ -138,7 +137,7 @@ const LandingPage = ({
   const isEmbedded = !showMarketingTopBar;
 
   // Glass card styling helper
-  const glassCard = "rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md shadow-md";
+  const glassCard = "rounded-2xl border border-burgundy-500/15 glass-burgundy shadow-md";
   const navItems = [{
     to: '/',
     label: 'Home',
@@ -269,14 +268,14 @@ const LandingPage = ({
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" className="text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all duration-200" aria-label="Open menu">
+                  <Button variant="ghost" className="text-white/50 hover:text-white/80 glass-burgundy hover:bg-burgundy-400/10 p-3 rounded-xl transition-all duration-200" aria-label="Open menu">
                     <Menu className="w-8 h-8" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent side="bottom" align="start" className="w-36 p-2 bg-gradient-to-br from-burgundy-800/90 via-coral-900/80 to-burgundy-900/90 backdrop-blur-md border border-coral-400/20 shadow-xl shadow-coral-400/10 rounded-xl">
                   <div className="flex flex-col">
                     {navItems.map(item => {
-                  return <Link key={item.to} to={item.to} className="text-white/70 hover:text-coral-200 hover:bg-white/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" onClick={() => setIsMenuOpen(false)}>
+                  return <Link key={item.to} to={item.to} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" onClick={() => setIsMenuOpen(false)}>
                           {item.label}
                         </Link>;
                 })}
@@ -289,7 +288,7 @@ const LandingPage = ({
             <div className="hidden md:flex items-center gap-3 mr-6">
               {user ? <>
                   <Link to="/profile">
-                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">
+                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 transition-all duration-200">
                       <User className="w-4 h-4 mr-2" />
                     Sign in
                     </Button>
@@ -301,7 +300,7 @@ const LandingPage = ({
                   </Link>
                 </> : <>
                   <Link to="/auth?mode=signin">
-                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">
+                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 transition-all duration-200">
                       Sign In
                     </Button>
                   </Link>
@@ -317,7 +316,7 @@ const LandingPage = ({
             <div className="md:hidden mr-2">
               <div className="flex items-center gap-2">
                 <Link to="/auth?mode=signin">
-                  <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
+                  <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
                     Sign In
                   </Button>
                 </Link>
@@ -429,7 +428,7 @@ const LandingPage = ({
                   <div className="flex flex-col sm:flex-row gap-4">
                     {user ? <>
                         <Link to="/profile">
-                          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{
+                          <Button variant="outline" className="border-burgundy-400/30 text-white hover:bg-burgundy-400/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{
                       animationDelay: '1.2s'
                     }}>
                             <User className="w-5 h-5 mr-2" />
@@ -797,7 +796,7 @@ const LandingPage = ({
               </Link>
               
               <Link to="/mission">
-                <Button variant="ghost" className="w-full bg-white/10 border border-white/15 rounded-full text-white/90 hover:bg-white/15 px-6 py-3 text-base md:text-lg motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
+                <Button variant="ghost" className="w-full glass-burgundy border border-burgundy-500/15 rounded-full text-white/90 hover:bg-burgundy-400/15 px-6 py-3 text-base md:text-lg motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
                   Watch a 45-sec demo
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
