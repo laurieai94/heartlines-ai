@@ -1,4 +1,5 @@
 import millennial_couple from "@/assets/millennial-couple-conversation.jpg";
+import { useState } from "react";
 
 interface PhotoSplitBannerProps {
   imageSrc?: string;
@@ -13,17 +14,22 @@ const PhotoSplitBanner = ({
   heading = "Real relationships\nstart with real\nconversations.",
   align = 'right'
 }: PhotoSplitBannerProps) => {
+  const [imageError, setImageError] = useState(false);
+  
   return (
     <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
       {/* Full-bleed image */}
       <div className="absolute inset-0">
         <img 
-          src={imageSrc} 
+          src={imageError ? millennial_couple : imageSrc} 
           alt={alt}
-          className="w-full h-full object-cover object-center"
+          className={`w-full h-full object-cover ${
+            align === 'right' ? 'object-[75%_center]' : 'object-[25%_center]'
+          }`}
           loading="eager"
           decoding="async"
           fetchPriority="high"
+          onError={() => setImageError(true)}
         />
         
         {/* Lighter overlay gradient */}
