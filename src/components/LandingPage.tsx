@@ -14,6 +14,7 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 import MiniFlamesOverlay from "./MiniFlamesOverlay";
+import HowItWorksSwipe from "./HowItWorksSwipe";
 
 
 // Premium StepCard Component with Glass Effects and Micro-animations
@@ -512,7 +513,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         )}
       </section>
 
-      {/* How It Works Section - Premium Mobile-First */}
+      {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
         {/* Background Ambient Orbs */}
         <div className="absolute inset-0 pointer-events-none">
@@ -524,55 +525,65 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
             <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <p className="text-gray-300 text-lg mb-8">Playful 4-step flow:</p>
           </div>
           
-          {/* Mobile-First Card Stack with Dotted Connector */}
-          <div className="relative max-w-md mx-auto md:max-w-none md:grid md:grid-cols-3 md:gap-8 md:max-w-4xl">
-            {/* Dotted Connector - Mobile */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-coral-400/20 to-transparent transform -translate-x-1/2 md:hidden">
-              <div className="absolute top-1/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2"></div>
-              <div className="absolute top-2/3 w-2 h-2 bg-pink-400/40 rounded-full transform -translate-x-1/2"></div>
+          {/* 4-Step Cards */}
+          <div className="relative max-w-6xl mx-auto">
+            {/* Desktop Connector Line */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-coral-400/20 to-transparent transform -translate-y-1/2">
+              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute left-2/4 w-2 h-2 bg-pink-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute left-3/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
             </div>
 
-            {/* Dotted Connector - Desktop */}
-            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-coral-400/20 to-transparent transform -translate-y-1/2">
-              <div className="absolute left-1/3 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute right-1/3 w-2 h-2 bg-pink-400/40 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  step: "01",
+                  title: "Make Your Profile",
+                  description: "Who you are when you're stressed, happy, or low-key annoyed.",
+                  icon: <UserPlus className="w-5 h-5" />,
+                  iconName: "user-plus"
+                },
+                {
+                  step: "02", 
+                  title: "Add Your Person",
+                  description: "Their vibe too — so Kai knows both sides of the story.",
+                  icon: <MessageSquare className="w-5 h-5" />,
+                  iconName: "message-square"
+                },
+                {
+                  step: "03",
+                  title: "Chat with Kai",
+                  description: "Spill the tea. Practice convos. Get real advice.",
+                  icon: <MessageCircleHeart className="w-5 h-5" />,
+                  iconName: "message-heart"
+                },
+                {
+                  step: "04",
+                  title: "Try the Move IRL",
+                  description: "Tiny actions → big shifts.",
+                  icon: <Sparkles className="w-5 h-5" />,
+                  iconName: "sparkles"
+                }
+              ].map((item, index) => (
+                <StepCard 
+                  key={index}
+                  step={item.step}
+                  title={item.title}
+                  description={item.description}
+                  icon={item.icon}
+                  iconName={item.iconName}
+                  index={index}
+                />
+              ))}
             </div>
+          </div>
 
-            {[
-              {
-                step: "01",
-                title: "Join Free",
-                description: "Quick sign-up. No card needed.",
-                icon: <UserPlus className="w-5 h-5" />,
-                iconName: "user-plus"
-              },
-              {
-                step: "02", 
-                title: "Share Your Story",
-                description: "A few answers so Kai gets you.",
-                icon: <MessageSquare className="w-5 h-5" />,
-                iconName: "message-square"
-              },
-              {
-                step: "03",
-                title: "Talk It Out",
-                description: "Fresh advice, not recycled tips.",
-                icon: <MessageCircleHeart className="w-5 h-5" />,
-                iconName: "message-heart"
-              }
-            ].map((item, index) => (
-              <StepCard 
-                key={index}
-                step={item.step}
-                title={item.title}
-                description={item.description}
-                icon={item.icon}
-                iconName={item.iconName}
-                index={index}
-              />
-            ))}
+          {/* Swipeable Cards Section */}
+          <div className="mt-16">
+            <HowItWorksSwipe />
           </div>
         </div>
       </section>
