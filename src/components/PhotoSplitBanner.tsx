@@ -1,4 +1,4 @@
-import millennial_woman from "@/assets/millennial-woman-portrait.jpg";
+import millennial_couple from "@/assets/millennial-couple-conversation.jpg";
 
 interface PhotoSplitBannerProps {
   imageSrc?: string;
@@ -8,8 +8,8 @@ interface PhotoSplitBannerProps {
 }
 
 const PhotoSplitBanner = ({ 
-  imageSrc = millennial_woman,
-  alt = "Woman smiling confidently",
+  imageSrc = millennial_couple,
+  alt = "Millennial couple having a warm conversation",
   heading = "Real relationships\nstart with real\nconversations.",
   align = 'right'
 }: PhotoSplitBannerProps) => {
