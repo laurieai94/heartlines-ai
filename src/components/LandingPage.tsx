@@ -525,8 +525,8 @@ const LandingPage = ({
               step: "02",
               title: "Add Your Person",
               description: "Their vibe too — so Kai knows both sides of the story.",
-              icon: <MessageSquare className="w-5 h-5" />,
-              iconName: "message-square"
+              icon: <Heart className="w-5 h-5" />,
+              iconName: "heart"
             }, {
               step: "03",
               title: "Chat with Kai",
