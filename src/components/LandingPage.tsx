@@ -473,7 +473,11 @@ const LandingPage = ({
       </section>
 
       {/* Photo Split Banner */}
-      <PhotoSplitBanner />
+      <PhotoSplitBanner 
+        imageSrc="/lovable-uploads/e62a2e22-0779-4afa-840d-1e57129377bf.png"
+        alt="Black and white portrait at a restaurant"
+        align="right"
+      />
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
