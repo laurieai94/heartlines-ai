@@ -323,7 +323,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     Sign in
                     </Button>
                   </Link>
-                  <Link to="/dashboard">
+                  <Link to="/auth">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                     Get Started
                     </Button>
@@ -402,7 +402,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                     <div className="hidden md:flex items-center gap-4">
                       {user ? (
                         <>
-                          <Link to="/dashboard">
+                          <Link to="/auth">
                             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
@@ -464,7 +464,7 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                             View Profile
                           </Button>
                         </Link>
-                        <Link to="/dashboard">
+                        <Link to="/profile">
                           <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{ animationDelay: '1.4s' }}>
                             Open Dashboard
                             <ArrowRight className="w-5 h-5 ml-3" />

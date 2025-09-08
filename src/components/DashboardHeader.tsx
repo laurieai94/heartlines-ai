@@ -126,101 +126,59 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
 
         {/* Desktop Navigation - Hidden on mobile */}
         <div className={`hidden md:flex items-center justify-between ${compact ? 'py-3' : 'py-6'}`}>
-          
-          {isCoachMode ? (
-            // Coach Mode Layout: Hamburger + Wordmark + User Avatar
-            <>
-              <div className="flex items-center gap-3">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      size="icon"
-                      className="text-white h-8 w-8 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent"
-                    >
-                      <Menu className="h-5 w-5" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent 
-                    align="start" 
-                    className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
-                    style={{
-                      background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
-                      backdropFilter: 'blur(20px)',
-                      color: 'white'
-                    }}
-                  >
-                    {navigationItems.map((item) => {
-                      const IconComponent = item.icon;
-                      const isActive = activeTab === item.value;
-                      return (
-                        <DropdownMenuItem
-                          key={item.value}
-                          onMouseEnter={() => handleTabHover(item.value)}
-                          onClick={() => handleNavigation(item)}
-                          className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
-                            isActive 
-                              ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
-                              : 'text-white font-medium hover:bg-white/5 hover:text-white'
-                          }`}
-                        >
-                          <IconComponent className="h-4 w-4 flex-shrink-0" />
-                          <span className="text-sm">{item.label}</span>
-                        </DropdownMenuItem>
-                      );
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                
-                <HeartlinesWordmark 
-                  size="sm" 
-                  className="text-white cursor-pointer" 
-                  onClick={() => onValueChange('home')}
-                />
-              </div>
-              
-              <div className="flex items-center">
-                <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
-              </div>
-            </>
-          ) : (
-            // Default Layout: Brand + Center Navigation + User
-            <>
-              <div className="flex items-center">
-                <div className="flex items-center gap-3">
-                  <BrandMark 
-                    size={compact ? "sm" : "md"}
-                    onClick={() => onValueChange('home')}
-                    className="hover:opacity-80 transition-opacity"
-                  />
-                </div>
-              </div>
-
-              {/* Center Navigation */}
-              <nav aria-label="Primary" className="flex flex-1 justify-center px-8">
-                <div className="flex gap-8 overflow-x-auto no-scrollbar">
-                  {navigationItems.filter(item => item.value !== 'account').map((tab) => (
-                    <button
-                      key={tab.value}
-                      onMouseEnter={() => handleTabHover(tab.value)}
-                      onClick={() => handleNavigation(tab)}
-                      className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        activeTab === tab.value
-                          ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full'
-                          : 'text-white/90 hover:text-white'
+          {/* Always use hamburger layout on desktop */}
+          <div className="flex items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="text-white h-8 w-8 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent"
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="start" 
+                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
+                  backdropFilter: 'blur(20px)',
+                  color: 'white'
+                }}
+              >
+                {navigationItems.map((item) => {
+                  const IconComponent = item.icon;
+                  const isActive = activeTab === item.value;
+                  return (
+                    <DropdownMenuItem
+                      key={item.value}
+                      onMouseEnter={() => handleTabHover(item.value)}
+                      onClick={() => handleNavigation(item)}
+                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
+                        isActive 
+                          ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
+                          : 'text-white font-medium hover:bg-white/5 hover:text-white'
                       }`}
                     >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              </nav>
-              
-              <div className="flex items-center gap-3">
-                <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
-              </div>
-            </>
-          )}
+                      <IconComponent className="h-4 w-4 flex-shrink-0" />
+                      <span className="text-sm">{item.label}</span>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            <HeartlinesWordmark 
+              size="sm" 
+              className="text-white cursor-pointer" 
+              onClick={() => onValueChange('home')}
+            />
+          </div>
+          
+          <div className="flex items-center">
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+          </div>
         </div>
       </div>
     </div>

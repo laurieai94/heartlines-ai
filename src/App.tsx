@@ -56,6 +56,7 @@ const AppContent = () => {
         
         {/* Legacy redirects */}
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
         
         {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={
