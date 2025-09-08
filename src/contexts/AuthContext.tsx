@@ -44,6 +44,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(session?.user ?? null);
         
         if (event === 'SIGNED_IN') {
+          // Check if user has been away from coach for more than 12 hours
+          const lastSeenAt = localStorage.getItem('coach_last_seen_at');
+          const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
+          
+          if (!lastSeenAt || parseInt(lastSeenAt) < twelveHoursAgo) {
+            // Set flag to force new conversation after signin
+            localStorage.setItem('force_new_chat_after_signin', 'true');
+          }
+          
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
           setLoading(false);

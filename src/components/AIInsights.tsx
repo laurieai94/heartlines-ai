@@ -152,6 +152,20 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
   };
 
+  // Track coach activity and handle forced new conversations after signin
+  useEffect(() => {
+    // Update coach activity timestamp whenever component is active
+    localStorage.setItem('coach_last_seen_at', Date.now().toString());
+    
+    // Check for force new chat flag (set during signin if user was away >12h)
+    const forceNewChat = localStorage.getItem('force_new_chat_after_signin');
+    if (forceNewChat === 'true') {
+      localStorage.removeItem('force_new_chat_after_signin');
+      handleNewConversation();
+      return; // Don't load previous conversation
+    }
+  }, []);
+
   // Load most recent conversation on first mount only
   const hasLoadedMostRecentRef = useRef(false);
   useEffect(() => {
