@@ -15,6 +15,7 @@ import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 import MiniFlamesOverlay from "./MiniFlamesOverlay";
 import HowItWorksSwipe from "./HowItWorksSwipe";
+import PhotoSplitBanner from "./PhotoSplitBanner";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({
@@ -470,6 +471,9 @@ const LandingPage = ({
             </div>
           </div>}
       </section>
+
+      {/* Photo Split Banner */}
+      <PhotoSplitBanner />
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
