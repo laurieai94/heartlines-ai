@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { 
   Carousel,
@@ -11,28 +12,39 @@ import {
 const narrativeSlides = [
   {
     id: 1,
-    content: "Dating apps taught us how to swipe.\nCool. But… now what?",
+    content: "Dating apps taught us how to swipe.\nBut what happens after the first date?",
     highlight: "Dating apps taught us how to swipe."
   },
   {
     id: 2,
-    content: "Nobody prepped us for the real part.\nThe messy, everyday stuff.",
-    highlight: "Nobody prepped us for the real part."
+    content: "Nobody prepped us for the hard part.",
+    highlight: "Nobody prepped us for the hard part."
   },
   {
     id: 3,
-    content: "Like how to argue without it becoming\na full-blown meltdown.",
-    highlight: "argue without it becoming a full-blown meltdown"
+    content: "The 2 a.m. fights about nothing\nthat feel like everything.",
+    highlight: "2 a.m. fights about nothing"
   },
   {
     id: 4,
-    content: "Or how to stop expecting people\nto read your mind.",
-    highlight: "stop expecting people to read your mind"
+    content: "The weekends ruined by\nthe same argument on repeat.",
+    highlight: "same argument on repeat"
   },
   {
     id: 5,
-    content: "That's where Heartlines shows up.\nHelping you talk it out, spot your patterns,\nand build connections that actually stick.",
-    highlight: "build connections that actually stick"
+    content: "The love that's real—\nbut sometimes so hard.",
+    highlight: "love that's real"
+  },
+  {
+    id: 6,
+    content: "That's where Heartlines comes in.\nNot to \"fix\" your relationship.\nBut to help you feel more connected—\nto yourself, and maybe to someone else.",
+    highlight: "help you feel more connected"
+  },
+  {
+    id: 7,
+    content: "",
+    highlight: "",
+    isCTA: true
   }
 ];
 
@@ -70,28 +82,48 @@ const HowItWorksSwipe = () => {
               <CarouselItem key={slide.id}>
                 <div className="flex items-center justify-center min-h-[240px] p-6">
                   <div className="text-center max-w-3xl">
-                    <p className="text-white text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed whitespace-pre-line">
-                      {slide.content.split('\n').map((line, lineIndex) => {
-                        const isHighlighted = slide.highlight && line.includes(slide.highlight);
-                        if (isHighlighted) {
-                          const parts = line.split(slide.highlight);
+                    {slide.isCTA ? (
+                      // CTA Slide
+                      <div className="space-y-6">
+                        <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-light leading-tight">
+                          Ready to build something
+                          <br />
+                          <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">
+                            real together?
+                          </span>
+                        </h2>
+                        <Button 
+                          className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium px-8 py-3 text-lg border-0"
+                          size="lg"
+                        >
+                          Get Started
+                        </Button>
+                      </div>
+                    ) : (
+                      // Regular Text Slide
+                      <p className="text-white text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed whitespace-pre-line">
+                        {slide.content.split('\n').map((line, lineIndex) => {
+                          const isHighlighted = slide.highlight && line.includes(slide.highlight);
+                          if (isHighlighted) {
+                            const parts = line.split(slide.highlight);
+                            return (
+                              <span key={lineIndex}>
+                                {parts[0]}
+                                <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{slide.highlight}</span>
+                                {parts[1]}
+                                {lineIndex < slide.content.split('\n').length - 1 && <br />}
+                              </span>
+                            );
+                          }
                           return (
                             <span key={lineIndex}>
-                              {parts[0]}
-                              <span className="text-coral-400 font-medium">{slide.highlight}</span>
-                              {parts[1]}
+                              {line}
                               {lineIndex < slide.content.split('\n').length - 1 && <br />}
                             </span>
                           );
-                        }
-                        return (
-                          <span key={lineIndex}>
-                            {line}
-                            {lineIndex < slide.content.split('\n').length - 1 && <br />}
-                          </span>
-                        );
-                      })}
-                    </p>
+                        })}
+                      </p>
+                    )}
                   </div>
                 </div>
               </CarouselItem>
