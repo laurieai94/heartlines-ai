@@ -14,7 +14,7 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 import MiniFlamesOverlay from "./MiniFlamesOverlay";
-import GlassCreditCards from "./decor/GlassCreditCards";
+
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({ 
@@ -435,8 +435,6 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
-                    {/* Glass Cards Behind Phone */}
-                    <GlassCreditCards />
                     <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{ animationDelay: '1.6s' }} />
                     </div>
