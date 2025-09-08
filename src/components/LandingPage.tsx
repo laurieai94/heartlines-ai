@@ -19,53 +19,57 @@ import PhotoSplitBanner from "./PhotoSplitBanner";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
-const StepCard = ({
-  step,
-  title,
-  description,
-  icon,
-  iconName,
-  index
-}: {
-  step: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  iconName: string;
-  index: number;
-}) => {
-  const [displayStep, setDisplayStep] = useState("00");
-  useEffect(() => {
-    // Count-up animation for step badge
-    const timer = setTimeout(() => {
-      setDisplayStep(step);
-    }, 500 + index * 80); // Stagger the count-up
+  const StepCard = ({
+    step,
+    title,
+    description,
+    icon,
+    iconName,
+    index
+  }: {
+    step: string;
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    iconName: string;
+    index: number;
+  }) => {
+    const [displayStep, setDisplayStep] = useState("00");
+    useEffect(() => {
+      // Count-up animation for step badge
+      const timer = setTimeout(() => {
+        setDisplayStep(step);
+      }, 500 + index * 80); // Stagger the count-up
 
-    return () => clearTimeout(timer);
-  }, [step, index]);
-  return <article className={`
-        relative group cursor-pointer
-        w-full max-w-md mx-auto md:max-w-none
-        mb-3 md:mb-0
-        motion-safe:animate-fade-in
-        focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none
-        ${index === 0 ? 'motion-safe:animation-delay-0' : ''}
-        ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
-        ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
-      `} style={{
-    animationDelay: `${index * 80}ms`,
-    animationFillMode: 'both'
-  }} tabIndex={0} role="article" aria-label={title}>
-      {/* Premium Glass Card with Enhanced Effects */}
-      <div className="
-        relative overflow-hidden
-        rounded-2xl glass-burgundy shadow-xl
-        p-4 md:p-6
-        motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
-        motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
-        motion-safe:hover:shadow-coral-400/20
-        motion-reduce:transform-none motion-reduce:transition-none
-      ">
+      return () => clearTimeout(timer);
+    }, [step, index]);
+    return <article className={`
+          relative group cursor-pointer
+          w-full max-w-md mx-auto md:max-w-none
+          mb-3 md:mb-0 h-full
+          motion-safe:animate-fade-in
+          focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none
+          ${index === 0 ? 'motion-safe:animation-delay-0' : ''}
+          ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
+          ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
+        `} style={{
+      animationDelay: `${index * 80}ms`,
+      animationFillMode: 'both'
+    }} tabIndex={0} role="article" aria-label={title}>
+        {/* Premium Glass Card with Enhanced Effects */}
+        <div className="
+          relative overflow-hidden h-full flex flex-col
+          rounded-2xl glass-burgundy shadow-xl
+          p-4 md:p-6 min-h-[200px]
+          motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
+          motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
+          motion-safe:hover:shadow-coral-400/20
+          motion-reduce:transform-none motion-reduce:transition-none
+          before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br 
+          before:from-coral-400/5 before:via-transparent before:to-pink-400/5
+          before:opacity-0 before:transition-opacity before:duration-300
+          hover:before:opacity-100
+        ">
         {/* Inner Highlight Overlay */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/12 via-white/3 to-transparent opacity-60"></div>
         
@@ -86,28 +90,32 @@ const StepCard = ({
 
 
         {/* Content Container */}
-        <div className="relative z-10 text-center pt-3 md:pt-8">
-          {/* Icon */}
-          <div className="mb-2 md:mb-4 flex justify-center">
-            <div className="
-              relative w-8 h-8 md:w-12 md:h-12 
-              glass-burgundy border-2 border-burgundy-400/40 
-              rounded-full flex items-center justify-center
-              text-coral-300
-              motion-safe:transition-all motion-safe:duration-200
-              group-hover:scale-105 group-hover:-translate-y-0.5
-              group-hover:text-pink-300 group-hover:bg-burgundy-300/35
-            " aria-label={`${iconName} icon`}>
-              <div className="scale-75 md:scale-100">
-                {icon}
+        <div className="relative z-10 text-center pt-3 md:pt-8 flex-1 flex flex-col justify-between">
+          <div>
+            {/* Icon */}
+            <div className="mb-2 md:mb-4 flex justify-center">
+              <div className="
+                relative w-8 h-8 md:w-12 md:h-12 
+                glass-burgundy border-2 border-burgundy-400/40 
+                rounded-full flex items-center justify-center
+                text-coral-300
+                motion-safe:transition-all motion-safe:duration-200
+                group-hover:scale-105 group-hover:-translate-y-0.5
+                group-hover:text-pink-300 group-hover:bg-burgundy-300/35
+                group-hover:border-coral-400/60
+              " aria-label={`${iconName} icon`}>
+                <div className="scale-75 md:scale-100">
+                  {icon}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Text Content */}
-          <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
-            {title}
-          </h3>
+            {/* Text Content */}
+            <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
+              {title}
+            </h3>
+          </div>
+          
           <p className="text-sm md:text-base text-white/75 leading-relaxed mt-1.5">
             {description}
           </p>
@@ -506,7 +514,7 @@ const LandingPage = ({
               <div className="absolute left-3/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               {[{
               step: "01",
               title: "Make Your Profile",
