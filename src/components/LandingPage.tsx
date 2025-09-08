@@ -16,6 +16,7 @@ import FlameDivider from "./FlameDivider";
 import MiniFlamesOverlay from "./MiniFlamesOverlay";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import PhotoSplitBanner from "./PhotoSplitBanner";
+import FrostedHeartShowcase from "./FrostedHeartShowcase";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
 const StepCard = ({
@@ -565,6 +566,9 @@ const LandingPage = ({
           </div>
         </div>
       </section>
+
+      {/* Frosted Heart Showcase */}
+      <FrostedHeartShowcase />
 
       {/* Visual Break with Accent */}
       <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
