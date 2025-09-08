@@ -21,17 +21,20 @@ const PhotoSplitBanner = ({
           src={imageSrc} 
           alt={alt}
           className="w-full h-full object-cover object-center"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         
-        {/* Dark overlay gradient */}
+        {/* Lighter overlay gradient */}
         <div className={`absolute inset-0 ${
           align === 'right' 
-            ? 'bg-gradient-to-l from-burgundy-900/95 via-burgundy-900/60 to-burgundy-900/20' 
-            : 'bg-gradient-to-r from-burgundy-900/95 via-burgundy-900/60 to-burgundy-900/20'
+            ? 'bg-gradient-to-l from-burgundy-900/80 via-burgundy-900/45 to-burgundy-900/15' 
+            : 'bg-gradient-to-r from-burgundy-900/80 via-burgundy-900/45 to-burgundy-900/15'
         }`}></div>
         
-        {/* Subtle texture overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,hsl(var(--burgundy-900))_100%)] opacity-30"></div>
+        {/* Reduced texture overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,hsl(var(--burgundy-900))_100%)] opacity-20"></div>
       </div>
 
       {/* Content overlay */}
