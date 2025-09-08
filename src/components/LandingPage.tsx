@@ -387,13 +387,13 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-[580px] self-center">
                     <div className="space-y-3 mb-4 md:mb-6">
-                      <h1 className="text-3xl sm:text-4xl md:whitespace-nowrap lg:text-[48px] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
-                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                      <h1 className="text-3xl sm:text-4xl md:whitespace-nowrap md:leading-snug lg:text-[48px] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm md:pb-[2px]">
                           Modern love is messy.
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl md:whitespace-nowrap lg:text-[30px] xl:text-[36px] 2xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                      <h3 className="text-xl sm:text-2xl md:whitespace-nowrap md:leading-snug md:pb-[1px] lg:text-[30px] xl:text-[36px] 2xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -444,13 +444,13 @@ const LandingPage = ({ showMarketingTopBar = true }: { showMarketingTopBar?: boo
                 {/* Left - Text Content */}
                 <div className="max-w-[580px]">
                   <div className="space-y-4 mb-6">
-                    <h1 className="text-3xl md:whitespace-nowrap lg:text-[36px] xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in">
-                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                    <h1 className="text-3xl md:whitespace-nowrap md:leading-snug lg:text-[36px] xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in">
+                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm md:pb-[2px]">
                         Modern love is messy.
                       </span>
                     </h1>
                     
-                    <h3 className="text-lg md:whitespace-nowrap lg:text-[20px] xl:text-[24px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
+                    <h3 className="text-lg md:whitespace-nowrap md:leading-snug md:pb-[1px] lg:text-[20px] xl:text-[24px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{ animationDelay: '0.8s' }}>
                       <span className="font-brand">heartlines</span> helps you connect.
                     </h3>
                   </div>
