@@ -206,9 +206,10 @@ const ProfileBuilder = ({
             ]} 
             onStartProfile={handleStartPartnerProfile} 
             buttonText="Add Your Person" 
-            iconElement={<Heart className="w-5 h-5 text-white" />} 
+            iconElement={<Heart className="w-5 h-5 text-white/70" />} 
             progressColor="text-pink-300" 
-            benefitColor="text-pink-300" 
+            benefitColor="text-pink-300"
+            variant="muted"
           />
         </div>
 
