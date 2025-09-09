@@ -6,6 +6,7 @@ import { ArrowRight, Star } from "lucide-react";
 
 interface ProfileCardProps {
   title: string;
+  subheader?: string;
   completion: number;
   description: string;
   benefits: Array<{
@@ -22,6 +23,7 @@ interface ProfileCardProps {
 
 const ProfileCard = ({
   title,
+  subheader,
   completion,
   description,
   benefits,
@@ -46,6 +48,11 @@ const ProfileCard = ({
               {title}
               {optionalPillImage && optionalPillImage}
             </h3>
+            {subheader && (
+              <p className="text-sm text-white/70 font-medium mt-1">
+                {subheader}
+              </p>
+            )}
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1">
                 <Progress value={completion} className="h-2 bg-black/40" />

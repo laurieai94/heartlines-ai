@@ -191,7 +191,8 @@ const ProfileBuilder = ({
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Your Profile Card */}
           <ProfileCard 
-            title="Your Profile" 
+            title="Your Profile"
+            subheader="The real you → real advice"
             completion={yourProfileCompletion} 
             description="Just 4 required questions" 
             benefits={[
@@ -212,7 +213,8 @@ const ProfileBuilder = ({
 
           {/* Partner Profile Card */}
           <ProfileCard 
-            title="Your Person's Profile" 
+            title="Your Person" 
+            subheader="See both sides."
             completion={partnerProfileCompletion} 
             description="" 
             benefits={[
