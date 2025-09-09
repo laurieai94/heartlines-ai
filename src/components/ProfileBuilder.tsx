@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
-import { Brain, Heart, Target, Lightbulb, Star, Search, Clock } from "lucide-react";
+import { Brain, Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare } from "lucide-react";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -173,8 +173,8 @@ const ProfileBuilder = ({
         {/* Main Header - Compact */}
         <div className="text-center space-y-2 flex-shrink-0">
           <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
-          <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
-            4 quick questions → Kai can start coaching
+          <p className="text-base text-pink-200/80 max-w-2xl mx-auto flex items-center justify-center gap-2">
+            Just 4 Qs → Kai's got you <MessageSquare className="w-4 h-4" />
           </p>
         </div>
 
