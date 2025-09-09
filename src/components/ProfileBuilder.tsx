@@ -158,32 +158,6 @@ const ProfileBuilder = ({
     setShowPartnerCompletionOptions(false);
     // This would need to be handled by the parent component
   };
-  const yourProfileBenefits = [{
-    icon: <Target className="w-4 h-4" />,
-    text: "What You'll Get:"
-  }, {
-    icon: <Star className="w-3 h-3 text-orange-300" />,
-    text: "Personalized coaching tailored to your patterns"
-  }, {
-    icon: <Star className="w-3 h-3 text-orange-300" />,
-    text: "Deep insights into your relationship style"
-  }, {
-    icon: <Star className="w-3 h-3 text-orange-300" />,
-    text: "Custom advice that actually gets you"
-  }];
-  const partnerProfileBenefits = [{
-    icon: <Lightbulb className="w-4 h-4" />,
-    text: "What You'll Unlock:"
-  }, {
-    icon: <Star className="w-3 h-3 text-pink-300" />,
-    text: "Dual-perspective relationship insights"
-  }, {
-    icon: <Star className="w-3 h-3 text-pink-300" />,
-    text: "Bridge-building communication tips"
-  }, {
-    icon: <Star className="w-3 h-3 text-pink-300" />,
-    text: "Advice that considers both of you"
-  }];
   return <div className="flex flex-col">
       <div className="space-y-4 pb-6">
         {/* Main Header - Compact */}
@@ -206,16 +180,48 @@ const ProfileBuilder = ({
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Your Profile Card */}
-          <ProfileCard title="Your Profile" completion={yourProfileCompletion} description="Complete our comprehensive questionnaire to unlock personalized relationship insights from Kai, your AI coach." benefits={yourProfileBenefits} onStartProfile={handleStartPersonalProfile} buttonText={yourProfileCompletion > 0 ? 'Continue Your Profile' : 'Start Your Profile'} iconElement={<Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" />
+          <ProfileCard 
+            title="Your Profile" 
+            completion={yourProfileCompletion} 
+            description="Just 4 required questions" 
+            benefits={[
+              { icon: <Target className="w-4 h-4" />, text: "Add extra details if you want deeper insights" },
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Full profile takes ~5 minutes max" }
+            ]} 
+            onStartProfile={handleStartPersonalProfile} 
+            buttonText="Continue Profile →" 
+            iconElement={<Heart className="w-5 h-5 text-white" />} 
+            progressColor="text-orange-300" 
+            benefitColor="text-orange-300" 
+          />
 
           {/* Partner Profile Card */}
-          <ProfileCard title="Partner Profile" completion={partnerProfileCompletion} description="Share what you know about your partner's communication style and preferences for even better insights." benefits={partnerProfileBenefits} onStartProfile={handleStartPartnerProfile} buttonText={partnerProfileCompletion > 0 ? 'Continue Partner Profile' : 'Add Partner Profile'} iconElement={<Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" />
+          <ProfileCard 
+            title="Your Person's Profile (Optional)" 
+            completion={partnerProfileCompletion} 
+            description="Add what you know about them so Kai sees both sides." 
+            benefits={[
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual-perspective coaching" },
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Better back-and-forth tips" },
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
+            ]} 
+            onStartProfile={handleStartPartnerProfile} 
+            buttonText="Add Your Person →" 
+            iconElement={<Heart className="w-5 h-5 text-white" />} 
+            progressColor="text-pink-300" 
+            benefitColor="text-pink-300" 
+          />
         </div>
 
         {/* Compact Value Proposition */}
         <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-32" />}>
           <ValueProposition />
         </Suspense>
+
+        {/* Privacy Note */}
+        <div className="text-center text-xs text-white/60 max-w-2xl mx-auto">
+          Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
+        </div>
 
         {/* Collapsible Tips Section */}
         <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-24" />}>

@@ -5,13 +5,7 @@ import { Play, Zap, Target, MessageSquare, Shield, Heart } from "lucide-react";
 const ValueProposition = () => {
   return (
     <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg max-w-4xl mx-auto">
-      <div className="text-center space-y-3">
-        <h3 className="text-xl font-bold text-white">The Questions That Actually Matter</h3>
-        <p className="text-base text-pink-200/80 max-w-3xl mx-auto leading-relaxed">
-          How do you really act when you're stressed? What makes you feel most loved? 
-          The more honest you are, the less we'll sound like a generic self-help book.
-        </p>
-        
+      <div className="text-center space-y-3">        
         <div className="grid md:grid-cols-2 gap-4 mt-4">
           <div className="text-left space-y-2">
             <h4 className="text-base font-semibold text-white">Simple Process:</h4>
