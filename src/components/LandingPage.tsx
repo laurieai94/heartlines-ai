@@ -15,7 +15,6 @@ import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
-import PhotoSplitBanner from "./PhotoSplitBanner";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
@@ -480,13 +479,6 @@ const LandingPage = ({
             </div>
           </div>}
       </section>
-
-      {/* Photo Split Banner */}
-      <PhotoSplitBanner 
-        imageSrc="/lovable-uploads/8084a563-0656-48af-a3de-60328e40b561.png"
-        alt="Smiling senior couple sitting together on a couch"
-        align="right"
-      />
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
