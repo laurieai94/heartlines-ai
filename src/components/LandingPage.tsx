@@ -485,7 +485,7 @@ const LandingPage = ({
 
       {/* Photo Split Banner */}
       <PhotoSplitBanner 
-        imageSrc="/lovable-uploads/d175d083-2bf6-4319-9b38-da803e867052.png"
+        imageSrc="/lovable-uploads/48329258-e706-411e-8821-af24b712db4e.png"
         alt="Smiling senior couple sitting together on a couch"
         align="right"
       />
