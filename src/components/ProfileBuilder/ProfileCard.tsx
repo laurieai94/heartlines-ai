@@ -54,9 +54,14 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <p className="text-pink-200/80 text-sm leading-relaxed">
-          {description}
-        </p>
+        <ul className="space-y-2 text-pink-200/80 text-sm leading-relaxed">
+          {description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
+            <li key={index} className="flex items-start gap-2">
+              <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
+              <span>{sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}</span>
+            </li>
+          ))}
+        </ul>
 
         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
           <div className={`flex items-center gap-2 ${benefitColor} mb-2`}>
