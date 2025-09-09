@@ -59,7 +59,7 @@ const ProfileCard = ({
             {description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
               <li key={`desc-${index}`} className="flex items-start gap-2">
                 <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
-                <span>{sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}</span>
+                {sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}
               </li>
             ))}
             {benefits.map((benefit, index) => (
