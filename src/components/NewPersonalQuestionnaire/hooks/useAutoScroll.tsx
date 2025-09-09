@@ -98,7 +98,7 @@ export const useAutoScroll = () => {
         // Increase margins for better mobile scrolling, especially for cross-section navigation
         const isMobile = window.innerWidth < 640;
         const topMargin = isMobile ? 32 : 20; // More generous top margin on mobile
-        const bottomMargin = isMobile ? 40 : 24; // Extra space on mobile for Continue button
+        const bottomMargin = isMobile ? 20 : 24; // Reduced bottom margin on mobile to prevent overshoot
         const containerPadding = isMobile ? 16 : 32; // Account for container padding
         
         console.log('📱 useAutoScroll: Mobile scroll adjustments:', {
@@ -175,60 +175,69 @@ export const useAutoScroll = () => {
             behavior: 'smooth'
           });
           
-          // Enhanced post-scroll verification with retry loop
-          const verifyAndCorrect = (attemptCount = 0) => {
-            if (attemptCount >= 3) {
-              console.log('🟡 useAutoScroll: Max verification attempts reached');
-              isProgrammaticScrollRef.current = false;
-              return;
-            }
-            
+          // Simplified post-scroll behavior - disable verification loop on mobile to prevent bounce
+          if (isMobile) {
+            // On mobile, just release the programmatic scroll flag after a short delay
             setTimeout(() => {
-              requestAnimationFrame(() => {
-                const updatedElementRect = element.getBoundingClientRect();
-                const updatedContainerRect = container.getBoundingClientRect();
-                const updatedAvailableTop = updatedContainerRect.top + headerHeight + topMargin;
-                const updatedAvailableBottom = updatedContainerRect.top + updatedContainerRect.height - bottomMargin;
-                
-                const isNowFullyVisible = updatedElementRect.top >= updatedAvailableTop && 
-                                        updatedElementRect.bottom <= updatedAvailableBottom;
-                
-                if (!isNowFullyVisible) {
-                  console.log(`🟡 useAutoScroll: Verification ${attemptCount + 1} - still not fully visible, correcting`);
+              isProgrammaticScrollRef.current = false;
+              document.documentElement.removeAttribute('data-programmatic-scroll');
+            }, 300);
+          } else {
+            // Enhanced post-scroll verification with retry loop for desktop
+            const verifyAndCorrect = (attemptCount = 0) => {
+              if (attemptCount >= 3) {
+                console.log('🟡 useAutoScroll: Max verification attempts reached');
+                isProgrammaticScrollRef.current = false;
+                return;
+              }
+              
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                  const updatedElementRect = element.getBoundingClientRect();
+                  const updatedContainerRect = container.getBoundingClientRect();
+                  const updatedAvailableTop = updatedContainerRect.top + headerHeight + topMargin;
+                  const updatedAvailableBottom = updatedContainerRect.top + updatedContainerRect.height - bottomMargin;
                   
-                  let correctedTop = container.scrollTop;
+                  const isNowFullyVisible = updatedElementRect.top >= updatedAvailableTop && 
+                                          updatedElementRect.bottom <= updatedAvailableBottom;
                   
-                  if (updatedElementRect.top < updatedAvailableTop) {
-                    // Still hidden under header
-                    correctedTop = updatedElementRect.top - updatedContainerRect.top + container.scrollTop - headerHeight - topMargin;
-                  } else if (updatedElementRect.bottom > updatedAvailableBottom) {
-                    // Still extends below viewport
-                    correctedTop = updatedElementRect.bottom - updatedContainerRect.top + container.scrollTop - updatedContainerRect.height + bottomMargin;
+                  if (!isNowFullyVisible) {
+                    console.log(`🟡 useAutoScroll: Verification ${attemptCount + 1} - still not fully visible, correcting`);
+                    
+                    let correctedTop = container.scrollTop;
+                    
+                    if (updatedElementRect.top < updatedAvailableTop) {
+                      // Still hidden under header
+                      correctedTop = updatedElementRect.top - updatedContainerRect.top + container.scrollTop - headerHeight - topMargin;
+                    } else if (updatedElementRect.bottom > updatedAvailableBottom) {
+                      // Still extends below viewport
+                      correctedTop = updatedElementRect.bottom - updatedContainerRect.top + container.scrollTop - updatedContainerRect.height + bottomMargin;
+                    }
+                    
+                    const clampedTop = Math.max(0, Math.min(correctedTop, container.scrollHeight - container.clientHeight));
+                    
+                    container.scrollTo({
+                      top: clampedTop,
+                      behavior: 'smooth'
+                    });
+                    
+                    // Try again
+                    verifyAndCorrect(attemptCount + 1);
+                  } else {
+                    console.log('🟡 useAutoScroll: Element is now fully visible');
+                    // Release programmatic scroll flag after successful verification
+                    setTimeout(() => {
+                      isProgrammaticScrollRef.current = false;
+                      document.documentElement.removeAttribute('data-programmatic-scroll');
+                    }, 150);
                   }
-                  
-                  const clampedTop = Math.max(0, Math.min(correctedTop, container.scrollHeight - container.clientHeight));
-                  
-                  container.scrollTo({
-                    top: clampedTop,
-                    behavior: 'smooth'
-                  });
-                  
-                  // Try again
-                  verifyAndCorrect(attemptCount + 1);
-                } else {
-                  console.log('🟡 useAutoScroll: Element is now fully visible');
-                  // Release programmatic scroll flag after successful verification
-                  setTimeout(() => {
-                    isProgrammaticScrollRef.current = false;
-                    document.documentElement.removeAttribute('data-programmatic-scroll');
-                  }, 150);
-                }
-              });
-            }, 600); // Allow more time for smooth scroll to complete
-          };
-          
-          // Start verification
-          verifyAndCorrect();
+                });
+              }, 600); // Allow more time for smooth scroll to complete
+            };
+            
+            // Start verification only on desktop
+            verifyAndCorrect();
+          }
         } else {
           console.log('🟡 useAutoScroll: Element already completely visible, no scroll needed');
           // Still release programmatic scroll flag even if we don't scroll

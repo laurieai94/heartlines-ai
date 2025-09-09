@@ -13,7 +13,7 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
-import MiniFlamesOverlay from "./MiniFlamesOverlay";
+
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import PhotoSplitBanner from "./PhotoSplitBanner";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
@@ -347,8 +347,7 @@ const LandingPage = ({
       minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
     }}>
         {/* Flame Background */}
-        <FlameBackground variant="duotone-outline" density="normal" />
-        <MiniFlamesOverlay density="dense" size="lg" color="#fff" blend="normal" />
+        <FlameBackground variant="subtle" density="sparse" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
@@ -418,7 +417,6 @@ const LandingPage = ({
         {/* Embedded version - horizontal layout with flame background */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
             <FlameBackground variant="ethereal" density="sparse" />
-            <MiniFlamesOverlay density="dense" size="lg" color="#fff" blend="normal" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
