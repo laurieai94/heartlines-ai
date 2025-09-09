@@ -11,6 +11,8 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
+import OnboardingStepNudge from "@/components/OnboardingStepNudge";
+import { logEvent } from "@/utils/analytics";
 
 // Lazy load secondary components to reduce initial bundle size
 const ValueProposition = lazy(() => import("@/components/ProfileBuilder/ValueProposition"));
@@ -81,6 +83,11 @@ const ProfileBuilder = ({
   const yourProfileCompletion = calculateYourCompletion();
   const partnerProfileCompletion = calculatePartnerCompletion();
   const handleStartPersonalProfile = () => {
+    logEvent('onboarding_step_nudge_clicked', { 
+      completion: yourProfileCompletion,
+      action: yourProfileCompletion > 0 ? 'continue' : 'start'
+    });
+    
     console.log('handleStartPersonalProfile called, onOpenQuestionnaire exists:', !!onOpenQuestionnaire);
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
@@ -177,14 +184,24 @@ const ProfileBuilder = ({
     icon: <Star className="w-3 h-3 text-pink-300" />,
     text: "Advice that considers both of you"
   }];
-  return <div className="flex flex-col space-y-4 pb-6">
-      {/* Main Header - Compact */}
-      <div className="text-center space-y-2 flex-shrink-0">
-        <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
-        <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
-          Build your relationship profiles to unlock personalized insights
-        </p>
-      </div>
+  return <div className="flex flex-col">
+      {/* Step 1 Nudge - Only show if personal profile is incomplete */}
+      {yourProfileCompletion < 100 && (
+        <OnboardingStepNudge 
+          completion={yourProfileCompletion}
+          onStartProfile={handleStartPersonalProfile}
+          className="-mx-4 mb-6"
+        />
+      )}
+      
+      <div className="space-y-4 pb-6">
+        {/* Main Header - Compact */}
+        <div className="text-center space-y-2 flex-shrink-0">
+          <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
+          <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
+            Build your relationship profiles to unlock personalized insights
+          </p>
+        </div>
 
       {/* Main Content Area - Scrollable */}
       <div className="space-y-4">
@@ -221,6 +238,7 @@ const ProfileBuilder = ({
         </Suspense>
       )}
 
+      </div>
     </div>;
 };
 export default ProfileBuilder;

@@ -55,21 +55,31 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
-  // Auto-open Personal Questionnaire when on profile tab with incomplete profile
+  // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
     if (activeTab === 'profile' && 
         accessLevel === 'profile-required' && 
         user && 
-        !showQuestionnaireModal &&
-        !localStorage.getItem('profileAutoOpenedOnce')) {
+        !showQuestionnaireModal) {
       
-      // Set one-time flag to avoid reopening repeatedly
-      localStorage.setItem('profileAutoOpenedOnce', 'true');
+      // Check if user is brand new (signed up within 24 hours)
+      const userCreatedAt = new Date(user.created_at);
+      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      const isBrandNew = userCreatedAt > twentyFourHoursAgo;
       
-      // Small delay to ensure component is mounted
-      setTimeout(() => {
-        handleOpenQuestionnaire('header');
-      }, 100);
+      // Use per-user localStorage key to avoid cross-user conflicts
+      const userAutoOpenKey = `profileAutoOpenedOnce_${user.id}`;
+      const hasAutoOpened = localStorage.getItem(userAutoOpenKey);
+      
+      if (isBrandNew && !hasAutoOpened) {
+        // Set per-user flag to avoid reopening repeatedly
+        localStorage.setItem(userAutoOpenKey, 'true');
+        
+        // Small delay to ensure component is mounted
+        setTimeout(() => {
+          handleOpenQuestionnaire('header');
+        }, 100);
+      }
     }
   }, [activeTab, accessLevel, user, showQuestionnaireModal, handleOpenQuestionnaire]);
 
