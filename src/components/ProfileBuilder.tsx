@@ -232,6 +232,25 @@ const ProfileBuilder = ({
           />
         </div>
 
+        {/* Why This Matters / Quick Flow - Slim strip */}
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/80">
+              <div className="flex items-center gap-2">
+                <Lightbulb className="w-4 h-4 text-white/70" />
+                <span>
+                  <span className="font-medium">Why This Matters:</span> The more real you are, the smarter Kai gets.
+                </span>
+              </div>
+              <span className="hidden sm:inline-block h-3 w-px bg-white/10" aria-hidden="true" />
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Flow:</span>
+                <span>Profile → Chat with Kai → Try it IRL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Privacy Banner - Always visible */}
         <div className="max-w-4xl mx-auto sticky top-4 z-20">
           <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
