@@ -17,7 +17,7 @@ interface ProfileCardProps {
   iconElement: React.ReactNode;
   progressColor: string;
   benefitColor: string;
-  optionalPillImage?: string;
+  optionalPillImage?: React.ReactNode;
 }
 
 const ProfileCard = ({
@@ -44,9 +44,7 @@ const ProfileCard = ({
           <div className="flex-1">
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
               {title}
-              {optionalPillImage && (
-                <img src={optionalPillImage} alt="Optional" className="h-5 w-auto" />
-              )}
+              {optionalPillImage && optionalPillImage}
             </h3>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1">

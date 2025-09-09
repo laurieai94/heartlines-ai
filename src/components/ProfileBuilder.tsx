@@ -10,6 +10,7 @@ import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
+import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { logEvent } from "@/utils/analytics";
@@ -64,6 +65,7 @@ const ProfileBuilder = ({
 
   // Get actual personal profile data for accurate progress calculation
   const { profileData: personalProfileData } = usePersonalProfileData();
+  const { profileData: partnerProfileData } = usePartnerProfileData();
   
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || (personalProfileData as any)?.name || '';
@@ -81,6 +83,10 @@ const ProfileBuilder = ({
   // Use consistent completion calculation for both profiles
   const yourProfileCompletion = calculateYourCompletion();
   const partnerProfileCompletion = calculatePartnerCompletion();
+  
+  // Get partner's first initial for icon
+  const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toUpperCase() || null;
+  const partnerInitial = getInitial(partnerProfileData?.partnerName);
   const handleStartPersonalProfile = () => {
     logEvent('onboarding_step_nudge_clicked', { 
       completion: yourProfileCompletion,
@@ -206,10 +212,14 @@ const ProfileBuilder = ({
             ]} 
             onStartProfile={handleStartPartnerProfile} 
             buttonText="Add Your Person" 
-            iconElement={<Heart className="w-5 h-5 text-white" />} 
+            iconElement={
+              partnerInitial 
+                ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
+                : <Heart className="w-5 h-5 text-white" />
+            }
             progressColor="text-pink-300" 
             benefitColor="text-pink-300"
-            optionalPillImage="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png"
+            optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
           />
         </div>
 
