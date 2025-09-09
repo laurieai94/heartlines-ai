@@ -68,7 +68,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-2 sm:px-6 xl:px-8 py-3 relative">
         
         {/* Mobile Navigation - Hide in coach mode when scrolling */}
-        <div className={`flex items-center justify-between md:hidden transition-all duration-300 min-h-[56px] ${
+        <div className={`flex items-center justify-between md:hidden transition-all duration-150 min-h-[56px] ${
           isMobile && isCoachMode && !visible 
             ? '-translate-y-full opacity-0 pointer-events-none' 
             : 'translate-y-0 opacity-100 pointer-events-auto'

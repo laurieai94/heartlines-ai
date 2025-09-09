@@ -116,6 +116,11 @@ const ChatContainer = ({
         }
       }
       
+      // Immediate header visibility on any upward scroll intent
+      if (isMobileLocal && scrollDirection.current === 'up' && Math.abs(scrollDelta) > 5) {
+        debouncedSetVisible(true);
+      }
+      
       // Unlock when user reaches bottom
       if (isNear) {
         userIntentLockRef.current = false;

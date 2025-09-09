@@ -16,6 +16,8 @@ import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
+import PhotoSplitBanner from "./PhotoSplitBanner";
+import coupleConnection from "@/assets/couple-connection.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
@@ -787,6 +789,14 @@ const LandingPage = ({
           </div>
         </div>
       </section>
+
+      {/* Photo Split Banner */}
+      <PhotoSplitBanner 
+        imageSrc={coupleConnection}
+        alt="Couple having a meaningful conversation"
+        heading="Real relationships\nstart with real\nconversations."
+        align="left"
+      />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">
