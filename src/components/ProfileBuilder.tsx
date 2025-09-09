@@ -195,9 +195,10 @@ const ProfileBuilder = ({
             completion={yourProfileCompletion} 
             description="Just 4 required questions" 
             benefits={[
-              { icon: <Target className="w-4 h-4" />, text: "Add extra details if you want deeper insights" },
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Full profile takes ~5 minutes max" }
-            ]} 
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "⭐ Just 4 Qs to start" },
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "🔍 Go deeper if you wanna" },
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "⏱️ Done in ~5 min" }
+            ]}
             onStartProfile={handleStartPersonalProfile} 
             buttonText="Continue Profile" 
             iconElement={
