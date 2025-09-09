@@ -24,9 +24,7 @@ const OnboardingStepNudge = ({
                   {completion}% complete
                 </span>}
             </div>
-            <p className="text-white/70 text-xs md:text-sm">
-              {completion === 0 ? "Start your journey with personalized relationship insights" : "Continue where you left off to unlock your AI coach"}
-            </p>
+            
           </div>
         </div>
         
