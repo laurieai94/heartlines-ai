@@ -59,12 +59,6 @@ const ProfileCard = ({
 
         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
           <ul className="space-y-2 text-pink-200/80 text-sm font-normal leading-relaxed">
-            {description && description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
-              <li key={`desc-${index}`} className="flex items-start gap-2">
-                <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
-                {sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}
-              </li>
-            ))}
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2">
                 <span className="mt-0.5 flex-shrink-0">
