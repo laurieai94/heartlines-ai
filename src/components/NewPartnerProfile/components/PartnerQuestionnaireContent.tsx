@@ -49,15 +49,34 @@ const PartnerQuestionnaireContent = ({
     3: 'partner-attachment-question'
   };
 
-  // Function to scroll to the first question of a specific section using unified auto-scroll
+  // Enhanced function to scroll to the first question of a specific section with retries
   const scrollToSection = (sectionNumber: number): void => {
     const questionId = firstQuestionIds[sectionNumber];
-    if (questionId) {
-      // Use unified scrollToElement with delay for stability
-      scrollToElement(questionId, 250);
-    } else {
+    if (!questionId) {
       console.warn('🔴 Partner Profile: No question ID mapped for section:', sectionNumber);
+      return;
     }
+
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const attemptScroll = () => {
+      const element = document.getElementById(questionId);
+      if (element) {
+        // Use scrollToElement for the actual scroll with shorter delay for responsiveness
+        scrollToElement(questionId, 150);
+        console.log('✅ Partner Profile: Successfully scrolled to section', sectionNumber, 'question:', questionId);
+      } else if (retryCount < maxRetries) {
+        retryCount++;
+        console.log(`🟡 Partner Profile: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
+        setTimeout(attemptScroll, 200 * retryCount); // Increasing delay with each retry
+      } else {
+        console.error('🔴 Partner Profile: Failed to find element after retries:', questionId);
+      }
+    };
+
+    // Initial attempt with small delay to allow DOM updates
+    setTimeout(attemptScroll, 100);
   };
 
   // Scroll to first question on mount (section 1) with stability delay

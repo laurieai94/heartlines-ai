@@ -77,8 +77,10 @@ const PartnerQuestionnaireLayout = ({
     return () => window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
   }, []);
 
-  // Handle section completion via continue buttons with auto-advance
+  // Enhanced section completion handler with immediate feedback
   const handleSectionComplete = (nextSection: number) => {
+    console.log('🟡 Partner Profile: Section completion requested, moving to section:', nextSection);
+    
     // Lock navigation to prevent intersection observer interference
     navLock.current = true;
     
@@ -88,19 +90,22 @@ const PartnerQuestionnaireLayout = ({
     // Immediately update section
     setCurrentSection(nextSection);
 
-    // Scroll to the next section using ref with animation frame
+    // Scroll to the next section using ref with shorter delay for better UX
     if (scrollToSectionFn.current) {
-      requestAnimationFrame(() => {
+      // Use setTimeout instead of requestAnimationFrame for more predictable timing
+      setTimeout(() => {
+        console.log('🟡 Partner Profile: Attempting scroll to section:', nextSection);
         scrollToSectionFn.current!(nextSection);
         
-        // Release lock after scroll completes with increased timeout
+        // Release lock after scroll completes with shorter timeout for better responsiveness
         setTimeout(() => {
           navLock.current = false;
-          // Remove programmatic scroll attribute after verification window
           document.documentElement.removeAttribute('data-programmatic-scroll');
-        }, 1800);
-      });
+          console.log('✅ Partner Profile: Navigation lock released for section:', nextSection);
+        }, 1000); // Reduced from 1800ms to 1000ms
+      }, 50); // Reduced from requestAnimationFrame to 50ms
     } else {
+      console.warn('🔶 Partner Profile: No scroll function available');
       // Release lock if no scroll function
       setTimeout(() => {
         navLock.current = false;

@@ -88,12 +88,12 @@ const ChatContainer = ({
     [setVisible]
   );
 
-  // Optimized scroll handler with throttling and user intent detection
+  // Enhanced scroll handler with immediate user intent locking
   const handleScroll = useMemo(
     () => throttle(() => {
       const target = viewportRef.current;
       if (!target) return;
-      // More refined threshold calculation
+      
       const isMobileLocal = isMobile; // capture
       const baseThreshold = isMobileLocal ? 60 : 48;
       const keyboardThreshold = isKeyboardOpenRef.current ? 150 : baseThreshold;
@@ -102,18 +102,16 @@ const ChatContainer = ({
       const isNear = distanceToBottom < threshold;
       const currentScrollTop = target.scrollTop;
       
-      // Detect scroll direction
+      // Detect scroll direction with lower threshold for more responsiveness
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      if (Math.abs(scrollDelta) > 5) { // Only track significant scrolls
+      if (Math.abs(scrollDelta) > 2) { // Lowered from 5 to 2 for more sensitivity
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
       
-      // Detect user scrolling up to lock auto-scroll - more sensitive when keyboard is open
-      if (scrollDirection.current === 'up' && !isNear) {
-        // When keyboard is open, be less aggressive about locking scroll
-        if (!isKeyboardOpenRef.current || Math.abs(scrollDelta) > 30) {
-          userIntentLockRef.current = true;
-        }
+      // IMMEDIATELY lock on ANY upward movement when not near bottom
+      if (scrollDirection.current === 'up' && !isNear && Math.abs(scrollDelta) > 1) {
+        userIntentLockRef.current = true;
+        console.log('🔒 Chat: User intent locked - upward scroll detected');
       }
       
       // Immediate header visibility on any upward scroll intent
@@ -121,8 +119,11 @@ const ChatContainer = ({
         debouncedSetVisible(true);
       }
       
-      // Unlock when user reaches bottom
-      if (isNear) {
+      // Only unlock when user is TRULY at the bottom (stricter conditions)
+      if (distanceToBottom < 20) { // Stricter threshold for unlocking
+        if (userIntentLockRef.current) {
+          console.log('🔓 Chat: User intent unlocked - reached bottom');
+        }
         userIntentLockRef.current = false;
       }
       
@@ -162,13 +163,19 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
-  // ResizeObserver for content growth detection and auto-scroll
+  // ResizeObserver for content growth detection with user intent respect
   useEffect(() => {
     if (!contentRef.current || !viewportRef.current) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
+      // PAUSE all auto-scroll when user intent is locked
+      if (userIntentLockRef.current) {
+        console.log('⏸️ Chat: ResizeObserver auto-scroll paused - user intent locked');
+        return;
+      }
+      
       // Only auto-scroll if near bottom and not locked by user intent
-      if (isNearBottom && !userIntentLockRef.current) {
+      if (isNearBottom) {
         // Small delay to ensure content has rendered
         setTimeout(() => scrollToBottom('smooth'), 20);
       }
@@ -178,11 +185,17 @@ const ChatContainer = ({
     return () => resizeObserver.disconnect();
   }, [isNearBottom, scrollToBottom]);
 
-  // Loading state sticky bottom with interval
+  // Loading state sticky bottom with user intent respect
   useEffect(() => {
     if (loading && isNearBottom && !userIntentLockRef.current) {
       loadingStickyInterval.current = setInterval(() => {
-        if (viewportRef.current && isNearBottom && !userIntentLockRef.current) {
+        // PAUSE loading auto-scroll when user intent is locked
+        if (userIntentLockRef.current) {
+          console.log('⏸️ Chat: Loading auto-scroll paused - user intent locked');
+          return;
+        }
+        
+        if (viewportRef.current && isNearBottom) {
           const viewport = viewportRef.current;
           const distanceToBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
           if (distanceToBottom > 10) { // Only scroll if there's meaningful distance
