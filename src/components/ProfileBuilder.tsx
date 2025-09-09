@@ -15,7 +15,6 @@ import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { logEvent } from "@/utils/analytics";
 
 // Lazy load secondary components to reduce initial bundle size
-const ValueProposition = lazy(() => import("@/components/ProfileBuilder/ValueProposition"));
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
@@ -213,10 +212,6 @@ const ProfileBuilder = ({
           />
         </div>
 
-        {/* Compact Value Proposition */}
-        <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-32" />}>
-          <ValueProposition />
-        </Suspense>
 
         {/* Privacy Note */}
         <div className="text-center text-xs text-white/60 max-w-2xl mx-auto">
