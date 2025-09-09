@@ -37,7 +37,7 @@ const ProfileCard = ({
   const [firstBenefit, ...remainingBenefits] = benefits;
 
   return (
-    <Card className="group p-4 bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-white/30 hover:bg-white/15">
+    <Card className="group p-4 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-[1.02] hover:border-white/40 hover:from-white/25 hover:to-white/15 ring-1 ring-white/20">
       <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -64,7 +64,7 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+        <div className="bg-white/10 rounded-lg p-3 border border-white/20 ring-1 ring-white/10 shadow-inner">
           <ul className="space-y-2 text-pink-200/80 text-sm font-normal leading-relaxed">
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2">
