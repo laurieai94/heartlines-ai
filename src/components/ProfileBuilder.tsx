@@ -185,15 +185,6 @@ const ProfileBuilder = ({
     text: "Advice that considers both of you"
   }];
   return <div className="flex flex-col">
-      {/* Step 1 Nudge - Only show if personal profile is incomplete */}
-      {yourProfileCompletion < 100 && (
-        <OnboardingStepNudge 
-          completion={yourProfileCompletion}
-          onStartProfile={handleStartPersonalProfile}
-          className="-mx-4 mb-6"
-        />
-      )}
-      
       <div className="space-y-4 pb-6">
         {/* Main Header - Compact */}
         <div className="text-center space-y-2 flex-shrink-0">
@@ -205,6 +196,13 @@ const ProfileBuilder = ({
 
       {/* Main Content Area - Scrollable */}
       <div className="space-y-4">
+        {/* Step 1 Nudge - Only show if personal profile is incomplete */}
+        {yourProfileCompletion < 100 && (
+          <OnboardingStepNudge 
+            completion={yourProfileCompletion}
+            onStartProfile={handleStartPersonalProfile}
+          />
+        )}
         {/* Compact Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {/* Your Profile Card */}

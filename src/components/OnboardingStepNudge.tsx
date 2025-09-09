@@ -11,44 +11,44 @@ const OnboardingStepNudge = ({ completion, onStartProfile, className = "" }: Onb
   if (completion >= 100) return null;
 
   return (
-    <div className={`sticky top-0 z-30 bg-gradient-to-r from-coral-500 to-coral-600 shadow-lg border-b border-coral-400/20 ${className}`}>
-      <div className="max-w-4xl mx-auto px-4 py-3">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-              {completion > 0 ? (
-                <div className="w-3 h-3 rounded-full bg-white/60" />
-              ) : (
-                <span className="text-xs font-semibold text-white">1</span>
+    <div className={`glass-card rounded-xl border border-white/10 p-4 mb-6 ${className}`}>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+            {completion > 0 ? (
+              <CheckCircle className="w-4 h-4 text-primary" />
+            ) : (
+              <span className="text-xs font-semibold text-primary">1</span>
+            )}
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="text-foreground font-medium text-sm md:text-base truncate">
+                Complete your personal profile
+              </h3>
+              {completion > 0 && (
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full flex-shrink-0 border border-primary/20">
+                  {completion}% complete
+                </span>
               )}
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <h3 className="text-white font-semibold text-sm md:text-base truncate">
-                  Step 1: Complete your personal profile
-                </h3>
-                {completion > 0 && (
-                  <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full flex-shrink-0">
-                    {completion}% complete
-                  </span>
-                )}
-              </div>
-              <p className="text-white/80 text-xs md:text-sm">
-                {completion === 0 
-                  ? "Start your journey with personalized relationship insights"
-                  : "Continue where you left off to unlock your AI coach"}
-              </p>
-            </div>
+            <p className="text-muted-foreground text-xs md:text-sm">
+              {completion === 0 
+                ? "Start your journey with personalized relationship insights"
+                : "Continue where you left off to unlock your AI coach"}
+            </p>
           </div>
-          
-          <Button
-            onClick={onStartProfile}
-            className="bg-white text-coral-600 hover:bg-white/90 font-semibold px-4 py-2 flex-shrink-0 text-sm"
-          >
-            {completion > 0 ? "Continue" : "Get Started"}
-            <ArrowRight className="w-4 h-4 ml-1" />
-          </Button>
         </div>
+        
+        <Button
+          onClick={onStartProfile}
+          variant="glass"
+          size="sm"
+          className="flex-shrink-0"
+        >
+          {completion > 0 ? "Continue" : "Get Started"}
+          <ArrowRight className="w-4 h-4" />
+        </Button>
       </div>
     </div>
   );
