@@ -338,24 +338,24 @@ export const useAutoScroll = () => {
         scrollToNextQuestion(currentQuestionId, retryCount + 1);
       }, 200);
     } else {
-      console.log('🟡 useAutoScroll: No next question found after retries, looking for next section');
-      // If no next question found after retries, look for next section
+      console.log('🟡 useAutoScroll: No next question found after retries, dispatching goToSection event');
+      // If no next question found after retries, dispatch event to advance section
       const currentSection = currentElement.closest('[id^="section-"]');
       if (currentSection) {
         const currentSectionId = currentSection.id;
         const sectionNumber = parseInt(currentSectionId.replace('section-', ''));
-        const nextSectionElement = document.getElementById(`section-${sectionNumber + 1}`);
-        if (nextSectionElement) {
-          // Find first question in next section
-          const firstQuestionInNext = nextSectionElement.querySelector('[data-question-card]');
-          if (firstQuestionInNext && firstQuestionInNext.id) {
-            console.log('🟡 useAutoScroll: Scrolling to first question in next section:', firstQuestionInNext.id);
-            scrollToElement(firstQuestionInNext.id, 300);
-          } else {
-            console.log('🟡 useAutoScroll: Scrolling to next section:', `section-${sectionNumber + 1}`);
-            scrollToElement(`section-${sectionNumber + 1}`, 300);
-          }
-        }
+        const nextSection = sectionNumber + 1;
+        
+        console.log('🟡 useAutoScroll: Dispatching questionnaire:goToSection event for section:', nextSection);
+        window.dispatchEvent(new CustomEvent('questionnaire:goToSection', { 
+          detail: { 
+            fromSection: sectionNumber,
+            toSection: nextSection,
+            reason: 'no-more-questions'
+          } 
+        }));
+      } else {
+        console.warn('🔴 useAutoScroll: Could not determine current section for advancement');
       }
     }
   }, [scrollToElement]);

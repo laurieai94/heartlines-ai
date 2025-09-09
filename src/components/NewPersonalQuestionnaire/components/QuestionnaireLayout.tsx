@@ -88,6 +88,24 @@ const QuestionnaireLayout = ({
       }, 100);
     }
   };
+  
+  // Listen for auto-scroll events to advance sections
+  useEffect(() => {
+    const handleGoToSection = (event: CustomEvent) => {
+      const { toSection, reason } = event.detail;
+      console.log('🟢 QuestionnaireLayout: Received goToSection event:', { toSection, reason });
+      
+      if (toSection <= 4) {
+        // Use the same logic as handleSectionComplete to ensure proper navigation
+        handleSectionComplete(toSection);
+      }
+    };
+
+    window.addEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
+    return () => {
+      window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
+    };
+  }, [handleSectionComplete]);
   const handleSectionClick = (section: number) => {
     console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
     setCurrentSection(section);
