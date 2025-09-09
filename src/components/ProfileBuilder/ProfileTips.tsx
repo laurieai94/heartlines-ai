@@ -20,15 +20,6 @@ const ProfileTips = () => {
       
       {showDetails && (
         <div className="mt-4 space-y-3 animate-fade-in">
-          <Card className="p-3 bg-white/5 backdrop-blur-sm border-l-4 border-orange-400">
-            <div className="flex items-center gap-3">
-              <Search className="w-4 h-4 text-pink-200/80" />
-              <p className="text-pink-200/80 text-sm">
-                <strong className="text-white">Privacy:</strong> All profile responses stay private to you. Only share insights you choose to share.
-              </p>
-            </div>
-          </Card>
-
           <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
             <h3 className="text-lg font-semibold text-white mb-3">Profile Building Tips</h3>
             <div className="grid md:grid-cols-2 gap-4">
