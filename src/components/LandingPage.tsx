@@ -17,7 +17,7 @@ import MiniFlamesOverlay from "./MiniFlamesOverlay";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import PhotoSplitBanner from "./PhotoSplitBanner";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
-
+import coupleBanner from "@/assets/millennial-couple-conversation.jpg";
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
     step,
@@ -485,7 +485,7 @@ const LandingPage = ({
 
       {/* Photo Split Banner */}
       <PhotoSplitBanner 
-        imageSrc="/lovable-uploads/48329258-e706-411e-8821-af24b712db4e.png"
+        imageSrc={coupleBanner}
         alt="Smiling senior couple sitting together on a couch"
         align="right"
       />
