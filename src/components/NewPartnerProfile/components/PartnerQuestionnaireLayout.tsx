@@ -61,6 +61,22 @@ const PartnerQuestionnaireLayout = ({
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
+  // Listen for auto-advance events from useAutoScroll
+  useEffect(() => {
+    const handleGoToSection = (event: CustomEvent) => {
+      const { toSection, sectionType } = event.detail;
+      console.log('🟡 PartnerQuestionnaireLayout: Received goToSection event:', toSection, sectionType);
+      
+      // Only handle partner section events
+      if (sectionType === 'partner') {
+        handleSectionComplete(toSection);
+      }
+    };
+
+    window.addEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
+    return () => window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
+  }, []);
+
   // Handle section completion via continue buttons with auto-advance
   const handleSectionComplete = (nextSection: number) => {
     // Lock navigation to prevent intersection observer interference
@@ -77,12 +93,12 @@ const PartnerQuestionnaireLayout = ({
       requestAnimationFrame(() => {
         scrollToSectionFn.current!(nextSection);
         
-        // Release lock after scroll completes with longer timeout
+        // Release lock after scroll completes with increased timeout
         setTimeout(() => {
           navLock.current = false;
           // Remove programmatic scroll attribute after verification window
           document.documentElement.removeAttribute('data-programmatic-scroll');
-        }, 1200);
+        }, 1800);
       });
     } else {
       // Release lock if no scroll function

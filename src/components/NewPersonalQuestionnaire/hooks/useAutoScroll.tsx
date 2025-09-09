@@ -349,18 +349,27 @@ export const useAutoScroll = () => {
     } else {
       console.log('🟡 useAutoScroll: No next question found after retries, dispatching goToSection event');
       // If no next question found after retries, dispatch event to advance section
-      const currentSection = currentElement.closest('[id^="section-"]');
+      // Support both personal (section-) and partner (partner-section-) prefixes
+      const currentSection = currentElement.closest('[id^="section-"], [id^="partner-section-"]');
       if (currentSection) {
         const currentSectionId = currentSection.id;
-        const sectionNumber = parseInt(currentSectionId.replace('section-', ''));
+        let sectionNumber: number;
+        
+        if (currentSectionId.startsWith('partner-section-')) {
+          sectionNumber = parseInt(currentSectionId.replace('partner-section-', ''));
+        } else {
+          sectionNumber = parseInt(currentSectionId.replace('section-', ''));
+        }
+        
         const nextSection = sectionNumber + 1;
         
-        console.log('🟡 useAutoScroll: Dispatching questionnaire:goToSection event for section:', nextSection);
+        console.log('🟡 useAutoScroll: Dispatching questionnaire:goToSection event for section:', nextSection, 'from:', currentSectionId);
         window.dispatchEvent(new CustomEvent('questionnaire:goToSection', { 
           detail: { 
             fromSection: sectionNumber,
             toSection: nextSection,
-            reason: 'no-more-questions'
+            reason: 'no-more-questions',
+            sectionType: currentSectionId.startsWith('partner-section-') ? 'partner' : 'personal'
           } 
         }));
       } else {
