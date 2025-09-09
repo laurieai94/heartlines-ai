@@ -174,7 +174,7 @@ const ProfileBuilder = ({
         <div className="text-center space-y-2 flex-shrink-0">
           <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
           <p className="text-base text-pink-200/80 max-w-2xl mx-auto">
-            4 quick questions → Kai can start coaching.
+            4 quick questions → Kai can start coaching
           </p>
         </div>
 
