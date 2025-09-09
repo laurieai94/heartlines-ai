@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, Star } from "lucide-react";
+import CardAvatar from "./CardAvatar";
 
 interface ProfileCardProps {
   title: string;
@@ -40,11 +41,9 @@ const ProfileCard = ({
     <Card className="group p-4 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:from-white/30 hover:to-white/20 ring-1 ring-white/20 hover:ring-2 hover:ring-white/40 hover:backdrop-blur-lg">
       <div className="space-y-3">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
-            <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white">
-              {iconElement}
-            </div>
-          </div>
+          <CardAvatar>
+            {iconElement}
+          </CardAvatar>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
               {title}
