@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
-import { Brain, Heart, Target, Lightbulb, Star, Search } from "lucide-react";
+import { Brain, Heart, Target, Lightbulb, Star, Search, Clock } from "lucide-react";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -195,9 +195,9 @@ const ProfileBuilder = ({
             completion={yourProfileCompletion} 
             description="Just 4 required questions" 
             benefits={[
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "⭐ Just 4 Qs to start" },
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "🔍 Go deeper if you wanna" },
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "⏱️ Done in ~5 min" }
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Just 4 Qs to start" },
+              { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Go deeper if you wanna" },
+              { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done in ~5 min" }
             ]}
             onStartProfile={handleStartPersonalProfile} 
             buttonText="Continue Profile" 

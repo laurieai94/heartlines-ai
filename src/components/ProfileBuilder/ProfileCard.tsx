@@ -67,7 +67,9 @@ const ProfileCard = ({
             ))}
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2">
-                <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
+                <span className="mt-0.5 flex-shrink-0">
+                  {benefit.icon || <Star className="w-3 h-3 text-pink-200/80" />}
+                </span>
                 <span>{benefit.text}</span>
               </li>
             ))}
