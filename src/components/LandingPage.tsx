@@ -17,7 +17,7 @@ import MiniFlamesOverlay from "./MiniFlamesOverlay";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import PhotoSplitBanner from "./PhotoSplitBanner";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
-import coupleBanner from "@/assets/millennial-couple-conversation.jpg";
+
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
     step,

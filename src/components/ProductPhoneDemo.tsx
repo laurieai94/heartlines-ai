@@ -111,7 +111,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                 <FlameIconHalo intensity="medium" size="sm" animated={true}>
                   <div className="relative">
                     <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                      <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
+                      <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                         <Heart className="w-6 h-6" />
                       </AvatarFallback>
@@ -136,7 +136,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                   {message.type === 'assistant' && (
                     <FlameIconHalo intensity="subtle" size="sm" animated={false}>
                       <Avatar className="w-6 h-6 flex-shrink-0">
-                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
+                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                         <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
                           <Heart className="w-3 h-3" />
                         </AvatarFallback>
@@ -168,7 +168,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
             {isTyping && (
               <div className="flex gap-2 items-end animate-fade-in">
                 <Avatar className="w-6 h-6 flex-shrink-0">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" fetchPriority="high" />
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                   <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
                     <Heart className="w-3 h-3" />
                   </AvatarFallback>

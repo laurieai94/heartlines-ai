@@ -39,7 +39,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
               className="object-cover"
               loading="eager" 
               decoding="async" 
-              fetchPriority="high"
+              
             />
             <AvatarFallback className={`text-white border-0 ${isMobile ? 'text-sm' : 'text-lg'}`}>
               <Heart className={isMobile ? 'w-5 h-5' : 'w-8 h-8'} />

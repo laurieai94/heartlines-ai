@@ -76,7 +76,7 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
                   className="object-cover"
                   loading="eager" 
                   decoding="async" 
-                  fetchPriority="high"
+                  
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
                   <Heart className="w-4 h-4 md:w-4 md:h-4" />

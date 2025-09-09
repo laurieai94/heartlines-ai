@@ -297,7 +297,7 @@ const ChatContainer = ({
               <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
                   <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                       <Heart className="w-4 h-4 md:w-6 md:h-6" />
                     </AvatarFallback>
