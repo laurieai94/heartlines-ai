@@ -28,7 +28,6 @@ const PhotoSplitBanner = ({
           }`}
           loading="eager"
           decoding="async"
-          fetchPriority="high"
           onError={() => setImageError(true)}
         />
         
