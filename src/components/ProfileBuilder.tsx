@@ -196,9 +196,9 @@ const ProfileBuilder = ({
 
           {/* Partner Profile Card */}
           <ProfileCard 
-            title="Your Person's Profile (Optional)" 
+            title="Your Person's Profile" 
             completion={partnerProfileCompletion} 
-            description="Add what you know about them so Kai sees both sides." 
+            description="" 
             benefits={[
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual-perspective coaching" },
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Better back-and-forth tips" },
@@ -208,7 +208,8 @@ const ProfileBuilder = ({
             buttonText="Add Your Person" 
             iconElement={<Heart className="w-5 h-5 text-white" />} 
             progressColor="text-pink-300" 
-            benefitColor="text-pink-300" 
+            benefitColor="text-pink-300"
+            optionalPillImage="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png"
           />
         </div>
 

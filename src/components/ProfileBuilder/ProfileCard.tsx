@@ -17,6 +17,7 @@ interface ProfileCardProps {
   iconElement: React.ReactNode;
   progressColor: string;
   benefitColor: string;
+  optionalPillImage?: string;
 }
 
 const ProfileCard = ({
@@ -28,7 +29,8 @@ const ProfileCard = ({
   buttonText,
   iconElement,
   progressColor,
-  benefitColor
+  benefitColor,
+  optionalPillImage
 }: ProfileCardProps) => {
   const [firstBenefit, ...remainingBenefits] = benefits;
 
@@ -40,8 +42,11 @@ const ProfileCard = ({
             {iconElement}
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-white">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
               {title}
+              {optionalPillImage && (
+                <img src={optionalPillImage} alt="Optional" className="h-5 w-auto" />
+              )}
             </h3>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1">
@@ -56,7 +61,7 @@ const ProfileCard = ({
 
         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
           <ul className="space-y-2 text-pink-200/80 text-sm font-normal leading-relaxed">
-            {description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
+            {description && description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
               <li key={`desc-${index}`} className="flex items-start gap-2">
                 <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
                 {sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}
