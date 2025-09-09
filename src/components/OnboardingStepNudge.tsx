@@ -19,7 +19,7 @@ const OnboardingStepNudge = ({
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-white font-medium text-sm md:text-base truncate">Complete your personal profile to start coaching with Kai</h3>
+              <h3 className="text-white font-medium text-sm md:text-base truncate">Complete your profile to start coaching with Kai</h3>
               {completion > 0 && <span className="text-xs bg-white/10 text-white/90 px-2 py-0.5 rounded-full flex-shrink-0 border border-white/20">
                   {completion}% complete
                 </span>}
