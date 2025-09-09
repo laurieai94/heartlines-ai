@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
-import { Brain, Heart, Target, Lightbulb, Star } from "lucide-react";
+import { Brain, Heart, Target, Lightbulb, Star, Search } from "lucide-react";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -212,10 +212,16 @@ const ProfileBuilder = ({
           />
         </div>
 
-
-        {/* Privacy Note */}
-        <div className="text-center text-xs text-white/60 max-w-2xl mx-auto">
-          Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
+        {/* Privacy Banner - Always visible */}
+        <div className="max-w-4xl mx-auto sticky top-4 z-20">
+          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
+            <div className="flex items-center gap-2">
+              <Search className="w-4 h-4 text-white/70" />
+              <p className="text-sm text-white/80">
+                <span className="font-medium">Privacy:</span> Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Collapsible Tips Section */}
