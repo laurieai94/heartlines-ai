@@ -63,24 +63,34 @@ const QuestionnaireLayout = ({
   
   const overallProgress = calculateProgress(profileData);
 
-  // Handle section completion via continue buttons
+  // Handle section completion via continue buttons with multiple scroll attempts
   const handleSectionComplete = (nextSection: number) => {
+    console.debug('🟠 Personal Layout: Section transition requested to:', nextSection);
+    
     // Lock navigation to prevent intersection observer interference
     navLock.current = true;
     
     // Immediately update section
     setCurrentSection(nextSection);
 
-    // Scroll to the next section using ref with animation frame
+    // Multiple scroll attempts for robust section-to-section navigation
     if (scrollToSectionFn.current) {
-      requestAnimationFrame(() => {
-        scrollToSectionFn.current!(nextSection);
-        
-        // Release lock after scroll completes - increased timeout for mobile stability
-        setTimeout(() => {
-          navLock.current = false;
-        }, 1700);
-      });
+      const scrollFn = scrollToSectionFn.current;
+      
+      // First attempt immediately
+      scrollFn(nextSection);
+      
+      // Second attempt after lazy loading
+      setTimeout(() => scrollFn(nextSection), 300);
+      
+      // Final attempt for stubborn cases
+      setTimeout(() => scrollFn(nextSection), 800);
+      
+      // Release lock after all attempts
+      setTimeout(() => {
+        navLock.current = false;
+        console.debug('🟠 Personal Layout: Navigation lock released for section:', nextSection);
+      }, 1200);
     } else {
       // Release lock if no scroll function
       setTimeout(() => {

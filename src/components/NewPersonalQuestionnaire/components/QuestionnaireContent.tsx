@@ -45,48 +45,63 @@ const QuestionnaireContent = ({
   }, []);
 
   const scrollToSection = (sectionNumber: number) => {
-    console.log('🟠 QuestionnaireContent: scrollToSection called with:', sectionNumber);
+    console.debug('🟠 Personal: Section advance requested to:', sectionNumber);
     
-    // Add null check for invalid section numbers
     if (!sectionNumber || sectionNumber < 1 || sectionNumber > 4) {
-      console.error('🔴 QuestionnaireContent: Invalid section number:', sectionNumber);
+      console.error('🔴 Personal: Invalid section number:', sectionNumber);
       return;
     }
     
-    // Map section numbers to their first question IDs
     const sectionToFirstQuestion: Record<number, string> = {
-      1: 'question-name-pronouns',           // WhoYouAre section
-      2: 'question-relationship-status',    // YourRelationship section  
-      3: 'question-love-language',          // HowYouOperate section
-      4: 'question-attachment-style'        // YourFoundation section (AttachmentStyle is now first)
+      1: 'question-name-pronouns',
+      2: 'question-relationship-status',  
+      3: 'question-love-language',
+      4: 'question-attachment-style'
     };
     
     const firstQuestionId = sectionToFirstQuestion[sectionNumber];
-    console.log('🟠 QuestionnaireContent: Target question ID:', firstQuestionId);
+    const fallbackId = `section-${sectionNumber}`;
     
-    // Add DOM ready delay
+    let retryCount = 0;
+    const maxRetries = 20; // ~4s total
+    let observer: MutationObserver | null = null;
+    
     const attemptScroll = () => {
       const element = document.getElementById(firstQuestionId);
-      const fallbackElement = document.getElementById(`section-${sectionNumber}`);
+      const fallbackElement = document.getElementById(fallbackId);
       
-      console.log('🟠 QuestionnaireContent: First question element found:', !!element);
-      console.log('🟠 QuestionnaireContent: Fallback section element found:', !!fallbackElement);
-      
-      const targetElement = element || fallbackElement;
-      
-      if (targetElement?.id) {
-        console.log('🟠 QuestionnaireContent: Using shared scrollToElement for consistent behavior');
-        scrollToElement(targetElement.id, 300);
+      if (element) {
+        console.debug('🟠 Personal: Target element found, scrolling to:', firstQuestionId);
+        scrollToElement(firstQuestionId, 200);
+        observer?.disconnect();
+        return true;
+      } else if (fallbackElement) {
+        console.debug('🟠 Personal: Fallback to section container:', fallbackId);
+        scrollToElement(fallbackId, 200);
+        observer?.disconnect();
+        return true;
+      } else if (retryCount < maxRetries) {
+        retryCount++;
+        console.debug(`🟡 Personal: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
+        setTimeout(attemptScroll, 200);
+        return false;
       } else {
-        console.error('🔴 QuestionnaireContent: Neither first question nor section element found for section:', sectionNumber);
+        console.error('🔴 Personal: Failed to find element after retries:', firstQuestionId);
+        // Last resort: watch for DOM changes
+        observer = new MutationObserver(() => {
+          if (document.getElementById(firstQuestionId) || document.getElementById(fallbackId)) {
+            console.debug('🟠 Personal: Observer triggered, scrolling');
+            attemptScroll();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(() => observer?.disconnect(), 2000);
+        return false;
       }
     };
     
-    // Use requestAnimationFrame to ensure DOM is ready
-    requestAnimationFrame(() => {
-      // Extended delay for cross-section navigation stability, especially on mobile
-      setTimeout(attemptScroll, 300);
-    });
+    // Initial attempt with small delay for DOM stability
+    setTimeout(attemptScroll, 100);
   };
 
   // Expose scroll function to parent

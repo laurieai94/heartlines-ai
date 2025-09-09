@@ -77,9 +77,9 @@ const PartnerQuestionnaireLayout = ({
     return () => window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
   }, []);
 
-  // Enhanced section completion handler with immediate feedback
+  // Enhanced section completion handler with multiple scroll attempts
   const handleSectionComplete = (nextSection: number) => {
-    console.log('🟡 Partner Profile: Section completion requested, moving to section:', nextSection);
+    console.debug('🟠 Partner Layout: Section transition requested to:', nextSection);
     
     // Lock navigation to prevent intersection observer interference
     navLock.current = true;
@@ -90,22 +90,27 @@ const PartnerQuestionnaireLayout = ({
     // Immediately update section
     setCurrentSection(nextSection);
 
-    // Scroll to the next section using ref with shorter delay for better UX
+    // Multiple scroll attempts for robust section-to-section navigation
     if (scrollToSectionFn.current) {
-      // Use setTimeout instead of requestAnimationFrame for more predictable timing
+      const scrollFn = scrollToSectionFn.current;
+      
+      // First attempt immediately
+      scrollFn(nextSection);
+      
+      // Second attempt after lazy loading
+      setTimeout(() => scrollFn(nextSection), 300);
+      
+      // Final attempt for stubborn cases
+      setTimeout(() => scrollFn(nextSection), 800);
+      
+      // Release lock after all attempts
       setTimeout(() => {
-        console.log('🟡 Partner Profile: Attempting scroll to section:', nextSection);
-        scrollToSectionFn.current!(nextSection);
-        
-        // Release lock after scroll completes with shorter timeout for better responsiveness
-        setTimeout(() => {
-          navLock.current = false;
-          document.documentElement.removeAttribute('data-programmatic-scroll');
-          console.log('✅ Partner Profile: Navigation lock released for section:', nextSection);
-        }, 1000); // Reduced from 1800ms to 1000ms
-      }, 50); // Reduced from requestAnimationFrame to 50ms
+        navLock.current = false;
+        document.documentElement.removeAttribute('data-programmatic-scroll');
+        console.debug('🟠 Partner Layout: Navigation lock released for section:', nextSection);
+      }, 1200);
     } else {
-      console.warn('🔶 Partner Profile: No scroll function available');
+      console.warn('🔶 Partner: No scroll function available');
       // Release lock if no scroll function
       setTimeout(() => {
         navLock.current = false;

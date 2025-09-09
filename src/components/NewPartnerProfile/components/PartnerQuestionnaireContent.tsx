@@ -49,33 +49,56 @@ const PartnerQuestionnaireContent = ({
     3: 'partner-attachment-question'
   };
 
-  // Enhanced function to scroll to the first question of a specific section with retries
+  // Robust function to scroll to the first question of a specific section
   const scrollToSection = (sectionNumber: number): void => {
+    console.debug('🟠 Partner: Section advance requested to:', sectionNumber);
+    
     const questionId = firstQuestionIds[sectionNumber];
     if (!questionId) {
-      console.warn('🔴 Partner Profile: No question ID mapped for section:', sectionNumber);
+      console.warn('🔴 Partner: No question ID mapped for section:', sectionNumber);
       return;
     }
 
+    const fallbackId = `partner-section-${sectionNumber}`;
     let retryCount = 0;
-    const maxRetries = 3;
+    const maxRetries = 20; // ~4s total
+    let observer: MutationObserver | null = null;
 
     const attemptScroll = () => {
       const element = document.getElementById(questionId);
+      const fallbackElement = document.getElementById(fallbackId);
+      
       if (element) {
-        // Use scrollToElement for the actual scroll with shorter delay for responsiveness
+        console.debug('🟠 Partner: Target element found, scrolling to:', questionId);
         scrollToElement(questionId, 150);
-        console.log('✅ Partner Profile: Successfully scrolled to section', sectionNumber, 'question:', questionId);
+        observer?.disconnect();
+        return true;
+      } else if (fallbackElement) {
+        console.debug('🟠 Partner: Fallback to section container:', fallbackId);
+        scrollToElement(fallbackId, 150);
+        observer?.disconnect();
+        return true;
       } else if (retryCount < maxRetries) {
         retryCount++;
-        console.log(`🟡 Partner Profile: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
-        setTimeout(attemptScroll, 200 * retryCount); // Increasing delay with each retry
+        console.debug(`🟡 Partner: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
+        setTimeout(attemptScroll, 200);
+        return false;
       } else {
-        console.error('🔴 Partner Profile: Failed to find element after retries:', questionId);
+        console.error('🔴 Partner: Failed to find element after retries:', questionId);
+        // Last resort: watch for DOM changes
+        observer = new MutationObserver(() => {
+          if (document.getElementById(questionId) || document.getElementById(fallbackId)) {
+            console.debug('🟠 Partner: Observer triggered, scrolling');
+            attemptScroll();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(() => observer?.disconnect(), 2000);
+        return false;
       }
     };
 
-    // Initial attempt with small delay to allow DOM updates
+    // Initial attempt with small delay for DOM stability
     setTimeout(attemptScroll, 100);
   };
 
