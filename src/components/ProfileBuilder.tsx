@@ -232,20 +232,25 @@ const ProfileBuilder = ({
           />
         </div>
 
-        {/* Why This Matters / Quick Flow - Slim strip */}
+        {/* Why This Matters / Quick Flow - Cool Strip */}
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/80">
-              <div className="flex items-center gap-2">
-                <Lightbulb className="w-4 h-4 text-white/70" />
+          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm px-4 py-3 shadow-lg shadow-white/5">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/90">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-yellow-400/20 rounded-full blur-sm"></div>
+                  <div className="relative bg-yellow-400/10 p-1.5 rounded-full ring-1 ring-yellow-400/30">
+                    <Lightbulb className="w-3.5 h-3.5 text-yellow-300" />
+                  </div>
+                </div>
                 <span>
-                  <span className="font-medium">Why This Matters:</span> The more real you are, the smarter Kai gets.
+                  <span className="font-medium text-white">Why This Matters:</span> The more real you are, the smarter Kai gets.
                 </span>
               </div>
-              <span className="hidden sm:inline-block h-3 w-px bg-white/10" aria-hidden="true" />
+              <span className="hidden sm:inline-block h-4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" aria-hidden="true" />
               <div className="flex items-center gap-2">
-                <span className="font-medium">Flow:</span>
-                <span>Profile → Chat with Kai → Try it IRL</span>
+                <span className="font-medium text-white">Flow:</span>
+                <span className="text-white/90">Profile → Chat with Kai → Try it IRL</span>
               </div>
             </div>
           </div>
