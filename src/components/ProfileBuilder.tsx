@@ -256,13 +256,18 @@ const ProfileBuilder = ({
           </div>
         </div>
 
-        {/* Privacy Banner - Always visible */}
+        {/* Privacy Banner - Cool Strip */}
         <div className="max-w-4xl mx-auto sticky top-4 z-20">
-          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-            <div className="flex items-center gap-2">
-              <Search className="w-4 h-4 text-white/70" />
-              <p className="text-sm text-white/80">
-                <span className="font-medium">Privacy:</span> Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
+          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm px-4 py-3 shadow-lg shadow-white/5">
+            <div className="flex items-center gap-3 text-sm text-white/90">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm"></div>
+                <div className="relative bg-white/10 p-1.5 rounded-full ring-1 ring-white/25">
+                  <Search className="w-3.5 h-3.5 text-white/80" />
+                </div>
+              </div>
+              <p className="text-white/90">
+                <span className="font-medium text-white">Privacy:</span> Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
               </p>
             </div>
           </div>
