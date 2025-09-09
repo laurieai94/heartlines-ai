@@ -188,7 +188,7 @@ const ProfileBuilder = ({
               { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Full profile takes ~5 minutes max" }
             ]} 
             onStartProfile={handleStartPersonalProfile} 
-            buttonText="Continue Profile →" 
+            buttonText="Continue Profile" 
             iconElement={<Heart className="w-5 h-5 text-white" />} 
             progressColor="text-orange-300" 
             benefitColor="text-orange-300" 
@@ -205,7 +205,7 @@ const ProfileBuilder = ({
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
             ]} 
             onStartProfile={handleStartPartnerProfile} 
-            buttonText="Add Your Person →" 
+            buttonText="Add Your Person" 
             iconElement={<Heart className="w-5 h-5 text-white" />} 
             progressColor="text-pink-300" 
             benefitColor="text-pink-300" 

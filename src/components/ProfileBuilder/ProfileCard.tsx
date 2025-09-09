@@ -54,25 +54,18 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <ul className="space-y-2 text-pink-200/80 text-sm leading-relaxed">
-          {description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
-              <span>{sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}</span>
-            </li>
-          ))}
-        </ul>
-
         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-          <div className={`flex items-center gap-2 ${benefitColor} mb-2`}>
-            {firstBenefit.icon}
-            <span className="font-semibold text-sm">{firstBenefit.text}</span>
-          </div>
-          <ul className="space-y-1 text-pink-200/80 text-xs">
-            {remainingBenefits.map((benefit, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <Star className={`w-3 h-3 ${benefitColor}`} />
-                {benefit.text}
+          <ul className="space-y-2 text-pink-200/80 text-sm font-normal leading-relaxed">
+            {description.split(". ").filter(sentence => sentence.trim()).map((sentence, index) => (
+              <li key={`desc-${index}`} className="flex items-start gap-2">
+                <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
+                <span>{sentence.trim().endsWith(".") ? sentence.trim() : sentence.trim() + "."}</span>
+              </li>
+            ))}
+            {benefits.map((benefit, index) => (
+              <li key={`benefit-${index}`} className="flex items-start gap-2">
+                <Star className="w-3 h-3 text-pink-200/80 mt-0.5 flex-shrink-0" />
+                <span>{benefit.text}</span>
               </li>
             ))}
           </ul>
