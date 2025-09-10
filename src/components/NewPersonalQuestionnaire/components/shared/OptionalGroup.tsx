@@ -39,7 +39,13 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
           </TooltipContent>
         </Tooltip>
       
-      <CollapsibleContent ref={contentRef} className="pt-3" data-optional-content data-optional-open={isOpen}>
+      <CollapsibleContent 
+        ref={contentRef} 
+        className="pt-3" 
+        data-optional-content 
+        data-optional-open={isOpen}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="space-y-3">
           {isOpen ? children : null}
         </div>

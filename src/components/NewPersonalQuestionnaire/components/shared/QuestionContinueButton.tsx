@@ -12,6 +12,10 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
   if (!isVisible) return null;
 
   const handleClick = (e: React.MouseEvent) => {
+    // Prevent event bubbling and default behavior to avoid collapsing
+    e.preventDefault();
+    e.stopPropagation();
+    
     console.log('🔵 DEBUG: Continue button clicked, onClick function exists:', !!onClick);
     console.log('🔵 DEBUG: Continue button - isVisible:', isVisible);
     console.log('🔵 DEBUG: Continue button - className:', className);
@@ -34,6 +38,7 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
   return (
     <div className={`flex justify-center mt-3 animate-fade-in ${className}`}>
       <button
+        type="button"
         onClick={handleClick}
         className="questionnaire-continue-elegant"
       >
