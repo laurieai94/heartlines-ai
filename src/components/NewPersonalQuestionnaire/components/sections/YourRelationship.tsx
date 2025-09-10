@@ -55,7 +55,7 @@ const YourRelationship = ({
   const isSectionComplete = validateSection(2, profileData);
   const getNextQuestionAfterStatus = () => {
     if (isSingle) return 'question-dating-challenges';
-    if (isTalking) return 'question-talking-duration';
+    if (isTalking) return 'question-talking-description';
     if (hasRelationship) return 'question-relationship-length';
     if (isSeparatedDivorced) return 'question-separation-situation';
     if (isWidowed) return 'question-time-since-loss';
