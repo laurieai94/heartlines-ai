@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
+import { PartnerFlowProvider } from "./context/FlowContext";
 
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
@@ -33,14 +34,21 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
 
 
   return (
-    <PartnerQuestionnaireLayout
+    <PartnerFlowProvider
       profileData={profileData}
       updateField={updateField}
       handleMultiSelect={handleMultiSelect}
       onComplete={handleComplete}
-      onClose={onClose}
-      isModal={isModal}
-    />
+    >
+      <PartnerQuestionnaireLayout
+        profileData={profileData}
+        updateField={updateField}
+        handleMultiSelect={handleMultiSelect}
+        onComplete={handleComplete}
+        onClose={onClose}
+        isModal={isModal}
+      />
+    </PartnerFlowProvider>
   );
 };
 

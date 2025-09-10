@@ -4,7 +4,7 @@ import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
-import { useAutoScroll } from "../../../hooks/useAutoScroll";
+import { useFlow } from "../../../context/FlowContext";
 import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
@@ -15,10 +15,7 @@ interface NamePronounsCardProps {
 }
 
 const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: NamePronounsCardProps) => {
-  const { scrollToNextRequiredQuestion } = useAutoScroll();
-  
-  console.log('🔵 DEBUG: NamePronounsCard rendered, isComplete:', isComplete);
-  console.log('🔵 DEBUG: NamePronounsCard scrollToNextRequiredQuestion function exists:', !!scrollToNextRequiredQuestion);
+  const { goToNext } = useFlow();
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
@@ -66,7 +63,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionCompl
     <QuestionCard 
       questionId="question-name-pronouns"
       showContinue={isComplete}
-      onContinue={onSectionComplete || (() => scrollToNextRequiredQuestion('question-name-pronouns'))}
+      onContinue={onSectionComplete || (() => goToNext('question-name-pronouns'))}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}

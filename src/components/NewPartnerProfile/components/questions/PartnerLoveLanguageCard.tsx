@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_LOVE_LANGUAGE_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { usePartnerFlow } from "../../context/FlowContext";
 interface PartnerLoveLanguageCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
@@ -17,11 +17,9 @@ const PartnerLoveLanguageCard = ({
   isComplete = false,
   onSectionComplete
 }: PartnerLoveLanguageCardProps) => {
-  const {
-    scrollToNextQuestion
-  } = useAutoScroll();
+  const { goToNext } = usePartnerFlow();
   const questionId = "partner-love-language-question";
-  return <QuestionCard questionId={questionId} showContinue={isComplete} onContinue={onSectionComplete || (() => scrollToNextQuestion(questionId))}>
+  return <QuestionCard questionId={questionId} showContinue={isComplete} onContinue={onSectionComplete || (() => goToNext(questionId))}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do they seem to feel most loved? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>

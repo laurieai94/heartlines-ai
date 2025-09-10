@@ -1,6 +1,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import QuestionContinueButton from "./QuestionContinueButton";
+import { useFlow } from "../../context/FlowContext";
 
 interface QuestionCardProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ const QuestionCard = ({
   hideContinueButton = false
 }: QuestionCardProps) => {
   const [isInOptionalGroup, setIsInOptionalGroup] = useState(false);
+  const { goToNext } = useFlow();
 
   // Check if this card is inside an OptionalGroup
   useEffect(() => {
@@ -41,6 +43,14 @@ const QuestionCard = ({
   // Hide continue button if inside OptionalGroup or specifically disabled
   const shouldShowContinue = showContinue && !isInOptionalGroup && !hideContinueButton;
 
+  const handleContinue = () => {
+    if (onContinue) {
+      onContinue();
+    } else if (questionId) {
+      goToNext(questionId);
+    }
+  };
+
   return (
     <div 
       className={`questionnaire-card-mobile px-2 py-1.5 space-y-2 scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto ${className}`}
@@ -51,7 +61,7 @@ const QuestionCard = ({
         {children}
         <QuestionContinueButton 
           isVisible={shouldShowContinue}
-          onClick={onContinue || (() => {})}
+          onClick={handleContinue}
         />
       </div>
     </div>

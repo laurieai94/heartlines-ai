@@ -5,7 +5,7 @@ import { User, MessageSquare } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import QuestionCard from "@/components/NewPersonalQuestionnaire/components/shared/QuestionCard";
 import SingleSelect from "@/components/NewPersonalQuestionnaire/components/shared/SingleSelect";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { usePartnerFlow } from "../../context/FlowContext";
 
 interface PartnerNamePronounsCardProps {
   profileData: PartnerProfileData;
@@ -14,8 +14,8 @@ interface PartnerNamePronounsCardProps {
   onSectionComplete?: () => void;
 }
 
-const PartnerNamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: PartnerNamePronounsCardProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false }: PartnerNamePronounsCardProps) => {
+  const { goToNext } = usePartnerFlow();
   const [customPronoun, setCustomPronoun] = useState("");
 
   // Initialize custom pronoun from saved data
@@ -83,7 +83,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete, onSecti
     <QuestionCard 
       questionId="question-partner-name-pronouns"
       showContinue={isComplete}
-      onContinue={onSectionComplete || (() => scrollToNextQuestion('question-partner-name-pronouns'))}
+      onContinue={() => goToNext('partner-name-pronouns-question')}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}

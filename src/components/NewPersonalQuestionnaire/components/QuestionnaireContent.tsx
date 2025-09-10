@@ -31,7 +31,7 @@ interface QuestionnaireContentProps {
   currentSection: number;
   containerRef?: React.RefObject<HTMLDivElement>;
   headerOffsetPx?: number;
-  onScrollToSection?: (scrollFn: (sectionNumber: number) => void) => void;
+  
   onSectionComplete?: (nextSection: number) => void;
 }
 
@@ -42,7 +42,7 @@ const QuestionnaireContent = ({
   currentSection,
   containerRef,
   headerOffsetPx = 0,
-  onScrollToSection,
+  
   onSectionComplete
 }: QuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
@@ -70,73 +70,7 @@ const QuestionnaireContent = ({
     }
   }, [currentSection]);
 
-  const scrollToSection = (sectionNumber: number) => {
-    if (import.meta.env.DEV) {
-      console.debug('🟠 Personal: Section advance requested to:', sectionNumber);
-    }
-    
-    if (!sectionNumber || sectionNumber < 1 || sectionNumber > 4) {
-      if (import.meta.env.DEV) {
-        console.error('🔴 Personal: Invalid section number:', sectionNumber);
-      }
-      return;
-    }
-    
-    const sectionToFirstQuestion: Record<number, string> = {
-      1: 'question-name-pronouns',
-      2: 'question-relationship-status',  
-      3: 'question-love-language',
-      4: 'question-attachment-style'
-    };
-    
-    const firstQuestionId = sectionToFirstQuestion[sectionNumber];
-    const fallbackId = `section-${sectionNumber}`;
-    
-    // Simple retry logic with shorter delays
-    const attemptScroll = (retryCount = 0) => {
-      const element = document.getElementById(firstQuestionId);
-      const fallbackElement = document.getElementById(fallbackId);
-      
-      if (element) {
-        if (import.meta.env.DEV) {
-          console.debug('🟠 Personal: Scrolling to first question:', firstQuestionId);
-        }
-        scrollToElement(firstQuestionId, 150);
-        return;
-      } else if (fallbackElement) {
-        if (import.meta.env.DEV) {
-          console.debug('🟠 Personal: Scrolling to section:', fallbackId);
-        }
-        scrollToElement(fallbackId, 150);
-        return;
-      } else if (retryCount < 8) {
-        if (import.meta.env.DEV) {
-          console.debug(`🟡 Personal: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
-        }
-        setTimeout(() => attemptScroll(retryCount + 1), 150);
-      } else {
-        if (import.meta.env.DEV) {
-          console.warn('🔴 Personal: Could not find scroll target for section:', sectionNumber);
-        }
-      }
-    };
-    
-    // Start with small delay for DOM updates
-    setTimeout(() => attemptScroll(), 50);
-  };
-
-  // Expose scroll function to parent
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      console.log('🟠 QuestionnaireContent: Setting up scroll function, onScrollToSection exists:', !!onScrollToSection);
-    }
-    if (onScrollToSection) {
-      onScrollToSection(scrollToSection);
-      if (import.meta.env.DEV) {
-        console.log('🟠 QuestionnaireContent: Scroll function exposed to parent');
-      }
-    }
-  }, [onScrollToSection]);
+  // Scroll logic removed - handled by FlowContext now
 
   // Component to show loading state for sections
   const SectionSkeleton = () => (

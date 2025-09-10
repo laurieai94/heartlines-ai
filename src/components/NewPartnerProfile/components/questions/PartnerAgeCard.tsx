@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_AGE_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { usePartnerFlow } from "../../context/FlowContext";
 import UnderageModal from "@/components/PersonalProfileQuestionnaire/UnderageModal";
 
 interface PartnerAgeCardProps {
@@ -16,7 +16,7 @@ interface PartnerAgeCardProps {
 
 const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: PartnerAgeCardProps) => {
   const [showUnderageModal, setShowUnderageModal] = useState(false);
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { goToNext } = usePartnerFlow();
   const questionId = "partner-age-question";
   
   const handleAgeSelect = (value: string) => {

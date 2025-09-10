@@ -5,7 +5,7 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
-import { useCurrentSectionDetection } from "../hooks/useCurrentSectionDetection";
+import { FlowProvider } from "../context/FlowContext";
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -27,18 +27,9 @@ const QuestionnaireLayout = ({
   const [currentSection, setCurrentSection] = useState(1);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
-  const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
-  const navLock = useRef(false);
 
-  // Use intersection observer to detect current section during scroll
-  const handleSectionChange = (section: number) => {
-    // Only update section if not in the middle of programmatic navigation
-    if (!navLock.current) {
-      setCurrentSection(section);
-    }
-  };
-  useCurrentSectionDetection(handleSectionChange);
+  // Simple section management - no intersection observers
   
   // Track tablet/desktop state and measure header height
   useEffect(() => {
@@ -71,80 +62,31 @@ const QuestionnaireLayout = ({
       console.debug('🟠 Personal Layout: Section transition to:', nextSection);
     }
     
-    // Prevent intersection observer interference during navigation
-    navLock.current = true;
-    
-    // Update section first
     setCurrentSection(nextSection);
-
-    // Scroll to new section with simple retry
-    if (scrollToSectionFn.current) {
-      const scrollFn = scrollToSectionFn.current;
-      
-      // Immediate scroll attempt
-      scrollFn(nextSection);
-      
-      // Backup scroll after component loads
-      setTimeout(() => scrollFn(nextSection), 200);
-    }
     
-    // Release navigation lock
+    // Simple scroll to section
     setTimeout(() => {
-      navLock.current = false;
-    }, 500);
+      const sectionElement = document.getElementById(`section-${nextSection}`);
+      if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
   
-  // Listen for auto-scroll events to advance sections
-  useEffect(() => {
-    const handleGoToSection = (event: CustomEvent) => {
-      const { toSection, reason } = event.detail;
-      if (import.meta.env.DEV) {
-        console.log('🟢 QuestionnaireLayout: Received goToSection event:', { toSection, reason });
-      }
-      
-      if (toSection <= 4) {
-        // Use the same logic as handleSectionComplete to ensure proper navigation
-        handleSectionComplete(toSection);
-      }
-    };
-
-    window.addEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
-    return () => {
-      window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
-    };
-  }, [handleSectionComplete]);
+  // No more custom events - flow context handles navigation
   const handleSectionClick = (section: number) => {
-    if (import.meta.env.DEV) {
-      console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
-    }
     setCurrentSection(section);
-
-    // Scroll to the selected section using ref
-    if (import.meta.env.DEV) {
-      console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn.current);
-    }
-    if (scrollToSectionFn.current) {
-      if (import.meta.env.DEV) {
-        console.log('🟢 QuestionnaireLayout: Calling scroll function immediately for section:', section);
+    
+    // Simple scroll to section
+    setTimeout(() => {
+      const sectionElement = document.getElementById(`section-${section}`);
+      if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      scrollToSectionFn.current(section);
-    } else if (import.meta.env.DEV) {
-      console.warn('🔴 QuestionnaireLayout: Scroll function not available yet');
-    }
+    }, 100);
   };
 
-  // Auto-advance to next section when current section is completed
-  const handleSectionAutoAdvance = (completedSection: number) => {
-    if (completedSection < 4 && validateSection(completedSection, profileData)) {
-      const nextSection = completedSection + 1;
-      setTimeout(() => {
-        setCurrentSection(nextSection);
-        if (scrollToSectionFn.current) {
-          scrollToSectionFn.current(nextSection);
-        }
-      }, 500); // Small delay to show completion celebration
-    }
-  };
+  // Auto-advance handled by flow context now
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
@@ -170,18 +112,22 @@ const QuestionnaireLayout = ({
             </div>
           </div>
 
-          <QuestionnaireContent
-            profileData={profileData} 
-            updateField={updateField} 
-            handleMultiSelect={handleMultiSelect} 
-            currentSection={currentSection} 
-            containerRef={scrollContainerRef}
-            headerOffsetPx={headerHeight}
-            onScrollToSection={scrollFn => {
-              scrollToSectionFn.current = scrollFn;
-            }} 
-            onSectionComplete={handleSectionComplete} 
-          />
+          <FlowProvider
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            onComplete={onComplete}
+          >
+            <QuestionnaireContent
+              profileData={profileData} 
+              updateField={updateField} 
+              handleMultiSelect={handleMultiSelect} 
+              currentSection={currentSection} 
+              containerRef={scrollContainerRef}
+              headerOffsetPx={headerHeight}
+              onSectionComplete={handleSectionComplete} 
+            />
+          </FlowProvider>
           
           {/* Minimal bottom padding */}
           <div className="pb-6 sm:pb-10" />
