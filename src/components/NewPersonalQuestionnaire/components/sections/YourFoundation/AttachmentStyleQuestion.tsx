@@ -27,7 +27,7 @@ const AttachmentStyleQuestion = ({
   return <QuestionCard 
     questionId="question-attachment-style"
     showContinue={isComplete}
-    onContinue={() => scrollToElement('foundation-optional-group', 300)}
+    onContinue={() => onSectionComplete?.()}
   >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your attachment style? <span className="text-red-400">*</span>

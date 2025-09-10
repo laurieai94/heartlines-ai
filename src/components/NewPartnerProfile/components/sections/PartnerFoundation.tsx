@@ -27,6 +27,7 @@ const PartnerFoundation = ({
         profileData={profileData}
         updateField={updateField}
         isComplete={!!profileData.partnerAttachmentStyle}
+        onSectionComplete={onSectionComplete}
       />
 
       <OptionalGroup 

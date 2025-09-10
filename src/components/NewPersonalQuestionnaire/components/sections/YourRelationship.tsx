@@ -67,18 +67,8 @@ const YourRelationship = ({
   };
 
   const handleContinueAfterStatus = () => {
-    const nextId = getNextQuestionAfterStatus();
-    if (nextId) {
-      // Ensure the optional group is open before scrolling to a follow-up question
-      window.dispatchEvent(new CustomEvent('optional-group:open', { detail: { id: 'relationship-optional-group' } }));
-      // Allow time for content to mount, then scroll to the specific follow-up question
-      setTimeout(() => {
-        scrollToElement(nextId, 200);
-      }, 250);
-    } else {
-      // Fallback: advance to the next required question within or after this section
-      scrollToNextRequiredQuestion('question-relationship-status');
-    }
+    // Always navigate to the next required question, never auto-open optional groups
+    scrollToNextRequiredQuestion('question-relationship-status');
   };
 
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
