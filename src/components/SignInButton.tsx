@@ -46,13 +46,8 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-56 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
-          <div className="space-y-1 divide-y divide-white/15">
-            <div className="px-3 py-2 text-sm pb-3">
-              <p className="font-medium text-white/80">Signed in as</p>
-              <p className="text-white truncate">{user.email}</p>
-            </div>
-            
-            <div className="pt-2 space-y-1">
+          <div className="space-y-1">
+            <div className="space-y-1">
               {onOpenProfile && (
                 <Button
                   variant="ghost"
