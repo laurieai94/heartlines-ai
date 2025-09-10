@@ -80,6 +80,11 @@ export const useAutoScroll = () => {
           if (import.meta.env.DEV) {
             console.warn('🔴 useAutoScroll: Element not found:', elementId);
           }
+          // Ensure programmatic scroll flag is cleared even if element not found
+          setTimeout(() => {
+            isProgrammaticScrollRef.current = false;
+            document.documentElement.removeAttribute('data-programmatic-scroll');
+          }, 100);
           return;
         }
 
@@ -114,6 +119,11 @@ export const useAutoScroll = () => {
             block: 'start',
             inline: 'nearest'
           });
+          // Clear programmatic scroll flag after fallback
+          setTimeout(() => {
+            isProgrammaticScrollRef.current = false;
+            document.documentElement.removeAttribute('data-programmatic-scroll');
+          }, 300);
           return;
         }
 
@@ -286,6 +296,26 @@ export const useAutoScroll = () => {
         }
       });
     }, delay);
+
+    // Safety timeout to ensure programmatic scroll flag is always cleared
+    const safetyTimeoutRef = setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+      document.documentElement.removeAttribute('data-programmatic-scroll');
+      if (import.meta.env.DEV) {
+        console.warn('🔴 useAutoScroll: Safety timeout cleared programmatic scroll flag');
+      }
+    }, 2000);
+
+    // Clear safety timeout if normal flow completes first
+    const originalTimeout = timeoutRef.current;
+    if (originalTimeout) {
+      const wrappedTimeout = setTimeout(() => {
+        clearTimeout(safetyTimeoutRef);
+        const originalHandler = originalTimeout;
+        originalHandler;
+      }, delay + 100);
+      timeoutRef.current = wrappedTimeout;
+    }
   }, [clearScrollTimeout, waitForLayoutStability]);
 
   const scrollToNextQuestion = useCallback((currentQuestionId: string, retryCount: number = 0) => {
