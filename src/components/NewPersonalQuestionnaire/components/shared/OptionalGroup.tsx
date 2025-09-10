@@ -8,18 +8,33 @@ import { useAutoScroll } from "../../hooks/useAutoScroll";
 interface OptionalGroupProps {
   children: React.ReactNode;
   title?: string;
+  id?: string;
 }
 
-const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
+const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const { scrollToElement } = useAutoScroll();
+
+  // Open on global event (targeted by id if provided)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      try {
+        const ce = e as CustomEvent<{ id?: string }>;
+        if (!ce.detail?.id || ce.detail.id === id) {
+          setIsOpen(true);
+        }
+      } catch {}
+    };
+    window.addEventListener('optional-group:open', handler as EventListener);
+    return () => window.removeEventListener('optional-group:open', handler as EventListener);
+  }, [id]);
 
   // Optional sections remain user-driven - no auto-scroll when expanded
 
   return (
     <TooltipProvider>
-      <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full" data-optional-group data-optional-open={isOpen}>
+      <Collapsible id={id} open={isOpen} onOpenChange={setIsOpen} className="w-full" data-optional-group data-optional-open={isOpen}>
         <Tooltip>
           <TooltipTrigger asChild>
             <CollapsibleTrigger data-optional-trigger aria-label={title || "Optional section"} aria-expanded={isOpen} className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/30 group shadow-none touch-manipulation active:scale-98">

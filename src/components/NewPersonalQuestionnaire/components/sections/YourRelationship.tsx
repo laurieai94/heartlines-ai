@@ -69,10 +69,14 @@ const YourRelationship = ({
   const handleContinueAfterStatus = () => {
     const nextId = getNextQuestionAfterStatus();
     if (nextId) {
-      console.log('🟢 YourRelationship: Scrolling to next question after status:', nextId);
-      scrollToElement(nextId, 200);
+      // Ensure the optional group is open before scrolling to a follow-up question
+      window.dispatchEvent(new CustomEvent('optional-group:open', { detail: { id: 'relationship-optional-group' } }));
+      // Allow time for content to mount, then scroll to the specific follow-up question
+      setTimeout(() => {
+        scrollToElement(nextId, 200);
+      }, 250);
     } else {
-      console.log('🟢 YourRelationship: No next question found; falling back to next required');
+      // Fallback: advance to the next required question within or after this section
       scrollToNextRequiredQuestion('question-relationship-status');
     }
   };
@@ -92,7 +96,7 @@ const YourRelationship = ({
 
       {/* Optional Follow-up Questions */}
       {(isSingle || isTalking || hasRelationship || isSeparatedDivorced || isWidowed) && (
-        <OptionalGroup>
+        <OptionalGroup id="relationship-optional-group">
           <Suspense fallback={<QuestionSkeleton />}>
             {isSingle && <SinglePersonQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
             {isTalking && <TalkingStageQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
