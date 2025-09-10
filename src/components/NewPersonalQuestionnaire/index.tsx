@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
+import PersonalStepper from "@/components/PersonalStepper";
+
+// Feature flag for new stepper system
+const USE_STEPPER_FLOW = true;
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -41,6 +45,18 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     }
   }, [autoCompleteCallback, handleComplete]);
 
+
+  // Use new stepper system if flag is enabled
+  if (USE_STEPPER_FLOW) {
+    return (
+      <PersonalStepper
+        profileData={profileData}
+        updateField={updateField}
+        handleMultiSelect={handleMultiSelect}
+        onComplete={handleComplete}
+      />
+    );
+  }
 
   return (
     <QuestionnaireLayout
