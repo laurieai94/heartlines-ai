@@ -30,6 +30,7 @@ const PartnerFoundation = ({
       />
 
       <OptionalGroup 
+        id="partner-foundation-optional-group"
         title="Share a few details about their vibe and your dynamic"
       >
         <PartnerHeartbreakBetrayalCard

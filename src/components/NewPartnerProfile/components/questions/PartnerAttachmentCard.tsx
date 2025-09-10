@@ -13,15 +13,27 @@ interface PartnerAttachmentCardProps {
 }
 
 const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false }: PartnerAttachmentCardProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { scrollToElement } = useAutoScroll();
   const questionId = "partner-attachment-question";
   const cardIsComplete = !!profileData.partnerAttachmentStyle;
+  
+  const handleContinue = () => {
+    // First, open the optional group
+    window.dispatchEvent(new CustomEvent('optional-group:open', {
+      detail: { id: 'partner-foundation-optional-group' }
+    }));
+    
+    // Then scroll to the first question inside after content mounts
+    setTimeout(() => {
+      scrollToElement('partner-heartbreak-betrayal-question', 300);
+    }, 100);
+  };
   
   return (
     <QuestionCard 
       questionId={questionId}
       showContinue={cardIsComplete}
-      onContinue={() => scrollToNextQuestion(questionId)}
+      onContinue={handleContinue}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's their attachment style (from what you can tell)?
