@@ -19,8 +19,7 @@ const PartnerOrientationCard = ({ profileData, updateField, isComplete = false }
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion(questionId)}
+      showContinue={false}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's their sexual orientation?

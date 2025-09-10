@@ -19,8 +19,7 @@ const PartnerGenderCard = ({ profileData, handleMultiSelect, isComplete = false 
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion(questionId)}
+      showContinue={false}
     >
       <div className="mb-2">
         <Label className="text-sm font-semibold text-white">
