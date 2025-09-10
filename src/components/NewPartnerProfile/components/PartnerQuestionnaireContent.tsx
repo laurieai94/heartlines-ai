@@ -49,7 +49,7 @@ const PartnerQuestionnaireContent = ({
     3: 'partner-attachment-question'
   };
 
-  // Robust function to scroll to the first question of a specific section
+  // Simplified scroll function
   const scrollToSection = (sectionNumber: number): void => {
     console.debug('🟠 Partner: Section advance requested to:', sectionNumber);
     
@@ -60,46 +60,29 @@ const PartnerQuestionnaireContent = ({
     }
 
     const fallbackId = `partner-section-${sectionNumber}`;
-    let retryCount = 0;
-    const maxRetries = 20; // ~4s total
-    let observer: MutationObserver | null = null;
 
-    const attemptScroll = () => {
+    const attemptScroll = (retryCount = 0) => {
       const element = document.getElementById(questionId);
       const fallbackElement = document.getElementById(fallbackId);
       
       if (element) {
-        console.debug('🟠 Partner: Target element found, scrolling to:', questionId);
+        console.debug('🟠 Partner: Scrolling to first question:', questionId);
         scrollToElement(questionId, 150);
-        observer?.disconnect();
-        return true;
+        return;
       } else if (fallbackElement) {
-        console.debug('🟠 Partner: Fallback to section container:', fallbackId);
+        console.debug('🟠 Partner: Scrolling to section:', fallbackId);
         scrollToElement(fallbackId, 150);
-        observer?.disconnect();
-        return true;
-      } else if (retryCount < maxRetries) {
-        retryCount++;
-        console.debug(`🟡 Partner: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
-        setTimeout(attemptScroll, 200);
-        return false;
+        return;
+      } else if (retryCount < 8) {
+        console.debug(`🟡 Partner: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
+        setTimeout(() => attemptScroll(retryCount + 1), 150);
       } else {
-        console.error('🔴 Partner: Failed to find element after retries:', questionId);
-        // Last resort: watch for DOM changes
-        observer = new MutationObserver(() => {
-          if (document.getElementById(questionId) || document.getElementById(fallbackId)) {
-            console.debug('🟠 Partner: Observer triggered, scrolling');
-            attemptScroll();
-          }
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-        setTimeout(() => observer?.disconnect(), 2000);
-        return false;
+        console.warn('🔴 Partner: Could not find scroll target for section:', sectionNumber);
       }
     };
 
-    // Initial attempt with small delay for DOM stability
-    setTimeout(attemptScroll, 100);
+    // Start with small delay for DOM updates
+    setTimeout(() => attemptScroll(), 50);
   };
 
   // Scroll to first question on mount (section 1) with stability delay

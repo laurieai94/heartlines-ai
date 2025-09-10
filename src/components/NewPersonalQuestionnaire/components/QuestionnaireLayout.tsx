@@ -63,40 +63,31 @@ const QuestionnaireLayout = ({
   
   const overallProgress = calculateProgress(profileData);
 
-  // Handle section completion via continue buttons with multiple scroll attempts
+  // Handle section completion via continue buttons
   const handleSectionComplete = (nextSection: number) => {
-    console.debug('🟠 Personal Layout: Section transition requested to:', nextSection);
+    console.debug('🟠 Personal Layout: Section transition to:', nextSection);
     
-    // Lock navigation to prevent intersection observer interference
+    // Prevent intersection observer interference during navigation
     navLock.current = true;
     
-    // Immediately update section
+    // Update section first
     setCurrentSection(nextSection);
 
-    // Multiple scroll attempts for robust section-to-section navigation
+    // Scroll to new section with simple retry
     if (scrollToSectionFn.current) {
       const scrollFn = scrollToSectionFn.current;
       
-      // First attempt immediately
+      // Immediate scroll attempt
       scrollFn(nextSection);
       
-      // Second attempt after lazy loading
-      setTimeout(() => scrollFn(nextSection), 300);
-      
-      // Final attempt for stubborn cases
-      setTimeout(() => scrollFn(nextSection), 800);
-      
-      // Release lock after all attempts
-      setTimeout(() => {
-        navLock.current = false;
-        console.debug('🟠 Personal Layout: Navigation lock released for section:', nextSection);
-      }, 1200);
-    } else {
-      // Release lock if no scroll function
-      setTimeout(() => {
-        navLock.current = false;
-      }, 100);
+      // Backup scroll after component loads
+      setTimeout(() => scrollFn(nextSection), 200);
     }
+    
+    // Release navigation lock
+    setTimeout(() => {
+      navLock.current = false;
+    }, 500);
   };
   
   // Listen for auto-scroll events to advance sections

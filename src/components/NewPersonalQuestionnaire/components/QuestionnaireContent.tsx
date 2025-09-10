@@ -62,46 +62,29 @@ const QuestionnaireContent = ({
     const firstQuestionId = sectionToFirstQuestion[sectionNumber];
     const fallbackId = `section-${sectionNumber}`;
     
-    let retryCount = 0;
-    const maxRetries = 20; // ~4s total
-    let observer: MutationObserver | null = null;
-    
-    const attemptScroll = () => {
+    // Simple retry logic with shorter delays
+    const attemptScroll = (retryCount = 0) => {
       const element = document.getElementById(firstQuestionId);
       const fallbackElement = document.getElementById(fallbackId);
       
       if (element) {
-        console.debug('🟠 Personal: Target element found, scrolling to:', firstQuestionId);
-        scrollToElement(firstQuestionId, 200);
-        observer?.disconnect();
-        return true;
+        console.debug('🟠 Personal: Scrolling to first question:', firstQuestionId);
+        scrollToElement(firstQuestionId, 150);
+        return;
       } else if (fallbackElement) {
-        console.debug('🟠 Personal: Fallback to section container:', fallbackId);
-        scrollToElement(fallbackId, 200);
-        observer?.disconnect();
-        return true;
-      } else if (retryCount < maxRetries) {
-        retryCount++;
-        console.debug(`🟡 Personal: Retry ${retryCount}/${maxRetries} for section ${sectionNumber}`);
-        setTimeout(attemptScroll, 200);
-        return false;
+        console.debug('🟠 Personal: Scrolling to section:', fallbackId);
+        scrollToElement(fallbackId, 150);
+        return;
+      } else if (retryCount < 8) {
+        console.debug(`🟡 Personal: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
+        setTimeout(() => attemptScroll(retryCount + 1), 150);
       } else {
-        console.error('🔴 Personal: Failed to find element after retries:', firstQuestionId);
-        // Last resort: watch for DOM changes
-        observer = new MutationObserver(() => {
-          if (document.getElementById(firstQuestionId) || document.getElementById(fallbackId)) {
-            console.debug('🟠 Personal: Observer triggered, scrolling');
-            attemptScroll();
-          }
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-        setTimeout(() => observer?.disconnect(), 2000);
-        return false;
+        console.warn('🔴 Personal: Could not find scroll target for section:', sectionNumber);
       }
     };
     
-    // Initial attempt with small delay for DOM stability
-    setTimeout(attemptScroll, 100);
+    // Start with small delay for DOM updates
+    setTimeout(() => attemptScroll(), 50);
   };
 
   // Expose scroll function to parent
@@ -137,7 +120,7 @@ const QuestionnaireContent = ({
         />
         </div>
 
-        {/* Only render section 2 when section 1 is accessed or completed */}
+        {/* Keep sections mounted once visited to prevent collapse */}
         {(currentSection >= 2) && (
           <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
             <Suspense fallback={<SectionSkeleton />}>
@@ -152,7 +135,6 @@ const QuestionnaireContent = ({
           </div>
         )}
 
-        {/* Only render section 3 when section 2 is accessed or completed */}
         {(currentSection >= 3) && (
           <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
             <Suspense fallback={<SectionSkeleton />}>
@@ -167,7 +149,6 @@ const QuestionnaireContent = ({
           </div>
         )}
 
-        {/* Only render section 4 when section 3 is accessed or completed */}
         {(currentSection >= 4) && (
           <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
             <Suspense fallback={<SectionSkeleton />}>

@@ -77,46 +77,33 @@ const PartnerQuestionnaireLayout = ({
     return () => window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
   }, []);
 
-  // Enhanced section completion handler with multiple scroll attempts
+  // Handle section completion via continue buttons
   const handleSectionComplete = (nextSection: number) => {
-    console.debug('🟠 Partner Layout: Section transition requested to:', nextSection);
+    console.debug('🟠 Partner Layout: Section transition to:', nextSection);
     
-    // Lock navigation to prevent intersection observer interference
+    // Prevent intersection observer interference during navigation
     navLock.current = true;
     
-    // Set programmatic scroll attribute for coordination
-    document.documentElement.setAttribute('data-programmatic-scroll', 'true');
-    
-    // Immediately update section
+    // Update section first
     setCurrentSection(nextSection);
 
-    // Multiple scroll attempts for robust section-to-section navigation
+    // Scroll to new section with simple retry
     if (scrollToSectionFn.current) {
       const scrollFn = scrollToSectionFn.current;
       
-      // First attempt immediately
+      // Immediate scroll attempt
       scrollFn(nextSection);
       
-      // Second attempt after lazy loading
-      setTimeout(() => scrollFn(nextSection), 300);
-      
-      // Final attempt for stubborn cases
-      setTimeout(() => scrollFn(nextSection), 800);
-      
-      // Release lock after all attempts
-      setTimeout(() => {
-        navLock.current = false;
-        document.documentElement.removeAttribute('data-programmatic-scroll');
-        console.debug('🟠 Partner Layout: Navigation lock released for section:', nextSection);
-      }, 1200);
+      // Backup scroll after component loads
+      setTimeout(() => scrollFn(nextSection), 200);
     } else {
       console.warn('🔶 Partner: No scroll function available');
-      // Release lock if no scroll function
-      setTimeout(() => {
-        navLock.current = false;
-        document.documentElement.removeAttribute('data-programmatic-scroll');
-      }, 100);
     }
+    
+    // Release navigation lock
+    setTimeout(() => {
+      navLock.current = false;
+    }, 500);
   };
 
   // Auto-advance logic (same as personal profile)
