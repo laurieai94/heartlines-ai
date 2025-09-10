@@ -421,13 +421,38 @@ export const useAutoScroll = () => {
   const scrollToNextSection = useCallback((currentSection: number) => {
     const nextSection = currentSection + 1;
     console.log('🟡 useAutoScroll: scrollToNextSection called, current:', currentSection, 'next:', nextSection);
-    const sectionElement = document.getElementById(`section-${nextSection}`);
-    
+
+    // Try personal section id first
+    let targetId = `section-${nextSection}`;
+    let sectionElement = document.getElementById(targetId);
+
+    // Fallback: try partner section id pattern
+    if (!sectionElement) {
+      const partnerTargetId = `partner-section-${nextSection}`;
+      sectionElement = document.getElementById(partnerTargetId) as HTMLElement | null;
+      if (sectionElement) {
+        targetId = partnerTargetId;
+      }
+    }
+
     if (sectionElement) {
-      console.log('🟡 useAutoScroll: Found next section element, scrolling');
-      scrollToElement(`section-${nextSection}`);
+      console.log('🟡 useAutoScroll: Found next section element, scrolling to', targetId);
+      scrollToElement(targetId);
     } else {
-      console.warn('🔴 useAutoScroll: Next section element not found:', `section-${nextSection}`);
+      console.warn('🔴 useAutoScroll: Next section element not found, dispatching goToSection event for mounting:', targetId);
+
+      // Determine section type by checking which current section pattern exists in DOM
+      const isPartner = !!document.getElementById(`partner-section-${currentSection}`) ||
+                        !!document.querySelector('[id^="partner-section-"]');
+
+      window.dispatchEvent(new CustomEvent('questionnaire:goToSection', {
+        detail: {
+          fromSection: currentSection,
+          toSection: nextSection,
+          reason: 'section-not-mounted',
+          sectionType: isPartner ? 'partner' : 'personal'
+        }
+      }));
     }
   }, [scrollToElement]);
 
