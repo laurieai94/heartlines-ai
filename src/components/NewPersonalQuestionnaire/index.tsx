@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
-
+import PersonalFlow from "./Flow/PersonalFlow";
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
   onClose: () => void;
@@ -41,6 +40,20 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     }
   }, [autoCompleteCallback, handleComplete]);
 
+
+  const USE_NEW_FLOW = true;
+
+  if (USE_NEW_FLOW) {
+    return (
+      <PersonalFlow
+        profileData={profileData as any}
+        updateField={updateField as any}
+        handleMultiSelect={handleMultiSelect as any}
+        onComplete={handleComplete}
+        onClose={onClose}
+      />
+    );
+  }
 
   return (
     <QuestionnaireLayout

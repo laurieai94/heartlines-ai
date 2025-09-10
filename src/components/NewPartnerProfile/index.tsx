@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
-
+import PartnerFlow from "./Flow/PartnerFlow";
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
   onClose: () => void;
@@ -31,6 +31,20 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
     }
   };
 
+
+  const USE_NEW_FLOW = true;
+
+  if (USE_NEW_FLOW) {
+    return (
+      <PartnerFlow
+        profileData={profileData as any}
+        updateField={updateField as any}
+        handleMultiSelect={handleMultiSelect as any}
+        onComplete={handleComplete}
+        onClose={onClose}
+      />
+    );
+  }
 
   return (
     <PartnerQuestionnaireLayout
