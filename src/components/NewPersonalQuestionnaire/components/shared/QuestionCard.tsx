@@ -8,6 +8,7 @@ interface QuestionCardProps {
   questionId?: string;
   showContinue?: boolean;
   onContinue?: () => void;
+  hideContinueButton?: boolean; // Hide continue button for this specific question
 }
 
 const QuestionCard = ({ 
@@ -15,7 +16,8 @@ const QuestionCard = ({
   className = "", 
   questionId,
   showContinue = false,
-  onContinue
+  onContinue,
+  hideContinueButton = false
 }: QuestionCardProps) => {
   const [isInOptionalGroup, setIsInOptionalGroup] = useState(false);
 
@@ -36,8 +38,8 @@ const QuestionCard = ({
     return () => clearTimeout(timer);
   }, [questionId]);
 
-  // Hide continue button if inside OptionalGroup
-  const shouldShowContinue = showContinue && !isInOptionalGroup;
+  // Hide continue button if inside OptionalGroup or specifically disabled
+  const shouldShowContinue = showContinue && !isInOptionalGroup && !hideContinueButton;
 
   return (
     <div 

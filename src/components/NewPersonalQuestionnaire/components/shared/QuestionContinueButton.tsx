@@ -6,10 +6,16 @@ interface QuestionContinueButtonProps {
   isVisible: boolean;
   onClick: () => void;
   className?: string;
+  hideForQuestion?: string; // Question ID to hide the button for
 }
 
-const QuestionContinueButton = ({ isVisible, onClick, className = "" }: QuestionContinueButtonProps) => {
+const QuestionContinueButton = ({ isVisible, onClick, className = "", hideForQuestion }: QuestionContinueButtonProps) => {
   if (!isVisible) return null;
+  
+  // Hide for specific question if specified
+  if (hideForQuestion && window.location.hash.includes(hideForQuestion)) {
+    return null;
+  }
 
   const handleClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     // Prevent event bubbling and default behavior to avoid collapsing
