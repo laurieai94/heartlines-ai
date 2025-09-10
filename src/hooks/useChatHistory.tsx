@@ -343,6 +343,19 @@ export const useChatHistory = () => {
     fetchConversations();
   }, []);
 
+  // Listen for global refresh events
+  useEffect(() => {
+    const handleRefresh = async () => {
+      await fetchConversations();
+    };
+
+    window.addEventListener('chat:refresh', handleRefresh);
+    
+    return () => {
+      window.removeEventListener('chat:refresh', handleRefresh);
+    };
+  }, []);
+
   return {
     conversations,
     currentConversationId,

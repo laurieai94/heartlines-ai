@@ -98,6 +98,22 @@ export const useUserProfile = () => {
     fetchProfile();
   }, []);
 
+  // Listen for global refresh events
+  useEffect(() => {
+    const handleRefresh = async () => {
+      // Clear cache and refetch
+      cachedProfile = null;
+      inflightPromise = null;
+      await fetchProfile();
+    };
+
+    window.addEventListener('user-profile:refresh', handleRefresh);
+    
+    return () => {
+      window.removeEventListener('user-profile:refresh', handleRefresh);
+    };
+  }, [fetchProfile]);
+
   return {
     profile,
     loading,

@@ -6,6 +6,8 @@ import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useNavigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
+import { refreshAllAppData } from '@/utils/globalRefresh';
 import AccountUsageAnalytics from './AccountUsageAnalytics';
 
 const AccountOverview = () => {
@@ -41,6 +43,26 @@ const AccountOverview = () => {
   };
 
   const isHighUsage = usagePercentage > 80;
+
+  const handleRefreshAllData = async () => {
+    try {
+      // Refresh subscription data first
+      await refresh();
+      // Then refresh all other app data
+      await refreshAllAppData();
+      toast({
+        title: "Data refreshed",
+        description: "All profile and chat data has been updated."
+      });
+    } catch (error) {
+      console.error('Error refreshing data:', error);
+      toast({
+        title: "Refresh failed",
+        description: "There was an error refreshing your data. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <div className="space-y-2.5">
@@ -147,7 +169,7 @@ const AccountOverview = () => {
           <Button 
             variant="outline"
             className="justify-start bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/30 py-2 text-xs"
-            onClick={refresh}
+            onClick={handleRefreshAllData}
             disabled={loading}
           >
             <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />

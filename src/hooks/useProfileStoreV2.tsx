@@ -474,6 +474,38 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     };
   }, [config.storageKey, defaultProfile, profileType, profile]);
 
+  // Listen for global refresh events
+  useEffect(() => {
+    const handleForceReload = async (event: CustomEvent) => {
+      const { profileType: targetType } = event.detail;
+      
+      if (targetType === 'all' || targetType === profileType) {
+        if (!user) return;
+        
+        try {
+          setIsSyncing(true);
+          const dbData = await loadFromDatabase();
+          if (Object.keys(dbData).length > 0) {
+            const refreshedData = { ...defaultProfile, ...dbData };
+            setProfile(refreshedData);
+            saveToStorage(refreshedData);
+            setLastSaved(new Date());
+          }
+        } catch (error) {
+          console.error(`Error refreshing ${profileType} profile:`, error);
+        } finally {
+          setIsSyncing(false);
+        }
+      }
+    };
+
+    window.addEventListener('profile:forceReload', handleForceReload as EventListener);
+    
+    return () => {
+      window.removeEventListener('profile:forceReload', handleForceReload as EventListener);
+    };
+  }, [user, profileType, loadFromDatabase, saveToStorage, defaultProfile]);
+
   // Update profile data
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
     const clonedUpdates = cloneProfile(updates);
