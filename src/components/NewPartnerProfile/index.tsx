@@ -9,9 +9,7 @@ interface NewPartnerProfileProps {
 }
 
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
-  const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
-  
-  const { profileData, updateField, handleMultiSelect } = usePartnerProfileData(autoCompleteCallback);
+  const { profileData, updateField, handleMultiSelect } = usePartnerProfileData();
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
@@ -33,12 +31,6 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
     }
   };
 
-  // Set the auto-complete callback after we have access to handleComplete
-  useEffect(() => {
-    if (!autoCompleteCallback) {
-      setAutoCompleteCallback(() => handleComplete);
-    }
-  }, [autoCompleteCallback, handleComplete]);
 
   return (
     <PartnerQuestionnaireLayout
@@ -48,7 +40,6 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
       onComplete={handleComplete}
       onClose={onClose}
       isModal={isModal}
-      onAutoComplete={autoCompleteCallback}
     />
   );
 };
