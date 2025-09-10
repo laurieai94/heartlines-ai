@@ -50,7 +50,9 @@ const QuestionnaireLayout = ({
       if (stickyHeaderRef.current) {
         const height = stickyHeaderRef.current.offsetHeight;
         setHeaderHeight(height);
-        console.log('📏 QuestionnaireLayout: Header height measured:', height, 'isTabletDesktop:', isTabletOrDesktop);
+        if (import.meta.env.DEV) {
+          console.log('📏 QuestionnaireLayout: Header height measured:', height, 'isTabletDesktop:', isTabletOrDesktop);
+        }
       } else {
         setHeaderHeight(0);
       }
@@ -65,7 +67,9 @@ const QuestionnaireLayout = ({
 
   // Handle section completion via continue buttons
   const handleSectionComplete = (nextSection: number) => {
-    console.debug('🟠 Personal Layout: Section transition to:', nextSection);
+    if (import.meta.env.DEV) {
+      console.debug('🟠 Personal Layout: Section transition to:', nextSection);
+    }
     
     // Prevent intersection observer interference during navigation
     navLock.current = true;
@@ -94,7 +98,9 @@ const QuestionnaireLayout = ({
   useEffect(() => {
     const handleGoToSection = (event: CustomEvent) => {
       const { toSection, reason } = event.detail;
-      console.log('🟢 QuestionnaireLayout: Received goToSection event:', { toSection, reason });
+      if (import.meta.env.DEV) {
+        console.log('🟢 QuestionnaireLayout: Received goToSection event:', { toSection, reason });
+      }
       
       if (toSection <= 4) {
         // Use the same logic as handleSectionComplete to ensure proper navigation
@@ -108,15 +114,21 @@ const QuestionnaireLayout = ({
     };
   }, [handleSectionComplete]);
   const handleSectionClick = (section: number) => {
-    console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
+    if (import.meta.env.DEV) {
+      console.log('🟢 QuestionnaireLayout: handleSectionClick called with section:', section);
+    }
     setCurrentSection(section);
 
     // Scroll to the selected section using ref
-    console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn.current);
+    if (import.meta.env.DEV) {
+      console.log('🟢 QuestionnaireLayout: Scroll function exists:', !!scrollToSectionFn.current);
+    }
     if (scrollToSectionFn.current) {
-      console.log('🟢 QuestionnaireLayout: Calling scroll function immediately for section:', section);
+      if (import.meta.env.DEV) {
+        console.log('🟢 QuestionnaireLayout: Calling scroll function immediately for section:', section);
+      }
       scrollToSectionFn.current(section);
-    } else {
+    } else if (import.meta.env.DEV) {
       console.warn('🔴 QuestionnaireLayout: Scroll function not available yet');
     }
   };

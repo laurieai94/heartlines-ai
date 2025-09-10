@@ -1,3 +1,4 @@
+import { memo } from 'react';
 
 interface MultiSelectProps {
   options: string[];
@@ -5,7 +6,7 @@ interface MultiSelectProps {
   onToggle: (value: string) => void;
 }
 
-const MultiSelect = ({ options, selectedValues, onToggle }: MultiSelectProps) => {
+const MultiSelect = memo(({ options, selectedValues, onToggle }: MultiSelectProps) => {
   return (
     <div className="flex flex-wrap gap-1.5 w-full">
       {options.map((option) => (
@@ -26,6 +27,6 @@ const MultiSelect = ({ options, selectedValues, onToggle }: MultiSelectProps) =>
       ))}
     </div>
   );
-};
+});
 
 export default MultiSelect;

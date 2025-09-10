@@ -41,7 +41,7 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
       
       <CollapsibleContent ref={contentRef} className="pt-3" data-optional-content data-optional-open={isOpen}>
         <div className="space-y-3">
-          {children}
+          {isOpen ? children : null}
         </div>
       </CollapsibleContent>
     </Collapsible>

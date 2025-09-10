@@ -839,5 +839,16 @@
     border-color: hsl(var(--coral-400) / 0.5);
     box-shadow: 0 0 0 1px hsl(var(--coral-400) / 0.2);
   }
+
+  /* Content visibility optimizations for better performance */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
+  }
+
+  .cv-auto-tall {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1200px;
+  }
 }
 

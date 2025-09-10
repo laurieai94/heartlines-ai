@@ -43,7 +43,9 @@ export const useAutoScroll = () => {
   }, []);
 
   const scrollToElement = useCallback((elementId: string, delay: number = 150) => {
-    console.log('🟡 useAutoScroll: scrollToElement called with elementId:', elementId, 'delay:', delay);
+    if (import.meta.env.DEV) {
+      console.log('🟡 useAutoScroll: scrollToElement called with elementId:', elementId, 'delay:', delay);
+    }
     clearScrollTimeout();
     
     timeoutRef.current = setTimeout(async () => {
@@ -62,16 +64,22 @@ export const useAutoScroll = () => {
         // Set programmatic scroll attribute for intersection observer coordination
         document.documentElement.setAttribute('data-programmatic-scroll', 'true');
         
-        console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
+        if (import.meta.env.DEV) {
+          console.log('🟡 useAutoScroll: setTimeout triggered, looking for element:', elementId);
+        }
         
         const element = document.getElementById(elementId) || 
                        document.querySelector(`[data-question-card][id="${elementId}"]`) ||
                        document.querySelector(`[data-question-card*="${elementId}"]`);
         
-        console.log('🟡 useAutoScroll: Found element:', !!element, element?.id);
+        if (import.meta.env.DEV) {
+          console.log('🟡 useAutoScroll: Found element:', !!element, element?.id);
+        }
         
         if (!element) {
-          console.warn('🔴 useAutoScroll: Element not found:', elementId);
+          if (import.meta.env.DEV) {
+            console.warn('🔴 useAutoScroll: Element not found:', elementId);
+          }
           return;
         }
 
@@ -82,7 +90,9 @@ export const useAutoScroll = () => {
         }
 
         if (!container) {
-          console.warn('🔴 useAutoScroll: No scroll container found, falling back to scrollIntoView');
+          if (import.meta.env.DEV) {
+            console.warn('🔴 useAutoScroll: No scroll container found, falling back to scrollIntoView');
+          }
           element.scrollIntoView({ 
             behavior: 'smooth', 
             block: 'start',
@@ -101,14 +111,16 @@ export const useAutoScroll = () => {
         const bottomMargin = isMobile ? 20 : 24; // Reduced bottom margin on mobile to prevent overshoot
         const containerPadding = isMobile ? 16 : 32; // Account for container padding
         
-        console.log('📱 useAutoScroll: Mobile scroll adjustments:', {
-          elementId,
-          isMobile,
-          headerHeight,
-          topMargin,
-          bottomMargin,
-          containerPadding
-        });
+        if (import.meta.env.DEV) {
+          console.log('📱 useAutoScroll: Mobile scroll adjustments:', {
+            elementId,
+            isMobile,
+            headerHeight,
+            topMargin,
+            bottomMargin,
+            containerPadding
+          });
+        }
         
         // Calculate element and container positions for COMPLETE visibility
         const containerRect = container.getBoundingClientRect();
@@ -156,19 +168,21 @@ export const useAutoScroll = () => {
         
         // Only scroll if needed and position changed significantly
         if (needsScroll && Math.abs(targetScrollTop - container.scrollTop) > 3) {
-          console.log('🟡 useAutoScroll: Scrolling to ensure COMPLETE visibility', {
-            elementId,
-            headerHeight,
-            elementHeight,
-            availableViewHeight,
-            isFullyVisible,
-            currentScroll: container.scrollTop,
-            targetScroll: targetScrollTop,
-            elementTop,
-            elementBottom,
-            availableViewTop,
-            availableViewBottom
-          });
+          if (import.meta.env.DEV) {
+            console.log('🟡 useAutoScroll: Scrolling to ensure COMPLETE visibility', {
+              elementId,
+              headerHeight,
+              elementHeight,
+              availableViewHeight,
+              isFullyVisible,
+              currentScroll: container.scrollTop,
+              targetScroll: targetScrollTop,
+              elementTop,
+              elementBottom,
+              availableViewTop,
+              availableViewBottom
+            });
+          }
 
           container.scrollTo({
             top: targetScrollTop,
@@ -186,7 +200,9 @@ export const useAutoScroll = () => {
             // Enhanced post-scroll verification with retry loop for desktop
             const verifyAndCorrect = (attemptCount = 0) => {
               if (attemptCount >= 3) {
-                console.log('🟡 useAutoScroll: Max verification attempts reached');
+                if (import.meta.env.DEV) {
+                  console.log('🟡 useAutoScroll: Max verification attempts reached');
+                }
                 isProgrammaticScrollRef.current = false;
                 return;
               }
@@ -201,8 +217,10 @@ export const useAutoScroll = () => {
                   const isNowFullyVisible = updatedElementRect.top >= updatedAvailableTop && 
                                           updatedElementRect.bottom <= updatedAvailableBottom;
                   
-                  if (!isNowFullyVisible) {
-                    console.log(`🟡 useAutoScroll: Verification ${attemptCount + 1} - still not fully visible, correcting`);
+                   if (!isNowFullyVisible) {
+                     if (import.meta.env.DEV) {
+                       console.log(`🟡 useAutoScroll: Verification ${attemptCount + 1} - still not fully visible, correcting`);
+                     }
                     
                     let correctedTop = container.scrollTop;
                     
@@ -223,14 +241,16 @@ export const useAutoScroll = () => {
                     
                     // Try again
                     verifyAndCorrect(attemptCount + 1);
-                  } else {
-                    console.log('🟡 useAutoScroll: Element is now fully visible');
-                    // Release programmatic scroll flag after successful verification
-                    setTimeout(() => {
-                      isProgrammaticScrollRef.current = false;
-                      document.documentElement.removeAttribute('data-programmatic-scroll');
-                    }, 150);
-                  }
+                   } else {
+                     if (import.meta.env.DEV) {
+                       console.log('🟡 useAutoScroll: Element is now fully visible');
+                     }
+                     // Release programmatic scroll flag after successful verification
+                     setTimeout(() => {
+                       isProgrammaticScrollRef.current = false;
+                       document.documentElement.removeAttribute('data-programmatic-scroll');
+                     }, 150);
+                   }
                 });
               }, 600); // Allow more time for smooth scroll to complete
             };
@@ -239,7 +259,9 @@ export const useAutoScroll = () => {
             verifyAndCorrect();
           }
         } else {
-          console.log('🟡 useAutoScroll: Element already completely visible, no scroll needed');
+          if (import.meta.env.DEV) {
+            console.log('🟡 useAutoScroll: Element already completely visible, no scroll needed');
+          }
           // Still release programmatic scroll flag even if we don't scroll
           setTimeout(() => {
             isProgrammaticScrollRef.current = false;
@@ -251,7 +273,9 @@ export const useAutoScroll = () => {
   }, [clearScrollTimeout, waitForLayoutStability]);
 
   const scrollToNextQuestion = useCallback((currentQuestionId: string, retryCount: number = 0) => {
-    console.log('🟡 useAutoScroll: scrollToNextQuestion called with:', currentQuestionId, 'retry:', retryCount);
+    if (import.meta.env.DEV) {
+      console.log('🟡 useAutoScroll: scrollToNextQuestion called with:', currentQuestionId, 'retry:', retryCount);
+    }
     
     const currentElement = document.getElementById(currentQuestionId);
     if (!currentElement) {

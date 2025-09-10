@@ -7,11 +7,18 @@ import OptionalGroup from "../shared/OptionalGroup";
 import { useAutoScroll } from "../../hooks/useAutoScroll";
 import { validateSection } from "../../utils/validation";
 import { relationshipStatusOptions } from "./YourRelationship/constants";
-import SinglePersonQuestions from "./YourRelationship/SinglePersonQuestions";
-import RelationshipQuestions from "./YourRelationship/RelationshipQuestions";
-import TalkingStageQuestions from "./YourRelationship/TalkingStageQuestions";
-import SeparatedDivorcedQuestions from "./YourRelationship/SeparatedDivorcedQuestions";
-import WidowedQuestions from "./YourRelationship/WidowedQuestions";
+import { lazy, Suspense } from "react";
+
+// Lazy load relationship sub-components for better performance
+const SinglePersonQuestions = lazy(() => import("./YourRelationship/SinglePersonQuestions"));
+const RelationshipQuestions = lazy(() => import("./YourRelationship/RelationshipQuestions"));
+const TalkingStageQuestions = lazy(() => import("./YourRelationship/TalkingStageQuestions"));
+const SeparatedDivorcedQuestions = lazy(() => import("./YourRelationship/SeparatedDivorcedQuestions"));
+const WidowedQuestions = lazy(() => import("./YourRelationship/WidowedQuestions"));
+
+const QuestionSkeleton = () => (
+  <div className="h-20 animate-pulse bg-white/5 rounded-lg" />
+);
 interface YourRelationshipProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -86,11 +93,13 @@ const YourRelationship = ({
       {/* Optional Follow-up Questions */}
       {(isSingle || isTalking || hasRelationship || isSeparatedDivorced || isWidowed) && (
         <OptionalGroup>
-          {isSingle && <SinglePersonQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
-          {isTalking && <TalkingStageQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
-          {hasRelationship && <RelationshipQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
-          {isSeparatedDivorced && <SeparatedDivorcedQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
-          {isWidowed && <WidowedQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+          <Suspense fallback={<QuestionSkeleton />}>
+            {isSingle && <SinglePersonQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
+            {isTalking && <TalkingStageQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+            {hasRelationship && <RelationshipQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+            {isSeparatedDivorced && <SeparatedDivorcedQuestions profileData={profileData} handleMultiSelect={handleMultiSelect} />}
+            {isWidowed && <WidowedQuestions profileData={profileData} updateField={updateField} handleMultiSelect={handleMultiSelect} />}
+          </Suspense>
         </OptionalGroup>
       )}
     </div>;

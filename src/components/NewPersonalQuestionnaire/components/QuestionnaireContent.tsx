@@ -9,6 +9,21 @@ const YourRelationship = lazy(() => import("./sections/YourRelationship"));
 const HowYouOperate = lazy(() => import("./sections/HowYouOperate"));
 const YourFoundation = lazy(() => import("./sections/YourFoundation"));
 
+// Prefetch next sections during idle time
+const prefetchSection = (sectionName: string) => {
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+      if (sectionName === 'YourRelationship') {
+        import("./sections/YourRelationship");
+      } else if (sectionName === 'HowYouOperate') {
+        import("./sections/HowYouOperate");
+      } else if (sectionName === 'YourFoundation') {
+        import("./sections/YourFoundation");
+      }
+    });
+  }
+};
+
 interface QuestionnaireContentProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -44,11 +59,26 @@ const QuestionnaireContent = ({
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
+  // Prefetch next section when current section becomes active
+  useEffect(() => {
+    if (currentSection === 1) {
+      prefetchSection('YourRelationship');
+    } else if (currentSection === 2) {
+      prefetchSection('HowYouOperate');
+    } else if (currentSection === 3) {
+      prefetchSection('YourFoundation');
+    }
+  }, [currentSection]);
+
   const scrollToSection = (sectionNumber: number) => {
-    console.debug('🟠 Personal: Section advance requested to:', sectionNumber);
+    if (import.meta.env.DEV) {
+      console.debug('🟠 Personal: Section advance requested to:', sectionNumber);
+    }
     
     if (!sectionNumber || sectionNumber < 1 || sectionNumber > 4) {
-      console.error('🔴 Personal: Invalid section number:', sectionNumber);
+      if (import.meta.env.DEV) {
+        console.error('🔴 Personal: Invalid section number:', sectionNumber);
+      }
       return;
     }
     
@@ -68,18 +98,26 @@ const QuestionnaireContent = ({
       const fallbackElement = document.getElementById(fallbackId);
       
       if (element) {
-        console.debug('🟠 Personal: Scrolling to first question:', firstQuestionId);
+        if (import.meta.env.DEV) {
+          console.debug('🟠 Personal: Scrolling to first question:', firstQuestionId);
+        }
         scrollToElement(firstQuestionId, 150);
         return;
       } else if (fallbackElement) {
-        console.debug('🟠 Personal: Scrolling to section:', fallbackId);
+        if (import.meta.env.DEV) {
+          console.debug('🟠 Personal: Scrolling to section:', fallbackId);
+        }
         scrollToElement(fallbackId, 150);
         return;
       } else if (retryCount < 8) {
-        console.debug(`🟡 Personal: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
+        if (import.meta.env.DEV) {
+          console.debug(`🟡 Personal: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
+        }
         setTimeout(() => attemptScroll(retryCount + 1), 150);
       } else {
-        console.warn('🔴 Personal: Could not find scroll target for section:', sectionNumber);
+        if (import.meta.env.DEV) {
+          console.warn('🔴 Personal: Could not find scroll target for section:', sectionNumber);
+        }
       }
     };
     
@@ -89,10 +127,14 @@ const QuestionnaireContent = ({
 
   // Expose scroll function to parent
   useEffect(() => {
-    console.log('🟠 QuestionnaireContent: Setting up scroll function, onScrollToSection exists:', !!onScrollToSection);
+    if (import.meta.env.DEV) {
+      console.log('🟠 QuestionnaireContent: Setting up scroll function, onScrollToSection exists:', !!onScrollToSection);
+    }
     if (onScrollToSection) {
       onScrollToSection(scrollToSection);
-      console.log('🟠 QuestionnaireContent: Scroll function exposed to parent');
+      if (import.meta.env.DEV) {
+        console.log('🟠 QuestionnaireContent: Scroll function exposed to parent');
+      }
     }
   }, [onScrollToSection]);
 
@@ -110,7 +152,7 @@ const QuestionnaireContent = ({
 
   return (
     <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
-        <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
         <WhoYouAre
           profileData={profileData}
           updateField={updateField}
@@ -122,7 +164,7 @@ const QuestionnaireContent = ({
 
         {/* Keep sections mounted once visited to prevent collapse */}
         {(currentSection >= 2) && (
-          <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+          <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
             <Suspense fallback={<SectionSkeleton />}>
               <YourRelationship
                 profileData={profileData}
@@ -136,7 +178,7 @@ const QuestionnaireContent = ({
         )}
 
         {(currentSection >= 3) && (
-          <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+          <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
             <Suspense fallback={<SectionSkeleton />}>
               <HowYouOperate
                 profileData={profileData}
@@ -150,7 +192,7 @@ const QuestionnaireContent = ({
         )}
 
         {(currentSection >= 4) && (
-          <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+          <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
             <Suspense fallback={<SectionSkeleton />}>
               <YourFoundation
                 profileData={profileData}

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 
 interface SingleSelectProps {
   options: string[];
@@ -5,7 +6,7 @@ interface SingleSelectProps {
   onSelect: (value: string) => void;
 }
 
-const SingleSelect = ({ options, selectedValue, onSelect }: SingleSelectProps) => {
+const SingleSelect = memo(({ options, selectedValue, onSelect }: SingleSelectProps) => {
   return (
     <div className="flex flex-wrap gap-1.5 w-full">
       {options.map((option) => (
@@ -26,7 +27,7 @@ const SingleSelect = ({ options, selectedValue, onSelect }: SingleSelectProps) =
       ))}
     </div>
   );
-};
+});
 
 export default SingleSelect;
 
