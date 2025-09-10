@@ -4,7 +4,7 @@ import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
-import { useAutoScroll } from "../../../hooks/useAutoScroll";
+import { useSnapFlow } from "../../../hooks/useSnapFlow";
 import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
@@ -15,7 +15,7 @@ interface NamePronounsCardProps {
 }
 
 const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: NamePronounsCardProps) => {
-  const { scrollToNextRequiredQuestion } = useAutoScroll();
+  const { scrollToNextRequiredQuestion } = useSnapFlow();
   
   console.log('🔵 DEBUG: NamePronounsCard rendered, isComplete:', isComplete);
   console.log('🔵 DEBUG: NamePronounsCard scrollToNextRequiredQuestion function exists:', !!scrollToNextRequiredQuestion);

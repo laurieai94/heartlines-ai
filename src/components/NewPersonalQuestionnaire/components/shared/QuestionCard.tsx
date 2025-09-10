@@ -43,9 +43,13 @@ const QuestionCard = ({
 
   return (
     <div 
-      className={`questionnaire-card-mobile px-2 py-1.5 space-y-2 scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto ${className}`}
+      className={`questionnaire-card-mobile px-2 py-1.5 space-y-2 scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto snap-flow-target ${className}`}
       data-question-card
       id={questionId}
+      style={{
+        scrollSnapAlign: 'start',
+        scrollMarginTop: 'var(--header-height, 80px)'
+      }}
     >
       <div className="space-y-2">
         {children}

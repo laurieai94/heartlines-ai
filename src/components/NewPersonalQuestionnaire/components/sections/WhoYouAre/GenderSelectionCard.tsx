@@ -3,7 +3,7 @@ import { User } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
-import { useAutoScroll } from "../../../hooks/useAutoScroll";
+import { useSnapFlow } from "../../../hooks/useSnapFlow";
 interface GenderSelectionCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -14,7 +14,7 @@ const GenderSelectionCard = ({
   updateField,
   isComplete
 }: GenderSelectionCardProps) => {
-  const { scrollToNextQuestion } = useAutoScroll();
+  const { scrollToNextQuestion } = useSnapFlow();
   
   const genderOptions = ['Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 'Genderfluid', 'Genderqueer', 'Questioning', 'Prefer to self-describe'];
   
