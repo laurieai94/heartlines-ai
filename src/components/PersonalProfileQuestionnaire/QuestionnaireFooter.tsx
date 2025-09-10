@@ -1,8 +1,9 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, UserPlus } from "lucide-react";
 import { calculateOverallProgress } from "./ValidationLogic";
 import { BRAND } from "@/branding";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 interface QuestionnaireFooterProps {
   currentSection: number;
@@ -25,11 +26,13 @@ const QuestionnaireFooter = ({
   getCompletedCount,
   profileData 
 }: QuestionnaireFooterProps) => {
+  const { goToPartner } = useNavigation();
   const isCurrentSectionValid = validateSection(currentSection);
   const completedCount = getCompletedCount(currentSection);
   const requiredCount = getRequiredCount(currentSection);
   const remainingCount = requiredCount - completedCount;
   const overallProgress = calculateOverallProgress(profileData);
+  const canComplete = validateSection(4);
 
   const getStatusMessage = () => {
     if (isCurrentSectionValid) {
@@ -71,6 +74,15 @@ const QuestionnaireFooter = ({
           >
             Next Step
             <ArrowRight className="w-3 h-3" />
+          </Button>
+        )}
+        {currentSection === 4 && canComplete && (
+          <Button
+            onClick={goToPartner}
+            className="bg-white/10 hover:bg-white/15 border border-white/20 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-2 px-4 py-2 text-sm rounded-lg shadow-sm hover:scale-105 transition-all duration-200 font-medium mr-2"
+          >
+            <UserPlus className="w-3 h-3" />
+            Add your person's details
           </Button>
         )}
         {currentSection === 4 && (

@@ -1,8 +1,9 @@
 
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
-import { Heart } from "lucide-react";
+import { Heart, UserPlus } from "lucide-react";
 import { BRAND } from "@/branding";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
@@ -15,6 +16,7 @@ const CleanQuestionnaireFooter = ({
   onComplete,
   autoCompleteEnabled = false
 }: CleanQuestionnaireFooterProps) => {
+  const { goToPartner } = useNavigation();
   const overallProgress = calculateProgress(profileData);
   
   // Section completion status
@@ -59,8 +61,19 @@ const CleanQuestionnaireFooter = ({
           ))}
         </div>
 
-        {/* Right side - Unlock Coaching Button */}
-        <div className="flex items-center">
+        {/* Right side - Action Buttons */}
+        <div className="flex items-center gap-2">
+          {!autoCompleteEnabled && canComplete && (
+            <button 
+              onClick={goToPartner}
+              className="bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white/25 text-white/80 hover:text-white backdrop-blur-md px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl font-medium shadow-sm transition-all duration-300 flex items-center gap-1.5 text-xs sm:text-sm hover:scale-[1.02]"
+            >
+              <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="hidden sm:inline">Add your person's details</span>
+              <span className="sm:hidden">Add person</span>
+            </button>
+          )}
+          
           {!autoCompleteEnabled && (
             <button 
               onClick={canComplete ? onComplete : undefined}

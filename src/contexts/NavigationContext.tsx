@@ -4,6 +4,7 @@ import React, { createContext, useContext, ReactNode } from 'react';
 interface NavigationContextType {
   goToProfile: (origin?: 'header' | 'chat') => void;
   goToCoach: () => void;
+  goToPartner: () => void;
 }
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
@@ -20,9 +21,10 @@ interface NavigationProviderProps {
   children: ReactNode;
   goToProfile: (origin?: 'header' | 'chat') => void;
   goToCoach?: () => void;
+  goToPartner?: () => void;
 }
 
-export const NavigationProvider = ({ children, goToProfile, goToCoach }: NavigationProviderProps) => {
+export const NavigationProvider = ({ children, goToProfile, goToCoach, goToPartner }: NavigationProviderProps) => {
   const handleGoToCoach = goToCoach || (() => {
     // Default implementation to navigate to insights tab
     const tabsElement = document.querySelector('[data-state="active"]')?.closest('[role="tablist"]');
@@ -34,8 +36,13 @@ export const NavigationProvider = ({ children, goToProfile, goToCoach }: Navigat
     }
   });
 
+  const handleGoToPartner = goToPartner || (() => {
+    // Default implementation to dispatch partner questionnaire event
+    window.dispatchEvent(new CustomEvent('dashboard:openPartnerQuestionnaire'));
+  });
+
   return (
-    <NavigationContext.Provider value={{ goToProfile, goToCoach: handleGoToCoach }}>
+    <NavigationContext.Provider value={{ goToProfile, goToCoach: handleGoToCoach, goToPartner: handleGoToPartner }}>
       {children}
     </NavigationContext.Provider>
   );

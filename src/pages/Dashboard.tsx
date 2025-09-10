@@ -91,9 +91,14 @@ const Dashboard = () => {
     handleOpenQuestionnaire();
   };
 
+  const goToPartner = () => {
+    handleQuestionnaireClose();
+    setTimeout(handleOpenPartnerQuestionnaire, 100);
+  };
+
   return (
     <AuthGuard>
-      <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach}>
+      <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
           <div className="h-[100dvh] overflow-hidden">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
