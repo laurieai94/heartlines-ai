@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import SingleSelect from "../../shared/SingleSelect";
-import { useSnapFlow } from "../../../hooks/useSnapFlow";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import UnderageModal from "../../../../PersonalProfileQuestionnaire/UnderageModal";
 
 interface AgeSelectionCardProps {
@@ -15,7 +15,7 @@ interface AgeSelectionCardProps {
 }
 
 const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelectionCardProps) => {
-  const { scrollToNextQuestion } = useSnapFlow();
+  const { scrollToNextQuestion } = useAutoScroll();
   const [showUnderageModal, setShowUnderageModal] = useState(false);
   
   const ageOptions = [

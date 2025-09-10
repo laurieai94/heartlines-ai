@@ -1,7 +1,7 @@
 
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { ProfileData } from "../types";
-import { useSnapFlow } from "../hooks/useSnapFlow";
+import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
 
 // Lazy load sections for better initial performance
@@ -47,7 +47,7 @@ const QuestionnaireContent = ({
 }: QuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
-  const { scrollToElement } = useSnapFlow();
+  const { scrollToElement } = useAutoScroll();
 
   // Track tablet/desktop state
   useEffect(() => {

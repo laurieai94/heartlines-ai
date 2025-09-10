@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
-import { useSnapFlow } from "../../hooks/useSnapFlow";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ interface OptionalGroupProps {
 const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { scrollToElement } = useSnapFlow();
+  const { scrollToElement } = useAutoScroll();
 
   // Open on global event (targeted by id if provided)
   useEffect(() => {
