@@ -40,6 +40,7 @@ const QuestionContinueButton = ({ isVisible, onClick, className = "" }: Question
       <button
         type="button"
         onClick={handleClick}
+        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
         className="questionnaire-continue-elegant"
       >
         <span>Continue</span>

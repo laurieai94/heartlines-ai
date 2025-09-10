@@ -83,6 +83,22 @@ export const useAutoScroll = () => {
           return;
         }
 
+        // If element is inside a collapsed optional group, open it first
+        const optionalContent = (element as HTMLElement).closest('[data-optional-content]') as HTMLElement | null;
+        if (optionalContent) {
+          const isOpen = optionalContent.getAttribute('data-optional-open') === 'true';
+          if (!isOpen) {
+            const groupRoot = optionalContent.closest('[data-optional-group]') as HTMLElement | null;
+            const trigger = groupRoot?.querySelector('[data-optional-trigger]') as HTMLElement | null;
+            if (trigger) {
+              if (import.meta.env.DEV) {
+                console.log('🟡 useAutoScroll: Opening collapsed optional group before scrolling');
+              }
+              trigger.click();
+            }
+          }
+        }
+
         // Find scroll container by walking up from element or fallback to document search
         let container = element.closest('[data-scroll-container]') as HTMLElement;
         if (!container) {

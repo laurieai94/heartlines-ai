@@ -45,6 +45,7 @@ const OptionalGroup = ({ children, title = "" }: OptionalGroupProps) => {
         data-optional-content 
         data-optional-open={isOpen}
         onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="space-y-3">
           {isOpen ? children : null}

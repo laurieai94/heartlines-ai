@@ -34,7 +34,8 @@ const YourRelationship = ({
   onSectionComplete
 }: YourRelationshipProps) => {
   const {
-    scrollToNextRequiredQuestion
+    scrollToNextRequiredQuestion,
+    scrollToElement,
   } = useAutoScroll();
 
   // Normalize old saved values to new display labels for backward compatibility
@@ -66,13 +67,12 @@ const YourRelationship = ({
   };
 
   const handleContinueAfterStatus = () => {
-    // Use onSectionComplete if provided (layout-managed navigation)
-    // Otherwise use scroll-based navigation as fallback
-    if (onSectionComplete) {
-      console.log('🟢 YourRelationship: Using onSectionComplete for navigation');
-      onSectionComplete();
+    const nextId = getNextQuestionAfterStatus();
+    if (nextId) {
+      console.log('🟢 YourRelationship: Scrolling to next question after status:', nextId);
+      scrollToElement(nextId, 200);
     } else {
-      console.log('🟢 YourRelationship: Using scrollToNextRequiredQuestion fallback');
+      console.log('🟢 YourRelationship: No next question found; falling back to next required');
       scrollToNextRequiredQuestion('question-relationship-status');
     }
   };
