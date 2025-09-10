@@ -45,47 +45,49 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 bg-white border border-gray-200 shadow-xl z-50" align="end">
-          <div className="space-y-1">
-            <div className="px-3 py-2 text-sm">
-              <p className="font-medium text-gray-900">Signed in as</p>
-              <p className="text-gray-600 truncate">{user.email}</p>
+        <PopoverContent className="w-56 p-2 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50 text-foreground" align="end">
+          <div className="space-y-1 divide-y divide-white/10">
+            <div className="px-3 py-2 text-sm pb-3">
+              <p className="font-medium text-white/70">Signed in as</p>
+              <p className="text-white/90 truncate">{user.email}</p>
             </div>
             
-            {onOpenProfile && (
+            <div className="pt-2 space-y-1">
+              {onOpenProfile && (
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-foreground hover:bg-white/10"
+                  onClick={() => {
+                    onOpenProfile();
+                    setShowUserMenu(false);
+                  }}
+                >
+                  <UserCircle className="mr-2 h-4 w-4" />
+                  View Profile
+                </Button>
+              )}
+              
               <Button
                 variant="ghost"
-                className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="w-full justify-start text-foreground hover:bg-white/10"
                 onClick={() => {
-                  onOpenProfile();
+                  window.location.href = '/account';
                   setShowUserMenu(false);
                 }}
               >
-                <UserCircle className="mr-2 h-4 w-4" />
-                View Profile
+                <Settings className="mr-2 h-4 w-4" />
+                Account Settings
               </Button>
-            )}
-            
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              onClick={() => {
-                window.location.href = '/account';
-                setShowUserMenu(false);
-              }}
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              Account Settings
-            </Button>
-            
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-              onClick={handleSignOut}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign out
-            </Button>
+              
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-rose-400 hover:text-rose-300 hover:bg-rose-400/10"
+                onClick={handleSignOut}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </Button>
+            </div>
           </div>
         </PopoverContent>
       </Popover>
