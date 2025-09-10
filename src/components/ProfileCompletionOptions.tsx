@@ -28,7 +28,7 @@ const ProfileCompletionOptions = ({
   }, [completionType, hasPartnerProfile]);
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 z-[60] bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center p-4 z-[60] bg-[hsl(var(--questionnaire-bg))]/45 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="profile-completion-title"
@@ -39,11 +39,11 @@ const ProfileCompletionOptions = ({
         onClick={onClose}
       />
 
-      <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 max-w-md w-full animate-fade-in shadow-2xl">
+      <div className="relative glass-burgundy border-burgundy-500/20 rounded-2xl p-8 max-w-md w-full animate-fade-in shadow-2xl">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white/70 hover:text-white hover:bg-white/10 rounded-full p-2 transition-all duration-200"
+          className="absolute top-4 right-4 text-white/70 hover:text-white hover:bg-burgundy-400/10 rounded-full p-2 transition-all duration-200"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
