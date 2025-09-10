@@ -45,18 +45,18 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50 text-foreground" align="end">
-          <div className="space-y-1 divide-y divide-white/10">
+        <PopoverContent className="w-56 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
+          <div className="space-y-1 divide-y divide-white/15">
             <div className="px-3 py-2 text-sm pb-3">
-              <p className="font-medium text-white/70">Signed in as</p>
-              <p className="text-white/90 truncate">{user.email}</p>
+              <p className="font-medium text-white/80">Signed in as</p>
+              <p className="text-white truncate">{user.email}</p>
             </div>
             
             <div className="pt-2 space-y-1">
               {onOpenProfile && (
                 <Button
                   variant="ghost"
-                  className="w-full justify-start text-foreground hover:bg-white/10"
+                  className="w-full justify-start text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20"
                   onClick={() => {
                     onOpenProfile();
                     setShowUserMenu(false);
@@ -69,7 +69,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               
               <Button
                 variant="ghost"
-                className="w-full justify-start text-foreground hover:bg-white/10"
+                className="w-full justify-start text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20"
                 onClick={() => {
                   window.location.href = '/account';
                   setShowUserMenu(false);
@@ -81,7 +81,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               
               <Button
                 variant="ghost"
-                className="w-full justify-start text-rose-400 hover:text-rose-300 hover:bg-rose-400/10"
+                className="w-full justify-start text-rose-300 hover:text-rose-200 hover:bg-rose-400/15 focus-visible:ring-2 focus-visible:ring-rose-300/30"
                 onClick={handleSignOut}
               >
                 <LogOut className="mr-2 h-4 w-4" />
