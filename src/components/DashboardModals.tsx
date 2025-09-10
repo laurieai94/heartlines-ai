@@ -117,17 +117,15 @@ const DashboardModals = ({
       {/* Personal Questionnaire Modal */}
       {showQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 overflow-y-auto touch-pan-y"
-          style={{ zIndex: 99999, touchAction: 'pan-y' }}
-          onWheel={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden"
+          style={{ zIndex: 99999 }}
         >
           <div 
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={onQuestionnaireClose}
-            onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
+          <div className="relative z-10 w-full h-[92dvh] max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
             <NewPersonalQuestionnaire 
               onComplete={onQuestionnaireComplete} 
               onClose={onQuestionnaireClose} 
@@ -140,19 +138,17 @@ const DashboardModals = ({
       {/* Partner Questionnaire Modal */}
       {showPartnerQuestionnaireModal && (
         <div 
-          className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 overflow-y-auto touch-pan-y"
-          style={{ zIndex: 99999, touchAction: 'pan-y' }}
-          onWheel={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden"
+          style={{ zIndex: 99999 }}
         >
           <div 
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={onPartnerQuestionnaireClose}
-            onWheel={(e) => e.preventDefault()}
           />
           
-          <div className="relative z-10 w-full max-w-5xl mx-auto max-h-[92vh]">
+          <div className="relative z-10 w-full h-[92dvh] max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
             <Suspense fallback={
-              <div className="questionnaire-modal-card w-full h-[90vh] max-h-[90vh] flex items-center justify-center">
+              <div className="questionnaire-modal-card w-full h-full flex items-center justify-center">
                 <BrandLoadingText text="profile loading..." color="light" />
               </div>
             }>
