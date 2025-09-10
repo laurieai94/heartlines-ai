@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { MessageSquare } from "lucide-react";
 import { PartnerProfileData } from "../../types";
 import { PARTNER_COMMUNICATION_RESPONSE_OPTIONS } from "../../constants";
-import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
+import { usePartnerFlow } from "../../context/FlowContext";
 interface PartnerCommunicationResponseCardProps {
   profileData: PartnerProfileData;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
@@ -15,11 +15,9 @@ const PartnerCommunicationResponseCard = ({
   handleMultiSelect,
   isComplete = false
 }: PartnerCommunicationResponseCardProps) => {
-  const {
-    scrollToNextQuestion
-  } = useAutoScroll();
+  const { goToNext } = usePartnerFlow();
   const questionId = "partner-communication-response-question";
-  return <QuestionCard questionId={questionId} showContinue={false}>
+  return <QuestionCard questionId={questionId} showContinue={isComplete} onContinue={() => goToNext(questionId)}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         When you speak up about what you need, how do they typically respond?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

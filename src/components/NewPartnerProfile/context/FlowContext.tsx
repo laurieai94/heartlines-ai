@@ -62,7 +62,7 @@ export const PartnerFlowProvider = ({
 
       container.scrollTo({
         top: Math.max(0, targetScroll),
-        behavior: 'smooth'
+        behavior: 'auto' // Use 'auto' for iOS compatibility
       });
     }, 100);
   };

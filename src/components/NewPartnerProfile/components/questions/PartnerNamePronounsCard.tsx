@@ -81,7 +81,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
 
   return (
     <QuestionCard 
-      questionId="question-partner-name-pronouns"
+      questionId="partner-name-pronouns-question"
       showContinue={isComplete}
       onContinue={() => goToNext('partner-name-pronouns-question')}
     >

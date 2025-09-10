@@ -5,18 +5,18 @@ export const getNextQuestion = (currentQuestionId: string, profileData: ProfileD
   
   // Section 1: Who You Are
   if (currentQuestionId === 'question-name-pronouns') {
-    return 'question-age-selection';
+    return 'question-age';
   }
   
-  if (currentQuestionId === 'question-age-selection') {
-    return 'question-gender-selection';
+  if (currentQuestionId === 'question-age') {
+    return 'question-gender';
   }
   
-  if (currentQuestionId === 'question-gender-selection') {
-    return 'question-orientation-selection';
+  if (currentQuestionId === 'question-gender') {
+    return 'question-orientation';
   }
   
-  if (currentQuestionId === 'question-orientation-selection') {
+  if (currentQuestionId === 'question-orientation') {
     return 'question-relationship-status';
   }
 
@@ -25,19 +25,19 @@ export const getNextQuestion = (currentQuestionId: string, profileData: ProfileD
     const status = profileData.relationshipStatus;
     
     if (status === 'Single') {
-      return 'question-single-dating';
+      return 'question-dating-challenges';
     } else if (status === 'Talking/Dating') {
-      return 'question-talking-length';
+      return 'question-talking-description';
     } else if (status === 'In a relationship') {
       return 'question-relationship-length';
     } else if (status === 'Married') {
-      return 'question-marriage-length';
+      return 'question-relationship-length';
     } else if (status === 'Separated') {
-      return 'question-separated-length';
+      return 'question-separation-situation';
     } else if (status === 'Divorced') {
-      return 'question-divorced-length';
+      return 'question-separation-situation';
     } else if (status === 'Widowed') {
-      return 'question-widowed-length';
+      return 'question-time-since-loss';
     } else {
       // Default to love language if no specific status handling needed
       return 'question-love-language';
@@ -45,15 +45,12 @@ export const getNextQuestion = (currentQuestionId: string, profileData: ProfileD
   }
 
   // Single person flow
-  if (currentQuestionId === 'question-single-dating') {
-    return 'question-single-why';
-  }
-  if (currentQuestionId === 'question-single-why') {
+  if (currentQuestionId === 'question-dating-challenges') {
     return 'question-love-language';
   }
 
   // Talking/Dating flow
-  if (currentQuestionId === 'question-talking-length') {
+  if (currentQuestionId === 'question-talking-description') {
     return 'question-talking-challenges';
   }
   if (currentQuestionId === 'question-talking-challenges') {
@@ -65,38 +62,25 @@ export const getNextQuestion = (currentQuestionId: string, profileData: ProfileD
     return 'question-relationship-challenges';
   }
   if (currentQuestionId === 'question-relationship-challenges') {
+    return 'question-relationship-working';
+  }
+  if (currentQuestionId === 'question-relationship-working') {
     return 'question-love-language';
   }
 
-  // Marriage flow
-  if (currentQuestionId === 'question-marriage-length') {
-    return 'question-marriage-challenges';
+  // Separated/Divorced flow
+  if (currentQuestionId === 'question-separation-situation') {
+    return 'question-dating-readiness';
   }
-  if (currentQuestionId === 'question-marriage-challenges') {
-    return 'question-love-language';
-  }
-
-  // Separated flow
-  if (currentQuestionId === 'question-separated-length') {
-    return 'question-separated-challenges';
-  }
-  if (currentQuestionId === 'question-separated-challenges') {
-    return 'question-love-language';
-  }
-
-  // Divorced flow
-  if (currentQuestionId === 'question-divorced-length') {
-    return 'question-divorced-challenges';
-  }
-  if (currentQuestionId === 'question-divorced-challenges') {
+  if (currentQuestionId === 'question-dating-readiness') {
     return 'question-love-language';
   }
 
   // Widowed flow
-  if (currentQuestionId === 'question-widowed-length') {
-    return 'question-widowed-challenges';
+  if (currentQuestionId === 'question-time-since-loss') {
+    return 'question-grieving-process';
   }
-  if (currentQuestionId === 'question-widowed-challenges') {
+  if (currentQuestionId === 'question-grieving-process') {
     return 'question-love-language';
   }
 
