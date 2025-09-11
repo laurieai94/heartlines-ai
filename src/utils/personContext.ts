@@ -97,6 +97,7 @@ export class PersonContextBuilder {
     
     // Map new personal questionnaire fields
     if (personalData.talkingDescription) mapped.talkingDescription = personalData.talkingDescription;
+    if (personalData.talkingDuration) mapped.talkingDuration = personalData.talkingDuration;
     if (personalData.talkingChallenges) mapped.talkingChallenges = personalData.talkingChallenges;
     if (personalData.datingChallenges) mapped.datingChallenges = personalData.datingChallenges;
     if (personalData.separationSituation) mapped.separationSituation = personalData.separationSituation;
@@ -265,6 +266,7 @@ export class PersonContextBuilder {
         datingContext: yourData.relationshipStatus,
         // New relationship-specific fields
         talkingDescription: this.normalizeToArray(yourData.talkingDescription),
+        talkingDuration: yourData.talkingDuration,
         talkingChallenges: this.normalizeToArray(yourData.talkingChallenges),
         relationshipChallenges: this.normalizeToArray(yourData.relationshipChallenges),
         relationshipWorking: this.normalizeToArray(yourData.relationshipWorking),
