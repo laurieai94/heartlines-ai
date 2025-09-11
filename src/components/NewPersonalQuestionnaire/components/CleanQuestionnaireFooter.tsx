@@ -117,7 +117,7 @@ const CleanQuestionnaireFooter = ({
                 >
                   <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   <span className="hidden sm:inline">Add your person's details</span>
-                  <span className="sm:hidden">Add person</span>
+                  <span className="sm:hidden">Your person</span>
                 </Button>
               )}
               
