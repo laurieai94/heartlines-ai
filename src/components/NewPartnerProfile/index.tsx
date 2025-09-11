@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
 import { PartnerFlowProvider } from "./context/FlowContext";
-import PartnerStepper from "@/components/PartnerStepper";
-
-// Feature flag for new stepper system
-const USE_STEPPER_FLOW = true;
 
 interface NewPartnerProfileProps {
   onComplete: (profileData: any, skipPopup?: boolean) => void;
@@ -36,18 +32,6 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
     }
   };
 
-
-  // Use new stepper system if flag is enabled
-  if (USE_STEPPER_FLOW) {
-    return (
-      <PartnerStepper
-        profileData={profileData}
-        updateField={updateField}
-        handleMultiSelect={handleMultiSelect}
-        onComplete={handleComplete}
-      />
-    );
-  }
 
   return (
     <PartnerFlowProvider

@@ -62,7 +62,7 @@ export const FlowProvider = ({
 
       container.scrollTo({
         top: Math.max(0, targetScroll),
-        behavior: 'auto' // Use 'auto' for iOS compatibility
+        behavior: 'smooth'
       });
     }, 100);
   };

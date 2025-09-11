@@ -3,7 +3,7 @@ import { MessageCircle, Brain } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
-import { useFlow } from "../../../context/FlowContext";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { talkingDescriptionOptions, talkingChallengesOptions } from "./constants";
 interface TalkingStageQuestionsProps {
   profileData: ProfileData;
@@ -15,9 +15,11 @@ const TalkingStageQuestions = ({
   updateField,
   handleMultiSelect
 }: TalkingStageQuestionsProps) => {
-  const { goToNext } = useFlow();
+  const {
+    scrollToNextQuestion
+  } = useAutoScroll();
   return <div className="space-y-4">
-      <QuestionCard questionId="question-talking-description" showContinue={profileData.talkingDescription && profileData.talkingDescription.length > 0} onContinue={() => goToNext('question-talking-description')}>
+      <QuestionCard questionId="question-talking-description" showContinue={profileData.talkingDescription && profileData.talkingDescription.length > 0} onContinue={() => scrollToNextQuestion('question-talking-description')}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           How would you describe what you have right now? <span className="text-red-400">*</span>
           <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -30,7 +32,7 @@ const TalkingStageQuestions = ({
         <MultiSelect options={talkingDescriptionOptions} selectedValues={profileData.talkingDescription || []} onToggle={value => handleMultiSelect('talkingDescription', value)} />
       </QuestionCard>
 
-      <QuestionCard questionId="question-talking-challenges" showContinue={profileData.talkingChallenges && profileData.talkingChallenges.length > 0} onContinue={() => goToNext('question-talking-challenges')}>
+      <QuestionCard questionId="question-talking-challenges" showContinue={profileData.talkingChallenges && profileData.talkingChallenges.length > 0} onContinue={() => scrollToNextQuestion('question-talking-challenges')}>
         <Label className="text-sm font-semibold text-white mb-2 block">
           What feels most challenging about the talking stage? <span className="text-red-400">*</span>
           <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

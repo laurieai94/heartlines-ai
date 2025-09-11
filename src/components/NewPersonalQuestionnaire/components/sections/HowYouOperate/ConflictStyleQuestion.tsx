@@ -3,20 +3,21 @@ import { Shield } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
+import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { conflictStyleOptions } from "./constants";
-
 interface ConflictStyleQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
-  onSectionComplete?: () => void;
 }
 const ConflictStyleQuestion = ({
   profileData,
-  handleMultiSelect,
-  onSectionComplete
+  handleMultiSelect
 }: ConflictStyleQuestionProps) => {
+  const {
+    scrollToNextQuestion
+  } = useAutoScroll();
   const isComplete = !!profileData.conflictStyle?.length;
-  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={onSectionComplete}>
+  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-conflict-style')}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
