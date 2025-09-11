@@ -88,42 +88,34 @@ const ChatContainer = ({
     [setVisible]
   );
 
-  // Enhanced scroll handler with immediate user intent locking
+  // Optimized scroll handler with gentler user intent detection
   const handleScroll = useMemo(
     () => throttle(() => {
       const target = viewportRef.current;
       if (!target) return;
       
       const isMobileLocal = isMobile; // capture
-      const baseThreshold = isMobileLocal ? 60 : 48;
-      const keyboardThreshold = isKeyboardOpenRef.current ? 150 : baseThreshold;
-      const threshold = keyboardThreshold;
+      const threshold = isMobileLocal ? 80 : 48; // Increased mobile threshold for better UX
       const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
       const isNear = distanceToBottom < threshold;
       const currentScrollTop = target.scrollTop;
       
-      // Detect scroll direction with lower threshold for more responsiveness
+      // Gentler scroll direction detection
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      if (Math.abs(scrollDelta) > 2) { // Lowered from 5 to 2 for more sensitivity
+      const scrollVelocity = Math.abs(scrollDelta);
+      
+      if (scrollVelocity > 3) { // Only detect direction on meaningful scrolls
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
       
-      // IMMEDIATELY lock on ANY upward movement when not near bottom
-      if (scrollDirection.current === 'up' && !isNear && Math.abs(scrollDelta) > 1) {
+      // More intelligent user intent locking - only lock on intentional upward scrolls
+      if (scrollDirection.current === 'up' && !isNear && scrollVelocity > 15) {
+        // Only lock on fast upward scrolls (indicating user intent to browse history)
         userIntentLockRef.current = true;
-        console.log('🔒 Chat: User intent locked - upward scroll detected');
       }
       
-      // Immediate header visibility on any upward scroll intent
-      if (isMobileLocal && scrollDirection.current === 'up' && Math.abs(scrollDelta) > 5) {
-        debouncedSetVisible(true);
-      }
-      
-      // Only unlock when user is TRULY at the bottom (stricter conditions)
-      if (distanceToBottom < 20) { // Stricter threshold for unlocking
-        if (userIntentLockRef.current) {
-          console.log('🔓 Chat: User intent unlocked - reached bottom');
-        }
+      // Unlock with more generous conditions - create a "resume zone"
+      if (distanceToBottom < 100) { // Larger resume zone for better UX
         userIntentLockRef.current = false;
       }
       
@@ -131,17 +123,17 @@ const ChatContainer = ({
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
-      // Direction-aware mobile header visibility
+      // Simplified mobile header visibility with buffer zones
       if (isMobileLocal && chatHistory.length > 0) {
-        // Show header when scrolling up OR at very top
-        if (scrollDirection.current === 'up' || currentScrollTop < 20) {
+        // Show header when scrolling up with intent or at top
+        if ((scrollDirection.current === 'up' && scrollVelocity > 10) || currentScrollTop < 30) {
           debouncedSetVisible(true);
-        } else if (scrollDirection.current === 'down' && currentScrollTop > 60) {
-          // Hide header when scrolling down past initial area
+        } else if (scrollDirection.current === 'down' && currentScrollTop > 100 && scrollVelocity > 5) {
+          // Hide header when scrolling down with intent, past initial area
           debouncedSetVisible(false);
         }
       }
-    }, 16), // 60fps throttling
+    }, 8), // Faster response for smoother experience
     [chatHistory.length, isMobile, debouncedSetVisible]
   );
 
@@ -163,21 +155,20 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
 
-  // ResizeObserver for content growth detection with user intent respect
+  // ResizeObserver for content growth detection with gentle user intent respect
   useEffect(() => {
     if (!contentRef.current || !viewportRef.current) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
-      // PAUSE all auto-scroll when user intent is locked
+      // Gentler pause logic - only pause on strong user intent signals
       if (userIntentLockRef.current) {
-        console.log('⏸️ Chat: ResizeObserver auto-scroll paused - user intent locked');
         return;
       }
       
-      // Only auto-scroll if near bottom and not locked by user intent
+      // Auto-scroll if near bottom
       if (isNearBottom) {
-        // Small delay to ensure content has rendered
-        setTimeout(() => scrollToBottom('smooth'), 20);
+        // Immediate scroll for better responsiveness
+        setTimeout(() => scrollToBottom('smooth'), 10);
       }
     });
 
@@ -185,24 +176,23 @@ const ChatContainer = ({
     return () => resizeObserver.disconnect();
   }, [isNearBottom, scrollToBottom]);
 
-  // Loading state sticky bottom with user intent respect
+  // Loading state sticky bottom with gentle user intent respect
   useEffect(() => {
     if (loading && isNearBottom && !userIntentLockRef.current) {
       loadingStickyInterval.current = setInterval(() => {
-        // PAUSE loading auto-scroll when user intent is locked
+        // Only pause on strong user intent signals
         if (userIntentLockRef.current) {
-          console.log('⏸️ Chat: Loading auto-scroll paused - user intent locked');
           return;
         }
         
         if (viewportRef.current && isNearBottom) {
           const viewport = viewportRef.current;
           const distanceToBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
-          if (distanceToBottom > 10) { // Only scroll if there's meaningful distance
+          if (distanceToBottom > 5) { // More responsive threshold
             scrollToBottom('auto');
           }
         }
-      }, 100);
+      }, 50); // More frequent updates for smoother experience
     } else if (loadingStickyInterval.current) {
       clearInterval(loadingStickyInterval.current);
       loadingStickyInterval.current = null;
@@ -253,8 +243,8 @@ const ChatContainer = ({
       const nearBottom = distanceToBottom < (isKeyboardOpenRef.current ? 150 : 48);
 
       if (isKeyboardOpenRef.current && nearBottom && !userIntentLockRef.current) {
-        // Small delay to ensure the viewport has stabilized
-        setTimeout(() => scrollToBottom('auto'), 50);
+        // Faster response for better mobile keyboard UX
+        setTimeout(() => scrollToBottom('auto'), 20);
       }
     };
 
@@ -264,8 +254,16 @@ const ChatContainer = ({
   return <div className="flex-1 min-h-0 relative">
       <ScrollArea 
         viewportRef={viewportRef} 
-        className={`h-full ${isMobile ? '' : 'overscroll-contain'}`}
-        style={isMobile ? { WebkitOverflowScrolling: 'touch' } : undefined}
+        className={`h-full ${
+          isMobile 
+            ? 'touch-pan-y overscroll-contain' 
+            : 'overscroll-contain'
+        }`}
+        style={isMobile ? { 
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-y',
+          overscrollBehavior: 'contain'
+        } : undefined}
         onScroll={handleScroll}
         role="log"
         aria-live="polite"

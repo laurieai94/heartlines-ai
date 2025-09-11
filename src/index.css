@@ -151,11 +151,14 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
     line-height: 1.6;
-    /* Mobile stability fixes */
+    /* Enhanced mobile stability and performance */
     touch-action: manipulation;
-    overscroll-behavior-y: none;
+    overscroll-behavior: contain;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    /* Better scroll performance on mobile */
+    -webkit-overflow-scrolling: touch;
   }
 
   .font-sans {
@@ -195,6 +198,30 @@
 
   .pt-safe {
     padding-top: max(env(safe-area-inset-top), 0px);
+  }
+
+  /* Enhanced mobile touch scroll utilities */
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  .touch-pan-x {
+    touch-action: pan-x;
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Smooth scrolling performance */
+  .scroll-smooth-mobile {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent momentum scrolling issues */
+  .overscroll-contain {
+    overscroll-behavior: contain;
   }
 
   .animate-gradient {
