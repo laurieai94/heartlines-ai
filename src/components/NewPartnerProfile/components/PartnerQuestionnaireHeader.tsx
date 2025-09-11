@@ -19,6 +19,13 @@ const getInitial = (profileData: PartnerProfileData): string | null => {
 const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: PartnerQuestionnaireHeaderProps) => {
   const hasName = profileData.partnerName && profileData.partnerName.trim();
   
+  const getProfileTitle = () => {
+    if (hasName) {
+      return `${profileData.partnerName.trim()}'s Profile`;
+    }
+    return "Partner Profile";
+  };
+  
   return (
     <div className="bg-white/[0.02] backdrop-blur-sm border-b border-white/[0.06] px-3 py-1.5 sm:px-4 sm:py-3 flex-shrink-0">
       <div className="flex items-center justify-between mb-1 sm:mb-2">
@@ -32,7 +39,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
           </div>
           
           <div className="min-w-0">
-            <h2 className="text-base sm:text-lg font-bold text-white truncate">Partner Profile</h2>
+            <h2 className="text-base sm:text-lg font-bold text-white truncate">{getProfileTitle()}</h2>
           </div>
         </div>
         
