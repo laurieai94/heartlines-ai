@@ -3,6 +3,7 @@ import { PartnerProfileData } from "../../types";
 import PartnerLoveLanguageCard from "../questions/PartnerLoveLanguageCard";
 import PartnerConflictCard from "../questions/PartnerConflictCard";
 import PartnerSelfAwarenessCard from "../questions/PartnerSelfAwarenessCard";
+import PartnerCommunicationResponseCard from "../questions/PartnerCommunicationResponseCard";
 import OptionalGroup from "@/components/NewPersonalQuestionnaire/components/shared/OptionalGroup";
 
 interface PartnerOperationsProps {
@@ -33,6 +34,12 @@ const PartnerOperations = ({
       <OptionalGroup 
         title="Share a few details about their vibe and your dynamic"
       >
+        <PartnerCommunicationResponseCard
+          profileData={profileData}
+          handleMultiSelect={handleMultiSelect}
+          isComplete={!!(profileData.partnerCommunicationResponse && profileData.partnerCommunicationResponse.length > 0)}
+        />
+
         <PartnerConflictCard
           profileData={profileData}
           handleMultiSelect={handleMultiSelect}

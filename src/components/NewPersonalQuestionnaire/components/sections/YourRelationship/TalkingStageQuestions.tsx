@@ -4,7 +4,8 @@ import { ProfileData } from "../../../types";
 import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
-import { talkingDescriptionOptions, talkingChallengesOptions } from "./constants";
+import { talkingDescriptionOptions, talkingChallengesOptions, talkingDurationOptions } from "./constants";
+import SingleSelect from "../../shared/SingleSelect";
 interface TalkingStageQuestionsProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -19,6 +20,23 @@ const TalkingStageQuestions = ({
     scrollToNextQuestion
   } = useAutoScroll();
   return <div className="space-y-4">
+      <QuestionCardSimple questionId="question-talking-duration">
+        <Label className="text-sm font-semibold text-white mb-2 block">
+          How long have you been in the talking stage?
+          <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select one</span>
+        </Label>
+        
+        <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
+          <MessageCircle className="w-3 h-3 text-blue-300" />
+          <span>Timeline helps us understand your situation</span>
+        </div>
+        <SingleSelect 
+          options={talkingDurationOptions} 
+          selectedValue={profileData.talkingDuration} 
+          onSelect={value => updateField('talkingDuration', value)} 
+        />
+      </QuestionCardSimple>
+
       <QuestionCardSimple questionId="question-talking-description">
         <Label className="text-sm font-semibold text-white mb-2 block">
           How would you describe what you have right now? <span className="text-red-400">*</span>
