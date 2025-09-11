@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
 import { PartnerProfileData } from "../types";
 import { refreshAllAppData } from "@/utils/globalRefresh";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 interface PartnerQuestionnaireHeaderProps {
   overallProgress: number;
@@ -17,6 +19,9 @@ const getInitial = (profileData: PartnerProfileData): string | null => {
 };
 
 const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: PartnerQuestionnaireHeaderProps) => {
+  const { toast } = useToast();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  
   const hasName = profileData.partnerName && profileData.partnerName.trim();
   
   const getProfileTitle = () => {
@@ -24,6 +29,25 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
       return `${profileData.partnerName.trim()}'s Profile`;
     }
     return "Partner Profile";
+  };
+  
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await refreshAllAppData();
+      toast({
+        title: "Profile refreshed",
+        description: "Partner profile data has been updated."
+      });
+    } catch (error) {
+      toast({
+        title: "Refresh failed",
+        description: "Could not refresh profile data.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
   };
   
   return (
@@ -46,11 +70,12 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
         <div className="flex items-center gap-2 sm:gap-2 flex-shrink-0">
           <span className="text-sm sm:text-sm text-white/60 font-medium">{overallProgress}%</span>
           <button
-            onClick={() => refreshAllAppData()}
-            className="text-white/60 hover:text-white w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="text-white/60 hover:text-white w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation disabled:opacity-50"
             aria-label="Refresh profile"
           >
-            <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <RotateCcw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button
             onClick={onClose}

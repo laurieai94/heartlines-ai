@@ -191,11 +191,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       chatHistory.length === 0 && 
       isConfigured && 
       !historyLoading &&
-      hasLoadedMostRecentRef.current // Only after we've checked for existing conversations
+      (hasLoadedMostRecentRef.current || conversations.length === 0) // Show for new users OR after checking existing conversations
     ) {
       setShowStarters(true);
     }
-  }, [chatHistory.length, isConfigured, historyLoading]);
+  }, [chatHistory.length, isConfigured, historyLoading, conversations.length]);
 
   // Removed debug logs for performance
 
