@@ -180,22 +180,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
         const messages = await loadMostRecentConversation();
         setChatHistory(messages);
         hasLoadedMostRecentRef.current = true;
-        
-        // If loaded conversation is empty or old, show starters
-        if (!messages || messages.length === 0) {
-          setShowStarters(true);
-        } else {
-          // Check if the most recent message is older than 12 hours
-          const lastMessage = messages[messages.length - 1];
-          if (lastMessage && lastMessage.timestamp) {
-            const lastMessageTime = new Date(lastMessage.timestamp).getTime();
-            const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
-            
-            if (lastMessageTime < twelveHoursAgo) {
-              setShowStarters(true);
-            }
-          }
-        }
       };
       loadMessages();
     }

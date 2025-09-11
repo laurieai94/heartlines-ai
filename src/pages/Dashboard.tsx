@@ -55,16 +55,6 @@ const Dashboard = () => {
     }
   }, [accessLevel, user]);
 
-  // Handle forced new chat after signin (when user was away >12 hours)
-  useEffect(() => {
-    if (user) {
-      const forceNewChat = localStorage.getItem('force_new_chat_after_signin');
-      if (forceNewChat === 'true' && activeTab !== 'insights') {
-        setActiveTab('insights');
-      }
-    }
-  }, [user, activeTab, setActiveTab]);
-
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
     if (activeTab === 'profile' && 
