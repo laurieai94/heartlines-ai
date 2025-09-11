@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { X, User, Heart, Lock } from "lucide-react";
+import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
 import { PartnerProfileData } from "../types";
+import { refreshAllAppData } from "@/utils/globalRefresh";
 
 interface PartnerQuestionnaireHeaderProps {
   overallProgress: number;
@@ -37,6 +38,13 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
         
         <div className="flex items-center gap-2 sm:gap-2 flex-shrink-0">
           <span className="text-sm sm:text-sm text-white/60 font-medium">{overallProgress}%</span>
+          <button
+            onClick={() => refreshAllAppData()}
+            className="text-white/60 hover:text-white w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation"
+            aria-label="Refresh profile"
+          >
+            <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          </button>
           <button
             onClick={onClose}
             className="text-white/60 hover:text-white w-6 h-6 sm:w-6 sm:h-6 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors duration-200 touch-manipulation"
