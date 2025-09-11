@@ -84,53 +84,50 @@ const QuestionnaireContent = ({
 
   return (
     <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
-        <div id="section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
-        <WhoYouAre
-          profileData={profileData}
-          updateField={updateField}
-          handleMultiSelect={handleMultiSelect}
-          isActive={currentSection === 1}
-        />
-        </div>
-
-        {/* Keep sections mounted once visited to prevent collapse */}
-        {(currentSection >= 2) && (
-          <div id="section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
-            <Suspense fallback={<SectionSkeleton />}>
-              <YourRelationship
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isActive={currentSection === 2}
-              />
-            </Suspense>
-          </div>
+        {/* Section 1: The Basics */}
+        {currentSection === 1 && (
+          <WhoYouAre
+            profileData={profileData}
+            updateField={updateField}
+            handleMultiSelect={handleMultiSelect}
+            isActive={true}
+          />
         )}
 
-        {(currentSection >= 3) && (
-          <div id="section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
-            <Suspense fallback={<SectionSkeleton />}>
-              <HowYouOperate
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isActive={currentSection === 3}
-              />
-            </Suspense>
-          </div>
+        {/* Section 2: Your Situationship */}
+        {currentSection === 2 && (
+          <Suspense fallback={<SectionSkeleton />}>
+            <YourRelationship
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={true}
+            />
+          </Suspense>
         )}
 
-        {(currentSection >= 4) && (
-          <div id="section-4" data-section="4" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto-tall">
-            <Suspense fallback={<SectionSkeleton />}>
-              <YourFoundation
-                profileData={profileData}
-                updateField={updateField}
-                handleMultiSelect={handleMultiSelect}
-                isActive={currentSection === 4}
-              />
-            </Suspense>
-          </div>
+        {/* Section 3: How You Operate */}
+        {currentSection === 3 && (
+          <Suspense fallback={<SectionSkeleton />}>
+            <HowYouOperate
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={true}
+            />
+          </Suspense>
+        )}
+
+        {/* Section 4: Your Foundation */}
+        {currentSection === 4 && (
+          <Suspense fallback={<SectionSkeleton />}>
+            <YourFoundation
+              profileData={profileData}
+              updateField={updateField}
+              handleMultiSelect={handleMultiSelect}
+              isActive={true}
+            />
+          </Suspense>
         )}
       </div>
   );

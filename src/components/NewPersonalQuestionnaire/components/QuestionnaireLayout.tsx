@@ -55,45 +55,21 @@ const QuestionnaireLayout = ({
   
   const overallProgress = calculateProgress(profileData);
 
-  // Section navigation handlers
+  // Section navigation handlers - no scroll logic needed for dedicated screens
   const handlePreviousSection = () => {
     if (currentSection > 1) {
-      const previousSection = currentSection - 1;
-      setCurrentSection(previousSection);
-      
-      setTimeout(() => {
-        const sectionElement = document.getElementById(`section-${previousSection}`);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      setCurrentSection(currentSection - 1);
     }
   };
 
   const handleNextSection = () => {
     if (currentSection < 4 && validateSection(currentSection, profileData)) {
-      const nextSection = currentSection + 1;
-      setCurrentSection(nextSection);
-      
-      setTimeout(() => {
-        const sectionElement = document.getElementById(`section-${nextSection}`);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      setCurrentSection(currentSection + 1);
     }
   };
   
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
-    
-    // Simple scroll to section
-    setTimeout(() => {
-      const sectionElement = document.getElementById(`section-${section}`);
-      if (sectionElement) {
-        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
   };
 
   // Auto-advance handled by flow context now
