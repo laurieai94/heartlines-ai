@@ -193,8 +193,8 @@ const ProfileBuilder = ({
               className={`
                 w-full h-10 rounded-full font-medium text-white transition-all duration-300 border-2
                 ${canUnlockCoaching 
-                  ? 'bg-burgundy-800 hover:bg-burgundy-700 border-white/20 hover:border-white/30 shadow-lg hover:shadow-xl' 
-                  : 'bg-white/10 text-white/50 border-white/10 cursor-not-allowed shadow-lg'
+                  ? 'bg-burgundy-800 hover:bg-burgundy-700 border-white/20 hover:border-white/30 shadow-lg shadow-burgundy-400/20 hover:shadow-xl hover:shadow-burgundy-400/30' 
+                  : 'bg-white/10 text-white/50 border-white/10 cursor-not-allowed opacity-60 hover:opacity-60'
                 }
               `}
             >
