@@ -3,7 +3,6 @@ import { ChevronDown, ArrowDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
-import { useAutoScroll } from "../../hooks/useAutoScroll";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -14,62 +13,17 @@ interface OptionalGroupProps {
 const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { scrollToElement, scrollToNextQuestion } = useAutoScroll();
 
-  // Enhanced scroll down functionality to reveal hidden content
+  // Simple scroll down functionality
   const handleScrollDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Get current viewport info
-    const currentScrollTop = window.pageYOffset;
-    const viewportHeight = window.innerHeight;
-    const currentViewportBottom = currentScrollTop + viewportHeight;
-    const scrollBuffer = 120; // Account for headers and spacing
-    
-    // If optional group is closed, open it first and scroll to content
-    if (!isOpen) {
-      setIsOpen(true);
-      setTimeout(() => {
-        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
-        if (firstQuestionCard) {
-          const rect = firstQuestionCard.getBoundingClientRect();
-          const elementTop = rect.top + currentScrollTop;
-          window.scrollTo({
-            top: elementTop - scrollBuffer,
-            behavior: 'smooth'
-          });
-        }
-      }, 250); // Wait for collapsible animation
-      return;
-    }
-
-    // Find all interactive content below current viewport
-    const interactiveElements = document.querySelectorAll('[data-question-card], [data-optional-group], .questionnaire-section');
-    const elementsBelow = Array.from(interactiveElements).filter(element => {
-      const rect = element.getBoundingClientRect();
-      const elementTop = rect.top + currentScrollTop;
-      return elementTop > currentViewportBottom - 50; // Small buffer for elements partially visible
+    // Just scroll down the page by a comfortable amount
+    window.scrollBy({
+      top: 400,
+      behavior: 'smooth'
     });
-    
-    if (elementsBelow.length > 0) {
-      // Scroll to the next meaningful content
-      const targetElement = elementsBelow[0] as HTMLElement;
-      const rect = targetElement.getBoundingClientRect();
-      const elementTop = rect.top + currentScrollTop;
-      
-      window.scrollTo({
-        top: elementTop - scrollBuffer,
-        behavior: 'smooth'
-      });
-    } else {
-      // No specific content found, do a smart page-down scroll
-      const scrollDistance = Math.min(viewportHeight * 0.75, 600); // Responsive scroll distance
-      window.scrollBy({
-        top: scrollDistance,
-        behavior: 'smooth'
-      });
-    }
   };
 
   // Open on global event (targeted by id if provided)
@@ -85,22 +39,6 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
     window.addEventListener('optional-group:open', handler as EventListener);
     return () => window.removeEventListener('optional-group:open', handler as EventListener);
   }, [id]);
-
-  // Auto-scroll when expanded to show content
-  useEffect(() => {
-    if (isOpen && contentRef.current) {
-      // Wait for collapsible animation to complete (200ms) then scroll
-      setTimeout(() => {
-        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
-        if (firstQuestionCard) {
-          const questionId = firstQuestionCard.id;
-          if (questionId) {
-            scrollToElement(questionId, 0);
-          }
-        }
-      }, 250);
-    }
-  }, [isOpen, scrollToElement]);
 
   return (
     <TooltipProvider>
@@ -139,20 +77,20 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Scroll Down Arrow - Fixed in Lower Right Corner */}
-      <div className="absolute -bottom-1 -right-1 z-20">
+      {/* Scroll Down Button - Bottom Center */}
+      <div className="flex justify-center mt-4">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               onClick={handleScrollDown}
-              className="group/arrow p-3 rounded-full bg-primary/90 hover:bg-primary border-2 border-white/20 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/60 hover:scale-110 active:scale-95 shadow-xl backdrop-blur-sm"
-              aria-label={isOpen ? "Scroll to see more questions" : "Open and see questions"}
+              className="p-2 rounded-full bg-primary hover:bg-primary/80 border border-white/20 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/60 hover:scale-105 active:scale-95 shadow-lg"
+              aria-label="Scroll down to see more"
             >
-              <ArrowDown className="w-6 h-6 text-white transition-all duration-200 animate-bounce group-hover/arrow:animate-none" />
+              <ArrowDown className="w-5 h-5 text-white" />
             </button>
           </TooltipTrigger>
-          <TooltipContent side="left" className="text-sm">
-            <p>{isOpen ? "Scroll down to see more questions" : "Open and see questions"}</p>
+          <TooltipContent side="top" className="text-sm">
+            <p>Scroll down to see more</p>
           </TooltipContent>
         </Tooltip>
       </div>
