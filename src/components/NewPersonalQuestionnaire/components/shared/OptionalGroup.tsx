@@ -16,42 +16,42 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { scrollToElement, scrollToNextQuestion } = useAutoScroll();
 
-  // Handle quick navigation to next question
-  const handleQuickNavigate = (e: React.MouseEvent) => {
+  // Simple scroll down to show questions below viewport
+  const handleScrollDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
     if (!isOpen) {
-      // If closed, open the group first and then scroll to first question
+      // If closed, open the group and scroll to first question
       setIsOpen(true);
-      // Wait for animation to complete, then scroll to first question
       setTimeout(() => {
         const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
         if (firstQuestionCard?.id) {
-          scrollToElement(firstQuestionCard.id, 0);
+          scrollToElement(firstQuestionCard.id, 100);
         }
       }, 250);
-    } else if (contentRef.current) {
-      // If open, find the first incomplete question within this group
-      const questionCards = contentRef.current.querySelectorAll('[data-question-card]');
-      if (questionCards.length > 0) {
-        // Use the first question card to trigger scrollToNextQuestion logic
-        const firstCard = questionCards[0] as HTMLElement;
-        if (firstCard.id) {
-          scrollToNextQuestion(firstCard.id);
+    } else {
+      // If open, scroll down to show more content
+      const currentScrollTop = window.pageYOffset;
+      const viewportHeight = window.innerHeight;
+      const currentBottom = currentScrollTop + viewportHeight;
+      
+      // Find questions below the current viewport
+      const allQuestions = document.querySelectorAll('[data-question-card]');
+      const questionsBelow = Array.from(allQuestions).filter(q => {
+        const rect = q.getBoundingClientRect();
+        const elementTop = rect.top + currentScrollTop;
+        return elementTop > currentBottom - 100; // 100px buffer
+      });
+      
+      if (questionsBelow.length > 0) {
+        const nextQuestion = questionsBelow[0] as HTMLElement;
+        if (nextQuestion.id) {
+          scrollToElement(nextQuestion.id, 100);
         }
       } else {
-        // If no questions in this group, find next question after this group
-        const optionalGroup = document.getElementById(id || '');
-        if (optionalGroup) {
-          let nextElement = optionalGroup.nextElementSibling;
-          while (nextElement && !nextElement.hasAttribute('data-question-card')) {
-            nextElement = nextElement.nextElementSibling;
-          }
-          if (nextElement?.id) {
-            scrollToElement(nextElement.id, 0);
-          }
-        }
+        // Scroll down by viewport height to reveal more content
+        window.scrollBy({ top: viewportHeight * 0.8, behavior: 'smooth' });
       }
     }
   };
@@ -123,20 +123,20 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Quick Navigation Arrow - Positioned in Lower Right */}
-      <div className="absolute bottom-2 right-2 z-10">
+      {/* Scroll Down Arrow - Fixed in Lower Right Corner */}
+      <div className="absolute -bottom-1 -right-1 z-20">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              onClick={handleQuickNavigate}
-              className="group/arrow p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/40 hover:scale-110 active:scale-95 shadow-lg backdrop-blur-sm"
-              aria-label={isOpen ? "Jump to next question" : "Open and jump to questions"}
+              onClick={handleScrollDown}
+              className="group/arrow p-3 rounded-full bg-primary/90 hover:bg-primary border-2 border-white/20 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/60 hover:scale-110 active:scale-95 shadow-xl backdrop-blur-sm"
+              aria-label={isOpen ? "Scroll to see more questions" : "Open and see questions"}
             >
-              <ArrowDown className="w-5 h-5 text-white/80 group-hover/arrow:text-white transition-all duration-200 animate-pulse group-hover/arrow:animate-none" />
+              <ArrowDown className="w-6 h-6 text-white transition-all duration-200 animate-bounce group-hover/arrow:animate-none" />
             </button>
           </TooltipTrigger>
           <TooltipContent side="left" className="text-sm">
-            <p>{isOpen ? "Jump to next question" : "Open and jump to questions"}</p>
+            <p>{isOpen ? "Scroll down to see more questions" : "Open and see questions"}</p>
           </TooltipContent>
         </Tooltip>
       </div>
