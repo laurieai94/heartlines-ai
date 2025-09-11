@@ -191,10 +191,10 @@ const ProfileBuilder = ({
               onClick={canUnlockCoaching ? goToCoach : undefined}
               disabled={!canUnlockCoaching}
               className={`
-                w-full h-12 rounded-xl font-medium text-white transition-all duration-300
+                w-full h-12 rounded-full font-medium text-white transition-all duration-300
                 ${canUnlockCoaching 
-                  ? 'bg-gradient-to-r from-rose-800 to-red-900 hover:from-rose-700 hover:to-red-800 hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm ring-1 ring-white/20 shadow-lg hover:shadow-xl' 
-                  : 'bg-white/10 text-white/50 cursor-not-allowed backdrop-blur-sm ring-1 ring-white/10'
+                  ? 'bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 hover:scale-105 shadow-lg hover:shadow-xl' 
+                  : 'bg-white/10 text-white/50 cursor-not-allowed shadow-lg'
                 }
               `}
             >
