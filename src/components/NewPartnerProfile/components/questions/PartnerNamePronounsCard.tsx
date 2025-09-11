@@ -82,8 +82,6 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
   return (
     <QuestionCard 
       questionId="question-partner-name-pronouns"
-      showContinue={isComplete}
-      onContinue={() => goToNext('partner-name-pronouns-question')}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}

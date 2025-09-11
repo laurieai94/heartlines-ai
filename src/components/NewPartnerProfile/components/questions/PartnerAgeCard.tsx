@@ -31,7 +31,6 @@ const PartnerAgeCard = ({ profileData, updateField, isComplete = false }: Partne
     <>
       <QuestionCard 
         questionId={questionId}
-        showContinue={false}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's their age?

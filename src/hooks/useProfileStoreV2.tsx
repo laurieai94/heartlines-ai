@@ -489,7 +489,41 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     };
   }, [config.storageKey, defaultProfile, profileType, profile]);
 
-  // Listen for global refresh events
+  // Clear profile data
+  const clearProfile = useCallback(async () => {
+    try {
+      console.log(`[ProfileV2-${profileType}] Clearing profile data...`);
+      
+      // Clear from localStorage
+      localStorage.removeItem(config.storageKey);
+      
+      // Clear from database if user is authenticated
+      if (user) {
+        await supabase
+          .from('user_profiles')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('profile_type', config.dbType);
+      }
+      
+      // Reset to default profile
+      setProfile(defaultProfile);
+      saveToStorage(defaultProfile);
+      setLastSaved(new Date());
+      
+      // Broadcast the clear to other tabs/components
+      window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
+        detail: { profileType, storageKey: config.storageKey, lastUpdated: new Date().toISOString() }
+      }));
+      
+      console.log(`[ProfileV2-${profileType}] Profile cleared successfully`);
+    } catch (error) {
+      console.error(`[ProfileV2-${profileType}] Error clearing profile:`, error);
+      throw error;
+    }
+  }, [profileType, config.storageKey, config.dbType, user, defaultProfile, saveToStorage]);
+
+  // Listen for global refresh and clear events
   useEffect(() => {
     const handleForceReload = async (event: CustomEvent) => {
       const { profileType: targetType } = event.detail;
@@ -514,12 +548,26 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
+    const handleClearProfile = async (event: CustomEvent) => {
+      const { profileType: targetType } = event.detail;
+      
+      if (targetType === 'all' || targetType === profileType) {
+        try {
+          await clearProfile();
+        } catch (error) {
+          console.error(`Error clearing ${profileType} profile:`, error);
+        }
+      }
+    };
+
     window.addEventListener('profile:forceReload', handleForceReload as EventListener);
+    window.addEventListener('profile:clear', handleClearProfile as EventListener);
     
     return () => {
       window.removeEventListener('profile:forceReload', handleForceReload as EventListener);
+      window.removeEventListener('profile:clear', handleClearProfile as EventListener);
     };
-  }, [user, profileType, loadFromDatabase, saveToStorage, defaultProfile]);
+  }, [user, profileType, loadFromDatabase, saveToStorage, defaultProfile, clearProfile]);
 
   // Update profile data
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
@@ -570,6 +618,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     updateField,
     handleMultiSelect,
     saveData: updateProfile,
+    clearProfile,
     lastSaved
   };
 };

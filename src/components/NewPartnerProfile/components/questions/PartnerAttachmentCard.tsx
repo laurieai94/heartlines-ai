@@ -17,11 +17,9 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false, o
   const questionId = "partner-attachment-question";
   const cardIsComplete = !!profileData.partnerAttachmentStyle;
   
-  return (
+    return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={cardIsComplete}
-      onContinue={() => onSectionComplete?.()}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's their attachment style (from what you can tell)?

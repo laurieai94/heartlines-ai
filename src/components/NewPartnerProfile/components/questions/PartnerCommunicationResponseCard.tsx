@@ -19,7 +19,7 @@ const PartnerCommunicationResponseCard = ({
     scrollToNextQuestion
   } = useAutoScroll();
   const questionId = "partner-communication-response-question";
-  return <QuestionCard questionId={questionId} showContinue={false}>
+  return <QuestionCard questionId={questionId}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         When you speak up about what you need, how do they typically respond?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

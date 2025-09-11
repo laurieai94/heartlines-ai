@@ -19,7 +19,6 @@ const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect, isComplete =
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={false}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What was their family dynamic growing up? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

@@ -19,7 +19,6 @@ const PartnerSelfAwarenessCard = ({ profileData, updateField, isComplete = false
   return (
     <QuestionCard 
       questionId={questionId}
-      showContinue={false}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How self-aware are they about their relationship patterns?

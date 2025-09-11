@@ -1,91 +1,18 @@
 
-import { ReactNode, useEffect, useState, useContext, createContext } from "react";
-import QuestionContinueButton from "./QuestionContinueButton";
+import { ReactNode } from "react";
 
-// Try to import both contexts safely
-let PersonalFlowContext: any = null;
-let PartnerFlowContext: any = null;
-
-try {
-  const personalContext = require("../../context/FlowContext");
-  PersonalFlowContext = personalContext.FlowContext;
-} catch {}
-
-try {
-  const partnerContext = require("../../../NewPartnerProfile/context/FlowContext");  
-  PartnerFlowContext = partnerContext.PartnerFlowContext;
-} catch {}
-
-// Safe hook that tries both Flow contexts
-const useFlowContext = () => {
-  // Try personal context first
-  if (PersonalFlowContext) {
-    try {
-      const context = useContext(PersonalFlowContext);
-      if (context) return context;
-    } catch {}
-  }
-  
-  // Try partner context
-  if (PartnerFlowContext) {
-    try {
-      const context = useContext(PartnerFlowContext);
-      if (context) return context;
-    } catch {}
-  }
-  
-  return null;
-};
 
 interface QuestionCardProps {
   children: ReactNode;
   className?: string;
   questionId?: string;
-  showContinue?: boolean;
-  onContinue?: () => void;
-  hideContinueButton?: boolean; // Hide continue button for this specific question
 }
 
 const QuestionCard = ({ 
   children, 
   className = "", 
-  questionId,
-  showContinue = false,
-  onContinue,
-  hideContinueButton = false
+  questionId
 }: QuestionCardProps) => {
-  const [isInOptionalGroup, setIsInOptionalGroup] = useState(false);
-  const flowContext = useFlowContext();
-  const goToNext = (flowContext as any)?.goToNext;
-
-  // Check if this card is inside an OptionalGroup
-  useEffect(() => {
-    const checkOptionalGroup = () => {
-      const cardElement = document.getElementById(questionId || '');
-      if (cardElement) {
-        const optionalGroup = cardElement.closest('[data-optional-group]');
-        setIsInOptionalGroup(!!optionalGroup);
-      }
-    };
-
-    // Check immediately and after a brief delay to ensure DOM is ready
-    checkOptionalGroup();
-    const timer = setTimeout(checkOptionalGroup, 100);
-    
-    return () => clearTimeout(timer);
-  }, [questionId]);
-
-  // Hide continue button if inside OptionalGroup or specifically disabled
-  const shouldShowContinue = showContinue && !isInOptionalGroup && !hideContinueButton;
-
-  const handleContinue = () => {
-    if (onContinue) {
-      onContinue();
-    } else if (questionId && goToNext) {
-      goToNext(questionId);
-    }
-  };
-
   return (
     <div 
       className={`questionnaire-card-mobile px-2 py-1.5 space-y-2 scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24 cv-auto ${className}`}
@@ -94,10 +21,6 @@ const QuestionCard = ({
     >
       <div className="space-y-2">
         {children}
-        <QuestionContinueButton 
-          isVisible={shouldShowContinue}
-          onClick={handleContinue}
-        />
       </div>
     </div>
   );

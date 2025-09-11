@@ -12,3 +12,10 @@ export const refreshAllAppData = async () => {
   
   window.dispatchEvent(new CustomEvent('chat:refresh'));
 };
+
+export const clearAllProfileData = async () => {
+  // Dispatch events to clear all profile data
+  window.dispatchEvent(new CustomEvent('profile:clear', {
+    detail: { profileType: 'all' }
+  }));
+};

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
 import { ProfileData } from "../types";
-import { refreshAllAppData } from "@/utils/globalRefresh";
+import { clearAllProfileData } from "@/utils/globalRefresh";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
