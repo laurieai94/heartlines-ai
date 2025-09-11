@@ -1,5 +1,5 @@
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
@@ -14,7 +14,33 @@ interface OptionalGroupProps {
 const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { scrollToElement } = useAutoScroll();
+  const { scrollToElement, scrollToNextQuestion } = useAutoScroll();
+
+  // Handle quick navigation to next question
+  const handleQuickNavigate = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isOpen && contentRef.current) {
+      // Find first question card within this optional group
+      const firstQuestionCard = contentRef.current.querySelector('[data-question-card]');
+      if (firstQuestionCard?.id) {
+        scrollToNextQuestion(firstQuestionCard.id);
+      }
+    } else {
+      // If closed, try to find any question card after this optional group
+      const optionalGroup = document.getElementById(id || '');
+      if (optionalGroup) {
+        let nextElement = optionalGroup.nextElementSibling;
+        while (nextElement && !nextElement.hasAttribute('data-question-card')) {
+          nextElement = nextElement.nextElementSibling;
+        }
+        if (nextElement?.id) {
+          scrollToElement(nextElement.id, 300);
+        }
+      }
+    }
+  };
 
   // Open on global event (targeted by id if provided)
   useEffect(() => {
@@ -60,7 +86,17 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
                     <span className="inline text-xs font-semibold text-green-400 drop-shadow-sm">+Better insights</span>
                   </div>
               </div>
-              <ChevronDown className="w-4 h-4 sm:w-4 sm:h-4 text-white/60 group-hover:text-white transition-all transform group-data-[state=open]:rotate-180" />
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleQuickNavigate}
+                  className="p-1 rounded hover:bg-white/10 transition-colors touch-manipulation focus-visible:ring-1 focus-visible:ring-white/30"
+                  aria-label="Jump to next question"
+                  title="Jump to next question"
+                >
+                  <ArrowDown className="w-3 h-3 text-white/50 hover:text-white/80 transition-colors" />
+                </button>
+                <ChevronDown className="w-4 h-4 sm:w-4 sm:h-4 text-white/60 group-hover:text-white transition-all transform group-data-[state=open]:rotate-180" />
+              </div>
             </CollapsibleTrigger>
           </TooltipTrigger>
           <TooltipContent side="top" className="hidden sm:block">
