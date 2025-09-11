@@ -14,6 +14,9 @@ import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { logEvent } from "@/utils/analytics";
+import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
+import { useNavigation } from '@/contexts/NavigationContext';
+import { Button } from '@/components/ui/button';
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -92,6 +95,14 @@ const ProfileBuilder = ({
   
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerProfileData?.partnerName);
+
+  // Navigation hook for coaching
+  const { goToCoach } = useNavigation();
+  
+  // Check if mandatory questions are completed
+  const completedRequiredFields = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
+  const totalRequiredFields = getTotalRequiredFieldsCount();
+  const canUnlockCoaching = completedRequiredFields >= totalRequiredFields;
   const handleStartPersonalProfile = () => {
     logEvent('onboarding_step_nudge_clicked', { 
       completion: yourProfileCompletion,
@@ -171,11 +182,26 @@ const ProfileBuilder = ({
   return <div className="flex flex-col">
       <div className="space-y-4 pb-6">
         {/* Main Header - Compact */}
-        <div className="text-center space-y-2 flex-shrink-0">
+        <div className="text-center space-y-4 flex-shrink-0">
           <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
-          <p className="text-base text-pink-200/80 max-w-2xl mx-auto flex items-center justify-center gap-2">
-            Just 4 Qs → Kai's got you <MessageSquare className="w-4 h-4" />
-          </p>
+          
+          {/* Unlock Coaching Button */}
+          <div className="max-w-md mx-auto">
+            <Button
+              onClick={canUnlockCoaching ? goToCoach : undefined}
+              disabled={!canUnlockCoaching}
+              className={`
+                w-full h-12 rounded-xl font-medium text-white transition-all duration-300
+                ${canUnlockCoaching 
+                  ? 'bg-gradient-to-r from-rose-800 to-red-900 hover:from-rose-700 hover:to-red-800 hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm ring-1 ring-white/20 shadow-lg hover:shadow-xl' 
+                  : 'bg-white/10 text-white/50 cursor-not-allowed backdrop-blur-sm ring-1 ring-white/10'
+                }
+              `}
+            >
+              <Brain className="w-5 h-5 mr-2" />
+              {canUnlockCoaching ? 'Unlock Coaching with Kai' : `Complete ${totalRequiredFields - completedRequiredFields} more questions`}
+            </Button>
+          </div>
         </div>
 
       {/* Main Content Area - Scrollable */}
