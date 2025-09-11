@@ -2,7 +2,7 @@
 import { Label } from "@/components/ui/label";
 import { Clock, AlertTriangle, Star } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
@@ -24,10 +24,8 @@ const RelationshipQuestions = ({
   return (
     <>
       {/* Relationship Length */}
-      <QuestionCard 
+      <QuestionCardSimple 
         questionId="question-relationship-length"
-        showContinue={!!profileData.relationshipLength}
-        onContinue={() => scrollToNextQuestion('question-relationship-length')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long have you been together? <span className="text-red-400">*</span>
@@ -41,14 +39,12 @@ const RelationshipQuestions = ({
           selectedValue={profileData.relationshipLength || ''}
           onSelect={(value) => updateField('relationshipLength', value)}
         />
-      </QuestionCard>
+      </QuestionCardSimple>
 
       {/* Relationship Challenges */}
       {profileData.relationshipLength && (
-        <QuestionCard 
+        <QuestionCardSimple 
           questionId="question-relationship-challenges"
-          showContinue={!!(profileData.relationshipChallenges?.length)}
-          onContinue={() => scrollToNextQuestion('question-relationship-challenges')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What feels most challenging right now? <span className="text-red-400">*</span>
@@ -63,15 +59,13 @@ const RelationshipQuestions = ({
             selectedValues={profileData.relationshipChallenges || []}
             onToggle={(value) => handleMultiSelect('relationshipChallenges', value)}
           />
-        </QuestionCard>
+        </QuestionCardSimple>
       )}
 
       {/* What's Working Well */}
       {(profileData.relationshipChallenges?.length > 0) && (
-        <QuestionCard 
+        <QuestionCardSimple 
           questionId="question-relationship-working"
-          showContinue={!!(profileData.relationshipWorking?.length)}
-          onContinue={() => scrollToNextQuestion('question-relationship-working')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             What's working really well between you two? <span className="text-red-400">*</span>
@@ -86,7 +80,7 @@ const RelationshipQuestions = ({
             selectedValues={profileData.relationshipWorking || []}
             onToggle={(value) => handleMultiSelect('relationshipWorking', value)}
           />
-        </QuestionCard>
+        </QuestionCardSimple>
       )}
     </>
   );

@@ -2,7 +2,7 @@
 import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { separationSituationOptions, datingReadinessOptions } from "./constants";
@@ -21,10 +21,8 @@ const SeparatedDivorcedQuestions = ({
   return (
     <>
       {/* Separation Situation */}
-      <QuestionCard 
+      <QuestionCardSimple 
         questionId="question-separation-situation"
-        showContinue={!!(profileData.separationSituation?.length)}
-        onContinue={() => scrollToNextQuestion('question-separation-situation')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your situation right now? <span className="text-red-400">*</span>
@@ -39,14 +37,12 @@ const SeparatedDivorcedQuestions = ({
           selectedValues={profileData.separationSituation || []}
           onToggle={(value) => handleMultiSelect('separationSituation', value)}
         />
-      </QuestionCard>
+      </QuestionCardSimple>
 
       {/* Dating Readiness */}
       {(profileData.separationSituation?.length) && (
-        <QuestionCard 
+        <QuestionCardSimple 
           questionId="question-dating-readiness"
-          showContinue={!!(profileData.datingReadiness?.length)}
-          onContinue={() => scrollToNextQuestion('question-dating-readiness')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where are you at with dating/relationships? <span className="text-red-400">*</span>
@@ -61,7 +57,7 @@ const SeparatedDivorcedQuestions = ({
             selectedValues={profileData.datingReadiness || []}
             onToggle={(value) => handleMultiSelect('datingReadiness', value)}
           />
-        </QuestionCard>
+        </QuestionCardSimple>
       )}
     </>
   );

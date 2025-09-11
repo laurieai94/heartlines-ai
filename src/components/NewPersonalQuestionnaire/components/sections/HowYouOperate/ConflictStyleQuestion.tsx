@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Shield } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { conflictStyleOptions } from "./constants";
@@ -17,7 +17,7 @@ const ConflictStyleQuestion = ({
     scrollToNextQuestion
   } = useAutoScroll();
   const isComplete = !!profileData.conflictStyle?.length;
-  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={() => scrollToNextQuestion('question-conflict-style')}>
+  return <QuestionCardSimple questionId="question-conflict-style">
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -27,6 +27,6 @@ const ConflictStyleQuestion = ({
         <span>How you fight determines if you make it</span>
       </div>
       <MultiSelect options={conflictStyleOptions} selectedValues={profileData.conflictStyle || []} onToggle={value => handleMultiSelect('conflictStyle', value)} />
-    </QuestionCard>;
+    </QuestionCardSimple>;
 };
 export default ConflictStyleQuestion;

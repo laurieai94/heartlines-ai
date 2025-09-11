@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import UnderageModal from "../../../../PersonalProfileQuestionnaire/UnderageModal";
@@ -32,10 +32,8 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelection
 
   return (
     <>
-      <QuestionCard 
+      <QuestionCardSimple 
         questionId="question-age"
-        showContinue={isComplete}
-        onContinue={() => scrollToNextQuestion('question-age')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           What's your age?
@@ -49,7 +47,7 @@ const AgeSelectionCard = ({ profileData, updateField, isComplete }: AgeSelection
           selectedValue={profileData.age || ''}
           onSelect={handleAgeSelect}
         />
-      </QuestionCard>
+      </QuestionCardSimple>
 
       <UnderageModal 
         isOpen={showUnderageModal} 

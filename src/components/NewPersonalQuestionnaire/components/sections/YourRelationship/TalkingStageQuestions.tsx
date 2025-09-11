@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { MessageCircle, Brain } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { talkingDescriptionOptions, talkingChallengesOptions } from "./constants";
@@ -19,7 +19,7 @@ const TalkingStageQuestions = ({
     scrollToNextQuestion
   } = useAutoScroll();
   return <div className="space-y-4">
-      <QuestionCard questionId="question-talking-description" showContinue={profileData.talkingDescription && profileData.talkingDescription.length > 0} onContinue={() => scrollToNextQuestion('question-talking-description')}>
+      <QuestionCardSimple questionId="question-talking-description">
         <Label className="text-sm font-semibold text-white mb-2 block">
           How would you describe what you have right now? <span className="text-red-400">*</span>
           <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -30,9 +30,9 @@ const TalkingStageQuestions = ({
           <span>Help us understand your unique situation</span>
         </div>
         <MultiSelect options={talkingDescriptionOptions} selectedValues={profileData.talkingDescription || []} onToggle={value => handleMultiSelect('talkingDescription', value)} />
-      </QuestionCard>
+      </QuestionCardSimple>
 
-      <QuestionCard questionId="question-talking-challenges" showContinue={profileData.talkingChallenges && profileData.talkingChallenges.length > 0} onContinue={() => scrollToNextQuestion('question-talking-challenges')}>
+      <QuestionCardSimple questionId="question-talking-challenges">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What feels most challenging about the talking stage? <span className="text-red-400">*</span>
           <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
@@ -42,7 +42,7 @@ const TalkingStageQuestions = ({
           <span>The talking stage has its own unique energy</span>
         </div>
         <MultiSelect options={talkingChallengesOptions} selectedValues={profileData.talkingChallenges || []} onToggle={value => handleMultiSelect('talkingChallenges', value)} />
-      </QuestionCard>
+      </QuestionCardSimple>
     </div>;
 };
 export default TalkingStageQuestions;

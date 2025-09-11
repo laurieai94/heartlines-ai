@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
@@ -23,10 +23,8 @@ const WidowedQuestions = ({
   return (
     <>
       {/* Time Since Loss */}
-      <QuestionCard 
+      <QuestionCardSimple 
         questionId="question-time-since-loss"
-        showContinue={!!profileData.timeSinceLoss}
-        onContinue={() => scrollToNextQuestion('question-time-since-loss')}
       >
         <Label className="text-sm font-semibold text-white mb-2 block">
           How long has it been since your loss? <span className="text-red-400">*</span>
@@ -40,14 +38,12 @@ const WidowedQuestions = ({
           selectedValue={profileData.timeSinceLoss || ''}
           onSelect={(value) => updateField('timeSinceLoss', value)}
         />
-      </QuestionCard>
+      </QuestionCardSimple>
 
       {/* Grieving Process */}
       {profileData.timeSinceLoss && (
-        <QuestionCard 
+        <QuestionCardSimple 
           questionId="question-grieving-process"
-          showContinue={!!(profileData.grievingProcess?.length)}
-          onContinue={() => scrollToNextQuestion('question-grieving-process')}
         >
           <Label className="text-sm font-semibold text-white mb-2 block">
             Where do you feel you are in your grieving process? <span className="text-red-400">*</span>
@@ -62,7 +58,7 @@ const WidowedQuestions = ({
             selectedValues={profileData.grievingProcess || []}
             onToggle={(value) => handleMultiSelect('grievingProcess', value)}
           />
-        </QuestionCard>
+        </QuestionCardSimple>
       )}
     </>
   );

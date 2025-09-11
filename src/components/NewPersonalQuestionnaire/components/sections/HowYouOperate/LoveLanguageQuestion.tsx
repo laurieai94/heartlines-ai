@@ -2,7 +2,7 @@
 import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { loveLanguageOptions } from "./constants";
@@ -22,10 +22,8 @@ const LoveLanguageQuestion = ({
   const isComplete = !!(profileData.loveLanguage?.length);
 
   return (
-    <QuestionCard 
+    <QuestionCardSimple 
       questionId="question-love-language"
-      showContinue={isComplete}
-      onContinue={onSectionComplete || (() => scrollToNextRequiredQuestion('question-love-language'))}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you feel most loved? <span className="text-red-400">*</span>
@@ -40,7 +38,7 @@ const LoveLanguageQuestion = ({
         selectedValues={profileData.loveLanguage || []} 
         onToggle={value => handleMultiSelect('loveLanguage', value)} 
       />
-    </QuestionCard>
+    </QuestionCardSimple>
   );
 };
 

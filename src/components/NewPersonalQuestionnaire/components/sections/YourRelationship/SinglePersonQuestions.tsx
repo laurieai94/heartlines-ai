@@ -2,7 +2,7 @@
 import { Label } from "@/components/ui/label";
 import { Target } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import MultiSelect from "../../shared/MultiSelect";
 import { useAutoScroll } from "../../../hooks/useAutoScroll";
 import { datingChallengesOptions } from "./constants";
@@ -17,10 +17,8 @@ const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQ
   const isComplete = !!(profileData.datingChallenges?.length);
 
   return (
-    <QuestionCard 
+    <QuestionCardSimple 
       questionId="question-dating-challenges"
-      showContinue={isComplete}
-      onContinue={() => scrollToNextQuestion('question-dating-challenges')}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
         What's your biggest challenge in the dating world right now? <span className="text-red-400">*</span>
@@ -35,7 +33,7 @@ const SinglePersonQuestions = ({ profileData, handleMultiSelect }: SinglePersonQ
         selectedValues={profileData.datingChallenges || []}
         onToggle={(value) => handleMultiSelect('datingChallenges', value)}
       />
-    </QuestionCard>
+    </QuestionCardSimple>
   );
 };
 
