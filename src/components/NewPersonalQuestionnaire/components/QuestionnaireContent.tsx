@@ -32,7 +32,7 @@ interface QuestionnaireContentProps {
   containerRef?: React.RefObject<HTMLDivElement>;
   headerOffsetPx?: number;
   
-  onSectionComplete?: (nextSection: number) => void;
+  
 }
 
 const QuestionnaireContent = ({
@@ -41,9 +41,7 @@ const QuestionnaireContent = ({
   handleMultiSelect,
   currentSection,
   containerRef,
-  headerOffsetPx = 0,
-  
-  onSectionComplete
+  headerOffsetPx = 0
 }: QuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
@@ -92,7 +90,6 @@ const QuestionnaireContent = ({
           updateField={updateField}
           handleMultiSelect={handleMultiSelect}
           isActive={currentSection === 1}
-          onSectionComplete={() => onSectionComplete?.(2)}
         />
         </div>
 
@@ -105,7 +102,6 @@ const QuestionnaireContent = ({
                 updateField={updateField}
                 handleMultiSelect={handleMultiSelect}
                 isActive={currentSection === 2}
-                onSectionComplete={() => onSectionComplete?.(3)}
               />
             </Suspense>
           </div>
@@ -119,7 +115,6 @@ const QuestionnaireContent = ({
                 updateField={updateField}
                 handleMultiSelect={handleMultiSelect}
                 isActive={currentSection === 3}
-                onSectionComplete={() => onSectionComplete?.(4)}
               />
             </Suspense>
           </div>
@@ -133,7 +128,6 @@ const QuestionnaireContent = ({
                 updateField={updateField}
                 handleMultiSelect={handleMultiSelect}
                 isActive={currentSection === 4}
-                onSectionComplete={() => {}} // Final section, no next section
               />
             </Suspense>
           </div>

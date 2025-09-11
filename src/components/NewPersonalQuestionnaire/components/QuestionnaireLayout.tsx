@@ -5,7 +5,6 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
-import { FlowProvider } from "../context/FlowContext";
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -56,24 +55,35 @@ const QuestionnaireLayout = ({
   
   const overallProgress = calculateProgress(profileData);
 
-  // Handle section completion via continue buttons
-  const handleSectionComplete = (nextSection: number) => {
-    if (import.meta.env.DEV) {
-      console.debug('🟠 Personal Layout: Section transition to:', nextSection);
+  // Section navigation handlers
+  const handlePreviousSection = () => {
+    if (currentSection > 1) {
+      const previousSection = currentSection - 1;
+      setCurrentSection(previousSection);
+      
+      setTimeout(() => {
+        const sectionElement = document.getElementById(`section-${previousSection}`);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
-    
-    setCurrentSection(nextSection);
-    
-    // Simple scroll to section
-    setTimeout(() => {
-      const sectionElement = document.getElementById(`section-${nextSection}`);
-      if (sectionElement) {
-        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
+  };
+
+  const handleNextSection = () => {
+    if (currentSection < 4 && validateSection(currentSection, profileData)) {
+      const nextSection = currentSection + 1;
+      setCurrentSection(nextSection);
+      
+      setTimeout(() => {
+        const sectionElement = document.getElementById(`section-${nextSection}`);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   };
   
-  // No more custom events - flow context handles navigation
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
     
@@ -112,28 +122,27 @@ const QuestionnaireLayout = ({
             </div>
           </div>
 
-          <FlowProvider
-            profileData={profileData}
-            updateField={updateField}
-            handleMultiSelect={handleMultiSelect}
-            onComplete={onComplete}
-          >
-            <QuestionnaireContent
-              profileData={profileData} 
-              updateField={updateField} 
-              handleMultiSelect={handleMultiSelect} 
-              currentSection={currentSection} 
-              containerRef={scrollContainerRef}
-              headerOffsetPx={headerHeight}
-              onSectionComplete={handleSectionComplete} 
-            />
-          </FlowProvider>
+          <QuestionnaireContent
+            profileData={profileData} 
+            updateField={updateField} 
+            handleMultiSelect={handleMultiSelect} 
+            currentSection={currentSection} 
+            containerRef={scrollContainerRef}
+            headerOffsetPx={headerHeight}
+          />
           
           {/* Minimal bottom padding */}
           <div className="pb-6 sm:pb-10" />
         </div>
 
-        <CleanQuestionnaireFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={false} />
+        <CleanQuestionnaireFooter 
+          profileData={profileData} 
+          onComplete={onComplete} 
+          autoCompleteEnabled={false}
+          currentSection={currentSection}
+          onPreviousSection={handlePreviousSection}
+          onNextSection={handleNextSection}
+        />
       </div>
     </div>;
 };

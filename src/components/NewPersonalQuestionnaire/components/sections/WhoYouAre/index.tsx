@@ -13,10 +13,9 @@ interface WhoYouAreProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onSectionComplete?: () => void;
 }
 
-const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSectionComplete }: WhoYouAreProps) => {
+const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive }: WhoYouAreProps) => {
   // Helper function to check if pronouns are complete (duplicated here to avoid complex prop passing)
   const isPronounsComplete = () => {
     if (!profileData.pronouns) return false;
@@ -63,7 +62,6 @@ const WhoYouAre = ({ profileData, updateField, handleMultiSelect, isActive, onSe
         profileData={profileData}
         updateField={updateField}
         isComplete={isNamePronounsComplete}
-        onSectionComplete={onSectionComplete}
       />
 
       {/* Optional Fields */}

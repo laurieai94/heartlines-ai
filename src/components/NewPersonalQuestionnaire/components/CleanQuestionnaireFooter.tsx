@@ -1,20 +1,27 @@
 
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
-import { Heart, UserPlus } from "lucide-react";
+import { Heart, UserPlus, ArrowLeft, ArrowRight } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useNavigation } from "@/contexts/NavigationContext";
+import { Button } from "@/components/ui/button";
 
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
   onComplete: () => void;
   autoCompleteEnabled?: boolean;
+  currentSection?: number;
+  onPreviousSection?: () => void;
+  onNextSection?: () => void;
 }
 
 const CleanQuestionnaireFooter = ({
   profileData,
   onComplete,
-  autoCompleteEnabled = false
+  autoCompleteEnabled = false,
+  currentSection = 1,
+  onPreviousSection,
+  onNextSection
 }: CleanQuestionnaireFooterProps) => {
   const { goToPartner } = useNavigation();
   const overallProgress = calculateProgress(profileData);
@@ -36,67 +43,109 @@ const CleanQuestionnaireFooter = ({
 
   // Enable button when all required sections are complete (not 100% progress)
   const canComplete = sectionCompletions.every(section => section.isComplete);
+  
+  // Section navigation logic
+  const isCurrentSectionValid = validateSection(currentSection, profileData);
+  const canGoNext = currentSection < 4 && isCurrentSectionValid;
+  const canGoPrevious = currentSection > 1;
 
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
 
   return (
     <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-2 sm:py-3 pb-6 sm:pb-8 pb-safe flex-shrink-0">
       <div className="flex justify-between items-center max-w-4xl mx-auto">
-        {/* Left side - Section Progress Indicators */}
-        <div className="flex gap-2 sm:gap-4">
-          {sectionCompletions.map((section, index) => (
-            <div key={index} className="flex items-center gap-1.5 sm:gap-2">
-              <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
-                section.isComplete 
-                  ? 'bg-emerald-400 shadow-lg shadow-emerald-400/30' 
-                  : 'bg-white/20'
-              }`} />
-              {/* Hide labels on mobile, show on tablet+ */}
-              <span className={`hidden sm:block text-xs font-medium transition-colors duration-300 ${
-                section.isComplete ? 'text-emerald-400' : 'text-white/60'
-              }`}>
-                {section.name}
-              </span>
-            </div>
-          ))}
+        {/* Left side - Section Navigation */}
+        <div className="flex items-center gap-2">
+          {/* Previous Section Button */}
+          <Button
+            variant="outline"
+            onClick={onPreviousSection}
+            disabled={!canGoPrevious}
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 text-white"
+          >
+            <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            <span className="hidden sm:inline">Previous</span>
+          </Button>
+
+          {/* Section Progress Indicators */}
+          <div className="flex gap-1.5 sm:gap-2 mx-2 sm:mx-4">
+            {sectionCompletions.map((section, index) => (
+              <div key={index} className="flex items-center gap-1 sm:gap-1.5">
+                <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
+                  section.isComplete 
+                    ? 'bg-emerald-400 shadow-lg shadow-emerald-400/30' 
+                    : currentSection === index + 1
+                    ? 'bg-white/60'
+                    : 'bg-white/20'
+                }`} />
+                {/* Hide labels on mobile, show on tablet+ */}
+                <span className={`hidden md:block text-xs font-medium transition-colors duration-300 ${
+                  section.isComplete 
+                    ? 'text-emerald-400' 
+                    : currentSection === index + 1
+                    ? 'text-white/80'
+                    : 'text-white/50'
+                }`}>
+                  {section.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Right side - Action Buttons */}
         <div className="flex items-center gap-2">
-          {!autoCompleteEnabled && canComplete && (
-            <button 
-              onClick={goToPartner}
-              className="bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white/25 text-white/80 hover:text-white backdrop-blur-md px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl font-medium shadow-sm transition-all duration-300 flex items-center gap-1.5 text-xs sm:text-sm hover:scale-[1.02]"
+          {/* Next Section Button (when not on last section) */}
+          {currentSection < 4 ? (
+            <Button
+              onClick={onNextSection}
+              disabled={!canGoNext}
+              className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100"
             >
-              <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              <span className="hidden sm:inline">Add your person's details</span>
-              <span className="sm:hidden">Add person</span>
-            </button>
-          )}
-          
-          {!autoCompleteEnabled && (
-            <button 
-              onClick={canComplete ? onComplete : undefined}
-              disabled={!canComplete}
-              className={`${
-                canComplete 
-                  ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20' 
-                  : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
-              } backdrop-blur-md border px-3 py-1.5 sm:px-6 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none`}
-            >
-              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              <span className="hidden sm:inline">Unlock coaching</span>
-              <span className="sm:hidden">Start</span>
-            </button>
-          )}
-          
-          {/* Auto-completion message */}
-          {autoCompleteEnabled && (
-            <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-xs sm:text-sm font-medium animate-pulse">
-              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              <span className="hidden sm:inline">Profile Complete! Unlocking {BRAND.name}...</span>
-              <span className="sm:hidden">Complete!</span>
-            </div>
+              <span className="hidden sm:inline">Next Section</span>
+              <span className="sm:hidden">Next</span>
+              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            </Button>
+          ) : (
+            /* Final section buttons */
+            <>
+              {!autoCompleteEnabled && canComplete && (
+                <Button
+                  variant="outline"
+                  onClick={goToPartner}
+                  className="bg-white/10 hover:bg-white/15 border border-white/20 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-sm hover:scale-105 transition-all duration-200 font-medium"
+                >
+                  <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:inline">Add your person's details</span>
+                  <span className="sm:hidden">Add person</span>
+                </Button>
+              )}
+              
+              {!autoCompleteEnabled && (
+                <Button
+                  onClick={canComplete ? onComplete : undefined}
+                  disabled={!canComplete}
+                  className={`${
+                    canComplete 
+                      ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20' 
+                      : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
+                  } backdrop-blur-md border px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none`}
+                >
+                  <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:inline">Unlock coaching</span>
+                  <span className="sm:hidden">Start</span>
+                </Button>
+              )}
+              
+              {/* Auto-completion message */}
+              {autoCompleteEnabled && (
+                <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-400/30 text-emerald-400 text-xs sm:text-sm font-medium animate-pulse">
+                  <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:inline">Profile Complete! Unlocking {BRAND.name}...</span>
+                  <span className="sm:hidden">Complete!</span>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

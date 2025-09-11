@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { ProfileData } from "../../types";
-import QuestionCard from "../shared/QuestionCard";
+import QuestionCardSimple from "../shared/QuestionCardSimple";
 import SingleSelect from "../shared/SingleSelect";
 import OptionalGroup from "../shared/OptionalGroup";
 import { useAutoScroll } from "../../hooks/useAutoScroll";
@@ -24,14 +24,12 @@ interface YourRelationshipProps {
   updateField: (field: keyof ProfileData, value: any) => void;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
   isActive: boolean;
-  onSectionComplete?: () => void;
 }
 const YourRelationship = ({
   profileData,
   updateField,
   handleMultiSelect,
-  isActive,
-  onSectionComplete
+  isActive
 }: YourRelationshipProps) => {
   const {
     scrollToNextRequiredQuestion,
@@ -53,27 +51,10 @@ const YourRelationship = ({
 
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
-  const getNextQuestionAfterStatus = () => {
-    if (isSingle) return 'question-dating-challenges';
-    if (isTalking) return 'question-talking-description';
-    if (hasRelationship) return 'question-relationship-length';
-    if (isSeparatedDivorced) return 'question-separation-situation';
-    if (isWidowed) return 'question-time-since-loss';
-    return null;
-  };
-  const shouldShowContinueAfterStatus = () => {
-    // Show continue button immediately after selecting a relationship status
-    return !!profileData.relationshipStatus;
-  };
-
-  const handleContinueAfterStatus = () => {
-    // Always navigate to the next required question, never auto-open optional groups
-    scrollToNextRequiredQuestion('question-relationship-status');
-  };
 
   return <div className="space-y-4 transition-opacity duration-300 opacity-100">
       {/* Relationship Status */}
-      <QuestionCard questionId="question-relationship-status" showContinue={shouldShowContinueAfterStatus()} onContinue={handleContinueAfterStatus}>
+      <QuestionCardSimple questionId="question-relationship-status">
         <Label className="text-sm font-semibold text-white mb-2 block">
           What is your current relationship status? <span className="text-red-400">*</span> <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select the answer that resonates most</span>
         </Label>
@@ -82,7 +63,7 @@ const YourRelationship = ({
           <span>Dating, taken, or somewhere in between? We get it</span>
         </div>
         <SingleSelect options={relationshipStatusOptions} selectedValue={normalizedValue === "It's complicated" ? "Situationship" : (normalizedValue === "Talking to someone" ? "Talking stage" : (normalizedValue || ''))} onSelect={value => updateField('relationshipStatus', value)} />
-      </QuestionCard>
+      </QuestionCardSimple>
 
       {/* Optional Follow-up Questions */}
       {(isSingle || isTalking || hasRelationship || isSeparatedDivorced || isWidowed) && (

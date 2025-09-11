@@ -2,20 +2,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
-import QuestionCard from "../../shared/QuestionCard";
+import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
-import { useFlow } from "../../../context/FlowContext";
 import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
   isComplete: boolean;
-  onSectionComplete?: () => void;
 }
 
-const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionComplete }: NamePronounsCardProps) => {
-  const { goToNext } = useFlow();
+const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
@@ -60,10 +57,8 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionCompl
   };
 
   return (
-    <QuestionCard 
+    <QuestionCardSimple 
       questionId="question-name-pronouns"
-      showContinue={isComplete}
-      onContinue={onSectionComplete || (() => goToNext('question-name-pronouns'))}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Left side: Name and Avatar */}
@@ -120,7 +115,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete, onSectionCompl
 
         </div>
       </div>
-    </QuestionCard>
+    </QuestionCardSimple>
   );
 };
 
