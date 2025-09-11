@@ -45,10 +45,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (event === 'SIGNED_IN') {
           // Check if user has been away from coach for more than 12 hours
+          // Check both last activity and last message timestamp
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
           const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
           
-          if (!lastSeenAt || parseInt(lastSeenAt) < twelveHoursAgo) {
+          // Also check when last message was sent
+          let lastMessageTimestamp = 0;
+          try {
+            const currentChat = sessionStorage.getItem('current_chat');
+            if (currentChat) {
+              const { messages } = JSON.parse(currentChat);
+              if (messages && messages.length > 0) {
+                // Get the most recent message timestamp
+                const lastMessage = messages[messages.length - 1];
+                lastMessageTimestamp = new Date(lastMessage.timestamp).getTime();
+              }
+            }
+          } catch (error) {
+            // Fallback to localStorage conversations
+            try {
+              const conversations = JSON.parse(localStorage.getItem('chat_conversations') || '[]');
+              if (conversations.length > 0) {
+                const mostRecentConv = conversations[0];
+                if (mostRecentConv.messages && mostRecentConv.messages.length > 0) {
+                  const lastMessage = mostRecentConv.messages[mostRecentConv.messages.length - 1];
+                  lastMessageTimestamp = new Date(lastMessage.timestamp).getTime();
+                }
+              }
+            } catch (err) {
+              console.warn('Could not check last message timestamp:', err);
+            }
+          }
+          
+          // Force new conversation if either condition is met:
+          // 1. Haven't seen coach in 12+ hours, OR
+          // 2. Last message was sent 12+ hours ago
+          const shouldForceNewChat = (!lastSeenAt || parseInt(lastSeenAt) < twelveHoursAgo) ||
+                                   (lastMessageTimestamp > 0 && lastMessageTimestamp < twelveHoursAgo);
+          
+          if (shouldForceNewChat) {
             // Set flag to force new conversation after signin
             localStorage.setItem('force_new_chat_after_signin', 'true');
           }
