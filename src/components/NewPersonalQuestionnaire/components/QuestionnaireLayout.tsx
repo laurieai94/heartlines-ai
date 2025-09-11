@@ -5,6 +5,9 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
+import QuestionNavigator from "./QuestionNavigator";
+import QuestionProgress from "./QuestionProgress";
+import QuickActions from "./QuickActions";
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -72,6 +75,11 @@ const QuestionnaireLayout = ({
     setCurrentSection(section);
   };
 
+  const handleQuestionClick = (questionId: string) => {
+    // Optional: Could emit event or perform additional logic when question is clicked
+    console.log('Question clicked:', questionId);
+  };
+
   // Auto-advance handled by flow context now
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +103,25 @@ const QuestionnaireLayout = ({
             <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
               <SectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+            </div>
+
+            {/* Navigation Tools Row */}
+            <div className="bg-burgundy-800/10 backdrop-blur-sm border-b border-white/[0.05] px-3 py-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <QuestionNavigator 
+                  profileData={profileData}
+                  currentSection={currentSection}
+                  onQuestionClick={handleQuestionClick}
+                />
+                <QuestionProgress 
+                  profileData={profileData}
+                  currentSection={currentSection}
+                />
+              </div>
+              <QuickActions 
+                profileData={profileData}
+                currentSection={currentSection}
+              />
             </div>
           </div>
 
