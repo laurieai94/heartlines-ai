@@ -304,13 +304,28 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
       if (error) throw error;
 
-      // Always update state from server response
+      // Only update timestamp and version from server, preserve local changes
       if (data && typeof data === 'object') {
-        const serverProfile = { ...defaultProfile, ...(data as any), version: '2.0' };
-        setProfile(serverProfile);
-        saveToStorage(serverProfile);
         setLastSaved(new Date());
-        console.log(`[ProfileV2-${profileType}] Updated from server:`, serverProfile);
+        console.log(`[ProfileV2-${profileType}] Synced to database successfully`);
+        
+        // Only merge server data if it doesn't conflict with recent local updates
+        // This prevents the server from overwriting fields the user just modified
+        setProfile(prev => {
+          const serverProfile = { ...defaultProfile, ...(data as any), version: '2.0' };
+          
+          // Preserve local changes that were just made
+          const preservedProfile = { ...serverProfile };
+          Object.keys(updates).forEach(key => {
+            if (prev[key] !== undefined) {
+              preservedProfile[key] = prev[key];
+            }
+          });
+          
+          saveToStorage(preservedProfile);
+          console.log(`[ProfileV2-${profileType}] Preserved local changes:`, Object.keys(updates));
+          return preservedProfile;
+        });
       }
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] Database sync error:`, error);
