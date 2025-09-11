@@ -108,14 +108,17 @@ const ChatContainer = ({
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
       
-      // More intelligent user intent locking - only lock on intentional upward scrolls
-      if (scrollDirection.current === 'up' && !isNear && scrollVelocity > 15) {
+      // More intelligent user intent locking - mobile gets more aggressive auto-scroll
+      const intentLockThreshold = isMobileLocal ? 25 : 15; // Higher threshold for mobile
+      const resumeZone = isMobileLocal ? 200 : 100; // Larger resume zone for mobile
+      
+      if (scrollDirection.current === 'up' && !isNear && scrollVelocity > intentLockThreshold) {
         // Only lock on fast upward scrolls (indicating user intent to browse history)
         userIntentLockRef.current = true;
       }
       
       // Unlock with more generous conditions - create a "resume zone"
-      if (distanceToBottom < 100) { // Larger resume zone for better UX
+      if (distanceToBottom < resumeZone) { // Larger resume zone for better UX
         userIntentLockRef.current = false;
       }
       
@@ -123,27 +126,37 @@ const ChatContainer = ({
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
 
-      // Simplified mobile header visibility with buffer zones
+      // Enhanced mobile header visibility with smoother behavior
       if (isMobileLocal && chatHistory.length > 0) {
-        // Show header when scrolling up with intent or at top
-        if ((scrollDirection.current === 'up' && scrollVelocity > 10) || currentScrollTop < 30) {
+        // Show header when scrolling up with intent or near top
+        if ((scrollDirection.current === 'up' && scrollVelocity > 8) || currentScrollTop < 50) {
           debouncedSetVisible(true);
-        } else if (scrollDirection.current === 'down' && currentScrollTop > 100 && scrollVelocity > 5) {
-          // Hide header when scrolling down with intent, past initial area
+        } else if (scrollDirection.current === 'down' && currentScrollTop > 80 && scrollVelocity > 3) {
+          // Hide header when scrolling down, but with lower velocity threshold
           debouncedSetVisible(false);
+        }
+        // Always show header when near bottom (user engaged with recent messages)
+        if (distanceToBottom < 150) {
+          debouncedSetVisible(true);
         }
       }
     }, 8), // Faster response for smoother experience
     [chatHistory.length, isMobile, debouncedSetVisible]
   );
 
-  // Enhanced auto-scroll with ResizeObserver for content growth detection
+  // Enhanced auto-scroll with mobile-first behavior
   useEffect(() => {
     const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
     const loadingChanged = prevLoadingRef.current !== loading;
     
-    if (isNearBottom && !userIntentLockRef.current && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
-      const timeoutId = setTimeout(() => scrollToBottom('smooth'), 50);
+    // More aggressive auto-scroll on mobile - prioritize showing new content
+    const shouldAutoScroll = isMobile 
+      ? (isNearBottom && !userIntentLockRef.current) || (chatLengthChanged && !userIntentLockRef.current)
+      : (isNearBottom && !userIntentLockRef.current);
+      
+    if (shouldAutoScroll && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
+      const delay = isMobile ? 30 : 50; // Faster response on mobile
+      const timeoutId = setTimeout(() => scrollToBottom('smooth'), delay);
       
       prevChatLengthRef.current = chatHistory.length;
       prevLoadingRef.current = loading;
@@ -153,7 +166,7 @@ const ChatContainer = ({
     
     prevChatLengthRef.current = chatHistory.length;
     prevLoadingRef.current = loading;
-  }, [chatHistory.length, loading, isNearBottom, scrollToBottom]);
+  }, [chatHistory.length, loading, isNearBottom, scrollToBottom, isMobile]);
 
   // ResizeObserver for content growth detection with gentle user intent respect
   useEffect(() => {

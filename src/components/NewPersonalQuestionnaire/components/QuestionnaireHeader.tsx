@@ -28,7 +28,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      await refreshAllAppData();
+      await clearAllProfileData();
       toast({
         title: "Profile refreshed",
         description: "Your profile data has been updated."

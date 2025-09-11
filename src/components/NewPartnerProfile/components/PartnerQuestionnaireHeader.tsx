@@ -34,7 +34,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      await refreshAllAppData();
+      await clearAllProfileData();
       toast({
         title: "Profile refreshed",
         description: "Partner profile data has been updated."
