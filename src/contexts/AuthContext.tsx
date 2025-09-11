@@ -45,10 +45,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (event === 'SIGNED_IN') {
           // Check if user has been away from coach for more than 12 hours
+          // Use lastMessageTimestamp as primary check, coach_last_seen_at as fallback
+          const lastMessageTimestamp = localStorage.getItem('lastMessageTimestamp');
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
           const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
           
-          if (!lastSeenAt || parseInt(lastSeenAt) < twelveHoursAgo) {
+          // Use the more recent of the two timestamps
+          let lastActivity = null;
+          if (lastMessageTimestamp && lastSeenAt) {
+            lastActivity = Math.max(parseInt(lastMessageTimestamp), parseInt(lastSeenAt));
+          } else if (lastMessageTimestamp) {
+            lastActivity = parseInt(lastMessageTimestamp);
+          } else if (lastSeenAt) {
+            lastActivity = parseInt(lastSeenAt);
+          }
+          
+          if (!lastActivity || lastActivity < twelveHoursAgo) {
             // Set flag to force new conversation after signin
             localStorage.setItem('force_new_chat_after_signin', 'true');
           }
