@@ -21,22 +21,36 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (isOpen && contentRef.current) {
-      // Find first question card within this optional group
-      const firstQuestionCard = contentRef.current.querySelector('[data-question-card]');
-      if (firstQuestionCard?.id) {
-        scrollToNextQuestion(firstQuestionCard.id);
-      }
-    } else {
-      // If closed, try to find any question card after this optional group
-      const optionalGroup = document.getElementById(id || '');
-      if (optionalGroup) {
-        let nextElement = optionalGroup.nextElementSibling;
-        while (nextElement && !nextElement.hasAttribute('data-question-card')) {
-          nextElement = nextElement.nextElementSibling;
+    if (!isOpen) {
+      // If closed, open the group first and then scroll to first question
+      setIsOpen(true);
+      // Wait for animation to complete, then scroll to first question
+      setTimeout(() => {
+        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
+        if (firstQuestionCard?.id) {
+          scrollToElement(firstQuestionCard.id, 0);
         }
-        if (nextElement?.id) {
-          scrollToElement(nextElement.id, 300);
+      }, 250);
+    } else if (contentRef.current) {
+      // If open, find the first incomplete question within this group
+      const questionCards = contentRef.current.querySelectorAll('[data-question-card]');
+      if (questionCards.length > 0) {
+        // Use the first question card to trigger scrollToNextQuestion logic
+        const firstCard = questionCards[0] as HTMLElement;
+        if (firstCard.id) {
+          scrollToNextQuestion(firstCard.id);
+        }
+      } else {
+        // If no questions in this group, find next question after this group
+        const optionalGroup = document.getElementById(id || '');
+        if (optionalGroup) {
+          let nextElement = optionalGroup.nextElementSibling;
+          while (nextElement && !nextElement.hasAttribute('data-question-card')) {
+            nextElement = nextElement.nextElementSibling;
+          }
+          if (nextElement?.id) {
+            scrollToElement(nextElement.id, 0);
+          }
         }
       }
     }
@@ -74,7 +88,7 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
 
   return (
     <TooltipProvider>
-      <div className="w-full" data-optional-group data-optional-open={isOpen}>
+      <div className="w-full relative" data-optional-group data-optional-open={isOpen}>
         <Collapsible id={id} open={isOpen} onOpenChange={setIsOpen} className="w-full">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -94,24 +108,6 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
               <p className="text-sm">{title}</p>
             </TooltipContent>
           </Tooltip>
-        
-        {/* Quick Navigation Arrow */}
-        <div className="flex justify-center mt-2 mb-1">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={handleQuickNavigate}
-                className="group/arrow p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/30 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/30 hover:scale-105 active:scale-95"
-                aria-label="Jump to next question"
-              >
-                <ArrowDown className="w-4 h-4 text-white/70 group-hover/arrow:text-white transition-all duration-200 animate-pulse group-hover/arrow:animate-none" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" className="text-sm">
-              <p>Jump to next question</p>
-            </TooltipContent>
-          </Tooltip>
-        </div>
       
         <CollapsibleContent 
           ref={contentRef} 
@@ -126,6 +122,24 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
           </div>
         </CollapsibleContent>
       </Collapsible>
+
+      {/* Quick Navigation Arrow - Positioned in Lower Right */}
+      <div className="absolute bottom-2 right-2 z-10">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={handleQuickNavigate}
+              className="group/arrow p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/40 hover:scale-110 active:scale-95 shadow-lg backdrop-blur-sm"
+              aria-label={isOpen ? "Jump to next question" : "Open and jump to questions"}
+            >
+              <ArrowDown className="w-5 h-5 text-white/80 group-hover/arrow:text-white transition-all duration-200 animate-pulse group-hover/arrow:animate-none" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="left" className="text-sm">
+            <p>{isOpen ? "Jump to next question" : "Open and jump to questions"}</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
       </div>
     </TooltipProvider>
   );
