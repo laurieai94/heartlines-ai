@@ -3,19 +3,20 @@ import { Shield } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
-import { useFlow } from "../../../context/FlowContext";
 import { conflictStyleOptions } from "./constants";
+
 interface ConflictStyleQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
+  onSectionComplete?: () => void;
 }
 const ConflictStyleQuestion = ({
   profileData,
-  handleMultiSelect
+  handleMultiSelect,
+  onSectionComplete
 }: ConflictStyleQuestionProps) => {
-  const { goToNext } = useFlow();
   const isComplete = !!profileData.conflictStyle?.length;
-  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={() => goToNext('question-conflict-style')}>
+  return <QuestionCard questionId="question-conflict-style" showContinue={isComplete} onContinue={onSectionComplete}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         How do you typically handle conflict?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

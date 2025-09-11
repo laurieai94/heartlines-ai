@@ -3,19 +3,20 @@ import { Zap } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
-import { useFlow } from "../../../context/FlowContext";
 import { stressResponseOptions } from "./constants";
+
 interface StressResponseQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
+  onSectionComplete?: () => void;
 }
 const StressResponseQuestion = ({
   profileData,
-  handleMultiSelect
+  handleMultiSelect,
+  onSectionComplete
 }: StressResponseQuestionProps) => {
-  const { goToNext } = useFlow();
   const isComplete = !!profileData.stressResponse?.length;
-  return <QuestionCard questionId="question-stress-response" showContinue={isComplete} onContinue={() => goToNext('question-stress-response')}>
+  return <QuestionCard questionId="question-stress-response" showContinue={isComplete} onContinue={onSectionComplete}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         When life gets chaotic, where do you run?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>

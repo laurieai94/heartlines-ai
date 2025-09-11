@@ -3,19 +3,20 @@ import { HeartCrack } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCard from "../../shared/QuestionCard";
 import MultiSelect from "../../shared/MultiSelect";
-import { useFlow } from "../../../context/FlowContext";
 import { heartbreakBetrayalOptions } from "./constants";
+
 interface HeartbreakBetrayalQuestionProps {
   profileData: ProfileData;
   handleMultiSelect: (field: keyof ProfileData, value: string) => void;
+  onSectionComplete?: () => void;
 }
 const HeartbreakBetrayalQuestion = ({
   profileData,
-  handleMultiSelect
+  handleMultiSelect,
+  onSectionComplete
 }: HeartbreakBetrayalQuestionProps) => {
-  const { goToNext } = useFlow();
   const isComplete = profileData.heartbreakBetrayal && profileData.heartbreakBetrayal.length > 0;
-  return <QuestionCard questionId="question-heartbreak-betrayal" showContinue={isComplete} onContinue={() => goToNext('question-heartbreak-betrayal')}>
+  return <QuestionCard questionId="question-heartbreak-betrayal" showContinue={isComplete} onContinue={onSectionComplete}>
       <Label className="text-sm font-semibold text-white mb-2 block">
         Have you been through any major heartbreaks or betrayals?
         <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
