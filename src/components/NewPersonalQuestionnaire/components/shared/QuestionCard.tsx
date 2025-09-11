@@ -1,7 +1,41 @@
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, useContext, createContext } from "react";
 import QuestionContinueButton from "./QuestionContinueButton";
-import { useFlow } from "../../context/FlowContext";
+
+// Try to import both contexts safely
+let PersonalFlowContext: any = null;
+let PartnerFlowContext: any = null;
+
+try {
+  const personalContext = require("../../context/FlowContext");
+  PersonalFlowContext = personalContext.FlowContext;
+} catch {}
+
+try {
+  const partnerContext = require("../../../NewPartnerProfile/context/FlowContext");  
+  PartnerFlowContext = partnerContext.PartnerFlowContext;
+} catch {}
+
+// Safe hook that tries both Flow contexts
+const useFlowContext = () => {
+  // Try personal context first
+  if (PersonalFlowContext) {
+    try {
+      const context = useContext(PersonalFlowContext);
+      if (context) return context;
+    } catch {}
+  }
+  
+  // Try partner context
+  if (PartnerFlowContext) {
+    try {
+      const context = useContext(PartnerFlowContext);
+      if (context) return context;
+    } catch {}
+  }
+  
+  return null;
+};
 
 interface QuestionCardProps {
   children: ReactNode;
@@ -21,7 +55,8 @@ const QuestionCard = ({
   hideContinueButton = false
 }: QuestionCardProps) => {
   const [isInOptionalGroup, setIsInOptionalGroup] = useState(false);
-  const { goToNext } = useFlow();
+  const flowContext = useFlowContext();
+  const goToNext = (flowContext as any)?.goToNext;
 
   // Check if this card is inside an OptionalGroup
   useEffect(() => {
@@ -46,7 +81,7 @@ const QuestionCard = ({
   const handleContinue = () => {
     if (onContinue) {
       onContinue();
-    } else if (questionId) {
+    } else if (questionId && goToNext) {
       goToNext(questionId);
     }
   };
