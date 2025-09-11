@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { toast } from "sonner";
-import { Brain, Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare } from "lucide-react";
+import { Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare } from "lucide-react";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -191,14 +191,14 @@ const ProfileBuilder = ({
               onClick={canUnlockCoaching ? goToCoach : undefined}
               disabled={!canUnlockCoaching}
               className={`
-                w-full h-12 rounded-full font-medium text-white transition-all duration-300
+                w-full h-10 rounded-full font-medium text-white transition-all duration-300
                 ${canUnlockCoaching 
-                  ? 'bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 hover:scale-105 shadow-lg hover:shadow-xl' 
+                  ? 'bg-rose-900 hover:bg-rose-800 shadow-lg hover:shadow-xl' 
                   : 'bg-white/10 text-white/50 cursor-not-allowed shadow-lg'
                 }
               `}
             >
-              <Brain className="w-5 h-5 mr-2" />
+              <MessageSquare className="w-4 h-4 mr-2" />
               {canUnlockCoaching ? 'Unlock Coaching with Kai' : `Complete ${totalRequiredFields - completedRequiredFields} more questions`}
             </Button>
           </div>
@@ -261,29 +261,6 @@ const ProfileBuilder = ({
           />
         </div>
 
-        {/* Why This Matters / Quick Flow - Cool Strip */}
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm px-4 py-3 shadow-lg shadow-white/5">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/90">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-yellow-400/20 rounded-full blur-sm"></div>
-                  <div className="relative bg-yellow-400/10 p-1.5 rounded-full ring-1 ring-yellow-400/30">
-                    <Lightbulb className="w-3.5 h-3.5 text-yellow-300" />
-                  </div>
-                </div>
-                <span>
-                  <span className="font-medium text-white">Why This Matters:</span> The more real you are, the smarter Kai gets.
-                </span>
-              </div>
-              <span className="hidden sm:inline-block h-4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" aria-hidden="true" />
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-white">Flow:</span>
-                <span className="text-white/90">Profile → Chat with Kai → Try it IRL</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Privacy Banner - Cool Strip */}
         <div className="max-w-4xl mx-auto sticky top-4 z-20">
