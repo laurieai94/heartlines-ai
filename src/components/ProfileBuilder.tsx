@@ -14,6 +14,7 @@ import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { logEvent } from "@/utils/analytics";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -66,6 +67,7 @@ const ProfileBuilder = ({
   // Get actual personal profile data for accurate progress calculation
   const { profileData: personalProfileData } = usePersonalProfileData();
   const { profileData: partnerProfileData } = usePartnerProfileData();
+  const { goToCoach } = useNavigation();
   
   // Helper function for getting initials
   const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toUpperCase() || null;
@@ -234,6 +236,43 @@ const ProfileBuilder = ({
             optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
           />
         </div>
+
+        {/* Unlock Coaching Button */}
+        {(yourProfileCompletion > 0 || partnerProfileCompletion > 0) && (
+          <div className="max-w-md mx-auto">
+            <button
+              onClick={() => {
+                logEvent('unlock_coaching_clicked', { 
+                  personal_completion: yourProfileCompletion,
+                  partner_completion: partnerProfileCompletion 
+                });
+                goToCoach();
+              }}
+              className="w-full group relative overflow-hidden rounded-xl bg-gradient-to-r from-red-900/80 to-red-800/80 backdrop-blur-sm ring-1 ring-white/20 px-6 py-4 text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:ring-white/30 focus:outline-none focus:ring-2 focus:ring-white/40 focus:scale-[0.98]"
+              aria-label="Start coaching with Kai AI"
+            >
+              <div className="relative flex items-center justify-center gap-3">
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-pink-400/30 rounded-full blur-sm group-hover:bg-pink-400/40 transition-colors duration-300"></div>
+                  <div className="relative bg-pink-400/20 p-2 rounded-full ring-1 ring-pink-400/30 group-hover:ring-pink-400/40 transition-all duration-300">
+                    <Heart className="w-5 h-5 text-pink-300 group-hover:text-pink-200 transition-colors duration-300" />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-lg font-semibold">
+                    {yourProfileCompletion === 100 ? 'Start Coaching with Kai' : 'Unlock Kai AI Coach'}
+                  </span>
+                  <span className="text-sm text-white/80 group-hover:text-white/90 transition-colors duration-300">
+                    Ready to get personalized advice
+                  </span>
+                </div>
+              </div>
+              
+              {/* Glassmorphism overlay effect on hover */}
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+            </button>
+          </div>
+        )}
 
         {/* Why This Matters / Quick Flow - Cool Strip */}
         <div className="max-w-4xl mx-auto">
