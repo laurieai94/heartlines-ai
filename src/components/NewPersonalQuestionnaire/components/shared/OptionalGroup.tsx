@@ -16,43 +16,59 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { scrollToElement, scrollToNextQuestion } = useAutoScroll();
 
-  // Simple scroll down to show questions below viewport
+  // Enhanced scroll down functionality to reveal hidden content
   const handleScrollDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
+    // Get current viewport info
+    const currentScrollTop = window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const currentViewportBottom = currentScrollTop + viewportHeight;
+    const scrollBuffer = 120; // Account for headers and spacing
+    
+    // If optional group is closed, open it first and scroll to content
     if (!isOpen) {
-      // If closed, open the group and scroll to first question
       setIsOpen(true);
       setTimeout(() => {
         const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
-        if (firstQuestionCard?.id) {
-          scrollToElement(firstQuestionCard.id, 100);
+        if (firstQuestionCard) {
+          const rect = firstQuestionCard.getBoundingClientRect();
+          const elementTop = rect.top + currentScrollTop;
+          window.scrollTo({
+            top: elementTop - scrollBuffer,
+            behavior: 'smooth'
+          });
         }
-      }, 250);
-    } else {
-      // If open, scroll down to show more content
-      const currentScrollTop = window.pageYOffset;
-      const viewportHeight = window.innerHeight;
-      const currentBottom = currentScrollTop + viewportHeight;
+      }, 250); // Wait for collapsible animation
+      return;
+    }
+
+    // Find all interactive content below current viewport
+    const interactiveElements = document.querySelectorAll('[data-question-card], [data-optional-group], .questionnaire-section');
+    const elementsBelow = Array.from(interactiveElements).filter(element => {
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top + currentScrollTop;
+      return elementTop > currentViewportBottom - 50; // Small buffer for elements partially visible
+    });
+    
+    if (elementsBelow.length > 0) {
+      // Scroll to the next meaningful content
+      const targetElement = elementsBelow[0] as HTMLElement;
+      const rect = targetElement.getBoundingClientRect();
+      const elementTop = rect.top + currentScrollTop;
       
-      // Find questions below the current viewport
-      const allQuestions = document.querySelectorAll('[data-question-card]');
-      const questionsBelow = Array.from(allQuestions).filter(q => {
-        const rect = q.getBoundingClientRect();
-        const elementTop = rect.top + currentScrollTop;
-        return elementTop > currentBottom - 100; // 100px buffer
+      window.scrollTo({
+        top: elementTop - scrollBuffer,
+        behavior: 'smooth'
       });
-      
-      if (questionsBelow.length > 0) {
-        const nextQuestion = questionsBelow[0] as HTMLElement;
-        if (nextQuestion.id) {
-          scrollToElement(nextQuestion.id, 100);
-        }
-      } else {
-        // Scroll down by viewport height to reveal more content
-        window.scrollBy({ top: viewportHeight * 0.8, behavior: 'smooth' });
-      }
+    } else {
+      // No specific content found, do a smart page-down scroll
+      const scrollDistance = Math.min(viewportHeight * 0.75, 600); // Responsive scroll distance
+      window.scrollBy({
+        top: scrollDistance,
+        behavior: 'smooth'
+      });
     }
   };
 
