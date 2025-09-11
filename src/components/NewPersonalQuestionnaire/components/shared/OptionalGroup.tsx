@@ -86,7 +86,6 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
               className="p-2 rounded-full bg-primary hover:bg-primary/80 border border-white/20 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/60 hover:scale-105 active:scale-95 shadow-lg"
               aria-label="Scroll down to see more"
             >
-              <ArrowDown className="w-5 h-5 text-white" />
             </button>
           </TooltipTrigger>
           <TooltipContent side="top" className="text-sm">
