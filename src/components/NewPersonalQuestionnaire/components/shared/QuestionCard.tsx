@@ -1,7 +1,6 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import QuestionContinueButton from "./QuestionContinueButton";
-import { useFlow } from "../../context/FlowContext";
 
 interface QuestionCardProps {
   children: ReactNode;
@@ -21,7 +20,6 @@ const QuestionCard = ({
   hideContinueButton = false
 }: QuestionCardProps) => {
   const [isInOptionalGroup, setIsInOptionalGroup] = useState(false);
-  const { goToNext } = useFlow();
 
   // Check if this card is inside an OptionalGroup
   useEffect(() => {
@@ -46,8 +44,6 @@ const QuestionCard = ({
   const handleContinue = () => {
     if (onContinue) {
       onContinue();
-    } else if (questionId) {
-      goToNext(questionId);
     }
   };
 
