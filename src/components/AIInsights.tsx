@@ -185,6 +185,18 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, [historyLoading, conversations.length, chatHistory.length, loadMostRecentConversation, isStartingNewConversation]);
 
+  // Auto-show conversation starters for new chats
+  useEffect(() => {
+    if (
+      chatHistory.length === 0 && 
+      isConfigured && 
+      !historyLoading &&
+      hasLoadedMostRecentRef.current // Only after we've checked for existing conversations
+    ) {
+      setShowStarters(true);
+    }
+  }, [chatHistory.length, isConfigured, historyLoading]);
+
   // Removed debug logs for performance
 
   return (
