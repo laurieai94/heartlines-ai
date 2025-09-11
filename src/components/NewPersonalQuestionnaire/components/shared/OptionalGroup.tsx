@@ -30,7 +30,21 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
     return () => window.removeEventListener('optional-group:open', handler as EventListener);
   }, [id]);
 
-  // Optional sections remain user-driven - no auto-scroll when expanded
+  // Auto-scroll when expanded to show content
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      // Wait for collapsible animation to complete (200ms) then scroll
+      setTimeout(() => {
+        const firstQuestionCard = contentRef.current?.querySelector('[data-question-card]');
+        if (firstQuestionCard) {
+          const questionId = firstQuestionCard.id;
+          if (questionId) {
+            scrollToElement(questionId, 0);
+          }
+        }
+      }, 250);
+    }
+  }, [isOpen, scrollToElement]);
 
   return (
     <TooltipProvider>
