@@ -37,8 +37,10 @@ export const PrivacySettings = () => {
       // Create backup first
       const filename = PrivacyManager.createLocalBackup();
       
-      // Enable encryption
-      handleSettingChange('encryptionEnabled', true);
+      // Enable encryption - update state directly to ensure toggle turns on
+      const newSettings = { ...settings, encryptionEnabled: true };
+      setSettings(newSettings);
+      PrivacyManager.updatePrivacySettings({ encryptionEnabled: true });
       setShowBackupPrompt(false);
       
       toast.success("Encryption enabled", {
