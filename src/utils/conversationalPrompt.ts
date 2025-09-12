@@ -12,6 +12,24 @@ export class ConversationalPromptBuilder {
     const yourName = context.yourTraits?.name || '';
     const partnerName = context.partnerTraits?.name || '';
     
+    // Check if this is a data access verification request
+    const lastMessage = conversationHistory.length > 0 ? conversationHistory[conversationHistory.length - 1] : null;
+    const isDataTestRequest = lastMessage && 
+      (lastMessage.content.toLowerCase().includes('list everything') || 
+       lastMessage.content.toLowerCase().includes('what do you know') ||
+       lastMessage.content.toLowerCase().includes('show me all') ||
+       lastMessage.content.toLowerCase().includes('tell me everything'));
+    
+    if (isDataTestRequest) {
+      // Return comprehensive data access test
+      const comprehensiveData = InsightBuilders.buildComprehensiveDataTest(context);
+      return `You are Kai. The user is asking you to list everything you know about their profiles. Here's what you have access to:
+
+${comprehensiveData}
+
+Respond conversationally, summarizing what you know about them and their relationship in a friendly, natural way. Don't just list the data - weave it into insights about their relationship patterns and what you understand about them as individuals and as a couple.`;
+    }
+    
     // Build insights using the new modular structure
     const personalInsights = InsightBuilders.buildPersonalInsights(context);
     const partnerInsights = InsightBuilders.buildPartnerInsights(context);
