@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { PartnerProfileData } from "../types";
 import { validatePartnerSection, calculatePartnerProgress } from "../utils/partnerValidation";
-import { useCurrentSectionDetection } from "../../NewPersonalQuestionnaire/hooks/useCurrentSectionDetection";
 import PartnerSectionNavigation from "./PartnerSectionNavigation";
 import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
@@ -29,17 +28,7 @@ const PartnerQuestionnaireLayout = ({
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
-  const navLock = useRef(false);
   const overallProgress = calculatePartnerProgress(profileData);
-
-  // Auto section detection hook with partner section prefix
-  const handleSectionChange = (section: number) => {
-    // Only update section if not in the middle of programmatic navigation
-    if (!navLock.current) {
-      setCurrentSection(section);
-    }
-  };
-  useCurrentSectionDetection(handleSectionChange, 'partner-section-');
 
   // Track tablet/desktop state and measure header height
   useEffect(() => {
@@ -61,21 +50,6 @@ const PartnerQuestionnaireLayout = ({
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
-  // Listen for auto-advance events from useAutoScroll
-  useEffect(() => {
-    const handleGoToSection = (event: CustomEvent) => {
-      const { toSection, sectionType } = event.detail;
-      console.log('🟡 PartnerQuestionnaireLayout: Received goToSection event:', toSection, sectionType);
-      
-      // Only handle partner section events
-      if (sectionType === 'partner') {
-        handleSectionChange(toSection);
-      }
-    };
-
-    window.addEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
-    return () => window.removeEventListener('questionnaire:goToSection', handleGoToSection as EventListener);
-  }, []);
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);
