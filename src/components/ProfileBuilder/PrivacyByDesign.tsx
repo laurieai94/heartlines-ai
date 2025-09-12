@@ -25,12 +25,7 @@ export const PrivacyByDesign = () => {
               <span className="font-medium text-white">Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.</span>
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-white/60 hidden sm:inline">
-              {showDetails ? "Hide Privacy Details" : "Show Privacy Details"}
-            </span>
-            <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`} />
-          </div>
+          <ChevronDown className={`w-5 h-5 text-white/70 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`} />
         </Button>
 
         {showDetails && (
