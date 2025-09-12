@@ -11,13 +11,9 @@ import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
-import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
-import FrostedHeartShowcase from "./FrostedHeartShowcase";
-import PhotoSplitBanner from "./PhotoSplitBanner";
-import coupleConnection from "@/assets/couple-connection.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
@@ -238,42 +234,6 @@ const LandingPage = ({
     }
   }, [isEmbedded]);
   return <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
-      {/* Animated Holographic Background - Only show for marketing page */}
-      {showMarketingTopBar && <>
-        </>}
-
-      {/* Floating Particles */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`
-      }} />)}
-        </div>}
-
-      {/* Floating Geometric Shapes */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDuration: `${10 + Math.random() * 20}s`,
-        transform: `rotate(${Math.random() * 360}deg)`
-      }} />)}
-        </div>}
-
-      {/* Code-like Background Elements */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
-          <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
-            {`const love = { understanding: true, growth: infinite }`}
-          </div>
-          <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
-            {`if (relationship.status === 'complicated') { ai.help() }`}
-          </div>
-          <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
-            {`return personalized.advice.filter(advice => advice.isRelevant)`}
-          </div>
-        </div>}
 
       {/* Navigation */}
       {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-md border-b border-coral-400/15">
@@ -343,22 +303,14 @@ const LandingPage = ({
           </div>
         </nav>}
 
-      {/* Hero Section - Locked layout with flame background */}
+      {/* Hero Section - Locked layout */}
       <section className="relative overflow-hidden" style={{
       minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
     }}>
-        {/* Flame Background */}
-        <FlameBackground variant="subtle" density="sparse" />
-        
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
-              {/* Accent decoration - floating orbs with glassmorphism */}
-              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{
-            animationDelay: '1s'
-          }}></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
@@ -415,9 +367,8 @@ const LandingPage = ({
             </div>
           </>}
         
-        {/* Embedded version - horizontal layout with flame background */}
+        {/* Embedded version - horizontal layout */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
-            <FlameBackground variant="ethereal" density="sparse" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
@@ -484,12 +435,6 @@ const LandingPage = ({
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
-        {/* Background Ambient Orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-coral-400/5 to-pink-400/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-peach-400/5 to-coral-400/5 rounded-full blur-3xl"></div>
-          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/5 to-peach-400/5 rounded-full blur-3xl"></div>
-        </div>
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
@@ -574,8 +519,6 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* Frosted Heart Showcase */}
-      <FrostedHeartShowcase />
 
       {/* Visual Break with Accent */}
       <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
@@ -790,13 +733,6 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* Photo Split Banner */}
-      <PhotoSplitBanner 
-        imageSrc={coupleConnection}
-        alt="Couple having a meaningful conversation"
-        heading="Real relationships\nstart with real\nconversations."
-        align="left"
-      />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">
