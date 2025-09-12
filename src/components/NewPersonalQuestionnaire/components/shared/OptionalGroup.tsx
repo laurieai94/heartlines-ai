@@ -1,5 +1,5 @@
 
-import { ChevronDown, ArrowDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
@@ -14,17 +14,6 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Simple scroll down functionality
-  const handleScrollDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Just scroll down the page by a comfortable amount
-    window.scrollBy({
-      top: 400,
-      behavior: 'smooth'
-    });
-  };
 
   // Open on global event (targeted by id if provided)
   useEffect(() => {
@@ -77,22 +66,6 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Scroll Down Button - Bottom Center */}
-      <div className="flex justify-center mt-4">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={handleScrollDown}
-              className="p-2 rounded-full bg-primary hover:bg-primary/80 border border-white/20 hover:border-white/40 transition-all duration-200 touch-manipulation focus-visible:ring-2 focus-visible:ring-white/60 hover:scale-105 active:scale-95 shadow-lg"
-              aria-label="Scroll down to see more"
-            >
-            </button>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="text-sm">
-            <p>Scroll down to see more</p>
-          </TooltipContent>
-        </Tooltip>
-      </div>
       </div>
     </TooltipProvider>
   );
