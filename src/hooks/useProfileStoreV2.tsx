@@ -653,15 +653,38 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     updateProfile({ [field]: value } as any);
   }, [updateProfile]);
 
-  // Handle multi-select
+  // Handle multi-select with functional updates to prevent stale state
   const handleMultiSelect = useCallback((field: string, value: string) => {
-    const current = (profile as any)[field] as string[] || [];
-    const updated = current.includes(value)
-      ? current.filter(item => item !== value)
-      : [...current, value];
+    console.log(`[ProfileStore] Multi-select ${field}:`, value);
     
-    updateField(field, updated);
-  }, [profile, updateField]);
+    // Use functional update to get fresh state
+    setProfile(currentProfile => {
+      const current = (currentProfile as any)[field] as string[] || [];
+      const updated = current.includes(value)
+        ? current.filter(item => item !== value)
+        : [...current, value];
+      
+      console.log(`[ProfileStore] ${field} updated:`, current, '->', updated);
+      
+      const newProfile = { ...currentProfile, [field]: updated };
+      
+      // Immediate storage update
+      saveToStorage(newProfile);
+      
+      // Trigger debounced database sync via updateProfile mechanism
+      pendingUpdates.current = { ...pendingUpdates.current, [field]: updated };
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+      debounceTimer.current = setTimeout(() => {
+        const toSync = { ...pendingUpdates.current };
+        pendingUpdates.current = {};
+        syncToDatabase(toSync);
+      }, DEBOUNCE_MS);
+      
+      return newProfile;
+    });
+  }, [saveToStorage, syncToDatabase]);
 
   return {
     profileData: profile,
