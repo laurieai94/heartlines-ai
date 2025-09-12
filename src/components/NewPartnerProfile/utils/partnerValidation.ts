@@ -3,28 +3,20 @@ import { PartnerProfileData } from '../types';
 export const validatePartnerSection = (section: number, profileData: PartnerProfileData): boolean => {
   switch (section) {
     case 1: {
-      // The Basics - check if any basic field is filled
+      // The Basics - require name AND pronouns
       const hasName = profileData.partnerName?.trim() !== '';
       const hasPronouns = profileData.partnerPronouns?.trim() !== '';
-      const hasAge = profileData.partnerAge?.trim() !== '';
-      const hasOrientation = profileData.partnerOrientation?.trim() !== '';
-      const hasGender = profileData.partnerGender?.length > 0;
-      return !!(hasName || hasPronouns || hasAge || hasOrientation || hasGender);
+      return hasName && hasPronouns;
     }
     case 2: {
-      // How They Operate - check if any operation field is filled
+      // How They Operate - require love language
       const hasLoveLanguage = profileData.partnerLoveLanguage?.length > 0;
-      const hasConflictStyle = profileData.partnerConflictStyle?.length > 0;
-      const hasCommunicationResponse = profileData.partnerCommunicationResponse?.length > 0;
-      const hasSelfAwareness = profileData.partnerSelfAwareness?.trim() !== '';
-      return !!(hasLoveLanguage || hasConflictStyle || hasCommunicationResponse || hasSelfAwareness);
+      return hasLoveLanguage;
     }
     case 3: {
-      // Their Foundation - check if any foundation field is filled
-      const hasHeartbreakBetrayal = profileData.partnerHeartbreakBetrayal?.length > 0;
-      const hasFamilyStructure = profileData.partnerFamilyStructure?.length > 0;
+      // Their Foundation - require attachment style
       const hasAttachmentStyle = profileData.partnerAttachmentStyle?.trim() !== '';
-      return !!(hasHeartbreakBetrayal || hasFamilyStructure || hasAttachmentStyle);
+      return hasAttachmentStyle;
     }
     default:
       return false;

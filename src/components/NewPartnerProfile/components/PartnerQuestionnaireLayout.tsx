@@ -85,6 +85,28 @@ const PartnerQuestionnaireLayout = ({
       scrollToSectionFn.current(section);
     }
   };
+
+  const handleNextSection = () => {
+    if (currentSection < 3) {
+      const nextSection = currentSection + 1;
+      setCurrentSection(nextSection);
+      
+      if (scrollToSectionFn.current) {
+        scrollToSectionFn.current(nextSection);
+      }
+    }
+  };
+
+  const handlePreviousSection = () => {
+    if (currentSection > 1) {
+      const prevSection = currentSection - 1;
+      setCurrentSection(prevSection);
+      
+      if (scrollToSectionFn.current) {
+        scrollToSectionFn.current(prevSection);
+      }
+    }
+  };
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     return <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
@@ -127,7 +149,14 @@ const PartnerQuestionnaireLayout = ({
           <div className="pb-6 sm:pb-10" />
         </div>
 
-        <CleanPartnerFooter profileData={profileData} onComplete={onComplete} autoCompleteEnabled={!!onAutoComplete} />
+        <CleanPartnerFooter 
+          profileData={profileData} 
+          onComplete={onComplete} 
+          autoCompleteEnabled={!!onAutoComplete}
+          currentSection={currentSection}
+          onNextSection={handleNextSection}
+          onPreviousSection={handlePreviousSection}
+        />
       </div>
     </div>;
 };
