@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect, useRef } from "react";
+import { useAutoScroll } from "../../hooks/useAutoScroll";
 
 interface OptionalGroupProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ interface OptionalGroupProps {
 const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { scrollToElement } = useAutoScroll();
 
 
   // Open on global event (targeted by id if provided)
@@ -32,7 +34,18 @@ const OptionalGroup = ({ children, title = "", id }: OptionalGroupProps) => {
   return (
     <TooltipProvider>
       <div className="w-full relative" data-optional-group data-optional-open={isOpen}>
-        <Collapsible id={id} open={isOpen} onOpenChange={setIsOpen} className="w-full">
+        <Collapsible id={id} open={isOpen} onOpenChange={(open) => {
+          setIsOpen(open);
+          if (open) {
+            // Auto-scroll to first question after expansion
+            setTimeout(() => {
+              const firstQuestion = contentRef.current?.querySelector('[data-question-card]') as HTMLElement;
+              if (firstQuestion && firstQuestion.id) {
+                scrollToElement(firstQuestion.id, 200);
+              }
+            }, 250);
+          }
+        }} className="w-full">
           <Tooltip>
             <TooltipTrigger asChild>
               <CollapsibleTrigger data-optional-trigger aria-label={title || "Optional section"} aria-expanded={isOpen} className="flex items-center justify-between w-full p-3 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 sm:bg-transparent sm:hover:bg-white/5 transition-all duration-200 border border-white/10 hover:border-white/20 sm:border-white/10 sm:hover:border-white/20 focus-visible:ring-1 focus-visible:ring-white/30 group shadow-none touch-manipulation active:scale-98">

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { useAutoScroll } from "../NewPersonalQuestionnaire/hooks/useAutoScroll";
 import FamilyConflictQuestion from "./FamilyConflictQuestion";
 import FamilyLoveQuestion from "./FamilyLoveQuestion";
 import FamilySituationQuestion from "./FamilySituationQuestion";
@@ -15,11 +16,21 @@ interface OptionalFamilyContextProps {
 
 const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: OptionalFamilyContextProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { scrollToElement } = useAutoScroll();
 
   const handleToggle = (expanded: boolean) => {
     setIsExpanded(expanded);
-    if (expanded && (window as any).reliableScroll) {
-      (window as any).reliableScroll.toElement('family-context');
+    if (expanded) {
+      // Auto-scroll to first question after expansion
+      setTimeout(() => {
+        const firstQuestion = document.querySelector('[data-scroll-id="family-context"] [data-question-card]') as HTMLElement;
+        if (firstQuestion && firstQuestion.id) {
+          scrollToElement(firstQuestion.id, 200);
+        } else {
+          // Fallback to scrolling to the section itself
+          scrollToElement('family-context', 200);
+        }
+      }, 250);
     }
   };
 
