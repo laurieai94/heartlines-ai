@@ -89,13 +89,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, [personalProfileData, partnerProfileData, personalDataReady, partnerDataLoading, temporaryProfiles, temporaryDemographics]);
 
-  // Defer Supabase initialization to avoid blocking render
+  // Initialize Supabase immediately for faster startup
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const configured = AICoachEngine.initializeSupabase();
-      setIsConfigured(configured);
-    }, 100); // Small delay to allow UI to render first
-    return () => clearTimeout(timer);
+    const configured = AICoachEngine.initializeSupabase();
+    setIsConfigured(configured);
   }, []);
 
   // Handle new conversation

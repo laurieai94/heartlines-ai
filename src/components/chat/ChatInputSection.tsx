@@ -155,9 +155,11 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Always show starters for empty chats, regardless of showStarters state
-  const shouldShowStarters = (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || 
-                             (showStarters && isConfigured && isHistoryLoaded);
+  // Show starters immediately for authenticated users with empty chats
+  const shouldShowStarters = 
+    (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
+    (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
+    (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0">
