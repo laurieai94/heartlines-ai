@@ -86,7 +86,6 @@ const CleanQuestionnaireFooter = ({
                     ? 'text-white/80'
                     : 'text-white/50'
                 }`}>
-                  {section.name}
                 </span>
               </div>
             ))}
