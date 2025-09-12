@@ -100,7 +100,9 @@ const CleanQuestionnaireFooter = ({
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
-              className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100"
+              className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 ${
+                canGoNext ? 'animate-glow-pulse' : ''
+              }`}
             >
               <span className="hidden sm:inline">Next Section</span>
               <span className="sm:hidden">Next</span>
