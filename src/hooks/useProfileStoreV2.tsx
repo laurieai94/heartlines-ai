@@ -671,7 +671,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       // Immediate storage update
       saveToStorage(newProfile);
       
-      // Trigger debounced database sync via updateProfile mechanism
+      // Trigger debounced database sync
       pendingUpdates.current = { ...pendingUpdates.current, [field]: updated };
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
