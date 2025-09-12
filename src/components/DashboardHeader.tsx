@@ -46,11 +46,11 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
 
   const navigationItems = [
     { value: 'home', label: 'Home', icon: Home },
-    { value: 'profile', label: 'Profile', icon: UserIcon },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
-    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
+    { value: 'profile', label: 'Profile', icon: UserIcon },
+    { value: 'account', label: 'Account', icon: Settings, isExternal: true },
     { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
+    { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
   ];
 
   const handleNavigation = (item: any) => {
