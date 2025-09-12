@@ -69,7 +69,7 @@ const AIChat = ({
     console.log('AIChat - profile:', profile);
   }
 
-  const { loading, showTypingIndicator, sendMessage } = useChatMessageHandler({
+  const { loading, sendMessage } = useChatMessageHandler({
     profiles,
     demographicsData,
     profileGoals,
@@ -120,7 +120,6 @@ useChatEffects({
       <ChatContainer
         chatHistory={chatHistory}
         loading={loading}
-        showTypingIndicator={showTypingIndicator}
         userName={userName}
         isConfigured={isConfigured}
         conversationStarter={conversationStarter}
