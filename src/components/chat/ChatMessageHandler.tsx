@@ -24,19 +24,19 @@ export const useChatMessageHandler = ({
   setChatHistory,
   canInteract
 }: ChatMessageHandlerProps) => {
-  const [pendingCount, setPendingCount] = useState(0);
-  const loading = pendingCount > 0;
+  const [loading, setLoading] = useState(false);
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const messageIdCounter = useRef(Date.now());
   const requestTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const activeRequestIdRef = useRef<string | null>(null);
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
 
   // Debug logging for loading state changes
   useEffect(() => {
-    logger.debug(`Loading state changed: ${loading} (pendingCount: ${pendingCount})`);
-  }, [loading, pendingCount]);
+    logger.debug(`Loading state changed: ${loading}`);
+  }, [loading]);
 
   // Cleanup on unmount - reset any stuck loading state
   useEffect(() => {
@@ -51,18 +51,10 @@ export const useChatMessageHandler = ({
       }
       
       // Force reset loading state on unmount
-      setPendingCount(0);
+      setLoading(false);
+      activeRequestIdRef.current = null;
       logger.debug('ChatMessageHandler unmounted - reset loading state');
     };
-  }, []);
-
-  // Safe pending count updater with logging
-  const updatePendingCount = useCallback((updater: (prev: number) => number) => {
-    setPendingCount(prev => {
-      const newValue = updater(prev);
-      logger.debug(`Pending count: ${prev} → ${newValue}`);
-      return Math.max(0, newValue); // Ensure it never goes negative
-    });
   }, []);
 
   // Stable ID generation to prevent duplicate messages
@@ -86,7 +78,15 @@ export const useChatMessageHandler = ({
       return; // Don't send while AI is thinking
     }
 
-    const requestId = Date.now();
+    const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Prevent duplicate requests
+    if (activeRequestIdRef.current) {
+      logger.debug('Ignoring message - request already in progress');
+      return;
+    }
+
+    activeRequestIdRef.current = requestId;
     logger.debug(`Starting message request ${requestId}: "${userMessage.substring(0, 50)}..."`);
 
     const newUserMessage: ChatMessage = {
@@ -96,14 +96,15 @@ export const useChatMessageHandler = ({
       timestamp: new Date().toISOString()
     };
 
-    // Batch state updates to prevent flickering
-    updatePendingCount(c => c + 1);
+    // Set loading state and update chat history
+    setLoading(true);
     setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
 
     // Set timeout to prevent infinite loading (30 seconds)
     requestTimeoutRef.current = setTimeout(() => {
       logger.error(`Request ${requestId} timed out - forcing loading state reset`);
-      updatePendingCount(() => 0);
+      setLoading(false);
+      activeRequestIdRef.current = null;
     }, 30000);
 
     // Create history snapshot including the new user message for this request
@@ -200,7 +201,7 @@ export const useChatMessageHandler = ({
       };
       setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
     } finally {
-      // Clear timeout and decrement pending count
+      // Clear timeout and reset state
       if (requestTimeoutRef.current) {
         clearTimeout(requestTimeoutRef.current);
         requestTimeoutRef.current = null;
@@ -211,10 +212,12 @@ export const useChatMessageHandler = ({
         abortControllerRef.current = null;
       }
       
-      updatePendingCount(c => c - 1);
+      // Reset loading state and clear active request
+      setLoading(false);
+      activeRequestIdRef.current = null;
       logger.debug(`Request ${requestId} finished - cleaning up`);
     }
-  }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription, updatePendingCount]);
+  }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription]);
 
   const handleSpeakResponse = (speakFunction: (text: string) => void) => {
     speakResponseRef.current = speakFunction;
@@ -223,7 +226,8 @@ export const useChatMessageHandler = ({
   // Manual reset function for emergency cases
   const resetLoadingState = useCallback(() => {
     logger.debug('Manually resetting loading state');
-    updatePendingCount(() => 0);
+    setLoading(false);
+    activeRequestIdRef.current = null;
     
     if (requestTimeoutRef.current) {
       clearTimeout(requestTimeoutRef.current);
@@ -235,7 +239,7 @@ export const useChatMessageHandler = ({
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
-  }, [updatePendingCount]);
+  }, []);
 
   return {
     loading,

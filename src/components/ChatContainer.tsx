@@ -50,18 +50,18 @@ const ChatContainer = ({
   const isMobile = useIsMobile();
   const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Debug loading state changes
+  // Simplified loading state monitoring
   useEffect(() => {
     logger.debug(`ChatContainer - Loading state: ${loading}`);
     
     if (loading) {
-      // Set a fail-safe timeout to prevent infinite loading (45 seconds)
+      // Set a conservative fail-safe timeout (60 seconds)
       loadingTimeoutRef.current = setTimeout(() => {
-        logger.error('ChatContainer - Loading timeout reached, attempting to reset');
+        logger.error('ChatContainer - Loading stuck, attempting reset');
         if (resetLoadingState) {
           resetLoadingState();
         }
-      }, 45000);
+      }, 60000);
     } else {
       // Clear timeout when loading stops
       if (loadingTimeoutRef.current) {
