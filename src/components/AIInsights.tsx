@@ -110,7 +110,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleCloseStarters = () => {
-    setShowStarters(false);
+    // Don't hide starters if chat is empty - they'll still show due to shouldShowStarters logic
+    if (chatHistory.length > 0) {
+      setShowStarters(false);
+    }
   };
 
   const handleSupabaseConfigured = (configured: boolean) => {

@@ -155,11 +155,15 @@ export const ChatInputSection = ({
     };
   }, []);
 
+  // Always show starters for empty chats, regardless of showStarters state
+  const shouldShowStarters = (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || 
+                             (showStarters && isConfigured && isHistoryLoaded);
+
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0">
       <div className="px-0 py-2 md:px-4 md:py-3">
-        {/* Conversation Starters - only show when showStarters is true */}
-        {showStarters && isConfigured && isHistoryLoaded && (
+        {/* Conversation Starters - always show for empty chats */}
+        {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
