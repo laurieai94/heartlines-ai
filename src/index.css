@@ -151,14 +151,16 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
     line-height: 1.6;
-    /* Enhanced mobile stability and performance */
-    touch-action: manipulation;
-    overscroll-behavior: contain;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-    /* Better scroll performance on mobile */
-    -webkit-overflow-scrolling: touch;
+          /* Enhanced mobile stability and performance */
+          touch-action: manipulation;
+          overscroll-behavior: contain;
+          overflow-x: hidden;
+          -webkit-text-size-adjust: 100%;
+          -webkit-tap-highlight-color: transparent;
+          /* Better scroll performance on mobile */
+          -webkit-overflow-scrolling: touch;
+          /* Mobile-specific color consistency fixes */
+          color-scheme: dark;
   }
 
   .font-sans {
@@ -200,7 +202,7 @@
     padding-top: max(env(safe-area-inset-top), 0px);
   }
 
-  /* Enhanced mobile touch scroll utilities */
+  /* Enhanced mobile touch scroll utilities with better iOS support */
   .touch-pan-y {
     touch-action: pan-y;
   }
@@ -213,15 +215,21 @@
     touch-action: manipulation;
   }
 
-  /* Smooth scrolling performance */
+  /* Improved smooth scrolling performance on mobile */
   .scroll-smooth-mobile {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    /* Additional mobile scroll optimizations */
+    will-change: scroll-position;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
-  /* Prevent momentum scrolling issues */
+  /* Prevent momentum scrolling issues and improve mobile performance */
   .overscroll-contain {
     overscroll-behavior: contain;
+    /* Additional mobile optimization */
+    -webkit-overflow-scrolling: touch;
   }
 
   .animate-gradient {

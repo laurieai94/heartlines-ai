@@ -10,8 +10,8 @@ interface PullToRevealOptions {
 
 export const usePullToReveal = (options: PullToRevealOptions = {}) => {
   const {
-    threshold = 50,
-    velocityThreshold = 0.5,
+    threshold = 30, // Lowered from 50px for easier access
+    velocityThreshold = 0.3, // Lowered for more responsive activation
     enabled = true
   } = options;
 
@@ -52,8 +52,8 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: Date.now()
       };
       
-      // Only allow pull-to-reveal from top area or when scrolled to top
-      const isInTopArea = touch.clientY < 100;
+      // Expanded touch area for easier pull-to-reveal access
+      const isInTopArea = touch.clientY < 150; // Increased from 100px
       if (isInTopArea || isAtTopRef.current) {
         setIsPulling(false);
         setPullDistance(0);
@@ -74,16 +74,16 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: currentTime
       };
 
-      // Only track downward pulls from top area
-      const isInTopArea = startY < 100;
+      // Expanded area and more responsive activation
+      const isInTopArea = startY < 150; // Increased touch area
       const isPullingDown = deltaY > 0;
       
       if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
         setIsPulling(true);
         setPullDistance(Math.min(deltaY, threshold * 2));
         
-        // Show header progressively as user pulls
-        if (deltaY > threshold / 2 && !visible) {
+        // More responsive header reveal - show earlier
+        if (deltaY > threshold / 3 && !visible) { // Reduced from threshold/2
           setVisible(true);
         }
       }
@@ -102,7 +102,7 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const deltaTime = touchMoveRef.current.time - touchStartRef.current.time;
       const velocity = deltaTime > 0 ? deltaY / deltaTime : 0;
 
-      const isInTopArea = startY < 100;
+      const isInTopArea = startY < 150; // Consistent expanded area
       const isPullingDown = deltaY > 0;
       const exceededThreshold = deltaY > threshold;
       const exceededVelocity = velocity > velocityThreshold;
@@ -135,18 +135,18 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
     };
   }, [enabled, isMobile, threshold, velocityThreshold, visible, setVisible]);
 
-  // Handle scroll-based header visibility
+  // Enhanced scroll-based header visibility - more responsive
   const handleScroll = (scrollTop: number, scrollDirection: 'up' | 'down' | null) => {
     updateScrollPosition(scrollTop);
     
     if (!isMobile) return;
 
-    // Simple scroll-based visibility logic
-    if (scrollDirection === 'up' && scrollTop > 100) {
+    // More responsive scroll-based visibility logic
+    if (scrollDirection === 'up' && scrollTop > 50) { // Reduced from 100px
       setVisible(true);
-    } else if (scrollDirection === 'down' && scrollTop > 200) {
-      // Only hide if not currently pulling
-      if (!isPulling) {
+    } else if (scrollDirection === 'down' && scrollTop > 150) { // Reduced from 200px
+      // Only hide if not currently pulling and not near top
+      if (!isPulling && scrollTop > 100) {
         setVisible(false);
       }
     }

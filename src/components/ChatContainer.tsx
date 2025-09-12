@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { usePullToReveal } from '@/hooks/usePullToReveal';
+import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
@@ -45,9 +46,14 @@ const ChatContainer = ({
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
   
-  // Pull-to-reveal functionality
+  // Mobile optimizations
+  const { simulateHapticFeedback } = useMobileOptimizations();
+  
+  // Pull-to-reveal functionality with enhanced mobile support
   const { handleScroll: handlePullToRevealScroll, setScrollElement } = usePullToReveal({
-    enabled: isMobile
+    enabled: isMobile,
+    threshold: 30,
+    velocityThreshold: 0.3
   });
 
   // References for scroll management
@@ -77,11 +83,16 @@ const ChatContainer = ({
       viewport.scrollTop = targetScrollTop;
     }
     
+    // Provide haptic feedback on mobile for scroll actions
+    if (isMobile && behavior === 'smooth') {
+      simulateHapticFeedback(viewport, 'light');
+    }
+    
     // Unlock user intent when manually scrolling to bottom
     userIntentLockRef.current = false;
-  }, []);
+  }, [isMobile, simulateHapticFeedback]);
 
-  // Simplified mobile scroll handler - no catching, always responsive
+  // Optimized scroll handler - mobile responsive with reduced throttling
   const handleScroll = useMemo(() => throttle(
     () => {
       const viewport = viewportRef.current;
@@ -91,31 +102,31 @@ const ChatContainer = ({
       const scrollHeight = viewport.scrollHeight;
       const clientHeight = viewport.clientHeight;
       const distanceToBottom = scrollHeight - currentScrollTop - clientHeight;
-      const isNear = distanceToBottom < 150;
+      const isNear = distanceToBottom < (isMobile ? 200 : 150);
       
-      // Track scroll direction for header visibility
+      // Simplified scroll direction tracking
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
       lastScrollTopRef.current = currentScrollTop;
       
-      if (Math.abs(scrollDelta) > 2) {
+      if (Math.abs(scrollDelta) > 3) {
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
 
       // Update pull-to-reveal hook
       handlePullToRevealScroll(currentScrollTop, scrollDirection.current);
       
-      // Simplified mobile behavior - minimal user intent blocking
+      // Streamlined user intent logic - more responsive on mobile
       if (isMobile) {
-        // Only lock user intent on deliberate fast upward scrolls
-        if (scrollDirection.current === 'up' && Math.abs(scrollDelta) > 30 && !isNear) {
+        // Mobile: Less aggressive user intent blocking, faster unlocking
+        if (scrollDirection.current === 'up' && Math.abs(scrollDelta) > 40 && distanceToBottom > 400) {
           userIntentLockRef.current = true;
         }
-        // Unlock as soon as user approaches bottom or stops scrolling
-        if (distanceToBottom < 300) {
+        // Quick unlock when approaching bottom or small scroll movements
+        if (distanceToBottom < 250 || Math.abs(scrollDelta) < 20) {
           userIntentLockRef.current = false;
         }
       } else {
-        // Desktop behavior - more conservative
+        // Desktop: Keep existing conservative behavior
         if (scrollDirection.current === 'up' && !isNear && Math.abs(scrollDelta) > 15) {
           userIntentLockRef.current = true;
         }
@@ -126,23 +137,23 @@ const ChatContainer = ({
       
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
-    }, 10),
+    }, isMobile ? 50 : 10), // Reduced throttling frequency on mobile for better responsiveness
     [chatHistory.length, isMobile]
   );
 
-  // Aggressive mobile auto-scroll - always show new messages
+  // Optimized mobile auto-scroll - predictable and responsive
   useEffect(() => {
     const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
     const loadingChanged = prevLoadingRef.current !== loading;
     
-    // Mobile: Always auto-scroll unless user is actively reading history
-    // Desktop: More conservative behavior
+    // Mobile: More predictable auto-scroll behavior
+    // Desktop: Conservative behavior maintained
     const shouldAutoScroll = isMobile 
-      ? (chatLengthChanged && !userIntentLockRef.current) || (isNearBottom && !userIntentLockRef.current)
+      ? (chatLengthChanged || (loadingChanged && loading)) && !userIntentLockRef.current
       : (isNearBottom && !userIntentLockRef.current);
       
-    if (shouldAutoScroll && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
-      const delay = isMobile ? 20 : 50; // Much faster on mobile
+    if (shouldAutoScroll && chatHistory.length > 0) {
+      const delay = isMobile ? 10 : 50; // Faster response on mobile
       const timeoutId = setTimeout(() => scrollToBottom('smooth'), delay);
       
       prevChatLengthRef.current = chatHistory.length;
@@ -155,22 +166,25 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom, isMobile]);
 
-  // Auto-scroll on content resize
+  // Optimized resize handling with debounced updates
   useEffect(() => {
     if (!contentRef.current || !viewportRef.current) return;
 
     // Set scroll element for pull-to-reveal
     setScrollElement(viewportRef.current);
 
-    const resizeObserver = new ResizeObserver(() => {
-      if (!userIntentLockRef.current && isNearBottom) {
-        setTimeout(() => scrollToBottom('smooth'), 10);
+    // Debounced resize handler for better performance
+    const debouncedResizeHandler = debounce(() => {
+      if (!userIntentLockRef.current && (isNearBottom || isMobile)) {
+        setTimeout(() => scrollToBottom('smooth'), isMobile ? 5 : 10);
       }
-    });
+    }, isMobile ? 50 : 100);
 
+    const resizeObserver = new ResizeObserver(debouncedResizeHandler);
     resizeObserver.observe(contentRef.current);
+    
     return () => resizeObserver.disconnect();
-  }, [isNearBottom, scrollToBottom, setScrollElement]);
+  }, [isNearBottom, scrollToBottom, setScrollElement, isMobile]);
 
   // Initial scroll when history loads
   useEffect(() => {
@@ -186,13 +200,18 @@ const ChatContainer = ({
         viewportRef={viewportRef}
         className={`h-full ${
           isMobile 
-            ? 'touch-pan-y overscroll-contain' 
+            ? 'touch-pan-y overscroll-contain scroll-smooth-mobile' 
             : 'overscroll-contain'
         }`}
         style={isMobile ? { 
-          WebkitOverflowScrolling: 'touch',
+          // Enhanced mobile scrolling performance
+          WebkitOverflowScrolling: 'touch' as any,
           touchAction: 'pan-y',
-          overscrollBehavior: 'contain'
+          overscrollBehavior: 'contain',
+          scrollBehavior: 'smooth',
+          willChange: 'scroll-position',
+          backfaceVisibility: 'hidden',
+          transform: 'translateZ(0)', // Force hardware acceleration
         } : undefined}
         onScroll={handleScroll}
         role="log"

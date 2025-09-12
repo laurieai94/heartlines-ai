@@ -8,6 +8,7 @@ import { useState } from "react";
 import { BRAND } from "@/branding";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
+import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { cn } from "@/lib/utils";
 
 interface ChatHeaderProps {
@@ -24,6 +25,24 @@ export const ChatHeader = ({
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   const isMobile = useIsMobile();
   const { visible } = useMobileHeaderVisibility();
+  const { simulateHapticFeedback } = useMobileOptimizations();
+
+  // Enhanced mobile button handlers with haptic feedback
+  const handleNewConversation = () => {
+    if (isMobile) {
+      simulateHapticFeedback(document.body as HTMLElement, 'medium');
+    }
+    onNewConversation();
+  };
+
+  const handleOpenSidebar = () => {
+    if (isMobile && onOpenSidebar) {
+      simulateHapticFeedback(document.body as HTMLElement, 'light');
+      onOpenSidebar();
+    } else if (onOpenSidebar) {
+      onOpenSidebar();
+    }
+  };
 
   return (
     <div className={cn(
@@ -38,18 +57,18 @@ export const ChatHeader = ({
             <div className="flex items-center justify-between">
               <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 pl-0 pr-1 py-1 h-auto hover:bg-white/10 transition-colors rounded-lg">
+                  <Button variant="ghost" className="flex items-center gap-2 pl-0 pr-2 py-2 min-h-[44px] h-auto hover:bg-white/10 transition-colors rounded-lg touch-manipulation">
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
-                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-6 h-6 border border-white/20">
+                      <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-8 h-8 border border-white/20">
                         <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                          <Heart className="w-3 h-3" />
+                          <Heart className="w-4 h-4" />
                         </AvatarFallback>
                       </Avatar>
-                      <div className="absolute -top-0.5 -right-0.5 w-1 h-1 bg-green-400 rounded-full border border-white"></div>
+                      <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-white"></div>
                     </div>
-                    <h3 className="text-white font-medium text-sm leading-none">Kai</h3>
+                    <h3 className="text-white font-medium text-base leading-none">Kai</h3>
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent side="bottom" align="start" sideOffset={8} avoidCollisions collisionPadding={16} className="w-72 p-4 max-w-[calc(100vw-32px)] bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl ring-1 ring-white/10 rounded-2xl z-50">
@@ -75,17 +94,17 @@ export const ChatHeader = ({
                 </PopoverContent>
               </Popover>
 
-              {/* Action buttons - New Chat + Hamburger */}
-              <div className="flex items-center gap-1">
+              {/* Action buttons - New Chat + Hamburger with enhanced mobile touch targets */}
+              <div className="flex items-center gap-2">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                         <Button 
                         variant="ghost" 
-                        onClick={onNewConversation} 
-                        className="text-white/70 hover:text-white hover:bg-transparent transition-colors w-5 h-5 p-0 rounded-xl"
+                        onClick={handleNewConversation} 
+                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-w-[44px] min-h-[44px] p-2 rounded-xl touch-manipulation"
                       >
-                        <Plus className="w-2.5 h-2.5" />
+                        <Plus className="w-5 h-5" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
@@ -100,10 +119,10 @@ export const ChatHeader = ({
                       <TooltipTrigger asChild>
                         <Button 
                           variant="ghost" 
-                          onClick={onOpenSidebar} 
-                          className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors w-5 h-5 p-0 rounded-xl"
+                          onClick={handleOpenSidebar} 
+                          className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-w-[44px] min-h-[44px] p-2 rounded-xl touch-manipulation"
                         >
-                          <Menu className="w-2.5 h-2.5" />
+                          <Menu className="w-5 h-5" />
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
@@ -182,8 +201,8 @@ export const ChatHeader = ({
                     <TooltipTrigger asChild>
                       <Button 
                         variant="ghost" 
-                        onClick={onOpenSidebar} 
-                        className="text-white/70 hover:text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors min-h-[28px] min-w-[28px] rounded-xl flex flex-col items-center gap-0.5"
+                        onClick={handleOpenSidebar} 
+                        className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
                       >
                         <Menu className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-medium">Chats</span>
@@ -202,8 +221,8 @@ export const ChatHeader = ({
                   <TooltipTrigger asChild>
                     <Button 
                       variant="ghost" 
-                      onClick={onNewConversation} 
-                      className="text-white/70 hover:text-white hover:bg-transparent transition-colors min-h-[28px] min-w-[28px] rounded-xl flex flex-col items-center gap-0.5"
+                      onClick={handleNewConversation} 
+                      className="text-white/70 hover:text-white hover:bg-white/10 transition-colors min-h-[44px] min-w-[44px] rounded-xl flex flex-col items-center gap-0.5 touch-manipulation"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span className="text-[10px] font-medium">New</span>
