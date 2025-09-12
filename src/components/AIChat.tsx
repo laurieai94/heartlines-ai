@@ -125,6 +125,8 @@ useChatEffects({
         conversationStarter={conversationStarter}
         isHistoryLoaded={isHistoryLoaded}
         userTyping={userTyping}
+        onNewConversation={handleNewConversation}
+        onOpenSidebar={onOpenSidebar}
       />
 
       <ChatInputSection

@@ -1,41 +1,54 @@
-import { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { useCallback, useEffect, useRef, useMemo, useState } from 'react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import AIChatMessage from './AIChatMessage';
+import { ChatMessage } from '@/types/AIInsights';
+import { throttle } from '@/utils/throttle';
+import { Button } from '@/components/ui/button';
+import { ArrowDown } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { FloatingActionButtons } from './FloatingActionButtons';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bot, ChevronDown, Heart } from "lucide-react";
-import { ChatMessage } from "@/types/AIInsights";
-import AIChatMessage from "./AIChatMessage";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
-import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
-import { useNavigation } from "@/contexts/NavigationContext";
-import { useAuth } from "@/contexts/AuthContext";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
-import { throttle, debounce } from "@/utils/throttle";
+
+// Create a debounced function for better performance
+const debounce = (func: Function, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
-  userName: string;
+  userName?: string;
   isConfigured: boolean;
   conversationStarter?: string;
   isHistoryLoaded: boolean;
-  userTyping?: boolean;
+  userTyping: boolean;
+  onNewConversation?: () => void;
+  onOpenSidebar?: () => void;
 }
-const ChatContainer = ({
-  chatHistory,
-  loading,
-  userName,
-  isConfigured,
-  conversationStarter,
+
+const ChatContainer = ({ 
+  chatHistory, 
+  loading, 
+  userName, 
+  isConfigured, 
+  conversationStarter, 
   isHistoryLoaded,
-  userTyping = false
+  userTyping,
+  onNewConversation = () => {},
+  onOpenSidebar
 }: ChatContainerProps) => {
-  const { accessLevel } = useProgressiveAccess();
-  const { goToProfile } = useNavigation();
-  const { user } = useAuth();
   const isMobile = useIsMobile();
-  const { setVisible } = useMobileHeaderVisibility();
+  
+  // Simplified state management - no complex header visibility logic
+  const [showFloatingButtons, setShowFloatingButtons] = useState(false);
+
+  // References for scroll management
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
@@ -43,21 +56,14 @@ const ChatContainer = ({
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevLoadingRef = useRef(loading);
   const lastScrollTopRef = useRef(0);
-  const isInitializedRef = useRef(false);
-  const vvPrevHeightRef = useRef<number | null>(null);
   const userIntentLockRef = useRef(false);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
-  const keyboardHeightRef = useRef(0);
-  const isKeyboardOpenRef = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const loadingStickyInterval = useRef<NodeJS.Timeout | null>(null);
-  
+
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    
-    // Use viewport.scrollTo for better control instead of scrollIntoView
     const targetScrollTop = viewport.scrollHeight - viewport.clientHeight;
     
     if (behavior === 'smooth') {
@@ -71,91 +77,67 @@ const ChatContainer = ({
     
     // Unlock user intent when manually scrolling to bottom
     userIntentLockRef.current = false;
-    
-    // Update scroll reference after scrolling to bottom on mobile
-    if (isMobile) {
-      setTimeout(() => {
-        if (viewportRef.current) {
-          lastScrollTopRef.current = viewportRef.current.scrollTop;
-        }
-      }, 100);
-    }
-  }, [isMobile]);
+  }, []);
 
-  // Debounced header visibility update to prevent rapid state changes
-  const debouncedSetVisible = useMemo(
-    () => debounce((visible: boolean) => setVisible(visible), 50),
-    [setVisible]
-  );
-
-  // Optimized scroll handler with gentler user intent detection
-  const handleScroll = useMemo(
-    () => throttle(() => {
-      const target = viewportRef.current;
-      if (!target) return;
+  // Simplified mobile scroll handler - no catching, always responsive
+  const handleScroll = useMemo(() => throttle(
+    () => {
+      const viewport = viewportRef.current;
+      if (!viewport) return;
       
-      const isMobileLocal = isMobile; // capture
-      const threshold = isMobileLocal ? 80 : 48; // Increased mobile threshold for better UX
-      const distanceToBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-      const isNear = distanceToBottom < threshold;
-      const currentScrollTop = target.scrollTop;
+      const currentScrollTop = viewport.scrollTop;
+      const scrollHeight = viewport.scrollHeight;
+      const clientHeight = viewport.clientHeight;
+      const distanceToBottom = scrollHeight - currentScrollTop - clientHeight;
+      const isNear = distanceToBottom < 150;
       
-      // Gentler scroll direction detection
+      // Track scroll direction for header visibility
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      const scrollVelocity = Math.abs(scrollDelta);
+      lastScrollTopRef.current = currentScrollTop;
       
-      if (scrollVelocity > 3) { // Only detect direction on meaningful scrolls
+      if (Math.abs(scrollDelta) > 2) {
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
       
-      // More intelligent user intent locking - mobile gets more aggressive auto-scroll
-      const intentLockThreshold = isMobileLocal ? 25 : 15; // Higher threshold for mobile
-      const resumeZone = isMobileLocal ? 200 : 100; // Larger resume zone for mobile
-      
-      if (scrollDirection.current === 'up' && !isNear && scrollVelocity > intentLockThreshold) {
-        // Only lock on fast upward scrolls (indicating user intent to browse history)
-        userIntentLockRef.current = true;
+      // Simplified mobile behavior - minimal user intent blocking
+      if (isMobile) {
+        // Only lock user intent on deliberate fast upward scrolls
+        if (scrollDirection.current === 'up' && Math.abs(scrollDelta) > 30 && !isNear) {
+          userIntentLockRef.current = true;
+        }
+        // Unlock as soon as user approaches bottom or stops scrolling
+        if (distanceToBottom < 300) {
+          userIntentLockRef.current = false;
+        }
+      } else {
+        // Desktop behavior - more conservative
+        if (scrollDirection.current === 'up' && !isNear && Math.abs(scrollDelta) > 15) {
+          userIntentLockRef.current = true;
+        }
+        if (distanceToBottom < 100) {
+          userIntentLockRef.current = false;
+        }
       }
       
-      // Unlock with more generous conditions - create a "resume zone"
-      if (distanceToBottom < resumeZone) { // Larger resume zone for better UX
-        userIntentLockRef.current = false;
-      }
-      
-      lastScrollTopRef.current = currentScrollTop;
       setIsNearBottom(isNear);
       setShowScrollToBottom(!isNear && chatHistory.length > 0);
-
-      // Enhanced mobile header visibility with smoother behavior
-      if (isMobileLocal && chatHistory.length > 0) {
-        // Show header when scrolling up with intent or near top
-        if ((scrollDirection.current === 'up' && scrollVelocity > 8) || currentScrollTop < 50) {
-          debouncedSetVisible(true);
-        } else if (scrollDirection.current === 'down' && currentScrollTop > 80 && scrollVelocity > 3) {
-          // Hide header when scrolling down, but with lower velocity threshold
-          debouncedSetVisible(false);
-        }
-        // Always show header when near bottom (user engaged with recent messages)
-        if (distanceToBottom < 150) {
-          debouncedSetVisible(true);
-        }
-      }
-    }, 8), // Faster response for smoother experience
-    [chatHistory.length, isMobile, debouncedSetVisible]
+    }, 10),
+    [chatHistory.length, isMobile]
   );
 
-  // Enhanced auto-scroll with mobile-first behavior
+  // Aggressive mobile auto-scroll - always show new messages
   useEffect(() => {
     const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
     const loadingChanged = prevLoadingRef.current !== loading;
     
-    // More aggressive auto-scroll on mobile - prioritize showing new content
+    // Mobile: Always auto-scroll unless user is actively reading history
+    // Desktop: More conservative behavior
     const shouldAutoScroll = isMobile 
-      ? (isNearBottom && !userIntentLockRef.current) || (chatLengthChanged && !userIntentLockRef.current)
+      ? (chatLengthChanged && !userIntentLockRef.current) || (isNearBottom && !userIntentLockRef.current)
       : (isNearBottom && !userIntentLockRef.current);
       
     if (shouldAutoScroll && (chatLengthChanged || (loadingChanged && loading)) && chatHistory.length > 0) {
-      const delay = isMobile ? 30 : 50; // Faster response on mobile
+      const delay = isMobile ? 20 : 50; // Much faster on mobile
       const timeoutId = setTimeout(() => scrollToBottom('smooth'), delay);
       
       prevChatLengthRef.current = chatHistory.length;
@@ -168,19 +150,12 @@ const ChatContainer = ({
     prevLoadingRef.current = loading;
   }, [chatHistory.length, loading, isNearBottom, scrollToBottom, isMobile]);
 
-  // ResizeObserver for content growth detection with gentle user intent respect
+  // Auto-scroll on content resize
   useEffect(() => {
     if (!contentRef.current || !viewportRef.current) return;
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      // Gentler pause logic - only pause on strong user intent signals
-      if (userIntentLockRef.current) {
-        return;
-      }
-      
-      // Auto-scroll if near bottom
-      if (isNearBottom) {
-        // Immediate scroll for better responsiveness
+    const resizeObserver = new ResizeObserver(() => {
+      if (!userIntentLockRef.current && isNearBottom) {
         setTimeout(() => scrollToBottom('smooth'), 10);
       }
     });
@@ -189,82 +164,16 @@ const ChatContainer = ({
     return () => resizeObserver.disconnect();
   }, [isNearBottom, scrollToBottom]);
 
-  // Loading state sticky bottom with gentle user intent respect
-  useEffect(() => {
-    if (loading && isNearBottom && !userIntentLockRef.current) {
-      loadingStickyInterval.current = setInterval(() => {
-        // Only pause on strong user intent signals
-        if (userIntentLockRef.current) {
-          return;
-        }
-        
-        if (viewportRef.current && isNearBottom) {
-          const viewport = viewportRef.current;
-          const distanceToBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
-          if (distanceToBottom > 5) { // More responsive threshold
-            scrollToBottom('auto');
-          }
-        }
-      }, 50); // More frequent updates for smoother experience
-    } else if (loadingStickyInterval.current) {
-      clearInterval(loadingStickyInterval.current);
-      loadingStickyInterval.current = null;
-    }
-
-    return () => {
-      if (loadingStickyInterval.current) {
-        clearInterval(loadingStickyInterval.current);
-        loadingStickyInterval.current = null;
-      }
-    };
-  }, [loading, isNearBottom, scrollToBottom]);
-
-  // Strengthened initial scroll and conversation switches
+  // Initial scroll when history loads
   useEffect(() => {
     if (isHistoryLoaded) {
       scrollToBottom('auto');
-      // Double-check with delay to ensure all content is rendered
       setTimeout(() => scrollToBottom('auto'), 100);
-      setTimeout(() => scrollToBottom('auto'), 300);
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Handle mobile keyboard visibility changes (guarded)
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.visualViewport) return;
-    if (!isMobile) return;
-
-    const vv = window.visualViewport;
-    // Initialize previous height
-    vvPrevHeightRef.current = vvPrevHeightRef.current ?? vv.height;
-
-    const handleViewportChange = () => {
-      if (!viewportRef.current) {
-        vvPrevHeightRef.current = vv.height;
-        return;
-      }
-      const prev = vvPrevHeightRef.current ?? vv.height;
-      const heightDiff = prev - vv.height;
-      vvPrevHeightRef.current = vv.height;
-
-      // Update keyboard state and height
-      keyboardHeightRef.current = Math.max(0, heightDiff);
-      isKeyboardOpenRef.current = heightDiff > 150;
-
-      const v = viewportRef.current;
-      const distanceToBottom = v.scrollHeight - v.scrollTop - v.clientHeight;
-      const nearBottom = distanceToBottom < (isKeyboardOpenRef.current ? 150 : 48);
-
-      if (isKeyboardOpenRef.current && nearBottom && !userIntentLockRef.current) {
-        // Faster response for better mobile keyboard UX
-        setTimeout(() => scrollToBottom('auto'), 20);
-      }
-    };
-
-    vv.addEventListener('resize', handleViewportChange);
-    return () => vv.removeEventListener('resize', handleViewportChange);
-  }, [isMobile, scrollToBottom]);
-  return <div className="flex-1 min-h-0 relative">
+  return (
+    <div className="flex-1 min-h-0 relative bg-burgundy-950/95">
       <ScrollArea 
         viewportRef={viewportRef} 
         className={`h-full ${
@@ -285,9 +194,7 @@ const ChatContainer = ({
         <div 
           className="pt-1 md:px-4 md:pt-3 md:pb-2"
           style={{
-            paddingBottom: isMobile && isKeyboardOpenRef.current 
-              ? `${Math.max(keyboardHeightRef.current * 0.1, 4)}px` 
-              : '4px',
+            paddingBottom: '4px',
             paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
             paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
@@ -376,18 +283,32 @@ const ChatContainer = ({
         </div>
       </ScrollArea>
       
-      {/* Scroll to Bottom Button */}
-      {showScrollToBottom && <Button 
-        onClick={() => {
-          userIntentLockRef.current = false; // Unlock when user clicks button
-          scrollToBottom('smooth');
-        }} 
-        size="sm" 
-        className={`absolute bottom-4 right-4 z-40 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 shadow-lg ${isMobile ? '' : 'border border-white/20'}`}
-        style={{ touchAction: 'manipulation' }}
-      >
-        <ChevronDown className="w-4 h-4" />
-      </Button>}
-    </div>;
+      {/* Floating Action Buttons for Mobile */}
+      <FloatingActionButtons
+        onOpenSidebar={onOpenSidebar}
+        onNewConversation={onNewConversation}
+        showScrollToTop={showScrollToBottom}
+        onScrollToTop={() => {
+          if (viewportRef.current) {
+            viewportRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+      />
+
+      {/* Desktop Scroll to Bottom Button */}
+      {!isMobile && showScrollToBottom && (
+        <div className="fixed bottom-24 right-8 z-50">
+          <Button
+            onClick={() => scrollToBottom('smooth')}
+            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:bg-white/20 transition-all duration-200"
+            size="sm"
+          >
+            <ArrowDown className="w-4 h-4 text-white" />
+          </Button>
+        </div>
+      )}
+    </div>
+  );
 };
+
 export default ChatContainer;
