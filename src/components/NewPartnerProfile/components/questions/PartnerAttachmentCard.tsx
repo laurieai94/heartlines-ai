@@ -22,7 +22,7 @@ const PartnerAttachmentCard = ({ profileData, updateField, isComplete = false, o
       questionId={questionId}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        What's their attachment style (from what you can tell)?
+        What's their attachment style (from what you can tell)? <span className="text-red-400">*</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <Heart className="w-3 h-3 text-red-300" />

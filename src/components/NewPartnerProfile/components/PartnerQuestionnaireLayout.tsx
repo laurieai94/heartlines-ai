@@ -136,12 +136,7 @@ const PartnerQuestionnaireLayout = ({
             profileData={profileData} 
             updateField={updateField} 
             handleMultiSelect={handleMultiSelect} 
-            currentSection={currentSection} 
-            containerRef={scrollContainerRef}
-            headerOffsetPx={headerHeight}
-            onScrollToSection={scrollFn => {
-              scrollToSectionFn.current = scrollFn;
-            }} 
+            currentSection={currentSection}
             onSectionComplete={() => {}} 
           />
           

@@ -1,6 +1,5 @@
-import { useRef, useEffect, useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { PartnerProfileData } from "../types";
-import { useAutoScroll } from "../../NewPersonalQuestionnaire/hooks/useAutoScroll";
 
 // Lazy load sections for better initial performance
 const PartnerBasics = lazy(() => import("./sections/PartnerBasics"));
@@ -12,9 +11,6 @@ interface PartnerQuestionnaireContentProps {
   updateField: (field: keyof PartnerProfileData, value: any) => void;
   handleMultiSelect: (field: keyof PartnerProfileData, value: string) => void;
   currentSection: number;
-  containerRef?: React.RefObject<HTMLDivElement>;
-  headerOffsetPx?: number;
-  onScrollToSection: (scrollFn: (section: number) => void) => void;
   onSectionComplete: (nextSection: number) => void;
 }
 
@@ -23,14 +19,9 @@ const PartnerQuestionnaireContent = ({
   updateField,
   handleMultiSelect,
   currentSection,
-  containerRef,
-  headerOffsetPx = 0,
-  onScrollToSection,
   onSectionComplete
 }: PartnerQuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
-  const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
-  const { scrollToElement } = useAutoScroll();
 
   // Track tablet/desktop state
   useEffect(() => {
@@ -41,61 +32,6 @@ const PartnerQuestionnaireContent = ({
     window.addEventListener('resize', updateLayout);
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
-
-  // Mapping of first question IDs per section
-  const firstQuestionIds: { [key: number]: string } = {
-    1: 'question-partner-name-pronouns',
-    2: 'partner-love-language-question', 
-    3: 'partner-attachment-question'
-  };
-
-  // Simplified scroll function
-  const scrollToSection = (sectionNumber: number): void => {
-    console.debug('🟠 Partner: Section advance requested to:', sectionNumber);
-    
-    const questionId = firstQuestionIds[sectionNumber];
-    if (!questionId) {
-      console.warn('🔴 Partner: No question ID mapped for section:', sectionNumber);
-      return;
-    }
-
-    const fallbackId = `partner-section-${sectionNumber}`;
-
-    const attemptScroll = (retryCount = 0) => {
-      const element = document.getElementById(questionId);
-      const fallbackElement = document.getElementById(fallbackId);
-      
-      if (element) {
-        console.debug('🟠 Partner: Scrolling to first question:', questionId);
-        scrollToElement(questionId, 150);
-        return;
-      } else if (fallbackElement) {
-        console.debug('🟠 Partner: Scrolling to section:', fallbackId);
-        scrollToElement(fallbackId, 150);
-        return;
-      } else if (retryCount < 8) {
-        console.debug(`🟡 Partner: Retry ${retryCount + 1}/8 for section ${sectionNumber}`);
-        setTimeout(() => attemptScroll(retryCount + 1), 150);
-      } else {
-        console.warn('🔴 Partner: Could not find scroll target for section:', sectionNumber);
-      }
-    };
-
-    // Start with small delay for DOM updates
-    setTimeout(() => attemptScroll(), 50);
-  };
-
-  // Scroll to first question on mount (section 1) with stability delay
-  useEffect(() => {
-    if (currentSection === 1) {
-      setTimeout(() => scrollToSection(1), 150);
-    }
-  }, []);
-
-  // Expose scroll function to parent
-  useEffect(() => {
-    onScrollToSection(scrollToSection);
-  }, [onScrollToSection]);
 
   // Component to show loading state for sections
   const SectionSkeleton = () => (
@@ -111,21 +47,22 @@ const PartnerQuestionnaireContent = ({
 
   return (
     <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
-        <div id="partner-section-1" data-section="1" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
-          <Suspense fallback={<SectionSkeleton />}>
-            <PartnerBasics
-              profileData={profileData}
-              updateField={updateField}
-              handleMultiSelect={handleMultiSelect}
-              isActive={currentSection === 1}
-              onSectionComplete={() => onSectionComplete(2)}
-            />
-          </Suspense>
-        </div>
+        {currentSection === 1 && (
+          <div id="partner-section-1" data-section="1">
+            <Suspense fallback={<SectionSkeleton />}>
+              <PartnerBasics
+                profileData={profileData}
+                updateField={updateField}
+                handleMultiSelect={handleMultiSelect}
+                isActive={currentSection === 1}
+                onSectionComplete={() => onSectionComplete(2)}
+              />
+            </Suspense>
+          </div>
+        )}
         
-        {/* Only render section 2 when section 1 is accessed or completed */}
-        {(currentSection >= 2) && (
-          <div id="partner-section-2" data-section="2" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        {currentSection === 2 && (
+          <div id="partner-section-2" data-section="2">
             <Suspense fallback={<SectionSkeleton />}>
               <PartnerOperations
                 profileData={profileData}
@@ -138,9 +75,8 @@ const PartnerQuestionnaireContent = ({
           </div>
         )}
         
-        {/* Only render section 3 when section 2 is accessed or completed */}
-        {(currentSection >= 3) && (
-          <div id="partner-section-3" data-section="3" className="scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+        {currentSection === 3 && (
+          <div id="partner-section-3" data-section="3">
             <Suspense fallback={<SectionSkeleton />}>
               <PartnerFoundation
                 profileData={profileData}

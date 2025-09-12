@@ -21,7 +21,7 @@ const PartnerLoveLanguageCard = ({
   const questionId = "partner-love-language-question";
   return <QuestionCard questionId={questionId}>
       <Label className="text-sm font-semibold text-white mb-2 block">
-        How do they seem to feel most loved? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        How do they seem to feel most loved? <span className="text-red-400">*</span> <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <Heart className="w-3 h-3 text-pink-300" />
