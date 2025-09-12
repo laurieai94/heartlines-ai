@@ -52,8 +52,8 @@ const ChatContainer = ({
   // Pull-to-reveal functionality with enhanced mobile support
   const { handleScroll: handlePullToRevealScroll, setScrollElement } = usePullToReveal({
     enabled: isMobile,
-    threshold: 30,
-    velocityThreshold: 0.3
+    threshold: 20, // Lowered for better responsiveness
+    velocityThreshold: 0.2 // More responsive
   });
 
   // References for scroll management
@@ -111,16 +111,17 @@ const ChatContainer = ({
         setShowScrollToBottom(!nearBottom);
       }
       
-      // Simplified mobile pull-to-reveal
+      // Enhanced mobile pull-to-reveal with better direction tracking
       if (isMobile) {
-        const scrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
-        handlePullToRevealScroll(scrollTop, scrollDirection);
+        const currentScrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
+        scrollDirection.current = currentScrollDirection;
+        handlePullToRevealScroll(scrollTop, currentScrollDirection);
       }
       
       lastScrollTopRef.current = scrollTop;
       
-      // Simplified user intent - only track significant scroll away from bottom
-      userIntentLockRef.current = scrollFromBottom > 200;
+      // More forgiving user intent tracking
+      userIntentLockRef.current = scrollFromBottom > 300; // Increased threshold
     }, 50); // Consistent throttling for better performance
   }, [isMobile, handlePullToRevealScroll]);
 
@@ -184,12 +185,13 @@ const ChatContainer = ({
         style={isMobile ? { 
           // Enhanced mobile scrolling performance
           WebkitOverflowScrolling: 'touch' as any,
-          touchAction: 'pan-y',
+          touchAction: 'pan-y pinch-zoom', // Allow pinch zoom
           overscrollBehavior: 'contain',
           scrollBehavior: 'smooth',
           willChange: 'scroll-position',
           backfaceVisibility: 'hidden',
           transform: 'translateZ(0)', // Force hardware acceleration
+          isolation: 'isolate', // Prevent stacking context issues
         } : undefined}
         onScroll={handleScroll}
         role="log"
