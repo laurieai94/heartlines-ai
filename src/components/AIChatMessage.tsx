@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User, Heart } from "lucide-react";
@@ -14,7 +14,7 @@ interface AIChatMessageProps {
   isLastInGroup?: boolean;
 }
 
-const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
+const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
   const isMobile = useIsMobile();
   
@@ -126,6 +126,8 @@ const AIChatMessage = ({ message, userAvatarUrl, userName, isFirstInGroup = true
       </div>
     </div>
   );
-};
+});
+
+AIChatMessage.displayName = 'AIChatMessage';
 
 export default AIChatMessage;

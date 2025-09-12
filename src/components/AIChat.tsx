@@ -102,7 +102,7 @@ useChatEffects({
   isConfigured,
   onSendMessage: sendMessage,
   isStartingNewConversation,
-  persistConversation: onPersistChat || (() => {}),
+  onPersistConversation: onPersistChat || (() => {}),
   currentConversationId: currentConversationId || null
 });
 

@@ -1,5 +1,5 @@
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import { ChatMessage, ProfileData, DemographicsData } from '@/types/AIInsights';
 import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
@@ -26,21 +26,38 @@ export const useChatMessageHandler = ({
   const [pendingCount, setPendingCount] = useState(0);
   const loading = pendingCount > 0;
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
+  const messageIdCounter = useRef(Date.now());
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
 
-  const sendMessage = async (userMessage: string) => {
+  // Stable ID generation to prevent duplicate messages
+  const generateMessageId = useCallback(() => {
+    return ++messageIdCounter.current;
+  }, []);
+
+  // Memoized message deduplication
+  const deduplicateMessages = useCallback((messages: ChatMessage[]): ChatMessage[] => {
+    const seen = new Set<number>();
+    return messages.filter(msg => {
+      if (seen.has(msg.id)) return false;
+      seen.add(msg.id);
+      return true;
+    });
+  }, []);
+
+  const sendMessage = useCallback(async (userMessage: string) => {
     if (!canInteract || loading) return; // Don't send while AI is thinking
 
     const newUserMessage: ChatMessage = {
-      id: Date.now(),
+      id: generateMessageId(),
       type: 'user',
       content: userMessage,
       timestamp: new Date().toISOString()
     };
 
-    setChatHistory(prev => [...prev, newUserMessage]);
+    // Batch state updates to prevent flickering
     setPendingCount(c => c + 1);
+    setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
 
     // Create history snapshot including the new user message for this request
     const historySnapshot = [...chatHistory, newUserMessage];
@@ -80,13 +97,14 @@ export const useChatMessageHandler = ({
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
       
       const aiMessage: ChatMessage = {
-        id: Date.now() + 1,
+        id: generateMessageId(),
         type: 'ai',
         content: aiResponse,
         timestamp: new Date().toISOString()
       };
 
-      setChatHistory(prev => [...prev, aiMessage]);
+      // Single batched update with deduplication
+      setChatHistory(prev => deduplicateMessages([...prev, aiMessage]));
 
       // Refresh subscription data to update usage count
       try {
@@ -102,16 +120,16 @@ export const useChatMessageHandler = ({
     } catch (error) {
       console.error('Error generating AI response:', error);
       const errorMessage: ChatMessage = {
-        id: Date.now() + 1,
+        id: generateMessageId(),
         type: 'ai',
         content: error.message || "An unexpected error occurred. Please try again.",
         timestamp: new Date().toISOString()
       };
-      setChatHistory(prev => [...prev, errorMessage]);
+      setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
     } finally {
       setPendingCount(c => Math.max(0, c - 1));
     }
-  };
+  }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription]);
 
   const handleSpeakResponse = (speakFunction: (text: string) => void) => {
     speakResponseRef.current = speakFunction;

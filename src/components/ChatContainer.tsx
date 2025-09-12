@@ -92,79 +92,57 @@ const ChatContainer = ({
     userIntentLockRef.current = false;
   }, [isMobile, simulateHapticFeedback]);
 
-  // Optimized scroll handler - mobile responsive with reduced throttling
-  const handleScroll = useMemo(() => throttle(
-    () => {
-      const viewport = viewportRef.current;
-      if (!viewport) return;
+  // Simplified scroll handler to prevent conflicts and flickering
+  const handleScroll = useMemo(() => {
+    return throttle(() => {
+      if (!viewportRef.current) return;
       
-      const currentScrollTop = viewport.scrollTop;
+      const viewport = viewportRef.current;
+      const scrollTop = viewport.scrollTop;
       const scrollHeight = viewport.scrollHeight;
       const clientHeight = viewport.clientHeight;
-      const distanceToBottom = scrollHeight - currentScrollTop - clientHeight;
-      const isNear = distanceToBottom < (isMobile ? 200 : 150);
+      const scrollFromBottom = scrollHeight - scrollTop - clientHeight;
       
-      // Simplified scroll direction tracking
-      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      lastScrollTopRef.current = currentScrollTop;
+      const nearBottom = scrollFromBottom <= 100;
+      setIsNearBottom(nearBottom);
       
-      if (Math.abs(scrollDelta) > 3) {
-        scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
+      // Show scroll button only on desktop to reduce mobile complexity
+      if (!isMobile) {
+        setShowScrollToBottom(!nearBottom);
       }
-
-      // Update pull-to-reveal hook
-      handlePullToRevealScroll(currentScrollTop, scrollDirection.current);
       
-      // Streamlined user intent logic - more responsive on mobile
+      // Simplified mobile pull-to-reveal
       if (isMobile) {
-        // Mobile: Less aggressive user intent blocking, faster unlocking
-        if (scrollDirection.current === 'up' && Math.abs(scrollDelta) > 40 && distanceToBottom > 400) {
-          userIntentLockRef.current = true;
-        }
-        // Quick unlock when approaching bottom or small scroll movements
-        if (distanceToBottom < 250 || Math.abs(scrollDelta) < 20) {
-          userIntentLockRef.current = false;
-        }
-      } else {
-        // Desktop: Keep existing conservative behavior
-        if (scrollDirection.current === 'up' && !isNear && Math.abs(scrollDelta) > 15) {
-          userIntentLockRef.current = true;
-        }
-        if (distanceToBottom < 100) {
-          userIntentLockRef.current = false;
-        }
+        const scrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
+        handlePullToRevealScroll(scrollTop, scrollDirection);
       }
       
-      setIsNearBottom(isNear);
-      setShowScrollToBottom(!isNear && chatHistory.length > 0);
-    }, isMobile ? 50 : 10), // Reduced throttling frequency on mobile for better responsiveness
-    [chatHistory.length, isMobile]
-  );
+      lastScrollTopRef.current = scrollTop;
+      
+      // Simplified user intent - only track significant scroll away from bottom
+      userIntentLockRef.current = scrollFromBottom > 200;
+    }, 50); // Consistent throttling for better performance
+  }, [isMobile, handlePullToRevealScroll]);
 
-  // Optimized mobile auto-scroll - predictable and responsive
+  // Simplified auto-scroll effect to prevent flickering
   useEffect(() => {
-    const chatLengthChanged = prevChatLengthRef.current !== chatHistory.length;
-    const loadingChanged = prevLoadingRef.current !== loading;
+    if (!viewportRef.current) return;
     
-    // Mobile: More predictable auto-scroll behavior
-    // Desktop: Conservative behavior maintained
-    const shouldAutoScroll = isMobile 
-      ? (chatLengthChanged || (loadingChanged && loading)) && !userIntentLockRef.current
-      : (isNearBottom && !userIntentLockRef.current);
-      
-    if (shouldAutoScroll && chatHistory.length > 0) {
-      const delay = isMobile ? 10 : 50; // Faster response on mobile
-      const timeoutId = setTimeout(() => scrollToBottom('smooth'), delay);
-      
-      prevChatLengthRef.current = chatHistory.length;
-      prevLoadingRef.current = loading;
-      
-      return () => clearTimeout(timeoutId);
+    const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
+    const shouldAutoScroll = (
+      chatHistory.length <= 1 || // Initial state
+      (!loading && hasNewMessage && !userIntentLockRef.current) // New message and user hasn't scrolled away
+    );
+    
+    if (shouldAutoScroll) {
+      // Use requestAnimationFrame for smoother scrolling
+      requestAnimationFrame(() => {
+        scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
+      });
     }
     
     prevChatLengthRef.current = chatHistory.length;
-    prevLoadingRef.current = loading;
-  }, [chatHistory.length, loading, isNearBottom, scrollToBottom, isMobile]);
+  }, [chatHistory, loading, scrollToBottom]);
 
   // Optimized resize handling with debounced updates
   useEffect(() => {

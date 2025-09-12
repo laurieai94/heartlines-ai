@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ChatMessage } from '@/types/AIInsights';
+import { useDebouncedPersistence } from '@/hooks/useDebouncedPersistence';
 
 
 interface ChatEffectsProps {
@@ -12,7 +13,7 @@ interface ChatEffectsProps {
   isConfigured: boolean;
   onSendMessage: (message: string) => void;
   isStartingNewConversation?: boolean;
-  persistConversation: (messages: ChatMessage[]) => void;
+  onPersistConversation: (messages: ChatMessage[]) => void;
   currentConversationId: string | null;
 }
 
@@ -25,11 +26,17 @@ export const useChatEffects = ({
   isConfigured,
   onSendMessage,
   isStartingNewConversation = false,
-  persistConversation,
+  onPersistConversation,
   currentConversationId
 }: ChatEffectsProps) => {
   
   const processedStarters = useRef(new Set<string>());
+
+  // Debounced persistence to prevent frequent saves causing flickering
+  const { debouncedPersist, persistImmediately, cleanup } = useDebouncedPersistence(
+    onPersistConversation,
+    { delay: 1500 } // Wait 1.5s before persisting to avoid rapid saves
+  );
 
 
   // Handle conversation starter
@@ -40,50 +47,46 @@ export const useChatEffects = ({
     }
   }, [conversationStarter, isConfigured, canInteract, isHistoryLoaded, onSendMessage]);
 
-  // Save conversation with immediate persistence and debouncing
+  // Persist chat history changes with debounced persistence
   useEffect(() => {
-    if (chatHistory.length > 0 && canInteract && isHistoryLoaded) {
-      // Immediate save to sessionStorage for tab switching
-      try {
-        sessionStorage.setItem('current_chat', JSON.stringify({
-          conversationId: currentConversationId,
-          messages: chatHistory,
-          timestamp: Date.now()
-        }));
-      } catch (error) {
-        console.error('Error saving to sessionStorage:', error);
-      }
-
-      // Debounced save to database and localStorage
-      const timeoutId = setTimeout(() => {
-        persistConversation(chatHistory);
-      }, 1000);
-
-      return () => clearTimeout(timeoutId);
+    if (!isHistoryLoaded || chatHistory.length === 0) return;
+    
+    // Save to sessionStorage immediately for quick recovery
+    try {
+      sessionStorage.setItem('current_chat', JSON.stringify({
+        conversationId: currentConversationId,
+        messages: chatHistory,
+        timestamp: Date.now()
+      }));
+    } catch (error) {
+      console.error('Error saving to sessionStorage:', error);
     }
-  }, [chatHistory, persistConversation, canInteract, isHistoryLoaded, currentConversationId]);
+    
+    // Use debounced persistence for database/storage operations
+    debouncedPersist(chatHistory);
+  }, [chatHistory, isHistoryLoaded, currentConversationId, debouncedPersist]);
 
-  // Listen for page visibility changes to save conversation
+  // Save conversation when page visibility changes or before unload
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden' && chatHistory.length > 0) {
-        persistConversation(chatHistory);
+        persistImmediately();
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      if (chatHistory.length > 0) {
+        persistImmediately();
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [chatHistory, persistConversation]);
-
-  // Save conversation before page unload
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (chatHistory.length > 0) {
-        persistConversation(chatHistory);
-      }
-    };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [chatHistory, persistConversation]);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      cleanup(); // Clean up debounced persistence
+    };
+  }, [chatHistory, persistImmediately, cleanup]);
 };
