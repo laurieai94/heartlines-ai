@@ -1,0 +1,163 @@
+import { useEffect, useRef, useState } from 'react';
+import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
+import { useIsMobile } from '@/hooks/use-mobile';
+
+interface PullToRevealOptions {
+  threshold?: number;
+  velocityThreshold?: number;
+  enabled?: boolean;
+}
+
+export const usePullToReveal = (options: PullToRevealOptions = {}) => {
+  const {
+    threshold = 50,
+    velocityThreshold = 0.5,
+    enabled = true
+  } = options;
+
+  const isMobile = useIsMobile();
+  const { visible, setVisible } = useMobileHeaderVisibility();
+  const [isPulling, setIsPulling] = useState(false);
+  const [pullDistance, setPullDistance] = useState(0);
+  
+  const touchStartRef = useRef<{ y: number; time: number } | null>(null);
+  const touchMoveRef = useRef<{ y: number; time: number } | null>(null);
+  const isAtTopRef = useRef(true);
+  const scrollElementRef = useRef<HTMLElement | null>(null);
+
+  // Set scroll element reference
+  const setScrollElement = (element: HTMLElement | null) => {
+    scrollElementRef.current = element;
+  };
+
+  // Track if user is at top of scroll area
+  const updateScrollPosition = (scrollTop: number) => {
+    isAtTopRef.current = scrollTop <= 10;
+    
+    // Auto-show header when at top
+    if (isAtTopRef.current && !visible) {
+      setVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    if (!enabled || !isMobile) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+
+      touchStartRef.current = {
+        y: touch.clientY,
+        time: Date.now()
+      };
+      
+      // Only allow pull-to-reveal from top area or when scrolled to top
+      const isInTopArea = touch.clientY < 100;
+      if (isInTopArea || isAtTopRef.current) {
+        setIsPulling(false);
+        setPullDistance(0);
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch || !touchStartRef.current) return;
+
+      const currentY = touch.clientY;
+      const startY = touchStartRef.current.y;
+      const deltaY = currentY - startY;
+      const currentTime = Date.now();
+
+      touchMoveRef.current = {
+        y: currentY,
+        time: currentTime
+      };
+
+      // Only track downward pulls from top area
+      const isInTopArea = startY < 100;
+      const isPullingDown = deltaY > 0;
+      
+      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+        setIsPulling(true);
+        setPullDistance(Math.min(deltaY, threshold * 2));
+        
+        // Show header progressively as user pulls
+        if (deltaY > threshold / 2 && !visible) {
+          setVisible(true);
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (!touchStartRef.current || !touchMoveRef.current) {
+        setIsPulling(false);
+        setPullDistance(0);
+        return;
+      }
+
+      const startY = touchStartRef.current.y;
+      const endY = touchMoveRef.current.y;
+      const deltaY = endY - startY;
+      const deltaTime = touchMoveRef.current.time - touchStartRef.current.time;
+      const velocity = deltaTime > 0 ? deltaY / deltaTime : 0;
+
+      const isInTopArea = startY < 100;
+      const isPullingDown = deltaY > 0;
+      const exceededThreshold = deltaY > threshold;
+      const exceededVelocity = velocity > velocityThreshold;
+
+      // Reveal header if pull was significant enough
+      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+        if (exceededThreshold || exceededVelocity) {
+          setVisible(true);
+        }
+      }
+
+      // Reset pull state
+      setIsPulling(false);
+      setPullDistance(0);
+      touchStartRef.current = null;
+      touchMoveRef.current = null;
+    };
+
+    // Add touch event listeners to document
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
+    document.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('touchcancel', handleTouchEnd);
+    };
+  }, [enabled, isMobile, threshold, velocityThreshold, visible, setVisible]);
+
+  // Handle scroll-based header visibility
+  const handleScroll = (scrollTop: number, scrollDirection: 'up' | 'down' | null) => {
+    updateScrollPosition(scrollTop);
+    
+    if (!isMobile) return;
+
+    // Simple scroll-based visibility logic
+    if (scrollDirection === 'up' && scrollTop > 100) {
+      setVisible(true);
+    } else if (scrollDirection === 'down' && scrollTop > 200) {
+      // Only hide if not currently pulling
+      if (!isPulling) {
+        setVisible(false);
+      }
+    }
+  };
+
+  return {
+    isPulling,
+    pullDistance,
+    setScrollElement,
+    handleScroll,
+    headerVisible: visible,
+    setHeaderVisible: setVisible
+  };
+};

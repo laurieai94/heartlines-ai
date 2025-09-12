@@ -6,7 +6,7 @@ import { throttle } from '@/utils/throttle';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { FloatingActionButtons } from './FloatingActionButtons';
+import { usePullToReveal } from '@/hooks/usePullToReveal';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
@@ -45,8 +45,10 @@ const ChatContainer = ({
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
   
-  // Simplified state management - no complex header visibility logic
-  const [showFloatingButtons, setShowFloatingButtons] = useState(false);
+  // Pull-to-reveal functionality
+  const { handleScroll: handlePullToRevealScroll, setScrollElement } = usePullToReveal({
+    enabled: isMobile
+  });
 
   // References for scroll management
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -98,6 +100,9 @@ const ChatContainer = ({
       if (Math.abs(scrollDelta) > 2) {
         scrollDirection.current = scrollDelta > 0 ? 'down' : 'up';
       }
+
+      // Update pull-to-reveal hook
+      handlePullToRevealScroll(currentScrollTop, scrollDirection.current);
       
       // Simplified mobile behavior - minimal user intent blocking
       if (isMobile) {
@@ -154,6 +159,9 @@ const ChatContainer = ({
   useEffect(() => {
     if (!contentRef.current || !viewportRef.current) return;
 
+    // Set scroll element for pull-to-reveal
+    setScrollElement(viewportRef.current);
+
     const resizeObserver = new ResizeObserver(() => {
       if (!userIntentLockRef.current && isNearBottom) {
         setTimeout(() => scrollToBottom('smooth'), 10);
@@ -162,7 +170,7 @@ const ChatContainer = ({
 
     resizeObserver.observe(contentRef.current);
     return () => resizeObserver.disconnect();
-  }, [isNearBottom, scrollToBottom]);
+  }, [isNearBottom, scrollToBottom, setScrollElement]);
 
   // Initial scroll when history loads
   useEffect(() => {
@@ -173,9 +181,9 @@ const ChatContainer = ({
   }, [isHistoryLoaded, scrollToBottom]);
 
   return (
-    <div className="flex-1 min-h-0 relative bg-burgundy-950/95">
+    <div className="flex-1 min-h-0 relative bg-burgundy-950">
       <ScrollArea 
-        viewportRef={viewportRef} 
+        viewportRef={viewportRef}
         className={`h-full ${
           isMobile 
             ? 'touch-pan-y overscroll-contain' 
@@ -282,18 +290,6 @@ const ChatContainer = ({
           </div>
         </div>
       </ScrollArea>
-      
-      {/* Floating Action Buttons for Mobile */}
-      <FloatingActionButtons
-        onOpenSidebar={onOpenSidebar}
-        onNewConversation={onNewConversation}
-        showScrollToTop={showScrollToBottom}
-        onScrollToTop={() => {
-          if (viewportRef.current) {
-            viewportRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }}
-      />
 
       {/* Desktop Scroll to Bottom Button */}
       {!isMobile && showScrollToBottom && (
