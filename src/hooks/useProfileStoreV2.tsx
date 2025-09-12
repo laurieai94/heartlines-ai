@@ -3,6 +3,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { debounce } from '@/utils/throttle';
 
+// Global instance tracking to prevent conflicts
+const HOOK_INSTANCES = new Map<string, number>();
+const DB_CACHE = new Map<string, { data: any; timestamp: number; ttl: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 export type ProfileType = 'personal' | 'partner';
 
 // Canonical Personal Profile Schema
@@ -123,6 +128,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
   
+  // Instance tracking
+  const instanceId = useRef<string>(`${profileType}-${Date.now()}-${Math.random()}`);
+  const isPrimaryInstance = useRef<boolean>(false);
+  
   const [profile, setProfile] = useState<PersonalProfileV2 | PartnerProfileV2>(defaultProfile);
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
@@ -131,6 +140,20 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   
   const debounceTimer = useRef<NodeJS.Timeout>();
   const pendingUpdates = useRef<Partial<PersonalProfileV2 | PartnerProfileV2>>({});
+  
+  // Register this instance and determine if it's primary
+  useEffect(() => {
+    const instanceCount = HOOK_INSTANCES.get(profileType) || 0;
+    HOOK_INSTANCES.set(profileType, instanceCount + 1);
+    isPrimaryInstance.current = instanceCount === 0;
+    
+    console.log(`[ProfileV2-${profileType}] Instance ${instanceId.current} registered (primary: ${isPrimaryInstance.current})`);
+    
+    return () => {
+      const currentCount = HOOK_INSTANCES.get(profileType) || 1;
+      HOOK_INSTANCES.set(profileType, Math.max(0, currentCount - 1));
+    };
+  }, [profileType]);
 
   // Clone arrays to prevent aliasing
   const cloneProfile = useCallback((data: Partial<PersonalProfileV2 | PartnerProfileV2>): Partial<PersonalProfileV2 | PartnerProfileV2> => {
@@ -194,9 +217,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return migrated;
   }, [profileType]);
 
-  // Load from localStorage with enhanced migration support
+  // Optimized storage loading with migration optimization
   const loadFromStorage = useCallback((): PersonalProfileV2 | PartnerProfileV2 => {
-    // Check for migration sentinel to avoid repeat migrations
+    // Fast path: Check migration sentinel first to avoid unnecessary processing
     const migrationSentinel = localStorage.getItem(`${config.storageKey}_migrated`);
     
     try {
@@ -204,16 +227,14 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       const v2Data = localStorage.getItem(config.storageKey);
       if (v2Data) {
         const parsed = JSON.parse(v2Data);
-        console.log(`[ProfileV2-${profileType}] Loaded from v2 storage:`, parsed);
         return { ...defaultProfile, ...parsed };
       }
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] V2 storage load error:`, error);
     }
 
-    // Skip migration if already performed
+    // Early exit if migration already completed
     if (migrationSentinel) {
-      console.log(`[ProfileV2-${profileType}] Migration already completed, skipping legacy lookup`);
       return defaultProfile;
     }
 
@@ -343,9 +364,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
   };
 
-  // Load from database
+  // Intelligent database loading with caching
   const loadFromDatabase = useCallback(async (): Promise<PersonalProfileV2 | PartnerProfileV2> => {
     if (!user) return defaultProfile;
+
+    // Check cache first
+    const cacheKey = `${user.id}-${config.dbType}`;
+    const cached = DB_CACHE.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < cached.ttl) {
+      console.log(`[ProfileV2-${profileType}] Using cached database data`);
+      return cached.data;
+    }
 
     try {
       const { data, error } = await supabase
@@ -357,6 +386,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
       if (error && error.code !== 'PGRST116') throw error;
 
+      let result = defaultProfile;
       if (data) {
         const profileData = (data.profile_data && typeof data.profile_data === 'object') ? data.profile_data : {};
         const demographicsData = (data.demographics_data && typeof data.demographics_data === 'object') ? data.demographics_data : {};
@@ -366,8 +396,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           ...(demographicsData as any) 
         };
         const migrated = migrateLegacyData(merged);
-        return { ...defaultProfile, ...migrated, version: '2.0' };
+        result = { ...defaultProfile, ...migrated, version: '2.0' };
       }
+
+      // Cache the result
+      DB_CACHE.set(cacheKey, {
+        data: result,
+        timestamp: Date.now(),
+        ttl: CACHE_TTL
+      });
+
+      return result;
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] Database load error:`, error);
     }
@@ -394,28 +433,32 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           setIsSyncing(true);
           console.log(`[ProfileV2-${profileType}] User authenticated, syncing with database...`);
           
-          // Add timeout for database operations
-          const dbProfilePromise = loadFromDatabase();
-          const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
-            setTimeout(() => reject(new Error('Database load timeout')), 10000);
-          });
+          // Faster timeout for better UX - only primary instance syncs with DB
+          if (isPrimaryInstance.current) {
+            const dbProfilePromise = loadFromDatabase();
+            const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
+              setTimeout(() => reject(new Error('Database load timeout')), 3000);
+            });
           
-          try {
-            const dbProfile = await Promise.race([dbProfilePromise, timeoutPromise]);
-            
-            // Merge local and remote, preferring newer data
-            const localTime = new Date(localProfile.lastUpdated || 0).getTime();
-            const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
-            
-            const finalProfile = dbTime > localTime ? dbProfile : localProfile;
-            setProfile(finalProfile);
-            saveToStorage(finalProfile);
-            console.log(`[ProfileV2-${profileType}] Database sync completed successfully`);
-          } catch (dbError) {
-            console.error(`[ProfileV2-${profileType}] Database sync failed, using local profile:`, dbError);
-            // Continue with local profile - don't let DB errors block the UI
-          } finally {
-            setIsSyncing(false);
+            try {
+              const dbProfile = await Promise.race([dbProfilePromise, timeoutPromise]);
+              
+              // Merge local and remote, preferring newer data
+              const localTime = new Date(localProfile.lastUpdated || 0).getTime();
+              const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+              
+              const finalProfile = dbTime > localTime ? dbProfile : localProfile;
+              setProfile(finalProfile);
+              saveToStorage(finalProfile);
+              console.log(`[ProfileV2-${profileType}] Primary instance synced with database`);
+            } catch (dbError) {
+              console.error(`[ProfileV2-${profileType}] Database sync failed, using local profile:`, dbError);
+            } finally {
+              setIsSyncing(false);
+            }
+          } else {
+            // Non-primary instances just use local data
+            console.log(`[ProfileV2-${profileType}] Non-primary instance using local data only`);
           }
         } else {
           console.log(`[ProfileV2-${profileType}] No user authenticated, using local profile only`);
@@ -469,13 +512,19 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
-    // Debounce external updates to prevent race conditions
-    const debouncedApplyUpdate = debounce(applyLatestFromStorage, 100);
+    // Debounced and filtered external updates to prevent race conditions
+    const debouncedApplyUpdate = debounce(applyLatestFromStorage, 50);
 
     const onCustomEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail || {};
       if (detail.profileType !== profileType || detail.storageKey !== config.storageKey) return;
-      debouncedApplyUpdate(null);
+      
+      // Prevent self-triggered updates and only apply if data is actually newer
+      const currentTime = new Date((profile as any).lastUpdated || 0).getTime();
+      const incomingTime = new Date(detail.lastUpdated || 0).getTime();
+      if (incomingTime > currentTime) {
+        debouncedApplyUpdate(null);
+      }
     };
 
     const onStorage = (e: StorageEvent) => {

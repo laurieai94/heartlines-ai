@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy, useEffect } from "react";
+import { useState, Suspense, lazy, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare } from "lucide-react";
 // Lazy load heavy components to reduce initial bundle size
@@ -79,19 +79,25 @@ const ProfileBuilder = ({
   // Get user's first initial for icon
   const userInitial = getInitial(userName);
   
-  // Performance monitoring
-  useEffect(() => {
-    performanceMonitor.mark('profile-data-load');
-    performanceMonitor.measure('profile-chunk-load', 100); // Measure chunk load time
-    
-    if (personalProfileData) {
-      performanceMonitor.measure('profile-data-load', 100);
-    }
-  }, [personalProfileData]);
+  // Memoized completion calculations for better performance
+  const yourProfileCompletion = useMemo(() => {
+    return calculateYourCompletion();
+  }, [calculateYourCompletion]);
   
-  // Use consistent completion calculation for both profiles
-  const yourProfileCompletion = calculateYourCompletion();
-  const partnerProfileCompletion = calculatePartnerCompletion();
+  const partnerProfileCompletion = useMemo(() => {
+    return calculatePartnerCompletion();
+  }, [calculatePartnerCompletion]);
+  
+  // Memoized requirement calculations
+  const { completedRequiredFields, totalRequiredFields, canUnlockCoaching } = useMemo(() => {
+    const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
+    const total = getTotalRequiredFieldsCount();
+    return {
+      completedRequiredFields: completed,
+      totalRequiredFields: total,
+      canUnlockCoaching: completed >= total
+    };
+  }, [personalProfileData]);
   
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerProfileData?.partnerName);
@@ -99,10 +105,6 @@ const ProfileBuilder = ({
   // Navigation hook for coaching
   const { goToCoach } = useNavigation();
   
-  // Check if mandatory questions are completed
-  const completedRequiredFields = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
-  const totalRequiredFields = getTotalRequiredFieldsCount();
-  const canUnlockCoaching = completedRequiredFields >= totalRequiredFields;
   const handleStartPersonalProfile = () => {
     logEvent('onboarding_step_nudge_clicked', { 
       completion: yourProfileCompletion,
