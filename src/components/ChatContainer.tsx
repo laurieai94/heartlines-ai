@@ -24,6 +24,7 @@ const debounce = (func: Function, wait: number) => {
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
+  showTypingIndicator?: boolean;
   userName?: string;
   isConfigured: boolean;
   conversationStarter?: string;
@@ -36,6 +37,7 @@ interface ChatContainerProps {
 const ChatContainer = ({ 
   chatHistory, 
   loading, 
+  showTypingIndicator = false,
   userName, 
   isConfigured, 
   conversationStarter, 
@@ -235,8 +237,8 @@ const ChatContainer = ({
               );
             })}
             
-            {/* Typing indicator - only show when loading */}
-            {loading && (
+            {/* Kai's typing indicator - only show when actually typing */}
+            {showTypingIndicator && (
               <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
                   <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">

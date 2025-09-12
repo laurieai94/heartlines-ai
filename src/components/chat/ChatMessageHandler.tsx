@@ -24,9 +24,12 @@ export const useChatMessageHandler = ({
   canInteract
 }: ChatMessageHandlerProps) => {
   const [pendingCount, setPendingCount] = useState(0);
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const loading = pendingCount > 0;
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const messageIdCounter = useRef(Date.now());
+  const typingDelayRef = useRef<NodeJS.Timeout>();
+  const cleanupTimeoutRef = useRef<NodeJS.Timeout>();
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
 
@@ -55,9 +58,29 @@ export const useChatMessageHandler = ({
       timestamp: new Date().toISOString()
     };
 
+    // Clear any existing timeouts
+    if (typingDelayRef.current) {
+      clearTimeout(typingDelayRef.current);
+    }
+    if (cleanupTimeoutRef.current) {
+      clearTimeout(cleanupTimeoutRef.current);
+    }
+
     // Batch state updates to prevent flickering
     setPendingCount(c => c + 1);
     setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
+
+    // Add delay before showing typing indicator to prevent flashing
+    typingDelayRef.current = setTimeout(() => {
+      setShowTypingIndicator(true);
+    }, 500);
+
+    // Safety cleanup in case response takes too long
+    cleanupTimeoutRef.current = setTimeout(() => {
+      console.warn('AI response took too long, cleaning up loading state');
+      setPendingCount(0);
+      setShowTypingIndicator(false);
+    }, 30000); // 30 second timeout
 
     // Create history snapshot including the new user message for this request
     const historySnapshot = [...chatHistory, newUserMessage];
@@ -127,7 +150,16 @@ export const useChatMessageHandler = ({
       };
       setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
     } finally {
+      // Clear all timeouts and reset states
+      if (typingDelayRef.current) {
+        clearTimeout(typingDelayRef.current);
+      }
+      if (cleanupTimeoutRef.current) {
+        clearTimeout(cleanupTimeoutRef.current);
+      }
+      
       setPendingCount(c => Math.max(0, c - 1));
+      setShowTypingIndicator(false);
     }
   }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription]);
 
@@ -137,6 +169,7 @@ export const useChatMessageHandler = ({
 
   return {
     loading,
+    showTypingIndicator,
     sendMessage,
     handleSpeakResponse
   };
