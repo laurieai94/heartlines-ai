@@ -258,6 +258,32 @@ const ChatContainer = ({
                 <span className="sr-only">{userName || 'User'} is typing...</span>
               </div>
             )}
+
+            {/* Kai thinking indicator */}
+            {loading && (
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-start`} aria-live="polite">
+                <div className="relative flex-shrink-0">
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
+                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                      {BRAND.coach.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className={`bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 px-3 py-2 md:px-5 md:py-3 ${isMobile ? 'rounded-2xl' : 'rounded-3xl'}`}>
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                      animationDelay: '0.1s'
+                    }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                      animationDelay: '0.2s'
+                    }}></div>
+                  </div>
+                </div>
+                <span className="sr-only">{BRAND.coach.name} is thinking...</span>
+              </div>
+            )}
             
             <div ref={messagesEndRef} className="h-1" />
           </div>
