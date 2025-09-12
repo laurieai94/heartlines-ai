@@ -275,7 +275,7 @@ const ProfileBuilder = ({
                 </div>
               </div>
               <p className="text-white/90">
-                <span className="font-medium text-white">Privacy:</span> Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.
+                <span className="font-medium text-white">Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.</span>
               </p>
             </div>
           </div>
