@@ -86,7 +86,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
                <DropdownMenuContent 
                 align="start" 
-                className="w-64 z-[60] border-0 shadow-2xl rounded-2xl p-3"
+                className="w-48 z-[60] border-0 shadow-2xl rounded-xl p-2"
                 style={{
                   background: 'linear-gradient(135deg, hsl(349 67% 18% / 0.95), hsl(349 67% 15% / 0.92), hsl(349 67% 12% / 0.95))',
                   backdropFilter: 'blur(32px) saturate(180%)',
@@ -104,7 +104,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
-                      className={`relative flex items-center gap-4 px-4 py-3.5 rounded-xl cursor-pointer transition-all duration-200 mb-1 last:mb-0 ${
+                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 mb-0.5 last:mb-0 ${
                         isActive 
                           ? 'bg-gradient-to-r from-white/20 to-white/10 text-white font-semibold shadow-lg border border-white/20 backdrop-blur-sm' 
                           : 'text-white/90 font-medium hover:bg-white/8 hover:text-white hover:shadow-md hover:backdrop-blur-sm hover:border hover:border-white/10'
@@ -113,8 +113,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                         boxShadow: '0 8px 25px -8px hsl(349 67% 35% / 0.3), inset 0 1px 0 hsl(349 67% 50% / 0.2)'
                       } : {}}
                     >
-                      <IconComponent className={`h-5 w-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-white/80'}`} />
-                      <span className="text-[15px] tracking-wide">{item.label}</span>
+                      <IconComponent className={`h-4 w-4 flex-shrink-0 ${isActive ? 'text-white' : 'text-white/80'}`} />
+                      <span className="text-sm tracking-wide">{item.label}</span>
                     </DropdownMenuItem>
                   );
                 })}
@@ -146,7 +146,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
                <DropdownMenuContent 
                 align="start" 
-                className="w-64 z-[60] border-0 shadow-2xl rounded-2xl p-3"
+                className="w-48 z-[60] border-0 shadow-2xl rounded-xl p-2"
                 style={{
                   background: 'linear-gradient(135deg, hsl(349 67% 18% / 0.95), hsl(349 67% 15% / 0.92), hsl(349 67% 12% / 0.95))',
                   backdropFilter: 'blur(32px) saturate(180%)',
@@ -164,7 +164,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
-                      className={`relative flex items-center gap-4 px-4 py-3.5 rounded-xl cursor-pointer transition-all duration-200 mb-1 last:mb-0 ${
+                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 mb-0.5 last:mb-0 ${
                         isActive 
                           ? 'bg-gradient-to-r from-white/20 to-white/10 text-white font-semibold shadow-lg border border-white/20 backdrop-blur-sm' 
                           : 'text-white/90 font-medium hover:bg-white/8 hover:text-white hover:shadow-md hover:backdrop-blur-sm hover:border hover:border-white/10'
@@ -173,8 +173,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                         boxShadow: '0 8px 25px -8px hsl(349 67% 35% / 0.3), inset 0 1px 0 hsl(349 67% 50% / 0.2)'
                       } : {}}
                     >
-                      <IconComponent className={`h-5 w-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-white/80'}`} />
-                      <span className="text-[15px] tracking-wide">{item.label}</span>
+                      <IconComponent className={`h-4 w-4 flex-shrink-0 ${isActive ? 'text-white' : 'text-white/80'}`} />
+                      <span className="text-sm tracking-wide">{item.label}</span>
                     </DropdownMenuItem>
                   );
                 })}
