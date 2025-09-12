@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { useAutoScroll } from "@/components/NewPersonalQuestionnaire/hooks/useAutoScroll";
 import RelationshipLength from "./RelationshipLength";
 import RelationshipWorkingWell from "./RelationshipWorkingWell";
 
@@ -25,9 +26,29 @@ const RelationshipOptionalSection = ({
   updateField,
   handleMultiSelect
 }: RelationshipOptionalSectionProps) => {
+  const { scrollToElement } = useAutoScroll();
+
+  const handleOpenChange = (open: boolean) => {
+    setIsExpanded(open);
+    
+    if (open) {
+      // Auto-scroll to first question in the expanded section
+      setTimeout(() => {
+        // Find the first question card in the collapsible content
+        const firstQuestion = document.querySelector('.space-y-1\\.5 .bg-white\\/5, .space-y-1\\.5 [class*="bg-white"]');
+        if (firstQuestion) {
+          firstQuestion.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 250);
+    }
+  };
+
   return (
     <TooltipProvider>
-      <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+      <Collapsible open={isExpanded} onOpenChange={handleOpenChange}>
         <Tooltip>
           <TooltipTrigger asChild>
             <CollapsibleTrigger className="w-full">
