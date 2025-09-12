@@ -302,11 +302,6 @@ const ChatContainer = ({
                       {BRAND.coach.name[0]}
                     </AvatarFallback>
                   </Avatar>
-                  {/* Debug loading indicator (dev only) */}
-                  {import.meta.env.DEV && (
-                    <div className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse" 
-                         title="Debug: AI Loading State Active" />
-                  )}
                 </div>
                 <div className={`bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 px-3 py-2 md:px-5 md:py-3 ${isMobile ? 'rounded-2xl' : 'rounded-3xl'}`}>
                   <div className="flex gap-1 md:gap-1.5">
@@ -320,16 +315,6 @@ const ChatContainer = ({
                   </div>
                 </div>
                 <span className="sr-only">{BRAND.coach.name} is thinking...</span>
-                {/* Debug reset button (dev only) */}
-                {import.meta.env.DEV && resetLoadingState && (
-                  <button 
-                    onClick={resetLoadingState}
-                    className="text-xs text-white/50 hover:text-white ml-2"
-                    title="Debug: Reset Loading State"
-                  >
-                    ⚠️
-                  </button>
-                )}
               </div>
             )}
             

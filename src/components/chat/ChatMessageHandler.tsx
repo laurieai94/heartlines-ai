@@ -29,6 +29,7 @@ export const useChatMessageHandler = ({
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const messageIdCounter = useRef(Date.now());
   const requestTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
 
@@ -43,6 +44,12 @@ export const useChatMessageHandler = ({
       if (requestTimeoutRef.current) {
         clearTimeout(requestTimeoutRef.current);
       }
+      
+      // Cancel any ongoing requests
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      
       // Force reset loading state on unmount
       setPendingCount(0);
       logger.debug('ChatMessageHandler unmounted - reset loading state');
@@ -106,6 +113,14 @@ export const useChatMessageHandler = ({
     topics.forEach(topic => addOrUpdateTopic(topic));
 
     try {
+      // Cancel any previous request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      
+      // Create new abort controller for this request
+      abortControllerRef.current = new AbortController();
+      
       const context = AICoachEngine.buildPersonContext(profiles, demographicsData);
       
       // Check if this is a debug request
@@ -160,10 +175,27 @@ export const useChatMessageHandler = ({
       
     } catch (error) {
       logger.error(`Request ${requestId} failed:`, error);
+      
+      // Handle different error types with user-friendly messages
+      let errorContent = "An unexpected error occurred. Please try again.";
+      
+      if (error.name === 'AbortError') {
+        logger.debug(`Request ${requestId} was cancelled`);
+        return; // Don't show error for cancelled requests
+      } else if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        errorContent = "Authentication error. Please try refreshing the page or signing in again.";
+      } else if (error.message?.includes('Network') || error.message?.includes('fetch')) {
+        errorContent = "Connection error. Please check your internet connection and try again.";
+      } else if (error.message?.includes('Rate limit')) {
+        errorContent = "You've reached your message limit. Please try again later or upgrade your plan.";
+      } else if (error.message) {
+        errorContent = error.message;
+      }
+      
       const errorMessage: ChatMessage = {
         id: generateMessageId(),
         type: 'ai',
-        content: error.message || "An unexpected error occurred. Please try again.",
+        content: errorContent,
         timestamp: new Date().toISOString()
       };
       setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
@@ -173,6 +205,12 @@ export const useChatMessageHandler = ({
         clearTimeout(requestTimeoutRef.current);
         requestTimeoutRef.current = null;
       }
+      
+      // Clean up abort controller
+      if (abortControllerRef.current) {
+        abortControllerRef.current = null;
+      }
+      
       updatePendingCount(c => c - 1);
       logger.debug(`Request ${requestId} finished - cleaning up`);
     }
@@ -186,9 +224,16 @@ export const useChatMessageHandler = ({
   const resetLoadingState = useCallback(() => {
     logger.debug('Manually resetting loading state');
     updatePendingCount(() => 0);
+    
     if (requestTimeoutRef.current) {
       clearTimeout(requestTimeoutRef.current);
       requestTimeoutRef.current = null;
+    }
+    
+    // Cancel any ongoing requests
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
   }, [updatePendingCount]);
 
