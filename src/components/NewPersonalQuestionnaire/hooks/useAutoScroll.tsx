@@ -417,34 +417,10 @@ export const useAutoScroll = () => {
         scrollToNextQuestion(currentQuestionId, retryCount + 1);
       }, 200);
     } else {
-      console.log('🟡 useAutoScroll: No next question found after retries, dispatching goToSection event');
-      // If no next question found after retries, dispatch event to advance section
-      // Support both personal (section-) and partner (partner-section-) prefixes
-      const currentSection = currentElement.closest('[id^="section-"], [id^="partner-section-"]');
-      if (currentSection) {
-        const currentSectionId = currentSection.id;
-        let sectionNumber: number;
-        
-        if (currentSectionId.startsWith('partner-section-')) {
-          sectionNumber = parseInt(currentSectionId.replace('partner-section-', ''));
-        } else {
-          sectionNumber = parseInt(currentSectionId.replace('section-', ''));
-        }
-        
-        const nextSection = sectionNumber + 1;
-        
-        console.log('🟡 useAutoScroll: Dispatching questionnaire:goToSection event for section:', nextSection, 'from:', currentSectionId);
-        window.dispatchEvent(new CustomEvent('questionnaire:goToSection', { 
-          detail: { 
-            fromSection: sectionNumber,
-            toSection: nextSection,
-            reason: 'no-more-questions',
-            sectionType: currentSectionId.startsWith('partner-section-') ? 'partner' : 'personal'
-          } 
-        }));
-      } else {
-        console.warn('🔴 useAutoScroll: Could not determine current section for advancement');
-      }
+      console.log('🟡 useAutoScroll: No next question found after retries - staying in current section');
+      // Instead of dispatching section change events that cause navigation jumping,
+      // just log and stay in current section. This prevents the race condition
+      // where auto-scroll competes with user navigation.
     }
   }, [scrollToElement]);
 
@@ -469,20 +445,8 @@ export const useAutoScroll = () => {
       console.log('🟡 useAutoScroll: Found next section element, scrolling to', targetId);
       scrollToElement(targetId);
     } else {
-      console.warn('🔴 useAutoScroll: Next section element not found, dispatching goToSection event for mounting:', targetId);
-
-      // Determine section type by checking which current section pattern exists in DOM
-      const isPartner = !!document.getElementById(`partner-section-${currentSection}`) ||
-                        !!document.querySelector('[id^="partner-section-"]');
-
-      window.dispatchEvent(new CustomEvent('questionnaire:goToSection', {
-        detail: {
-          fromSection: currentSection,
-          toSection: nextSection,
-          reason: 'section-not-mounted',
-          sectionType: isPartner ? 'partner' : 'personal'
-        }
-      }));
+      console.warn('🔴 useAutoScroll: Next section element not found - staying in current section');
+      // Remove event dispatching that causes navigation conflicts
     }
   }, [scrollToElement]);
 

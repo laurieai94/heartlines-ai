@@ -67,7 +67,7 @@ export const PartnerFlowProvider = ({
     }, 100);
   };
 
-  // Simple deterministic navigation for partner profile
+  // Simplified navigation for partner profile - just scroll without section changes  
   const goToNext = (currentQuestionId: string) => {
     import('../utils/next-map').then(({ getNextPartnerQuestion }) => {
       const nextQuestionId = getNextPartnerQuestion(currentQuestionId, profileData);
@@ -78,16 +78,13 @@ export const PartnerFlowProvider = ({
       }
       
       if (nextQuestionId) {
+        // Simple scroll without triggering section navigation events
         scrollHelper(nextQuestionId);
-      } else {
-        // Fallback - if no next question found, try to complete
-        console.warn('No next partner question found for:', currentQuestionId);
-        onComplete();
       }
+      // Remove fallback completion to prevent premature questionnaire ending
     }).catch((error) => {
       console.error('Error loading partner next-map:', error);
-      // Fallback on error - just complete the questionnaire
-      onComplete();
+      // Remove automatic completion on error to prevent data loss
     });
   };
 
