@@ -11,7 +11,6 @@ import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
-import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
@@ -242,25 +241,6 @@ const LandingPage = ({
       {showMarketingTopBar && <>
         </>}
 
-      {/* Floating Particles */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`
-      }} />)}
-        </div>}
-
-      {/* Floating Geometric Shapes */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDuration: `${10 + Math.random() * 20}s`,
-        transform: `rotate(${Math.random() * 360}deg)`
-      }} />)}
-        </div>}
 
       {/* Code-like Background Elements */}
       {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
@@ -347,18 +327,11 @@ const LandingPage = ({
       <section className="relative overflow-hidden" style={{
       minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
     }}>
-        {/* Flame Background */}
-        <FlameBackground variant="subtle" density="sparse" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
-              {/* Accent decoration - floating orbs with glassmorphism */}
-              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{
-            animationDelay: '1s'
-          }}></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
@@ -417,7 +390,7 @@ const LandingPage = ({
         
         {/* Embedded version - horizontal layout with flame background */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
-            <FlameBackground variant="ethereal" density="sparse" />
+            
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
