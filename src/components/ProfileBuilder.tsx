@@ -206,10 +206,10 @@ const ProfileBuilder = ({
 
       {/* Main Content Area - Scrollable */}
       <div className="space-y-4">
-        {/* Step 1 Nudge - Only show if personal profile is incomplete */}
-        {yourProfileCompletion < 100 && (
+        {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
+        {!canUnlockCoaching && (
           <OnboardingStepNudge 
-            completion={yourProfileCompletion}
+            completion={Math.round((completedRequiredFields / totalRequiredFields) * 100)}
             onStartProfile={handleStartPersonalProfile}
           />
         )}
