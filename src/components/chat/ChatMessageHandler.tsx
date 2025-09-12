@@ -1,10 +1,11 @@
 
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import { ChatMessage, ProfileData, DemographicsData } from '@/types/AIInsights';
 import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
+import { logger } from '@/utils/logger';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -27,8 +28,35 @@ export const useChatMessageHandler = ({
   const loading = pendingCount > 0;
   const speakResponseRef = useRef<((text: string) => void) | null>(null);
   const messageIdCounter = useRef(Date.now());
+  const requestTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { extractTopicsFromMessage, addOrUpdateTopic } = useConversationTopics();
   const { refresh: refreshSubscription } = useOptimizedSubscription();
+
+  // Debug logging for loading state changes
+  useEffect(() => {
+    logger.debug(`Loading state changed: ${loading} (pendingCount: ${pendingCount})`);
+  }, [loading, pendingCount]);
+
+  // Cleanup on unmount - reset any stuck loading state
+  useEffect(() => {
+    return () => {
+      if (requestTimeoutRef.current) {
+        clearTimeout(requestTimeoutRef.current);
+      }
+      // Force reset loading state on unmount
+      setPendingCount(0);
+      logger.debug('ChatMessageHandler unmounted - reset loading state');
+    };
+  }, []);
+
+  // Safe pending count updater with logging
+  const updatePendingCount = useCallback((updater: (prev: number) => number) => {
+    setPendingCount(prev => {
+      const newValue = updater(prev);
+      logger.debug(`Pending count: ${prev} → ${newValue}`);
+      return Math.max(0, newValue); // Ensure it never goes negative
+    });
+  }, []);
 
   // Stable ID generation to prevent duplicate messages
   const generateMessageId = useCallback(() => {
@@ -46,7 +74,13 @@ export const useChatMessageHandler = ({
   }, []);
 
   const sendMessage = useCallback(async (userMessage: string) => {
-    if (!canInteract || loading) return; // Don't send while AI is thinking
+    if (!canInteract || loading) {
+      logger.debug('Cannot send message - not interactive or loading');
+      return; // Don't send while AI is thinking
+    }
+
+    const requestId = Date.now();
+    logger.debug(`Starting message request ${requestId}: "${userMessage.substring(0, 50)}..."`);
 
     const newUserMessage: ChatMessage = {
       id: generateMessageId(),
@@ -56,8 +90,14 @@ export const useChatMessageHandler = ({
     };
 
     // Batch state updates to prevent flickering
-    setPendingCount(c => c + 1);
+    updatePendingCount(c => c + 1);
     setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
+
+    // Set timeout to prevent infinite loading (30 seconds)
+    requestTimeoutRef.current = setTimeout(() => {
+      logger.error(`Request ${requestId} timed out - forcing loading state reset`);
+      updatePendingCount(() => 0);
+    }, 30000);
 
     // Create history snapshot including the new user message for this request
     const historySnapshot = [...chatHistory, newUserMessage];
@@ -92,6 +132,7 @@ export const useChatMessageHandler = ({
       }
       
       const aiResponse = await AICoachEngine.getAIResponse(userMessage, context, historySnapshot, conversationalPrompt);
+      logger.debug(`Request ${requestId} completed successfully`);
       
       const aiTopics = extractTopicsFromMessage(aiResponse);
       aiTopics.forEach(topic => addOrUpdateTopic(topic));
@@ -110,7 +151,7 @@ export const useChatMessageHandler = ({
       try {
         await refreshSubscription();
       } catch (err) {
-        console.warn('Failed to refresh subscription after message:', err);
+        logger.warn('Failed to refresh subscription after message:', err);
       }
 
       if (speakResponseRef.current) {
@@ -118,7 +159,7 @@ export const useChatMessageHandler = ({
       }
       
     } catch (error) {
-      console.error('Error generating AI response:', error);
+      logger.error(`Request ${requestId} failed:`, error);
       const errorMessage: ChatMessage = {
         id: generateMessageId(),
         type: 'ai',
@@ -127,17 +168,34 @@ export const useChatMessageHandler = ({
       };
       setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
     } finally {
-      setPendingCount(c => Math.max(0, c - 1));
+      // Clear timeout and decrement pending count
+      if (requestTimeoutRef.current) {
+        clearTimeout(requestTimeoutRef.current);
+        requestTimeoutRef.current = null;
+      }
+      updatePendingCount(c => c - 1);
+      logger.debug(`Request ${requestId} finished - cleaning up`);
     }
-  }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription]);
+  }, [canInteract, loading, generateMessageId, deduplicateMessages, chatHistory, extractTopicsFromMessage, addOrUpdateTopic, profiles, demographicsData, profileGoals, refreshSubscription, updatePendingCount]);
 
   const handleSpeakResponse = (speakFunction: (text: string) => void) => {
     speakResponseRef.current = speakFunction;
   };
 
+  // Manual reset function for emergency cases
+  const resetLoadingState = useCallback(() => {
+    logger.debug('Manually resetting loading state');
+    updatePendingCount(() => 0);
+    if (requestTimeoutRef.current) {
+      clearTimeout(requestTimeoutRef.current);
+      requestTimeoutRef.current = null;
+    }
+  }, [updatePendingCount]);
+
   return {
     loading,
     sendMessage,
-    handleSpeakResponse
+    handleSpeakResponse,
+    resetLoadingState
   };
 };

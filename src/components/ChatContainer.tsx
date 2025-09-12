@@ -11,6 +11,7 @@ import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
+import { logger } from '@/utils/logger';
 
 // Create a debounced function for better performance
 const debounce = (func: Function, wait: number) => {
@@ -31,6 +32,7 @@ interface ChatContainerProps {
   userTyping: boolean;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
+  resetLoadingState?: () => void; // Optional reset function from ChatMessageHandler
 }
 
 const ChatContainer = ({ 
@@ -42,9 +44,40 @@ const ChatContainer = ({
   isHistoryLoaded,
   userTyping,
   onNewConversation = () => {},
-  onOpenSidebar
+  onOpenSidebar,
+  resetLoadingState
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
+  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Debug loading state changes
+  useEffect(() => {
+    logger.debug(`ChatContainer - Loading state: ${loading}`);
+    
+    if (loading) {
+      // Set a fail-safe timeout to prevent infinite loading (45 seconds)
+      loadingTimeoutRef.current = setTimeout(() => {
+        logger.error('ChatContainer - Loading timeout reached, attempting to reset');
+        if (resetLoadingState) {
+          resetLoadingState();
+        }
+      }, 45000);
+    } else {
+      // Clear timeout when loading stops
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
+    }
+
+    // Cleanup timeout on unmount
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
+    };
+  }, [loading, resetLoadingState]);
   
   // Mobile optimizations
   const { simulateHapticFeedback } = useMobileOptimizations();
@@ -269,6 +302,11 @@ const ChatContainer = ({
                       {BRAND.coach.name[0]}
                     </AvatarFallback>
                   </Avatar>
+                  {/* Debug loading indicator (dev only) */}
+                  {import.meta.env.DEV && (
+                    <div className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse" 
+                         title="Debug: AI Loading State Active" />
+                  )}
                 </div>
                 <div className={`bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 px-3 py-2 md:px-5 md:py-3 ${isMobile ? 'rounded-2xl' : 'rounded-3xl'}`}>
                   <div className="flex gap-1 md:gap-1.5">
@@ -282,6 +320,16 @@ const ChatContainer = ({
                   </div>
                 </div>
                 <span className="sr-only">{BRAND.coach.name} is thinking...</span>
+                {/* Debug reset button (dev only) */}
+                {import.meta.env.DEV && resetLoadingState && (
+                  <button 
+                    onClick={resetLoadingState}
+                    className="text-xs text-white/50 hover:text-white ml-2"
+                    title="Debug: Reset Loading State"
+                  >
+                    ⚠️
+                  </button>
+                )}
               </div>
             )}
             
