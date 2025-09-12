@@ -5,7 +5,6 @@ import { Bot, User, Heart } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
 import { BRAND } from "@/branding";
 import { useIsMobile } from "@/hooks/use-mobile";
-import "@/utils/avatarPreloader";
 
 interface AIChatMessageProps {
   message: ChatMessage;
@@ -58,9 +57,9 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             }`}></div>
           )}
           
-          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 ${
+          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
-              ? 'bg-gradient-to-br from-pink-400 to-orange-400 md:ring-2 md:ring-coral-400/30' 
+              ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
           }`}>
             {isUser && userAvatarUrl ? (
@@ -76,11 +75,8 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                   alt={BRAND.coach.name} 
                   className="object-cover"
                   loading="eager" 
-                  decoding="async"
-                  onLoad={() => {}}
-                  onError={(e) => {
-                    console.warn('Kai avatar failed to load:', e);
-                  }}
+                  decoding="async" 
+                  
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
                   <Heart className="w-4 h-4 md:w-4 md:h-4" />
