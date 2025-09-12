@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
 import { ProfileData } from "../types";
-import { clearAllProfileData } from "@/utils/globalRefresh";
+import { refreshPersonalProfile } from "@/utils/globalRefresh";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      await clearAllProfileData();
+      await refreshPersonalProfile();
       toast({
         title: "Profile refreshed",
         description: "Your profile data has been updated."

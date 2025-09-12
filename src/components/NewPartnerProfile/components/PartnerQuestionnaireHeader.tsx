@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { X, User, Heart, Lock, RotateCcw } from "lucide-react";
 import { PartnerProfileData } from "../types";
-import { clearAllProfileData } from "@/utils/globalRefresh";
+import { refreshPartnerProfile } from "@/utils/globalRefresh";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      await clearAllProfileData();
+      await refreshPartnerProfile();
       toast({
         title: "Profile refreshed",
         description: "Partner profile data has been updated."

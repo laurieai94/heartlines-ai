@@ -457,7 +457,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const currentTs = new Date((profile as any).lastUpdated || 0).getTime();
         const incomingTs = new Date(parsed.lastUpdated || 0).getTime();
         if (incomingTs > currentTs) {
-          const merged = { ...defaultProfile, ...parsed, version: '2.0' } as any;
+          const merged = { ...parsed, version: '2.0' } as any;
           setProfile(merged);
           setLastSaved(new Date());
           setIsReady(true);
