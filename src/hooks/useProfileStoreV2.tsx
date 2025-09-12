@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { debounce } from '@/utils/throttle';
 
 export type ProfileType = 'personal' | 'partner';
 
@@ -468,10 +469,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
+    // Debounce external updates to prevent race conditions
+    const debouncedApplyUpdate = debounce(applyLatestFromStorage, 100);
+
     const onCustomEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail || {};
       if (detail.profileType !== profileType || detail.storageKey !== config.storageKey) return;
-      applyLatestFromStorage(null);
+      debouncedApplyUpdate(null);
     };
 
     const onStorage = (e: StorageEvent) => {
