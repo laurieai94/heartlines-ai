@@ -55,12 +55,6 @@ export default defineConfig(({ mode }) => ({
     },
     // Optimize for faster builds and smaller bundles
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    minify: true
   },
 }));
