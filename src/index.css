@@ -151,16 +151,18 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
     line-height: 1.6;
-          /* Enhanced mobile stability and performance */
-          touch-action: manipulation;
-          overscroll-behavior: contain;
-          overflow-x: hidden;
-          -webkit-text-size-adjust: 100%;
-          -webkit-tap-highlight-color: transparent;
-          /* Better scroll performance on mobile */
-          -webkit-overflow-scrolling: touch;
-          /* Mobile-specific color consistency fixes */
-          color-scheme: dark;
+    /* Performance optimizations */
+    touch-action: manipulation;
+    overscroll-behavior: contain;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch;
+    color-scheme: dark;
+    /* Critical performance optimization */
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .font-sans {
@@ -256,17 +258,35 @@
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 0.4s ease-out forwards;
+    will-change: transform, opacity;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px) scale(0.95);
+      transform: translateY(10px) scale(0.98);
     }
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Performance-optimized scale animation */
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+    will-change: transform, opacity;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 

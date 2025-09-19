@@ -94,26 +94,25 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= DEMO_CONVERSATION.length) {
-        // Reset after 3 seconds to loop the conversation
+        // Reset after shorter delay to loop the conversation
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
           setIsTyping(false);
           setTypingSide(null);
-        }, 3000);
+        }, 2000);
         return;
       }
       
       const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
       
-      // Show current message
+      // Optimized timing for better performance
       if (currentMessage.type === 'assistant') {
-        // Show typing indicator first for assistant messages
         setIsTyping(true);
         setTypingSide('assistant');
         
-        // Variable typing time for more natural feel - slower for demo
-        const typingTime = 2800 + (currentMessage.content.length * 55);
+        // Reduced typing time for better performance
+        const typingTime = 1200 + Math.min(currentMessage.content.length * 20, 800);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -122,12 +121,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           setCurrentMessageIndex(prev => prev + 1);
         }, typingTime);
       } else {
-        // Show user typing first, then message
         setIsTyping(true);
         setTypingSide('user');
         
-        // Shorter, natural delay for user messages
-        const typingTime = Math.min(Math.max(600 + (currentMessage.content.length * 15), 500), 1200);
+        // Optimized user message timing
+        const typingTime = Math.min(400 + (currentMessage.content.length * 10), 800);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -138,20 +136,19 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       }
     };
 
-    // Start animation or continue with next message
+    // Optimized delays for better performance
     if (currentMessageIndex === 0) {
-      timeoutId = setTimeout(showNextMessage, 1500);
+      timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < DEMO_CONVERSATION.length) {
-      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 1400 : 3200;
+      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 800 : 1600;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
-      // All messages shown, reset after delay
       timeoutId = setTimeout(() => {
         setVisibleMessages([]);
         setCurrentMessageIndex(0);
         setIsTyping(false);
         setTypingSide(null);
-      }, 3000);
+      }, 2000);
     }
 
     return () => {
@@ -172,14 +169,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           {/* Enhanced glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
           
-          {/* Phone container with enhanced definition */}
+          {/* Phone container with enhanced definition - optimized for performance */}
           <div 
-            className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
+            className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-300 animate-scale-in flex flex-col will-change-transform"
             style={{
               width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 300px)',
               aspectRatio: '9/16',
               maxHeight: 'min(85svh, 85dvh)',
-              animationDelay: '0.6s'
+              animationDelay: '0.3s'
             }}
           >
             {/* Status bar */}
