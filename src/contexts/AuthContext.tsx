@@ -37,9 +37,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
+    console.log('[AuthContext] Initializing auth state...');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('[AuthContext] Auth state change:', event, session?.user?.id || 'no user');
+        
         setSession(session);
         setUser(session?.user ?? null);
         
@@ -61,13 +65,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
 
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    console.log('[AuthContext] Getting initial session...');
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('[AuthContext] Error getting initial session:', error);
+      } else {
+        console.log('[AuthContext] Initial session loaded:', session?.user?.id || 'no user');
+      }
+      
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+    }).catch((error) => {
+      console.error('[AuthContext] Unexpected error getting initial session:', error);
+      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log('[AuthContext] Cleaning up auth listeners');
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {

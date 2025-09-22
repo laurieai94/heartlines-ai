@@ -5,6 +5,7 @@ import './index.css'
 import { initReliabilitySystems } from './utils/reliabilityInit'
 
 // Initialize reliability systems for data sync
+console.log('[Main] Initializing app...');
 initReliabilitySystems();
 
 const isDev = import.meta.env.DEV;
@@ -15,4 +16,11 @@ const app = isDev ? (
   </React.StrictMode>
 ) : <App />;
 
-createRoot(document.getElementById("root")!).render(app);
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  console.error('[Main] Root element not found!');
+  throw new Error('Root element not found');
+}
+
+console.log('[Main] Rendering app...');
+createRoot(rootElement).render(app);
