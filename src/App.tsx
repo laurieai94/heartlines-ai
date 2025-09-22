@@ -13,7 +13,7 @@ import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Direct imports for debugging - temporarily disable lazy loading
-import LandingPage from "@/components/LandingPage";
+import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import AuthCallback from "@/pages/AuthCallback";
 import PrivacySecurity from "@/pages/PrivacySecurity";
@@ -39,10 +39,10 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - direct load */}
+        {/* Public landing page - use Index component */}
         <Route path="/" element={
           <ErrorBoundary>
-            <LandingPage />
+            <Index />
           </ErrorBoundary>
         } />
         
