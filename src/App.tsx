@@ -12,8 +12,9 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Lazy load components directly
-const LandingPage = React.lazy(() => import("@/components/LandingPage"));
+// Import LandingPage directly for immediate rendering (critical path)
+import LandingPage from "@/components/LandingPage";
+// Lazy load non-critical components
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
 const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
@@ -32,19 +33,21 @@ const AppContent = () => {
     // Initialize performance monitoring
     performanceMonitor.init();
     
-    // Warm up network connections
-    warmupNetwork();
+    // Defer network warmup to after initial render
+    const timer = setTimeout(() => {
+      warmupNetwork();
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - direct load to avoid double lazy loading */}
+        {/* Public landing page - direct load for immediate rendering */}
         <Route path="/" element={
           <ErrorBoundary>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <LandingPage />
-            </Suspense>
+            <LandingPage />
           </ErrorBoundary>
         } />
         
