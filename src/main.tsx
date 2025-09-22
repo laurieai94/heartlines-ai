@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from '@/contexts/AuthContext'
-import SplashScreen from '@/components/SplashScreen'
+import Index from '@/pages/Index'
 import './index.css'
 
-console.log('[Main] Testing SplashScreen Component (Step 4A)...');
+console.log('[Main] Testing Index Component (Step 4B)...');
 
-// Test SplashScreen Component (Step 4A)
+// Test Index Component (Step 4B)
 const HomePage = () => {
-  console.log('[HomePage] Rendering SplashScreen test...');
-  return <SplashScreen message="Testing SplashScreen rendering!" />;
+  console.log('[HomePage] Rendering Index component test...');
+  return <Index />;
 };
 
 const RouterApp = () => {
