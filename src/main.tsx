@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from '@/contexts/AuthContext'
-import Index from '@/pages/Index'
+import LandingPage from '@/components/LandingPage'
 import './index.css'
 
-console.log('[Main] Testing Index Component (Step 4B)...');
+console.log('[Main] Testing LandingPage Component (Step 4C)...');
 
-// Test Index Component (Step 4B)
+// Test LandingPage Component (Step 4C)
 const HomePage = () => {
-  console.log('[HomePage] Rendering Index component test...');
-  return <Index />;
+  console.log('[HomePage] Rendering LandingPage test...');
+  return <LandingPage />;
 };
 
 const RouterApp = () => {
