@@ -80,6 +80,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [isTyping, setIsTyping] = useState(false);
   const [typingSide, setTypingSide] = useState<'assistant' | 'user' | null>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [isLoopActive, setIsLoopActive] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages appear
@@ -94,13 +95,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= DEMO_CONVERSATION.length) {
-        // Reset after 3 seconds to loop the conversation
+        // Reset after 8 seconds for smoother experience
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
           setIsTyping(false);
           setTypingSide(null);
-        }, 3000);
+        }, 8000);
         return;
       }
       
@@ -112,8 +113,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        // Variable typing time for more natural feel - slower for demo
-        const typingTime = 2800 + (currentMessage.content.length * 55);
+        // Variable typing time for more natural feel - faster for better UX
+        const typingTime = 1800 + (currentMessage.content.length * 35);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -127,7 +128,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setTypingSide('user');
         
         // Shorter, natural delay for user messages
-        const typingTime = Math.min(Math.max(600 + (currentMessage.content.length * 15), 500), 1200);
+        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 300), 800);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -138,26 +139,33 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       }
     };
 
-    // Start animation or continue with next message
-    if (currentMessageIndex === 0) {
-      timeoutId = setTimeout(showNextMessage, 1500);
+    // Only start loop after initial page load settles
+    if (!isLoopActive) {
+      // Defer start until after hero animations complete
+      timeoutId = setTimeout(() => {
+        setIsLoopActive(true);
+        showNextMessage();
+      }, 2000);
+    } else if (currentMessageIndex === 0) {
+      // Start first message with minimal delay
+      timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < DEMO_CONVERSATION.length) {
-      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 1400 : 3200;
+      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
-      // All messages shown, reset after delay
+      // All messages shown, reset after longer delay
       timeoutId = setTimeout(() => {
         setVisibleMessages([]);
         setCurrentMessageIndex(0);
         setIsTyping(false);
         setTypingSide(null);
-      }, 3000);
+      }, 8000);
     }
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentMessageIndex]);
+  }, [currentMessageIndex, isLoopActive]);
 
   return (
     <div className={`relative ${className}`} style={style}>
@@ -165,7 +173,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       {/* Phone container - positioned to align with hero text */}
       <div className="relative flex items-start justify-center z-20 p-2 sm:p-4 lg:p-6">
         {/* Phone mockup with glassmorphism and proportional sizing */}
-        <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]" style={{ animationDelay: '0.4s' }}>
+        <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]">
           {/* Subtle halo behind phone */}
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
@@ -178,8 +186,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             style={{
               width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 300px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(85svh, 85dvh)',
-              animationDelay: '0.6s'
+              maxHeight: 'min(85svh, 85dvh)'
             }}
           >
             {/* Status bar */}

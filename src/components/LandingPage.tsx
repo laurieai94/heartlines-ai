@@ -385,9 +385,7 @@ const LandingPage = ({
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl md:whitespace-normal md:leading-[1.25] md:pb-[0.1em] lg:text-[30px] xl:text-[36px] 2xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
-                    animationDelay: '0.8s'
-                  }}>
+                      <h3 className="text-xl sm:text-2xl md:whitespace-normal md:leading-[1.25] md:pb-[0.1em] lg:text-[30px] xl:text-[36px] 2xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -396,18 +394,14 @@ const LandingPage = ({
                     <div className="hidden md:flex items-center gap-4">
                       {user ? <>
                           <Link to="/auth">
-                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
-                        animationDelay: '1.4s'
-                      }}>
+                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
                           </Link>
                         </> : <>
                           <Link to="/auth">
-                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
-                        animationDelay: '1.4s'
-                      }}>
+                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
@@ -419,9 +413,7 @@ const LandingPage = ({
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
                     <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top relative z-10">
-                      <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{
-                    animationDelay: '1.6s'
-                  }} />
+                      <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                     </div>
                   </div>
                 </div>
@@ -453,26 +445,20 @@ const LandingPage = ({
                   <div className="flex flex-col sm:flex-row gap-4">
                     {user ? <>
                         <Link to="/profile">
-                          <Button variant="outline" className="border-burgundy-400/30 text-white hover:bg-burgundy-400/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in" style={{
-                      animationDelay: '1.2s'
-                    }}>
+                          <Button variant="outline" className="border-burgundy-400/30 text-white hover:bg-burgundy-400/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in">
                             <User className="w-5 h-5 mr-2" />
                             View Profile
                           </Button>
                         </Link>
                         <Link to="/profile">
-                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in" style={{
-                      animationDelay: '1.4s'
-                    }}>
+                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in">
                             Open Dashboard
                             <ArrowRight className="w-5 h-5 ml-3" />
                           </Button>
                         </Link>
                       </> : <>
                         <Link to="/auth">
-                          <Button size="lg" variant="glass" className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in" style={{
-                      animationDelay: '1.4s'
-                    }}>
+                          <Button size="lg" variant="glass" className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-3" />
                           </Button>
@@ -486,9 +472,7 @@ const LandingPage = ({
                   <div className="w-full max-w-md" style={{
                 height: 'min(min(52svh, 52dvh), 500px)'
               }}>
-                    <HeroPhoneScroll className="animate-fade-in w-full h-full" style={{
-                  animationDelay: '1.6s'
-                }} />
+                    <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                   </div>
                 </div>
               </div>
