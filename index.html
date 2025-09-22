@@ -15,6 +15,26 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://billing.stripe.com">
     <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      /* Critical CSS for immediate render */
+      body { 
+        margin: 0; 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #6b1e3e;
+      }
+      #root { 
+        min-height: 100vh; 
+        background-color: #6b1e3e;
+      }
+      /* Font loading fallback */
+      .font-brand { 
+        font-family: 'Shrikhand', cursive, serif; 
+      }
+      /* Ensure visibility during font load */
+      * {
+        font-display: swap;
+      }
+    </style>
     <link rel="preload" as="image" href="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" fetchpriority="high" />
     <meta name="description" content="Your relationship intelligence companion">
     <meta name="author" content="Lovable" />

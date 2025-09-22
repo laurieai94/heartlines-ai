@@ -27,21 +27,29 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     md: 'text-lg sm:text-xl',
     lg: 'text-lg sm:text-xl'
   };
+  
   return (
-    <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
+    <div 
+      className="min-h-screen flex items-center justify-center"
+      style={{ 
+        backgroundColor: '#6b1e3e', // burgundy-900 fallback
+        background: 'linear-gradient(135deg, #6b1e3e 0%, #5a1a34 50%, #6b1e3e 100%)'
+      }}
+    >
       <div className="relative flex items-center space-x-4 sm:space-x-8 md:space-x-12">
-        {/* Left line */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}
+        {/* Left line - simplified */}
+        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40" />}
         
-        {/* Text */}
+        {/* Text - simplified without complex animations */}
         <div className="text-center">
           {showWordmark && (
             <h1 
-              className="font-brand font-normal tracking-wide text-white opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
+              className="text-white"
               style={{ 
                 fontSize: wordmarkSizeClasses[wordmarkSize],
-                animationDelay: '900ms', 
-                animationFillMode: 'forwards' 
+                fontFamily: 'Shrikhand, cursive, serif',
+                fontWeight: 'normal',
+                letterSpacing: '0.025em'
               }}
             >
               {titleText}
@@ -49,16 +57,16 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
           )}
           {message && (
             <p 
-              className={`font-brand text-white/70 ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''} opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100`}
-              style={{ animationDelay: showWordmark ? '1200ms' : '0ms', animationFillMode: 'forwards' }}
+              className={`text-white/70 ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''}`}
+              style={{ fontFamily: 'Shrikhand, cursive, serif' }}
             >
               {message}
             </p>
           )}
         </div>
         
-        {/* Right line */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-right animate-line-right-sequence motion-reduce:hidden" />}
+        {/* Right line - simplified */}
+        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40" />}
       </div>
     </div>
   );

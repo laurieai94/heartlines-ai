@@ -4,13 +4,22 @@ import LandingPage from "@/components/LandingPage";
 
 const Index: React.FC = () => {
   const [showSplash, setShowSplash] = useState(() => {
-    // Only show splash on first visit in this session
-    return !sessionStorage.getItem("homepage-visited");
+    // Safe sessionStorage access with fallback
+    try {
+      return !sessionStorage.getItem("homepage-visited");
+    } catch (error) {
+      console.log("SessionStorage not available, showing splash");
+      return true;
+    }
   });
 
   useEffect(() => {
     if (showSplash) {
-      sessionStorage.setItem("homepage-visited", "true");
+      try {
+        sessionStorage.setItem("homepage-visited", "true");
+      } catch (error) {
+        console.log("Cannot set sessionStorage");
+      }
       
       // Single, clean transition after minimal delay
       const timer = setTimeout(() => {
@@ -21,6 +30,7 @@ const Index: React.FC = () => {
     }
   }, [showSplash]);
 
+  // Always render something visible
   if (showSplash) {
     return <SplashScreen titleText="heartlines loading..." />;
   }
