@@ -15,6 +15,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
   messageSize = "lg",
   titleText = "heartlines"
 }) => {
+  console.log('[SplashScreen] Rendering with:', { message, showWordmark, titleText });
   const wordmarkSizeClasses = {
     sm: '30px',
     md: '40px',
@@ -47,9 +48,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
               className="text-white"
               style={{ 
                 fontSize: wordmarkSizeClasses[wordmarkSize],
-                fontFamily: 'Shrikhand, cursive, serif',
-                fontWeight: 'normal',
-                letterSpacing: '0.025em'
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                fontWeight: 'bold',
+                letterSpacing: '0.025em',
+                textShadow: '0 2px 4px rgba(0,0,0,0.3)'
               }}
             >
               {titleText}
@@ -57,8 +59,12 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
           )}
           {message && (
             <p 
-              className={`text-white/70 ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''}`}
-              style={{ fontFamily: 'Shrikhand, cursive, serif' }}
+              className={`text-white ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''}`}
+              style={{ 
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                opacity: '0.9',
+                textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+              }}
             >
               {message}
             </p>

@@ -3,12 +3,16 @@ import SplashScreen from "@/components/SplashScreen";
 import LandingPage from "@/components/LandingPage";
 
 const Index: React.FC = () => {
+  console.log('[Index] Component mounting...');
+  
   const [showSplash, setShowSplash] = useState(() => {
     // Safe sessionStorage access with fallback
     try {
-      return !sessionStorage.getItem("homepage-visited");
+      const hasVisited = !sessionStorage.getItem("homepage-visited");
+      console.log('[Index] SessionStorage check:', hasVisited);
+      return hasVisited;
     } catch (error) {
-      console.log("SessionStorage not available, showing splash");
+      console.log("[Index] SessionStorage not available, showing splash", error);
       return true;
     }
   });
@@ -31,10 +35,14 @@ const Index: React.FC = () => {
   }, [showSplash]);
 
   // Always render something visible
+  console.log('[Index] Rendering with showSplash:', showSplash);
+  
   if (showSplash) {
+    console.log('[Index] Showing splash screen');
     return <SplashScreen titleText="heartlines loading..." />;
   }
 
+  console.log('[Index] Showing landing page');
   return <LandingPage />;
 };
 

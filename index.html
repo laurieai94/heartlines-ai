@@ -21,14 +21,21 @@
         margin: 0; 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background-color: #6b1e3e;
+        color: white;
       }
       #root { 
         min-height: 100vh; 
         background-color: #6b1e3e;
+        color: white;
+      }
+      /* Emergency visible text */
+      h1, h2, h3, p, div {
+        color: white !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       }
       /* Font loading fallback */
       .font-brand { 
-        font-family: 'Shrikhand', cursive, serif; 
+        font-family: 'Shrikhand', -apple-system, BlinkMacSystemFont, cursive, serif; 
       }
       /* Ensure visibility during font load */
       * {
