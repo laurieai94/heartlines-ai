@@ -3,32 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from '@/contexts/AuthContext'
+import SplashScreen from '@/components/SplashScreen'
 import './index.css'
 
-console.log('[Main] Testing TanStack Query (Step 3)...');
+console.log('[Main] Testing SplashScreen Component (Step 4A)...');
 
-// Test TanStack Query (Step 3)
+// Test SplashScreen Component (Step 4A)
 const HomePage = () => {
-  console.log('[HomePage] Rendering home page...');
-  return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #dc2626, #991b1b)',
-      color: 'white',
-      padding: '20px',
-      fontFamily: 'system-ui, sans-serif',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column'
-    }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-        🔥 QueryClient Test
-      </h1>
-      <p>Step 3: Testing TanStack Query initialization!</p>
-      <p>Time: {new Date().toLocaleTimeString()}</p>
-    </div>
-  );
+  console.log('[HomePage] Rendering SplashScreen test...');
+  return <SplashScreen message="Testing SplashScreen rendering!" />;
 };
 
 const RouterApp = () => {
