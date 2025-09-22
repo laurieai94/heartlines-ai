@@ -22,39 +22,35 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks for better caching
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@radix-ui') || id.includes('class-variance-authority') || id.includes('clsx') || id.includes('tailwind-merge')) {
-              return 'vendor-ui';
-            }
-            if (id.includes('@supabase')) {
-              return 'vendor-supabase';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            if (id.includes('@tanstack') || id.includes('date-fns') || id.includes('zod')) {
-              return 'vendor-utils';
-            }
-            return 'vendor';
-          }
-          
-          // Separate heavy components from main bundle
-          if (id.includes('PersonalQuestionnaire') || id.includes('PartnerProfile')) {
-            return 'questionnaire';
-          }
-          if (id.includes('Dashboard') && !id.includes('DashboardHome')) {
-            return 'dashboard';
-          }
+        manualChunks: {
+          // React core
+          'vendor-react': ['react', 'react-dom'],
+          // UI components
+          'vendor-ui': [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-alert-dialog',
+            '@radix-ui/react-avatar',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-progress',
+            '@radix-ui/react-select',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-toast',
+            'class-variance-authority',
+            'clsx',
+            'tailwind-merge'
+          ],
+          // Backend services
+          'vendor-supabase': ['@supabase/supabase-js'],
+          // Icons
+          'vendor-icons': ['lucide-react'],
+          // Data/utilities
+          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod']
         }
       }
-    },
-    // Optimize for faster builds and smaller bundles
-    target: 'esnext',
-    minify: true
+    }
   },
 }));

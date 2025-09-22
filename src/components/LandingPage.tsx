@@ -11,9 +11,13 @@ import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
+import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
+import FrostedHeartShowcase from "./FrostedHeartShowcase";
+import PhotoSplitBanner from "./PhotoSplitBanner";
+import coupleConnection from "@/assets/couple-connection.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
@@ -238,6 +242,25 @@ const LandingPage = ({
       {showMarketingTopBar && <>
         </>}
 
+      {/* Floating Particles */}
+      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 3}s`,
+        animationDuration: `${2 + Math.random() * 3}s`
+      }} />)}
+        </div>}
+
+      {/* Floating Geometric Shapes */}
+      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
+          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin" style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDuration: `${10 + Math.random() * 20}s`,
+        transform: `rotate(${Math.random() * 360}deg)`
+      }} />)}
+        </div>}
 
       {/* Code-like Background Elements */}
       {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
@@ -324,11 +347,18 @@ const LandingPage = ({
       <section className="relative overflow-hidden" style={{
       minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
     }}>
+        {/* Flame Background */}
+        <FlameBackground variant="subtle" density="sparse" />
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
+              {/* Accent decoration - floating orbs with glassmorphism */}
+              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
+              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{
+            animationDelay: '1s'
+          }}></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
@@ -387,7 +417,7 @@ const LandingPage = ({
         
         {/* Embedded version - horizontal layout with flame background */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
-            
+            <FlameBackground variant="ethereal" density="sparse" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
@@ -512,6 +542,261 @@ const LandingPage = ({
         </div>
       </section>
 
+      {/* Why It's Different Section */}
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">Why It's Different</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 max-w-4xl mx-auto">
+            {[{
+            title: "No toxic positivity — conflict happens, we help.",
+            icon: <CircleSlash className="w-6 h-6" aria-hidden="true" />
+          }, {
+            title: "Actually personal — not horoscope-generic.",
+            icon: <Sparkles className="w-6 h-6" aria-hidden="true" />
+          }, {
+            title: "Built for busy — tiny, high-impact actions.",
+            icon: <Bolt className="w-6 h-6" aria-hidden="true" />
+          }, {
+            title: "Private by design — your convo stays yours.",
+            icon: <Shield className="w-6 h-6" aria-hidden="true" />
+          }].map((item, index) => <article key={index} className={`${glassCard} p-4 group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-left relative overflow-hidden`} tabIndex={0} role="article" aria-label={item.title}>
+                <div className="flex items-start gap-3 relative z-10">
+                  <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400 group-hover:scale-110 transition-transform shadow-sm flex-shrink-0 mt-0.5">
+                    {item.icon}
+                  </div>
+                  <p className="font-medium text-white/95 text-sm md:text-base leading-relaxed">{item.title}</p>
+                </div>
+              </article>)}
+          </div>
+        </div>
+      </section>
+
+      {/* Frosted Heart Showcase */}
+      <FrostedHeartShowcase />
+
+      {/* Visual Break with Accent */}
+      <section className={`px-6 py-8 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-r from-pink-900/20 via-coral-900/10 to-pink-900/20 backdrop-blur-sm border-y border-coral-400/10'}`}>
+        <div className="max-w-6xl mx-auto">
+        <div className="relative flex items-center justify-center">
+          {!isEmbedded && <>
+              {/* Gradient line with floating dots */}
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+              {/* Accent dots */}
+              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
+              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{
+              animationDelay: '0.5s'
+            }}></div>
+              {/* Center icon */}
+              <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
+                <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </>}
+        </div>
+        </div>
+      </section>
+
+      {/* Real Talk Section - Enhanced with combined content */}
+      <section className={`px-6 py-20 relative ${isEmbedded ? 'bg-transparent border-y-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20'}`}>
+        {/* Dramatic Background Effects */}
+        {!isEmbedded && <>
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/8 via-pink-500/12 to-coral-500/8"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,114,94,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.15),transparent_50%)]"></div>
+            
+            {/* Accent Lines */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-coral-400/60 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"></div>
+            
+            {/* Side Accent Elements */}
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-coral-400/40 to-pink-400/40"></div>
+            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-pink-400/40 to-coral-400/40"></div>
+          </>}
+        
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Problem Setup Section */}
+          <div className="text-center mb-16">
+            <div className="inline-block bg-gradient-to-r from-coral-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-3 mb-8 border border-coral-300/30">
+              <span className="text-coral-300 font-light tracking-wide">The Real Talk</span>
+            </div>
+            
+            <h2 className="text-5xl lg:text-6xl font-thin text-white mb-8 leading-tight">
+              Dating apps taught us how to swipe.
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 mt-3 text-4xl lg:text-5xl">
+                Now what?
+              </span>
+            </h2>
+            
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-2xl text-gray-300 leading-relaxed font-light">
+                Nobody prepared us for the actual relationship part. You know—the daily stuff.
+              </p>
+              <p className="text-xl text-gray-400 leading-relaxed font-light">
+                Like how to fight without losing your minds—or expecting mind-reading.
+              </p>
+            </div>
+          </div>
+
+          {/* Visual Separator with Icon */}
+          <div className="relative flex items-center justify-center mb-16">
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
+            <div className="absolute bg-gradient-to-r from-coral-400 to-pink-400 rounded-full p-4 shadow-2xl border border-coral-300/30">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+          </div>
+
+          {/* Solution Section - Balanced Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* Left Column - Better balanced */}
+            <div className="space-y-8 flex items-center">
+              <div className="bg-gradient-to-br from-coral-500/15 via-pink-500/10 to-coral-500/15 backdrop-blur-xl rounded-3xl p-12 border border-coral-300/20 shadow-2xl flex items-center justify-center min-h-[300px]">
+                <h3 className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 text-center leading-tight">
+                  Enter {BRAND.name}.
+                </h3>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-8 flex items-center">
+              <div className="bg-gradient-to-br from-pink-500/10 via-coral-500/5 to-pink-500/10 backdrop-blur-xl rounded-3xl p-8 border border-pink-300/20 shadow-2xl">
+                <div className="space-y-6">
+                  <p className="text-lg text-gray-200 leading-relaxed font-light">
+                    We built this because most relationship tools just tell you what's wrong without teaching you how to actually fix it.
+                  </p>
+                  <p className="text-lg text-gray-300 leading-relaxed font-light">
+                    Our AI helps you do the real work—having those conversations you've been avoiding, understanding why you both react the way you do, and building new patterns that actually stick.
+                  </p>
+                  <p className="text-lg text-gray-300 leading-relaxed font-light">
+                    Because great relationships aren't built on hoping things get easier. They're built on two people who get better at doing the hard things together.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Actually Works */}
+      <section className={`px-4 md:px-6 py-12 md:py-20 relative ${isEmbedded ? 'bg-transparent border-b-0 backdrop-blur-0' : 'bg-gradient-to-br from-coral-900/30 via-pink-900/20 to-coral-900/30 backdrop-blur-sm border-b border-coral-400/5'}`}>
+        {/* Accent - connecting lines */}
+        {!isEmbedded && <>
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+              <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-coral-300/30 to-transparent"></div>
+              <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-300/30 to-transparent"></div>
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-coral-500/5 via-pink-500/10 to-coral-500/5"></div>
+          </>}
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-10 md:mb-16">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 md:mb-6 mx-auto border border-coral-300/30">
+              <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
+            </div>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-thin text-white mb-4 md:mb-6">
+              How It Actually Works
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-3 md:gap-8">
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Brain className="w-5 h-5 md:w-10 md:h-10 text-coral-400" />
+              </div>
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">We Get to Know You (For Real)</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
+                Not just "what's your sign?" but the real stuff—how you communicate when you're stressed, what makes you feel loved, and yes, even your weird quirks. The more honest you are, the better we can help.
+              </p>
+            </Card>
+
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Target className="w-5 h-5 md:w-10 md:h-10 text-pink-400" />
+              </div>
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Daily Tips You'll Actually Use</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
+                Instead of "just communicate better" (thanks, very helpful), you get specific, actionable suggestions based on what's actually happening in your lives right now.
+              </p>
+            </Card>
+            
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <MessageCircle className="w-5 h-5 md:w-10 md:h-10 text-pink-400" />
+              </div>
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Practice Makes Progress</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
+                Scared to bring up that thing? Practice the conversation with our AI first. It knows both your communication styles, so you can figure out the best approach without the drama.
+              </p>
+            </Card>
+            
+            <Card className="p-4 md:p-8 border-0 shadow-xl bg-coral-500/10 backdrop-blur-lg hover:shadow-2xl hover:shadow-coral-400/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl md:rounded-3xl group border border-coral-400/20 before:absolute before:inset-0 before:rounded-xl md:before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 md:w-20 md:h-20 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-full flex items-center justify-center mb-3 md:mb-6 shadow-lg group-hover:scale-110 transition-transform backdrop-blur-sm border border-coral-300/30 relative z-10">
+                <Sparkles className="w-5 h-5 md:w-10 md:h-10 text-coral-400" />
+              </div>
+              <h3 className="text-base md:text-2xl font-light text-white mb-2 md:mb-4 relative z-10">Thoughtful Actions Made Easy</h3>
+              <p className="text-gray-300 leading-relaxed font-light text-xs md:text-base relative z-10">
+                Get specific ideas for how to make your partner's day better—based on their actual preferences, not some random blog post about "50 ways to be romantic."
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Philosophy Section */}
+      <section className="py-16 md:py-20">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
+          <div className="max-w-2xl mx-auto text-center space-y-8">
+            <div className="space-y-4 text-xl md:text-2xl font-light text-white/90 leading-relaxed">
+              <p>
+                Not Instagram-perfect — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">real-life strong</span>.
+              </p>
+              <p>
+                Not fight-free — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">fight-smart</span>.
+              </p>
+              <p>
+                Not always easy — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">always worth it</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Privacy & Security Section */}
+      <section className="py-12 md:py-16">
+        <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`${glassCard} p-4 md:p-6 max-w-3xl mx-auto`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30">
+                <Lock className="w-4 h-4 text-coral-400" aria-label="Privacy & Security" />
+              </div>
+              <p className="text-white/90 font-medium text-sm md:text-base">
+                Locked on your device. Only you can see it. Analytics are optional.
+              </p>
+            </div>
+            
+            <div className="space-y-2 text-sm text-white/70 mb-4">
+              <p>• Encrypted on your device before anything is sent</p>
+              <p>• Only your account can access your data</p>
+              <p>• Analytics are opt-in (anonymous, off by default)</p>
+            </div>
+            
+            <Link to="/privacy" className="text-white/70 hover:text-white/90 underline underline-offset-2 text-sm motion-safe:transition-colors motion-safe:duration-150">
+              Read more
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Split Banner */}
+      <PhotoSplitBanner 
+        imageSrc={coupleConnection}
+        alt="Couple having a meaningful conversation"
+        heading="Real relationships\nstart with real\nconversations."
+        align="left"
+      />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">

@@ -11,7 +11,6 @@ import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
-import { logger } from '@/utils/logger';
 
 // Create a debounced function for better performance
 const debounce = (func: Function, wait: number) => {
@@ -32,52 +31,20 @@ interface ChatContainerProps {
   userTyping: boolean;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
-  resetLoadingState?: () => void; // Optional reset function from ChatMessageHandler
 }
 
 const ChatContainer = ({ 
   chatHistory, 
   loading, 
-  userName,
+  userName, 
   isConfigured, 
   conversationStarter, 
   isHistoryLoaded,
   userTyping,
   onNewConversation = () => {},
-  onOpenSidebar,
-  resetLoadingState
+  onOpenSidebar
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
-  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // Simplified loading state monitoring
-  useEffect(() => {
-    logger.debug(`ChatContainer - Loading state: ${loading}`);
-    
-    if (loading) {
-      // Set a conservative fail-safe timeout (60 seconds)
-      loadingTimeoutRef.current = setTimeout(() => {
-        logger.error('ChatContainer - Loading stuck, attempting reset');
-        if (resetLoadingState) {
-          resetLoadingState();
-        }
-      }, 60000);
-    } else {
-      // Clear timeout when loading stops
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-        loadingTimeoutRef.current = null;
-      }
-    }
-
-    // Cleanup timeout on unmount
-    return () => {
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-        loadingTimeoutRef.current = null;
-      }
-    };
-  }, [loading, resetLoadingState]);
   
   // Mobile optimizations
   const { simulateHapticFeedback } = useMobileOptimizations();
@@ -85,8 +52,8 @@ const ChatContainer = ({
   // Pull-to-reveal functionality with enhanced mobile support
   const { handleScroll: handlePullToRevealScroll, setScrollElement } = usePullToReveal({
     enabled: isMobile,
-    threshold: 20, // Lowered for better responsiveness
-    velocityThreshold: 0.2 // More responsive
+    threshold: 30,
+    velocityThreshold: 0.3
   });
 
   // References for scroll management
@@ -144,17 +111,16 @@ const ChatContainer = ({
         setShowScrollToBottom(!nearBottom);
       }
       
-      // Enhanced mobile pull-to-reveal with better direction tracking
+      // Simplified mobile pull-to-reveal
       if (isMobile) {
-        const currentScrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
-        scrollDirection.current = currentScrollDirection;
-        handlePullToRevealScroll(scrollTop, currentScrollDirection);
+        const scrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
+        handlePullToRevealScroll(scrollTop, scrollDirection);
       }
       
       lastScrollTopRef.current = scrollTop;
       
-      // More forgiving user intent tracking
-      userIntentLockRef.current = scrollFromBottom > 300; // Increased threshold
+      // Simplified user intent - only track significant scroll away from bottom
+      userIntentLockRef.current = scrollFromBottom > 200;
     }, 50); // Consistent throttling for better performance
   }, [isMobile, handlePullToRevealScroll]);
 
@@ -218,13 +184,12 @@ const ChatContainer = ({
         style={isMobile ? { 
           // Enhanced mobile scrolling performance
           WebkitOverflowScrolling: 'touch' as any,
-          touchAction: 'pan-y pinch-zoom', // Allow pinch zoom
+          touchAction: 'pan-y',
           overscrollBehavior: 'contain',
           scrollBehavior: 'smooth',
           willChange: 'scroll-position',
           backfaceVisibility: 'hidden',
           transform: 'translateZ(0)', // Force hardware acceleration
-          isolation: 'isolate', // Prevent stacking context issues
         } : undefined}
         onScroll={handleScroll}
         role="log"
@@ -267,6 +232,32 @@ const ChatContainer = ({
                 </div>
               );
             })}
+            
+            {/* Typing indicator - only show when loading */}
+            {loading && (
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
+                <div className="relative flex-shrink-0">
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
+                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                      <Heart className="w-4 h-4 md:w-6 md:h-6" />
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.1s'
+                    }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.2s'
+                    }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* User typing indicator */}
             {userTyping && (
               <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end`} aria-live="polite">
@@ -289,32 +280,6 @@ const ChatContainer = ({
                   </Avatar>
                 </div>
                 <span className="sr-only">{userName || 'User'} is typing...</span>
-              </div>
-            )}
-
-            {/* Kai thinking indicator */}
-            {loading && (
-              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-start`} aria-live="polite">
-                <div className="relative flex-shrink-0">
-                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                      {BRAND.coach.name[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-                <div className={`bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 px-3 py-2 md:px-5 md:py-3 ${isMobile ? 'rounded-2xl' : 'rounded-3xl'}`}>
-                  <div className="flex gap-1 md:gap-1.5">
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-                      animationDelay: '0.1s'
-                    }}></div>
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-                      animationDelay: '0.2s'
-                    }}></div>
-                  </div>
-                </div>
-                <span className="sr-only">{BRAND.coach.name} is thinking...</span>
               </div>
             )}
             

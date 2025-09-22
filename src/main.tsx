@@ -1,21 +1,18 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
+import App from './App.tsx'
 import './index.css'
+import { initReliabilitySystems } from './utils/reliabilityInit'
 
-console.log('[Main] Testing Full App.tsx Logic (Step 5)...');
+// Initialize reliability systems for data sync
+initReliabilitySystems();
 
-const rootElement = document.getElementById("root");
-if (!rootElement) {
-  console.error('[Main] Root element not found!');
-  document.body.innerHTML = '<div style="color: white; padding: 20px; font-family: sans-serif;">Error: Root element not found</div>';
-} else {
-  console.log('[Main] Rendering App component...');
-  try {
-    createRoot(rootElement).render(<App />);
-    console.log('[Main] App rendered successfully');
-  } catch (error) {
-    console.error('[Main] Failed to render App:', error);
-    rootElement.innerHTML = '<div style="color: white; padding: 20px; font-family: sans-serif;">Error loading App: ' + error.message + '</div>';
-  }
-}
+const isDev = import.meta.env.DEV;
+
+const app = isDev ? (
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+) : <App />;
+
+createRoot(document.getElementById("root")!).render(app);

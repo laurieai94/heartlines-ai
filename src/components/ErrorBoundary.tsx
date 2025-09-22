@@ -75,18 +75,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 <summary className="cursor-pointer text-red-300 font-medium mb-2">
                   Error Details (Development)
                 </summary>
-                <pre className="text-xs text-red-200 whitespace-pre-wrap overflow-auto max-h-40">
+                <pre className="text-xs text-red-200 whitespace-pre-wrap overflow-auto">
                   {this.state.error.stack}
                 </pre>
               </details>
-            )}
-            
-            {/* Always show error message for debugging */}
-            {this.state.error && (
-              <div className="mt-4 p-4 bg-red-900/30 rounded-lg border border-red-500/30">
-                <p className="text-red-200 text-sm font-medium mb-2">Error:</p>
-                <p className="text-red-300 text-sm">{this.state.error.message}</p>
-              </div>
             )}
           </div>
         </div>

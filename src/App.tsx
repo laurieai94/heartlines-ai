@@ -12,17 +12,17 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Direct imports for debugging - temporarily disable lazy loading
-import Index from "@/pages/Index";
-import NotFound from "@/pages/NotFound";
-import AuthCallback from "@/pages/AuthCallback";
-import PrivacySecurity from "@/pages/PrivacySecurity";
-import Pricing from "@/pages/Pricing";
-import BillingSuccess from "@/pages/BillingSuccess";
-import Account from "@/pages/Account";
-import Auth from "@/pages/Auth";
-import GetStarted from "@/pages/GetStarted";
-import Mission from "@/pages/Mission";
+// Lazy load components directly
+const LandingPage = React.lazy(() => import("@/components/LandingPage"));
+const NotFound = React.lazy(() => import("@/pages/NotFound"));
+const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
+const PrivacySecurity = React.lazy(() => import("@/pages/PrivacySecurity"));
+const Pricing = React.lazy(() => import("@/pages/Pricing"));
+const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
+const Account = React.lazy(() => import("@/pages/Account"));
+const Auth = React.lazy(() => import("@/pages/Auth"));
+const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
+const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
   // Initialize performance optimizations
@@ -39,8 +39,14 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - use Index component */}
-        <Route path="/" element={<Index />} />
+        {/* Public landing page - direct load to avoid double lazy loading */}
+        <Route path="/" element={
+          <ErrorBoundary>
+            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+              <LandingPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
         
         {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
         <Route path="/profile" element={<Dashboard />} />
@@ -52,16 +58,52 @@ const AppContent = () => {
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
         
-        {/* Direct imports for debugging */}
-        <Route path="/mission" element={<ErrorBoundary><Mission /></ErrorBoundary>} />
-        <Route path="/privacy-and-security" element={<ErrorBoundary><PrivacySecurity /></ErrorBoundary>} />
-        <Route path="/pricing" element={<ErrorBoundary><Pricing /></ErrorBoundary>} />
-        <Route path="/billing/success" element={<ErrorBoundary><BillingSuccess /></ErrorBoundary>} />
-        <Route path="/auth/callback" element={<ErrorBoundary><AuthCallback /></ErrorBoundary>} />
-        <Route path="/auth" element={<ErrorBoundary><Auth /></ErrorBoundary>} />
-        <Route path="/get-started" element={<ErrorBoundary><GetStarted /></ErrorBoundary>} />
-        <Route path="/account" element={<ErrorBoundary><Account /></ErrorBoundary>} />
-        <Route path="*" element={<ErrorBoundary><NotFound /></ErrorBoundary>} />
+        {/* Non-critical routes can be lazy */}
+        <Route path="/mission" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Mission />
+          </Suspense>
+        } />
+        <Route path="/privacy-and-security" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <PrivacySecurity />
+          </Suspense>
+        } />
+        <Route path="/pricing" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Pricing />
+          </Suspense>
+        } />
+        <Route path="/billing/success" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <BillingSuccess />
+          </Suspense>
+        } />
+        <Route path="/auth/callback" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <AuthCallback />
+          </Suspense>
+        } />
+        <Route path="/auth" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Auth />
+          </Suspense>
+        } />
+        <Route path="/get-started" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <GetStarted />
+          </Suspense>
+        } />
+        <Route path="/account" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Account />
+          </Suspense>
+        } />
+        <Route path="*" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <NotFound />
+          </Suspense>
+        } />
       </Routes>
     </BrowserRouter>
   );

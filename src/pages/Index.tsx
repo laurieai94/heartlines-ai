@@ -3,69 +3,52 @@ import SplashScreen from "@/components/SplashScreen";
 import LandingPage from "@/components/LandingPage";
 
 const Index: React.FC = () => {
-  console.log('[Index] Component mounting in full App context...');
-  
   const [showSplash, setShowSplash] = useState(() => {
-    // Safe sessionStorage access with fallback
-    try {
-      const hasVisited = !sessionStorage.getItem("homepage-visited");
-      console.log('[Index] SessionStorage check:', hasVisited);
-      return hasVisited;
-    } catch (error) {
-      console.log("[Index] SessionStorage not available, showing splash", error);
-      return true;
-    }
+    // Only show splash on first visit in this session
+    return !sessionStorage.getItem("homepage-visited");
   });
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (showSplash) {
-      try {
-        sessionStorage.setItem("homepage-visited", "true");
-      } catch (error) {
-        console.log("Cannot set sessionStorage");
+      sessionStorage.setItem("homepage-visited", "true");
+      
+      // Smart timing: wait for DOM ready + small buffer, or max 1500ms
+      const markReady = () => setIsReady(true);
+      
+      if (document.readyState === 'complete') {
+        // Already loaded, minimal delay
+        setTimeout(markReady, 300);
+      } else {
+        // Wait for load with timeout
+        const timer = setTimeout(markReady, 1500);
+        window.addEventListener('load', () => {
+          clearTimeout(timer);
+          setTimeout(markReady, 300);
+        }, { once: true });
+        return () => {
+          clearTimeout(timer);
+        };
       }
-      
-      // Single, clean transition after minimal delay
-      const timer = setTimeout(() => {
-        setShowSplash(false);
-      }, 800);
-      
-      return () => clearTimeout(timer);
+    } else {
+      setIsReady(true);
     }
   }, [showSplash]);
 
-  // Always render something visible
-  console.log('[Index] Rendering with showSplash:', showSplash);
-  
+  useEffect(() => {
+    if (isReady && showSplash) {
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isReady, showSplash]);
+
   if (showSplash) {
-    console.log('[Index] Showing splash screen');
     return <SplashScreen titleText="heartlines loading..." />;
   }
 
-  console.log('[Index] Showing landing page in full App...');
-  try {
-    return <LandingPage />;
-  } catch (error) {
-    console.error('[Index] LandingPage render error:', error);
-    return (
-      <div style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #dc2626, #991b1b)',
-        color: 'white',
-        padding: '20px',
-        fontFamily: 'system-ui, sans-serif',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
-      }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-          ❌ LandingPage Error
-        </h1>
-        <p>Error: {error.message}</p>
-      </div>
-    );
-  }
+  return <LandingPage />;
 };
 
 export default Index;

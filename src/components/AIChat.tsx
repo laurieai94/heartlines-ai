@@ -69,7 +69,7 @@ const AIChat = ({
     console.log('AIChat - profile:', profile);
   }
 
-  const { loading, sendMessage, resetLoadingState } = useChatMessageHandler({
+  const { loading, sendMessage } = useChatMessageHandler({
     profiles,
     demographicsData,
     profileGoals,
@@ -127,7 +127,6 @@ useChatEffects({
         userTyping={userTyping}
         onNewConversation={handleNewConversation}
         onOpenSidebar={onOpenSidebar}
-        resetLoadingState={resetLoadingState}
       />
 
       <ChatInputSection

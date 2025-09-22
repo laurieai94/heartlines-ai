@@ -15,7 +15,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
   messageSize = "lg",
   titleText = "heartlines"
 }) => {
-  console.log('[SplashScreen] Rendering with:', { message, showWordmark, titleText });
   const wordmarkSizeClasses = {
     sm: '30px',
     md: '40px',
@@ -28,30 +27,21 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     md: 'text-lg sm:text-xl',
     lg: 'text-lg sm:text-xl'
   };
-  
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center"
-      style={{ 
-        backgroundColor: '#6b1e3e', // burgundy-900 fallback
-        background: 'linear-gradient(135deg, #6b1e3e 0%, #5a1a34 50%, #6b1e3e 100%)'
-      }}
-    >
+    <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
       <div className="relative flex items-center space-x-4 sm:space-x-8 md:space-x-12">
-        {/* Left line - simplified */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40" />}
+        {/* Left line */}
+        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}
         
-        {/* Text - simplified without complex animations */}
+        {/* Text */}
         <div className="text-center">
           {showWordmark && (
             <h1 
-              className="text-white"
+              className="font-brand font-normal tracking-wide text-white opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
               style={{ 
                 fontSize: wordmarkSizeClasses[wordmarkSize],
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                fontWeight: 'bold',
-                letterSpacing: '0.025em',
-                textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                animationDelay: '900ms', 
+                animationFillMode: 'forwards' 
               }}
             >
               {titleText}
@@ -59,20 +49,16 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
           )}
           {message && (
             <p 
-              className={`text-white ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''}`}
-              style={{ 
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                opacity: '0.9',
-                textShadow: '0 1px 2px rgba(0,0,0,0.3)'
-              }}
+              className={`font-brand text-white/70 ${messageSizeClasses[messageSize]} ${showWordmark ? 'mt-4' : ''} opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100`}
+              style={{ animationDelay: showWordmark ? '1200ms' : '0ms', animationFillMode: 'forwards' }}
             >
               {message}
             </p>
           )}
         </div>
         
-        {/* Right line - simplified */}
-        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40" />}
+        {/* Right line */}
+        {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-right animate-line-right-sequence motion-reduce:hidden" />}
       </div>
     </div>
   );
