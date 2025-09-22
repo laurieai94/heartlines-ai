@@ -35,15 +35,7 @@ import coupleConnection from "@/assets/couple-connection.jpg";
     iconName: string;
     index: number;
   }) => {
-    const [displayStep, setDisplayStep] = useState("00");
-    useEffect(() => {
-      // Count-up animation for step badge
-      const timer = setTimeout(() => {
-        setDisplayStep(step);
-      }, 500 + index * 80); // Stagger the count-up
-
-      return () => clearTimeout(timer);
-    }, [step, index]);
+    const [displayStep, setDisplayStep] = useState(step); // Start with final value to avoid animation delay
     return <article className={`
           relative group cursor-pointer
           w-full max-w-md mx-auto md:max-w-none
@@ -54,7 +46,7 @@ import coupleConnection from "@/assets/couple-connection.jpg";
           ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
           ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
         `} style={{
-      animationDelay: `${index * 80}ms`,
+      animationDelay: '0ms', // Remove staggered delays
       animationFillMode: 'both'
     }} tabIndex={0} role="article" aria-label={title}>
         {/* Premium Glass Card with Enhanced Effects */}
@@ -215,9 +207,6 @@ const LandingPage = ({
   useEffect(() => {
     // Only run animations for full marketing page
     if (!isEmbedded) {
-      const timer = setTimeout(() => {
-        setShowFloatingButton(true);
-      }, 3000);
       const handleMouseMove = (e: MouseEvent) => {
         setMousePosition({
           x: e.clientX,
@@ -225,14 +214,39 @@ const LandingPage = ({
         });
       };
 
-      // Rotate profiles every 2 seconds
-      const profileTimer = setInterval(() => {
-        setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
-      }, 2000);
+      // Defer non-critical timers to after initial paint
+      const deferredSetup = () => {
+        // Show floating button after page is stable
+        const timer = setTimeout(() => {
+          setShowFloatingButton(true);
+        }, 1500); // Reduced from 3000ms
+
+        // Start profile rotation after initial render
+        const profileTimer = setInterval(() => {
+          setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
+        }, 3000); // Increased from 2000ms to reduce visual updates
+
+        return () => {
+          clearTimeout(timer);
+          clearInterval(profileTimer);
+        };
+      };
+
+      // Use idle callback to defer setup
+      let cleanup: (() => void) | undefined;
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          cleanup = deferredSetup();
+        }, { timeout: 1000 });
+      } else {
+        setTimeout(() => {
+          cleanup = deferredSetup();
+        }, 500);
+      }
+
       window.addEventListener('mousemove', handleMouseMove);
       return () => {
-        clearTimeout(timer);
-        clearInterval(profileTimer);
+        cleanup?.();
         window.removeEventListener('mousemove', handleMouseMove);
       };
     }

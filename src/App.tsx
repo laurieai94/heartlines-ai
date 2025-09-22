@@ -33,12 +33,18 @@ const AppContent = () => {
     // Initialize performance monitoring
     performanceMonitor.init();
     
-    // Defer network warmup to after initial render
-    const timer = setTimeout(() => {
-      warmupNetwork();
-    }, 100);
+    // Defer network warmup to after page is stable
+    const deferWarmup = () => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          warmupNetwork();
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(warmupNetwork, 1000);
+      }
+    };
     
-    return () => clearTimeout(timer);
+    deferWarmup();
   }, []);
   
   return (
