@@ -26,7 +26,7 @@ const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
-  // Initialize performance optimizations
+  // Initialize performance optimizations - fixed timer cleanup issue
   useIdlePrefetch();
   
   useEffect(() => {
