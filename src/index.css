@@ -158,7 +158,6 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     -webkit-overflow-scrolling: touch;
-    color-scheme: dark;
     /* Critical performance optimization */
     will-change: auto;
     transform: translateZ(0);
