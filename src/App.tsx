@@ -40,11 +40,7 @@ const AppContent = () => {
     <BrowserRouter>
       <Routes>
         {/* Public landing page - use Index component */}
-        <Route path="/" element={
-          <ErrorBoundary>
-            <Index />
-          </ErrorBoundary>
-        } />
+        <Route path="/" element={<Index />} />
         
         {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
         <Route path="/profile" element={<Dashboard />} />

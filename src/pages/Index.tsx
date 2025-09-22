@@ -3,7 +3,7 @@ import SplashScreen from "@/components/SplashScreen";
 import LandingPage from "@/components/LandingPage";
 
 const Index: React.FC = () => {
-  console.log('[Index] Component mounting...');
+  console.log('[Index] Component mounting in full App context...');
   
   const [showSplash, setShowSplash] = useState(() => {
     // Safe sessionStorage access with fallback
@@ -42,8 +42,30 @@ const Index: React.FC = () => {
     return <SplashScreen titleText="heartlines loading..." />;
   }
 
-  console.log('[Index] Showing landing page');
-  return <LandingPage />;
+  console.log('[Index] Showing landing page in full App...');
+  try {
+    return <LandingPage />;
+  } catch (error) {
+    console.error('[Index] LandingPage render error:', error);
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+        color: 'white',
+        padding: '20px',
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+      }}>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
+          ❌ LandingPage Error
+        </h1>
+        <p>Error: {error.message}</p>
+      </div>
+    );
+  }
 };
 
 export default Index;
