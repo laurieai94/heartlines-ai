@@ -48,7 +48,7 @@ const ChatContainer = ({
   
   // Scroll direction tracking - simplified
   const lastScrollTopRef = useRef(0);
-  const scrollUpTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
 
   // Simple scroll to bottom function
@@ -90,24 +90,20 @@ const ChatContainer = ({
     const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
     const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
     
-    // Update scroll direction state for burgundy carrot with persistence
+    // Clear any existing debounce timer
+    if (scrollDebounceRef.current) {
+      clearTimeout(scrollDebounceRef.current);
+    }
+    
+    // Update scroll direction state for burgundy carrot - active only
     if (isScrollingUpNow) {
-      // Clear any existing timer and show carrot immediately
-      if (scrollUpTimerRef.current) {
-        clearTimeout(scrollUpTimerRef.current);
-      }
       setIsScrollingUp(true);
-      
-      // Set timer to hide carrot after 2.5 seconds of no upward scrolling
-      scrollUpTimerRef.current = setTimeout(() => {
+      // Set a brief debounce to smooth out scroll events
+      scrollDebounceRef.current = setTimeout(() => {
         setIsScrollingUp(false);
-      }, 2500);
+      }, 150);
     } else if (isScrollingDownNow) {
       // Hide carrot immediately on downward scroll
-      if (scrollUpTimerRef.current) {
-        clearTimeout(scrollUpTimerRef.current);
-        scrollUpTimerRef.current = null;
-      }
       setIsScrollingUp(false);
     }
       
@@ -145,8 +141,8 @@ const ChatContainer = ({
   // Cleanup timer on unmount
   useEffect(() => {
     return () => {
-      if (scrollUpTimerRef.current) {
-        clearTimeout(scrollUpTimerRef.current);
+      if (scrollDebounceRef.current) {
+        clearTimeout(scrollDebounceRef.current);
       }
     };
   }, []);
