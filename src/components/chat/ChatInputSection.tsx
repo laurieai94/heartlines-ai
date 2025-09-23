@@ -139,7 +139,7 @@ export const ChatInputSection = ({
       typingDebounceRef.current = setTimeout(() => {
         setIsComposing(false);
         onUserTypingChange(false);
-      }, 800);
+      }, 2500);
     } else {
       setIsComposing(false);
       onUserTypingChange(false);
