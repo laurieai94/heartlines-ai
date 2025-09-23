@@ -93,14 +93,24 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
         </div>
       </div>
 
-      {/* Simple Message Text */}
+      {/* Message Bubble */}
       <div className={`flex flex-col ${
         isMobile 
           ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
           : 'max-w-[80%]'
       } ${isUser ? 'items-end' : 'items-start'}`}>
-        <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light text-white py-1">
-          {cleanedContent}
+        <div
+          className={`
+            transition-all duration-300 group-hover:shadow-xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
+            ${isUser
+              ? 'bg-white/15 md:bg-white/8 backdrop-blur-sm md:backdrop-blur-md text-white rounded-br-md md:rounded-br-lg md:border md:border-coral-400/30 md:shadow-md md:shadow-coral-400/10 md:ring-1 md:ring-coral-400/20'
+              : 'bg-white/20 md:bg-white/12 backdrop-blur-sm md:backdrop-blur-md text-white rounded-bl-md md:rounded-bl-lg md:border md:border-white/25 md:shadow-lg md:shadow-black/15 md:ring-1 md:ring-white/15'
+            }
+          `}
+        >
+          <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light">
+            {cleanedContent}
+          </div>
         </div>
         
         {/* Reminder Button for AI messages with suggestions */}
