@@ -17,6 +17,7 @@ import { logEvent } from "@/utils/analytics";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
+import { useProfileMobileOptimizations } from '@/hooks/useProfileMobileOptimizations';
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -105,6 +106,24 @@ const ProfileBuilder = ({
   // Navigation hook for coaching
   const { goToCoach } = useNavigation();
   
+  // Mobile optimizations
+  const { 
+    isMobile, 
+    isRefreshing, 
+    simulateProfileFeedback, 
+    handleTouchStart, 
+    handleTouchMove, 
+    handleTouchEnd 
+  } = useProfileMobileOptimizations();
+  
+  // Handle pull-to-refresh
+  const handleRefresh = async () => {
+    // Refresh profile data
+    if (onProfileUpdate) {
+      onProfileUpdate(temporaryProfiles, temporaryDemographics);
+    }
+  };
+  
   const handleStartPersonalProfile = () => {
     logEvent('onboarding_step_nudge_clicked', { 
       completion: yourProfileCompletion,
@@ -181,7 +200,36 @@ const ProfileBuilder = ({
     setShowPartnerCompletionOptions(false);
     // This would need to be handled by the parent component
   };
-  return <div className="flex flex-col">
+  // Add touch event listeners for pull-to-refresh
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleStart = (e: TouchEvent) => handleTouchStart(e);
+    const handleMove = (e: TouchEvent) => handleTouchMove(e);
+    const handleEnd = (e: TouchEvent) => handleTouchEnd(e, handleRefresh);
+    
+    document.addEventListener('touchstart', handleStart, { passive: true });
+    document.addEventListener('touchmove', handleMove, { passive: true });
+    document.addEventListener('touchend', handleEnd, { passive: true });
+    
+    return () => {
+      document.removeEventListener('touchstart', handleStart);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
+    };
+  }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd, handleRefresh]);
+
+  return <div className="flex flex-col" data-profile-container>
+      {/* Pull-to-refresh indicator */}
+      {isMobile && (
+        <div 
+          data-refresh-indicator
+          className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm opacity-0 transition-all duration-200 z-50 border border-white/20"
+        >
+          {isRefreshing ? 'Refreshing...' : 'Pull to refresh'}
+        </div>
+      )}
+      
       <div className="space-y-4 pb-6">
         {/* Main Header - Compact */}
         <div className="text-center space-y-4 flex-shrink-0">
@@ -216,7 +264,7 @@ const ProfileBuilder = ({
           />
         )}
         {/* Compact Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
