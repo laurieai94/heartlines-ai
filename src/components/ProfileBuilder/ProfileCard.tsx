@@ -49,11 +49,9 @@ const ProfileCard = ({
               {title}
               {optionalPillImage && optionalPillImage}
             </h3>
-            {subheader && (
-              <p className="text-sm text-white/70 font-medium mt-1">
-                {subheader}
-              </p>
-            )}
+            <p className="text-sm text-white/70 font-medium mt-1">
+              The more real you are, the more real Kai gets
+            </p>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1">
                 <Progress value={completion} className="h-2 bg-black/40" />
