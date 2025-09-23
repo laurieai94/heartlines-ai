@@ -161,6 +161,46 @@
           -webkit-overflow-scrolling: touch;
           /* Mobile-specific color consistency fixes */
           color-scheme: dark;
+          /* iOS Safari keyboard handling */
+          height: -webkit-fill-available;
+  }
+
+  /* iOS Safari specific fixes to prevent address bar */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      height: -webkit-fill-available;
+    }
+    
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow: hidden;
+    }
+    
+    #root {
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Mobile keyboard interaction improvements */
+  @media (max-width: 768px) {
+    /* Prevent viewport jumping on iOS Safari */
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    #root {
+      height: 100%;
+      overflow: auto;
+    }
   }
 
   .font-sans {
