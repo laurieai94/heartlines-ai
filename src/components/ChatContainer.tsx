@@ -45,6 +45,7 @@ const ChatContainer = ({
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
+  const prevUserTypingRef = useRef(userTyping);
   
   // Enhanced scroll tracking for carrot behavior
   const lastScrollTopRef = useRef(0);
@@ -167,6 +168,25 @@ const ChatContainer = ({
       setIsScrollingUp(false);
     }
   }, [isKeyboardVisible]);
+
+  // Auto-scroll when user starts typing
+  useEffect(() => {
+    const wasTyping = prevUserTypingRef.current;
+    const isNowTyping = userTyping;
+    
+    // Only scroll when user starts typing (transition from false to true)
+    if (!wasTyping && isNowTyping) {
+      // Use requestAnimationFrame to ensure typing indicator is rendered
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          scrollToBottom('smooth');
+        }, 50); // Small delay to ensure DOM is updated
+      });
+    }
+    
+    // Update the ref for next comparison
+    prevUserTypingRef.current = userTyping;
+  }, [userTyping, scrollToBottom]);
 
   // Cleanup debounce timer on unmount
   useEffect(() => {
