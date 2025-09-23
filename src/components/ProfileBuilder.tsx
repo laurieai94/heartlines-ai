@@ -224,7 +224,7 @@ const ProfileBuilder = ({
             completion={yourProfileCompletion} 
             description="Just 4 required questions" 
             benefits={[
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "Just 4 Qs to start" },
+              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "4 Qs, 5 mins, real insights" },
               { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Go deeper if you wanna" },
               { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done in ~5 min" }
             ]}
