@@ -1,6 +1,7 @@
 import { useState, Suspense, lazy, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import { Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare } from "lucide-react";
+import { Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare, ChevronDown } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -312,20 +313,30 @@ const ProfileBuilder = ({
         </div>
 
 
-        {/* Privacy Banner - Cool Strip */}
+        {/* Privacy Banner - Clean Collapsible */}
         <div className="max-w-4xl mx-auto sticky top-4 z-20">
-          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm px-4 py-3 shadow-lg shadow-white/5">
-            <div className="flex items-center gap-3 text-sm text-white/90">
-              <div className="relative">
-                <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm"></div>
-                <div className="relative bg-white/10 p-1.5 rounded-full ring-1 ring-white/25">
-                  <Search className="w-3.5 h-3.5 text-white/80" />
+          <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
+            <Collapsible>
+              <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm"></div>
+                    <div className="relative bg-white/10 p-1.5 rounded-full ring-1 ring-white/25">
+                      <Search className="w-3.5 h-3.5 text-white/80" />
+                    </div>
+                  </div>
+                  <span className="font-medium text-white">Private by design</span>
                 </div>
-              </div>
-              <p className="text-white/90">
-                <span className="font-medium text-white">Private by design — only you (and Kai) see your profiles. Everything's encrypted, private, and in your hands.</span>
-              </p>
-            </div>
+                <ChevronDown className="w-4 h-4 text-white/60 transition-transform duration-200" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="px-4 pb-3 pt-1">
+                <div className="pl-10 space-y-1 text-sm text-white/80">
+                  <p>• Only you and Kai see your profiles</p>
+                  <p>• Everything is encrypted and secure</p>  
+                  <p>• You control your data completely</p>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
 
