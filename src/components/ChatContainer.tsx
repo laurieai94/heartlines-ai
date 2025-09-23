@@ -237,21 +237,22 @@ const ChatContainer = ({
             {loading && (
               <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
                 <div className="relative flex-shrink-0">
-                  <Avatar className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-purple-500 to-pink-500 md:border-2 md:border-white shadow-lg">
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-medium">
-                      <Heart className="w-4 h-4" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                      <Heart className="w-4 h-4 md:w-6 md:h-6" />
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="text-white">
-                  <div className="flex items-center space-x-1">
-                    <span className="text-sm md:text-sm font-light">Kai is thinking</span>
-                    <div className="flex space-x-1 ml-2">
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                      <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
-                    </div>
+                <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+                  <div className="flex gap-1 md:gap-1.5">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.1s'
+                    }}></div>
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                      animationDelay: '0.2s'
+                    }}></div>
                   </div>
                 </div>
               </div>
