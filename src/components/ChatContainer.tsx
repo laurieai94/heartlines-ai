@@ -46,10 +46,17 @@ const ChatContainer = ({
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   
-  // Scroll direction tracking - simplified
+  // Enhanced scroll tracking for carrot behavior
   const lastScrollTopRef = useRef(0);
   const scrollDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
+  const keyboardOpenedTimeRef = useRef<number | null>(null);
+  const cumulativeScrollDistanceRef = useRef(0);
+  const lastUserScrollTimeRef = useRef(0);
+  
+  // Constants for carrot behavior
+  const MIN_SCROLL_DISTANCE = 50; // px
+  const KEYBOARD_DELAY = 800; // ms delay after keyboard opens
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -62,50 +69,62 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Immediate scroll handler - show header on any upward scroll
+  // Enhanced scroll handler with carrot delay logic
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
     const currentScrollTop = viewport.scrollTop;
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
-    
-    // Debug logging
-    console.log('📱 Scroll event:', { 
-      currentScrollTop, 
-      lastScrollTop: lastScrollTopRef.current, 
-      scrollDelta: currentScrollTop - lastScrollTopRef.current,
-      isMobile, 
-      isKeyboardVisible 
-    });
+    const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+    const now = Date.now();
     
     // Desktop scroll-to-bottom button
     if (!isMobile) {
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-  // Mobile header visibility and scroll direction tracking
-  if (isMobile) {
-    const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-    const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
-    const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
-    
-    // Clear any existing debounce timer
-    if (scrollDebounceRef.current) {
-      clearTimeout(scrollDebounceRef.current);
-    }
-    
-    // Update scroll direction state for burgundy carrot - immediate response
-    if (isScrollingUpNow) {
-      setIsScrollingUp(true);
-    } else if (isScrollingDownNow) {
-      // Hide carrot immediately on downward scroll
-      setIsScrollingUp(false);
-    }
+    // Mobile header visibility and enhanced carrot logic
+    if (isMobile) {
+      const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
+      const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
+      
+      // Clear any existing debounce timer
+      if (scrollDebounceRef.current) {
+        clearTimeout(scrollDebounceRef.current);
+      }
+      
+      // Track user-initiated scroll (ignore tiny automatic adjustments)
+      if (Math.abs(scrollDelta) > 3) {
+        lastUserScrollTimeRef.current = now;
+        
+        // Accumulate scroll distance for upward scrolls only
+        if (isScrollingUpNow) {
+          cumulativeScrollDistanceRef.current += Math.abs(scrollDelta);
+        } else if (isScrollingDownNow) {
+          // Reset cumulative distance on downward scroll
+          cumulativeScrollDistanceRef.current = 0;
+          setIsScrollingUp(false);
+        }
+      }
+      
+      // Enhanced carrot logic - only show if conditions are met
+      if (isKeyboardVisible && isScrollingUpNow) {
+        const keyboardDelay = keyboardOpenedTimeRef.current ? now - keyboardOpenedTimeRef.current : 0;
+        const hasMinimumDelay = keyboardDelay > KEYBOARD_DELAY;
+        const hasMinimumScrollDistance = cumulativeScrollDistanceRef.current >= MIN_SCROLL_DISTANCE;
+        
+        // Only show carrot if both delay and scroll distance requirements are met
+        if (hasMinimumDelay && hasMinimumScrollDistance) {
+          setIsScrollingUp(true);
+        }
+      } else if (isScrollingDownNow) {
+        // Always hide carrot immediately on downward scroll
+        setIsScrollingUp(false);
+      }
       
       // Show header immediately on ANY upward scroll (especially when keyboard is active)
-      if (scrollDelta < -1) { // More sensitive threshold
-        console.log('🔝 Showing header - upward scroll detected', { scrollDelta });
+      if (scrollDelta < -1) {
         setHeaderVisible(true);
       }
       
@@ -133,6 +152,21 @@ const ChatContainer = ({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
+
+  // Track keyboard visibility changes for carrot timing
+  useEffect(() => {
+    if (isKeyboardVisible && !keyboardOpenedTimeRef.current) {
+      // Keyboard just opened - record the time and reset scroll tracking
+      keyboardOpenedTimeRef.current = Date.now();
+      cumulativeScrollDistanceRef.current = 0;
+      setIsScrollingUp(false);
+    } else if (!isKeyboardVisible) {
+      // Keyboard closed - reset all tracking
+      keyboardOpenedTimeRef.current = null;
+      cumulativeScrollDistanceRef.current = 0;
+      setIsScrollingUp(false);
+    }
+  }, [isKeyboardVisible]);
 
   // Cleanup debounce timer on unmount
   useEffect(() => {
