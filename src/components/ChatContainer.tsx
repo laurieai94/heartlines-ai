@@ -138,7 +138,7 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Cleanup timer on unmount
+  // Cleanup debounce timer on unmount
   useEffect(() => {
     return () => {
       if (scrollDebounceRef.current) {
