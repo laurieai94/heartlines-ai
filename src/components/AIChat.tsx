@@ -56,6 +56,7 @@ const AIChat = ({
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const [userTyping, setUserTyping] = useState(false);
+  const [lastSentMessage, setLastSentMessage] = useState<string | null>(null);
   const { profile } = useUserProfile();
   const { canInteract } = useProgressiveAccess();
 
@@ -81,9 +82,20 @@ const AIChat = ({
   // Handle new conversation
   const handleNewConversation = () => {
     setChatHistory([]);
+    setLastSentMessage(null);
     if (onNewConversation) {
       onNewConversation();
     }
+  };
+
+  // Handle user typing changes  
+  const handleUserTypingChange = (typing: boolean) => {
+    setUserTyping(typing);
+  };
+
+  // Handle last sent message changes
+  const handleLastSentMessageChange = (message: string | null) => {
+    setLastSentMessage(message);
   };
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
@@ -122,11 +134,12 @@ useChatEffects({
         loading={loading}
         userName={userName}
         isConfigured={isConfigured}
-        conversationStarter={conversationStarter}
+        showStarters={!!conversationStarter}
         isHistoryLoaded={isHistoryLoaded}
-        userTyping={userTyping}
+        showTyping={userTyping}
         onNewConversation={handleNewConversation}
         onOpenSidebar={onOpenSidebar}
+        lastSentMessage={lastSentMessage}
       />
 
       <ChatInputSection
@@ -140,7 +153,8 @@ useChatEffects({
         isHistoryLoaded={isHistoryLoaded}
         showStarters={showStarters}
         onCloseStarters={onCloseStarters}
-        onUserTypingChange={setUserTyping}
+        onUserTypingChange={handleUserTypingChange}
+        onLastSentMessageChange={handleLastSentMessageChange}
       />
     </ChatLayout>
   );
