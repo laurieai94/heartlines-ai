@@ -1,25 +1,13 @@
-import { useCallback, useEffect, useRef, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
-import { throttle } from '@/utils/throttle';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { usePullToReveal } from '@/hooks/usePullToReveal';
-import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
-
-// Create a debounced function for better performance
-const debounce = (func: Function, wait: number) => {
-  let timeout: NodeJS.Timeout;
-  return (...args: any[]) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-};
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -46,129 +34,49 @@ const ChatContainer = ({
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
   
-  // Mobile optimizations
-  const { simulateHapticFeedback } = useMobileOptimizations();
-  
-  // Pull-to-reveal functionality with enhanced mobile support
-  const { handleScroll: handlePullToRevealScroll, setScrollElement } = usePullToReveal({
-    enabled: isMobile,
-    threshold: 30,
-    velocityThreshold: 0.3
-  });
-
-  // References for scroll management
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  // Simple references for scroll management
   const viewportRef = useRef<HTMLDivElement>(null);
-  const [isNearBottom, setIsNearBottom] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
-  const prevLoadingRef = useRef(loading);
-  const lastScrollTopRef = useRef(0);
-  const userIntentLockRef = useRef(false);
-  const scrollDirection = useRef<'up' | 'down' | null>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
+  // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    const targetScrollTop = viewport.scrollHeight - viewport.clientHeight;
-    
-    if (behavior === 'smooth') {
-      viewport.scrollTo({
-        top: targetScrollTop,
-        behavior: 'smooth'
-      });
-    } else {
-      viewport.scrollTop = targetScrollTop;
-    }
-    
-    // Provide haptic feedback on mobile for scroll actions
-    if (isMobile && behavior === 'smooth') {
-      simulateHapticFeedback(viewport, 'light');
-    }
-    
-    // Unlock user intent when manually scrolling to bottom
-    userIntentLockRef.current = false;
-  }, [isMobile, simulateHapticFeedback]);
+    viewport.scrollTo({
+      top: viewport.scrollHeight,
+      behavior
+    });
+  }, []);
 
-  // Simplified scroll handler to prevent conflicts and flickering
-  const handleScroll = useMemo(() => {
-    return throttle(() => {
-      if (!viewportRef.current) return;
-      
-      const viewport = viewportRef.current;
-      const scrollTop = viewport.scrollTop;
-      const scrollHeight = viewport.scrollHeight;
-      const clientHeight = viewport.clientHeight;
-      const scrollFromBottom = scrollHeight - scrollTop - clientHeight;
-      
-      const nearBottom = scrollFromBottom <= 100;
-      setIsNearBottom(nearBottom);
-      
-      // Show scroll button only on desktop to reduce mobile complexity
-      if (!isMobile) {
-        setShowScrollToBottom(!nearBottom);
-      }
-      
-      // Simplified mobile pull-to-reveal
-      if (isMobile) {
-        const scrollDirection = scrollTop > lastScrollTopRef.current ? 'down' : 'up';
-        handlePullToRevealScroll(scrollTop, scrollDirection);
-      }
-      
-      lastScrollTopRef.current = scrollTop;
-      
-      // Simplified user intent - only track significant scroll away from bottom
-      userIntentLockRef.current = scrollFromBottom > 200;
-    }, 50); // Consistent throttling for better performance
-  }, [isMobile, handlePullToRevealScroll]);
+  // Simple scroll handler for desktop scroll-to-bottom button
+  const handleScroll = useCallback(() => {
+    if (!viewportRef.current || isMobile) return;
+    
+    const viewport = viewportRef.current;
+    const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
+    setShowScrollToBottom(scrollFromBottom > 100);
+  }, [isMobile]);
 
-  // Simplified auto-scroll effect to prevent flickering
+  // Auto-scroll to bottom on new messages
   useEffect(() => {
-    if (!viewportRef.current) return;
-    
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
-    const shouldAutoScroll = (
-      chatHistory.length <= 1 || // Initial state
-      (!loading && hasNewMessage && !userIntentLockRef.current) // New message and user hasn't scrolled away
-    );
     
-    if (shouldAutoScroll) {
-      // Use requestAnimationFrame for smoother scrolling
+    if (hasNewMessage || chatHistory.length <= 1) {
+      // Always scroll to bottom on new messages
       requestAnimationFrame(() => {
         scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
       });
     }
     
     prevChatLengthRef.current = chatHistory.length;
-  }, [chatHistory, loading, scrollToBottom]);
-
-  // Optimized resize handling with debounced updates
-  useEffect(() => {
-    if (!contentRef.current || !viewportRef.current) return;
-
-    // Set scroll element for pull-to-reveal
-    setScrollElement(viewportRef.current);
-
-    // Debounced resize handler for better performance
-    const debouncedResizeHandler = debounce(() => {
-      if (!userIntentLockRef.current && (isNearBottom || isMobile)) {
-        setTimeout(() => scrollToBottom('smooth'), isMobile ? 5 : 10);
-      }
-    }, isMobile ? 50 : 100);
-
-    const resizeObserver = new ResizeObserver(debouncedResizeHandler);
-    resizeObserver.observe(contentRef.current);
-    
-    return () => resizeObserver.disconnect();
-  }, [isNearBottom, scrollToBottom, setScrollElement, isMobile]);
+  }, [chatHistory.length, scrollToBottom]);
 
   // Initial scroll when history loads
   useEffect(() => {
     if (isHistoryLoaded) {
       scrollToBottom('auto');
-      setTimeout(() => scrollToBottom('auto'), 100);
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
@@ -176,20 +84,11 @@ const ChatContainer = ({
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
       <ScrollArea 
         viewportRef={viewportRef}
-        className={`h-full ${
-          isMobile 
-            ? 'touch-pan-y overscroll-contain scroll-smooth-mobile' 
-            : 'overscroll-contain'
-        }`}
+        className="h-full"
         style={isMobile ? { 
-          // Enhanced mobile scrolling performance
           WebkitOverflowScrolling: 'touch' as any,
           touchAction: 'pan-y',
           overscrollBehavior: 'contain',
-          scrollBehavior: 'smooth',
-          willChange: 'scroll-position',
-          backfaceVisibility: 'hidden',
-          transform: 'translateZ(0)', // Force hardware acceleration
         } : undefined}
         onScroll={handleScroll}
         role="log"
@@ -204,7 +103,7 @@ const ChatContainer = ({
             paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
         >
-          <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
+          <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
             
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {
@@ -283,7 +182,7 @@ const ChatContainer = ({
               </div>
             )}
             
-            <div ref={messagesEndRef} className="h-1" />
+            <div className="h-1" />
           </div>
         </div>
       </ScrollArea>
