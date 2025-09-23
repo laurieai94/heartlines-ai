@@ -44,9 +44,9 @@ const ChatContainer = ({
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   
-  // Scroll direction tracking
+  // Scroll direction tracking - simplified
   const lastScrollTopRef = useRef(0);
-  const scrollThresholdRef = useRef(0);
+  const touchStartYRef = useRef(0);
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -59,7 +59,7 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Enhanced scroll handler with keyboard-aware direction detection
+  // Immediate scroll handler - show header on any upward scroll
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
@@ -72,28 +72,18 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile header visibility on upward scroll - more sensitive when keyboard is visible
+    // Mobile header visibility - immediate response to upward scroll
     if (isMobile) {
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
       
-      // Dynamic threshold based on keyboard state
-      const threshold = isKeyboardVisible ? 10 : 30; // Much lower threshold when keyboard is active
-      
-      // If scrolling up, show header
+      // Show header immediately on ANY upward scroll (especially when keyboard is active)
       if (scrollDelta < 0) {
-        scrollThresholdRef.current += Math.abs(scrollDelta);
-        if (scrollThresholdRef.current > threshold) {
-          setHeaderVisible(true);
-          scrollThresholdRef.current = 0;
-        }
-      } else {
-        // Reset threshold when scrolling down
-        scrollThresholdRef.current = 0;
+        setHeaderVisible(true);
       }
       
       lastScrollTopRef.current = currentScrollTop;
     }
-  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
+  }, [isMobile, setHeaderVisible]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -116,32 +106,35 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Handle touch events for better keyboard interaction
+  // Enhanced touch detection for immediate header reveal
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (!isMobile || !isKeyboardVisible) return;
+    if (!isMobile) return;
     
     const touch = e.touches[0];
-    if (touch && touch.clientY < 100) {
-      // If touching near top of screen with keyboard visible, immediately show header
-      setHeaderVisible(true);
-    }
-  }, [isMobile, isKeyboardVisible, setHeaderVisible]);
-
-  // Direct touch move detection for enhanced mobile responsiveness
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isMobile || !isKeyboardVisible) return;
-    
-    const touch = e.touches[0];
-    const startY = e.currentTarget.getAttribute('data-start-y');
-    
-    if (startY && touch) {
-      const deltaY = touch.clientY - parseInt(startY);
-      // If user is swiping down from near the top, show header immediately
-      if (deltaY > 20 && touch.clientY < 150) {
+    if (touch) {
+      touchStartYRef.current = touch.clientY;
+      
+      // If touching near top of screen, immediately show header
+      if (touch.clientY < 100) {
         setHeaderVisible(true);
       }
     }
-  }, [isMobile, isKeyboardVisible, setHeaderVisible]);
+  }, [isMobile, setHeaderVisible]);
+
+  // Immediate upward swipe detection
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isMobile) return;
+    
+    const touch = e.touches[0];
+    if (touch && touchStartYRef.current > 0) {
+      const deltaY = touch.clientY - touchStartYRef.current;
+      
+      // Show header immediately on upward swipe of any significant amount
+      if (deltaY > 15) {
+        setHeaderVisible(true);
+      }
+    }
+  }, [isMobile, setHeaderVisible]);
 
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
