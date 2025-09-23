@@ -264,7 +264,7 @@ const ProfileBuilder = ({
           />
         )}
         {/* Compact Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-2 md:gap-4 max-w-none mx-2 md:max-w-4xl md:mx-auto" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
