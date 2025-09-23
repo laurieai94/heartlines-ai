@@ -15,6 +15,16 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
   const isMobile = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
 
+  // DEBUG: Log all state variables
+  console.log('🥕 Burgundy Carrot Debug:', {
+    isMobile,
+    isKeyboardVisible,
+    isScrollingUp,
+    headerVisible: visible,
+    isAnimating,
+    timestamp: Date.now()
+  });
+
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
     element.style.transform = 'scale(0.92)';
@@ -23,8 +33,10 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     }, 120);
   }, []);
 
-  // Show only when: mobile + keyboard visible + scrolling up + header not visible
-  const shouldShow = isMobile && isKeyboardVisible && isScrollingUp && !visible && !isAnimating;
+  // SIMPLIFIED CONDITIONS FOR DEBUGGING - Show on mobile when scrolling up OR keyboard visible
+  const shouldShow = isMobile && (isScrollingUp || isKeyboardVisible || true); // Force show for now
+  
+  console.log('🥕 Should show carrot:', shouldShow);
   
   if (!shouldShow) {
     return null;
@@ -53,11 +65,11 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
 
   return (
     <div 
-      className={`fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[70] 
-                  bg-burgundy-600 backdrop-blur-md rounded-full p-3 shadow-2xl cursor-pointer 
-                  transition-all duration-300 border-2 border-burgundy-500/60
-                  ${isAnimating ? 'animate-[slide-up_0.6s_ease-out_forwards]' : 'animate-pulse hover:animate-none'}
-                  active:bg-burgundy-700`}
+      className={`fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[999] 
+                  bg-red-600 backdrop-blur-md rounded-full p-4 shadow-2xl cursor-pointer 
+                  transition-all duration-300 border-4 border-white
+                  ${isAnimating ? 'translate-y-[-200px]' : 'animate-pulse hover:animate-none'}
+                  active:bg-red-700 hover:scale-110`}
       onTouchStart={handleTap}
       onClick={handleTap}
       style={{
@@ -65,18 +77,20 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
         WebkitTouchCallout: 'none',
         WebkitUserSelect: 'none',
         userSelect: 'none',
-        minWidth: '48px',
-        minHeight: '48px'
+        minWidth: '56px',
+        minHeight: '56px'
       }}
     >
-      <ChevronUp className="w-6 h-6 text-white drop-shadow-lg" />
+      <ChevronUp className="w-8 h-8 text-white drop-shadow-lg" />
       <div className="sr-only">Tap to show navigation</div>
       
-      {/* Subtle glow effect */}
-      <div className="absolute inset-0 bg-burgundy-500/30 rounded-full blur-lg -z-10 animate-pulse"></div>
+      {/* Debug text */}
+      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-white bg-black px-2 py-1 rounded">
+        DEBUG CARROT
+      </div>
       
-      {/* Animated ring indicator */}
-      <div className="absolute inset-0 rounded-full border-2 border-burgundy-400/40 animate-ping"></div>
+      {/* Subtle glow effect */}
+      <div className="absolute inset-0 bg-red-500/50 rounded-full blur-lg -z-10 animate-pulse"></div>
     </div>
   );
 };
