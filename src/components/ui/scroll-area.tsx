@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> {
   onScroll?: React.UIEventHandler<HTMLDivElement>;
   viewportRef?: React.RefObject<HTMLDivElement>;
+  onTouchStart?: (e: React.TouchEvent) => void;
   role?: string;
   'aria-live'?: 'polite' | 'assertive' | 'off';
   'aria-label'?: string;
@@ -14,7 +15,7 @@ interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAr
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, onScroll, viewportRef, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => {
+>(({ className, children, onScroll, viewportRef, onTouchStart, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => {
   return (
   <ScrollAreaPrimitive.Root
     ref={ref}
@@ -25,6 +26,7 @@ const ScrollArea = React.forwardRef<
       ref={viewportRef}
       className={cn("h-full w-full rounded-[inherit] scrollbar-sleek", className)}
       onScroll={onScroll}
+      onTouchStart={onTouchStart}
       role={role}
       aria-live={ariaLive}
       aria-label={ariaLabel}

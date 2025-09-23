@@ -9,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
+import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
+import NavigationPullTab from './NavigationPullTab';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -35,6 +37,7 @@ const ChatContainer = ({
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
   const { setVisible: setHeaderVisible } = useMobileHeaderVisibility();
+  const isKeyboardVisible = useKeyboardDetection();
   
   // Simple references for scroll management
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -56,7 +59,7 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Enhanced scroll handler with direction detection
+  // Enhanced scroll handler with keyboard-aware direction detection
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
@@ -69,14 +72,17 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile header visibility on upward scroll
+    // Mobile header visibility on upward scroll - more sensitive when keyboard is visible
     if (isMobile) {
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
       
-      // If scrolling up by more than 30px, show header
+      // Dynamic threshold based on keyboard state
+      const threshold = isKeyboardVisible ? 10 : 30; // Much lower threshold when keyboard is active
+      
+      // If scrolling up, show header
       if (scrollDelta < 0) {
         scrollThresholdRef.current += Math.abs(scrollDelta);
-        if (scrollThresholdRef.current > 30) {
+        if (scrollThresholdRef.current > threshold) {
           setHeaderVisible(true);
           scrollThresholdRef.current = 0;
         }
@@ -87,7 +93,7 @@ const ChatContainer = ({
       
       lastScrollTopRef.current = currentScrollTop;
     }
-  }, [isMobile, setHeaderVisible]);
+  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -110,8 +116,22 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
+  // Handle touch events for better keyboard interaction
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !isKeyboardVisible) return;
+    
+    const touch = e.touches[0];
+    if (touch && touch.clientY < 100) {
+      // If touching near top of screen with keyboard visible, immediately show header
+      setHeaderVisible(true);
+    }
+  }, [isMobile, isKeyboardVisible, setHeaderVisible]);
+
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
+      {/* Pull tab for navigation access when keyboard is active */}
+      <NavigationPullTab onOpenNavigation={onOpenSidebar} />
+      
       <ScrollArea 
         viewportRef={viewportRef}
         className="h-full"
@@ -121,6 +141,7 @@ const ChatContainer = ({
           overscrollBehavior: 'contain',
         } : undefined}
         onScroll={handleScroll}
+        onTouchStart={handleTouchStart}
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"
