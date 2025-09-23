@@ -19,15 +19,22 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    console.log('📱 Pull tab touched - showing header');
     setVisible(true);
     onOpenNavigation?.();
   };
 
   return (
     <div 
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary/90 backdrop-blur-md rounded-b-2xl px-8 py-3 shadow-2xl cursor-pointer active:bg-primary transition-all duration-200 border-b-2 border-primary-foreground/30 animate-pulse"
+      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary backdrop-blur-md rounded-b-3xl px-10 py-4 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-200 border-b-4 border-primary-foreground/40 animate-bounce"
       onTouchStart={handleTouchStart}
-      onClick={() => setVisible(true)}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('📱 Pull tab clicked - showing header');
+        setVisible(true);
+      }}
       style={{
         touchAction: 'manipulation',
         WebkitTouchCallout: 'none',
@@ -35,9 +42,9 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
         userSelect: 'none'
       }}
     >
-      <Menu className="w-6 h-6 text-primary-foreground drop-shadow-sm" />
+      <Menu className="w-7 h-7 text-primary-foreground drop-shadow-lg" />
       <div className="sr-only">Tap to show navigation</div>
-      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary/90"></div>
+      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-primary"></div>
     </div>
   );
 };

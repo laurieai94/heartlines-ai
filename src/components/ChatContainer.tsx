@@ -67,6 +67,15 @@ const ChatContainer = ({
     const currentScrollTop = viewport.scrollTop;
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
     
+    // Debug logging
+    console.log('📱 Scroll event:', { 
+      currentScrollTop, 
+      lastScrollTop: lastScrollTopRef.current, 
+      scrollDelta: currentScrollTop - lastScrollTopRef.current,
+      isMobile, 
+      isKeyboardVisible 
+    });
+    
     // Desktop scroll-to-bottom button
     if (!isMobile) {
       setShowScrollToBottom(scrollFromBottom > 100);
@@ -77,13 +86,14 @@ const ChatContainer = ({
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
       
       // Show header immediately on ANY upward scroll (especially when keyboard is active)
-      if (scrollDelta < 0) {
+      if (scrollDelta < -1) { // More sensitive threshold
+        console.log('🔝 Showing header - upward scroll detected', { scrollDelta });
         setHeaderVisible(true);
       }
       
       lastScrollTopRef.current = currentScrollTop;
     }
-  }, [isMobile, setHeaderVisible]);
+  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -114,12 +124,19 @@ const ChatContainer = ({
     if (touch) {
       touchStartYRef.current = touch.clientY;
       
-      // If touching near top of screen, immediately show header
-      if (touch.clientY < 100) {
+      console.log('👆 Touch start:', { 
+        touchY: touch.clientY, 
+        isKeyboardVisible,
+        screenHeight: window.innerHeight 
+      });
+      
+      // If touching near top of screen, immediately show header  
+      if (touch.clientY < 150) {
+        console.log('🔝 Showing header - top touch detected');
         setHeaderVisible(true);
       }
     }
-  }, [isMobile, setHeaderVisible]);
+  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
 
   // Immediate upward swipe detection
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
@@ -129,9 +146,18 @@ const ChatContainer = ({
     if (touch && touchStartYRef.current > 0) {
       const deltaY = touch.clientY - touchStartYRef.current;
       
-      // Show header immediately on upward swipe of any significant amount
-      if (deltaY > 15) {
+      console.log('👆 Touch move:', { 
+        deltaY, 
+        currentY: touch.clientY, 
+        startY: touchStartYRef.current 
+      });
+      
+      // Show header immediately on downward swipe (pulling down) - more sensitive
+      if (deltaY > 20) {
+        console.log('🔝 Showing header - downward swipe detected');
         setHeaderVisible(true);
+        // Prevent further processing to avoid bounce
+        touchStartYRef.current = 0;
       }
     }
   }, [isMobile, setHeaderVisible]);
