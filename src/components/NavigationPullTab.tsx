@@ -12,8 +12,8 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   const isKeyboardVisible = useKeyboardDetection();
   const isMobile = useIsMobile();
 
-  // Only show pull tab on mobile when header is hidden and keyboard is visible
-  if (!isMobile || visible || !isKeyboardVisible) {
+  // Show pull tab on mobile when keyboard is visible (regardless of header visibility)
+  if (!isMobile || !isKeyboardVisible) {
     return null;
   }
 
@@ -25,7 +25,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
 
   return (
     <div 
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-white/20 backdrop-blur-sm rounded-b-lg px-4 py-1 shadow-lg cursor-pointer active:bg-white/30 transition-all duration-200"
+      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary/80 backdrop-blur-sm rounded-b-xl px-6 py-2 shadow-lg cursor-pointer active:bg-primary/90 transition-all duration-200 border-b border-primary-foreground/20"
       onTouchStart={handleTouchStart}
       onClick={() => setVisible(true)}
       style={{
@@ -35,8 +35,9 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
         userSelect: 'none'
       }}
     >
-      <Menu className="w-4 h-4 text-white" />
-      <div className="sr-only">Pull to show navigation</div>
+      <Menu className="w-5 h-5 text-primary-foreground" />
+      <div className="sr-only">Tap to show navigation</div>
+      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-primary/80"></div>
     </div>
   );
 };

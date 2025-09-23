@@ -127,6 +127,22 @@ const ChatContainer = ({
     }
   }, [isMobile, isKeyboardVisible, setHeaderVisible]);
 
+  // Direct touch move detection for enhanced mobile responsiveness
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isMobile || !isKeyboardVisible) return;
+    
+    const touch = e.touches[0];
+    const startY = e.currentTarget.getAttribute('data-start-y');
+    
+    if (startY && touch) {
+      const deltaY = touch.clientY - parseInt(startY);
+      // If user is swiping down from near the top, show header immediately
+      if (deltaY > 20 && touch.clientY < 150) {
+        setHeaderVisible(true);
+      }
+    }
+  }, [isMobile, isKeyboardVisible, setHeaderVisible]);
+
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
       {/* Pull tab for navigation access when keyboard is active */}
@@ -137,11 +153,11 @@ const ChatContainer = ({
         className="h-full"
         style={isMobile ? { 
           WebkitOverflowScrolling: 'touch' as any,
-          touchAction: 'pan-y',
           overscrollBehavior: 'contain',
         } : undefined}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"

@@ -1,10 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export const useKeyboardDetection = () => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [initialViewportHeight, setInitialViewportHeight] = useState<number>(0);
   const isMobile = useIsMobile();
+
+  // Immediate keyboard detection via input focus
+  const handleFocusIn = useCallback((e: FocusEvent) => {
+    const target = e.target as HTMLElement;
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+      setIsKeyboardVisible(true);
+    }
+  }, []);
+
+  const handleFocusOut = useCallback(() => {
+    // Delay to prevent flicker when switching between inputs
+    setTimeout(() => {
+      const activeElement = document.activeElement as HTMLElement;
+      if (!activeElement || (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA')) {
+        setIsKeyboardVisible(false);
+      }
+    }, 100);
+  }, []);
 
   useEffect(() => {
     if (!isMobile) {
@@ -14,6 +32,10 @@ export const useKeyboardDetection = () => {
 
     // Store initial viewport height
     setInitialViewportHeight(window.visualViewport?.height || window.innerHeight);
+
+    // Add focus event listeners for immediate detection
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('focusout', handleFocusOut);
 
     const handleViewportChange = () => {
       if (!window.visualViewport) {
@@ -31,16 +53,20 @@ export const useKeyboardDetection = () => {
     // Use visualViewport API if available, otherwise use resize
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', handleViewportChange);
-      return () => {
-        window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      };
     } else {
       window.addEventListener('resize', handleViewportChange);
-      return () => {
-        window.removeEventListener('resize', handleViewportChange);
-      };
     }
-  }, [isMobile, initialViewportHeight]);
+
+    return () => {
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('focusout', handleFocusOut);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleViewportChange);
+      } else {
+        window.removeEventListener('resize', handleViewportChange);
+      }
+    };
+  }, [isMobile, initialViewportHeight, handleFocusIn, handleFocusOut]);
 
   return isKeyboardVisible;
 };

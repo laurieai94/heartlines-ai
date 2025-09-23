@@ -7,6 +7,7 @@ interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAr
   onScroll?: React.UIEventHandler<HTMLDivElement>;
   viewportRef?: React.RefObject<HTMLDivElement>;
   onTouchStart?: (e: React.TouchEvent) => void;
+  onTouchMove?: (e: React.TouchEvent) => void;
   role?: string;
   'aria-live'?: 'polite' | 'assertive' | 'off';
   'aria-label'?: string;
@@ -15,7 +16,18 @@ interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAr
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, onScroll, viewportRef, onTouchStart, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => {
+>(({ className, children, onScroll, viewportRef, onTouchStart, onTouchMove, role, 'aria-live': ariaLive, 'aria-label': ariaLabel, ...props }, ref) => {
+  
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    // Store initial touch position for move detection
+    e.currentTarget.setAttribute('data-start-y', e.touches[0].clientY.toString());
+    onTouchStart?.(e);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    onTouchMove?.(e);
+  };
+
   return (
   <ScrollAreaPrimitive.Root
     ref={ref}
@@ -26,14 +38,14 @@ const ScrollArea = React.forwardRef<
       ref={viewportRef}
       className={cn("h-full w-full rounded-[inherit] scrollbar-sleek", className)}
       onScroll={onScroll}
-      onTouchStart={onTouchStart}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       role={role}
       aria-live={ariaLive}
       aria-label={ariaLabel}
       style={{ 
         WebkitOverflowScrolling: 'touch',
-        overscrollBehaviorY: 'contain',
-        touchAction: 'pan-y'
+        overscrollBehaviorY: 'contain'
       }}
     >
       {children}
