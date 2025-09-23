@@ -11,6 +11,7 @@ import { BRAND } from "@/branding";
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
 import NavigationPullTab from './NavigationPullTab';
+import { BurgundyNavCarrot } from './BurgundyNavCarrot';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -42,6 +43,7 @@ const ChatContainer = ({
   // Simple references for scroll management
   const viewportRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   
   // Scroll direction tracking - simplified
@@ -81,9 +83,13 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile header visibility - immediate response to upward scroll
+    // Mobile header visibility and scroll direction tracking
     if (isMobile) {
       const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+      const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
+      
+      // Update scroll direction state for burgundy carrot
+      setIsScrollingUp(isScrollingUpNow);
       
       // Show header immediately on ANY upward scroll (especially when keyboard is active)
       if (scrollDelta < -1) { // More sensitive threshold
@@ -166,6 +172,9 @@ const ChatContainer = ({
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
+      
+      {/* Burgundy carrot navigation for keyboard + scroll up scenarios */}
+      <BurgundyNavCarrot isScrollingUp={isScrollingUp} onOpenNavigation={onOpenSidebar} />
       
       <ScrollArea 
         viewportRef={viewportRef}
