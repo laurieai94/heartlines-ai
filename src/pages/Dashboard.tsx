@@ -5,6 +5,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import AuthGuard from "@/components/AuthGuard";
+import { FloatingMobileNav } from "@/components/FloatingMobileNav";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
@@ -153,6 +154,14 @@ const Dashboard = () => {
             onPartnerCompletionClose={handlePartnerCompletionClose}
             onPartnerContinueEditing={handlePartnerContinueEditing}
             temporaryProfiles={temporaryProfiles}
+          />
+          
+          {/* Floating Mobile Navigation */}
+          <FloatingMobileNav 
+            currentTab={activeTab}
+            onTabChange={setActiveTab}
+            userName={user?.user_metadata?.name || "Profile"}
+            partnerName={undefined}
           />
         </div>
         </MobileHeaderVisibilityProvider>

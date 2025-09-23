@@ -10,8 +10,8 @@ interface PullToRevealOptions {
 
 export const usePullToReveal = (options: PullToRevealOptions = {}) => {
   const {
-    threshold = 30, // Lowered from 50px for easier access
-    velocityThreshold = 0.3, // Lowered for more responsive activation
+    threshold = 20, // Very small threshold - only at absolute top
+    velocityThreshold = 0.5, // Higher threshold to prevent accidental triggers
     enabled = true
   } = options;
 
@@ -47,17 +47,16 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const touch = e.touches[0];
       if (!touch) return;
 
+      // Only activate pull-to-reveal at the very top of the screen
+      const isAtVeryTop = touch.clientY < 30 && isAtTopRef.current;
+      if (!isAtVeryTop) return;
+
       touchStartRef.current = {
         y: touch.clientY,
         time: Date.now()
       };
-      
-      // Expanded touch area for easier pull-to-reveal access
-      const isInTopArea = touch.clientY < 150; // Increased from 100px
-      if (isInTopArea || isAtTopRef.current) {
-        setIsPulling(false);
-        setPullDistance(0);
-      }
+      setIsPulling(false);
+      setPullDistance(0);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -74,16 +73,14 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: currentTime
       };
 
-      // Expanded area and more responsive activation
-      const isInTopArea = startY < 150; // Increased touch area
-      const isPullingDown = deltaY > 0;
+      // Only respond to deliberate downward pulls from the very top
+      const isPullingDown = deltaY > 10; // Require more deliberate movement
       
-      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+      if (isPullingDown && isAtTopRef.current) {
         setIsPulling(true);
-        setPullDistance(Math.min(deltaY, threshold * 2));
+        setPullDistance(Math.min(deltaY, threshold * 1.5));
         
-        // More responsive header reveal - show earlier
-        if (deltaY > threshold / 3 && !visible) { // Reduced from threshold/2
+        if (deltaY > threshold && !visible) {
           setVisible(true);
         }
       }
@@ -102,13 +99,12 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const deltaTime = touchMoveRef.current.time - touchStartRef.current.time;
       const velocity = deltaTime > 0 ? deltaY / deltaTime : 0;
 
-      const isInTopArea = startY < 150; // Consistent expanded area
-      const isPullingDown = deltaY > 0;
+      const isPullingDown = deltaY > 10;
       const exceededThreshold = deltaY > threshold;
       const exceededVelocity = velocity > velocityThreshold;
 
-      // Reveal header if pull was significant enough
-      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+      // Only reveal header for deliberate pulls from the very top
+      if (isAtTopRef.current && isPullingDown) {
         if (exceededThreshold || exceededVelocity) {
           setVisible(true);
         }
