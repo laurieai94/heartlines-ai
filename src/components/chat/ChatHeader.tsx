@@ -44,9 +44,21 @@ export const ChatHeader = ({
     }
   };
 
+  // Always show on mobile for better UX
+  const shouldShow = !isMobile || visible;
+
   return (
-    <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3 transition-transform duration-200 ease-out will-change-transform">
+    <div 
+      className={cn(
+        "sticky top-0 z-50 shrink-0 backdrop-blur-md border-b border-white/10 transition-opacity duration-200",
+        "bg-burgundy-950 md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10",
+        shouldShow ? "opacity-100" : "opacity-0 pointer-events-none"
+      )}
+      style={{
+        paddingTop: isMobile ? 'max(env(safe-area-inset-top), 8px)' : '0',
+      }}
+    >
+      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:p-3">
         {/* Mobile Layout - Stacked */}
         {isMobile && (
           <div className="flex flex-col gap-2">
