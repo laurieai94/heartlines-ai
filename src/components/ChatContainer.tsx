@@ -95,13 +95,9 @@ const ChatContainer = ({
       clearTimeout(scrollDebounceRef.current);
     }
     
-    // Update scroll direction state for burgundy carrot - active only
+    // Update scroll direction state for burgundy carrot - immediate response
     if (isScrollingUpNow) {
       setIsScrollingUp(true);
-      // Set a brief debounce to smooth out scroll events
-      scrollDebounceRef.current = setTimeout(() => {
-        setIsScrollingUp(false);
-      }, 150);
     } else if (isScrollingDownNow) {
       // Hide carrot immediately on downward scroll
       setIsScrollingUp(false);
