@@ -27,7 +27,6 @@ interface ChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
-  onLastSentMessageChange?: (message: string | null) => void;
 }
 
 export const ChatInputSection = ({
@@ -41,15 +40,13 @@ export const ChatInputSection = ({
   isHistoryLoaded,
   showStarters = false,
   onCloseStarters = () => {},
-  onUserTypingChange = () => {},
-  onLastSentMessageChange = () => {}
+  onUserTypingChange = () => {}
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
-  const [sendStatus, setSendStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { 
@@ -104,22 +101,9 @@ export const ChatInputSection = ({
       // Handle at limit in onInputFocus instead
       return;
     }
-    
-    // Show sending status
-    setSendStatus('sending');
-    onLastSentMessageChange?.(message);
-    
     // Hide starters after sending a message
     onCloseStarters();
     onSendMessage(message);
-    
-    // Show sent status briefly
-    setTimeout(() => {
-      setSendStatus('sent');
-      setTimeout(() => {
-        setSendStatus('idle');
-      }, 1000);
-    }, 100);
   };
 
   // Show near-limit toast once per session
@@ -221,15 +205,6 @@ export const ChatInputSection = ({
               chatHistory={chatHistory}
             />
           </ProgressiveAccessWrapper>
-          
-          {/* Status indicator */}
-          {sendStatus !== 'idle' && (
-            <div className="text-center mt-2">
-              <span className="text-xs text-white/60">
-                {sendStatus === 'sending' ? 'Sending...' : 'Sent ✓'}
-              </span>
-            </div>
-          )}
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">

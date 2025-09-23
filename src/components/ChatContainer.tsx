@@ -24,14 +24,13 @@ const debounce = (func: Function, wait: number) => {
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
   loading: boolean;
-  userName: string;
+  userName?: string;
   isConfigured: boolean;
-  onNewConversation?: () => void;
-  showStarters: boolean;
+  conversationStarter?: string;
   isHistoryLoaded: boolean;
-  showTyping: boolean;
-  onOpenSidebar: () => void;
-  lastSentMessage?: string;
+  userTyping: boolean;
+  onNewConversation?: () => void;
+  onOpenSidebar?: () => void;
 }
 
 const ChatContainer = ({ 
@@ -39,12 +38,11 @@ const ChatContainer = ({
   loading, 
   userName, 
   isConfigured, 
-  onNewConversation = () => {},
-  showStarters,
+  conversationStarter, 
   isHistoryLoaded,
-  showTyping,
-  onOpenSidebar,
-  lastSentMessage,
+  userTyping,
+  onNewConversation = () => {},
+  onOpenSidebar
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
   
@@ -236,7 +234,7 @@ const ChatContainer = ({
             
             {/* Typing indicator - only show when loading */}
             {loading && (
-              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-start`}>
+              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-center`}>
                 <div className="relative flex-shrink-0">
                   <Avatar className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-purple-500 to-pink-500">
                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
@@ -245,20 +243,11 @@ const ChatContainer = ({
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="flex flex-col gap-1 max-w-[80%]">
-                  {lastSentMessage && (
-                    <div className="text-white/80 text-sm bg-white/10 px-3 py-2 rounded-2xl rounded-tr-sm">
-                      <div className="text-xs text-white/60 mb-1">You sent:</div>
-                      <div className="leading-relaxed">{lastSentMessage}</div>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 text-white/70 text-sm py-1">
-                    <span>Kai is responding</span>
-                    <div className="flex gap-1">
-                      <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce"></div>
-                      <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
+                <div className="text-white/70 text-sm py-1">
+                  <div className="flex gap-1">
+                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
