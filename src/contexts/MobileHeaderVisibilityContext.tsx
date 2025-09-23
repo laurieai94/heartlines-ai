@@ -12,11 +12,10 @@ interface MobileHeaderVisibilityProviderProps {
 }
 
 export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibilityProviderProps) => {
-  // Always show header on mobile for better usability
   const [visible, setVisible] = useState(true);
 
   return (
-    <MobileHeaderVisibilityContext.Provider value={{ visible: true, setVisible }}>
+    <MobileHeaderVisibilityContext.Provider value={{ visible, setVisible }}>
       {children}
     </MobileHeaderVisibilityContext.Provider>
   );

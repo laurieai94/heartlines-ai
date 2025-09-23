@@ -8,6 +8,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
+import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -33,11 +34,16 @@ const ChatContainer = ({
   onOpenSidebar
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
+  const { setVisible: setHeaderVisible } = useMobileHeaderVisibility();
   
   // Simple references for scroll management
   const viewportRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
+  
+  // Scroll direction tracking
+  const lastScrollTopRef = useRef(0);
+  const scrollThresholdRef = useRef(0);
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -50,14 +56,38 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Simple scroll handler for desktop scroll-to-bottom button
+  // Enhanced scroll handler with direction detection
   const handleScroll = useCallback(() => {
-    if (!viewportRef.current || isMobile) return;
+    if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
+    const currentScrollTop = viewport.scrollTop;
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
-    setShowScrollToBottom(scrollFromBottom > 100);
-  }, [isMobile]);
+    
+    // Desktop scroll-to-bottom button
+    if (!isMobile) {
+      setShowScrollToBottom(scrollFromBottom > 100);
+    }
+    
+    // Mobile header visibility on upward scroll
+    if (isMobile) {
+      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+      
+      // If scrolling up by more than 30px, show header
+      if (scrollDelta < 0) {
+        scrollThresholdRef.current += Math.abs(scrollDelta);
+        if (scrollThresholdRef.current > 30) {
+          setHeaderVisible(true);
+          scrollThresholdRef.current = 0;
+        }
+      } else {
+        // Reset threshold when scrolling down
+        scrollThresholdRef.current = 0;
+      }
+      
+      lastScrollTopRef.current = currentScrollTop;
+    }
+  }, [isMobile, setHeaderVisible]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
