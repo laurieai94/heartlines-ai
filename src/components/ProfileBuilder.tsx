@@ -240,9 +240,9 @@ const ProfileBuilder = ({
           />
 
           {/* Partner Profile Card */}
-          <ProfileCard 
-            title="Your Person" 
-            subheader="See both sides."
+        <ProfileCard 
+          title="Your Person" 
+          subheader="See your story from both POVs"
             completion={partnerProfileCompletion} 
             description="" 
             benefits={[
