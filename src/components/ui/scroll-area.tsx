@@ -30,8 +30,8 @@ const ScrollArea = React.forwardRef<
       aria-label={ariaLabel}
       style={{ 
         WebkitOverflowScrolling: 'touch',
-        overscrollBehaviorY: 'contain',
-        touchAction: 'pan-y'
+        overscrollBehavior: 'auto',
+        touchAction: 'manipulation'
       }}
     >
       {children}
