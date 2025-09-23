@@ -2,6 +2,7 @@ import { Menu } from 'lucide-react';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useCallback } from 'react';
 
 interface NavigationPullTabProps {
   onOpenNavigation?: () => void;
@@ -12,27 +13,41 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   const isKeyboardVisible = useKeyboardDetection();
   const isMobile = useIsMobile();
 
-  // Show pull tab on mobile when keyboard is visible (regardless of header visibility)
-  if (!isMobile || !isKeyboardVisible) {
+  // Haptic feedback simulation
+  const simulateHaptic = useCallback((element: HTMLElement) => {
+    element.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      element.style.transform = 'scale(1)';
+    }, 100);
+  }, []);
+
+  // Enhanced visibility logic - show more often, not just when keyboard is visible
+  const shouldShow = isMobile && (isKeyboardVisible || !visible);
+  
+  if (!shouldShow) {
     return null;
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('📱 Pull tab touched - forcing header visible');
+    const target = e.currentTarget as HTMLElement;
+    simulateHaptic(target);
+    console.log('📱 Enhanced pull tab touched - forcing header visible');
     forceVisible();
     onOpenNavigation?.();
   };
 
   return (
     <div 
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary backdrop-blur-md rounded-b-3xl px-10 py-4 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-200 border-b-4 border-primary-foreground/40 animate-bounce"
+      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary backdrop-blur-md rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-300 border-b-4 border-primary-foreground/40 animate-pulse hover:animate-none"
       onTouchStart={handleTouchStart}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('📱 Pull tab clicked - forcing header visible');
+        const target = e.currentTarget as HTMLElement;
+        simulateHaptic(target);
+        console.log('📱 Enhanced pull tab clicked - forcing header visible');
         forceVisible();
         onOpenNavigation?.();
       }}
@@ -40,12 +55,17 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
         touchAction: 'manipulation',
         WebkitTouchCallout: 'none',
         WebkitUserSelect: 'none',
-        userSelect: 'none'
+        userSelect: 'none',
+        minWidth: '80px',
+        minHeight: '44px'
       }}
     >
-      <Menu className="w-7 h-7 text-primary-foreground drop-shadow-lg" />
+      <Menu className="w-8 h-8 text-primary-foreground drop-shadow-lg" />
       <div className="sr-only">Tap to show navigation</div>
-      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-primary"></div>
+      {/* Enhanced arrow pointer */}
+      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-primary drop-shadow-md"></div>
+      {/* Subtle glow effect */}
+      <div className="absolute inset-0 bg-primary/20 rounded-b-3xl blur-xl -z-10"></div>
     </div>
   );
 };
