@@ -50,7 +50,8 @@ export const ChatHeader = ({
   return (
     <div 
       className={cn(
-        "sticky top-0 z-50 shrink-0 backdrop-blur-md border-b border-white/10 transition-opacity duration-200",
+        "z-50 shrink-0 backdrop-blur-md border-b border-white/10 transition-opacity duration-200",
+        isMobile ? "fixed top-0 left-0 right-0" : "sticky top-0",
         "bg-burgundy-950 md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10",
         shouldShow ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
