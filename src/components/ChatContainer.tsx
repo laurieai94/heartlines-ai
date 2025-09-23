@@ -36,7 +36,7 @@ const ChatContainer = ({
   onOpenSidebar
 }: ChatContainerProps) => {
   const isMobile = useIsMobile();
-  const { setVisible: setHeaderVisible } = useMobileHeaderVisibility();
+  const { visible: headerVisible, setVisible: setHeaderVisible, forceVisible } = useMobileHeaderVisibility();
   const isKeyboardVisible = useKeyboardDetection();
   
   // Simple references for scroll management
@@ -132,11 +132,11 @@ const ChatContainer = ({
       
       // If touching near top of screen, immediately show header  
       if (touch.clientY < 150) {
-        console.log('🔝 Showing header - top touch detected');
-        setHeaderVisible(true);
+        console.log('🔝 FORCE showing header - top touch detected');
+        forceVisible();
       }
     }
-  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
+  }, [isMobile, forceVisible, isKeyboardVisible]);
 
   // Immediate upward swipe detection
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
@@ -154,13 +154,13 @@ const ChatContainer = ({
       
       // Show header immediately on downward swipe (pulling down) - more sensitive
       if (deltaY > 20) {
-        console.log('🔝 Showing header - downward swipe detected');
-        setHeaderVisible(true);
+        console.log('🔝 FORCE showing header - downward swipe detected');
+        forceVisible();
         // Prevent further processing to avoid bounce
         touchStartYRef.current = 0;
       }
     }
-  }, [isMobile, setHeaderVisible]);
+  }, [isMobile, forceVisible]);
 
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">

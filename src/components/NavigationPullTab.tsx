@@ -8,7 +8,7 @@ interface NavigationPullTabProps {
 }
 
 const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
-  const { visible, setVisible } = useMobileHeaderVisibility();
+  const { visible, setVisible, forceVisible } = useMobileHeaderVisibility();
   const isKeyboardVisible = useKeyboardDetection();
   const isMobile = useIsMobile();
 
@@ -20,8 +20,8 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('📱 Pull tab touched - showing header');
-    setVisible(true);
+    console.log('📱 Pull tab touched - forcing header visible');
+    forceVisible();
     onOpenNavigation?.();
   };
 
@@ -32,8 +32,9 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('📱 Pull tab clicked - showing header');
-        setVisible(true);
+        console.log('📱 Pull tab clicked - forcing header visible');
+        forceVisible();
+        onOpenNavigation?.();
       }}
       style={{
         touchAction: 'manipulation',
