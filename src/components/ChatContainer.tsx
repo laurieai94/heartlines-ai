@@ -48,6 +48,7 @@ const ChatContainer = ({
   
   // Scroll direction tracking - simplified
   const lastScrollTopRef = useRef(0);
+  const scrollUpTimerRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
 
   // Simple scroll to bottom function
@@ -83,13 +84,32 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile header visibility and scroll direction tracking
-    if (isMobile) {
-      const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-      const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
+  // Mobile header visibility and scroll direction tracking
+  if (isMobile) {
+    const scrollDelta = currentScrollTop - lastScrollTopRef.current;
+    const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
+    const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
+    
+    // Update scroll direction state for burgundy carrot with persistence
+    if (isScrollingUpNow) {
+      // Clear any existing timer and show carrot immediately
+      if (scrollUpTimerRef.current) {
+        clearTimeout(scrollUpTimerRef.current);
+      }
+      setIsScrollingUp(true);
       
-      // Update scroll direction state for burgundy carrot
-      setIsScrollingUp(isScrollingUpNow);
+      // Set timer to hide carrot after 2.5 seconds of no upward scrolling
+      scrollUpTimerRef.current = setTimeout(() => {
+        setIsScrollingUp(false);
+      }, 2500);
+    } else if (isScrollingDownNow) {
+      // Hide carrot immediately on downward scroll
+      if (scrollUpTimerRef.current) {
+        clearTimeout(scrollUpTimerRef.current);
+        scrollUpTimerRef.current = null;
+      }
+      setIsScrollingUp(false);
+    }
       
       // Show header immediately on ANY upward scroll (especially when keyboard is active)
       if (scrollDelta < -1) { // More sensitive threshold
@@ -121,6 +141,15 @@ const ChatContainer = ({
       scrollToBottom('auto');
     }
   }, [isHistoryLoaded, scrollToBottom]);
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (scrollUpTimerRef.current) {
+        clearTimeout(scrollUpTimerRef.current);
+      }
+    };
+  }, []);
 
   // Enhanced touch detection for immediate header reveal
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
