@@ -206,11 +206,11 @@ const ChatContainer = ({
         >
           <div ref={contentRef} className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
             
-            {/* Chat Messages */}
-            {chatHistory.map((message, index) => {
+            {/* Chat Messages - Only show AI messages */}
+            {chatHistory.filter(msg => msg.type !== 'user').map((message, index, filteredMessages) => {
               const isUser = message.type === 'user';
-              const prevMessage = index > 0 ? chatHistory[index - 1] : null;
-              const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
+              const prevMessage = index > 0 ? filteredMessages[index - 1] : null;
+              const nextMessage = index < filteredMessages.length - 1 ? filteredMessages[index + 1] : null;
               
               // Group consecutive messages from the same sender within 5 minutes
               const isFirstInGroup = !prevMessage || 
