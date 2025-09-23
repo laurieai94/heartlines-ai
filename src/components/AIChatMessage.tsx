@@ -16,12 +16,6 @@ interface AIChatMessageProps {
 
 const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
-  
-  // Don't render user messages - only show AI responses
-  if (isUser) {
-    return null;
-  }
-  
   const isMobile = useIsMobile();
   
   // Format time to show only hours and minutes
