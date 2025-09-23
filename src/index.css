@@ -187,19 +187,18 @@
     }
   }
 
-  /* Mobile keyboard interaction improvements */
+  /* Mobile optimizations - allow natural scrolling */
   @media (max-width: 768px) {
-    /* Prevent viewport jumping on iOS Safari */
     body {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      /* Remove scroll momentum for smoother touch interactions */
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
     }
     
     #root {
-      height: 100%;
-      overflow: auto;
+      /* Ensure proper mobile layout without breaking scroll */
+      min-height: 100vh;
+      min-height: 100dvh;
     }
   }
 
