@@ -296,9 +296,9 @@ const ProfileBuilder = ({
             completion={partnerProfileCompletion} 
             description="" 
             benefits={[
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual-perspective coaching" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Better back-and-forth tips" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual POV magic" },
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Convo hacks unlocked" },
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Tips for both hearts" }
             ]} 
             onStartProfile={handleStartPartnerProfile} 
             buttonText="Add Player 2" 
