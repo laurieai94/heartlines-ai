@@ -301,7 +301,7 @@ const ProfileBuilder = ({
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
             ]} 
             onStartProfile={handleStartPartnerProfile} 
-            buttonText="Add Your Person" 
+            buttonText="Add Player 2 →" 
             iconElement={
               partnerInitial 
                 ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
