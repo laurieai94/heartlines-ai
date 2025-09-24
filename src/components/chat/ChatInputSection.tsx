@@ -178,6 +178,7 @@ export const ChatInputSection = ({
               loading={loading}
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
+              showProfileGlow={accessLevel === 'profile-required' && !!user}
               placeholder={
                 !user 
                   ? "Sign in to start chatting…" 

@@ -15,6 +15,7 @@ interface AIChatInputProps {
   userName?: string;
   partnerName?: string;
   chatHistory?: any[];
+  showProfileGlow?: boolean;
 }
 
 const AIChatInput = ({ 
@@ -28,7 +29,8 @@ const AIChatInput = ({
   onTypingChange,
   userName, 
   partnerName, 
-  chatHistory = []
+  chatHistory = [],
+  showProfileGlow = false
 }: AIChatInputProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const internalRef = useRef<HTMLTextAreaElement>(null);
@@ -144,7 +146,7 @@ const AIChatInput = ({
         readOnly 
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
-      }`}>
+      } ${showProfileGlow && readOnly ? 'animate-profile-glow' : ''}`}>
         <Textarea
           unstyled
           ref={textareaRef}
