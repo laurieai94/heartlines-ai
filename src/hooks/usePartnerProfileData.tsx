@@ -1,7 +1,5 @@
 
 import { useProfileStoreV2 } from './useProfileStoreV2';
-import { performanceMonitor } from '@/utils/performanceMonitor';
-import { profilePreloader } from '@/utils/profilePreloader';
 
 export interface PartnerProfileData {
   // Section 1: The Basics
@@ -44,8 +42,6 @@ const defaultPartnerProfileData: PartnerProfileData = {
 };
 
 export const usePartnerProfileData = () => {
-  performanceMonitor.mark('partner-profile-data-init');
-  
   const {
     profileData,
     isLoading,
@@ -55,24 +51,8 @@ export const usePartnerProfileData = () => {
     saveData
   } = useProfileStoreV2('partner');
 
-  // Check session cache first for ultra-fast access
-  const cachedData = profilePreloader.getCachedProfileData('partner');
-  let mergedProfileData = cachedData;
-  
-  if (!cachedData) {
-    // Merge with default data to ensure all expected fields exist
-    mergedProfileData = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
-    
-    // Cache for next access if we have data
-    if (Object.keys(profileData).length > 0) {
-      profilePreloader.cacheProfileData('partner', mergedProfileData, 10 * 60 * 1000);
-    }
-  }
-
-  // Normalize data types at write time with performance monitoring
+  // Normalize data types at write time
   const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {
-    performanceMonitor.mark(`partner-update-${field}`);
-    
     let normalizedValue = value;
     
     // Ensure correct data types for specific fields
@@ -94,36 +74,16 @@ export const usePartnerProfileData = () => {
     
     console.log(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
     rawUpdateField(field, normalizedValue);
-    
-    // Update cache immediately
-    const updated = { ...mergedProfileData, [field]: normalizedValue };
-    profilePreloader.cacheProfileData('partner', updated, 10 * 60 * 1000);
-    
-    performanceMonitor.measure(`partner-update-${field}`, 5);
   };
 
-  // Normalize multi-select handling with performance monitoring
+  // Normalize multi-select handling
   const normalizedHandleMultiSelect = (field: keyof PartnerProfileData, value: string) => {
-    performanceMonitor.mark(`partner-multiselect-${field}`);
-    
     console.log(`[Partner] Multi-select ${field}:`, value);
     rawHandleMultiSelect(field, value);
-    
-    performanceMonitor.measure(`partner-multiselect-${field}`, 5);
   };
 
-  // Trigger predictive prefetching for related components
-  const partnerCompletion = Object.keys(mergedProfileData).filter(key => 
-    mergedProfileData[key] && 
-    mergedProfileData[key] !== '' && 
-    (Array.isArray(mergedProfileData[key]) ? mergedProfileData[key].length > 0 : true)
-  ).length;
-
-  if (partnerCompletion > 5) {
-    profilePreloader.predictivePrefetch(partnerCompletion * 4, true); // rough completion estimate
-  }
-
-  performanceMonitor.measure('partner-profile-data-init', 10);
+  // Merge with default data to ensure all expected fields exist
+  const mergedProfileData = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
 
   return {
     profileData: mergedProfileData,
