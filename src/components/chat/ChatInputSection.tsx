@@ -183,7 +183,7 @@ export const ChatInputSection = ({
                 !user 
                   ? "Sign in to start chatting…" 
                   : accessLevel === 'profile-required' 
-                    ? "Almost ready! Complete profile"
+                    ? "Almost ready! Click to complete profile"
                     : atLimit
                     ? "You've reached your monthly message limit. Click to upgrade and continue."
                     : "Message Kai…"
