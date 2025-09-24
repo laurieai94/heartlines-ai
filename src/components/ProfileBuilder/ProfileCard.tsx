@@ -91,7 +91,7 @@ const ProfileCard = ({
               {title}
               {optionalPillImage && optionalPillImage}
             </h3>
-            <p className="text-sm md:text-base lg:text-lg text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-relaxed">
+            <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
               {motivationText}
             </p>
             <div className="flex items-center gap-2 mt-2 md:mt-3 lg:mt-4">
