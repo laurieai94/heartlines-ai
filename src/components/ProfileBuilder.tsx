@@ -233,10 +233,10 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-6 md:space-y-8 lg:space-y-12 pb-6 md:pb-12 lg:pb-16 pb-safe pt-4 md:pt-8 lg:pt-12"
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-4 md:pt-8 lg:pt-12"
            style={{ paddingBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-3 md:space-y-4 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-3 md:space-y-4 lg:space-y-5 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
@@ -267,7 +267,7 @@ const ProfileBuilder = ({
         </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="space-y-6 md:space-y-8 lg:space-y-12">
+      <div className="space-y-6 md:space-y-7 lg:space-y-10">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
         {!canUnlockCoaching && (
           <div className="px-3 md:px-4 lg:px-6">
@@ -278,7 +278,7 @@ const ProfileBuilder = ({
           </div>
         )}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-2 md:gap-4 lg:gap-6 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-2 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-5" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
