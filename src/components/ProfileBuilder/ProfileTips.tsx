@@ -8,11 +8,11 @@ const ProfileTips = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8">
       <Button 
         variant="ghost" 
         onClick={() => setShowDetails(!showDetails)}
-        className="w-full text-pink-200/80 hover:text-white text-sm py-2 hover:bg-white/10"
+        className="w-full text-pink-200/80 hover:text-white text-xs md:text-sm py-2 hover:bg-white/10"
       >
         {showDetails ? 'Hide ' : ''}Profile Building Tips
         <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
@@ -20,8 +20,8 @@ const ProfileTips = () => {
       
       {showDetails && (
         <div className="mt-4 space-y-3 animate-fade-in">
-          <Card className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
-            <h3 className="text-lg font-semibold text-white mb-3">Profile Building Tips</h3>
+          <Card className="p-3 md:p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
+            <h3 className="text-base md:text-lg font-semibold text-white mb-2 md:mb-3">Profile Building Tips</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <div className="flex items-start gap-3">

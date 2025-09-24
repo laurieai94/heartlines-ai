@@ -76,7 +76,7 @@ const ProfileCard = ({
         shadow-[0_0_25px_rgba(244,114,182,0.2)] hover:shadow-[0_0_35px_rgba(244,114,182,0.4)] 
         transition-all duration-300 hover:scale-[1.03] hover:border-white/70 hover:from-white/30 hover:to-white/20 
         ring-2 ring-white/30 hover:ring-2 hover:ring-white/50 hover:backdrop-blur-xl
-        min-h-[240px] md:min-h-[280px] lg:min-h-[320px] ${
+        min-h-[220px] md:min-h-[260px] lg:min-h-[300px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}

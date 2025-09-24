@@ -31,7 +31,7 @@ const OnboardingStepNudge = ({
     onStartProfile();
   };
   return <div 
-    className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 ${className} ${
+    className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8 ${className} ${
       isMobile ? 'touch-action-manipulation mb-8' : ''
     }`}
     data-onboarding-nudge
