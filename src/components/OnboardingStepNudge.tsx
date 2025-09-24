@@ -31,7 +31,7 @@ const OnboardingStepNudge = ({
     onStartProfile();
   };
   return <div 
-    className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8 ${className} ${
+    className={`glass-burgundy rounded-xl border border-white/10 p-3 md:p-4 lg:p-5 mb-6 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 ${className} ${
       isMobile ? 'touch-action-manipulation mb-8' : ''
     }`}
     data-onboarding-nudge
@@ -39,14 +39,14 @@ const OnboardingStepNudge = ({
       marginBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 16px))' : undefined 
     }}
   >
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-            {completion > 0 ? <CheckCircle className="w-4 h-4 text-white" /> : <span className="text-xs font-semibold text-white">1</span>}
+      <div className="flex items-center justify-between gap-3 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3 min-w-0">
+          <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+            {completion > 0 ? <CheckCircle className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" /> : <span className="text-xs font-semibold text-white">1</span>}
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-white font-medium text-sm md:text-base truncate">Complete your profile to start coaching with Kai</h3>
+            <div className="flex items-center gap-2 mb-0.5 md:mb-1">
+              <h3 className="text-white font-medium text-xs md:text-sm lg:text-base truncate">Complete your profile to start coaching with Kai</h3>
               {completion > 0 && <span className="text-xs bg-white/10 text-white/90 px-2 py-0.5 rounded-full flex-shrink-0 border border-white/20">
                   {completion}% complete
                 </span>}

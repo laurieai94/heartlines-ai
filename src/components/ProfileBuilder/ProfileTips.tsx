@@ -8,7 +8,7 @@ const ProfileTips = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8">
+    <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6">
       <Button 
         variant="ghost" 
         onClick={() => setShowDetails(!showDetails)}
@@ -20,15 +20,15 @@ const ProfileTips = () => {
       
       {showDetails && (
         <div className="mt-4 space-y-3 animate-fade-in">
-          <Card className="p-3 md:p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-2 md:mb-3">Profile Building Tips</h3>
+          <Card className="p-3 md:p-4 lg:p-5 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
+            <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2 md:mb-3">Profile Building Tips</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">Be honest</h4>
-                    <p className="text-pink-200/80 text-xs">The AI only works with real data, not aspirational answers</p>
+                    <h4 className="font-semibold text-white text-xs md:text-sm">Be honest</h4>
+                    <p className="text-pink-200/80 text-xs md:text-xs">The AI only works with real data, not aspirational answers</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

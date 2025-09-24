@@ -69,19 +69,19 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`group p-3 md:p-5 lg:p-6 bg-gradient-to-br from-white/25 to-white/15 backdrop-blur-lg border border-white/50 
+      className={`group p-2 md:p-4 lg:p-5 bg-gradient-to-br from-white/25 to-white/15 backdrop-blur-lg border border-white/50 
         shadow-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.1)] 
         hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.15),0_0_0_1px_rgba(255,255,255,0.15)] 
         drop-shadow-[0_0_20px_rgba(251,146,60,0.3)] hover:drop-shadow-[0_0_30px_rgba(251,146,60,0.5)] 
         shadow-[0_0_25px_rgba(244,114,182,0.2)] hover:shadow-[0_0_35px_rgba(244,114,182,0.4)] 
         transition-all duration-300 hover:scale-[1.03] hover:border-white/70 hover:from-white/30 hover:to-white/20 
         ring-2 ring-white/30 hover:ring-2 hover:ring-white/50 hover:backdrop-blur-xl
-        min-h-[220px] md:min-h-[260px] lg:min-h-[300px] ${
+        min-h-[200px] md:min-h-[240px] lg:min-h-[280px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
-      <div className="space-y-2 md:space-y-3 lg:space-y-4 h-full flex flex-col">
+      <div className="space-y-1 md:space-y-2 lg:space-y-3 h-full flex flex-col">
         <div className="flex items-center gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
@@ -105,8 +105,8 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-2 md:p-3 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
-          <ul className="space-y-1 md:space-y-2 lg:space-y-3 text-pink-200/80 text-sm md:text-base lg:text-lg font-normal leading-relaxed">
+        <div className="bg-white/10 rounded-lg p-2 md:p-2.5 lg:p-3 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
+          <ul className="space-y-1 md:space-y-1.5 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
                 <span className="mt-0.5 md:mt-1 flex-shrink-0">
