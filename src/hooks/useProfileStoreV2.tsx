@@ -2,11 +2,17 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { debounce } from '@/utils/throttle';
+import { profileCompression } from '@/utils/profileCompression';
+import { profilePriorityQueue } from '@/utils/profilePriorityQueue';
+import { profilePreloader } from '@/utils/profilePreloader';
+import { performanceMonitor } from '@/utils/performanceMonitor';
 
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
 const DB_CACHE = new Map<string, { data: any; timestamp: number; ttl: number }>();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 10 * 60 * 1000; // Extended to 10 minutes for stable data
+const DATABASE_TIMEOUT_MS = 1500; // Reduced from 3000ms for faster response
+const DEBOUNCE_MS = 1000; // Reduced from 2000ms for faster sync
 
 export type ProfileType = 'personal' | 'partner';
 
@@ -121,7 +127,6 @@ const STORAGE_CONFIG = {
   }
 };
 
-const DEBOUNCE_MS = 2000;
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
@@ -217,17 +222,41 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return migrated;
   }, [profileType]);
 
-  // Optimized storage loading with migration optimization
+  // Optimized storage loading with compression and migration optimization
   const loadFromStorage = useCallback((): PersonalProfileV2 | PartnerProfileV2 => {
+    performanceMonitor.mark(`load-${profileType}`);
+    
+    // Check session cache first for ultra-fast access
+    const sessionCached = profilePreloader.getCachedProfileData(profileType);
+    if (sessionCached) {
+      performanceMonitor.measure(`load-${profileType}`, 5);
+      console.log(`[ProfileV2-${profileType}] Using session cache`);
+      return sessionCached;
+    }
+    
     // Fast path: Check migration sentinel first to avoid unnecessary processing
     const migrationSentinel = localStorage.getItem(`${config.storageKey}_migrated`);
     
     try {
-      // Try new format first
+      // Try new format first (with compression support)
       const v2Data = localStorage.getItem(config.storageKey);
       if (v2Data) {
-        const parsed = JSON.parse(v2Data);
-        return { ...defaultProfile, ...parsed };
+        const isCompressed = localStorage.getItem(`${config.storageKey}_compressed`) === 'true';
+        let parsed;
+        
+        if (isCompressed) {
+          parsed = profileCompression.decompress(v2Data);
+        } else {
+          parsed = JSON.parse(v2Data);
+        }
+        
+        const result = { ...defaultProfile, ...parsed };
+        
+        // Cache in session for next access
+        profilePreloader.cacheProfileData(profileType, result, 10 * 60 * 1000);
+        
+        performanceMonitor.measure(`load-${profileType}`, 10);
+        return result;
       }
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] V2 storage load error:`, error);
@@ -235,6 +264,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
     // Early exit if migration already completed
     if (migrationSentinel) {
+      performanceMonitor.measure(`load-${profileType}`, 15);
       return defaultProfile;
     }
 
@@ -257,8 +287,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               version: '2.0' 
             };
             
-            // Save migrated data to V2 storage
-            localStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
+            // Save migrated data to V2 storage with compression
+            const compressed = profileCompression.compress(fullProfile);
+            localStorage.setItem(config.storageKey, compressed);
+            localStorage.setItem(`${config.storageKey}_compressed`, 'true');
             
             // Create migration sentinel
             localStorage.setItem(`${config.storageKey}_migrated`, JSON.stringify({
@@ -283,7 +315,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             
             console.log(`✅ Successfully promoted ${profileType} profile to V2 storage from ${key}${CLEANUP_LEGACY ? ' (cleaned legacy keys)' : ''}`);
             
-            // Note: Immediate DB sync will be triggered by the useEffect after this returns
+            // Cache in session
+            profilePreloader.cacheProfileData(profileType, fullProfile, 10 * 60 * 1000);
+            
+            performanceMonitor.measure(`load-${profileType}`, 50);
             return fullProfile;
           }
         }
@@ -293,20 +328,36 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
     
     console.log(`[ProfileV2-${profileType}] No existing data found, using defaults`);
+    performanceMonitor.measure(`load-${profileType}`, 20);
     return defaultProfile;
   }, [config, defaultProfile, migrateLegacyData, profileType]);
 
-  // Save to localStorage (immediate) + broadcast in-tab update
+  // Save to localStorage (immediate) + broadcast in-tab update with compression
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
     try {
+      performanceMonitor.mark(`save-${profileType}`);
+      
       const toSave = { ...data, lastUpdated: new Date().toISOString() };
-      localStorage.setItem(config.storageKey, JSON.stringify(toSave));
+      
+      // Compress data for faster storage and parsing
+      const compressed = profileCompression.compress(toSave);
+      const compressionRatio = profileCompression.getCompressionRatio(toSave, compressed);
+      
+      localStorage.setItem(config.storageKey, compressed);
+      localStorage.setItem(`${config.storageKey}_compressed`, 'true');
+      
       setLastSaved(new Date());
+      
+      // Cache in session for ultra-fast access
+      profilePreloader.cacheProfileData(profileType, toSave, 10 * 60 * 1000);
+      
       // Broadcast to other hook instances in this tab
       window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
         detail: { profileType, storageKey: config.storageKey, lastUpdated: toSave.lastUpdated }
       }));
-      console.log(`[ProfileV2-${profileType}] Saved to localStorage & broadcasted:`, toSave);
+      
+      performanceMonitor.measure(`save-${profileType}`, 20);
+      console.log(`[ProfileV2-${profileType}] Saved to localStorage & broadcasted (${(compressionRatio * 100).toFixed(1)}% size):`, toSave);
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] Storage save error:`, error);
     }
@@ -433,12 +484,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           setIsSyncing(true);
           console.log(`[ProfileV2-${profileType}] User authenticated, syncing with database...`);
           
-          // Faster timeout for better UX - only primary instance syncs with DB
-          if (isPrimaryInstance.current) {
-            const dbProfilePromise = loadFromDatabase();
-            const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
-              setTimeout(() => reject(new Error('Database load timeout')), 3000);
-            });
+            // Faster timeout for better UX - only primary instance syncs with DB
+            if (isPrimaryInstance.current) {
+              const dbProfilePromise = loadFromDatabase();
+              const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
+                setTimeout(() => reject(new Error('Database load timeout')), DATABASE_TIMEOUT_MS);
+              });
           
             try {
               const dbProfile = await Promise.race([dbProfilePromise, timeoutPromise]);

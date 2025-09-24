@@ -7,12 +7,14 @@ const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
 const ProfileCompletionOptions = lazy(() => import("@/components/ProfileCompletionOptions"));
 import ProfileCard from "@/components/ProfileBuilder/ProfileCard";
+import ProfileSkeleton from "@/components/ProfileBuilder/ProfileSkeleton";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import { performanceMonitor } from "@/utils/performanceMonitor";
+import { profilePreloader } from "@/utils/profilePreloader";
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { logEvent } from "@/utils/analytics";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
@@ -48,6 +50,8 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
+  performanceMonitor.mark('profile-builder-init');
+  
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
@@ -68,9 +72,12 @@ const ProfileBuilder = ({
     calculatePartnerCompletion
   } = useProfileCompletion();
 
-  // Get actual personal profile data for accurate progress calculation
-  const { profileData: personalProfileData } = usePersonalProfileData();
-  const { profileData: partnerProfileData } = usePartnerProfileData();
+  // Get actual personal profile data for accurate progress calculation with performance monitoring
+  const { profileData: personalProfileData, isLoading: personalLoading, isReady: personalReady } = usePersonalProfileData();
+  const { profileData: partnerProfileData, isLoading: partnerLoading, isReady: partnerReady } = usePartnerProfileData();
+  
+  // Show skeleton while loading critical data
+  const showSkeleton = personalLoading || partnerLoading || !personalReady || !partnerReady;
   
   // Helper function for getting initials
   const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toUpperCase() || null;
@@ -220,6 +227,18 @@ const ProfileBuilder = ({
     };
   }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd, handleRefresh]);
 
+  // Initialize performance monitoring and prefetching
+  useEffect(() => {
+    performanceMonitor.measure('profile-builder-init', 20);
+    
+    // Trigger predictive prefetching based on completion
+    const personalCompletion = Object.keys(personalProfileData).filter(key => 
+      personalProfileData[key] && personalProfileData[key] !== ''
+    ).length * 5; // rough completion percentage
+    
+    profilePreloader.predictivePrefetch(personalCompletion, Object.keys(partnerProfileData).length > 0);
+  }, [personalProfileData, partnerProfileData]);
+
   return <div className="flex flex-col" data-profile-container>
       {/* Pull-to-refresh indicator */}
       {isMobile && (
@@ -259,55 +278,60 @@ const ProfileBuilder = ({
             onStartProfile={handleStartPersonalProfile}
           />
         )}
-        {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-2 md:gap-6 lg:gap-8 max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8" data-profile-cards-container>
-          {/* Your Profile Card */}
-          <ProfileCard 
-            title="Your Profile"
-            subheader="The real you → real advice"
-            completion={yourProfileCompletion} 
-            description="Just 4 required questions" 
-            benefits={[
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "4 Qs, big feels" },
-              { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Deep dive if you're down" },
-              { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done before your latte's cold" }
-            ]}
-            onStartProfile={handleStartPersonalProfile} 
-            buttonText="Keep It Real" 
-            iconElement={
-              userInitial 
-                ? <span className="text-white font-bold text-base leading-none">{userInitial}</span>
-                : <Heart className="w-5 h-5 text-white" />
-            }
-            progressColor="text-orange-300" 
-            benefitColor="text-orange-300"
-            motivationText="The realer you, the smarter Kai"
-          />
+        
+        {/* Show skeleton or profile cards based on loading state */}
+        {showSkeleton ? (
+          <ProfileSkeleton count={2} />
+        ) : (
+          <div className="grid md:grid-cols-2 gap-2 md:gap-6 lg:gap-8 max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8" data-profile-cards-container>
+            {/* Your Profile Card */}
+            <ProfileCard 
+              title="Your Profile"
+              subheader="The real you → real advice"
+              completion={yourProfileCompletion} 
+              description="Just 4 required questions" 
+              benefits={[
+                { icon: <Star className="w-3 h-3 text-orange-300" />, text: "4 Qs, big feels" },
+                { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Deep dive if you're down" },
+                { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done before your latte's cold" }
+              ]}
+              onStartProfile={handleStartPersonalProfile} 
+              buttonText="Keep It Real" 
+              iconElement={
+                userInitial 
+                  ? <span className="text-white font-bold text-base leading-none">{userInitial}</span>
+                  : <Heart className="w-5 h-5 text-white" />
+              }
+              progressColor="text-orange-300" 
+              benefitColor="text-orange-300"
+              motivationText="The realer you, the smarter Kai"
+            />
 
-          {/* Partner Profile Card */}
-        <ProfileCard 
-          title="Your Person" 
-          subheader="See your story from both POVs"
-            completion={partnerProfileCompletion} 
-            description="" 
-            benefits={[
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual POV magic" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Convo hacks unlocked" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Tips for both hearts" }
-            ]} 
-            onStartProfile={handleStartPartnerProfile} 
-            buttonText="Add Player 2" 
-            iconElement={
-              partnerInitial 
-                ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
-                : <Heart className="w-5 h-5 text-white" />
-            }
-            progressColor="text-pink-300" 
-            benefitColor="text-pink-300"
-            optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
-            motivationText="Bring your +1 for hotter takes"
-          />
-        </div>
+            {/* Partner Profile Card */}
+            <ProfileCard 
+              title="Your Person" 
+              subheader="See your story from both POVs"
+              completion={partnerProfileCompletion} 
+              description="" 
+              benefits={[
+                { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual POV magic" },
+                { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Convo hacks unlocked" },
+                { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Tips for both hearts" }
+              ]} 
+              onStartProfile={handleStartPartnerProfile} 
+              buttonText="Add Player 2" 
+              iconElement={
+                partnerInitial 
+                  ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
+                  : <Heart className="w-5 h-5 text-white" />
+              }
+              progressColor="text-pink-300" 
+              benefitColor="text-pink-300"
+              optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
+              motivationText="Bring your +1 for hotter takes"
+            />
+          </div>
+        )}
 
 
         {/* Privacy Banner - Clean Collapsible */}
