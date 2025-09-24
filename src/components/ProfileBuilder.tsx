@@ -2,6 +2,8 @@ import { useState, Suspense, lazy, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { BRAND } from "@/branding";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
@@ -242,10 +244,22 @@ const ProfileBuilder = ({
             <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto">
               <Button
                 onClick={goToCoach}
-                className="w-full h-10 rounded-full font-medium text-white transition-all duration-300 border-2 bg-burgundy-800 hover:bg-burgundy-700 border-white/20 hover:border-white/30 shadow-lg shadow-burgundy-400/20 hover:shadow-xl hover:shadow-burgundy-400/30"
+                className="w-full h-12 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
               >
-                <MessageSquare className="w-4 h-4 mr-2" />
-                Unlock Coaching with Kai
+                <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-pulse">
+                  <AvatarImage 
+                    src={BRAND.coach.avatarSrc} 
+                    alt={BRAND.coach.name}
+                    className="object-cover" 
+                  />
+                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
+                    {BRAND.coach.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="flex items-center gap-2">
+                  Unlock Coaching with {BRAND.coach.name}
+                  <MessageSquare className="w-4 h-4" />
+                </span>
               </Button>
             </div>
           )}
