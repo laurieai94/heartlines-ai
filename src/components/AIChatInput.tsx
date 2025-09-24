@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -36,6 +37,7 @@ const AIChatInput = ({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isMobile = useIsMobile();
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -155,7 +157,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (readOnly ? "👤 Complete profile to chat" : (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."))}
+          placeholder={placeholder ?? (readOnly ? (isMobile ? "Almost ready! Complete profile" : "👤 Complete profile to chat") : (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."))}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"
