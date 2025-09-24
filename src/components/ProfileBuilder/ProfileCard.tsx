@@ -67,7 +67,12 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`group p-4 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:from-white/30 hover:to-white/20 ring-1 ring-white/20 hover:ring-2 hover:ring-white/40 hover:backdrop-blur-lg ${
+      className={`group p-4 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] 
+        drop-shadow-[0_0_20px_rgba(251,146,60,0.3)] hover:drop-shadow-[0_0_30px_rgba(251,146,60,0.5)] 
+        shadow-[0_0_25px_rgba(244,114,182,0.2)] hover:shadow-[0_0_35px_rgba(244,114,182,0.4)] 
+        transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:from-white/30 hover:to-white/20 
+        ring-1 ring-white/20 hover:ring-2 hover:ring-white/40 hover:backdrop-blur-lg 
+        animate-pulse [animation-duration:3s] hover:animate-none ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
