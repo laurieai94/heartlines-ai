@@ -10,6 +10,7 @@ import { performanceMonitor } from "@/utils/performanceMonitor";
 import AIInsights from "@/components/AIInsights";
 // Temporarily import ProfileBuilder directly to fix loading issue
 import ProfileBuilder from "@/components/ProfileBuilder";
+import AIChat from "@/components/AIChat";
 
 // Lazy load other heavy components to improve initial render
 const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
@@ -49,6 +50,22 @@ const DashboardContent = ({
     switch (activeTab) {
       case "home":
         return <DashboardHome />;
+      case "coach":
+        return (
+          <div className="h-full">
+            <AIChat 
+              profiles={temporaryProfiles}
+              demographicsData={temporaryDemographics}
+              chatHistory={[]}
+              setChatHistory={() => {}}
+              isConfigured={true}
+              conversationStarter=""
+              onNewConversation={() => {}}
+              onOpenSidebar={() => {}}
+              onSupabaseConfigured={() => {}}
+            />
+          </div>
+        );
       case "profile":
         return (
           <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8">
