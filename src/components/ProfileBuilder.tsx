@@ -285,7 +285,8 @@ const ProfileBuilder = ({
                 : <Heart className="w-5 h-5 text-white" />
             }
             progressColor="text-orange-300" 
-            benefitColor="text-orange-300" 
+            benefitColor="text-orange-300"
+            motivationText="The realer you, the smarter Kai"
           />
 
           {/* Partner Profile Card */}

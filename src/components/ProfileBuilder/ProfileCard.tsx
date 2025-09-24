@@ -22,6 +22,7 @@ interface ProfileCardProps {
   progressColor: string;
   benefitColor: string;
   optionalPillImage?: React.ReactNode;
+  motivationText?: string;
 }
 
 const ProfileCard = ({
@@ -35,7 +36,8 @@ const ProfileCard = ({
   iconElement,
   progressColor,
   benefitColor,
-  optionalPillImage
+  optionalPillImage,
+  motivationText = "The more real you are, the more real Kai gets"
 }: ProfileCardProps) => {
   const [firstBenefit, ...remainingBenefits] = benefits;
   const cardRef = useRef<HTMLDivElement>(null);
@@ -87,7 +89,7 @@ const ProfileCard = ({
               {optionalPillImage && optionalPillImage}
             </h3>
             <p className="text-sm text-white/70 font-medium mt-1">
-              The more real you are, the more real Kai gets
+              {motivationText}
             </p>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1">
