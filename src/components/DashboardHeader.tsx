@@ -115,11 +115,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <HeartlinesWordmark 
-              size="sm" 
-              className="text-white text-xl leading-none cursor-pointer" 
-              onClick={() => onValueChange('home')}
-            />
+            {activeTab !== 'profile' && (
+              <HeartlinesWordmark 
+                size="sm" 
+                className="text-white text-xl leading-none cursor-pointer" 
+                onClick={() => onValueChange('home')}
+              />
+            )}
           </div>
           
         </div>
@@ -169,11 +171,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <HeartlinesWordmark 
-              size="sm" 
-              className="text-white cursor-pointer" 
-              onClick={() => onValueChange('home')}
-            />
+            {activeTab !== 'profile' && (
+              <HeartlinesWordmark 
+                size="sm" 
+                className="text-white cursor-pointer" 
+                onClick={() => onValueChange('home')}
+              />
+            )}
           </div>
           
           <div className="flex items-center">
