@@ -8,7 +8,7 @@ const ProfileTips = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6">
+    <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 -mt-2 md:-mt-4 lg:-mt-6">
       <Button 
         variant="ghost" 
         onClick={() => setShowDetails(!showDetails)}
