@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AIChatInputProps {
   onSendMessage: (message: string) => void;
@@ -37,7 +36,6 @@ const AIChatInput = ({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isMobile = useIsMobile();
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -157,7 +155,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (readOnly ? "Almost ready! Complete profile" : (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."))}
+          placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."))}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"
@@ -166,7 +164,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-3 py-[10px] md:px-3 md:py-[8px] text-base md:text-sm resize-none min-h-[40px] md:min-h-[36px] max-h-[64px] md:max-h-[60px] leading-[22px] md:leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
+          className="w-full bg-transparent border-0 px-2 py-[8px] md:px-3 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
           style={{ 
             WebkitTapHighlightColor: 'transparent', 
             WebkitAppearance: 'none',

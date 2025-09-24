@@ -1,9 +1,7 @@
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProfileMobileOptimizations } from "@/hooks/useProfileMobileOptimizations";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useRef } from "react";
-import MobileProfileCompletion from "./MobileProfileCompletion";
 interface OnboardingStepNudgeProps {
   completion: number;
   onStartProfile: () => void;
@@ -15,21 +13,9 @@ const OnboardingStepNudge = ({
   className = ""
 }: OnboardingStepNudgeProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { simulateProfileFeedback } = useProfileMobileOptimizations();
-  const isMobile = useIsMobile();
+  const { isMobile, simulateProfileFeedback } = useProfileMobileOptimizations();
   
   if (completion >= 100) return null;
-
-  // Use mobile-optimized component on mobile devices
-  if (isMobile) {
-    return (
-      <MobileProfileCompletion 
-        completion={completion}
-        onStartProfile={onStartProfile}
-        className={className}
-      />
-    );
-  }
   
   // Handle mobile touch feedback
   const handleButtonTouch = () => {
@@ -44,10 +30,14 @@ const OnboardingStepNudge = ({
     }
     onStartProfile();
   };
-  // Desktop version
   return <div 
-    className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 ${className}`}
+    className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 ${className} ${
+      isMobile ? 'touch-action-manipulation mb-8' : ''
+    }`}
     data-onboarding-nudge
+    style={{ 
+      marginBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 16px))' : undefined 
+    }}
   >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
@@ -68,9 +58,12 @@ const OnboardingStepNudge = ({
         <Button 
           ref={buttonRef}
           onClick={handleButtonClick} 
+          onTouchStart={isMobile ? handleButtonTouch : undefined}
           variant="glass" 
           size="sm" 
-          className="flex-shrink-0"
+          className={`flex-shrink-0 ${
+            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : ''
+          }`}
         >
           {completion > 0 ? "Continue" : "Get Started"}
           <ArrowRight className="w-4 h-4" />
