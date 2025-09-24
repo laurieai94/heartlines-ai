@@ -234,11 +234,26 @@
   }
 
   .pb-safe {
-    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 20px);
   }
 
   .pt-safe {
     padding-top: max(env(safe-area-inset-top), 0px);
+  }
+
+  /* Mobile-specific profile spacing */
+  @media (max-width: 768px) {
+    .pb-safe {
+      padding-bottom: calc(1.5rem + max(env(safe-area-inset-bottom), 20px));
+    }
+    
+    [data-onboarding-nudge] {
+      margin-bottom: calc(2rem + max(env(safe-area-inset-bottom), 16px));
+    }
+    
+    [data-profile-container] {
+      padding-bottom: calc(1.5rem + max(env(safe-area-inset-bottom), 20px));
+    }
   }
 
   /* Enhanced mobile touch scroll utilities with better iOS support */

@@ -220,7 +220,7 @@ const ProfileBuilder = ({
     };
   }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd, handleRefresh]);
 
-  return <div className="flex flex-col" data-profile-container>
+  return <div className="flex flex-col min-h-dvh" data-profile-container>
       {/* Pull-to-refresh indicator */}
       {isMobile && (
         <div 
@@ -231,7 +231,8 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-4 md:space-y-6 lg:space-y-8 pb-6 md:pb-8 lg:pb-12">
+      <div className="space-y-4 md:space-y-6 lg:space-y-8 pb-6 md:pb-8 lg:pb-12 pb-safe"
+           style={{ paddingBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
         {/* Main Header - Responsive */}
         <div className="text-center space-y-4 md:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>

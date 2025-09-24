@@ -32,9 +32,12 @@ const OnboardingStepNudge = ({
   };
   return <div 
     className={`glass-burgundy rounded-xl border border-white/10 p-4 mb-6 ${className} ${
-      isMobile ? 'touch-action-manipulation' : ''
+      isMobile ? 'touch-action-manipulation mb-8' : ''
     }`}
     data-onboarding-nudge
+    style={{ 
+      marginBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 16px))' : undefined 
+    }}
   >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">

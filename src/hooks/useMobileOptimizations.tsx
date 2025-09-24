@@ -55,7 +55,7 @@ export const useMobileOptimizations = () => {
     return () => observer.disconnect();
   }, [isMobile]);
 
-  // Optimize scroll momentum for iOS
+  // Optimize scroll momentum and viewport handling for iOS
   useEffect(() => {
     if (!isMobile) return;
     
@@ -71,6 +71,29 @@ export const useMobileOptimizations = () => {
         htmlElement.style.setProperty('-webkit-overflow-scrolling', 'touch');
         htmlElement.style.overscrollBehavior = 'contain';
       });
+
+      // Handle viewport changes for keyboard and safe areas
+      const handleViewportChange = () => {
+        const profileContainer = document.querySelector('[data-profile-container]') as HTMLElement;
+        if (profileContainer && window.visualViewport) {
+          const viewportHeight = window.visualViewport.height;
+          const windowHeight = window.innerHeight;
+          const keyboardHeight = windowHeight - viewportHeight;
+          
+          if (keyboardHeight > 0) {
+            // Keyboard is open, adjust bottom padding
+            profileContainer.style.paddingBottom = `calc(1.5rem + ${keyboardHeight}px + env(safe-area-inset-bottom, 0px))`;
+          } else {
+            // Keyboard is closed, reset to normal safe area padding
+            profileContainer.style.paddingBottom = '';
+          }
+        }
+      };
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleViewportChange);
+        return () => window.visualViewport?.removeEventListener('resize', handleViewportChange);
+      }
     }
   }, [isMobile]);
 
