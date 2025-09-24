@@ -234,7 +234,7 @@ const ProfileBuilder = ({
       <div className="space-y-4 pb-6">
         {/* Main Header - Compact */}
         <div className="text-center space-y-4 flex-shrink-0">
-          <h1 className="text-2xl font-bold text-white">Let's Get to Know Your Situationship</h1>
+          <h1 className="text-2xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button */}
           <div className="max-w-md mx-auto">
