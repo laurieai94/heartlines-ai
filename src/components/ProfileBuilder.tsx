@@ -231,13 +231,13 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-4 pb-6">
-        {/* Main Header - Compact */}
-        <div className="text-center space-y-4 flex-shrink-0">
-          <h1 className="text-2xl font-brand text-white">Let's Get to Know Your Situationship</h1>
+      <div className="space-y-4 md:space-y-6 lg:space-y-8 pb-6 md:pb-8 lg:pb-12">
+        {/* Main Header - Responsive */}
+        <div className="text-center space-y-4 md:space-y-6 flex-shrink-0 px-2 md:px-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button */}
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto">
             <Button
               onClick={canUnlockCoaching ? goToCoach : undefined}
               disabled={!canUnlockCoaching}
@@ -256,7 +256,7 @@ const ProfileBuilder = ({
         </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="space-y-4">
+      <div className="space-y-4 md:space-y-6 lg:space-y-8">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
         {!canUnlockCoaching && (
           <OnboardingStepNudge 
@@ -264,8 +264,8 @@ const ProfileBuilder = ({
             onStartProfile={handleStartPersonalProfile}
           />
         )}
-        {/* Compact Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-2 md:gap-4 max-w-none mx-2 md:max-w-4xl md:mx-auto" data-profile-cards-container>
+        {/* Responsive Two-Card Layout */}
+        <div className="grid md:grid-cols-2 gap-2 md:gap-6 lg:gap-8 max-w-none mx-2 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl md:mx-auto lg:px-4 xl:px-8" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
@@ -316,7 +316,7 @@ const ProfileBuilder = ({
 
 
         {/* Privacy Banner - Clean Collapsible */}
-        <div className="max-w-4xl mx-auto sticky top-4 z-20">
+        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto sticky top-4 z-20 px-2 md:px-0">
           <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
             <Collapsible>
               <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
