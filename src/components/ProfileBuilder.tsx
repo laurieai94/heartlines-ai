@@ -278,7 +278,7 @@ const ProfileBuilder = ({
               { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done before your latte's cold" }
             ]}
             onStartProfile={handleStartPersonalProfile} 
-            buttonText="Keep It Real →" 
+            buttonText="Keep It Real" 
             iconElement={
               userInitial 
                 ? <span className="text-white font-bold text-base leading-none">{userInitial}</span>
@@ -301,7 +301,7 @@ const ProfileBuilder = ({
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Advice that considers both of you" }
             ]} 
             onStartProfile={handleStartPartnerProfile} 
-            buttonText="Add Player 2 →" 
+            buttonText="Add Player 2" 
             iconElement={
               partnerInitial 
                 ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
