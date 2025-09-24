@@ -370,30 +370,40 @@
 
   @keyframes profileGlow {
     0%, 100% {
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 
-                  0 0 16px rgba(255, 255, 255, 0.15),
-                  0 0 24px hsl(var(--primary) / 0.3);
-      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 12px rgba(255, 132, 80, 0.4), 
+                  0 0 24px rgba(255, 107, 157, 0.3),
+                  0 0 36px hsl(var(--coral-500) / 0.2),
+                  0 4px 20px rgba(0, 0, 0, 0.1);
+      border-color: rgba(255, 132, 80, 0.4);
     }
     50% {
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 
-                  0 0 24px rgba(255, 255, 255, 0.2),
-                  0 0 36px hsl(var(--primary) / 0.4);
-      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 20px rgba(255, 132, 80, 0.6), 
+                  0 0 40px rgba(255, 107, 157, 0.4),
+                  0 0 60px hsl(var(--coral-500) / 0.3),
+                  0 6px 30px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 132, 80, 0.6);
+      transform: scale(1.01);
     }
   }
 
   .animate-profile-glow {
-    animation: profileGlow 3s ease-in-out infinite;
+    animation: profileGlow 2s ease-in-out infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .animate-profile-glow {
       animation: none;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 
-                  0 0 16px rgba(255, 255, 255, 0.15),
-                  0 0 24px hsl(var(--primary) / 0.3);
-      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 12px rgba(255, 132, 80, 0.4), 
+                  0 0 24px rgba(255, 107, 157, 0.3),
+                  0 0 36px hsl(var(--coral-500) / 0.2),
+                  0 4px 20px rgba(0, 0, 0, 0.1);
+      border-color: rgba(255, 132, 80, 0.4);
+      transform: scale(1.01);
+    }
+    
+    .animate-bounce-gentle {
+      animation: none;
+      transform: scale(1.02); 
     }
   }
 

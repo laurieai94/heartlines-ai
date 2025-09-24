@@ -144,9 +144,9 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
+          ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm animate-bounce-gentle' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
-      } ${showProfileGlow && readOnly ? 'animate-profile-glow' : ''}`}>
+      } ${showProfileGlow && readOnly ? 'animate-profile-glow animate-glow-pulse' : ''}`}>
         <Textarea
           unstyled
           ref={textareaRef}
@@ -155,9 +155,9 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation...")}
+          placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "Let's dive in..." : "Continue the conversation..."))}
           readOnly={readOnly || disabled}
-          aria-label={readOnly ? "Click to complete your profile" : undefined}
+          aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"
           autoCapitalize="sentences"
           autoCorrect="on"

@@ -1,5 +1,5 @@
 
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
@@ -35,6 +35,9 @@ const DashboardContent = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: DashboardContentProps) => {
+  // Chat state management for the coach tab
+  const [chatHistory, setChatHistory] = useState<any[]>([]);
+  const [conversationStarter, setConversationStarter] = useState("");
   
   // Performance monitoring for tab switches
   useEffect(() => {
@@ -44,6 +47,21 @@ const DashboardContent = ({
       performanceMonitor.mark('insights-chunk-load');
     }
   }, [activeTab]);
+
+  // Handle new conversation
+  const handleNewConversation = () => {
+    setChatHistory([]);
+    setConversationStarter("");
+  };
+
+  // Handle sidebar actions
+  const handleOpenSidebar = () => {
+    // Could add sidebar logic here if needed
+  };
+
+  const handleSupabaseConfigured = () => {
+    // Handle Supabase configuration if needed
+  };
   
   // Only render the active tab content to reduce initial mount cost
   const renderActiveTabContent = () => {
@@ -52,17 +70,17 @@ const DashboardContent = ({
         return <DashboardHome />;
       case "coach":
         return (
-          <div className="h-full">
+          <div className="h-full flex flex-col">
             <AIChat 
               profiles={temporaryProfiles}
               demographicsData={temporaryDemographics}
-              chatHistory={[]}
-              setChatHistory={() => {}}
+              chatHistory={chatHistory}
+              setChatHistory={setChatHistory}
               isConfigured={true}
-              conversationStarter=""
-              onNewConversation={() => {}}
-              onOpenSidebar={() => {}}
-              onSupabaseConfigured={() => {}}
+              conversationStarter={conversationStarter}
+              onNewConversation={handleNewConversation}
+              onOpenSidebar={handleOpenSidebar}
+              onSupabaseConfigured={handleSupabaseConfigured}
             />
           </div>
         );
