@@ -233,10 +233,10 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-4 md:space-y-6 lg:space-y-8 pb-6 md:pb-8 lg:pb-12 pb-safe"
+      <div className="space-y-6 md:space-y-12 lg:space-y-16 pb-6 md:pb-16 lg:pb-24 pb-safe pt-4 md:pt-12 lg:pt-16"
            style={{ paddingBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-2 md:space-y-3 lg:space-y-4 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-3 md:space-y-6 lg:space-y-8 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
@@ -267,16 +267,18 @@ const ProfileBuilder = ({
         </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="space-y-4 md:space-y-6 lg:space-y-8">
+      <div className="space-y-6 md:space-y-12 lg:space-y-16">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
         {!canUnlockCoaching && (
-          <OnboardingStepNudge 
-            completion={Math.round((completedRequiredFields / totalRequiredFields) * 100)}
-            onStartProfile={handleStartPersonalProfile}
-          />
+          <div className="px-3 md:px-4 lg:px-6">
+            <OnboardingStepNudge 
+              completion={Math.round((completedRequiredFields / totalRequiredFields) * 100)}
+              onStartProfile={handleStartPersonalProfile}
+            />
+          </div>
         )}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-2 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-2 md:gap-6 lg:gap-8 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-6 lg:py-8" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
@@ -327,7 +329,7 @@ const ProfileBuilder = ({
 
 
         {/* Privacy Banner - Clean Collapsible */}
-        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto sticky top-4 z-20 px-3 md:px-4 lg:px-6">
+        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto sticky top-4 z-20 px-3 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6">
           <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
             <Collapsible>
               <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
