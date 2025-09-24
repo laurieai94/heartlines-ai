@@ -310,6 +310,7 @@ const ProfileBuilder = ({
             progressColor="text-pink-300" 
             benefitColor="text-pink-300"
             optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
+            motivationText="Bring your +1 for hotter takes"
           />
         </div>
 
