@@ -122,12 +122,12 @@ const ProfileCard = ({
           ref={buttonRef}
           onClick={handleButtonClick}
           onTouchStart={isMobile ? handleButtonTouch : undefined}
-          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 ${
-            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[52px] lg:min-h-[60px]'
+          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-1.5 md:py-2 lg:py-2 rounded-xl font-semibold text-sm md:text-sm lg:text-base shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 ${
+            isMobile ? 'min-h-[40px] touch-action-manipulation active:scale-95' : 'md:min-h-[44px] lg:min-h-[48px]'
           }`}
         >
           {buttonText}
-          <ArrowRight className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 ml-2" />
+          <ArrowRight className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 ml-1.5" />
         </Button>
       </div>
     </Card>
