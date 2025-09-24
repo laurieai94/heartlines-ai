@@ -243,6 +243,7 @@ const ProfileBuilder = ({
           {canUnlockCoaching && (
             <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto">
               <Button
+                variant="glass"
                 onClick={goToCoach}
                 className="w-full h-12 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
               >
