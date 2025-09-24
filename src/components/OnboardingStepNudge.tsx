@@ -31,8 +31,8 @@ const OnboardingStepNudge = ({
     onStartProfile();
   };
   return <div 
-    className={`glass-burgundy rounded-xl border border-white/10 p-2 md:p-4 lg:p-5 mb-6 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-2 md:px-4 lg:px-6 ${className} ${
-      isMobile ? 'touch-action-manipulation mb-8' : ''
+    className={`glass-burgundy rounded-xl border border-white/10 p-2 md:p-4 lg:p-5 mb-3 md:mb-6 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-2 md:px-4 lg:px-6 ${className} ${
+      isMobile ? 'touch-action-manipulation mb-6' : ''
     }`}
     data-onboarding-nudge
     style={{ 
