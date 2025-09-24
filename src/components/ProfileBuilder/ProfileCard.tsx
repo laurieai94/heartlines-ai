@@ -69,19 +69,19 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`group p-4 md:p-6 lg:p-8 bg-gradient-to-br from-white/25 to-white/15 backdrop-blur-lg border border-white/50 
+      className={`group p-3 md:p-5 lg:p-6 bg-gradient-to-br from-white/25 to-white/15 backdrop-blur-lg border border-white/50 
         shadow-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.1)] 
         hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.15),0_0_0_1px_rgba(255,255,255,0.15)] 
         drop-shadow-[0_0_20px_rgba(251,146,60,0.3)] hover:drop-shadow-[0_0_30px_rgba(251,146,60,0.5)] 
         shadow-[0_0_25px_rgba(244,114,182,0.2)] hover:shadow-[0_0_35px_rgba(244,114,182,0.4)] 
         transition-all duration-300 hover:scale-[1.03] hover:border-white/70 hover:from-white/30 hover:to-white/20 
         ring-2 ring-white/30 hover:ring-2 hover:ring-white/50 hover:backdrop-blur-xl
-        min-h-[280px] md:min-h-[320px] lg:min-h-[360px] ${
+        min-h-[240px] md:min-h-[280px] lg:min-h-[320px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
     >
-      <div className="space-y-3 md:space-y-4 lg:space-y-6 h-full flex flex-col">
+      <div className="space-y-2 md:space-y-3 lg:space-y-4 h-full flex flex-col">
         <div className="flex items-center gap-3 md:gap-4">
           <CardAvatar>
             {iconElement}
@@ -94,7 +94,7 @@ const ProfileCard = ({
             <p className="text-xs md:text-sm lg:text-base text-white/70 font-medium mt-1 md:mt-2 lg:mt-3 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
               {motivationText}
             </p>
-            <div className="flex items-center gap-2 mt-2 md:mt-3 lg:mt-4">
+            <div className="flex items-center gap-2 mt-1 md:mt-2 lg:mt-3">
               <div className="flex-1">
                 <Progress value={completion} className="h-2 md:h-3 lg:h-4 bg-black/40" />
               </div>
@@ -105,8 +105,8 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-3 md:p-4 lg:p-6 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
-          <ul className="space-y-2 md:space-y-3 lg:space-y-4 text-pink-200/80 text-sm md:text-base lg:text-lg font-normal leading-relaxed">
+        <div className="bg-white/10 rounded-lg p-2 md:p-3 lg:p-4 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
+          <ul className="space-y-1 md:space-y-2 lg:space-y-3 text-pink-200/80 text-sm md:text-base lg:text-lg font-normal leading-relaxed">
             {benefits.map((benefit, index) => (
               <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
                 <span className="mt-0.5 md:mt-1 flex-shrink-0">
@@ -122,7 +122,7 @@ const ProfileCard = ({
           ref={buttonRef}
           onClick={handleButtonClick}
           onTouchStart={isMobile ? handleButtonTouch : undefined}
-          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2.5 md:py-3 lg:py-4 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 ${
+          className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-2 md:py-2.5 lg:py-3 rounded-xl font-semibold text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 ${
             isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95' : 'md:min-h-[52px] lg:min-h-[60px]'
           }`}
         >
