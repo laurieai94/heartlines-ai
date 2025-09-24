@@ -52,7 +52,7 @@ const YourRelationship = ({
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
 
-  return <div className="space-y-4 transition-opacity duration-300 opacity-100">
+  return <div className="-mt-2 space-y-3 transition-opacity duration-300 opacity-100">
       {/* Relationship Status */}
       <QuestionCardSimple questionId="question-relationship-status">
         <Label className="text-sm font-semibold text-white mb-2 block">
