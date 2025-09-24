@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import { Heart, Target, Lightbulb, Star, Search, Clock, MessageSquare, ChevronDown } from "lucide-react";
+import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 // Lazy load heavy components to reduce initial bundle size
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
@@ -324,7 +324,7 @@ const ProfileBuilder = ({
                   <div className="relative">
                     <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm"></div>
                     <div className="relative bg-white/10 p-1.5 rounded-full ring-1 ring-white/25">
-                      <Search className="w-3.5 h-3.5 text-white/80" />
+                      <Lock className="w-3.5 h-3.5 text-white/80" />
                     </div>
                   </div>
                   <span className="font-medium text-white">Private by design</span>
