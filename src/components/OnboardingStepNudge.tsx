@@ -46,7 +46,7 @@ const OnboardingStepNudge = ({
           </div>
           <div className="min-w-0">
             <h3 className="text-white font-medium text-xs md:text-sm lg:text-base truncate">
-              <span className="sm:hidden">Complete profile</span>
+              <span className="sm:hidden">Complete profile to chat w/ Kai</span>
               <span className="hidden sm:inline">Complete your profile to start coaching with Kai</span>
             </h3>
           </div>
@@ -59,15 +59,12 @@ const OnboardingStepNudge = ({
           variant="glass" 
           size="sm" 
           className={`flex-shrink-0 text-xs md:text-sm ${
-            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95 px-3' : ''
+            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95 px-2 sm:px-3' : ''
           }`}
         >
-          {completion > 0 ? (
-            <>
-              <span className="sm:hidden">Continue ({completion}%)</span>
-              <span className="hidden sm:inline">Continue</span>
-            </>
-          ) : "Get Started"}
+          <span className="hidden sm:inline">
+            {completion > 0 ? "Continue" : "Get Started"}
+          </span>
           <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
         </Button>
       </div>
