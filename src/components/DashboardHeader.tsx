@@ -64,7 +64,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   };
   
   return (
-    <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-6 sm:mb-8'}`}>
+    <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-2 sm:mb-4 md:mb-6'}`}>
       <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto pl-4 pr-2 sm:px-6 xl:px-8 py-3 relative">
         
         {/* Mobile Navigation - Hide in coach mode when scrolling */}
