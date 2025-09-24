@@ -236,23 +236,18 @@ const ProfileBuilder = ({
         <div className="text-center space-y-4 md:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
-          {/* Unlock Coaching Button */}
-          <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-            <Button
-              onClick={canUnlockCoaching ? goToCoach : undefined}
-              disabled={!canUnlockCoaching}
-              className={`
-                w-full h-10 rounded-full font-medium text-white transition-all duration-300 border-2
-                ${canUnlockCoaching 
-                  ? 'bg-burgundy-800 hover:bg-burgundy-700 border-white/20 hover:border-white/30 shadow-lg shadow-burgundy-400/20 hover:shadow-xl hover:shadow-burgundy-400/30' 
-                  : 'bg-white/10 text-white/50 border-white/10 cursor-not-allowed opacity-60 hover:opacity-60'
-                }
-              `}
-            >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              {canUnlockCoaching ? 'Unlock Coaching with Kai' : `Complete ${totalRequiredFields - completedRequiredFields} more questions`}
-            </Button>
-          </div>
+          {/* Unlock Coaching Button - Only show when ready */}
+          {canUnlockCoaching && (
+            <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto">
+              <Button
+                onClick={goToCoach}
+                className="w-full h-10 rounded-full font-medium text-white transition-all duration-300 border-2 bg-burgundy-800 hover:bg-burgundy-700 border-white/20 hover:border-white/30 shadow-lg shadow-burgundy-400/20 hover:shadow-xl hover:shadow-burgundy-400/30"
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Unlock Coaching with Kai
+              </Button>
+            </div>
+          )}
         </div>
 
       {/* Main Content Area - Scrollable */}
