@@ -210,7 +210,7 @@ const Auth = () => {
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe pt-8 max-w-md">
         {/* Spacing for sign-in */}
         {!isSignUp && (
-          <div className="mb-6"></div>
+          <div className="mb-12"></div>
         )}
         
         {/* Header - Only show during sign-up */}
