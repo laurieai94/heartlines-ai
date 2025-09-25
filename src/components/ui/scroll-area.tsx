@@ -36,7 +36,7 @@ const ScrollArea = React.forwardRef<
   >
     <ScrollAreaPrimitive.Viewport
       ref={viewportRef}
-      className={cn("h-full w-full rounded-[inherit] scrollbar-sleek", className)}
+      className={cn("h-full w-full rounded-[inherit] no-scrollbar", className)}
       onScroll={onScroll}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -65,7 +65,7 @@ const ScrollBar = React.forwardRef<
     ref={ref}
     orientation={orientation}
     className={cn(
-      "flex touch-none select-none transition-colors md:flex hidden",
+      "hidden",
       orientation === "vertical" &&
         "h-full w-1.5 border-l border-l-transparent p-[1px]",
       orientation === "horizontal" &&
