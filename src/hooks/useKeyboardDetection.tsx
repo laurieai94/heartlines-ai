@@ -1,10 +1,17 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useViewport } from '@/contexts/ViewportContext';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
-export const useKeyboardDetection = () => {
+export const useKeyboardDetection = (): boolean => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [initialViewportHeight, setInitialViewportHeight] = useState<number>(0);
-  const isMobile = useIsMobile();
+  const { isKeyboardVisible: viewportKeyboardVisible } = useViewport();
+  const { isMobile } = useOptimizedMobile();
+
+  // Use centralized viewport detection when available
+  if (viewportKeyboardVisible !== undefined) {
+    return viewportKeyboardVisible;
+  }
 
   // Immediate keyboard detection via input focus
   const handleFocusIn = useCallback((e: FocusEvent) => {
@@ -34,8 +41,8 @@ export const useKeyboardDetection = () => {
     setInitialViewportHeight(window.visualViewport?.height || window.innerHeight);
 
     // Add focus event listeners for immediate detection
-    document.addEventListener('focusin', handleFocusIn);
-    document.addEventListener('focusout', handleFocusOut);
+    document.addEventListener('focusin', handleFocusIn, { passive: true });
+    document.addEventListener('focusout', handleFocusOut, { passive: true });
 
     const handleViewportChange = () => {
       if (!window.visualViewport) {
@@ -52,9 +59,9 @@ export const useKeyboardDetection = () => {
 
     // Use visualViewport API if available, otherwise use resize
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleViewportChange);
+      window.visualViewport.addEventListener('resize', handleViewportChange, { passive: true });
     } else {
-      window.addEventListener('resize', handleViewportChange);
+      window.addEventListener('resize', handleViewportChange, { passive: true });
     }
 
     return () => {
@@ -68,5 +75,6 @@ export const useKeyboardDetection = () => {
     };
   }, [isMobile, initialViewportHeight, handleFocusIn, handleFocusOut]);
 
+  // Fallback to legacy detection
   return isKeyboardVisible;
 };

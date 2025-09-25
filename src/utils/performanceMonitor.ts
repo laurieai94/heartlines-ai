@@ -1,16 +1,20 @@
-// Performance monitoring utilities
+// Performance monitoring utilities - Development only
 import { logger } from './logger';
 
 class PerformanceMonitor {
   private metrics = new Map<string, number>();
+  private isEnabled = import.meta.env.DEV;
   
   // Mark the start of a performance measurement
   mark(name: string) {
+    if (!this.isEnabled) return;
     this.metrics.set(name, performance.now());
   }
   
   // Measure time since mark and log if over threshold
   measure(name: string, threshold = 100) {
+    if (!this.isEnabled) return 0;
+    
     const startTime = this.metrics.get(name);
     if (startTime) {
       const duration = performance.now() - startTime;
@@ -25,57 +29,72 @@ class PerformanceMonitor {
     return 0;
   }
   
-  // Monitor long tasks using PerformanceObserver
+  // Monitor long tasks using PerformanceObserver - throttled
   observeLongTasks() {
-    if (typeof PerformanceObserver !== 'undefined') {
-      try {
-        const observer = new PerformanceObserver((list) => {
-          list.getEntries().forEach((entry) => {
-            if (entry.duration > 50) {
-              logger.warn(`Long task detected: ${entry.duration.toFixed(2)}ms`);
-            }
-          });
-        });
+    if (!this.isEnabled || typeof PerformanceObserver === 'undefined') return;
+    
+    let lastLogTime = 0;
+    const LOG_THROTTLE = 5000; // Only log every 5 seconds
+    
+    try {
+      const observer = new PerformanceObserver((list) => {
+        const now = Date.now();
+        if (now - lastLogTime < LOG_THROTTLE) return;
         
-        observer.observe({ entryTypes: ['longtask'] });
-      } catch (e) {
-        // PerformanceObserver might not be supported
-      }
+        list.getEntries().forEach((entry) => {
+          if (entry.duration > 50) {
+            logger.warn(`Long task detected: ${entry.duration.toFixed(2)}ms`);
+            lastLogTime = now;
+          }
+        });
+      });
+      
+      observer.observe({ entryTypes: ['longtask'] });
+    } catch (e) {
+      // PerformanceObserver might not be supported
     }
   }
   
-  // Monitor largest contentful paint
+  // Monitor largest contentful paint - once only
   observeLCP() {
-    if (typeof PerformanceObserver !== 'undefined') {
-      try {
-        const observer = new PerformanceObserver((list) => {
-          const entries = list.getEntries();
-          const lastEntry = entries[entries.length - 1];
-          
-          logger.info(`LCP: ${lastEntry.startTime.toFixed(2)}ms`);
-        });
+    if (!this.isEnabled || typeof PerformanceObserver === 'undefined') return;
+    
+    let hasLogged = false;
+    
+    try {
+      const observer = new PerformanceObserver((list) => {
+        if (hasLogged) return;
         
-        observer.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch (e) {
-        // Not supported in all browsers
-      }
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        
+        logger.info(`LCP: ${lastEntry.startTime.toFixed(2)}ms`);
+        hasLogged = true;
+        observer.disconnect();
+      });
+      
+      observer.observe({ entryTypes: ['largest-contentful-paint'] });
+    } catch (e) {
+      // Not supported in all browsers
     }
   }
   
-  // Initialize all performance monitoring
+  // Initialize performance monitoring - development only
   init() {
+    if (!this.isEnabled) return;
+    
     this.observeLongTasks();
     this.observeLCP();
     
-    // Monitor page load performance
+    // Monitor page load performance - once only
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         logger.info(`DOM ready: ${performance.now().toFixed(2)}ms`);
-      });
+      }, { once: true });
       
       window.addEventListener('load', () => {
         logger.info(`Page load complete: ${performance.now().toFixed(2)}ms`);
-      });
+      }, { once: true });
     }
   }
 }

@@ -5,6 +5,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile optimization classes */
+.mobile-optimized {
+  /* Ensure smooth scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.ios-optimized [data-radix-scroll-area-viewport],
+.ios-optimized .overflow-auto,
+.ios-optimized .overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\:animate-fade-in,
+  .motion-safe\:hover\:scale-105,
+  .motion-safe\:hover\:-translate-y-0\.5,
+  .motion-safe\:hover\:-translate-y-2 {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 @layer base {

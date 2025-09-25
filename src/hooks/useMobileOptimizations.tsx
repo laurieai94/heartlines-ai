@@ -1,12 +1,14 @@
 import { useEffect, useCallback } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import { useViewport } from '@/contexts/ViewportContext';
 
 /**
- * Mobile-specific optimizations for chat interface
- * Handles haptic feedback simulation, touch target improvements, and performance optimizations
+ * Optimized mobile-specific enhancements
+ * Lightweight version with CSS-first approach and minimal DOM manipulation
  */
 export const useMobileOptimizations = () => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
+  const { registerKeyboardListener } = useViewport();
 
   // Simulated haptic feedback through visual feedback
   const simulateHapticFeedback = useCallback((element: HTMLElement, type: 'light' | 'medium' | 'heavy' = 'light') => {
@@ -25,77 +27,46 @@ export const useMobileOptimizations = () => {
     }, 150);
   }, [isMobile]);
 
-  // Optimize touch target sizes
+  // CSS-based touch optimization - no DOM manipulation needed
   useEffect(() => {
     if (!isMobile) return;
     
-    const optimizeTouchTargets = () => {
-      // Ensure minimum 44px touch targets on mobile
-      const interactiveElements = document.querySelectorAll('button, [role="button"], a, input, textarea, select');
-      
-      interactiveElements.forEach((element) => {
-        const htmlElement = element as HTMLElement;
-        const rect = htmlElement.getBoundingClientRect();
-        
-        // Add padding if touch target is too small
-        if (rect.width < 44 || rect.height < 44) {
-          htmlElement.style.minHeight = '44px';
-          htmlElement.style.minWidth = '44px';
-          htmlElement.classList.add('flex', 'items-center', 'justify-center');
-        }
-      });
+    // Add mobile optimization classes to body
+    document.body.classList.add('mobile-optimized');
+    
+    return () => {
+      document.body.classList.remove('mobile-optimized');
     };
-
-    // Run on mount and when DOM changes
-    optimizeTouchTargets();
-    
-    const observer = new MutationObserver(optimizeTouchTargets);
-    observer.observe(document.body, { childList: true, subtree: true });
-    
-    return () => observer.disconnect();
   }, [isMobile]);
 
-  // Optimize scroll momentum and viewport handling for iOS
+  // iOS scroll optimizations with centralized viewport handling
   useEffect(() => {
     if (!isMobile) return;
     
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
     if (isIOS) {
-      // Add momentum scrolling to all scrollable elements
-      const scrollableElements = document.querySelectorAll('[data-radix-scroll-area-viewport], .overflow-auto, .overflow-y-auto');
+      // Apply iOS scroll optimizations via CSS
+      document.body.classList.add('ios-optimized');
       
-      scrollableElements.forEach((element) => {
-        const htmlElement = element as HTMLElement;
-        // Use setProperty for webkit-specific CSS properties
-        htmlElement.style.setProperty('-webkit-overflow-scrolling', 'touch');
-        htmlElement.style.overscrollBehavior = 'contain';
-      });
-
-      // Handle viewport changes for keyboard and safe areas
-      const handleViewportChange = () => {
+      // Register for keyboard events through centralized viewport context
+      const unregister = registerKeyboardListener((isKeyboardVisible) => {
         const profileContainer = document.querySelector('[data-profile-container]') as HTMLElement;
-        if (profileContainer && window.visualViewport) {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
-          const keyboardHeight = windowHeight - viewportHeight;
-          
-          if (keyboardHeight > 0) {
-            // Keyboard is open, adjust bottom padding
-            profileContainer.style.paddingBottom = `calc(1.5rem + ${keyboardHeight}px + env(safe-area-inset-bottom, 0px))`;
+        if (profileContainer) {
+          if (isKeyboardVisible) {
+            profileContainer.style.paddingBottom = `calc(1.5rem + env(keyboard-inset-height, 0px) + env(safe-area-inset-bottom, 0px))`;
           } else {
-            // Keyboard is closed, reset to normal safe area padding
             profileContainer.style.paddingBottom = '';
           }
         }
-      };
+      });
 
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', handleViewportChange);
-        return () => window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      }
+      return () => {
+        document.body.classList.remove('ios-optimized');
+        unregister();
+      };
     }
-  }, [isMobile]);
+  }, [isMobile, registerKeyboardListener]);
 
   return {
     simulateHapticFeedback,

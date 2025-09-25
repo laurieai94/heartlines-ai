@@ -1,12 +1,12 @@
 import { useEffect, useCallback, useRef, useState } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 /**
  * Mobile-specific optimizations for profile pages
  * Handles performance, touch interactions, and pull-to-refresh for profile components
  */
 export const useProfileMobileOptimizations = () => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
   const touchStartY = useRef<number>(0);
