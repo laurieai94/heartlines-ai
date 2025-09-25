@@ -5,6 +5,7 @@ import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
 import SplashScreen from "@/components/SplashScreen";
 import { performanceMonitor } from "@/utils/performanceMonitor";
+import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 
 // Import AIInsights directly to avoid dynamic loading issues
 import AIInsights from "@/components/AIInsights";
@@ -38,6 +39,7 @@ const DashboardContent = ({
   // Chat state management for the coach tab
   const [chatHistory, setChatHistory] = useState<any[]>([]);
   const [conversationStarter, setConversationStarter] = useState("");
+  const { forceVisible } = useMobileHeaderVisibility();
   
   // Performance monitoring for tab switches
   useEffect(() => {
@@ -54,9 +56,31 @@ const DashboardContent = ({
     setConversationStarter("");
   };
 
-  // Handle sidebar actions
+  // Handle sidebar actions - open mobile navigation
   const handleOpenSidebar = () => {
-    // Could add sidebar logic here if needed
+    // Force mobile header visible
+    forceVisible();
+    
+    // Scroll to top to ensure navigation is visible
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Wait a brief moment for header to appear, then open dropdown
+    setTimeout(() => {
+      const menuButton = document.querySelector('[data-mobile-header] button[role="button"]') ||
+                        document.querySelector('[aria-haspopup="true"]') ||
+                        document.querySelector('button[data-dropdown-toggle]');
+      
+      if (menuButton) {
+        (menuButton as HTMLElement).click();
+      } else {
+        console.log('Menu button not found, trying alternative selectors');
+        // Fallback: look for any button in the header that might be the menu
+        const headerButtons = document.querySelectorAll('[data-mobile-header] button');
+        if (headerButtons.length > 0) {
+          (headerButtons[0] as HTMLElement).click();
+        }
+      }
+    }, 100);
   };
 
   const handleSupabaseConfigured = () => {
