@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, lazy } from 'react';
+import { useEffect, useRef, useState, lazy, useMemo } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
@@ -11,6 +11,8 @@ import { logEvent } from '@/utils/analytics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
+import { useViewport } from '@/contexts/ViewportContext';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -58,6 +60,10 @@ export const ChatInputSection = ({
     upgrade, 
     manageSubscription 
   } = useOptimizedSubscription();
+  
+  // Mobile optimization hooks
+  const { isMobile } = useOptimizedMobile();
+  const { isKeyboardVisible, keyboardHeight } = useViewport();
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -161,8 +167,21 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
+  // Memoize mobile-specific padding to prevent re-renders
+  const mobilePadding = useMemo(() => {
+    if (!isMobile) return {};
+    
+    const basePadding = 16;
+    const keyboardPadding = isKeyboardVisible ? Math.max(keyboardHeight * 0.1, 8) : 0;
+    
+    return {
+      paddingBottom: `${basePadding + keyboardPadding}px`,
+      transition: 'padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    };
+  }, [isMobile, isKeyboardVisible, keyboardHeight]);
+
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0">
+    <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
       <div className="px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
