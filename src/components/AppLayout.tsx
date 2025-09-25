@@ -65,6 +65,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           activeTab={getActiveTab()}
           onValueChange={handleTabChange}
           onSignInClick={handleSignInClick}
+          currentPath={location.pathname}
         />
         {children}
       </div>

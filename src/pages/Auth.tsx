@@ -48,7 +48,7 @@ const Auth = () => {
   // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen questionnaire-bg flex items-center justify-center">
+      <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>
     );
@@ -200,12 +200,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen questionnaire-bg">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
-      </div>
+    <div className="min-h-screen bg-burgundy-900">
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe pt-8 max-w-md">
         {/* Spacing for sign-in */}

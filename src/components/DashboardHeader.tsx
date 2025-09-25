@@ -23,9 +23,10 @@ interface DashboardHeaderProps {
   onValueChange: (value: string) => void;
   onSignInClick: () => void;
   onOpenProfile?: () => void;
+  currentPath?: string;
 }
 
-const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
+const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile, currentPath }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const { visible } = useMobileHeaderVisibility();
@@ -181,7 +182,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           </div>
           
           <div className="flex items-center">
-            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+            {currentPath !== '/auth' && (
+              <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
+            )}
           </div>
         </div>
       </div>
