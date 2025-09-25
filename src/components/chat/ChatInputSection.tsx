@@ -167,21 +167,8 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Memoize mobile-specific padding to prevent re-renders
-  const mobilePadding = useMemo(() => {
-    if (!isMobile) return {};
-    
-    const basePadding = 16;
-    const keyboardPadding = isKeyboardVisible ? Math.max(keyboardHeight * 0.1, 8) : 0;
-    
-    return {
-      paddingBottom: `${basePadding + keyboardPadding}px`,
-      transition: 'padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    };
-  }, [isMobile, isKeyboardVisible, keyboardHeight]);
-
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
+    <div className="flex-shrink-0 pb-safe sticky bottom-0 transition-all duration-300 ease-out pb-4 md:pb-6">
       <div className="px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
