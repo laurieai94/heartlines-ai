@@ -82,6 +82,28 @@ html, body, #root {
   perspective: 1000px;
 }
 
+/* CSS-only smooth scrolling for better performance */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize will-change for better compositing */
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+/* Performance-optimized animations */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float-slow {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
 /* Optimized glass effects */
 .glass-optimized {
   backdrop-filter: blur(8px);

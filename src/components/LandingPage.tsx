@@ -205,26 +205,34 @@ const LandingPage = ({
     bio: "Artist & yoga instructor"
   }];
   useEffect(() => {
-    // Only run animations for full marketing page
+    // Only run minimal animations for full marketing page
     if (!isEmbedded) {
-      const handleMouseMove = (e: MouseEvent) => {
-        setMousePosition({
-          x: e.clientX,
-          y: e.clientY
-        });
-      };
+      // Only track mouse on desktop devices to reduce mobile overhead
+      const isMobile = window.innerWidth < 768;
+      
+      let handleMouseMove: ((e: MouseEvent) => void) | null = null;
+      
+      if (!isMobile) {
+        handleMouseMove = (e: MouseEvent) => {
+          setMousePosition({
+            x: e.clientX,
+            y: e.clientY
+          });
+        };
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+      }
 
-      // Defer non-critical timers to after initial paint
+      // Defer non-critical timers to idle time
       const deferredSetup = () => {
         // Show floating button after page is stable
         const timer = setTimeout(() => {
           setShowFloatingButton(true);
-        }, 1500); // Reduced from 3000ms
+        }, 2000);
 
-        // Start profile rotation after initial render
+        // Start profile rotation after initial render - slower updates
         const profileTimer = setInterval(() => {
           setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
-        }, 3000); // Increased from 2000ms to reduce visual updates
+        }, 4000); // Slower rotation to reduce repaints
 
         return () => {
           clearTimeout(timer);
@@ -232,22 +240,24 @@ const LandingPage = ({
         };
       };
 
-      // Use idle callback to defer setup
       let cleanup: (() => void) | undefined;
+      
+      // Use requestIdleCallback for better performance
       if ('requestIdleCallback' in window) {
         (window as any).requestIdleCallback(() => {
           cleanup = deferredSetup();
-        }, { timeout: 1000 });
+        }, { timeout: 2000 });
       } else {
         setTimeout(() => {
           cleanup = deferredSetup();
-        }, 500);
+        }, 1000);
       }
 
-      window.addEventListener('mousemove', handleMouseMove);
       return () => {
         cleanup?.();
-        window.removeEventListener('mousemove', handleMouseMove);
+        if (handleMouseMove) {
+          window.removeEventListener('mousemove', handleMouseMove);
+        }
       };
     }
   }, [isEmbedded]);
@@ -256,23 +266,13 @@ const LandingPage = ({
       {showMarketingTopBar && <>
         </>}
 
-      {/* Floating Particles */}
+      {/* Minimal Floating Particles - CSS Only */}
       {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`
-      }} />)}
-        </div>}
-
-      {/* Floating Geometric Shapes */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-20 h-20 border border-pink-300/10 rounded-lg animate-spin" style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDuration: `${10 + Math.random() * 20}s`,
-        transform: `rotate(${Math.random() * 360}deg)`
+          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
+        left: `${20 + (i * 15)}%`,
+        top: `${30 + (i * 10)}%`,
+        animationDelay: `${i * 0.5}s`,
+        animationDuration: '3s'
       }} />)}
         </div>}
 
