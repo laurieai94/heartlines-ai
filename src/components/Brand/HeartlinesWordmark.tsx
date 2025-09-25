@@ -16,7 +16,7 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
     xl: "text-6xl"
   };
   return (
-    <span className={`${sizeClasses[size]} ${className}`} onClick={onClick}>
+    <span className={`font-brand ${sizeClasses[size]} ${className}`} onClick={onClick}>
       heartlines
     </span>
   );
