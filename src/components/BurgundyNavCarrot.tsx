@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
-import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useViewport } from '@/contexts/ViewportContext';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 interface BurgundyNavCarrotProps {
   isScrollingUp: boolean;
@@ -11,8 +11,8 @@ interface BurgundyNavCarrotProps {
 
 export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyNavCarrotProps) => {
   const { visible, forceVisible } = useMobileHeaderVisibility();
-  const isKeyboardVisible = useKeyboardDetection();
-  const isMobile = useIsMobile();
+  const { isKeyboardVisible } = useViewport();
+  const { isMobile } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Haptic feedback simulation

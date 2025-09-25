@@ -4,12 +4,12 @@ import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
-import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
+import { useViewport } from '@/contexts/ViewportContext';
 import NavigationPullTab from './NavigationPullTab';
 import { BurgundyNavCarrot } from './BurgundyNavCarrot';
 
@@ -36,9 +36,9 @@ const ChatContainer = ({
   onNewConversation = () => {},
   onOpenSidebar
 }: ChatContainerProps) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   const { visible: headerVisible, setVisible: setHeaderVisible, forceVisible } = useMobileHeaderVisibility();
-  const isKeyboardVisible = useKeyboardDetection();
+  const { isKeyboardVisible } = useViewport();
   
   // Simple references for scroll management
   const viewportRef = useRef<HTMLDivElement>(null);
