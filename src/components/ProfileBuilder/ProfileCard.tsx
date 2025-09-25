@@ -70,7 +70,7 @@ const ProfileCard = ({
       ref={cardRef}
       data-profile-card
       className={`questionnaire-card group p-2 md:p-4 lg:p-5 
-        transition-all duration-300 hover:scale-[1.02] hover:bg-white/15 hover:border-white/30
+        transition-all duration-300 hover:scale-[1.02] hover:bg-white/8 hover:border-white/20
         min-h-[200px] md:min-h-[240px] lg:min-h-[280px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
