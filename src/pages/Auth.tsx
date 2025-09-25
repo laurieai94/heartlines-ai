@@ -287,7 +287,7 @@ const Auth = () => {
             <>
               {!isSignUp && (
                 <div className="text-center mb-4">
-                  <h1 className="text-2xl font-bold text-white mb-2">
+                  <h1 className="text-2xl font-brand font-normal text-white mb-2">
                     We missed you
                   </h1>
                 </div>
