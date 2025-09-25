@@ -70,7 +70,7 @@ const DashboardContent = ({
         return <DashboardHome />;
       case "coach":
         return (
-          <div className="h-full flex flex-col">
+          <div className="h-full max-w-5xl mx-auto px-2 sm:px-6 lg:px-8">
             <AIChat 
               profiles={temporaryProfiles}
               demographicsData={temporaryDemographics}
@@ -98,7 +98,7 @@ const DashboardContent = ({
         );
       case "insights":
         return (
-          <div className="h-full">
+          <div className="h-full max-w-5xl mx-auto px-2 sm:px-6 lg:px-8">
             <ProgressiveAccessWrapper action="insights">
               <AIInsights 
                 profiles={temporaryProfiles}
