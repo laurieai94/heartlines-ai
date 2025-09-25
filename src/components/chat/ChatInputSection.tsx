@@ -182,7 +182,7 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
-      <div className="px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8">
+      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
