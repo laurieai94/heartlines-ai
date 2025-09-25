@@ -1,6 +1,5 @@
 import BrandMark from "./BrandMark";
 import SignInButton from "./SignInButton";
-import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -115,14 +114,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
-            
-            {activeTab !== 'profile' && (
-              <HeartlinesWordmark 
-                size="sm" 
-                className="text-white text-xl leading-none cursor-pointer" 
-                onClick={() => onValueChange('home')}
-              />
-            )}
           </div>
           
           {/* Get Started Button - Mobile (Auth page only) */}
@@ -182,14 +173,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
-            
-            {activeTab !== 'profile' && (
-              <HeartlinesWordmark 
-                size="sm" 
-                className="text-white cursor-pointer" 
-                onClick={() => onValueChange('home')}
-              />
-            )}
           </div>
           
           <div className="flex items-center">
