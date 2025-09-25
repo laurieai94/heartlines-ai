@@ -11,6 +11,8 @@ import { logEvent } from '@/utils/analytics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
+import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -58,6 +60,8 @@ export const ChatInputSection = ({
     upgrade, 
     manageSubscription 
   } = useOptimizedSubscription();
+  const isKeyboardVisible = useKeyboardDetection();
+  const { isMobile } = useOptimizedMobile();
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -155,6 +159,15 @@ export const ChatInputSection = ({
     };
   }, []);
 
+  // Dynamic padding based on keyboard visibility
+  const outerPadding = isMobile && isKeyboardVisible 
+    ? 'calc(env(safe-area-inset-bottom) + 8px)' 
+    : 'calc(max(env(safe-area-inset-bottom), 20px) + 1rem)';
+  
+  const innerPadding = isMobile && isKeyboardVisible 
+    ? 'px-0 py-2 pt-0 md:px-4 md:py-5 md:pt-8'
+    : 'px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8';
+
   // Show starters immediately for authenticated users with empty chats
   const shouldShowStarters = 
     (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
@@ -162,8 +175,11 @@ export const ChatInputSection = ({
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
   return (
-    <div className="flex-shrink-0 sticky bottom-0" style={{ paddingBottom: 'calc(max(env(safe-area-inset-bottom), 20px) + 1rem)' }}>
-      <div className="px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8">
+    <div 
+      className="flex-shrink-0 sticky bottom-0 transition-[padding] duration-300" 
+      style={{ paddingBottom: outerPadding }}
+    >
+      <div className={innerPadding}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
