@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, lazy, useMemo } from 'react';
+import { useEffect, useRef, useState, lazy } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
@@ -11,7 +11,7 @@ import { logEvent } from '@/utils/analytics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import { useViewport } from '@/contexts/ViewportContext';
+import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 // Prefetch the profile questionnaire for faster loading
@@ -60,7 +60,7 @@ export const ChatInputSection = ({
     upgrade, 
     manageSubscription 
   } = useOptimizedSubscription();
-  const { isKeyboardVisible } = useViewport();
+  const isKeyboardVisible = useKeyboardDetection();
   const { isMobile } = useOptimizedMobile();
 
   // Compute limit states
@@ -159,15 +159,14 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Dynamic padding based on keyboard visibility - memoized to prevent re-renders
-  const { outerPadding, innerPadding } = useMemo(() => ({
-    outerPadding: isMobile && isKeyboardVisible 
-      ? 'calc(env(safe-area-inset-bottom) + 8px)' 
-      : 'calc(max(env(safe-area-inset-bottom), 20px) + 1rem)',
-    innerPadding: isMobile && isKeyboardVisible 
-      ? 'px-0 py-2 pt-0 md:px-4 md:py-5 md:pt-8'
-      : 'px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8'
-  }), [isMobile, isKeyboardVisible]);
+  // Dynamic padding based on keyboard visibility
+  const outerPadding = isMobile && isKeyboardVisible 
+    ? 'calc(env(safe-area-inset-bottom) + 8px)' 
+    : 'calc(max(env(safe-area-inset-bottom), 20px) + 1rem)';
+  
+  const innerPadding = isMobile && isKeyboardVisible 
+    ? 'px-0 py-2 pt-0 md:px-4 md:py-5 md:pt-8'
+    : 'px-0 py-4 pt-0 md:px-4 md:py-5 md:pt-8';
 
   // Show starters immediately for authenticated users with empty chats
   const shouldShowStarters = 
