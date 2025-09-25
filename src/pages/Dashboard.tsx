@@ -100,9 +100,9 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <div className="h-[100dvh] overflow-hidden">
+          <div className="min-h-[100dvh]">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
-            <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+            <div className={`flex-1 min-h-0 flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
               {/* Ambient glow for chat interface separation */}
               <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
