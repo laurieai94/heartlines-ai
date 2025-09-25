@@ -29,40 +29,48 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
 
   const keyboardListeners = new Set<(isVisible: boolean) => void>();
 
-  const updateViewport = useCallback(
-    debounce(() => {
-      if (typeof window === 'undefined') return;
+  const updateViewport = useCallback(() => {
+    if (typeof window === 'undefined') return;
 
-      try {
-        const windowHeight = window.innerHeight;
-        const visualHeight = window.visualViewport?.height || windowHeight;
-        const keyboardHeight = Math.max(0, windowHeight - visualHeight);
-        const isKeyboardVisible = keyboardHeight > 50; // Threshold for keyboard detection
+    try {
+      const windowHeight = window.innerHeight;
+      const visualHeight = window.visualViewport?.height || windowHeight;
+      const keyboardHeight = Math.max(0, windowHeight - visualHeight);
+      const isKeyboardVisible = keyboardHeight > 100; // Increased threshold
+      
+      // Debug logging
+      console.log('🔍 Viewport Debug:', {
+        windowHeight,
+        visualHeight,
+        keyboardHeight,
+        isKeyboardVisible,
+        hasVisualViewport: !!window.visualViewport,
+        userAgent: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'
+      });
 
-        setState(prev => {
-          if (prev.isKeyboardVisible !== isKeyboardVisible) {
-            keyboardListeners.forEach(listener => {
-              try {
-                listener(isKeyboardVisible);
-              } catch (error) {
-                console.error('Error in keyboard listener:', error);
-              }
-            });
-          }
-          
-          return {
-            keyboardHeight,
-            isKeyboardVisible,
-            visualViewportHeight: visualHeight,
-            windowHeight,
-          };
-        });
-      } catch (error) {
-        console.error('Error updating viewport:', error);
-      }
-    }, 150),
-    []
-  );
+      setState(prev => {
+        if (prev.isKeyboardVisible !== isKeyboardVisible) {
+          console.log('🔍 Keyboard state changed:', isKeyboardVisible);
+          keyboardListeners.forEach(listener => {
+            try {
+              listener(isKeyboardVisible);
+            } catch (error) {
+              console.error('Error in keyboard listener:', error);
+            }
+          });
+        }
+        
+        return {
+          keyboardHeight,
+          isKeyboardVisible,
+          visualViewportHeight: visualHeight,
+          windowHeight,
+        };
+      });
+    } catch (error) {
+      console.error('Error updating viewport:', error);
+    }
+  }, []);
 
   const registerKeyboardListener = useCallback((callback: (isVisible: boolean) => void) => {
     keyboardListeners.add(callback);
@@ -79,11 +87,32 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       console.error('Error during initial viewport update:', error);
     }
 
+    // Focus/blur fallback for keyboard detection
+    const handleFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        console.log('🔍 Input focused - keyboard should be visible');
+        setTimeout(updateViewport, 300); // Delay for keyboard animation
+      }
+    };
+
+    const handleFocusOut = () => {
+      console.log('🔍 Input unfocused - keyboard should be hidden');
+      setTimeout(updateViewport, 300); // Delay for keyboard animation
+    };
+
     // Use visualViewport if available (more accurate)
     if (window.visualViewport) {
       try {
         window.visualViewport.addEventListener('resize', updateViewport, { passive: true });
-        return () => window.visualViewport?.removeEventListener('resize', updateViewport);
+        document.addEventListener('focusin', handleFocusIn, { passive: true });
+        document.addEventListener('focusout', handleFocusOut, { passive: true });
+        
+        return () => {
+          window.visualViewport?.removeEventListener('resize', updateViewport);
+          document.removeEventListener('focusin', handleFocusIn);
+          document.removeEventListener('focusout', handleFocusOut);
+        };
       } catch (error) {
         console.error('Error setting up visualViewport listener:', error);
       }
@@ -91,7 +120,14 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       // Fallback for older browsers
       try {
         window.addEventListener('resize', updateViewport, { passive: true });
-        return () => window.removeEventListener('resize', updateViewport);
+        document.addEventListener('focusin', handleFocusIn, { passive: true });
+        document.addEventListener('focusout', handleFocusOut, { passive: true });
+        
+        return () => {
+          window.removeEventListener('resize', updateViewport);
+          document.removeEventListener('focusin', handleFocusIn);
+          document.removeEventListener('focusout', handleFocusOut);
+        };
       } catch (error) {
         console.error('Error setting up window resize listener:', error);
       }
