@@ -15,11 +15,16 @@ interface ViewportContextType extends ViewportState {
 const ViewportContext = createContext<ViewportContextType | null>(null);
 
 export function ViewportProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<ViewportState>({
-    keyboardHeight: 0,
-    isKeyboardVisible: false,
-    visualViewportHeight: typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 0,
-    windowHeight: typeof window !== 'undefined' ? window.innerHeight : 0,
+  const [state, setState] = useState<ViewportState>(() => {
+    // Safe initialization for SSR
+    const safeHeight = typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 768;
+    
+    return {
+      keyboardHeight: 0,
+      isKeyboardVisible: false,
+      visualViewportHeight: safeHeight,
+      windowHeight: safeHeight,
+    };
   });
 
   const keyboardListeners = new Set<(isVisible: boolean) => void>();
@@ -28,23 +33,33 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
     debounce(() => {
       if (typeof window === 'undefined') return;
 
-      const windowHeight = window.innerHeight;
-      const visualHeight = window.visualViewport?.height || windowHeight;
-      const keyboardHeight = Math.max(0, windowHeight - visualHeight);
-      const isKeyboardVisible = keyboardHeight > 50; // Threshold for keyboard detection
+      try {
+        const windowHeight = window.innerHeight;
+        const visualHeight = window.visualViewport?.height || windowHeight;
+        const keyboardHeight = Math.max(0, windowHeight - visualHeight);
+        const isKeyboardVisible = keyboardHeight > 50; // Threshold for keyboard detection
 
-      setState(prev => {
-        if (prev.isKeyboardVisible !== isKeyboardVisible) {
-          keyboardListeners.forEach(listener => listener(isKeyboardVisible));
-        }
-        
-        return {
-          keyboardHeight,
-          isKeyboardVisible,
-          visualViewportHeight: visualHeight,
-          windowHeight,
-        };
-      });
+        setState(prev => {
+          if (prev.isKeyboardVisible !== isKeyboardVisible) {
+            keyboardListeners.forEach(listener => {
+              try {
+                listener(isKeyboardVisible);
+              } catch (error) {
+                console.error('Error in keyboard listener:', error);
+              }
+            });
+          }
+          
+          return {
+            keyboardHeight,
+            isKeyboardVisible,
+            visualViewportHeight: visualHeight,
+            windowHeight,
+          };
+        });
+      } catch (error) {
+        console.error('Error updating viewport:', error);
+      }
     }, 150),
     []
   );
@@ -58,16 +73,28 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return;
 
     // Initial state
-    updateViewport();
+    try {
+      updateViewport();
+    } catch (error) {
+      console.error('Error during initial viewport update:', error);
+    }
 
     // Use visualViewport if available (more accurate)
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateViewport, { passive: true });
-      return () => window.visualViewport?.removeEventListener('resize', updateViewport);
+      try {
+        window.visualViewport.addEventListener('resize', updateViewport, { passive: true });
+        return () => window.visualViewport?.removeEventListener('resize', updateViewport);
+      } catch (error) {
+        console.error('Error setting up visualViewport listener:', error);
+      }
     } else {
       // Fallback for older browsers
-      window.addEventListener('resize', updateViewport, { passive: true });
-      return () => window.removeEventListener('resize', updateViewport);
+      try {
+        window.addEventListener('resize', updateViewport, { passive: true });
+        return () => window.removeEventListener('resize', updateViewport);
+      } catch (error) {
+        console.error('Error setting up window resize listener:', error);
+      }
     }
   }, [updateViewport]);
 
