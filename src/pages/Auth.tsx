@@ -207,10 +207,10 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
+      <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe pt-8 max-w-md">
         {/* Heartlines Logo - Only show for sign-in */}
         {!isSignUp && (
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-6">
             <HeartlinesWordmark 
               size="lg" 
               className="text-white md:text-4xl text-3xl" 
@@ -220,7 +220,7 @@ const Auth = () => {
         
         {/* Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <div className="flex items-baseline justify-center gap-2 text-3xl md:text-4xl font-bold text-white flex-wrap">
               <span className="font-playfair leading-none">Tap into</span>
               <HeartlinesWordmark size="md" className="text-white leading-none md:text-[1.1em] lg:text-[1.12em]" />
@@ -230,7 +230,7 @@ const Auth = () => {
 
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-8 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
+          <div className="mb-6 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
             <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
