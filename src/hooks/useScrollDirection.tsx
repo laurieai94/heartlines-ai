@@ -5,7 +5,6 @@ interface ScrollDirectionState {
   isScrollingUp: boolean;
   isScrollingDown: boolean;
   scrollY: number;
-  lastScrollY: number;
 }
 
 export const useScrollDirection = (threshold = 10) => {
@@ -13,25 +12,26 @@ export const useScrollDirection = (threshold = 10) => {
     isScrollingUp: false,
     isScrollingDown: false,
     scrollY: 0,
-    lastScrollY: 0,
   });
 
+  const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
   const updateScrollDirection = throttle(() => {
     const scrollY = window.scrollY;
-    const difference = Math.abs(scrollY - scrollState.lastScrollY);
+    const difference = Math.abs(scrollY - lastScrollY.current);
 
     if (difference >= threshold) {
-      const isScrollingUp = scrollY < scrollState.lastScrollY;
-      const isScrollingDown = scrollY > scrollState.lastScrollY;
+      const isScrollingUp = scrollY < lastScrollY.current;
+      const isScrollingDown = scrollY > lastScrollY.current;
 
       setScrollState({
         isScrollingUp,
         isScrollingDown,
         scrollY,
-        lastScrollY: scrollY,
       });
+      
+      lastScrollY.current = scrollY;
     }
 
     ticking.current = false;
