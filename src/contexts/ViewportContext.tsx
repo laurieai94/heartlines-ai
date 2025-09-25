@@ -36,13 +36,19 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       const windowHeight = window.innerHeight;
       const visualHeight = window.visualViewport?.height || windowHeight;
       const keyboardHeight = Math.max(0, windowHeight - visualHeight);
-      const isKeyboardVisible = keyboardHeight > 100; // Increased threshold
+      
+      // Device-specific keyboard detection thresholds
+      const isTabletDevice = windowHeight >= 768 && windowHeight < 1024;
+      const keyboardThreshold = isTabletDevice ? 200 : 100; // Higher threshold for tablets
+      const isKeyboardVisible = keyboardHeight > keyboardThreshold;
       
       // Debug logging
       console.log('🔍 Viewport Debug:', {
         windowHeight,
         visualHeight,
         keyboardHeight,
+        isTabletDevice,
+        keyboardThreshold,
         isKeyboardVisible,
         hasVisualViewport: !!window.visualViewport,
         userAgent: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'

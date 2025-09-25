@@ -61,8 +61,8 @@ export const ChatInputSection = ({
     manageSubscription 
   } = useOptimizedSubscription();
   
-  // Mobile optimization hooks
-  const { isMobile } = useOptimizedMobile();
+  // Mobile optimization hooks - distinguish between mobile phones and tablets
+  const { isMobile, isTablet } = useOptimizedMobile();
   const { isKeyboardVisible, keyboardHeight } = useViewport();
 
   // Compute limit states
@@ -167,9 +167,10 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Memoize mobile-specific padding to prevent re-renders - minimize space when keyboard is open
+  // Memoize mobile-specific padding to prevent re-renders - ONLY for phones, not tablets
   const mobilePadding = useMemo(() => {
-    if (!isMobile) return {};
+    // Only apply dynamic padding to mobile phones, not tablets
+    if (!isMobile || isTablet) return {};
     
     // Minimize padding when keyboard is visible to maximize chat space
     const basePadding = isKeyboardVisible ? 4 : 16;
@@ -178,11 +179,11 @@ export const ChatInputSection = ({
       paddingBottom: `${basePadding}px`,
       transition: 'padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     };
-  }, [isMobile, isKeyboardVisible]);
+  }, [isMobile, isTablet, isKeyboardVisible]);
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
-      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
+      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
