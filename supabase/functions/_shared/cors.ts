@@ -10,9 +10,8 @@ export const getCorsHeaders = (origin?: string | null) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Credentials': 'true',
       'Vary': 'Origin',
-    } as const;
+    };
   }
 
   // If no origin provided, we cannot reflect it
@@ -23,7 +22,7 @@ export const getCorsHeaders = (origin?: string | null) => {
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Credentials': 'true',
       'Vary': 'Origin',
-    } as const;
+    };
   }
 
   // Match origin with support for wildcard patterns (e.g., https://*.lovable.app or prefix*)
@@ -49,7 +48,7 @@ export const getCorsHeaders = (origin?: string | null) => {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Credentials': 'true',
     'Vary': 'Origin',
-  } as const;
+  };
 };
 
 // Legacy export for backward compatibility

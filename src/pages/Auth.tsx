@@ -48,7 +48,7 @@ const Auth = () => {
   // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-burgundy-900 flex items-center justify-center">
+      <div className="min-h-screen questionnaire-bg flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>
     );
@@ -200,27 +200,37 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-burgundy-900">
+    <div className="min-h-screen questionnaire-bg">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
+      </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe pt-8 max-w-md">
-        {/* Spacing for sign-in */}
+      <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
+        {/* Heartlines Logo - Only show for sign-in */}
         {!isSignUp && (
-          <div className="mb-12"></div>
+          <div className="flex justify-center mb-8">
+            <HeartlinesWordmark 
+              size="lg" 
+              className="text-white md:text-4xl text-3xl" 
+            />
+          </div>
         )}
         
         {/* Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <div className="flex items-baseline justify-center gap-2 text-3xl md:text-4xl font-bold text-white flex-wrap">
-              <span className="font-brand leading-none">Tap into</span>
-              <HeartlinesWordmark className="text-white leading-none font-bold" />
+              <span className="font-playfair leading-none">Tap into</span>
+              <HeartlinesWordmark size="md" className="text-white leading-none md:text-[1.1em] lg:text-[1.12em]" />
             </div>
           </div>
         )}
 
         {/* Progress Header - Only show during sign-up */}
         {isSignUp && (
-          <div className="mb-6 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
+          <div className="mb-8 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
             <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -287,7 +297,7 @@ const Auth = () => {
             <>
               {!isSignUp && (
                 <div className="text-center mb-4">
-                  <h1 className="text-2xl font-brand font-normal text-white mb-2">
+                  <h1 className="text-2xl font-bold text-white mb-2">
                     We missed you
                   </h1>
                 </div>

@@ -138,7 +138,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'claude-opus-4-1-20250805',
-        max_tokens: 1500,
+        max_tokens: 400,
         messages: messages,
         system: systemPrompt
       })
@@ -225,11 +225,11 @@ serve(async (req) => {
     }
 
   } catch (error) {
-    console.error('Edge Function Error:', (error as Error)?.message || 'Unknown error')
+    console.error('Edge Function Error:', error.message)
     
     // Sanitize error message for security
-    const sanitizedError = (error as Error)?.message?.includes('Authentication') ? 'Authentication failed' :
-                          (error as Error)?.message?.includes('Rate limit') ? 'Rate limit exceeded' :
+    const sanitizedError = error.message?.includes('Authentication') ? 'Authentication failed' :
+                          error.message?.includes('Rate limit') ? 'Rate limit exceeded' :
                           'Service temporarily unavailable';
     
     return new Response(

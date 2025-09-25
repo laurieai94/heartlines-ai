@@ -1,9 +1,7 @@
 
-import { useCallback } from "react";
+import { useState, useEffect } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
-import ErrorBoundary from "../ErrorBoundary";
-import { performanceMonitor } from "../../utils/performanceMonitor";
 
 interface NewPersonalQuestionnaireProps {
   onComplete: (profileData: any) => void;
@@ -12,15 +10,11 @@ interface NewPersonalQuestionnaireProps {
 }
 
 const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewPersonalQuestionnaireProps) => {
-  // Initialize performance monitoring
-  performanceMonitor.init();
-  performanceMonitor.mark('questionnaire-start');
+  const [autoCompleteCallback, setAutoCompleteCallback] = useState<(() => void) | undefined>();
   
   const { profileData, updateField, handleMultiSelect, saveData } = usePersonalProfileData();
 
-  // Fix infinite re-render by using useCallback with stable dependencies
-  const handleComplete = useCallback(async () => {
-    performanceMonitor.mark('questionnaire-complete');
+  const handleComplete = async () => {
     try {
       await saveData(profileData);
       
@@ -35,31 +29,29 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
         completionData: completedData,
         nextStep: 'start-coaching'
       });
-      
-      performanceMonitor.measure('questionnaire-complete', 100);
     } catch (error) {
       console.error('Error completing questionnaire:', error);
     }
-  }, [saveData, profileData, onComplete]);
+  };
 
-  // Create stable auto-complete callback
-  const autoCompleteCallback = useCallback(() => {
-    handleComplete();
-  }, [handleComplete]);
+  // Set the auto-complete callback after we have access to handleComplete
+  useEffect(() => {
+    if (!autoCompleteCallback) {
+      setAutoCompleteCallback(() => handleComplete);
+    }
+  }, [autoCompleteCallback, handleComplete]);
 
 
   return (
-    <ErrorBoundary>
-      <QuestionnaireLayout
-        profileData={profileData}
-        updateField={updateField}
-        handleMultiSelect={handleMultiSelect}
-        onComplete={handleComplete}
-        onClose={onClose}
-        isModal={isModal}
-        onAutoComplete={autoCompleteCallback}
-      />
-    </ErrorBoundary>
+    <QuestionnaireLayout
+      profileData={profileData}
+      updateField={updateField}
+      handleMultiSelect={handleMultiSelect}
+      onComplete={handleComplete}
+      onClose={onClose}
+      isModal={isModal}
+      onAutoComplete={autoCompleteCallback}
+    />
   );
 };
 

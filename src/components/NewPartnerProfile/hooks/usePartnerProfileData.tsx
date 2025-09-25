@@ -34,23 +34,19 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     saveData
   } = useProfileStoreV2('partner');
 
-  // EMERGENCY FIX: Debounced auto-completion to prevent excessive calls
+  // Auto-completion logic
   useEffect(() => {
-    if (!isReady || !onAutoComplete) return;
-    
-    const timer = setTimeout(() => {
-      try {
-        const progress = calculatePartnerProgress(profileData as PartnerProfileData);
-        if (progress === 100) {
+    if (isReady && onAutoComplete) {
+      const progress = calculatePartnerProgress(profileData as PartnerProfileData);
+      if (progress === 100) {
+        const timer = setTimeout(() => {
           onAutoComplete();
-        }
-      } catch (error) {
-        console.error('[Partner] Auto-completion error:', error);
+        }, 1000);
+        
+        return () => clearTimeout(timer);
       }
-    }, 2000); // Debounce auto-completion
-    
-    return () => clearTimeout(timer);
-  }, [isReady, onAutoComplete]); // Removed profileData dependency
+    }
+  }, [profileData, onAutoComplete, isReady]);
 
   // Normalize data types at write time
   const normalizedUpdateField = (field: keyof PartnerProfileData, value: any) => {
@@ -83,20 +79,11 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     rawHandleMultiSelect(field, value);
   };
 
-  // EMERGENCY FIX: Safe merge to prevent circular references and infinite re-renders
+  // Optimized merge with useMemo to prevent unnecessary re-renders
   const mergedProfileData = useMemo(() => {
-    if (!profileData || Object.keys(profileData).length === 0) {
-      return { ...defaultPartnerProfileData };
-    }
-    // Deep clone to break any circular references
-    try {
-      const safeData = JSON.parse(JSON.stringify(profileData || {}));
-      const merged = { ...defaultPartnerProfileData, ...safeData } as PartnerProfileData;
-      return merged;
-    } catch (error) {
-      console.error('[Partner] Data merge error:', error);
-      return { ...defaultPartnerProfileData };
-    }
+    const merged = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
+    console.log('[Partner] Data merge:', { profileData, merged });
+    return merged;
   }, [profileData]);
 
   return {

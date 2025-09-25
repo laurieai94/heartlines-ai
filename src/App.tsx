@@ -14,7 +14,6 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Import LandingPage directly for immediate rendering (critical path)
 import LandingPage from "@/components/LandingPage";
-import AppLayout from "@/components/AppLayout";
 // Lazy load non-critical components
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
@@ -23,7 +22,7 @@ const Pricing = React.lazy(() => import("@/pages/Pricing"));
 const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
 const Account = React.lazy(() => import("@/pages/Account"));
 const Auth = React.lazy(() => import("@/pages/Auth"));
-
+const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
@@ -62,35 +61,32 @@ const AppContent = () => {
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/coach" element={<Dashboard />} />
         <Route path="/privacy" element={<Dashboard />} />
+        <Route path="/company" element={<Dashboard />} />
         
-        {/* Non-critical routes with AppLayout wrapper */}
+        {/* Legacy redirects */}
+        <Route path="/insights" element={<Navigate to="/coach" replace />} />
+        <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
+        
+        {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <Mission />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Mission />
+          </Suspense>
         } />
         <Route path="/privacy-and-security" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <PrivacySecurity />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <PrivacySecurity />
+          </Suspense>
         } />
         <Route path="/pricing" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <Pricing />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Pricing />
+          </Suspense>
         } />
         <Route path="/billing/success" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <BillingSuccess />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <BillingSuccess />
+          </Suspense>
         } />
         <Route path="/auth/callback" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
@@ -98,25 +94,24 @@ const AppContent = () => {
           </Suspense>
         } />
         <Route path="/auth" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <Auth />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Auth />
+          </Suspense>
+        } />
+        <Route path="/get-started" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <GetStarted />
+          </Suspense>
         } />
         <Route path="/account" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <Account />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Account />
+          </Suspense>
         } />
         <Route path="*" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <NotFound />
-            </Suspense>
-          </AppLayout>
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <NotFound />
+          </Suspense>
         } />
       </Routes>
     </BrowserRouter>

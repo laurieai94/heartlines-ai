@@ -25,15 +25,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
-    // Log performance data when error occurs
-    if (import.meta.env.DEV) {
-      console.error('Performance data at error:', {
-        timing: performance.now(),
-        memory: (performance as any).memory?.usedJSHeapSize,
-        error: error.message
-      });
-    }
   }
 
   retry = () => {

@@ -1,5 +1,6 @@
 import BrandMark from "./BrandMark";
 import SignInButton from "./SignInButton";
+import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { User } from '@supabase/supabase-js';
@@ -22,10 +23,9 @@ interface DashboardHeaderProps {
   onValueChange: (value: string) => void;
   onSignInClick: () => void;
   onOpenProfile?: () => void;
-  currentPath?: string;
 }
 
-const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile, currentPath }: DashboardHeaderProps) => {
+const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const { visible } = useMobileHeaderVisibility();
@@ -114,18 +114,15 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
+            
+            {activeTab !== 'profile' && (
+              <HeartlinesWordmark 
+                size="sm" 
+                className="text-white text-xl leading-none cursor-pointer" 
+                onClick={() => onValueChange('home')}
+              />
+            )}
           </div>
-          
-          {/* Get Started Button - Mobile (Auth page only) */}
-          {currentPath === '/auth' && (
-            <div className="mr-2">
-              <Link to="/auth">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          )}
           
         </div>
 
@@ -173,21 +170,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
+            
+            {activeTab !== 'profile' && (
+              <HeartlinesWordmark 
+                size="sm" 
+                className="text-white cursor-pointer" 
+                onClick={() => onValueChange('home')}
+              />
+            )}
           </div>
           
           <div className="flex items-center">
-            {currentPath !== '/auth' && (
-              <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
-            )}
-            
-            {/* Get Started Button - Desktop (Auth page only) */}
-            {currentPath === '/auth' && (
-              <Link to="/auth">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                  Get Started
-                </Button>
-              </Link>
-            )}
+            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>
       </div>

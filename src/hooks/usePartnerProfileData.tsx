@@ -1,5 +1,4 @@
 
-import { useMemo } from 'react';
 import { useProfileStoreV2 } from './useProfileStoreV2';
 
 export interface PartnerProfileData {
@@ -83,15 +82,8 @@ export const usePartnerProfileData = () => {
     rawHandleMultiSelect(field, value);
   };
 
-  // EMERGENCY FIX: Avoid circular reference by using simple object cloning
-  const mergedProfileData = useMemo(() => {
-    if (!profileData || Object.keys(profileData).length === 0) {
-      return { ...defaultPartnerProfileData };
-    }
-    // Create a safe merge without circular references
-    const safeData = JSON.parse(JSON.stringify(profileData || {}));
-    return { ...defaultPartnerProfileData, ...safeData } as PartnerProfileData;
-  }, [profileData]);
+  // Merge with default data to ensure all expected fields exist
+  const mergedProfileData = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
 
   return {
     profileData: mergedProfileData,

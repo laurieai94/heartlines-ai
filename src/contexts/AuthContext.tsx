@@ -36,22 +36,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  
   useEffect(() => {
-    // Mobile-optimized auth state management with timeout protection
-    let authTimeout: NodeJS.Timeout;
-    let retryCount = 0;
-    const maxRetries = 3;
-
-    const forceAuthResolution = () => {
-      console.warn('Auth: Forcing loading state resolution due to timeout');
-      setLoading(false);
-    };
-
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        clearTimeout(authTimeout);
         setSession(session);
         setUser(session?.user ?? null);
         
@@ -68,42 +56,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
           setLoading(false);
-        } else if (event === 'INITIAL_SESSION') {
-          setLoading(false);
         }
       }
     );
 
-    // Get initial session with retry logic for mobile
-    const getSessionWithRetry = async () => {
-      try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error && retryCount < maxRetries) {
-          retryCount++;
-          console.warn(`Auth: Retry ${retryCount}/${maxRetries} for session fetch`);
-          setTimeout(getSessionWithRetry, 1000 * retryCount); // Exponential backoff
-          return;
-        }
-        
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      } catch (err) {
-        console.error('Auth: Session fetch failed', err);
-        setLoading(false);
-      }
-    };
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    // Start timeout for mobile (5 seconds max loading)
-    authTimeout = setTimeout(forceAuthResolution, 5000);
-    
-    getSessionWithRetry();
-
-    return () => {
-      clearTimeout(authTimeout);
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {
