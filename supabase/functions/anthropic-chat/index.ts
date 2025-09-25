@@ -137,8 +137,8 @@ serve(async (req) => {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
-        max_tokens: 300,
+        model: 'claude-opus-4-1-20250805',
+        max_tokens: 1500,
         messages: messages,
         system: systemPrompt
       })
@@ -167,10 +167,10 @@ serve(async (req) => {
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
-        const model = 'claude-3-5-sonnet-20241022';
+        const model = 'claude-opus-4-1-20250805';
         
-        // Calculate cost (Claude 3.5 Sonnet: $3/1M input, $15/1M output tokens)
-        const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
+        // Calculate cost (Claude 4 Opus: $15/1M input, $75/1M output tokens)
+        const estimatedCost = (inputTokens * 0.000015) + (outputTokens * 0.000075);
         
         const { error: tokenError } = await supabaseService
           .from('user_token_usage')
