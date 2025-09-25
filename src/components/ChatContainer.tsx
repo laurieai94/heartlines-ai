@@ -55,9 +55,9 @@ const ChatContainer = ({
   const cumulativeScrollDistanceRef = useRef(0);
   const lastUserScrollTimeRef = useRef(0);
   
-  // Constants for carrot behavior
-  const MIN_SCROLL_DISTANCE = 50; // px
-  const KEYBOARD_DELAY = 800; // ms delay after keyboard opens
+  // Constants for carrot behavior (reduced for better responsiveness)
+  const MIN_SCROLL_DISTANCE = 20; // px
+  const KEYBOARD_DELAY = 200; // ms delay after keyboard opens
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -109,14 +109,23 @@ const ChatContainer = ({
         }
       }
       
-      // Enhanced carrot logic - only show if conditions are met
+      // Enhanced carrot logic - show when scrolling up with keyboard visible
       if (isKeyboardVisible && isScrollingUpNow) {
         const keyboardDelay = keyboardOpenedTimeRef.current ? now - keyboardOpenedTimeRef.current : 0;
         const hasMinimumDelay = keyboardDelay > KEYBOARD_DELAY;
         const hasMinimumScrollDistance = cumulativeScrollDistanceRef.current >= MIN_SCROLL_DISTANCE;
         
-        // Only show carrot if both delay and scroll distance requirements are met
+        console.log('🥕 Carrot conditions:', {
+          keyboardDelay,
+          hasMinimumDelay,
+          scrollDistance: cumulativeScrollDistanceRef.current,
+          hasMinimumScrollDistance,
+          willShow: hasMinimumDelay && hasMinimumScrollDistance
+        });
+        
+        // Show carrot if both conditions are met (now more lenient)
         if (hasMinimumDelay && hasMinimumScrollDistance) {
+          console.log('🥕 SHOWING CARROT!');
           setIsScrollingUp(true);
         }
       } else if (isScrollingDownNow) {
