@@ -86,8 +86,8 @@ const ChatContainer = ({
     
     // Mobile header visibility and enhanced carrot logic
     if (isMobile) {
-      const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
-      const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
+      const isScrollingUpNow = scrollDelta < -2; // Detect upward scrolling (more sensitive)
+      const isScrollingDownNow = scrollDelta > 2; // Detect downward scrolling
       
       // Clear any existing debounce timer
       if (scrollDebounceRef.current) {
@@ -95,7 +95,7 @@ const ChatContainer = ({
       }
       
       // Track user-initiated scroll (ignore tiny automatic adjustments)
-      if (Math.abs(scrollDelta) > 3) {
+      if (Math.abs(scrollDelta) > 1) {
         lastUserScrollTimeRef.current = now;
         
         // Accumulate scroll distance for upward scrolls only

@@ -78,15 +78,28 @@ const DashboardContent = ({
         
         // Listen for dropdown close to reset navigation state
         const handleClickOutside = (event: Event) => {
-          const dropdown = document.querySelector('[data-radix-popper-content-wrapper]');
+          const dropdown = document.querySelector('[data-radix-popper-content-wrapper]') ||
+                          document.querySelector('[role="menu"]') ||
+                          document.querySelector('[data-state="open"]');
           if (dropdown && !dropdown.contains(event.target as Node)) {
             setNavigationOpened(false);
             document.removeEventListener('click', handleClickOutside);
           }
         };
         
+        // Also use MutationObserver to detect when dropdown disappears from DOM
+        const observer = new MutationObserver(() => {
+          const dropdown = document.querySelector('[data-radix-popper-content-wrapper]') ||
+                          document.querySelector('[role="menu"]');
+          if (!dropdown) {
+            setNavigationOpened(false);
+            observer.disconnect();
+          }
+        });
+        
         setTimeout(() => {
           document.addEventListener('click', handleClickOutside);
+          observer.observe(document.body, { childList: true, subtree: true });
         }, 100);
       } else {
         console.log('Menu button not found, trying alternative selectors');
