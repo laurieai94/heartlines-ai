@@ -40,19 +40,17 @@ const OnboardingStepNudge = ({
       background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)'
     }}
   >
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="flex items-center gap-2.5">
           <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-coral-400/20 to-peach-400/20 flex items-center justify-center border border-white/20">
             {completion > 0 ? 
               <CheckCircle className="w-4 h-4 text-coral-300" /> : 
               <span className="text-xs font-semibold text-white">1</span>
             }
           </div>
-          <div className="min-w-0 flex-1">
-            <h3 className="text-white font-bold text-sm">
-              So close → Kai's almost unlocked
-            </h3>
-          </div>
+          <h3 className="text-white font-bold text-sm">
+            So close → Kai's almost unlocked
+          </h3>
         </div>
         
         <Button 
@@ -61,7 +59,7 @@ const OnboardingStepNudge = ({
           onTouchStart={isMobile ? handleButtonTouch : undefined}
           variant="glass" 
           size="sm" 
-          className={`flex-shrink-0 bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-md h-8 px-3 text-xs ${
+          className={`bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-md h-8 px-4 text-xs ${
             isMobile ? 'min-h-[36px] touch-action-manipulation active:scale-95' : ''
           }`}
         >
