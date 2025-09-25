@@ -4,6 +4,8 @@ interface MobileHeaderVisibilityContextType {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   forceVisible: () => void;
+  navigationOpened: boolean;
+  setNavigationOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MobileHeaderVisibilityContext = createContext<MobileHeaderVisibilityContextType | undefined>(undefined);
@@ -14,6 +16,7 @@ interface MobileHeaderVisibilityProviderProps {
 
 export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibilityProviderProps) => {
   const [visible, setVisible] = useState(true);
+  const [navigationOpened, setNavigationOpened] = useState(false);
 
   // Force visible function for emergency situations
   const forceVisible = useCallback(() => {
@@ -29,7 +32,7 @@ export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibil
   }, [visible]);
 
   return (
-    <MobileHeaderVisibilityContext.Provider value={{ visible, setVisible: enhancedSetVisible, forceVisible }}>
+    <MobileHeaderVisibilityContext.Provider value={{ visible, setVisible: enhancedSetVisible, forceVisible, navigationOpened, setNavigationOpened }}>
       {children}
     </MobileHeaderVisibilityContext.Provider>
   );
@@ -51,7 +54,9 @@ export const useMobileHeaderVisibility = () => {
           (header as HTMLElement).style.transform = 'translateY(0)';
           (header as HTMLElement).style.opacity = '1';
         });
-      }
+      },
+      navigationOpened: false,
+      setNavigationOpened: () => {} // no-op
     };
   }
   

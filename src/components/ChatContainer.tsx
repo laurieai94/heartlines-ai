@@ -54,6 +54,7 @@ const ChatContainer = ({
   const keyboardOpenedTimeRef = useRef<number | null>(null);
   const cumulativeScrollDistanceRef = useRef(0);
   const lastUserScrollTimeRef = useRef(0);
+  const prevKeyboardVisibleRef = useRef(isKeyboardVisible);
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -147,20 +148,33 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Track keyboard visibility changes for carrot timing
+  // Track keyboard visibility changes for carrot timing and auto-scroll
   useEffect(() => {
-    if (isKeyboardVisible && !keyboardOpenedTimeRef.current) {
+    const wasKeyboardVisible = prevKeyboardVisibleRef.current;
+    const isKeyboardVisibleNow = isKeyboardVisible;
+    
+    if (isKeyboardVisibleNow && !keyboardOpenedTimeRef.current) {
       // Keyboard just opened - record the time and reset scroll tracking
       keyboardOpenedTimeRef.current = Date.now();
       cumulativeScrollDistanceRef.current = 0;
       setIsScrollingUp(false);
-    } else if (!isKeyboardVisible) {
+      
+      // Auto-scroll to bottom when keyboard reopens (but not on first load)
+      if (!wasKeyboardVisible && chatHistory.length > 0) {
+        setTimeout(() => {
+          scrollToBottom('smooth');
+        }, 100); // Small delay to ensure keyboard animation completes
+      }
+    } else if (!isKeyboardVisibleNow) {
       // Keyboard closed - reset all tracking
       keyboardOpenedTimeRef.current = null;
       cumulativeScrollDistanceRef.current = 0;
       setIsScrollingUp(false);
     }
-  }, [isKeyboardVisible]);
+    
+    // Update the ref for next comparison
+    prevKeyboardVisibleRef.current = isKeyboardVisibleNow;
+  }, [isKeyboardVisible, chatHistory.length, scrollToBottom]);
 
   // Auto-scroll when user starts typing
   useEffect(() => {

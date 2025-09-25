@@ -10,7 +10,7 @@ interface BurgundyNavCarrotProps {
 }
 
 export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyNavCarrotProps) => {
-  const { visible, forceVisible } = useMobileHeaderVisibility();
+  const { visible, forceVisible, navigationOpened } = useMobileHeaderVisibility();
   const { isKeyboardVisible } = useViewport();
   const { isMobile } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
@@ -23,14 +23,15 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     }, 120);
   }, []);
 
-  // Show only when: mobile + scrolling up
-  const shouldShow = isMobile && isScrollingUp;
+  // Show only when: mobile + scrolling up + navigation not opened
+  const shouldShow = isMobile && isScrollingUp && !navigationOpened;
   
   // Debug logging
   console.log('🥕 BurgundyNavCarrot Debug:', {
     isMobile,
     isKeyboardVisible,
     isScrollingUp,
+    navigationOpened,
     shouldShow
   });
   

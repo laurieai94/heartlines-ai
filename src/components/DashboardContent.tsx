@@ -39,7 +39,7 @@ const DashboardContent = ({
   // Chat state management for the coach tab
   const [chatHistory, setChatHistory] = useState<any[]>([]);
   const [conversationStarter, setConversationStarter] = useState("");
-  const { forceVisible } = useMobileHeaderVisibility();
+  const { forceVisible, setNavigationOpened } = useMobileHeaderVisibility();
   
   // Performance monitoring for tab switches
   useEffect(() => {
@@ -61,6 +61,9 @@ const DashboardContent = ({
     // Force mobile header visible
     forceVisible();
     
+    // Mark navigation as opened to hide the arrow
+    setNavigationOpened(true);
+    
     // Scroll to top to ensure navigation is visible
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
@@ -72,6 +75,19 @@ const DashboardContent = ({
       
       if (menuButton) {
         (menuButton as HTMLElement).click();
+        
+        // Listen for dropdown close to reset navigation state
+        const handleClickOutside = (event: Event) => {
+          const dropdown = document.querySelector('[data-radix-popper-content-wrapper]');
+          if (dropdown && !dropdown.contains(event.target as Node)) {
+            setNavigationOpened(false);
+            document.removeEventListener('click', handleClickOutside);
+          }
+        };
+        
+        setTimeout(() => {
+          document.addEventListener('click', handleClickOutside);
+        }, 100);
       } else {
         console.log('Menu button not found, trying alternative selectors');
         // Fallback: look for any button in the header that might be the menu
