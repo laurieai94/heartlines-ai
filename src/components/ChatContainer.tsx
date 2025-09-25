@@ -36,7 +36,7 @@ const ChatContainer = ({
   onNewConversation = () => {},
   onOpenSidebar
 }: ChatContainerProps) => {
-  const { isMobile } = useOptimizedMobile();
+  const { isMobile, isTablet } = useOptimizedMobile();
   const { visible: headerVisible, setVisible: setHeaderVisible, forceVisible } = useMobileHeaderVisibility();
   const { isKeyboardVisible } = useViewport();
   
@@ -47,7 +47,7 @@ const ChatContainer = ({
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevUserTypingRef = useRef(userTyping);
   
-  // Enhanced scroll tracking for carrot behavior
+  // Enhanced scroll tracking for carrot behavior with user intent detection
   const lastScrollTopRef = useRef(0);
   const scrollDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
@@ -55,6 +55,7 @@ const ChatContainer = ({
   const cumulativeScrollDistanceRef = useRef(0);
   const lastUserScrollTimeRef = useRef(0);
   const prevKeyboardVisibleRef = useRef(isKeyboardVisible);
+  const scrollIntentTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -108,12 +109,34 @@ const ChatContainer = ({
         }
       }
       
-      // Simple carrot logic - show immediately when scrolling up
-      if (isScrollingUpNow) {
-        console.log('🥕 Setting scroll up true:', { isScrollingUpNow });
-        setIsScrollingUp(true);
+      // User intent detection - require deliberate upward scroll for mobile phones only
+      if (isScrollingUpNow && !isTablet) {
+        // Clear any existing timeout
+        if (scrollIntentTimeoutRef.current) {
+          clearTimeout(scrollIntentTimeoutRef.current);
+        }
+        
+        // Require minimum cumulative scroll distance (30px) to show carrot
+        if (cumulativeScrollDistanceRef.current >= 30) {
+          console.log('🥕 Setting scroll up true - user intent detected:', { 
+            cumulativeDistance: cumulativeScrollDistanceRef.current,
+            isTablet
+          });
+          setIsScrollingUp(true);
+        } else {
+          // Set timeout to show carrot after sustained scrolling (200ms)
+          scrollIntentTimeoutRef.current = setTimeout(() => {
+            if (cumulativeScrollDistanceRef.current >= 20) {
+              console.log('🥕 Setting scroll up true - sustained scroll detected');
+              setIsScrollingUp(true);
+            }
+          }, 200);
+        }
       } else if (isScrollingDownNow) {
-        // Always hide carrot immediately on downward scroll
+        // Always hide carrot immediately on downward scroll and clear timeout
+        if (scrollIntentTimeoutRef.current) {
+          clearTimeout(scrollIntentTimeoutRef.current);
+        }
         console.log('🥕 Setting scroll up false (scrolling down)');
         setIsScrollingUp(false);
       }
@@ -195,11 +218,14 @@ const ChatContainer = ({
     prevUserTypingRef.current = userTyping;
   }, [userTyping, scrollToBottom]);
 
-  // Cleanup debounce timer on unmount
+  // Cleanup timers on unmount
   useEffect(() => {
     return () => {
       if (scrollDebounceRef.current) {
         clearTimeout(scrollDebounceRef.current);
+      }
+      if (scrollIntentTimeoutRef.current) {
+        clearTimeout(scrollIntentTimeoutRef.current);
       }
     };
   }, []);
