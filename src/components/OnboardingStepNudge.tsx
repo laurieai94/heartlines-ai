@@ -49,14 +49,9 @@ const OnboardingStepNudge = ({
             }
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-white font-semibold text-sm md:text-base mb-1">
-              <span className="sm:hidden">Complete your profile</span>
-              <span className="hidden sm:inline">Complete your profile to unlock Kai</span>
+            <h3 className="text-white font-bold text-sm md:text-base">
+              So close → Kai's almost unlocked
             </h3>
-            <p className="text-white/70 text-xs md:text-sm">
-              <span className="sm:hidden">Start coaching with Kai</span>
-              <span className="hidden sm:inline">Get personalized relationship coaching and insights</span>
-            </p>
           </div>
         </div>
         
