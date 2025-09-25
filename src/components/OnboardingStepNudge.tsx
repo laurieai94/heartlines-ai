@@ -66,7 +66,7 @@ const OnboardingStepNudge = ({
           }`}
         >
           <span className="font-medium">
-            {completion > 0 ? "Continue" : "Get Started"}
+            Finish profile
           </span>
           <ArrowRight className="w-4 h-4 ml-1" />
         </Button>
