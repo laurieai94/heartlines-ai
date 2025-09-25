@@ -3,8 +3,6 @@ import { ReactNode, useState, Suspense, lazy } from 'react';
 import { ChatHeader } from './ChatHeader';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { BurgundyNavCarrot } from '@/components/BurgundyNavCarrot';
-import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 // Lazy load the sidebar for better performance
 const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
@@ -33,8 +31,6 @@ export const ChatLayout = ({
   onDeleteConversation
 }: ChatLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { isScrollingUp } = useScrollDirection(20);
-  
   const handleOpenSidebar = () => {
     onOpenSidebar?.();
     setIsSidebarOpen(true);
@@ -56,12 +52,6 @@ export const ChatLayout = ({
           </div>
         </div>
       </div>
-
-      {/* Navigation Carrot */}
-      <BurgundyNavCarrot 
-        isScrollingUp={isScrollingUp} 
-        onOpenNavigation={handleOpenSidebar}
-      />
 
       {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
