@@ -37,7 +37,7 @@ const OptionalFamilyContext = ({ profileData, updateField, handleMultiSelect }: 
   return (
     <Collapsible open={isExpanded} onOpenChange={handleToggle}>
       <div className="bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-white/20 p-2.5 space-y-1.5 transition-all duration-200" data-scroll-id="family-context">
-        <CollapsibleTrigger className="w-full">
+        <CollapsibleTrigger className="w-full animate-optional-glow">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3 flex-1 flex-wrap">
               <div className="flex items-center gap-1.5 flex-wrap">
