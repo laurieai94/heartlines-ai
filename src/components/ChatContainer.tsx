@@ -244,7 +244,7 @@ const ChatContainer = ({
   }, [isMobile, forceVisible]);
 
   return (
-    <div className="flex-1 min-h-0 relative bg-burgundy-950">
+    <div className="flex-1 flex flex-col min-h-0 relative bg-burgundy-950">
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
@@ -253,7 +253,7 @@ const ChatContainer = ({
       
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full"
+        className="flex-1 min-h-0"
         style={isMobile ? { 
           WebkitOverflowScrolling: 'touch' as any,
           overscrollBehavior: 'contain',
