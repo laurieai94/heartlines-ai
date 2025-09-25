@@ -31,25 +31,25 @@ const OnboardingStepNudge = ({
     onStartProfile();
   };
   return <div 
-    className={`glass-soft rounded-3xl border border-white/10 p-4 md:p-6 mb-6 md:mb-8 mx-auto shadow-lg ring-1 ring-white/5 ${className} ${
+    className={`glass-soft rounded-2xl border border-white/10 p-3 md:p-4 mb-3 md:mb-4 mx-auto shadow-sm ring-1 ring-white/5 ${className} ${
       isMobile ? 'touch-action-manipulation' : ''
     }`}
     data-onboarding-nudge
     style={{ 
-      marginBottom: isMobile ? 'calc(1rem + env(safe-area-inset-bottom, 16px))' : undefined,
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)'
+      marginBottom: isMobile ? 'calc(0.75rem + env(safe-area-inset-bottom, 16px))' : undefined,
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)'
     }}
   >
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3 min-w-0 flex-1">
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-coral-400/20 to-peach-400/20 flex items-center justify-center border border-white/20 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-coral-400/20 to-peach-400/20 flex items-center justify-center border border-white/20">
             {completion > 0 ? 
-              <CheckCircle className="w-5 h-5 text-coral-300" /> : 
-              <span className="text-sm font-semibold text-white">1</span>
+              <CheckCircle className="w-4 h-4 text-coral-300" /> : 
+              <span className="text-xs font-semibold text-white">1</span>
             }
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-white font-bold text-sm md:text-base">
+            <h3 className="text-white font-bold text-sm">
               So close → Kai's almost unlocked
             </h3>
           </div>
@@ -61,14 +61,14 @@ const OnboardingStepNudge = ({
           onTouchStart={isMobile ? handleButtonTouch : undefined}
           variant="glass" 
           size="sm" 
-          className={`flex-shrink-0 bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-lg ${
-            isMobile ? 'min-h-[44px] touch-action-manipulation active:scale-95 px-4' : 'px-6'
+          className={`flex-shrink-0 bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-md h-8 px-3 text-xs ${
+            isMobile ? 'min-h-[36px] touch-action-manipulation active:scale-95' : ''
           }`}
         >
           <span className="font-medium">
             Finish profile
           </span>
-          <ArrowRight className="w-4 h-4 ml-1" />
+          <ArrowRight className="w-3.5 h-3.5 ml-1" />
         </Button>
       </div>
     </div>;
