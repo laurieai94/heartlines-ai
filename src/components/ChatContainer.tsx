@@ -107,9 +107,9 @@ const ChatContainer = ({
         }
       }
       
-      // Simple carrot logic - show immediately when scrolling up with keyboard visible
-      if (isKeyboardVisible && isScrollingUpNow) {
-        console.log('🥕 Setting scroll up true:', { isKeyboardVisible, isScrollingUpNow });
+      // Simple carrot logic - show immediately when scrolling up
+      if (isScrollingUpNow) {
+        console.log('🥕 Setting scroll up true:', { isScrollingUpNow });
         setIsScrollingUp(true);
       } else if (isScrollingDownNow) {
         // Always hide carrot immediately on downward scroll

@@ -23,8 +23,8 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     }, 120);
   }, []);
 
-  // Show only when: mobile + keyboard visible + scrolling up
-  const shouldShow = isMobile && isKeyboardVisible && isScrollingUp;
+  // Show only when: mobile + scrolling up
+  const shouldShow = isMobile && isScrollingUp;
   
   // Debug logging
   console.log('🥕 BurgundyNavCarrot Debug:', {
