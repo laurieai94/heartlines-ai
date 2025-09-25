@@ -46,7 +46,7 @@ const PartnerQuestionnaireContent = ({
       ref={contentRef}
       className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
-      <div className="px-1.5 py-1">
+      <div className="px-1.5 pt-2 pb-1 md:pt-6 lg:pt-8">
         {/* Prominent Opening Note - only show on section 1 and hide on small screens */}
         {currentSection === 1 && (
           <div className="hidden sm:block bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-2.5 mb-1.5 relative overflow-hidden">
