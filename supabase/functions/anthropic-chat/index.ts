@@ -137,8 +137,8 @@ serve(async (req) => {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-opus-4-1-20250805',
-        max_tokens: 400,
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 300,
         messages: messages,
         system: systemPrompt
       })
@@ -167,10 +167,10 @@ serve(async (req) => {
       try {
         const inputTokens = data.usage?.input_tokens || 0;
         const outputTokens = data.usage?.output_tokens || 0;
-        const model = 'claude-opus-4-1-20250805';
+        const model = 'claude-3-5-sonnet-20241022';
         
-        // Calculate cost (Claude 4 Opus: $15/1M input, $75/1M output tokens)
-        const estimatedCost = (inputTokens * 0.000015) + (outputTokens * 0.000075);
+        // Calculate cost (Claude 3.5 Sonnet: $3/1M input, $15/1M output tokens)
+        const estimatedCost = (inputTokens * 0.000003) + (outputTokens * 0.000015);
         
         const { error: tokenError } = await supabaseService
           .from('user_token_usage')
@@ -225,11 +225,11 @@ serve(async (req) => {
     }
 
   } catch (error) {
-    console.error('Edge Function Error:', error.message)
+    console.error('Edge Function Error:', (error as Error)?.message || 'Unknown error')
     
     // Sanitize error message for security
-    const sanitizedError = error.message?.includes('Authentication') ? 'Authentication failed' :
-                          error.message?.includes('Rate limit') ? 'Rate limit exceeded' :
+    const sanitizedError = (error as Error)?.message?.includes('Authentication') ? 'Authentication failed' :
+                          (error as Error)?.message?.includes('Rate limit') ? 'Rate limit exceeded' :
                           'Service temporarily unavailable';
     
     return new Response(
