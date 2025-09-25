@@ -121,7 +121,7 @@ const STORAGE_CONFIG = {
   }
 };
 
-const DEBOUNCE_MS = 5000; // Increase debounce to reduce database calls
+const DEBOUNCE_MS = 30000; // EMERGENCY: Drastically reduce database calls to prevent performance issues
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
