@@ -162,8 +162,8 @@ export const ChatInputSection = ({
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0">
-      <div className="px-0 py-4 pt-0 pb-8 md:px-4 md:py-5 md:pt-8 md:pb-5">
+    <div className="flex-shrink-0 pb-safe sticky bottom-4 md:bottom-0">
+      <div className="px-0 py-4 pt-0 pb-4 md:px-4 md:py-5 md:pt-8 md:pb-5">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
