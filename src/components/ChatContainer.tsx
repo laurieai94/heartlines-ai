@@ -10,7 +10,7 @@ import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useViewport } from '@/contexts/ViewportContext';
-
+import NavigationPullTab from './NavigationPullTab';
 import { BurgundyNavCarrot } from './BurgundyNavCarrot';
 
 interface ChatContainerProps {
@@ -245,6 +245,8 @@ const ChatContainer = ({
 
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
+      {/* Pull tab for navigation access when keyboard is active */}
+      <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
       {/* Burgundy carrot navigation for keyboard + scroll up scenarios */}
       <BurgundyNavCarrot isScrollingUp={isScrollingUp} onOpenNavigation={onOpenSidebar} />
