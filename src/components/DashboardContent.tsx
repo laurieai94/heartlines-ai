@@ -14,7 +14,7 @@ import AIChat from "@/components/AIChat";
 
 // Lazy load other heavy components to improve initial render
 const PrivacySettings = React.lazy(() => import("@/components/PrivacySettings").then(m => ({ default: m.PrivacySettings })));
-const Company = React.lazy(() => import("@/components/Company"));
+
 
 interface DashboardContentProps {
   activeTab: string;
@@ -112,14 +112,6 @@ const DashboardContent = ({
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <Suspense fallback={<SplashScreen message="privacy settings loading" wordmarkSize="sm" showWordmark={false} />}>
               <PrivacySettings />
-            </Suspense>
-          </div>
-        );
-      case "company":
-        return (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<SplashScreen message="company info loading" wordmarkSize="sm" showWordmark={false} />}>
-              <Company />
             </Suspense>
           </div>
         );

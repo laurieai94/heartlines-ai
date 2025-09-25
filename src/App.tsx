@@ -23,7 +23,7 @@ const Pricing = React.lazy(() => import("@/pages/Pricing"));
 const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
 const Account = React.lazy(() => import("@/pages/Account"));
 const Auth = React.lazy(() => import("@/pages/Auth"));
-const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
+
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
@@ -62,11 +62,6 @@ const AppContent = () => {
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/coach" element={<Dashboard />} />
         <Route path="/privacy" element={<Dashboard />} />
-        <Route path="/company" element={<Dashboard />} />
-        
-        {/* Legacy redirects */}
-        <Route path="/insights" element={<Navigate to="/coach" replace />} />
-        <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
         
         {/* Non-critical routes with AppLayout wrapper */}
         <Route path="/mission" element={
@@ -106,13 +101,6 @@ const AppContent = () => {
           <AppLayout>
             <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
               <Auth />
-            </Suspense>
-          </AppLayout>
-        } />
-        <Route path="/get-started" element={
-          <AppLayout>
-            <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-              <GetStarted />
             </Suspense>
           </AppLayout>
         } />
