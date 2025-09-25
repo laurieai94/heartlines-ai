@@ -213,7 +213,7 @@ const Auth = () => {
           <div className="text-center mb-6">
             <div className="flex items-baseline justify-center gap-2 text-3xl md:text-4xl font-bold text-white flex-wrap">
               <span className="font-brand leading-none">Tap into</span>
-              <HeartlinesWordmark size="md" className="text-white leading-none md:text-[1.1em] lg:text-[1.12em]" />
+              <HeartlinesWordmark size="md" className="text-white leading-none" />
             </div>
           </div>
         )}
