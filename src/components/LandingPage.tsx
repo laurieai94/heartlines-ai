@@ -11,7 +11,6 @@ import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
-import FlameBackground from "./FlameBackground";
 import FlameDivider from "./FlameDivider";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
@@ -133,10 +132,6 @@ const LandingPage = ({
     user
   } = useAuth();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0
-  });
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isEmbedded = !showMarketingTopBar;
@@ -205,23 +200,8 @@ const LandingPage = ({
     bio: "Artist & yoga instructor"
   }];
   useEffect(() => {
-    // Only run minimal animations for full marketing page
+    // Only run minimal timers for full marketing page
     if (!isEmbedded) {
-      // Only track mouse on desktop devices to reduce mobile overhead
-      const isMobile = window.innerWidth < 768;
-      
-      let handleMouseMove: ((e: MouseEvent) => void) | null = null;
-      
-      if (!isMobile) {
-        handleMouseMove = (e: MouseEvent) => {
-          setMousePosition({
-            x: e.clientX,
-            y: e.clientY
-          });
-        };
-        window.addEventListener('mousemove', handleMouseMove, { passive: true });
-      }
-
       // Defer non-critical timers to idle time
       const deferredSetup = () => {
         // Show floating button after page is stable
@@ -255,26 +235,11 @@ const LandingPage = ({
 
       return () => {
         cleanup?.();
-        if (handleMouseMove) {
-          window.removeEventListener('mousemove', handleMouseMove);
-        }
       };
     }
   }, [isEmbedded]);
   return <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
-      {/* Animated Holographic Background - Only show for marketing page */}
-      {showMarketingTopBar && <>
-        </>}
-
-      {/* Minimal Floating Particles - CSS Only */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => <div key={i} className="absolute w-1 h-1 bg-pink-300/30 rounded-full animate-pulse" style={{
-        left: `${20 + (i * 15)}%`,
-        top: `${30 + (i * 10)}%`,
-        animationDelay: `${i * 0.5}s`,
-        animationDuration: '3s'
-      }} />)}
-        </div>}
+      {/* Static background preserved */}
 
       {/* Code-like Background Elements */}
       {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
@@ -361,18 +326,15 @@ const LandingPage = ({
       <section className="relative overflow-hidden" style={{
       minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
     }}>
-        {/* Flame Background */}
-        <FlameBackground variant="subtle" density="sparse" />
+        {/* Static background preserved */}
         
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
             {/* Primary hero section with locked two-column layout */}
             <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
-              {/* Accent decoration - floating orbs with glassmorphism */}
-              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl animate-pulse backdrop-blur-sm"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl animate-pulse backdrop-blur-sm" style={{
-            animationDelay: '1s'
-          }}></div>
+              {/* Static accent decoration */}
+              <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl backdrop-blur-sm"></div>
+              <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
@@ -421,9 +383,8 @@ const LandingPage = ({
             </div>
           </>}
         
-        {/* Embedded version - horizontal layout with flame background */}
+        {/* Embedded version - horizontal layout with static background */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
-            <FlameBackground variant="ethereal" density="sparse" />
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
@@ -582,11 +543,9 @@ const LandingPage = ({
           {!isEmbedded && <>
               {/* Gradient line with floating dots */}
               <div className="w-full h-px bg-gradient-to-r from-transparent via-coral-400/40 to-transparent"></div>
-              {/* Accent dots */}
-              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full animate-pulse"></div>
-              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full animate-pulse" style={{
-              animationDelay: '0.5s'
-            }}></div>
+              {/* Static accent dots */}
+              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/60 rounded-full"></div>
+              <div className="absolute right-1/4 w-2 h-2 bg-pink-400/60 rounded-full"></div>
               {/* Center icon */}
               <div className="absolute bg-gradient-to-r from-coral-900/50 to-pink-900/50 px-6 backdrop-blur-sm rounded-full">
                 <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center mb-4 mx-auto border border-coral-300/30">
