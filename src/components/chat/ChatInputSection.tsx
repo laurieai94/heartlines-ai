@@ -167,18 +167,18 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Memoize mobile-specific padding to prevent re-renders
+  // Memoize mobile-specific padding to prevent re-renders - minimize space when keyboard is open
   const mobilePadding = useMemo(() => {
     if (!isMobile) return {};
     
-    const basePadding = 16;
-    const keyboardPadding = isKeyboardVisible ? Math.max(keyboardHeight * 0.1, 8) : 0;
+    // Minimize padding when keyboard is visible to maximize chat space
+    const basePadding = isKeyboardVisible ? 4 : 16;
     
     return {
-      paddingBottom: `${basePadding + keyboardPadding}px`,
+      paddingBottom: `${basePadding}px`,
       transition: 'padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     };
-  }, [isMobile, isKeyboardVisible, keyboardHeight]);
+  }, [isMobile, isKeyboardVisible]);
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
