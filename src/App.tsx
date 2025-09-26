@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shell
 import { warmupNetwork } from "@/utils/networkWarmup";
 import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
@@ -48,6 +50,10 @@ const AppContent = () => {
     // deferWarmup(); // Disabled
   }, []);
   
+  const isAuthenticatedRoute = (pathname: string) => {
+    return ['/profile', '/coach', '/privacy', '/company'].includes(pathname);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -58,11 +64,59 @@ const AppContent = () => {
           </ErrorBoundary>
         } />
         
-        {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
-        <Route path="/profile" element={<Dashboard />} />
-        <Route path="/coach" element={<Dashboard />} />
-        <Route path="/privacy" element={<Dashboard />} />
-        <Route path="/company" element={<Dashboard />} />
+        {/* Authenticated app routes with sidebar */}
+        <Route path="/profile" element={
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1">
+                <header className="h-12 flex items-center border-b px-4">
+                  <SidebarTrigger />
+                </header>
+                <Dashboard />
+              </main>
+            </div>
+          </SidebarProvider>
+        } />
+        <Route path="/coach" element={
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1">
+                <header className="h-12 flex items-center border-b px-4">
+                  <SidebarTrigger />
+                </header>
+                <Dashboard />
+              </main>
+            </div>
+          </SidebarProvider>
+        } />
+        <Route path="/privacy" element={
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1">
+                <header className="h-12 flex items-center border-b px-4">
+                  <SidebarTrigger />
+                </header>
+                <Dashboard />
+              </main>
+            </div>
+          </SidebarProvider>
+        } />
+        <Route path="/company" element={
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1">
+                <header className="h-12 flex items-center border-b px-4">
+                  <SidebarTrigger />
+                </header>
+                <Dashboard />
+              </main>
+            </div>
+          </SidebarProvider>
+        } />
         
         {/* Legacy redirects */}
         <Route path="/insights" element={<Navigate to="/coach" replace />} />

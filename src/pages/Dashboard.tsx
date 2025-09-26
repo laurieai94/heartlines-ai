@@ -1,7 +1,6 @@
 
 import { NavigationProvider } from "@/contexts/NavigationContext";
 import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
-import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import AuthGuard from "@/components/AuthGuard";
@@ -107,17 +106,6 @@ const Dashboard = () => {
               <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
               {/* Background overlays removed for unified burgundy theme */}
-
-              <DashboardHeader 
-                accessLevel={accessLevel}
-                profileCompletion={profileCompletion}
-                compact={activeTab === 'insights'}
-                user={user}
-                activeTab={activeTab}
-                onValueChange={setActiveTab}
-                onSignInClick={handleSignInClick}
-                onOpenProfile={handleOpenProfile}
-              />
 
               <DashboardContent
                 activeTab={activeTab}
