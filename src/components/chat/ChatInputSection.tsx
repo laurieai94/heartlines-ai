@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import { useEmergencyKeyboardFix } from '@/hooks/useEmergencyKeyboardFix';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -64,6 +65,13 @@ export const ChatInputSection = ({
   // Mobile optimization hooks - distinguish between mobile phones and tablets
   const { isMobile, isTablet } = useOptimizedMobile();
   const { isKeyboardVisible, keyboardHeight } = useViewport();
+  
+  // Emergency keyboard detection as fallback
+  const emergencyKeyboard = useEmergencyKeyboardFix(inputRef);
+  
+  // Use emergency detection if primary method fails
+  const finalKeyboardVisible = isKeyboardVisible || emergencyKeyboard.isVisible;
+  const finalKeyboardHeight = keyboardHeight || emergencyKeyboard.height;
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -167,23 +175,54 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Enhanced mobile keyboard positioning to maximize chat space
+  // Enhanced mobile keyboard positioning with multiple strategies
   const mobileKeyboardPositioning = useMemo(() => {
-    // Only apply dynamic positioning to mobile phones, not tablets
-    if (!isMobile || isTablet) return {};
+    // Enhanced mobile device detection
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isIOSDevice = /iphone|ipod/.test(userAgent);
+    const isAndroidDevice = /android/.test(userAgent);
+    const isMobilePhone = isIOSDevice || isAndroidDevice || (isMobile && !isTablet);
     
-    if (isKeyboardVisible && keyboardHeight > 0) {
-      // Position input using bottom offset instead of transform
-      const bottomOffset = Math.max(keyboardHeight + 16, 80); // At least 80px from bottom
-      const clampedOffset = Math.min(bottomOffset, 400); // Don't go too high
+    // Only apply dynamic positioning to mobile phones, not tablets
+    if (!isMobilePhone) return {};
+    
+    console.log('🔍 Enhanced Mobile Detection:', {
+      isMobile,
+      isTablet,
+      isMobilePhone,
+      isIOSDevice,
+      isAndroidDevice,
+      userAgent: userAgent.substring(0, 50),
+      primary: { isKeyboardVisible, keyboardHeight },
+      emergency: { isVisible: emergencyKeyboard.isVisible, height: emergencyKeyboard.height, method: emergencyKeyboard.method },
+      final: { finalKeyboardVisible, finalKeyboardHeight },
+      windowInnerHeight: window.innerHeight,
+      visualViewportHeight: window.visualViewport?.height || window.innerHeight
+    });
+    
+    if (finalKeyboardVisible && finalKeyboardHeight > 0) {
+      // Multiple positioning strategies using final keyboard data
+      const strategy1_bottomOffset = Math.max(finalKeyboardHeight + 16, 80);
+      const strategy2_viewportBased = Math.max(finalKeyboardHeight + 20, 100);
+      const strategy3_deviceSpecific = isIOSDevice ? finalKeyboardHeight + 25 : finalKeyboardHeight + 15;
       
-      console.log('🔍 Input Positioning Debug:', {
-        isMobile,
-        isTablet,
-        isKeyboardVisible,
-        keyboardHeight,
-        bottomOffset,
-        clampedOffset
+      // Choose the most appropriate strategy
+      let finalOffset = strategy1_bottomOffset;
+      if (isIOSDevice) finalOffset = strategy3_deviceSpecific;
+      if (finalKeyboardHeight > 300) finalOffset = strategy2_viewportBased;
+      
+      const clampedOffset = Math.min(Math.max(finalOffset, 60), 450);
+      
+      console.log('🎯 Keyboard Positioning Applied:', {
+        strategy1_bottomOffset,
+        strategy2_viewportBased,
+        strategy3_deviceSpecific,
+        finalOffset,
+        clampedOffset,
+        originalKeyboardHeight: keyboardHeight,
+        finalKeyboardHeight,
+        emergencyMethod: emergencyKeyboard.method,
+        isIOSDevice
       });
       
       return {
@@ -193,15 +232,18 @@ export const ChatInputSection = ({
         right: '16px',
         zIndex: 50,
         transition: 'bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        // Add backdrop for better visibility
+        backgroundColor: 'hsl(var(--background))',
+        borderTop: '1px solid hsl(var(--border))',
       };
     }
     
-    // Default positioning when keyboard is hidden - return to normal flow
+    // Default positioning when keyboard is hidden
     return {
-      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      paddingBottom: '16px', // Standard padding when keyboard is hidden
+      transition: 'bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      paddingBottom: '16px',
     };
-  }, [isMobile, isTablet, isKeyboardVisible, keyboardHeight]);
+  }, [isMobile, isTablet, finalKeyboardVisible, finalKeyboardHeight, emergencyKeyboard]);
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobileKeyboardPositioning}>

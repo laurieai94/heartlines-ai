@@ -29,7 +29,7 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
 
   const keyboardListeners = new Set<(isVisible: boolean) => void>();
 
-  const updateViewport = useCallback(() => {
+const updateViewport = useCallback(() => {
     if (typeof window === 'undefined') return;
 
     try {
@@ -37,23 +37,53 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       const visualHeight = window.visualViewport?.height || windowHeight;
       const keyboardHeight = Math.max(0, windowHeight - visualHeight);
       
-      // Device-specific keyboard detection thresholds
-      const isTabletDevice = windowHeight >= 768 && windowHeight < 1024;
-      const keyboardThreshold = isTabletDevice ? 150 : 50; // Lower threshold for better detection
-      const isKeyboardVisible = keyboardHeight > keyboardThreshold;
+      // Enhanced device detection
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isIOSDevice = /iphone|ipod/.test(userAgent);
+      const isAndroidDevice = /android/.test(userAgent);
+      const isMobileDevice = isIOSDevice || isAndroidDevice || /mobile/.test(userAgent);
+      const isTabletDevice = /ipad/.test(userAgent) || (windowHeight >= 768 && windowHeight < 1024);
       
-      // Debug logging for keyboard positioning
-      console.log('🔍 Viewport Debug:', {
+      // Multiple keyboard detection methods
+      const heightDifference = keyboardHeight;
+      const isInputFocused = document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
+      
+      // Device-specific thresholds with multiple detection strategies
+      let keyboardThreshold = 30; // Very low threshold
+      if (isIOSDevice) keyboardThreshold = 50;
+      if (isAndroidDevice) keyboardThreshold = 40;
+      if (isTabletDevice) keyboardThreshold = 100;
+      
+      // Multi-method keyboard detection
+      const heightBasedDetection = heightDifference > keyboardThreshold;
+      const focusBasedDetection = isInputFocused && heightDifference > 10;
+      const isKeyboardVisible = heightBasedDetection || focusBasedDetection;
+      
+      // Enhanced debug logging
+      console.log('🔍 Enhanced Viewport Debug:', {
         windowHeight,
         visualHeight,
-        keyboardHeight,
+        keyboardHeight: heightDifference,
         keyboardThreshold,
         isKeyboardVisible,
-        isTabletDevice
+        userAgent: userAgent.substring(0, 50),
+        isIOSDevice,
+        isAndroidDevice,
+        isMobileDevice,
+        isTabletDevice,
+        isInputFocused,
+        heightBasedDetection,
+        focusBasedDetection,
+        activeElement: document.activeElement?.tagName,
+        supportedAPIs: {
+          visualViewport: !!window.visualViewport,
+          innerHeight: !!window.innerHeight,
+        }
       });
 
       setState(prev => {
         if (prev.isKeyboardVisible !== isKeyboardVisible) {
+          console.log('🎯 Keyboard state changed:', { from: prev.isKeyboardVisible, to: isKeyboardVisible });
           keyboardListeners.forEach(listener => {
             try {
               listener(isKeyboardVisible);
@@ -64,7 +94,7 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
         }
         
         return {
-          keyboardHeight,
+          keyboardHeight: heightDifference,
           isKeyboardVisible,
           visualViewportHeight: visualHeight,
           windowHeight,
