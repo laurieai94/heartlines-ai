@@ -1,62 +1,79 @@
-// ULTRA-AGGRESSIVE performance optimizer - eliminates ALL console overhead
-const isProduction = !import.meta.env.DEV;
-const isDev = import.meta.env.DEV;
-
-// Completely disable ALL console methods in ALL environments for maximum performance
+// EMERGENCY performance optimizer - eliminates ALL console overhead IMMEDIATELY
 const noop = () => {};
 
-// Nuclear option: Override ALL console methods immediately for zero performance impact
+// IMMEDIATE console suppression - run before ANY other code
+(() => {
+  if (typeof console !== 'undefined') {
+    // Aggressively disable ALL console methods in ALL environments
+    const consoleMethods = [
+      'log', 'info', 'debug', 'warn', 'error', 'trace', 'time', 'timeEnd',
+      'group', 'groupEnd', 'table', 'count', 'clear', 'assert', 'dir',
+      'dirxml', 'profile', 'profileEnd', 'timeStamp', 'context'
+    ];
+    
+    consoleMethods.forEach(method => {
+      if (console[method as keyof Console]) {
+        (console as any)[method] = noop;
+      }
+    });
+    
+    // Override any remaining console properties
+    Object.getOwnPropertyNames(console).forEach(prop => {
+      if (typeof console[prop as keyof Console] === 'function') {
+        (console as any)[prop] = noop;
+      }
+    });
+  }
+})();
+
+// Prevent any future console method assignments
 if (typeof console !== 'undefined') {
-  // Completely eliminate ALL console output to prevent page unresponsiveness
-  console.log = noop;
-  console.info = noop; 
-  console.debug = noop;
-  console.warn = noop;
-  console.error = noop; // Even errors are disabled for performance
-  console.trace = noop;
-  console.time = noop;
-  console.timeEnd = noop;
-  console.group = noop;
-  console.groupEnd = noop;
-  console.table = noop;
-  console.count = noop;
-  console.clear = noop;
-  console.assert = noop;
-  
-  // Override console object completely to prevent any method calls
-  Object.keys(console).forEach(key => {
-    if (typeof console[key as keyof Console] === 'function') {
-      (console as any)[key] = noop;
-    }
-  });
+  try {
+    Object.freeze(console);
+  } catch (e) {
+    // Silently fail if console can't be frozen
+  }
 }
 
-// Optimize animations for reduced motion
+// Emergency performance optimizations
 export const optimizeForPerformance = () => {
-  if (isProduction) {
-    // Disable non-essential animations in production
-    const style = document.createElement('style');
-    style.textContent = `
-      .animate-pulse,
-      .animate-float,
-      .animate-float-slow,
-      .animate-bounce-gentle { 
-        animation: none !important; 
-      }
-      * { 
-        will-change: auto !important; 
-      }
-    `;
-    document.head.appendChild(style);
+  // Apply aggressive optimizations in ALL environments
+  const style = document.createElement('style');
+  style.textContent = `
+    /* Disable expensive animations */
+    .animate-pulse,
+    .animate-float,
+    .animate-float-slow,
+    .animate-bounce-gentle,
+    .animate-spin,
+    .animate-ping,
+    .animate-bounce { 
+      animation: none !important; 
+    }
+    
+    /* Optimize rendering */
+    * { 
+      will-change: auto !important;
+      backface-visibility: hidden !important;
+    }
+    
+    /* Reduce reflows */
+    img, video {
+      content-visibility: auto !important;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Emergency garbage collection hint
+  if ('gc' in window && typeof (window as any).gc === 'function') {
+    setTimeout(() => (window as any).gc(), 1000);
   }
 };
 
-// Initialize production optimizations
-if (isProduction) {
-  // Run optimizations after DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', optimizeForPerformance);
-  } else {
-    optimizeForPerformance();
-  }
+// Initialize emergency optimizations IMMEDIATELY
+// Run optimizations as early as possible
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', optimizeForPerformance, { once: true });
+} else {
+  optimizeForPerformance();
 }

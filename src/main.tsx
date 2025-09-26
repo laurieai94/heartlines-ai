@@ -3,54 +3,74 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import './styles/mobile-optimizations.css'
+// Import production optimizer FIRST to suppress console immediately
+import '@/utils/productionOptimizer';
+import { initEmergencyMonitoring } from '@/utils/emergencyPerformance';
 import { initReliabilitySystems } from './utils/reliabilityInit'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
-// Import production optimizer FIRST to suppress console immediately
-import '@/utils/productionOptimizer';
 
 // Mobile detection for error boundary selection only
 const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 768;
 
-// Defer reliability systems initialization with proper yielding
-const deferInit = () => {
-  // Yield to main thread before heavy initialization
-  const yieldToMainThread = () => new Promise(resolve => {
-    if ('scheduler' in window && 'postTask' in (window as any).scheduler) {
-      (window as any).scheduler.postTask(resolve, { priority: 'background' });
-    } else {
-      setTimeout(resolve, 0);
-    }
-  });
-
-  const runStaggeredInit = async () => {
-    // Wait for critical rendering to complete
-    await yieldToMainThread();
+// EMERGENCY: Dramatically throttle initialization
+const emergencyDeferInit = () => {
+  // Only run on fast connections and powerful devices
+  const connection = (navigator as any).connection;
+  const isMobile = window.innerWidth < 768;
+  const isSlowNetwork = connection && (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+  const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+  
+  // Skip ALL heavy initialization on mobile, slow networks, or low-end devices
+  if (isMobile || isSlowNetwork || isLowEnd) {
+    return;
+  }
+  
+  // For desktop with good connections, defer initialization much longer
+  const runMinimalInit = () => {
+    // Only run if user hasn't interacted in the last 5 seconds
+    let lastInteraction = Date.now();
     
-    // Only initialize reliability systems if not on mobile or if network is good
-    const connection = (navigator as any).connection;
-    const isMobile = window.innerWidth < 768;
+    const updateLastInteraction = () => {
+      lastInteraction = Date.now();
+    };
     
-    if (isMobile && connection && (connection.saveData || connection.effectiveType === 'slow-2g')) {
-      return; // Skip heavy initialization on slow mobile
-    }
+    ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
+      document.addEventListener(event, updateLastInteraction, { passive: true });
+    });
     
-    // Stagger initialization to prevent blocking
-    setTimeout(() => {
-      initReliabilitySystems();
-    }, isMobile ? 2000 : 1000);
+    // Wait for true idle period before running heavy operations
+    const checkAndRun = () => {
+      if (Date.now() - lastInteraction > 5000) {
+        // User has been idle for 5+ seconds, safe to run init
+        try {
+          initReliabilitySystems();
+        } catch (e) {
+          // Silently fail to prevent any issues
+        }
+      } else {
+        // Check again later
+        setTimeout(checkAndRun, 2000);
+      }
+    };
+    
+    setTimeout(checkAndRun, 10000); // Wait 10 seconds minimum
   };
 
+  // Use the most aggressive deferral possible
   if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(runStaggeredInit, { timeout: 3000 });
+    (window as any).requestIdleCallback(runMinimalInit, { timeout: 30000 });
   } else {
-    setTimeout(runStaggeredInit, 1500);
+    setTimeout(runMinimalInit, 15000);
   }
 };
 
-deferInit();
+emergencyDeferInit();
+
+// Initialize emergency performance monitoring immediately
+initEmergencyMonitoring();
 
 const isDev = import.meta.env.DEV;
 

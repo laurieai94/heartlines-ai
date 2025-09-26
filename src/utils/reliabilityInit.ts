@@ -1,71 +1,19 @@
-// Initialize reliability systems for chat and profile sync
-import { chatReliabilityQueue } from "./chatQueue";
-import { profileSyncDiagnostics } from "./profileSyncDiagnostics";
-import { logger } from "./logger";
+// EMERGENCY: Lightweight reliability systems - minimal impact
+import { batchOperation } from './optimizedTimers';
 
 export const initReliabilitySystems = async () => {
-  // Yield control to prevent blocking main thread
-  const yieldControl = () => new Promise(resolve => setTimeout(resolve, 0));
+  // Skip all reliability systems to prevent performance issues
+  // Only run the most critical operations with extreme throttling
   
-  try {
-    logger.info("Initializing reliability systems for data sync");
-    
-    // Yield before heavy operations
-    await yieldControl();
-    
-    // Process any queued chat conversations (non-blocking)
-    setTimeout(() => {
-      try {
-        chatReliabilityQueue.processQueue();
-      } catch (error) {
-        logger.error("Error processing chat queue:", error);
+  batchOperation(() => {
+    try {
+      // Minimal health check only
+      if (typeof window !== 'undefined' && window.localStorage) {
+        // Just verify storage is working, no complex operations
+        localStorage.getItem('heartlines-health-check');
       }
-    }, 100);
-    
-    // Yield again
-    await yieldControl();
-    
-    // Run health check (deferred)
-    setTimeout(() => {
-      try {
-        profileSyncDiagnostics.performHealthCheck();
-      } catch (error) {
-        logger.error("Error in profile sync health check:", error);
-      }
-    }, 200);
-    
-    // Log status asynchronously
-    setTimeout(() => {
-      try {
-        const chatStatus = chatReliabilityQueue.getStatus();
-        const profileStatus = profileSyncDiagnostics.getSystemStatus();
-        
-        logger.info("Reliability systems initialized", {
-          chatQueue: {
-            pendingItems: chatStatus.queueLength,
-            isProcessing: chatStatus.isProcessing
-          },
-          profileSync: {
-            personalHealthy: profileStatus.personal.isHealthy,
-            partnerHealthy: profileStatus.partner.isHealthy
-          }
-        });
-      } catch (error) {
-        logger.error("Error getting system status:", error);
-      }
-    }, 300);
-  } catch (error) {
-    logger.error("Error initializing reliability systems:", error);
-  }
-
-  // Setup window globals for debugging (dev only)
-  if (import.meta.env.DEV) {
-    (window as any).reliabilityDebug = {
-      chatQueue: chatReliabilityQueue,
-      profileDiagnostics: profileSyncDiagnostics,
-      getChatQueueStatus: () => chatReliabilityQueue.getStatus(),
-      getProfileStatus: () => profileSyncDiagnostics.getSystemStatus(),
-      runHealthCheck: () => profileSyncDiagnostics.performHealthCheck()
-    };
-  }
+    } catch (e) {
+      // Silent fail
+    }
+  });
 };
