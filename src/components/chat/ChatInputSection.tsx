@@ -173,8 +173,8 @@ export const ChatInputSection = ({
     if (!isMobile || isTablet) return {};
     
     if (isKeyboardVisible && keyboardHeight > 0) {
-      // Position input container 8px above the keyboard for optimal spacing
-      const translateY = -Math.max(keyboardHeight + 8, 60); // Minimum 60px from bottom
+      // Position input container just above the keyboard (16-24px gap)
+      const translateY = -20; // Small fixed offset above keyboard
       
       return {
         transform: `translateY(${translateY}px)`,
