@@ -289,7 +289,6 @@ const ChatContainer = ({
         className="h-full"
         style={isMobile ? { 
           WebkitOverflowScrolling: 'touch' as any,
-          overscrollBehavior: 'contain',
         } : undefined}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}
