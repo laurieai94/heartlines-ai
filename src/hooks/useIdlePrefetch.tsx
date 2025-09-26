@@ -19,38 +19,45 @@ export const useIdlePrefetch = () => {
     if (import.meta.env.DEV) return;
     
     const prefetchRoutes = () => {
-      // Check if we're on a fast connection and not on mobile data
+      // More aggressive filtering for mobile and slow connections
       const connection = (navigator as any).connection;
-      if (connection && (connection.saveData || connection.effectiveType === 'slow-2g' || (isMobile && connection.type === 'cellular'))) {
+      if (connection && (
+        connection.saveData || 
+        connection.effectiveType === 'slow-2g' || 
+        connection.effectiveType === '2g' ||
+        (isMobile && connection.type === 'cellular')
+      )) {
         return; // Skip prefetching on slow/limited connections
       }
       
-      // Prefetch critical route chunks during idle time
-      const routesToPrefetch = [
+      // Significantly reduced prefetching - only critical routes
+      const routesToPrefetch = isMobile ? [
+        // Mobile: only prefetch most critical route
+        () => import('@/pages/Dashboard')
+      ] : [
+        // Desktop: limited prefetching
         () => import('@/pages/Dashboard'),
-        () => import('@/pages/Account'),
-        // Reduce prefetching on mobile to save bandwidth
-        ...(isMobile ? [] : [
-          () => import('@/pages/Mission'),
-          () => import('@/pages/Pricing'),
-          () => import('@/components/PrivacySettings'),
-        ]),
-        // Profile experience chunks
-        () => import('@/components/ProfileBuilder'),
-        () => import('@/components/NewPersonalQuestionnaire'),
-        () => import('@/components/NewPartnerProfile')
+        () => import('@/pages/Account')
       ];
       
+      // Much longer delays to prevent main thread blocking
+      let totalDelay = 0;
       routesToPrefetch.forEach((importFn, index) => {
-        // Longer stagger on mobile to reduce resource contention
-        const staggerDelay = isMobile ? index * 2000 : index * 1000;
+        totalDelay += isMobile ? 5000 : 3000; // Much longer stagger
+        
         setTimeout(() => {
+          // Double-check we're still idle
+          if (document.hidden || !document.hasFocus()) return;
+          
           requestIdleCallbackSafe(() => {
+            // Final check before prefetching
+            if (performance.now() > 30000) return; // Skip after 30s
+            
             importFn().catch(() => {
               // Silently ignore prefetch failures
             });
           });
-        }, staggerDelay);
+        }, totalDelay);
       });
     };
     

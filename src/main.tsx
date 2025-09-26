@@ -36,14 +36,40 @@ if (checkMobile()) {
   });
 }
 
-// Defer reliability systems initialization to after initial render
+// Defer reliability systems initialization with proper yielding
 const deferInit = () => {
-  if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(() => {
+  // Yield to main thread before heavy initialization
+  const yieldToMainThread = () => new Promise(resolve => {
+    if ('scheduler' in window && 'postTask' in (window as any).scheduler) {
+      (window as any).scheduler.postTask(resolve, { priority: 'background' });
+    } else {
+      setTimeout(resolve, 0);
+    }
+  });
+
+  const runStaggeredInit = async () => {
+    // Wait for critical rendering to complete
+    await yieldToMainThread();
+    
+    // Only initialize reliability systems if not on mobile or if network is good
+    const connection = (navigator as any).connection;
+    const isMobile = window.innerWidth < 768;
+    
+    if (isMobile && connection && (connection.saveData || connection.effectiveType === 'slow-2g')) {
+      console.info('Skipping heavy initialization on slow mobile connection');
+      return;
+    }
+    
+    // Stagger initialization to prevent blocking
+    setTimeout(() => {
       initReliabilitySystems();
-    }, { timeout: 1500 });
+    }, isMobile ? 2000 : 1000);
+  };
+
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(runStaggeredInit, { timeout: 3000 });
   } else {
-    setTimeout(initReliabilitySystems, 800);
+    setTimeout(runStaggeredInit, 1500);
   }
 };
 
