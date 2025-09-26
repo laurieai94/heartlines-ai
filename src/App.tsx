@@ -11,6 +11,8 @@ import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
+// EMERGENCY: Import cleanup for startup
+import "@/utils/emergencyCleanup";
 
 // Import LandingPage directly for immediate rendering (critical path)
 import LandingPage from "@/components/LandingPage";
@@ -26,25 +28,24 @@ const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
-  // Initialize performance optimizations - fixed timer cleanup issue
-  useIdlePrefetch();
+  // EMERGENCY: Disable performance monitoring and prefetching to fix unresponsiveness
+  // useIdlePrefetch(); // Disabled temporarily
   
   useEffect(() => {
-    // Initialize performance monitoring
-    performanceMonitor.init();
+    // EMERGENCY: Disable performance monitoring completely
+    // performanceMonitor.init(); // Disabled
     
-    // Defer network warmup to after page is stable
-    const deferWarmup = () => {
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => {
-          warmupNetwork();
-        }, { timeout: 2000 });
-      } else {
-        setTimeout(warmupNetwork, 1000);
-      }
-    };
-    
-    deferWarmup();
+    // EMERGENCY: Disable network warmup to reduce blocking operations
+    // const deferWarmup = () => {
+    //   if ('requestIdleCallback' in window) {
+    //     (window as any).requestIdleCallback(() => {
+    //       warmupNetwork();
+    //     }, { timeout: 2000 });
+    //   } else {
+    //     setTimeout(warmupNetwork, 1000);
+    //   }
+    // };
+    // deferWarmup(); // Disabled
   }, []);
   
   return (

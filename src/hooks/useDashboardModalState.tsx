@@ -74,33 +74,43 @@ export const useDashboardModalState = () => {
     console.log('Modal state changed - showPartnerCompletionOptions:', showPartnerCompletionOptions);
   }, [showPartnerCompletionOptions]);
 
-  // Prevent body scroll when questionnaire modal is open
+  // EMERGENCY: Throttled body scroll management to prevent blocking
   useEffect(() => {
-    if (showQuestionnaireModal || showPartnerQuestionnaireModal || showSignInModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    const isAnyModalOpen = showQuestionnaireModal || showPartnerQuestionnaireModal || showSignInModal;
+    
+    // EMERGENCY: Use requestAnimationFrame to prevent blocking
+    requestAnimationFrame(() => {
+      if (isAnyModalOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+    });
 
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [showQuestionnaireModal, showPartnerQuestionnaireModal, showSignInModal]);
 
-  // Sync activeTab with URL
+  // EMERGENCY: Simplified URL synchronization to prevent cascading updates
   useEffect(() => {
     const tabFromPath = getTabFromPath(location.pathname);
-    setActiveTabState(tabFromPath);
+    if (tabFromPath !== activeTab) {
+      setActiveTabState(tabFromPath);
+    }
   }, [location.pathname]);
 
-  // Handle redirect from profile completion
+  // EMERGENCY: Separate effect for state handling to prevent loops
   useEffect(() => {
-    if (location.state?.activeTab) {
+    if (location.state?.activeTab && location.state.activeTab !== activeTab) {
       const newTab = location.state.activeTab;
       setActiveTabState(newTab);
-      navigate(getPathFromTab(newTab), { replace: true });
+      // EMERGENCY: Use timeout to prevent blocking
+      requestAnimationFrame(() => {
+        navigate(getPathFromTab(newTab), { replace: true });
+      });
     }
-  }, [location.state, navigate]);
+  }, [location.state?.activeTab]);
 
   // Custom setActiveTab that also updates URL
   const setActiveTab = (tab: string) => {

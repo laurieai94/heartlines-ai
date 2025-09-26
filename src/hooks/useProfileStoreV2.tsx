@@ -128,6 +128,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
   
+  // EMERGENCY: Circuit breaker to prevent multiple concurrent operations
+  const [isOperationInProgress, setIsOperationInProgress] = useState(false);
+  
   // Instance tracking
   const instanceId = useRef<string>(`${profileType}-${Date.now()}-${Math.random()}`);
   const isPrimaryInstance = useRef<boolean>(false);
