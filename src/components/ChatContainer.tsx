@@ -377,7 +377,7 @@ const ChatContainer = ({
               </div>
             )}
             
-            <div className="h-16 md:h-20" />
+            <div className="h-8 md:h-12" />
           </div>
         </div>
       </ScrollArea>
