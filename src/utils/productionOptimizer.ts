@@ -1,17 +1,15 @@
-// Production-specific optimizations
+// Production-specific optimizations and development performance fixes
 const isProduction = !import.meta.env.DEV;
 
-// Remove console statements in production builds
-if (isProduction) {
-  // Override console methods to reduce production overhead
-  const noop = () => {};
-  if (typeof console !== 'undefined') {
-    console.log = noop;
-    console.info = noop;
-    console.debug = noop;
-    console.warn = noop;
-    // Keep console.error for critical issues only
-  }
+// Remove console statements in ALL builds to prevent performance issues
+// Development mode was causing page unresponsiveness due to excessive logging
+const noop = () => {};
+if (typeof console !== 'undefined') {
+  console.log = noop;
+  console.info = noop;
+  console.debug = noop;
+  console.warn = noop;
+  // Keep console.error for critical issues only
 }
 
 // Optimize animations for reduced motion

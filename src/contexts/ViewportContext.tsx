@@ -42,26 +42,15 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       const keyboardThreshold = isTabletDevice ? 200 : 100; // Higher threshold for tablets
       const isKeyboardVisible = keyboardHeight > keyboardThreshold;
       
-      // Debug logging
-      console.log('🔍 Viewport Debug:', {
-        windowHeight,
-        visualHeight,
-        keyboardHeight,
-        isTabletDevice,
-        keyboardThreshold,
-        isKeyboardVisible,
-        hasVisualViewport: !!window.visualViewport,
-        userAgent: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'
-      });
+      // Debug logging removed for performance
 
       setState(prev => {
         if (prev.isKeyboardVisible !== isKeyboardVisible) {
-          console.log('🔍 Keyboard state changed:', isKeyboardVisible);
           keyboardListeners.forEach(listener => {
             try {
               listener(isKeyboardVisible);
             } catch (error) {
-              console.error('Error in keyboard listener:', error);
+              console.error('Critical: Error in keyboard listener:', error);
             }
           });
         }
@@ -97,13 +86,11 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
     const handleFocusIn = (e: FocusEvent) => {
       const target = e.target as HTMLElement;
       if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
-        console.log('🔍 Input focused - keyboard should be visible');
         setTimeout(updateViewport, 300); // Delay for keyboard animation
       }
     };
 
     const handleFocusOut = () => {
-      console.log('🔍 Input unfocused - keyboard should be hidden');
       setTimeout(updateViewport, 300); // Delay for keyboard animation
     };
 

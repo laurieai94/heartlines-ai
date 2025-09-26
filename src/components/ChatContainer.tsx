@@ -127,18 +127,10 @@ const ChatContainer = ({
         const isDeliberateSwipe = velocity > 0.8 && Math.abs(scrollDelta) > 40; // Fast swipe 40px+
         
         if (isSignificantlyScrolledDown && (hasIntentionalUpwardScroll || isDeliberateSwipe)) {
-          console.log('🥕 Setting scroll up true - intentional scroll detected:', { 
-            cumulativeDistance: cumulativeScrollDistanceRef.current,
-            velocity: velocity.toFixed(3),
-            scrollTop: currentScrollTop,
-            scrollDelta,
-            isTablet
-          });
           setIsScrollingUp(true);
         }
       } else if (isScrollingDownNow) {
         // Always hide carrot immediately on downward scroll
-        console.log('🥕 Setting scroll up false (scrolling down)');
         setIsScrollingUp(false);
       }
       
@@ -247,15 +239,8 @@ const ChatContainer = ({
     if (touch) {
       touchStartYRef.current = touch.clientY;
       
-      console.log('👆 Touch start:', { 
-        touchY: touch.clientY, 
-        isKeyboardVisible,
-        screenHeight: window.innerHeight 
-      });
-      
       // If touching near top of screen, immediately show header  
       if (touch.clientY < 150) {
-        console.log('🔝 FORCE showing header - top touch detected');
         forceVisible();
       }
     }
@@ -269,15 +254,8 @@ const ChatContainer = ({
     if (touch && touchStartYRef.current > 0) {
       const deltaY = touch.clientY - touchStartYRef.current;
       
-      console.log('👆 Touch move:', { 
-        deltaY, 
-        currentY: touch.clientY, 
-        startY: touchStartYRef.current 
-      });
-      
       // Show header immediately on downward swipe (pulling down) - more sensitive
       if (deltaY > 20) {
-        console.log('🔝 FORCE showing header - downward swipe detected');
         forceVisible();
         // Prevent further processing to avoid bounce
         touchStartYRef.current = 0;
