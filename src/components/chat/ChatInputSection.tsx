@@ -171,7 +171,7 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 sticky bottom-0 pb-safe bg-burgundy-950/95 backdrop-blur-sm">
-      <div className="px-0 pt-2 pb-2 md:px-4 md:py-5 md:pt-8">
+      <div className="px-0 pt-1 pb-1 md:px-4 md:py-5 md:pt-8">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
