@@ -48,7 +48,7 @@ const ChatContainer = ({
   const prevUserTypingRef = useRef(userTyping);
   const carrotResetFnRef = useRef<(() => void) | null>(null);
   
-  // Enhanced scroll tracking for carrot behavior with user intent detection
+  // Enhanced scroll tracking for carrot behavior with intentional scroll detection
   const lastScrollTopRef = useRef(0);
   const scrollDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
@@ -56,7 +56,8 @@ const ChatContainer = ({
   const cumulativeScrollDistanceRef = useRef(0);
   const lastUserScrollTimeRef = useRef(0);
   const prevKeyboardVisibleRef = useRef(isKeyboardVisible);
-  const scrollIntentTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollVelocityRef = useRef(0);
+  const lastScrollTimeRef = useRef(Date.now());
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -112,32 +113,31 @@ const ChatContainer = ({
       
       // User intent detection - require deliberate upward scroll for mobile phones only
       if (isScrollingUpNow && !isTablet) {
-        // Clear any existing timeout
-        if (scrollIntentTimeoutRef.current) {
-          clearTimeout(scrollIntentTimeoutRef.current);
-        }
+        const currentTime = Date.now();
+        const timeDelta = currentTime - lastScrollTimeRef.current;
         
-        // Require minimum cumulative scroll distance (30px) to show carrot
-        if (cumulativeScrollDistanceRef.current >= 30) {
-          console.log('🥕 Setting scroll up true - user intent detected:', { 
+        // Calculate scroll velocity (pixels per millisecond)
+        const velocity = timeDelta > 0 ? Math.abs(scrollDelta) / timeDelta : 0;
+        scrollVelocityRef.current = velocity;
+        lastScrollTimeRef.current = currentTime;
+        
+        // Only show carrot if user is scrolled down significantly AND has intentional scroll
+        const isSignificantlyScrolledDown = currentScrollTop > 200; // Must be scrolled down 200px+
+        const hasIntentionalUpwardScroll = cumulativeScrollDistanceRef.current > 100; // 100px+ cumulative
+        const isDeliberateSwipe = velocity > 0.8 && Math.abs(scrollDelta) > 40; // Fast swipe 40px+
+        
+        if (isSignificantlyScrolledDown && (hasIntentionalUpwardScroll || isDeliberateSwipe)) {
+          console.log('🥕 Setting scroll up true - intentional scroll detected:', { 
             cumulativeDistance: cumulativeScrollDistanceRef.current,
+            velocity: velocity.toFixed(3),
+            scrollTop: currentScrollTop,
+            scrollDelta,
             isTablet
           });
           setIsScrollingUp(true);
-        } else {
-          // Set timeout to show carrot after sustained scrolling (200ms)
-          scrollIntentTimeoutRef.current = setTimeout(() => {
-            if (cumulativeScrollDistanceRef.current >= 20) {
-              console.log('🥕 Setting scroll up true - sustained scroll detected');
-              setIsScrollingUp(true);
-            }
-          }, 200);
         }
       } else if (isScrollingDownNow) {
-        // Always hide carrot immediately on downward scroll and clear timeout
-        if (scrollIntentTimeoutRef.current) {
-          clearTimeout(scrollIntentTimeoutRef.current);
-        }
+        // Always hide carrot immediately on downward scroll
         console.log('🥕 Setting scroll up false (scrolling down)');
         setIsScrollingUp(false);
       }
@@ -183,9 +183,10 @@ const ChatContainer = ({
     const isKeyboardVisibleNow = isKeyboardVisible;
     
     if (isKeyboardVisibleNow && !keyboardOpenedTimeRef.current) {
-      // Keyboard just opened - record the time and reset scroll tracking
+      // Keyboard just opened - record the time and reset all scroll tracking
       keyboardOpenedTimeRef.current = Date.now();
       cumulativeScrollDistanceRef.current = 0;
+      scrollVelocityRef.current = 0;
       setIsScrollingUp(false);
       
       // Auto-scroll to bottom when keyboard reopens (but not on first load)
@@ -234,9 +235,6 @@ const ChatContainer = ({
     return () => {
       if (scrollDebounceRef.current) {
         clearTimeout(scrollDebounceRef.current);
-      }
-      if (scrollIntentTimeoutRef.current) {
-        clearTimeout(scrollIntentTimeoutRef.current);
       }
     };
   }, []);
