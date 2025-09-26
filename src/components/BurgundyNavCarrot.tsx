@@ -14,6 +14,7 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
   const { isKeyboardVisible } = useViewport();
   const { isMobile, isTablet } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [hasBeenUsed, setHasBeenUsed] = useState(false);
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -23,8 +24,8 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     }, 120);
   }, []);
 
-  // Show only when: mobile phone (not tablet) + scrolling up + navigation not opened
-  const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened;
+  // Show only when: mobile phone (not tablet) + scrolling up + navigation not opened + hasn't been used
+  const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened && !hasBeenUsed;
   
   // Debug logging
   console.log('🥕 BurgundyNavCarrot Debug:', {
@@ -46,6 +47,9 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     
     const target = e.currentTarget as HTMLElement;
     simulateHaptic(target);
+    
+    // Mark as used to prevent showing again
+    setHasBeenUsed(true);
     
     // Start fly-up animation
     setIsAnimating(true);
