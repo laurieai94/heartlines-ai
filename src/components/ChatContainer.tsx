@@ -383,18 +383,6 @@ const ChatContainer = ({
         </div>
       </ScrollArea>
 
-      {/* Desktop Scroll to Bottom Button */}
-      {!isMobile && showScrollToBottom && (
-        <div className="fixed bottom-24 right-8 z-50">
-          <Button
-            onClick={() => scrollToBottom('smooth')}
-            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:bg-white/20 transition-all duration-200"
-            size="sm"
-          >
-            <ArrowDown className="w-4 h-4 text-white" />
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
