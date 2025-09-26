@@ -167,22 +167,33 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Memoize mobile-specific padding to prevent re-renders - ONLY for phones, not tablets
-  const mobilePadding = useMemo(() => {
-    // Only apply dynamic padding to mobile phones, not tablets
+  // Enhanced mobile keyboard positioning to maximize chat space
+  const mobileKeyboardPositioning = useMemo(() => {
+    // Only apply dynamic positioning to mobile phones, not tablets
     if (!isMobile || isTablet) return {};
     
-    // Minimize padding when keyboard is visible to maximize chat space
-    const basePadding = isKeyboardVisible ? 4 : 16;
+    if (isKeyboardVisible && keyboardHeight > 0) {
+      // Position input container 8px above the keyboard for optimal spacing
+      const translateY = -Math.max(keyboardHeight + 8, 60); // Minimum 60px from bottom
+      
+      return {
+        transform: `translateY(${translateY}px)`,
+        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        // iOS-specific safe area handling when keyboard is visible
+        paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
+      };
+    }
     
+    // Default positioning when keyboard is hidden
     return {
-      paddingBottom: `${basePadding}px`,
-      transition: 'padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      transform: 'translateY(0px)',
+      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      paddingBottom: '16px', // Standard padding when keyboard is hidden
     };
-  }, [isMobile, isTablet, isKeyboardVisible]);
+  }, [isMobile, isTablet, isKeyboardVisible, keyboardHeight]);
 
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobilePadding}>
+    <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobileKeyboardPositioning}>
       <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
