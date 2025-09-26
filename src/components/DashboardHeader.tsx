@@ -67,25 +67,29 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : 'mb-1 sm:mb-2 md:mb-6'}`}>
       <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
         isCoachMode 
-          ? 'px-1 py-1.5' // Even smaller padding on coach page mobile
+          ? 'px-1 py-1' // Ultra compact padding on coach page mobile
           : 'pl-4 pr-2 py-3' // Normal padding on other pages
       }`}>
         
         {/* Mobile Navigation - Hide in coach mode when scrolling */}
-        <div className={`flex items-center justify-between md:hidden transition-all duration-150 min-h-[56px] ${
+        <div className={`flex items-center justify-between md:hidden transition-all duration-150 ${
+          isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
+        } ${
           isMobile && isCoachMode && !visible 
             ? '-translate-y-full opacity-0 pointer-events-none' 
             : 'translate-y-0 opacity-100 pointer-events-auto'
         }`}>
-          <div className="flex items-center gap-3">
+          <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white h-8 w-8 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent"
+                  className={`text-white bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-white data-[state=open]:bg-transparent ${
+                    isCoachMode ? 'h-7 w-7' : 'h-8 w-8'
+                  }`}
                 >
-                  <Menu className="h-5 w-5" />
+                  <Menu className={isCoachMode ? 'h-4 w-4' : 'h-5 w-5'} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent 
