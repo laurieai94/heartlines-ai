@@ -48,16 +48,9 @@ const ChatContainer = ({
   const prevUserTypingRef = useRef(userTyping);
   const carrotResetFnRef = useRef<(() => void) | null>(null);
   
-  // Enhanced scroll tracking for carrot behavior with intentional scroll detection
+  // Simplified scroll tracking 
   const lastScrollTopRef = useRef(0);
-  const scrollDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = useRef(0);
-  const keyboardOpenedTimeRef = useRef<number | null>(null);
-  const cumulativeScrollDistanceRef = useRef(0);
-  const lastUserScrollTimeRef = useRef(0);
-  const prevKeyboardVisibleRef = useRef(isKeyboardVisible);
-  const scrollVelocityRef = useRef(0);
-  const lastScrollTimeRef = useRef(Date.now());
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -72,7 +65,7 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Enhanced scroll handler with carrot delay logic
+  // Simplified scroll handler
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
@@ -80,70 +73,34 @@ const ChatContainer = ({
     const currentScrollTop = viewport.scrollTop;
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
     const scrollDelta = currentScrollTop - lastScrollTopRef.current;
-    const now = Date.now();
     
     // Desktop scroll-to-bottom button
     if (!isMobile) {
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile header visibility and enhanced carrot logic
+    // Mobile logic - much simpler
     if (isMobile) {
-      const isScrollingUpNow = scrollDelta < -2; // Detect upward scrolling (more sensitive)
-      const isScrollingDownNow = scrollDelta > 2; // Detect downward scrolling
+      const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
+      const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
       
-      // Clear any existing debounce timer
-      if (scrollDebounceRef.current) {
-        clearTimeout(scrollDebounceRef.current);
-      }
-      
-      // Track user-initiated scroll (ignore tiny automatic adjustments)
-      if (Math.abs(scrollDelta) > 1) {
-        lastUserScrollTimeRef.current = now;
-        
-        // Accumulate scroll distance for upward scrolls only
-        if (isScrollingUpNow) {
-          cumulativeScrollDistanceRef.current += Math.abs(scrollDelta);
-        } else if (isScrollingDownNow) {
-          // Reset cumulative distance on downward scroll
-          cumulativeScrollDistanceRef.current = 0;
-          setIsScrollingUp(false);
-        }
-      }
-      
-      // User intent detection - require deliberate upward scroll for mobile phones only
-      if (isScrollingUpNow && !isTablet) {
-        const currentTime = Date.now();
-        const timeDelta = currentTime - lastScrollTimeRef.current;
-        
-        // Calculate scroll velocity (pixels per millisecond)
-        const velocity = timeDelta > 0 ? Math.abs(scrollDelta) / timeDelta : 0;
-        scrollVelocityRef.current = velocity;
-        lastScrollTimeRef.current = currentTime;
-        
-        // Only show carrot if user is scrolled down significantly AND has intentional scroll
-        const isSignificantlyScrolledDown = currentScrollTop > 200; // Must be scrolled down 200px+
-        const hasIntentionalUpwardScroll = cumulativeScrollDistanceRef.current > 100; // 100px+ cumulative
-        const isDeliberateSwipe = velocity > 0.8 && Math.abs(scrollDelta) > 40; // Fast swipe 40px+
-        
-        if (isSignificantlyScrolledDown && (hasIntentionalUpwardScroll || isDeliberateSwipe)) {
-          setIsScrollingUp(true);
-        }
+      // Show carrot when scrolling up and significantly scrolled down
+      if (isScrollingUpNow && !isTablet && currentScrollTop > 100) {
+        setIsScrollingUp(true);
       } else if (isScrollingDownNow) {
-        // Always hide carrot immediately on downward scroll
         setIsScrollingUp(false);
       }
       
-      // Show header immediately on ANY upward scroll (especially when keyboard is active)
+      // Show header on upward scroll
       if (scrollDelta < -1) {
         setHeaderVisible(true);
       }
-      
-      lastScrollTopRef.current = currentScrollTop;
     }
-  }, [isMobile, setHeaderVisible, isKeyboardVisible]);
+    
+    lastScrollTopRef.current = currentScrollTop;
+  }, [isMobile, isTablet, setHeaderVisible]);
 
-  // Auto-scroll to bottom on new messages and reset carrot availability
+  // Auto-scroll to bottom on new messages
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
     
@@ -152,11 +109,6 @@ const ChatContainer = ({
       requestAnimationFrame(() => {
         scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
       });
-      
-      // Reset carrot availability on new messages (user is engaging with chat)
-      if (hasNewMessage && carrotResetFnRef.current) {
-        carrotResetFnRef.current();
-      }
     }
     
     prevChatLengthRef.current = chatHistory.length;
@@ -169,67 +121,32 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Track keyboard visibility changes for carrot timing and auto-scroll
+  // Track keyboard visibility for auto-scroll
   useEffect(() => {
-    const wasKeyboardVisible = prevKeyboardVisibleRef.current;
-    const isKeyboardVisibleNow = isKeyboardVisible;
-    
-    if (isKeyboardVisibleNow && !keyboardOpenedTimeRef.current) {
-      // Keyboard just opened - record the time and reset all scroll tracking
-      keyboardOpenedTimeRef.current = Date.now();
-      cumulativeScrollDistanceRef.current = 0;
-      scrollVelocityRef.current = 0;
-      setIsScrollingUp(false);
-      
-      // Auto-scroll to bottom when keyboard reopens (but not on first load)
-      if (!wasKeyboardVisible && chatHistory.length > 0) {
-        setTimeout(() => {
-          scrollToBottom('smooth');
-        }, 100); // Small delay to ensure keyboard animation completes
-      }
-    } else if (!isKeyboardVisibleNow) {
-      // Keyboard closed - reset all tracking
-      keyboardOpenedTimeRef.current = null;
-      cumulativeScrollDistanceRef.current = 0;
-      setIsScrollingUp(false);
+    if (isKeyboardVisible && chatHistory.length > 0) {
+      setTimeout(() => {
+        scrollToBottom('smooth');
+      }, 100);
     }
-    
-    // Update the ref for next comparison
-    prevKeyboardVisibleRef.current = isKeyboardVisibleNow;
   }, [isKeyboardVisible, chatHistory.length, scrollToBottom]);
 
-  // Auto-scroll when user starts typing and reset carrot availability
+  // Auto-scroll when user starts typing
   useEffect(() => {
     const wasTyping = prevUserTypingRef.current;
     const isNowTyping = userTyping;
     
     // Only scroll when user starts typing (transition from false to true)
     if (!wasTyping && isNowTyping) {
-      // Use requestAnimationFrame to ensure typing indicator is rendered
       requestAnimationFrame(() => {
         setTimeout(() => {
           scrollToBottom('smooth');
-        }, 50); // Small delay to ensure DOM is updated
+        }, 50);
       });
-      
-      // Reset carrot availability when user starts typing (clear engagement signal)
-      if (carrotResetFnRef.current) {
-        carrotResetFnRef.current();
-      }
     }
     
-    // Update the ref for next comparison
     prevUserTypingRef.current = userTyping;
   }, [userTyping, scrollToBottom]);
 
-  // Cleanup timers on unmount
-  useEffect(() => {
-    return () => {
-      if (scrollDebounceRef.current) {
-        clearTimeout(scrollDebounceRef.current);
-      }
-    };
-  }, []);
 
   // Enhanced touch detection for immediate header reveal
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -268,14 +185,11 @@ const ChatContainer = ({
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
-      {/* Burgundy carrot navigation for keyboard + scroll up scenarios */}
+      {/* Burgundy carrot navigation for scroll up scenarios */}
       <BurgundyNavCarrot 
         isScrollingUp={isScrollingUp} 
         onOpenNavigation={onOpenSidebar}
         scrollPosition={lastScrollTopRef.current}
-        onResetAvailability={(resetFn) => {
-          carrotResetFnRef.current = resetFn;
-        }}
       />
       
       <ScrollArea 
