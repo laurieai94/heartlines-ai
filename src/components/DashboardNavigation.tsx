@@ -26,35 +26,35 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-        <nav role="navigation" aria-label="Primary" className={`flex justify-center ${compact ? 'pb-2' : 'pb-4'}`}>
+        <nav role="navigation" aria-label="Primary" className={`flex justify-start ${compact ? 'pb-2' : 'pb-4'}`}>
           <TabsList 
-            className={`w-full max-w-4xl ${compact ? 'h-10' : 'h-12'} flex md:grid md:grid-cols-4 overflow-x-auto no-scrollbar rounded-full p-1 gap-1 bg-background/60 backdrop-blur-md border border-border/60 shadow-sm`}
+            className={`w-full max-w-4xl ${compact ? 'h-10' : 'h-12'} flex md:grid md:grid-cols-4 overflow-x-auto no-scrollbar p-1 gap-2`}
           >
             <TabsTrigger 
               value="home" 
               title="Home"
-              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-start py-2 px-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:text-primary text-foreground/70 hover:text-foreground"
             >
               <Home className="w-4 h-4" />
             </TabsTrigger>
             <TabsTrigger 
               value="profile" 
               title="Profile"
-              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-start py-2 px-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:text-primary text-foreground/70 hover:text-foreground"
             >
               <User className="w-4 h-4" />
             </TabsTrigger>
             <TabsTrigger 
               value="insights" 
               title="Coach"
-              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-start py-2 px-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:text-primary text-foreground/70 hover:text-foreground"
             >
               <MessageSquare className="w-4 h-4" />
             </TabsTrigger>
             <TabsTrigger 
               value="privacy" 
               title="Privacy"
-              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-start py-2 px-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:text-primary text-foreground/70 hover:text-foreground"
             >
               <Shield className="w-4 h-4" />
             </TabsTrigger>

@@ -119,18 +119,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   const IconComponent = item.icon;
                   const isActive = activeTab === item.value;
                   return (
-                    <DropdownMenuItem
-                      key={item.value}
-                      onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item, true)}
-                      className={`relative flex items-center justify-center px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
-                        isActive 
-                          ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
-                          : 'text-white font-medium hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <IconComponent className="h-4 w-4 flex-shrink-0" />
-                    </DropdownMenuItem>
+                     <DropdownMenuItem
+                       key={item.value}
+                       onMouseEnter={() => handleTabHover(item.value)}
+                       onClick={() => handleNavigation(item, true)}
+                       className={`relative flex items-center justify-start px-2 py-2 rounded-lg cursor-pointer transition-none ${
+                         isActive 
+                           ? 'text-white font-semibold' 
+                           : 'text-white font-medium hover:bg-white/5 hover:text-white'
+                       }`}
+                     >
+                       <IconComponent className="h-4 w-4 flex-shrink-0" />
+                     </DropdownMenuItem>
                   );
                 })}
               </DropdownMenuContent>
@@ -167,18 +167,18 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   const IconComponent = item.icon;
                   const isActive = activeTab === item.value;
                   return (
-                    <DropdownMenuItem
-                      key={item.value}
-                      onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item, false)}
-                      className={`relative flex items-center justify-center px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
-                        isActive 
-                          ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
-                          : 'text-white font-medium hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <IconComponent className="h-4 w-4 flex-shrink-0" />
-                    </DropdownMenuItem>
+                     <DropdownMenuItem
+                       key={item.value}
+                       onMouseEnter={() => handleTabHover(item.value)}
+                       onClick={() => handleNavigation(item, false)}
+                       className={`relative flex items-center justify-start px-2 py-2 rounded-lg cursor-pointer transition-none ${
+                         isActive 
+                           ? 'text-white font-semibold' 
+                           : 'text-white font-medium hover:bg-white/5 hover:text-white'
+                       }`}
+                     >
+                       <IconComponent className="h-4 w-4 flex-shrink-0" />
+                     </DropdownMenuItem>
                   );
                 })}
               </DropdownMenuContent>
