@@ -386,7 +386,7 @@
   }
 
   .animate-glow-pulse {
-    animation: glowPulse 2s ease-in-out infinite;
+    animation: glowPulse 3.5s ease-in-out infinite;
   }
 
   @keyframes glowPulse {
@@ -419,7 +419,7 @@
   }
 
   .animate-profile-glow {
-    animation: profileGlow 2s ease-in-out infinite;
+    animation: profileGlow 3.5s ease-in-out infinite;
   }
 
   @keyframes optionalGlow {
@@ -436,7 +436,7 @@
   }
 
   .animate-optional-glow {
-    animation: optionalGlow 3s ease-in-out infinite;
+    animation: optionalGlow 4.5s ease-in-out infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
