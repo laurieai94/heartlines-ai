@@ -174,12 +174,12 @@ export const ChatInputSection = ({
       <div className="px-0 pt-1 pb-0 md:px-4 md:py-2 md:pt-2">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
-          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
+          <div className="mb-2 md:mb-3 max-w-[54rem] mx-auto px-12">
             <ConversationStarters onStarterSelect={handleSend} />
           </div>
         )}
         
-        <div className="md:max-w-[54rem] md:mx-auto md:px-12">
+        <div className="max-w-[54rem] mx-auto px-12">
           <ProgressiveAccessWrapper action="chat">
             <AIChatInput
               onSendMessage={handleSend} 
