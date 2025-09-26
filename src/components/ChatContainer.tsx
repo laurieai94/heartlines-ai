@@ -272,6 +272,7 @@ const ChatContainer = ({
       <BurgundyNavCarrot 
         isScrollingUp={isScrollingUp} 
         onOpenNavigation={onOpenSidebar}
+        scrollPosition={lastScrollTopRef.current}
         onResetAvailability={(resetFn) => {
           carrotResetFnRef.current = resetFn;
         }}
