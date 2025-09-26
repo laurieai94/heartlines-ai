@@ -201,26 +201,30 @@ export const ChatInputSection = ({
     });
     
     if (finalKeyboardVisible && finalKeyboardHeight > 0) {
-      // Multiple positioning strategies using final keyboard data
-      const strategy1_bottomOffset = Math.max(finalKeyboardHeight + 16, 80);
-      const strategy2_viewportBased = Math.max(finalKeyboardHeight + 20, 100);
-      const strategy3_deviceSpecific = isIOSDevice ? finalKeyboardHeight + 25 : finalKeyboardHeight + 15;
+      // Cap the detected height for better positioning (keyboards are typically 250-280px)
+      const cappedKeyboardHeight = Math.min(finalKeyboardHeight, 280);
+      
+      // Reduced padding strategies - much smaller offsets
+      const strategy1_bottomOffset = cappedKeyboardHeight + 8;  // Reduced from +16
+      const strategy2_viewportBased = cappedKeyboardHeight + 12; // Reduced from +20  
+      const strategy3_deviceSpecific = isIOSDevice ? cappedKeyboardHeight + 10 : cappedKeyboardHeight + 8; // Reduced from +25/+15
       
       // Choose the most appropriate strategy
       let finalOffset = strategy1_bottomOffset;
       if (isIOSDevice) finalOffset = strategy3_deviceSpecific;
-      if (finalKeyboardHeight > 300) finalOffset = strategy2_viewportBased;
+      if (cappedKeyboardHeight > 250) finalOffset = strategy2_viewportBased;
       
-      const clampedOffset = Math.min(Math.max(finalOffset, 60), 450);
+      const clampedOffset = Math.min(Math.max(finalOffset, 60), 320); // Reduced max from 450 to 320
       
       console.log('🎯 Keyboard Positioning Applied:', {
+        originalKeyboardHeight: keyboardHeight,
+        finalKeyboardHeight,
+        cappedKeyboardHeight,
         strategy1_bottomOffset,
-        strategy2_viewportBased,
+        strategy2_viewportBased, 
         strategy3_deviceSpecific,
         finalOffset,
         clampedOffset,
-        originalKeyboardHeight: keyboardHeight,
-        finalKeyboardHeight,
         emergencyMethod: emergencyKeyboard.method,
         isIOSDevice
       });
@@ -247,6 +251,13 @@ export const ChatInputSection = ({
 
   return (
     <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobileKeyboardPositioning}>
+      {/* Debug Display - only show on mobile when keyboard is visible */}
+      {isMobile && finalKeyboardVisible && (
+        <div className="fixed top-4 left-4 bg-black/80 text-white p-2 rounded text-xs z-[100] font-mono">
+          KB: {finalKeyboardHeight}px | Method: {emergencyKeyboard.method || 'viewport'} | 
+          Offset: {mobileKeyboardPositioning.bottom}
+        </div>
+      )}
       <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (

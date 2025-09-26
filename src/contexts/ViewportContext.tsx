@@ -35,7 +35,10 @@ const updateViewport = useCallback(() => {
     try {
       const windowHeight = window.innerHeight;
       const visualHeight = window.visualViewport?.height || windowHeight;
-      const keyboardHeight = Math.max(0, windowHeight - visualHeight);
+      const rawKeyboardHeight = Math.max(0, windowHeight - visualHeight);
+      
+      // Cap keyboard height at 300px to prevent over-compensation
+      const keyboardHeight = Math.min(rawKeyboardHeight, 300);
       
       // Enhanced device detection
       const userAgent = navigator.userAgent.toLowerCase();
@@ -63,7 +66,9 @@ const updateViewport = useCallback(() => {
       console.log('🔍 Enhanced Viewport Debug:', {
         windowHeight,
         visualHeight,
+        rawKeyboardHeight,
         keyboardHeight: heightDifference,
+        cappedAt300: rawKeyboardHeight !== heightDifference,
         keyboardThreshold,
         isKeyboardVisible,
         userAgent: userAgent.substring(0, 50),
