@@ -108,7 +108,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="start" 
-                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
+                className="w-14 z-[60] border-0 shadow-2xl rounded-xl p-1"
                 style={{
                   background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
                   backdropFilter: 'blur(20px)',
@@ -123,7 +123,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
                        onClick={() => handleNavigation(item, true)}
-                        className={`relative flex items-center justify-start px-1 py-1.5 rounded-lg cursor-pointer transition-none ${
+                        className={`relative flex items-center justify-center px-1 py-1.5 rounded-lg cursor-pointer transition-none ${
                          isActive 
                            ? 'text-white font-semibold' 
                            : 'text-white font-medium hover:bg-white/5 hover:text-white'
@@ -154,9 +154,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   <Menu className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent 
+               <DropdownMenuContent 
                 align="start" 
-                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-2"
+                className="w-14 z-[60] border-0 shadow-2xl rounded-xl p-1"
                 style={{
                   background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
                   backdropFilter: 'blur(20px)',
@@ -171,7 +171,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
                        onClick={() => handleNavigation(item, false)}
-                       className={`relative flex items-center justify-start px-1 py-1.5 rounded-lg cursor-pointer transition-none ${
+                       className={`relative flex items-center justify-center px-1 py-1.5 rounded-lg cursor-pointer transition-none ${
                          isActive 
                            ? 'text-white font-semibold' 
                            : 'text-white font-medium hover:bg-white/5 hover:text-white'
