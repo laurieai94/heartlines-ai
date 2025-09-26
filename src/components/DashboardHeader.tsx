@@ -11,7 +11,7 @@ import {
 import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useState } from "react";
 import type { User } from '@supabase/supabase-js';
 
@@ -28,7 +28,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);

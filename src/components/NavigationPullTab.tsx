@@ -1,7 +1,7 @@
 import { Menu } from 'lucide-react';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { useCallback } from 'react';
 
 interface NavigationPullTabProps {
@@ -11,7 +11,7 @@ interface NavigationPullTabProps {
 const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   const { visible, setVisible, forceVisible } = useMobileHeaderVisibility();
   const isKeyboardVisible = useKeyboardDetection();
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {

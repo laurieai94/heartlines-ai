@@ -167,31 +167,11 @@ export const ChatInputSection = ({
     (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
     (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
-  // Enhanced mobile keyboard positioning to maximize chat space
-  const mobileKeyboardPositioning = useMemo(() => {
-    // Only apply dynamic positioning to mobile phones, not tablets
-    if (!isMobile || isTablet) return {};
-    
-    if (isKeyboardVisible && keyboardHeight > 0) {
-      // Position input container above the keyboard
-      const translateY = -Math.max(keyboardHeight, 0);
-      
-      return {
-        transform: `translateY(${translateY}px)`,
-        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      };
-    }
-    
-    // Default positioning when keyboard is hidden
-    return {
-      transform: 'translateY(0px)',
-      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    };
-  }, [isMobile, isTablet, isKeyboardVisible, keyboardHeight]);
+  // Use native iOS keyboard behavior instead of fighting it
 
   return (
-    <div className={`flex-shrink-0 sticky bottom-0 ${!isMobile || isTablet ? 'pb-safe' : ''}`} style={mobileKeyboardPositioning}>
-      <div className={`px-0 pt-2 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'pb-0' : 'pb-2'} ${isMobile && !isTablet ? 'pb-safe' : ''}`}>
+    <div className="flex-shrink-0 sticky bottom-0 pb-safe">
+      <div className="px-0 pt-2 pb-2 md:px-4 md:py-5 md:pt-8">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">

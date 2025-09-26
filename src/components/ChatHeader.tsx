@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Bot, Circle, User, Heart, Info } from "lucide-react";
 import { useState } from "react";
 import { BRAND } from "@/branding";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -16,7 +16,7 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatHeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   
   const getUserInitials = () => {
     return userName ? userName.charAt(0).toUpperCase() : 'U';

@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Heart, Plus, Menu, Info } from "lucide-react";
 import { useState } from "react";
 import { BRAND } from "@/branding";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
   const { simulateHapticFeedback } = useMobileOptimizations();
 

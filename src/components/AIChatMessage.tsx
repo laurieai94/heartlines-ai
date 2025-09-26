@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User, Heart } from "lucide-react";
 import ReminderButton from "./chat/ReminderButton";
 import { BRAND } from "@/branding";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
 interface AIChatMessageProps {
   message: ChatMessage;
@@ -16,7 +16,7 @@ interface AIChatMessageProps {
 
 const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup = true, isLastInGroup = true }: AIChatMessageProps) => {
   const isUser = message.type === 'user';
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   
   // Format time to show only hours and minutes
   const formatTime = (timestamp: string) => {

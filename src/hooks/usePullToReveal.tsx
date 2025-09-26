@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 interface PullToRevealOptions {
   threshold?: number;
@@ -15,7 +15,7 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
     enabled = true
   } = options;
 
-  const isMobile = useIsMobile();
+  const { isMobile } = useOptimizedMobile();
   const { visible, setVisible } = useMobileHeaderVisibility();
   const [isPulling, setIsPulling] = useState(false);
   const [pullDistance, setPullDistance] = useState(0);
