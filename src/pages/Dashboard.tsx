@@ -4,12 +4,10 @@ import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilit
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
-import DashboardSidebar from "@/components/DashboardSidebar";
 import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -102,45 +100,35 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <SidebarProvider defaultOpen={false}>
-            <div className="h-[100dvh] overflow-hidden w-full flex">
-              {/* Compact Icon Sidebar */}
-              <DashboardSidebar 
+          <div className="h-[100dvh] overflow-hidden">
+            {/* Main Dashboard Content - This gets blurred when modals are open */}
+            <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+              {/* Ambient glow for chat interface separation */}
+              <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+
+              {/* Background overlays removed for unified burgundy theme */}
+
+              <DashboardHeader 
+                accessLevel={accessLevel}
+                profileCompletion={profileCompletion}
+                compact={activeTab === 'insights'}
+                user={user}
                 activeTab={activeTab}
                 onValueChange={setActiveTab}
+                onSignInClick={handleSignInClick}
+                onOpenProfile={handleOpenProfile}
               />
-              
-              <SidebarInset className="flex-1">
-                {/* Main Dashboard Content - This gets blurred when modals are open */}
-                <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-                  {/* Ambient glow for chat interface separation */}
-                  <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
-                  {/* Simplified header without navigation */}
-                  <DashboardHeader 
-                    accessLevel={accessLevel}
-                    profileCompletion={profileCompletion}
-                    compact={activeTab === 'insights'}
-                    user={user}
-                    activeTab={activeTab}
-                    onValueChange={setActiveTab}
-                    onSignInClick={handleSignInClick}
-                    onOpenProfile={handleOpenProfile}
-                  />
-
-                  <DashboardContent
-                    activeTab={activeTab}
-                    onValueChange={setActiveTab}
-                    temporaryProfiles={temporaryProfiles}
-                    temporaryDemographics={temporaryDemographics}
-                    onProfileUpdate={handleProfileUpdate}
-                    onOpenQuestionnaire={handleOpenQuestionnaire}
-                    onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-                  />
-                </div>
-              </SidebarInset>
+              <DashboardContent
+                activeTab={activeTab}
+                onValueChange={setActiveTab}
+                temporaryProfiles={temporaryProfiles}
+                temporaryDemographics={temporaryDemographics}
+                onProfileUpdate={handleProfileUpdate}
+                onOpenQuestionnaire={handleOpenQuestionnaire}
+                onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
+              />
             </div>
-          </SidebarProvider>
 
           {/* Modals - These stay sharp and are rendered outside the blurred content */}
           <DashboardModals
@@ -166,6 +154,7 @@ const Dashboard = () => {
             onPartnerContinueEditing={handlePartnerContinueEditing}
             temporaryProfiles={temporaryProfiles}
           />
+        </div>
         </MobileHeaderVisibilityProvider>
       </NavigationProvider>
     </AuthGuard>
