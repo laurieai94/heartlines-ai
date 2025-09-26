@@ -170,7 +170,7 @@ export const ChatInputSection = ({
   // Use native iOS keyboard behavior instead of fighting it
 
   return (
-    <div className="flex-shrink-0 sticky bottom-0 pb-safe bg-burgundy-950/95 backdrop-blur-sm">
+    <div className="flex-shrink-0 sticky bottom-0 pb-safe">
       <div className="px-0 pt-1 pb-1 md:px-4 md:py-5 md:pt-8">
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
