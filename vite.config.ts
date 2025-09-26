@@ -20,13 +20,22 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Production optimizations
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console statements in production
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: {
           // React core
           'vendor-react': ['react', 'react-dom'],
-          // UI components
-          'vendor-ui': [
+          // UI components - more granular splitting
+          'vendor-radix': [
             '@radix-ui/react-accordion',
             '@radix-ui/react-alert-dialog',
             '@radix-ui/react-avatar',
@@ -34,11 +43,15 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-dialog',
             '@radix-ui/react-dropdown-menu',
             '@radix-ui/react-popover',
+          ],
+          'vendor-radix-2': [
             '@radix-ui/react-progress',
             '@radix-ui/react-select',
             '@radix-ui/react-separator',
             '@radix-ui/react-tabs',
             '@radix-ui/react-toast',
+          ],
+          'vendor-ui-utils': [
             'class-variance-authority',
             'clsx',
             'tailwind-merge'
@@ -48,9 +61,14 @@ export default defineConfig(({ mode }) => ({
           // Icons
           'vendor-icons': ['lucide-react'],
           // Data/utilities
-          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod']
+          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod'],
+          // AI and heavy dependencies
+          'vendor-ai': ['@anthropic-ai/sdk']
         }
       }
-    }
+    },
+    // Tree shaking optimization
+    sourcemap: false, // Disable sourcemaps in production for smaller bundle
+    chunkSizeWarningLimit: 1000,
   },
 }));

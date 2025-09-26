@@ -10,6 +10,9 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 import { initPerformanceMonitoring } from '@/utils/performanceSafeguards';
 
+// Import production optimizer
+import '@/utils/productionOptimizer';
+
 // Initialize performance monitoring for mobile optimizations
 initPerformanceMonitoring();
 

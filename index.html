@@ -9,15 +9,22 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="robots" content="noindex, nofollow" />
     <title>heartlines</title>
+    <!-- Optimized font loading for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&family=Shrikhand&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Critical resource preconnections -->
     <link rel="preconnect" href="https://relqmhrzyqckoaebscgx.supabase.co" crossorigin>
     <link rel="preconnect" href="https://api.stripe.com" crossorigin>
     <link rel="preconnect" href="https://checkout.stripe.com" crossorigin>
+    
+    <!-- DNS prefetch for non-critical resources -->
     <link rel="dns-prefetch" href="https://api.anthropic.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://billing.stripe.com">
-    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" fetchpriority="high" />
     <meta name="description" content="Your relationship intelligence companion">
     <meta name="author" content="Lovable" />

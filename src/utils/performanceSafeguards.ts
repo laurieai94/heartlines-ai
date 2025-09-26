@@ -110,19 +110,19 @@ export const checkStuckGuards = (): void => {
   }
 };
 
-// Initialize performance monitoring
+// Initialize performance monitoring - disabled in production for better performance
 export const initPerformanceMonitoring = (): void => {
-  // Check for stuck guards every 10 seconds
+  if (!import.meta.env.DEV) return; // Skip entirely in production
+  
+  // Check for stuck guards every 10 seconds in dev only
   setInterval(checkStuckGuards, 10000);
   
-  // Log performance warnings periodically in development
-  if (import.meta.env.DEV) {
-    setInterval(() => {
-      if (PERFORMANCE_WARNINGS.length > 0) {
-        console.group('📊 Performance Warnings');
-        PERFORMANCE_WARNINGS.forEach(warning => console.warn(warning));
-        console.groupEnd();
-      }
-    }, 30000); // Every 30 seconds
-  }
+  // Log performance warnings periodically in development only
+  setInterval(() => {
+    if (PERFORMANCE_WARNINGS.length > 0) {
+      console.group('📊 Performance Warnings');
+      PERFORMANCE_WARNINGS.forEach(warning => console.warn(warning));
+      console.groupEnd();
+    }
+  }, 30000); // Every 30 seconds
 };

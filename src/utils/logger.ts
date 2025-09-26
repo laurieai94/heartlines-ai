@@ -1,28 +1,22 @@
-// Production-optimized logging utility
+// Ultra-optimized logging utility for production performance
 const isDev = import.meta.env.DEV;
-const isLogEnabled = isDev || import.meta.env.VITE_ENABLE_LOGS === 'true';
+const isLogEnabled = isDev;
 
-export const logger = {
-  info: (message: string, ...args: any[]) => {
-    if (isLogEnabled) {
-      console.log(`[INFO] ${message}`, ...args);
-    }
-  },
-  
-  warn: (message: string, ...args: any[]) => {
-    if (isLogEnabled) {
-      console.warn(`[WARN] ${message}`, ...args);
-    }
-  },
-  
+// Production-optimized logger with zero overhead when disabled
+export const logger = isDev ? {
+  info: (message: string, ...args: any[]) => console.log(`[INFO] ${message}`, ...args),
+  warn: (message: string, ...args: any[]) => console.warn(`[WARN] ${message}`, ...args),
+  error: (message: string, ...args: any[]) => console.error(`[ERROR] ${message}`, ...args),
+  debug: (message: string, ...args: any[]) => console.debug(`[DEBUG] ${message}`, ...args)
+} : {
+  // No-op functions in production for zero performance impact
+  info: () => {},
+  warn: () => {},
   error: (message: string, ...args: any[]) => {
-    // Always log errors, even in production
-    console.error(`[ERROR] ${message}`, ...args);
-  },
-  
-  debug: (message: string, ...args: any[]) => {
-    if (isDev) {
-      console.debug(`[DEBUG] ${message}`, ...args);
+    // Only critical errors in production
+    if (message.includes('Critical') || message.includes('Fatal')) {
+      console.error(`[ERROR] ${message}`, ...args);
     }
-  }
+  },
+  debug: () => {}
 };
