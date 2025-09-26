@@ -79,6 +79,12 @@ export const useConversationTopics = () => {
   };
 
   const extractTopicsFromMessage = (message: string) => {
+    // Performance guard - limit message length to prevent excessive processing
+    if (message.length > 5000) {
+      console.warn('Message too long for topic extraction, truncating');
+      message = message.substring(0, 5000);
+    }
+
     // Enhanced topic extraction with more relationship themes
     const topicKeywords = [
       'communication', 'fighting', 'argument', 'love language', 'trust',
@@ -94,13 +100,14 @@ export const useConversationTopics = () => {
     const lowerMessage = message.toLowerCase();
     const foundTopics: string[] = [];
 
+    // Safe keyword extraction
     topicKeywords.forEach(keyword => {
       if (lowerMessage.includes(keyword)) {
         foundTopics.push(keyword);
       }
     });
 
-    // Enhanced phrase extraction
+    // Safe phrase extraction using matchAll instead of while loops
     const feelingPatterns = [
       /feeling\s+(\w+)/g,
       /feel\s+(\w+)/g,
@@ -110,20 +117,28 @@ export const useConversationTopics = () => {
       /upset about\s+([\w\s]{1,20})/g
     ];
 
-    feelingPatterns.forEach(pattern => {
-      let match;
-      while ((match = pattern.exec(lowerMessage)) !== null) {
-        if (match[1] && match[1].trim().length > 2) {
-          foundTopics.push(match[1].trim());
-        }
-      }
-    });
+    try {
+      feelingPatterns.forEach(pattern => {
+        // Use Array.from with matchAll to safely extract all matches
+        const matches = Array.from(lowerMessage.matchAll(pattern));
+        matches.slice(0, 10).forEach(match => { // Limit to 10 matches per pattern
+          if (match[1] && match[1].trim().length > 2) {
+            foundTopics.push(match[1].trim());
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Error extracting topics from patterns:', error);
+    }
 
     // Remove duplicates and filter out very short or common words
-    return [...new Set(foundTopics)].filter(topic => 
+    const uniqueTopics = [...new Set(foundTopics)].filter(topic => 
       topic.length > 2 && 
       !['the', 'and', 'but', 'for', 'with', 'you', 'are', 'that', 'this'].includes(topic)
     );
+
+    // Limit total topics to prevent excessive processing
+    return uniqueTopics.slice(0, 20);
   };
 
   useEffect(() => {
