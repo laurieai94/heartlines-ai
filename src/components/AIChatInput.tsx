@@ -141,8 +141,12 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
-      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
+    <div className={`flex items-center ${readOnly ? 'group' : ''}`}>
+      {/* Avatar space alignment - matches chat message avatar + gap */}
+      <div className="flex-shrink-0 w-[30px] md:w-[44px]" />
+      
+      {/* Text input container */}
+      <div className={`flex-1 relative isolate rounded-2xl overflow-hidden mr-2 md:mr-3 ${
         readOnly 
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm animate-bounce-gentle' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
@@ -176,25 +180,28 @@ const AIChatInput = ({
         />
       </div>
       
-      <Button
-        onClick={sendMessage}
-        onPointerDown={(e) => e.preventDefault()}
-        onMouseDown={(e) => e.preventDefault()}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          // Immediately re-focus textarea on mobile
-          if (textareaRef.current) {
-            textareaRef.current.focus();
-          }
-        }}
-        className={`rounded-2xl w-8 h-8 md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
-          readOnly 
-            ? 'brand-gradient-soft' 
-            : 'brand-gradient'
-        }`}
-      >
-        <Send className="w-2 h-2 md:w-3 md:h-3" />
-      </Button>
+      {/* Send button - positioned where user avatar would be */}
+      <div className="flex-shrink-0">
+        <Button
+          onClick={sendMessage}
+          onPointerDown={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()}
+          onTouchStart={(e) => {
+            e.preventDefault();
+            // Immediately re-focus textarea on mobile
+            if (textareaRef.current) {
+              textareaRef.current.focus();
+            }
+          }}
+          className={`rounded-2xl w-6 h-6 md:w-8 md:h-8 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+            readOnly 
+              ? 'brand-gradient-soft' 
+              : 'brand-gradient'
+          }`}
+        >
+          <Send className="w-3 h-3 md:w-4 md:h-4" />
+        </Button>
+      </div>
     </div>
   );
 };
