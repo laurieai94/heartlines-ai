@@ -39,10 +39,18 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       
       // Device-specific keyboard detection thresholds
       const isTabletDevice = windowHeight >= 768 && windowHeight < 1024;
-      const keyboardThreshold = isTabletDevice ? 200 : 100; // Higher threshold for tablets
+      const keyboardThreshold = isTabletDevice ? 150 : 50; // Lower threshold for better detection
       const isKeyboardVisible = keyboardHeight > keyboardThreshold;
       
-      // Debug logging removed for performance
+      // Debug logging for keyboard positioning
+      console.log('🔍 Viewport Debug:', {
+        windowHeight,
+        visualHeight,
+        keyboardHeight,
+        keyboardThreshold,
+        isKeyboardVisible,
+        isTabletDevice
+      });
 
       setState(prev => {
         if (prev.isKeyboardVisible !== isKeyboardVisible) {

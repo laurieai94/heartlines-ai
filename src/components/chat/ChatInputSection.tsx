@@ -175,9 +175,20 @@ export const ChatInputSection = ({
     if (isKeyboardVisible && keyboardHeight > 0) {
       // Position input container just above the keyboard using actual keyboard height
       const translateY = -(keyboardHeight - 16); // 16px gap above keyboard, minimum 60px
+      const fallbackTranslateY = -60; // Fallback if calculation seems wrong
+      const finalTranslateY = Math.abs(translateY) > 400 ? fallbackTranslateY : translateY;
+      
+      console.log('🔍 Input Positioning Debug:', {
+        isMobile,
+        isTablet,
+        isKeyboardVisible,
+        keyboardHeight,
+        translateY,
+        finalTranslateY
+      });
       
       return {
-        transform: `translateY(${translateY}px)`,
+        transform: `translateY(${finalTranslateY}px)`,
         transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         // iOS-specific safe area handling when keyboard is visible
         paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
