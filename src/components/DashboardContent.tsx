@@ -151,7 +151,7 @@ const DashboardContent = ({
         );
       case "insights":
         return (
-          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-0">
             <ProgressiveAccessWrapper action="insights">
               <AIInsights 
                 profiles={temporaryProfiles}
