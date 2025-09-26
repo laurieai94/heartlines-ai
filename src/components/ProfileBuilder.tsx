@@ -1,6 +1,7 @@
 import { useState, Suspense, lazy, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown } from "lucide-react";
+import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BRAND } from "@/branding";
@@ -349,6 +350,14 @@ const ProfileBuilder = ({
                   <p>• Only you and Kai see your profiles</p>
                   <p>• Everything is encrypted and secure</p>  
                   <p>• You control your data completely</p>
+                  <Link 
+                    to="/privacy-security" 
+                    className="inline-flex items-center gap-1.5 mt-2 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
+                    aria-label="Learn more about our privacy and security practices"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
                 </div>
               </CollapsibleContent>
             </Collapsible>
