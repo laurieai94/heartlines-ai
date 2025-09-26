@@ -20,15 +20,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Production optimizations
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console statements in production
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
-      }
-    },
+    // Production optimizations with esbuild (faster than terser)
+    minify: true,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -61,9 +54,7 @@ export default defineConfig(({ mode }) => ({
           // Icons
           'vendor-icons': ['lucide-react'],
           // Data/utilities
-          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod'],
-          // AI and heavy dependencies
-          'vendor-ai': ['@anthropic-ai/sdk']
+          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod']
         }
       }
     },
