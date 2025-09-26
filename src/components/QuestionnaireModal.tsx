@@ -24,9 +24,9 @@ const QuestionnaireModal = ({ isOpen, onClose }: QuestionnaireModalProps) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 z-20 p-2 text-white/70 hover:text-white hover:bg-burgundy-400/10 rounded-full transition-all duration-200"
+          className="absolute top-6 right-6 z-20 p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105"
         >
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5" />
         </button>
         
         {/* Questionnaire Content */}
