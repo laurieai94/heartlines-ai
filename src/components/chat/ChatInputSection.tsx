@@ -191,7 +191,7 @@ export const ChatInputSection = ({
 
   return (
     <div className={`flex-shrink-0 sticky bottom-0 ${!isMobile || isTablet ? 'pb-safe' : ''}`} style={mobileKeyboardPositioning}>
-      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'} ${isMobile && !isTablet ? 'pb-safe' : ''}`}>
+      <div className={`px-0 pt-2 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'pb-0' : 'pb-2'} ${isMobile && !isTablet ? 'pb-safe' : ''}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
