@@ -46,6 +46,7 @@ const ChatContainer = ({
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
   const prevUserTypingRef = useRef(userTyping);
+  const carrotResetFnRef = useRef<(() => void) | null>(null);
   
   // Enhanced scroll tracking for carrot behavior with user intent detection
   const lastScrollTopRef = useRef(0);
@@ -150,7 +151,7 @@ const ChatContainer = ({
     }
   }, [isMobile, setHeaderVisible, isKeyboardVisible]);
 
-  // Auto-scroll to bottom on new messages
+  // Auto-scroll to bottom on new messages and reset carrot availability
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
     
@@ -159,6 +160,11 @@ const ChatContainer = ({
       requestAnimationFrame(() => {
         scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
       });
+      
+      // Reset carrot availability on new messages (user is engaging with chat)
+      if (hasNewMessage && carrotResetFnRef.current) {
+        carrotResetFnRef.current();
+      }
     }
     
     prevChatLengthRef.current = chatHistory.length;
@@ -199,7 +205,7 @@ const ChatContainer = ({
     prevKeyboardVisibleRef.current = isKeyboardVisibleNow;
   }, [isKeyboardVisible, chatHistory.length, scrollToBottom]);
 
-  // Auto-scroll when user starts typing
+  // Auto-scroll when user starts typing and reset carrot availability
   useEffect(() => {
     const wasTyping = prevUserTypingRef.current;
     const isNowTyping = userTyping;
@@ -212,6 +218,11 @@ const ChatContainer = ({
           scrollToBottom('smooth');
         }, 50); // Small delay to ensure DOM is updated
       });
+      
+      // Reset carrot availability when user starts typing (clear engagement signal)
+      if (carrotResetFnRef.current) {
+        carrotResetFnRef.current();
+      }
     }
     
     // Update the ref for next comparison
@@ -282,7 +293,13 @@ const ChatContainer = ({
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
       {/* Burgundy carrot navigation for keyboard + scroll up scenarios */}
-      <BurgundyNavCarrot isScrollingUp={isScrollingUp} onOpenNavigation={onOpenSidebar} />
+      <BurgundyNavCarrot 
+        isScrollingUp={isScrollingUp} 
+        onOpenNavigation={onOpenSidebar}
+        onResetAvailability={(resetFn) => {
+          carrotResetFnRef.current = resetFn;
+        }}
+      />
       
       <ScrollArea 
         viewportRef={viewportRef}

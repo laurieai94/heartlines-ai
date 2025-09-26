@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useViewport } from '@/contexts/ViewportContext';
@@ -7,13 +7,15 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 interface BurgundyNavCarrotProps {
   isScrollingUp: boolean;
   onOpenNavigation?: () => void;
+  onResetAvailability?: (resetFn: () => void) => void;
 }
 
-export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyNavCarrotProps) => {
+export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvailability }: BurgundyNavCarrotProps) => {
   const { visible, forceVisible, navigationOpened } = useMobileHeaderVisibility();
   const { isKeyboardVisible } = useViewport();
   const { isMobile, isTablet } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [hasBeenUsed, setHasBeenUsed] = useState(false);
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -23,8 +25,18 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     }, 120);
   }, []);
 
-  // Show only when: mobile phone (not tablet) + scrolling up + navigation not opened
-  const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened;
+  // Reset function to make arrow available again after chat activity
+  const resetAvailability = useCallback(() => {
+    setHasBeenUsed(false);
+  }, []);
+
+  // Register reset function with parent
+  useEffect(() => {
+    onResetAvailability?.(resetAvailability);
+  }, [onResetAvailability, resetAvailability]);
+
+  // Show only when: mobile phone (not tablet) + scrolling up + navigation not opened + not been used
+  const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened && !hasBeenUsed;
   
   // Debug logging
   console.log('🥕 BurgundyNavCarrot Debug:', {
@@ -46,6 +58,9 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation }: BurgundyN
     
     const target = e.currentTarget as HTMLElement;
     simulateHaptic(target);
+    
+    // Mark as used so it won't appear again until reset
+    setHasBeenUsed(true);
     
     // Start fly-up animation
     setIsAnimating(true);
