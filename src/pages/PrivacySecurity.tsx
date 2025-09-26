@@ -38,7 +38,7 @@ const PrivacySecurity = () => {
     {
       icon: <Shield className="w-8 h-8 text-coral-400" />,
       title: "Row-Level Security",
-      description: "Our Supabase backend enforces Row-Level Security on all user data tables. Only you can access your profiles, conversations, and reminders.",
+      description: "Our Supabase backend enforces Row-Level Security on all user data tables. Only you can access your profiles and conversations.",
       highlight: "Database-level protection"
     },
     {
@@ -266,38 +266,6 @@ const PrivacySecurity = () => {
                 </CardContent>
               </Card>
 
-              {/* SMS & Communications */}
-              <Card className="bg-white/10 backdrop-blur-md border-white/20 text-white">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <Phone className="w-6 h-6 text-coral-400" />
-                    <CardTitle>SMS & Communications</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                    <div>
-                      <p className="font-medium">Opt-in SMS Reminders</p>
-                      <p className="text-sm text-gray-300">Reminders sent only with your explicit permission</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                    <div>
-                      <p className="font-medium">Twilio Integration</p>
-                      <p className="text-sm text-gray-300">Industry-standard SMS provider with privacy compliance</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                    <div>
-                      <p className="font-medium">No Phone Number Sales</p>
-                      <p className="text-sm text-gray-300">Your number is never shared or sold to third parties</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </section>

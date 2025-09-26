@@ -6,13 +6,6 @@ project_id = "relqmhrzyqckoaebscgx"
 # Called by Supabase Auth webhooks, no JWT needed
 verify_jwt = false
 
-[functions.send-sms-reminder]
-# Called from the app via supabase.functions.invoke, keep JWT verification enabled
-verify_jwt = true
-
-[functions.process-due-reminders]
-# Invoked by pg_cron via pg_net without auth headers
-verify_jwt = false
 
 [functions.anthropic-chat]
 # Require authentication for AI services

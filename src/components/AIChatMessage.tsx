@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { ChatMessage } from "@/types/AIInsights";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User, Heart } from "lucide-react";
-import ReminderButton from "./chat/ReminderButton";
+
 import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
@@ -28,18 +28,6 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
     });
   };
 
-  // Extract reminder suggestion from AI message
-  const extractReminderSuggestion = (content: string) => {
-    const reminderMatch = content.match(/\[REMINDER_SUGGESTION:\s*([^\]]+)\]/);
-    if (reminderMatch) {
-      const suggestionText = reminderMatch[1].trim();
-      const cleanedContent = content.replace(/\[REMINDER_SUGGESTION:[^\]]+\]/, '').trim();
-      return { suggestionText, cleanedContent };
-    }
-    return { suggestionText: null, cleanedContent: content };
-  };
-
-  const { suggestionText, cleanedContent } = !isUser ? extractReminderSuggestion(message.content) : { suggestionText: null, cleanedContent: message.content };
   
   return (
     <div 
@@ -103,19 +91,9 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           `}
         >
           <div className="text-sm md:text-sm leading-relaxed whitespace-pre-wrap font-light">
-            {cleanedContent}
+            {message.content}
           </div>
         </div>
-        
-        {/* Reminder Button for AI messages with suggestions */}
-        {!isUser && suggestionText && (
-          <div className="mt-1 ml-2">
-            <ReminderButton 
-              suggestedText={suggestionText} 
-              messageId={message.id}
-            />
-          </div>
-        )}
         
         {/* Timestamp - Only show for last message in group */}
         {(isLastInGroup || !isMobile) && (

@@ -42,8 +42,8 @@ const pricingPlans = [
     icon: Heart,
     features: [
       "150 messages per month",
-      "Advanced relationship coaching",
-      "Conversation starters & reminders",
+      "Advanced relationship coaching", 
+      "Conversation starters",
       "Progress tracking",
       "Priority support"
     ],
