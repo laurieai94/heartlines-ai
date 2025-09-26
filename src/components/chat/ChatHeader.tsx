@@ -104,7 +104,7 @@ export const ChatHeader = ({
                         <Plus className="w-5 h-5" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                    <TooltipContent side="bottom" sideOffset={20} className="text-xs px-2 py-1">
                       <p>Start new conversation</p>
                     </TooltipContent>
                   </Tooltip>
@@ -122,7 +122,7 @@ export const ChatHeader = ({
                           <Menu className="w-5 h-5" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                      <TooltipContent side="bottom" sideOffset={20} className="text-xs px-2 py-1">
                         <p>Open chat history</p>
                       </TooltipContent>
                     </Tooltip>
@@ -205,7 +205,7 @@ export const ChatHeader = ({
                         <span className="text-[10px] font-medium">Chats</span>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                    <TooltipContent side="bottom" sideOffset={20} className="text-xs px-2 py-1">
                       <p>Open chat history</p>
                     </TooltipContent>
                   </Tooltip>
@@ -225,7 +225,7 @@ export const ChatHeader = ({
                       <span className="text-[10px] font-medium">New</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="top" sideOffset={20} className="text-xs px-2 py-1">
+                  <TooltipContent side="bottom" sideOffset={20} className="text-xs px-2 py-1">
                     <p>Start new conversation</p>
                   </TooltipContent>
                 </Tooltip>
