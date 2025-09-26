@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { ProfileData } from "../types";
-import { validateSection, calculateProgress } from "../utils/validation";
+import { validateSectionOptimized, calculateProgressOptimized } from "../utils/optimizedValidation";
 import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
@@ -30,30 +30,45 @@ const QuestionnaireLayout = ({
 
   // Simple section management - no intersection observers
   
-  // Track tablet/desktop state and measure header height
+  // Optimized layout tracking with throttling and memoization
   useEffect(() => {
+    let layoutTimer: NodeJS.Timeout | null = null;
+    
     const updateLayout = () => {
-      const isTabletOrDesktop = window.innerWidth >= 640;
-      setIsTabletDesktop(isTabletOrDesktop);
+      // Throttle layout updates to prevent excessive recalculations
+      if (layoutTimer) clearTimeout(layoutTimer);
       
-      // Measure header height on ALL screen sizes for better mobile scrolling
-      if (stickyHeaderRef.current) {
-        const height = stickyHeaderRef.current.offsetHeight;
-        setHeaderHeight(height);
-        if (import.meta.env.DEV) {
-          console.log('📏 QuestionnaireLayout: Header height measured:', height, 'isTabletDesktop:', isTabletOrDesktop);
-        }
-      } else {
-        setHeaderHeight(0);
-      }
+      layoutTimer = setTimeout(() => {
+        const isTabletOrDesktop = window.innerWidth >= 640;
+        setIsTabletDesktop(isTabletOrDesktop);
+        
+        // Defer header measurement to next frame
+        requestAnimationFrame(() => {
+          if (stickyHeaderRef.current) {
+            const height = stickyHeaderRef.current.offsetHeight;
+            setHeaderHeight(height);
+            if (import.meta.env.DEV) {
+              console.log('📏 QuestionnaireLayout: Header height measured:', height, 'isTabletDesktop:', isTabletOrDesktop);
+            }
+          }
+        });
+      }, 100); // Throttle resize events
     };
 
     updateLayout();
-    window.addEventListener('resize', updateLayout);
-    return () => window.removeEventListener('resize', updateLayout);
+    
+    // Use passive listener for better performance
+    window.addEventListener('resize', updateLayout, { passive: true });
+    return () => {
+      if (layoutTimer) clearTimeout(layoutTimer);
+      window.removeEventListener('resize', updateLayout);
+    };
   }, []);
   
-  const overallProgress = calculateProgress(profileData);
+  // Memoize progress calculation to prevent unnecessary recalculations
+  const overallProgress = useMemo(() => {
+    return calculateProgressOptimized(profileData);
+  }, [profileData]);
 
   // Section navigation handlers - no scroll logic needed for dedicated screens
   const handlePreviousSection = () => {
@@ -63,7 +78,7 @@ const QuestionnaireLayout = ({
   };
 
   const handleNextSection = () => {
-    if (currentSection < 4 && validateSection(currentSection, profileData)) {
+    if (currentSection < 4 && validateSectionOptimized(currentSection, profileData)) {
       setCurrentSection(currentSection + 1);
     }
   };

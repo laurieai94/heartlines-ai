@@ -414,59 +414,63 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return defaultProfile;
   }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
 
-  // Initialize and load data
+  // Initialize and load data with performance optimizations
   useEffect(() => {
     const initialize = async () => {
-      console.log(`[ProfileV2-${profileType}] Starting initialization...`);
+      console.log(`[ProfileV2-${profileType}] Starting optimized initialization...`);
       setIsLoading(true);
       
       try {
-        // Load from localStorage first (instant)
+        // Load from localStorage first (instant) - use requestIdleCallback for non-critical work
         const localProfile = loadFromStorage();
         setProfile(localProfile);
         setIsReady(true);
         setIsLoading(false); // UI can render immediately with local data
         console.log(`[ProfileV2-${profileType}] Local profile loaded, UI ready`);
         
-        // Then sync with database if authenticated
-        if (user) {
-          setIsSyncing(true);
-          console.log(`[ProfileV2-${profileType}] User authenticated, syncing with database...`);
+        // Defer database sync to not block the main thread
+        if (user && isPrimaryInstance.current) {
+          // Use requestIdleCallback to defer database operations
+          const deferredSync = () => {
+            setIsSyncing(true);
+            console.log(`[ProfileV2-${profileType}] Starting deferred database sync...`);
+            
+            // Use timeout with lower priority
+            setTimeout(async () => {
+              try {
+                const dbProfile = await loadFromDatabase();
+                
+                // Merge local and remote, preferring newer data
+                const localTime = new Date(localProfile.lastUpdated || 0).getTime();
+                const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+                
+                const finalProfile = dbTime > localTime ? dbProfile : localProfile;
+                
+                // Use React transition for non-urgent updates
+                setTimeout(() => {
+                  setProfile(finalProfile);
+                  saveToStorage(finalProfile);
+                  setIsSyncing(false);
+                  console.log(`[ProfileV2-${profileType}] Deferred database sync completed`);
+                }, 0);
+              } catch (dbError) {
+                console.error(`[ProfileV2-${profileType}] Database sync failed:`, dbError);
+                setIsSyncing(false);
+              }
+            }, 100); // Small delay to let UI render first
+          };
           
-          // Faster timeout for better UX - only primary instance syncs with DB
-          if (isPrimaryInstance.current) {
-            const dbProfilePromise = loadFromDatabase();
-            const timeoutPromise = new Promise<PersonalProfileV2 | PartnerProfileV2>((_, reject) => {
-              setTimeout(() => reject(new Error('Database load timeout')), 3000);
-            });
-          
-            try {
-              const dbProfile = await Promise.race([dbProfilePromise, timeoutPromise]);
-              
-              // Merge local and remote, preferring newer data
-              const localTime = new Date(localProfile.lastUpdated || 0).getTime();
-              const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
-              
-              const finalProfile = dbTime > localTime ? dbProfile : localProfile;
-              setProfile(finalProfile);
-              saveToStorage(finalProfile);
-              console.log(`[ProfileV2-${profileType}] Primary instance synced with database`);
-            } catch (dbError) {
-              console.error(`[ProfileV2-${profileType}] Database sync failed, using local profile:`, dbError);
-            } finally {
-              setIsSyncing(false);
-            }
+          // Use requestIdleCallback if available, otherwise setTimeout
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(deferredSync, { timeout: 2000 });
           } else {
-            // Non-primary instances just use local data
-            console.log(`[ProfileV2-${profileType}] Non-primary instance using local data only`);
+            setTimeout(deferredSync, 50);
           }
         } else {
-          console.log(`[ProfileV2-${profileType}] No user authenticated, using local profile only`);
+          console.log(`[ProfileV2-${profileType}] Skipping database sync (no user or non-primary instance)`);
         }
-        
       } catch (error) {
         console.error(`[ProfileV2-${profileType}] Initialization error:`, error);
-        // Ensure we still have a valid profile state
         setProfile(defaultProfile);
         setIsReady(true);
         setIsLoading(false);
@@ -478,18 +482,19 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     const safetyTimeout = setTimeout(() => {
       console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
       setIsLoading(false);
-      setIsReady(true);
       setIsSyncing(false);
-    }, 15000);
+      if (!isReady) {
+        setIsReady(true);
+        setProfile(defaultProfile);
+      }
+    }, 5000); // 5 second safety net
 
-    initialize().finally(() => {
-      clearTimeout(safetyTimeout);
-    });
-
+    initialize();
+    
     return () => {
       clearTimeout(safetyTimeout);
     };
-  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, profileType, defaultProfile]);
+  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady]);
 
   // Listen for in-tab and cross-tab profile updates to keep instances in sync
   useEffect(() => {

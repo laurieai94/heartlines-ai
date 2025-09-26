@@ -94,19 +94,35 @@ export const useDataMigration = () => {
     });
   };
 
-  // Perform migration on mount
+  // Perform migration on mount with performance optimization
   useEffect(() => {
     if (!migrationCompleted) {
-      const migrated = migrateOldData();
+      // Defer migration to not block initial render
+      const deferredMigration = () => {
+        try {
+          const migrated = migrateOldData();
+          
+          if (migrated) {
+            // Clean up old data after a longer delay to ensure new system has loaded
+            setTimeout(() => {
+              cleanupOldData();
+            }, 10000); // Increased delay
+          }
+          
+          setMigrationCompleted(true);
+        } catch (error) {
+          console.error('Migration failed:', error);
+          setMigrationCompleted(true); // Still mark as completed to prevent retry loops
+        }
+      };
       
-      if (migrated) {
-        // Clean up old data after a delay to ensure new system has loaded
-        setTimeout(() => {
-          cleanupOldData();
-        }, 5000);
+      // Use requestIdleCallback if available to run during idle time
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(deferredMigration, { timeout: 5000 });
+      } else {
+        // Fallback to setTimeout with delay
+        setTimeout(deferredMigration, 100);
       }
-      
-      setMigrationCompleted(true);
     }
   }, [migrationCompleted]);
 
