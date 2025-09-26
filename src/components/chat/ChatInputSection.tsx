@@ -173,14 +173,12 @@ export const ChatInputSection = ({
     if (!isMobile || isTablet) return {};
     
     if (isKeyboardVisible && keyboardHeight > 0) {
-      // Position input container 8px above the keyboard for optimal spacing
-      const translateY = -Math.max(keyboardHeight + 8, 60); // Minimum 60px from bottom
+      // Position input container above the keyboard
+      const translateY = -Math.max(keyboardHeight, 0);
       
       return {
         transform: `translateY(${translateY}px)`,
         transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        // iOS-specific safe area handling when keyboard is visible
-        paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
       };
     }
     
@@ -188,13 +186,12 @@ export const ChatInputSection = ({
     return {
       transform: 'translateY(0px)',
       transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      paddingBottom: '16px', // Standard padding when keyboard is hidden
     };
   }, [isMobile, isTablet, isKeyboardVisible, keyboardHeight]);
 
   return (
-    <div className="flex-shrink-0 pb-safe sticky bottom-0" style={mobileKeyboardPositioning}>
-      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'}`}>
+    <div className={`flex-shrink-0 sticky bottom-0 ${!isMobile || isTablet ? 'pb-safe' : ''}`} style={mobileKeyboardPositioning}>
+      <div className={`px-0 pt-0 md:px-4 md:py-5 md:pt-8 ${isMobile && !isTablet && isKeyboardVisible ? 'py-0' : 'py-4'} ${isMobile && !isTablet ? 'pb-safe' : ''}`}>
         {/* Conversation Starters - always show for empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">

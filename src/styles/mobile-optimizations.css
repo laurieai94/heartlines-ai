@@ -1,9 +1,31 @@
 /* Emergency mobile visibility fix */
 html, body, #root {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
+}
+
+/* Fix white bar on mobile by ensuring proper height calculation */
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+  }
+  
+  /* Prevent white bars on iOS Safari */
+  @supports (-webkit-touch-callout: none) {
+    #root {
+      min-height: -webkit-fill-available;
+    }
+  }
 }
 
 /* Ensure content is always visible */
