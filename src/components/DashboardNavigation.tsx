@@ -33,34 +33,30 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
             <TabsTrigger 
               value="home" 
               title="Home"
-              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <Home className="w-4 h-4" />
-              <span>Home</span>
             </TabsTrigger>
             <TabsTrigger 
               value="profile" 
               title="Profile"
-              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <User className="w-4 h-4" />
-              <span>Profile</span>
             </TabsTrigger>
             <TabsTrigger 
               value="insights" 
               title="Coach"
-              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>Coach</span>
             </TabsTrigger>
             <TabsTrigger 
               value="privacy" 
               title="Privacy"
-              className="flex items-center justify-center gap-2 rounded-full py-2.5 px-4 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+              className="flex items-center justify-center rounded-full py-2.5 px-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:shadow-sm text-foreground/70 hover:text-foreground hover:bg-foreground/5"
             >
               <Shield className="w-4 h-4" />
-              <span>Privacy</span>
             </TabsTrigger>
           </TabsList>
         </nav>

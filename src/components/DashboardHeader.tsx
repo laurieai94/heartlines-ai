@@ -123,14 +123,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item, true)}
-                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
+                      className={`relative flex items-center justify-center px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
                         isActive 
                           ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
                           : 'text-white font-medium hover:bg-white/5 hover:text-white'
                       }`}
                     >
                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                      <span className="text-sm">{item.label}</span>
                     </DropdownMenuItem>
                   );
                 })}
@@ -172,14 +171,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item, false)}
-                      className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
+                      className={`relative flex items-center justify-center px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
                         isActive 
                           ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
                           : 'text-white font-medium hover:bg-white/5 hover:text-white'
                       }`}
                     >
                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                      <span className="text-sm">{item.label}</span>
                     </DropdownMenuItem>
                   );
                 })}
