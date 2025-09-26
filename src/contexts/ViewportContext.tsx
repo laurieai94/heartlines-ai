@@ -29,66 +29,23 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
 
   const keyboardListeners = new Set<(isVisible: boolean) => void>();
 
-const updateViewport = useCallback(() => {
+  const updateViewport = useCallback(() => {
     if (typeof window === 'undefined') return;
 
     try {
       const windowHeight = window.innerHeight;
       const visualHeight = window.visualViewport?.height || windowHeight;
-      const rawKeyboardHeight = Math.max(0, windowHeight - visualHeight);
+      const keyboardHeight = Math.max(0, windowHeight - visualHeight);
       
-      // Cap keyboard height at 300px to prevent over-compensation
-      const keyboardHeight = Math.min(rawKeyboardHeight, 300);
+      // Device-specific keyboard detection thresholds
+      const isTabletDevice = windowHeight >= 768 && windowHeight < 1024;
+      const keyboardThreshold = isTabletDevice ? 200 : 100; // Higher threshold for tablets
+      const isKeyboardVisible = keyboardHeight > keyboardThreshold;
       
-      // Enhanced device detection
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isIOSDevice = /iphone|ipod/.test(userAgent);
-      const isAndroidDevice = /android/.test(userAgent);
-      const isMobileDevice = isIOSDevice || isAndroidDevice || /mobile/.test(userAgent);
-      const isTabletDevice = /ipad/.test(userAgent) || (windowHeight >= 768 && windowHeight < 1024);
-      
-      // Multiple keyboard detection methods
-      const heightDifference = keyboardHeight;
-      const isInputFocused = document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
-      
-      // Device-specific thresholds with multiple detection strategies
-      let keyboardThreshold = 30; // Very low threshold
-      if (isIOSDevice) keyboardThreshold = 50;
-      if (isAndroidDevice) keyboardThreshold = 40;
-      if (isTabletDevice) keyboardThreshold = 100;
-      
-      // Multi-method keyboard detection
-      const heightBasedDetection = heightDifference > keyboardThreshold;
-      const focusBasedDetection = isInputFocused && heightDifference > 10;
-      const isKeyboardVisible = heightBasedDetection || focusBasedDetection;
-      
-      // Enhanced debug logging
-      console.log('🔍 Enhanced Viewport Debug:', {
-        windowHeight,
-        visualHeight,
-        rawKeyboardHeight,
-        keyboardHeight: heightDifference,
-        cappedAt300: rawKeyboardHeight !== heightDifference,
-        keyboardThreshold,
-        isKeyboardVisible,
-        userAgent: userAgent.substring(0, 50),
-        isIOSDevice,
-        isAndroidDevice,
-        isMobileDevice,
-        isTabletDevice,
-        isInputFocused,
-        heightBasedDetection,
-        focusBasedDetection,
-        activeElement: document.activeElement?.tagName,
-        supportedAPIs: {
-          visualViewport: !!window.visualViewport,
-          innerHeight: !!window.innerHeight,
-        }
-      });
+      // Debug logging removed for performance
 
       setState(prev => {
         if (prev.isKeyboardVisible !== isKeyboardVisible) {
-          console.log('🎯 Keyboard state changed:', { from: prev.isKeyboardVisible, to: isKeyboardVisible });
           keyboardListeners.forEach(listener => {
             try {
               listener(isKeyboardVisible);
@@ -99,7 +56,7 @@ const updateViewport = useCallback(() => {
         }
         
         return {
-          keyboardHeight: heightDifference,
+          keyboardHeight,
           isKeyboardVisible,
           visualViewportHeight: visualHeight,
           windowHeight,
@@ -185,15 +142,7 @@ const updateViewport = useCallback(() => {
 export function useViewport() {
   const context = useContext(ViewportContext);
   if (!context) {
-    // Return safe defaults instead of throwing error to prevent crashes
-    console.warn('useViewport used outside ViewportProvider, returning defaults');
-    return {
-      keyboardHeight: 0,
-      isKeyboardVisible: false,
-      visualViewportHeight: window.innerHeight,
-      windowHeight: window.innerHeight,
-      registerKeyboardListener: () => () => {} // No-op unsubscribe function
-    };
+    throw new Error('useViewport must be used within a ViewportProvider');
   }
   return context;
 }
