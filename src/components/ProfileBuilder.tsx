@@ -352,7 +352,7 @@ const ProfileBuilder = ({
                   <p>• You control your data completely</p>
                   <Link 
                     to="/privacy-security" 
-                    className="inline-flex items-center gap-1.5 mt-2 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
+                    className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
                     aria-label="Learn more about our privacy and security practices"
                   >
                     <span>Learn More</span>
