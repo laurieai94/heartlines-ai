@@ -1,39 +1,41 @@
 // EMERGENCY performance optimizer - eliminates ALL console overhead IMMEDIATELY
 const noop = () => {};
 
-// IMMEDIATE console suppression - run before ANY other code
+// CONDITIONAL console suppression - only in production builds
 (() => {
-  if (typeof console !== 'undefined') {
-    // Aggressively disable ALL console methods in ALL environments
-    const consoleMethods = [
-      'log', 'info', 'debug', 'warn', 'error', 'trace', 'time', 'timeEnd',
-      'group', 'groupEnd', 'table', 'count', 'clear', 'assert', 'dir',
-      'dirxml', 'profile', 'profileEnd', 'timeStamp', 'context'
-    ];
+  // Only suppress console in production builds, keep in development
+  const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost' || 
+               typeof window !== 'undefined' && window.location.hostname === '127.0.0.1' ||
+               import.meta.env.DEV;
+  
+  if (!isDev && typeof console !== 'undefined') {
+    // Create safe no-op functions that won't throw errors
+    const safeNoop = () => {};
     
-    consoleMethods.forEach(method => {
+    // Only disable non-critical console methods in production
+    const nonCriticalMethods = ['log', 'info', 'debug', 'trace', 'time', 'timeEnd', 'group', 'groupEnd'];
+    
+    nonCriticalMethods.forEach(method => {
       if (console[method as keyof Console]) {
-        (console as any)[method] = noop;
+        (console as any)[method] = safeNoop;
       }
     });
     
-    // Override any remaining console properties
-    Object.getOwnPropertyNames(console).forEach(prop => {
-      if (typeof console[prop as keyof Console] === 'function') {
-        (console as any)[prop] = noop;
-      }
-    });
+    // Keep warn and error for critical issues but make them lightweight
+    if (console.warn) {
+      const originalWarn = console.warn;
+      console.warn = (...args) => {
+        try {
+          if (args[0] && args[0].toString().includes('Critical')) {
+            originalWarn.apply(console, args);
+          }
+        } catch (e) {
+          // Silent fail
+        }
+      };
+    }
   }
 })();
-
-// Prevent any future console method assignments
-if (typeof console !== 'undefined') {
-  try {
-    Object.freeze(console);
-  } catch (e) {
-    // Silently fail if console can't be frozen
-  }
-}
 
 // Emergency performance optimizations
 export const optimizeForPerformance = () => {

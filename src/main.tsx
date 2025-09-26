@@ -69,8 +69,12 @@ const emergencyDeferInit = () => {
 
 emergencyDeferInit();
 
-// Initialize emergency performance monitoring immediately
-initEmergencyMonitoring();
+// Initialize emergency performance monitoring with error handling
+try {
+  initEmergencyMonitoring();
+} catch (e) {
+  // Silent fail to prevent startup issues
+}
 
 const isDev = import.meta.env.DEV;
 

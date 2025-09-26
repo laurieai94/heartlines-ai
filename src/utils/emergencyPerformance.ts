@@ -30,8 +30,8 @@ export const withPerformanceCircuitBreaker = <T>(
     // Check if operation took too long
     const executionTime = performance.now() - frameStartTime;
     if (executionTime > MAX_EXECUTION_TIME) {
-      // Operation took too long, return fallback for future similar operations
-      console.warn(`Operation exceeded ${MAX_EXECUTION_TIME}ms limit: ${executionTime.toFixed(2)}ms`);
+      // Operation took too long, silently track for metrics
+      // Removed console.warn to prevent startup issues
     }
     
     activeOperations--;
@@ -59,20 +59,26 @@ export const throttledDOMOperation = (() => {
 
 // Emergency memory cleanup
 export const emergencyCleanup = () => {
-  // Force garbage collection if available
-  if ('gc' in window && typeof (window as any).gc === 'function') {
-    (window as any).gc();
-  }
-  
-  // Clear any large caches
-  if ('caches' in window) {
-    caches.keys().then(names => {
-      names.forEach(name => {
-        if (name.includes('temp') || name.includes('cache')) {
-          caches.delete(name);
-        }
+  try {
+    // Force garbage collection if available
+    if ('gc' in window && typeof (window as any).gc === 'function') {
+      (window as any).gc();
+    }
+    
+    // Clear any large caches
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('temp') || name.includes('cache')) {
+            caches.delete(name);
+          }
+        });
+      }).catch(() => {
+        // Silent fail if cache operations fail
       });
-    });
+    }
+  } catch (e) {
+    // Silent fail for any cleanup issues
   }
 };
 
