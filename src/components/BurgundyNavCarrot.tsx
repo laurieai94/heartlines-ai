@@ -38,16 +38,6 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
   // Show only when: mobile phone (not tablet) + scrolling up + navigation not opened + not been used
   const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened && !hasBeenUsed;
   
-  // Debug logging
-  console.log('🥕 BurgundyNavCarrot Debug:', {
-    isMobile,
-    isTablet,
-    isKeyboardVisible,
-    isScrollingUp,
-    navigationOpened,
-    shouldShow
-  });
-  
   if (!shouldShow) {
     return null;
   }

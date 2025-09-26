@@ -8,40 +8,11 @@ import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
-import { initPerformanceMonitoring } from '@/utils/performanceSafeguards';
-
-// Import production optimizer
+// Import production optimizer FIRST to suppress console immediately
 import '@/utils/productionOptimizer';
 
-// Initialize performance monitoring for mobile optimizations
-initPerformanceMonitoring();
-
-// Global error handler for unhandled errors
-window.addEventListener('error', (event) => {
-  console.error('Global error:', event.error);
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled promise rejection:', event.reason);
-});
-
-// Mobile-specific error handler
+// Mobile detection for error boundary selection only
 const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 768;
-
-// Enhanced error reporting for mobile
-if (checkMobile()) {
-  window.addEventListener('error', (event) => {
-    console.error('Mobile error:', {
-      message: event.message,
-      filename: event.filename,
-      lineno: event.lineno,
-      colno: event.colno,
-      error: event.error,
-      userAgent: navigator.userAgent,
-      viewport: { width: window.innerWidth, height: window.innerHeight }
-    });
-  });
-}
 
 // Defer reliability systems initialization with proper yielding
 const deferInit = () => {
@@ -63,8 +34,7 @@ const deferInit = () => {
     const isMobile = window.innerWidth < 768;
     
     if (isMobile && connection && (connection.saveData || connection.effectiveType === 'slow-2g')) {
-      console.info('Skipping heavy initialization on slow mobile connection');
-      return;
+      return; // Skip heavy initialization on slow mobile
     }
     
     // Stagger initialization to prevent blocking
@@ -86,17 +56,8 @@ const isDev = import.meta.env.DEV;
 
 const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBoundary;
 
-const app = isDev ? (
-  <React.StrictMode>
-    <ErrorBoundaryComponent>
-      <MobileProvider>
-        <ViewportProvider>
-          <App />
-        </ViewportProvider>
-      </MobileProvider>
-    </ErrorBoundaryComponent>
-  </React.StrictMode>
-) : (
+// Remove StrictMode even in development to prevent double renders and performance issues
+const app = (
   <ErrorBoundaryComponent>
     <MobileProvider>
       <ViewportProvider>

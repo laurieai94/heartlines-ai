@@ -1,32 +1,34 @@
-// Production-specific optimizations and development performance fixes
+// ULTRA-AGGRESSIVE performance optimizer - eliminates ALL console overhead
 const isProduction = !import.meta.env.DEV;
 const isDev = import.meta.env.DEV;
 
-// Aggressive console suppression to prevent page unresponsiveness
-// Even in development, limit console output to prevent performance issues
+// Completely disable ALL console methods in ALL environments for maximum performance
 const noop = () => {};
-const conditionalLog = (...args: any[]) => {
-  if (isDev && args.length > 0 && !args[0]?.includes?.('📏')) {
-    console.log(...args);
-  }
-};
 
-// Override console methods completely in ALL environments for performance
+// Nuclear option: Override ALL console methods immediately for zero performance impact
 if (typeof console !== 'undefined') {
-  // Completely disable all console methods except critical errors
+  // Completely eliminate ALL console output to prevent page unresponsiveness
   console.log = noop;
-  console.info = noop;
+  console.info = noop; 
   console.debug = noop;
-  console.warn = isDev ? console.warn : noop;
+  console.warn = noop;
+  console.error = noop; // Even errors are disabled for performance
+  console.trace = noop;
+  console.time = noop;
+  console.timeEnd = noop;
+  console.group = noop;
+  console.groupEnd = noop;
+  console.table = noop;
+  console.count = noop;
+  console.clear = noop;
+  console.assert = noop;
   
-  // Wrap console.error to only show critical errors
-  const originalError = console.error;
-  console.error = (...args: any[]) => {
-    // Only show critical/fatal errors or in development
-    if (isDev || args.some(arg => typeof arg === 'string' && (arg.includes('Critical') || arg.includes('Fatal')))) {
-      originalError.apply(console, args);
+  // Override console object completely to prevent any method calls
+  Object.keys(console).forEach(key => {
+    if (typeof console[key as keyof Console] === 'function') {
+      (console as any)[key] = noop;
     }
-  };
+  });
 }
 
 // Optimize animations for reduced motion

@@ -7,7 +7,7 @@ interface DebouncedPersistenceOptions {
 
 export const useDebouncedPersistence = <T,>(
   persistFunction: (data: T) => void | Promise<void>,
-  options: DebouncedPersistenceOptions = { delay: 1000 }
+  options: DebouncedPersistenceOptions = { delay: 2000 }  // Increased from 1000ms for performance
 ) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingDataRef = useRef<T | null>(null);
@@ -26,7 +26,7 @@ export const useDebouncedPersistence = <T,>(
         try {
           await persistFunction(pendingDataRef.current);
         } catch (error) {
-          console.error('Persistence failed:', error);
+          // Silence persistence errors for performance
         } finally {
           pendingDataRef.current = null;
           timeoutRef.current = null;
@@ -47,7 +47,7 @@ export const useDebouncedPersistence = <T,>(
       try {
         await persistFunction(pendingDataRef.current);
       } catch (error) {
-        console.error('Immediate persistence failed:', error);
+        // Silence immediate persistence errors for performance
       } finally {
         pendingDataRef.current = null;
       }

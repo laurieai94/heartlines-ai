@@ -80,8 +80,8 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
       updateTemporaryProfile(newProfiles, newDemographics);
     };
 
-    // Debounce the save to avoid too frequent updates
-    const timeoutId = setTimeout(saveData, 500);
+    // Debounce the save to avoid too frequent updates - increased delay for performance
+    const timeoutId = setTimeout(saveData, 2000);
     return () => clearTimeout(timeoutId);
   }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 

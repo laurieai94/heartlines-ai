@@ -83,8 +83,8 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
       updateTemporaryProfile(newProfiles, newDemographics);
     };
 
-    // Debounce the save to avoid too frequent updates
-    const timeoutId = setTimeout(saveData, 500);
+    // Debounce the save to avoid too frequent updates - increased delay for performance
+    const timeoutId = setTimeout(saveData, 2000);
     return () => clearTimeout(timeoutId);
   }, [formData, profileType, temporaryProfiles, temporaryDemographics, updateTemporaryProfile]);
 
@@ -96,7 +96,6 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     // Validate required fields only
     if (!validateRequired()) return;
     
-    console.log('Page 3 form data being submitted:', formData);
     onComplete(formData);
   };
 
@@ -104,9 +103,6 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
     // Only core attachment and relationship context questions are required
     const required = ['comfortableClosenessIndependence', 'worryRelationshipSecurity', 'wantClosenessButFearHurt', 'relationshipLength', 'relationshipType'];
     const missing = required.filter(field => !formData[field] || formData[field] === '');
-    
-    console.log('Page 3 validation - missing required fields:', missing);
-    console.log('Page 3 current form data:', formData);
     
     if (missing.length > 0) {
       const fieldNames = missing.map(field => {
@@ -126,7 +122,6 @@ const ProfileFormPage3 = ({ profileType, onComplete, onBack, initialData }: Prof
   };
 
   const updateField = (field: string, value: string) => {
-    console.log(`Page 3 updating field ${field} with value:`, value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
