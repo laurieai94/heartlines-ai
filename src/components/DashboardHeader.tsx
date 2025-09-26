@@ -12,6 +12,7 @@ import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target,
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
 import type { User } from '@supabase/supabase-js';
 
 interface DashboardHeaderProps {
@@ -30,6 +31,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const isMobile = useIsMobile();
   const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'pricing') {
@@ -53,12 +56,23 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
   ];
 
-  const handleNavigation = (item: any) => {
+  const handleNavigation = (item: any, isMobileNav = false) => {
+    console.log('Navigation clicked:', item.value, 'isExternal:', item.isExternal);
+    
+    // Close the appropriate dropdown
+    if (isMobileNav) {
+      setMobileDropdownOpen(false);
+    } else {
+      setDesktopDropdownOpen(false);
+    }
+    
     if (item.isExternal) {
       if (item.value === 'pricing') navigate('/pricing');
       else if (item.value === 'mission') navigate('/mission');
       else if (item.value === 'account') navigate('/account');
     } else {
+      // For internal navigation, call onValueChange which should trigger navigation
+      console.log('Calling onValueChange with:', item.value);
       onValueChange(item.value);
     }
   };
@@ -80,7 +94,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             : 'translate-y-0 opacity-100 pointer-events-auto'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
-            <DropdownMenu>
+            <DropdownMenu open={mobileDropdownOpen} onOpenChange={setMobileDropdownOpen}>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
@@ -108,7 +122,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     <DropdownMenuItem
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item)}
+                      onClick={() => handleNavigation(item, true)}
                       className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
                         isActive 
                           ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
@@ -131,7 +145,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
         <div className={`hidden md:flex items-center justify-between`}>
           {/* Always use hamburger layout on desktop */}
           <div className="flex items-center gap-3">
-            <DropdownMenu>
+            <DropdownMenu open={desktopDropdownOpen} onOpenChange={setDesktopDropdownOpen}>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
@@ -157,7 +171,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     <DropdownMenuItem
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
-                      onClick={() => handleNavigation(item)}
+                      onClick={() => handleNavigation(item, false)}
                       className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-none ${
                         isActive 
                           ? 'bg-white/10 text-white font-semibold border-l-4 border-l-white/60' 
