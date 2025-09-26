@@ -150,7 +150,15 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
 export function useViewport() {
   const context = useContext(ViewportContext);
   if (!context) {
-    throw new Error('useViewport must be used within a ViewportProvider');
+    // Return safe defaults instead of throwing error to prevent crashes
+    console.warn('useViewport used outside ViewportProvider, returning defaults');
+    return {
+      keyboardHeight: 0,
+      isKeyboardVisible: false,
+      visualViewportHeight: window.innerHeight,
+      windowHeight: window.innerHeight,
+      registerKeyboardListener: () => () => {} // No-op unsubscribe function
+    };
   }
   return context;
 }
