@@ -15,6 +15,7 @@ interface MemoizedChatInputSectionProps {
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
   isFreshStart?: boolean;
+  onResetFreshStart?: () => void;
 }
 
 // Memoize ChatInputSection to prevent unnecessary re-renders

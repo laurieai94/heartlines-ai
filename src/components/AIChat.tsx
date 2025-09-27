@@ -32,6 +32,7 @@ interface AIChatProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   isFreshStart?: boolean;
+  onResetFreshStart?: () => void;
 }
 
 const AIChat = ({ 
@@ -54,7 +55,8 @@ const AIChat = ({
   isStartingNewConversation = false,
   showStarters = false,
   onCloseStarters = () => {},
-  isFreshStart = false
+  isFreshStart = false,
+  onResetFreshStart = () => {}
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const [userTyping, setUserTyping] = useState(false);
@@ -137,6 +139,7 @@ useChatEffects({
         onCloseStarters={onCloseStarters}
         onUserTypingChange={setUserTyping}
         isFreshStart={isFreshStart}
+        onResetFreshStart={onResetFreshStart}
       />
     </ChatLayout>
   );

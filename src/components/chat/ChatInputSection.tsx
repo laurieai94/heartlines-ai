@@ -30,6 +30,7 @@ interface ChatInputSectionProps {
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
   isFreshStart?: boolean; // True for new users or users returning after 12+ hours
+  onResetFreshStart?: () => void;
 }
 
 export const ChatInputSection = ({
@@ -44,7 +45,8 @@ export const ChatInputSection = ({
   showStarters = false,
   onCloseStarters = () => {},
   onUserTypingChange = () => {},
-  isFreshStart = false
+  isFreshStart = false,
+  onResetFreshStart = () => {}
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -109,6 +111,10 @@ export const ChatInputSection = ({
       // Handle at limit in onInputFocus instead
       return;
     }
+    
+    // Immediately reset fresh start when user sends a message
+    onResetFreshStart();
+    
     // Hide starters after sending a message
     onCloseStarters();
     onSendMessage(message);
@@ -140,6 +146,9 @@ export const ChatInputSection = ({
     }
     
     if (typing) {
+      // Immediately reset fresh start when user starts typing
+      onResetFreshStart();
+      
       setIsComposing(true);
       onUserTypingChange(true);
       

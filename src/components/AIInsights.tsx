@@ -165,6 +165,11 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, []);
 
+  // Track isFreshStart changes for debugging
+  useEffect(() => {
+    console.log('isFreshStart changed to:', isFreshStart);
+  }, [isFreshStart]);
+
   // Load most recent conversation on first mount only
   const hasLoadedMostRecentRef = useRef(false);
   useEffect(() => {
@@ -204,11 +209,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
 
   // Create a wrapper for setChatHistory that also resets isFreshStart
   const handleSetChatHistory = useCallback((messages: typeof chatHistory) => {
+    console.log('Setting chat history:', messages.length, 'messages, isFreshStart was:', isFreshStart);
     setChatHistory(messages);
     // Reset fresh start flag if we now have messages
     if (messages.length > 0) {
-      setIsFreshStart(prev => prev ? false : prev);
+      console.log('Resetting isFreshStart to false');
+      setIsFreshStart(false);
     }
+  }, [isFreshStart]);
+
+  // Immediate reset for isFreshStart when user starts interacting
+  const handleResetFreshStart = useCallback(() => {
+    console.log('Immediately resetting isFreshStart to false');
+    setIsFreshStart(false);
   }, []);
 
   return (
@@ -237,6 +250,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             showStarters={showStarters}
             onCloseStarters={handleCloseStarters}
             isFreshStart={isFreshStart}
+            onResetFreshStart={handleResetFreshStart}
           />
         </ProgressiveAccessWrapper>
       </div>
