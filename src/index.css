@@ -469,7 +469,7 @@
   }
 
   .persistent-cursor:focus {
-    caret-color: hsl(var(--foreground)) !important;
+    caret-color: transparent !important;
   }
 
   /* Always-visible blinking cursor that positions after text content */
