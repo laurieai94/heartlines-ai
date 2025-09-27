@@ -38,45 +38,49 @@ const AIChatInput = ({
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const focusKeeperRef = useRef<NodeJS.Timeout | null>(null);
   const isActiveFocusRef = useRef(false);
-  const cursorPositionRef = useRef<HTMLDivElement>(null);
+  
 
   // Calculate cursor position based on text content
   const updateCursorPosition = () => {
-    if (!textareaRef.current || !cursorPositionRef.current) return;
+    if (!textareaRef.current) return;
 
     const textarea = textareaRef.current;
     const text = textarea.value;
     const computedStyle = window.getComputedStyle(textarea);
     
-    // Create a temporary element to measure text width
-    const measurer = document.createElement('div');
-    measurer.style.position = 'absolute';
-    measurer.style.visibility = 'hidden';
-    measurer.style.whiteSpace = 'pre';
-    measurer.style.font = computedStyle.font;
-    measurer.style.fontSize = computedStyle.fontSize;
-    measurer.style.fontFamily = computedStyle.fontFamily;
-    measurer.style.padding = computedStyle.padding;
-    measurer.textContent = text;
-    
-    document.body.appendChild(measurer);
-    const textWidth = measurer.offsetWidth;
-    document.body.removeChild(measurer);
-    
     // Calculate cursor position (account for padding)
-    const paddingLeft = Math.max(parseInt(computedStyle.paddingLeft || '8', 10), 8);
-    const paddingTop = Math.max(parseInt(computedStyle.paddingTop || '8', 10), 8);
-    const cursorLeft = paddingLeft + (text.length === 0 ? 0 : Math.max(textWidth, 0));
+    const paddingLeft = parseInt(computedStyle.paddingLeft || '8', 10);
+    const paddingTop = parseInt(computedStyle.paddingTop || '8', 10);
     
-    // Center cursor vertically within textarea, accounting for padding
+    // For empty text, show cursor at start position
+    let cursorLeft = paddingLeft;
+    if (text.length > 0) {
+      // Create a temporary element to measure text width
+      const measurer = document.createElement('div');
+      measurer.style.position = 'absolute';
+      measurer.style.visibility = 'hidden';
+      measurer.style.whiteSpace = 'pre';
+      measurer.style.font = computedStyle.font;
+      measurer.style.fontSize = computedStyle.fontSize;
+      measurer.style.fontFamily = computedStyle.fontFamily;
+      measurer.textContent = text;
+      
+      document.body.appendChild(measurer);
+      const textWidth = measurer.offsetWidth;
+      document.body.removeChild(measurer);
+      
+      cursorLeft = paddingLeft + textWidth;
+    }
+    
+    // Center cursor vertically within textarea
+    const lineHeight = parseInt(computedStyle.lineHeight || '20', 10);
     const textareaHeight = textarea.offsetHeight;
-    const lineHeight = Math.max(parseInt(computedStyle.lineHeight || '20', 10), 18);
-    const cursorTop = paddingTop + Math.max(((textareaHeight - paddingTop * 2 - lineHeight) / 2), 0);
+    const cursorTop = paddingTop + ((textareaHeight - paddingTop * 2 - lineHeight) / 2);
     
-    // Update CSS custom properties for cursor positioning with fallbacks
-    cursorPositionRef.current.style.setProperty('--cursor-left', `${Math.max(cursorLeft, paddingLeft)}px`);
-    cursorPositionRef.current.style.setProperty('--cursor-top', `${Math.max(cursorTop, paddingTop)}px`);
-    cursorPositionRef.current.style.setProperty('--cursor-height', `${lineHeight}px`);
+    // Set CSS custom properties directly on the textarea element
+    textarea.style.setProperty('--cursor-left', `${cursorLeft}px`);
+    textarea.style.setProperty('--cursor-top', `${Math.max(cursorTop, paddingTop)}px`);
+    textarea.style.setProperty('--cursor-height', `${lineHeight}px`);
   };
 
   const sendMessage = () => {
@@ -256,7 +260,6 @@ const AIChatInput = ({
   return (
     <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
       <div 
-        ref={cursorPositionRef}
         className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
           readOnly 
             ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm animate-bounce-gentle' 
