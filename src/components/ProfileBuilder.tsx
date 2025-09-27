@@ -332,14 +332,6 @@ const ProfileBuilder = ({
                   <p>• Messages are encrypted on your device before they're sent</p>  
                   <p>• You choose how long to keep your history (30/90/365/forever)</p>
                   <p>• Delete anything, anytime — full control is yours</p>
-                  <Link 
-                    to="/privacy-security" 
-                    className="inline-flex items-center gap-1.5 mt-6 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
-                    aria-label="Learn more about our privacy and security practices"
-                  >
-                    <span>Learn More</span>
-                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
                 </div>
               </CollapsibleContent>
             </Collapsible>
