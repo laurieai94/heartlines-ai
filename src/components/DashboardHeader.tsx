@@ -49,7 +49,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
 
   const navigationItems = [
     { value: 'home', label: 'Home', icon: Home },
-    { value: 'profile', label: 'Profile', icon: UserIcon },
+    { value: 'profile', label: 'Profile', icon: UserIcon, isExternal: true },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
     { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
     { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
@@ -70,6 +70,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       if (item.value === 'pricing') navigate('/pricing');
       else if (item.value === 'mission') navigate('/mission');
       else if (item.value === 'account') navigate('/account');
+      else if (item.value === 'profile') navigate('/profile');
     } else {
       // For internal navigation, call onValueChange which should trigger navigation
       console.log('Calling onValueChange with:', item.value);
@@ -115,10 +116,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   color: 'white'
                 }}
               >
-                {navigationItems.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = activeTab === item.value;
-                  return (
+                 {navigationItems.map((item) => {
+                   const IconComponent = item.icon;
+                   const isActive = !item.isExternal && activeTab === item.value;
+                   return (
                      <DropdownMenuItem
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
@@ -163,10 +164,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   color: 'white'
                 }}
               >
-                {navigationItems.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = activeTab === item.value;
-                  return (
+                 {navigationItems.map((item) => {
+                   const IconComponent = item.icon;
+                   const isActive = !item.isExternal && activeTab === item.value;
+                   return (
                      <DropdownMenuItem
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
