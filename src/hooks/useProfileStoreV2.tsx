@@ -481,7 +481,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
-    // Add a safety timeout to ensure states are always cleared
+    // Mobile-optimized safety timeout to prevent aggressive loading states
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const timeoutDelay = isMobile ? 15000 : 8000; // Much more generous timeout on mobile
+    
     const safetyTimeout = setTimeout(() => {
       console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
       setIsLoading(false);
@@ -490,7 +493,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         setIsReady(true);
         setProfile(defaultProfile);
       }
-    }, 5000); // 5 second safety net
+    }, timeoutDelay);
 
     initialize();
     

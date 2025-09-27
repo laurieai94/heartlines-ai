@@ -7,6 +7,7 @@ import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useOptimizedEffect } from '@/hooks/useOptimizedEffects';
 import { initPerformanceOptimizations } from '@/utils/performanceCleanup';
+import { initMobilePerformanceCleanup } from '@/utils/mobilePerformanceCleanup';
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 
@@ -14,6 +15,7 @@ import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   useOptimizedEffect(() => {
     initPerformanceOptimizations();
+    initMobilePerformanceCleanup(); // Initialize mobile-specific cleanup
   }, [], { immediate: true, production: true });
   
   return <>{children}</>;

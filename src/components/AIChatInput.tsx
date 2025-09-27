@@ -140,10 +140,12 @@ const AIChatInput = ({
     setCurrentMessage(newValue);
     adjustTextareaHeight();
     
-    // Update cursor position immediately and with slight delays for always-visible cursor
-    updateCursorPosition();
-    requestAnimationFrame(() => updateCursorPosition());
-    setTimeout(() => updateCursorPosition(), 10);
+    // Mobile-optimized cursor updates - reduce frequency
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      updateCursorPosition();
+      requestAnimationFrame(() => updateCursorPosition());
+    }
     
     // Handle typing indicator
     if (onTypingChange) {
@@ -194,8 +196,9 @@ const AIChatInput = ({
         }
       }, 100);
 
-      // Periodic focus keeper to ensure cursor stays visible
-      const focusKeeper = setInterval(() => {
+      // Mobile-optimized focus keeper - much less aggressive
+      const isMobile = window.innerWidth <= 768;
+      const focusKeeper = isMobile ? null : setInterval(() => {
         if (textareaRef.current && !disabled && !readOnly) {
           const activeElement = document.activeElement;
           const isNavigating = activeElement?.closest('[role="navigation"]') || 
@@ -208,7 +211,7 @@ const AIChatInput = ({
             textareaRef.current.focus({ preventScroll: true });
           }
         }
-      }, 2000); // Check every 2 seconds
+      }, 8000); // Much less frequent - 8 seconds
 
       // Only re-focus on chat container clicks, not global clicks
       const handleChatAreaClick = (e: Event) => {
@@ -229,35 +232,42 @@ const AIChatInput = ({
         }
       };
 
-      // Update cursor position on window events
+      // Lighter cursor position updates - mobile optimized
       const handleUpdate = () => {
-        requestAnimationFrame(() => updateCursorPosition());
+        if (!isMobile) {
+          requestAnimationFrame(() => updateCursorPosition());
+        }
       };
 
       document.addEventListener('click', handleChatAreaClick);
-      window.addEventListener('resize', handleUpdate);
-      window.addEventListener('focus', handleUpdate);
+      if (!isMobile) {
+        window.addEventListener('resize', handleUpdate);
+        window.addEventListener('focus', handleUpdate);
+      }
 
       return () => {
-        clearInterval(focusKeeper);
+        if (focusKeeper) clearInterval(focusKeeper);
         document.removeEventListener('click', handleChatAreaClick);
-        window.removeEventListener('resize', handleUpdate);
-        window.removeEventListener('focus', handleUpdate);
+        if (!isMobile) {
+          window.removeEventListener('resize', handleUpdate);
+          window.removeEventListener('focus', handleUpdate);
+        }
       };
     }
   }, [disabled, readOnly]);
 
-  // Update cursor position when message changes, component mounts, or focus changes
+  // Mobile-optimized cursor position updates
   useEffect(() => {
-    updateCursorPosition();
-    // Update cursor position multiple times to ensure it's accurate
-    const updateTimer = setTimeout(() => updateCursorPosition(), 10);
-    const updateTimer2 = setTimeout(() => updateCursorPosition(), 50);
-    
-    return () => {
-      clearTimeout(updateTimer);
-      clearTimeout(updateTimer2);
-    };
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      updateCursorPosition();
+      // Single delayed update only
+      const updateTimer = setTimeout(() => updateCursorPosition(), 50);
+      
+      return () => {
+        clearTimeout(updateTimer);
+      };
+    }
   }, [currentMessage]);
 
   // Adjust height on message clear

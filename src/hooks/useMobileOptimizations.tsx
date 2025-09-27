@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { useViewport } from '@/contexts/ViewportContext';
+import { useMobilePerformanceGuard } from '@/hooks/useMobilePerformanceGuard';
 
 /**
  * Optimized mobile-specific enhancements
@@ -9,10 +10,11 @@ import { useViewport } from '@/contexts/ViewportContext';
 export const useMobileOptimizations = () => {
   const { isMobile } = useOptimizedMobile();
   const { registerKeyboardListener } = useViewport();
+  const { shouldDisableFeature } = useMobilePerformanceGuard();
 
-  // Simulated haptic feedback through visual feedback
+  // Performance-aware haptic feedback simulation
   const simulateHapticFeedback = useCallback((element: HTMLElement, type: 'light' | 'medium' | 'heavy' = 'light') => {
-    if (!isMobile) return;
+    if (!isMobile || shouldDisableFeature('animation')) return;
     
     const intensity = {
       light: 'scale-[0.98]',
@@ -25,7 +27,7 @@ export const useMobileOptimizations = () => {
     setTimeout(() => {
       element.classList.remove('transition-transform', 'duration-75', intensity[type]);
     }, 150);
-  }, [isMobile]);
+  }, [isMobile, shouldDisableFeature]);
 
   // CSS-based touch optimization - no DOM manipulation needed
   useEffect(() => {
