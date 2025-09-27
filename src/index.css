@@ -481,7 +481,7 @@
     transform: translateY(-50%);
     width: 1px;
     height: var(--cursor-height, 20px);
-    background-color: hsl(var(--foreground));
+    background-color: white;
     animation: cursorBlink 1s infinite;
     pointer-events: none;
     z-index: 1;
