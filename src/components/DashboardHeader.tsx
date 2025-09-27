@@ -14,6 +14,7 @@ import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityCont
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useState } from "react";
 import type { User } from '@supabase/supabase-js';
+import UnifiedNavigation from "@/components/UnifiedNavigation";
 
 interface DashboardHeaderProps {
   accessLevel: string;
@@ -109,31 +110,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="start" 
-                className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
-                  backdropFilter: 'blur(20px)',
-                  color: 'white'
-                }}
+                className="w-auto z-[60] border-0 shadow-2xl rounded-xl py-2 px-2 bg-transparent"
               >
-                 {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
-                     <DropdownMenuItem
-                       key={item.value}
-                       onMouseEnter={() => handleTabHover(item.value)}
-                       onClick={() => handleNavigation(item, true)}
-                         className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
-                           isActive 
-                             ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 focus:text-white hover:text-white'
-                         }`}
-                     >
-                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                     </DropdownMenuItem>
-                  );
-                })}
+                <UnifiedNavigation 
+                  activeTab={activeTab} 
+                  onValueChange={onValueChange}
+                  onClose={() => setMobileDropdownOpen(false)}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
             
@@ -157,31 +140,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
                <DropdownMenuContent 
                 align="start" 
-                className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
-                  backdropFilter: 'blur(20px)',
-                  color: 'white'
-                }}
+                className="w-auto z-[60] border-0 shadow-2xl rounded-xl py-2 px-2 bg-transparent"
               >
-                 {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
-                     <DropdownMenuItem
-                       key={item.value}
-                       onMouseEnter={() => handleTabHover(item.value)}
-                       onClick={() => handleNavigation(item, false)}
-                         className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
-                           isActive 
-                             ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 focus:text-white hover:text-white'
-                         }`}
-                     >
-                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                     </DropdownMenuItem>
-                  );
-                })}
+                <UnifiedNavigation 
+                  activeTab={activeTab} 
+                  onValueChange={onValueChange}
+                  onClose={() => setDesktopDropdownOpen(false)}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
             
