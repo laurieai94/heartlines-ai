@@ -140,8 +140,10 @@ const AIChatInput = ({
     setCurrentMessage(newValue);
     adjustTextareaHeight();
     
-    // Update cursor position for always-visible cursor
+    // Update cursor position immediately and with slight delays for always-visible cursor
+    updateCursorPosition();
     requestAnimationFrame(() => updateCursorPosition());
+    setTimeout(() => updateCursorPosition(), 10);
     
     // Handle typing indicator
     if (onTypingChange) {
@@ -180,7 +182,7 @@ const AIChatInput = ({
     }
   };
 
-  // Auto-focus the textarea when component mounts (but be respectful about it)
+  // Auto-focus the textarea when component mounts and maintain focus aggressively
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
       // Initial focus with delay to avoid conflicts
@@ -191,6 +193,22 @@ const AIChatInput = ({
           updateCursorPosition();
         }
       }, 100);
+
+      // Periodic focus keeper to ensure cursor stays visible
+      const focusKeeper = setInterval(() => {
+        if (textareaRef.current && !disabled && !readOnly) {
+          const activeElement = document.activeElement;
+          const isNavigating = activeElement?.closest('[role="navigation"]') || 
+                              activeElement?.closest('nav') ||
+                              activeElement?.closest('[data-navigation]') ||
+                              activeElement?.closest('.navigation') ||
+                              document.querySelector('[data-state="open"]');
+          
+          if (!isNavigating && activeElement !== textareaRef.current) {
+            textareaRef.current.focus({ preventScroll: true });
+          }
+        }
+      }, 2000); // Check every 2 seconds
 
       // Only re-focus on chat container clicks, not global clicks
       const handleChatAreaClick = (e: Event) => {
@@ -211,17 +229,35 @@ const AIChatInput = ({
         }
       };
 
+      // Update cursor position on window events
+      const handleUpdate = () => {
+        requestAnimationFrame(() => updateCursorPosition());
+      };
+
       document.addEventListener('click', handleChatAreaClick);
+      window.addEventListener('resize', handleUpdate);
+      window.addEventListener('focus', handleUpdate);
 
       return () => {
+        clearInterval(focusKeeper);
         document.removeEventListener('click', handleChatAreaClick);
+        window.removeEventListener('resize', handleUpdate);
+        window.removeEventListener('focus', handleUpdate);
       };
     }
   }, [disabled, readOnly]);
 
-  // Update cursor position when message changes or component mounts
+  // Update cursor position when message changes, component mounts, or focus changes
   useEffect(() => {
     updateCursorPosition();
+    // Update cursor position multiple times to ensure it's accurate
+    const updateTimer = setTimeout(() => updateCursorPosition(), 10);
+    const updateTimer2 = setTimeout(() => updateCursorPosition(), 50);
+    
+    return () => {
+      clearTimeout(updateTimer);
+      clearTimeout(updateTimer2);
+    };
   }, [currentMessage]);
 
   // Adjust height on message clear
