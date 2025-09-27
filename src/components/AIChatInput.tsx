@@ -36,6 +36,8 @@ const AIChatInput = ({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const focusKeeperRef = useRef<NodeJS.Timeout | null>(null);
+  const isActiveFocusRef = useRef(false);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -118,11 +120,56 @@ const AIChatInput = ({
   };
 
 
+  // Aggressive focus management to keep cursor always visible
+  const maintainFocus = () => {
+    if (textareaRef.current && !disabled && !readOnly) {
+      const activeElement = document.activeElement;
+      if (activeElement !== textareaRef.current) {
+        textareaRef.current.focus({ preventScroll: true });
+      }
+    }
+  };
+
   // Auto-focus the textarea when component mounts and after interactions
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
       textareaRef.current.focus();
       adjustTextareaHeight();
+      isActiveFocusRef.current = true;
+
+      // Set up persistent focus keeper
+      focusKeeperRef.current = setInterval(() => {
+        if (isActiveFocusRef.current) {
+          maintainFocus();
+        }
+      }, 100);
+
+      // Add global event listeners to maintain focus
+      const handleGlobalClick = (e: Event) => {
+        const target = e.target as HTMLElement;
+        // Don't steal focus from buttons or other interactive elements
+        if (!target.closest('button') && !target.closest('[role="button"]') && 
+            !target.closest('a') && !target.closest('select') && 
+            !target.closest('input[type="file"]')) {
+          setTimeout(() => maintainFocus(), 10);
+        }
+      };
+
+      const handleGlobalFocus = () => {
+        setTimeout(() => maintainFocus(), 10);
+      };
+
+      document.addEventListener('click', handleGlobalClick);
+      document.addEventListener('focusout', handleGlobalFocus);
+
+      return () => {
+        isActiveFocusRef.current = false;
+        if (focusKeeperRef.current) {
+          clearInterval(focusKeeperRef.current);
+        }
+        document.removeEventListener('click', handleGlobalClick);
+        document.removeEventListener('focusout', handleGlobalFocus);
+      };
     }
   }, [disabled, readOnly]);
 
@@ -131,11 +178,15 @@ const AIChatInput = ({
     adjustTextareaHeight();
   }, [currentMessage]);
 
-  // Cleanup typing timeout on unmount
+  // Cleanup timeouts and intervals on unmount
   useEffect(() => {
     return () => {
+      isActiveFocusRef.current = false;
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
+      }
+      if (focusKeeperRef.current) {
+        clearInterval(focusKeeperRef.current);
       }
     };
   }, []);
@@ -164,7 +215,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-2 py-1 md:px-3 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none"
+          className="w-full bg-transparent border-0 px-2 py-1 md:px-3 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none persistent-cursor"
           style={{ 
             WebkitTapHighlightColor: 'transparent', 
             WebkitAppearance: 'none',

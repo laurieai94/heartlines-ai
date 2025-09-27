@@ -447,6 +447,44 @@
     animation: optionalGlow 4.5s ease-in-out infinite;
   }
 
+  /* Persistent cursor blinking animation */
+  @keyframes cursorBlink {
+    0%, 50% {
+      border-right-color: transparent;
+    }
+    51%, 100% {
+      border-right-color: currentColor;
+    }
+  }
+
+  .cursor-always-blink {
+    border-right: 2px solid transparent;
+    animation: cursorBlink 1s infinite;
+  }
+
+  /* Force cursor visibility on textarea */
+  .persistent-cursor {
+    caret-color: white !important;
+  }
+
+  .persistent-cursor:focus {
+    caret-color: white !important;
+  }
+
+  /* Ensure cursor remains visible even when not focused */
+  .persistent-cursor::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px;
+    background-color: white;
+    animation: cursorBlink 1s infinite;
+    pointer-events: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-profile-glow {
       animation: none;
