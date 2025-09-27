@@ -29,6 +29,7 @@ interface ChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
+  isFreshStart?: boolean; // True for new users or users returning after 12+ hours
 }
 
 export const ChatInputSection = ({
@@ -42,7 +43,8 @@ export const ChatInputSection = ({
   isHistoryLoaded,
   showStarters = false,
   onCloseStarters = () => {},
-  onUserTypingChange = () => {}
+  onUserTypingChange = () => {},
+  isFreshStart = false
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -192,7 +194,7 @@ export const ChatInputSection = ({
                     ? "Click here to complete your profile and start chatting with Kai…"
                     : atLimit
                     ? "You've reached your monthly message limit. Click to upgrade and continue."
-                    : chatHistory.length === 0 ? "What's up?" : undefined
+                    : isFreshStart ? "What's up?" : undefined
               }
               inputRef={inputRef}
               onInputFocus={() => { 

@@ -14,6 +14,7 @@ interface MemoizedChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
+  isFreshStart?: boolean;
 }
 
 // Memoize ChatInputSection to prevent unnecessary re-renders
@@ -26,6 +27,7 @@ export const MemoizedChatInputSection = React.memo(ChatInputSection, (prevProps,
     prevProps.canInteract === nextProps.canInteract &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
     prevProps.showStarters === nextProps.showStarters &&
+    prevProps.isFreshStart === nextProps.isFreshStart &&
     prevProps.chatHistory.length === nextProps.chatHistory.length
   );
 });

@@ -23,6 +23,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [conversationStarter, setConversationStarter] = useState<string>('');
   const [isStartingNewConversation, setIsStartingNewConversation] = useState(false);
   const [showStarters, setShowStarters] = useState(false);
+  const [isFreshStart, setIsFreshStart] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -102,6 +103,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
     setConversationStarter('');
     setShowStarters(true); // Show starters when starting new conversation
+    setIsFreshStart(true); // New conversation is always a fresh start
     // Reset the flag after a brief delay
     setTimeout(() => setIsStartingNewConversation(false), 100);
   };
@@ -176,6 +178,8 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       const loadMessages = async () => {
         const messages = await loadMostRecentConversation();
         setChatHistory(messages);
+        // Set fresh start if we have conversations but loaded empty (12+ hours old)
+        setIsFreshStart(conversations.length > 0 && messages.length === 0);
         hasLoadedMostRecentRef.current = true;
       };
       loadMessages();
@@ -191,10 +195,19 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       (hasLoadedMostRecentRef.current || conversations.length === 0) // Show for new users OR after checking existing conversations
     ) {
       setShowStarters(true);
+      // Set fresh start for new users (no conversations)
+      if (conversations.length === 0) {
+        setIsFreshStart(true);
+      }
     }
   }, [chatHistory.length, isConfigured, historyLoading, conversations.length]);
 
-  // Removed debug logs for performance
+  // Reset fresh start after first message
+  useEffect(() => {
+    if (chatHistory.length > 0 && isFreshStart) {
+      setIsFreshStart(false);
+    }
+  }, [chatHistory.length, isFreshStart]);
 
   return (
     <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col px-2 sm:px-3 lg:px-4 pt-0 pb-2 sm:pb-3 lg:pb-4">
@@ -221,6 +234,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             isStartingNewConversation={isStartingNewConversation}
             showStarters={showStarters}
             onCloseStarters={handleCloseStarters}
+            isFreshStart={isFreshStart}
           />
         </ProgressiveAccessWrapper>
       </div>
