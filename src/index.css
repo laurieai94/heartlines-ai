@@ -464,7 +464,7 @@
 
   /* Force cursor visibility on textarea */
   .persistent-cursor {
-    caret-color: hsl(var(--foreground)) !important;
+    caret-color: transparent !important;
     position: relative;
   }
 
