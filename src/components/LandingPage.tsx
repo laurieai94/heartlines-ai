@@ -134,6 +134,20 @@ const LandingPage = ({
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Ensure menu closes when user navigates away or clicks outside
+  useEffect(() => {
+    const closeMenu = () => setIsMenuOpen(false);
+    
+    // Close menu on route changes or window events
+    window.addEventListener('popstate', closeMenu);
+    window.addEventListener('resize', closeMenu);
+    
+    return () => {
+      window.removeEventListener('popstate', closeMenu);
+      window.removeEventListener('resize', closeMenu);
+    };
+  }, []);
   const isEmbedded = !showMarketingTopBar;
 
   // Glass card styling helper
@@ -264,13 +278,24 @@ const LandingPage = ({
                     <Menu className="w-8 h-8" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent side="bottom" align="start" className="w-36 p-2 bg-gradient-to-br from-burgundy-800/90 via-coral-900/80 to-burgundy-900/90 backdrop-blur-md border border-coral-400/20 shadow-xl shadow-coral-400/10 rounded-xl">
+                <PopoverContent 
+                  side="bottom" 
+                  align="start" 
+                  className="w-36 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50"
+                  onInteractOutside={() => setIsMenuOpen(false)}
+                  onEscapeKeyDown={() => setIsMenuOpen(false)}
+                >
                   <div className="flex flex-col">
-                    {navItems.map(item => {
-                  return <Link key={item.to} to={item.to} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" onClick={() => setIsMenuOpen(false)}>
-                          {item.label}
-                        </Link>;
-                })}
+                    {navItems.map(item => (
+                      <Link 
+                        key={item.to} 
+                        to={item.to} 
+                        className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" 
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
                   </div>
                 </PopoverContent>
               </Popover>

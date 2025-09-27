@@ -11,8 +11,6 @@ import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { performanceMonitor } from "@/utils/performanceMonitor";
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
-// EMERGENCY: Import cleanup for startup
-import "@/utils/emergencyCleanup";
 
 // Import LandingPage directly for immediate rendering (critical path)
 import LandingPage from "@/components/LandingPage";
