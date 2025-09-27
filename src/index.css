@@ -477,15 +477,28 @@
     position: absolute;
     left: var(--cursor-left, 8px);
     top: var(--cursor-top, 8px);
-    width: 1px;
+    width: 2px;
     height: var(--cursor-height, 20px);
     background-color: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 8px rgba(255, 255, 255, 0.3);
     animation: cursorBlink 1s infinite;
     pointer-events: none;
-    z-index: 1;
+    z-index: 10;
+    border-radius: 1px;
+  }
+
+  .persistent-cursor:focus::after,
+  .persistent-cursor:focus-within::after {
+    animation: cursorBlink 0.8s infinite;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.4);
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .persistent-cursor::after {
+      animation: cursorBlink 2s infinite;
+      opacity: 0.8;
+    }
+
     .animate-profile-glow {
       animation: none;
       box-shadow: 0 0 12px rgba(255, 132, 80, 0.4), 

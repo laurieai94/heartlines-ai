@@ -64,18 +64,18 @@ const AIChatInput = ({
     document.body.removeChild(measurer);
     
     // Calculate cursor position (account for padding)
-    const paddingLeft = parseInt(computedStyle.paddingLeft || '8', 10);
-    const paddingTop = parseInt(computedStyle.paddingTop || '8', 10);
-    const cursorLeft = paddingLeft + (text.length === 0 ? 0 : textWidth);
+    const paddingLeft = Math.max(parseInt(computedStyle.paddingLeft || '8', 10), 8);
+    const paddingTop = Math.max(parseInt(computedStyle.paddingTop || '8', 10), 8);
+    const cursorLeft = paddingLeft + (text.length === 0 ? 0 : Math.max(textWidth, 0));
     
     // Center cursor vertically within textarea, accounting for padding
     const textareaHeight = textarea.offsetHeight;
-    const lineHeight = parseInt(computedStyle.lineHeight || '20', 10);
-    const cursorTop = paddingTop + ((textareaHeight - paddingTop * 2 - lineHeight) / 2);
+    const lineHeight = Math.max(parseInt(computedStyle.lineHeight || '20', 10), 18);
+    const cursorTop = paddingTop + Math.max(((textareaHeight - paddingTop * 2 - lineHeight) / 2), 0);
     
-    // Update CSS custom properties for cursor positioning
-    cursorPositionRef.current.style.setProperty('--cursor-left', `${cursorLeft}px`);
-    cursorPositionRef.current.style.setProperty('--cursor-top', `${cursorTop}px`);
+    // Update CSS custom properties for cursor positioning with fallbacks
+    cursorPositionRef.current.style.setProperty('--cursor-left', `${Math.max(cursorLeft, paddingLeft)}px`);
+    cursorPositionRef.current.style.setProperty('--cursor-top', `${Math.max(cursorTop, paddingTop)}px`);
     cursorPositionRef.current.style.setProperty('--cursor-height', `${lineHeight}px`);
   };
 
