@@ -161,11 +161,9 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Show starters immediately for authenticated users with empty chats
+  // Show starters only for empty chats
   const shouldShowStarters = 
-    (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
-    (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
-    (showStarters && isConfigured && isHistoryLoaded); // Explicit show
+    chatHistory.length === 0 && user && isConfigured && isHistoryLoaded;
 
   // Use native iOS keyboard behavior instead of fighting it
 
