@@ -140,6 +140,11 @@ const AIChatInput = ({
     setCurrentMessage(newValue);
     adjustTextareaHeight();
     
+    // Track last input time to prevent aggressive focus stealing
+    if (textareaRef.current) {
+      textareaRef.current.dataset.lastInput = Date.now().toString();
+    }
+    
     // Always update cursor position for persistent blinking cursor
     updateCursorPosition();
     requestAnimationFrame(() => updateCursorPosition());
@@ -164,18 +169,25 @@ const AIChatInput = ({
   };
 
 
-  // Aggressive focus management - only avoid focus when user is typing elsewhere
+  // Gentle focus management - respect user input activity
   const maintainFocus = () => {
     if (textareaRef.current && !disabled && !readOnly) {
-      // Only avoid focus when user is actively typing in other input fields
       const activeElement = document.activeElement;
       const isTypingElsewhere = activeElement?.tagName === 'INPUT' || 
                                activeElement?.tagName === 'TEXTAREA' ||
                                activeElement?.getAttribute('contenteditable') === 'true';
       
-      // Don't steal focus if user is typing in another input or if already focused
+      // More conservative focus management - only focus if no input is active
       if (!isTypingElsewhere && activeElement !== textareaRef.current) {
-        textareaRef.current.focus({ preventScroll: true });
+        // Add check for user input activity within last 3 seconds
+        const lastInputTime = textareaRef.current.dataset.lastInput ? 
+          parseInt(textareaRef.current.dataset.lastInput) : 0;
+        const timeSinceInput = Date.now() - lastInputTime;
+        
+        // Don't steal focus if user was recently typing (within 3 seconds)
+        if (timeSinceInput > 3000) {
+          textareaRef.current.focus({ preventScroll: true });
+        }
       }
     }
   };
@@ -192,25 +204,20 @@ const AIChatInput = ({
         }
       }, 100);
 
-      // Aggressive focus keeper - enabled on all devices with shorter interval
+      // Reduced focus keeper - less aggressive to prevent typing interruption
       const focusKeeper = setInterval(() => {
         maintainFocus();
-      }, 2500); // More frequent - 2.5 seconds
+      }, 10000); // Much less frequent - 10 seconds
 
-      // Re-focus on any click within chat areas
+      // Reduced click-to-refocus behavior to prevent typing interruption
       const handleChatAreaClick = (e: Event) => {
         const target = e.target as HTMLElement;
         const isInChatArea = target.closest('[data-chat-container]') || 
                             target.closest('.chat-input-area');
         
-        // Only restore focus if clicking within chat area and not on interactive elements
-        if (isInChatArea && 
-            !target.closest('button') && 
-            !target.closest('[role="button"]') && 
-            !target.closest('a') && 
-            !target.closest('select') && 
-            !target.closest('input[type="file"]')) {
-          setTimeout(() => maintainFocus(), 50);
+        // Only restore focus if explicitly clicking the textarea itself
+        if (isInChatArea && target === textareaRef.current) {
+          setTimeout(() => maintainFocus(), 100);
         }
       };
 

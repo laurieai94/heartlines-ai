@@ -6,7 +6,7 @@ interface InputState {
   activeInputType: 'selection' | 'typing' | 'scrolling' | null;
 }
 
-export const useInputStateTracking = (settleDelayMs: number = 500) => {
+export const useInputStateTracking = (settleDelayMs: number = 2000) => {
   const [inputState, setInputState] = useState<InputState>({
     isUserActive: false,
     lastActivityTime: 0,
