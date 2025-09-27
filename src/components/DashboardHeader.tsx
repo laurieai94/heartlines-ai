@@ -127,7 +127,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                          className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                            isActive 
                              ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 hover:text-white'
+                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 hover:text-white'
                          }`}
                      >
                        <IconComponent className="h-4 w-4 flex-shrink-0" />
@@ -175,7 +175,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                          className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                            isActive 
                              ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 hover:text-white'
+                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 hover:text-white'
                          }`}
                      >
                        <IconComponent className="h-4 w-4 flex-shrink-0" />
