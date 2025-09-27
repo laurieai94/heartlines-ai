@@ -464,24 +464,27 @@
 
   /* Force cursor visibility on textarea */
   .persistent-cursor {
-    caret-color: white !important;
+    caret-color: hsl(var(--foreground)) !important;
+    position: relative;
   }
 
   .persistent-cursor:focus {
-    caret-color: white !important;
+    caret-color: hsl(var(--foreground)) !important;
   }
 
-  /* Ensure cursor remains visible even when not focused */
+  /* Always-visible blinking cursor that positions after text content */
   .persistent-cursor::after {
     content: '';
     position: absolute;
-    right: 2px;
+    left: var(--cursor-left, 8px);
     top: 50%;
     transform: translateY(-50%);
     width: 1px;
-    height: 20px;
-    background-color: white;
+    height: var(--cursor-height, 20px);
+    background-color: hsl(var(--foreground));
     animation: cursorBlink 1s infinite;
+    pointer-events: none;
+    z-index: 1;
     pointer-events: none;
   }
 
