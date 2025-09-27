@@ -5,7 +5,7 @@ import './index.css'
 import './styles/mobile-optimizations.css'
 import './styles/mobile-performance.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
-import { ViewportProvider } from "@/contexts/ViewportContext"
+import { OptimizedProviderStack } from "@/contexts/OptimizedContextProviders"
 import { useOptimizedEffect } from '@/hooks/useOptimizedEffects';
 import { initLightPerformanceOptimizations } from '@/utils/lightPerformanceCleanup';
 import ErrorBoundary from '@/components/ErrorBoundary'
@@ -25,14 +25,14 @@ const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 7
 
 const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBoundary;
 
-// Remove StrictMode even in development to prevent double renders and performance issues
+// Optimized app structure with minimal context nesting
 const app = (
   <ErrorBoundaryComponent>
     <ProductionWrapper>
       <MobileProvider>
-        <ViewportProvider>
+        <OptimizedProviderStack>
           <App />
-        </ViewportProvider>
+        </OptimizedProviderStack>
       </MobileProvider>
     </ProductionWrapper>
   </ErrorBoundaryComponent>

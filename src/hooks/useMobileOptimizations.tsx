@@ -1,6 +1,8 @@
 import { useEffect, useCallback } from 'react';
 import { useLightMobileGuard } from './useLightMobileGuard';
 import { useOptimizedMobile } from './useOptimizedMobile';
+import { useOptimizedEventListener } from './useOptimizedEventListener';
+import { mobileOptimizer, optimizeTouchElement } from '@/utils/mobileOptimizer';
 
 /**
  * Lightweight mobile optimizations that prevent freezing
@@ -10,9 +12,12 @@ export const useMobileOptimizations = () => {
   const { isMobile } = useOptimizedMobile();
   const { shouldDisableFeature } = useLightMobileGuard();
 
-  // Lightweight haptic feedback - CSS transforms only
+  // Optimized haptic feedback using mobile optimizer
   const simulateHapticFeedback = useCallback((element: HTMLElement, type: 'light' | 'medium' | 'heavy' = 'light') => {
     if (!isMobile || shouldDisableFeature('animation')) return;
+
+    // Optimize touch element first
+    optimizeTouchElement(element);
 
     const intensities = {
       light: { scale: 0.98, duration: 75 },
@@ -24,9 +29,9 @@ export const useMobileOptimizations = () => {
     element.style.transform = `scale(${intensity.scale})`;
     element.style.transition = `transform ${intensity.duration}ms ease-out`;
 
-    requestAnimationFrame(() => {
+    mobileOptimizer.createOptimizedRAF(() => {
       element.style.transform = 'scale(1)';
-      setTimeout(() => {
+      mobileOptimizer.createOptimizedTimeout(() => {
         element.style.transform = '';
         element.style.transition = '';
       }, intensity.duration);
@@ -52,6 +57,7 @@ export const useMobileOptimizations = () => {
 
   return {
     simulateHapticFeedback,
-    isMobile
+    isMobile,
+    mobileOptimizer
   };
 };

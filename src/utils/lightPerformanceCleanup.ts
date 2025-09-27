@@ -28,14 +28,26 @@ export const gentleMemoryCleanup = () => {
   }
 };
 
-// Initialize minimal optimizations
+// Initialize minimal optimizations with mobile optimizer integration
 export const initLightPerformanceOptimizations = () => {
   if (isDev) return;
   
   // Minimal console cleanup
   emergencyCleanup();
   
-  // Very gentle, infrequent cleanup
-  setTimeout(gentleMemoryCleanup, 30000); // 30 seconds initial delay
-  setInterval(gentleMemoryCleanup, 600000); // 10 minutes intervals
+  // Import mobile optimizer for production
+  import('@/utils/mobileOptimizer').then(({ mobileOptimizer }) => {
+    // Let mobile optimizer handle memory management
+    const devicePerformance = mobileOptimizer.assessDevicePerformance();
+    
+    // Adjust cleanup frequency based on device capabilities
+    const cleanupInterval = devicePerformance.overall === 'low' ? 300000 : 600000; // 5-10 minutes
+    
+    setTimeout(gentleMemoryCleanup, 30000); // 30 seconds initial delay
+    setInterval(gentleMemoryCleanup, cleanupInterval);
+  }).catch(() => {
+    // Fallback to original behavior if mobile optimizer fails to load
+    setTimeout(gentleMemoryCleanup, 30000);
+    setInterval(gentleMemoryCleanup, 600000);
+  });
 };
