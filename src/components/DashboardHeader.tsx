@@ -110,7 +110,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 align="start" 
                 className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
                 style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
+                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
                   backdropFilter: 'blur(20px)',
                   color: 'white'
                 }}
@@ -158,7 +158,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 align="start" 
                 className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
                 style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.98), hsl(349 67% 20% / 0.96), hsl(349 67% 15% / 0.98))',
+                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
                   backdropFilter: 'blur(20px)',
                   color: 'white'
                 }}
