@@ -5,62 +5,27 @@ import DashboardHeader from "@/components/DashboardHeader";
 import DashboardContent from "@/components/DashboardContent";
 import DashboardModals from "@/components/DashboardModals";
 import AuthGuard from "@/components/AuthGuard";
-import { useDashboardModals } from "@/hooks/useDashboardModals";
+import { useOptimizedDashboardModals } from "@/hooks/useOptimizedDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 
 const Dashboard = () => {
   const { user } = useAuth();
   
-  const {
-    activeTab,
-    setActiveTab,
-    showQuestionnaireModal,
-    showPartnerQuestionnaireModal,
-    showPersonalCompletionOptions,
-    showPartnerCompletionOptions,
-    shouldShowSignUpModal,
-    showSignInModal,
-    blockingAction,
-    closeSignUpModal,
-    closeSignInModal,
-    openSignInModal,
-    accessLevel,
-    profileCompletion,
-    temporaryProfiles,
-    temporaryDemographics,
-    isAnyModalOpen,
-    // Handler functions
-    handleGoToProfile,
-    handleGoToCoach,
-    handleOpenQuestionnaire,
-    handleOpenPartnerQuestionnaire,
-    handleQuestionnaireComplete,
-    handlePartnerQuestionnaireComplete,
-    handleQuestionnaireClose,
-    handlePartnerQuestionnaireClose,
-    handlePersonalCompletionClose,
-    handlePartnerCompletionClose,
-    handlePersonalAddPartnerProfile,
-    handlePersonalStartChatting,
-    handlePartnerStartChatting,
-    handlePartnerContinueEditing,
-    handleProfileUpdate
-  } = useDashboardModals();
+  const dashboardModals = useOptimizedDashboardModals();
 
   // Preload questionnaire chunk for gated users
   useEffect(() => {
-    if (accessLevel === 'profile-required' && user) {
+    if (dashboardModals.accessLevel === 'profile-required' && user) {
       import('@/components/NewPersonalQuestionnaire').catch(() => {});
     }
-  }, [accessLevel, user]);
+  }, [dashboardModals.accessLevel, user]);
 
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
-    if (activeTab === 'profile' && 
-        accessLevel === 'profile-required' && 
+    if (dashboardModals.accessLevel === 'profile-required' && 
         user && 
-        !showQuestionnaireModal) {
+        !dashboardModals.showQuestionnaireModal) {
       
       // Check if user is brand new (signed up within 24 hours)
       const userCreatedAt = new Date(user.created_at);
@@ -77,84 +42,84 @@ const Dashboard = () => {
         
         // Small delay to ensure component is mounted
         setTimeout(() => {
-          handleOpenQuestionnaire('header');
+          dashboardModals.setShowQuestionnaireModal(true);
+          dashboardModals.setQuestionnaireOrigin('header');
         }, 100);
       }
     }
-  }, [activeTab, accessLevel, user, showQuestionnaireModal, handleOpenQuestionnaire]);
+  }, [dashboardModals.accessLevel, user, dashboardModals.showQuestionnaireModal, dashboardModals.setShowQuestionnaireModal, dashboardModals.setQuestionnaireOrigin]);
 
   const handleSignInClick = () => {
-    openSignInModal();
+    dashboardModals.handleSignInClick();
   };
 
   const handleOpenProfile = () => {
-    handleOpenQuestionnaire();
+    dashboardModals.handleOpenProfile();
   };
 
   const goToPartner = () => {
-    handleQuestionnaireClose();
-    setTimeout(handleOpenPartnerQuestionnaire, 100);
+    dashboardModals.goToPartner();
   };
 
   return (
     <AuthGuard>
-      <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
-        <MobileHeaderVisibilityProvider>
-          <div className="h-[100dvh] overflow-hidden">
-            {/* Main Dashboard Content - This gets blurred when modals are open */}
-            <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-              {/* Ambient glow for chat interface separation */}
-              <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+        <NavigationProvider goToProfile={dashboardModals.handleGoToProfile} goToCoach={dashboardModals.handleGoToCoach} goToPartner={goToPartner}>
+          <MobileHeaderVisibilityProvider>
+            <div className="h-[100dvh] overflow-hidden">
+              {/* Main Dashboard Content - This gets blurred when modals are open */}
+              <div className={`h-full flex flex-col relative bg-burgundy-900 ${dashboardModals.isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
+                {/* Ambient glow for chat interface separation */}
+                <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
 
-              {/* Background overlays removed for unified burgundy theme */}
+                {/* Background overlays removed for unified burgundy theme */}
 
-              <DashboardHeader 
-                accessLevel={accessLevel}
-                profileCompletion={profileCompletion}
-                compact={activeTab === 'insights'}
-                user={user}
-                activeTab={activeTab}
-                onValueChange={setActiveTab}
-                onSignInClick={handleSignInClick}
-                onOpenProfile={handleOpenProfile}
-              />
+                <DashboardHeader 
+                  accessLevel={dashboardModals.accessLevel}
+                  profileCompletion={dashboardModals.profileCompletion}
+                  compact={dashboardModals.activeTab === 'insights'}
+                  user={user}
+                  activeTab={dashboardModals.activeTab}
+                  onValueChange={dashboardModals.setActiveTab}
+                  onSignInClick={handleSignInClick}
+                  onOpenProfile={handleOpenProfile}
+                />
 
-              <DashboardContent
-                activeTab={activeTab}
-                onValueChange={setActiveTab}
-                temporaryProfiles={temporaryProfiles}
-                temporaryDemographics={temporaryDemographics}
-                onProfileUpdate={handleProfileUpdate}
-                onOpenQuestionnaire={handleOpenQuestionnaire}
-                onOpenPartnerQuestionnaire={handleOpenPartnerQuestionnaire}
-              />
-            </div>
+                <DashboardContent
+                  activeTab={dashboardModals.activeTab}
+                  onValueChange={dashboardModals.setActiveTab}
+                  temporaryProfiles={dashboardModals.temporaryProfiles}
+                  temporaryDemographics={dashboardModals.temporaryDemographics}
+                  onProfileUpdate={dashboardModals.handleProfileUpdate}
+                  onOpenQuestionnaire={dashboardModals.handleOpenQuestionnaire}
+                  onOpenPartnerQuestionnaire={dashboardModals.handleOpenPartnerQuestionnaire}
+                />
+              </div>
 
-          {/* Modals - These stay sharp and are rendered outside the blurred content */}
-          <DashboardModals
-            shouldShowSignUpModal={shouldShowSignUpModal}
-            onCloseSignUpModal={closeSignUpModal}
-            showSignInModal={showSignInModal}
-            onCloseSignInModal={closeSignInModal}
-            blockingAction={blockingAction}
-            showQuestionnaireModal={showQuestionnaireModal}
-            onQuestionnaireComplete={handleQuestionnaireComplete}
-            onQuestionnaireClose={handleQuestionnaireClose}
-            onQuestionnaireOpen={handleOpenQuestionnaire}
-            showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
-            onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
-            onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
-            showPersonalCompletionOptions={showPersonalCompletionOptions}
-            onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
-            onPersonalStartChatting={handlePersonalStartChatting}
-            onPersonalCompletionClose={handlePersonalCompletionClose}
-            showPartnerCompletionOptions={showPartnerCompletionOptions}
-            onPartnerStartChatting={handlePartnerStartChatting}
-            onPartnerCompletionClose={handlePartnerCompletionClose}
-            onPartnerContinueEditing={handlePartnerContinueEditing}
-            temporaryProfiles={temporaryProfiles}
-          />
-        </div>
+            {/* Modals - These stay sharp and are rendered outside the blurred content */}
+            <DashboardModals
+              shouldShowSignUpModal={dashboardModals.shouldShowSignUpModal}
+              onCloseSignUpModal={dashboardModals.closeSignUpModal}
+              showSignInModal={dashboardModals.showSignInModal}
+              onCloseSignInModal={dashboardModals.closeSignInModal}
+              blockingAction={dashboardModals.blockingAction}
+              showQuestionnaireModal={dashboardModals.showQuestionnaireModal}
+              onQuestionnaireComplete={dashboardModals.handleQuestionnaireComplete}
+              onQuestionnaireClose={dashboardModals.handleQuestionnaireClose}
+              onQuestionnaireOpen={dashboardModals.handleOpenQuestionnaire}
+              showPartnerQuestionnaireModal={dashboardModals.showPartnerQuestionnaireModal}
+              onPartnerQuestionnaireComplete={dashboardModals.handlePartnerQuestionnaireComplete}
+              onPartnerQuestionnaireClose={dashboardModals.handlePartnerQuestionnaireClose}
+              showPersonalCompletionOptions={dashboardModals.showPersonalCompletionOptions}
+              onPersonalAddPartnerProfile={dashboardModals.handlePersonalAddPartnerProfile}
+              onPersonalStartChatting={dashboardModals.handlePersonalStartChatting}
+              onPersonalCompletionClose={dashboardModals.handlePersonalCompletionClose}
+              showPartnerCompletionOptions={dashboardModals.showPartnerCompletionOptions}
+              onPartnerStartChatting={dashboardModals.handlePartnerStartChatting}
+              onPartnerCompletionClose={dashboardModals.handlePartnerCompletionClose}
+              onPartnerContinueEditing={dashboardModals.handlePartnerContinueEditing}
+              temporaryProfiles={dashboardModals.temporaryProfiles}
+            />
+          </div>
         </MobileHeaderVisibilityProvider>
       </NavigationProvider>
     </AuthGuard>
