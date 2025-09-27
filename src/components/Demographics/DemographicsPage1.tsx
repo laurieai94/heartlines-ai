@@ -45,8 +45,6 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   // Auto-save for partner profiles
   useEffect(() => {
     if (!isPersonal && formData && Object.keys(formData).length > 0) {
-      console.log('Auto-saving partner data:', formData);
-      
       const newDemographics = {
         ...temporaryDemographics,
         [profileType]: { ...temporaryDemographics[profileType], ...formData }
@@ -56,7 +54,6 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
   }, [formData, profileType, isPersonal, temporaryDemographics, temporaryProfiles, updateTemporaryProfile]);
 
   const updateFormData = (field: string, value: any) => {
-    console.log('Updating field', field, 'with value:', value);
     if (isPersonal) {
       updateField(field, value);
     } else {
@@ -116,7 +113,6 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
     if (!validateRequired()) return;
     
     const dataToComplete = isPersonal ? profileData : formData;
-    console.log('Completing with data:', dataToComplete);
     onComplete(dataToComplete);
   };
 

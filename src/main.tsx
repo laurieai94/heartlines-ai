@@ -5,8 +5,15 @@ import './index.css'
 import './styles/mobile-optimizations.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
+import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
+
+// Production optimizations component
+const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
+  useProductionOptimizations();
+  return <>{children}</>;
+};
 
 // Mobile detection for error boundary selection only
 const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 768;
@@ -16,11 +23,13 @@ const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBounda
 // Remove StrictMode even in development to prevent double renders and performance issues
 const app = (
   <ErrorBoundaryComponent>
-    <MobileProvider>
-      <ViewportProvider>
-        <App />
-      </ViewportProvider>
-    </MobileProvider>
+    <ProductionWrapper>
+      <MobileProvider>
+        <ViewportProvider>
+          <App />
+        </ViewportProvider>
+      </MobileProvider>
+    </ProductionWrapper>
   </ErrorBoundaryComponent>
 );
 

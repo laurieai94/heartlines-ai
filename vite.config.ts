@@ -20,46 +20,84 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Production optimizations with esbuild (faster than terser)
-    minify: true,
+    // Aggressive production optimizations
+    minify: 'esbuild', // Faster than terser with excellent compression
+    target: 'es2020', // Better optimization for modern browsers
     rollupOptions: {
       output: {
         manualChunks: {
-          // React core
+          // Core React - highest priority, loaded first
           'vendor-react': ['react', 'react-dom'],
-          // UI components - more granular splitting
-          'vendor-radix': [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-alert-dialog',
-            '@radix-ui/react-avatar',
-            '@radix-ui/react-checkbox',
+          
+          // Essential routing and state - loaded early
+          'vendor-router': ['react-router-dom', '@tanstack/react-query'],
+          
+          // UI Framework - split into smaller chunks for better caching
+          'vendor-radix-core': [
             '@radix-ui/react-dialog',
             '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-toast',
             '@radix-ui/react-popover',
           ],
-          'vendor-radix-2': [
-            '@radix-ui/react-progress',
+          'vendor-radix-forms': [
+            '@radix-ui/react-checkbox',
             '@radix-ui/react-select',
-            '@radix-ui/react-separator',
+            '@radix-ui/react-radio-group',
             '@radix-ui/react-tabs',
-            '@radix-ui/react-toast',
           ],
-          'vendor-ui-utils': [
+          'vendor-radix-layout': [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-progress',
+            '@radix-ui/react-scroll-area',
+          ],
+          
+          // Styling utilities - small but frequently used
+          'vendor-styling': [
             'class-variance-authority',
             'clsx',
-            'tailwind-merge'
+            'tailwind-merge',
+            'next-themes'
           ],
-          // Backend services
-          'vendor-supabase': ['@supabase/supabase-js'],
-          // Icons
+          
+          // Backend and external services - can be lazy loaded
+          'vendor-backend': ['@supabase/supabase-js'],
+          
+          // Icons - heavy and can be split
           'vendor-icons': ['lucide-react'],
-          // Data/utilities
-          'vendor-utils': ['@tanstack/react-query', 'date-fns', 'zod']
+          
+          // Utilities - lower priority
+          'vendor-utils': ['date-fns', 'zod', 'sonner']
+        },
+        // Optimize chunk file names for better caching
+        chunkFileNames: (chunkInfo) => {
+          const facadeModuleId = chunkInfo.facadeModuleId 
+            ? chunkInfo.facadeModuleId.split('/').pop()?.replace('.tsx', '') ?? 'chunk'
+            : 'chunk';
+          return `js/${facadeModuleId}-[hash].js`;
+        },
+        entryFileNames: 'js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
+          
+          const info = assetInfo.name.split('.');
+          const extension = info[info.length - 1];
+          
+          if (/\.(css)$/.test(assetInfo.name)) {
+            return `css/[name]-[hash].${extension}`;
+          }
+          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i.test(assetInfo.name)) {
+            return `img/[name]-[hash].${extension}`;
+          }
+          return `assets/[name]-[hash].${extension}`;
         }
       }
     },
-    // Tree shaking optimization
-    sourcemap: false, // Disable sourcemaps in production for smaller bundle
-    chunkSizeWarningLimit: 1000,
+    // Aggressive tree shaking and dead code elimination
+    sourcemap: false, // Disable sourcemaps for smaller bundle size
+    chunkSizeWarningLimit: 800, // Stricter warning limit
+    reportCompressedSize: false, // Disable for faster builds
+    // Enable CSS code splitting
+    cssCodeSplit: true,
   },
 }));

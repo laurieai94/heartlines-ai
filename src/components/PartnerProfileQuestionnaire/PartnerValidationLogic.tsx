@@ -94,7 +94,5 @@ export const calculatePartnerOverallProgress = (profileData: any) => {
   const optionalProgress = Math.min(optionalCompleted / maxOptionalFields, 1) * optionalWeight;
   const overallProgress = Math.min(Math.round(requiredProgress + optionalProgress), 100);
   
-  console.log(`Partner Overall Progress: ${requiredCompleted}/2 required + ${optionalCompleted}/12 optional = ${overallProgress}%`);
-  
   return overallProgress;
 };

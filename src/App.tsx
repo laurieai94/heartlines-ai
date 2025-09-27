@@ -26,24 +26,24 @@ const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
-  // EMERGENCY: Disable performance monitoring and prefetching to fix unresponsiveness
-  // useIdlePrefetch(); // Disabled temporarily
+  // Re-enabled with optimized delays for production performance
+  useIdlePrefetch();
   
   useEffect(() => {
-    // EMERGENCY: Disable performance monitoring completely
-    // performanceMonitor.init(); // Disabled
+    // Re-enable performance monitoring with production optimizations
+    performanceMonitor.init();
     
-    // EMERGENCY: Disable network warmup to reduce blocking operations
-    // const deferWarmup = () => {
-    //   if ('requestIdleCallback' in window) {
-    //     (window as any).requestIdleCallback(() => {
-    //       warmupNetwork();
-    //     }, { timeout: 2000 });
-    //   } else {
-    //     setTimeout(warmupNetwork, 1000);
-    //   }
-    // };
-    // deferWarmup(); // Disabled
+    // Re-enable network warmup with longer delays to prevent blocking
+    const deferWarmup = () => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          warmupNetwork();
+        }, { timeout: 15000 }); // Increased timeout for production
+      } else {
+        setTimeout(warmupNetwork, 8000); // Longer delay for production
+      }
+    };
+    deferWarmup();
   }, []);
   
   return (

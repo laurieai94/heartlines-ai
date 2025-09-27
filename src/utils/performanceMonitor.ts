@@ -3,8 +3,8 @@ import { logger } from './logger';
 
 class PerformanceMonitor {
   private metrics = new Map<string, number>();
-  // Completely disabled for production performance
-  private isEnabled = false;
+  // Enable only in development for performance
+  private isEnabled = import.meta.env.DEV;
   
   // Mark the start of a performance measurement
   mark(name: string) {

@@ -49,7 +49,6 @@ const ProfileForm = ({
   const isPersonal = profileType === 'your';
   
   const handlePage1Complete = (data: any) => {
-    console.log('Page 1 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page2: true }));
@@ -57,7 +56,6 @@ const ProfileForm = ({
   };
 
   const handlePage2Complete = (data: any) => {
-    console.log('Page 2 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     setHasVisited(prev => ({ ...prev, page3: true }));
@@ -65,7 +63,6 @@ const ProfileForm = ({
   };
 
   const handlePage3Complete = (data: any) => {
-    console.log('Page 3 completed with data:', data);
     const updatedData = { ...formData, ...data };
     setFormData(updatedData);
     onComplete(updatedData);
@@ -75,14 +72,12 @@ const ProfileForm = ({
   const handleNavigateToPage = (pageNumber: number) => {
     // Allow navigation to any visited page
     if (hasVisited[`page${pageNumber}` as keyof typeof hasVisited]) {
-      console.log(`Navigating to page ${pageNumber}`);
       setCurrentPage(pageNumber);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      console.log(`Going back to page ${currentPage - 1}`);
       setCurrentPage(currentPage - 1);
     }
   };
