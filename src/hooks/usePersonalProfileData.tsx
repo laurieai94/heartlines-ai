@@ -59,17 +59,15 @@ export const usePersonalProfileData = () => {
   // Merge with defaults to ensure all fields exist
   const mergedProfileData = { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
 
-  // Wrap updateField to normalize field names
+  // Wrap updateField to normalize field names (removed excessive logging)
   const normalizedUpdateField = (field: string, value: any) => {
     const normalizedField = normalizeFieldName(field);
-    console.log(`[NORMALIZE] Writing ${field} -> ${normalizedField}:`, value);
     v2Store.updateField(normalizedField, value);
   };
 
-  // Wrap handleMultiSelect to normalize field names
+  // Wrap handleMultiSelect to normalize field names (removed excessive logging)
   const normalizedHandleMultiSelect = (field: string, value: string) => {
     const normalizedField = normalizeFieldName(field);
-    console.log(`[NORMALIZE] Multi-select ${field} -> ${normalizedField}:`, value);
     v2Store.handleMultiSelect(normalizedField, value);
   };
 

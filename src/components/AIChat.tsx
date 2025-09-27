@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
-import ChatContainer from "./ChatContainer";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
-import { ChatInputSection } from "./chat/ChatInputSection";
+import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
+import { MemoizedChatInputSection } from "./chat/MemoizedChatInputSection";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -61,13 +61,6 @@ const AIChat = ({
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
-  
-  // Only log in development
-  if (import.meta.env.DEV) {
-    console.log('AIChat - userName resolved:', userName);
-    console.log('AIChat - demographicsData.your:', demographicsData.your);
-    console.log('AIChat - profile:', profile);
-  }
 
   const { loading, sendMessage } = useChatMessageHandler({
     profiles,
@@ -117,7 +110,7 @@ useChatEffects({
       onLoadConversation={onLoadConversation}
       onDeleteConversation={onDeleteConversation}
     >
-      <ChatContainer
+      <MemoizedChatContainer
         chatHistory={chatHistory}
         loading={loading}
         userName={userName}
@@ -129,7 +122,7 @@ useChatEffects({
         onOpenSidebar={onOpenSidebar}
       />
 
-      <ChatInputSection
+      <MemoizedChatInputSection
         onSendMessage={sendMessage}
         loading={loading}
         userName={userName}

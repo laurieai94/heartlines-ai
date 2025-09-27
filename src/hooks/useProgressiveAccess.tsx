@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
-import { calculateProgress, validateSection } from "@/components/NewPersonalQuestionnaire/utils/validation";
+import { calculateProgressOptimized, validateSectionOptimized } from "@/components/NewPersonalQuestionnaire/utils/optimizedValidation";
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/NewPersonalQuestionnaire/utils/requirements";
 import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
 
@@ -29,19 +29,17 @@ export const useProgressiveAccess = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
-  // Calculate profile completion percentage using the official validation logic
-  const calculateProfileCompletion = () => {
+  // Memoized profile completion calculation
+  const profileCompletion = useMemo(() => {
     const profileData = personalStorage.profileData;
     if (!profileData || Object.keys(profileData).length === 0) {
       return 0;
     }
+    return calculateProgressOptimized(profileData as ProfileData);
+  }, [personalStorage.profileData]);
 
-    // Use the official calculateProgress function from validation utils
-    return calculateProgress(profileData as ProfileData);
-  };
-
-  // Compute detailed profile status for chat access - requires only 6 required fields
-  const computeChatReadiness = () => {
+  // Memoized chat readiness computation
+  const chatReadiness = useMemo(() => {
     const profileData = personalStorage.profileData as ProfileData;
     if (!profileData || Object.keys(profileData).length === 0) {
       return { 
@@ -52,16 +50,16 @@ export const useProgressiveAccess = () => {
       };
     }
 
-    // Use requirements-based validation
+    // Use optimized validation
     const totalRequired = getTotalRequiredFieldsCount();
     const totalCompleted = getCompletedRequiredFieldsCount(profileData);
     const overallProgress = totalRequired > 0 ? Math.round((totalCompleted / totalRequired) * 100) : 0;
     const isComplete = overallProgress === 100;
 
-    // Check completion of each section using new validation
+    // Check completion of each section using optimized validation
     const sectionStatus = [1, 2, 3, 4].map(section => ({
       section,
-      isComplete: validateSection(section, profileData)
+      isComplete: validateSectionOptimized(section, profileData)
     }));
 
     const incompleteSections = sectionStatus
@@ -84,50 +82,34 @@ export const useProgressiveAccess = () => {
       missingFields.push('Complete required fields in "Your Foundation"');
     }
 
-    console.log('🔐 Chat access check (6 required fields):', {
-      overallProgress,
-      isComplete,
-      totalRequired,
-      totalCompleted,
-      incompleteSections,
-      missingFields
-    });
-
     return { 
       isComplete, 
       missingFields, 
       incompleteSections,
       overallProgress
     };
-  };
+  }, [personalStorage.profileData]);
 
-  const profileCompletion = calculateProfileCompletion();
-  const readiness = computeChatReadiness();
-  const hasPersonalProfileForChat = readiness.isComplete;
-  const missingFieldsForChat = readiness.missingFields;
-  const incompleteSections = readiness.incompleteSections;
-  const detailedProgress = readiness.overallProgress;
+  const hasPersonalProfileForChat = chatReadiness.isComplete;
+  const missingFieldsForChat = chatReadiness.missingFields;
+  const incompleteSections = chatReadiness.incompleteSections;
+  const detailedProgress = chatReadiness.overallProgress;
   
-  // Determine access level based on authentication and profile completion
-  const getAccessLevel = (): AccessLevel => {
-    // If no user is logged in, require signup
+  // Memoized access level calculation
+  const accessLevel = useMemo((): AccessLevel => {
     if (!user) {
       return 'signup-required';
     }
     
-    // If user is logged in but doesn't have essential personal profile, require profile completion
     if (!hasPersonalProfileForChat) {
       return 'profile-required';
     }
     
-    // User is authenticated and has completed their personal profile
     return 'full-access';
-  };
+  }, [user, hasPersonalProfileForChat]);
 
-  const accessLevel = getAccessLevel();
-
-  // Check if user can interact with features based on access level
-  const checkInteractionPermission = (action: string): boolean => {
+  // Memoized permission checker
+  const checkInteractionPermission = useCallback((action: string): boolean => {
     if (accessLevel === 'full-access') {
       return true;
     }
@@ -137,7 +119,7 @@ export const useProgressiveAccess = () => {
     }
     
     return true;
-  };
+  }, [accessLevel]);
 
   const closeSignUpModal = () => {
     setShowSignUpModal(false);
