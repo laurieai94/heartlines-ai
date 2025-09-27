@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -272,33 +272,41 @@ const LandingPage = ({
       {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-md border-b border-coral-400/15">
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <PopoverTrigger asChild>
+              <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="text-white/50 hover:text-white/80 glass-burgundy hover:bg-burgundy-400/10 p-3 rounded-xl transition-all duration-200" aria-label="Open menu">
                     <Menu className="w-8 h-8" />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent 
-                  side="bottom" 
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
                   align="start" 
-                  className="w-36 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50"
-                  onInteractOutside={() => setIsMenuOpen(false)}
-                  onEscapeKeyDown={() => setIsMenuOpen(false)}
+                  className="w-48 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
+                    backdropFilter: 'blur(20px)',
+                    color: 'white'
+                  }}
                 >
-                  <div className="flex flex-col">
-                    {navItems.map(item => (
-                      <Link 
-                        key={item.to} 
-                        to={item.to} 
-                        className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" 
-                        onClick={() => setIsMenuOpen(false)}
+                  {navItems.map((item) => {
+                    const IconComponent = item.icon;
+                    return (
+                      <DropdownMenuItem
+                        key={item.to}
+                        asChild
+                        className="relative flex items-center gap-3 mx-2 my-1 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 focus:text-white hover:text-white"
                       >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                        <Link 
+                          to={item.to} 
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <IconComponent className="h-4 w-4 flex-shrink-0" />
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             
             {/* Desktop Navigation CTAs */}
