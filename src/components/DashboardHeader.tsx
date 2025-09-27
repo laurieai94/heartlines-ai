@@ -123,9 +123,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
                        onClick={() => handleNavigation(item, true)}
-                        className={`relative flex items-center justify-start px-0 py-1.5 rounded-lg cursor-pointer transition-none ${
+                        className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                           isActive 
-                            ? 'text-white font-semibold' 
+                            ? 'text-white font-semibold bg-white/15' 
                             : 'text-white font-medium hover:bg-white/5 hover:text-white'
                         }`}
                      >
@@ -171,9 +171,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
                        onClick={() => handleNavigation(item, false)}
-                        className={`relative flex items-center justify-start px-0 py-1.5 rounded-lg cursor-pointer transition-none ${
+                        className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                           isActive 
-                            ? 'text-white font-semibold' 
+                            ? 'text-white font-semibold bg-white/15' 
                             : 'text-white font-medium hover:bg-white/5 hover:text-white'
                         }`}
                      >
