@@ -269,6 +269,10 @@
     padding-bottom: max(env(safe-area-inset-bottom), 20px);
   }
 
+  .pb-safe-minimal {
+    padding-bottom: max(env(safe-area-inset-bottom), 8px);
+  }
+
   .pt-safe {
     padding-top: max(env(safe-area-inset-top), 0px);
   }
@@ -277,6 +281,10 @@
   @media (max-width: 768px) {
     .pb-safe {
       padding-bottom: calc(1.5rem + max(env(safe-area-inset-bottom), 20px));
+    }
+    
+    .pb-safe-minimal {
+      padding-bottom: calc(0.25rem + max(env(safe-area-inset-bottom), 8px));
     }
     
     [data-onboarding-nudge] {
