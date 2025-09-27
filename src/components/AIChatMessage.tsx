@@ -85,7 +85,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       {/* Message Bubble */}
       <div className={`flex flex-col ${
         isUser 
-          ? `items-end ${isMobile ? 'mr-[38px] max-w-[calc(85%-38px)]' : 'mr-[46px] max-w-[calc(80%-46px)]'}` 
+          ? `items-end ${isMobile ? 'mr-[28px] max-w-[calc(85%-28px)]' : 'mr-[42px] max-w-[calc(80%-42px)]'}` 
           : `items-start ${isMobile ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') : 'max-w-[80%]'}`
       }`}>
         <div
