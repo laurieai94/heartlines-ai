@@ -77,7 +77,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       modalStates.setActiveTab("insights");
       // Focus chat input after a brief delay
       setTimeout(() => {
-        const chatInput = document.querySelector('textarea[placeholder*="What\'s up"]') as HTMLTextAreaElement;
+        const chatInput = document.querySelector('textarea[placeholder*="What\'s up"], textarea:not([placeholder]), textarea[placeholder=""]') as HTMLTextAreaElement;
         if (chatInput) {
           chatInput.focus();
         }
