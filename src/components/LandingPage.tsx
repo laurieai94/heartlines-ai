@@ -300,7 +300,6 @@ const LandingPage = ({
                           onClick={() => setIsMenuOpen(false)}
                         >
                           <IconComponent className="h-4 w-4 flex-shrink-0" />
-                          {item.label}
                         </Link>
                       </DropdownMenuItem>
                     );
