@@ -476,15 +476,13 @@
     content: '';
     position: absolute;
     left: var(--cursor-left, 8px);
-    top: 50%;
-    transform: translateY(-50%);
+    top: var(--cursor-top, 8px);
     width: 1px;
     height: var(--cursor-height, 20px);
     background-color: white;
     animation: cursorBlink 1s infinite;
     pointer-events: none;
     z-index: 1;
-    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

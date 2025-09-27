@@ -65,14 +65,18 @@ const AIChatInput = ({
     
     // Calculate cursor position (account for padding)
     const paddingLeft = parseInt(computedStyle.paddingLeft || '8', 10);
+    const paddingTop = parseInt(computedStyle.paddingTop || '8', 10);
     const cursorLeft = paddingLeft + (text.length === 0 ? 0 : textWidth);
     
-    // Update CSS custom property for cursor positioning
-    cursorPositionRef.current.style.setProperty('--cursor-left', `${cursorLeft}px`);
-    
-    // Update cursor height based on line height
+    // Center cursor vertically within textarea, accounting for padding
+    const textareaHeight = textarea.offsetHeight;
     const lineHeight = parseInt(computedStyle.lineHeight || '20', 10);
-    cursorPositionRef.current.style.setProperty('--cursor-height', `${Math.min(lineHeight, 20)}px`);
+    const cursorTop = paddingTop + ((textareaHeight - paddingTop * 2 - lineHeight) / 2);
+    
+    // Update CSS custom properties for cursor positioning
+    cursorPositionRef.current.style.setProperty('--cursor-left', `${cursorLeft}px`);
+    cursorPositionRef.current.style.setProperty('--cursor-top', `${cursorTop}px`);
+    cursorPositionRef.current.style.setProperty('--cursor-height', `${lineHeight}px`);
   };
 
   const sendMessage = () => {
@@ -264,7 +268,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-2 py-1 md:px-3 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none persistent-cursor"
+          className="w-full bg-transparent border-0 px-2 py-2 md:px-3 md:py-2 text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] flex items-center text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none persistent-cursor"
           style={{ 
             WebkitTapHighlightColor: 'transparent', 
             WebkitAppearance: 'none',
