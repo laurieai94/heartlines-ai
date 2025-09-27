@@ -259,7 +259,7 @@ const AIChatInput = ({
           onKeyDown={handleKeyPress}
           onFocus={onInputFocus}
           onClick={() => onInputFocus?.()}
-          placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : "What's up?")}
+          placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : "Type a message...")}
           readOnly={readOnly || disabled}
           aria-label={readOnly ? "Click to complete your profile to unlock AI chat" : undefined}
           inputMode="text"

@@ -23,7 +23,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   const [conversationStarter, setConversationStarter] = useState<string>('');
   const [isStartingNewConversation, setIsStartingNewConversation] = useState(false);
   const [showStarters, setShowStarters] = useState(false);
-  const [isFreshStart, setIsFreshStart] = useState(false);
   
   // Get actual profile data from the questionnaire system
   const { profileData: personalProfileData, isReady: personalDataReady } = usePersonalProfileData();
@@ -103,7 +102,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     setChatHistory(messages);
     setConversationStarter('');
     setShowStarters(true); // Show starters when starting new conversation
-    setIsFreshStart(true); // New conversation is always a fresh start
     // Reset the flag after a brief delay
     setTimeout(() => setIsStartingNewConversation(false), 100);
   };
@@ -165,10 +163,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, []);
 
-  // Track isFreshStart changes for debugging
-  useEffect(() => {
-    console.log('isFreshStart changed to:', isFreshStart);
-  }, [isFreshStart]);
 
   // Load most recent conversation on first mount only
   const hasLoadedMostRecentRef = useRef(false);
@@ -183,8 +177,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       const loadMessages = async () => {
         const messages = await loadMostRecentConversation();
         setChatHistory(messages);
-        // Set fresh start if we have conversations but loaded empty (12+ hours old)
-        setIsFreshStart(conversations.length > 0 && messages.length === 0);
         hasLoadedMostRecentRef.current = true;
       };
       loadMessages();
@@ -200,28 +192,12 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
       (hasLoadedMostRecentRef.current || conversations.length === 0) // Show for new users OR after checking existing conversations
     ) {
       setShowStarters(true);
-      // Set fresh start for new users (no conversations)
-      if (conversations.length === 0) {
-        setIsFreshStart(true);
-      }
     }
   }, [chatHistory.length, isConfigured, historyLoading, conversations.length]);
 
-  // Create a wrapper for setChatHistory that also resets isFreshStart
+  // Simple wrapper for setChatHistory 
   const handleSetChatHistory = useCallback((messages: typeof chatHistory) => {
-    console.log('Setting chat history:', messages.length, 'messages, isFreshStart was:', isFreshStart);
     setChatHistory(messages);
-    // Reset fresh start flag if we now have messages
-    if (messages.length > 0) {
-      console.log('Resetting isFreshStart to false');
-      setIsFreshStart(false);
-    }
-  }, [isFreshStart]);
-
-  // Immediate reset for isFreshStart when user starts interacting
-  const handleResetFreshStart = useCallback(() => {
-    console.log('Immediately resetting isFreshStart to false');
-    setIsFreshStart(false);
   }, []);
 
   return (
@@ -249,8 +225,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             isStartingNewConversation={isStartingNewConversation}
             showStarters={showStarters}
             onCloseStarters={handleCloseStarters}
-            isFreshStart={isFreshStart}
-            onResetFreshStart={handleResetFreshStart}
           />
         </ProgressiveAccessWrapper>
       </div>

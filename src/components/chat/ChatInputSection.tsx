@@ -29,8 +29,6 @@ interface ChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
-  isFreshStart?: boolean; // True for new users or users returning after 12+ hours
-  onResetFreshStart?: () => void;
 }
 
 export const ChatInputSection = ({
@@ -44,9 +42,7 @@ export const ChatInputSection = ({
   isHistoryLoaded,
   showStarters = false,
   onCloseStarters = () => {},
-  onUserTypingChange = () => {},
-  isFreshStart = false,
-  onResetFreshStart = () => {}
+  onUserTypingChange = () => {}
 }: ChatInputSectionProps) => {
   const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -112,9 +108,6 @@ export const ChatInputSection = ({
       return;
     }
     
-    // Immediately reset fresh start when user sends a message
-    onResetFreshStart();
-    
     // Hide starters after sending a message
     onCloseStarters();
     onSendMessage(message);
@@ -146,9 +139,6 @@ export const ChatInputSection = ({
     }
     
     if (typing) {
-      // Immediately reset fresh start when user starts typing
-      onResetFreshStart();
-      
       setIsComposing(true);
       onUserTypingChange(true);
       
@@ -196,15 +186,15 @@ export const ChatInputSection = ({
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
               showProfileGlow={accessLevel === 'profile-required' && !!user}
-              placeholder={
-                !user 
-                  ? "Sign in to start chatting…" 
-                  : accessLevel === 'profile-required' 
-                    ? "Click here to complete your profile and start chatting with Kai…"
-                    : atLimit
-                    ? "You've reached your monthly message limit. Click to upgrade and continue."
-                    : isFreshStart ? "What's up?" : undefined
-              }
+                placeholder={
+                  !user 
+                    ? "Sign in to start chatting…" 
+                    : accessLevel === 'profile-required' 
+                      ? "Click here to complete your profile and start chatting with Kai…"
+                      : atLimit
+                      ? "You've reached your monthly message limit. Click to upgrade and continue."
+                      : undefined
+                }
               inputRef={inputRef}
               onInputFocus={() => { 
                 if (!user) openAuthModalFromChat();
