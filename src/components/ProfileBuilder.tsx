@@ -215,8 +215,7 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4"
-           style={{ paddingBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4">
         {/* Main Header - Responsive */}
         <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
