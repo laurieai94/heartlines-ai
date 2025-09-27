@@ -475,17 +475,16 @@
   .persistent-cursor::after {
     content: '';
     position: absolute;
-    left: var(--cursor-left, 12px);
-    top: var(--cursor-top, 12px);
+    left: var(--cursor-left, 8px);
+    top: var(--cursor-top, 8px);
     width: 2px;
     height: var(--cursor-height, 20px);
     background-color: white;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 0 12px rgba(255, 255, 255, 0.3);
-    animation: cursorBlink 1.2s infinite;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 8px rgba(255, 255, 255, 0.3);
+    animation: cursorBlink 1s infinite;
     pointer-events: none;
-    z-index: 30;
+    z-index: 10;
     border-radius: 1px;
-    opacity: 1;
   }
 
   .persistent-cursor:focus::after,
