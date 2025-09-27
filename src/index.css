@@ -450,26 +450,25 @@
   /* Persistent cursor blinking animation */
   @keyframes cursorBlink {
     0%, 50% {
-      border-right-color: transparent;
+      opacity: 1;
     }
     51%, 100% {
-      border-right-color: currentColor;
+      opacity: 0;
     }
   }
 
   .cursor-always-blink {
-    border-right: 2px solid transparent;
     animation: cursorBlink 1s infinite;
   }
 
   /* Force cursor visibility on textarea */
   .persistent-cursor {
-    caret-color: transparent !important;
+    caret-color: white !important;
     position: relative;
   }
 
   .persistent-cursor:focus {
-    caret-color: transparent !important;
+    caret-color: white !important;
   }
 
   /* Always-visible blinking cursor that positions after text content */
