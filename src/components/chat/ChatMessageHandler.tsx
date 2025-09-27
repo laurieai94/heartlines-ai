@@ -11,7 +11,7 @@ interface ChatMessageHandlerProps {
   demographicsData: DemographicsData;
   profileGoals?: UseProfileGoalsReturn;
   chatHistory: ChatMessage[];
-  setChatHistory: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
+  setChatHistory: (messages: ChatMessage[]) => void;
   canInteract: boolean;
 }
 
@@ -57,7 +57,7 @@ export const useChatMessageHandler = ({
 
     // Batch state updates to prevent flickering
     setPendingCount(c => c + 1);
-    setChatHistory(prev => deduplicateMessages([...prev, newUserMessage]));
+    setChatHistory(deduplicateMessages([...chatHistory, newUserMessage]));
 
     // Create history snapshot including the new user message for this request
     const historySnapshot = [...chatHistory, newUserMessage];
@@ -104,7 +104,7 @@ export const useChatMessageHandler = ({
       };
 
       // Single batched update with deduplication
-      setChatHistory(prev => deduplicateMessages([...prev, aiMessage]));
+      setChatHistory(deduplicateMessages([...chatHistory, newUserMessage, aiMessage]));
 
       // Refresh subscription data to update usage count
       try {
@@ -125,7 +125,7 @@ export const useChatMessageHandler = ({
         content: error.message || "An unexpected error occurred. Please try again.",
         timestamp: new Date().toISOString()
       };
-      setChatHistory(prev => deduplicateMessages([...prev, errorMessage]));
+      setChatHistory(deduplicateMessages([...chatHistory, newUserMessage, errorMessage]));
     } finally {
       setPendingCount(c => Math.max(0, c - 1));
     }
