@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import OptimizedApp from '@/components/OptimizedApp'
+import App from './App.tsx'
 import './index.css'
 import './styles/mobile-optimizations.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
@@ -18,7 +18,7 @@ const app = (
   <ErrorBoundaryComponent>
     <MobileProvider>
       <ViewportProvider>
-        <OptimizedApp />
+        <App />
       </ViewportProvider>
     </MobileProvider>
   </ErrorBoundaryComponent>

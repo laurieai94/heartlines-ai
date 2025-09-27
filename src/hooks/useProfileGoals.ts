@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { ProfileGoalsUtility, DerivedGoals, ProfileGoals } from '@/utils/profileGoals';
-import { PersonalProfileOptimized, PartnerProfileOptimized } from '@/hooks/useOptimizedProfileStore';
+import { PersonalProfileV2, PartnerProfileV2 } from '@/hooks/useProfileStoreV2';
 
 /**
- * Profile Goals Hook - MIGRATED to use optimized profile types
+ * Profile Goals Hook - Provides derived goals and coaching priorities
  * Caches derived goals to prevent unnecessary recalculation
  */
 
@@ -18,8 +18,8 @@ export interface UseProfileGoalsReturn {
 }
 
 export const useProfileGoals = (
-  personalProfile?: PersonalProfileOptimized,
-  partnerProfile?: PartnerProfileOptimized
+  personalProfile?: PersonalProfileV2,
+  partnerProfile?: PartnerProfileV2
 ): UseProfileGoalsReturn => {
   // Derive personal goals (memoized to prevent recalculation)
   const derivedGoals = useMemo(() => {
@@ -118,17 +118,17 @@ export const useProfileGoals = (
 };
 
 /**
- * Debug hook for development - logs goals derivation  
+ * Debug hook for development - logs goals derivation
  */
 export const useProfileGoalsDebug = (
-  personalProfile?: PersonalProfileOptimized,
-  partnerProfile?: PartnerProfileOptimized
+  personalProfile?: PersonalProfileV2,
+  partnerProfile?: PartnerProfileV2
 ) => {
   const goals = useProfileGoals(personalProfile, partnerProfile);
   
   // Log goals in development
   if (process.env.NODE_ENV === 'development' && goals.hasGoals) {
-    console.group('🎯 Profile Goals Debug - OPTIMIZED');
+    console.group('🎯 Profile Goals Debug');
     console.log('Personal Profile Complete:', goals.isPersonalComplete);
     console.log('Partner Profile Complete:', goals.isPartnerComplete);
     console.log('Derived Goals:', goals.derivedGoals);
