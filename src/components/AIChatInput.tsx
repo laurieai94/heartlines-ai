@@ -187,14 +187,10 @@ const AIChatInput = ({
   // Auto-focus the textarea when component mounts (but be respectful about it)
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
-      // Initial setup - always update cursor position even if not focusing
-      setTimeout(() => {
-        if (textareaRef.current) {
-          adjustTextareaHeight();
-          updateCursorPosition();
-          textareaRef.current.focus();
-        }
-      }, 100);
+      // Initial setup - immediately update cursor position and focus
+      adjustTextareaHeight();
+      updateCursorPosition();
+      textareaRef.current.focus();
 
       // Only re-focus on chat container clicks, not global clicks
       const handleChatAreaClick = (e: Event) => {
