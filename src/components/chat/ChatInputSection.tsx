@@ -107,7 +107,6 @@ export const ChatInputSection = ({
       // Handle at limit in onInputFocus instead
       return;
     }
-    
     // Hide starters after sending a message
     onCloseStarters();
     onSendMessage(message);
@@ -162,9 +161,11 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Show starters only for empty chats
+  // Show starters immediately for authenticated users with empty chats
   const shouldShowStarters = 
-    chatHistory.length === 0 && user && isConfigured && isHistoryLoaded;
+    (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
+    (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
+    (showStarters && isConfigured && isHistoryLoaded); // Explicit show
 
   // Use native iOS keyboard behavior instead of fighting it
 
@@ -186,15 +187,15 @@ export const ChatInputSection = ({
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
               showProfileGlow={accessLevel === 'profile-required' && !!user}
-                placeholder={
-                  !user 
-                    ? "Sign in to start chatting…" 
-                    : accessLevel === 'profile-required' 
-                      ? "Click here to complete your profile and start chatting with Kai…"
-                      : atLimit
-                      ? "You've reached your monthly message limit. Click to upgrade and continue."
-                      : ""
-                }
+              placeholder={
+                !user 
+                  ? "Sign in to start chatting…" 
+                  : accessLevel === 'profile-required' 
+                    ? "Click here to complete your profile and start chatting with Kai…"
+                    : atLimit
+                    ? "You've reached your monthly message limit. Click to upgrade and continue."
+                    : "Message Kai…"
+              }
               inputRef={inputRef}
               onInputFocus={() => { 
                 if (!user) openAuthModalFromChat();

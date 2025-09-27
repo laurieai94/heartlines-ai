@@ -4,38 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mobile performance optimizations */
+/* Mobile optimization classes */
 .mobile-optimized {
   /* Ensure smooth scrolling on mobile */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-}
-
-.mobile-performance-mode {
-  /* Disable expensive animations on mobile */
-  * {
-    animation-duration: 0.01ms !important;
-    animation-delay: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0.01ms !important;
-  }
-}
-
-.low-end-device {
-  /* Reduce visual complexity on low-end devices */
-  .animate-pulse,
-  .animate-float,
-  .animate-float-slow,
-  .animate-gradient {
-    animation: none !important;
-  }
-  
-  /* Disable transforms that cause layer creation */
-  .hover\\:scale-105,
-  .hover\\:-translate-y-0\\.5,
-  .hover\\:-translate-y-2 {
-    transform: none !important;
-  }
 }
 
 .ios-optimized [data-radix-scroll-area-viewport],
@@ -199,7 +172,7 @@
     @apply border-border;
   }
 
-  /* Simple, stable full-height layout */
+  /* Full-height root chain for reliable h-full layouts */
   html, body, #root {
     height: 100%;
   }
@@ -210,19 +183,54 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
     line-height: 1.6;
-    touch-action: manipulation;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
+          /* Enhanced mobile stability and performance */
+          touch-action: manipulation;
+          overscroll-behavior: contain;
+          overflow-x: hidden;
+          -webkit-text-size-adjust: 100%;
+          -webkit-tap-highlight-color: transparent;
+          /* Better scroll performance on mobile */
+          -webkit-overflow-scrolling: touch;
+          /* Mobile-specific color consistency fixes */
+          color-scheme: dark;
+          /* iOS Safari keyboard handling */
+          height: -webkit-fill-available;
   }
 
-  /* Mobile optimizations - keep it simple */
-  @media (max-width: 768px) {
-    html, body {
-      height: 100%;
+  /* iOS Safari specific fixes to prevent address bar */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      height: -webkit-fill-available;
+    }
+    
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow: hidden;
     }
     
     #root {
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Mobile optimizations - allow natural scrolling */
+  @media (max-width: 768px) {
+    body {
+      /* Remove scroll momentum for smoother touch interactions */
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    
+    #root {
+      /* Ensure proper mobile layout without breaking scroll */
       min-height: 100vh;
+      min-height: 100dvh;
     }
   }
 
@@ -439,52 +447,7 @@
     animation: optionalGlow 4.5s ease-in-out infinite;
   }
 
-  /* Persistent cursor blinking animation */
-  @keyframes cursorBlink {
-    0%, 50% {
-      opacity: 1;
-    }
-    51%, 100% {
-      opacity: 0;
-    }
-  }
-
-  .cursor-always-blink {
-    animation: cursorBlink 1s infinite;
-  }
-
-  /* Force cursor visibility on textarea */
-  .persistent-cursor {
-    caret-color: white !important;
-    position: relative;
-  }
-
-  .persistent-cursor:focus {
-    caret-color: white !important;
-  }
-
-  /* Always-visible blinking cursor that positions after text content */
-  .persistent-cursor::after {
-    content: '';
-    position: absolute;
-    left: var(--cursor-left, 8px);
-    top: var(--cursor-top, 8px);
-    width: 2px;
-    height: var(--cursor-height, 20px);
-    background-color: white;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.4);
-    animation: cursorBlink 0.8s infinite;
-    pointer-events: none;
-    z-index: 10;
-    border-radius: 1px;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .persistent-cursor::after {
-      animation: cursorBlink 2s infinite;
-      opacity: 0.8;
-    }
-
     .animate-profile-glow {
       animation: none;
       box-shadow: 0 0 12px rgba(255, 132, 80, 0.4), 

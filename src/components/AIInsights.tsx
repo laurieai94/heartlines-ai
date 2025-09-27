@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Suspense, lazy, useCallback } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { ChatMessage, AIInsightsProps } from '@/types/AIInsights';
 import { AICoachEngine } from './AICoachEngine';
 import { useChatHistory } from '@/hooks/useChatHistory';
@@ -107,7 +107,10 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
   };
 
   const handleCloseStarters = () => {
-    setShowStarters(false);
+    // Don't hide starters if chat is empty - they'll still show due to shouldShowStarters logic
+    if (chatHistory.length > 0) {
+      setShowStarters(false);
+    }
   };
 
   const handleSupabaseConfigured = (configured: boolean) => {
@@ -163,7 +166,6 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, []);
 
-
   // Load most recent conversation on first mount only
   const hasLoadedMostRecentRef = useRef(false);
   useEffect(() => {
@@ -195,10 +197,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
     }
   }, [chatHistory.length, isConfigured, historyLoading, conversations.length]);
 
-  // Simple wrapper for setChatHistory 
-  const handleSetChatHistory = useCallback((messages: typeof chatHistory) => {
-    setChatHistory(messages);
-  }, []);
+  // Removed debug logs for performance
 
   return (
     <div className="h-full min-h-0 max-h-full overflow-hidden flex flex-col px-2 sm:px-3 lg:px-4 pt-0 pb-2 sm:pb-3 lg:pb-4">
@@ -210,7 +209,7 @@ const AIInsights = ({ profiles = { your: [], partner: [] }, demographicsData = {
             demographicsData={unifiedDemographics}
             profileGoals={profileGoals}
             chatHistory={chatHistory}
-            setChatHistory={handleSetChatHistory}
+            setChatHistory={setChatHistory}
             isConfigured={isConfigured}
             conversationStarter={conversationStarter}
             onNewConversation={handleNewConversation}

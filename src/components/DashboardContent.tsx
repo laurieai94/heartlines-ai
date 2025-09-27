@@ -102,7 +102,7 @@ const DashboardContent = ({
           observer.observe(document.body, { childList: true, subtree: true });
         }, 100);
       } else {
-        
+        console.log('Menu button not found, trying alternative selectors');
         // Fallback: look for any button in the header that might be the menu
         const headerButtons = document.querySelectorAll('[data-mobile-header] button');
         if (headerButtons.length > 0) {

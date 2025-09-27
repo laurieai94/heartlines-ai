@@ -3,20 +3,15 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import './styles/mobile-optimizations.css'
-import './styles/mobile-performance.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
-import { OptimizedProviderStack } from "@/contexts/OptimizedContextProviders"
-import { useOptimizedEffect } from '@/hooks/useOptimizedEffects';
-import { initLightPerformanceOptimizations } from '@/utils/lightPerformanceCleanup';
+import { ViewportProvider } from "@/contexts/ViewportContext"
+import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 
 // Production optimizations component
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
-  useOptimizedEffect(() => {
-    initLightPerformanceOptimizations(); // Use lightweight cleanup only
-  }, [], { immediate: true, production: true });
-  
+  useProductionOptimizations();
   return <>{children}</>;
 };
 
@@ -25,14 +20,14 @@ const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 7
 
 const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBoundary;
 
-// Optimized app structure with minimal context nesting
+// Remove StrictMode even in development to prevent double renders and performance issues
 const app = (
   <ErrorBoundaryComponent>
     <ProductionWrapper>
       <MobileProvider>
-        <OptimizedProviderStack>
+        <ViewportProvider>
           <App />
-        </OptimizedProviderStack>
+        </ViewportProvider>
       </MobileProvider>
     </ProductionWrapper>
   </ErrorBoundaryComponent>

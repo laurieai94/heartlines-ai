@@ -2,7 +2,6 @@ import { useEffect, useMemo } from 'react';
 import { PartnerProfileData } from '../types';
 import { calculatePartnerProgress } from '../utils/partnerValidation';
 import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
-import { optimizedLogger } from '@/utils/optimizedLogger';
 
 const defaultPartnerProfileData: PartnerProfileData = {
   // Section 1: The Basics
@@ -70,20 +69,20 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
       normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
     }
     
-    optimizedLogger.debug(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
+    console.log(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
     rawUpdateField(field, normalizedValue);
   };
 
   // Normalize multi-select handling with enhanced logging
   const normalizedHandleMultiSelect = (field: keyof PartnerProfileData, value: string) => {
-    optimizedLogger.debug(`[Partner] Multi-select attempt ${field}:`, value, 'current:', profileData?.[field]);
+    console.log(`[Partner] Multi-select attempt ${field}:`, value, 'current:', profileData?.[field]);
     rawHandleMultiSelect(field, value);
   };
 
   // Optimized merge with useMemo to prevent unnecessary re-renders
   const mergedProfileData = useMemo(() => {
     const merged = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
-    optimizedLogger.debug('[Partner] Data merge:', { profileData, merged });
+    console.log('[Partner] Data merge:', { profileData, merged });
     return merged;
   }, [profileData]);
 

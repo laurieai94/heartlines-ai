@@ -97,21 +97,21 @@ const CleanQuestionnaireFooter = ({
 
         {/* Right side - Action Buttons */}
         <div className="flex items-center gap-2">
-          {/* Show unlock button as soon as requirements are met */}
+          {/* Show Unlock Coaching button when requirements are met (any section) */}
           {canComplete && !autoCompleteEnabled && (
             <>
-              {/* Add partner button - show on any section when complete */}
-              <Button
-                variant="outline"
-                onClick={goToPartner}
-                className="bg-white/10 hover:bg-white/15 border border-white/20 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-sm hover:scale-105 transition-all duration-200 font-medium"
-              >
-                <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span className="hidden sm:inline">Add your person's details</span>
-                <span className="sm:hidden">Your person</span>
-              </Button>
+              {currentSection === 4 && (
+                <Button
+                  variant="outline"
+                  onClick={goToPartner}
+                  className="bg-white/10 hover:bg-white/15 border border-white/20 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-sm hover:scale-105 transition-all duration-200 font-medium"
+                >
+                  <UserPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:inline">Add your person's details</span>
+                  <span className="sm:hidden">Your person</span>
+                </Button>
+              )}
               
-              {/* Unlock coaching button - prioritized when requirements are met */}
               <Button
                 onClick={onComplete}
                 className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20 backdrop-blur-md border px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none"
@@ -123,14 +123,29 @@ const CleanQuestionnaireFooter = ({
             </>
           )}
 
-          {/* Next Section Button - always show when not on final section */}
-          {currentSection < 4 && (
+          {/* Next Section Button (when not on last section and coaching not unlocked yet) */}
+          {currentSection < 4 && !canComplete && (
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
-              className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100"
+              className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 ${
+                canGoNext ? 'animate-glow-pulse' : ''
+              }`}
             >
               <span className="hidden sm:inline">Next Section</span>
+              <span className="sm:hidden">Next</span>
+              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            </Button>
+          )}
+
+          {/* Show both Next and Unlock buttons when on early sections but requirements are met */}
+          {currentSection < 4 && canComplete && (
+            <Button
+              onClick={onNextSection}
+              disabled={!canGoNext}
+              className="bg-white/10 hover:bg-white/15 border border-white/20 text-white/80 hover:text-white backdrop-blur-sm flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-sm hover:scale-105 transition-all duration-200 font-medium"
+            >
+              <span className="hidden sm:inline">Continue</span>
               <span className="sm:hidden">Next</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Button>

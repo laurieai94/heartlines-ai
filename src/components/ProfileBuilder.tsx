@@ -21,7 +21,7 @@ import { logEvent } from "@/utils/analytics";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
-import { useLightMobileOptimizations } from '@/hooks/useLightMobileOptimizations';
+import { useProfileMobileOptimizations } from '@/hooks/useProfileMobileOptimizations';
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -114,22 +114,17 @@ const ProfileBuilder = ({
   const { 
     isMobile, 
     isRefreshing, 
-    setIsRefreshing,
-    simulateHapticFeedback
-  } = useLightMobileOptimizations();
+    simulateProfileFeedback, 
+    handleTouchStart, 
+    handleTouchMove, 
+    handleTouchEnd 
+  } = useProfileMobileOptimizations();
   
-  // Handle pull-to-refresh (simplified)
+  // Handle pull-to-refresh
   const handleRefresh = async () => {
-    if (!isMobile) return;
-    
-    setIsRefreshing(true);
-    try {
-      // Refresh profile data
-      if (onProfileUpdate) {
-        onProfileUpdate(temporaryProfiles, temporaryDemographics);
-      }
-    } finally {
-      setTimeout(() => setIsRefreshing(false), 1000);
+    // Refresh profile data
+    if (onProfileUpdate) {
+      onProfileUpdate(temporaryProfiles, temporaryDemographics);
     }
   };
   
@@ -139,15 +134,21 @@ const ProfileBuilder = ({
       action: yourProfileCompletion > 0 ? 'continue' : 'start'
     });
     
+    console.log('handleStartPersonalProfile called, onOpenQuestionnaire exists:', !!onOpenQuestionnaire);
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
       onOpenQuestionnaire();
+    } else {
+      console.error('onOpenQuestionnaire callback not provided');
     }
   };
   const handleStartPartnerProfile = () => {
+    console.log('handleStartPartnerProfile called, onOpenPartnerQuestionnaire exists:', !!onOpenPartnerQuestionnaire);
     // Call the callback to open the partner questionnaire modal in Dashboard
     if (onOpenPartnerQuestionnaire) {
       onOpenPartnerQuestionnaire();
+    } else {
+      console.error('onOpenPartnerQuestionnaire callback not provided');
     }
   };
   const handleStartProfile = (profileType: 'your' | 'partner') => {
@@ -203,22 +204,41 @@ const ProfileBuilder = ({
     setShowPartnerCompletionOptions(false);
     // This would need to be handled by the parent component
   };
-  // Simplified mobile refresh - no touch events to prevent freezing
+  // Add touch event listeners for pull-to-refresh
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleStart = (e: TouchEvent) => handleTouchStart(e);
+    const handleMove = (e: TouchEvent) => handleTouchMove(e);
+    const handleEnd = (e: TouchEvent) => handleTouchEnd(e, handleRefresh);
+    
+    document.addEventListener('touchstart', handleStart, { passive: true });
+    document.addEventListener('touchmove', handleMove, { passive: true });
+    document.addEventListener('touchend', handleEnd, { passive: true });
+    
+    return () => {
+      document.removeEventListener('touchstart', handleStart);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
+    };
+  }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd, handleRefresh]);
 
   return <div className="flex flex-col min-h-dvh" data-profile-container>
-      {/* Simplified mobile refresh indicator */}
-      {isMobile && isRefreshing && (
+      {/* Pull-to-refresh indicator */}
+      {isMobile && (
         <div 
-          className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm z-50 border border-white/20"
+          data-refresh-indicator
+          className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm opacity-0 transition-all duration-200 z-50 border border-white/20"
         >
-          Refreshing...
+          {isRefreshing ? 'Refreshing...' : 'Pull to refresh'}
         </div>
       )}
       
-      <div className="space-y-3 md:space-y-7 lg:space-y-10 pb-safe pt-1 md:pt-2 lg:pt-4">
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4"
+           style={{ paddingBottom: isMobile ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-2 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
-          <h1 className="text-xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
+        <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && (
@@ -248,7 +268,7 @@ const ProfileBuilder = ({
         </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="space-y-2 md:space-y-4 lg:space-y-6">
+      <div className="space-y-3 md:space-y-4 lg:space-y-6">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
         {!canUnlockCoaching && (
           <div className="px-3 md:px-4 lg:px-6">
@@ -259,7 +279,7 @@ const ProfileBuilder = ({
           </div>
         )}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-1.5 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-0.5 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-2 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-1 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
           {/* Your Profile Card */}
           <ProfileCard 
             title="Your Profile"
@@ -305,13 +325,12 @@ const ProfileBuilder = ({
             benefitColor="text-pink-300"
             optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
             motivationText="Bring your +1 for hotter takes"
-            mobileIconOnly={true}
           />
         </div>
 
 
         {/* Privacy Banner - Clean Collapsible */}
-        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 -mt-6 md:-mt-8 lg:-mt-10">
+        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 -mt-4 md:-mt-6 lg:-mt-8">
           <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
             <Collapsible>
               <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
@@ -328,10 +347,17 @@ const ProfileBuilder = ({
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
                 <div className="pl-10 space-y-1 text-sm text-white/80">
-                  <p>• Only you and Kai can see your conversations</p>
-                  <p>• Messages are encrypted on your device before they're sent</p>  
-                  <p>• You choose how long to keep your history (30/90/365/forever)</p>
-                  <p>• Delete anything, anytime — full control is yours</p>
+                  <p>• Only you and Kai see your profiles</p>
+                  <p>• Everything is encrypted and secure</p>  
+                  <p>• You control your data completely</p>
+                  <Link 
+                    to="/privacy-security" 
+                    className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
+                    aria-label="Learn more about our privacy and security practices"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
                 </div>
               </CollapsibleContent>
             </Collapsible>

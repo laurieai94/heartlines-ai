@@ -33,6 +33,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
     e.stopPropagation();
     const target = e.currentTarget as HTMLElement;
     simulateHaptic(target);
+    console.log('📱 Enhanced pull tab touched - forcing header visible');
     forceVisible();
     onOpenNavigation?.();
   };
@@ -46,6 +47,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
         e.stopPropagation();
         const target = e.currentTarget as HTMLElement;
         simulateHaptic(target);
+        console.log('📱 Enhanced pull tab clicked - forcing header visible');
         forceVisible();
         onOpenNavigation?.();
       }}

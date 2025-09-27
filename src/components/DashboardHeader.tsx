@@ -57,7 +57,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   ];
 
   const handleNavigation = (item: any, isMobileNav = false) => {
-    
+    console.log('Navigation clicked:', item.value, 'isExternal:', item.isExternal);
     
     // Close the appropriate dropdown
     if (isMobileNav) {
@@ -73,7 +73,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
       else if (item.value === 'profile') navigate('/profile');
     } else {
       // For internal navigation, call onValueChange which should trigger navigation
-      
+      console.log('Calling onValueChange with:', item.value);
       onValueChange(item.value);
     }
   };
