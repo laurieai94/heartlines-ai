@@ -21,7 +21,7 @@ import { logEvent } from "@/utils/analytics";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
-import { useProfileMobileOptimizations } from '@/hooks/useProfileMobileOptimizations';
+import { useLightMobileOptimizations } from '@/hooks/useLightMobileOptimizations';
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -114,17 +114,22 @@ const ProfileBuilder = ({
   const { 
     isMobile, 
     isRefreshing, 
-    simulateProfileFeedback, 
-    handleTouchStart, 
-    handleTouchMove, 
-    handleTouchEnd 
-  } = useProfileMobileOptimizations();
+    setIsRefreshing,
+    simulateHapticFeedback
+  } = useLightMobileOptimizations();
   
-  // Handle pull-to-refresh
+  // Handle pull-to-refresh (simplified)
   const handleRefresh = async () => {
-    // Refresh profile data
-    if (onProfileUpdate) {
-      onProfileUpdate(temporaryProfiles, temporaryDemographics);
+    if (!isMobile) return;
+    
+    setIsRefreshing(true);
+    try {
+      // Refresh profile data
+      if (onProfileUpdate) {
+        onProfileUpdate(temporaryProfiles, temporaryDemographics);
+      }
+    } finally {
+      setTimeout(() => setIsRefreshing(false), 1000);
     }
   };
   
@@ -198,33 +203,15 @@ const ProfileBuilder = ({
     setShowPartnerCompletionOptions(false);
     // This would need to be handled by the parent component
   };
-  // Add touch event listeners for pull-to-refresh
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const handleStart = (e: TouchEvent) => handleTouchStart(e);
-    const handleMove = (e: TouchEvent) => handleTouchMove(e);
-    const handleEnd = (e: TouchEvent) => handleTouchEnd(e, handleRefresh);
-    
-    document.addEventListener('touchstart', handleStart, { passive: true });
-    document.addEventListener('touchmove', handleMove, { passive: true });
-    document.addEventListener('touchend', handleEnd, { passive: true });
-    
-    return () => {
-      document.removeEventListener('touchstart', handleStart);
-      document.removeEventListener('touchmove', handleMove);
-      document.removeEventListener('touchend', handleEnd);
-    };
-  }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd, handleRefresh]);
+  // Simplified mobile refresh - no touch events to prevent freezing
 
   return <div className="flex flex-col min-h-dvh" data-profile-container>
-      {/* Pull-to-refresh indicator */}
-      {isMobile && (
+      {/* Simplified mobile refresh indicator */}
+      {isMobile && isRefreshing && (
         <div 
-          data-refresh-indicator
-          className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm opacity-0 transition-all duration-200 z-50 border border-white/20"
+          className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm z-50 border border-white/20"
         >
-          {isRefreshing ? 'Refreshing...' : 'Pull to refresh'}
+          Refreshing...
         </div>
       )}
       

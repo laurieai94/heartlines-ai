@@ -1,0 +1,82 @@
+/* Enhanced mobile performance optimizations */
+
+.mobile-performance-mode {
+  /* Disable expensive animations and transitions on mobile for performance */
+  * {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 50ms !important;
+    transition-delay: 0s !important;
+  }
+  
+  /* Disable background-attachment on mobile to prevent repaint issues */
+  * {
+    background-attachment: scroll !important;
+  }
+  
+  /* Optimize scrolling performance */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: auto !important; /* Disable smooth scroll */
+}
+
+.low-end-device {
+  /* Remove animations that cause performance issues */
+  .animate-pulse,
+  .animate-float,
+  .animate-float-slow,
+  .animate-gradient,
+  .animate-profile-glow {
+    animation: none !important;
+  }
+  
+  /* Disable hover effects that cause layer creation */
+  .hover\\:scale-105,
+  .hover\\:-translate-y-0\\.5,
+  .hover\\:-translate-y-2,
+  .group-hover\\:scale-105 {
+    transform: none !important;
+  }
+  
+  /* Reduce visual complexity */
+  .backdrop-blur-sm,
+  .backdrop-blur,
+  .backdrop-blur-md {
+    backdrop-filter: none !important;
+  }
+  
+  /* Simplify shadows */
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* iOS specific performance optimizations */
+.ios-optimized {
+  /* Fix iOS viewport issues */
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+.ios-optimized [data-radix-scroll-area-viewport],
+.ios-optimized .overflow-auto,
+.ios-optimized .overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-optimized *,
+  .mobile-performance-mode *,
+  .low-end-device * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

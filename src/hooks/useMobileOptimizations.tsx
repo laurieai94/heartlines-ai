@@ -1,74 +1,54 @@
 import { useEffect, useCallback } from 'react';
-import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
-import { useViewport } from '@/contexts/ViewportContext';
-import { useMobilePerformanceGuard } from '@/hooks/useMobilePerformanceGuard';
+import { useLightMobileGuard } from './useLightMobileGuard';
+import { useOptimizedMobile } from './useOptimizedMobile';
 
 /**
- * Optimized mobile-specific enhancements
- * Lightweight version with CSS-first approach and minimal DOM manipulation
+ * Lightweight mobile optimizations that prevent freezing
+ * Minimal DOM manipulation and no heavy observers
  */
 export const useMobileOptimizations = () => {
   const { isMobile } = useOptimizedMobile();
-  const { registerKeyboardListener } = useViewport();
-  const { shouldDisableFeature } = useMobilePerformanceGuard();
+  const { shouldDisableFeature } = useLightMobileGuard();
 
-  // Performance-aware haptic feedback simulation
+  // Lightweight haptic feedback - CSS transforms only
   const simulateHapticFeedback = useCallback((element: HTMLElement, type: 'light' | 'medium' | 'heavy' = 'light') => {
     if (!isMobile || shouldDisableFeature('animation')) return;
-    
-    const intensity = {
-      light: 'scale-[0.98]',
-      medium: 'scale-[0.95]',
-      heavy: 'scale-[0.92]'
+
+    const intensities = {
+      light: { scale: 0.98, duration: 75 },
+      medium: { scale: 0.95, duration: 100 },
+      heavy: { scale: 0.92, duration: 150 }
     };
-    
-    element.classList.add('transition-transform', 'duration-75', intensity[type]);
-    
-    setTimeout(() => {
-      element.classList.remove('transition-transform', 'duration-75', intensity[type]);
-    }, 150);
+
+    const intensity = intensities[type];
+    element.style.transform = `scale(${intensity.scale})`;
+    element.style.transition = `transform ${intensity.duration}ms ease-out`;
+
+    requestAnimationFrame(() => {
+      element.style.transform = 'scale(1)';
+      setTimeout(() => {
+        element.style.transform = '';
+        element.style.transition = '';
+      }, intensity.duration);
+    });
   }, [isMobile, shouldDisableFeature]);
 
-  // CSS-based touch optimization - no DOM manipulation needed
+  // Minimal mobile CSS optimizations - set once, no observers
   useEffect(() => {
     if (!isMobile) return;
-    
-    // Add mobile optimization classes to body
+
     document.body.classList.add('mobile-optimized');
-    
-    return () => {
-      document.body.classList.remove('mobile-optimized');
-    };
+    return () => document.body.classList.remove('mobile-optimized');
   }, [isMobile]);
 
-  // iOS scroll optimizations with centralized viewport handling
+  // Basic iOS optimizations without aggressive viewport handling
   useEffect(() => {
-    if (!isMobile) return;
-    
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    
-    if (isIOS) {
-      // Apply iOS scroll optimizations via CSS
-      document.body.classList.add('ios-optimized');
-      
-      // Register for keyboard events through centralized viewport context
-      const unregister = registerKeyboardListener((isKeyboardVisible) => {
-        const profileContainer = document.querySelector('[data-profile-container]') as HTMLElement;
-        if (profileContainer) {
-          if (isKeyboardVisible) {
-            profileContainer.style.paddingBottom = `calc(1.5rem + env(keyboard-inset-height, 0px) + env(safe-area-inset-bottom, 0px))`;
-          } else {
-            profileContainer.style.paddingBottom = '';
-          }
-        }
-      });
+    if (!isIOS || !isMobile) return;
 
-      return () => {
-        document.body.classList.remove('ios-optimized');
-        unregister();
-      };
-    }
-  }, [isMobile, registerKeyboardListener]);
+    document.body.classList.add('ios-optimized');
+    return () => document.body.classList.remove('ios-optimized');
+  }, [isMobile]);
 
   return {
     simulateHapticFeedback,

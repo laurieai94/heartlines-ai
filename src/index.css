@@ -4,11 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mobile optimization classes */
+/* Mobile performance optimizations */
 .mobile-optimized {
   /* Ensure smooth scrolling on mobile */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+.mobile-performance-mode {
+  /* Disable expensive animations on mobile */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0.01ms !important;
+  }
+}
+
+.low-end-device {
+  /* Reduce visual complexity on low-end devices */
+  .animate-pulse,
+  .animate-float,
+  .animate-float-slow,
+  .animate-gradient {
+    animation: none !important;
+  }
+  
+  /* Disable transforms that cause layer creation */
+  .hover\\:scale-105,
+  .hover\\:-translate-y-0\\.5,
+  .hover\\:-translate-y-2 {
+    transform: none !important;
+  }
 }
 
 .ios-optimized [data-radix-scroll-area-viewport],

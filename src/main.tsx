@@ -3,19 +3,18 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import './styles/mobile-optimizations.css'
+import './styles/mobile-performance.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useOptimizedEffect } from '@/hooks/useOptimizedEffects';
-import { initPerformanceOptimizations } from '@/utils/performanceCleanup';
-import { initMobilePerformanceCleanup } from '@/utils/mobilePerformanceCleanup';
+import { initLightPerformanceOptimizations } from '@/utils/lightPerformanceCleanup';
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 
 // Production optimizations component
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   useOptimizedEffect(() => {
-    initPerformanceOptimizations();
-    initMobilePerformanceCleanup(); // Initialize mobile-specific cleanup
+    initLightPerformanceOptimizations(); // Use lightweight cleanup only
   }, [], { immediate: true, production: true });
   
   return <>{children}</>;
