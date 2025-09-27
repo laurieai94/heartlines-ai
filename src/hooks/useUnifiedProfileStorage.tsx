@@ -12,8 +12,8 @@ interface ProfileData {
 }
 
 export const useUnifiedProfileStorage = (profileType: ProfileType) => {
-  // DEPRECATED: This hook has been replaced by useProfileStoreV2
-  console.warn('⚠️ useUnifiedProfileStorage is deprecated and disabled. Use useProfileStoreV2 instead.');
+  // DISABLED: This hook has been replaced by useOptimizedProfileStore for performance
+  console.warn('⚠️ useUnifiedProfileStorage is disabled and replaced by useOptimizedProfileStore');
   
   // Return empty/disabled state to prevent conflicts
   return {
@@ -21,17 +21,17 @@ export const useUnifiedProfileStorage = (profileType: ProfileType) => {
     isLoading: false,
     isReady: false,
     saveData: async () => {
-      console.warn('useUnifiedProfileStorage.saveData is disabled. Use useProfileStoreV2 instead.');
+      console.warn('useUnifiedProfileStorage.saveData is disabled. Use useOptimizedProfileStore instead.');
     },
     updateField: () => {
-      console.warn('useUnifiedProfileStorage.updateField is disabled. Use useProfileStoreV2 instead.');
+      console.warn('useUnifiedProfileStorage.updateField is disabled. Use useOptimizedProfileStore instead.');
     },
     handleMultiSelect: () => {
-      console.warn('useUnifiedProfileStorage.handleMultiSelect is disabled. Use useProfileStoreV2 instead.');
+      console.warn('useUnifiedProfileStorage.handleMultiSelect is disabled. Use useOptimizedProfileStore instead.');
     },
     lastSaved: null,
     recoverFromDatabase: async () => {
-      console.warn('useUnifiedProfileStorage.recoverFromDatabase is disabled. Use useProfileStoreV2 instead.');
+      console.warn('useUnifiedProfileStorage.recoverFromDatabase is disabled. Use useOptimizedProfileStore instead.');
     }
   };
 };

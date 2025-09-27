@@ -5,7 +5,7 @@ import { debounce } from '@/utils/throttle';
 
 export type ProfileType = 'personal' | 'partner';
 
-// Simplified profile interfaces
+// Optimized profile interfaces with all necessary fields
 export interface PersonalProfileOptimized {
   name: string;
   age: string;
@@ -14,6 +14,17 @@ export interface PersonalProfileOptimized {
   pronouns: string;
   relationshipStatus: string;
   relationshipLength: string;
+  talkingDuration: string;
+  talkingDescription: string[];
+  talkingChallenges: string[];
+  relationshipChallenges: string[];
+  relationshipWorking: string[];
+  datingChallenges: string[];
+  datingGoals: string[];
+  separationSituation: string[];
+  datingReadiness: string[];
+  timeSinceLoss: string;
+  grievingProcess: string[];
   stressResponse: string[];
   conflictStyle: string[];
   loveLanguage: string[];
@@ -32,15 +43,22 @@ export interface PartnerProfileOptimized {
   partnerGender: string[];
   partnerLoveLanguage: string[];
   partnerConflictStyle: string[];
+  partnerCommunicationResponse: string[];
+  partnerSelfAwareness: string;
+  partnerHeartbreakBetrayal: string[];
+  partnerFamilyStructure: string[];
   partnerAttachmentStyle: string;
   lastUpdated: string;
   version: string;
 }
 
-// Default profiles with minimal required fields
+// Default profiles with all required fields
 const defaultPersonalProfile: PersonalProfileOptimized = {
   name: '', age: '', gender: [], orientation: [], pronouns: '',
-  relationshipStatus: '', relationshipLength: '',
+  relationshipStatus: '', relationshipLength: '', talkingDuration: '',
+  talkingDescription: [], talkingChallenges: [], relationshipChallenges: [], 
+  relationshipWorking: [], datingChallenges: [], datingGoals: [], separationSituation: [],
+  datingReadiness: [], timeSinceLoss: '', grievingProcess: [],
   stressResponse: [], conflictStyle: [], loveLanguage: [],
   heartbreakBetrayal: [], familyStructure: [], attachmentStyle: '',
   lastUpdated: '', version: '3.0'
@@ -48,8 +66,9 @@ const defaultPersonalProfile: PersonalProfileOptimized = {
 
 const defaultPartnerProfile: PartnerProfileOptimized = {
   partnerName: '', partnerPronouns: '', partnerAge: '', partnerOrientation: '', partnerGender: [],
-  partnerLoveLanguage: [], partnerConflictStyle: [], partnerAttachmentStyle: '',
-  lastUpdated: '', version: '3.0'
+  partnerLoveLanguage: [], partnerConflictStyle: [], partnerCommunicationResponse: [],
+  partnerSelfAwareness: '', partnerHeartbreakBetrayal: [], partnerFamilyStructure: [],
+  partnerAttachmentStyle: '', lastUpdated: '', version: '3.0'
 };
 
 // Lightweight storage configuration

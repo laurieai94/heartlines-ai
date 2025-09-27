@@ -3,11 +3,11 @@ import { ProfileGoalsUtility, DerivedGoals, ProfileGoals } from '@/utils/profile
 import { PersonalProfileOptimized, PartnerProfileOptimized } from '@/hooks/useOptimizedProfileStore';
 
 /**
- * Profile Goals Hook - MIGRATED to use optimized profile types
- * Caches derived goals to prevent unnecessary recalculation
+ * Optimized Profile Goals Hook - Provides derived goals and coaching priorities
+ * Uses optimized profile types instead of heavy V2 types
  */
 
-export interface UseProfileGoalsReturn {
+export interface UseOptimizedProfileGoalsReturn {
   derivedGoals: DerivedGoals | null;
   partnerGoals: ProfileGoals | null;
   goalsSummary: string[];
@@ -17,10 +17,10 @@ export interface UseProfileGoalsReturn {
   isPartnerComplete: boolean;
 }
 
-export const useProfileGoals = (
+export const useOptimizedProfileGoals = (
   personalProfile?: PersonalProfileOptimized,
   partnerProfile?: PartnerProfileOptimized
-): UseProfileGoalsReturn => {
+): UseOptimizedProfileGoalsReturn => {
   // Derive personal goals (memoized to prevent recalculation)
   const derivedGoals = useMemo(() => {
     if (!personalProfile || !personalProfile.name) {
@@ -28,7 +28,7 @@ export const useProfileGoals = (
     }
     
     try {
-      return ProfileGoalsUtility.derivePersonalGoals(personalProfile);
+      return ProfileGoalsUtility.derivePersonalGoals(personalProfile as any);
     } catch (error) {
       console.warn('Error deriving personal goals:', error);
       return null;
@@ -52,7 +52,7 @@ export const useProfileGoals = (
     }
     
     try {
-      return ProfileGoalsUtility.derivePartnerGoals(partnerProfile);
+      return ProfileGoalsUtility.derivePartnerGoals(partnerProfile as any);
     } catch (error) {
       console.warn('Error deriving partner goals:', error);
       return null;
@@ -118,17 +118,17 @@ export const useProfileGoals = (
 };
 
 /**
- * Debug hook for development - logs goals derivation  
+ * Debug hook for development - logs goals derivation
  */
-export const useProfileGoalsDebug = (
+export const useOptimizedProfileGoalsDebug = (
   personalProfile?: PersonalProfileOptimized,
   partnerProfile?: PartnerProfileOptimized
 ) => {
-  const goals = useProfileGoals(personalProfile, partnerProfile);
+  const goals = useOptimizedProfileGoals(personalProfile, partnerProfile);
   
   // Log goals in development
   if (process.env.NODE_ENV === 'development' && goals.hasGoals) {
-    console.group('🎯 Profile Goals Debug - OPTIMIZED');
+    console.group('🎯 Optimized Profile Goals Debug');
     console.log('Personal Profile Complete:', goals.isPersonalComplete);
     console.log('Partner Profile Complete:', goals.isPartnerComplete);
     console.log('Derived Goals:', goals.derivedGoals);
