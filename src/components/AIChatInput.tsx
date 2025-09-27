@@ -169,23 +169,41 @@ const AIChatInput = ({
   };
 
 
-  // Gentle focus management - respect user input activity
+  // Enhanced focus management - completely respect user input activity
   const maintainFocus = () => {
     if (textareaRef.current && !disabled && !readOnly) {
       const activeElement = document.activeElement;
-      const isTypingElsewhere = activeElement?.tagName === 'INPUT' || 
-                               activeElement?.tagName === 'TEXTAREA' ||
-                               activeElement?.getAttribute('contenteditable') === 'true';
       
-      // More conservative focus management - only focus if no input is active
+      // Enhanced input detection - check for any kind of input element
+      const isInputElement = (element: Element | null): boolean => {
+        if (!element) return false;
+        const tagName = element.tagName.toLowerCase();
+        return tagName === 'input' || 
+               tagName === 'textarea' || 
+               tagName === 'select' ||
+               element.getAttribute('contenteditable') === 'true' ||
+               element.getAttribute('role') === 'textbox' ||
+               element.getAttribute('role') === 'combobox' ||
+               element.closest('form') !== null;
+      };
+      
+      const isTypingElsewhere = isInputElement(activeElement);
+      const isInChatArea = activeElement?.closest('[data-chat-container]') !== null;
+      
+      // Completely avoid focus management if user is typing anywhere
+      if (isTypingElsewhere && !isInChatArea) {
+        return; // Never steal focus from external inputs
+      }
+      
+      // Only focus if not already focused and no input is active anywhere
       if (!isTypingElsewhere && activeElement !== textareaRef.current) {
-        // Add check for user input activity within last 3 seconds
+        // Check for recent input activity in this textarea
         const lastInputTime = textareaRef.current.dataset.lastInput ? 
           parseInt(textareaRef.current.dataset.lastInput) : 0;
         const timeSinceInput = Date.now() - lastInputTime;
         
-        // Don't steal focus if user was recently typing (within 3 seconds)
-        if (timeSinceInput > 3000) {
+        // Much more conservative - 5 seconds grace period
+        if (timeSinceInput > 5000) {
           textareaRef.current.focus({ preventScroll: true });
         }
       }
@@ -204,10 +222,19 @@ const AIChatInput = ({
         }
       }, 100);
 
-      // Reduced focus keeper - less aggressive to prevent typing interruption
+      // Much less aggressive focus keeper - only when absolutely necessary
       const focusKeeper = setInterval(() => {
-        maintainFocus();
-      }, 10000); // Much less frequent - 10 seconds
+        // Only try to maintain focus if user hasn't interacted with any input recently
+        const activeElement = document.activeElement;
+        const hasActiveInput = activeElement?.tagName === 'INPUT' || 
+                              activeElement?.tagName === 'TEXTAREA' ||
+                              activeElement?.getAttribute('contenteditable') === 'true' ||
+                              activeElement?.closest('form') !== null;
+        
+        if (!hasActiveInput) {
+          maintainFocus();
+        }
+      }, 15000); // Much less frequent - 15 seconds
 
       // Reduced click-to-refocus behavior to prevent typing interruption
       const handleChatAreaClick = (e: Event) => {

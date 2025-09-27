@@ -12,11 +12,32 @@ export const useAutoScroll = () => {
     }
   }, []);
 
-  // Simplified scroll function using CSS scroll-behavior
-  const scrollToElement = useCallback((elementId: string, delay: number = 100) => {
+  // Enhanced scroll function with input detection
+  const scrollToElement = useCallback((elementId: string, delay: number = 150) => {
     clearScrollTimeout();
     
+    // Check if user is actively typing anywhere before scrolling
+    const activeElement = document.activeElement;
+    const isTypingAnywhere = activeElement?.tagName === 'INPUT' || 
+                            activeElement?.tagName === 'TEXTAREA' ||
+                            activeElement?.getAttribute('contenteditable') === 'true' ||
+                            activeElement?.closest('form') !== null;
+    
+    if (isTypingAnywhere) {
+      return; // Don't scroll if user is typing anywhere
+    }
+    
     timeoutRef.current = setTimeout(() => {
+      // Double-check user isn't typing when timeout executes
+      const currentActive = document.activeElement;
+      const stillTyping = currentActive?.tagName === 'INPUT' || 
+                         currentActive?.tagName === 'TEXTAREA' ||
+                         currentActive?.getAttribute('contenteditable') === 'true';
+      
+      if (stillTyping) {
+        return; // Cancel scroll if user started typing
+      }
+      
       const element = document.getElementById(elementId) || 
                      document.querySelector(`[data-question-card][id="${elementId}"]`);
       
