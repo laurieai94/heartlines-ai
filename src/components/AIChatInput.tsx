@@ -120,55 +120,57 @@ const AIChatInput = ({
   };
 
 
-  // Aggressive focus management to keep cursor always visible
+  // Smart focus management - respects navigation and user intent
   const maintainFocus = () => {
     if (textareaRef.current && !disabled && !readOnly) {
+      // Check if user is actively navigating or interacting with navigation elements
       const activeElement = document.activeElement;
-      if (activeElement !== textareaRef.current) {
+      const isNavigating = activeElement?.closest('[role="navigation"]') || 
+                          activeElement?.closest('nav') ||
+                          activeElement?.closest('[data-navigation]') ||
+                          activeElement?.closest('.navigation') ||
+                          document.querySelector('[data-state="open"]'); // Sheet/dialog open
+      
+      if (!isNavigating && activeElement !== textareaRef.current) {
         textareaRef.current.focus({ preventScroll: true });
       }
     }
   };
 
-  // Auto-focus the textarea when component mounts and after interactions
+  // Auto-focus the textarea when component mounts (but be respectful about it)
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
-      textareaRef.current.focus();
-      adjustTextareaHeight();
-      isActiveFocusRef.current = true;
-
-      // Set up persistent focus keeper
-      focusKeeperRef.current = setInterval(() => {
-        if (isActiveFocusRef.current) {
-          maintainFocus();
+      // Initial focus with delay to avoid conflicts
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.focus();
+          adjustTextareaHeight();
         }
       }, 100);
 
-      // Add global event listeners to maintain focus
-      const handleGlobalClick = (e: Event) => {
+      // Only re-focus on chat container clicks, not global clicks
+      const handleChatAreaClick = (e: Event) => {
         const target = e.target as HTMLElement;
-        // Don't steal focus from buttons or other interactive elements
-        if (!target.closest('button') && !target.closest('[role="button"]') && 
-            !target.closest('a') && !target.closest('select') && 
-            !target.closest('input[type="file"]')) {
-          setTimeout(() => maintainFocus(), 10);
+        const isInChatArea = target.closest('[data-chat-container]') || 
+                            target.closest('.chat-input-area');
+        
+        // Only restore focus if clicking within chat area and not on interactive elements
+        if (isInChatArea && 
+            !target.closest('button') && 
+            !target.closest('[role="button"]') && 
+            !target.closest('a') && 
+            !target.closest('select') && 
+            !target.closest('input[type="file"]') &&
+            !target.closest('[role="navigation"]') &&
+            !target.closest('nav')) {
+          setTimeout(() => maintainFocus(), 50);
         }
       };
 
-      const handleGlobalFocus = () => {
-        setTimeout(() => maintainFocus(), 10);
-      };
-
-      document.addEventListener('click', handleGlobalClick);
-      document.addEventListener('focusout', handleGlobalFocus);
+      document.addEventListener('click', handleChatAreaClick);
 
       return () => {
-        isActiveFocusRef.current = false;
-        if (focusKeeperRef.current) {
-          clearInterval(focusKeeperRef.current);
-        }
-        document.removeEventListener('click', handleGlobalClick);
-        document.removeEventListener('focusout', handleGlobalFocus);
+        document.removeEventListener('click', handleChatAreaClick);
       };
     }
   }, [disabled, readOnly]);
