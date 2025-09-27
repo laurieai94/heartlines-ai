@@ -123,8 +123,8 @@ const CleanQuestionnaireFooter = ({
             </>
           )}
 
-          {/* Next Section Button - only show if requirements not met and not on final section */}
-          {!canComplete && currentSection < 4 && (
+          {/* Next Section Button - always show when not on final section */}
+          {currentSection < 4 && (
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
