@@ -122,7 +122,6 @@ const DashboardContent = ({
       case "home":
         return <DashboardHome />;
       case "coach":
-      case "insights":
         return (
           <div className="h-full flex flex-col">
             <AIChat 
@@ -148,6 +147,17 @@ const DashboardContent = ({
               onOpenQuestionnaire={onOpenQuestionnaire}
               onOpenPartnerQuestionnaire={onOpenPartnerQuestionnaire}
             />
+          </div>
+        );
+      case "insights":
+        return (
+          <div className="h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ProgressiveAccessWrapper action="insights">
+              <AIInsights 
+                profiles={temporaryProfiles}
+                demographicsData={temporaryDemographics}
+              />
+            </ProgressiveAccessWrapper>
           </div>
         );
       case "privacy":
