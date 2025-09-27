@@ -183,12 +183,12 @@ const AIChatInput = ({
   // Auto-focus the textarea when component mounts (but be respectful about it)
   useEffect(() => {
     if (textareaRef.current && !disabled && !readOnly) {
-      // Initial focus with delay to avoid conflicts
+      // Initial setup - always update cursor position even if not focusing
       setTimeout(() => {
         if (textareaRef.current) {
-          textareaRef.current.focus();
           adjustTextareaHeight();
           updateCursorPosition();
+          textareaRef.current.focus();
         }
       }, 100);
 
@@ -223,6 +223,17 @@ const AIChatInput = ({
   useEffect(() => {
     updateCursorPosition();
   }, [currentMessage]);
+
+  // Always ensure cursor is positioned correctly, even when not focused
+  useEffect(() => {
+    if (textareaRef.current) {
+      const updateInterval = setInterval(() => {
+        updateCursorPosition();
+      }, 100);
+      
+      return () => clearInterval(updateInterval);
+    }
+  }, []);
 
   // Adjust height on message clear
   useEffect(() => {

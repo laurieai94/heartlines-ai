@@ -480,11 +480,12 @@
     width: 2px;
     height: var(--cursor-height, 20px);
     background-color: white;
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 8px rgba(255, 255, 255, 0.3);
-    animation: cursorBlink 1s infinite;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5), 0 0 6px rgba(255, 255, 255, 0.2);
+    animation: cursorBlink 1.2s infinite;
     pointer-events: none;
     z-index: 10;
     border-radius: 1px;
+    opacity: 0.8;
   }
 
   .persistent-cursor:focus::after,
