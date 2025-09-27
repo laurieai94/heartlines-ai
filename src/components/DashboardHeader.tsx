@@ -8,7 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
+import { Crown, Menu, User as UserIcon } from "lucide-react";
+import UnifiedNavigation from "./UnifiedNavigation";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
@@ -47,35 +48,13 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     }
   };
 
-  const navigationItems = [
-    { value: 'home', label: 'Home', icon: Home },
-    { value: 'profile', label: 'Profile', icon: UserIcon, isExternal: true },
-    { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
-    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
-    { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
-  ];
 
-  const handleNavigation = (item: any, isMobileNav = false) => {
-    console.log('Navigation clicked:', item.value, 'isExternal:', item.isExternal);
-    
-    // Close the appropriate dropdown
-    if (isMobileNav) {
-      setMobileDropdownOpen(false);
-    } else {
-      setDesktopDropdownOpen(false);
-    }
-    
-    if (item.isExternal) {
-      if (item.value === 'pricing') navigate('/pricing');
-      else if (item.value === 'mission') navigate('/mission');
-      else if (item.value === 'account') navigate('/account');
-      else if (item.value === 'profile') navigate('/profile');
-    } else {
-      // For internal navigation, call onValueChange which should trigger navigation
-      console.log('Calling onValueChange with:', item.value);
-      onValueChange(item.value);
-    }
+  const handleNavigation = (value: string) => {
+    // Close dropdowns
+    setMobileDropdownOpen(false);
+    setDesktopDropdownOpen(false);
+    // Use the onValueChange callback which handles routing
+    onValueChange(value);
   };
   
   return (
@@ -109,31 +88,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="start" 
-                className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
-                  backdropFilter: 'blur(20px)',
-                  color: 'white'
-                }}
+                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-0"
               >
-                 {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
-                     <DropdownMenuItem
-                       key={item.value}
-                       onMouseEnter={() => handleTabHover(item.value)}
-                       onClick={() => handleNavigation(item, true)}
-                         className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
-                           isActive 
-                             ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 focus:text-white hover:text-white'
-                         }`}
-                     >
-                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                     </DropdownMenuItem>
-                  );
-                })}
+                <UnifiedNavigation 
+                  activeTab={activeTab}
+                  onValueChange={handleNavigation}
+                  variant="dropdown"
+                  onClose={() => setMobileDropdownOpen(false)}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
             
@@ -157,32 +119,15 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </DropdownMenuTrigger>
                <DropdownMenuContent 
                 align="start" 
-                className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
-                  backdropFilter: 'blur(20px)',
-                  color: 'white'
-                }}
-              >
-                 {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
-                     <DropdownMenuItem
-                       key={item.value}
-                       onMouseEnter={() => handleTabHover(item.value)}
-                       onClick={() => handleNavigation(item, false)}
-                         className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
-                           isActive 
-                             ? 'text-white font-semibold bg-white/15' 
-                             : 'text-white font-medium hover:bg-transparent hover:ring-1 hover:ring-white/20 focus:bg-transparent focus:ring-1 focus:ring-white/20 focus:text-white hover:text-white'
-                         }`}
-                     >
-                       <IconComponent className="h-4 w-4 flex-shrink-0" />
-                     </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
+                className="w-56 z-[60] border-0 shadow-2xl rounded-xl p-0"
+               >
+                 <UnifiedNavigation 
+                   activeTab={activeTab}
+                   onValueChange={handleNavigation}
+                   variant="dropdown"
+                   onClose={() => setDesktopDropdownOpen(false)}
+                 />
+               </DropdownMenuContent>
             </DropdownMenu>
             
           </div>
