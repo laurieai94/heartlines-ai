@@ -31,56 +31,63 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   
   return (
     <div 
-      className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+      className={`relative ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? '' : 'flex gap-1.5 md:gap-3'} group`}
       role="listitem"
       aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
     >
-      {/* Avatar Container - Show only for first message in group on mobile */}
-      <div className="flex-shrink-0">
-        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
-          {/* Subtle glow for avatars */}
-          {!isMobile && (
-            <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
-              isUser ? 'bg-gradient-to-r from-pink-300 to-orange-300' : 'bg-gradient-to-r from-purple-300 to-pink-300'
-            }`}></div>
-          )}
-          
-          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
-            isUser 
-              ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
-              : 'bg-gradient-to-br from-purple-500 to-pink-500'
-          }`}>
-            {isUser && userAvatarUrl ? (
-              <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
-            ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
-              </AvatarFallback>
-            ) : (
-              <>
-                <AvatarImage 
-                  src={BRAND.coach.avatarSrc} 
-                  alt={BRAND.coach.name} 
-                  className="object-cover"
-                  loading="eager" 
-                  decoding="async" 
-                  
-                />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
-                  <Heart className="w-4 h-4 md:w-4 md:h-4" />
-                </AvatarFallback>
-              </>
+      {/* AI Avatar Container - Left aligned for Kai only */}
+      {!isUser && (
+        <div className="flex-shrink-0">
+          <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+            {/* Subtle glow for avatars */}
+            {!isMobile && (
+              <div className="absolute inset-0 rounded-full blur-md opacity-30 bg-gradient-to-r from-purple-300 to-pink-300"></div>
             )}
-          </Avatar>
+            
+            <Avatar className="relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white bg-gradient-to-br from-purple-500 to-pink-500">
+              <AvatarImage 
+                src={BRAND.coach.avatarSrc} 
+                alt={BRAND.coach.name} 
+                className="object-cover"
+                loading="eager" 
+                decoding="async" 
+              />
+              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
+                <Heart className="w-4 h-4 md:w-4 md:h-4" />
+              </AvatarFallback>
+            </Avatar>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* User Avatar Container - Fixed position aligned with header + button */}
+      {isUser && (
+        <div className={`absolute ${isMobile && !isFirstInGroup ? 'invisible' : ''} ${isMobile ? 'right-[10px]' : 'right-[12px]'} top-0 z-10`}>
+          <div className="relative w-6 h-6 md:w-8 md:h-8">
+            {/* Subtle glow for avatars */}
+            {!isMobile && (
+              <div className="absolute inset-0 rounded-full blur-md opacity-30 bg-gradient-to-r from-pink-300 to-orange-300"></div>
+            )}
+            
+            <Avatar className="relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white bg-gradient-to-br from-pink-400 to-orange-400">
+              {userAvatarUrl ? (
+                <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
+              ) : (
+                <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
+                  {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
+                </AvatarFallback>
+              )}
+            </Avatar>
+          </div>
+        </div>
+      )}
 
       {/* Message Bubble */}
       <div className={`flex flex-col ${
-        isMobile 
-          ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') 
-          : 'max-w-[80%]'
-      } ${isUser ? 'items-end' : 'items-start'}`}>
+        isUser 
+          ? `items-end ${isMobile ? 'mr-[44px] max-w-[calc(85%-44px)]' : 'mr-[52px] max-w-[calc(80%-52px)]'}` 
+          : `items-start ${isMobile ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') : 'max-w-[80%]'}`
+      }`}>
         <div
           className={`
             transition-all duration-300 group-hover:shadow-xl px-2.5 py-1.5 md:px-3 md:py-2 rounded-2xl md:rounded-2xl
