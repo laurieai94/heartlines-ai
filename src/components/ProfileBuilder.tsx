@@ -341,9 +341,10 @@ const ProfileBuilder = ({
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
                 <div className="pl-10 space-y-1 text-sm text-white/80">
-                  <p>• Only you and Kai see your profiles</p>
-                  <p>• Everything is encrypted and secure</p>  
-                  <p>• You control your data completely</p>
+                  <p>• Only you and Kai can see your conversations</p>
+                  <p>• Messages are encrypted on your device before they're sent</p>  
+                  <p>• You choose how long to keep your history (30/90/365/forever)</p>
+                  <p>• Delete anything, anytime — full control is yours</p>
                   <Link 
                     to="/privacy-security" 
                     className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
