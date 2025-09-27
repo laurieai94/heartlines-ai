@@ -62,7 +62,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
       {/* User Avatar Container - Fixed position aligned with header + button */}
       {isUser && (
-        <div className={`absolute ${isMobile && !isFirstInGroup ? 'invisible' : ''} ${isMobile ? 'right-[22px]' : 'right-[30px]'} top-0 z-10`}>
+        <div className={`absolute ${isMobile && !isFirstInGroup ? 'invisible' : ''} ${isMobile ? 'right-[10px]' : 'right-[30px]'} top-0 z-10`}>
           <div className="relative w-6 h-6 md:w-8 md:h-8">
             {/* Subtle glow for avatars */}
             {!isMobile && (
@@ -85,7 +85,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
       {/* Message Bubble */}
       <div className={`flex flex-col ${
         isUser 
-          ? `items-end ${isMobile ? 'mr-[52px] max-w-[calc(85%-52px)]' : 'mr-[74px] max-w-[calc(80%-74px)]'}` 
+          ? `items-end ${isMobile ? 'mr-[40px] max-w-[calc(85%-40px)]' : 'mr-[74px] max-w-[calc(80%-74px)]'}` 
           : `items-start ${isMobile ? (isFirstInGroup ? 'max-w-[85%]' : 'max-w-[88%]') : 'max-w-[80%]'}`
       }`}>
         <div
