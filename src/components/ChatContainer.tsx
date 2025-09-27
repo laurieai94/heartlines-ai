@@ -48,9 +48,10 @@ const ChatContainer = ({
   const prevUserTypingRef = useRef(userTyping);
   const carrotResetFnRef = useRef<(() => void) | null>(null);
   
-  // Simplified scroll tracking 
+  // Enhanced scroll tracking for carrot management
   const lastScrollTopRef = useRef(0);
   const touchStartYRef = useRef(0);
+  const scrollStationaryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -65,7 +66,7 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Simplified scroll handler
+  // Enhanced scroll handler with carrot state management
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
@@ -79,16 +80,44 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile logic - much simpler
+    // Mobile logic with enhanced carrot management
     if (isMobile) {
       const isScrollingUpNow = scrollDelta < -5; // Detect upward scrolling
       const isScrollingDownNow = scrollDelta > 5; // Detect downward scrolling
       
-      // Show carrot when scrolling up and significantly scrolled down
-      if (isScrollingUpNow && !isTablet && currentScrollTop > 100) {
-        setIsScrollingUp(true);
-      } else if (isScrollingDownNow) {
+      // Reset isScrollingUp when user is near the top
+      if (currentScrollTop < 50) {
         setIsScrollingUp(false);
+        
+        // Clear any existing timeout
+        if (scrollStationaryTimeoutRef.current) {
+          clearTimeout(scrollStationaryTimeoutRef.current);
+          scrollStationaryTimeoutRef.current = null;
+        }
+      } else {
+        // Show carrot when scrolling up and significantly scrolled down
+        if (isScrollingUpNow && !isTablet && currentScrollTop > 100) {
+          setIsScrollingUp(true);
+          
+          // Clear any existing timeout
+          if (scrollStationaryTimeoutRef.current) {
+            clearTimeout(scrollStationaryTimeoutRef.current);
+            scrollStationaryTimeoutRef.current = null;
+          }
+        } else if (isScrollingDownNow) {
+          setIsScrollingUp(false);
+        }
+        
+        // Set timeout to reset isScrollingUp after 2 seconds of no scroll activity
+        if (Math.abs(scrollDelta) < 2 && isScrollingUp) {
+          if (scrollStationaryTimeoutRef.current) {
+            clearTimeout(scrollStationaryTimeoutRef.current);
+          }
+          
+          scrollStationaryTimeoutRef.current = setTimeout(() => {
+            setIsScrollingUp(false);
+          }, 2000);
+        }
       }
       
       // Show header on upward scroll
@@ -98,7 +127,7 @@ const ChatContainer = ({
     }
     
     lastScrollTopRef.current = currentScrollTop;
-  }, [isMobile, isTablet, setHeaderVisible]);
+  }, [isMobile, isTablet, setHeaderVisible, isScrollingUp]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -148,6 +177,14 @@ const ChatContainer = ({
   }, [userTyping, scrollToBottom]);
 
 
+  // Cleanup effect for scroll timeout
+  useEffect(() => {
+    return () => {
+      if (scrollStationaryTimeoutRef.current) {
+        clearTimeout(scrollStationaryTimeoutRef.current);
+      }
+    };
+  }, []);
   // Enhanced touch detection for immediate header reveal
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isMobile) return;

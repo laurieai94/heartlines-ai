@@ -17,6 +17,7 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
   const { isMobile, isTablet } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [cooldownActive, setCooldownActive] = useState(false);
+  const [recentlyNavigated, setRecentlyNavigated] = useState(false);
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -26,16 +27,43 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     }, 120);
   }, []);
 
-  // Simple cooldown to prevent spam tapping
-  const startCooldown = useCallback(() => {
+  // Enhanced cooldown to prevent spam tapping and reappearance
+  const startCooldown = useCallback((wasUsedForNavigation = false) => {
     setCooldownActive(true);
-    setTimeout(() => {
-      setCooldownActive(false);
-    }, 2000); // 2 second cooldown
+    
+    if (wasUsedForNavigation) {
+      setRecentlyNavigated(true);
+      // Extended cooldown when button was actively used
+      setTimeout(() => {
+        setCooldownActive(false);
+      }, 3000); // 3 second cooldown when used
+      
+      // Even longer period to prevent reappearance
+      setTimeout(() => {
+        setRecentlyNavigated(false);
+      }, 8000); // 8 seconds before button can reappear
+    } else {
+      setTimeout(() => {
+        setCooldownActive(false);
+      }, 2000); // 2 second cooldown for other cases
+    }
   }, []);
 
-  // Show when: mobile phone (not tablet) + scrolling up + navigation not opened + not in cooldown
-  const shouldShow = isMobile && !isTablet && isScrollingUp && !navigationOpened && !cooldownActive;
+  // Cleanup effect
+  useEffect(() => {
+    return () => {
+      // Any cleanup can be added here if needed
+    };
+  }, []);
+
+  // Enhanced shouldShow logic with scroll position awareness
+  const shouldShow = isMobile && 
+                    !isTablet && 
+                    isScrollingUp && 
+                    !navigationOpened && 
+                    !cooldownActive && 
+                    !recentlyNavigated &&
+                    scrollPosition > 150; // Only show when significantly scrolled down
   
   if (!shouldShow) {
     return null;
@@ -48,8 +76,8 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     const target = e.currentTarget as HTMLElement;
     simulateHaptic(target);
     
-    // Start cooldown and animation
-    startCooldown();
+    // Start enhanced cooldown with navigation flag
+    startCooldown(true);
     setIsAnimating(true);
     
     // Trigger navigation
