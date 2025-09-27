@@ -107,24 +107,15 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
         return;
       }
 
-      // Log diagnostics
-      console.log('Recording details:', {
-        size: audioBlob.size,
-        type: audioBlob.type,
-        duration: 'unknown'
-      });
 
       // Convert blob to base64
       const base64Audio = await blobToBase64(audioBlob);
-      console.log('Base64 audio length:', base64Audio.length);
 
       const { data, error } = await supabase.functions.invoke('voice-to-text', {
         body: { audio: base64Audio },
       });
 
       if (error) {
-        console.error('Transcription error:', error);
-        
         // Try to extract detailed error message
         let errorMessage = 'Unknown error';
         if (error.message) {
@@ -149,7 +140,6 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
         toast.error("No speech detected");
       }
     } catch (error) {
-      console.error('Error transcribing audio:', error);
       toast.error("Failed to process voice message");
     }
   };
@@ -207,7 +197,7 @@ const VoiceInterface = ({ onVoiceMessage, onSpeakResponse, disabled }: VoiceInte
           
           await audio.play();
         } else {
-          console.log('TTS returned no audio content, using browser speech');
+          
           fallbackToSpeechSynthesis(text);
         }
       } catch (error) {

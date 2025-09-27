@@ -5,13 +5,17 @@ import './index.css'
 import './styles/mobile-optimizations.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
-import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
+import { useOptimizedEffect } from '@/hooks/useOptimizedEffects';
+import { initPerformanceOptimizations } from '@/utils/performanceCleanup';
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 
 // Production optimizations component
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
-  useProductionOptimizations();
+  useOptimizedEffect(() => {
+    initPerformanceOptimizations();
+  }, [], { immediate: true, production: true });
+  
   return <>{children}</>;
 };
 
