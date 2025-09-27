@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar"
 
 const navigationItems = [
-  { title: "Home", url: "/profile", icon: Home },
+  { title: "Home", url: "/", icon: Home },
   { title: "Profile", url: "/profile", icon: User },
   { title: "Coach", url: "/coach", icon: MessageSquare },
   { title: "Privacy", url: "/privacy", icon: Shield },
@@ -29,10 +29,10 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className={`${isCollapsed ? "w-14" : "w-60"} bg-burgundy-900 border-burgundy-800`}
+      className={`${isCollapsed ? "w-14" : "w-60"} bg-sidebar border-sidebar-border`}
       collapsible="icon"
     >
-      <SidebarContent className="bg-burgundy-900">
+      <SidebarContent className="bg-sidebar">
         <SidebarGroup className="mt-4">
           <SidebarGroupContent>
             <SidebarMenu>
@@ -44,8 +44,8 @@ export function AppSidebar() {
                       end 
                       className={({ isActive }) => `
                         flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200
-                        text-white/70 hover:text-white hover:bg-white/10
-                        ${isActive ? 'bg-white/20 text-white font-medium' : ''}
+                        text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent
+                        ${isActive ? 'bg-sidebar-primary text-sidebar-primary-foreground font-medium' : ''}
                       `}
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />

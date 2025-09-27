@@ -51,26 +51,39 @@ const AppContent = () => {
   }, []);
   
   const isAuthenticatedRoute = (pathname: string) => {
-    return ['/profile', '/coach', '/privacy', '/company'].includes(pathname);
+    return ['/', '/profile', '/coach', '/privacy', '/company'].includes(pathname);
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - direct load for immediate rendering */}
-        <Route path="/" element={
+        {/* Public landing page - only for logged out users */}
+        <Route path="/landing" element={
           <ErrorBoundary>
             <LandingPage />
           </ErrorBoundary>
         } />
         
         {/* Authenticated app routes with sidebar */}
+        <Route path="/" element={
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1">
+                <header className="h-12 flex items-center border-b px-4 md:hidden">
+                  <SidebarTrigger />
+                </header>
+                <Dashboard />
+              </main>
+            </div>
+          </SidebarProvider>
+        } />
         <Route path="/profile" element={
           <SidebarProvider>
             <div className="min-h-screen flex w-full">
               <AppSidebar />
               <main className="flex-1">
-                <header className="h-12 flex items-center border-b px-4">
+                <header className="h-12 flex items-center border-b px-4 md:hidden">
                   <SidebarTrigger />
                 </header>
                 <Dashboard />
@@ -83,7 +96,7 @@ const AppContent = () => {
             <div className="min-h-screen flex w-full">
               <AppSidebar />
               <main className="flex-1">
-                <header className="h-12 flex items-center border-b px-4">
+                <header className="h-12 flex items-center border-b px-4 md:hidden">
                   <SidebarTrigger />
                 </header>
                 <Dashboard />
@@ -96,7 +109,7 @@ const AppContent = () => {
             <div className="min-h-screen flex w-full">
               <AppSidebar />
               <main className="flex-1">
-                <header className="h-12 flex items-center border-b px-4">
+                <header className="h-12 flex items-center border-b px-4 md:hidden">
                   <SidebarTrigger />
                 </header>
                 <Dashboard />
@@ -109,7 +122,7 @@ const AppContent = () => {
             <div className="min-h-screen flex w-full">
               <AppSidebar />
               <main className="flex-1">
-                <header className="h-12 flex items-center border-b px-4">
+                <header className="h-12 flex items-center border-b px-4 md:hidden">
                   <SidebarTrigger />
                 </header>
                 <Dashboard />
