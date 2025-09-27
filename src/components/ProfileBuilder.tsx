@@ -215,7 +215,7 @@ const ProfileBuilder = ({
         </div>
       )}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4">
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-safe pt-1 md:pt-2 lg:pt-4">
         {/* Main Header - Responsive */}
         <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
@@ -305,6 +305,7 @@ const ProfileBuilder = ({
             benefitColor="text-pink-300"
             optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
             motivationText="Bring your +1 for hotter takes"
+            mobileIconOnly={true}
           />
         </div>
 

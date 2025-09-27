@@ -23,6 +23,7 @@ interface ProfileCardProps {
   benefitColor: string;
   optionalPillImage?: React.ReactNode;
   motivationText?: string;
+  mobileIconOnly?: boolean;
 }
 
 const ProfileCard = ({
@@ -37,7 +38,8 @@ const ProfileCard = ({
   progressColor,
   benefitColor,
   optionalPillImage,
-  motivationText = "The more real you are, the more real Kai gets"
+  motivationText = "The more real you are, the more real Kai gets",
+  mobileIconOnly = false
 }: ProfileCardProps) => {
   const [firstBenefit, ...remainingBenefits] = benefits;
   const cardRef = useRef<HTMLDivElement>(null);
@@ -120,9 +122,16 @@ const ProfileCard = ({
           className={`w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white py-1.5 md:py-2 lg:py-2 rounded-xl font-semibold text-sm md:text-sm lg:text-base glass-cta-gradient glass-sheen animate-profile-glow shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 ${
             isMobile ? 'min-h-[40px] touch-action-manipulation active:scale-95' : 'md:min-h-[44px] lg:min-h-[48px]'
           }`}
+          aria-label={mobileIconOnly && isMobile ? buttonText : undefined}
         >
-          {buttonText}
-          <ArrowRight className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 ml-1.5" />
+          {mobileIconOnly && isMobile ? (
+            iconElement
+          ) : (
+            <>
+              {buttonText}
+              <ArrowRight className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 ml-1.5" />
+            </>
+          )}
         </Button>
       </div>
     </Card>
