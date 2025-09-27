@@ -40,7 +40,7 @@ const AIChatInput = ({
   const isActiveFocusRef = useRef(false);
   const cursorPositionRef = useRef<HTMLDivElement>(null);
 
-  // Calculate cursor position based on text content
+  // Calculate cursor position based on text content - now enabled for all devices
   const updateCursorPosition = () => {
     if (!textareaRef.current || !cursorPositionRef.current) return;
 
@@ -140,12 +140,9 @@ const AIChatInput = ({
     setCurrentMessage(newValue);
     adjustTextareaHeight();
     
-    // Mobile-optimized cursor updates - reduce frequency
-    const isMobile = window.innerWidth <= 768;
-    if (!isMobile) {
-      updateCursorPosition();
-      requestAnimationFrame(() => updateCursorPosition());
-    }
+    // Always update cursor position for persistent blinking cursor
+    updateCursorPosition();
+    requestAnimationFrame(() => updateCursorPosition());
     
     // Handle typing indicator
     if (onTypingChange) {
@@ -167,18 +164,17 @@ const AIChatInput = ({
   };
 
 
-  // Smart focus management - respects navigation and user intent
+  // Aggressive focus management - only avoid focus when user is typing elsewhere
   const maintainFocus = () => {
     if (textareaRef.current && !disabled && !readOnly) {
-      // Check if user is actively navigating or interacting with navigation elements
+      // Only avoid focus when user is actively typing in other input fields
       const activeElement = document.activeElement;
-      const isNavigating = activeElement?.closest('[role="navigation"]') || 
-                          activeElement?.closest('nav') ||
-                          activeElement?.closest('[data-navigation]') ||
-                          activeElement?.closest('.navigation') ||
-                          document.querySelector('[data-state="open"]'); // Sheet/dialog open
+      const isTypingElsewhere = activeElement?.tagName === 'INPUT' || 
+                               activeElement?.tagName === 'TEXTAREA' ||
+                               activeElement?.getAttribute('contenteditable') === 'true';
       
-      if (!isNavigating && activeElement !== textareaRef.current) {
+      // Don't steal focus if user is typing in another input or if already focused
+      if (!isTypingElsewhere && activeElement !== textareaRef.current) {
         textareaRef.current.focus({ preventScroll: true });
       }
     }
@@ -196,24 +192,12 @@ const AIChatInput = ({
         }
       }, 100);
 
-      // Mobile-optimized focus keeper - much less aggressive
-      const isMobile = window.innerWidth <= 768;
-      const focusKeeper = isMobile ? null : setInterval(() => {
-        if (textareaRef.current && !disabled && !readOnly) {
-          const activeElement = document.activeElement;
-          const isNavigating = activeElement?.closest('[role="navigation"]') || 
-                              activeElement?.closest('nav') ||
-                              activeElement?.closest('[data-navigation]') ||
-                              activeElement?.closest('.navigation') ||
-                              document.querySelector('[data-state="open"]');
-          
-          if (!isNavigating && activeElement !== textareaRef.current) {
-            textareaRef.current.focus({ preventScroll: true });
-          }
-        }
-      }, 8000); // Much less frequent - 8 seconds
+      // Aggressive focus keeper - enabled on all devices with shorter interval
+      const focusKeeper = setInterval(() => {
+        maintainFocus();
+      }, 2500); // More frequent - 2.5 seconds
 
-      // Only re-focus on chat container clicks, not global clicks
+      // Re-focus on any click within chat areas
       const handleChatAreaClick = (e: Event) => {
         const target = e.target as HTMLElement;
         const isInChatArea = target.closest('[data-chat-container]') || 
@@ -225,49 +209,38 @@ const AIChatInput = ({
             !target.closest('[role="button"]') && 
             !target.closest('a') && 
             !target.closest('select') && 
-            !target.closest('input[type="file"]') &&
-            !target.closest('[role="navigation"]') &&
-            !target.closest('nav')) {
+            !target.closest('input[type="file"]')) {
           setTimeout(() => maintainFocus(), 50);
         }
       };
 
-      // Lighter cursor position updates - mobile optimized
+      // Always update cursor position for persistent blinking
       const handleUpdate = () => {
-        if (!isMobile) {
-          requestAnimationFrame(() => updateCursorPosition());
-        }
+        requestAnimationFrame(() => updateCursorPosition());
       };
 
       document.addEventListener('click', handleChatAreaClick);
-      if (!isMobile) {
-        window.addEventListener('resize', handleUpdate);
-        window.addEventListener('focus', handleUpdate);
-      }
+      window.addEventListener('resize', handleUpdate);
+      window.addEventListener('focus', handleUpdate);
 
       return () => {
-        if (focusKeeper) clearInterval(focusKeeper);
+        clearInterval(focusKeeper);
         document.removeEventListener('click', handleChatAreaClick);
-        if (!isMobile) {
-          window.removeEventListener('resize', handleUpdate);
-          window.removeEventListener('focus', handleUpdate);
-        }
+        window.removeEventListener('resize', handleUpdate);
+        window.removeEventListener('focus', handleUpdate);
       };
     }
   }, [disabled, readOnly]);
 
-  // Mobile-optimized cursor position updates
+  // Always update cursor position for persistent blinking
   useEffect(() => {
-    const isMobile = window.innerWidth <= 768;
-    if (!isMobile) {
-      updateCursorPosition();
-      // Single delayed update only
-      const updateTimer = setTimeout(() => updateCursorPosition(), 50);
-      
-      return () => {
-        clearTimeout(updateTimer);
-      };
-    }
+    updateCursorPosition();
+    // Ensure cursor position updates after content changes
+    const updateTimer = setTimeout(() => updateCursorPosition(), 50);
+    
+    return () => {
+      clearTimeout(updateTimer);
+    };
   }, [currentMessage]);
 
   // Adjust height on message clear
