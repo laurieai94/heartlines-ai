@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import ProfileErrorBoundary from "@/components/ProfileErrorBoundary";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 
@@ -43,15 +44,17 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
 
 
   return (
-    <QuestionnaireLayout
-      profileData={profileData}
-      updateField={updateField}
-      handleMultiSelect={handleMultiSelect}
-      onComplete={handleComplete}
-      onClose={onClose}
-      isModal={isModal}
-      onAutoComplete={autoCompleteCallback}
-    />
+    <ProfileErrorBoundary>
+      <QuestionnaireLayout
+        profileData={profileData}
+        updateField={updateField}
+        handleMultiSelect={handleMultiSelect}
+        onComplete={handleComplete}
+        onClose={onClose}
+        isModal={isModal}
+        onAutoComplete={autoCompleteCallback}
+      />
+    </ProfileErrorBoundary>
   );
 };
 

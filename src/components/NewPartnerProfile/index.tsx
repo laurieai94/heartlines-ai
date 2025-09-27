@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ProfileErrorBoundary from "@/components/ProfileErrorBoundary";
 import { usePartnerProfileData } from "./hooks/usePartnerProfileData";
 import PartnerQuestionnaireLayout from "./components/PartnerQuestionnaireLayout";
 import { PartnerFlowProvider } from "./context/FlowContext";
@@ -34,21 +35,23 @@ const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerP
 
 
   return (
-    <PartnerFlowProvider
-      profileData={profileData}
-      updateField={updateField}
-      handleMultiSelect={handleMultiSelect}
-      onComplete={handleComplete}
-    >
-      <PartnerQuestionnaireLayout
+    <ProfileErrorBoundary>
+      <PartnerFlowProvider
         profileData={profileData}
         updateField={updateField}
         handleMultiSelect={handleMultiSelect}
         onComplete={handleComplete}
-        onClose={onClose}
-        isModal={isModal}
-      />
-    </PartnerFlowProvider>
+      >
+        <PartnerQuestionnaireLayout
+          profileData={profileData}
+          updateField={updateField}
+          handleMultiSelect={handleMultiSelect}
+          onComplete={handleComplete}
+          onClose={onClose}
+          isModal={isModal}
+        />
+      </PartnerFlowProvider>
+    </ProfileErrorBoundary>
   );
 };
 

@@ -121,15 +121,17 @@ const STORAGE_CONFIG = {
   }
 };
 
-const DEBOUNCE_MS = 2000;
+const DEBOUNCE_MS = 3000; // Increased debounce for stability
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
   
-  // EMERGENCY: Circuit breaker to prevent multiple concurrent operations
+  // Circuit breaker to prevent multiple concurrent operations
   const [isOperationInProgress, setIsOperationInProgress] = useState(false);
+  const operationCount = useRef(0);
+  const maxConcurrentOps = 3;
   
   // Instance tracking
   const instanceId = useRef<string>(`${profileType}-${Date.now()}-${Math.random()}`);
@@ -315,9 +317,18 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
   }, [config.storageKey, profileType]);
 
-  // Debounced sync to Supabase
+  // Circuit-protected sync to Supabase
   const syncToDatabase = useCallback(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
     if (!user) return;
+    
+    // Circuit breaker: prevent excessive concurrent operations
+    if (operationCount.current >= maxConcurrentOps) {
+      console.warn(`[ProfileV2-${profileType}] Circuit breaker: too many concurrent operations (${operationCount.current})`);
+      return;
+    }
+
+    operationCount.current++;
+    setIsOperationInProgress(true);
 
     try {
       console.log(`[ProfileV2-${profileType}] Syncing to database:`, updates);
@@ -354,6 +365,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     } catch (error) {
       console.error(`[ProfileV2-${profileType}] Database sync error:`, error);
+      // Don't throw - let operation continue gracefully
+    } finally {
+      operationCount.current = Math.max(0, operationCount.current - 1);
+      if (operationCount.current === 0) {
+        setIsOperationInProgress(false);
+      }
     }
   }, [user, config.dbType, defaultProfile, saveToStorage, profileType]);
 
@@ -417,58 +434,47 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return defaultProfile;
   }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
 
-  // Initialize and load data with performance optimizations
+  // Initialize and load data with stabilized operations
   useEffect(() => {
     const initialize = async () => {
-      console.log(`[ProfileV2-${profileType}] Starting optimized initialization...`);
+      console.log(`[ProfileV2-${profileType}] Starting stabilized initialization...`);
       setIsLoading(true);
       
       try {
-        // Load from localStorage first (instant) - use requestIdleCallback for non-critical work
+        // Load from localStorage first (instant)
         const localProfile = loadFromStorage();
         setProfile(localProfile);
         setIsReady(true);
-        setIsLoading(false); // UI can render immediately with local data
+        setIsLoading(false);
         console.log(`[ProfileV2-${profileType}] Local profile loaded, UI ready`);
         
-        // Defer database sync to not block the main thread
-        if (user && isPrimaryInstance.current) {
-          // Use requestIdleCallback to defer database operations
-          const deferredSync = () => {
-            setIsSyncing(true);
-            console.log(`[ProfileV2-${profileType}] Starting deferred database sync...`);
-            
-            // Use timeout with lower priority
-            setTimeout(async () => {
-              try {
-                const dbProfile = await loadFromDatabase();
-                
-                // Merge local and remote, preferring newer data
-                const localTime = new Date(localProfile.lastUpdated || 0).getTime();
-                const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
-                
-                const finalProfile = dbTime > localTime ? dbProfile : localProfile;
-                
-                // Use React transition for non-urgent updates
-                setTimeout(() => {
-                  setProfile(finalProfile);
-                  saveToStorage(finalProfile);
-                  setIsSyncing(false);
-                  console.log(`[ProfileV2-${profileType}] Deferred database sync completed`);
-                }, 0);
-              } catch (dbError) {
-                console.error(`[ProfileV2-${profileType}] Database sync failed:`, dbError);
-                setIsSyncing(false);
-              }
-            }, 100); // Small delay to let UI render first
-          };
+        // Simplified database sync for primary instances only
+        if (user && isPrimaryInstance.current && !isOperationInProgress) {
+          // Single timeout for database sync - no nested timeouts
+          const dbSyncTimeout = setTimeout(async () => {
+            try {
+              setIsSyncing(true);
+              console.log(`[ProfileV2-${profileType}] Starting database sync...`);
+              
+              const dbProfile = await loadFromDatabase();
+              
+              // Simple timestamp comparison for conflict resolution
+              const localTime = new Date(localProfile.lastUpdated || 0).getTime();
+              const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+              
+              const finalProfile = dbTime > localTime ? dbProfile : localProfile;
+              
+              setProfile(finalProfile);
+              saveToStorage(finalProfile);
+              console.log(`[ProfileV2-${profileType}] Database sync completed`);
+            } catch (dbError) {
+              console.error(`[ProfileV2-${profileType}] Database sync failed:`, dbError);
+            } finally {
+              setIsSyncing(false);
+            }
+          }, 200); // Simple 200ms delay
           
-          // Use requestIdleCallback if available, otherwise setTimeout
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(deferredSync, { timeout: 2000 });
-          } else {
-            setTimeout(deferredSync, 50);
-          }
+          return () => clearTimeout(dbSyncTimeout);
         } else {
           console.log(`[ProfileV2-${profileType}] Skipping database sync (no user or non-primary instance)`);
         }
@@ -481,24 +487,25 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
-    // Mobile-optimized safety timeout to prevent aggressive loading states
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const timeoutDelay = isMobile ? 15000 : 8000; // Much more generous timeout on mobile
-    
+    // Stabilized safety timeout with longer delay
     const safetyTimeout = setTimeout(() => {
-      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
+      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing completion`);
       setIsLoading(false);
       setIsSyncing(false);
       if (!isReady) {
         setIsReady(true);
         setProfile(defaultProfile);
       }
-    }, timeoutDelay);
+      // Reset operation count on timeout
+      operationCount.current = 0;
+      setIsOperationInProgress(false);
+    }, 20000); // Increased timeout to 20 seconds
 
-    initialize();
+    const cleanupFn = initialize();
     
     return () => {
       clearTimeout(safetyTimeout);
+      // No cleanup function needed for async initialize
     };
   }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady]);
 
