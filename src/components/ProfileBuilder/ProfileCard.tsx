@@ -71,9 +71,9 @@ const ProfileCard = ({
     <Card 
       ref={cardRef}
       data-profile-card
-      className={`questionnaire-card group p-2 md:p-4 lg:p-5 
+      className={`questionnaire-card group p-1.5 md:p-4 lg:p-5 
         transition-all duration-300 hover:scale-[1.02] hover:bg-white/8 hover:border-white/20
-        min-h-[200px] md:min-h-[240px] lg:min-h-[280px] ${
+        min-h-[160px] md:min-h-[240px] lg:min-h-[280px] ${
         isMobile ? 'active:scale-[0.98] touch-action-manipulation' : ''
       }`}
       onTouchStart={isMobile ? handleCardTouch : undefined}
@@ -102,12 +102,12 @@ const ProfileCard = ({
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-2 md:p-2.5 lg:p-3 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
-          <ul className="space-y-1 md:space-y-1.5 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
-            {benefits.map((benefit, index) => (
-              <li key={`benefit-${index}`} className="flex items-start gap-2 md:gap-3">
+        <div className="bg-white/10 rounded-lg p-1.5 md:p-2.5 lg:p-3 border border-white/20 ring-1 ring-white/10 shadow-inner flex-1">
+          <ul className="space-y-0.5 md:space-y-1.5 lg:space-y-2 text-pink-200/80 text-xs md:text-sm lg:text-base font-normal leading-relaxed">
+            {(isMobile ? benefits.slice(0, 2) : benefits).map((benefit, index) => (
+              <li key={`benefit-${index}`} className="flex items-start gap-1.5 md:gap-3">
                 <span className="mt-0.5 md:mt-1 flex-shrink-0">
-                  {benefit.icon || <Star className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-pink-200/80" />}
+                  {benefit.icon || <Star className="w-2.5 h-2.5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-pink-200/80" />}
                 </span>
                 <span>{benefit.text}</span>
               </li>
