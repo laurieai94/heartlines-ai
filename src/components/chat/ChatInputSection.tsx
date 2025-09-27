@@ -193,7 +193,7 @@ export const ChatInputSection = ({
                       ? "Click here to complete your profile and start chatting with Kai…"
                       : atLimit
                       ? "You've reached your monthly message limit. Click to upgrade and continue."
-                      : undefined
+                      : ""
                 }
               inputRef={inputRef}
               onInputFocus={() => { 
