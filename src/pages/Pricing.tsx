@@ -18,7 +18,7 @@ const pricingPlans = [{
   tagline: "From first steps to stronger bonds",
   messages: 50,
   icon: Sprout,
-  features: ["50 messages a month", "Quick insights to spark awareness", "Try before you commit\" energy"],
+  features: ["50 messages a month", "Quick insights into your patterns + relationships", "Try before you commit\" energy"],
   buttonText: "Get Started Free",
   popular: false,
   tier: "freemium"
