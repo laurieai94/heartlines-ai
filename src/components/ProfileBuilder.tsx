@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy, useEffect, useMemo } from "react";
+import { useState, Suspense, lazy, useEffect, useMemo, useCallback } from "react";
 import { toast } from "sonner";
 import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
-import { useLightweightMobile } from '@/hooks/useLightweightMobile';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
@@ -84,9 +84,9 @@ const ProfileBuilder = ({
   const userInitial = getInitial(userName);
   
   // Memoized completion calculations for better performance
-  const yourProfileCompletion = calculateYourCompletion;
+  const yourProfileCompletion = useMemo(() => calculateYourCompletion, [calculateYourCompletion]);
   
-  const partnerProfileCompletion = calculatePartnerCompletion;
+  const partnerProfileCompletion = useMemo(() => calculatePartnerCompletion, [calculatePartnerCompletion]);
   
   // Memoized requirement calculations
   const { completedRequiredFields, totalRequiredFields, canUnlockCoaching } = useMemo(() => {
@@ -107,26 +107,27 @@ const ProfileBuilder = ({
   
   // Mobile optimizations removed for better performance
   
-  // Handle pull-to-refresh
-  const handleRefresh = async () => {
+  // Memoized handlers to prevent unnecessary re-renders
+  const handleRefresh = useCallback(async () => {
     // Refresh profile data
     if (onProfileUpdate) {
       onProfileUpdate(temporaryProfiles, temporaryDemographics);
     }
-  };
+  }, [onProfileUpdate, temporaryProfiles, temporaryDemographics]);
   
-  const handleStartPersonalProfile = () => {
+  const handleStartPersonalProfile = useCallback(() => {
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
       onOpenQuestionnaire();
     }
-  };
-  const handleStartPartnerProfile = () => {
+  }, [onOpenQuestionnaire]);
+  
+  const handleStartPartnerProfile = useCallback(() => {
     // Call the callback to open the partner questionnaire modal in Dashboard
     if (onOpenPartnerQuestionnaire) {
       onOpenPartnerQuestionnaire();
     }
-  };
+  }, [onOpenPartnerQuestionnaire]);
   const handleStartProfile = (profileType: 'your' | 'partner') => {
     setActiveProfileType(profileType);
     // For partner profiles, still use the old flow
@@ -180,8 +181,8 @@ const ProfileBuilder = ({
     setShowPartnerCompletionOptions(false);
     // This would need to be handled by the parent component
   };
-  // Mobile optimization hooks - simplified for performance
-  const { isMobile: isMobileDevice } = useLightweightMobile();
+  // Use consolidated mobile optimization hook
+  const { isMobile: isMobileDevice } = useOptimizedMobile();
   
   // Add touch event listeners for pull-to-refresh - DISABLED for performance
   useEffect(() => {

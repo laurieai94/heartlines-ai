@@ -8,7 +8,6 @@ import { useState } from "react";
 import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
-import { useMobileOptimizations } from '@/hooks/useMobileOptimizations';
 import { cn } from "@/lib/utils";
 
 interface ChatHeaderProps {
@@ -23,9 +22,8 @@ export const ChatHeader = ({
   onOpenSidebar
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
-  const { isMobile } = useOptimizedMobile();
+  const { isMobile, simulateHapticFeedback } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
-  const { simulateHapticFeedback } = useMobileOptimizations();
 
   // Enhanced mobile button handlers with haptic feedback
   const handleNewConversation = () => {
@@ -143,7 +141,7 @@ export const ChatHeader = ({
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
                 <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 border-2 border-white/20">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" onError={e => {
-                    console.log('Kai avatar image failed to load');
+                    // Avatar image failed to load, use fallback
                     e.currentTarget.style.display = 'none';
                   }} />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">

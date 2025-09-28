@@ -51,6 +51,6 @@ export const getNextPartnerQuestion = (currentQuestionId: string, profileData: P
   }
 
   // If we don't recognize the question, try to complete
-  console.warn('Unknown partner question in next-map:', currentQuestionId);
+  // No-op in production
   return 'COMPLETE';
 };

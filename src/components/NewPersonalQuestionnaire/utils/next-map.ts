@@ -127,6 +127,6 @@ export const getNextQuestion = (currentQuestionId: string, profileData: ProfileD
   }
 
   // If we don't recognize the question, try to find a logical next step
-  console.warn('Unknown question in next-map:', currentQuestionId);
+  // No-op in production
   return 'COMPLETE';
 };

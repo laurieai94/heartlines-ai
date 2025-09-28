@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { throttle } from '@/utils/throttle';
 
 const MOBILE_BREAKPOINT = 768;
@@ -109,7 +109,47 @@ export function MobileProvider({ children }: { children: ReactNode }) {
 }
 
 export function useOptimizedMobile() {
-  return useContext(MobileContext);
+  const context = useContext(MobileContext);
+  
+  // Enhanced mobile optimizations with haptic feedback
+  const simulateHapticFeedback = useCallback((element: HTMLElement, type: 'light' | 'medium' | 'heavy' = 'light') => {
+    if (!context.isMobile) return;
+    
+    const intensity = {
+      light: 'scale-[0.98]',
+      medium: 'scale-[0.95]',
+      heavy: 'scale-[0.92]'
+    };
+    
+    element.classList.add('transition-transform', 'duration-75', intensity[type]);
+    
+    setTimeout(() => {
+      element.classList.remove('transition-transform', 'duration-75', intensity[type]);
+    }, 150);
+  }, [context.isMobile]);
+
+  // Apply CSS-based mobile optimizations
+  useEffect(() => {
+    if (!context.isMobile) return;
+    
+    // Add mobile optimization classes to body
+    document.body.classList.add('mobile-optimized');
+    
+    // iOS-specific optimizations
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      document.body.classList.add('ios-optimized');
+    }
+    
+    return () => {
+      document.body.classList.remove('mobile-optimized', 'ios-optimized');
+    };
+  }, [context.isMobile]);
+  
+  return {
+    ...context,
+    simulateHapticFeedback
+  };
 }
 
 // Legacy hook for backward compatibility

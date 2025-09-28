@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, Star } from "lucide-react";
 import CardAvatar from "./CardAvatar";
-import { useLightweightMobile } from "@/hooks/useLightweightMobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useRef, useEffect } from "react";
 
 interface ProfileCardProps {
@@ -42,7 +42,7 @@ const ProfileCard = ({
   const [firstBenefit, ...remainingBenefits] = benefits;
   const cardRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isMobile } = useLightweightMobile();
+  const { isMobile } = useOptimizedMobile();
   
   // Handle mobile touch feedback - now CSS-only
   const handleButtonTouch = () => {

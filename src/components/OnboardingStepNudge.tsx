@@ -1,6 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLightweightMobile } from "@/hooks/useLightweightMobile";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useRef } from "react";
 interface OnboardingStepNudgeProps {
   completion: number;
@@ -13,7 +13,7 @@ const OnboardingStepNudge = ({
   className = ""
 }: OnboardingStepNudgeProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isMobile } = useLightweightMobile();
+  const { isMobile } = useOptimizedMobile();
   
   if (completion >= 100) return null;
   

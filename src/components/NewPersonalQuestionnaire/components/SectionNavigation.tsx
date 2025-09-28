@@ -39,7 +39,7 @@ const SectionNavigation = ({ currentSection, profileData, onSectionClick }: Sect
           <button
             key={section}
             onClick={() => {
-              console.log('🔵 SectionNavigation: Section button clicked:', section);
+              // Section button clicked
               onSectionClick(section);
             }}
             className={`py-1.5 px-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${
