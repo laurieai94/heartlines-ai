@@ -231,7 +231,7 @@ const Pricing = () => {
                     <Button
                       onClick={() => handlePlanSelect(plan)}
                       disabled={loading === plan.tier}
-                      className={`w-full rounded-full py-3 text-sm ${
+                      className={`w-full rounded-full py-3 text-sm mt-6 ${
                         plan.popular 
                           ? 'questionnaire-button-primary' 
                           : 'questionnaire-button-secondary'
