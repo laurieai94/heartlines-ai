@@ -598,8 +598,9 @@
   }
   
   .questionnaire-button-primary:hover {
+    background: linear-gradient(135deg, hsl(var(--coral-600)), hsl(var(--peachtree-500)));
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 138, 80, 0.3);
+    box-shadow: 0 12px 35px rgba(255, 138, 80, 0.4);
   }
   
   .questionnaire-button-secondary {

@@ -45,7 +45,7 @@ const pricingPlans = [{
   messages: 300,
   icon: Flower,
   features: ["300 messages a month (~10/day)", "Unlimited scenarios (self-talk, dating, relationships)", "Advanced insights + personal analytics", "Custom goals for your growth journey", "Premium support"],
-  buttonText: "Start Thriving",
+  buttonText: "Go All In",
   popular: false,
   tier: "thrive"
 }];
