@@ -152,36 +152,34 @@ const Pricing = () => {
           onOpenProfile={() => navigate('/profile')}
         />
         
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-6">
           {/* Header Section */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-thin questionnaire-text mb-4">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-5xl font-thin questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
-            <p className="text-xl questionnaire-text-muted font-light max-w-2xl mx-auto">
+            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4">
               Every relationship is unique. Find the coaching level that fits your journey.
             </p>
+            {/* Trust Badges - Inline */}
+            <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
+              <div className="flex items-center gap-1.5">
+                <Shield className="h-4 w-4" />
+                <span>Secure & Private</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Star className="h-4 w-4" />
+                <span>14-Day Money Back</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Users className="h-4 w-4" />
+                <span>10,000+ Happy Couples</span>
+              </div>
+            </div>
           </div>
-
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center items-center gap-6 mb-12">
-            <div className="flex items-center gap-2 questionnaire-text-muted">
-              <Shield className="h-5 w-5" />
-              <span className="text-sm">Secure & Private</span>
-            </div>
-            <div className="flex items-center gap-2 questionnaire-text-muted">
-              <Star className="h-5 w-5" />
-              <span className="text-sm">14-Day Money Back</span>
-            </div>
-            <div className="flex items-center gap-2 questionnaire-text-muted">
-              <Users className="h-5 w-5" />
-              <span className="text-sm">10,000+ Happy Couples</span>
-            </div>
-          </div>
-
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
             {pricingPlans.map((plan) => {
               const IconComponent = plan.icon;
               return (
@@ -199,33 +197,33 @@ const Pricing = () => {
                     </Badge>
                   )}
                   
-                  <CardHeader className="text-center pb-4">
-                    <div className="mx-auto mb-4 p-3 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
-                      <IconComponent className="h-6 w-6 questionnaire-text" />
+                  <CardHeader className="text-center pb-3 p-4">
+                    <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
+                      <IconComponent className="h-5 w-5 questionnaire-text" />
                     </div>
-                    <CardTitle className="text-2xl font-light questionnaire-text">{plan.name}</CardTitle>
-                    <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-5xl font-thin questionnaire-text">{plan.price}</span>
-                      <span className="questionnaire-text-muted">/{plan.period}</span>
+                    <CardTitle className="text-xl font-light questionnaire-text mb-2">{plan.name}</CardTitle>
+                    <div className="flex items-baseline justify-center gap-1 mb-2">
+                      <span className="text-4xl font-thin questionnaire-text">{plan.price}</span>
+                      <span className="questionnaire-text-muted text-sm">/{plan.period}</span>
                     </div>
-                    <p className="questionnaire-text-muted text-sm">
+                    <p className="questionnaire-text-muted text-xs leading-tight">
                       {plan.description}
                     </p>
                   </CardHeader>
 
-                  <CardContent className="space-y-6">
-                    <div className="text-center">
-                      <div className="text-2xl font-light questionnaire-text">
+                  <CardContent className="space-y-4 p-4 pt-0">
+                    <div className="text-center py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
+                      <div className="text-lg font-light questionnaire-text">
                         {plan.messages} messages
                       </div>
-                      <div className="text-sm questionnaire-text-muted">per month</div>
+                      <div className="text-xs questionnaire-text-muted">per month</div>
                     </div>
 
-                    <ul className="space-y-3">
+                    <ul className="space-y-2">
                       {plan.features.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-3">
-                          <Check className="h-5 w-5 text-coral-400 flex-shrink-0" />
-                          <span className="text-sm questionnaire-text-muted">{feature}</span>
+                        <li key={index} className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -233,7 +231,7 @@ const Pricing = () => {
                     <Button
                       onClick={() => handlePlanSelect(plan)}
                       disabled={loading === plan.tier}
-                      className={`w-full rounded-full py-5 text-base ${
+                      className={`w-full rounded-full py-3 text-sm ${
                         plan.popular 
                           ? 'questionnaire-button-primary' 
                           : 'questionnaire-button-secondary'
@@ -248,18 +246,18 @@ const Pricing = () => {
           </div>
 
           {/* FAQ Section */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl font-thin questionnaire-text text-center mb-8">
+          <div className="max-w-3xl mx-auto mb-8">
+            <h2 className="text-2xl font-thin questionnaire-text text-center mb-6">
               Frequently Asked Questions
             </h2>
-            <div className="grid gap-6">
+            <div className="grid gap-3">
               {faqs.map((faq, index) => (
                 <Card key={index} className="questionnaire-card">
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-medium questionnaire-text mb-2">
+                  <CardContent className="p-4">
+                    <h3 className="text-sm font-medium questionnaire-text mb-1">
                       {faq.question}
                     </h3>
-                    <p className="questionnaire-text-muted leading-relaxed">
+                    <p className="questionnaire-text-muted text-xs leading-relaxed">
                       {faq.answer}
                     </p>
                   </CardContent>
@@ -268,29 +266,15 @@ const Pricing = () => {
             </div>
           </div>
 
-          {/* Social Proof */}
-          <div className="text-center mb-12">
-            <div className="questionnaire-card rounded-2xl p-8 max-w-2xl mx-auto">
-              <div className="flex justify-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-coral-400 text-coral-400" />
-                ))}
-              </div>
-              <p className="questionnaire-text-muted italic mb-4">
-                "RealTalk has transformed how my partner and I communicate. We've never been closer!"
-              </p>
-              <p className="questionnaire-text text-sm">— Sarah & Mike, Grow plan subscribers</p>
-            </div>
-          </div>
-
           {/* Back to Dashboard */}
           <div className="text-center">
             <Button 
               variant="ghost" 
               onClick={() => navigate("/")}
-              className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost"
+              size="sm"
+              className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost text-xs"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeft className="h-3 w-3 mr-1" />
               Back to Dashboard
             </Button>
           </div>
