@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, Sprout, Flower } from "lucide-react";
+import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, Sprout } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
@@ -197,8 +197,8 @@ const Pricing = () => {
                   )}
                   
                   <CardHeader className="text-center pb-3 p-4">
-                    <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-yellow-400/30 to-orange-400/30 border border-yellow-300 w-fit">
-                      <Flower className="h-5 w-5 text-yellow-600" />
+                    <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
+                      <IconComponent className="h-5 w-5 questionnaire-text" />
                     </div>
                     <CardTitle className="text-xl font-light questionnaire-text mb-2">{plan.name}</CardTitle>
                     <div className="flex items-baseline justify-center gap-1 mb-2">
