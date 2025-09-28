@@ -22,10 +22,9 @@ const pricingPlans = [
     messages: 50,
     icon: Sprout,
     features: [
-      "50 messages per month",
-      "Basic relationship insights",
-      "Try-before-you-commit approach",
-      "Email support"
+      "50 messages a month",
+      "Quick insights to spark awareness",
+      "Try before you commit\" energy"
     ],
     buttonText: "Get Started Free",
     popular: false,
