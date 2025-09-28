@@ -55,7 +55,7 @@ const pricingPlans = [
     name: "Thrive", 
     price: "$29",
     period: "month",
-    description: "Ongoing guidance for deeper conversations and lasting growth",
+    description: "Go all in for deeper love + growth",
     tagline: "Turn insights into transformation",
     messages: 300,
     icon: Zap,
