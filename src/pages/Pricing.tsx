@@ -32,7 +32,7 @@ const pricingPlans = [{
   messages: 150,
   icon: Heart,
   features: ["150 messages each month", "Coaching for self-reflection + relationships", "Conversation starters (for yourself + with others)", "Progress check-ins to track your growth", "Priority support"],
-  buttonText: "Start Growing",
+  buttonText: "Let's Grow",
   popular: true,
   tier: "grow"
 }, {
