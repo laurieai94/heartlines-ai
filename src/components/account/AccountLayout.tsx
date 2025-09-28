@@ -46,7 +46,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className="questionnaire-bg">
+    <div className="bg-burgundy-900">
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
