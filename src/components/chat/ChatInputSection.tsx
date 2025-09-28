@@ -187,14 +187,14 @@ export const ChatInputSection = ({
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
               showProfileGlow={accessLevel === 'profile-required' && !!user}
-              placeholder={
+                placeholder={
                 !user 
                   ? "Sign in to start chatting…" 
                   : accessLevel === 'profile-required' 
                     ? "Click here to complete your profile and start chatting with Kai…"
                     : atLimit
                     ? "You've reached your monthly message limit. Click to upgrade and continue."
-                    : "Type a message…"
+                    : chatHistory.length === 0 ? "What's up?" : ""
               }
               inputRef={inputRef}
               onInputFocus={() => { 
