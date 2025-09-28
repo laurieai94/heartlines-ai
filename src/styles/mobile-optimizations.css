@@ -183,15 +183,21 @@ html, body, #root {
   perspective: 1000px;
 }
 
-/* Emergency performance mode - disable all animations and heavy effects */
-.emergency-performance * {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-  filter: none !important;
-  backdrop-filter: none !important;
-  box-shadow: none !important;
-}
+  /* Emergency performance mode - disable all animations and heavy effects */
+  .emergency-performance * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Mobile coach interface stretching */
+  .mobile-coach-stretch {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+  }
 
 /* CSS-only smooth scrolling for better performance */
 html {
