@@ -120,15 +120,15 @@ const Pricing = () => {
             <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-4 w-4" />
-                <span>Secure & Private</span>
+                <span>Your data, your rules</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Star className="h-4 w-4" />
-                <span>14-Day Money Back</span>
+                <Heart className="h-4 w-4" />
+                <span>Break up anytime</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Users className="h-4 w-4" />
-                <span>10,000+ Happy Couples</span>
+                <span>Built for humans, not rom-coms</span>
               </div>
             </div>
           </div>
