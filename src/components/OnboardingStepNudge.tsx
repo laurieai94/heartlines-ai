@@ -1,6 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useProfileMobileOptimizations } from "@/hooks/useProfileMobileOptimizations";
+import { useLightweightMobile } from "@/hooks/useLightweightMobile";
 import { useRef } from "react";
 interface OnboardingStepNudgeProps {
   completion: number;
@@ -13,21 +13,16 @@ const OnboardingStepNudge = ({
   className = ""
 }: OnboardingStepNudgeProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isMobile, simulateProfileFeedback } = useProfileMobileOptimizations();
+  const { isMobile } = useLightweightMobile();
   
   if (completion >= 100) return null;
   
-  // Handle mobile touch feedback
+  // Handle mobile touch feedback - now CSS-only
   const handleButtonTouch = () => {
-    if (buttonRef.current) {
-      simulateProfileFeedback(buttonRef.current, 'start');
-    }
+    // CSS handles the visual feedback now
   };
   
   const handleButtonClick = () => {
-    if (buttonRef.current) {
-      simulateProfileFeedback(buttonRef.current, 'complete');
-    }
     onStartProfile();
   };
   return (

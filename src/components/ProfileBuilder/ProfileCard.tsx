@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, Star } from "lucide-react";
 import CardAvatar from "./CardAvatar";
-import { useProfileMobileOptimizations } from "@/hooks/useProfileMobileOptimizations";
+import { useLightweightMobile } from "@/hooks/useLightweightMobile";
 import { useRef, useEffect } from "react";
 
 interface ProfileCardProps {
@@ -42,26 +42,19 @@ const ProfileCard = ({
   const [firstBenefit, ...remainingBenefits] = benefits;
   const cardRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { isMobile, simulateProfileFeedback } = useProfileMobileOptimizations();
+  const { isMobile } = useLightweightMobile();
   
-  // Handle mobile touch feedback
+  // Handle mobile touch feedback - now CSS-only
   const handleButtonTouch = () => {
-    if (buttonRef.current) {
-      simulateProfileFeedback(buttonRef.current, 'start');
-    }
+    // CSS handles the visual feedback now
   };
   
   const handleCardTouch = () => {
-    if (cardRef.current) {
-      simulateProfileFeedback(cardRef.current, 'touch');
-    }
+    // CSS handles the visual feedback now
   };
   
   // Enhanced mobile button press handling
   const handleButtonClick = () => {
-    if (buttonRef.current) {
-      simulateProfileFeedback(buttonRef.current, 'complete');
-    }
     onStartProfile();
   };
 

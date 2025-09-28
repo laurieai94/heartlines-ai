@@ -66,7 +66,7 @@ export const ChatInputSection = ({
   
   // Mobile optimization hooks - distinguish between mobile phones and tablets
   const { isMobile, isTablet } = useOptimizedMobile();
-  const { isKeyboardVisible, keyboardHeight } = useViewport();
+  const { isKeyboardVisible } = useViewport();
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;

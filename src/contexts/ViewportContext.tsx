@@ -1,148 +1,77 @@
-import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
-import { debounce } from '@/utils/throttle';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 
-interface ViewportState {
-  keyboardHeight: number;
+// Simplified viewport context for mobile performance
+interface ViewportContextType {
+  height: number;
   isKeyboardVisible: boolean;
-  visualViewportHeight: number;
-  windowHeight: number;
-}
-
-interface ViewportContextType extends ViewportState {
   registerKeyboardListener: (callback: (isVisible: boolean) => void) => () => void;
 }
 
-const ViewportContext = createContext<ViewportContextType | null>(null);
+const ViewportContext = createContext<ViewportContextType>({
+  height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  isKeyboardVisible: false,
+  registerKeyboardListener: () => () => {}
+});
 
 export function ViewportProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<ViewportState>(() => {
-    // Safe initialization for SSR
-    const safeHeight = typeof window !== 'undefined' ? (window.visualViewport?.height || window.innerHeight) : 768;
-    
-    return {
-      keyboardHeight: 0,
-      isKeyboardVisible: false,
-      visualViewportHeight: safeHeight,
-      windowHeight: safeHeight,
-    };
-  });
-
-  const keyboardListeners = new Set<(isVisible: boolean) => void>();
-
-  const updateViewport = useCallback(() => {
-    if (typeof window === 'undefined') return;
-
-    try {
-      const windowHeight = window.innerHeight;
-      const visualHeight = window.visualViewport?.height || windowHeight;
-      const keyboardHeight = Math.max(0, windowHeight - visualHeight);
-      
-      // Device-specific keyboard detection thresholds
-      const isTabletDevice = windowHeight >= 768 && windowHeight < 1024;
-      const keyboardThreshold = isTabletDevice ? 200 : 100; // Higher threshold for tablets
-      const isKeyboardVisible = keyboardHeight > keyboardThreshold;
-      
-      // Debug logging removed for performance
-
-      setState(prev => {
-        if (prev.isKeyboardVisible !== isKeyboardVisible) {
-          keyboardListeners.forEach(listener => {
-            try {
-              listener(isKeyboardVisible);
-            } catch (error) {
-              console.error('Critical: Error in keyboard listener:', error);
-            }
-          });
-        }
-        
-        return {
-          keyboardHeight,
-          isKeyboardVisible,
-          visualViewportHeight: visualHeight,
-          windowHeight,
-        };
-      });
-    } catch (error) {
-      console.error('Error updating viewport:', error);
-    }
-  }, []);
+  const [height, setHeight] = useState(() => 
+    typeof window !== 'undefined' ? window.innerHeight : 0
+  );
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [keyboardListeners] = useState(new Set<(isVisible: boolean) => void>());
 
   const registerKeyboardListener = useCallback((callback: (isVisible: boolean) => void) => {
     keyboardListeners.add(callback);
-    return () => keyboardListeners.delete(callback);
-  }, []);
+    
+    return () => {
+      keyboardListeners.delete(callback);
+    };
+  }, [keyboardListeners]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Initial state
-    try {
-      updateViewport();
-    } catch (error) {
-      console.error('Error during initial viewport update:', error);
-    }
-
-    // Focus/blur fallback for keyboard detection
-    const handleFocusIn = (e: FocusEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
-        setTimeout(updateViewport, 300); // Delay for keyboard animation
+    // Simplified viewport handling - single listener only
+    const handleResize = () => {
+      const newHeight = window.innerHeight;
+      const heightDiff = height - newHeight;
+      const isKeyboardNowVisible = heightDiff > 150; // Threshold for keyboard detection
+      
+      setHeight(newHeight);
+      
+      if (isKeyboardNowVisible !== isKeyboardVisible) {
+        setIsKeyboardVisible(isKeyboardNowVisible);
+        
+        // Notify listeners only when keyboard state changes
+        keyboardListeners.forEach(callback => {
+          try {
+            callback(isKeyboardNowVisible);
+          } catch (error) {
+            // Silent error to prevent performance impact
+          }
+        });
       }
     };
 
-    const handleFocusOut = () => {
-      setTimeout(updateViewport, 300); // Delay for keyboard animation
+    // Use single event listener with passive flag for better performance
+    window.addEventListener('resize', handleResize, { passive: true });
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
-
-    // Use visualViewport if available (more accurate)
-    if (window.visualViewport) {
-      try {
-        window.visualViewport.addEventListener('resize', updateViewport, { passive: true });
-        document.addEventListener('focusin', handleFocusIn, { passive: true });
-        document.addEventListener('focusout', handleFocusOut, { passive: true });
-        
-        return () => {
-          window.visualViewport?.removeEventListener('resize', updateViewport);
-          document.removeEventListener('focusin', handleFocusIn);
-          document.removeEventListener('focusout', handleFocusOut);
-        };
-      } catch (error) {
-        console.error('Error setting up visualViewport listener:', error);
-      }
-    } else {
-      // Fallback for older browsers
-      try {
-        window.addEventListener('resize', updateViewport, { passive: true });
-        document.addEventListener('focusin', handleFocusIn, { passive: true });
-        document.addEventListener('focusout', handleFocusOut, { passive: true });
-        
-        return () => {
-          window.removeEventListener('resize', updateViewport);
-          document.removeEventListener('focusin', handleFocusIn);
-          document.removeEventListener('focusout', handleFocusOut);
-        };
-      } catch (error) {
-        console.error('Error setting up window resize listener:', error);
-      }
-    }
-  }, [updateViewport]);
-
-  const contextValue: ViewportContextType = {
-    ...state,
-    registerKeyboardListener,
-  };
+  }, [height, isKeyboardVisible, keyboardListeners]);
 
   return (
-    <ViewportContext.Provider value={contextValue}>
+    <ViewportContext.Provider value={{ 
+      height, 
+      isKeyboardVisible, 
+      registerKeyboardListener 
+    }}>
       {children}
     </ViewportContext.Provider>
   );
 }
 
 export function useViewport() {
-  const context = useContext(ViewportContext);
-  if (!context) {
-    throw new Error('useViewport must be used within a ViewportProvider');
-  }
-  return context;
+  return useContext(ViewportContext);
 }
