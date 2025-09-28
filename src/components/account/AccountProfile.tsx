@@ -1,28 +1,23 @@
 import { useState } from 'react';
-import { Save, User, Phone, Mail } from 'lucide-react';
+import { Save, User, Mail } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
-import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
-import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount } from '@/components/NewPartnerProfile/utils/partnerRequirements';
 import { toast } from 'sonner';
 import AvatarUpload from '@/components/AvatarUpload';
-import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 
 const AccountProfile = () => {
   const { user } = useAuth();
   const { profile, loading: profileLoading, updateProfile } = useUserProfile();
-  const { canUnlockCoaching, canUnlockPartnerCoaching } = useProgressiveAccess();
-  const partnerStorage = usePartnerProfileData();
+  const navigate = useNavigate();
   
   
   const [formData, setFormData] = useState({
-    name: profile?.name || '',
-    phone_number: ''
+    name: profile?.name || ''
   });
   const [saving, setSaving] = useState(false);
 
@@ -59,8 +54,7 @@ const AccountProfile = () => {
     }
   };
 
-  const hasChanges = formData.name !== (profile?.name || '') || 
-                   formData.phone_number !== '';
+  const hasChanges = formData.name !== (profile?.name || '');
 
   if (profileLoading) {
     return (
@@ -154,94 +148,22 @@ const AccountProfile = () => {
         </CardContent>
       </Card>
 
-      {/* Profile Completion Status */}
+      {/* View Personal Profile */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
         <CardHeader className="p-2.5">
-          <CardTitle className="text-white text-sm">Profile Completion</CardTitle>
+          <CardTitle className="text-white text-sm">Personal Profile</CardTitle>
           <CardDescription className="text-white/60 text-xs">
-            Complete your profile to get better AI coaching
+            Access your complete personal profile and questionnaire
           </CardDescription>
         </CardHeader>
         <CardContent className="p-2.5 pt-0">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Email verified</span>
-              <div className="flex items-center gap-1.5 text-green-400">
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                <span className="text-[10px]">Complete</span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Display name</span>
-              <div className={`flex items-center gap-1.5 ${formData.name ? 'text-green-400' : 'text-orange-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${formData.name ? 'bg-green-400' : 'bg-orange-400'}`}></div>
-                <span className="text-[10px]">{formData.name ? 'Complete' : 'Pending'}</span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Profile picture</span>
-              <div className={`flex items-center gap-1.5 ${profile?.avatar_url ? 'text-green-400' : 'text-gray-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${profile?.avatar_url ? 'bg-green-400' : 'bg-gray-400'}`}></div>
-                <span className="text-[10px]">{profile?.avatar_url ? 'Complete' : 'Optional'}</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Unlock Coaching Button - Show when ready */}
-          {canUnlockCoaching && (
-            <div className="pt-3 border-t border-white/10">
-              <UnlockCoachingButton size="compact" />
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Partner Profile Completion Status */}
-      <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-        <CardHeader className="p-2.5">
-          <CardTitle className="text-white text-sm">Partner Profile Completion</CardTitle>
-          <CardDescription className="text-white/60 text-xs">
-            Complete your partner's profile for advanced relationship coaching
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-2.5 pt-0">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Partner name</span>
-              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerName ? 'text-green-400' : 'text-orange-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerName ? 'bg-green-400' : 'bg-orange-400'}`}></div>
-                <span className="text-[10px]">{partnerStorage.profileData.partnerName ? 'Complete' : 'Required'}</span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Partner pronouns</span>
-              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerPronouns ? 'text-green-400' : 'text-orange-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerPronouns ? 'bg-green-400' : 'bg-orange-400'}`}></div>
-                <span className="text-[10px]">{partnerStorage.profileData.partnerPronouns ? 'Complete' : 'Required'}</span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Love language</span>
-              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'text-green-400' : 'text-orange-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'bg-green-400' : 'bg-orange-400'}`}></div>
-                <span className="text-[10px]">{partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'Complete' : 'Required'}</span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-white/80 text-xs">Attachment style</span>
-              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerAttachmentStyle ? 'text-green-400' : 'text-orange-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerAttachmentStyle ? 'bg-green-400' : 'bg-orange-400'}`}></div>
-                <span className="text-[10px]">{partnerStorage.profileData.partnerAttachmentStyle ? 'Complete' : 'Required'}</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Partner Unlock Coaching Button - Show when ready */}
-          {canUnlockPartnerCoaching && (
-            <div className="pt-3 border-t border-white/10">
-              <UnlockCoachingButton size="compact" profileType="partner" />
-            </div>
-          )}
+          <Button 
+            onClick={() => navigate('/profile')}
+            className="w-full questionnaire-button-primary text-xs py-2"
+          >
+            <User className="h-3.5 w-3.5 mr-1.5" />
+            View Personal Profile
+          </Button>
         </CardContent>
       </Card>
     </div>
