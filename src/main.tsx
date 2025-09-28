@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import './styles/mobile-optimizations.css'
+import './styles/performance-mobile.css'
 import { MobileProvider } from "@/hooks/useOptimizedMobile"
 import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
@@ -16,24 +17,29 @@ const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Mobile detection for error boundary selection
-const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 768;
+// Safe mobile detection that won't break at module load
+const getErrorBoundary = () => {
+  if (typeof window === 'undefined') return ErrorBoundary;
+  return window.innerWidth < 768 ? MobileErrorBoundary : ErrorBoundary;
+};
 
-const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBoundary;
+// Optimized app structure with safe error boundary detection
+const AppWithBoundary = () => {
+  const ErrorBoundaryComponent = getErrorBoundary();
+  
+  return (
+    <ErrorBoundaryComponent>
+      <PerformanceOptimizedApp>
+        <ProductionWrapper>
+          <MobileProvider>
+            <ViewportProvider>
+              <App />
+            </ViewportProvider>
+          </MobileProvider>
+        </ProductionWrapper>
+      </PerformanceOptimizedApp>
+    </ErrorBoundaryComponent>
+  );
+};
 
-// Optimized app structure with comprehensive performance monitoring
-const app = (
-  <ErrorBoundaryComponent>
-    <PerformanceOptimizedApp>
-      <ProductionWrapper>
-        <MobileProvider>
-          <ViewportProvider>
-            <App />
-          </ViewportProvider>
-        </MobileProvider>
-      </ProductionWrapper>
-    </PerformanceOptimizedApp>
-  </ErrorBoundaryComponent>
-);
-
-createRoot(document.getElementById("root")!).render(app);
+createRoot(document.getElementById("root")!).render(<AppWithBoundary />);

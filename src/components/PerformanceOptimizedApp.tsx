@@ -6,8 +6,12 @@ interface PerformanceOptimizedAppProps {
 
 // SIMPLIFIED: Performance wrapper without complex monitoring
 export const PerformanceOptimizedApp: React.FC<PerformanceOptimizedAppProps> = ({ children }) => {
-  // Simple mobile detection without performance overhead
-  const isMobile = window.innerWidth < 768;
+  // Safe mobile detection that won't break during SSR
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
   
   useEffect(() => {
     // Apply basic mobile optimizations only
