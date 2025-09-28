@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, useMemo } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
+import OnboardingStepNudge from '../OnboardingStepNudge';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import { useNavigation } from '@/contexts/NavigationContext';
@@ -13,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -51,6 +53,7 @@ export const ChatInputSection = ({
   const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
+  const { calculateYourCompletion } = useProfileCompletion();
   const { 
     messages_used, 
     message_limit, 
@@ -161,21 +164,36 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Show starters immediately for authenticated users with empty chats
+  // Show starters immediately for authenticated users with empty chats - but not if profile is required
   const shouldShowStarters = 
-    (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
-    (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
-    (showStarters && isConfigured && isHistoryLoaded); // Explicit show
+    accessLevel !== 'profile-required' && (
+      (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
+      (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
+      (showStarters && isConfigured && isHistoryLoaded) // Explicit show
+    );
+
+  // Calculate profile completion for the nudge
+  const profileCompletion = calculateYourCompletion();
 
   // Use native iOS keyboard behavior instead of fighting it
 
   return (
     <div className="flex-shrink-0 sticky bottom-0 pb-safe-minimal">
       <div className="px-0 pt-1 pb-0 md:px-4 md:py-5 md:pt-8">
-        {/* Conversation Starters - always show for empty chats */}
+        {/* Conversation Starters - show for complete profiles with empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
             <ConversationStarters onStarterSelect={handleSend} />
+          </div>
+        )}
+        
+        {/* Profile completion nudge - show for incomplete profiles */}
+        {accessLevel === 'profile-required' && user && (
+          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
+            <OnboardingStepNudge
+              completion={profileCompletion}
+              onStartProfile={() => goToProfile('chat')}
+            />
           </div>
         )}
         
