@@ -35,7 +35,7 @@ const pricingPlans = [
     name: "Grow",
     price: "$15",
     period: "month", 
-    description: "Steady coaching to strengthen daily connection",
+    description: "Your relationship's gym membership",
     tagline: "Build momentum in your relationship",
     messages: 150,
     icon: Heart,
