@@ -1,57 +1,44 @@
 import { useEffect } from 'react';
+import { initProductionConsole } from '@/utils/productionConsole';
+import { useLightweightPerformanceMonitor } from '@/hooks/useLightweightPerformanceMonitor';
 
 // Production-only optimizations hook
 export const useProductionOptimizations = () => {
+  const { isEmergencyMode } = useLightweightPerformanceMonitor();
+  
   useEffect(() => {
-    // Only run in production
-    if (import.meta.env.DEV) return;
+    // Initialize safe console logging
+    initProductionConsole();
+    
+    // Memory cleanup - only run in production and when needed
+    if (!import.meta.env.DEV) {
+      const cleanupUnusedListeners = () => {
+        try {
+          // Clear any excessive DOM listeners
+          document.querySelectorAll('[data-cleanup]').forEach(node => {
+            if (node.parentNode) {
+              const clone = node.cloneNode(true);
+              node.parentNode.replaceChild(clone, node);
+            }
+          });
+          
+          // Clear temporary localStorage entries
+          const keysToClean = Object.keys(localStorage).filter(key => 
+            key.includes('temp') || key.includes('debug') || key.includes('cache')
+          );
+          keysToClean.forEach(key => localStorage.removeItem(key));
+          
+        } catch {
+          // Ignore cleanup errors
+        }
+      };
 
-    // Override console methods in production for performance
-    const originalConsole = {
-      log: console.log,
-      debug: console.debug,
-      info: console.info,
-      warn: console.warn,
-      error: console.error
-    };
-
-    // Replace with no-ops except for critical errors
-    console.log = () => {};
-    console.debug = () => {};
-    console.info = () => {};
-    console.warn = () => {};
-    console.error = (message: any, ...args: any[]) => {
-      // Only show critical/fatal errors in production
-      if (typeof message === 'string' && 
-          (message.includes('Critical') || message.includes('Fatal'))) {
-        originalConsole.error(message, ...args);
-      }
-    };
-
-    // Memory cleanup - remove unused event listeners
-    const cleanupUnusedListeners = () => {
-      // Remove any orphaned event listeners
-      const events = ['resize', 'scroll', 'mousemove', 'touchmove'];
-      events.forEach(event => {
-        // Force cleanup by cloning and replacing nodes with many listeners
-        document.querySelectorAll('[data-cleanup]').forEach(node => {
-          if (node.parentNode) {
-            const clone = node.cloneNode(true);
-            node.parentNode.replaceChild(clone, node);
-          }
-        });
-      });
-    };
-
-    // Cleanup after initial render
-    setTimeout(cleanupUnusedListeners, 10000);
-
-    // Cleanup function
-    return () => {
-      // Restore console in development
-      if (import.meta.env.DEV) {
-        Object.assign(console, originalConsole);
-      }
-    };
+      // Cleanup after app stabilizes
+      const cleanupTimer = setTimeout(cleanupUnusedListeners, 15000);
+      
+      return () => clearTimeout(cleanupTimer);
+    }
   }, []);
+  
+  return { isEmergencyMode };
 };

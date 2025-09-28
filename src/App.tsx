@@ -6,9 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shell
-import { warmupNetwork } from "@/utils/networkWarmup";
-import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
-import { performanceMonitor } from "@/utils/performanceMonitor";
+// Removed disabled performance imports
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -26,25 +24,7 @@ const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 
 const AppContent = () => {
-  // Re-enabled with optimized delays for production performance
-  useIdlePrefetch();
-  
-  useEffect(() => {
-    // Re-enable performance monitoring with production optimizations
-    performanceMonitor.init();
-    
-    // Re-enable network warmup with longer delays to prevent blocking
-    const deferWarmup = () => {
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => {
-          warmupNetwork();
-        }, { timeout: 15000 }); // Increased timeout for production
-      } else {
-        setTimeout(warmupNetwork, 8000); // Longer delay for production
-      }
-    };
-    deferWarmup();
-  }, []);
+  // Removed disabled performance functions to eliminate unnecessary calls
   
   return (
     <BrowserRouter>

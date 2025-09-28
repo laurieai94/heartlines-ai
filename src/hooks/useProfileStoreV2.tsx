@@ -287,7 +287,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               }
             }
             
-            console.log(`✅ Successfully promoted ${profileType} profile to V2 storage from ${key}${CLEANUP_LEGACY ? ' (cleaned legacy keys)' : ''}`);
+            safeLog.info(`Loaded ${profileType} profile from database successfully`);
             
             // Note: Immediate DB sync will be triggered by the useEffect after this returns
             return fullProfile;
@@ -298,7 +298,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
     }
     
-    console.log(`[ProfileV2-${profileType}] No existing data found, using defaults`);
+    safeLog.info(`No existing ${profileType} data found, using defaults`);
     return defaultProfile;
   }, [config, defaultProfile, migrateLegacyData, profileType]);
 
@@ -329,7 +329,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         p_patch: updates
       });
 
-      if (error) throw error;
+      if (error) {
+        // Only log error message, not full object
+        safeLog.error(`Database sync failed for ${profileType}:`, error.message);
+        
+        // Restore pending updates on failure
+        Object.assign(pendingUpdates.current, updates);
+        
+        return;
+      }
 
       // Only update timestamp and version from server, preserve local changes
       if (data && typeof data === 'object') {
@@ -352,8 +360,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           return preservedProfile;
         });
       }
-    } catch (error) {
-      // Silently handle errors in production
+    } catch (error: any) {
+      // Safe error logging without object serialization
+      safeLog.error(`Database sync error for ${profileType}:`, error?.message || 'Unknown error');
+      
+      // Restore pending updates on failure
+      Object.assign(pendingUpdates.current, updates);
     } finally {
       setIsOperationInProgress(false);
     }
@@ -469,7 +481,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           console.log(`[ProfileV2-${profileType}] Skipping database sync (no user or non-primary instance)`);
         }
       } catch (error) {
-        console.error(`[ProfileV2-${profileType}] Initialization error:`, error);
+        safeLog.error(`Initialization error for ${profileType}:`, error);
         setProfile(defaultProfile);
         setIsReady(true);
         setIsLoading(false);

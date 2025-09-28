@@ -8,28 +8,31 @@ import { ViewportProvider } from "@/contexts/ViewportContext"
 import { useProductionOptimizations } from "@/hooks/useProductionOptimizations"
 import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
+import { PerformanceOptimizedApp } from '@/components/PerformanceOptimizedApp'
 
 // Production optimizations component
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
-  useProductionOptimizations();
+  const { isEmergencyMode } = useProductionOptimizations();
   return <>{children}</>;
 };
 
-// Mobile detection for error boundary selection only
+// Mobile detection for error boundary selection
 const checkMobile = () => typeof window !== 'undefined' && window.innerWidth < 768;
 
 const ErrorBoundaryComponent = checkMobile() ? MobileErrorBoundary : ErrorBoundary;
 
-// Remove StrictMode even in development to prevent double renders and performance issues
+// Optimized app structure with comprehensive performance monitoring
 const app = (
   <ErrorBoundaryComponent>
-    <ProductionWrapper>
-      <MobileProvider>
-        <ViewportProvider>
-          <App />
-        </ViewportProvider>
-      </MobileProvider>
-    </ProductionWrapper>
+    <PerformanceOptimizedApp>
+      <ProductionWrapper>
+        <MobileProvider>
+          <ViewportProvider>
+            <App />
+          </ViewportProvider>
+        </MobileProvider>
+      </ProductionWrapper>
+    </PerformanceOptimizedApp>
   </ErrorBoundaryComponent>
 );
 
