@@ -139,21 +139,6 @@ const AccountProfile = () => {
             />
           </div>
 
-          {/* Phone */}
-          <div className="space-y-1.5">
-            <Label htmlFor="phone" className="text-white flex items-center gap-1.5 text-xs">
-              <Phone className="h-3.5 w-3.5" />
-              Phone Number (Optional)
-            </Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone_number}
-              onChange={(e) => handleInputChange('phone_number', e.target.value)}
-              placeholder="Enter your phone number"
-              className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 text-xs"
-            />
-          </div>
 
           {/* Save Button */}
           <div className="flex justify-end pt-3">
