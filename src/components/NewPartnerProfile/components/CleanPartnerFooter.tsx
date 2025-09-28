@@ -90,8 +90,18 @@ const CleanPartnerFooter = ({
 
         {/* Right side - Action Buttons */}
         <div className="flex items-center gap-2">
-          {/* Next Section Button (when not on last section) */}
-          {currentSection < 3 ? (
+          {/* Show Unlock Coaching button when all required questions are answered */}
+          {canComplete ? (
+            <Button
+              onClick={handleUnlockCoaching}
+              className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20 backdrop-blur-md border px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none"
+            >
+              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="hidden sm:inline">Unlock coaching</span>
+              <span className="sm:hidden">Start</span>
+            </Button>
+          ) : currentSection < 3 ? (
+            /* Next Section Button (when not all questions completed and not on last section) */
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
@@ -104,15 +114,10 @@ const CleanPartnerFooter = ({
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Button>
           ) : (
-            /* Final section - Unlock Coaching button */
+            /* Disabled Unlock Coaching button on final section when incomplete */
             <Button
-              onClick={canComplete ? handleUnlockCoaching : undefined}
-              disabled={!canComplete}
-              className={`${
-                canComplete 
-                  ? 'bg-gradient-to-r from-emerald-500/20 to-blue-500/20 hover:from-emerald-500/30 hover:to-blue-500/30 border-emerald-400/30 hover:border-emerald-400/50 text-emerald-400 hover:scale-[1.02] animate-soft-glow ring-1 ring-emerald-400/20' 
-                  : 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
-              } backdrop-blur-md border px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none`}
+              disabled={true}
+              className="bg-white/5 border-white/10 text-white/40 cursor-not-allowed backdrop-blur-md border px-3 py-1.5 sm:px-5 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm motion-reduce:animate-none"
             >
               <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               <span className="hidden sm:inline">Unlock coaching</span>
