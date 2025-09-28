@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
+import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
+import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount } from '@/components/NewPartnerProfile/utils/partnerRequirements';
 import { toast } from 'sonner';
 import AvatarUpload from '@/components/AvatarUpload';
 import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
@@ -14,7 +16,8 @@ import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 const AccountProfile = () => {
   const { user } = useAuth();
   const { profile, loading: profileLoading, updateProfile } = useUserProfile();
-  const { canUnlockCoaching } = useProgressiveAccess();
+  const { canUnlockCoaching, canUnlockPartnerCoaching } = useProgressiveAccess();
+  const partnerStorage = usePartnerProfileData();
   
   
   const [formData, setFormData] = useState({
@@ -203,6 +206,55 @@ const AccountProfile = () => {
           {canUnlockCoaching && (
             <div className="pt-3 border-t border-white/10">
               <UnlockCoachingButton size="compact" />
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Partner Profile Completion Status */}
+      <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+        <CardHeader className="p-2.5">
+          <CardTitle className="text-white text-sm">Partner Profile Completion</CardTitle>
+          <CardDescription className="text-white/60 text-xs">
+            Complete your partner's profile for advanced relationship coaching
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-2.5 pt-0">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-white/80 text-xs">Partner name</span>
+              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerName ? 'text-green-400' : 'text-orange-400'}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerName ? 'bg-green-400' : 'bg-orange-400'}`}></div>
+                <span className="text-[10px]">{partnerStorage.profileData.partnerName ? 'Complete' : 'Required'}</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-white/80 text-xs">Partner pronouns</span>
+              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerPronouns ? 'text-green-400' : 'text-orange-400'}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerPronouns ? 'bg-green-400' : 'bg-orange-400'}`}></div>
+                <span className="text-[10px]">{partnerStorage.profileData.partnerPronouns ? 'Complete' : 'Required'}</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-white/80 text-xs">Love language</span>
+              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'text-green-400' : 'text-orange-400'}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'bg-green-400' : 'bg-orange-400'}`}></div>
+                <span className="text-[10px]">{partnerStorage.profileData.partnerLoveLanguage?.length > 0 ? 'Complete' : 'Required'}</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-white/80 text-xs">Attachment style</span>
+              <div className={`flex items-center gap-1.5 ${partnerStorage.profileData.partnerAttachmentStyle ? 'text-green-400' : 'text-orange-400'}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${partnerStorage.profileData.partnerAttachmentStyle ? 'bg-green-400' : 'bg-orange-400'}`}></div>
+                <span className="text-[10px]">{partnerStorage.profileData.partnerAttachmentStyle ? 'Complete' : 'Required'}</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Partner Unlock Coaching Button - Show when ready */}
+          {canUnlockPartnerCoaching && (
+            <div className="pt-3 border-t border-white/10">
+              <UnlockCoachingButton size="compact" profileType="partner" />
             </div>
           )}
         </CardContent>

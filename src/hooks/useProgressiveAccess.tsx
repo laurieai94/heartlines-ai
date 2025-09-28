@@ -2,8 +2,10 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
+import { usePartnerProfileData } from "./usePartnerProfileData";
 import { calculateProgressOptimized, validateSectionOptimized } from "@/components/NewPersonalQuestionnaire/utils/optimizedValidation";
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "@/components/NewPersonalQuestionnaire/utils/requirements";
+import { getTotalPartnerRequiredFieldsCount, getCompletedPartnerRequiredFieldsCount, isPartnerProfileComplete } from "@/components/NewPartnerProfile/utils/partnerRequirements";
 import type { ProfileData } from "@/components/NewPersonalQuestionnaire/types";
 
 export type AccessLevel = 'preview' | 'profile-required' | 'signup-required' | 'full-access';
@@ -26,6 +28,7 @@ export const useProgressiveAccess = () => {
     user = null;
   }
   const personalStorage = usePersonalProfileData();
+  const partnerStorage = usePartnerProfileData();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
 
@@ -133,6 +136,11 @@ export const useProgressiveAccess = () => {
     return completed >= total;
   }, [personalStorage.profileData]);
 
+  // Memoized partner coaching unlock capability
+  const canUnlockPartnerCoaching = useMemo(() => {
+    return partnerStorage.profileData ? isPartnerProfileComplete(partnerStorage.profileData) : false;
+  }, [partnerStorage.profileData]);
+
   return {
     accessLevel,
     canNavigate: true,
@@ -146,6 +154,7 @@ export const useProgressiveAccess = () => {
     missingFieldsForChat,
     incompleteSections,
     detailedProgress,
-    canUnlockCoaching
+    canUnlockCoaching,
+    canUnlockPartnerCoaching
   };
 };

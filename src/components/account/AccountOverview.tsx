@@ -15,7 +15,7 @@ import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 const AccountOverview = () => {
   const { user } = useAuth();
   const { profile } = useUserProfile();
-  const { canUnlockCoaching } = useProgressiveAccess();
+  const { canUnlockCoaching, canUnlockPartnerCoaching } = useProgressiveAccess();
   const navigate = useNavigate();
   const { 
     subscribed, 
@@ -152,17 +152,32 @@ const AccountOverview = () => {
       {/* Usage Analytics - Admin Only */}
       <AccountUsageAnalytics />
 
-      {/* Unlock Coaching - Show when ready */}
+      {/* Personal Coaching - Show when ready */}
       {canUnlockCoaching && (
         <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
           <CardHeader className="p-2.5">
-            <CardTitle className="text-white text-sm">Ready to Start Coaching!</CardTitle>
+            <CardTitle className="text-white text-sm">Ready to Start Personal Coaching!</CardTitle>
             <CardDescription className="text-white/60 text-xs">
-              You've completed the required questions. Start chatting with our AI coach now.
+              You've completed your personal profile. Start chatting with our AI coach now.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-2.5 pt-0">
             <UnlockCoachingButton size="compact" />
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Partner Coaching - Show when ready */}
+      {canUnlockPartnerCoaching && (
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader className="p-2.5">
+            <CardTitle className="text-white text-sm">Ready for Partner Coaching!</CardTitle>
+            <CardDescription className="text-white/60 text-xs">
+              You've completed your partner's profile. Get relationship insights and advice.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-2.5 pt-0">
+            <UnlockCoachingButton size="compact" profileType="partner" />
           </CardContent>
         </Card>
       )}

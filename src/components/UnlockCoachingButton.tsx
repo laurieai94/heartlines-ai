@@ -7,9 +7,10 @@ import { BRAND } from '@/branding';
 interface UnlockCoachingButtonProps {
   size?: 'default' | 'compact';
   className?: string;
+  profileType?: 'personal' | 'partner';
 }
 
-export const UnlockCoachingButton = ({ size = 'default', className = '' }: UnlockCoachingButtonProps) => {
+export const UnlockCoachingButton = ({ size = 'default', className = '', profileType = 'personal' }: UnlockCoachingButtonProps) => {
   const { goToCoach } = useNavigation();
 
   const isCompact = size === 'compact';
@@ -31,7 +32,10 @@ export const UnlockCoachingButton = ({ size = 'default', className = '' }: Unloc
         </AvatarFallback>
       </Avatar>
       <span className="flex items-center gap-1">
-        {isCompact ? `Chat with ${BRAND.coach.name}` : `Unlock Coaching with ${BRAND.coach.name}`}
+        {isCompact 
+          ? `Chat with ${BRAND.coach.name}${profileType === 'partner' ? ' about Partner' : ''}` 
+          : `Unlock ${profileType === 'partner' ? 'Partner ' : ''}Coaching with ${BRAND.coach.name}`
+        }
         <MessageSquare className={`${isCompact ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
       </span>
     </Button>
