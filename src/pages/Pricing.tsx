@@ -9,94 +9,65 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import DashboardHeader from "@/components/DashboardHeader";
 import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
-
-
-const pricingPlans = [
-  {
-    id: "begin",
-    name: "Begin",
-    price: "$0",
-    period: "month",
-    description: "Start small, spark awareness",
-    tagline: "From first steps to stronger bonds",
-    messages: 50,
-    icon: Sprout,
-    features: [
-      "50 messages a month",
-      "Quick insights to spark awareness",
-      "Try before you commit\" energy"
-    ],
-    buttonText: "Get Started Free",
-    popular: false,
-    tier: "freemium"
-  },
-  {
-    id: "grow",
-    name: "Grow",
-    price: "$15",
-    period: "month", 
-    description: "Your relationship's gym membership",
-    tagline: "Build momentum in your relationship",
-    messages: 150,
-    icon: Heart,
-    features: [
-      "150 messages per month",
-      "Advanced relationship coaching", 
-      "Conversation starters",
-      "Progress tracking",
-      "Priority support"
-    ],
-    buttonText: "Start Growing",
-    popular: true,
-    tier: "grow"
-  },
-  {
-    id: "thrive",
-    name: "Thrive", 
-    price: "$29",
-    period: "month",
-    description: "Go all in for deeper love + growth",
-    tagline: "Turn insights into transformation",
-    messages: 300,
-    icon: Flower,
-    features: [
-      "300 messages per month (~10 per day)",
-      "Priority AI coaching",
-      "Unlimited conversation scenarios",
-      "Advanced insights & analytics",
-      "Custom relationship goals",
-      "Premium support"
-    ],
-    buttonText: "Start Thriving",
-    popular: false,
-    tier: "thrive"
-  }
-];
-
-const faqs = [
-  {
-    question: "Can I change or cancel my plan anytime?",
-    answer: "Yes! You can upgrade, downgrade, or cancel your subscription at any time from your account settings. Changes take effect at your next billing cycle."
-  },
-  {
-    question: "What happens to unused messages?",
-    answer: "Unused messages don't roll over to the next month. Each plan resets your message count monthly to encourage consistent relationship growth."
-  },
-  {
-    question: "Is my data secure and private?",
-    answer: "Absolutely. We use enterprise-grade encryption and never share your personal conversations. Your privacy and trust are our top priority."
-  },
-  {
-    question: "Do you offer refunds?",
-    answer: "We offer a 14-day money-back guarantee for all paid plans. If you're not satisfied, contact us for a full refund within the first two weeks."
-  }
-];
-
+const pricingPlans = [{
+  id: "begin",
+  name: "Begin",
+  price: "$0",
+  period: "month",
+  description: "Start small, spark awareness",
+  tagline: "From first steps to stronger bonds",
+  messages: 50,
+  icon: Sprout,
+  features: ["50 messages a month", "Quick insights to spark awareness", "Try before you commit\" energy"],
+  buttonText: "Get Started Free",
+  popular: false,
+  tier: "freemium"
+}, {
+  id: "grow",
+  name: "Grow",
+  price: "$15",
+  period: "month",
+  description: "Your relationship's gym membership",
+  tagline: "Build momentum in your relationship",
+  messages: 150,
+  icon: Heart,
+  features: ["150 messages per month", "Advanced relationship coaching", "Conversation starters", "Progress tracking", "Priority support"],
+  buttonText: "Start Growing",
+  popular: true,
+  tier: "grow"
+}, {
+  id: "thrive",
+  name: "Thrive",
+  price: "$29",
+  period: "month",
+  description: "Go all in for deeper love + growth",
+  tagline: "Turn insights into transformation",
+  messages: 300,
+  icon: Flower,
+  features: ["300 messages per month (~10 per day)", "Priority AI coaching", "Unlimited conversation scenarios", "Advanced insights & analytics", "Custom relationship goals", "Premium support"],
+  buttonText: "Start Thriving",
+  popular: false,
+  tier: "thrive"
+}];
+const faqs = [{
+  question: "Can I change or cancel my plan anytime?",
+  answer: "Yes! You can upgrade, downgrade, or cancel your subscription at any time from your account settings. Changes take effect at your next billing cycle."
+}, {
+  question: "What happens to unused messages?",
+  answer: "Unused messages don't roll over to the next month. Each plan resets your message count monthly to encourage consistent relationship growth."
+}, {
+  question: "Is my data secure and private?",
+  answer: "Absolutely. We use enterprise-grade encryption and never share your personal conversations. Your privacy and trust are our top priority."
+}, {
+  question: "Do you offer refunds?",
+  answer: "We offer a 14-day money-back guarantee for all paid plans. If you're not satisfied, contact us for a full refund within the first two weeks."
+}];
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const {
+    user
+  } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
-
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
       toast.error("Please sign in", {
@@ -104,19 +75,20 @@ const Pricing = () => {
       });
       return;
     }
-
     if (plan.tier === "freemium") {
       navigate("/");
       return;
     }
-
     setLoading(plan.tier);
-
     try {
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { tier: plan.tier }
+      const {
+        data,
+        error
+      } = await supabase.functions.invoke('create-checkout', {
+        body: {
+          tier: plan.tier
+        }
       });
-
       if (error) throw error;
 
       // Open Stripe checkout in new tab
@@ -130,26 +102,12 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-
-  return (
-    <MobileHeaderVisibilityProvider>
+  return <MobileHeaderVisibilityProvider>
       <div className="min-h-screen bg-burgundy-900">
       <div className="relative z-10">
-        <DashboardHeader 
-          accessLevel="freemium"
-          profileCompletion={0}
-          compact={false}
-          user={user}
-          activeTab="pricing"
-          onValueChange={(tab) => {
-            if (tab === 'home') navigate('/');
-            else if (tab === 'profile') navigate('/profile');
-            else if (tab === 'insights') navigate('/coach');
-            else if (tab === 'mission') navigate('/mission');
-          }}
-          onSignInClick={() => navigate('/auth')}
-          onOpenProfile={() => navigate('/profile')}
-        />
+        <DashboardHeader accessLevel="freemium" profileCompletion={0} compact={false} user={user} activeTab="pricing" onValueChange={tab => {
+          if (tab === 'home') navigate('/');else if (tab === 'profile') navigate('/profile');else if (tab === 'insights') navigate('/coach');else if (tab === 'mission') navigate('/mission');
+        }} onSignInClick={() => navigate('/auth')} onOpenProfile={() => navigate('/profile')} />
         
         <div className="container mx-auto px-4 py-6">
           {/* Header Section */}
@@ -157,9 +115,7 @@ const Pricing = () => {
             <h1 className="text-3xl md:text-5xl font-thin questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
-            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4">
-              Every relationship is unique. Find the coaching level that fits your journey.
-            </p>
+            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4">Every connection starts with you. Pick the plan that fits your journey.</p>
             {/* Trust Badges - Inline */}
             <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
@@ -179,22 +135,12 @@ const Pricing = () => {
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
-            {pricingPlans.map((plan) => {
+            {pricingPlans.map(plan => {
               const IconComponent = plan.icon;
-              return (
-                <Card 
-                  key={plan.id} 
-                  className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${
-                    plan.popular 
-                      ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' 
-                      : ''
-                  }`}
-                >
-                  {plan.popular && (
-                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-1 rounded-full border border-white/10 shadow-neon text-sm">
+              return <Card key={plan.id} className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
+                  {plan.popular && <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-1 rounded-full border border-white/10 shadow-neon text-sm">
                       Most Popular
-                    </Badge>
-                  )}
+                    </Badge>}
                   
                   <CardHeader className="text-center pb-3 p-4">
                     <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
@@ -219,28 +165,17 @@ const Pricing = () => {
                     </div>
 
                     <ul className="space-y-2">
-                      {plan.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-2">
+                      {plan.features.map((feature, index) => <li key={index} className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
                           <span className="text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
-                        </li>
-                      ))}
+                        </li>)}
                     </ul>
 
-                    <Button
-                      onClick={() => handlePlanSelect(plan)}
-                      disabled={loading === plan.tier}
-                      className={`w-full rounded-full py-3 text-sm mt-6 ${
-                        plan.popular 
-                          ? 'questionnaire-button-primary' 
-                          : 'questionnaire-button-secondary'
-                      }`}
-                    >
+                    <Button onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
                       {loading === plan.tier ? "Loading..." : plan.buttonText}
                     </Button>
                   </CardContent>
-                </Card>
-              );
+                </Card>;
             })}
           </div>
 
@@ -250,8 +185,7 @@ const Pricing = () => {
               Frequently Asked Questions
             </h2>
             <div className="grid gap-3">
-              {faqs.map((faq, index) => (
-                <Card key={index} className="questionnaire-card">
+              {faqs.map((faq, index) => <Card key={index} className="questionnaire-card">
                   <CardContent className="p-4">
                     <h3 className="text-sm font-medium questionnaire-text mb-1">
                       {faq.question}
@@ -260,19 +194,13 @@ const Pricing = () => {
                       {faq.answer}
                     </p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
 
           {/* Back to Dashboard */}
           <div className="text-center">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate("/")}
-              size="sm"
-              className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost text-xs"
-            >
+            <Button variant="ghost" onClick={() => navigate("/")} size="sm" className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost text-xs">
               <ArrowLeft className="h-3 w-3 mr-1" />
               Back to Dashboard
             </Button>
@@ -280,8 +208,6 @@ const Pricing = () => {
         </div>
       </div>
     </div>
-    </MobileHeaderVisibilityProvider>
-  );
+    </MobileHeaderVisibilityProvider>;
 };
-
 export default Pricing;
