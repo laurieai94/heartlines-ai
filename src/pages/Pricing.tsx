@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft } from "lucide-react";
+import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, Sprout } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
@@ -20,7 +20,7 @@ const pricingPlans = [
     description: "Light check-ins to start building awareness",
     tagline: "From first steps to stronger bonds",
     messages: 50,
-    icon: Sparkles,
+    icon: Sprout,
     features: [
       "50 messages per month",
       "Basic relationship insights",
