@@ -61,6 +61,32 @@ html, body, #root {
   select {
     font-size: 16px; /* Prevents zoom on iOS */
   }
+
+  /* Mobile chat input specific optimizations */
+  .mobile-chat-input {
+    font-size: 16px !important;
+    caret-color: #ffffff !important;
+    -webkit-text-fill-color: white !important;
+    color: white !important;
+  }
+
+  .mobile-chat-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mobile-chat-input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mobile-chat-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mobile-chat-input:focus {
+    caret-color: #ffffff !important;
+    -webkit-text-fill-color: white !important;
+  }
 }
 
 /* Reduce motion for performance and accessibility */
