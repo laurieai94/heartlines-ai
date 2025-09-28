@@ -22,8 +22,6 @@ class MobileErrorBoundary extends React.Component<MobileErrorBoundaryProps, Mobi
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Mobile ErrorBoundary caught an error:', error, errorInfo);
-    
     // Send error to analytics if available
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'exception', {

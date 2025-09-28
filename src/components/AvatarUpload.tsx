@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Upload, User } from "lucide-react";
 import { toast } from "sonner";
+import { logError } from '@/utils/productionLogger';
 
 interface AvatarUploadProps {
   currentAvatarUrl?: string;
@@ -40,7 +41,7 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
       
       toast.success('Avatar updated successfully!');
     } catch (error) {
-      console.error('Error uploading avatar:', error);
+      logError('Error uploading avatar', error);
       toast.error(error.message || 'Error uploading avatar');
     } finally {
       setUploading(false);

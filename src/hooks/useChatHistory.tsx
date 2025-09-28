@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
 import { PrivacyManager } from "@/utils/encryption";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
+import { logError, logInfo, logWarn } from '@/utils/productionLogger';
 // Chat reliability queue removed logger import for performance
 
 const TWELVE_HOURS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
@@ -70,7 +71,7 @@ export const useChatHistory = () => {
         .order('updated_at', { ascending: false });
 
       if (error) {
-        console.error('Database fetch error, falling back to localStorage:', error);
+        logError('Database fetch error, falling back to localStorage', error);
         // Fallback to localStorage
         const stored = localStorage.getItem('chat_conversations') || '[]';
         const localConversations = JSON.parse(stored).filter((c: any) => c.user_id === user.id);
@@ -86,7 +87,7 @@ export const useChatHistory = () => {
         localStorage.setItem('chat_conversations', JSON.stringify(formattedConversations));
       }
     } catch (error) {
-      console.error('Error fetching conversations:', error);
+      logError('Error fetching conversations', error);
       // Final fallback to localStorage
       try {
         const stored = localStorage.getItem('chat_conversations') || '[]';
@@ -119,7 +120,7 @@ export const useChatHistory = () => {
           messagesForDB = JSON.stringify([{ role: 'system', content: `[ENCRYPTED:${encryptedMessages}]` }]);
           messagesToStore = [{ id: 0, type: 'ai', content: `[ENCRYPTED:${encryptedMessages}]`, timestamp: new Date().toISOString() }] as ChatMessage[];
         } catch (error) {
-          console.warn('Encryption failed, storing as plaintext:', error);
+          logWarn('Encryption failed, storing as plaintext', error);
         }
       }
 
@@ -199,7 +200,7 @@ export const useChatHistory = () => {
       }));
 
     } catch (error) {
-      console.error('Error saving conversation:', error);
+      logError('Error saving conversation', error);
       // Fallback to localStorage only
       try {
         const { data: { user } } = await supabase.auth.getUser();
@@ -223,7 +224,7 @@ export const useChatHistory = () => {
           setCurrentConversationId(conversationData.id);
         }
       } catch (fallbackError) {
-        console.error('Even localStorage save failed:', fallbackError);
+        logError('Even localStorage save failed', fallbackError);
       }
     }
   };

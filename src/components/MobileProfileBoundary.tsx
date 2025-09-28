@@ -22,11 +22,16 @@ class MobileProfileBoundary extends Component<MobileProfileBoundaryProps, Mobile
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('[MobileProfileBoundary] Error caught:', error);
-    console.error('[MobileProfileBoundary] Error info:', errorInfo);
-
     // Show user-friendly error message
     toast.error('Profile temporarily unavailable. Please try again.');
+
+    // Send to analytics in production
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'exception', {
+        description: error.message,
+        fatal: false,
+      });
+    }
 
     // Attempt automatic recovery after a delay
     setTimeout(() => {

@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { logError, logWarn } from '@/utils/productionLogger';
 import { cleanupAuthState } from '@/utils/authCleanup';
 
 interface AuthContextType {
@@ -116,13 +117,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await supabase.auth.signOut({ scope: 'global' });
       } catch (err) {
         // Continue even if this fails
-        console.warn('Sign out error:', err);
+        logWarn('Sign out error', err);
       }
       
       // Force redirect to homepage with clean state
       window.location.href = '/';
     } catch (error) {
-      console.error('Sign out error:', error);
+      logError('Sign out error', error);
       // Still redirect even if cleanup fails
       window.location.href = '/';
     }

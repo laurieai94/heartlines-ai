@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
+import { logInfo, logWarn } from '@/utils/productionLogger';
 import CommunicationStyles from "./CommunicationStyles";
 import LoveLanguages from "./LoveLanguages";
 
@@ -93,7 +94,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     // Only validate required fields - deep dive questions are optional
     if (!validateRequired()) return;
     
-    console.log('Page 1 form data being submitted:', formData);
+    logInfo('Page 1 form data being submitted', formData);
     onComplete(formData);
   };
 
@@ -107,8 +108,8 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
       missing.push('loveLanguages');
     }
     
-    console.log('Validation check - missing required fields:', missing);
-    console.log('Current form data:', formData);
+    logWarn('Validation check - missing required fields', missing);
+    logInfo('Current form data', formData);
     
     if (missing.length > 0) {
       const fieldNames = missing.map(field => {
@@ -127,7 +128,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
   };
 
   const updateField = (field: string, value: string) => {
-    console.log(`Updating field ${field} with value:`, value);
+    logInfo(`Updating field ${field} with value`, value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -136,7 +137,7 @@ const ProfileFormPage1 = ({ profileType, onComplete, initialData }: ProfileFormP
     const updated = current.includes(value) 
       ? current.filter(item => item !== value)
       : [...current, value];
-    console.log(`Multi-select update for ${field}:`, updated);
+    logInfo(`Multi-select update for ${field}`, updated);
     setFormData(prev => ({ ...prev, [field]: updated }));
   };
 

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Sparkles, X } from "lucide-react";
 import { useEffect } from "react";
+import { logInfo } from '@/utils/productionLogger';
 interface ProfileCompletionOptionsProps {
   completionType: 'personal' | 'partner';
   onAddPartnerProfile: () => void;
@@ -21,7 +22,7 @@ const ProfileCompletionOptions = ({
 
   // Debug logging
   useEffect(() => {
-    console.log('ProfileCompletionOptions rendered:', {
+    logInfo('ProfileCompletionOptions rendered', {
       completionType,
       hasPartnerProfile
     });
