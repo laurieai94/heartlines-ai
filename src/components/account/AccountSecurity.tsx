@@ -126,18 +126,6 @@ const AccountSecurity = () => {
             {sendingReset ? 'Sending...' : 'Send Password Reset'}
           </Button>
 
-          <div className="p-2.5 rounded-lg bg-blue-500/20 border border-blue-400/30">
-            <div className="flex items-start gap-1.5">
-              <AlertCircle className="h-3.5 w-3.5 text-blue-400 mt-0.5 flex-shrink-0" />
-              <div className="text-xs">
-                <p className="text-blue-200 font-medium">Password Reset Instructions</p>
-                <p className="text-blue-300/80 mt-0.5">
-                  Click the button above to receive a secure link via email. 
-                  Follow the link to create a new password for your account.
-                </p>
-              </div>
-            </div>
-          </div>
         </CardContent>
       </Card>
 
