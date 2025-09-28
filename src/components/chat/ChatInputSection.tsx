@@ -172,8 +172,11 @@ export const ChatInputSection = ({
       (showStarters && isConfigured && isHistoryLoaded) // Explicit show
     );
 
-  // Calculate profile completion for the nudge
-  const profileCompletion = calculateYourCompletion();
+  // Calculate profile completion for the nudge (memoized to prevent excessive calculation)
+  const profileCompletion = useMemo(() => {
+    if (accessLevel !== 'profile-required') return 0;
+    return calculateYourCompletion();
+  }, [accessLevel, calculateYourCompletion]);
 
   // Use native iOS keyboard behavior instead of fighting it
 

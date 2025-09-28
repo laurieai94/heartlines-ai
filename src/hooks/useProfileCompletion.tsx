@@ -17,7 +17,10 @@ export const useProfileCompletion = () => {
     }
     
     const completion = calculatePersonalProgress(personalData as any);
-    console.log('ProfileBuilder - Personal profile completion:', completion, '% - Data shape:', Object.keys(personalData));
+    // Only log in development mode to prevent performance issues
+    if (import.meta.env.DEV && completion % 25 === 0) {
+      console.log('ProfileBuilder - Personal profile completion:', completion, '%');
+    }
     return completion;
   };
 
@@ -27,7 +30,10 @@ export const useProfileCompletion = () => {
     if (!partnerData || Object.keys(partnerData).length === 0) return 0;
     
     const completion = calculatePartnerProgress(partnerData as any);
-    console.log('ProfileBuilder - Partner profile completion:', completion, '% - Data shape:', Object.keys(partnerData));
+    // Only log in development mode to prevent performance issues  
+    if (import.meta.env.DEV && completion % 25 === 0) {
+      console.log('ProfileBuilder - Partner profile completion:', completion, '%');
+    }
     return completion;
   };
 
