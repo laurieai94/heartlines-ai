@@ -1,10 +1,9 @@
 import { useState, Suspense, useEffect, lazy } from 'react';
-import { User, CreditCard, Shield, Home } from 'lucide-react';
+import { User, CreditCard, Shield } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 
 // Lazy load account components for better performance
-const AccountOverview = lazy(() => import('./AccountOverview'));
 const AccountSubscription = lazy(() => import('./AccountSubscription'));
 const AccountProfile = lazy(() => import('./AccountProfile'));
 const AccountSecurity = lazy(() => import('./AccountSecurity'));
@@ -23,7 +22,7 @@ const TabSkeleton = () => (
 );
 
 const AccountLayout = () => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('profile');
   const [showBackgroundEffects, setShowBackgroundEffects] = useState(false);
 
   // Performance tracking
@@ -64,13 +63,13 @@ const AccountLayout = () => {
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-3 bg-white/10 backdrop-blur-sm border border-white/20 h-7 gap-0.5 p-0.5">
+            <TabsList className="grid w-full grid-cols-3 mb-3 bg-white/10 backdrop-blur-sm border border-white/20 h-7 gap-0.5 p-0.5">
               <TabsTrigger 
-                value="overview" 
+                value="profile"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-1.5 py-0.5 text-[11px] sm:text-xs"
               >
-                <Home className="h-[14px] w-[14px] mr-1" />
-                <span className="hidden sm:inline">Overview</span>
+                <User className="h-[14px] w-[14px] mr-1" />
+                <span className="hidden sm:inline">Profile</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="subscription"
@@ -78,13 +77,6 @@ const AccountLayout = () => {
               >
                 <CreditCard className="h-[14px] w-[14px] mr-1" />
                 <span className="hidden sm:inline">Subscription</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="profile"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-1.5 py-0.5 text-[11px] sm:text-xs"
-              >
-                <User className="h-[14px] w-[14px] mr-1" />
-                <span className="hidden sm:inline">Profile</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="security"
@@ -95,21 +87,15 @@ const AccountLayout = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="overview" className="space-y-2.5">
+            <TabsContent value="profile" className="space-y-2.5">
               <Suspense fallback={<TabSkeleton />}>
-                <AccountOverview />
+                <AccountProfile />
               </Suspense>
             </TabsContent>
 
             <TabsContent value="subscription" className="space-y-2.5">
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSubscription />
-              </Suspense>
-            </TabsContent>
-
-            <TabsContent value="profile" className="space-y-2.5">
-              <Suspense fallback={<TabSkeleton />}>
-                <AccountProfile />
               </Suspense>
             </TabsContent>
 
