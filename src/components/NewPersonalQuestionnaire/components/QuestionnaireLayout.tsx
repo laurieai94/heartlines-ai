@@ -7,6 +7,7 @@ import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
 import MobileProfileBoundary from "@/components/MobileProfileBoundary";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
+import { useGlobalResize } from '@/hooks/useGlobalResize';
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -60,12 +61,23 @@ const QuestionnaireLayout = ({
 
     updateLayout();
     
-    // Use passive listener for better performance
-    window.addEventListener('resize', updateLayout, { passive: true });
     return () => {
       if (layoutTimer) clearTimeout(layoutTimer);
-      window.removeEventListener('resize', updateLayout);
     };
+  }, []);
+
+  // Use global resize manager
+  useGlobalResize(() => {
+    const isTabletOrDesktop = window.innerWidth >= 640;
+    setIsTabletDesktop(isTabletOrDesktop);
+    
+    // Defer header measurement to next frame
+    requestAnimationFrame(() => {
+      if (stickyHeaderRef.current) {
+        const height = stickyHeaderRef.current.offsetHeight;
+        setHeaderHeight(height);
+      }
+    });
   }, []);
   
   // Memoize progress calculation to prevent unnecessary recalculations

@@ -7,6 +7,7 @@ import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
 import CleanPartnerFooter from "./CleanPartnerFooter";
 import MobileProfileBoundary from "@/components/MobileProfileBoundary";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
+import { useGlobalResize } from '@/hooks/useGlobalResize';
 interface PartnerQuestionnaireLayoutProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
@@ -51,10 +52,21 @@ const PartnerQuestionnaireLayout = ({
     };
 
     updateLayout();
-    window.addEventListener('resize', updateLayout);
-    return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
+  // Use global resize manager
+  useGlobalResize(() => {
+    const isTabletOrDesktop = window.innerWidth >= 640;
+    setIsTabletDesktop(isTabletOrDesktop);
+    
+    // Always measure header height on all screen sizes
+    if (stickyHeaderRef.current) {
+      const height = stickyHeaderRef.current.offsetHeight;
+      setHeaderHeight(height);
+    } else {
+      setHeaderHeight(0);
+    }
+  }, []);
 
   const handleSectionClick = (section: number) => {
     setCurrentSection(section);

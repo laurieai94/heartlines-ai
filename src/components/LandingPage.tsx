@@ -12,6 +12,7 @@ import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
+import { useGlobalResize } from '@/hooks/useGlobalResize';
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
@@ -139,15 +140,19 @@ const LandingPage = ({
   useEffect(() => {
     const closeMenu = () => setIsMenuOpen(false);
     
-    // Close menu on route changes or window events
+    // Close menu on route changes
     window.addEventListener('popstate', closeMenu);
-    window.addEventListener('resize', closeMenu);
     
     return () => {
       window.removeEventListener('popstate', closeMenu);
-      window.removeEventListener('resize', closeMenu);
     };
   }, []);
+
+  // Use global resize manager to close menu on resize
+  useGlobalResize(() => {
+    setIsMenuOpen(false);
+  }, []);
+
   const isEmbedded = !showMarketingTopBar;
 
   // Glass card styling helper

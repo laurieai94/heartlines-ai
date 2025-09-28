@@ -3,6 +3,7 @@ import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { ProfileData } from "../types";
 import { useAutoScroll } from "../hooks/useAutoScroll";
 import WhoYouAre from "./sections/WhoYouAre";
+import { useGlobalResize } from '@/hooks/useGlobalResize';
 
 // Lazy load sections for better initial performance
 const YourRelationship = lazy(() => import("./sections/YourRelationship"));
@@ -47,14 +48,9 @@ const QuestionnaireContent = ({
   const scrollContainerRef = containerRef || useRef<HTMLDivElement>(null);
   const { scrollToElement } = useAutoScroll();
 
-  // Track tablet/desktop state
-  useEffect(() => {
-    const updateLayout = () => {
-      setIsTabletDesktop(window.innerWidth >= 640);
-    };
-    updateLayout();
-    window.addEventListener('resize', updateLayout);
-    return () => window.removeEventListener('resize', updateLayout);
+  // Track tablet/desktop state using global resize manager
+  useGlobalResize(() => {
+    setIsTabletDesktop(window.innerWidth >= 640);
   }, []);
 
   // Prefetch next section when current section becomes active

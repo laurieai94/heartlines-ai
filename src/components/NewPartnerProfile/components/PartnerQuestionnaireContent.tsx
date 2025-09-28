@@ -1,5 +1,10 @@
-import { useState, useEffect, lazy, Suspense } from "react";
-import { PartnerProfileData } from "../types";
+import React, { useState, lazy, Suspense } from 'react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { PartnerProfileData } from '../types';
+import PartnerQuestionnaireHeader from './PartnerQuestionnaireHeader';
+import CleanPartnerFooter from './CleanPartnerFooter';
+import PartnerSectionNavigation from './PartnerSectionNavigation';
+import { useGlobalResize } from '@/hooks/useGlobalResize';
 
 // Lazy load sections for better initial performance
 const PartnerBasics = lazy(() => import("./sections/PartnerBasics"));
@@ -23,14 +28,9 @@ const PartnerQuestionnaireContent = ({
 }: PartnerQuestionnaireContentProps) => {
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
 
-  // Track tablet/desktop state
-  useEffect(() => {
-    const updateLayout = () => {
-      setIsTabletDesktop(window.innerWidth >= 640);
-    };
-    updateLayout();
-    window.addEventListener('resize', updateLayout);
-    return () => window.removeEventListener('resize', updateLayout);
+  // Track tablet/desktop state using global resize manager
+  useGlobalResize(() => {
+    setIsTabletDesktop(window.innerWidth >= 640);
   }, []);
 
   // Component to show loading state for sections

@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MemoryManager } from '@/utils/memoryManager';
 
-// Hook to automatically manage cleanup on component unmount
+// Enhanced hook to automatically manage cleanup on component unmount
 export const useCleanupManager = (componentName?: string) => {
+  const cleanupRef = useRef<(() => void)[]>([]);
+  
   useEffect(() => {
     return () => {
-      // Component-specific cleanup
-      if (componentName) {
-        console.log(`Cleaning up ${componentName}`);
-      }
+      // Execute all registered cleanup functions
+      cleanupRef.current.forEach(cleanup => {
+        try {
+          cleanup();
+        } catch (error) {
+          if (!import.meta.env.PROD) {
+            console.error(`Cleanup error in ${componentName}:`, error);
+          }
+        }
+      });
       
       // Global cleanup for timers and listeners
       MemoryManager.cleanup();
@@ -16,12 +24,19 @@ export const useCleanupManager = (componentName?: string) => {
   }, [componentName]);
 
   // Return utilities for manual resource management
+  const addCleanup = (cleanup: () => void) => {
+    cleanupRef.current.push(cleanup);
+  };
+
   return {
     addTimeout: MemoryManager.addTimeout,
     addInterval: MemoryManager.addInterval,
     addListener: MemoryManager.addListener,
     removeTimeout: MemoryManager.removeTimeout,
     removeInterval: MemoryManager.removeInterval,
-    forceCleanup: MemoryManager.cleanup
+    removeListener: MemoryManager.removeListener,
+    addCleanup,
+    forceCleanup: MemoryManager.cleanup,
+    getStats: MemoryManager.getStats
   };
 };
