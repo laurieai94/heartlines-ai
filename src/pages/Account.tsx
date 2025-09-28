@@ -1,25 +1,62 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { NavigationProvider } from '@/contexts/NavigationContext';
+import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
+import DashboardHeader from '@/components/DashboardHeader';
+import DashboardModals from '@/components/DashboardModals';
 import AccountLayout from '@/components/account/AccountLayout';
+import { useDashboardModals } from '@/hooks/useDashboardModals';
 
 const Account = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  
+  const {
+    activeTab,
+    setActiveTab,
+    showQuestionnaireModal,
+    showPartnerQuestionnaireModal,
+    showPersonalCompletionOptions,
+    showPartnerCompletionOptions,
+    shouldShowSignUpModal,
+    showSignInModal,
+    closeSignUpModal,
+    closeSignInModal,
+    openSignInModal,
+    accessLevel,
+    profileCompletion,
+    // Handler functions
+    handleGoToProfile,
+    handleGoToCoach,
+    handleOpenQuestionnaire,
+    handleOpenPartnerQuestionnaire,
+    handleQuestionnaireComplete,
+    handlePartnerQuestionnaireComplete,
+    handleQuestionnaireClose,
+    handlePartnerQuestionnaireClose,
+    handlePersonalCompletionClose,
+    handlePartnerCompletionClose,
+    handlePersonalAddPartnerProfile,
+    handlePersonalStartChatting,
+    handlePartnerStartChatting,
+    handlePartnerContinueEditing,
+  } = useDashboardModals();
 
   // Navigation handlers for account page
-  const handleGoToProfile = (origin?: 'header' | 'chat') => {
-    navigate('/?tab=profile');
+  const handleGoToProfileAccount = (origin?: 'header' | 'chat') => {
+    navigate('/');
+    setTimeout(() => setActiveTab('profile'), 100);
   };
 
-  const handleGoToCoach = () => {
-    navigate('/?tab=insights');
+  const handleGoToCoachAccount = () => {
+    navigate('/');
+    setTimeout(() => setActiveTab('insights'), 100);
   };
 
-  const handleGoToPartner = () => {
-    navigate('/?tab=profile');
-    // Dispatch event to open partner questionnaire after navigation
+  const handleGoToPartnerAccount = () => {
+    navigate('/');
     setTimeout(() => {
+      setActiveTab('profile');
       window.dispatchEvent(new CustomEvent('dashboard:openPartnerQuestionnaire'));
     }, 100);
   };
@@ -38,11 +75,47 @@ const Account = () => {
 
   return (
     <NavigationProvider 
-      goToProfile={handleGoToProfile} 
-      goToCoach={handleGoToCoach} 
-      goToPartner={handleGoToPartner}
+      goToProfile={handleGoToProfileAccount} 
+      goToCoach={handleGoToCoachAccount} 
+      goToPartner={handleGoToPartnerAccount}
     >
-      <AccountLayout />
+      <MobileHeaderVisibilityProvider>
+        <div className="min-h-screen bg-burgundy-900">
+          <DashboardHeader
+            accessLevel={accessLevel}
+            profileCompletion={profileCompletion}
+            user={user}
+            activeTab="account"
+            onValueChange={setActiveTab}
+            onSignInClick={openSignInModal}
+            onOpenProfile={handleGoToProfile}
+          />
+          <AccountLayout />
+          
+          <DashboardModals
+            showQuestionnaireModal={showQuestionnaireModal}
+            showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
+            showPersonalCompletionOptions={showPersonalCompletionOptions}
+            showPartnerCompletionOptions={showPartnerCompletionOptions}
+            shouldShowSignUpModal={shouldShowSignUpModal}
+            onCloseSignUpModal={closeSignUpModal}
+            showSignInModal={showSignInModal}
+            onCloseSignInModal={closeSignInModal}
+            onQuestionnaireComplete={handleQuestionnaireComplete}
+            onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
+            onQuestionnaireClose={handleQuestionnaireClose}
+            onQuestionnaireOpen={handleOpenQuestionnaire}
+            onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
+            onPersonalCompletionClose={handlePersonalCompletionClose}
+            onPartnerCompletionClose={handlePartnerCompletionClose}
+            onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
+            onPersonalStartChatting={handlePersonalStartChatting}
+            onPartnerStartChatting={handlePartnerStartChatting}
+            onPartnerContinueEditing={handlePartnerContinueEditing}
+            temporaryProfiles={{}}
+          />
+        </div>
+      </MobileHeaderVisibilityProvider>
     </NavigationProvider>
   );
 };

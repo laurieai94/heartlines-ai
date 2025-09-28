@@ -117,9 +117,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 }}
               >
                  {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
+                    const IconComponent = item.icon;
+                    const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
+                    return (
                      <DropdownMenuItem
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}
@@ -165,9 +165,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 }}
               >
                  {navigationItems.map((item) => {
-                   const IconComponent = item.icon;
-                   const isActive = !item.isExternal && activeTab === item.value;
-                   return (
+                    const IconComponent = item.icon;
+                    const isActive = (!item.isExternal && activeTab === item.value) || (item.isExternal && activeTab === item.value);
+                    return (
                      <DropdownMenuItem
                        key={item.value}
                        onMouseEnter={() => handleTabHover(item.value)}

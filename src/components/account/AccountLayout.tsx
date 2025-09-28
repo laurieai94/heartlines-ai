@@ -1,7 +1,5 @@
 import { useState, Suspense, useEffect, lazy } from 'react';
-import { ArrowLeft, User, CreditCard, Shield, Home } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { User, CreditCard, Shield, Home } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -25,7 +23,6 @@ const TabSkeleton = () => (
 );
 
 const AccountLayout = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [showBackgroundEffects, setShowBackgroundEffects] = useState(false);
 
@@ -49,7 +46,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen questionnaire-bg">
+    <div className="questionnaire-bg">
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -58,19 +55,7 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-4 py-4 max-w-3xl">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate('/')}
-            className="text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Dashboard
-          </Button>
-        </div>
+      <div className="relative z-10 container mx-auto px-4 py-4 max-w-3xl">`
 
         <div className="questionnaire-card p-3 md:p-4 animate-fade-in">
           <div className="text-center mb-3">
