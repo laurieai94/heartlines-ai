@@ -170,7 +170,9 @@ const AIChatInput = ({
             WebkitAppearance: 'none',
             textAlign: 'left',
             justifyContent: 'flex-start',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
+            caretColor: 'white',
+            WebkitTextFillColor: 'white'
           }}
           rows={1}
         />
