@@ -126,6 +126,13 @@ export const useProgressiveAccess = () => {
     setBlockingAction('');
   };
 
+  // Memoized coaching unlock capability
+  const canUnlockCoaching = useMemo(() => {
+    const completed = personalStorage.profileData ? getCompletedRequiredFieldsCount(personalStorage.profileData as ProfileData) : 0;
+    const total = getTotalRequiredFieldsCount();
+    return completed >= total;
+  }, [personalStorage.profileData]);
+
   return {
     accessLevel,
     canNavigate: true,
@@ -138,6 +145,7 @@ export const useProgressiveAccess = () => {
     hasPersonalProfileForChat,
     missingFieldsForChat,
     incompleteSections,
-    detailedProgress
+    detailedProgress,
+    canUnlockCoaching
   };
 };

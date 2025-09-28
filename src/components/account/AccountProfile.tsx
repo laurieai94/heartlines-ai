@@ -6,12 +6,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import { toast } from 'sonner';
 import AvatarUpload from '@/components/AvatarUpload';
+import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 
 const AccountProfile = () => {
   const { user } = useAuth();
   const { profile, loading: profileLoading, updateProfile } = useUserProfile();
+  const { canUnlockCoaching } = useProgressiveAccess();
   
   
   const [formData, setFormData] = useState({
@@ -195,6 +198,13 @@ const AccountProfile = () => {
               </div>
             </div>
           </div>
+          
+          {/* Unlock Coaching Button - Show when ready */}
+          {canUnlockCoaching && (
+            <div className="pt-3 border-t border-white/10">
+              <UnlockCoachingButton size="compact" />
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

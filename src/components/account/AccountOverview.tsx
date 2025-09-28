@@ -5,14 +5,17 @@ import { Progress } from '@/components/ui/progress';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserProfile } from '@/hooks/useUserProfile';
+import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
 import { refreshAllAppData } from '@/utils/globalRefresh';
 import AccountUsageAnalytics from './AccountUsageAnalytics';
+import { UnlockCoachingButton } from '@/components/UnlockCoachingButton';
 
 const AccountOverview = () => {
   const { user } = useAuth();
   const { profile } = useUserProfile();
+  const { canUnlockCoaching } = useProgressiveAccess();
   const navigate = useNavigate();
   const { 
     subscribed, 
@@ -148,6 +151,21 @@ const AccountOverview = () => {
 
       {/* Usage Analytics - Admin Only */}
       <AccountUsageAnalytics />
+
+      {/* Unlock Coaching - Show when ready */}
+      {canUnlockCoaching && (
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader className="p-2.5">
+            <CardTitle className="text-white text-sm">Ready to Start Coaching!</CardTitle>
+            <CardDescription className="text-white/60 text-xs">
+              You've completed the required questions. Start chatting with our AI coach now.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-2.5 pt-0">
+            <UnlockCoachingButton size="compact" />
+          </CardContent>
+        </Card>
+      )}
 
       {/* Quick Actions */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
