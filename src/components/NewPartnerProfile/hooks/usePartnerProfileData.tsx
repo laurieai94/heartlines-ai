@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { PartnerProfileData } from '../types';
 import { calculatePartnerProgress } from '../utils/partnerValidation';
 import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
+import { safeLog, inspectObject } from '@/utils/safeLogging';
 
 const defaultPartnerProfileData: PartnerProfileData = {
   // Section 1: The Basics
@@ -69,20 +70,24 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
       normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
     }
     
-    console.log(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
+    // Safe logging without circular reference risk
+    safeLog.fieldUpdate('Partner', field, !!normalizedValue);
     rawUpdateField(field, normalizedValue);
   };
 
-  // Normalize multi-select handling with enhanced logging
+  // Normalize multi-select handling with safe logging
   const normalizedHandleMultiSelect = (field: keyof PartnerProfileData, value: string) => {
-    console.log(`[Partner] Multi-select attempt ${field}:`, value, 'current:', profileData?.[field]);
+    const current = profileData?.[field];
+    const isRemoving = Array.isArray(current) && current.includes(value);
+    safeLog.multiSelect('Partner', field, isRemoving ? 'remove' : 'add', value);
     rawHandleMultiSelect(field, value);
   };
 
   // Optimized merge with useMemo to prevent unnecessary re-renders
   const mergedProfileData = useMemo(() => {
     const merged = { ...defaultPartnerProfileData, ...profileData } as PartnerProfileData;
-    console.log('[Partner] Data merge:', { profileData, merged });
+    // Safe inspection without circular reference risk
+    inspectObject(merged, '[Partner] Data merged');
     return merged;
   }, [profileData]);
 

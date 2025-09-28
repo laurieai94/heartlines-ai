@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef, useDeferredValue } from 'reac
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePerformanceSafeguards } from './usePerformanceSafeguards';
+import { safeLog } from '@/utils/safeLogging';
 
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
@@ -671,7 +672,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         ? current.filter(item => item !== value)
         : [...current, value];
       
-      console.log(`[ProfileStore] ${field} updated:`, current, '->', updated);
+      // Safe logging without object serialization
+      safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
       
       const newProfile = { ...currentProfile, [field]: updated };
       

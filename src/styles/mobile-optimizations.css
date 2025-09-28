@@ -7,24 +7,77 @@ html, body, #root {
   color: hsl(var(--foreground));
 }
 
-/* Fix white bar on mobile by ensuring proper height calculation */
+/* Mobile viewport and performance optimizations */
 @media (max-width: 768px) {
-  html, body {
+  /* Prevent viewport jumping on keyboard show/hide */
+  html {
+    height: 100%;
+  }
+  
+  body {
     height: 100%;
     overflow-x: hidden;
+    /* Prevent elastic scrolling on iOS */
+    overscroll-behavior: none;
   }
   
   #root {
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
+    /* Prevent layout shifts */
+    contain: layout style;
   }
   
-  /* Prevent white bars on iOS Safari */
+  /* iOS Safari specific fixes */
   @supports (-webkit-touch-callout: none) {
     #root {
       min-height: -webkit-fill-available;
     }
+    
+    /* Prevent zoom on input focus */
+    input, textarea, select {
+      font-size: 16px !important;
+      transform: translateZ(0);
+    }
+  }
+  
+  /* Emergency performance mode */
+  .emergency-performance * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+  
+  /* Optimize touch targets */
+  button, [role="button"], a {
+    min-height: 44px;
+    min-width: 44px;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Optimize scrolling performance */
+  .scroll-container {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: auto;
+    /* Reduce paint operations */
+    will-change: scroll-position;
+  }
+  
+  /* Profile form specific optimizations */
+  .profile-form {
+    /* Prevent layout thrashing */
+    contain: layout;
+    /* Optimize repaints */
+    transform: translateZ(0);
+  }
+  
+  /* Reduce memory usage for complex layouts */
+  .complex-layout {
+    content-visibility: auto;
+    contain-intrinsic-size: 200px;
   }
 }
 

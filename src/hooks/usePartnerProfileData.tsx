@@ -1,5 +1,6 @@
 
 import { useProfileStoreV2 } from './useProfileStoreV2';
+import { safeLog } from '@/utils/safeLogging';
 
 export interface PartnerProfileData {
   // Section 1: The Basics
@@ -72,13 +73,14 @@ export const usePartnerProfileData = () => {
       normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
     }
     
-    console.log(`[Partner] Normalized ${field}:`, value, '->', normalizedValue);
+    // Safe logging without circular reference risk
+    safeLog.fieldUpdate('Partner', field, !!normalizedValue);
     rawUpdateField(field, normalizedValue);
   };
 
   // Normalize multi-select handling
   const normalizedHandleMultiSelect = (field: keyof PartnerProfileData, value: string) => {
-    console.log(`[Partner] Multi-select ${field}:`, value);
+    safeLog.multiSelect('Partner', field, 'add', value);
     rawHandleMultiSelect(field, value);
   };
 

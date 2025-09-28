@@ -5,6 +5,8 @@ import PartnerSectionNavigation from "./PartnerSectionNavigation";
 import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
 import CleanPartnerFooter from "./CleanPartnerFooter";
+import MobileProfileBoundary from "@/components/MobileProfileBoundary";
+import { useMobilePerformanceOptimizer } from "@/hooks/useMobilePerformanceOptimizer";
 interface PartnerQuestionnaireLayoutProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
@@ -29,6 +31,9 @@ const PartnerQuestionnaireLayout = ({
   const scrollToSectionFn = useRef<((section: number) => void) | null>(null);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
   const overallProgress = calculatePartnerProgress(profileData);
+  
+  // Mobile performance optimization
+  const { isMobile, throttleRender } = useMobilePerformanceOptimizer();
 
   // Track tablet/desktop state and measure header height
   useEffect(() => {
@@ -83,50 +88,57 @@ const PartnerQuestionnaireLayout = ({
   };
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    return <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
-      <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[98dvh] sm:max-h-[75dvh] flex flex-col'} ${
-        // Force desktop styling on tablet and above
-        isTabletDesktop 
-          ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
-          : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
-      } overflow-hidden relative ${
-        isTabletDesktop
-          ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'
-          : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
-      } animate-scale-in`}>
-        
-        <div ref={scrollContainerRef} data-scroll-container className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-safe no-scrollbar touch-pan-y" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}>
-          {/* Sticky header and navigation - always visible, responsive design */}
-          <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
-            <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
+    // Prevent rendering if throttled on mobile
+    if (throttleRender()) {
+      return null;
+    }
 
-            <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
-              <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
-            </div>
-          </div>
+     return <MobileProfileBoundary>
+       <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
+         <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[98dvh] sm:max-h-[75dvh] flex flex-col'} ${
+           // Force desktop styling on tablet and above
+           isTabletDesktop 
+             ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
+             : 'border border-white/15 rounded-xl sm:rounded-2xl bg-burgundy-900/90 backdrop-blur-xl shadow-xl shadow-black/20 ring-1 ring-white/8'
+         } overflow-hidden relative ${
+           isTabletDesktop
+             ? 'before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:pointer-events-none'
+             : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
+         } animate-scale-in`}>
+           
+           <div ref={scrollContainerRef} data-scroll-container className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-safe no-scrollbar touch-pan-y" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}>
+             {/* Sticky header and navigation - always visible, responsive design */}
+             <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
+               <PartnerQuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
 
-          <PartnerQuestionnaireContent
-            profileData={profileData} 
-            updateField={updateField} 
-            handleMultiSelect={handleMultiSelect} 
-            currentSection={currentSection}
-            onSectionComplete={() => {}} 
-          />
-          
-          {/* Minimal bottom padding */}
-          <div className="pb-6 sm:pb-10" />
-        </div>
+               <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
+                 <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
+                 <PartnerSectionNavigation currentSection={currentSection} profileData={profileData} onSectionClick={handleSectionClick} />
+               </div>
+             </div>
 
-        <CleanPartnerFooter 
-          profileData={profileData} 
-          onComplete={onComplete} 
-          autoCompleteEnabled={!!onAutoComplete}
-          currentSection={currentSection}
-          onNextSection={handleNextSection}
-          onPreviousSection={handlePreviousSection}
-        />
-      </div>
-    </div>;
+             <PartnerQuestionnaireContent
+               profileData={profileData} 
+               updateField={updateField} 
+               handleMultiSelect={handleMultiSelect} 
+               currentSection={currentSection}
+               onSectionComplete={() => {}} 
+             />
+             
+             {/* Minimal bottom padding */}
+             <div className="pb-6 sm:pb-10" />
+           </div>
+
+           <CleanPartnerFooter 
+             profileData={profileData} 
+             onComplete={onComplete} 
+             autoCompleteEnabled={!!onAutoComplete}
+             currentSection={currentSection}
+             onNextSection={handleNextSection}
+             onPreviousSection={handlePreviousSection}
+           />
+         </div>
+       </div>
+     </MobileProfileBoundary>;
 };
 export default PartnerQuestionnaireLayout;

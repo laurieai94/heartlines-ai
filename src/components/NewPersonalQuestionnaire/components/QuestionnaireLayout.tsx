@@ -5,6 +5,8 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
+import MobileProfileBoundary from "@/components/MobileProfileBoundary";
+import { useMobilePerformanceOptimizer } from "@/hooks/useMobilePerformanceOptimizer";
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -27,6 +29,9 @@ const QuestionnaireLayout = ({
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
+  
+  // Mobile performance optimization
+  const { isMobile, throttleRender } = useMobilePerformanceOptimizer();
 
   // Simple section management - no intersection observers
   
@@ -88,7 +93,13 @@ const QuestionnaireLayout = ({
   // Auto-advance handled by flow context now
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  return <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
+  // Prevent rendering if throttled on mobile
+  if (throttleRender()) {
+    return null;
+  }
+
+  return <MobileProfileBoundary>
+    <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
       <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[98dvh] sm:max-h-[75dvh] flex flex-col'} ${
         // Force desktop styling on tablet and above
         isTabletDesktop 
@@ -133,6 +144,7 @@ const QuestionnaireLayout = ({
           onNextSection={handleNextSection}
         />
       </div>
-    </div>;
+    </div>
+  </MobileProfileBoundary>;
 };
 export default QuestionnaireLayout;
