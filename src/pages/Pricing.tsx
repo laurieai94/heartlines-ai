@@ -44,7 +44,7 @@ const pricingPlans = [{
   tagline: "Turn insights into transformation",
   messages: 300,
   icon: Flower,
-  features: ["300 messages per month (~10 per day)", "Priority AI coaching", "Unlimited conversation scenarios", "Advanced insights & analytics", "Custom relationship goals", "Premium support"],
+  features: ["300 messages a month (~10/day)", "Unlimited scenarios (self-talk, dating, relationships)", "Advanced insights + personal analytics", "Custom goals for your growth journey", "Premium support"],
   buttonText: "Start Thriving",
   popular: false,
   tier: "thrive"
