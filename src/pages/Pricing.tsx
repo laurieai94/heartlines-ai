@@ -17,7 +17,7 @@ const pricingPlans = [
     name: "Begin",
     price: "$0",
     period: "month",
-    description: "Light check-ins to start building awareness",
+    description: "Start small, spark awareness",
     tagline: "From first steps to stronger bonds",
     messages: 50,
     icon: Sprout,
