@@ -612,7 +612,9 @@
   
   .questionnaire-button-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
     transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
   }
   
   .questionnaire-button-selected {

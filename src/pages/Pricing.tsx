@@ -171,7 +171,7 @@ const Pricing = () => {
                         </li>)}
                     </ul>
 
-                    <Button onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
+                    <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
                       {loading === plan.tier ? "Loading..." : plan.buttonText}
                     </Button>
                   </CardContent>
