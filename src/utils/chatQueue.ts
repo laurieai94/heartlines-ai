@@ -1,7 +1,7 @@
-// Chat message reliability queue for offline/failed saves
+// Chat message reliability queue for offline/failed saves  
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
-import { logger } from "./logger";
+// Logger removed for performance optimization
 
 interface QueuedChat {
   id: string;
@@ -35,10 +35,10 @@ class ChatReliabilityQueue {
       const stored = localStorage.getItem('chat_queue');
       if (stored) {
         this.queue = JSON.parse(stored);
-        logger.info(`Loaded ${this.queue.length} items from chat queue`);
+        // Loaded ${this.queue.length} items from chat queue (logging removed for performance)
       }
     } catch (error) {
-      logger.error('Failed to load chat queue from storage', error);
+      // Failed to load chat queue from storage (logging removed for performance)
       this.queue = [];
     }
   }
@@ -47,7 +47,7 @@ class ChatReliabilityQueue {
     try {
       localStorage.setItem('chat_queue', JSON.stringify(this.queue));
     } catch (error) {
-      logger.error('Failed to save chat queue to storage', error);
+      // Failed to save chat queue to storage (logging removed for performance)
     }
   }
 
@@ -55,7 +55,7 @@ class ChatReliabilityQueue {
     // Cap queue size to prevent memory issues
     if (this.queue.length >= this.maxQueueSize) {
       this.queue.shift(); // Remove oldest item
-      logger.warn('Chat queue at max size, removed oldest item');
+      // Chat queue at max size, removed oldest item (logging removed for performance)
     }
 
     const queueItem: QueuedChat = {
@@ -68,7 +68,7 @@ class ChatReliabilityQueue {
     this.queue.push(queueItem);
     
     this.saveToStorage();
-    logger.info('Added conversation to reliability queue', { id: queueItem.id });
+    // Added conversation to reliability queue (logging removed for performance)
 
     // Debounced processing to avoid spam
     if (this.debounceTimer) {
@@ -83,7 +83,7 @@ class ChatReliabilityQueue {
     if (this.isProcessing || this.queue.length === 0) return;
 
     this.isProcessing = true;
-    logger.info(`Processing chat queue with ${this.queue.length} items`);
+    // Processing chat queue with ${this.queue.length} items (logging removed for performance)
 
     const failedItems: QueuedChat[] = [];
 
@@ -107,13 +107,9 @@ class ChatReliabilityQueue {
           throw error;
         }
 
-        logger.info('Successfully synced conversation from queue', { id: item.id });
+        // Successfully synced conversation from queue (logging removed for performance)
       } catch (error) {
-        logger.error('Failed to sync conversation from queue', { 
-          id: item.id, 
-          retryCount: item.retryCount,
-          error 
-        });
+        // Failed to sync conversation from queue (logging removed for performance)
 
         if (item.retryCount < this.maxRetries) {
           failedItems.push({
@@ -121,7 +117,7 @@ class ChatReliabilityQueue {
             retryCount: item.retryCount + 1
           });
         } else {
-          logger.error('Conversation exceeded max retries, dropping from queue', { id: item.id });
+          // Conversation exceeded max retries, dropping from queue (logging removed for performance)
         }
       }
     }
@@ -130,7 +126,7 @@ class ChatReliabilityQueue {
     this.saveToStorage();
     this.isProcessing = false;
 
-    logger.info(`Chat queue processing complete. ${failedItems.length} items remain`);
+    // Chat queue processing complete. ${failedItems.length} items remain (logging removed for performance)
   }
 
   // Get queue status for debugging

@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { usePersonalProfilePersistence } from "@/hooks/usePersonalProfilePersistence";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import BrandLoadingText from "../BrandLoadingText";
 
 interface PersonalIdentityProps {
@@ -17,7 +17,7 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfilePersistence();
+  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfileData();
 
   // Use personal profile data if this is the personal profile
   const currentData = isPersonal ? profileData : formData;

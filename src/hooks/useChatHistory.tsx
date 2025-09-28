@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
 import { PrivacyManager } from "@/utils/encryption";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
-import { logger } from "@/utils/logger";
+// Chat reliability queue removed logger import for performance
 
 const TWELVE_HOURS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
@@ -148,7 +148,7 @@ export const useChatHistory = () => {
         });
 
       if (dbError) {
-        logger.error('Database save failed, adding to reliability queue', dbError);
+        // Database save failed, adding to reliability queue (logging removed for performance)
         // Add to reliability queue for later retry
         chatReliabilityQueue.enqueue({
           id: conversationData.id,
@@ -159,7 +159,7 @@ export const useChatHistory = () => {
           updated_at: conversationData.updated_at
         });
       } else {
-        logger.info('Chat conversation saved to database successfully', { id: conversationData.id });
+        // Chat conversation saved to database successfully (logging removed for performance)
       }
 
       // Always save to localStorage as backup
@@ -286,7 +286,7 @@ export const useChatHistory = () => {
       
       // If the most recent conversation is older than 12 hours, start fresh
       if (conversationAge > TWELVE_HOURS) {
-        logger.info('Most recent conversation is older than 12 hours, starting fresh chat');
+        // Most recent conversation is older than 12 hours, starting fresh chat (logging removed for performance)
         setCurrentConversationId(null);
         sessionStorage.removeItem('current_chat');
         return [];

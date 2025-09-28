@@ -20,7 +20,7 @@ import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
-import { useProfileMobileOptimizations } from '@/hooks/useProfileMobileOptimizations';
+// Mobile optimizations removed for performance
 
 // Lazy load secondary components to reduce initial bundle size
 const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
@@ -105,15 +105,7 @@ const ProfileBuilder = ({
   // Navigation hook for coaching
   const { goToCoach } = useNavigation();
   
-  // Mobile optimizations
-  const { 
-    isMobile, 
-    isRefreshing, 
-    simulateProfileFeedback, 
-    handleTouchStart, 
-    handleTouchMove, 
-    handleTouchEnd 
-  } = useProfileMobileOptimizations();
+  // Mobile optimizations removed for better performance
   
   // Handle pull-to-refresh
   const handleRefresh = async () => {

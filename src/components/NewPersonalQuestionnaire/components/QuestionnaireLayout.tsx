@@ -6,7 +6,7 @@ import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
 import MobileProfileBoundary from "@/components/MobileProfileBoundary";
-import { useMobilePerformanceOptimizer } from "@/hooks/useMobilePerformanceOptimizer";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 interface QuestionnaireLayoutProps {
   profileData: ProfileData;
   updateField: (field: keyof ProfileData, value: any) => void;
@@ -30,8 +30,8 @@ const QuestionnaireLayout = ({
   const [isTabletDesktop, setIsTabletDesktop] = useState(false);
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
   
-  // Mobile performance optimization
-  const { isMobile, throttleRender } = useMobilePerformanceOptimizer();
+  // Mobile detection
+  const { isMobile } = useOptimizedMobile();
 
   // Simple section management - no intersection observers
   
@@ -93,10 +93,7 @@ const QuestionnaireLayout = ({
   // Auto-advance handled by flow context now
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Prevent rendering if throttled on mobile
-  if (throttleRender()) {
-    return null;
-  }
+  // Component renders normally
 
   return <MobileProfileBoundary>
     <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>

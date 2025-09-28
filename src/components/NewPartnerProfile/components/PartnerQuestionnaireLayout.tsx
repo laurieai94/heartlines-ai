@@ -6,7 +6,7 @@ import PartnerQuestionnaireHeader from "./PartnerQuestionnaireHeader";
 import PartnerQuestionnaireContent from "./PartnerQuestionnaireContent";
 import CleanPartnerFooter from "./CleanPartnerFooter";
 import MobileProfileBoundary from "@/components/MobileProfileBoundary";
-import { useMobilePerformanceOptimizer } from "@/hooks/useMobilePerformanceOptimizer";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 interface PartnerQuestionnaireLayoutProps {
   profileData: PartnerProfileData;
   updateField: (field: keyof PartnerProfileData, value: any) => void;
@@ -32,8 +32,8 @@ const PartnerQuestionnaireLayout = ({
   const stickyHeaderRef = useRef<HTMLDivElement>(null);
   const overallProgress = calculatePartnerProgress(profileData);
   
-  // Mobile performance optimization
-  const { isMobile, throttleRender } = useMobilePerformanceOptimizer();
+  // Mobile detection
+  const { isMobile } = useOptimizedMobile();
 
   // Track tablet/desktop state and measure header height
   useEffect(() => {
@@ -88,10 +88,7 @@ const PartnerQuestionnaireLayout = ({
   };
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Prevent rendering if throttled on mobile
-    if (throttleRender()) {
-      return null;
-    }
+    // Component renders normally
 
      return <MobileProfileBoundary>
        <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>

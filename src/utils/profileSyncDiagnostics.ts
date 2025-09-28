@@ -1,5 +1,5 @@
 // Profile sync diagnostics and logging
-import { logger } from "./logger";
+// Profile sync diagnostics - logger removed for performance optimization
 import { supabase } from "@/integrations/supabase/client";
 
 interface SyncMetrics {
@@ -23,7 +23,7 @@ class ProfileSyncDiagnostics {
         this.metrics = JSON.parse(stored);
       }
     } catch (error) {
-      logger.error('Failed to load sync metrics', error);
+      // Failed to load sync metrics (logging removed for performance)
     }
   }
 
@@ -31,7 +31,7 @@ class ProfileSyncDiagnostics {
     try {
       localStorage.setItem('profile_sync_metrics', JSON.stringify(this.metrics));
     } catch (error) {
-      logger.error('Failed to save sync metrics', error);
+      // Failed to save sync metrics (logging removed for performance)
     }
   }
 
@@ -52,12 +52,7 @@ class ProfileSyncDiagnostics {
     metrics.lastSyncAttempt = Date.now();
     metrics.totalSyncs++;
     
-    logger.info(`Profile sync attempt [${profileType}]`, {
-      totalSyncs: metrics.totalSyncs,
-      dataSize: JSON.stringify(data).length,
-      fieldCount: Object.keys(data).length,
-      hasRequiredFields: this.hasRequiredFields(profileType, data)
-    });
+    // Profile sync attempt [${profileType}] (logging removed for performance)
   }
 
   logSyncSuccess(profileType: string) {
@@ -67,10 +62,7 @@ class ProfileSyncDiagnostics {
     
     this.saveMetrics();
     
-    logger.info(`Profile sync SUCCESS [${profileType}]`, {
-      timeSinceLastAttempt: Date.now() - metrics.lastSyncAttempt,
-      totalSyncs: metrics.totalSyncs
-    });
+    // Profile sync SUCCESS [${profileType}] (logging removed for performance)
   }
 
   logSyncFailure(profileType: string, error: any) {
@@ -79,11 +71,7 @@ class ProfileSyncDiagnostics {
     
     this.saveMetrics();
     
-    logger.error(`Profile sync FAILED [${profileType}]`, {
-      failureCount: metrics.failureCount,
-      timeSinceLastSuccess: metrics.lastSyncSuccess ? Date.now() - metrics.lastSyncSuccess : 'never',
-      error: error?.message || error
-    });
+    // Profile sync FAILED [${profileType}] (logging removed for performance)
   }
 
   private hasRequiredFields(profileType: string, data: any): boolean {
@@ -99,7 +87,7 @@ class ProfileSyncDiagnostics {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        logger.warn('Health check: No authenticated user');
+        // Health check: No authenticated user (logging removed for performance)
         return false;
       }
 
@@ -111,17 +99,14 @@ class ProfileSyncDiagnostics {
         .limit(1);
 
       if (error) {
-        logger.error('Health check: Database connectivity failed', error);
+        // Health check: Database connectivity failed (logging removed for performance)
         return false;
       }
 
-      logger.info('Health check: All systems operational', {
-        userId: user.id,
-        profileCount: data?.length || 0
-      });
+      // Health check: All systems operational (logging removed for performance)
       return true;
     } catch (error) {
-      logger.error('Health check: System error', error);
+      // Health check: System error (logging removed for performance)
       return false;
     }
   }
@@ -145,7 +130,7 @@ class ProfileSyncDiagnostics {
       }
     };
 
-    logger.info('Profile sync system status', status);
+    // Profile sync system status (logging removed for performance)
     return status;
   }
 }

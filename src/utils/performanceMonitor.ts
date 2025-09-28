@@ -1,5 +1,5 @@
 // Performance monitoring utilities - DISABLED IN PRODUCTION
-import { logger } from './logger';
+// Performance monitoring disabled for production optimization
 
 class PerformanceMonitor {
   private metrics = new Map<string, number>();
@@ -22,7 +22,7 @@ class PerformanceMonitor {
       this.metrics.delete(name);
       
       if (duration > threshold) {
-        logger.warn(`Performance: ${name} took ${duration.toFixed(2)}ms (threshold: ${threshold}ms)`);
+        // Performance: ${name} took ${duration.toFixed(2)}ms (threshold: ${threshold}ms) - logging removed for performance
       }
       
       return duration;
@@ -44,7 +44,7 @@ class PerformanceMonitor {
         
         list.getEntries().forEach((entry) => {
           if (entry.duration > 50) {
-            logger.warn(`Long task detected: ${entry.duration.toFixed(2)}ms`);
+            // Long task detected: ${entry.duration.toFixed(2)}ms - logging removed for performance
             lastLogTime = now;
           }
         });
@@ -69,7 +69,7 @@ class PerformanceMonitor {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
         
-        logger.info(`LCP: ${lastEntry.startTime.toFixed(2)}ms`);
+        // LCP: ${lastEntry.startTime.toFixed(2)}ms - logging removed for performance
         hasLogged = true;
         observer.disconnect();
       });
@@ -90,11 +90,11 @@ class PerformanceMonitor {
     // Monitor page load performance - once only
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        logger.info(`DOM ready: ${performance.now().toFixed(2)}ms`);
+        // DOM ready: ${performance.now().toFixed(2)}ms - logging removed for performance
       }, { once: true });
       
       window.addEventListener('load', () => {
-        logger.info(`Page load complete: ${performance.now().toFixed(2)}ms`);
+        // Page load complete: ${performance.now().toFixed(2)}ms - logging removed for performance
       }, { once: true });
     }
   }
