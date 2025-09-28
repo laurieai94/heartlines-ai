@@ -128,38 +128,18 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
-  const { withTimeout } = usePerformanceSafeguards();
   
-  // EMERGENCY: Circuit breaker to prevent multiple concurrent operations
-  const [isOperationInProgress, setIsOperationInProgress] = useState(false);
-  
-  // Instance tracking
-  const instanceId = useRef<string>(`${profileType}-${Date.now()}-${Math.random()}`);
-  const isPrimaryInstance = useRef<boolean>(false);
-  
+  // SIMPLIFIED: Removed complex instance tracking and circuit breakers
   const [profile, setProfile] = useState<PersonalProfileV2 | PartnerProfileV2>(defaultProfile);
   const [isLoading, setIsLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   
-  // Use deferred values for non-critical updates
-  const deferredProfile = useDeferredValue(profile);
-  
   const debounceTimer = useRef<NodeJS.Timeout>();
   const pendingUpdates = useRef<Partial<PersonalProfileV2 | PartnerProfileV2>>({});
-  
-  // Register this instance and determine if it's primary
-  useEffect(() => {
-    const instanceCount = HOOK_INSTANCES.get(profileType) || 0;
-    HOOK_INSTANCES.set(profileType, instanceCount + 1);
-    isPrimaryInstance.current = instanceCount === 0;
-    
-    return () => {
-      const currentCount = HOOK_INSTANCES.get(profileType) || 1;
-      HOOK_INSTANCES.set(profileType, Math.max(0, currentCount - 1));
-    };
-  }, [profileType]);
+
+  // SIMPLIFIED: Removed complex instance tracking for performance
 
   // Clone arrays to prevent aliasing
   const cloneProfile = useCallback((data: Partial<PersonalProfileV2 | PartnerProfileV2>): Partial<PersonalProfileV2 | PartnerProfileV2> => {
@@ -317,11 +297,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
   }, [config.storageKey, profileType]);
 
-  // Debounced sync to Supabase with timeout protection
-  const syncToDatabase = useCallback(withTimeout(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
-    if (!user || isOperationInProgress) return;
+  // SIMPLIFIED: Direct sync to Supabase without timeout protection
+  const syncToDatabase = useCallback(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
+    if (!user) return;
     
-    setIsOperationInProgress(true);
     try {
       
       const { data, error } = await supabase.rpc('upsert_user_profile_patch', {
@@ -366,10 +345,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       
       // Restore pending updates on failure
       Object.assign(pendingUpdates.current, updates);
-    } finally {
-      setIsOperationInProgress(false);
     }
-  }, 3000, `syncToDatabase-${profileType}`), [user, config.dbType, defaultProfile, saveToStorage, profileType, withTimeout, isOperationInProgress]);
+  }, [user, config.dbType, defaultProfile, saveToStorage, profileType]);
 
   // Add flush method to syncToDatabase for immediate execution
   (syncToDatabase as any).flush = () => {
@@ -442,8 +419,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         setIsReady(true);
         setIsLoading(false); // UI can render immediately with local data
         
-        // Defer database sync to not block the main thread
-        if (user && isPrimaryInstance.current) {
+        // SIMPLIFIED: Always sync to database when user is present
+        if (user) {
           // Use requestIdleCallback to defer database operations
           const deferredSync = () => {
             setIsSyncing(true);

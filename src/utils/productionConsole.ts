@@ -30,15 +30,15 @@ export const productionConsole = {
   }
 };
 
-// Initialize production console overrides
+// Initialize production console overrides - AGGRESSIVE MODE
 export const initProductionConsole = () => {
+  // Always disable console in production for maximum performance
   if (isProduction) {
-    // Override console methods in production to prevent performance issues
-    console.log = productionConsole.log;
-    console.debug = productionConsole.debug;
-    console.info = productionConsole.info;
-    console.warn = productionConsole.warn;
-    console.error = productionConsole.error;
+    console.log = () => {};
+    console.debug = () => {};
+    console.info = () => {};
+    console.warn = () => {};
+    console.error = productionConsole.error; // Keep error logging for critical issues
   }
 };
 
