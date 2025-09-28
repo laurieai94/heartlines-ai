@@ -1,9 +1,28 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { NavigationProvider } from '@/contexts/NavigationContext';
 import AccountLayout from '@/components/account/AccountLayout';
 
 const Account = () => {
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  // Navigation handlers for account page
+  const handleGoToProfile = (origin?: 'header' | 'chat') => {
+    navigate('/?tab=profile');
+  };
+
+  const handleGoToCoach = () => {
+    navigate('/?tab=insights');
+  };
+
+  const handleGoToPartner = () => {
+    navigate('/?tab=profile');
+    // Dispatch event to open partner questionnaire after navigation
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('dashboard:openPartnerQuestionnaire'));
+    }, 100);
+  };
 
   if (loading) {
     return (
@@ -17,7 +36,15 @@ const Account = () => {
     return <Navigate to="/" replace />;
   }
 
-  return <AccountLayout />;
+  return (
+    <NavigationProvider 
+      goToProfile={handleGoToProfile} 
+      goToCoach={handleGoToCoach} 
+      goToPartner={handleGoToPartner}
+    >
+      <AccountLayout />
+    </NavigationProvider>
+  );
 };
 
 export default Account;
