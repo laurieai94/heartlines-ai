@@ -1,10 +1,10 @@
-// Performance monitoring utilities - Development only
+// Performance monitoring utilities - DISABLED IN PRODUCTION
 import { logger } from './logger';
 
 class PerformanceMonitor {
   private metrics = new Map<string, number>();
-  // Enable only in development for performance
-  private isEnabled = import.meta.env.DEV;
+  // COMPLETELY DISABLED for production performance
+  private isEnabled = false;
   
   // Mark the start of a performance measurement
   mark(name: string) {

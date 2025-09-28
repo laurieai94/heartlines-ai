@@ -15,9 +15,7 @@ import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useProfileCompletion } from "@/hooks/useProfileCompletion";
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
-import { performanceMonitor } from "@/utils/performanceMonitor";
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
-import { logEvent } from "@/utils/analytics";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
@@ -129,26 +127,15 @@ const ProfileBuilder = ({
   };
   
   const handleStartPersonalProfile = () => {
-    logEvent('onboarding_step_nudge_clicked', { 
-      completion: yourProfileCompletion,
-      action: yourProfileCompletion > 0 ? 'continue' : 'start'
-    });
-    
-    console.log('handleStartPersonalProfile called, onOpenQuestionnaire exists:', !!onOpenQuestionnaire);
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
       onOpenQuestionnaire();
-    } else {
-      console.error('onOpenQuestionnaire callback not provided');
     }
   };
   const handleStartPartnerProfile = () => {
-    console.log('handleStartPartnerProfile called, onOpenPartnerQuestionnaire exists:', !!onOpenPartnerQuestionnaire);
     // Call the callback to open the partner questionnaire modal in Dashboard
     if (onOpenPartnerQuestionnaire) {
       onOpenPartnerQuestionnaire();
-    } else {
-      console.error('onOpenPartnerQuestionnaire callback not provided');
     }
   };
   const handleStartProfile = (profileType: 'your' | 'partner') => {

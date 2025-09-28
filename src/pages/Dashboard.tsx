@@ -8,9 +8,11 @@ import AuthGuard from "@/components/AuthGuard";
 import { useDashboardModals } from "@/hooks/useDashboardModals";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
+import { useEmergencyPerformanceMode } from "@/hooks/useEmergencyPerformanceMode";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const { isEmergencyMode } = useEmergencyPerformanceMode();
   
   const {
     activeTab,
@@ -48,12 +50,12 @@ const Dashboard = () => {
     handleProfileUpdate
   } = useDashboardModals();
 
-  // Preload questionnaire chunk for gated users
+  // Preload questionnaire chunk for gated users - skip in emergency mode
   useEffect(() => {
-    if (accessLevel === 'profile-required' && user) {
+    if (accessLevel === 'profile-required' && user && !isEmergencyMode) {
       import('@/components/NewPersonalQuestionnaire').catch(() => {});
     }
-  }, [accessLevel, user]);
+  }, [accessLevel, user, isEmergencyMode]);
 
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {

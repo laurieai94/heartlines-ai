@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useDeferredValue } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { debounce } from '@/utils/throttle';
+import { usePerformanceSafeguards } from './usePerformanceSafeguards';
 
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
@@ -127,6 +127,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
+  const { withTimeout } = usePerformanceSafeguards();
   
   // EMERGENCY: Circuit breaker to prevent multiple concurrent operations
   const [isOperationInProgress, setIsOperationInProgress] = useState(false);
@@ -141,6 +142,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   
+  // Use deferred values for non-critical updates
+  const deferredProfile = useDeferredValue(profile);
+  
   const debounceTimer = useRef<NodeJS.Timeout>();
   const pendingUpdates = useRef<Partial<PersonalProfileV2 | PartnerProfileV2>>({});
   
@@ -149,8 +153,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     const instanceCount = HOOK_INSTANCES.get(profileType) || 0;
     HOOK_INSTANCES.set(profileType, instanceCount + 1);
     isPrimaryInstance.current = instanceCount === 0;
-    
-    console.log(`[ProfileV2-${profileType}] Instance ${instanceId.current} registered (primary: ${isPrimaryInstance.current})`);
     
     return () => {
       const currentCount = HOOK_INSTANCES.get(profileType) || 1;
@@ -290,9 +292,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             return fullProfile;
           }
         }
-      } catch (error) {
-        console.error(`[ProfileV2-${profileType}] Migration error from ${key}:`, error);
-      }
+    } catch (error) {
+      // Silently handle migration errors
+    }
     }
     
     console.log(`[ProfileV2-${profileType}] No existing data found, using defaults`);
@@ -301,26 +303,25 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
-    try {
-      const toSave = { ...data, lastUpdated: new Date().toISOString() };
-      localStorage.setItem(config.storageKey, JSON.stringify(toSave));
-      setLastSaved(new Date());
-      // Broadcast to other hook instances in this tab
-      window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
-        detail: { profileType, storageKey: config.storageKey, lastUpdated: toSave.lastUpdated }
-      }));
-      console.log(`[ProfileV2-${profileType}] Saved to localStorage & broadcasted:`, toSave);
-    } catch (error) {
-      console.error(`[ProfileV2-${profileType}] Storage save error:`, error);
-    }
+      try {
+        const toSave = { ...data, lastUpdated: new Date().toISOString() };
+        localStorage.setItem(config.storageKey, JSON.stringify(toSave));
+        setLastSaved(new Date());
+        // Broadcast to other hook instances in this tab
+        window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
+          detail: { profileType, storageKey: config.storageKey, lastUpdated: toSave.lastUpdated }
+        }));
+      } catch (error) {
+        // Silently handle storage errors
+      }
   }, [config.storageKey, profileType]);
 
-  // Debounced sync to Supabase
-  const syncToDatabase = useCallback(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
-    if (!user) return;
-
+  // Debounced sync to Supabase with timeout protection
+  const syncToDatabase = useCallback(withTimeout(async (updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
+    if (!user || isOperationInProgress) return;
+    
+    setIsOperationInProgress(true);
     try {
-      console.log(`[ProfileV2-${profileType}] Syncing to database:`, updates);
       
       const { data, error } = await supabase.rpc('upsert_user_profile_patch', {
         p_profile_type: config.dbType,
@@ -332,7 +333,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       // Only update timestamp and version from server, preserve local changes
       if (data && typeof data === 'object') {
         setLastSaved(new Date());
-        console.log(`[ProfileV2-${profileType}] Synced to database successfully`);
         
         // Only merge server data if it doesn't conflict with recent local updates
         // This prevents the server from overwriting fields the user just modified
@@ -348,14 +348,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           });
           
           saveToStorage(preservedProfile);
-          console.log(`[ProfileV2-${profileType}] Preserved local changes:`, Object.keys(updates));
           return preservedProfile;
         });
       }
     } catch (error) {
-      console.error(`[ProfileV2-${profileType}] Database sync error:`, error);
+      // Silently handle errors in production
+    } finally {
+      setIsOperationInProgress(false);
     }
-  }, [user, config.dbType, defaultProfile, saveToStorage, profileType]);
+  }, 3000, `syncToDatabase-${profileType}`), [user, config.dbType, defaultProfile, saveToStorage, profileType, withTimeout, isOperationInProgress]);
 
   // Add flush method to syncToDatabase for immediate execution
   (syncToDatabase as any).flush = () => {
@@ -375,7 +376,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     const cacheKey = `${user.id}-${config.dbType}`;
     const cached = DB_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < cached.ttl) {
-      console.log(`[ProfileV2-${profileType}] Using cached database data`);
       return cached.data;
     }
 
@@ -411,7 +411,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
       return result;
     } catch (error) {
-      console.error(`[ProfileV2-${profileType}] Database load error:`, error);
+      // Silently handle database errors
     }
 
     return defaultProfile;
@@ -420,7 +420,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Initialize and load data with performance optimizations
   useEffect(() => {
     const initialize = async () => {
-      console.log(`[ProfileV2-${profileType}] Starting optimized initialization...`);
       setIsLoading(true);
       
       try {
@@ -429,14 +428,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         setProfile(localProfile);
         setIsReady(true);
         setIsLoading(false); // UI can render immediately with local data
-        console.log(`[ProfileV2-${profileType}] Local profile loaded, UI ready`);
         
         // Defer database sync to not block the main thread
         if (user && isPrimaryInstance.current) {
           // Use requestIdleCallback to defer database operations
           const deferredSync = () => {
             setIsSyncing(true);
-            console.log(`[ProfileV2-${profileType}] Starting deferred database sync...`);
             
             // Use timeout with lower priority
             setTimeout(async () => {
@@ -454,10 +451,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                   setProfile(finalProfile);
                   saveToStorage(finalProfile);
                   setIsSyncing(false);
-                  console.log(`[ProfileV2-${profileType}] Deferred database sync completed`);
                 }, 0);
               } catch (dbError) {
-                console.error(`[ProfileV2-${profileType}] Database sync failed:`, dbError);
                 setIsSyncing(false);
               }
             }, 100); // Small delay to let UI render first
@@ -513,15 +508,18 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           setProfile(merged);
           setLastSaved(new Date());
           setIsReady(true);
-          console.log(`[ProfileV2-${profileType}] State updated from external change (ts ${incomingTs})`);
         }
       } catch (e) {
-        console.warn(`[ProfileV2-${profileType}] Failed to apply external update`, e);
+        // Silently handle parsing errors
       }
     };
 
-    // Debounced and filtered external updates to prevent race conditions
-    const debouncedApplyUpdate = debounce(applyLatestFromStorage, 50);
+    // Simple timeout-based external updates to prevent race conditions  
+    let applyUpdateTimeout: NodeJS.Timeout;
+    const throttledApplyUpdate = (value: string | null) => {
+      clearTimeout(applyUpdateTimeout);
+      applyUpdateTimeout = setTimeout(() => applyLatestFromStorage(value), 50);
+    };
 
     const onCustomEvent = (e: Event) => {
       const detail = (e as CustomEvent).detail || {};
@@ -531,7 +529,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       const currentTime = new Date((profile as any).lastUpdated || 0).getTime();
       const incomingTime = new Date(detail.lastUpdated || 0).getTime();
       if (incomingTime > currentTime) {
-        debouncedApplyUpdate(null);
+        throttledApplyUpdate(null);
       }
     };
 
@@ -544,7 +542,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     window.addEventListener(IN_TAB_PROFILE_UPDATE_EVENT, onCustomEvent as EventListener);
     window.addEventListener('storage', onStorage);
 
+    // Cleanup timeout on unmount
     return () => {
+      clearTimeout(applyUpdateTimeout);
       window.removeEventListener(IN_TAB_PROFILE_UPDATE_EVENT, onCustomEvent as EventListener);
       window.removeEventListener('storage', onStorage);
     };
@@ -553,7 +553,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Clear profile data
   const clearProfile = useCallback(async () => {
     try {
-      console.log(`[ProfileV2-${profileType}] Clearing profile data...`);
       
       // Clear from localStorage
       localStorage.removeItem(config.storageKey);
@@ -644,7 +643,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     // Accumulate pending updates
     Object.assign(pendingUpdates.current, clonedUpdates);
 
-    // Debounced database sync
+    // Timeout-based database sync
     if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
     }
@@ -653,7 +652,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       const toSync = { ...pendingUpdates.current };
       pendingUpdates.current = {};
       syncToDatabase(toSync);
-    }, DEBOUNCE_MS);
+    }, 2000);
   }, [cloneProfile, saveToStorage, syncToDatabase]);
 
   // Update single field
@@ -679,7 +678,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       // Immediate storage update
       saveToStorage(newProfile);
       
-      // Trigger debounced database sync
+      // Trigger timeout-based database sync
       pendingUpdates.current = { ...pendingUpdates.current, [field]: updated };
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
@@ -688,7 +687,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const toSync = { ...pendingUpdates.current };
         pendingUpdates.current = {};
         syncToDatabase(toSync);
-      }, DEBOUNCE_MS);
+      }, 2000);
       
       return newProfile;
     });

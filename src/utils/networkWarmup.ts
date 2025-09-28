@@ -1,10 +1,9 @@
-// Network warmup utility to preload critical resources
+// Network warmup utility - DISABLED for performance
 let hasRun = false;
 
 export const warmupNetwork = () => {
-  // Only run in browser and prevent duplicate execution
-  if (typeof window === 'undefined' || hasRun) return;
-  hasRun = true;
+  // COMPLETELY DISABLED for performance
+  return;
   
   const runWarmup = () => {
     // Preload critical homepage assets first
