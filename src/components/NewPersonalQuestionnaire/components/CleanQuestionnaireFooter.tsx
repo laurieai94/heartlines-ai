@@ -128,12 +128,12 @@ const CleanQuestionnaireFooter = ({
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
-              className={`bg-gradient-to-r from-red-900 to-red-800 hover:from-red-800 hover:to-red-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 ${
+              className={`bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 ${
                 canGoNext ? 'animate-glow-pulse' : ''
               }`}
             >
-              <span className="hidden sm:inline">Continue</span>
-              <span className="sm:hidden">Continue</span>
+              <span className="hidden sm:inline">Next</span>
+              <span className="sm:hidden">Next</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Button>
           )}
@@ -143,10 +143,10 @@ const CleanQuestionnaireFooter = ({
             <Button
               onClick={onNextSection}
               disabled={!canGoNext}
-              className="bg-gradient-to-r from-red-900 to-red-800 hover:from-red-800 hover:to-red-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 font-medium"
+              className="bg-gradient-to-r from-orange-400 via-rose-500 to-pink-600 hover:from-orange-500 hover:via-rose-600 hover:to-pink-700 text-white flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-30 disabled:hover:scale-100 font-medium"
             >
-              <span className="hidden sm:inline">Continue</span>
-              <span className="sm:hidden">Continue</span>
+              <span className="hidden sm:inline">Next</span>
+              <span className="sm:hidden">Next</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </Button>
           )}
