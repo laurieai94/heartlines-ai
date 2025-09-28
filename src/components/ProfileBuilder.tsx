@@ -9,10 +9,10 @@ import { BRAND } from "@/branding";
 const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
 const ProfileCompletionOptions = lazy(() => import("@/components/ProfileCompletionOptions"));
-import ProfileCard from "@/components/ProfileBuilder/ProfileCard";
+import MemoizedProfileCard from "@/components/ProfileBuilder/MemoizedProfileCard";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
-import { useProfileCompletion } from "@/hooks/useProfileCompletion";
+import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
 import { usePersonalProfileData } from '@/hooks/usePersonalProfileData';
 import { usePartnerProfileData } from '@/hooks/usePartnerProfileData';
 import OnboardingStepNudge from "@/components/OnboardingStepNudge";
@@ -67,7 +67,7 @@ const ProfileBuilder = ({
   const {
     calculateYourCompletion,
     calculatePartnerCompletion
-  } = useProfileCompletion();
+  } = useOptimizedProfileCompletion();
 
   // Get actual personal profile data for accurate progress calculation
   const { profileData: personalProfileData } = usePersonalProfileData();
@@ -83,13 +83,9 @@ const ProfileBuilder = ({
   const userInitial = getInitial(userName);
   
   // Memoized completion calculations for better performance
-  const yourProfileCompletion = useMemo(() => {
-    return calculateYourCompletion();
-  }, [personalProfileData]);
+  const yourProfileCompletion = calculateYourCompletion;
   
-  const partnerProfileCompletion = useMemo(() => {
-    return calculatePartnerCompletion();
-  }, [partnerProfileData]);
+  const partnerProfileCompletion = calculatePartnerCompletion;
   
   // Memoized requirement calculations
   const { completedRequiredFields, totalRequiredFields, canUnlockCoaching } = useMemo(() => {
@@ -268,7 +264,7 @@ const ProfileBuilder = ({
         {/* Responsive Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-2 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-1 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
           {/* Your Profile Card */}
-          <ProfileCard 
+          <MemoizedProfileCard
             title="Your Profile"
             subheader="The real you → real advice"
             completion={yourProfileCompletion} 
@@ -291,7 +287,7 @@ const ProfileBuilder = ({
           />
 
           {/* Partner Profile Card */}
-        <ProfileCard 
+        <MemoizedProfileCard
           title="Your Person" 
           subheader="See your story from both POVs"
             completion={partnerProfileCompletion} 

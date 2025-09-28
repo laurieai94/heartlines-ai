@@ -34,11 +34,10 @@ export const useProgressiveAccess = () => {
 
   // Memoized profile completion calculation
   const profileCompletion = useMemo(() => {
-    const profileData = personalStorage.profileData;
-    if (!profileData || Object.keys(profileData).length === 0) {
+    if (!personalStorage.profileData || Object.keys(personalStorage.profileData).length === 0) {
       return 0;
     }
-    return calculateProgressOptimized(profileData as ProfileData);
+    return calculateProgressOptimized(personalStorage.profileData as ProfileData);
   }, [personalStorage.profileData]);
 
   // Memoized chat readiness computation

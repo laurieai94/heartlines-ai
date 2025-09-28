@@ -1,8 +1,8 @@
-import React from "react";
-import { ChatInputSection } from "./ChatInputSection";
-import { ChatMessage } from "@/types/AIInsights";
+import React from 'react';
+import { ChatInputSection } from './ChatInputSection';
+import { ChatMessage } from '@/types/AIInsights';
 
-interface MemoizedChatInputSectionProps {
+interface ChatInputSectionProps {
   onSendMessage: (message: string) => void;
   loading: boolean;
   userName: string;
@@ -16,8 +16,9 @@ interface MemoizedChatInputSectionProps {
   onUserTypingChange?: (typing: boolean) => void;
 }
 
-// Memoize ChatInputSection to prevent unnecessary re-renders
-export const MemoizedChatInputSection = React.memo(ChatInputSection, (prevProps, nextProps) => {
+// Memoized ChatInputSection to prevent unnecessary re-renders
+const MemoizedChatInputSection = React.memo(ChatInputSection, (prevProps, nextProps) => {
+  // Only re-render if essential props change
   return (
     prevProps.loading === nextProps.loading &&
     prevProps.userName === nextProps.userName &&
@@ -25,9 +26,11 @@ export const MemoizedChatInputSection = React.memo(ChatInputSection, (prevProps,
     prevProps.isConfigured === nextProps.isConfigured &&
     prevProps.canInteract === nextProps.canInteract &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
-    prevProps.showStarters === nextProps.showStarters &&
-    prevProps.chatHistory.length === nextProps.chatHistory.length
+    prevProps.chatHistory.length === nextProps.chatHistory.length &&
+    prevProps.showStarters === nextProps.showStarters
   );
 });
 
 MemoizedChatInputSection.displayName = 'MemoizedChatInputSection';
+
+export default MemoizedChatInputSection;

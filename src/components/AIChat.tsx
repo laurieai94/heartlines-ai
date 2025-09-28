@@ -8,7 +8,7 @@ import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
 import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
-import { MemoizedChatInputSection } from "./chat/MemoizedChatInputSection";
+import MemoizedChatInputSection from "./chat/MemoizedChatInputSection";
 
 interface AIChatProps {
   profiles: ProfileData;

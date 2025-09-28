@@ -425,8 +425,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           const deferredSync = () => {
             setIsSyncing(true);
             
-            // Use timeout with lower priority
-            setTimeout(async () => {
+            // Use requestIdleCallback for better performance
+            const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+            
+            idleCallback(async () => {
               try {
                 const dbProfile = await loadFromDatabase();
                 
@@ -445,7 +447,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               } catch (dbError) {
                 setIsSyncing(false);
               }
-            }, 100); // Small delay to let UI render first
+            }, { timeout: 5000 }); // Fallback timeout
           };
           
           // Use requestIdleCallback if available, otherwise setTimeout
