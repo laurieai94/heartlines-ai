@@ -37,14 +37,16 @@
 
 /* Reduce motion for better performance */
 @media (max-width: 768px) {
-  * {
+  *:not(.animate-soft-glow) {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
   
-  /* Exception for coaching button glow */
-  .animate-soft-glow {
+  /* Force preserve coaching button glow animation */
+  .animate-soft-glow,
+  .animate-soft-glow * {
     animation-duration: 6s !important;
+    animation-timing-function: ease-in-out !important;
   }
   
   /* Disable expensive animations */
