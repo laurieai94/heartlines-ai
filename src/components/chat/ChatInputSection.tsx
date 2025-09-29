@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
-import { useProfileCompletion } from '@/hooks/useProfileCompletion';
+import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -53,7 +53,7 @@ export const ChatInputSection = ({
   const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
-  const { calculateYourCompletion } = useProfileCompletion();
+  const { calculateYourCompletion } = useOptimizedProfileCompletion();
   const { 
     messages_used, 
     message_limit, 

@@ -1,3 +1,7 @@
+/**
+ * @deprecated This hook is deprecated. Use `useOptimizedProfileCompletion` instead for better performance with caching.
+ * This version will be removed in a future release.
+ */
 
 import { usePersonalProfileData } from './usePersonalProfileData';
 import { usePartnerProfileData } from './usePartnerProfileData';

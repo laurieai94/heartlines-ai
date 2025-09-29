@@ -84,9 +84,9 @@ const ProfileBuilder = ({
   const userInitial = getInitial(userName);
   
   // Memoized completion calculations for better performance
-  const yourProfileCompletion = useMemo(() => calculateYourCompletion, [calculateYourCompletion]);
+  const yourProfileCompletion = useMemo(() => calculateYourCompletion(), [calculateYourCompletion]);
   
-  const partnerProfileCompletion = useMemo(() => calculatePartnerCompletion, [calculatePartnerCompletion]);
+  const partnerProfileCompletion = useMemo(() => calculatePartnerCompletion(), [calculatePartnerCompletion]);
   
   // Memoized requirement calculations
   const { completedRequiredFields, totalRequiredFields, canUnlockCoaching } = useMemo(() => {

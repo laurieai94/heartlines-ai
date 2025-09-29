@@ -10,7 +10,7 @@ export const useOptimizedProfileCompletion = () => {
   const { profileData: personalData, isReady: personalReady } = usePersonalProfileData();
   const { profileData: partnerData, isReady: partnerReady } = usePartnerProfileData();
 
-  const calculateYourCompletion = useMemo(() => {
+  const calculateYourCompletion = () => {
     if (!personalReady || !personalData || Object.keys(personalData).length === 0) {
       return 0;
     }
@@ -18,9 +18,9 @@ export const useOptimizedProfileCompletion = () => {
     return profileCompletionCache.get('personal', personalData, () => {
       return calculateProgress(personalData as any);
     });
-  }, [personalReady, personalData]);
+  };
 
-  const calculatePartnerCompletion = useMemo(() => {
+  const calculatePartnerCompletion = () => {
     if (!partnerReady || !partnerData || Object.keys(partnerData).length === 0) {
       return 0;
     }
@@ -28,7 +28,7 @@ export const useOptimizedProfileCompletion = () => {
     return profileCompletionCache.get('partner', partnerData, () => {
       return calculatePartnerProgress(partnerData as any);
     });
-  }, [partnerReady, partnerData]);
+  };
 
   return {
     calculateYourCompletion,
