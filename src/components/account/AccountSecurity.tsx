@@ -56,60 +56,70 @@ const AccountSecurity = () => {
 
   return (
     <>
-      <div className={`${isMobile ? 'account-mobile' : ''} space-y-4 md:space-y-6`}>
+      <div className={`${isMobile ? 'account-mobile' : ''} space-y-2.5`}>
+        {/* Section Header */}
+        <div className={`${isMobile ? 'mobile-space-md' : 'mb-4'}`}>
+          <h2 className={isMobile ? 'mobile-title' : 'text-sm font-semibold'}>
+            Privacy & Security
+          </h2>
+          <p className={`${isMobile ? 'mobile-subtitle' : 'text-xs'} text-muted-foreground mt-1`}>
+            Manage your privacy preferences and data security
+          </p>
+        </div>
+
         {/* Data Protection */}
         <Card className={isMobile ? 'mobile-card' : ''}>
-          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Shield className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+                <Shield className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
               </div>
               <div>
-                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Data Protection</CardTitle>
-                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-sm font-medium'}>Data Protection</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-caption' : 'text-xs'}>
                   Manage how your data is stored and protected
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'mobile-card-content space-y-4' : 'space-y-6'}>
-            <div className="space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 space-y-1">
+          <CardContent className={isMobile ? 'mobile-card-content space-y-2.5' : 'p-2.5 pt-0 space-y-2.5'}>
+            <div className="space-y-2.5">
+              <div className="flex items-start justify-between gap-4 touch-manipulation">
+                <div className="flex-1 space-y-0.5">
                   <div className="flex items-center gap-2">
-                    <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+                    <p className={`font-medium ${isMobile ? 'mobile-body' : 'text-xs'}`}>
                       Encrypt Chat History
                     </p>
                     {settings.encryptionEnabled && (
-                      <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">
+                      <span className={`px-2 py-0.5 bg-primary/10 text-primary rounded-full ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
                         Active
                       </span>
                     )}
                   </div>
-                  <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                  <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
                     Enable end-to-end encryption for your conversations
                   </p>
                 </div>
                 <Switch
                   checked={settings.encryptionEnabled}
                   onCheckedChange={handleEnableEncryption}
-                  className={isMobile ? 'touch-feedback' : ''}
+                  className="touch-manipulation"
                 />
               </div>
 
-              <Separator />
+              <Separator className="my-2" />
 
-              <div className="space-y-2">
-                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>Download Your Data</p>
-                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+              <div className="space-y-1.5">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : 'text-xs'}`}>Download Your Data</p>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
                   Create a backup of all your stored data
                 </p>
                 <Button
                   variant="outline"
                   onClick={createManualBackup}
-                  className={`w-full ${isMobile ? 'mobile-button-secondary touch-feedback' : ''}`}
+                  className={`w-full touch-manipulation touch-feedback ${isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5 h-8'}`}
                 >
-                  <Download className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-2`} />
+                  <Download className={isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
                   Download Backup
                 </Button>
               </div>
@@ -119,33 +129,33 @@ const AccountSecurity = () => {
 
         {/* Communication Preferences */}
         <Card className={isMobile ? 'mobile-card' : ''}>
-          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Mail className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+                <Mail className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
               </div>
               <div>
-                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Communication</CardTitle>
-                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-sm font-medium'}>Communication</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-caption' : 'text-xs'}>
                   Control how we communicate with you
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1 space-y-1">
-                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+          <CardContent className={isMobile ? 'mobile-card-content' : 'p-2.5 pt-0'}>
+            <div className="flex items-start justify-between gap-4 touch-manipulation">
+              <div className="flex-1 space-y-0.5">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : 'text-xs'}`}>
                   Marketing Emails
                 </p>
-                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
                   Receive updates about new features and improvements
                 </p>
               </div>
               <Switch
                 checked={settings.marketingEmails}
                 onCheckedChange={(checked) => handleSettingChange('marketingEmails', checked)}
-                className={isMobile ? 'touch-feedback' : ''}
+                className="touch-manipulation"
               />
             </div>
           </CardContent>
@@ -153,39 +163,39 @@ const AccountSecurity = () => {
 
         {/* Data Management */}
         <Card className={isMobile ? 'mobile-card' : ''}>
-          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Clock className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+                <Clock className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
               </div>
               <div>
-                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Data Management</CardTitle>
-                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-sm font-medium'}>Data Management</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-caption' : 'text-xs'}>
                   Configure data retention policies
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
-            <div className="space-y-2">
-              <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+          <CardContent className={isMobile ? 'mobile-card-content' : 'p-2.5 pt-0'}>
+            <div className="space-y-1.5">
+              <p className={`font-medium ${isMobile ? 'mobile-body' : 'text-xs'}`}>
                 Data Retention Period
               </p>
-              <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'} mb-3`}>
+              <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-[10px]'} mb-2`}>
                 How long should we keep your conversation history?
               </p>
               <Select
                 value={settings.dataRetention}
                 onValueChange={(value) => handleSettingChange('dataRetention', value)}
               >
-                <SelectTrigger className={isMobile ? 'h-11' : ''}>
+                <SelectTrigger className={`w-full touch-manipulation ${isMobile ? 'mobile-button-secondary h-9' : 'text-xs h-8'}`}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="30days">30 Days</SelectItem>
-                  <SelectItem value="90days">90 Days</SelectItem>
-                  <SelectItem value="1year">1 Year</SelectItem>
-                  <SelectItem value="forever">Forever</SelectItem>
+                  <SelectItem value="30days" className={isMobile ? 'mobile-body' : 'text-xs'}>30 Days</SelectItem>
+                  <SelectItem value="90days" className={isMobile ? 'mobile-body' : 'text-xs'}>90 Days</SelectItem>
+                  <SelectItem value="1year" className={isMobile ? 'mobile-body' : 'text-xs'}>1 Year</SelectItem>
+                  <SelectItem value="forever" className={isMobile ? 'mobile-body' : 'text-xs'}>Forever</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -194,33 +204,33 @@ const AccountSecurity = () => {
 
         {/* Analytics */}
         <Card className={isMobile ? 'mobile-card' : ''}>
-          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <BarChart3 className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+                <BarChart3 className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
               </div>
               <div>
-                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Analytics</CardTitle>
-                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-sm font-medium'}>Analytics</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-caption' : 'text-xs'}>
                   Help us improve your experience
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1 space-y-1">
-                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+          <CardContent className={isMobile ? 'mobile-card-content' : 'p-2.5 pt-0'}>
+            <div className="flex items-start justify-between gap-4 touch-manipulation">
+              <div className="flex-1 space-y-0.5">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : 'text-xs'}`}>
                   Anonymous Usage Analytics
                 </p>
-                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
                   Share anonymous usage data to help us improve the app
                 </p>
               </div>
               <Switch
                 checked={settings.anonymousUsage}
                 onCheckedChange={(checked) => handleSettingChange('anonymousUsage', checked)}
-                className={isMobile ? 'touch-feedback' : ''}
+                className="touch-manipulation"
               />
             </div>
           </CardContent>
@@ -229,15 +239,15 @@ const AccountSecurity = () => {
 
       {/* Backup Prompt Dialog */}
       <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
-        <AlertDialogContent>
+        <AlertDialogContent className={isMobile ? 'mobile-dialog' : ''}>
           <AlertDialogHeader>
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 rounded-lg bg-primary/10">
-                <AlertTriangle className="w-5 h-5 text-primary" />
+                <AlertTriangle className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
               </div>
-              <AlertDialogTitle>Enable Encryption</AlertDialogTitle>
+              <AlertDialogTitle className={isMobile ? 'mobile-title' : 'text-sm'}>Enable Encryption</AlertDialogTitle>
             </div>
-            <AlertDialogDescription className="space-y-3 text-left">
+            <AlertDialogDescription className={`space-y-2 text-left ${isMobile ? 'mobile-body' : 'text-xs'}`}>
               <p>
                 Before enabling encryption, we'll create a backup of your current data.
               </p>
@@ -246,9 +256,14 @@ const AccountSecurity = () => {
               </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={createManualBackup}>
+          <AlertDialogFooter className={isMobile ? 'flex-col gap-2' : ''}>
+            <AlertDialogCancel className={isMobile ? 'mobile-button-secondary w-full' : 'text-xs'}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={createManualBackup}
+              className={`touch-manipulation touch-feedback ${isMobile ? 'mobile-button-primary w-full' : 'text-xs'}`}
+            >
               Create Backup & Enable
             </AlertDialogAction>
           </AlertDialogFooter>
