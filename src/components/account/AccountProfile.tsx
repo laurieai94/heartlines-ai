@@ -197,50 +197,25 @@ const AccountProfile = () => {
             Reset Password
           </CardTitle>
           <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
-            Send a password reset link to your email
+            Send a reset link to {user?.email}
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-3'}`}>
-          {/* Email Display */}
-          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
-            <Label htmlFor="reset-email" className={`text-white flex items-center gap-1 ${
-              isMobile ? 'text-[10px]' : 'text-xs'
-            }`}>
-              <Mail className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
-              Email Address
-            </Label>
-            <Input
-              id="reset-email"
-              type="email"
-              value={user?.email || ''}
-              disabled
-              className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${
-                isMobile ? 'text-[10px] h-8' : 'text-xs'
-              }`}
-            />
-            <p className={`text-white/50 ${isMobile ? 'text-[9px]' : 'text-[10px]'}`}>
-              You'll receive an email with instructions to reset your password
-            </p>
-          </div>
-
-          {/* Reset Button */}
-          <div className={`flex justify-end ${isMobile ? 'pt-2' : 'pt-3'}`}>
-            <Button 
-              onClick={(e) => {
-                if (isMobile && e.currentTarget) {
-                  simulateHapticFeedback(e.currentTarget, 'medium');
-                }
-                handlePasswordReset();
-              }}
-              disabled={sendingReset}
-              className={`questionnaire-button-primary touch-manipulation touch-feedback ${
-                isMobile ? 'text-[10px] py-1 h-7' : 'text-xs py-1.5'
-              }`}
-            >
-              <Key className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
-              {sendingReset ? 'Sending...' : 'Send Reset Link'}
-            </Button>
-          </div>
+        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
+          <Button 
+            onClick={(e) => {
+              if (isMobile && e.currentTarget) {
+                simulateHapticFeedback(e.currentTarget, 'medium');
+              }
+              handlePasswordReset();
+            }}
+            disabled={sendingReset}
+            className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${
+              isMobile ? 'text-[10px] py-1.5 h-8' : 'text-xs py-2'
+            }`}
+          >
+            <Key className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+            {sendingReset ? 'Sending...' : 'Reset Your Password'}
+          </Button>
         </CardContent>
       </Card>
 
