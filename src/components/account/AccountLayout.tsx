@@ -75,14 +75,14 @@ const AccountLayout = () => {
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={`grid w-full grid-cols-3 ${
-              isMobile ? 'mb-2 h-9' : 'mb-3 h-8'
+              isMobile ? 'mb-2 h-9' : 'mb-3 h-10 md:h-11'
             } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-[10px] py-1' 
-                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                    ? 'text-xs py-1.5' 
+                    : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
                   if (isMobile && e.currentTarget) {
@@ -90,8 +90,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <User className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
+                <User className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
                   Profile
                 </span>
               </TabsTrigger>
@@ -99,8 +99,8 @@ const AccountLayout = () => {
                 value="subscription"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-[10px] py-1' 
-                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                    ? 'text-xs py-1.5' 
+                    : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
                   if (isMobile && e.currentTarget) {
@@ -108,8 +108,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <CreditCard className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
+                <CreditCard className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
                   Plans
                 </span>
               </TabsTrigger>
@@ -117,8 +117,8 @@ const AccountLayout = () => {
                 value="security"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-[10px] py-1' 
-                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                    ? 'text-xs py-1.5' 
+                    : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
                   if (isMobile && e.currentTarget) {
@@ -126,8 +126,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <Shield className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
+                <Shield className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
                   Security
                 </span>
               </TabsTrigger>
