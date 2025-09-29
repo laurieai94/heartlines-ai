@@ -182,8 +182,8 @@ const Pricing = () => {
 
           {/* FAQ Section */}
           <div className="max-w-3xl mx-auto mb-8">
-            <h2 className="text-2xl font-thin questionnaire-text text-center mb-6">
-              Frequently Asked Questions
+            <h2 className="text-2xl font-brand questionnaire-text text-center mb-6">
+              FAQs
             </h2>
             <Accordion type="single" collapsible className="w-full space-y-3">
               {faqs.map((faq, index) => (
