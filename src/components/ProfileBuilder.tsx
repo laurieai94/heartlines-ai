@@ -312,7 +312,7 @@ const ProfileBuilder = ({
                   <p>• Everything is encrypted and secure</p>  
                   <p>• You control your data completely</p>
                   <Link 
-                    to="/privacy-security" 
+                    to="/privacy-and-security"
                     className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
                     aria-label="Learn more about our privacy and security practices"
                   >
