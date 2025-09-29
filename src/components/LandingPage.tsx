@@ -286,7 +286,7 @@ const LandingPage = ({
                 <PopoverContent 
                   side="bottom" 
                   align="start" 
-                  className="w-36 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50"
+                  className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50"
                   onInteractOutside={() => setIsMenuOpen(false)}
                   onEscapeKeyDown={() => setIsMenuOpen(false)}
                 >
@@ -294,11 +294,12 @@ const LandingPage = ({
                     {navItems.map(item => (
                       <Link 
                         key={item.to} 
-                        to={item.to} 
-                        className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 text-sm px-3 py-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30" 
+                        to={item.to}
+                        title={item.label}
+                        className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" 
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {item.label}
+                        <item.icon className="w-5 h-5" />
                       </Link>
                     ))}
                   </div>
