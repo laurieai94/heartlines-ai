@@ -199,13 +199,6 @@ const Pricing = () => {
             </Accordion>
           </div>
 
-          {/* Back to Dashboard */}
-          <div className="text-center">
-            <Button variant="ghost" onClick={() => navigate("/")} size="sm" className="rounded-full questionnaire-text-muted hover:questionnaire-text questionnaire-button-ghost text-xs">
-              <ArrowLeft className="h-3 w-3 mr-1" />
-              Back to Dashboard
-            </Button>
-          </div>
         </div>
       </div>
     </div>
