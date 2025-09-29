@@ -35,18 +35,16 @@
   scroll-behavior: auto; /* Disable smooth scrolling on mobile */
 }
 
-/* Reduce motion for better performance */
+/* Reduce motion for better performance - allow coaching glow */
 @media (max-width: 768px) {
-  *:not(.animate-soft-glow) {
+  *:not(.animate-coaching-glow) {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
   
-  /* Force preserve coaching button glow animation */
-  .animate-soft-glow,
-  .animate-soft-glow * {
-    animation-duration: 6s !important;
-    animation-timing-function: ease-in-out !important;
+  /* Preserve coaching button glow animation across devices */
+  .animate-coaching-glow {
+    animation: coaching-glow 6s ease-in-out infinite !important;
   }
   
   /* Disable expensive animations */

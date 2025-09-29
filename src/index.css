@@ -30,11 +30,29 @@
   }
 }
 
-/* Disable background animations globally for better performance */
+/* Only disable expensive background animations, not coaching button glow */
 .animate-pulse,
 .animate-float,
 .animate-float-slow {
   animation: none !important;
+}
+
+/* Coaching button glow animation - works consistently across all devices */
+@keyframes coaching-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 132, 80, 0.3), 
+                0 0 25px rgba(255, 107, 157, 0.2);
+    opacity: 0.8;
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 132, 80, 0.5), 
+                0 0 35px rgba(255, 107, 157, 0.3);
+    opacity: 1;
+  }
+}
+
+.animate-coaching-glow {
+  animation: coaching-glow 6s ease-in-out infinite;
 }
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
