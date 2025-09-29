@@ -61,7 +61,7 @@ const ProductionApp: React.FC = () => {
               <Route path="/plans" element={<Pricing />} />
               <Route path="/billing/success" element={<BillingSuccess />} />
               <Route 
-                path="/account/*" 
+                path="/account" 
                 element={
                   <ProductionErrorBoundary level="page" name="Account">
                     <Account />
