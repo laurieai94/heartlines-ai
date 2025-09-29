@@ -35,16 +35,11 @@
   scroll-behavior: auto; /* Disable smooth scrolling on mobile */
 }
 
-/* Reduce motion for better performance - allow coaching glow */
+/* Reduce motion for better performance */
 @media (max-width: 768px) {
-  *:not(.animate-coaching-glow) {
+  * {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
-  }
-  
-  /* Preserve coaching button glow animation across devices */
-  .animate-coaching-glow {
-    animation: coaching-glow 6s ease-in-out infinite !important;
   }
   
   /* Disable expensive animations */

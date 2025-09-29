@@ -142,11 +142,11 @@ html, body, #root {
   }
 }
 
-/* Reduce motion for performance and accessibility - preserve coaching glow */
+/* Reduce motion for performance and accessibility */
 @media (prefers-reduced-motion: reduce) {
-  *:not(.animate-coaching-glow),
-  *:not(.animate-coaching-glow)::before,
-  *:not(.animate-coaching-glow)::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
