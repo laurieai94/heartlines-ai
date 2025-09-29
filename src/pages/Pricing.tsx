@@ -52,16 +52,16 @@ const pricingPlans = [{
 }];
 const faqs = [{
   question: "Can I change or cancel my plan anytime?",
-  answer: "Yes! You can upgrade, downgrade, or cancel your subscription at any time from your account settings. Changes take effect at your next billing cycle."
+  answer: "Yep. No contracts, no weird fine print. Cancel, upgrade, or downgrade whenever you want."
 }, {
   question: "What happens to unused messages?",
-  answer: "Unused messages don't roll over to the next month. Each plan resets your message count monthly to encourage consistent relationship growth."
+  answer: "They don't roll over — but think of it as a nudge to keep checking in with yourself (and others). Growth happens in the using, not the saving. 😊"
 }, {
   question: "Is my data secure and private?",
-  answer: "Absolutely. We use enterprise-grade encryption and never share your personal conversations. Your privacy and trust are our top priority."
+  answer: "Totally. Everything's encrypted and locked down. Your convos = your business, not ours."
 }, {
   question: "Do you offer refunds?",
-  answer: "We offer a 14-day money-back guarantee for all paid plans. If you're not satisfied, contact us for a full refund within the first two weeks."
+  answer: "Yup. We've got a 14-day money-back guarantee. If it's not your vibe, no stress."
 }];
 const Pricing = () => {
   const navigate = useNavigate();
