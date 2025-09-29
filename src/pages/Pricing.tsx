@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, Sprout, Flower } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
@@ -184,18 +185,18 @@ const Pricing = () => {
             <h2 className="text-2xl font-thin questionnaire-text text-center mb-6">
               Frequently Asked Questions
             </h2>
-            <div className="grid gap-3">
-              {faqs.map((faq, index) => <Card key={index} className="questionnaire-card">
-                  <CardContent className="p-4">
-                    <h3 className="text-sm font-medium questionnaire-text mb-1">
-                      {faq.question}
-                    </h3>
-                    <p className="questionnaire-text-muted text-xs leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </CardContent>
-                </Card>)}
-            </div>
+            <Accordion type="single" collapsible className="w-full space-y-3">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="questionnaire-card border-none">
+                  <AccordionTrigger className="questionnaire-text text-sm font-medium px-4 py-3 hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
 
           {/* Back to Dashboard */}
