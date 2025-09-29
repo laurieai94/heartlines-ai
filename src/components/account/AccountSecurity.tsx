@@ -115,9 +115,9 @@ const AccountSecurity = () => {
                   Create a backup of all your stored data
                 </p>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={createManualBackup}
-                  className={`w-full touch-manipulation touch-feedback text-white border-white/20 hover:bg-white/10 ${isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5 h-8'}`}
+                  className={`w-full touch-manipulation touch-feedback text-white hover:bg-white/5 ${isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5 h-8'}`}
                 >
                   <Download className={isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
                   Download Backup
