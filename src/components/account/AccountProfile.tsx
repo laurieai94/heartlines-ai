@@ -102,10 +102,10 @@ const AccountProfile = () => {
               size="compact"
             />
             <div className="flex-1 min-w-0">
-              <h4 className={`text-white font-medium ${isMobile ? 'text-[11px] mb-0.5' : 'text-sm mb-0.5'}`}>
+              <h4 className={`text-white font-medium ${isMobile ? 'text-sm mb-0.5' : 'text-base mb-0.5'}`}>
                 Profile Picture
               </h4>
-              <p className={`text-white/60 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>
+              <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm'}`}>
                 Upload or change your profile picture
               </p>
             </div>
@@ -118,10 +118,10 @@ const AccountProfile = () => {
         isMobile ? 'rounded-lg' : ''
       }`}>
         <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
+          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
             Basic Information
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
             Your personal details and contact information
           </CardDescription>
         </CardHeader>
@@ -129,7 +129,7 @@ const AccountProfile = () => {
           {/* Email (read-only) */}
           <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
             <Label htmlFor="email" className={`text-white flex items-center gap-1 ${
-              isMobile ? 'text-[10px]' : 'text-xs'
+              isMobile ? 'text-[13px]' : 'text-sm'
             }`}>
               <Mail className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
               Email
@@ -140,17 +140,17 @@ const AccountProfile = () => {
               value={user?.email || ''}
               disabled
               className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${
-                isMobile ? 'text-[10px] h-8' : 'text-xs'
+                isMobile ? 'text-[13px] h-8' : 'text-sm'
               }`}
             />
-            <p className={`text-white/50 ${isMobile ? 'text-[9px]' : 'text-[10px]'}`}>
+            <p className={`text-white/50 ${isMobile ? 'text-[11px]' : 'text-xs'}`}>
               Email cannot be changed. Contact support if needed.
             </p>
           </div>
 
           {/* Name */}
           <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
-            <Label htmlFor="name" className={`text-white ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
+            <Label htmlFor="name" className={`text-white ${isMobile ? 'text-[13px]' : 'text-sm'}`}>
               Display Name
             </Label>
             <Input
@@ -160,7 +160,7 @@ const AccountProfile = () => {
               onChange={(e) => handleInputChange('name', e.target.value)}
               placeholder="Enter your display name"
               className={`bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 touch-manipulation ${
-                isMobile ? 'text-[10px] h-8' : 'text-xs'
+                isMobile ? 'text-[13px] h-8' : 'text-sm'
               }`}
             />
           </div>
@@ -177,7 +177,7 @@ const AccountProfile = () => {
                 }}
                 disabled={saving}
                 className={`questionnaire-button-primary touch-manipulation touch-feedback ${
-                  isMobile ? 'text-[10px] py-1 h-7' : 'text-xs py-1.5'
+                  isMobile ? 'text-[13px] py-1 h-7' : 'text-sm py-1.5'
                 }`}
               >
                 <Save className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
@@ -193,10 +193,10 @@ const AccountProfile = () => {
         isMobile ? 'rounded-lg' : ''
       }`}>
         <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
+          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
             Reset Password
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
             Send a reset link to {user?.email}
           </CardDescription>
         </CardHeader>
@@ -210,7 +210,7 @@ const AccountProfile = () => {
             }}
             disabled={sendingReset}
             className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${
-              isMobile ? 'text-[10px] py-1.5 h-8' : 'text-xs py-2'
+              isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'
             }`}
           >
             <Key className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
@@ -224,10 +224,10 @@ const AccountProfile = () => {
         isMobile ? 'rounded-lg' : ''
       }`}>
         <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
+          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
             Personal Profile
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
             Access your complete personal profile and questionnaire
           </CardDescription>
         </CardHeader>
@@ -240,7 +240,7 @@ const AccountProfile = () => {
               navigate('/profile');
             }}
             className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${
-              isMobile ? 'text-[10px] py-1.5 h-8' : 'text-xs py-2'
+              isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'
             }`}
           >
             <User className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
