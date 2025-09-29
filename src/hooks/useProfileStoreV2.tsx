@@ -447,14 +447,14 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               } catch (dbError) {
                 setIsSyncing(false);
               }
-            }, { timeout: 5000 }); // Fallback timeout
+            }, { timeout: isMobileDevice ? 8000 : 5000 }); // Longer timeout for mobile devices
           };
           
-          // Use requestIdleCallback if available, otherwise setTimeout
+          // Use requestIdleCallback if available, with mobile-optimized timeouts
           if ('requestIdleCallback' in window) {
-            requestIdleCallback(deferredSync, { timeout: 2000 });
+            requestIdleCallback(deferredSync, { timeout: isMobileDevice ? 4000 : 2000 });
           } else {
-            setTimeout(deferredSync, 50);
+            setTimeout(deferredSync, isMobileDevice ? 200 : 50);
           }
         } else {
           console.log(`[ProfileV2-${profileType}] Skipping database sync (no user or non-primary instance)`);
@@ -468,16 +468,26 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     };
 
-    // Add a safety timeout to ensure states are always cleared
+    // Mobile-aware safety timeout to prevent excessive re-renders on touch devices
+    const isMobileDevice = typeof window !== 'undefined' && (
+      window.innerWidth < 768 || 
+      /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    );
+    
+    const safetyTimeoutDuration = isMobileDevice ? 10000 : 5000; // 10s for mobile, 5s for desktop
+    
     const safetyTimeout = setTimeout(() => {
-      console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
+      // Only log warning if actually needed (not just mobile performance optimization)
+      if (!isMobileDevice) {
+        console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
+      }
       setIsLoading(false);
       setIsSyncing(false);
       if (!isReady) {
         setIsReady(true);
         setProfile(defaultProfile);
       }
-    }, 5000); // 5 second safety net
+    }, safetyTimeoutDuration);
 
     initialize();
     
