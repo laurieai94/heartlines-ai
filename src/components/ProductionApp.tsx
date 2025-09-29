@@ -59,7 +59,7 @@ const ProductionApp: React.FC = () => {
                 } 
               />
               <Route path="/mission" element={<Mission />} />
-              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/plans" element={<Pricing />} />
               <Route path="/privacy-security" element={<PrivacySecurity />} />
               <Route path="/billing/success" element={<BillingSuccess />} />
               <Route 

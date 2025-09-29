@@ -106,7 +106,7 @@ const Pricing = () => {
   return <MobileHeaderVisibilityProvider>
       <div className="min-h-screen bg-burgundy-900">
       <div className="relative z-10">
-        <DashboardHeader accessLevel="freemium" profileCompletion={0} compact={false} user={user} activeTab="pricing" onValueChange={tab => {
+        <DashboardHeader accessLevel="freemium" profileCompletion={0} compact={false} user={user} activeTab="plans" onValueChange={tab => {
           if (tab === 'home') navigate('/');else if (tab === 'profile') navigate('/profile');else if (tab === 'insights') navigate('/coach');else if (tab === 'mission') navigate('/mission');
         }} onSignInClick={() => navigate('/auth')} onOpenProfile={() => navigate('/profile')} />
         

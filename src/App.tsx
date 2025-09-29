@@ -57,7 +57,7 @@ const AppContent = () => {
             <PrivacySecurity />
           </Suspense>
         } />
-        <Route path="/pricing" element={
+        <Route path="/plans" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Pricing />
           </Suspense>

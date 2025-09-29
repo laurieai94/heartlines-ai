@@ -20,7 +20,7 @@ export const preloadCriticalResources = () => {
   heroImage.loading = 'eager';
 
   // Prefetch likely next pages for better UX
-  const prefetchLinks = ['/coach', '/pricing', '/auth'];
+  const prefetchLinks = ['/coach', '/plans', '/auth'];
   prefetchLinks.forEach(url => {
     const link = document.createElement('link');
     link.rel = 'prefetch';

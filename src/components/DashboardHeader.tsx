@@ -35,7 +35,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   
   const handleTabHover = (tabValue: string) => {
-    if (tabValue === 'pricing') {
+    if (tabValue === 'plans') {
       import('@/pages/Pricing').catch(() => {});
     } else if (tabValue === 'mission') {
       import('@/pages/Mission').catch(() => {});
@@ -53,7 +53,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     { value: 'insights', label: 'Coach', icon: MessageSquare },
     { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
     { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
-    { value: 'pricing', label: 'Plans', icon: CreditCard, isExternal: true },
+    { value: 'plans', label: 'Plans', icon: CreditCard, isExternal: true },
   ];
 
   const handleNavigation = (item: any, isMobileNav = false) => {
@@ -67,7 +67,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     }
     
     if (item.isExternal) {
-      if (item.value === 'pricing') navigate('/pricing');
+      if (item.value === 'plans') navigate('/plans');
       else if (item.value === 'mission') navigate('/mission');
       else if (item.value === 'account') navigate('/account');
       else if (item.value === 'profile') navigate('/profile');
@@ -79,7 +79,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   };
   
   return (
-    <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : activeTab === 'pricing' ? 'mb-1 sm:mb-2 md:mb-6 lg:mb-10' : 'mb-1 sm:mb-2 md:mb-6'}`}>
+    <div className={`w-full sticky top-0 z-50 bg-burgundy-900 ${compact ? 'mb-1 sm:mb-2' : activeTab === 'plans' ? 'mb-1 sm:mb-2 md:mb-6 lg:mb-10' : 'mb-1 sm:mb-2 md:mb-6'}`}>
       <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
         isCoachMode 
           ? 'px-1 py-2' // Compact padding with adequate breathing room on coach page

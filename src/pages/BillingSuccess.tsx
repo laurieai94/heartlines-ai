@@ -17,9 +17,9 @@ const BillingSuccess = () => {
     
     if (!sessionId) {
         toast.error("Invalid session", {
-          description: "No session ID found. Redirecting to pricing."
+          description: "No session ID found. Redirecting to plans."
         });
-      navigate('/pricing');
+      navigate('/plans');
       return;
     }
 

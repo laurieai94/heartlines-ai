@@ -178,7 +178,7 @@ const LandingPage = ({
     label: 'My Account',
     icon: Settings
   }, {
-    to: '/pricing',
+    to: '/plans',
     label: 'Plans',
     icon: CreditCard
   }];
