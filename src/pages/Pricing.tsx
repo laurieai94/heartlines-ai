@@ -113,7 +113,7 @@ const Pricing = () => {
         <div className="container mx-auto px-4 py-6 lg:pt-12">
           {/* Header Section */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-5xl font-thin questionnaire-text mb-3">
+            <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
             <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4">Every connection starts with you. Pick the plan that fits your journey.</p>
