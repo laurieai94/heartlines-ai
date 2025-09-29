@@ -116,7 +116,7 @@ const Pricing = () => {
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
-            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4">Every connection starts with you. Pick the plan that fits your journey.</p>
+            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4 hidden sm:block">Every connection starts with you. Pick the plan that fits your journey.</p>
             {/* Trust Badges - Inline */}
             <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
