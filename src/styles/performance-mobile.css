@@ -42,6 +42,11 @@
     transition-duration: 0.2s !important;
   }
   
+  /* Exception for coaching button glow */
+  .animate-soft-glow {
+    animation-duration: 6s !important;
+  }
+  
   /* Disable expensive animations */
   .animate-spin,
   .animate-pulse,
