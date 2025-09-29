@@ -1,5 +1,5 @@
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import DashboardHome from "@/components/DashboardHome";
 import ProgressiveAccessWrapper from "@/components/ProgressiveAccessWrapper";
@@ -51,13 +51,13 @@ const DashboardContent = ({
   }, [activeTab]);
 
   // Handle new conversation
-  const handleNewConversation = () => {
+  const handleNewConversation = useCallback(() => {
     setChatHistory([]);
     setConversationStarter("");
-  };
+  }, []);
 
   // Handle sidebar actions - open mobile navigation
-  const handleOpenSidebar = () => {
+  const handleOpenSidebar = useCallback(() => {
     // Force mobile header visible
     forceVisible();
     
@@ -109,14 +109,14 @@ const DashboardContent = ({
         }
       }
     }, 100);
-  };
+  }, [forceVisible, setNavigationOpened]);
 
   const handleSupabaseConfigured = () => {
     // Handle Supabase configuration if needed
   };
   
   // Only render the active tab content to reduce initial mount cost
-  const renderActiveTabContent = () => {
+  const renderActiveTabContent = useMemo(() => {
     switch (activeTab) {
       case "home":
         return <DashboardHome />;
@@ -178,17 +178,38 @@ const DashboardContent = ({
       default:
         return <DashboardHome />;
     }
-  };
+  }, [
+    activeTab,
+    temporaryProfiles,
+    temporaryDemographics,
+    chatHistory,
+    conversationStarter,
+    handleNewConversation,
+    handleOpenSidebar,
+    onProfileUpdate,
+    onOpenQuestionnaire,
+    onOpenPartnerQuestionnaire
+  ]);
 
   return (
     <div className="flex-1 min-h-0 max-h-full overflow-hidden">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
         <div className={`mt-0 h-full overflow-auto p-0 ${activeTab === 'profile' ? 'no-scrollbar' : ''}`}>
-          {renderActiveTabContent()}
+          {renderActiveTabContent}
         </div>
       </Tabs>
     </div>
   );
 };
 
-export default DashboardContent;
+export default React.memo(DashboardContent, (prev, next) => {
+  return (
+    prev.activeTab === next.activeTab &&
+    prev.temporaryProfiles === next.temporaryProfiles &&
+    prev.temporaryDemographics === next.temporaryDemographics &&
+    prev.onValueChange === next.onValueChange &&
+    prev.onProfileUpdate === next.onProfileUpdate &&
+    prev.onOpenQuestionnaire === next.onOpenQuestionnaire &&
+    prev.onOpenPartnerQuestionnaire === next.onOpenPartnerQuestionnaire
+  );
+});

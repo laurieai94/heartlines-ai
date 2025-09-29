@@ -1,4 +1,4 @@
-
+import { useCallback, useMemo } from 'react';
 import { useProgressiveAccess } from './useProgressiveAccess';
 import { useDashboardModalState } from './useDashboardModalState';
 import { useDashboardModalHandlers } from './useDashboardModalHandlers';
@@ -31,22 +31,32 @@ export const useDashboardModals = () => {
   // Add sign-in modal state management
   const { showSignInModal, setShowSignInModal } = modalState;
 
-  const openSignInModal = () => {
+  const openSignInModal = useCallback(() => {
     setShowSignInModal(true);
-  };
+  }, [setShowSignInModal]);
 
-  const closeSignInModal = () => {
+  const closeSignInModal = useCallback(() => {
     setShowSignInModal(false);
-  };
+  }, [setShowSignInModal]);
 
-  const isAnyModalOpen = shouldShowSignUpModal || 
+  const isAnyModalOpen = useMemo(() => 
+    shouldShowSignUpModal || 
     showSignInModal ||
     modalState.showQuestionnaireModal || 
     modalState.showPartnerQuestionnaireModal || 
     modalState.showPersonalCompletionOptions || 
-    modalState.showPartnerCompletionOptions;
+    modalState.showPartnerCompletionOptions,
+    [
+      shouldShowSignUpModal,
+      showSignInModal,
+      modalState.showQuestionnaireModal,
+      modalState.showPartnerQuestionnaireModal,
+      modalState.showPersonalCompletionOptions,
+      modalState.showPartnerCompletionOptions
+    ]
+  );
 
-  return {
+  return useMemo(() => ({
     // Modal state
     ...modalState,
     shouldShowSignUpModal,
@@ -60,5 +70,17 @@ export const useDashboardModals = () => {
     isAnyModalOpen,
     // Handler functions and data
     ...modalHandlers
-  };
+  }), [
+    modalState,
+    shouldShowSignUpModal,
+    showSignInModal,
+    blockingAction,
+    closeSignUpModal,
+    closeSignInModal,
+    openSignInModal,
+    accessLevel,
+    profileCompletion,
+    isAnyModalOpen,
+    modalHandlers
+  ]);
 };

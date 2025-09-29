@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import { useUserProfile } from "@/hooks/useUserProfile";
@@ -72,12 +72,12 @@ const AIChat = ({
   });
 
   // Handle new conversation
-  const handleNewConversation = () => {
+  const handleNewConversation = useCallback(() => {
     setChatHistory([]);
     if (onNewConversation) {
       onNewConversation();
     }
-  };
+  }, [onNewConversation, setChatHistory]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
@@ -139,4 +139,16 @@ useChatEffects({
   );
 };
 
-export default AIChat;
+export default React.memo(AIChat, (prev, next) => {
+  return (
+    prev.chatHistory.length === next.chatHistory.length &&
+    prev.profiles === next.profiles &&
+    prev.demographicsData === next.demographicsData &&
+    prev.isConfigured === next.isConfigured &&
+    prev.conversationStarter === next.conversationStarter &&
+    prev.currentConversationId === next.currentConversationId &&
+    prev.isStartingNewConversation === next.isStartingNewConversation &&
+    prev.showStarters === next.showStarters &&
+    prev.historyLoading === next.historyLoading
+  );
+});
