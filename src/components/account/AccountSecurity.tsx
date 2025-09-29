@@ -1,307 +1,260 @@
 import { useState } from 'react';
-import { Shield, Mail, Key, Smartphone, AlertCircle, CheckCircle } from 'lucide-react';
+import { Shield, Download, Mail, Clock, BarChart3, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useAuth } from '@/contexts/AuthContext';
+import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { toast } from 'sonner';
+import { PrivacyManager } from '@/utils/encryption';
 
 const AccountSecurity = () => {
-  const { user, resetPassword } = useAuth();
-  const { isMobile, simulateHapticFeedback } = useOptimizedMobile();
-  
-  const [email, setEmail] = useState(user?.email || '');
-  const [sendingReset, setSendingReset] = useState(false);
+  const { isMobile } = useOptimizedMobile();
+  const [settings, setSettings] = useState(() => PrivacyManager.getPrivacySettings());
+  const [showBackupPrompt, setShowBackupPrompt] = useState(false);
 
-  const handlePasswordReset = async () => {
-    if (!email) return;
+  const handleSettingChange = (key: string, value: any) => {
+    const newSettings = { ...settings, [key]: value };
+    setSettings(newSettings);
+    PrivacyManager.updatePrivacySettings(newSettings);
     
-    setSendingReset(true);
+    toast.success('Settings Updated', {
+      description: 'Your privacy preferences have been saved.',
+    });
+  };
+
+  const handleEnableEncryption = () => {
+    if (!settings.encryptionEnabled) {
+      setShowBackupPrompt(true);
+    } else {
+      handleSettingChange('encryptionEnabled', false);
+      PrivacyManager.setEncryptionEnabled(false);
+    }
+  };
+
+  const createManualBackup = () => {
     try {
-      const { error } = await resetPassword(email);
-      if (error) throw error;
+      PrivacyManager.createLocalBackup();
       
-      toast.success('Password reset sent', {
-        description: 'Check your email for instructions to reset your password.'
+      if (showBackupPrompt) {
+        handleSettingChange('encryptionEnabled', true);
+        PrivacyManager.setEncryptionEnabled(true);
+        setShowBackupPrompt(false);
+      }
+      
+      toast.success('Backup Created', {
+        description: 'Your data has been downloaded successfully.',
       });
     } catch (error) {
-      toast.error('Reset failed', {
-        description: 'Something went wrong. Please try again.'
+      toast.error('Backup Failed', {
+        description: 'Unable to create backup. Please try again.',
       });
-    } finally {
-      setSendingReset(false);
     }
   };
 
   return (
-    <div className={`${isMobile ? '' : 'space-y-2.5'} touch-manipulation`}>
-      <div>
-        <h3 className={`font-semibold text-white mb-1 ${isMobile ? 'text-xs' : 'text-sm'}`}>
-          Security Settings
-        </h3>
-        <p className={`text-white/70 ${isMobile ? 'text-[10px] leading-tight' : 'text-xs'}`}>
-          Manage your account security and authentication preferences
-        </p>
-      </div>
-
-      {/* Account Security Status */}
-      <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'rounded-lg' : ''
-      }`}>
-        <CardHeader className={isMobile ? 'p-2' : 'p-2.5'}>
-          <CardTitle className={`text-white flex items-center gap-2 ${
-            isMobile ? 'text-xs' : 'text-sm'
-          }`}>
-            <Shield className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-            Security Overview
-          </CardTitle>
-          <CardDescription className={`text-white/60 ${
-            isMobile ? 'text-[10px] leading-tight' : 'text-xs'
-          }`}>
-            Your account security status and recommendations
-          </CardDescription>
-        </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-2.5'}`}>
-          <div className={`grid ${isMobile ? 'gap-2' : 'gap-3'}`}>
-            <div className={`flex items-center justify-between rounded-lg bg-white/5 border border-white/10 ${
-              isMobile ? 'p-1.5' : 'p-2'
-            }`}>
-              <div className={`flex items-center ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-                <CheckCircle className={`text-green-400 ${isMobile ? 'h-3 w-3' : 'h-4 w-4'}`} />
-                <div className="min-w-0">
-                  <p className={`text-white font-medium ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
-                    Email Verified
-                  </p>
-                  <p className={`text-white/60 ${
-                    isMobile ? 'text-[9px] leading-tight' : 'text-[10px]'
-                  }`}>
-                    Your email address is verified
+    <>
+      <div className={`${isMobile ? 'account-mobile' : ''} space-y-4 md:space-y-6`}>
+        {/* Data Protection */}
+        <Card className={isMobile ? 'mobile-card' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Shield className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+              </div>
+              <div>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Data Protection</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                  Manage how your data is stored and protected
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className={isMobile ? 'mobile-card-content space-y-4' : 'space-y-6'}>
+            <div className="space-y-4">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+                      Encrypt Chat History
+                    </p>
+                    {settings.encryptionEnabled && (
+                      <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                    Enable end-to-end encryption for your conversations
                   </p>
                 </div>
+                <Switch
+                  checked={settings.encryptionEnabled}
+                  onCheckedChange={handleEnableEncryption}
+                  className={isMobile ? 'touch-feedback' : ''}
+                />
               </div>
-              <div className={`text-green-400 font-medium ${
-                isMobile ? 'text-[9px]' : 'text-[10px]'
-              }`}>Secure</div>
-            </div>
 
-            <div className={`flex items-center justify-between rounded-lg bg-white/5 border border-white/10 ${
-              isMobile ? 'p-1.5' : 'p-2'
-            }`}>
-              <div className={`flex items-center ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-                <Key className={`text-blue-400 ${isMobile ? 'h-3 w-3' : 'h-4 w-4'}`} />
-                <div className="min-w-0">
-                  <p className={`text-white font-medium ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
-                    Password Authentication
-                  </p>
-                  <p className={`text-white/60 ${
-                    isMobile ? 'text-[9px] leading-tight' : 'text-[10px]'
-                  }`}>
-                    Secure password-based login
-                  </p>
-                </div>
-              </div>
-              <div className={`text-blue-400 font-medium ${
-                isMobile ? 'text-[9px]' : 'text-[10px]'
-              }`}>Active</div>
-            </div>
+              <Separator />
 
-            <div className={`flex items-center justify-between rounded-lg bg-white/5 border border-white/10 ${
-              isMobile ? 'p-1.5' : 'p-2'
-            }`}>
-              <div className={`flex items-center ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-                <Smartphone className={`text-orange-400 ${isMobile ? 'h-3 w-3' : 'h-4 w-4'}`} />
-                <div className="min-w-0">
-                  <p className={`text-white font-medium ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
-                    Two-Factor Authentication
-                  </p>
-                  <p className={`text-white/60 ${
-                    isMobile ? 'text-[9px] leading-tight' : 'text-[10px]'
-                  }`}>
-                    Add an extra layer of security
-                  </p>
-                </div>
-              </div>
-              <div className={`text-orange-400 font-medium ${
-                isMobile ? 'text-[9px]' : 'text-[10px]'
-              }`}>Coming Soon</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Password Management */}
-      <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'rounded-lg' : ''
-      }`}>
-        <CardHeader className={isMobile ? 'p-2' : 'p-2.5'}>
-          <CardTitle className={`text-white flex items-center gap-2 ${
-            isMobile ? 'text-xs' : 'text-sm'
-          }`}>
-            <Key className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-            Password Management
-          </CardTitle>
-          <CardDescription className={`text-white/60 ${
-            isMobile ? 'text-[10px] leading-tight' : 'text-xs'
-          }`}>
-            Reset your password or update security settings
-          </CardDescription>
-        </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-2.5'}`}>
-          <div className="space-y-1.5">
-            <Label htmlFor="reset-email" className={`text-white flex items-center gap-1.5 ${
-              isMobile ? 'text-[10px]' : 'text-xs'
-            }`}>
-              <Mail className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-              Email
-            </Label>
-            <Input
-              id="reset-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 touch-manipulation ${
-                isMobile ? 'text-[11px] h-10' : 'text-xs'
-              }`}
-            />
-          </div>
-
-          <Button 
-            onClick={(e) => {
-              if (isMobile && e.currentTarget) {
-                simulateHapticFeedback(e.currentTarget, 'medium');
-              }
-              handlePasswordReset();
-            }}
-            disabled={sendingReset || !email}
-            className={`questionnaire-button-secondary touch-manipulation touch-feedback ${
-              isMobile ? 'mobile-button-primary w-full' : 'text-xs py-1.5'
-            }`}
-          >
-            <Key className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
-            {sendingReset ? 'Sending...' : 'Send Password Reset'}
-          </Button>
-
-        </CardContent>
-      </Card>
-
-      {/* Session Management */}
-      <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'rounded-lg' : ''
-      }`}>
-        <CardHeader className={isMobile ? 'p-2' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>
-            Session Management
-          </CardTitle>
-          <CardDescription className={`text-white/60 ${
-            isMobile ? 'text-[10px] leading-tight' : 'text-xs'
-          }`}>
-            Manage your active sessions and devices
-          </CardDescription>
-        </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-2.5'}`}>
-          <div className={`rounded-lg bg-white/5 border border-white/10 ${
-            isMobile ? 'p-2' : 'p-3'
-          }`}>
-            <div className={`flex items-center justify-between ${isMobile ? 'mb-1' : 'mb-1.5'}`}>
-              <p className={`text-white font-medium ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
-                Current Session
-              </p>
-              <div className={`flex items-center text-green-400 ${
-                isMobile ? 'gap-1' : 'gap-1.5'
-              }`}>
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                <span className={isMobile ? 'text-[9px]' : 'text-[10px]'}>Active</span>
+              <div className="space-y-2">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>Download Your Data</p>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                  Create a backup of all your stored data
+                </p>
+                <Button
+                  variant="outline"
+                  onClick={createManualBackup}
+                  className={`w-full ${isMobile ? 'mobile-button-secondary touch-feedback' : ''}`}
+                >
+                  <Download className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-2`} />
+                  Download Backup
+                </Button>
               </div>
             </div>
-            <p className={`text-white/60 ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
-              Web browser • {new Date().toLocaleDateString()}
-            </p>
-            <p className={`text-white/50 mt-0.5 ${
-              isMobile ? 'text-[9px] leading-tight' : 'text-[10px]'
-            }`}>
-              This is your current session. You'll remain logged in until you sign out.
-            </p>
-          </div>
+          </CardContent>
+        </Card>
 
-          <div className={`rounded-lg bg-gray-500/20 border border-gray-400/30 ${
-            isMobile ? 'p-2' : 'p-2.5'
-          }`}>
-            <div className={`flex items-start ${isMobile ? 'gap-1' : 'gap-1.5'}`}>
-              <AlertCircle className={`text-gray-400 mt-0.5 flex-shrink-0 ${
-                isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'
-              }`} />
-              <div className={isMobile ? 'text-[10px]' : 'text-xs'}>
-                <p className={`text-gray-300 font-medium ${
-                  isMobile ? 'text-[10px]' : ''
-                }`}>Enhanced Session Management</p>
-                <p className={`text-gray-400/80 mt-0.5 ${
-                  isMobile ? 'text-[9px] leading-tight' : ''
-                }`}>
-                  Advanced session controls, device management, and security alerts 
-                  will be available in a future update.
+        {/* Communication Preferences */}
+        <Card className={isMobile ? 'mobile-card' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Mail className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+              </div>
+              <div>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Communication</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                  Control how we communicate with you
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 space-y-1">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+                  Marketing Emails
+                </p>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                  Receive updates about new features and improvements
                 </p>
               </div>
+              <Switch
+                checked={settings.marketingEmails}
+                onCheckedChange={(checked) => handleSettingChange('marketingEmails', checked)}
+                className={isMobile ? 'touch-feedback' : ''}
+              />
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Security Recommendations */}
-      <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'rounded-lg' : ''
-      }`}>
-        <CardHeader className={isMobile ? 'p-2' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>
-            Security Tips
-          </CardTitle>
-          <CardDescription className={`text-white/60 ${
-            isMobile ? 'text-[10px] leading-tight' : 'text-xs'
-          }`}>
-            Keep your account safe with these recommendations
-          </CardDescription>
-        </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}`}>
-          <ul className={`text-white/80 ${
-            isMobile ? 'space-y-1.5 text-[10px]' : 'space-y-2 text-xs'
-          }`}>
-            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
-              <CheckCircle className={`text-green-400 flex-shrink-0 ${
-                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
-              }`} />
-              <span className={isMobile ? 'mobile-body' : ''}>
-                Use a strong, unique password for your account
-              </span>
-            </li>
-            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
-              <CheckCircle className={`text-green-400 flex-shrink-0 ${
-                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
-              }`} />
-              <span className={isMobile ? 'mobile-body' : ''}>
-                Keep your email account secure as it's used for password resets
-              </span>
-            </li>
-            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
-              <AlertCircle className={`text-orange-400 flex-shrink-0 ${
-                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
-              }`} />
-              <span className={isMobile ? 'mobile-body' : ''}>
-                Never share your login credentials with others
-              </span>
-            </li>
-            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
-              <AlertCircle className={`text-orange-400 flex-shrink-0 ${
-                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
-              }`} />
-              <span className={isMobile ? 'mobile-body' : ''}>
-                Sign out from shared or public devices
-              </span>
-            </li>
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
+        {/* Data Management */}
+        <Card className={isMobile ? 'mobile-card' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Clock className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+              </div>
+              <div>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Data Management</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                  Configure data retention policies
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
+            <div className="space-y-2">
+              <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+                Data Retention Period
+              </p>
+              <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'} mb-3`}>
+                How long should we keep your conversation history?
+              </p>
+              <Select
+                value={settings.dataRetention}
+                onValueChange={(value) => handleSettingChange('dataRetention', value)}
+              >
+                <SelectTrigger className={isMobile ? 'h-11' : ''}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="30days">30 Days</SelectItem>
+                  <SelectItem value="90days">90 Days</SelectItem>
+                  <SelectItem value="1year">1 Year</SelectItem>
+                  <SelectItem value="forever">Forever</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Analytics */}
+        <Card className={isMobile ? 'mobile-card' : ''}>
+          <CardHeader className={isMobile ? 'mobile-card-header' : ''}>
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <BarChart3 className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-primary`} />
+              </div>
+              <div>
+                <CardTitle className={isMobile ? 'mobile-title' : 'text-lg'}>Analytics</CardTitle>
+                <CardDescription className={isMobile ? 'mobile-subtitle' : ''}>
+                  Help us improve your experience
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className={isMobile ? 'mobile-card-content' : ''}>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 space-y-1">
+                <p className={`font-medium ${isMobile ? 'mobile-body' : ''}`}>
+                  Anonymous Usage Analytics
+                </p>
+                <p className={`text-muted-foreground ${isMobile ? 'mobile-caption' : 'text-sm'}`}>
+                  Share anonymous usage data to help us improve the app
+                </p>
+              </div>
+              <Switch
+                checked={settings.anonymousUsage}
+                onCheckedChange={(checked) => handleSettingChange('anonymousUsage', checked)}
+                className={isMobile ? 'touch-feedback' : ''}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Backup Prompt Dialog */}
+      <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <AlertTriangle className="w-5 h-5 text-primary" />
+              </div>
+              <AlertDialogTitle>Enable Encryption</AlertDialogTitle>
+            </div>
+            <AlertDialogDescription className="space-y-3 text-left">
+              <p>
+                Before enabling encryption, we'll create a backup of your current data.
+              </p>
+              <p className="font-medium text-foreground">
+                Important: Once encryption is enabled, you won't be able to recover your data if you lose access to your account.
+              </p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={createManualBackup}>
+              Create Backup & Enable
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
 
