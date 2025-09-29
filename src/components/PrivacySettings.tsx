@@ -74,6 +74,33 @@ export const PrivacySettings = () => {
         <p className="text-white/70 text-xs">Control how your data is stored and used. Changes take effect immediately.</p>
       </div>
 
+      {/* Communication Preferences */}
+      <div className="questionnaire-card p-4 shadow-lg">
+        <div className="mb-4">
+          <div className="flex items-center gap-2 text-white font-semibold mb-2">
+            <Mail className="h-5 w-5" />
+            Communication
+          </div>
+          <p className="text-white/70 text-sm mb-4">
+            Manage how we communicate with you
+          </p>
+        </div>
+        
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="text-sm font-medium text-white">Marketing Emails</div>
+            <div className="text-xs text-white/60">
+              Receive updates about new features and tips
+            </div>
+          </div>
+          <Switch
+            checked={settings.marketingEmails}
+            onCheckedChange={(checked) => handleSettingChange('marketingEmails', checked)}
+            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-coral-400 data-[state=checked]:to-pink-500"
+          />
+        </div>
+      </div>
+
       {/* Data Protection */}
       <div className="questionnaire-card p-4 shadow-lg">
         <div className="mb-4">
@@ -126,33 +153,6 @@ export const PrivacySettings = () => {
               Create a local backup of your data
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Communication Preferences */}
-      <div className="questionnaire-card p-4 shadow-lg">
-        <div className="mb-4">
-          <div className="flex items-center gap-2 text-white font-semibold mb-2">
-            <Mail className="h-5 w-5" />
-            Communication
-          </div>
-          <p className="text-white/70 text-sm mb-4">
-            Manage how we communicate with you
-          </p>
-        </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <div className="text-sm font-medium text-white">Marketing Emails</div>
-            <div className="text-xs text-white/60">
-              Receive updates about new features and tips
-            </div>
-          </div>
-          <Switch
-            checked={settings.marketingEmails}
-            onCheckedChange={(checked) => handleSettingChange('marketingEmails', checked)}
-            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-coral-400 data-[state=checked]:to-pink-500"
-          />
         </div>
       </div>
 
