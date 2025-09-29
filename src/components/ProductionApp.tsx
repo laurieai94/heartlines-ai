@@ -15,7 +15,6 @@ const Mission = React.lazy(() => import('@/pages/Mission'));
 const Pricing = React.lazy(() => import('@/pages/Pricing'));
 const Account = React.lazy(() => import('@/pages/Account'));
 const NotFound = React.lazy(() => import('@/pages/NotFound'));
-const PrivacySecurity = React.lazy(() => import('@/pages/PrivacySecurity'));
 const BillingSuccess = React.lazy(() => import('@/pages/BillingSuccess'));
 
 const ProductionApp: React.FC = () => {
@@ -60,7 +59,6 @@ const ProductionApp: React.FC = () => {
               />
               <Route path="/mission" element={<Mission />} />
               <Route path="/plans" element={<Pricing />} />
-              <Route path="/privacy-security" element={<PrivacySecurity />} />
               <Route path="/billing/success" element={<BillingSuccess />} />
               <Route 
                 path="/account/*" 
