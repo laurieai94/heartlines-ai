@@ -3,6 +3,7 @@ import { User, CreditCard, Shield } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import '@/styles/account-mobile.css';
 
 // Lazy load account components for better performance
 const AccountSubscription = lazy(() => import('./AccountSubscription'));
@@ -47,7 +48,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className="bg-burgundy-900">
+    <div className={`bg-burgundy-900 ${isMobile ? 'account-mobile' : ''}`}>
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -58,29 +59,29 @@ const AccountLayout = () => {
 
       <div className={`relative z-10 container mx-auto ${
         isMobile ? 'px-3 py-2' : 'px-4 py-4'
-      } max-w-3xl`}>
+      } max-w-3xl scroll-container`}>
 
         <div className={`questionnaire-card ${
-          isMobile ? 'p-2 sm:p-3' : 'p-3 md:p-4'
+          isMobile ? 'mobile-card mobile-pad-sm' : 'p-3 md:p-4'
         } animate-fade-in touch-manipulation`}>
-          <div className={`text-center ${isMobile ? 'mb-2' : 'mb-3'}`}>
+          <div className={`text-center ${isMobile ? 'mobile-space-md' : 'mb-3'}`}>
             <h1 className={`font-bold text-white ${
-              isMobile ? 'text-base mb-0.5' : 'text-lg mb-1'
+              isMobile ? 'mobile-title' : 'text-lg mb-1'
             }`}>My Account</h1>
             <p className={`text-white/70 ${
-              isMobile ? 'text-[11px] leading-tight' : 'text-xs'
+              isMobile ? 'mobile-caption' : 'text-xs'
             }`}>Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={`grid w-full grid-cols-3 ${
-              isMobile ? 'mb-2 h-11' : 'mb-3 h-8'
+              isMobile ? 'tabs-list mobile-space-sm' : 'mb-3 h-8'
             } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    ? 'tab-trigger touch-feedback' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -90,7 +91,7 @@ const AccountLayout = () => {
                 }}
               >
                 <User className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                <span className={isMobile ? '' : 'hidden sm:inline'}>
                   Profile
                 </span>
               </TabsTrigger>
@@ -98,7 +99,7 @@ const AccountLayout = () => {
                 value="subscription"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    ? 'tab-trigger touch-feedback' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -108,7 +109,7 @@ const AccountLayout = () => {
                 }}
               >
                 <CreditCard className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                <span className={isMobile ? '' : 'hidden sm:inline'}>
                   Plans
                 </span>
               </TabsTrigger>
@@ -116,7 +117,7 @@ const AccountLayout = () => {
                 value="security"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    ? 'tab-trigger touch-feedback' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -126,7 +127,7 @@ const AccountLayout = () => {
                 }}
               >
                 <Shield className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                <span className={isMobile ? '' : 'hidden sm:inline'}>
                   Security
                 </span>
               </TabsTrigger>
@@ -134,7 +135,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="profile" 
-              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountProfile />
@@ -143,7 +144,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="subscription" 
-              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSubscription />
@@ -152,7 +153,7 @@ const AccountLayout = () => {
 
             <TabsContent 
               value="security" 
-              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+              className={`${isMobile ? 'safe-bottom' : 'space-y-2.5'} focus:outline-none`}
             >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSecurity />

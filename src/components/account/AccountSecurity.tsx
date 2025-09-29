@@ -36,7 +36,7 @@ const AccountSecurity = () => {
   };
 
   return (
-    <div className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} touch-manipulation`}>
+    <div className={`${isMobile ? '' : 'space-y-2.5'} touch-manipulation`}>
       <div>
         <h3 className={`font-semibold text-white mb-1 ${isMobile ? 'text-xs' : 'text-sm'}`}>
           Security Settings
@@ -175,8 +175,8 @@ const AccountSecurity = () => {
               handlePasswordReset();
             }}
             disabled={sendingReset || !email}
-            className={`questionnaire-button-secondary touch-manipulation ${
-              isMobile ? 'text-[11px] py-1.5 h-9 w-full' : 'text-xs py-1.5'
+            className={`questionnaire-button-secondary touch-manipulation touch-feedback ${
+              isMobile ? 'mobile-button-primary w-full' : 'text-xs py-1.5'
             }`}
           >
             <Key className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
@@ -266,35 +266,35 @@ const AccountSecurity = () => {
           <ul className={`text-white/80 ${
             isMobile ? 'space-y-1.5 text-[10px]' : 'space-y-2 text-xs'
           }`}>
-            <li className={`flex items-start ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-              <CheckCircle className={`text-green-400 mt-0.5 flex-shrink-0 ${
-                isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'
+            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
+              <CheckCircle className={`text-green-400 flex-shrink-0 ${
+                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
               }`} />
-              <span className={isMobile ? 'leading-tight' : ''}>
+              <span className={isMobile ? 'mobile-body' : ''}>
                 Use a strong, unique password for your account
               </span>
             </li>
-            <li className={`flex items-start ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-              <CheckCircle className={`text-green-400 mt-0.5 flex-shrink-0 ${
-                isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'
+            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
+              <CheckCircle className={`text-green-400 flex-shrink-0 ${
+                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
               }`} />
-              <span className={isMobile ? 'leading-tight' : ''}>
+              <span className={isMobile ? 'mobile-body' : ''}>
                 Keep your email account secure as it's used for password resets
               </span>
             </li>
-            <li className={`flex items-start ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-              <AlertCircle className={`text-orange-400 mt-0.5 flex-shrink-0 ${
-                isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'
+            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
+              <AlertCircle className={`text-orange-400 flex-shrink-0 ${
+                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
               }`} />
-              <span className={isMobile ? 'leading-tight' : ''}>
+              <span className={isMobile ? 'mobile-body' : ''}>
                 Never share your login credentials with others
               </span>
             </li>
-            <li className={`flex items-start ${isMobile ? 'gap-1.5' : 'gap-2'}`}>
-              <AlertCircle className={`text-orange-400 mt-0.5 flex-shrink-0 ${
-                isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'
+            <li className={`${isMobile ? 'security-tip' : 'flex items-start gap-2'}`}>
+              <AlertCircle className={`text-orange-400 flex-shrink-0 ${
+                isMobile ? 'security-tip-icon' : 'h-3 w-3 mt-0.5'
               }`} />
-              <span className={isMobile ? 'leading-tight' : ''}>
+              <span className={isMobile ? 'mobile-body' : ''}>
                 Sign out from shared or public devices
               </span>
             </li>

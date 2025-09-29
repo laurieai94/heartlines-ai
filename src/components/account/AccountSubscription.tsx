@@ -140,7 +140,7 @@ const AccountSubscription = () => {
   }
 
   return (
-    <div className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} touch-manipulation`}>
+    <div className={`${isMobile ? '' : 'space-y-2.5'} touch-manipulation`}>
       {/* Current Subscription Status */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
         isMobile ? 'rounded-lg' : ''
@@ -232,11 +232,11 @@ const AccountSubscription = () => {
       </Card>
 
       {/* Available Plans */}
-      <div>
-        <h3 className={`font-medium text-white mb-1.5 px-1 ${
-          isMobile ? 'text-xs' : 'text-sm'
+      <div className={isMobile ? 'mobile-space-md' : ''}>
+        <h3 className={`font-medium text-white px-1 ${
+          isMobile ? 'mobile-title mobile-space-sm' : 'text-sm mb-1.5'
         }`}>Available Plans</h3>
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-1 md:grid-cols-3 gap-2.5'}`}>
+        <div className={`grid ${isMobile ? 'mobile-grid-1' : 'grid-cols-1 md:grid-cols-3 gap-2.5'}`}>
           {plans.map((plan) => (
             <Card 
               key={plan.name}
@@ -244,12 +244,12 @@ const AccountSubscription = () => {
                 plan.current 
                   ? 'border-pink-400/50 bg-white/15' 
                   : 'border-white/20 hover:border-white/30'
-              } ${isMobile ? 'rounded-lg' : ''}`}
+              } ${isMobile ? 'plan-card' : ''}`}
             >
               {plan.popular && (
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-                  <span className={`bg-gradient-to-r from-pink-500 to-coral-500 text-white px-2.5 py-[3px] rounded-full font-medium ${
-                    isMobile ? 'text-[9px]' : 'text-[10px]'
+                  <span className={`bg-gradient-to-r from-pink-500 to-coral-500 text-white rounded-full font-medium ${
+                    isMobile ? 'plan-popular-badge' : 'px-2.5 py-[3px] text-[10px]'
                   }`}>
                     Most Popular
                   </span>
@@ -289,7 +289,7 @@ const AccountSubscription = () => {
                   <Button 
                     disabled 
                     className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 mt-3 touch-manipulation ${
-                      isMobile ? 'text-[11px] py-1.5 h-9' : 'text-xs py-1.5'
+                      isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5'
                     }`}
                   >
                     <Check className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3 w-3'}`} />
@@ -304,8 +304,8 @@ const AccountSubscription = () => {
                       handleUpgrade(plan.tier as 'grow' | 'thrive');
                     }}
                     disabled={upgrading === plan.tier}
-                    className={`w-full questionnaire-button-primary mt-3 touch-manipulation ${
-                      isMobile ? 'text-[11px] py-1.5 h-9' : 'text-xs py-1.5'
+                    className={`w-full questionnaire-button-primary mt-3 touch-manipulation touch-feedback ${
+                      isMobile ? 'mobile-button-primary' : 'text-xs py-1.5'
                     }`}
                   >
                     <Zap className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3 w-3'}`} />
@@ -316,7 +316,7 @@ const AccountSubscription = () => {
                     disabled 
                     variant="outline"
                     className={`w-full bg-white/5 border-white/20 text-white/60 mt-3 touch-manipulation ${
-                      isMobile ? 'text-[11px] py-1.5 h-9' : 'text-xs py-1.5'
+                      isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5'
                     }`}
                   >
                     Current Plan
