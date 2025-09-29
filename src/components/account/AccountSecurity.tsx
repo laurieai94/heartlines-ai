@@ -57,16 +57,6 @@ const AccountSecurity = () => {
   return (
     <>
       <div className={`${isMobile ? 'account-mobile' : ''} space-y-2.5`}>
-        {/* Section Header */}
-        <div className={`${isMobile ? 'mobile-space-md' : 'mb-4'}`}>
-          <h2 className={`${isMobile ? 'mobile-title' : 'text-sm font-semibold'} text-white`}>
-            Privacy & Security
-          </h2>
-          <p className={`${isMobile ? 'mobile-title' : 'text-sm font-semibold'} text-white/70 mt-1`}>
-            Manage your privacy preferences and data security
-          </p>
-        </div>
-
         {/* Data Protection */}
         <Card className={`${isMobile ? 'mobile-card' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
           <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
