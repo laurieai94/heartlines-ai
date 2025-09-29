@@ -79,9 +79,9 @@ const AccountLayout = () => {
             } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
-                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -97,9 +97,9 @@ const AccountLayout = () => {
               </TabsTrigger>
               <TabsTrigger 
                 value="subscription"
-                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -115,9 +115,9 @@ const AccountLayout = () => {
               </TabsTrigger>
               <TabsTrigger 
                 value="security"
-                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
