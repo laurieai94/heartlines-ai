@@ -1,6 +1,7 @@
 // Profile sync diagnostics and logging
 // Profile sync diagnostics - logger removed for performance optimization
 import { supabase } from "@/integrations/supabase/client";
+import { batchedStorage } from './batchedStorage';
 
 interface SyncMetrics {
   lastSyncAttempt: number;
@@ -18,7 +19,7 @@ class ProfileSyncDiagnostics {
 
   private loadMetrics() {
     try {
-      const stored = localStorage.getItem('profile_sync_metrics');
+      const stored = batchedStorage.getItem('profile_sync_metrics');
       if (stored) {
         this.metrics = JSON.parse(stored);
       }
@@ -29,7 +30,7 @@ class ProfileSyncDiagnostics {
 
   private saveMetrics() {
     try {
-      localStorage.setItem('profile_sync_metrics', JSON.stringify(this.metrics));
+      batchedStorage.setItem('profile_sync_metrics', JSON.stringify(this.metrics));
     } catch (error) {
       // Failed to save sync metrics (logging removed for performance)
     }

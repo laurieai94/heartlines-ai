@@ -1,4 +1,6 @@
 // Privacy-first encryption utilities for sensitive data
+import { batchedStorage } from './batchedStorage';
+
 const ENCRYPTION_KEY_NAME = 'kai_privacy_key';
 const SALT_LENGTH = 16;
 const IV_LENGTH = 12;
@@ -11,7 +13,7 @@ export class PrivacyManager {
     if (this.encryptionKey) return this.encryptionKey;
 
     // Try to get existing key from localStorage
-    const stored = localStorage.getItem(ENCRYPTION_KEY_NAME);
+    const stored = batchedStorage.getItem(ENCRYPTION_KEY_NAME);
     if (stored) {
       try {
         const keyData = JSON.parse(stored);
@@ -24,7 +26,7 @@ export class PrivacyManager {
         );
         return this.encryptionKey;
       } catch (error) {
-        console.warn('Failed to load existing encryption key, generating new one');
+        // Silent fail, generate new key
       }
     }
 
@@ -37,7 +39,7 @@ export class PrivacyManager {
 
     // Store key for future use
     const exportedKey = await crypto.subtle.exportKey('raw', this.encryptionKey);
-    localStorage.setItem(ENCRYPTION_KEY_NAME, JSON.stringify(Array.from(new Uint8Array(exportedKey))));
+    batchedStorage.setItem(ENCRYPTION_KEY_NAME, JSON.stringify(Array.from(new Uint8Array(exportedKey))));
 
     return this.encryptionKey;
   }
@@ -106,21 +108,21 @@ export class PrivacyManager {
 
   // Check if encryption is enabled
   static isEncryptionEnabled(): boolean {
-    return localStorage.getItem('privacy_encryption_enabled') === 'true';
+    return batchedStorage.getItem('privacy_encryption_enabled') === 'true';
   }
 
   // Enable/disable encryption
   static setEncryptionEnabled(enabled: boolean): void {
-    localStorage.setItem('privacy_encryption_enabled', enabled.toString());
+    batchedStorage.setItem('privacy_encryption_enabled', enabled.toString());
   }
 
   // Get privacy settings
   static getPrivacySettings() {
     return {
       encryptionEnabled: this.isEncryptionEnabled(),
-      marketingEmails: localStorage.getItem('privacy_marketing_emails') !== 'false',
-      dataRetention: localStorage.getItem('privacy_data_retention') || '90',
-      anonymousUsage: localStorage.getItem('privacy_anonymous_usage') !== 'false'
+      marketingEmails: batchedStorage.getItem('privacy_marketing_emails') !== 'false',
+      dataRetention: batchedStorage.getItem('privacy_data_retention') || '90',
+      anonymousUsage: batchedStorage.getItem('privacy_anonymous_usage') !== 'false'
     };
   }
 
@@ -135,13 +137,13 @@ export class PrivacyManager {
       this.setEncryptionEnabled(settings.encryptionEnabled);
     }
     if (settings.marketingEmails !== undefined) {
-      localStorage.setItem('privacy_marketing_emails', settings.marketingEmails.toString());
+      batchedStorage.setItem('privacy_marketing_emails', settings.marketingEmails.toString());
     }
     if (settings.dataRetention !== undefined) {
-      localStorage.setItem('privacy_data_retention', settings.dataRetention);
+      batchedStorage.setItem('privacy_data_retention', settings.dataRetention);
     }
     if (settings.anonymousUsage !== undefined) {
-      localStorage.setItem('privacy_anonymous_usage', settings.anonymousUsage.toString());
+      batchedStorage.setItem('privacy_anonymous_usage', settings.anonymousUsage.toString());
     }
   }
 
@@ -149,9 +151,9 @@ export class PrivacyManager {
   static createLocalBackup(): string {
     const backup = {
       timestamp: new Date().toISOString(),
-      conversations: localStorage.getItem('chat_conversations') || '[]',
-      profiles: localStorage.getItem('personal_profile_data') || '{}',
-      partnerProfiles: localStorage.getItem('partner_profile_data') || '{}'
+      conversations: batchedStorage.getItem('chat_conversations') || '[]',
+      profiles: batchedStorage.getItem('personal_profile_data') || '{}',
+      partnerProfiles: batchedStorage.getItem('partner_profile_data') || '{}'
     };
     
     const backupData = JSON.stringify(backup);

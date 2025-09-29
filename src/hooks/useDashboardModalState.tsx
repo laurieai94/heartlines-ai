@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { batchedStorage } from '@/utils/batchedStorage';
 
 export const useDashboardModalState = () => {
   const location = useLocation();
@@ -36,43 +37,27 @@ export const useDashboardModalState = () => {
   
   // Persistent suppress flag for partner completion popup
   const [suppressPartnerCompletionPopup, setSuppressPartnerCompletionPopupState] = useState(() => {
-    const stored = localStorage.getItem('suppressPartnerCompletionPopup');
+    const stored = batchedStorage.getItem('suppressPartnerCompletionPopup');
     return stored === 'true';
   });
 
   const setSuppressPartnerCompletionPopup = (value: boolean) => {
     setSuppressPartnerCompletionPopupState(value);
-    localStorage.setItem('suppressPartnerCompletionPopup', value.toString());
+    batchedStorage.setItem('suppressPartnerCompletionPopup', value.toString());
   };
   
   // Persistent suppress flag for personal completion popup
   const [suppressPersonalCompletionPopup, setSuppressPersonalCompletionPopupState] = useState(() => {
-    const stored = localStorage.getItem('suppressPersonalCompletionPopup');
+    const stored = batchedStorage.getItem('suppressPersonalCompletionPopup');
     return stored === 'true';
   });
 
   const setSuppressPersonalCompletionPopup = (value: boolean) => {
     setSuppressPersonalCompletionPopupState(value);
-    localStorage.setItem('suppressPersonalCompletionPopup', value.toString());
+    batchedStorage.setItem('suppressPersonalCompletionPopup', value.toString());
   };
 
-  // Debug logging for modal state changes
-  useEffect(() => {
-    console.log('Modal state changed - showQuestionnaireModal:', showQuestionnaireModal);
-  }, [showQuestionnaireModal]);
-
-  useEffect(() => {
-    console.log('Modal state changed - showPartnerQuestionnaireModal:', showPartnerQuestionnaireModal);
-  }, [showPartnerQuestionnaireModal]);
-
-  // Debug logging for completion options
-  useEffect(() => {
-    console.log('Modal state changed - showPersonalCompletionOptions:', showPersonalCompletionOptions);
-  }, [showPersonalCompletionOptions]);
-
-  useEffect(() => {
-    console.log('Modal state changed - showPartnerCompletionOptions:', showPartnerCompletionOptions);
-  }, [showPartnerCompletionOptions]);
+  // Modal state tracking (logging removed for performance)
 
   // EMERGENCY: Throttled body scroll management to prevent blocking
   useEffect(() => {

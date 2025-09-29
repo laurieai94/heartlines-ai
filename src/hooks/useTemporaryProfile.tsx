@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { batchedStorage } from '@/utils/batchedStorage';
 
 interface TemporaryProfileData {
   your: any[];
@@ -30,19 +31,12 @@ export const useTemporaryProfile = () => {
     const loadTemporaryData = () => {
       try {
         // Load old format data
-        const savedProfiles = localStorage.getItem('realtalk_temp_profiles');
-        const savedDemographics = localStorage.getItem('realtalk_temp_demographics');
+        const savedProfiles = batchedStorage.getItem('realtalk_temp_profiles');
+        const savedDemographics = batchedStorage.getItem('realtalk_temp_demographics');
         
         // Load new questionnaire format data
-        const personalQuestionnaire = localStorage.getItem('personal_profile_questionnaire');
-        const partnerQuestionnaire = localStorage.getItem('partner_profile_questionnaire');
-        
-        console.log('Loading all profile data from localStorage:', { 
-          savedProfiles, 
-          savedDemographics, 
-          personalQuestionnaire, 
-          partnerQuestionnaire 
-        });
+        const personalQuestionnaire = batchedStorage.getItem('personal_profile_questionnaire');
+        const partnerQuestionnaire = batchedStorage.getItem('partner_profile_questionnaire');
         
         // Initialize with default structure
         let profiles = { your: [], partner: [] };
@@ -62,7 +56,6 @@ export const useTemporaryProfile = () => {
         // Parse and merge new questionnaire data (prioritize over old data)
         if (personalQuestionnaire) {
           const personalData = JSON.parse(personalQuestionnaire);
-          console.log('Found personal questionnaire data:', personalData);
           
           // Convert new format to temporary format - preserve ALL data
           if (personalData && Object.keys(personalData).length > 0) {
@@ -74,7 +67,6 @@ export const useTemporaryProfile = () => {
         
         if (partnerQuestionnaire) {
           const partnerData = JSON.parse(partnerQuestionnaire);
-          console.log('Found partner questionnaire data:', partnerData);
           
           // Convert new format to temporary format - preserve ALL data
           if (partnerData && Object.keys(partnerData).length > 0) {
@@ -84,14 +76,10 @@ export const useTemporaryProfile = () => {
           }
         }
         
-        console.log('Final merged profiles:', profiles);
-        console.log('Final merged demographics:', demographics);
-        
         setTemporaryProfiles(profiles);
         setTemporaryDemographics(demographics);
         setIsLoaded(true);
       } catch (error) {
-        console.error('Error loading temporary data:', error);
         setIsLoaded(true);
       }
     };
@@ -102,35 +90,31 @@ export const useTemporaryProfile = () => {
   // Save to localStorage whenever data changes (but only after initial load)
   useEffect(() => {
     if (isLoaded) {
-      console.log('Saving profiles to localStorage:', temporaryProfiles);
       try {
-        localStorage.setItem('realtalk_temp_profiles', JSON.stringify(temporaryProfiles));
+        batchedStorage.setItem('realtalk_temp_profiles', JSON.stringify(temporaryProfiles));
       } catch (error) {
-        console.error('Error saving profiles to localStorage:', error);
+        // Silent fail
       }
     }
   }, [temporaryProfiles, isLoaded]);
 
   useEffect(() => {
     if (isLoaded) {
-      console.log('Saving demographics to localStorage:', temporaryDemographics);
       try {
-        localStorage.setItem('realtalk_temp_demographics', JSON.stringify(temporaryDemographics));
+        batchedStorage.setItem('realtalk_temp_demographics', JSON.stringify(temporaryDemographics));
       } catch (error) {
-        console.error('Error saving demographics to localStorage:', error);
+        // Silent fail
       }
     }
   }, [temporaryDemographics, isLoaded]);
 
   const updateTemporaryProfile = (newProfiles: TemporaryProfileData, newDemographics: TemporaryDemographicsData) => {
-    console.log('Updating temporary profile data:', { newProfiles, newDemographics });
-    
     // Immediately save to localStorage as well as state
     try {
-      localStorage.setItem('realtalk_temp_profiles', JSON.stringify(newProfiles));
-      localStorage.setItem('realtalk_temp_demographics', JSON.stringify(newDemographics));
+      batchedStorage.setItem('realtalk_temp_profiles', JSON.stringify(newProfiles));
+      batchedStorage.setItem('realtalk_temp_demographics', JSON.stringify(newDemographics));
     } catch (error) {
-      console.error('Error saving to localStorage:', error);
+      // Silent fail
     }
     
     setTemporaryProfiles(newProfiles);
@@ -162,8 +146,8 @@ export const useTemporaryProfile = () => {
       }
 
       // Clear temporary data
-      localStorage.removeItem('realtalk_temp_profiles');
-      localStorage.removeItem('realtalk_temp_demographics');
+      batchedStorage.removeItem('realtalk_temp_profiles');
+      batchedStorage.removeItem('realtalk_temp_demographics');
       
       setTemporaryProfiles({ your: [], partner: [] });
       setTemporaryDemographics({ your: null, partner: null });

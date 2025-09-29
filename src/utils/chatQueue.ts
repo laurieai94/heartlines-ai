@@ -1,6 +1,7 @@
 // Chat message reliability queue for offline/failed saves  
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
+import { batchedStorage } from './batchedStorage';
 // Logger removed for performance optimization
 
 interface QueuedChat {
@@ -32,7 +33,7 @@ class ChatReliabilityQueue {
 
   private loadFromStorage() {
     try {
-      const stored = localStorage.getItem('chat_queue');
+      const stored = batchedStorage.getItem('chat_queue');
       if (stored) {
         this.queue = JSON.parse(stored);
         // Loaded ${this.queue.length} items from chat queue (logging removed for performance)
@@ -45,7 +46,7 @@ class ChatReliabilityQueue {
 
   private saveToStorage() {
     try {
-      localStorage.setItem('chat_queue', JSON.stringify(this.queue));
+      batchedStorage.setItem('chat_queue', JSON.stringify(this.queue));
     } catch (error) {
       // Failed to save chat queue to storage (logging removed for performance)
     }

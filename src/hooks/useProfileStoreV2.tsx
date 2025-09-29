@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePerformanceSafeguards } from './usePerformanceSafeguards';
 import { safeLog } from '@/utils/safeLogging';
+import { batchedStorage } from '@/utils/batchedStorage';
 
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
@@ -206,17 +207,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Optimized storage loading with migration optimization
   const loadFromStorage = useCallback((): PersonalProfileV2 | PartnerProfileV2 => {
     // Fast path: Check migration sentinel first to avoid unnecessary processing
-    const migrationSentinel = localStorage.getItem(`${config.storageKey}_migrated`);
+    const migrationSentinel = batchedStorage.getItem(`${config.storageKey}_migrated`);
     
     try {
       // Try new format first
-      const v2Data = localStorage.getItem(config.storageKey);
+      const v2Data = batchedStorage.getItem(config.storageKey);
       if (v2Data) {
         const parsed = JSON.parse(v2Data);
         return { ...defaultProfile, ...parsed };
       }
     } catch (error) {
-      console.error(`[ProfileV2-${profileType}] V2 storage load error:`, error);
+      // Silent fail
     }
 
     // Early exit if migration already completed
@@ -227,12 +228,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     // Try legacy formats for one-time promotion
     for (const key of config.legacyKeys) {
       try {
-        const legacyData = localStorage.getItem(key);
+        const legacyData = batchedStorage.getItem(key);
         if (legacyData) {
           const parsed = JSON.parse(legacyData);
           if (parsed && Object.keys(parsed).length > 0) {
-            console.log(`🔄 One-time promotion: Migrating ${profileType} profile from legacy key: ${key}`);
-            
             // Migrate and enhance with V2 metadata
             const migrated = migrateLegacyData(parsed);
             const now = new Date().toISOString();
@@ -244,10 +243,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             };
             
             // Save migrated data to V2 storage
-            localStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
+            batchedStorage.setItem(config.storageKey, JSON.stringify(fullProfile));
             
             // Create migration sentinel
-            localStorage.setItem(`${config.storageKey}_migrated`, JSON.stringify({
+            batchedStorage.setItem(`${config.storageKey}_migrated`, JSON.stringify({
               from: key,
               at: now
             }));
@@ -257,13 +256,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             if (CLEANUP_LEGACY) {
               try {
                 config.legacyKeys.forEach(legacyKey => {
-                  if (localStorage.getItem(legacyKey)) {
-                    localStorage.removeItem(legacyKey);
-                    console.log(`🧹 Cleaned up legacy key: ${legacyKey}`);
+                  if (batchedStorage.getItem(legacyKey)) {
+                    batchedStorage.removeItem(legacyKey);
                   }
                 });
               } catch (cleanupError) {
-                console.warn(`Non-critical: Failed to cleanup some legacy keys:`, cleanupError);
+                // Silent fail
               }
             }
             
@@ -286,7 +284,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
       try {
         const toSave = { ...data, lastUpdated: new Date().toISOString() };
-        localStorage.setItem(config.storageKey, JSON.stringify(toSave));
+        batchedStorage.setItem(config.storageKey, JSON.stringify(toSave));
         setLastSaved(new Date());
         // Broadcast to other hook instances in this tab
         window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {

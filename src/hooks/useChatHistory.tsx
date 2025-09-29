@@ -5,6 +5,7 @@ import { ChatMessage } from "@/types/AIInsights";
 import { PrivacyManager } from "@/utils/encryption";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
 import { logError, logInfo, logWarn } from '@/utils/productionLogger';
+import { batchedStorage } from "@/utils/batchedStorage";
 // Chat reliability queue removed logger import for performance
 
 const TWELVE_HOURS = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
@@ -73,7 +74,7 @@ export const useChatHistory = () => {
       if (error) {
         logError('Database fetch error, falling back to localStorage', error);
         // Fallback to localStorage
-        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const stored = batchedStorage.getItem('chat_conversations') || '[]';
         const localConversations = JSON.parse(stored).filter((c: any) => c.user_id === user.id);
         setConversations(localConversations);
       } else {
@@ -84,13 +85,13 @@ export const useChatHistory = () => {
         }));
         setConversations(formattedConversations);
         // Also store in localStorage as backup
-        localStorage.setItem('chat_conversations', JSON.stringify(formattedConversations));
+        batchedStorage.setItem('chat_conversations', JSON.stringify(formattedConversations));
       }
     } catch (error) {
       logError('Error fetching conversations', error);
       // Final fallback to localStorage
       try {
-        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const stored = batchedStorage.getItem('chat_conversations') || '[]';
         const conversations = JSON.parse(stored);
         setConversations(conversations);
       } catch {
@@ -164,7 +165,7 @@ export const useChatHistory = () => {
       }
 
       // Always save to localStorage as backup
-      const stored = localStorage.getItem('chat_conversations') || '[]';
+      const stored = batchedStorage.getItem('chat_conversations') || '[]';
       const conversations = JSON.parse(stored);
       
       const conversationForStorage = {
@@ -184,7 +185,7 @@ export const useChatHistory = () => {
         setCurrentConversationId(conversationData.id);
       }
 
-      localStorage.setItem('chat_conversations', JSON.stringify(conversations));
+      batchedStorage.setItem('chat_conversations', JSON.stringify(conversations));
 
       // Optimistically update in-memory state so sidebar reflects immediately
       setConversations((prev) => {
@@ -206,7 +207,7 @@ export const useChatHistory = () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
         
-        const stored = localStorage.getItem('chat_conversations') || '[]';
+        const stored = batchedStorage.getItem('chat_conversations') || '[]';
         const conversations = JSON.parse(stored);
         const conversationData = {
           id: currentConversationId || crypto.randomUUID(),
@@ -218,7 +219,7 @@ export const useChatHistory = () => {
         };
         
         conversations.push(conversationData);
-        localStorage.setItem('chat_conversations', JSON.stringify(conversations));
+        batchedStorage.setItem('chat_conversations', JSON.stringify(conversations));
         
         if (!currentConversationId) {
           setCurrentConversationId(conversationData.id);
@@ -323,10 +324,10 @@ export const useChatHistory = () => {
       }
 
       // Delete from localStorage
-      const stored = localStorage.getItem('chat_conversations') || '[]';
+      const stored = batchedStorage.getItem('chat_conversations') || '[]';
       const conversations = JSON.parse(stored);
       const filtered = conversations.filter((c: any) => c.id !== conversationId);
-      localStorage.setItem('chat_conversations', JSON.stringify(filtered));
+      batchedStorage.setItem('chat_conversations', JSON.stringify(filtered));
       
       // Clear session if it's the current conversation
       if (currentConversationId === conversationId) {
