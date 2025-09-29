@@ -1,6 +1,6 @@
 import { useState, Suspense, lazy, useEffect, useMemo, useCallback } from "react";
 import { toast } from "sonner";
-import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown, ArrowRight } from "lucide-react";
+import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -261,6 +261,12 @@ const ProfileBuilder = ({
             }
             progressColor="text-orange-300" 
             benefitColor="text-orange-300"
+            optionalPillImage={
+              <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                First Step: 4 Qs
+              </span>
+            }
             motivationText="The realer you, the smarter Kai"
           />
 
