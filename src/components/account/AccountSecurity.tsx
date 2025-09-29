@@ -19,10 +19,6 @@ const AccountSecurity = () => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     PrivacyManager.updatePrivacySettings(newSettings);
-    
-    toast.success('Settings Updated', {
-      description: 'Your privacy preferences have been saved.',
-    });
   };
 
   const handleEnableEncryption = () => {
@@ -43,10 +39,6 @@ const AccountSecurity = () => {
         PrivacyManager.setEncryptionEnabled(true);
         setShowBackupPrompt(false);
       }
-      
-      toast.success('Backup Created', {
-        description: 'Your data has been downloaded successfully.',
-      });
     } catch (error) {
       toast.error('Backup Failed', {
         description: 'Unable to create backup. Please try again.',
@@ -229,25 +221,25 @@ const AccountSecurity = () => {
 
       {/* Backup Prompt Dialog */}
       <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
-        <AlertDialogContent className={isMobile ? 'mobile-dialog' : ''}>
+        <AlertDialogContent className={`${isMobile ? 'mobile-dialog' : ''} bg-[#5D2536]/40 backdrop-blur-lg border border-white/20`}>
           <AlertDialogHeader>
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 rounded-lg bg-primary/10">
                 <AlertTriangle className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
-              <AlertDialogTitle className={isMobile ? 'mobile-title' : 'text-sm'}>Enable Encryption</AlertDialogTitle>
+              <AlertDialogTitle className={`${isMobile ? 'mobile-title' : 'text-sm'} text-white`}>Enable Encryption</AlertDialogTitle>
             </div>
-            <AlertDialogDescription className={`space-y-2 text-left ${isMobile ? 'mobile-body' : 'text-xs'}`}>
+            <AlertDialogDescription className={`space-y-2 text-left ${isMobile ? 'mobile-body' : 'text-xs'} text-white/80`}>
               <p>
                 Before enabling encryption, we'll create a backup of your current data.
               </p>
-              <p className="font-medium text-foreground">
+              <p className="font-medium text-white">
                 Important: Once encryption is enabled, you won't be able to recover your data if you lose access to your account.
               </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className={isMobile ? 'flex-col gap-2' : ''}>
-            <AlertDialogCancel className={isMobile ? 'mobile-button-secondary w-full' : 'text-xs'}>
+            <AlertDialogCancel className={`${isMobile ? 'mobile-button-secondary w-full' : 'text-xs'} text-white border-white/20 hover:bg-white/10`}>
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction 
