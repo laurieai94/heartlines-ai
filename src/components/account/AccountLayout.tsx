@@ -81,7 +81,7 @@ const AccountLayout = () => {
                 value="profile"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-xs py-1.5' 
+                    ? 'px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -90,8 +90,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <User className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
-                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
+                <User className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
                   Profile
                 </span>
               </TabsTrigger>
@@ -99,7 +99,7 @@ const AccountLayout = () => {
                 value="subscription"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-xs py-1.5' 
+                    ? 'px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -108,8 +108,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <CreditCard className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
-                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
+                <CreditCard className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
                   Plans
                 </span>
               </TabsTrigger>
@@ -117,7 +117,7 @@ const AccountLayout = () => {
                 value="security"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'text-xs py-1.5' 
+                    ? 'px-2 py-2 flex items-center justify-center' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -126,8 +126,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <Shield className={isMobile ? 'h-3.5 w-3.5' : 'h-4 w-4 mr-2'} />
-                <span className={isMobile ? 'text-xs' : 'inline text-sm'}>
+                <Shield className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
+                <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
                   Security
                 </span>
               </TabsTrigger>
