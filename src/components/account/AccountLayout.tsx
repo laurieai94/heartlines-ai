@@ -69,7 +69,7 @@ const AccountLayout = () => {
               isMobile ? 'text-base' : 'text-xl mb-1'
             }`}>My Account</h1>
             <p className={`text-white/70 ${
-              isMobile ? 'text-[10px]' : 'text-xs'
+              isMobile ? 'text-xs' : 'text-xs'
             }`}>Manage your profile, subscription, and security settings</p>
           </div>
 
@@ -91,7 +91,7 @@ const AccountLayout = () => {
                 }}
               >
                 <User className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
+                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
                   Profile
                 </span>
               </TabsTrigger>
@@ -109,7 +109,7 @@ const AccountLayout = () => {
                 }}
               >
                 <CreditCard className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
+                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
                   Plans
                 </span>
               </TabsTrigger>
@@ -127,7 +127,7 @@ const AccountLayout = () => {
                 }}
               >
                 <Shield className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
+                <span className={isMobile ? 'text-xs' : 'hidden sm:inline'}>
                   Security
                 </span>
               </TabsTrigger>
