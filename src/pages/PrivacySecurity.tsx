@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, Menu, User } from 'lucide-react';
 import { BRAND } from '@/branding';
 
 const PrivacySecurity = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     document.title = 'Privacy & Security - RealTalk | Your data, your control';
     
@@ -21,6 +24,13 @@ const PrivacySecurity = () => {
       document.head.appendChild(meta);
     }
   }, []);
+
+  const navItems = [
+    { label: 'Home', path: '/' },
+    { label: 'Mission', path: '/mission' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'Privacy Settings', path: '/privacy' },
+  ];
 
   const features = [
     {
@@ -54,26 +64,65 @@ const PrivacySecurity = () => {
       {/* Background effects */}
 
       {/* Navigation */}
-      <nav className="px-6 py-4 relative z-10 bg-burgundy-900 border-b border-pink-300/10">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-white font-sans">RealTalk</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link to="/privacy">
-              <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full">
-                <Settings className="w-4 h-4 mr-2" />
-                Privacy Settings
-              </Button>
-            </Link>
-            <Link to="/">
-              <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full">
-                Get Started Free
-              </Button>
-            </Link>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-burgundy-900/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Left: Hamburger Menu */}
+            <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/10"
+                  aria-label="Open menu"
+                >
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent 
+                align="start" 
+                className="w-56 bg-burgundy-800/95 backdrop-blur-md border-white/20 text-white"
+              >
+                <div className="flex flex-col gap-2">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="px-4 py-2 text-sm hover:bg-white/10 rounded-md transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            {/* Right: Sign In & Get Started */}
+            <div className="flex items-center gap-3">
+              <Link to="/auth">
+                <Button
+                  variant="ghost"
+                  className="hidden sm:flex text-white hover:bg-white/10 gap-2"
+                >
+                  <User className="h-4 w-4" />
+                  <span>Sign in</span>
+                </Button>
+              </Link>
+              <Link to="/get-started">
+                <Button
+                  className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium px-6 sm:px-8"
+                >
+                  Get Started
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
+
+      {/* Spacer for fixed nav */}
+      <div className="h-16"></div>
 
       <div className="relative z-10">
         {/* Hero Section */}
