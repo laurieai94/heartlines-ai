@@ -62,7 +62,7 @@ const AccountSecurity = () => {
           <h2 className={`${isMobile ? 'mobile-title' : 'text-sm font-semibold'} text-white`}>
             Privacy & Security
           </h2>
-          <p className={`${isMobile ? 'mobile-subtitle' : 'text-xs'} text-white/70 mt-1`}>
+          <p className={`${isMobile ? 'mobile-title' : 'text-sm font-semibold'} text-white/70 mt-1`}>
             Manage your privacy preferences and data security
           </p>
         </div>
