@@ -72,7 +72,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Shield className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
+                <Shield className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'mobile-title' : 'text-sm font-medium'} text-white`}>Data Protection</CardTitle>
@@ -119,7 +119,7 @@ const AccountSecurity = () => {
                   onClick={createManualBackup}
                   className={`w-full touch-manipulation touch-feedback text-white hover:bg-white/5 ${isMobile ? 'mobile-button-secondary' : 'text-xs py-1.5 h-8'}`}
                 >
-                  <Download className={isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
+                  <Download className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
                   Download Backup
                 </Button>
               </div>
@@ -132,7 +132,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Mail className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
+                <Mail className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'mobile-title' : 'text-sm font-medium'} text-white`}>Communication</CardTitle>
@@ -166,7 +166,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Clock className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
+                <Clock className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'mobile-title' : 'text-sm font-medium'} text-white`}>Data Management</CardTitle>
@@ -207,7 +207,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <BarChart3 className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
+                <BarChart3 className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'mobile-title' : 'text-sm font-medium'} text-white`}>Analytics</CardTitle>
@@ -243,7 +243,7 @@ const AccountSecurity = () => {
           <AlertDialogHeader>
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 rounded-lg bg-primary/10">
-                <AlertTriangle className={isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'} />
+                <AlertTriangle className={`text-pink-400 ${isMobile ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
               </div>
               <AlertDialogTitle className={isMobile ? 'mobile-title' : 'text-sm'}>Enable Encryption</AlertDialogTitle>
             </div>
