@@ -196,33 +196,8 @@ const AccountProfile = () => {
           <CardTitle className={`text-white ${isMobile ? 'mobile-title' : 'text-sm'}`}>
             Reset Password
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
-            Send a password reset link to your email
-          </CardDescription>
         </CardHeader>
         <CardContent className={`${isMobile ? 'mobile-card-content mobile-space-md' : 'p-2.5 pt-0 space-y-3'}`}>
-          {/* Email Display */}
-          <div className={isMobile ? 'mobile-space-md' : 'space-y-1.5'}>
-            <Label htmlFor="reset-email" className={`text-white flex items-center gap-1.5 ${
-              isMobile ? 'mobile-body mobile-space-xs' : 'text-xs'
-            }`}>
-              <Mail className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
-              Email Address
-            </Label>
-            <Input
-              id="reset-email"
-              type="email"
-              value={user?.email || ''}
-              disabled
-              className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${
-                isMobile ? 'mobile-space-xs' : 'text-xs'
-              }`}
-            />
-            <p className={`text-white/50 ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
-              You'll receive an email with instructions to reset your password
-            </p>
-          </div>
-
           {/* Reset Button */}
           <div className={`flex justify-end ${isMobile ? 'mobile-space-lg' : 'pt-3'}`}>
             <Button 
