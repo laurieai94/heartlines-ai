@@ -221,7 +221,7 @@ const AccountSecurity = () => {
 
       {/* Backup Prompt Dialog */}
       <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
-        <AlertDialogContent className={`${isMobile ? 'mobile-dialog' : ''} bg-[#5D2536]/40 backdrop-blur-lg border border-white/20`}>
+        <AlertDialogContent className={`${isMobile ? 'mobile-dialog' : ''} bg-[#5D2536]/25 backdrop-blur-lg border border-white/20`}>
           <AlertDialogHeader>
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 rounded-lg bg-primary/10">
@@ -239,7 +239,7 @@ const AccountSecurity = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className={isMobile ? 'flex-col gap-2' : ''}>
-            <AlertDialogCancel className={`${isMobile ? 'mobile-button-secondary w-full' : 'text-xs'} text-white border-white/20 hover:bg-white/10`}>
+            <AlertDialogCancel className={`${isMobile ? 'mobile-button-secondary w-full' : 'text-xs'} bg-[#5D2536]/60 text-white border-white/30 hover:bg-[#5D2536]/80 hover:border-white/40`}>
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction 
