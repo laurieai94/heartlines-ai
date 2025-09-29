@@ -198,27 +198,6 @@
           height: -webkit-fill-available;
   }
 
-  /* iOS Safari specific fixes to prevent address bar */
-  @supports (-webkit-touch-callout: none) {
-    html {
-      height: -webkit-fill-available;
-    }
-    
-    body {
-      position: fixed;
-      width: 100%;
-      height: 100vh;
-      height: -webkit-fill-available;
-      overflow: hidden;
-    }
-    
-    #root {
-      height: 100vh;
-      height: -webkit-fill-available;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
 
   /* Mobile optimizations - allow natural scrolling */
   @media (max-width: 768px) {
