@@ -68,15 +68,6 @@ const AccountProfile = () => {
 
   return (
     <div className={`${isMobile ? '' : 'space-y-2.5'} touch-manipulation`}>
-      <div className={isMobile ? 'mobile-space-md' : ''}>
-        <h3 className={`font-semibold text-white ${isMobile ? 'mobile-title mobile-space-xs' : 'text-sm mb-1'}`}>
-          Profile Information
-        </h3>
-        <p className={`text-white/70 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
-          Manage your personal information and profile picture
-        </p>
-      </div>
-
       {/* Avatar Upload */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
         isMobile ? 'mobile-card mobile-space-sm' : ''
