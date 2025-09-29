@@ -110,7 +110,7 @@ const Pricing = () => {
           if (tab === 'home') navigate('/');else if (tab === 'profile') navigate('/profile');else if (tab === 'insights') navigate('/coach');else if (tab === 'mission') navigate('/mission');
         }} onSignInClick={() => navigate('/auth')} onOpenProfile={() => navigate('/profile')} />
         
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-6 lg:pt-12">
           {/* Header Section */}
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-5xl font-thin questionnaire-text mb-3">
@@ -139,7 +139,7 @@ const Pricing = () => {
             {pricingPlans.map(plan => {
               const IconComponent = plan.icon;
               return <Card key={plan.id} className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
-                  {plan.popular && <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-1 rounded-full border border-white/10 shadow-neon text-sm">
+                  {plan.popular && <Badge className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-4 py-1 rounded-full border border-white/10 shadow-neon text-sm z-40">
                       Most Popular
                     </Badge>}
                   
