@@ -1,7 +1,8 @@
-import { useState, Suspense, useEffect, lazy } from 'react';
+import { useState, Suspense, useEffect, lazy, useCallback } from 'react';
 import { User, CreditCard, Shield } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 
 // Lazy load account components for better performance
 const AccountSubscription = lazy(() => import('./AccountSubscription'));
@@ -24,6 +25,7 @@ const TabSkeleton = () => (
 const AccountLayout = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [showBackgroundEffects, setShowBackgroundEffects] = useState(false);
+  const { isMobile, simulateHapticFeedback } = useOptimizedMobile();
 
   // Performance tracking
   useEffect(() => {
@@ -54,52 +56,104 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-4 py-4 max-w-3xl">`
+      <div className={`relative z-10 container mx-auto ${
+        isMobile ? 'px-3 py-2' : 'px-4 py-4'
+      } max-w-3xl`}>
 
-        <div className="questionnaire-card p-3 md:p-4 animate-fade-in">
-          <div className="text-center mb-3">
-            <h1 className="text-lg font-bold text-white mb-1">My Account</h1>
-            <p className="text-white/70 text-xs">Manage your profile, subscription, and security settings</p>
+        <div className={`questionnaire-card ${
+          isMobile ? 'p-2 sm:p-3' : 'p-3 md:p-4'
+        } animate-fade-in touch-manipulation`}>
+          <div className={`text-center ${isMobile ? 'mb-2' : 'mb-3'}`}>
+            <h1 className={`font-bold text-white ${
+              isMobile ? 'text-base mb-0.5' : 'text-lg mb-1'
+            }`}>My Account</h1>
+            <p className={`text-white/70 ${
+              isMobile ? 'text-[11px] leading-tight' : 'text-xs'
+            }`}>Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-3 bg-white/10 backdrop-blur-sm border border-white/20 h-7 gap-0.5 p-0.5">
+            <TabsList className={`grid w-full grid-cols-3 ${
+              isMobile ? 'mb-2 h-11' : 'mb-3 h-8'
+            } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-1.5 py-0.5 text-[11px] sm:text-xs"
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                  isMobile 
+                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                } transition-all duration-200 touch-manipulation`}
+                onClick={(e) => {
+                  if (isMobile && e.currentTarget) {
+                    simulateHapticFeedback(e.currentTarget, 'light');
+                  }
+                }}
               >
-                <User className="h-[14px] w-[14px] mr-1" />
-                <span className="hidden sm:inline">Profile</span>
+                <User className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                  Profile
+                </span>
               </TabsTrigger>
               <TabsTrigger 
                 value="subscription"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-1.5 py-0.5 text-[11px] sm:text-xs"
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                  isMobile 
+                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                } transition-all duration-200 touch-manipulation`}
+                onClick={(e) => {
+                  if (isMobile && e.currentTarget) {
+                    simulateHapticFeedback(e.currentTarget, 'light');
+                  }
+                }}
               >
-                <CreditCard className="h-[14px] w-[14px] mr-1" />
-                <span className="hidden sm:inline">Subscription</span>
+                <CreditCard className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                  Plans
+                </span>
               </TabsTrigger>
               <TabsTrigger 
                 value="security"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 px-1.5 py-0.5 text-[11px] sm:text-xs"
+                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
+                  isMobile 
+                    ? 'px-2 py-1.5 text-xs min-h-[44px] flex-col gap-0.5' 
+                    : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
+                } transition-all duration-200 touch-manipulation`}
+                onClick={(e) => {
+                  if (isMobile && e.currentTarget) {
+                    simulateHapticFeedback(e.currentTarget, 'light');
+                  }
+                }}
               >
-                <Shield className="h-[14px] w-[14px] mr-1" />
-                <span className="hidden sm:inline">Security</span>
+                <Shield className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px] leading-none' : 'hidden sm:inline'}>
+                  Security
+                </span>
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="profile" className="space-y-2.5">
+            <TabsContent 
+              value="profile" 
+              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+            >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountProfile />
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="subscription" className="space-y-2.5">
+            <TabsContent 
+              value="subscription" 
+              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+            >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSubscription />
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="security" className="space-y-2.5">
+            <TabsContent 
+              value="security" 
+              className={`${isMobile ? 'space-y-2 pb-safe-minimal' : 'space-y-2.5'} focus:outline-none`}
+            >
               <Suspense fallback={<TabSkeleton />}>
                 <AccountSecurity />
               </Suspense>

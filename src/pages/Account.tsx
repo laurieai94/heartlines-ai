@@ -80,7 +80,7 @@ const Account = () => {
       goToPartner={handleGoToPartnerAccount}
     >
       <MobileHeaderVisibilityProvider>
-        <div className="min-h-screen bg-burgundy-900">
+        <div className="min-h-screen min-h-dvh bg-burgundy-900 mobile-optimized">
           <DashboardHeader
             accessLevel={accessLevel}
             profileCompletion={profileCompletion}
