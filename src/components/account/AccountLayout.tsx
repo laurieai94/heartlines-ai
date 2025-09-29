@@ -64,24 +64,24 @@ const AccountLayout = () => {
         <div className={`questionnaire-card ${
           isMobile ? 'mobile-card mobile-pad-sm' : 'p-3 md:p-4'
         } animate-fade-in touch-manipulation`}>
-          <div className={`text-center ${isMobile ? 'mobile-space-md' : 'mb-3'}`}>
+          <div className={`text-center ${isMobile ? 'mb-2' : 'mb-3'}`}>
             <h1 className={`font-brand text-white ${
-              isMobile ? 'text-xl' : 'text-2xl mb-1'
+              isMobile ? 'text-base' : 'text-xl mb-1'
             }`}>My Account</h1>
             <p className={`text-white/70 ${
-              isMobile ? 'mobile-caption' : 'text-xs'
+              isMobile ? 'text-[10px]' : 'text-xs'
             }`}>Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={`grid w-full grid-cols-3 ${
-              isMobile ? 'tabs-list mobile-space-sm' : 'mb-3 h-8'
+              isMobile ? 'mb-2 h-9' : 'mb-3 h-8'
             } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'tab-trigger touch-feedback' 
+                    ? 'text-[10px] py-1' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -90,8 +90,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <User className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? '' : 'hidden sm:inline'}>
+                <User className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
                   Profile
                 </span>
               </TabsTrigger>
@@ -99,7 +99,7 @@ const AccountLayout = () => {
                 value="subscription"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'tab-trigger touch-feedback' 
+                    ? 'text-[10px] py-1' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -108,8 +108,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <CreditCard className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? '' : 'hidden sm:inline'}>
+                <CreditCard className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
                   Plans
                 </span>
               </TabsTrigger>
@@ -117,7 +117,7 @@ const AccountLayout = () => {
                 value="security"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-coral-500 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'tab-trigger touch-feedback' 
+                    ? 'text-[10px] py-1' 
                     : 'px-1.5 py-0.5 text-[11px] sm:text-xs'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -126,8 +126,8 @@ const AccountLayout = () => {
                   }
                 }}
               >
-                <Shield className={isMobile ? 'h-4 w-4' : 'h-[14px] w-[14px] mr-1'} />
-                <span className={isMobile ? '' : 'hidden sm:inline'}>
+                <Shield className={isMobile ? 'h-3 w-3' : 'h-[14px] w-[14px] mr-1'} />
+                <span className={isMobile ? 'text-[10px]' : 'hidden sm:inline'}>
                   Security
                 </span>
               </TabsTrigger>

@@ -88,13 +88,13 @@ const AccountProfile = () => {
   }
 
   return (
-    <div className={`${isMobile ? '' : 'space-y-2.5'} touch-manipulation`}>
+    <div className={`${isMobile ? 'space-y-2' : 'space-y-2.5'} touch-manipulation`}>
       {/* Avatar Upload */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'mobile-card mobile-space-sm' : ''
+        isMobile ? 'rounded-lg' : ''
       }`}>
-        <CardContent className={isMobile ? 'mobile-card-content' : 'pt-2.5 p-2.5'}>
-          <div className={`${isMobile ? 'avatar-upload-area' : 'flex items-center gap-3 pt-2.5'}`}>
+        <CardContent className={isMobile ? 'p-2' : 'pt-2.5 p-2.5'}>
+          <div className={`${isMobile ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-2.5'}`}>
             <AvatarUpload 
               currentAvatarUrl={profile?.avatar_url}
               onAvatarUpdate={handleAvatarUpdate}
@@ -102,10 +102,10 @@ const AccountProfile = () => {
               size="compact"
             />
             <div className="flex-1 min-w-0">
-              <h4 className={`text-white font-medium ${isMobile ? 'mobile-subtitle mobile-space-xs' : 'text-sm mb-0.5'}`}>
+              <h4 className={`text-white font-medium ${isMobile ? 'text-[11px] mb-0.5' : 'text-sm mb-0.5'}`}>
                 Profile Picture
               </h4>
-              <p className={`text-white/60 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
+              <p className={`text-white/60 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>
                 Upload or change your profile picture
               </p>
             </div>
@@ -115,23 +115,23 @@ const AccountProfile = () => {
 
       {/* Basic Information */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'mobile-card mobile-space-sm' : ''
+        isMobile ? 'rounded-lg' : ''
       }`}>
-        <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'mobile-title' : 'text-sm'}`}>
+        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
             Basic Information
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
             Your personal details and contact information
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'mobile-card-content mobile-space-md' : 'p-2.5 pt-0 space-y-3'}`}>
+        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-3'}`}>
           {/* Email (read-only) */}
-          <div className={isMobile ? 'mobile-space-md' : 'space-y-1.5'}>
-            <Label htmlFor="email" className={`text-white flex items-center gap-1.5 ${
-              isMobile ? 'mobile-body mobile-space-xs' : 'text-xs'
+          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
+            <Label htmlFor="email" className={`text-white flex items-center gap-1 ${
+              isMobile ? 'text-[10px]' : 'text-xs'
             }`}>
-              <Mail className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
+              <Mail className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
               Email
             </Label>
             <Input
@@ -140,17 +140,17 @@ const AccountProfile = () => {
               value={user?.email || ''}
               disabled
               className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${
-                isMobile ? 'mobile-space-xs' : 'text-xs'
+                isMobile ? 'text-[10px] h-8' : 'text-xs'
               }`}
             />
-            <p className={`text-white/50 ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
+            <p className={`text-white/50 ${isMobile ? 'text-[9px]' : 'text-[10px]'}`}>
               Email cannot be changed. Contact support if needed.
             </p>
           </div>
 
           {/* Name */}
-          <div className={isMobile ? 'mobile-space-md' : 'space-y-1.5'}>
-            <Label htmlFor="name" className={`text-white ${isMobile ? 'mobile-body mobile-space-xs' : 'text-xs'}`}>
+          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
+            <Label htmlFor="name" className={`text-white ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
               Display Name
             </Label>
             <Input
@@ -160,14 +160,14 @@ const AccountProfile = () => {
               onChange={(e) => handleInputChange('name', e.target.value)}
               placeholder="Enter your display name"
               className={`bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 touch-manipulation ${
-                isMobile ? '' : 'text-xs'
+                isMobile ? 'text-[10px] h-8' : 'text-xs'
               }`}
             />
           </div>
 
           {/* Save Button */}
           {hasChanges && (
-            <div className={`flex justify-end ${isMobile ? 'mobile-space-lg' : 'pt-3'}`}>
+            <div className={`flex justify-end ${isMobile ? 'pt-2' : 'pt-3'}`}>
               <Button 
                 onClick={(e) => {
                   if (isMobile && e.currentTarget) {
@@ -177,10 +177,10 @@ const AccountProfile = () => {
                 }}
                 disabled={saving}
                 className={`questionnaire-button-primary touch-manipulation touch-feedback ${
-                  isMobile ? 'mobile-button-primary' : 'text-xs py-1.5'
+                  isMobile ? 'text-[10px] py-1 h-7' : 'text-xs py-1.5'
                 }`}
               >
-                <Save className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
+                <Save className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
                 {saving ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
@@ -190,23 +190,23 @@ const AccountProfile = () => {
 
       {/* Reset Password */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'mobile-card mobile-space-sm' : ''
+        isMobile ? 'rounded-lg' : ''
       }`}>
-        <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'mobile-title' : 'text-sm'}`}>
+        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
             Reset Password
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
             Send a password reset link to your email
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'mobile-card-content mobile-space-md' : 'p-2.5 pt-0 space-y-3'}`}>
+        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-3'}`}>
           {/* Email Display */}
-          <div className={isMobile ? 'mobile-space-md' : 'space-y-1.5'}>
-            <Label htmlFor="reset-email" className={`text-white flex items-center gap-1.5 ${
-              isMobile ? 'mobile-body mobile-space-xs' : 'text-xs'
+          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
+            <Label htmlFor="reset-email" className={`text-white flex items-center gap-1 ${
+              isMobile ? 'text-[10px]' : 'text-xs'
             }`}>
-              <Mail className={isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'} />
+              <Mail className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
               Email Address
             </Label>
             <Input
@@ -215,16 +215,16 @@ const AccountProfile = () => {
               value={user?.email || ''}
               disabled
               className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${
-                isMobile ? 'mobile-space-xs' : 'text-xs'
+                isMobile ? 'text-[10px] h-8' : 'text-xs'
               }`}
             />
-            <p className={`text-white/50 ${isMobile ? 'mobile-caption' : 'text-[10px]'}`}>
+            <p className={`text-white/50 ${isMobile ? 'text-[9px]' : 'text-[10px]'}`}>
               You'll receive an email with instructions to reset your password
             </p>
           </div>
 
           {/* Reset Button */}
-          <div className={`flex justify-end ${isMobile ? 'mobile-space-lg' : 'pt-3'}`}>
+          <div className={`flex justify-end ${isMobile ? 'pt-2' : 'pt-3'}`}>
             <Button 
               onClick={(e) => {
                 if (isMobile && e.currentTarget) {
@@ -234,10 +234,10 @@ const AccountProfile = () => {
               }}
               disabled={sendingReset}
               className={`questionnaire-button-primary touch-manipulation touch-feedback ${
-                isMobile ? 'mobile-button-primary' : 'text-xs py-1.5'
+                isMobile ? 'text-[10px] py-1 h-7' : 'text-xs py-1.5'
               }`}
             >
-              <Key className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
+              <Key className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
               {sendingReset ? 'Sending...' : 'Send Reset Link'}
             </Button>
           </div>
@@ -246,17 +246,17 @@ const AccountProfile = () => {
 
       {/* View Personal Profile */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
-        isMobile ? 'mobile-card' : ''
+        isMobile ? 'rounded-lg' : ''
       }`}>
-        <CardHeader className={isMobile ? 'mobile-card-header' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'mobile-title' : 'text-sm'}`}>
+        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-[11px]' : 'text-sm'}`}>
             Personal Profile
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'mobile-caption' : 'text-xs'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-[9px] leading-tight' : 'text-xs'}`}>
             Access your complete personal profile and questionnaire
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'mobile-card-content' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
           <Button 
             onClick={(e) => {
               if (isMobile && e.currentTarget) {
@@ -265,10 +265,10 @@ const AccountProfile = () => {
               navigate('/profile');
             }}
             className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${
-              isMobile ? 'mobile-button-primary' : 'text-xs py-2'
+              isMobile ? 'text-[10px] py-1.5 h-8' : 'text-xs py-2'
             }`}
           >
-            <User className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
+            <User className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
             View Personal Profile
           </Button>
         </CardContent>
