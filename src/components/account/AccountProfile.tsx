@@ -154,23 +154,25 @@ const AccountProfile = () => {
           </div>
 
           {/* Save Button */}
-          <div className={`flex justify-end ${isMobile ? 'mobile-space-lg' : 'pt-3'}`}>
-            <Button 
-              onClick={(e) => {
-                if (isMobile && e.currentTarget) {
-                  simulateHapticFeedback(e.currentTarget, 'medium');
-                }
-                handleSave();
-              }}
-              disabled={saving || !hasChanges}
-              className={`questionnaire-button-primary touch-manipulation touch-feedback ${
-                isMobile ? 'mobile-button-primary' : 'text-xs py-1.5'
-              }`}
-            >
-              <Save className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
-              {saving ? 'Saving...' : 'Save Changes'}
-            </Button>
-          </div>
+          {hasChanges && (
+            <div className={`flex justify-end ${isMobile ? 'mobile-space-lg' : 'pt-3'}`}>
+              <Button 
+                onClick={(e) => {
+                  if (isMobile && e.currentTarget) {
+                    simulateHapticFeedback(e.currentTarget, 'medium');
+                  }
+                  handleSave();
+                }}
+                disabled={saving}
+                className={`questionnaire-button-primary touch-manipulation touch-feedback ${
+                  isMobile ? 'mobile-button-primary' : 'text-xs py-1.5'
+                }`}
+              >
+                <Save className={`mr-1.5 ${isMobile ? 'h-3 w-3' : 'h-3.5 w-3.5'}`} />
+                {saving ? 'Saving...' : 'Save Changes'}
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
