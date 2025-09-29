@@ -144,9 +144,9 @@ html, body, #root {
 
 /* Reduce motion for performance and accessibility */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *:not(.animate-soft-glow),
+  *:not(.animate-soft-glow)::before,
+  *:not(.animate-soft-glow)::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
