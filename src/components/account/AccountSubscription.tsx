@@ -133,7 +133,7 @@ const AccountSubscription = () => {
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${
         isMobile ? 'rounded-lg' : ''
       }`}>
-        <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
+        <CardHeader className={isMobile ? 'p-3' : 'p-4'}>
           <CardTitle className={`text-white flex items-center gap-1.5 ${
             isMobile ? 'text-sm' : 'text-base'
           }`}>
@@ -146,8 +146,8 @@ const AccountSubscription = () => {
             Current plan and usage information
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'p-1.5 pt-0 space-y-1.5' : 'p-2.5 pt-0 space-y-2.5'}`}>
-          <div className={`grid grid-cols-2 ${isMobile ? 'gap-1.5' : 'gap-3'}`}>
+        <CardContent className={`${isMobile ? 'p-3 pt-0 space-y-3' : 'p-4 pt-0 space-y-4'}`}>
+          <div className={`grid grid-cols-2 ${isMobile ? 'gap-3' : 'gap-6'}`}>
             <div>
               <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm'}`}>
                 Current Plan
@@ -198,9 +198,9 @@ const AccountSubscription = () => {
       </Card>
 
       {/* Available Plans */}
-      <div className={isMobile ? 'mt-2' : ''}>
-        <h3 className={`font-medium text-white px-1 ${
-          isMobile ? 'text-sm mb-1.5' : 'text-base mb-1.5'
+      <div className={isMobile ? 'mt-4' : 'mt-6'}>
+        <h3 className={`font-medium text-white px-2 ${
+          isMobile ? 'text-sm mb-2' : 'text-base mb-3'
         }`}>Available Plans</h3>
         <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-1 md:grid-cols-3 gap-2.5'}`}>
           {plans.map((plan) => (
