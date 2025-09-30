@@ -106,7 +106,7 @@ const Pricing = () => {
                   
                   <CardHeader className="text-center pb-3 p-4">
                     <div className="mx-auto mb-3 p-2.5 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border w-fit">
-                      <IconComponent className="h-5 w-5 questionnaire-text" />
+                      <IconComponent className="h-8 w-8 questionnaire-text" />
                     </div>
                     <CardTitle className="text-xl font-light questionnaire-text mb-2">{plan.name}</CardTitle>
                     <div className="flex items-baseline justify-center gap-1 mb-2">

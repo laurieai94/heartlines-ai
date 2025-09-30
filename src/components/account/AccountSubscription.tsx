@@ -225,7 +225,7 @@ const AccountSubscription = () => {
               <CardHeader className={`text-center ${isMobile ? 'p-1.5' : 'p-2.5'}`}>
                 {plan.icon && (
                   <div className="mx-auto mb-2 p-2 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
-                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-3 w-3' : 'h-4 w-4'}`} />
+                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-6 w-6' : 'h-8 w-8'}`} />
                   </div>
                 )}
                 <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
