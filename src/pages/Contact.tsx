@@ -66,7 +66,7 @@ const Contact = () => {
                 <Mail className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4">Let's Connect</h1>
+            <h1 className="text-4xl font-bold questionnaire-text mb-4 font-brand">Let's Connect</h1>
             <p className="text-xl questionnaire-text-muted max-w-2xl mx-auto">
               Got questions, feedback, or ideas?<br />
               Drop us a note — we actually read these.
