@@ -10,6 +10,7 @@ const SiteFooter = () => {
         { to: "/profile", label: "Profile", icon: User },
         { to: "/coach", label: "Coach", icon: MessageSquare },
         { to: "/account", label: "Account", icon: Settings },
+        { to: "/plans", label: "Plans", icon: CreditCard },
       ]
     },
     {
@@ -17,7 +18,6 @@ const SiteFooter = () => {
       links: [
         { to: "/mission", label: "Mission", icon: Target },
         { to: "/privacy-and-security", label: "Privacy", icon: Shield },
-        { to: "/plans", label: "Plans", icon: CreditCard },
         { to: "/terms", label: "Terms", icon: FileText },
         { to: "/contact", label: "Contact", icon: Mail },
       ]
