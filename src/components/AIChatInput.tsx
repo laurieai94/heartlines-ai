@@ -144,9 +144,9 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-0 md:px-0 ${readOnly ? 'group' : ''}`}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm animate-bounce-gentle' 
+          ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
-      } ${showProfileGlow && readOnly ? 'animate-profile-glow animate-glow-pulse' : ''}`}>
+      }`}>
         <Textarea
           unstyled
           ref={textareaRef}
