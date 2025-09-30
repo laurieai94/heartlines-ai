@@ -48,10 +48,9 @@ const ChatContainer = ({
   const prevUserTypingRef = useRef(userTyping);
   const carrotResetFnRef = useRef<(() => void) | null>(null);
   
-  // Enhanced scroll tracking for carrot management
+  // Scroll tracking for carrot management
   const lastScrollTopRef = useRef(0);
   const touchStartYRef = useRef(0);
-  const scrollStationaryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Carrot appears immediately when scrolling up with keyboard visible
 
@@ -80,47 +79,23 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Mobile logic with enhanced carrot management
+    // Simplified mobile logic - persistent carrot until pressed or at top
     if (isMobile) {
-      const isScrollingUpNow = scrollDelta < -2; // More sensitive upward scrolling detection
-      const isScrollingDownNow = scrollDelta > 3; // Detect downward scrolling
+      const isScrollingUpNow = scrollDelta < -2;
+      const isScrollingDownNow = scrollDelta > 5;
       
-      // Reset isScrollingUp when user is near the top
+      // Reset isScrollingUp only when at top or scrolling significantly down
       if (currentScrollTop < 50) {
         setIsScrollingUp(false);
-        
-        // Clear any existing timeout
-        if (scrollStationaryTimeoutRef.current) {
-          clearTimeout(scrollStationaryTimeoutRef.current);
-          scrollStationaryTimeoutRef.current = null;
-        }
-      } else {
-        // Show carrot when scrolling up - lower threshold for easier access
-        if (isScrollingUpNow && !isTablet && currentScrollTop > 50) {
-          setIsScrollingUp(true);
-          
-          // Clear any existing timeout
-          if (scrollStationaryTimeoutRef.current) {
-            clearTimeout(scrollStationaryTimeoutRef.current);
-            scrollStationaryTimeoutRef.current = null;
-          }
-        } else if (isScrollingDownNow) {
-          setIsScrollingUp(false);
-        }
-        
-        // Shorter timeout to reset isScrollingUp for better responsiveness
-        if (Math.abs(scrollDelta) < 2 && isScrollingUp) {
-          if (scrollStationaryTimeoutRef.current) {
-            clearTimeout(scrollStationaryTimeoutRef.current);
-          }
-          
-          scrollStationaryTimeoutRef.current = setTimeout(() => {
-            setIsScrollingUp(false);
-          }, 1500); // Reduced from 2000ms
-        }
+      } else if (isScrollingUpNow && !isTablet) {
+        // Show carrot immediately on scroll up
+        setIsScrollingUp(true);
+      } else if (isScrollingDownNow) {
+        // Hide carrot only on significant downward scroll
+        setIsScrollingUp(false);
       }
       
-      // Show header on upward scroll - more responsive
+      // Show header on upward scroll
       if (scrollDelta < -2) {
         setHeaderVisible(true);
       }
@@ -177,14 +152,6 @@ const ChatContainer = ({
   }, [userTyping, scrollToBottom]);
 
 
-  // Cleanup effect for scroll timeout
-  useEffect(() => {
-    return () => {
-      if (scrollStationaryTimeoutRef.current) {
-        clearTimeout(scrollStationaryTimeoutRef.current);
-      }
-    };
-  }, []);
   // Enhanced touch detection for immediate header reveal
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isMobile) return;
@@ -200,26 +167,33 @@ const ChatContainer = ({
     }
   }, [isMobile, forceVisible, isKeyboardVisible]);
 
-  // Immediate upward swipe detection with enhanced sensitivity
+  // Immediate upward swipe detection
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (!isMobile) return;
     
-    const touch = e.touches[0];
-    if (touch && touchStartYRef.current > 0) {
+    if (touchStartYRef.current > 0) {
+      const touch = e.touches[0];
       const deltaY = touch.clientY - touchStartYRef.current;
       
-      // Show header immediately on downward swipe (pulling down) - more sensitive
-      if (deltaY > 15) { // Reduced from 20 for easier trigger
+      // Show header immediately on downward swipe (pulling down)
+      if (deltaY > 15) {
         forceVisible();
-        // Also trigger scroll up state for carrot
+        // Also trigger scroll up state for carrot if scrolled down
         if (viewportRef.current && viewportRef.current.scrollTop > 50) {
           setIsScrollingUp(true);
         }
-        // Prevent further processing to avoid bounce
+        // Prevent further processing
         touchStartYRef.current = 0;
       }
     }
   }, [isMobile, forceVisible]);
+
+  // Handle navigation open - reset carrot and scroll to top
+  const handleOpenNavigation = useCallback(() => {
+    setIsScrollingUp(false);
+    scrollToBottom('auto');
+    onOpenSidebar?.();
+  }, [onOpenSidebar, scrollToBottom]);
 
   return (
     <div className="flex-1 min-h-0 relative bg-burgundy-950">
@@ -229,7 +203,7 @@ const ChatContainer = ({
       {/* Burgundy carrot navigation for scroll up scenarios */}
       <BurgundyNavCarrot 
         isScrollingUp={isScrollingUp} 
-        onOpenNavigation={onOpenSidebar}
+        onOpenNavigation={handleOpenNavigation}
         scrollPosition={lastScrollTopRef.current}
       />
       

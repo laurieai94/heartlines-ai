@@ -16,8 +16,6 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
   const { isKeyboardVisible } = useViewport();
   const { isMobile, isTablet } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
-  const [cooldownActive, setCooldownActive] = useState(false);
-  const [recentlyNavigated, setRecentlyNavigated] = useState(false);
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -27,43 +25,12 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     }, 120);
   }, []);
 
-  // Optimized cooldown for better responsiveness
-  const startCooldown = useCallback((wasUsedForNavigation = false) => {
-    setCooldownActive(true);
-    
-    if (wasUsedForNavigation) {
-      setRecentlyNavigated(true);
-      // Shorter cooldown when button was actively used
-      setTimeout(() => {
-        setCooldownActive(false);
-      }, 1500); // Reduced from 3000ms
-      
-      // Shorter period before button can reappear
-      setTimeout(() => {
-        setRecentlyNavigated(false);
-      }, 4000); // Reduced from 8000ms
-    } else {
-      setTimeout(() => {
-        setCooldownActive(false);
-      }, 1000); // Reduced from 2000ms
-    }
-  }, []);
-
-  // Cleanup effect
-  useEffect(() => {
-    return () => {
-      // Any cleanup can be added here if needed
-    };
-  }, []);
-
-  // Enhanced shouldShow logic with lower scroll threshold for easier access
+  // Simplified shouldShow logic - persistent until pressed or navigation opened
   const shouldShow = isMobile && 
                     !isTablet && 
                     isScrollingUp && 
                     !navigationOpened && 
-                    !cooldownActive && 
-                    !recentlyNavigated &&
-                    scrollPosition > 75; // Lowered from 150 for easier access
+                    scrollPosition > 75;
   
   if (!shouldShow) {
     return null;
@@ -76,11 +43,9 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     const target = e.currentTarget as HTMLElement;
     simulateHaptic(target);
     
-    // Start enhanced cooldown with navigation flag
-    startCooldown(true);
     setIsAnimating(true);
     
-    // Trigger navigation
+    // Trigger navigation immediately
     forceVisible();
     onOpenNavigation?.();
     
