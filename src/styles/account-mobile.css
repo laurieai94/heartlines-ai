@@ -42,6 +42,21 @@
     backdrop-filter: blur(12px);
   }
 
+  /* Account page specific optimizations */
+  .account-mobile .questionnaire-card {
+    padding: 12px !important;
+  }
+
+  /* Compact header for account page */
+  .account-mobile h1 {
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  .account-mobile .text-center {
+    margin-bottom: 12px;
+  }
+
   .account-mobile .mobile-card-header {
     padding: 0 0 8px 0;
     margin-bottom: 8px;
