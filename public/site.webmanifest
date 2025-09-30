@@ -8,13 +8,13 @@
   "theme_color": "#4d0010",
   "icons": [
     {
-      "src": "/heartlines-icon.png",
+      "src": "https://assets.heartlines.app/heartlines-icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/heartlines-icon.png",
+      "src": "https://assets.heartlines.app/heartlines-icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
