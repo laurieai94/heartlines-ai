@@ -267,10 +267,10 @@ const AccountSubscription = () => {
               </CardHeader>
               
               <CardContent className={`${isMobile ? 'p-1.5 pt-0 space-y-1' : 'p-2.5 pt-0 space-y-1.5'}`}>
-                <ul className={`${isMobile ? 'space-y-0.5' : 'space-y-1'}`}>
+                <ul className={`${isMobile ? 'space-y-1.5' : 'space-y-2'}`}>
                   {plan.features.map((feature, index) => (
-                    <li key={index} className={`flex items-center gap-1 text-white/80 ${
-                      isMobile ? 'text-xs leading-tight' : 'text-sm'
+                    <li key={index} className={`flex items-center gap-2 text-white/80 ${
+                      isMobile ? 'text-xs leading-relaxed' : 'text-sm'
                     }`}>
                       <Check className={`text-green-400 ${isMobile ? 'h-2 w-2 flex-shrink-0' : 'h-3 w-3'}`} />
                       {feature}
