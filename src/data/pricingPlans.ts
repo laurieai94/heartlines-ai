@@ -47,8 +47,7 @@ export const pricingPlans: PricingPlan[] = [
       "150 messages each month",
       "Coaching for self-reflection + relationships",
       "Role play critical convos",
-      "Progress check-ins to track your growth",
-      "Priority support"
+      "Progress check-ins to track your growth"
     ],
     buttonText: "Let's Grow",
     popular: true,
@@ -67,8 +66,7 @@ export const pricingPlans: PricingPlan[] = [
       "300 messages a month (~10/day)",
       "Unlimited scenarios (self-talk, dating, relationships)",
       "Advanced insights + personal analytics",
-      "Custom goals for your growth journey",
-      "Premium support"
+      "Custom goals for your growth journey"
     ],
     buttonText: "Go All In",
     popular: false,

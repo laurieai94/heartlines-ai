@@ -29,7 +29,7 @@ const AccountSubscription = () => {
 
   // Map pricing plans to account format
   const plans = pricingPlans.map((plan) => ({
-    name: plan.name === 'Begin' ? 'Free' : plan.name, // Map "Begin" to "Free" for account display
+    name: plan.name,
     tier: plan.tier === 'freemium' ? null : plan.tier,
     price: plan.price,
     messages: plan.messages,
