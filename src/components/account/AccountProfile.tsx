@@ -103,7 +103,7 @@ const AccountProfile = () => {
                 Profile Picture
               </h4>
               <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm'}`}>
-                Upload or change your profile picture
+                Lookin' fresh? Update your pic.
               </p>
             </div>
           </div>
