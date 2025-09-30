@@ -38,8 +38,6 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
       // Create a local URL for immediate preview
       const localUrl = URL.createObjectURL(file);
       onAvatarUpdate(localUrl);
-      
-      toast.success('Avatar updated successfully!');
     } catch (error) {
       logError('Error uploading avatar', error);
       toast.error(error.message || 'Error uploading avatar');
