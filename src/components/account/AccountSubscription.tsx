@@ -228,17 +228,17 @@ const AccountSubscription = () => {
                     <plan.icon className={`questionnaire-text ${isMobile ? 'h-6 w-6' : 'h-8 w-8'}`} />
                   </div>
                 )}
-                <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+                <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
                   {plan.name}
                 </CardTitle>
-                <div className={`font-bold text-white ${isMobile ? 'text-base' : 'text-xl'}`}>
+                <div className={`font-bold text-white ${isMobile ? 'text-lg' : 'text-xl'}`}>
                   {plan.price}
                   <span className={`font-normal text-white/60 ${
-                    isMobile ? 'text-xs' : 'text-sm'
+                    isMobile ? 'text-sm' : 'text-sm'
                   }`}>/month</span>
                 </div>
                 <CardDescription className={`text-white/60 ${
-                  isMobile ? 'text-xs leading-tight' : 'text-sm'
+                  isMobile ? 'text-sm leading-tight' : 'text-sm'
                 }`}>
                   {plan.description}
                 </CardDescription>
@@ -248,7 +248,7 @@ const AccountSubscription = () => {
                 <ul className={`${isMobile ? 'space-y-1.5' : 'space-y-2'}`}>
                   {plan.features.map((feature, index) => (
                     <li key={index} className={`flex items-center gap-2 text-white/80 ${
-                      isMobile ? 'text-xs leading-relaxed' : 'text-sm'
+                      isMobile ? 'text-sm leading-relaxed' : 'text-sm'
                     }`}>
                       <Check className={`text-green-400 ${isMobile ? 'h-2 w-2 flex-shrink-0' : 'h-3 w-3'}`} />
                       {feature}
@@ -260,7 +260,7 @@ const AccountSubscription = () => {
                   <Button 
                     disabled 
                     className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${
-                      isMobile ? 'text-[13px] py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
+                      isMobile ? 'text-sm py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
                     }`}
                   >
                     <Check className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'}`} />
@@ -276,7 +276,7 @@ const AccountSubscription = () => {
                     }}
                     disabled={upgrading === plan.tier}
                     className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${
-                      isMobile ? 'text-[13px] py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
+                      isMobile ? 'text-sm py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
                     }`}
                   >
                     <Zap className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3 w-3'}`} />
@@ -287,7 +287,7 @@ const AccountSubscription = () => {
                     disabled 
                     variant="outline"
                     className={`w-full bg-white/5 border-white/20 text-white/60 touch-manipulation ${
-                      isMobile ? 'text-[13px] py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
+                      isMobile ? 'text-sm py-1 h-7 mt-2' : 'text-sm py-1.5 mt-3'
                     }`}
                   >
                     Current Plan

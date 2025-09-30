@@ -111,9 +111,9 @@ const Pricing = () => {
                     <CardTitle className="text-xl font-light questionnaire-text mb-2">{plan.name}</CardTitle>
                     <div className="flex items-baseline justify-center gap-1 mb-2">
                       <span className="text-4xl font-thin questionnaire-text">{plan.price}</span>
-                      <span className="questionnaire-text-muted text-sm">/{plan.period}</span>
+                      <span className="questionnaire-text-muted text-sm md:text-sm text-base">/{plan.period}</span>
                     </div>
-                    <p className="questionnaire-text-muted text-xs leading-tight">
+                    <p className="questionnaire-text-muted text-sm md:text-xs leading-tight">
                       {plan.description}
                     </p>
                   </CardHeader>
@@ -129,7 +129,7 @@ const Pricing = () => {
                     <ul className="space-y-2">
                       {plan.features.map((feature, index) => <li key={index} className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-coral-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
+                          <span className="text-sm md:text-xs questionnaire-text-muted leading-relaxed">{feature}</span>
                         </li>)}
                     </ul>
 
