@@ -221,7 +221,7 @@ const AccountSecurity = () => {
 
       {/* Backup Prompt Dialog */}
       <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
-        <AlertDialogContent className={`${isMobile ? 'max-w-[calc(100%-2rem)]' : ''} bg-[#5D2536]/25 backdrop-blur-lg border border-white/20`}>
+        <AlertDialogContent className={`${isMobile ? 'max-w-[calc(100%-2rem)]' : ''} bg-[#5D2536]/70 backdrop-blur-lg border border-white/20`}>
           <AlertDialogHeader>
             <div className={`flex items-center mb-2 ${isMobile ? 'gap-2' : 'gap-3'}`}>
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2.5' : 'p-3'}`}>
