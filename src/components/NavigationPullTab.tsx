@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useKeyboardDetection } from '@/hooks/useKeyboardDetection';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
@@ -9,9 +10,13 @@ interface NavigationPullTabProps {
 }
 
 const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
+  const location = useLocation();
   const { visible, setVisible, forceVisible } = useMobileHeaderVisibility();
   const isKeyboardVisible = useKeyboardDetection();
   const { isMobile } = useOptimizedMobile();
+
+  // Only show on dashboard route
+  const isDashboardRoute = location.pathname === '/';
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -22,7 +27,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   }, []);
 
   // Enhanced visibility logic - show more often, not just when keyboard is visible
-  const shouldShow = isMobile && (isKeyboardVisible || !visible);
+  const shouldShow = isDashboardRoute && isMobile && (isKeyboardVisible || !visible);
   
   if (!shouldShow) {
     return null;

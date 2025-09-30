@@ -1,7 +1,6 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { NavigationProvider } from '@/contexts/NavigationContext';
-import { MobileHeaderVisibilityProvider } from '@/contexts/MobileHeaderVisibilityContext';
 import DashboardHeader from '@/components/DashboardHeader';
 import DashboardModals from '@/components/DashboardModals';
 import AccountLayout from '@/components/account/AccountLayout';
@@ -79,43 +78,41 @@ const Account = () => {
       goToCoach={handleGoToCoachAccount} 
       goToPartner={handleGoToPartnerAccount}
     >
-      <MobileHeaderVisibilityProvider>
-        <div className="min-h-screen min-h-dvh bg-burgundy-900 mobile-optimized">
-          <DashboardHeader
-            accessLevel={accessLevel}
-            profileCompletion={profileCompletion}
-            user={user}
-            activeTab="account"
-            onValueChange={setActiveTab}
-            onSignInClick={openSignInModal}
-            onOpenProfile={handleGoToProfile}
-          />
-          <AccountLayout />
-          
-          <DashboardModals
-            showQuestionnaireModal={showQuestionnaireModal}
-            showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
-            showPersonalCompletionOptions={showPersonalCompletionOptions}
-            showPartnerCompletionOptions={showPartnerCompletionOptions}
-            shouldShowSignUpModal={shouldShowSignUpModal}
-            onCloseSignUpModal={closeSignUpModal}
-            showSignInModal={showSignInModal}
-            onCloseSignInModal={closeSignInModal}
-            onQuestionnaireComplete={handleQuestionnaireComplete}
-            onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
-            onQuestionnaireClose={handleQuestionnaireClose}
-            onQuestionnaireOpen={handleOpenQuestionnaire}
-            onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
-            onPersonalCompletionClose={handlePersonalCompletionClose}
-            onPartnerCompletionClose={handlePartnerCompletionClose}
-            onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
-            onPersonalStartChatting={handlePersonalStartChatting}
-            onPartnerStartChatting={handlePartnerStartChatting}
-            onPartnerContinueEditing={handlePartnerContinueEditing}
-            temporaryProfiles={{}}
-          />
-        </div>
-      </MobileHeaderVisibilityProvider>
+      <div className="min-h-screen min-h-dvh bg-burgundy-900 mobile-optimized">
+        <DashboardHeader
+          accessLevel={accessLevel}
+          profileCompletion={profileCompletion}
+          user={user}
+          activeTab="account"
+          onValueChange={setActiveTab}
+          onSignInClick={openSignInModal}
+          onOpenProfile={handleGoToProfile}
+        />
+        <AccountLayout />
+        
+        <DashboardModals
+          showQuestionnaireModal={showQuestionnaireModal}
+          showPartnerQuestionnaireModal={showPartnerQuestionnaireModal}
+          showPersonalCompletionOptions={showPersonalCompletionOptions}
+          showPartnerCompletionOptions={showPartnerCompletionOptions}
+          shouldShowSignUpModal={shouldShowSignUpModal}
+          onCloseSignUpModal={closeSignUpModal}
+          showSignInModal={showSignInModal}
+          onCloseSignInModal={closeSignInModal}
+          onQuestionnaireComplete={handleQuestionnaireComplete}
+          onPartnerQuestionnaireComplete={handlePartnerQuestionnaireComplete}
+          onQuestionnaireClose={handleQuestionnaireClose}
+          onQuestionnaireOpen={handleOpenQuestionnaire}
+          onPartnerQuestionnaireClose={handlePartnerQuestionnaireClose}
+          onPersonalCompletionClose={handlePersonalCompletionClose}
+          onPartnerCompletionClose={handlePartnerCompletionClose}
+          onPersonalAddPartnerProfile={handlePersonalAddPartnerProfile}
+          onPersonalStartChatting={handlePersonalStartChatting}
+          onPartnerStartChatting={handlePartnerStartChatting}
+          onPartnerContinueEditing={handlePartnerContinueEditing}
+          temporaryProfiles={{}}
+        />
+      </div>
     </NavigationProvider>
   );
 };

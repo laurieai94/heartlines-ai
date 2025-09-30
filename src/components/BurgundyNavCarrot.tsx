@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { ChevronUp } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
@@ -12,10 +13,14 @@ interface BurgundyNavCarrotProps {
 }
 
 export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvailability, scrollPosition = 0 }: BurgundyNavCarrotProps) => {
+  const location = useLocation();
   const { visible, forceVisible, navigationOpened } = useMobileHeaderVisibility();
   const { isKeyboardVisible } = useViewport();
   const { isMobile, isTablet } = useOptimizedMobile();
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Only show on dashboard route
+  const isDashboardRoute = location.pathname === '/';
 
   // Haptic feedback simulation
   const simulateHaptic = useCallback((element: HTMLElement) => {
@@ -26,7 +31,8 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
   }, []);
 
   // Simplified shouldShow logic - persistent until pressed or navigation opened
-  const shouldShow = isMobile && 
+  const shouldShow = isDashboardRoute &&
+                    isMobile && 
                     !isTablet && 
                     isScrollingUp && 
                     !navigationOpened && 
