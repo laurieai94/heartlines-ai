@@ -75,7 +75,7 @@ const ProfileCard = ({
             {iconElement}
           </CardAvatar>
           <div className="flex-1">
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white flex items-center gap-2">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white flex items-center gap-2 flex-nowrap whitespace-nowrap">
               {title}
               {optionalPillImage && optionalPillImage}
             </h3>
