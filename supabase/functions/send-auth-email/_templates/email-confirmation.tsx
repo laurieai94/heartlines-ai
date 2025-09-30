@@ -27,22 +27,25 @@ export const EmailConfirmationEmail = ({
 }: EmailConfirmationProps) => (
   <Html>
     <Head />
-    <Preview>Confirm your email for Heartlines</Preview>
+    <Preview>Confirm your email for heartlines</Preview>
     <Body style={main}>
       <Container style={container}>
         <div style={logoContainer}>
-          <div style={logoCircle}></div>
-          <Heading style={brandName}>heartlines</Heading>
+          <img 
+            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heart-logo.png" 
+            alt="heartlines logo" 
+            style={logoImage}
+          />
         </div>
         
-        <Heading style={h1}>Welcome to Heartlines! 💖</Heading>
+        <Heading style={h1}>Tap into heartlines 💕</Heading>
         
         <Text style={text}>
-          Thanks for signing up! We're excited to help you improve your relationships with AI coaching.
+          Thanks for joining! We're excited to help you strengthen your relationships with AI-powered coaching.
         </Text>
         
         <Text style={text}>
-          Please confirm your email address to complete your account setup:
+          Please confirm your email address to get started:
         </Text>
         
         <Link
@@ -63,22 +66,18 @@ export const EmailConfirmationEmail = ({
         </Text>
         
         <Text style={smallText}>
-          If you didn't create a Heartlines account, you can safely ignore this email.
+          If you didn't create a heartlines account, you can safely ignore this email.
         </Text>
         
         <div style={welcomeBox}>
           <Text style={welcomeText}>
-            <strong>What's next?</strong>
+            <strong>Your 3-Step Journey:</strong>
+            <br /><br />
+            <span style={stepNumber}>1.</span> <strong>Join Free</strong> – Complete your profile setup
             <br />
-            Once confirmed, you'll be able to:
+            <span style={stepNumber}>2.</span> <strong>Build Profiles</strong> – Tell us about you and your partner
             <br />
-            • Chat with Kai, your AI relationship coach
-            <br />
-            • Get personalized relationship insights
-            <br />
-            • Practice conversations and scenarios
-            <br />
-            • Track your relationship growth
+            <span style={stepNumber}>3.</span> <strong>Chat W/ Kai</strong> – Get personalized AI coaching
           </Text>
         </div>
         
@@ -88,11 +87,11 @@ export const EmailConfirmationEmail = ({
           <Link
             href="https://heartlines.ai"
             target="_blank"
-            style={{ ...link, color: '#898989' }}
+            style={footerLink}
           >
-            Heartlines.ai
+            heartlines.ai
           </Link>
-          - Your AI Relationship Coach
+          {' '}- Your AI Relationship Coach
         </Text>
       </Container>
     </Body>
@@ -102,7 +101,7 @@ export const EmailConfirmationEmail = ({
 export default EmailConfirmationEmail
 
 const main = {
-  backgroundColor: '#0f0f23',
+  backgroundColor: '#0a0a0a',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
 }
 
@@ -119,19 +118,9 @@ const logoContainer = {
   marginBottom: '40px',
 }
 
-const logoCircle = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  background: 'linear-gradient(135deg, #ec4899, #f97316)',
-  marginRight: '12px',
-}
-
-const brandName = {
-  color: '#ffffff',
-  fontSize: '24px',
-  fontWeight: 'bold',
-  margin: '0',
+const logoImage = {
+  width: '120px',
+  height: 'auto',
 }
 
 const h1 = {
@@ -150,7 +139,7 @@ const text = {
 }
 
 const button = {
-  backgroundColor: '#ec4899',
+  background: 'linear-gradient(135deg, #8B0000, #DC143C)',
   borderRadius: '12px',
   color: '#ffffff',
   display: 'inline-block',
@@ -180,18 +169,24 @@ const code = {
 }
 
 const welcomeBox = {
-  backgroundColor: '#1e293b',
+  backgroundColor: '#1a1a1a',
   borderRadius: '12px',
-  border: '1px solid #334155',
-  padding: '20px',
+  border: '1px solid #8B0000',
+  padding: '24px',
   margin: '24px 0',
 }
 
 const welcomeText = {
   color: '#e2e8f0',
-  fontSize: '14px',
-  lineHeight: '20px',
+  fontSize: '15px',
+  lineHeight: '24px',
   margin: '0',
+}
+
+const stepNumber = {
+  color: '#DC143C',
+  fontWeight: 'bold' as const,
+  fontSize: '16px',
 }
 
 const smallText = {
@@ -207,11 +202,16 @@ const footer = {
   lineHeight: '18px',
   marginTop: '40px',
   textAlign: 'center' as const,
-  borderTop: '1px solid #334155',
+  borderTop: '1px solid #333333',
   paddingTop: '20px',
 }
 
+const footerLink = {
+  color: '#DC143C',
+  textDecoration: 'none',
+}
+
 const link = {
-  color: '#ec4899',
+  color: '#DC143C',
   textDecoration: 'underline',
 }
