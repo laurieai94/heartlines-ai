@@ -244,7 +244,7 @@ const AccountSecurity = () => {
             </AlertDialogCancel>
             <AlertDialogAction 
               onClick={createManualBackup}
-              className={`touch-manipulation touch-feedback ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}
+              className={`touch-manipulation touch-feedback bg-pink-400 hover:bg-pink-500 text-white ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}
             >
               Create Backup & Enable
             </AlertDialogAction>
