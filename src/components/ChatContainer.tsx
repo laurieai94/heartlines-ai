@@ -330,6 +330,11 @@ const ChatContainer = ({
               </div>
               <span className="sr-only">{userName || 'User'} is typing...</span>
             </div>
+
+            {/* Persistent blinking cursor - always visible */}
+            <div className="flex justify-end items-center pr-2 md:pr-4">
+              <div className="w-0.5 h-4 md:h-5 bg-gradient-to-b from-coral-400 to-pink-500 animate-pulse rounded-full" />
+            </div>
             
             <div className="h-2 md:h-4" />
           </div>
