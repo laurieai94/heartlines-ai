@@ -17,8 +17,6 @@ html, body, #root {
   body {
     height: 100%;
     overflow-x: hidden;
-    /* Prevent elastic scrolling on iOS */
-    overscroll-behavior: none;
   }
   
   #root {
