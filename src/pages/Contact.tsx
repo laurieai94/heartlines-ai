@@ -66,9 +66,9 @@ const Contact = () => {
                 <Mail className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4">Get in Touch</h1>
+            <h1 className="text-4xl font-bold questionnaire-text mb-4">Let's Connect</h1>
             <p className="text-xl questionnaire-text-muted max-w-2xl mx-auto">
-              Have questions or feedback? We'd love to hear from you.
+              Got questions, feedback, or ideas? Drop us a note — we actually read these.
             </p>
           </div>
 
@@ -95,7 +95,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input"
-                    placeholder="Your name"
+                    placeholder="What should we call you?"
                   />
                 </div>
 
@@ -111,7 +111,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input"
-                    placeholder="your.email@example.com"
+                    placeholder="Your email"
                   />
                 </div>
 
@@ -127,7 +127,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input"
-                    placeholder="How can we help?"
+                    placeholder="What's up?"
                   />
                 </div>
 
@@ -142,7 +142,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input min-h-[150px]"
-                    placeholder="Tell us more..."
+                    placeholder="Spill the details..."
                   />
                 </div>
 
@@ -151,8 +151,7 @@ const Contact = () => {
                   disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                  <Send className="w-4 h-4 ml-2" />
+                  {isSubmitting ? "Sending..." : "Send ✈️"}
                 </Button>
               </form>
             </Card>
@@ -162,24 +161,21 @@ const Contact = () => {
               <Card className="questionnaire-card p-6">
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">Support</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  For technical support or account issues, please reach out through the contact form. 
-                  We typically respond within 24-48 hours.
+                  Need help? Reach out here and we'll get back within 1–2 days.
                 </p>
               </Card>
 
               <Card className="questionnaire-card p-6">
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">Feedback</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  We're constantly improving {BRAND.name}. Your feedback helps us build better features 
-                  and create a more helpful experience for everyone.
+                  We're always leveling up heartlines. Share your thoughts and help us make it better for everyone.
                 </p>
               </Card>
 
               <Card className="questionnaire-card p-6">
                 <h3 className="text-xl font-semibold questionnaire-text mb-4">Partnerships</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  Interested in partnering with {BRAND.name}? We'd love to explore opportunities to work together. 
-                  Please include "Partnership" in your subject line.
+                  Want to collab? Pop "Partnership" in the subject line and let's chat.
                 </p>
               </Card>
             </div>
