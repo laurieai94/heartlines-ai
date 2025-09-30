@@ -219,7 +219,7 @@ const AccountSecurity = () => {
             <AlertDialogCancel className={`${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'} bg-[#5D2536]/60 text-white border-white/30 hover:bg-[#5D2536]/80 hover:border-white/40`}>
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction onClick={createManualBackup} className={`bg-pink-400 hover:bg-pink-500 text-white touch-manipulation touch-feedback ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}>
+            <AlertDialogAction onClick={createManualBackup} className={`bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation touch-feedback ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}>
               Create Backup & Enable
             </AlertDialogAction>
           </AlertDialogFooter>
