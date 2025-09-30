@@ -41,20 +41,12 @@ export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibil
 export const useMobileHeaderVisibility = () => {
   const context = useContext(MobileHeaderVisibilityContext);
   
-  // Safe fallback when context is missing (e.g., on landing page)
+  // Safe fallback when context is missing (e.g., on non-dashboard pages)
   if (context === undefined) {
-    console.log('🔄 MobileHeaderVisibility context missing - using fallback');
     return {
       visible: true,
-      setVisible: () => {}, // no-op
-      forceVisible: () => {
-        // Emergency DOM-based navigation reveal
-        const headers = document.querySelectorAll('[data-mobile-header]');
-        headers.forEach(header => {
-          (header as HTMLElement).style.transform = 'translateY(0)';
-          (header as HTMLElement).style.opacity = '1';
-        });
-      },
+      setVisible: () => {}, // no-op - don't interfere with scroll
+      forceVisible: () => {}, // no-op
       navigationOpened: false,
       setNavigationOpened: () => {} // no-op
     };
