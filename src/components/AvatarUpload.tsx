@@ -85,7 +85,7 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
           className="relative pointer-events-none bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:from-purple-600 hover:to-pink-600 shadow-lg"
         >
           <Upload className="w-4 h-4 mr-2" />
-          {uploading ? 'Uploading...' : isCompact ? 'Change' : 'Upload Photo'}
+          {uploading ? 'Uploading...' : isCompact ? '' : 'Upload Photo'}
         </Button>
       </div>
     </div>
