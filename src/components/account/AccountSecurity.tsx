@@ -52,7 +52,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
-                <Shield className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
+                <Shield className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'text-sm font-medium' : 'text-base font-medium'} text-white`}>Data Protection</CardTitle>
@@ -89,7 +89,7 @@ const AccountSecurity = () => {
                   Create a backup of all your stored data
                 </p>
                 <Button variant="ghost" onClick={createManualBackup} className={`w-full touch-manipulation touch-feedback text-white hover:bg-white/5 ${isMobile ? 'text-[13px] py-1 h-7' : 'text-sm py-1.5 h-8'}`}>
-                  <Download className={`text-pink-400 ${isMobile ? 'w-2.5 h-2.5 mr-1' : 'w-3.5 h-3.5'}`} />
+                  <Download className={`text-pink-400 ${isMobile ? 'w-4 h-4 mr-1' : 'w-4 h-4'}`} />
                   Download Backup
                 </Button>
               </div>
@@ -102,7 +102,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
-                <Mail className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
+                <Mail className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'text-sm font-medium' : 'text-base font-medium'} text-white`}>Communication</CardTitle>
@@ -132,7 +132,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
-                <Clock className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
+                <Clock className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'text-sm font-medium' : 'text-base font-medium'} text-white`}>Data Management</CardTitle>
@@ -170,7 +170,7 @@ const AccountSecurity = () => {
           <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
-                <BarChart3 className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
+                <BarChart3 className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
                 <CardTitle className={`${isMobile ? 'text-sm font-medium' : 'text-base font-medium'} text-white`}>Analytics</CardTitle>
