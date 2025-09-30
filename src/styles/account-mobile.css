@@ -44,17 +44,54 @@
 
   /* Account page specific optimizations */
   .account-mobile .questionnaire-card {
-    padding: 12px !important;
+    padding: 8px !important;
   }
 
   /* Compact header for account page */
   .account-mobile h1 {
-    margin-bottom: 2px;
-    line-height: 1.2;
+    margin-bottom: 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .account-mobile .text-center {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Aggressive space optimization for account cards */
+  .account-mobile .mobile-card {
+    padding: 8px !important;
+    margin-bottom: 6px;
+  }
+
+  /* Tighter tab styling */
+  .account-mobile .tab-trigger {
+    padding: 6px 8px;
+    font-size: 9px;
+    gap: 1px;
+  }
+
+  /* Compact button sizing */
+  .account-mobile button {
+    min-height: 28px;
+  }
+
+  /* Reduce input heights */
+  .account-mobile input,
+  .account-mobile textarea {
+    height: 32px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  /* Tighter grid spacing */
+  .account-mobile .grid {
+    gap: 6px;
+  }
+
+  /* Streamlined card content */
+  .account-mobile .card-content {
+    padding: 8px;
   }
 
   .account-mobile .mobile-card-header {
