@@ -16,7 +16,7 @@ const SiteFooter = () => {
       title: "Company",
       links: [
         { to: "/mission", label: "Mission", icon: Target },
-        { to: "/privacy-and-security", label: "Privacy & Security", icon: Shield },
+        { to: "/privacy-and-security", label: "Privacy", icon: Shield },
         { to: "/plans", label: "Plans", icon: CreditCard },
         { to: "/terms", label: "Terms", icon: FileText },
         { to: "/contact", label: "Contact", icon: Mail },
