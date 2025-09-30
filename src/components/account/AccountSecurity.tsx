@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Download, Mail, Clock, BarChart3, AlertTriangle } from 'lucide-react';
+import { Shield, Download, Mail, Clock, BarChart3, AlertTriangle, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -224,8 +224,8 @@ const AccountSecurity = () => {
         <AlertDialogContent className={`${isMobile ? 'max-w-[calc(100%-2rem)]' : ''} bg-[#5D2536]/25 backdrop-blur-lg border border-white/20`}>
           <AlertDialogHeader>
             <div className={`flex items-center mb-2 ${isMobile ? 'gap-2' : 'gap-3'}`}>
-              <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
-                <AlertTriangle className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
+              <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2.5' : 'p-3'}`}>
+                <Lock className={`text-pink-400 ${isMobile ? 'w-6 h-6' : 'w-8 h-8'}`} />
               </div>
               <AlertDialogTitle className={`${isMobile ? 'text-sm' : 'text-base'} text-white`}>Enable Encryption</AlertDialogTitle>
             </div>
