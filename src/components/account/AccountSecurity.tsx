@@ -208,10 +208,10 @@ const AccountSecurity = () => {
             </div>
             <AlertDialogDescription className={`space-y-2 text-left ${isMobile ? 'text-xs' : 'text-sm'} text-white/80`}>
               <p>
-                Before enabling encryption, we'll create a backup of your current data.
+                We'll make a quick backup, then lock everything with encryption.
               </p>
               <p className="font-medium text-white">
-                Important: Once encryption is enabled, you won't be able to recover your data if you lose access to your account.
+                But remember: if you get locked out, we can't get it back for you.
               </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
