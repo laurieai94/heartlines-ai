@@ -31,9 +31,6 @@ const AccountProfile = () => {
   const handleAvatarUpdate = async (url: string) => {
     try {
       await updateProfile({ avatar_url: url });
-      toast.success('Avatar updated', {
-        description: 'Your profile picture has been successfully updated.'
-      });
     } catch (error) {
       toast.error('Avatar update failed', {
         description: 'Something went wrong while updating your avatar.'
