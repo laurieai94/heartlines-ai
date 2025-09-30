@@ -3,53 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles, Heart, Zap, Shield, Star, Users, ArrowLeft, Sprout, Flower } from "lucide-react";
+import { Check, Shield, Users, Heart } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import DashboardHeader from "@/components/DashboardHeader";
 import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
-const pricingPlans = [{
-  id: "begin",
-  name: "Begin",
-  price: "$0",
-  period: "month",
-  description: "Start small, spark awareness",
-  tagline: "From first steps to stronger bonds",
-  messages: 50,
-  icon: Sprout,
-  features: ["50 messages a month", "Quick insights into your patterns + relationships", "Try before you commit\" energy"],
-  buttonText: "Get Started Free",
-  popular: false,
-  tier: "freemium"
-}, {
-  id: "grow",
-  name: "Grow",
-  price: "$15",
-  period: "month",
-  description: "Your relationship's gym membership",
-  tagline: "Build momentum in your relationship",
-  messages: 150,
-  icon: Heart,
-  features: ["150 messages each month", "Coaching for self-reflection + relationships", "Role play critical convos", "Progress check-ins to track your growth", "Priority support"],
-  buttonText: "Let's Grow",
-  popular: true,
-  tier: "grow"
-}, {
-  id: "thrive",
-  name: "Thrive",
-  price: "$29",
-  period: "month",
-  description: "Go all in for deeper love + growth",
-  tagline: "Turn insights into transformation",
-  messages: 300,
-  icon: Flower,
-  features: ["300 messages a month (~10/day)", "Unlimited scenarios (self-talk, dating, relationships)", "Advanced insights + personal analytics", "Custom goals for your growth journey", "Premium support"],
-  buttonText: "Go All In",
-  popular: false,
-  tier: "thrive"
-}];
+import { pricingPlans } from "@/data/pricingPlans";
 const faqs = [{
   question: "Can I change or cancel my plan anytime?",
   answer: "Yep. No contracts, no weird fine print. Cancel, upgrade, or downgrade whenever you want."

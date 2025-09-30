@@ -6,6 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { toast } from 'sonner';
+import { pricingPlans } from '@/data/pricingPlans';
 
 const AccountSubscription = () => {
   const { isMobile, simulateHapticFeedback } = useOptimizedMobile();
@@ -26,33 +27,20 @@ const AccountSubscription = () => {
   const [upgrading, setUpgrading] = useState<string | null>(null);
   const [managing, setManaging] = useState(false);
 
-  const plans = [
-    {
-      name: 'Free',
-      tier: null,
-      price: '$0',
-      messages: 50,
-      features: ['Basic AI coaching', '50 messages/month', 'Community support'],
-      current: !subscribed && !subscription_tier
-    },
-    {
-      name: 'Grow',
-      tier: 'grow',
-      price: '$15',
-      messages: 150,
-      features: ['Everything in Free', '150 messages/month', 'Priority support', 'Advanced insights'],
-      current: subscription_tier?.toLowerCase() === 'grow',
-      popular: true
-    },
-    {
-      name: 'Thrive',
-      tier: 'thrive', 
-      price: '$29',
-      messages: 300,
-      features: ['Everything in Grow', '300 messages/month', 'Premium support', 'Exclusive content'],
-      current: subscription_tier?.toLowerCase() === 'thrive'
-    }
-  ];
+  // Map pricing plans to account format
+  const plans = pricingPlans.map((plan) => ({
+    name: plan.name === 'Begin' ? 'Free' : plan.name, // Map "Begin" to "Free" for account display
+    tier: plan.tier === 'freemium' ? null : plan.tier,
+    price: plan.price,
+    messages: plan.messages,
+    description: plan.description,
+    icon: plan.icon,
+    features: plan.features,
+    current: plan.tier === 'freemium' 
+      ? !subscribed && !subscription_tier 
+      : subscription_tier?.toLowerCase() === plan.tier,
+    popular: plan.popular
+  }));
 
   const handleUpgrade = async (tier: 'grow' | 'thrive') => {
     setUpgrading(tier);
@@ -257,6 +245,11 @@ const AccountSubscription = () => {
               )}
               
               <CardHeader className={`text-center ${isMobile ? 'p-1.5' : 'p-2.5'}`}>
+                {plan.icon && (
+                  <div className="mx-auto mb-2 p-2 rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/10 w-fit">
+                    <plan.icon className={`questionnaire-text ${isMobile ? 'h-3 w-3' : 'h-4 w-4'}`} />
+                  </div>
+                )}
                 <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
                   {plan.name}
                 </CardTitle>
@@ -269,7 +262,7 @@ const AccountSubscription = () => {
                 <CardDescription className={`text-white/60 ${
                   isMobile ? 'text-xs leading-tight' : 'text-sm'
                 }`}>
-                  {plan.messages} messages per month
+                  {plan.description}
                 </CardDescription>
               </CardHeader>
               
