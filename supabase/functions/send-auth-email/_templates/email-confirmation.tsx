@@ -32,7 +32,7 @@ export const EmailConfirmationEmail = ({
       <Container style={container}>
         <div style={logoContainer}>
           <img 
-            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heartlines-logo.png" 
+            src="https://heartlines.ai/heartlines-icon.png" 
             alt="heartlines logo" 
             style={logoImage}
           />
@@ -119,8 +119,8 @@ const logoContainer = {
 }
 
 const logoImage = {
-  width: '120px',
-  height: 'auto',
+  width: '80px',
+  height: '80px',
 }
 
 const h1 = {
