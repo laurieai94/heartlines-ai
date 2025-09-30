@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BRAND } from "@/branding";
 import { Heart, Users, Shield, Target } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
+import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -23,14 +24,14 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, AI coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="min-h-screen bg-burgundy-900">
+      <div className="min-h-screen bg-burgundy-900 flex flex-col">
         <SimpleHeader 
           user={user}
           activeTab="mission"
           onSignInClick={handleSignInClick}
         />
         
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
@@ -114,7 +115,9 @@ const Mission = () => {
               </p>
             </div>
           </div>
-        </div>
+        </main>
+
+        <SiteFooter />
       </div>
     </>
   );

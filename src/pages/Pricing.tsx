@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import SimpleHeader from "@/components/SimpleHeader";
+import SiteFooter from "@/components/SiteFooter";
 import { pricingPlans } from "@/data/pricingPlans";
 const faqs = [{
   question: "Can I change or cancel my plan anytime?",
@@ -162,6 +163,8 @@ const Pricing = () => {
           </div>
 
         </div>
+
+        <SiteFooter />
       </div>
     </div>
   );

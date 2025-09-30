@@ -13,6 +13,7 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
+import SiteFooter from "./SiteFooter";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
@@ -814,27 +815,7 @@ const LandingPage = ({
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-6">
-            <p className="text-white/70 text-sm mb-4">
-              Free to start • Premium when you're ready • Built by humans figuring it out too
-            </p>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <Link to="/privacy" className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center">
-              Privacy
-            </Link>
-            <Link to="/privacy-and-security" className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center">
-              Terms
-            </Link>
-            <Link to="/company" className="text-white/70 hover:text-white/90 motion-safe:transition-colors motion-safe:duration-150 focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none rounded px-2 py-2 min-h-[44px] flex items-center">
-              Contact
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>;
 };
 export default LandingPage;

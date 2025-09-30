@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, Menu, User } from 'lucide-react';
 import { BRAND } from '@/branding';
+import SiteFooter from '@/components/SiteFooter';
 
 const PrivacySecurity = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -406,6 +407,8 @@ const PrivacySecurity = () => {
             </div>
           </div>
         </section>
+
+        <SiteFooter />
       </div>
     </div>
   );
