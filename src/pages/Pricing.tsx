@@ -8,8 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import DashboardHeader from "@/components/DashboardHeader";
-import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
+import SimpleHeader from "@/components/SimpleHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 const faqs = [{
   question: "Can I change or cancel my plan anytime?",
@@ -64,12 +63,14 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <MobileHeaderVisibilityProvider>
-      <div className="min-h-screen bg-burgundy-900">
+  return (
+    <div className="min-h-screen bg-burgundy-900">
       <div className="relative z-10">
-        <DashboardHeader accessLevel="freemium" profileCompletion={0} compact={false} user={user} activeTab="plans" onValueChange={tab => {
-          if (tab === 'home') navigate('/');else if (tab === 'profile') navigate('/profile');else if (tab === 'insights') navigate('/coach');else if (tab === 'mission') navigate('/mission');
-        }} onSignInClick={() => navigate('/auth')} onOpenProfile={() => navigate('/profile')} />
+        <SimpleHeader 
+          user={user} 
+          activeTab="plans" 
+          onSignInClick={() => navigate('/auth')} 
+        />
         
         <div className="container mx-auto px-4 py-6 lg:pt-12">
           {/* Header Section */}
@@ -163,6 +164,6 @@ const Pricing = () => {
         </div>
       </div>
     </div>
-    </MobileHeaderVisibilityProvider>;
+  );
 };
 export default Pricing;

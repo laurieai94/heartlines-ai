@@ -1,11 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BRAND } from "@/branding";
 import { Heart, Users, Shield, Target } from "lucide-react";
-import DashboardHeader from "@/components/DashboardHeader";
+import SimpleHeader from "@/components/SimpleHeader";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { MobileHeaderVisibilityProvider } from "@/contexts/MobileHeaderVisibilityContext";
 
 const Mission = () => {
   const { user } = useAuth();
@@ -15,20 +14,6 @@ const Mission = () => {
     // Handle sign in
   };
 
-  const handleTabChange = (value: string) => {
-    switch (value) {
-      case 'home':
-        navigate('/');
-        break;
-      case 'profile':
-        navigate('/profile');
-        break;
-      case 'insights':
-        navigate('/coach');
-        break;
-      // pricing and mission tabs are handled by DashboardHeader internally
-    }
-  };
 
   return (
     <>
@@ -38,14 +23,10 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, AI coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <MobileHeaderVisibilityProvider>
-        <div className="min-h-screen bg-burgundy-900">
-        <DashboardHeader 
-          accessLevel="free"
-          profileCompletion={0}
+      <div className="min-h-screen bg-burgundy-900">
+        <SimpleHeader 
           user={user}
           activeTab="mission"
-          onValueChange={handleTabChange}
           onSignInClick={handleSignInClick}
         />
         
@@ -135,7 +116,6 @@ const Mission = () => {
           </div>
         </div>
       </div>
-      </MobileHeaderVisibilityProvider>
     </>
   );
 };
