@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
+import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SignInButton from "./SignInButton";
 import type { User } from '@supabase/supabase-js';
@@ -23,14 +23,12 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
     { value: 'home', label: 'Home', icon: Home },
     { value: 'profile', label: 'Profile', icon: UserIcon },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'mission', label: 'Mission', icon: Target },
     { value: 'account', label: 'My Account', icon: Settings },
     { value: 'plans', label: 'Plans', icon: CreditCard },
   ];
 
   const handleNavigation = (item: any) => {
     if (item.value === 'plans') navigate('/plans');
-    else if (item.value === 'mission') navigate('/mission');
     else if (item.value === 'account') navigate('/account');
     else if (item.value === 'profile') navigate('/profile');
     else if (item.value === 'insights') navigate('/coach');

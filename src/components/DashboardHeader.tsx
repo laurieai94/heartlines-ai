@@ -37,8 +37,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {
       import('@/pages/Pricing').catch(() => {});
-    } else if (tabValue === 'mission') {
-      import('@/pages/Mission').catch(() => {});
     } else if (tabValue === 'insights') {
       // Prefetch AIInsights and related chat components
       import('@/components/AIInsights').catch(() => {});
@@ -51,7 +49,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     { value: 'home', label: 'Home', icon: Home },
     { value: 'profile', label: 'Profile', icon: UserIcon, isExternal: true },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'mission', label: 'Mission', icon: Target, isExternal: true },
     { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
     { value: 'plans', label: 'Plans', icon: CreditCard, isExternal: true },
   ];
@@ -68,7 +65,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     
     if (item.isExternal) {
       if (item.value === 'plans') navigate('/plans');
-      else if (item.value === 'mission') navigate('/mission');
       else if (item.value === 'account') navigate('/account');
       else if (item.value === 'profile') navigate('/profile');
     } else {

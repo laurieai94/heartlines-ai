@@ -171,10 +171,6 @@ const LandingPage = ({
     label: 'Coach',
     icon: MessageSquare
   }, {
-    to: '/mission',
-    label: 'Mission',
-    icon: Target
-  }, {
     to: '/account',
     label: 'My Account',
     icon: Settings
