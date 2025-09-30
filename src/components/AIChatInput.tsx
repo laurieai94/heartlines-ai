@@ -147,12 +147,6 @@ const AIChatInput = ({
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 
           : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
       }`}>
-        {/* Always-visible blinking cursor */}
-        <div 
-          className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-white/90 animate-pulse pointer-events-none z-10"
-          style={{ animationDuration: '1s' }}
-        />
-        
         <Textarea
           unstyled
           ref={textareaRef}
