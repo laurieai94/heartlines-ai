@@ -27,25 +27,25 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     }, 120);
   }, []);
 
-  // Enhanced cooldown to prevent spam tapping and reappearance
+  // Optimized cooldown for better responsiveness
   const startCooldown = useCallback((wasUsedForNavigation = false) => {
     setCooldownActive(true);
     
     if (wasUsedForNavigation) {
       setRecentlyNavigated(true);
-      // Extended cooldown when button was actively used
+      // Shorter cooldown when button was actively used
       setTimeout(() => {
         setCooldownActive(false);
-      }, 3000); // 3 second cooldown when used
+      }, 1500); // Reduced from 3000ms
       
-      // Even longer period to prevent reappearance
+      // Shorter period before button can reappear
       setTimeout(() => {
         setRecentlyNavigated(false);
-      }, 8000); // 8 seconds before button can reappear
+      }, 4000); // Reduced from 8000ms
     } else {
       setTimeout(() => {
         setCooldownActive(false);
-      }, 2000); // 2 second cooldown for other cases
+      }, 1000); // Reduced from 2000ms
     }
   }, []);
 
@@ -56,14 +56,14 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     };
   }, []);
 
-  // Enhanced shouldShow logic with scroll position awareness
+  // Enhanced shouldShow logic with lower scroll threshold for easier access
   const shouldShow = isMobile && 
                     !isTablet && 
                     isScrollingUp && 
                     !navigationOpened && 
                     !cooldownActive && 
                     !recentlyNavigated &&
-                    scrollPosition > 150; // Only show when significantly scrolled down
+                    scrollPosition > 75; // Lowered from 150 for easier access
   
   if (!shouldShow) {
     return null;
