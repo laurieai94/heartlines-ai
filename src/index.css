@@ -570,7 +570,7 @@
   }
   
   .questionnaire-input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 107, 157, 0.6);
   }
   
   .questionnaire-text {
@@ -815,7 +815,7 @@
   .questionnaire-input-mobile {
     @apply min-h-[44px] text-sm px-3 py-2.5 rounded-lg;
     @apply border border-white/15;
-    @apply text-white placeholder:text-white/30;
+    @apply text-white placeholder:text-[#ff6b9d]/60;
     @apply focus:border-white/30 focus:ring-1 focus:ring-white/15;
     /* Force consistent mobile sizing */
     font-size: 0.875rem !important;
