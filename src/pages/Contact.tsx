@@ -68,7 +68,8 @@ const Contact = () => {
             </div>
             <h1 className="text-4xl font-bold questionnaire-text mb-4">Let's Connect</h1>
             <p className="text-xl questionnaire-text-muted max-w-2xl mx-auto">
-              Got questions, feedback, or ideas? Drop us a note — we actually read these.
+              Got questions, feedback, or ideas?<br />
+              Drop us a note — we actually read these.
             </p>
           </div>
 
