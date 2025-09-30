@@ -200,42 +200,42 @@ export const ChatInputSection = ({
           </div>
         )}
         
-        <div className="md:max-w-[54rem] md:mx-auto md:px-12">
-          <ProgressiveAccessWrapper action="chat">
-            <AIChatInput
-              onSendMessage={handleSend} 
-              loading={loading}
-              disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
-              readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
-              showProfileGlow={accessLevel === 'profile-required' && !!user}
-                placeholder={
-                !user 
-                  ? "Sign in to start chatting…" 
-                  : accessLevel === 'profile-required' 
-                    ? "Click here to complete your profile and start chatting with Kai…"
+        {/* Hide messaging input when profile is incomplete */}
+        {accessLevel !== 'profile-required' && (
+          <div className="md:max-w-[54rem] md:mx-auto md:px-12">
+            <ProgressiveAccessWrapper action="chat">
+              <AIChatInput
+                onSendMessage={handleSend} 
+                loading={loading}
+                disabled={!user || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
+                readOnly={atLimit}
+                showProfileGlow={false}
+                  placeholder={
+                  !user 
+                    ? "Sign in to start chatting…" 
                     : atLimit
-                    ? "You've reached your monthly message limit. Click to upgrade and continue."
-                    : chatHistory.length === 0 ? "What's up?" : ""
-              }
-              inputRef={inputRef}
-              onInputFocus={() => { 
-                if (!user) openAuthModalFromChat();
-                else if (accessLevel === 'profile-required') goToProfile('chat');
-                else if (atLimit) {
-                  if (subscription_tier?.toLowerCase() === 'thrive') {
-                    manageSubscription();
-                  } else {
-                    upgrade(nextTier as 'grow' | 'thrive');
-                  }
+                      ? "You've reached your monthly message limit. Click to upgrade and continue."
+                      : chatHistory.length === 0 ? "What's up?" : ""
                 }
-              }}
-              onTypingChange={handleUserTyping}
-              userName={userName} 
-              partnerName={partnerName}
-              chatHistory={chatHistory}
-            />
-          </ProgressiveAccessWrapper>
-        </div>
+                inputRef={inputRef}
+                onInputFocus={() => { 
+                  if (!user) openAuthModalFromChat();
+                  else if (atLimit) {
+                    if (subscription_tier?.toLowerCase() === 'thrive') {
+                      manageSubscription();
+                    } else {
+                      upgrade(nextTier as 'grow' | 'thrive');
+                    }
+                  }
+                }}
+                onTypingChange={handleUserTyping}
+                userName={userName} 
+                partnerName={partnerName}
+                chatHistory={chatHistory}
+              />
+            </ProgressiveAccessWrapper>
+          </div>
+        )}
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">
             Complete setup to chat
