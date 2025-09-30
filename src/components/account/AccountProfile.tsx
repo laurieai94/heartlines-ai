@@ -94,9 +94,7 @@ const AccountProfile = () => {
           <div className={`${isMobile ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-2.5'}`}>
             <AvatarUpload currentAvatarUrl={profile?.avatar_url} onAvatarUpdate={handleAvatarUpdate} userName={profile?.name || user?.email || undefined} size="compact" />
             <div className="flex-1 min-w-0">
-              <h4 className={`text-white font-medium ${isMobile ? 'text-sm mb-0.5' : 'text-base mb-0.5'}`}>
-                Profile Picture
-              </h4>
+              <h4 className={`text-white font-medium ${isMobile ? 'text-sm mb-0.5' : 'text-base mb-0.5'}`}>Profile Pic</h4>
               <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm'}`}>
                 Lookin' fresh? Update your pic.
               </p>
