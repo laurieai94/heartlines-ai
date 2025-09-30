@@ -75,13 +75,13 @@ const AccountLayout = () => {
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={`grid w-full grid-cols-3 ${
-              isMobile ? 'mb-2 h-8' : 'mb-3 h-10 md:h-11'
-            } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
+              isMobile ? 'mb-2 h-9' : 'mb-3 h-10 md:h-11'
+            } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5 overflow-hidden`}>
               <TabsTrigger 
                 value="profile"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'h-full px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 flex items-center justify-center rounded-sm' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -99,7 +99,7 @@ const AccountLayout = () => {
                 value="subscription"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'h-full px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 flex items-center justify-center rounded-sm' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
@@ -117,7 +117,7 @@ const AccountLayout = () => {
                 value="security"
                 className={`data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400/90 data-[state=active]:to-coral-400/90 data-[state=active]:text-white text-white/70 ${
                   isMobile 
-                    ? 'h-full px-2 py-2 flex items-center justify-center' 
+                    ? 'h-full px-2 flex items-center justify-center rounded-sm' 
                     : 'px-3 py-1.5 text-sm'
                 } transition-all duration-200 touch-manipulation`}
                 onClick={(e) => {
