@@ -212,7 +212,7 @@ export const ChatInputSection = ({
                 !user 
                   ? "Sign in to start chatting…" 
                   : accessLevel === 'profile-required' 
-                    ? "Click here to complete your profile and start chatting with Kai…"
+                    ? ""
                     : atLimit
                     ? "You've reached your monthly message limit. Click to upgrade and continue."
                     : chatHistory.length === 0 ? "What's up?" : ""
