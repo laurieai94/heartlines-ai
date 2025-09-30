@@ -95,7 +95,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/60"
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
                     placeholder="What should we call you?"
                   />
                 </div>
@@ -111,7 +111,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/60"
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
                     placeholder="Your email"
                   />
                 </div>
@@ -127,7 +127,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input placeholder:text-[#ff6b9d]/60"
+                    className="questionnaire-input placeholder:text-[#ff6b9d]/80"
                     placeholder="What's up?"
                   />
                 </div>
@@ -142,7 +142,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/60"
+                    className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/80"
                     placeholder="Spill the details..."
                   />
                 </div>
