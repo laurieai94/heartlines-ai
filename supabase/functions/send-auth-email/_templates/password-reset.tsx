@@ -31,7 +31,11 @@ export const PasswordResetEmail = ({
     <Body style={main}>
       <Container style={container}>
         <div style={logoContainer}>
-          <div style={logoCircle}></div>
+          <img 
+            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heart-logo.png"
+            alt="heartlines logo"
+            style={logoImage}
+          />
           <Heading style={brandName}>heartlines</Heading>
         </div>
         
@@ -83,7 +87,7 @@ export const PasswordResetEmail = ({
 export default PasswordResetEmail
 
 const main = {
-  backgroundColor: '#0f0f23',
+  backgroundColor: '#0a0a0a',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
 }
 
@@ -100,11 +104,9 @@ const logoContainer = {
   marginBottom: '40px',
 }
 
-const logoCircle = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  background: 'linear-gradient(135deg, #ec4899, #f97316)',
+const logoImage = {
+  width: '50px',
+  height: '50px',
   marginRight: '12px',
 }
 
@@ -131,7 +133,7 @@ const text = {
 }
 
 const button = {
-  backgroundColor: '#ec4899',
+  backgroundColor: '#8B0000',
   borderRadius: '12px',
   color: '#ffffff',
   display: 'inline-block',
@@ -178,6 +180,6 @@ const footer = {
 }
 
 const link = {
-  color: '#ec4899',
+  color: '#DC143C',
   textDecoration: 'underline',
 }
