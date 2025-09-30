@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Download, Mail, Clock, BarChart3, AlertTriangle, Lock } from 'lucide-react';
+import { Shield, Download, Mail, Clock, BarChart3, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -9,18 +9,20 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { toast } from 'sonner';
 import { PrivacyManager } from '@/utils/encryption';
-
 const AccountSecurity = () => {
-  const { isMobile } = useOptimizedMobile();
+  const {
+    isMobile
+  } = useOptimizedMobile();
   const [settings, setSettings] = useState(() => PrivacyManager.getPrivacySettings());
   const [showBackupPrompt, setShowBackupPrompt] = useState(false);
-
   const handleSettingChange = (key: string, value: any) => {
-    const newSettings = { ...settings, [key]: value };
+    const newSettings = {
+      ...settings,
+      [key]: value
+    };
     setSettings(newSettings);
     PrivacyManager.updatePrivacySettings(newSettings);
   };
-
   const handleEnableEncryption = () => {
     if (!settings.encryptionEnabled) {
       setShowBackupPrompt(true);
@@ -29,11 +31,9 @@ const AccountSecurity = () => {
       PrivacyManager.setEncryptionEnabled(false);
     }
   };
-
   const createManualBackup = () => {
     try {
       PrivacyManager.createLocalBackup();
-      
       if (showBackupPrompt) {
         handleSettingChange('encryptionEnabled', true);
         PrivacyManager.setEncryptionEnabled(true);
@@ -41,13 +41,11 @@ const AccountSecurity = () => {
       }
     } catch (error) {
       toast.error('Backup Failed', {
-        description: 'Unable to create backup. Please try again.',
+        description: 'Unable to create backup. Please try again.'
       });
     }
   };
-
-  return (
-    <>
+  return <>
       <div className={`${isMobile ? 'account-mobile' : ''} space-y-2.5`}>
         {/* Data Protection */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
@@ -72,21 +70,15 @@ const AccountSecurity = () => {
                     <p className={`font-medium ${isMobile ? 'text-[13px]' : 'text-sm'} text-white`}>
                       Encrypt Chat History
                     </p>
-                    {settings.encryptionEnabled && (
-                      <span className={`px-1.5 py-0.5 bg-primary/10 text-primary rounded-full ${isMobile ? 'text-[11px]' : 'text-xs'}`}>
+                    {settings.encryptionEnabled && <span className={`px-1.5 py-0.5 bg-primary/10 text-primary rounded-full ${isMobile ? 'text-[11px]' : 'text-xs'}`}>
                         Active
-                      </span>
-                    )}
+                      </span>}
                   </div>
                   <p className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
                     Enable end-to-end encryption for your conversations
                   </p>
                 </div>
-                <Switch
-                  checked={settings.encryptionEnabled}
-                  onCheckedChange={handleEnableEncryption}
-                  className="touch-manipulation"
-                />
+                <Switch checked={settings.encryptionEnabled} onCheckedChange={handleEnableEncryption} className="touch-manipulation" />
               </div>
 
               <Separator className="my-2" />
@@ -96,11 +88,7 @@ const AccountSecurity = () => {
                 <p className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
                   Create a backup of all your stored data
                 </p>
-                <Button
-                  variant="ghost"
-                  onClick={createManualBackup}
-                  className={`w-full touch-manipulation touch-feedback text-white hover:bg-white/5 ${isMobile ? 'text-[13px] py-1 h-7' : 'text-sm py-1.5 h-8'}`}
-                >
+                <Button variant="ghost" onClick={createManualBackup} className={`w-full touch-manipulation touch-feedback text-white hover:bg-white/5 ${isMobile ? 'text-[13px] py-1 h-7' : 'text-sm py-1.5 h-8'}`}>
                   <Download className={`text-pink-400 ${isMobile ? 'w-2.5 h-2.5 mr-1' : 'w-3.5 h-3.5'}`} />
                   Download Backup
                 </Button>
@@ -134,11 +122,7 @@ const AccountSecurity = () => {
                   Receive updates about new features and improvements
                 </p>
               </div>
-              <Switch
-                checked={settings.marketingEmails}
-                onCheckedChange={(checked) => handleSettingChange('marketingEmails', checked)}
-                className="touch-manipulation"
-              />
+              <Switch checked={settings.marketingEmails} onCheckedChange={checked => handleSettingChange('marketingEmails', checked)} className="touch-manipulation" />
             </div>
           </CardContent>
         </Card>
@@ -166,10 +150,7 @@ const AccountSecurity = () => {
               <p className={`text-white/60 ${isMobile ? 'text-xs leading-tight mb-1' : 'text-sm mb-2'}`}>
                 How long should we keep your conversation history?
               </p>
-              <Select
-                value={settings.dataRetention}
-                onValueChange={(value) => handleSettingChange('dataRetention', value)}
-              >
+              <Select value={settings.dataRetention} onValueChange={value => handleSettingChange('dataRetention', value)}>
                 <SelectTrigger className={`w-full touch-manipulation text-white border-white/20 bg-white/5 ${isMobile ? 'text-[13px] h-7' : 'text-sm h-8'}`}>
                   <SelectValue />
                 </SelectTrigger>
@@ -209,11 +190,7 @@ const AccountSecurity = () => {
                   Share anonymous usage data to help us improve the app
                 </p>
               </div>
-              <Switch
-                checked={settings.anonymousUsage}
-                onCheckedChange={(checked) => handleSettingChange('anonymousUsage', checked)}
-                className="touch-manipulation"
-              />
+              <Switch checked={settings.anonymousUsage} onCheckedChange={checked => handleSettingChange('anonymousUsage', checked)} className="touch-manipulation" />
             </div>
           </CardContent>
         </Card>
@@ -221,13 +198,13 @@ const AccountSecurity = () => {
 
       {/* Backup Prompt Dialog */}
       <AlertDialog open={showBackupPrompt} onOpenChange={setShowBackupPrompt}>
-        <AlertDialogContent className={`${isMobile ? 'max-w-[calc(100%-2rem)]' : ''} bg-[#5D2536]/70 backdrop-blur-lg border border-white/20`}>
+        <AlertDialogContent className={`${isMobile ? 'max-w-[calc(100%-2rem)]' : ''} bg-[#5D2536]/25 backdrop-blur-lg border border-white/20`}>
           <AlertDialogHeader>
             <div className={`flex items-center mb-2 ${isMobile ? 'gap-2' : 'gap-3'}`}>
-              <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2.5' : 'p-3'}`}>
-                <Lock className={`text-pink-400 ${isMobile ? 'w-6 h-6' : 'w-8 h-8'}`} />
+              <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-1.5' : 'p-2'}`}>
+                <AlertTriangle className={`text-pink-400 ${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} />
               </div>
-              <AlertDialogTitle className={`${isMobile ? 'text-sm' : 'text-base'} text-white`}>Enable Encryption</AlertDialogTitle>
+              <AlertDialogTitle className={`${isMobile ? 'text-sm' : 'text-base'} text-white`}>Turn On Encryption </AlertDialogTitle>
             </div>
             <AlertDialogDescription className={`space-y-2 text-left ${isMobile ? 'text-xs' : 'text-sm'} text-white/80`}>
               <p>
@@ -242,17 +219,12 @@ const AccountSecurity = () => {
             <AlertDialogCancel className={`${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'} bg-[#5D2536]/60 text-white border-white/30 hover:bg-[#5D2536]/80 hover:border-white/40`}>
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={createManualBackup}
-              className={`touch-manipulation touch-feedback bg-pink-400 hover:bg-pink-500 text-white ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}
-            >
+            <AlertDialogAction onClick={createManualBackup} className={`touch-manipulation touch-feedback ${isMobile ? 'text-[13px] h-8 w-full' : 'text-sm'}`}>
               Create Backup & Enable
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
-  );
+    </>;
 };
-
 export default AccountSecurity;
