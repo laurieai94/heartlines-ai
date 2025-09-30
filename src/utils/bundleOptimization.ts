@@ -16,7 +16,7 @@ export const preloadCriticalResources = () => {
 
   // Preload critical images
   const heroImage = new Image();
-  heroImage.src = '/lovable-uploads/heart-logo.png';
+  heroImage.src = '/lovable-uploads/heartlines-logo.png';
   heroImage.loading = 'eager';
 
   // Prefetch likely next pages for better UX

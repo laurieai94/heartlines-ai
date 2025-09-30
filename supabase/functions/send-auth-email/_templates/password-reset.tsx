@@ -32,7 +32,7 @@ export const PasswordResetEmail = ({
       <Container style={container}>
         <div style={logoContainer}>
           <img 
-            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heart-logo.png"
+            src="https://relqmhrzyqckoaebscgx.supabase.co/storage/v1/object/public/lovable-uploads/heartlines-logo.png"
             alt="heartlines logo"
             style={logoImage}
           />

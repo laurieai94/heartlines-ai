@@ -8,7 +8,7 @@ export const warmupNetwork = () => {
   const runWarmup = () => {
     // Preload critical homepage assets first
     const criticalAssets = [
-      '/lovable-uploads/heart-logo.png',
+      '/lovable-uploads/heartlines-logo.png',
       '/assets/couple-connection.jpg',
       '/assets/millennial-woman-portrait.jpg'
     ];
