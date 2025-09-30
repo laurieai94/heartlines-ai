@@ -6,6 +6,10 @@ project_id = "relqmhrzyqckoaebscgx"
 # Called by Supabase Auth webhooks, no JWT needed
 verify_jwt = false
 
+[functions.send-contact-email]
+# Public contact form, no JWT needed
+verify_jwt = false
+
 
 [functions.anthropic-chat]
 # Require authentication for AI services
