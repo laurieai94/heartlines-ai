@@ -134,39 +134,17 @@ const AccountSubscription = () => {
         isMobile ? 'rounded-lg' : ''
       }`}>
         <CardHeader className={isMobile ? 'p-1.5' : 'p-2.5'}>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className={`text-white flex items-center gap-1.5 ${
-                isMobile ? 'text-sm' : 'text-base'
-              }`}>
-                <Crown className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
-                Subscription Status
-              </CardTitle>
-              <CardDescription className={`text-white/60 ${
-                isMobile ? 'text-xs leading-tight' : 'text-sm'
-              }`}>
-                Current plan and usage information
-              </CardDescription>
-            </div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={(e) => {
-                if (isMobile && e.currentTarget) {
-                  simulateHapticFeedback(e.currentTarget, 'light');
-                }
-                refresh();
-              }}
-              disabled={loading}
-              className={`text-white/70 hover:text-white hover:bg-white/10 p-0 touch-manipulation ${
-                isMobile ? 'h-5 w-5' : 'h-7 w-7'
-              }`}
-            >
-              <RefreshCw className={`${loading ? 'animate-spin' : ''} ${
-                isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'
-              }`} />
-            </Button>
-          </div>
+          <CardTitle className={`text-white flex items-center gap-1.5 ${
+            isMobile ? 'text-sm' : 'text-base'
+          }`}>
+            <Crown className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
+            Subscription Status
+          </CardTitle>
+          <CardDescription className={`text-white/60 ${
+            isMobile ? 'text-xs leading-tight' : 'text-sm'
+          }`}>
+            Current plan and usage information
+          </CardDescription>
         </CardHeader>
         <CardContent className={`${isMobile ? 'p-1.5 pt-0 space-y-1.5' : 'p-2.5 pt-0 space-y-2.5'}`}>
           <div className={`grid grid-cols-2 ${isMobile ? 'gap-1.5' : 'gap-3'}`}>
