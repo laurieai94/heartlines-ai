@@ -58,24 +58,24 @@ const AccountLayout = () => {
       )}
 
       <div className={`relative z-10 container mx-auto ${
-        isMobile ? 'px-2 py-1' : 'px-4 py-4'
+        isMobile ? 'px-3 py-1.5' : 'px-4 py-4'
       } max-w-3xl scroll-container`}>
 
         <div className={`questionnaire-card ${
-          isMobile ? 'mobile-card p-2' : 'p-3 md:p-4'
+          isMobile ? 'mobile-card p-3' : 'p-3 md:p-4'
         } animate-fade-in touch-manipulation`}>
-          <div className={`text-center ${isMobile ? 'mb-2' : 'mb-5'}`}>
+          <div className={`text-center ${isMobile ? 'mb-3' : 'mb-5'}`}>
             <h1 className={`font-brand text-white ${
-              isMobile ? 'text-xl mb-0' : 'text-4xl mb-1'
+              isMobile ? 'text-2xl mb-0.5' : 'text-4xl mb-1'
             }`}>My Account</h1>
-            <p className={`text-white/60 ${
-              isMobile ? 'text-[9px] leading-tight' : 'text-xs'
-            }`}>Manage settings</p>
+            <p className={`text-white/70 ${
+              isMobile ? 'text-[10px] leading-tight' : 'text-xs'
+            }`}>Manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={`grid w-full grid-cols-3 ${
-              isMobile ? 'mb-1.5 h-7' : 'mb-3 h-10 md:h-11'
+              isMobile ? 'mb-2 h-8' : 'mb-3 h-10 md:h-11'
             } bg-white/10 backdrop-blur-sm border border-white/20 gap-0.5 p-0.5`}>
               <TabsTrigger 
                 value="profile"
