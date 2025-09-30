@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail } from "lucide-react";
+import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Target } from "lucide-react";
 import { BRAND } from "@/branding";
 
 const SiteFooter = () => {
@@ -15,6 +15,7 @@ const SiteFooter = () => {
     {
       title: "Company",
       links: [
+        { to: "/mission", label: "Mission", icon: Target },
         { to: "/privacy-and-security", label: "Privacy & Security", icon: Shield },
         { to: "/plans", label: "Plans", icon: CreditCard },
         { to: "/terms", label: "Terms", icon: FileText },
