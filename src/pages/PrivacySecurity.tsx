@@ -281,7 +281,7 @@ const PrivacySecurity = () => {
             <h2 className="text-3xl lg:text-4xl font-thin text-white mb-6">Ready to take control of your privacy?</h2>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/privacy">
+              <Link to="/account?tab=security">
                 <Button variant="outline" className="border-coral-400/50 text-coral-400 hover:bg-coral-400/10 rounded-full text-lg px-8 py-6">
                   <Settings className="w-5 h-5 mr-2" />
                   Manage Privacy Settings

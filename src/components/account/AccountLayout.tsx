@@ -1,4 +1,5 @@
 import { useState, Suspense, useEffect, lazy, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { User, CreditCard, Shield } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -24,9 +25,18 @@ const TabSkeleton = () => (
 );
 
 const AccountLayout = () => {
-  const [activeTab, setActiveTab] = useState('profile');
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabParam || 'profile');
   const [showBackgroundEffects, setShowBackgroundEffects] = useState(false);
   const { isMobile, simulateHapticFeedback } = useOptimizedMobile();
+
+  // Update active tab when URL parameter changes
+  useEffect(() => {
+    if (tabParam && ['profile', 'subscription', 'security'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
 
   // Performance tracking
   useEffect(() => {
