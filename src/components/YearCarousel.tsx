@@ -4,6 +4,7 @@ import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
+import elderlyManPortraitImage from '@/assets/elderly-man-portrait.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -19,14 +20,19 @@ const slides: CarouselSlide[] = [
     alt: 'Elderly couple in their retro 1970s living room with peace signs and lava lamps'
   },
   {
-    year: '2081',
-    image: elderlyCoupleImage,
-    alt: 'Elderly couple in their living room, still together after decades'
-  },
-  {
     year: '2067',
     image: elderlyCoupleNycImage,
     alt: 'Elderly couple in their cozy NYC apartment with their cats'
+  },
+  {
+    year: '2078',
+    image: elderlyManPortraitImage,
+    alt: 'Elderly man holding a portrait photo in his living room'
+  },
+  {
+    year: '2081',
+    image: elderlyCoupleImage,
+    alt: 'Elderly couple in their living room, still together after decades'
   }
 ];
 
