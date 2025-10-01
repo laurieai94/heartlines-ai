@@ -362,16 +362,16 @@ const LandingPage = ({
         {/* Glassmorphic background layers */}
         {!isEmbedded && <>
             {/* Primary hero section with locked two-column layout */}
-            <div className="px-4 sm:px-6 xl:px-8 py-2 sm:py-4 xl:py-6">
+            <div className="px-4 sm:px-6 xl:px-8 py-1 sm:py-4 xl:py-6">
               {/* Static accent decoration */}
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
-                <div className="grid md:grid-cols-2 gap-4 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[60vh] md:min-h-[90vh]">
+                <div className="grid md:grid-cols-2 gap-1 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left max-w-full sm:max-w-2xl self-center pt-2 md:pt-0 px-2 sm:px-0">
-                    <div className="space-y-3 mb-4 md:mb-6">
+                  <div className="text-left max-w-full sm:max-w-2xl self-center md:pt-0 px-2 sm:px-0">
+                    <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="text-2xl sm:text-4xl md:whitespace-nowrap md:leading-[1.3] md:pb-[0.15em] lg:text-[48px] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           Modern love is messy.
