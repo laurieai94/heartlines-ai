@@ -74,11 +74,6 @@ const AppContent = () => {
             <AuthCallback />
           </Suspense>
         } />
-        <Route path="/auth" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
-            <Auth />
-          </Suspense>
-        } />
         <Route path="/signin" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Auth />

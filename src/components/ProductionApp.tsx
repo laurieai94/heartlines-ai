@@ -42,7 +42,15 @@ const ProductionApp: React.FC = () => {
                 } 
               />
               <Route 
-                path="/auth" 
+                path="/auth/callback"
+                element={
+                  <ProductionErrorBoundary level="page" name="AuthCallback">
+                    <AuthCallback />
+                  </ProductionErrorBoundary>
+                } 
+              />
+              <Route 
+                path="/signin"
                 element={
                   <ProductionErrorBoundary level="page" name="Auth">
                     <Auth />
@@ -50,10 +58,10 @@ const ProductionApp: React.FC = () => {
                 } 
               />
               <Route 
-                path="/auth/callback" 
+                path="/signup"
                 element={
-                  <ProductionErrorBoundary level="page" name="AuthCallback">
-                    <AuthCallback />
+                  <ProductionErrorBoundary level="page" name="Auth">
+                    <Auth />
                   </ProductionErrorBoundary>
                 } 
               />

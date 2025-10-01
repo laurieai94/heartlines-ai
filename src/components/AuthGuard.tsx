@@ -9,7 +9,7 @@ interface AuthGuardProps {
   fallbackPath?: string;
 }
 
-const AuthGuard = ({ children, fallbackPath = '/auth' }: AuthGuardProps) => {
+const AuthGuard = ({ children, fallbackPath = '/signin' }: AuthGuardProps) => {
   const { user, loading } = useAuth();
 
   // Show loading while auth state is being determined
