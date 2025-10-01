@@ -15,17 +15,6 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
     lg: "text-4xl",
     xl: "text-6xl"
   };
-  
-  return (
-    <div 
-      className={`font-brand ${sizeClasses[size]} ${className}`}
-      onClick={onClick}
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
-    >
-      we miss you
-    </div>
-  );
+  return <div className={`font-brand ${sizeClasses[size]} ${className}`} onClick={onClick} role={onClick ? "button" : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={onClick ? e => e.key === 'Enter' && onClick() : undefined}>heartlines</div>;
 };
 export default HeartlinesWordmark;
