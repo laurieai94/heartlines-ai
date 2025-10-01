@@ -24,7 +24,7 @@ const HeartlinesWordmark: React.FC<HeartlinesWordmarkProps> = ({
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
     >
-      heartlines
+      we miss you
     </div>
   );
 };
