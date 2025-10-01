@@ -372,13 +372,13 @@ const LandingPage = ({
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-full md:max-w-xl lg:max-w-2xl self-center md:pt-0 px-2 sm:px-0 mt-8 md:mt-0">
                     <div className="space-y-2 mb-1 md:mb-6">
-                      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl lg:whitespace-nowrap lg:leading-[1.3] lg:pb-[0.15em] xl:text-[80px] 2xl:text-[100px] 3xl:text-[120px] font-playfair font-normal leading-tight animate-fade-in">
+                      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap lg:leading-[1.3] lg:pb-[0.15em] xl:text-[80px] 2xl:text-[100px] 3xl:text-[120px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           Modern love is messy.
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl lg:whitespace-nowrap lg:leading-[1.25] lg:pb-[0.1em] xl:text-[56px] 2xl:text-[72px] 3xl:text-[88px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl whitespace-nowrap lg:leading-[1.25] lg:pb-[0.1em] xl:text-[56px] 2xl:text-[72px] 3xl:text-[88px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
