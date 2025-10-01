@@ -279,12 +279,6 @@ const Auth = () => {
           </div>
         )}
 
-      {!isSignUp && (
-        <div className="text-center mb-6">
-          <h2 className="font-brand text-white text-3xl">we miss you</h2>
-        </div>
-      )}
-      
       <div className="questionnaire-card p-4 sm:p-5 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? (
             <div className="text-center space-y-4">
