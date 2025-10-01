@@ -39,8 +39,8 @@ const narrativeSlides = [
   },
   {
     id: 6,
-    content: "That's where Heartlines comes in.",
-    highlight: "Heartlines",
+    content: "That's where heartlines comes in.",
+    highlight: "heartlines",
     specialHighlight: "brand"
   },
   {
@@ -131,13 +131,22 @@ const HowItWorksSwipe = () => {
                           const isHighlighted = slide.highlight && line.includes(slide.highlight);
                           if (isHighlighted) {
                             const parts = line.split(slide.highlight);
-                            const highlightClass = slide.specialHighlight === "brand" 
-                              ? "font-brand text-coral-400 font-normal"
-                              : "bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium";
+                            if (slide.specialHighlight === "brand") {
+                              // For brand highlight: heartlines is white, rest has gradient
+                              return (
+                                <span key={lineIndex}>
+                                  <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[0]}</span>
+                                  <span className="text-white">{slide.highlight}</span>
+                                  <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[1]}</span>
+                                  {lineIndex < slide.content.split('\n').length - 1 && <br />}
+                                </span>
+                              );
+                            }
+                            // Regular gradient highlight
                             return (
                               <span key={lineIndex}>
                                 {parts[0]}
-                                <span className={highlightClass}>{slide.highlight}</span>
+                                <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{slide.highlight}</span>
                                 {parts[1]}
                                 {lineIndex < slide.content.split('\n').length - 1 && <br />}
                               </span>
