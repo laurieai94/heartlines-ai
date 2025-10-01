@@ -19,7 +19,7 @@ const slides: CarouselSlide[] = [
     alt: 'Elderly couple in their retro 1970s living room with peace signs and lava lamps'
   },
   {
-    year: '2071',
+    year: '2081',
     image: elderlyCoupleImage,
     alt: 'Elderly couple in their living room, still together after decades'
   },
