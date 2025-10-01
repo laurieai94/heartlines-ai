@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { trackAuthFlow } from '@/utils/analytics';
 import { 
   Carousel,
   CarouselContent,
@@ -65,8 +67,14 @@ const narrativeSlides = [
 ];
 
 const HowItWorksSwipe = () => {
+  const navigate = useNavigate();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+
+  const handleGetStartedClick = () => {
+    trackAuthFlow.signUpStarted();
+    navigate('/signup');
+  };
 
   React.useEffect(() => {
     if (!api) return;
@@ -109,6 +117,7 @@ const HowItWorksSwipe = () => {
                           </span>
                         </h2>
                         <Button 
+                          onClick={handleGetStartedClick}
                           className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium px-8 py-3 text-lg border-0"
                           size="lg"
                         >
