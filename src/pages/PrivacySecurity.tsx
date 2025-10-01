@@ -143,14 +143,14 @@ const PrivacySecurity = () => {
               </span>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light max-w-3xl mx-auto">
+            <p className="text-xl lg:text-2xl text-gray-300 mb-6 leading-relaxed font-light max-w-3xl mx-auto">
               We believe your relationship data belongs to you. That's why we've built privacy and security into every layer of <HeartlinesWordmark size="sm" className="inline-block align-baseline text-white" />, from client-side encryption to database-level protection.
             </p>
           </div>
         </section>
 
         {/* Key Features */}
-        <section className="px-6 py-16">
+        <section className="px-6 py-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((feature, index) => (
