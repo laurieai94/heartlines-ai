@@ -235,8 +235,11 @@ const Auth = () => {
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
         {/* Header - Only show during sign-up */}
-        {isSignUp && <div className="text-center mb-8">
-            
+        {isSignUp && <div className="text-center mb-6">
+            <HeartlinesWordmark 
+              className="text-white/30 mx-auto" 
+              size="lg"
+            />
           </div>}
 
         {/* Progress Header - Only show during sign-up */}
