@@ -370,7 +370,7 @@ const LandingPage = ({
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-1 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left max-w-full md:max-w-xl lg:max-w-2xl self-center md:pt-0 px-2 sm:px-0">
+                  <div className="text-left max-w-full md:max-w-xl lg:max-w-2xl self-center md:pt-0 px-2 sm:px-0 mt-4 md:mt-0">
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl lg:whitespace-nowrap lg:leading-[1.3] lg:pb-[0.15em] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
