@@ -278,8 +278,7 @@ const Auth = () => {
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
                 <h3 className="text-white font-semibold mb-2">Check your email!</h3>
                 <p className="text-white/70 text-sm mb-4">
-                  We've sent a verification link to <strong>{formData.email}</strong>. 
-                  Click the link to activate your account and start chatting with Kai.
+                  Activate your account and start chatting with Kai.
                 </p>
                 <div className="flex gap-2 justify-center">
                   <Button onClick={handleResendVerification} disabled={isResendingVerification || resendCooldown > 0} variant="outline" size="sm" className="border-white/20 bg-white/10 text-white hover:bg-white/20">
