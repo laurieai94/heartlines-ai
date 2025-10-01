@@ -171,18 +171,18 @@ const HowItWorksSwipe = () => {
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-200 group"
+          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-200 group"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5 text-white group-hover:text-coral-400 transition-colors" />
+          <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors" />
         </button>
         
         <button
           onClick={scrollNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-200 group"
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-200 group"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5 text-white group-hover:text-coral-400 transition-colors" />
+          <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors" />
         </button>
 
         {/* Dots Indicator */}
@@ -191,10 +191,10 @@ const HowItWorksSwipe = () => {
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              className={`w-1.5 h-1.5 rounded-full transition-opacity duration-200 ${
                 index === current 
-                  ? 'bg-coral-400 scale-125' 
-                  : 'bg-white/40 hover:bg-white/60'
+                  ? 'bg-white opacity-100' 
+                  : 'bg-white opacity-30 hover:opacity-50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

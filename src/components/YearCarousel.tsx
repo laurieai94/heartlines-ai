@@ -80,7 +80,7 @@ export const YearCarousel = () => {
                 </div>
                 
                 {/* Year Text */}
-                <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-12 md:pr-24 lg:pr-32 pb-8 md:pb-12 lg:pb-16">
+                <div className="absolute inset-0 flex items-end justify-start pl-4 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-8 md:pb-12 lg:pb-16">
                   <h2 className="font-['Shrikhand'] text-7xl md:text-8xl lg:text-9xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl">
                     {slide.year}
                   </h2>
@@ -91,21 +91,6 @@ export const YearCarousel = () => {
         </CarouselContent>
       </Carousel>
 
-      {/* Dot Indicators */}
-      {slides.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                current === index ? 'w-8 bg-white' : 'w-2 bg-white/50'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
     </section>
   );
 };
