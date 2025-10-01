@@ -231,16 +231,6 @@ const Auth = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
-        {/* Heartlines Logo - Only show for sign-in */}
-        {!isSignUp && (
-          <div className="flex justify-center mb-8">
-            <HeartlinesWordmark 
-              size="lg" 
-              className="text-white md:text-4xl text-3xl" 
-            />
-          </div>
-        )}
-        
         {/* Header - Only show during sign-up */}
         {isSignUp && (
           <div className="text-center mb-8">
@@ -400,7 +390,7 @@ const Auth = () => {
               {!isSignUp && (
                 <div className="text-center mb-4">
                   <HeartlinesWordmark 
-                    size="md" 
+                    size="xl" 
                     className="text-white font-brand mx-auto" 
                   />
                 </div>
