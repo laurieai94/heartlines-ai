@@ -622,12 +622,6 @@ const LandingPage = ({
       </section>
 
       {/* Photo Split Banner */}
-      <PhotoSplitBanner 
-        imageSrc={coupleConnection}
-        alt="Couple having a meaningful conversation"
-        heading="2071"
-        align="left"
-      />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">
