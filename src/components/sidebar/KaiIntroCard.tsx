@@ -16,7 +16,7 @@ const KaiIntroCard = () => {
         </div>
       </div>
       <p className="text-xs text-pink-200/60 leading-relaxed">
-        Your AI relationship coach, trained in <span className="bg-coral-400/30 text-white px-2 py-0.5 rounded">PhD-level psychology</span> and real-world clinical care. Grounded in <span className="bg-peach-400/30 text-white px-2 py-0.5 rounded">evidence-based</span> and <span className="bg-coral-400/30 text-white px-2 py-0.5 rounded">trauma-informed</span> practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
+        Your AI relationship coach, trained in <span className="bg-coral-400/30 text-white px-2 py-0.5 rounded">PhD-level psychology</span> and real-world clinical care. Grounded in <span className="bg-orange-400/30 text-white px-2 py-0.5 rounded">evidence-based</span> and <span className="bg-pink-400/30 text-white px-2 py-0.5 rounded">trauma-informed</span> practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between. LGBTQ+ inclusive and designed for real life, Kai meets you where you are.
       </p>
     </Card>
   );
