@@ -1061,7 +1061,7 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid hsl(var(--burgundy-500) / 0.3);
-    color: white;
+    color: #ffc0cb;
   }
 
   .glass-burgundy-input::placeholder {
