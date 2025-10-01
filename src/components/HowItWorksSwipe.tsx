@@ -185,21 +185,6 @@ const HowItWorksSwipe = () => {
           <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors" />
         </button>
 
-        {/* Dots Indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-          {narrativeSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
-              className={`w-1.5 h-1.5 rounded-full transition-opacity duration-200 ${
-                index === current 
-                  ? 'bg-white opacity-100' 
-                  : 'bg-white opacity-30 hover:opacity-50'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
 
         {/* Hint Text */}
         <div className="absolute top-6 right-6 hidden md:block">
