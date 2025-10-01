@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield, Lock } from "lucide-react";
+import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -567,32 +567,6 @@ const LandingPage = ({
                 Not always easy — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">always worth it</span>.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Privacy & Security Section */}
-      <section className="py-12 md:py-16">
-        <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`${glassCard} p-4 md:p-6 max-w-3xl mx-auto`}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30">
-                <Lock className="w-4 h-4 text-coral-400" aria-label="Privacy & Security" />
-              </div>
-              <p className="text-white/90 font-medium text-sm md:text-base">
-                Locked on your device. Only you can see it. Analytics are optional.
-              </p>
-            </div>
-            
-            <div className="space-y-2 text-sm text-white/70 mb-4">
-              <p>• Encrypted on your device before anything is sent</p>
-              <p>• Only your account can access your data</p>
-              <p>• Analytics are opt-in (anonymous, off by default)</p>
-            </div>
-            
-            <Link to="/privacy" className="text-white/70 hover:text-white/90 underline underline-offset-2 text-sm motion-safe:transition-colors motion-safe:duration-150">
-              Read more
-            </Link>
           </div>
         </div>
       </section>
