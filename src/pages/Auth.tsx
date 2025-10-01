@@ -470,7 +470,7 @@ const Auth = () => {
                  )}
                </div>
                {!isSignUp && (
-                 <div className="text-right">
+                 <div className="text-left">
                   <button
                     type="button"
                     onClick={() => setShowForgotPassword(true)}
