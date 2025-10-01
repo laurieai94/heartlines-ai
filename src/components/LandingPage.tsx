@@ -475,7 +475,7 @@ const LandingPage = ({
         <PhotoSplitBanner 
           imageSrc={elderlyCoupleCouch}
           alt="Elderly couple sitting together on couch, showing lasting love and connection"
-          heading="Love that lasts\nstarts with\nunderstanding each other."
+          heading="2071"
           align="right"
         />
       </div>
@@ -625,7 +625,7 @@ const LandingPage = ({
       <PhotoSplitBanner 
         imageSrc={coupleConnection}
         alt="Couple having a meaningful conversation"
-        heading="Real relationships\nstart with real\nconversations."
+        heading="2071"
         align="left"
       />
 
