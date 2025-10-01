@@ -68,7 +68,7 @@ export const YearCarousel = () => {
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={index}>
-              <div className="relative h-[60vh] md:h-[70vh] w-full">
+              <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
                 <img
                   src={slide.image}
@@ -86,9 +86,9 @@ export const YearCarousel = () => {
                 </div>
                 
                 {/* Year Text */}
-                <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-16 md:pb-20 lg:pb-24 xl:pb-28">
-                  <div className="flex flex-col gap-2 md:gap-3 mb-4 md:mb-6 lg:mb-8">
-                    <h2 className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl leading-tight">
+                <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-16 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
+                  <div className="flex flex-col gap-2 md:gap-3 mb-6 md:mb-8 lg:mb-12 xl:mb-16 overflow-hidden">
+                    <h2 className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-8xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl leading-tight">
                       {slide.year}
                     </h2>
                     <p className="text-white font-playfair text-lg md:text-xl lg:text-2xl font-normal drop-shadow-lg">
