@@ -374,7 +374,7 @@ const LandingPage = ({
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl lg:leading-[1.3] lg:pb-[0.15em] xl:text-[80px] 2xl:text-[100px] 3xl:text-[120px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                          Relationships aren't rom-coms.
+                          Relationships<br className="md:hidden" /> aren't rom-coms.
                         </span>
                       </h1>
                       
