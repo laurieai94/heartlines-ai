@@ -56,7 +56,7 @@ export const YearCarousel = () => {
   }, [api]);
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-screen left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] overflow-hidden">
       <Carousel
         setApi={setApi}
         opts={{
