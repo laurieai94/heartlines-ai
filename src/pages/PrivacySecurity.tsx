@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, Menu, User } from 'lucide-react';
 import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
+import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 const PrivacySecurity = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -143,7 +144,7 @@ const PrivacySecurity = () => {
             </h1>
             
             <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed font-light max-w-3xl mx-auto">
-              We believe your relationship data belongs to you. That's why we've built privacy and security into every layer of RealTalk, from client-side encryption to database-level protection.
+              We believe your relationship data belongs to you. That's why we've built privacy and security into every layer of <HeartlinesWordmark size="sm" className="inline-block align-baseline text-white" />, from client-side encryption to database-level protection.
             </p>
           </div>
         </section>
