@@ -14,30 +14,29 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 import SiteFooter from "./SiteFooter";
-
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
-  const StepCard = ({
-    step,
-    title,
-    description,
-    icon,
-    iconName,
-    index
-  }: {
-    step: string;
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-    iconName: string;
-    index: number;
-  }) => {
-    const [displayStep, setDisplayStep] = useState(step); // Start with final value to avoid animation delay
-    return <article className={`
+const StepCard = ({
+  step,
+  title,
+  description,
+  icon,
+  iconName,
+  index
+}: {
+  step: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  iconName: string;
+  index: number;
+}) => {
+  const [displayStep, setDisplayStep] = useState(step); // Start with final value to avoid animation delay
+  return <article className={`
           relative group cursor-pointer
           w-full max-w-md mx-auto md:max-w-none
           mb-3 md:mb-0 h-full
@@ -47,9 +46,10 @@ import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
           ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
           ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
         `} style={{
-      animationDelay: '0ms', // Remove staggered delays
-      animationFillMode: 'both'
-    }} tabIndex={0} role="article" aria-label={title}>
+    animationDelay: '0ms',
+    // Remove staggered delays
+    animationFillMode: 'both'
+  }} tabIndex={0} role="article" aria-label={title}>
         {/* Premium Glass Card with Enhanced Effects */}
         <div className="
           relative overflow-hidden h-full flex flex-col
@@ -140,10 +140,9 @@ const LandingPage = ({
   // Ensure menu closes when user navigates away or clicks outside
   useEffect(() => {
     const closeMenu = () => setIsMenuOpen(false);
-    
+
     // Close menu on route changes
     window.addEventListener('popstate', closeMenu);
-    
     return () => {
       window.removeEventListener('popstate', closeMenu);
     };
@@ -153,7 +152,6 @@ const LandingPage = ({
   useGlobalResize(() => {
     setIsMenuOpen(false);
   }, []);
-
   const isEmbedded = !showMarketingTopBar;
 
   // Glass card styling helper
@@ -235,20 +233,20 @@ const LandingPage = ({
           clearInterval(profileTimer);
         };
       };
-
       let cleanup: (() => void) | undefined;
-      
+
       // Use requestIdleCallback for better performance
       if ('requestIdleCallback' in window) {
         (window as any).requestIdleCallback(() => {
           cleanup = deferredSetup();
-        }, { timeout: 2000 });
+        }, {
+          timeout: 2000
+        });
       } else {
         setTimeout(() => {
           cleanup = deferredSetup();
         }, 1000);
       }
-
       return () => {
         cleanup?.();
       };
@@ -280,25 +278,11 @@ const LandingPage = ({
                     <Menu className="w-8 h-8" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent 
-                  side="bottom" 
-                  align="start" 
-                  className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50"
-                  onInteractOutside={() => setIsMenuOpen(false)}
-                  onEscapeKeyDown={() => setIsMenuOpen(false)}
-                >
+                <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
                   <div className="flex flex-col">
-                    {navItems.map(item => (
-                      <Link 
-                        key={item.to} 
-                        to={item.to}
-                        title={item.label}
-                        className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" 
-                        onClick={() => setIsMenuOpen(false)}
-                      >
+                    {navItems.map(item => <Link key={item.to} to={item.to} title={item.label} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
                         <item.icon className="w-5 h-5" />
-                      </Link>
-                    ))}
+                      </Link>)}
                   </div>
                 </PopoverContent>
               </Popover>
@@ -630,10 +614,7 @@ const LandingPage = ({
               </Link>
               
               <Link to="/mission">
-                <Button variant="ghost" className="w-full glass-burgundy border border-burgundy-500/15 rounded-full text-white/90 hover:bg-burgundy-400/15 px-6 py-3 text-base md:text-lg motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
-                  Watch a 45-sec demo
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                
               </Link>
             </div>
           </div>
