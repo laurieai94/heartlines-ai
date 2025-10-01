@@ -11,7 +11,7 @@ interface PhotoSplitBannerProps {
 const PhotoSplitBanner = ({ 
   imageSrc = millennial_couple,
   alt = "Millennial couple having a warm conversation",
-  heading = "Real relationships\nstart with real\nconversations.",
+  heading = "2071",
   align = 'right'
 }: PhotoSplitBannerProps) => {
   const [imageError, setImageError] = useState(false);
@@ -47,7 +47,7 @@ const PhotoSplitBanner = ({
         <div className="container mx-auto px-4 sm:px-6">
           <div className={`max-w-2xl ${align === 'right' ? 'ml-auto' : 'mr-auto'}`}>
             <div className={`${align === 'right' ? 'text-right' : 'text-left'} space-y-4`}>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-playfair font-normal leading-[1.1] text-white animate-fade-in">
+              <h2 className="text-7xl sm:text-8xl lg:text-9xl font-brand font-normal leading-[1.1] text-white animate-fade-in">
                 {heading.split('\n').map((line, index) => (
                   <span key={index} className="block">
                     {index === 0 && (
