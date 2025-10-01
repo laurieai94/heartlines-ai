@@ -37,11 +37,27 @@ const narrativeSlides = [
   },
   {
     id: 6,
-    content: "That's where Heartlines comes in.\nNot to \"fix\" your relationship.\nBut to help you feel more connected—\nto yourself, and maybe to someone else.",
-    highlight: "help you feel more connected"
+    content: "That's where Heartlines comes in.",
+    highlight: "Heartlines",
+    specialHighlight: "brand"
   },
   {
     id: 7,
+    content: "Not to \"fix\" your relationship.",
+    highlight: "\"fix\""
+  },
+  {
+    id: 8,
+    content: "But to help you feel more connected—",
+    highlight: "feel more connected"
+  },
+  {
+    id: 9,
+    content: "to yourself, and maybe to someone else.",
+    highlight: "to yourself"
+  },
+  {
+    id: 10,
     content: "",
     highlight: "",
     isCTA: true
@@ -106,10 +122,13 @@ const HowItWorksSwipe = () => {
                           const isHighlighted = slide.highlight && line.includes(slide.highlight);
                           if (isHighlighted) {
                             const parts = line.split(slide.highlight);
+                            const highlightClass = slide.specialHighlight === "brand" 
+                              ? "font-brand text-coral-400 font-normal"
+                              : "bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium";
                             return (
                               <span key={lineIndex}>
                                 {parts[0]}
-                                <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{slide.highlight}</span>
+                                <span className={highlightClass}>{slide.highlight}</span>
                                 {parts[1]}
                                 {lineIndex < slide.content.split('\n').length - 1 && <br />}
                               </span>
