@@ -23,8 +23,8 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
     { value: 'home', label: 'Home', icon: Home },
     { value: 'profile', label: 'Profile', icon: UserIcon },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'account', label: 'My Account', icon: Settings },
     { value: 'plans', label: 'Plans', icon: CreditCard },
+    { value: 'account', label: 'My Account', icon: Settings },
   ];
 
   const handleNavigation = (item: any) => {
