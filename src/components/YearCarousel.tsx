@@ -70,12 +70,12 @@ export const YearCarousel = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
                 
                 {/* Heartlines Branding */}
-                <div className="absolute top-8 left-8 md:top-12 md:left-16 lg:top-16 lg:left-24 z-10">
+                <div className="absolute top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-10">
                   <HeartlinesWordmark className="text-white" size="lg" />
                 </div>
                 
                 {/* Year Text */}
-                <div className="absolute inset-0 flex items-center justify-start px-8 md:px-16 lg:px-24">
+                <div className="absolute inset-0 flex items-end justify-start px-8 md:px-16 lg:px-24 pb-8 md:pb-12 lg:pb-16">
                   <h2 className="font-['Shrikhand'] text-7xl md:text-8xl lg:text-9xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl">
                     {slide.year}
                   </h2>
