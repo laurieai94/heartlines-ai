@@ -279,9 +279,6 @@ const PrivacySecurity = () => {
         <section className="px-6 py-20">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl lg:text-4xl font-thin text-white mb-6">Ready to take control of your privacy?</h2>
-            <p className="text-lg text-gray-300 mb-8 font-light">
-              Start using RealTalk with confidence, knowing your data is protected by industry-leading security measures.
-            </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/privacy">
