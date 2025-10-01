@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
+import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -12,11 +13,15 @@ interface CarouselSlide {
 
 const slides: CarouselSlide[] = [
   {
+    year: '2063',
+    image: elderlyCoupleRetroImage,
+    alt: 'Elderly couple in their retro 1970s living room with peace signs and lava lamps'
+  },
+  {
     year: '2071',
     image: elderlyCoupleImage,
     alt: 'Elderly couple in their living room, still together after decades'
   }
-  // Additional slides can be added here as more images are provided
 ];
 
 export const YearCarousel = () => {
