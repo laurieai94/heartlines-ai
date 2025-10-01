@@ -355,7 +355,7 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: '100vh'
+      minHeight: 'clamp(60vh, 80vh, 100vh)'
     }}>
         {/* Static background preserved */}
         
@@ -368,9 +368,9 @@ const LandingPage = ({
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[90vh]">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[60vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left max-w-2xl self-center pt-8 md:pt-0">
+                  <div className="text-left max-w-2xl self-center pt-2 md:pt-0">
                     <div className="space-y-3 mb-4 md:mb-6">
                       <h1 className="text-3xl sm:text-4xl whitespace-nowrap md:leading-[1.3] md:pb-[0.15em] lg:text-[48px] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">

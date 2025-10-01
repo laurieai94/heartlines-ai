@@ -171,7 +171,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     <div className={`relative ${className}`} style={style}>
 
       {/* Phone container - positioned to align with hero text */}
-      <div className="relative flex items-start justify-center z-20 p-2 sm:p-4 lg:p-6">
+      <div className="relative flex items-start justify-center z-20 p-0 sm:p-2 lg:p-4">
         {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]">
           {/* Subtle halo behind phone */}
