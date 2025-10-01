@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
+import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -21,6 +22,11 @@ const slides: CarouselSlide[] = [
     year: '2071',
     image: elderlyCoupleImage,
     alt: 'Elderly couple in their living room, still together after decades'
+  },
+  {
+    year: '2067',
+    image: elderlyCoupleNycImage,
+    alt: 'Elderly couple in their cozy NYC apartment with their cats'
   }
 ];
 
