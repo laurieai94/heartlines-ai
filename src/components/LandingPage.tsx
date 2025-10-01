@@ -19,6 +19,7 @@ import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import PhotoSplitBanner from "./PhotoSplitBanner";
 import coupleConnection from "@/assets/couple-connection.jpg";
+import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
   const StepCard = ({
@@ -468,6 +469,14 @@ const LandingPage = ({
             </div>
           </div>}
       </section>
+
+      {/* Full-Bleed Elderly Couple Banner */}
+      <PhotoSplitBanner 
+        imageSrc={elderlyCoupleCouch}
+        alt="Elderly couple sitting together on couch, showing lasting love and connection"
+        heading="Love that lasts\nstarts with\nunderstanding each other."
+        align="right"
+      />
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
