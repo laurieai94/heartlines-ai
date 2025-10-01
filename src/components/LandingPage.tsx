@@ -395,7 +395,7 @@ const LandingPage = ({
                         </> : <>
                           <Link to="/signup">
                             <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                              Get Started
+                              Chat with Kai
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
                           </Link>
