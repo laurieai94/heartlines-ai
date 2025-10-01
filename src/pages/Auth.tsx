@@ -471,13 +471,13 @@ const Auth = () => {
                </div>
                {!isSignUp && (
                  <div className="text-right">
-                   <button
-                     type="button"
-                     onClick={() => setShowForgotPassword(true)}
-                     className="text-xs text-coral-400 hover:text-coral-300 underline"
-                   >
-                     Forgot Password?
-                   </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowForgotPassword(true)}
+                    className="text-xs text-coral-400 hover:text-coral-300 underline"
+                  >
+                    Locked out?
+                  </button>
                  </div>
                )}
              </div>
