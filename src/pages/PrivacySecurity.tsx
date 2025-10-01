@@ -101,7 +101,7 @@ const PrivacySecurity = () => {
 
             {/* Right: Sign In & Get Started */}
             <div className="flex items-center gap-3">
-              <Link to="/auth">
+              <Link to="/signin">
                 <Button
                   variant="ghost"
                   className="hidden sm:flex text-white hover:bg-white/10 gap-2"

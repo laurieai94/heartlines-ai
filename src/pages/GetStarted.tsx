@@ -85,7 +85,7 @@ const GetStarted = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/auth" onClick={handleGetStartedClick}>
+          <Link to="/signup" onClick={handleGetStartedClick}>
             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-12 py-6 text-xl rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm mb-4">
               Start Your Journey
               <ArrowRight className="w-6 h-6 ml-3" />
@@ -94,7 +94,7 @@ const GetStarted = () => {
           
           <p className="text-white/60 text-sm">
             Already have an account?{' '}
-            <Link to="/auth?mode=signin" className="text-coral-400 hover:text-coral-300 underline">
+            <Link to="/signin" className="text-coral-400 hover:text-coral-300 underline">
               Sign in here
             </Link>
           </p>

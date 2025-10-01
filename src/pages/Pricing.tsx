@@ -70,7 +70,7 @@ const Pricing = () => {
         <SimpleHeader 
           user={user} 
           activeTab="plans" 
-          onSignInClick={() => navigate('/auth')} 
+          onSignInClick={() => navigate('/signin')} 
         />
         
         <div className="container mx-auto px-4 py-6 lg:pt-12">
