@@ -237,7 +237,7 @@ const Auth = () => {
         {/* Header - Only show during sign-up */}
         {isSignUp && <div className="text-center mb-6">
             <HeartlinesWordmark 
-              className="text-white/30 mx-auto" 
+              className="text-white mx-auto" 
               size="lg"
             />
           </div>}
