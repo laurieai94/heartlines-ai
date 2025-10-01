@@ -353,7 +353,7 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: '65vh'
+      minHeight: '100vh'
     }}>
         {/* Static background preserved */}
         
@@ -366,9 +366,9 @@ const LandingPage = ({
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
-                <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left max-w-2xl self-center">
+                  <div className="text-left max-w-2xl self-center pt-8 md:pt-0">
                     <div className="space-y-3 mb-4 md:mb-6">
                       <h1 className="text-3xl sm:text-4xl whitespace-nowrap md:leading-[1.3] md:pb-[0.15em] lg:text-[48px] xl:text-[60px] 2xl:text-[72px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
@@ -402,8 +402,8 @@ const LandingPage = ({
                   </div>
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
-                  <div className="relative flex justify-center md:justify-end items-start self-start md:-mt-2 -mt-4">
-                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-100 origin-top relative z-10">
+                  <div className="relative flex justify-center md:justify-end items-center self-center">
+                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-95 origin-center relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                     </div>
                   </div>
@@ -471,12 +471,14 @@ const LandingPage = ({
       </section>
 
       {/* Full-Bleed Elderly Couple Banner */}
-      <PhotoSplitBanner 
-        imageSrc={elderlyCoupleCouch}
-        alt="Elderly couple sitting together on couch, showing lasting love and connection"
-        heading="Love that lasts\nstarts with\nunderstanding each other."
-        align="right"
-      />
+      <div className="mt-24 md:mt-32 lg:mt-40">
+        <PhotoSplitBanner 
+          imageSrc={elderlyCoupleCouch}
+          alt="Elderly couple sitting together on couch, showing lasting love and connection"
+          heading="Love that lasts\nstarts with\nunderstanding each other."
+          align="right"
+        />
+      </div>
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
