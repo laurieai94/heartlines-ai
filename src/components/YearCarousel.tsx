@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
@@ -89,14 +89,6 @@ export const YearCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        {/* Navigation Controls */}
-        {slides.length > 1 && (
-          <>
-            <CarouselPrevious className="left-4 md:left-8" />
-            <CarouselNext className="right-4 md:right-8" />
-          </>
-        )}
       </Carousel>
 
       {/* Dot Indicators */}
