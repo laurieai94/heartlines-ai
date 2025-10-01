@@ -93,10 +93,9 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
   return (
     <Button
       onClick={onSignInClick}
-      className="bg-white text-burgundy-900 hover:bg-gray-100 shadow-sm transition-all duration-300 px-4 py-2 rounded-full"
+      className="bg-transparent hover:bg-white/10 shadow-sm transition-all duration-300 p-2 rounded-full"
     >
-      <User className="mr-2 h-4 w-4" />
-      <span className="hidden sm:inline">Sign In</span>
+      <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
     </Button>
   );
 };
