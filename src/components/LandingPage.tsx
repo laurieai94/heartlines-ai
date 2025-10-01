@@ -350,6 +350,9 @@ const LandingPage = ({
           </div>
         </nav>}
 
+      {/* Full-Bleed Year Carousel - Above the Fold */}
+      <YearCarousel />
+
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
       minHeight: '100vh'
@@ -468,11 +471,6 @@ const LandingPage = ({
             </div>
           </div>}
       </section>
-
-      {/* Full-Bleed Year Carousel */}
-      <div className="mt-24 md:mt-32 lg:mt-40">
-        <YearCarousel />
-      </div>
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
@@ -614,9 +612,6 @@ const LandingPage = ({
           </div>
         </div>
       </section>
-
-      {/* Year Carousel */}
-      <YearCarousel />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">
