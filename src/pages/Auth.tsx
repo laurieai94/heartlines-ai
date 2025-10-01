@@ -12,7 +12,7 @@ import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordP
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 const Auth = () => {
-  const { user, loading, signIn, signUp, resendVerification } = useAuth();
+  const { user, loading, signIn, signUp, resendVerification, resetPassword } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isSignUp, setIsSignUp] = useState(true);
@@ -28,6 +28,8 @@ const Auth = () => {
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [isResendingVerification, setIsResendingVerification] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
 
   // Check for mode parameter on mount
   useEffect(() => {
@@ -199,6 +201,27 @@ const Auth = () => {
     return isSignUp && formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
   };
 
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.email) {
+      setFormErrors(['Please enter your email address']);
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setFormErrors([]);
+    
+    try {
+      const { error } = await resetPassword(formData.email);
+      if (error) throw error;
+      setResetEmailSent(true);
+    } catch (error: any) {
+      setFormErrors([getErrorMessage(error)]);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen questionnaire-bg">
       {/* Animated background elements */}
@@ -293,13 +316,93 @@ const Auth = () => {
                 Back to Home
               </Button>
             </div>
+          ) : showForgotPassword ? (
+            <>
+              <div className="text-center mb-4">
+                <h1 className="text-2xl font-bold text-white mb-2">
+                  {resetEmailSent ? 'Check your email' : 'Reset password'}
+                </h1>
+                {resetEmailSent && (
+                  <p className="text-white/70 text-sm">
+                    We've sent a password reset link to <strong>{formData.email}</strong>
+                  </p>
+                )}
+              </div>
+
+              {resetEmailSent ? (
+                <div className="text-center space-y-4">
+                  <p className="text-white/70 text-sm">
+                    Click the link in your email to reset your password.
+                  </p>
+                  <Button
+                    onClick={() => {
+                      setShowForgotPassword(false);
+                      setResetEmailSent(false);
+                      setFormErrors([]);
+                    }}
+                    variant="ghost"
+                    className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Sign In
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleResetPassword} className="space-y-3">
+                  <div className="space-y-1">
+                    <Label htmlFor="reset-email" className="text-white text-sm">
+                      Email
+                    </Label>
+                    <Input
+                      id="reset-email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      placeholder="Drop your email"
+                      required
+                    />
+                  </div>
+
+                  {formErrors.length > 0 && (
+                    <div className="p-3 rounded-lg bg-red-500/20 border border-red-400/30">
+                      {formErrors.map((error, index) => (
+                        <p key={index} className="text-red-300 text-xs">
+                          {error}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full questionnaire-button-primary py-2 text-sm"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Reset Link'}
+                  </Button>
+
+                  <Button
+                    onClick={() => {
+                      setShowForgotPassword(false);
+                      setFormErrors([]);
+                    }}
+                    variant="ghost"
+                    className="w-full text-white/60 hover:text-white/80 hover:bg-white/5 text-sm"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Sign In
+                  </Button>
+                </form>
+              )}
+            </>
           ) : (
             <>
               {!isSignUp && (
                 <div className="text-center mb-4">
-                  <h1 className="text-2xl font-bold text-white mb-2">
-                    We missed you
-                  </h1>
+                  <HeartlinesWordmark 
+                    size="md" 
+                    className="text-white font-brand mx-auto" 
+                  />
                 </div>
               )}
 
@@ -354,13 +457,24 @@ const Auth = () => {
                     <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />
                   )}
                 </div>
-                {isSignUp && (
-                  <p className="text-xs text-white/60 leading-tight">
-                    {getPasswordPolicyText()}
-                  </p>
-                )}
-              </div>
-            </div>
+                 {isSignUp && (
+                   <p className="text-xs text-white/60 leading-tight">
+                     {getPasswordPolicyText()}
+                   </p>
+                 )}
+               </div>
+               {!isSignUp && (
+                 <div className="text-right">
+                   <button
+                     type="button"
+                     onClick={() => setShowForgotPassword(true)}
+                     className="text-xs text-coral-400 hover:text-coral-300 underline"
+                   >
+                     Forgot Password?
+                   </button>
+                 </div>
+               )}
+             </div>
 
             {isSignUp && validatePasswordPolicy(formData.password).isValid && (
               <div className="space-y-1">

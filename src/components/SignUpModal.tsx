@@ -343,7 +343,7 @@ const SignUpModal = ({
                         onClick={() => setShowForgotPassword(true)}
                         className="text-sm questionnaire-text-muted hover:questionnaire-text transition-colors"
                       >
-                        Oops, blanking rn
+                        Forgot Password?
                       </button>
                     )}
                   </div>
