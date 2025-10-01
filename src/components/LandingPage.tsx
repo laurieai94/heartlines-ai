@@ -352,7 +352,7 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: !isEmbedded ? 'calc(100vh - 64px)' : '100vh'
+      minHeight: '65vh'
     }}>
         {/* Static background preserved */}
         
