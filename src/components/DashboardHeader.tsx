@@ -49,8 +49,8 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
     { value: 'home', label: 'Home', icon: Home },
     { value: 'profile', label: 'Profile', icon: UserIcon, isExternal: true },
     { value: 'insights', label: 'Coach', icon: MessageSquare },
-    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
     { value: 'plans', label: 'Plans', icon: CreditCard, isExternal: true },
+    { value: 'account', label: 'My Account', icon: Settings, isExternal: true },
   ];
 
   const handleNavigation = (item: any, isMobileNav = false) => {
