@@ -273,7 +273,7 @@ const LandingPage = ({
 
       {/* Navigation */}
       {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-md border-b border-coral-400/15">
-          <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto flex justify-between items-center">
+          <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <PopoverTrigger asChild>
@@ -314,18 +314,18 @@ const LandingPage = ({
                     Sign in
                     </Button>
                   </Link>
-                  <Link to="/auth">
+                  <Link to="/signup">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                     Get Started
                     </Button>
                   </Link>
                 </> : <>
-                  <Link to="/auth?mode=signin">
+                  <Link to="/signin">
                     <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 transition-all duration-200">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth">
+                  <Link to="/signup">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                       Get Started
                     </Button>
@@ -336,12 +336,12 @@ const LandingPage = ({
             {/* Mobile CTA */}
             <div className="md:hidden mr-2">
               <div className="flex items-center gap-2">
-                <Link to="/auth?mode=signin">
+                <Link to="/signin">
                   <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
                     Sign In
                   </Button>
                 </Link>
-                <Link to="/auth">
+                <Link to="/signup">
                   <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
                     Get Started
                   </Button>
@@ -365,7 +365,7 @@ const LandingPage = ({
               <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-burgundy-400/10 to-coral-400/10 rounded-full blur-xl backdrop-blur-sm"></div>
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
-              <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto relative z-10">
+              <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 items-start min-h-full">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left max-w-2xl self-center">
@@ -384,14 +384,14 @@ const LandingPage = ({
                     
                     <div className="hidden md:flex items-center gap-4">
                       {user ? <>
-                          <Link to="/auth">
+                          <Link to="/signup">
                             <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
                           </Link>
                         </> : <>
-                          <Link to="/auth">
+                          <Link to="/signup">
                             <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                               Get Started
                               <ArrowRight className="w-5 h-5 ml-2" />
@@ -414,7 +414,7 @@ const LandingPage = ({
         
         {/* Embedded version - horizontal layout with static background */}
         {isEmbedded && <div className="px-6 py-8 lg:py-12">
-            <div className="max-w-6xl mx-auto relative z-10">
+            <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
                 {/* Left - Text Content */}
                 <div className="max-w-[580px]">
@@ -447,7 +447,7 @@ const LandingPage = ({
                           </Button>
                         </Link>
                       </> : <>
-                        <Link to="/auth">
+                        <Link to="/signup">
                           <Button size="lg" variant="glass" className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-3" />
@@ -636,7 +636,7 @@ const LandingPage = ({
             </h2>
             
             <div className="flex flex-col gap-3 justify-center max-w-md mx-auto">
-              <Link to="/auth">
+              <Link to="/signup">
                 <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full px-6 py-3 text-base md:text-lg font-medium motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
                   Start free
                   <ArrowRight className="w-5 h-5 ml-2" />
