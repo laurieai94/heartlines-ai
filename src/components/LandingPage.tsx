@@ -17,8 +17,7 @@ import SiteFooter from "./SiteFooter";
 
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
-import PhotoSplitBanner from "./PhotoSplitBanner";
-import coupleConnection from "@/assets/couple-connection.jpg";
+import { YearCarousel } from "./YearCarousel";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
 // Premium StepCard Component with Glass Effects and Micro-animations
@@ -470,14 +469,9 @@ const LandingPage = ({
           </div>}
       </section>
 
-      {/* Full-Bleed Elderly Couple Banner */}
+      {/* Full-Bleed Year Carousel */}
       <div className="mt-24 md:mt-32 lg:mt-40">
-        <PhotoSplitBanner 
-          imageSrc={elderlyCoupleCouch}
-          alt="Elderly couple sitting together on couch, showing lasting love and connection"
-          heading="2071"
-          align="right"
-        />
+        <YearCarousel />
       </div>
 
       {/* How It Works Section - Playful 4-Step Flow */}
@@ -621,7 +615,8 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* Photo Split Banner */}
+      {/* Year Carousel */}
+      <YearCarousel />
 
       {/* CTA Band */}
       <section className="py-16 md:py-20">
