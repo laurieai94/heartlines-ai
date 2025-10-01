@@ -37,13 +37,21 @@ const Auth = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
 
-  // Check for mode parameter on mount
+  // Check for mode parameter and route path on mount
   useEffect(() => {
-    const mode = searchParams.get('mode');
-    if (mode === 'signin') {
+    // Check route path first
+    if (location.pathname === '/signin') {
       setIsSignUp(false);
+    } else if (location.pathname === '/signup') {
+      setIsSignUp(true);
+    } else {
+      // Fallback to URL parameters for /auth route
+      const mode = searchParams.get('mode');
+      if (mode === 'signin') {
+        setIsSignUp(false);
+      }
     }
-  }, [searchParams]);
+  }, [searchParams, location.pathname]);
 
   // Redirect if already authenticated
   if (user && !loading) {

@@ -79,6 +79,16 @@ const AppContent = () => {
             <Auth />
           </Suspense>
         } />
+        <Route path="/signin" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Auth />
+          </Suspense>
+        } />
+        <Route path="/signup" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <Auth />
+          </Suspense>
+        } />
         <Route path="/get-started" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <GetStarted />
