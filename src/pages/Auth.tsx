@@ -390,8 +390,8 @@ const Auth = () => {
               {!isSignUp && (
                 <div className="text-center mb-4">
                   <HeartlinesWordmark 
-                    size="xl" 
-                    className="text-white font-brand mx-auto" 
+                    size="lg" 
+                    className="text-white font-brand mx-auto whitespace-nowrap" 
                   />
                 </div>
               )}
