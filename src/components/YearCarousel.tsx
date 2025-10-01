@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
+import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
   year: string;
@@ -68,9 +69,14 @@ export const YearCarousel = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
                 
+                {/* Heartlines Branding */}
+                <div className="absolute top-8 left-8 md:top-12 md:left-16 lg:top-16 lg:left-24 z-10">
+                  <HeartlinesWordmark className="text-white" size="lg" />
+                </div>
+                
                 {/* Year Text */}
                 <div className="absolute inset-0 flex items-center justify-start px-8 md:px-16 lg:px-24">
-                  <h2 className="font-['Shrikhand'] text-7xl md:text-8xl lg:text-9xl text-white drop-shadow-2xl">
+                  <h2 className="font-['Shrikhand'] text-7xl md:text-8xl lg:text-9xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl">
                     {slide.year}
                   </h2>
                 </div>
