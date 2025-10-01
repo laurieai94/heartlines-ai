@@ -274,16 +274,21 @@ const Auth = () => {
 
       <div className="questionnaire-card p-4 sm:p-5 animate-fade-in max-w-sm mx-auto w-full">
           {showEmailVerification ? <div className="text-center space-y-4">
-              <div className="p-4 rounded-lg bg-green-500/20 border border-green-400/30">
+              <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
-                <h3 className="text-white font-semibold mb-2">Check your email!</h3>
+                <h3 className="questionnaire-text font-semibold mb-2">Check your email!</h3>
+                <p className="questionnaire-text-muted text-sm mb-4">
+                  We've sent you a verification link. Click it to activate your account.
+                </p>
                 
-                <div className="flex gap-2 justify-center mt-4">
-                  <Button onClick={handleResendVerification} disabled={isResendingVerification || resendCooldown > 0} variant="outline" size="sm" className="border-white/20 bg-white/10 text-white hover:bg-white/20">
-                    <Mail className="w-4 h-4 mr-2" />
-                    {isResendingVerification ? 'Sending...' : resendCooldown > 0 ? `Resend (${resendCooldown}s)` : 'Resend Email'}
-                  </Button>
-                </div>
+                <button 
+                  onClick={handleResendVerification} 
+                  disabled={isResendingVerification || resendCooldown > 0}
+                  className="questionnaire-button-secondary w-full"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  {isResendingVerification ? 'Sending...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Email'}
+                </button>
               </div>
               <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
