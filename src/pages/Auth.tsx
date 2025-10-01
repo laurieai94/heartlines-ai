@@ -277,9 +277,7 @@ const Auth = () => {
               <div className="p-4 rounded-lg bg-green-500/20 border border-green-400/30">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
                 <h3 className="text-white font-semibold mb-2">Check your email!</h3>
-                <p className="text-white/70 text-sm mb-4">
-                  Activate your account and start chatting with Kai.
-                </p>
+                
                 <div className="flex gap-2 justify-center">
                   <Button onClick={handleResendVerification} disabled={isResendingVerification || resendCooldown > 0} variant="outline" size="sm" className="border-white/20 bg-white/10 text-white hover:bg-white/20">
                     <Mail className="w-4 h-4 mr-2" />
