@@ -83,11 +83,11 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 py-8">
       {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden z-0">
+      <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden z-0">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full"
+          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-100"
           style={{
-            boxShadow: '0 0 20px hsl(var(--pink-400) / 0.8), 0 0 40px hsl(var(--coral-400) / 0.6), 0 0 60px hsl(var(--orange-400) / 0.4)'
+            boxShadow: '0 0 30px hsl(var(--pink-400) / 1), 0 0 50px hsl(var(--coral-400) / 0.9), 0 0 80px hsl(var(--orange-400) / 0.7)'
           }}
         />
       </div>
@@ -106,8 +106,8 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 animationDelay: `${index * 0.15}s`
               }}
             >
-              {/* Center Dot with Enhanced Gradient Glow */}
-              <div className="absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
+              {/* Center Dot - Hidden */}
+              <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
                 style={{
                   boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
                 }}
