@@ -83,7 +83,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 py-8">
       {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden z-0">
+      <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden z-[-1]">
         <div 
           className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-100"
           style={{
@@ -115,7 +115,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
 
               {/* Card with Enhanced Hover Effects */}
               <div className={`
-                relative mx-auto max-w-md
+                relative mx-auto max-w-md z-10
                 glass-burgundy rounded-2xl p-4 md:p-5
                 border border-coral-400/20
                 hover:border-pink-400/40
