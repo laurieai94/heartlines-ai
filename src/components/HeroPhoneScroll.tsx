@@ -58,7 +58,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Reset and cycle to next conversation after 8 seconds
+        // Reset and cycle to next conversation after 4 seconds
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
@@ -67,7 +67,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           setCurrentConversationIndex(prev => 
             prev === demoConversations.length - 1 ? 0 : prev + 1
           );
-        }, 8000);
+        }, 4000);
         return;
       }
       
@@ -77,7 +77,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1800 + (currentMessage.content.length * 35);
+        const typingTime = 900 + (currentMessage.content.length * 20);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -89,7 +89,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('user');
         
-        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 300), 800);
+        const typingTime = Math.min(Math.max(200 + (currentMessage.content.length * 10), 200), 500);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -108,7 +108,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     } else if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
-      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 600 : 1200;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
       timeoutId = setTimeout(() => {
@@ -119,7 +119,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setCurrentConversationIndex(prev => 
           prev === demoConversations.length - 1 ? 0 : prev + 1
         );
-      }, 8000);
+      }, 4000);
     }
 
     return () => {
