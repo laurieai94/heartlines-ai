@@ -450,17 +450,6 @@ const LandingPage = ({
           
           {/* 4-Step Cards */}
           <div className="relative max-w-6xl mx-auto">
-            {/* Desktop Connector Line with Vibrant Gradient */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-pink-500/30 to-transparent transform -translate-y-1/2 rounded-full shadow-lg shadow-pink-500/20">
-              <div className="absolute left-1/4 w-3 h-3 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse"></div>
-              <div className="absolute left-2/4 w-3 h-3 bg-gradient-to-br from-orange-500 to-pink-600 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-orange-500/50 animate-pulse" style={{
-              animationDelay: '0.5s'
-            }}></div>
-              <div className="absolute left-3/4 w-3 h-3 bg-gradient-to-br from-pink-600 to-orange-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse" style={{
-              animationDelay: '1s'
-            }}></div>
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
               {[{
               step: "01",
