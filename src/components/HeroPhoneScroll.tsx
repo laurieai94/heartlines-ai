@@ -5,70 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
 import MayaAvatar from '@/assets/millennial-woman-portrait.jpg';
 import FlameIconHalo from './FlameIconHalo';
-
-const DEMO_CONVERSATION = [
-  {
-    id: 1,
-    type: 'assistant',
-    content: "Hey Maya 👋 What's on your mind today?",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    type: 'user',
-    content: "Tbh… I feel like me + Alex keep having the same fight about texting.",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    type: 'assistant',
-    content: "Got it. Classic. When does it usually come up?",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 4,
-    type: 'user',
-    content: "Mostly when I don't reply fast. He thinks I'm ignoring him.",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 5,
-    type: 'assistant',
-    content: "So it's less about the text, more about feeling unseen.",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 6,
-    type: 'user',
-    content: "Yeah… that hits.",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 7,
-    type: 'assistant',
-    content: 'One move you could try: agree on a "no-stress" text window. Like, "I\'ll get back to you in a few hours, but I\'m not ghosting."',
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 8,
-    type: 'user',
-    content: "That actually sounds doable.",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 9,
-    type: 'assistant',
-    content: "Want me to draft a sample text you could send him?",
-    timestamp: new Date().toISOString(),
-  },
-  {
-    id: 10,
-    type: 'user',
-    content: "Yes pls 🙏",
-    timestamp: new Date().toISOString(),
-  }
-];
-
+import { demoConversations } from '@/data/demoConversations';
 
 interface HeroPhoneScrollProps {
   className?: string;
@@ -76,12 +13,24 @@ interface HeroPhoneScrollProps {
 }
 
 const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style }) => {
-  const [visibleMessages, setVisibleMessages] = useState<typeof DEMO_CONVERSATION>([]);
+  const [currentConversationIndex, setCurrentConversationIndex] = useState(0);
+  const [visibleMessages, setVisibleMessages] = useState<typeof demoConversations[0]['messages']>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [typingSide, setTypingSide] = useState<'assistant' | 'user' | null>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isLoopActive, setIsLoopActive] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
+
+  const currentConversation = demoConversations[currentConversationIndex];
+
+  // Reset when conversation changes
+  useEffect(() => {
+    setVisibleMessages([]);
+    setCurrentMessageIndex(0);
+    setIsTyping(false);
+    setTypingSide(null);
+    setIsLoopActive(true);
+  }, [currentConversationIndex]);
 
   // Auto-scroll to bottom when new messages appear
   useEffect(() => {
@@ -94,26 +43,26 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     let timeoutId: NodeJS.Timeout;
     
     const showNextMessage = () => {
-      if (currentMessageIndex >= DEMO_CONVERSATION.length) {
-        // Reset after 8 seconds for smoother experience
+      if (currentMessageIndex >= currentConversation.messages.length) {
+        // Reset and cycle to next conversation after 8 seconds
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
           setIsTyping(false);
           setTypingSide(null);
+          setCurrentConversationIndex(prev => 
+            prev === demoConversations.length - 1 ? 0 : prev + 1
+          );
         }, 8000);
         return;
       }
       
-      const currentMessage = DEMO_CONVERSATION[currentMessageIndex];
+      const currentMessage = currentConversation.messages[currentMessageIndex];
       
-      // Show current message
       if (currentMessage.type === 'assistant') {
-        // Show typing indicator first for assistant messages
         setIsTyping(true);
         setTypingSide('assistant');
         
-        // Variable typing time for more natural feel - faster for better UX
         const typingTime = 1800 + (currentMessage.content.length * 35);
         
         timeoutId = setTimeout(() => {
@@ -123,11 +72,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           setCurrentMessageIndex(prev => prev + 1);
         }, typingTime);
       } else {
-        // Show user typing first, then message
         setIsTyping(true);
         setTypingSide('user');
         
-        // Shorter, natural delay for user messages
         const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 300), 800);
         
         timeoutId = setTimeout(() => {
@@ -139,48 +86,41 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       }
     };
 
-    // Only start loop after initial page load settles
     if (!isLoopActive) {
-      // Defer start until after hero animations complete
       timeoutId = setTimeout(() => {
         setIsLoopActive(true);
         showNextMessage();
       }, 2000);
     } else if (currentMessageIndex === 0) {
-      // Start first message with minimal delay
       timeoutId = setTimeout(showNextMessage, 800);
-    } else if (currentMessageIndex < DEMO_CONVERSATION.length) {
-      const delay = DEMO_CONVERSATION[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
+    } else if (currentMessageIndex < currentConversation.messages.length) {
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
-      // All messages shown, reset after longer delay
       timeoutId = setTimeout(() => {
         setVisibleMessages([]);
         setCurrentMessageIndex(0);
         setIsTyping(false);
         setTypingSide(null);
+        setCurrentConversationIndex(prev => 
+          prev === demoConversations.length - 1 ? 0 : prev + 1
+        );
       }, 8000);
     }
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentMessageIndex, isLoopActive]);
+  }, [currentMessageIndex, isLoopActive, currentConversation, currentConversationIndex]);
 
   return (
     <div className={`relative ${className}`} style={style}>
-
-      {/* Phone container - positioned to align with hero text */}
       <div className="relative flex items-start justify-center z-20 p-0 sm:p-2 lg:p-4">
-        {/* Phone mockup with glassmorphism and proportional sizing */}
         <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]">
-          {/* Subtle halo behind phone */}
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
-          {/* Enhanced glassmorphic outer shell */}
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
           
-          {/* Phone container with enhanced definition */}
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
@@ -199,7 +139,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               </div>
             </div>
 
-            {/* Chat header with Kai styling */}
+            {/* Chat header */}
             <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-2 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
@@ -210,18 +150,18 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 </Avatar>
               </FlameIconHalo>
               <div>
-                <h3 className="text-white font-semibold text-sm">{BRAND.coach.name}</h3>
-                <p className="text-white/70 text-xs">Your AI relationship coach</p>
+                <h3 className="text-white font-semibold text-sm">{currentConversation.coachName || BRAND.coach.name}</h3>
+                <p className="text-white/70 text-xs">{currentConversation.theme}</p>
               </div>
             </div>
 
-            {/* Messages area - fills remaining phone space */}
+            {/* Messages area */}
             <div 
               ref={messagesRef}
               className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
-              {visibleMessages.map((message, index) => (
+              {visibleMessages.map((message) => (
                 <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
@@ -242,9 +182,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                    </ChatBubble>
                    {message.type === 'user' && (
                      <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                       <AvatarImage src={MayaAvatar} alt="Maya" />
+                       <AvatarImage src={MayaAvatar} alt={currentConversation.userName || 'Maya'} />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                         M
+                         {currentConversation.userName?.[0] || 'M'}
                        </AvatarFallback>
                      </Avatar>
                    )}
@@ -281,22 +221,22 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     </div>
                   </div>
                    <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                     <AvatarImage src={MayaAvatar} alt="Maya" />
+                     <AvatarImage src={MayaAvatar} alt={currentConversation.userName || 'Maya'} />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                       M
+                       {currentConversation.userName?.[0] || 'M'}
                      </AvatarFallback>
                    </Avatar>
-                  <span className="sr-only">Maya is typing...</span>
+                  <span className="sr-only">{currentConversation.userName || 'Maya'} is typing...</span>
                 </div>
               )}
             </div>
 
-            {/* Input area with Kai styling */}
+            {/* Input area */}
             <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-2">
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1.5 flex items-center">
                 <input 
                   type="text" 
-                  placeholder="Chat with Kai..." 
+                  placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
@@ -309,6 +249,25 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-6">
+        {demoConversations.map((conv, index) => (
+          <button
+            key={conv.id}
+            onClick={() => {
+              setIsLoopActive(false);
+              setCurrentConversationIndex(index);
+            }}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentConversationIndex 
+                ? 'w-6 bg-coral-400' 
+                : 'w-2 bg-white/30 hover:bg-white/50'
+            }`}
+            aria-label={`View conversation ${index + 1}: ${conv.title}`}
+          />
+        ))}
       </div>
     </div>
   );
