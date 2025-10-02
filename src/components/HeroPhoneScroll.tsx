@@ -75,7 +75,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1800 + (currentMessage.content.length * 35);
+        const typingTime = 1350 + (currentMessage.content.length * 26);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);

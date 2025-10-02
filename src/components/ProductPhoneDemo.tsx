@@ -43,7 +43,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
     const currentMessage = currentConversation.messages[currentIndex];
     const isAIMessage = currentMessage.type === 'assistant';
     
-    const delay = currentIndex === 0 ? 1000 : (isAIMessage ? 2500 : 1800);
+    const delay = currentIndex === 0 ? 750 : (isAIMessage ? 1875 : 1350);
     
     const timer = setTimeout(() => {
       if (isAIMessage) {
@@ -52,7 +52,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentIndex(prev => prev + 1);
-        }, 1200);
+        }, 900);
       } else {
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentIndex(prev => prev + 1);
