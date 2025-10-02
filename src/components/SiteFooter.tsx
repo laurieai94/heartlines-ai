@@ -1,62 +1,69 @@
 import { Link } from "react-router-dom";
 import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Target } from "lucide-react";
 import { BRAND } from "@/branding";
-
 const SiteFooter = () => {
-  const footerSections = [
-    {
-      title: "App",
-      links: [
-        { to: "/profile", label: "Profile", icon: User },
-        { to: "/coach", label: "Coach", icon: MessageSquare },
-        { to: "/account", label: "Account", icon: Settings },
-        { to: "/plans", label: "Plans", icon: CreditCard },
-      ]
-    },
-    {
-      title: "Company",
-      links: [
-        { to: "/mission", label: "Mission", icon: Target },
-        { to: "/privacy-and-security", label: "Privacy", icon: Shield },
-        { to: "/terms", label: "Terms", icon: FileText },
-        { to: "/contact", label: "Contact", icon: Mail },
-      ]
-    }
-  ];
-
-  return (
-    <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
+  const footerSections = [{
+    title: "App",
+    links: [{
+      to: "/profile",
+      label: "Profile",
+      icon: User
+    }, {
+      to: "/coach",
+      label: "Coach",
+      icon: MessageSquare
+    }, {
+      to: "/account",
+      label: "Account",
+      icon: Settings
+    }, {
+      to: "/plans",
+      label: "Plans",
+      icon: CreditCard
+    }]
+  }, {
+    title: "Company",
+    links: [{
+      to: "/mission",
+      label: "Mission",
+      icon: Target
+    }, {
+      to: "/privacy-and-security",
+      label: "Privacy",
+      icon: Shield
+    }, {
+      to: "/terms",
+      label: "Terms",
+      icon: FileText
+    }, {
+      to: "/contact",
+      label: "Contact",
+      icon: Mail
+    }]
+  }];
+  return <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Layout: Brand on top, then 2 columns */}
         <div className="md:hidden mb-8">
           {/* Brand Section - Full Width */}
           <div className="text-center mb-8">
             <h3 className="text-xl font-semibold text-white mb-3 font-brand">{BRAND.name}</h3>
-            <p className="text-white/70 text-sm leading-relaxed">
-              AI-powered relationship coaching for modern love.
-            </p>
+            <p className="text-white/70 text-sm leading-relaxed">AI-powered relationship coaching for modern, messy love.</p>
           </div>
 
           {/* App & Company - Two Columns */}
           <div className="grid grid-cols-2 gap-6">
-            {footerSections.map((section) => (
-              <div key={section.title} className="text-center">
+            {footerSections.map(section => <div key={section.title} className="text-center">
                 <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
                 <ul className="space-y-2">
-                  {section.links.map((link) => (
-                    <li key={link.to}>
-                      <Link 
-                        to={link.to}
-                        className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group"
-                      >
+                  {section.links.map(link => <li key={link.to}>
+                      <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-center gap-2 group">
                         <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                         {link.label}
                       </Link>
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -71,24 +78,17 @@ const SiteFooter = () => {
           </div>
 
           {/* Navigation Sections */}
-          {footerSections.map((section) => (
-            <div key={section.title} className="text-left">
+          {footerSections.map(section => <div key={section.title} className="text-left">
               <h4 className="text-base font-semibold text-white mb-4">{section.title}</h4>
               <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.to}>
-                    <Link 
-                      to={link.to}
-                      className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group"
-                    >
+                {section.links.map(link => <li key={link.to}>
+                    <Link to={link.to} className="text-white/70 hover:text-white/90 text-sm motion-safe:transition-colors motion-safe:duration-150 flex items-center justify-start gap-2 group">
                       <link.icon className="w-4 h-4 opacity-60 group-hover:opacity-100" />
                       {link.label}
                     </Link>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         {/* Bottom Section */}
@@ -103,8 +103,6 @@ const SiteFooter = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default SiteFooter;
