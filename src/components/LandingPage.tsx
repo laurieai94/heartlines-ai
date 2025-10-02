@@ -451,7 +451,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <h2 className="text-xl md:text-4xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
             
           </div>
           
