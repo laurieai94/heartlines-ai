@@ -49,7 +49,7 @@ const slides: CarouselSlide[] = [
     alt: 'Elderly man holding a portrait photo in his living room'
   },
   {
-    year: '2081',
+    year: '2092',
     image: elderlyCoupleImage,
     alt: 'Elderly couple in their living room, still together after decades'
   },
