@@ -480,7 +480,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-16 md:py-24 relative overflow-hidden">
         {/* Enhanced Background Gradient Overlays */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Main center glow with pink-to-orange gradient */}
@@ -541,7 +541,7 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <HowItWorksSwipe />
         </div>
