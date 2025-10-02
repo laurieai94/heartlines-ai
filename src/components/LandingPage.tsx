@@ -46,15 +46,15 @@ const StepCard = ({
       aria-label={title}
     >
       {/* Clean Card with Simple Glassmorphism */}
-      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between 
+      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
         bg-gradient-to-br from-white/20 via-white/15 to-white/10
         border border-white/10
         hover:-translate-y-1 transition-all duration-300
       ">
         
         {/* Simple Step Indicator */}
-        <div className="absolute top-6 right-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full 
+        <div className="absolute top-4 right-4">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full 
             bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
             transition-all duration-300
           ">
@@ -63,9 +63,9 @@ const StepCard = ({
         </div>
         
         {/* Content */}
-        <div className="relative z-10 space-y-6">
+        <div className="relative z-10 space-y-4">
           {/* Simple Icon with Gradient Background */}
-          <div className="inline-flex p-4 rounded-2xl 
+          <div className="inline-flex p-3 rounded-2xl
             bg-gradient-to-br from-pink-500/80 via-orange-500/70 to-pink-600/80
             backdrop-blur-sm
             transition-all duration-300
@@ -76,13 +76,13 @@ const StepCard = ({
           </div>
           
           {/* Clean Title */}
-          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light">
+          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light">
             {title}
           </h3>
         </div>
         
         {/* Description */}
-        <p className="text-white/90 sm:text-white/70 text-base md:text-lg leading-relaxed mt-6 relative z-10 font-light">
+        <p className="text-white/90 sm:text-white/70 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light">
           {description}
         </p>
       </div>
@@ -421,7 +421,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
+      <section id="how-it-works" className="py-4 md:py-8 relative overflow-hidden">
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -444,7 +444,7 @@ const LandingPage = ({
               <div className="absolute left-3/4 w-3 h-3 bg-gradient-to-br from-pink-600 to-orange-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
               {[{
               step: "01",
               title: "Make Your Profile",
