@@ -9,6 +9,7 @@ import elderlyCouplCozyLivingRoomImage from '@/assets/elderly-couple-cozy-living
 import elderlyCoupleVintageLivingRoomImage from '@/assets/elderly-couple-vintage-living-room.png';
 import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
 import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.png';
+import elderlyNativeAmericanWomenImage from '@/assets/elderly-native-american-women.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -57,6 +58,11 @@ const slides: CarouselSlide[] = [
     year: '2087',
     image: elderlyCoupleVintageLivingRoomImage,
     alt: 'Elderly couple in their vintage 1970s wood-paneled living room with family photos and warm memories'
+  },
+  {
+    year: '2093',
+    image: elderlyNativeAmericanWomenImage,
+    alt: 'Two elderly Native American women sharing a warm moment together on their couch, surrounded by traditional art and cultural treasures'
   }
 ];
 
