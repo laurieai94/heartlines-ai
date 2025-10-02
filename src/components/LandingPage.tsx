@@ -471,7 +471,7 @@ const LandingPage = ({
               step: "02",
               title: "Add Your Person",
               description: "Bring them in too, so Kai sees the full picture.",
-              secondaryText: "(Every story has (at least) two main characters.)",
+              secondaryText: "(Every story has two main characters.)",
               icon: <Heart className="w-5 h-5" />,
               iconName: "heart"
             }, {
