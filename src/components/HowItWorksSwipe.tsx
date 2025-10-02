@@ -184,12 +184,6 @@ const HowItWorksSwipe = () => {
         >
           <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
         </button>
-
-
-        {/* Hint Text */}
-        <div className="absolute top-8 right-8 hidden md:block">
-          <p className="text-white/40 text-sm font-light tracking-wide">Tap or swipe →</p>
-        </div>
       </Card>
     </div>
   );
