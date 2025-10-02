@@ -57,11 +57,7 @@ export const YearCarousel = () => {
 
     // Auto-play functionality
     const interval = setInterval(() => {
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0);
-      }
+      api.scrollNext(); // Let loop: true handle the infinite wrapping
     }, 5000); // 5 seconds per slide
 
     return () => clearInterval(interval);
