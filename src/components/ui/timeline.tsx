@@ -116,7 +116,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               {/* Card with Enhanced Hover Effects */}
               <div className={`
                 relative mx-auto max-w-md z-10
-                glass-burgundy rounded-2xl p-4 md:p-5
+                glass-burgundy-solid rounded-2xl p-4 md:p-5
                 border border-coral-400/20
                 hover:border-pink-400/40
                 group hover:-translate-y-2 hover:scale-105
