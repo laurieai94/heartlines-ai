@@ -22,9 +22,8 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   const currentConversation = demoConversations[currentConversationIndex];
 
-  // Reset animation when conversation changes
+  // Reset only index when conversation changes, keep messages for infinite scroll
   useEffect(() => {
-    setVisibleMessages([]);
     setCurrentIndex(0);
     setIsTyping(false);
     setIsTransitioning(false);
@@ -32,12 +31,13 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   useEffect(() => {
     if (currentIndex >= currentConversation.messages.length) {
-      setTimeout(() => {
-        setVisibleMessages([]);
-        setCurrentIndex(0);
-        setIsTyping(false);
+      // Continue to next conversation without clearing messages
+      const timer = setTimeout(() => {
+        setCurrentConversationIndex(prev => 
+          prev === demoConversations.length - 1 ? 0 : prev + 1
+        );
       }, 3000);
-      return;
+      return () => clearTimeout(timer);
     }
 
     const currentMessage = currentConversation.messages[currentIndex];
@@ -60,7 +60,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [currentIndex, visibleMessages.length, currentConversation]);
+  }, [currentIndex, visibleMessages.length, currentConversation, currentConversationIndex]);
 
   const handlePrevConversation = () => {
     setIsTransitioning(true);

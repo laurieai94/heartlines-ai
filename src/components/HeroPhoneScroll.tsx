@@ -37,19 +37,21 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     return undefined; // No avatar for generic "You"
   };
 
-  // Reset when conversation changes
+  // Reset only message index when conversation changes, keep messages for infinite scroll
   useEffect(() => {
-    setVisibleMessages([]);
     setCurrentMessageIndex(0);
     setIsTyping(false);
     setTypingSide(null);
     setIsLoopActive(true);
   }, [currentConversationIndex]);
 
-  // Auto-scroll to bottom when new messages appear
+  // Auto-scroll to bottom smoothly when new messages appear
   useEffect(() => {
     if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      messagesRef.current.scrollTo({
+        top: messagesRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   }, [visibleMessages, isTyping]);
 
@@ -58,16 +60,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Reset and cycle to next conversation after 8 seconds
+        // Move to next conversation after 3 seconds, keeping messages visible
         timeoutId = setTimeout(() => {
-          setVisibleMessages([]);
-          setCurrentMessageIndex(0);
-          setIsTyping(false);
-          setTypingSide(null);
           setCurrentConversationIndex(prev => 
             prev === demoConversations.length - 1 ? 0 : prev + 1
           );
-        }, 8000);
+        }, 3000);
         return;
       }
       
@@ -111,15 +109,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
+      // Continue to next conversation
       timeoutId = setTimeout(() => {
-        setVisibleMessages([]);
-        setCurrentMessageIndex(0);
-        setIsTyping(false);
-        setTypingSide(null);
         setCurrentConversationIndex(prev => 
           prev === demoConversations.length - 1 ? 0 : prev + 1
         );
-      }, 8000);
+      }, 3000);
     }
 
     return () => {
