@@ -7,6 +7,7 @@ import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
 import elderlyManPortraitImage from '@/assets/elderly-man-portrait.png';
 import elderlyCouplCozyLivingRoomImage from '@/assets/elderly-couple-cozy-living-room.png';
 import elderlyCoupleVintageLivingRoomImage from '@/assets/elderly-couple-vintage-living-room.png';
+import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -16,6 +17,11 @@ interface CarouselSlide {
 }
 
 const slides: CarouselSlide[] = [
+  {
+    year: '2061',
+    image: elderlyCouplePrideLivingRoomImage,
+    alt: 'Elderly couple in their wood-paneled living room with Progress Pride flag and vintage furniture'
+  },
   {
     year: '2063',
     image: elderlyCoupleRetroImage,
