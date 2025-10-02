@@ -47,7 +47,8 @@ const SiteFooter = () => {
         <div className="md:hidden mb-8">
           {/* Brand Section - Full Width */}
           <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold text-white mb-3 font-brand">{BRAND.name}</h3>
+            <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
+            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed">AI-powered relationship coaching for modern, messy love.</p>
           </div>
 
@@ -71,7 +72,8 @@ const SiteFooter = () => {
         <div className="hidden md:grid md:grid-cols-3 gap-6 md:gap-8 mb-8">
           {/* Brand Section */}
           <div className="text-left">
-            <h3 className="text-xl font-semibold text-white mb-3 font-brand">{BRAND.name}</h3>
+            <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
+            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
             <p className="text-white/70 text-sm leading-relaxed">
               AI-powered relationship coaching for modern love.
             </p>
