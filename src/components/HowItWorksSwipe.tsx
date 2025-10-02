@@ -110,10 +110,10 @@ const HowItWorksSwipe = () => {
                       // CTA Slide
                       <div className="space-y-6">
                         <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-light leading-tight">
-                          Ready to find
+                          Messy, real, and
                           <br />
                           <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">
-                            real connection?
+                            totally worth it.
                           </span>
                         </h2>
                         <Button 
