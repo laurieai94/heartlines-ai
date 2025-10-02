@@ -270,7 +270,7 @@ const LandingPage = ({
                   </Link>
                   <Link to="/signup">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                    Get Started
+                    Chat with Kai
                     </Button>
                   </Link>
                 </> : <>
@@ -281,7 +281,7 @@ const LandingPage = ({
                   </Link>
                   <Link to="/signup">
                     <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                      Get Started
+                      Chat with Kai
                     </Button>
                   </Link>
                 </>}
@@ -299,7 +299,7 @@ const LandingPage = ({
                 </Link>
                 <Link to="/signup">
                   <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
-                    Get Started
+                    Chat with Kai
                   </Button>
                 </Link>
               </div>
@@ -345,7 +345,7 @@ const LandingPage = ({
                       {user ? <>
                           <Link to="/signup">
                             <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                              Get Started
+                              Chat with Kai
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
                           </Link>
@@ -408,7 +408,7 @@ const LandingPage = ({
                       </> : <>
                         <Link to="/signup">
                           <Button size="lg" variant="glass" className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                            Get Started
+                            Chat with Kai
                             <ArrowRight className="w-5 h-5 ml-3" />
                           </Button>
                         </Link>
