@@ -58,7 +58,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Reset and cycle to next conversation after 5 seconds
+        // Reset and cycle to next conversation after 6 seconds
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
@@ -67,7 +67,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           setCurrentConversationIndex(prev => 
             prev === demoConversations.length - 1 ? 0 : prev + 1
           );
-        }, 5000);
+        }, 6000);
         return;
       }
       
@@ -77,7 +77,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1200 + (currentMessage.content.length * 25);
+        const typingTime = 1400 + (currentMessage.content.length * 28);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -89,7 +89,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('user');
         
-        const typingTime = Math.min(Math.max(300 + (currentMessage.content.length * 10), 300), 600);
+        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 400), 700);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -108,7 +108,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     } else if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
-      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 800 : 1600;
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 1900;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
       timeoutId = setTimeout(() => {
@@ -119,7 +119,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setCurrentConversationIndex(prev => 
           prev === demoConversations.length - 1 ? 0 : prev + 1
         );
-      }, 5000);
+      }, 6000);
     }
 
     return () => {
@@ -265,23 +265,27 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-1.5 mt-4">
-        {demoConversations.map((conv, index) => (
-          <button
-            key={conv.id}
-            onClick={() => {
-              setIsLoopActive(false);
-              setCurrentConversationIndex(index);
-            }}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              index === currentConversationIndex 
-                ? 'w-4 bg-coral-400' 
-                : 'w-1.5 bg-white/30 hover:bg-white/50'
-            }`}
-            aria-label={`View conversation ${index + 1}: ${conv.title}`}
-          />
-        ))}
+      {/* Progress bar indicator */}
+      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 px-4">
+        <div className="flex gap-1">
+          {demoConversations.map((conv, index) => (
+            <button
+              key={conv.id}
+              onClick={() => {
+                setIsLoopActive(false);
+                setCurrentConversationIndex(index);
+              }}
+              className="flex-1 group"
+              aria-label={`View conversation ${index + 1}: ${conv.title}`}
+            >
+              <div className={`h-1 rounded-full transition-all duration-500 ${
+                index === currentConversationIndex 
+                  ? 'bg-gradient-to-r from-coral-400 to-coral-500 shadow-lg shadow-coral-400/30' 
+                  : 'bg-white/20 group-hover:bg-white/40'
+              }`} />
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
