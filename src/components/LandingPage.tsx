@@ -45,20 +45,20 @@ const StepCard = ({
       role="article" 
       aria-label={title}
     >
-      {/* Floating Card with Sophisticated Glassmorphism */}
-      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between border-0 shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] hover:shadow-primary/20 hover:from-white/[0.12] hover:via-white/[0.08] hover:to-white/[0.05] hover:-translate-y-2 transition-all duration-500">
+      {/* Floating Card with Enhanced Mobile Glassmorphism */}
+      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between border border-white/30 sm:border-white/10 shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02] hover:shadow-primary/20 hover:from-white/25 hover:via-white/20 hover:to-white/15 sm:hover:from-white/[0.12] sm:hover:via-white/[0.08] sm:hover:to-white/[0.05] hover:-translate-y-2 transition-all duration-500">
         
         {/* Minimal Step Indicator */}
         <div className="absolute top-6 right-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 backdrop-blur-sm">
-            <span className="text-white/90 text-sm font-medium">{step}</span>
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/20 sm:from-primary/20 sm:to-primary/10 border border-primary/40 sm:border-primary/30 backdrop-blur-sm">
+            <span className="text-white text-sm font-medium">{step}</span>
           </div>
         </div>
         
         {/* Content */}
         <div className="relative z-10 space-y-6">
           {/* Icon with Elegant Glow */}
-          <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 shadow-lg shadow-primary/20 group-hover:shadow-primary/40 group-hover:scale-110 transition-all duration-500 border border-primary/20">
+          <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary/30 to-primary/20 sm:from-primary/20 sm:to-primary/10 shadow-lg shadow-primary/20 group-hover:shadow-primary/40 group-hover:scale-110 transition-all duration-500 border border-primary/30 sm:border-primary/20">
             <div className="w-8 h-8 text-white drop-shadow-lg flex items-center justify-center">
               {icon}
             </div>
@@ -71,7 +71,7 @@ const StepCard = ({
         </div>
         
         {/* Description */}
-        <p className="text-white/70 text-base md:text-lg leading-relaxed mt-6 relative z-10 font-light">
+        <p className="text-white/90 sm:text-white/70 text-base md:text-lg leading-relaxed mt-6 relative z-10 font-light">
           {description}
         </p>
       </div>
