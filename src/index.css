@@ -11,11 +11,18 @@
   overscroll-behavior: none; /* Prevent white screen on overscroll */
 }
 
+/* Critical: Prevent white screen on ALL scroll areas */
+[data-radix-scroll-area-viewport],
+.overflow-auto,
+.overflow-y-auto,
 .ios-optimized [data-radix-scroll-area-viewport],
 .ios-optimized .overflow-auto,
 .ios-optimized .overflow-y-auto {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none; /* Prevent pull-to-refresh displacement */
+  overscroll-behavior: none !important;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important;
+  touch-action: pan-y;
 }
 
 /* Performance optimizations */

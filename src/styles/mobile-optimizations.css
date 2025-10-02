@@ -75,9 +75,12 @@ html, body, #root {
   }
   
   /* Optimize scrolling performance */
-  .scroll-container {
+  .scroll-container,
+  [data-radix-scroll-area-viewport] {
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: auto;
+    overscroll-behavior: none !important;
+    overscroll-behavior-y: none !important;
+    overscroll-behavior-x: none !important;
   }
   
   /* Profile form specific optimizations */
