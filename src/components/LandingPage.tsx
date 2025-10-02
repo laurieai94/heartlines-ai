@@ -236,7 +236,7 @@ const LandingPage = ({
         </div>}
 
       {/* Navigation */}
-      {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900/98 via-burgundy-800/98 to-burgundy-900/98 backdrop-blur-xl border-b border-coral-400/20 shadow-lg">
+      {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 backdrop-blur-xl border-b border-coral-400/20 shadow-lg">
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
