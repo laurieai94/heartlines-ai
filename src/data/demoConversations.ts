@@ -16,83 +16,113 @@ export interface DemoConversation {
 
 export const demoConversations: DemoConversation[] = [
   {
-    id: 'first-fight',
-    title: 'First Fight',
-    theme: 'Conflict Resolution',
-    userName: 'You',
+    id: 'money-conflict',
+    title: 'Money Talks',
+    theme: 'Financial Communication',
+    userName: 'Sarah',
     coachName: 'Kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'We had our first fight. She wanted space.',
-        timestamp: '2:30 PM'
+        content: 'We keep fighting about money.',
+        timestamp: '3:15 PM'
       },
       {
         id: '2',
         type: 'assistant',
-        content: 'And that felt hard for you.',
-        timestamp: '2:31 PM'
+        content: 'What\'s the fight usually about—spending, saving, or something else?',
+        timestamp: '3:16 PM'
       },
       {
         id: '3',
         type: 'user',
-        content: 'Yeah. Space makes me panic.',
-        timestamp: '2:31 PM'
+        content: 'Mostly spending. He thinks I waste money.',
+        timestamp: '3:17 PM'
       },
       {
         id: '4',
         type: 'assistant',
-        content: 'So you need reassurance even when she needs distance.',
-        timestamp: '2:32 PM'
+        content: 'How does it feel to hear that word, "waste"?',
+        timestamp: '3:18 PM'
       },
       {
         id: '5',
         type: 'user',
-        content: 'Yes. Exactly.',
-        timestamp: '2:32 PM'
+        content: 'Judgy. Like I\'m irresponsible.',
+        timestamp: '3:19 PM'
       },
       {
         id: '6',
         type: 'assistant',
-        content: 'A middle ground: set a check-in time. Like, "Let\'s take a break but reconnect tonight."',
-        timestamp: '2:33 PM'
+        content: 'And what does money mean to you—freedom, security, joy?',
+        timestamp: '3:20 PM'
       },
       {
         id: '7',
         type: 'user',
-        content: 'That would help me breathe.',
-        timestamp: '2:33 PM'
+        content: 'Freedom. I didn\'t grow up with much.',
+        timestamp: '3:21 PM'
       },
       {
         id: '8',
         type: 'assistant',
-        content: 'Want me to suggest language you could use?',
-        timestamp: '2:34 PM'
+        content: 'And what does it mean to him?',
+        timestamp: '3:22 PM'
       },
       {
         id: '9',
         type: 'user',
-        content: 'Please.',
-        timestamp: '2:34 PM'
+        content: 'Security. He\'s terrified of not having enough.',
+        timestamp: '3:23 PM'
       },
       {
         id: '10',
         type: 'assistant',
-        content: '"Take the space you need, but could we check in at 7? That would help me feel grounded."',
-        timestamp: '2:35 PM'
+        content: 'So it\'s not just numbers—it\'s two different stories about safety.',
+        timestamp: '3:24 PM'
       },
       {
         id: '11',
         type: 'user',
-        content: 'That feels doable.',
-        timestamp: '2:35 PM'
+        content: 'Yeah… that makes sense.',
+        timestamp: '3:25 PM'
       },
       {
         id: '12',
         type: 'assistant',
-        content: 'Healthy repair > lingering tension.',
-        timestamp: '2:36 PM'
+        content: 'If you could swap one perspective for a week, what might shift?',
+        timestamp: '3:26 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Maybe I\'d see why he saves so much.',
+        timestamp: '3:27 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'And he might see why you value treating yourself.',
+        timestamp: '3:28 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Yeah. That could help.',
+        timestamp: '3:29 PM'
+      },
+      {
+        id: '16',
+        type: 'assistant',
+        content: 'Want me to draft a way to suggest that without it sounding like blame?',
+        timestamp: '3:30 PM'
+      },
+      {
+        id: '17',
+        type: 'user',
+        content: 'Yes. That would be amazing.',
+        timestamp: '3:31 PM'
       }
     ]
   },

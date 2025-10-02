@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
 import MayaAvatar from '@/assets/millennial-african-american-woman.png';
 import AlexAvatar from '@/assets/gay-man-avatar.png';
+import SarahAvatar from '@/assets/money-woman-avatar.png';
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 
@@ -26,6 +27,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   
   // Get the appropriate avatar based on userName
   const getUserAvatar = () => {
+    if (currentConversation.userName === 'Sarah') return SarahAvatar;
     if (currentConversation.userName === 'Maya') return MayaAvatar;
     if (currentConversation.userName === 'Alex') return AlexAvatar;
     return undefined; // No avatar for generic "You"
