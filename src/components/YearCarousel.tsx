@@ -6,6 +6,7 @@ import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
 import elderlyManPortraitImage from '@/assets/elderly-man-portrait.png';
 import elderlyCouplCozyLivingRoomImage from '@/assets/elderly-couple-cozy-living-room.png';
+import elderlyCoupleVintageLivingRoomImage from '@/assets/elderly-couple-vintage-living-room.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -39,6 +40,11 @@ const slides: CarouselSlide[] = [
     year: '2081',
     image: elderlyCoupleImage,
     alt: 'Elderly couple in their living room, still together after decades'
+  },
+  {
+    year: '2087',
+    image: elderlyCoupleVintageLivingRoomImage,
+    alt: 'Elderly couple in their vintage 1970s wood-paneled living room with family photos and warm memories'
   }
 ];
 
