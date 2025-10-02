@@ -45,7 +45,7 @@ const StepCard = ({
       {/* Clean Card with Enhanced Glassmorphism */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
         bg-gradient-to-br from-white/20 via-white/15 to-white/10
-        border border-white/10
+        border border-pink-400/15
         hover:-translate-y-2 hover:scale-105 hover:rotate-1
         hover:bg-gradient-to-br hover:from-white/25 hover:via-white/20 hover:to-white/15
         hover:shadow-2xl hover:shadow-pink-500/20
@@ -56,6 +56,7 @@ const StepCard = ({
         <div className="absolute top-4 right-4">
           <div className="flex items-center justify-center w-8 h-8 rounded-full 
             bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
+            shadow-lg shadow-pink-500/40
             group-hover:scale-110 group-hover:rotate-12
             transition-all duration-300
           ">
@@ -67,7 +68,7 @@ const StepCard = ({
         <div className="relative z-10 space-y-4">
           {/* Simple Icon */}
           <div className="inline-flex group-hover:scale-110 transition-all duration-300">
-            <div className="w-8 h-8 text-white flex items-center justify-center">
+            <div className="w-8 h-8 flex items-center justify-center text-transparent bg-clip-text bg-gradient-to-br from-pink-300 via-orange-300 to-pink-400">
               {icon}
             </div>
           </div>
@@ -81,12 +82,12 @@ const StepCard = ({
         
         {/* Description */}
         <div className="relative z-10">
-          <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 font-light
+          <p className="text-pink-200/95 sm:text-pink-200/90 text-base md:text-lg leading-relaxed mt-4 font-light
             group-hover:text-white transition-colors duration-300">
             {description}
           </p>
           {secondaryText && (
-            <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base leading-relaxed mt-2 font-light italic
+            <p className="text-pink-200/70 sm:text-pink-200/60 text-sm md:text-base leading-relaxed mt-2 font-light italic
               group-hover:text-white/70 transition-colors duration-300">
               {secondaryText}
             </p>
