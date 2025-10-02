@@ -36,16 +36,9 @@ const StepCard = ({
   iconName: string;
   index: number;
 }) => {
-  return (
-    <article 
-      className="relative group h-full animate-fade-in"
-      style={{
-        animationDelay: `${index * 0.15}s`
-      }}
-      tabIndex={0} 
-      role="article" 
-      aria-label={title}
-    >
+  return <article className="relative group h-full animate-fade-in" style={{
+    animationDelay: `${index * 0.15}s`
+  }} tabIndex={0} role="article" aria-label={title}>
       {/* Clean Card with Enhanced Glassmorphism */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
         bg-gradient-to-br from-white/20 via-white/15 to-white/10
@@ -89,8 +82,7 @@ const StepCard = ({
           {description}
         </p>
       </div>
-    </article>
-  );
+    </article>;
 };
 const LandingPage = ({
   showMarketingTopBar = true
@@ -288,7 +280,9 @@ const LandingPage = ({
               <div className="flex items-center gap-2">
                 <Link to="/signin">
                   <Button variant="ghost" className="h-9 w-9 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
-                    <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
+                    <User className="h-5 w-5" style={{
+                  color: '#ffc0cb'
+                }} />
                   </Button>
                 </Link>
                 <Link to="/signup">
@@ -428,8 +422,12 @@ const LandingPage = ({
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-orange-500/15 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-orange-500/15 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{
+          animationDelay: '1s'
+        }}></div>
+          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/15 rounded-full blur-3xl animate-pulse" style={{
+          animationDelay: '2s'
+        }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6">
@@ -443,8 +441,12 @@ const LandingPage = ({
             {/* Desktop Connector Line with Vibrant Gradient */}
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-pink-500/30 to-transparent transform -translate-y-1/2 rounded-full shadow-lg shadow-pink-500/20">
               <div className="absolute left-1/4 w-3 h-3 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse"></div>
-              <div className="absolute left-2/4 w-3 h-3 bg-gradient-to-br from-orange-500 to-pink-600 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-orange-500/50 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="absolute left-3/4 w-3 h-3 bg-gradient-to-br from-pink-600 to-orange-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute left-2/4 w-3 h-3 bg-gradient-to-br from-orange-500 to-pink-600 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-orange-500/50 animate-pulse" style={{
+              animationDelay: '0.5s'
+            }}></div>
+              <div className="absolute left-3/4 w-3 h-3 bg-gradient-to-br from-pink-600 to-orange-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse" style={{
+              animationDelay: '1s'
+            }}></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
@@ -487,13 +489,21 @@ const LandingPage = ({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-500/20 via-orange-400/15 to-coral-400/20 rounded-full blur-3xl" />
           
           {/* Top left accent */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-pink-400/15 to-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-pink-400/15 to-orange-500/10 rounded-full blur-3xl animate-pulse" style={{
+          animationDuration: '4s'
+        }} />
           
           {/* Bottom right accent */}
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-orange-400/15 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-orange-400/15 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{
+          animationDuration: '5s',
+          animationDelay: '1s'
+        }} />
           
           {/* Floating accent orbs */}
-          <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '3s', animationDelay: '2s' }} />
+          <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-2xl animate-pulse" style={{
+          animationDuration: '3s',
+          animationDelay: '2s'
+        }} />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -503,40 +513,32 @@ const LandingPage = ({
               Why We're Different
             </h2>
             <p className="text-lg md:text-xl text-white/90 font-light">
-              <span className="bg-gradient-to-r from-white/90 to-white/70 bg-clip-text text-transparent">Connection, not perfection.</span>
+              
             </p>
           </div>
           
           {/* Timeline Component */}
-          <Timeline 
-            stops={[
-              {
-                title: "Actually personal",
-                subtitle: "Advice that adapts to you, not random clichés.",
-                icon: <PersonalIcon />
-              },
-              {
-                title: "Private by design",
-                subtitle: "Your data stays private—always yours, never sold.",
-                icon: <ShieldIcon />
-              },
-              {
-                title: "No toxic positivity",
-                subtitle: "Real support for real struggles, no sugarcoating.",
-                icon: <HeartSupportIcon />
-              },
-              {
-                title: "Built for busy",
-                subtitle: "Quick actions you can try today that actually matter.",
-                icon: <ClockIcon />
-              },
-              {
-                title: "Not fight-free",
-                subtitle: "Healthy conflict that makes love stronger, not weaker.",
-                icon: <ConversationIcon />
-              }
-            ]}
-          />
+          <Timeline stops={[{
+          title: "Actually personal",
+          subtitle: "Advice that adapts to you, not random clichés.",
+          icon: <PersonalIcon />
+        }, {
+          title: "Private by design",
+          subtitle: "Your data stays private—always yours, never sold.",
+          icon: <ShieldIcon />
+        }, {
+          title: "No toxic positivity",
+          subtitle: "Real support for real struggles, no sugarcoating.",
+          icon: <HeartSupportIcon />
+        }, {
+          title: "Built for busy",
+          subtitle: "Quick actions you can try today that actually matter.",
+          icon: <ClockIcon />
+        }, {
+          title: "Not fight-free",
+          subtitle: "Healthy conflict that makes love stronger, not weaker.",
+          icon: <ConversationIcon />
+        }]} />
         </div>
       </section>
 
