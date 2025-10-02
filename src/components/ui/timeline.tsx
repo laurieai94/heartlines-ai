@@ -82,12 +82,12 @@ export const ConversationIcon = () => (
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 py-8">
-      {/* Vertical Timeline Line with Glow */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 overflow-hidden">
+      {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-coral-400/40 via-pink-400/40 to-coral-400/40"
+          className="absolute inset-0 bg-gradient-to-b from-pink-400/50 via-coral-400/60 via-orange-400/50 to-pink-400/50 rounded-full"
           style={{
-            boxShadow: '0 0 10px hsl(var(--coral-400) / 0.3), 0 0 20px hsl(var(--coral-400) / 0.2)'
+            boxShadow: '0 0 20px hsl(var(--pink-400) / 0.5), 0 0 40px hsl(var(--coral-400) / 0.3), 0 0 60px hsl(var(--orange-400) / 0.2)'
           }}
         />
       </div>
@@ -106,25 +106,27 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 animationDelay: `${index * 0.15}s`
               }}
             >
-              {/* Center Dot */}
-              <div className="absolute left-1/2 top-8 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full border-4 border-burgundy-900 z-10"
+              {/* Center Dot with Enhanced Gradient Glow */}
+              <div className="absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
                 style={{
-                  boxShadow: '0 0 10px hsl(var(--coral-400) / 0.4)'
+                  boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
                 }}
               />
 
-              {/* Card */}
+              {/* Card with Enhanced Hover Effects */}
               <div className={`
                 relative mx-auto max-w-md
                 glass-burgundy rounded-2xl p-4 md:p-5
                 border border-coral-400/20
+                hover:border-pink-400/40
                 group hover:-translate-y-2 hover:scale-105
                 transition-all duration-500 ease-out
-                hover:shadow-2xl hover:shadow-coral-400/20
+                hover:shadow-2xl hover:shadow-pink-400/30
+                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-500
               `}>
-                {/* Icon */}
+                {/* Icon with Pink-Orange Gradient Background */}
                 <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <div className="p-3 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-2xl backdrop-blur-sm">
+                  <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
                     {stop.icon}
                   </div>
                 </div>

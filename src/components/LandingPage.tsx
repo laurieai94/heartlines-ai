@@ -485,18 +485,30 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-r from-burgundy-900/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-md">
-        {/* Soft Glow Behind Timeline */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-3xl" />
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+        {/* Enhanced Background Gradient Overlays */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Main center glow with pink-to-orange gradient */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-500/20 via-orange-400/15 to-coral-400/20 rounded-full blur-3xl" />
+          
+          {/* Top left accent */}
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-pink-400/15 to-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          
+          {/* Bottom right accent */}
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-orange-400/15 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+          
+          {/* Floating accent orbs */}
+          <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '3s', animationDelay: '2s' }} />
+        </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Headline */}
+          {/* Headline with Gradient */}
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand text-white mb-4">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               Why We're Different
             </h2>
-            <p className="text-lg md:text-xl text-white/80 font-light">
-              Connection, not perfection.
+            <p className="text-lg md:text-xl text-white/90 font-light">
+              <span className="bg-gradient-to-r from-white/90 to-white/70 bg-clip-text text-transparent">Connection, not perfection.</span>
             </p>
           </div>
           
