@@ -16,117 +16,6 @@ export interface DemoConversation {
 
 export const demoConversations: DemoConversation[] = [
   {
-    id: 'money-conflict',
-    title: 'Money Talks',
-    theme: 'Financial Communication',
-    userName: 'Sarah',
-    coachName: 'Kai',
-    messages: [
-      {
-        id: '1',
-        type: 'user',
-        content: 'We keep fighting about money.',
-        timestamp: '3:15 PM'
-      },
-      {
-        id: '2',
-        type: 'assistant',
-        content: 'What\'s the fight usually about—spending, saving, or something else?',
-        timestamp: '3:16 PM'
-      },
-      {
-        id: '3',
-        type: 'user',
-        content: 'Mostly spending. He thinks I waste money.',
-        timestamp: '3:17 PM'
-      },
-      {
-        id: '4',
-        type: 'assistant',
-        content: 'How does it feel to hear that word, "waste"?',
-        timestamp: '3:18 PM'
-      },
-      {
-        id: '5',
-        type: 'user',
-        content: 'Judgy. Like I\'m irresponsible.',
-        timestamp: '3:19 PM'
-      },
-      {
-        id: '6',
-        type: 'assistant',
-        content: 'And what does money mean to you—freedom, security, joy?',
-        timestamp: '3:20 PM'
-      },
-      {
-        id: '7',
-        type: 'user',
-        content: 'Freedom. I didn\'t grow up with much.',
-        timestamp: '3:21 PM'
-      },
-      {
-        id: '8',
-        type: 'assistant',
-        content: 'And what does it mean to him?',
-        timestamp: '3:22 PM'
-      },
-      {
-        id: '9',
-        type: 'user',
-        content: 'Security. He\'s terrified of not having enough.',
-        timestamp: '3:23 PM'
-      },
-      {
-        id: '10',
-        type: 'assistant',
-        content: 'So it\'s not just numbers—it\'s two different stories about safety.',
-        timestamp: '3:24 PM'
-      },
-      {
-        id: '11',
-        type: 'user',
-        content: 'Yeah… that makes sense.',
-        timestamp: '3:25 PM'
-      },
-      {
-        id: '12',
-        type: 'assistant',
-        content: 'If you could swap one perspective for a week, what might shift?',
-        timestamp: '3:26 PM'
-      },
-      {
-        id: '13',
-        type: 'user',
-        content: 'Maybe I\'d see why he saves so much.',
-        timestamp: '3:27 PM'
-      },
-      {
-        id: '14',
-        type: 'assistant',
-        content: 'And he might see why you value treating yourself.',
-        timestamp: '3:28 PM'
-      },
-      {
-        id: '15',
-        type: 'user',
-        content: 'Yeah. That could help.',
-        timestamp: '3:29 PM'
-      },
-      {
-        id: '16',
-        type: 'assistant',
-        content: 'Want me to draft a way to suggest that without it sounding like blame?',
-        timestamp: '3:30 PM'
-      },
-      {
-        id: '17',
-        type: 'user',
-        content: 'Yes. That would be amazing.',
-        timestamp: '3:31 PM'
-      }
-    ]
-  },
-  {
     id: 'texting-communication',
     title: 'Texting Anxiety',
     theme: 'Communication',
@@ -216,117 +105,6 @@ export const demoConversations: DemoConversation[] = [
         type: 'assistant',
         content: 'Good. And remember: his timing doesn\'t define your worth.',
         timestamp: '10:36 AM'
-      }
-    ]
-  },
-  {
-    id: 'moving-in-together',
-    title: 'Moving In Together',
-    theme: 'Commitment & Timing',
-    userName: 'Jordan',
-    coachName: 'Kai',
-    messages: [
-      {
-        id: '1',
-        type: 'user',
-        content: 'Kai, she wants us to move in together after 3 months.',
-        timestamp: '2:15 PM'
-      },
-      {
-        id: '2',
-        type: 'assistant',
-        content: "That's quick. How do you feel about it?",
-        timestamp: '2:16 PM'
-      },
-      {
-        id: '3',
-        type: 'user',
-        content: 'Excited… but scared.',
-        timestamp: '2:17 PM'
-      },
-      {
-        id: '4',
-        type: 'assistant',
-        content: "What's the excitement part?",
-        timestamp: '2:18 PM'
-      },
-      {
-        id: '5',
-        type: 'user',
-        content: 'I love being with her, it feels easy.',
-        timestamp: '2:19 PM'
-      },
-      {
-        id: '6',
-        type: 'assistant',
-        content: 'And the scared part?',
-        timestamp: '2:20 PM'
-      },
-      {
-        id: '7',
-        type: 'user',
-        content: "What if it's too soon and we crash?",
-        timestamp: '2:21 PM'
-      },
-      {
-        id: '8',
-        type: 'assistant',
-        content: 'Valid concern. What would moving in symbolize for you—commitment, stability, risk?',
-        timestamp: '2:22 PM'
-      },
-      {
-        id: '9',
-        type: 'user',
-        content: 'Commitment. Like forever.',
-        timestamp: '2:23 PM'
-      },
-      {
-        id: '10',
-        type: 'assistant',
-        content: 'And for her?',
-        timestamp: '2:24 PM'
-      },
-      {
-        id: '11',
-        type: 'user',
-        content: 'I think… closeness. She hates distance.',
-        timestamp: '2:25 PM'
-      },
-      {
-        id: '12',
-        type: 'assistant',
-        content: "So you're bringing different meanings to the same step.",
-        timestamp: '2:26 PM'
-      },
-      {
-        id: '13',
-        type: 'user',
-        content: 'Yeah, that sounds right.',
-        timestamp: '2:27 PM'
-      },
-      {
-        id: '14',
-        type: 'assistant',
-        content: 'If you slowed the timeline but deepened closeness in other ways, how would that feel?',
-        timestamp: '2:28 PM'
-      },
-      {
-        id: '15',
-        type: 'user',
-        content: 'Better. Safer.',
-        timestamp: '2:29 PM'
-      },
-      {
-        id: '16',
-        type: 'assistant',
-        content: "Want me to help you phrase that to her so it doesn't sound like rejection?",
-        timestamp: '2:30 PM'
-      },
-      {
-        id: '17',
-        type: 'user',
-        content: 'Yes, please.',
-        timestamp: '2:31 PM'
       }
     ]
   },
@@ -567,6 +345,228 @@ export const demoConversations: DemoConversation[] = [
         type: 'user',
         content: 'Yeah. I think I can say that.',
         timestamp: '9:29 PM'
+      }
+    ]
+  },
+  {
+    id: 'moving-in-together',
+    title: 'Moving In Together',
+    theme: 'Commitment & Timing',
+    userName: 'Jordan',
+    coachName: 'Kai',
+    messages: [
+      {
+        id: '1',
+        type: 'user',
+        content: 'Kai, she wants us to move in together after 3 months.',
+        timestamp: '2:15 PM'
+      },
+      {
+        id: '2',
+        type: 'assistant',
+        content: "That's quick. How do you feel about it?",
+        timestamp: '2:16 PM'
+      },
+      {
+        id: '3',
+        type: 'user',
+        content: 'Excited… but scared.',
+        timestamp: '2:17 PM'
+      },
+      {
+        id: '4',
+        type: 'assistant',
+        content: "What's the excitement part?",
+        timestamp: '2:18 PM'
+      },
+      {
+        id: '5',
+        type: 'user',
+        content: 'I love being with her, it feels easy.',
+        timestamp: '2:19 PM'
+      },
+      {
+        id: '6',
+        type: 'assistant',
+        content: 'And the scared part?',
+        timestamp: '2:20 PM'
+      },
+      {
+        id: '7',
+        type: 'user',
+        content: "What if it's too soon and we crash?",
+        timestamp: '2:21 PM'
+      },
+      {
+        id: '8',
+        type: 'assistant',
+        content: 'Valid concern. What would moving in symbolize for you—commitment, stability, risk?',
+        timestamp: '2:22 PM'
+      },
+      {
+        id: '9',
+        type: 'user',
+        content: 'Commitment. Like forever.',
+        timestamp: '2:23 PM'
+      },
+      {
+        id: '10',
+        type: 'assistant',
+        content: 'And for her?',
+        timestamp: '2:24 PM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'I think… closeness. She hates distance.',
+        timestamp: '2:25 PM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: "So you're bringing different meanings to the same step.",
+        timestamp: '2:26 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Yeah, that sounds right.',
+        timestamp: '2:27 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'If you slowed the timeline but deepened closeness in other ways, how would that feel?',
+        timestamp: '2:28 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Better. Safer.',
+        timestamp: '2:29 PM'
+      },
+      {
+        id: '16',
+        type: 'assistant',
+        content: "Want me to help you phrase that to her so it doesn't sound like rejection?",
+        timestamp: '2:30 PM'
+      },
+      {
+        id: '17',
+        type: 'user',
+        content: 'Yes, please.',
+        timestamp: '2:31 PM'
+      }
+    ]
+  },
+  {
+    id: 'money-conflict',
+    title: 'Money Talks',
+    theme: 'Financial Communication',
+    userName: 'Sarah',
+    coachName: 'Kai',
+    messages: [
+      {
+        id: '1',
+        type: 'user',
+        content: 'We keep fighting about money.',
+        timestamp: '3:15 PM'
+      },
+      {
+        id: '2',
+        type: 'assistant',
+        content: 'What\'s the fight usually about—spending, saving, or something else?',
+        timestamp: '3:16 PM'
+      },
+      {
+        id: '3',
+        type: 'user',
+        content: 'Mostly spending. He thinks I waste money.',
+        timestamp: '3:17 PM'
+      },
+      {
+        id: '4',
+        type: 'assistant',
+        content: 'How does it feel to hear that word, "waste"?',
+        timestamp: '3:18 PM'
+      },
+      {
+        id: '5',
+        type: 'user',
+        content: 'Judgy. Like I\'m irresponsible.',
+        timestamp: '3:19 PM'
+      },
+      {
+        id: '6',
+        type: 'assistant',
+        content: 'And what does money mean to you—freedom, security, joy?',
+        timestamp: '3:20 PM'
+      },
+      {
+        id: '7',
+        type: 'user',
+        content: 'Freedom. I didn\'t grow up with much.',
+        timestamp: '3:21 PM'
+      },
+      {
+        id: '8',
+        type: 'assistant',
+        content: 'And what does it mean to him?',
+        timestamp: '3:22 PM'
+      },
+      {
+        id: '9',
+        type: 'user',
+        content: 'Security. He\'s terrified of not having enough.',
+        timestamp: '3:23 PM'
+      },
+      {
+        id: '10',
+        type: 'assistant',
+        content: 'So it\'s not just numbers—it\'s two different stories about safety.',
+        timestamp: '3:24 PM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'Yeah… that makes sense.',
+        timestamp: '3:25 PM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: 'If you could swap one perspective for a week, what might shift?',
+        timestamp: '3:26 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Maybe I\'d see why he saves so much.',
+        timestamp: '3:27 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'And he might see why you value treating yourself.',
+        timestamp: '3:28 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Yeah. That could help.',
+        timestamp: '3:29 PM'
+      },
+      {
+        id: '16',
+        type: 'assistant',
+        content: 'Want me to draft a way to suggest that without it sounding like blame?',
+        timestamp: '3:30 PM'
+      },
+      {
+        id: '17',
+        type: 'user',
+        content: 'Yes. That would be amazing.',
+        timestamp: '3:31 PM'
       }
     ]
   }
