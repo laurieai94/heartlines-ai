@@ -18,7 +18,7 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
-import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
+import { PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
 // Clean StepCard Component - Mobile Style
@@ -533,28 +533,47 @@ const LandingPage = ({
             </p>
           </div>
           
-          {/* Timeline Component */}
-          <Timeline stops={[{
-          title: "Actually personal",
-          subtitle: "Advice that adapts to you, not random clichés.",
-          icon: <PersonalIcon />
-        }, {
-          title: "No toxic positivity",
-          subtitle: "Real support for real struggles, no sugarcoating.",
-          icon: <HeartSupportIcon />
-        }, {
-          title: "Built for busy",
-          subtitle: "Quick actions you can try today that actually matter.",
-          icon: <ClockIcon />
-        }, {
-          title: "Not fight-free",
-          subtitle: "Healthy conflict that makes love stronger, not weaker.",
-          icon: <ConversationIcon />
-        }, {
-          title: "Private by design",
-          subtitle: "Your data stays private—always yours, never sold.",
-          icon: <ShieldIcon />
-        }]} />
+          {/* Cards Grid */}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
+              {[{
+                step: "01",
+                title: "Actually personal",
+                description: "Advice that flexes with you, not recycled self-help quotes.",
+                secondaryText: "(No generic \"love yourself\" BS.)",
+                icon: <PersonalIcon />,
+                iconName: "personal"
+              }, {
+                step: "02",
+                title: "No toxic positivity",
+                description: "Real talk for real struggles—support without the sugarcoat.",
+                secondaryText: "(Because \"good vibes only\" is a lie.)",
+                icon: <HeartSupportIcon />,
+                iconName: "heart-support"
+              }, {
+                step: "03",
+                title: "Built for busy",
+                description: "Quick moves that actually shift your relationship, even on a slammed day.",
+                secondaryText: "(Zero fluff, just action.)",
+                icon: <ClockIcon />,
+                iconName: "clock"
+              }, {
+                step: "04",
+                title: "Not fight-free",
+                description: "We don't erase conflict—we show you how to use it to grow stronger.",
+                secondaryText: "(Healthy fights > silent scrolling.)",
+                icon: <ConversationIcon />,
+                iconName: "conversation"
+              }, {
+                step: "05",
+                title: "Private by design",
+                description: "Your convos stay yours—always encrypted, never sold.",
+                secondaryText: "(Kai listens, Big Tech doesn't.)",
+                icon: <ShieldIcon />,
+                iconName: "shield"
+              }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
+            </div>
+          </div>
         </div>
       </section>
 
