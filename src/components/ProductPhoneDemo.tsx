@@ -215,23 +215,30 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
         </button>
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-2 mt-6">
-        {demoConversations.map((conv, index) => (
-          <button
-            key={conv.id}
-            onClick={() => {
+      {/* Progress bar */}
+      <div className="max-w-md mx-auto px-4 mt-6">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-xs text-white/70">
+            <span>{currentConversation.title}</span>
+            <span>{currentConversationIndex + 1} / {demoConversations.length}</span>
+          </div>
+          <div 
+            className="w-full h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer relative"
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const percentage = x / rect.width;
+              const newIndex = Math.floor(percentage * demoConversations.length);
               setIsTransitioning(true);
-              setTimeout(() => setCurrentConversationIndex(index), 200);
+              setTimeout(() => setCurrentConversationIndex(Math.min(newIndex, demoConversations.length - 1)), 200);
             }}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === currentConversationIndex 
-                ? 'w-8 bg-coral-400' 
-                : 'w-2 bg-white/30 hover:bg-white/50'
-            }`}
-            aria-label={`View conversation ${index + 1}: ${conv.title}`}
-          />
-        ))}
+          >
+            <div 
+              className="h-full bg-gradient-to-r from-coral-400 to-pink-500 transition-all duration-500 ease-out rounded-full"
+              style={{ width: `${((currentConversationIndex + 1) / demoConversations.length) * 100}%` }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Floating Elements */}
