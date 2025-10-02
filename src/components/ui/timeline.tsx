@@ -85,15 +85,15 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       {/* Vertical Timeline Line with Glow */}
       <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-coral-400 via-pink-400 to-coral-400"
+          className="absolute inset-0 bg-gradient-to-b from-coral-400/40 via-pink-400/40 to-coral-400/40"
           style={{
-            boxShadow: '0 0 20px hsl(var(--coral-400)), 0 0 40px hsl(var(--coral-400) / 0.5)'
+            boxShadow: '0 0 10px hsl(var(--coral-400) / 0.3), 0 0 20px hsl(var(--coral-400) / 0.2)'
           }}
         />
       </div>
 
       {/* Timeline Stops */}
-      <div className="space-y-16 md:space-y-24">
+      <div className="space-y-8 md:space-y-12">
         {stops.map((stop, index) => (
           <LazySection 
             key={index}
@@ -109,28 +109,28 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               {/* Center Dot */}
               <div className="absolute left-1/2 top-8 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full border-4 border-burgundy-900 z-10"
                 style={{
-                  boxShadow: '0 0 20px hsl(var(--coral-400) / 0.8)'
+                  boxShadow: '0 0 10px hsl(var(--coral-400) / 0.4)'
                 }}
               />
 
               {/* Card */}
               <div className={`
                 relative mx-auto max-w-md
-                glass-burgundy rounded-2xl p-6 md:p-8
+                glass-burgundy rounded-2xl p-4 md:p-5
                 border border-coral-400/20
                 group hover:-translate-y-2 hover:scale-105
                 transition-all duration-500 ease-out
                 hover:shadow-2xl hover:shadow-coral-400/20
               `}>
                 {/* Icon */}
-                <div className="flex justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <div className="p-4 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-2xl backdrop-blur-sm">
+                <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-coral-400/20 to-pink-400/20 rounded-2xl backdrop-blur-sm">
                     {stop.icon}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-3 leading-tight">
+                <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
                   {stop.title}
                 </h3>
 

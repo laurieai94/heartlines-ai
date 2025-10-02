@@ -485,7 +485,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-r from-burgundy-900/95 via-burgundy-800/90 to-burgundy-900/95 backdrop-blur-md">
         {/* Soft Glow Behind Timeline */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-3xl" />
         
