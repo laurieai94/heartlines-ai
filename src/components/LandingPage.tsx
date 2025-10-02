@@ -69,14 +69,9 @@ const StepCard = ({
         
         {/* Content */}
         <div className="relative z-10 space-y-4">
-          {/* Simple Icon with Gradient Background */}
-          <div className="inline-flex p-3 rounded-2xl
-            bg-gradient-to-br from-pink-500/80 via-orange-500/70 to-pink-600/80
-            backdrop-blur-sm
-            group-hover:scale-110 group-hover:rotate-6
-            transition-all duration-300
-          ">
-            <div className="w-8 h-8 text-white flex items-center justify-center group-hover:scale-110 group-hover:brightness-110 transition-all duration-300">
+          {/* Simple Icon */}
+          <div className="inline-flex group-hover:scale-110 transition-all duration-300">
+            <div className="w-8 h-8 text-white flex items-center justify-center">
               {icon}
             </div>
           </div>
@@ -439,7 +434,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-brand font-semibold bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent mb-2 md:mb-6">How It Works</h2>
             
           </div>
           

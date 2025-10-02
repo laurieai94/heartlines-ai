@@ -85,9 +85,9 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
       <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-pink-400/50 via-coral-400/60 via-orange-400/50 to-pink-400/50 rounded-full"
+          className="absolute inset-0 bg-gradient-to-b from-pink-400/90 via-coral-400/95 via-orange-400/90 to-pink-400/90 rounded-full"
           style={{
-            boxShadow: '0 0 20px hsl(var(--pink-400) / 0.5), 0 0 40px hsl(var(--coral-400) / 0.3), 0 0 60px hsl(var(--orange-400) / 0.2)'
+            boxShadow: '0 0 20px hsl(var(--pink-400) / 0.8), 0 0 40px hsl(var(--coral-400) / 0.6), 0 0 60px hsl(var(--orange-400) / 0.4)'
           }}
         />
       </div>
