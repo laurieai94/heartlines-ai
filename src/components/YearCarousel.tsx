@@ -8,6 +8,7 @@ import elderlyManPortraitImage from '@/assets/elderly-man-portrait.png';
 import elderlyCouplCozyLivingRoomImage from '@/assets/elderly-couple-cozy-living-room.png';
 import elderlyCoupleVintageLivingRoomImage from '@/assets/elderly-couple-vintage-living-room.png';
 import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
+import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.png';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -17,6 +18,11 @@ interface CarouselSlide {
 }
 
 const slides: CarouselSlide[] = [
+  {
+    year: '2056',
+    image: warmGatheringImage,
+    alt: 'Warm gathering of three diverse souls in a cozy living room adorned with cultural art, symbols of unity, and shared memories'
+  },
   {
     year: '2061',
     image: elderlyCouplePrideLivingRoomImage,
