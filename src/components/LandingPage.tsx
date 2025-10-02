@@ -434,7 +434,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-brand font-semibold bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent mb-2 md:mb-6">How It Works</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">How It Works</h2>
             
           </div>
           
