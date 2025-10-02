@@ -27,7 +27,7 @@ const SiteFooter = () => {
   return (
     <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-8">
           {/* Brand Section */}
           <div className="text-center md:text-left">
             <h3 className="text-xl font-semibold text-white mb-3 font-brand">{BRAND.name}</h3>
