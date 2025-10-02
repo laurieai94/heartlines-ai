@@ -129,7 +129,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      <div className="relative flex items-start justify-center z-20 pt-8 pb-0 px-0 sm:p-2 lg:p-4">
+      <div className="relative flex items-start justify-center z-20 pt-8 pb-0 px-4 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
