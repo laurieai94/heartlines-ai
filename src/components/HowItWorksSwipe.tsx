@@ -92,7 +92,7 @@ const HowItWorksSwipe = () => {
   return (
     <div className="max-w-5xl mx-auto px-4">
       {/* Single Interactive Card */}
-      <Card className="relative overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 min-h-[320px]">
+      <Card className="relative overflow-hidden backdrop-blur-xl border-0 rounded-3xl p-8 md:p-12 min-h-[320px] shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] hover:shadow-primary/20 transition-all duration-500">
         <Carousel 
           setApi={setApi}
           className="w-full"
@@ -171,24 +171,24 @@ const HowItWorksSwipe = () => {
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-200 group"
+          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/20 hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors" />
+          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
         </button>
         
         <button
           onClick={scrollNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-200 group"
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/20 hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors" />
+          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
         </button>
 
 
         {/* Hint Text */}
-        <div className="absolute top-6 right-6 hidden md:block">
-          <p className="text-white/50 text-sm font-light">Tap or swipe →</p>
+        <div className="absolute top-8 right-8 hidden md:block">
+          <p className="text-white/40 text-sm font-light tracking-wide">Tap or swipe →</p>
         </div>
       </Card>
     </div>

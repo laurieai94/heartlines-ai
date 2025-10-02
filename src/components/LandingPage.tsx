@@ -19,7 +19,7 @@ import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
-// Premium StepCard Component with Glass Effects and Micro-animations
+// Elegant StepCard Component with Refined Glassmorphism
 const StepCard = ({
   step,
   title,
@@ -35,95 +35,51 @@ const StepCard = ({
   iconName: string;
   index: number;
 }) => {
-  const [displayStep, setDisplayStep] = useState(step); // Start with final value to avoid animation delay
-  return <article className={`
-          relative group cursor-pointer
-          w-full max-w-md mx-auto md:max-w-none
-          mb-3 md:mb-0 h-full
-          motion-safe:animate-fade-in
-          focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none
-          ${index === 0 ? 'motion-safe:animation-delay-0' : ''}
-          ${index === 1 ? 'motion-safe:animation-delay-100' : ''}
-          ${index === 2 ? 'motion-safe:animation-delay-200' : ''}
-        `} style={{
-    animationDelay: '0ms',
-    // Remove staggered delays
-    animationFillMode: 'both'
-  }} tabIndex={0} role="article" aria-label={title}>
-        {/* Premium Glass Card with Enhanced Effects */}
-        <div className="
-          relative overflow-hidden h-full flex flex-col
-          rounded-2xl glass-burgundy shadow-xl
-          p-4 md:p-6 min-h-[200px]
-          motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out
-          motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-2xl
-          motion-safe:hover:shadow-coral-400/20
-          motion-reduce:transform-none motion-reduce:transition-none
-          before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br 
-          before:from-coral-400/5 before:via-transparent before:to-pink-400/5
-          before:opacity-0 before:transition-opacity before:duration-300
-          hover:before:opacity-100
-        ">
-        {/* Inner Highlight Overlay */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/12 via-white/3 to-transparent opacity-60"></div>
+  return (
+    <article 
+      className="relative group h-full animate-fade-in"
+      style={{
+        animationDelay: `${index * 0.1}s`
+      }}
+      tabIndex={0} 
+      role="article" 
+      aria-label={title}
+    >
+      {/* Floating Card with Sophisticated Glassmorphism */}
+      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between border-0 shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] hover:shadow-primary/20 hover:from-white/[0.12] hover:via-white/[0.08] hover:to-white/[0.05] hover:-translate-y-2 transition-all duration-500">
         
-        {/* Edge Light - Inner Border */}
-        <div className="absolute inset-px rounded-2xl border border-white/8"></div>
-
-        {/* Ghosted Artsy Background Number - Hidden on mobile */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-          <div className="
-            absolute -top-4 -right-6
-            text-[180px] md:text-[200px] font-black 
-            text-white/5 leading-none select-none
-            num-ghost animate-float-slow
-          ">
-            {displayStep}
+        {/* Minimal Step Indicator */}
+        <div className="absolute top-6 right-6">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 backdrop-blur-sm">
+            <span className="text-white/90 text-sm font-medium">{step}</span>
           </div>
         </div>
-
-
-        {/* Content Container */}
-        <div className="relative z-10 text-center pt-3 md:pt-8 flex-1 flex flex-col justify-between">
-          <div>
-            {/* Icon */}
-            <div className="mb-2 md:mb-4 flex justify-center">
-              <div className="
-                relative w-8 h-8 md:w-12 md:h-12 
-                glass-burgundy border-2 border-burgundy-400/40 
-                rounded-full flex items-center justify-center
-                text-coral-300
-                motion-safe:transition-all motion-safe:duration-200
-                group-hover:scale-105 group-hover:-translate-y-0.5
-                group-hover:text-pink-300 group-hover:bg-burgundy-300/35
-                group-hover:border-coral-400/60
-              " aria-label={`${iconName} icon`}>
-                <div className="scale-75 md:scale-100">
-                  {icon}
-                </div>
-              </div>
+        
+        {/* Content */}
+        <div className="relative z-10 space-y-6">
+          {/* Icon with Elegant Glow */}
+          <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 shadow-lg shadow-primary/20 group-hover:shadow-primary/40 group-hover:scale-110 transition-all duration-500 border border-primary/20">
+            <div className="w-8 h-8 text-white drop-shadow-lg flex items-center justify-center">
+              {icon}
             </div>
-
-            {/* Text Content */}
-            <h3 className="text-base md:text-lg font-semibold text-white/95 mb-1 md:mb-2 leading-tight md:leading-7">
-              {title}
-            </h3>
           </div>
           
-          <p className="text-sm md:text-base text-white/75 leading-relaxed mt-1.5">
-            {description}
-          </p>
+          {/* Title */}
+          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light">
+            {title}
+          </h3>
         </div>
-
-        {/* Subtle Sheen Effect on Hover */}
-        <div className="
-          absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
-          bg-gradient-to-br from-transparent via-white/5 to-transparent
-          motion-safe:transition-opacity motion-safe:duration-500
-          pointer-events-none
-        "></div>
+        
+        {/* Description */}
+        <p className="text-white/70 text-base md:text-lg leading-relaxed mt-6 relative z-10 font-light">
+          {description}
+        </p>
       </div>
-    </article>;
+      
+      {/* Subtle Glow Effect */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+    </article>
+  );
 };
 const LandingPage = ({
   showMarketingTopBar = true
