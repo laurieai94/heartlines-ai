@@ -292,8 +292,8 @@ const LandingPage = ({
             <div className="md:hidden mr-2">
               <div className="flex items-center gap-2">
                 <Link to="/signin">
-                  <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 font-medium text-xs px-3 py-1.5 transition-all duration-200">
-                    Sign In
+                  <Button variant="ghost" className="h-9 w-9 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                    <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
                   </Button>
                 </Link>
                 <Link to="/signup">
