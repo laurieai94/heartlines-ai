@@ -210,10 +210,23 @@ html, body, #root {
     box-shadow: none !important;
   }
 
-  /* Mobile coach interface stretching */
+  /* Mobile coach interface stretching and background protection */
   .mobile-coach-stretch {
     min-height: 100vh !important;
     min-height: 100dvh !important;
+    background: hsl(var(--burgundy-900)) !important;
+    overscroll-behavior: none !important;
+    overscroll-behavior-y: none !important;
+    overscroll-behavior-x: none !important;
+  }
+  
+  /* Coaching page specific mobile protection */
+  @media (max-width: 768px) {
+    .mobile-coach-stretch,
+    .mobile-coach-stretch * {
+      overscroll-behavior: none !important;
+      overscroll-behavior-y: none !important;
+    }
   }
 
 /* CSS-only smooth scrolling for better performance */
