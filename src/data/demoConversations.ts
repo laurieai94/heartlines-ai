@@ -106,62 +106,86 @@ export const demoConversations: DemoConversation[] = [
       {
         id: '1',
         type: 'user',
-        content: 'He takes forever to text back and I spiral',
+        content: 'Kai, he hasn\'t texted me all day.',
         timestamp: '10:23 AM'
       },
       {
         id: '2',
         type: 'assistant',
-        content: 'And when you spiral, what story are you telling yourself?',
+        content: 'That feels rough. What\'s the first thought that hit you?',
         timestamp: '10:24 AM'
       },
       {
         id: '3',
         type: 'user',
-        content: 'That he doesn\'t care. That I\'m annoying him.',
+        content: 'That he\'s not into me anymore. Or I messed something up.',
         timestamp: '10:25 AM'
       },
       {
         id: '4',
         type: 'assistant',
-        content: 'Those are really painful stories. What if his slow response isn\'t about you at all?',
+        content: 'Makes sense you\'d jump there. Quick check: how was your last time together?',
         timestamp: '10:26 AM'
       },
       {
         id: '5',
         type: 'user',
-        content: 'Like what else could it be?',
+        content: 'Honestly… great. We laughed a lot. He kissed me goodnight.',
         timestamp: '10:27 AM'
       },
       {
         id: '6',
         type: 'assistant',
-        content: 'He could be in a meeting, driving, or just processing. Different people have different texting styles.',
+        content: 'So the evidence says connection was strong. Silence doesn\'t always equal rejection.',
         timestamp: '10:28 AM'
       },
       {
         id: '7',
         type: 'user',
-        content: 'I never thought about it that way',
+        content: 'Then why is it eating me alive?',
         timestamp: '10:29 AM'
       },
       {
         id: '8',
         type: 'assistant',
-        content: 'When you catch yourself spiraling, try this: "His response time isn\'t a measure of his feelings for me."',
+        content: 'Because uncertainty triggers anxiety. The brain fills the gap with worst-case scenarios.',
         timestamp: '10:30 AM'
       },
       {
         id: '9',
         type: 'user',
-        content: 'That actually helps. Thank you',
+        content: 'So what do I do?',
         timestamp: '10:31 AM'
       },
       {
         id: '10',
         type: 'assistant',
-        content: 'You\'re breaking the pattern. That\'s the work. 💙',
+        content: 'You can set the tone. Send a light, confident check-in. Something like: "Hey, hope your day\'s not too crazy 😊."',
         timestamp: '10:32 AM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'That doesn\'t sound needy.',
+        timestamp: '10:33 AM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: 'Right—it\'s warm without pressure. If he\'s just busy, it opens the door.',
+        timestamp: '10:34 AM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Okay… I can send that.',
+        timestamp: '10:35 AM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'Good. And remember: his timing doesn\'t define your worth.',
+        timestamp: '10:36 AM'
       }
     ]
   },

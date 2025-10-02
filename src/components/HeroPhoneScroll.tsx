@@ -3,7 +3,7 @@ import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
-import MayaAvatar from '@/assets/millennial-woman-portrait.jpg';
+import MayaAvatar from '@/assets/millennial-african-american-woman.png';
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 
