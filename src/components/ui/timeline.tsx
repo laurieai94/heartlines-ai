@@ -137,9 +137,16 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-white/80 text-base md:text-lg text-center leading-relaxed font-light">
-                  {stop.subtitle}
-                </p>
+                <div className="text-center">
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
+                    {stop.subtitle.split('(')[0].trim()}
+                  </p>
+                  {stop.subtitle.includes('(') && (
+                    <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
+                      ({stop.subtitle.split('(')[1]}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </LazySection>
