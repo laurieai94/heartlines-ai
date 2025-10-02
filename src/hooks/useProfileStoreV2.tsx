@@ -475,10 +475,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     const safetyTimeoutDuration = isMobileDevice ? 10000 : 5000; // 10s for mobile, 5s for desktop
     
     const safetyTimeout = setTimeout(() => {
-      // Only log warning if actually needed (not just mobile performance optimization)
-      if (!isMobileDevice) {
-        console.warn(`[ProfileV2-${profileType}] Safety timeout triggered - forcing states to complete`);
-      }
+      // Silent safety net - no logging needed
       setIsLoading(false);
       setIsSyncing(false);
       if (!isReady) {

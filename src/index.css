@@ -8,14 +8,14 @@
 .mobile-optimized {
   /* Ensure smooth scrolling on mobile */
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overscroll-behavior: none; /* Prevent white screen on overscroll */
 }
 
 .ios-optimized [data-radix-scroll-area-viewport],
 .ios-optimized .overflow-auto,
 .ios-optimized .overflow-y-auto {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overscroll-behavior: none; /* Prevent pull-to-refresh displacement */
 }
 
 /* Performance optimizations */
@@ -176,6 +176,16 @@
   /* Full-height root chain for reliable h-full layouts */
   html, body, #root {
     height: 100%;
+    min-height: 100dvh;
+  }
+
+  html {
+    /* Prevent white screen on mobile overscroll */
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    /* iOS Safari specific viewport fix */
+    height: 100%;
+    height: -webkit-fill-available;
   }
 
   body {
@@ -184,33 +194,43 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-weight: 300;
     line-height: 1.6;
-          /* Enhanced mobile stability and performance */
-          touch-action: manipulation;
-          overscroll-behavior: contain;
-          overflow-x: hidden;
-          -webkit-text-size-adjust: 100%;
-          -webkit-tap-highlight-color: transparent;
-          /* Better scroll performance on mobile */
-          -webkit-overflow-scrolling: touch;
-          /* Mobile-specific color consistency fixes */
-          color-scheme: dark;
-          /* iOS Safari keyboard handling */
-          height: -webkit-fill-available;
+    /* Enhanced mobile stability and performance */
+    touch-action: manipulation;
+    overscroll-behavior: none; /* Critical: Prevent white screen */
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    /* Better scroll performance on mobile */
+    -webkit-overflow-scrolling: touch;
+    /* Mobile-specific color consistency fixes */
+    color-scheme: dark;
+    /* iOS Safari keyboard handling */
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    /* Prevent viewport displacement */
+    position: relative;
   }
 
+  #root {
+    /* Ensure proper mobile layout without breaking scroll */
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    /* Prevent scroll displacement */
+    position: relative;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 
-  /* Mobile optimizations - allow natural scrolling */
+  /* Mobile optimizations - prevent overscroll */
   @media (max-width: 768px) {
-    body {
-      /* Remove scroll momentum for smoother touch interactions */
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
+    html, body {
+      overscroll-behavior-y: none !important;
+      overscroll-behavior-x: none !important;
     }
     
-    #root {
-      /* Ensure proper mobile layout without breaking scroll */
-      min-height: 100vh;
-      min-height: 100dvh;
+    body {
+      /* Remove scroll momentum issues */
+      -webkit-overflow-scrolling: touch;
     }
   }
 
@@ -301,7 +321,7 @@
 
   /* Prevent momentum scrolling issues and improve mobile performance */
   .overscroll-contain {
-    overscroll-behavior: contain;
+    overscroll-behavior: none; /* Prevent white screen */
     /* Additional mobile optimization */
     -webkit-overflow-scrolling: touch;
   }

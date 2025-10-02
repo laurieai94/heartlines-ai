@@ -1,10 +1,21 @@
-/* Emergency mobile visibility fix */
+/* Critical: Prevent white screen on mobile overscroll */
+html {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  /* iOS Safari viewport fix */
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
 html, body, #root {
-  min-height: 100vh;
   min-height: 100dvh;
+  min-height: -webkit-fill-available;
   width: 100%;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
+  /* Prevent scroll displacement */
+  overscroll-behavior: none;
 }
 
 /* Mobile viewport and performance optimizations */
@@ -16,19 +27,23 @@ html, body, #root {
   }
   
   body {
-    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
     overflow-x: hidden;
-    /* Allow natural mobile scrolling */
-    overscroll-behavior-x: none;
-    overscroll-behavior-y: auto;
+    /* Critical: Prevent white screen on overscroll */
+    overscroll-behavior: none !important;
+    overscroll-behavior-y: none !important;
+    overscroll-behavior-x: none !important;
   }
   
   #root {
-    min-height: 100vh;
     min-height: 100dvh;
+    min-height: -webkit-fill-available;
     position: relative;
-    /* Prevent layout shifts */
+    /* Prevent layout shifts and scroll displacement */
     contain: layout style;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   
   /* iOS Safari specific fixes */
@@ -104,7 +119,7 @@ html, body, #root {
   .scroll-container {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: auto;
+    overscroll-behavior: none; /* Prevent white screen */
   }
 
   /* Prevent zoom on input focus */
