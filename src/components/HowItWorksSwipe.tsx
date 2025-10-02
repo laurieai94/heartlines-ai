@@ -126,37 +126,40 @@ const HowItWorksSwipe = () => {
                       </div>
                     ) : (
                       // Regular Text Slide
-                      <p className="text-white text-xl md:text-3xl lg:text-4xl font-light leading-relaxed whitespace-pre-line">
+                      <p className="text-white text-xl md:text-3xl lg:text-4xl font-light leading-relaxed md:leading-relaxed">
                         {slide.content.split('\n').map((line, lineIndex) => {
+                          const lines = slide.content.split('\n');
                           const isHighlighted = slide.highlight && line.includes(slide.highlight);
+                          
                           if (isHighlighted) {
                             const parts = line.split(slide.highlight);
                             if (slide.specialHighlight === "brand") {
                               // For brand highlight: heartlines is white, rest has gradient
                               return (
-                                <span key={lineIndex}>
+                                <React.Fragment key={lineIndex}>
                                   <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[0]}</span>
                                   <span className="text-white">{slide.highlight}</span>
                                   <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[1]}</span>
-                                  {lineIndex < slide.content.split('\n').length - 1 && <br />}
-                                </span>
+                                  {lineIndex < lines.length - 1 && <br />}
+                                </React.Fragment>
                               );
                             }
                             // Regular gradient highlight
                             return (
-                              <span key={lineIndex}>
+                              <React.Fragment key={lineIndex}>
                                 {parts[0]}
                                 <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{slide.highlight}</span>
                                 {parts[1]}
-                                {lineIndex < slide.content.split('\n').length - 1 && <br />}
-                              </span>
+                                {lineIndex < lines.length - 1 && <br />}
+                              </React.Fragment>
                             );
                           }
+                          
                           return (
-                            <span key={lineIndex}>
+                            <React.Fragment key={lineIndex}>
                               {line}
-                              {lineIndex < slide.content.split('\n').length - 1 && <br />}
-                            </span>
+                              {lineIndex < lines.length - 1 && <br />}
+                            </React.Fragment>
                           );
                         })}
                       </p>
