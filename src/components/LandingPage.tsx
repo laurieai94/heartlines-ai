@@ -39,23 +39,27 @@ const StepCard = ({
     <article 
       className="relative group h-full animate-fade-in"
       style={{
-        animationDelay: `${index * 0.1}s`
+        animationDelay: `${index * 0.15}s`
       }}
       tabIndex={0} 
       role="article" 
       aria-label={title}
     >
-      {/* Clean Card with Simple Glassmorphism */}
+      {/* Clean Card with Enhanced Glassmorphism */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-6 md:p-7 h-full flex flex-col justify-between 
         bg-gradient-to-br from-white/20 via-white/15 to-white/10
         border border-white/10
-        hover:-translate-y-1 transition-all duration-300
+        hover:-translate-y-2 hover:scale-105 hover:rotate-1
+        hover:bg-gradient-to-br hover:from-white/25 hover:via-white/20 hover:to-white/15
+        hover:shadow-2xl hover:shadow-pink-500/20
+        transition-all duration-500 ease-out
       ">
         
         {/* Simple Step Indicator */}
         <div className="absolute top-4 right-4">
           <div className="flex items-center justify-center w-8 h-8 rounded-full 
             bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
+            group-hover:scale-110 group-hover:rotate-12
             transition-all duration-300
           ">
             <span className="text-white text-sm font-medium">{step}</span>
@@ -68,21 +72,24 @@ const StepCard = ({
           <div className="inline-flex p-3 rounded-2xl
             bg-gradient-to-br from-pink-500/80 via-orange-500/70 to-pink-600/80
             backdrop-blur-sm
+            group-hover:scale-110 group-hover:rotate-6
             transition-all duration-300
           ">
-            <div className="w-8 h-8 text-white flex items-center justify-center">
+            <div className="w-8 h-8 text-white flex items-center justify-center group-hover:animate-pulse">
               {icon}
             </div>
           </div>
           
           {/* Clean Title */}
-          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light">
+          <h3 className="text-xl md:text-2xl font-playfair text-white leading-tight font-light
+            group-hover:text-pink-100 transition-colors duration-300">
             {title}
           </h3>
         </div>
         
         {/* Description */}
-        <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light">
+        <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light
+          group-hover:text-white transition-colors duration-300">
           {description}
         </p>
       </div>
@@ -431,7 +438,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-3xl md:text-6xl lg:text-7xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
             
           </div>
           
@@ -448,25 +455,25 @@ const LandingPage = ({
               {[{
               step: "01",
               title: "Make Your Profile",
-              description: "Who you are when you're stressed, happy, or low-key annoyed.",
+              description: "Show your true vibe—how you act when calm, stressed, or hyped.",
               icon: <UserPlus className="w-5 h-5" />,
               iconName: "user-plus"
             }, {
               step: "02",
               title: "Add Your Person",
-              description: "Their vibe too — so Kai knows both sides of the story.",
+              description: "Drop in their vibe too, so Kai gets the full picture.",
               icon: <Heart className="w-5 h-5" />,
               iconName: "heart"
             }, {
               step: "03",
               title: "Chat with Kai",
-              description: "Spill the tea. Practice convos. Get real advice.",
+              description: "Spill the tea, practice convos, and get advice that hits.",
               icon: <MessageCircleHeart className="w-5 h-5" />,
               iconName: "message-heart"
             }, {
               step: "04",
               title: "Try the Move IRL",
-              description: "Tiny actions → big shifts.",
+              description: "Take small steps that spark real change.",
               icon: <Sparkles className="w-5 h-5" />,
               iconName: "sparkles"
             }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
