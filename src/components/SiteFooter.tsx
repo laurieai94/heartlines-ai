@@ -96,7 +96,7 @@ const SiteFooter = () => {
         {/* Bottom Section */}
         <div className="pt-8 border-t border-white/10">
           <div className="text-center">
-            <p className="text-white/70 text-sm mb-4">Start free • D • Built by humans figuring it out too</p>
+            <p className="text-white/70 text-sm mb-4">Built by humans figuring it out too</p>
             <p className="text-white/50 text-xs">
               © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
             </p>
