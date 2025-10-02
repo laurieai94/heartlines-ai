@@ -19,7 +19,7 @@ import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
-// Elegant StepCard Component with Pink-to-Orange Gradient Pizzazz
+// Clean StepCard Component - Mobile Style
 const StepCard = ({
   step,
   title,
@@ -45,28 +45,17 @@ const StepCard = ({
       role="article" 
       aria-label={title}
     >
-      {/* Floating Card with Vibrant Gradient Border */}
+      {/* Clean Card with Simple Glassmorphism */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between 
-        border-2 border-transparent
         bg-gradient-to-br from-white/20 via-white/15 to-white/10
-        shadow-2xl shadow-pink-500/10
-        hover:shadow-orange-500/20 hover:from-white/25 hover:via-white/20 hover:to-white/15
-        hover:-translate-y-2 transition-all duration-500
-        before:absolute before:inset-0 before:rounded-3xl before:p-[2px]
-        before:bg-gradient-to-br before:from-pink-500 before:via-orange-500 before:to-pink-600
-        before:-z-10 before:opacity-30
-        before:group-hover:opacity-60 before:transition-opacity before:duration-500
+        border border-white/10
+        hover:-translate-y-1 transition-all duration-300
       ">
         
-        {/* Animated gradient overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-orange-500/5 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-        
-        {/* Step Indicator with Gradient */}
+        {/* Simple Step Indicator */}
         <div className="absolute top-6 right-6">
           <div className="flex items-center justify-center w-10 h-10 rounded-full 
             bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
-            border border-white/30 shadow-lg shadow-pink-500/30
-            group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-orange-500/40
             transition-all duration-300
           ">
             <span className="text-white text-sm font-medium">{step}</span>
@@ -75,25 +64,19 @@ const StepCard = ({
         
         {/* Content */}
         <div className="relative z-10 space-y-6">
-          {/* Icon with Vibrant Gradient Background */}
+          {/* Simple Icon with Gradient Background */}
           <div className="inline-flex p-4 rounded-2xl 
             bg-gradient-to-br from-pink-500/80 via-orange-500/70 to-pink-600/80
-            backdrop-blur-sm border border-white/30
-            shadow-lg shadow-pink-500/20
-            group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-orange-500/30
-            transition-all duration-500
+            backdrop-blur-sm
+            transition-all duration-300
           ">
-            <div className="w-8 h-8 text-white drop-shadow-lg flex items-center justify-center">
+            <div className="w-8 h-8 text-white flex items-center justify-center">
               {icon}
             </div>
           </div>
           
-          {/* Title with Gradient Hover Effect */}
-          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light
-            group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-orange-300
-            group-hover:bg-clip-text group-hover:text-transparent
-            transition-all duration-300
-          ">
+          {/* Clean Title */}
+          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light">
             {title}
           </h3>
         </div>
@@ -103,9 +86,6 @@ const StepCard = ({
           {description}
         </p>
       </div>
-      
-      {/* Vibrant Gradient Glow Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-pink-500/10 via-orange-500/10 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
     </article>
   );
 };
