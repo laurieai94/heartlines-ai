@@ -48,13 +48,13 @@ const StepCard = ({
       {/* Floating Card with Vibrant Gradient Border */}
       <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between 
         border-2 border-transparent
-        bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02]
+        bg-gradient-to-br from-white/20 via-white/15 to-white/10
         shadow-2xl shadow-pink-500/10
-        hover:shadow-orange-500/20 hover:from-white/25 hover:via-white/20 hover:to-white/15 sm:hover:from-white/[0.12] sm:hover:via-white/[0.08] sm:hover:to-white/[0.05]
+        hover:shadow-orange-500/20 hover:from-white/25 hover:via-white/20 hover:to-white/15
         hover:-translate-y-2 transition-all duration-500
         before:absolute before:inset-0 before:rounded-3xl before:p-[2px]
         before:bg-gradient-to-br before:from-pink-500 before:via-orange-500 before:to-pink-600
-        before:-z-10 before:opacity-30 sm:before:opacity-20
+        before:-z-10 before:opacity-30
         before:group-hover:opacity-60 before:transition-opacity before:duration-500
       ">
         
