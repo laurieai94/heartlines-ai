@@ -245,5 +245,146 @@ export const demoConversations: DemoConversation[] = [
         timestamp: '9:48 AM'
       }
     ]
+  },
+  {
+    id: 'grindr-connection',
+    title: 'Dating App Fatigue',
+    theme: 'Self-Worth & Connection',
+    userName: 'Alex',
+    coachName: 'Kai',
+    messages: [
+      {
+        id: '1',
+        type: 'user',
+        content: 'Kai, I\'m so drained from Grindr. Same cycle every night.',
+        timestamp: '8:15 PM'
+      },
+      {
+        id: '2',
+        type: 'assistant',
+        content: 'What usually happens for you on there?',
+        timestamp: '8:16 PM'
+      },
+      {
+        id: '3',
+        type: 'user',
+        content: 'I chat, maybe meet up… then it fizzles out.',
+        timestamp: '8:17 PM'
+      },
+      {
+        id: '4',
+        type: 'assistant',
+        content: 'And when it fizzles, how do you usually feel afterward?',
+        timestamp: '8:18 PM'
+      },
+      {
+        id: '5',
+        type: 'user',
+        content: 'Empty. Like I don\'t matter.',
+        timestamp: '8:19 PM'
+      },
+      {
+        id: '6',
+        type: 'assistant',
+        content: 'That\'s painful. What do you wish was different about those interactions?',
+        timestamp: '8:20 PM'
+      },
+      {
+        id: '7',
+        type: 'user',
+        content: 'I wish someone wanted to actually know me, not just hook up.',
+        timestamp: '8:21 PM'
+      },
+      {
+        id: '8',
+        type: 'assistant',
+        content: 'So connection beyond the physical?',
+        timestamp: '8:22 PM'
+      },
+      {
+        id: '9',
+        type: 'user',
+        content: 'Exactly.',
+        timestamp: '8:22 PM'
+      },
+      {
+        id: '10',
+        type: 'assistant',
+        content: 'What kind of connection are you craving—emotional, intellectual, daily presence?',
+        timestamp: '8:23 PM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'Probably all of that. Just… feeling seen.',
+        timestamp: '8:24 PM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: 'Makes sense. Let me ask—how often do you feel seen by yourself, outside of the app?',
+        timestamp: '8:25 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Uh… rarely. I kind of avoid being alone.',
+        timestamp: '8:26 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'That\'s important. What do you think would shift if you practiced asking yourself the same questions you want a partner to ask you?',
+        timestamp: '8:27 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Like what questions?',
+        timestamp: '8:28 PM'
+      },
+      {
+        id: '16',
+        type: 'assistant',
+        content: 'For example: "What am I proud of today?" or "What gave me energy this week?"',
+        timestamp: '8:29 PM'
+      },
+      {
+        id: '17',
+        type: 'user',
+        content: 'Honestly… I don\'t think I\'ve ever asked myself that.',
+        timestamp: '8:30 PM'
+      },
+      {
+        id: '18',
+        type: 'assistant',
+        content: 'That could be a starting point. How would it feel to try journaling one of those tonight instead of scrolling Grindr?',
+        timestamp: '8:31 PM'
+      },
+      {
+        id: '19',
+        type: 'user',
+        content: 'Weird… but maybe better than another empty convo.',
+        timestamp: '8:32 PM'
+      },
+      {
+        id: '20',
+        type: 'assistant',
+        content: 'That\'s the shift—building connection inward so you\'re not waiting for strangers to give it to you.',
+        timestamp: '8:33 PM'
+      },
+      {
+        id: '21',
+        type: 'user',
+        content: 'That actually makes sense.',
+        timestamp: '8:34 PM'
+      },
+      {
+        id: '22',
+        type: 'assistant',
+        content: 'You deserve to feel seen—starting with yourself.',
+        timestamp: '8:35 PM'
+      }
+    ]
   }
 ];

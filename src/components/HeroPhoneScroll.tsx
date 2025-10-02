@@ -4,6 +4,7 @@ import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
 import MayaAvatar from '@/assets/millennial-african-american-woman.png';
+import AlexAvatar from '@/assets/gay-man-avatar.png';
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 
@@ -22,6 +23,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const messagesRef = useRef<HTMLDivElement>(null);
 
   const currentConversation = demoConversations[currentConversationIndex];
+  
+  // Get the appropriate avatar based on userName
+  const getUserAvatar = () => {
+    if (currentConversation.userName === 'Maya') return MayaAvatar;
+    if (currentConversation.userName === 'Alex') return AlexAvatar;
+    return undefined; // No avatar for generic "You"
+  };
 
   // Reset when conversation changes
   useEffect(() => {
@@ -182,9 +190,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                    </ChatBubble>
                    {message.type === 'user' && (
                      <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                       <AvatarImage src={MayaAvatar} alt={currentConversation.userName || 'Maya'} />
+                       <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                         {currentConversation.userName?.[0] || 'M'}
+                         {currentConversation.userName?.[0] || 'Y'}
                        </AvatarFallback>
                      </Avatar>
                    )}
@@ -221,12 +229,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     </div>
                   </div>
                    <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                     <AvatarImage src={MayaAvatar} alt={currentConversation.userName || 'Maya'} />
+                     <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
-                       {currentConversation.userName?.[0] || 'M'}
+                       {currentConversation.userName?.[0] || 'Y'}
                      </AvatarFallback>
                    </Avatar>
-                  <span className="sr-only">{currentConversation.userName || 'Maya'} is typing...</span>
+                  <span className="sr-only">{currentConversation.userName || 'You'} is typing...</span>
                 </div>
               )}
             </div>
