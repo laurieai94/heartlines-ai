@@ -37,7 +37,7 @@ const ChatBubble = ({ children, isUser = false, className = '', variant = 'defau
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div
         className={`
-          max-w-[80%] px-2.5 py-2 rounded-2xl text-[13px] leading-snug
+          max-w-[80%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed
           ${variant === 'kai' || variant === 'maya' ? '' : isUser ? 'rounded-br-sm' : 'rounded-bl-sm'}
           ${getVariantStyles()}
           ${className}

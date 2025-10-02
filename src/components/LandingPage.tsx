@@ -363,7 +363,7 @@ const LandingPage = ({
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-center self-center">
-                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-110 sm:scale-95 origin-center relative z-10">
+                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-95 origin-center relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                     </div>
                   </div>

@@ -119,13 +119,13 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                 glass-burgundy-solid rounded-2xl p-4 md:p-5
                 border border-coral-400/20
                 hover:border-pink-400/40
-                group md:hover:-translate-y-1 md:hover:translate-x-0.5
-                transition-all duration-300 ease-out
+                group hover:-translate-y-2 hover:scale-105
+                transition-all duration-500 ease-out
                 hover:shadow-2xl hover:shadow-pink-400/30
-                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-300
+                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-500
               `}>
                 {/* Icon with Pink-Orange Gradient Background */}
-                <div className="flex justify-center mb-4 md:group-hover:scale-105 transition-transform duration-300">
+                <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
                     {stop.icon}
                   </div>

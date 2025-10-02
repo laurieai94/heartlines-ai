@@ -58,16 +58,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Reset and cycle to next conversation after 6 seconds
+        // Reset and cycle to next conversation after 8 seconds
         timeoutId = setTimeout(() => {
           setVisibleMessages([]);
           setCurrentMessageIndex(0);
           setIsTyping(false);
-          setIsLoopActive(false);
+          setTypingSide(null);
           setCurrentConversationIndex(prev => 
             prev === demoConversations.length - 1 ? 0 : prev + 1
           );
-        }, 6000);
+        }, 8000);
         return;
       }
       
@@ -77,7 +77,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1400 + (currentMessage.content.length * 28);
+        const typingTime = 1800 + (currentMessage.content.length * 35);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -89,7 +89,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('user');
         
-        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 400), 700);
+        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 300), 800);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -108,7 +108,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     } else if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
-      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 1900;
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
       timeoutId = setTimeout(() => {
@@ -119,7 +119,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setCurrentConversationIndex(prev => 
           prev === demoConversations.length - 1 ? 0 : prev + 1
         );
-      }, 6000);
+      }, 8000);
     }
 
     return () => {
@@ -129,8 +129,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-4 sm:p-2 lg:p-4">
-        <div className="relative animate-fade-in">
+      <div className="relative flex items-start justify-center z-20 p-0 sm:p-2 lg:p-4">
+        <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
@@ -138,13 +138,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(280px, 85vw, 340px)',
+              width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 320px)',
               aspectRatio: '9/16',
-              maxHeight: 'clamp(500px, 75vh, 620px)'
+              maxHeight: 'min(75vh, 700px)'
             }}
           >
             {/* Status bar */}
-            <div className="bg-burgundy-800 px-6 py-0.5 flex justify-between items-center text-white text-xs">
+            <div className="bg-burgundy-800 px-6 py-1 flex justify-between items-center text-white text-xs">
               <span>9:41</span>
               <div className="flex items-center gap-1">
                 <div className="w-4 h-2 border border-white/50 rounded-sm">
@@ -154,9 +154,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-2 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
-                <Avatar className="w-7 h-7 mr-2 ring-2 ring-burgundy-400/40">
+                <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                   <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                     <Heart className="w-4 h-4" />
@@ -164,22 +164,22 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 </Avatar>
               </FlameIconHalo>
               <div>
-                <h3 className="text-white font-semibold text-xs">{currentConversation.coachName || BRAND.coach.name}</h3>
-                <p className="text-white/70 text-[11px]">{currentConversation.theme}</p>
+                <h3 className="text-white font-semibold text-sm">{currentConversation.coachName || BRAND.coach.name}</h3>
+                <p className="text-white/70 text-xs">{currentConversation.theme}</p>
               </div>
             </div>
 
             {/* Messages area */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-1 space-y-0.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
+              className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
               {visibleMessages.map((message) => (
-                <div key={message.id} className={`flex gap-1.5 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-                     <Avatar className="w-5 h-5 flex-shrink-0">
+                     <Avatar className="w-6 h-6 flex-shrink-0">
                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                        <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                          <Heart className="w-3 h-3" />
@@ -195,7 +195,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                      {message.content}
                    </ChatBubble>
                    {message.type === 'user' && (
-                     <Avatar className="w-5 h-5 flex-shrink-0 ring-1 ring-coral-400/40">
+                     <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
                        <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                          {currentConversation.userName?.[0] || 'Y'}
@@ -207,14 +207,14 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
               {/* Typing indicators */}
               {isTyping && typingSide === 'assistant' && (
-                <div className="flex gap-1.5 items-end justify-start animate-fade-in" aria-live="polite">
-                  <Avatar className="w-5 h-5 flex-shrink-0">
+                <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
+                  <Avatar className="w-6 h-6 flex-shrink-0">
                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                      <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                        <Heart className="w-3 h-3" />
                      </AvatarFallback>
                    </Avatar>
-                  <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[86%] px-2.5 py-2 rounded-2xl text-[13px] leading-snug">
+                  <div className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -226,15 +226,15 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               )}
 
               {isTyping && typingSide === 'user' && (
-                <div className="flex gap-1.5 items-end justify-end animate-fade-in" aria-live="polite">
-                  <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white shadow-lg shadow-black/30 max-w-[86%] px-2.5 py-2 rounded-2xl text-[13px] leading-snug">
+                <div className="flex gap-2 items-end justify-end animate-fade-in" aria-live="polite">
+                  <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white shadow-lg shadow-black/30 max-w-[86%] px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                   <Avatar className="w-5 h-5 flex-shrink-0 ring-1 ring-coral-400/40">
+                   <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
                      <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                        {currentConversation.userName?.[0] || 'Y'}
@@ -246,16 +246,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-1.5 py-0.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-2">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1.5 flex items-center">
                 <input 
                   type="text" 
                   placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   </svg>
                 </button>
@@ -265,27 +265,23 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </div>
 
-      {/* Progress bar indicator */}
-      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 mb-8 sm:mb-12 px-4">
-        <div className="flex gap-1">
-          {demoConversations.map((conv, index) => (
-            <button
-              key={conv.id}
-              onClick={() => {
-                setIsLoopActive(false);
-                setCurrentConversationIndex(index);
-              }}
-              className="flex-1 group"
-              aria-label={`View conversation ${index + 1}: ${conv.title}`}
-            >
-              <div className={`h-1 rounded-full transition-all duration-500 ${
-                index === currentConversationIndex 
-                  ? 'bg-gradient-to-r from-coral-400 to-coral-500 shadow-lg shadow-coral-400/30' 
-                  : 'bg-white/20 group-hover:bg-white/40'
-              }`} />
-            </button>
-          ))}
-        </div>
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-6">
+        {demoConversations.map((conv, index) => (
+          <button
+            key={conv.id}
+            onClick={() => {
+              setIsLoopActive(false);
+              setCurrentConversationIndex(index);
+            }}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentConversationIndex 
+                ? 'w-6 bg-coral-400' 
+                : 'w-2 bg-white/30 hover:bg-white/50'
+            }`}
+            aria-label={`View conversation ${index + 1}: ${conv.title}`}
+          />
+        ))}
       </div>
     </div>
   );
