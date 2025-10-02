@@ -540,26 +540,6 @@ const LandingPage = ({
         </div>
       </section>
 
-
-      {/* Philosophy Section */}
-      <section className="py-16 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
-          <div className="max-w-2xl mx-auto text-center space-y-8">
-            <div className="space-y-4 text-xl md:text-2xl font-light text-white/90 leading-relaxed">
-              <p>
-                Not Instagram-perfect — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">real-life strong</span>.
-              </p>
-              <p>
-                Not fight-free — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">fight-smart</span>.
-              </p>
-              <p>
-                Not always easy — <span className="bg-clip-text text-transparent bg-gradient-to-r from-coral-400 to-pink-400 font-medium">always worth it</span>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Band */}
       <section className="py-16 md:py-20">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
