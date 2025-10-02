@@ -220,59 +220,113 @@ export const demoConversations: DemoConversation[] = [
     ]
   },
   {
-    id: 'weekend-plans',
-    title: 'Weekend Plans',
-    theme: 'Planning Together',
-    userName: 'You',
+    id: 'moving-in-together',
+    title: 'Moving In Together',
+    theme: 'Commitment & Timing',
+    userName: 'Jordan',
     coachName: 'Kai',
     messages: [
       {
         id: '1',
         type: 'user',
-        content: 'Every time I try to plan something for the weekend, he just shuts down.',
-        timestamp: '9:42 AM'
+        content: 'Kai, she wants us to move in together after 3 months.',
+        timestamp: '2:15 PM'
       },
       {
         id: '2',
         type: 'assistant',
-        content: 'That must feel frustrating. What does "shutting down" look like for him?',
-        timestamp: '9:43 AM'
+        content: "That's quick. How do you feel about it?",
+        timestamp: '2:16 PM'
       },
       {
         id: '3',
         type: 'user',
-        content: 'He goes quiet, says "I don\'t know" or "whatever you want."',
-        timestamp: '9:43 AM'
+        content: 'Excited… but scared.',
+        timestamp: '2:17 PM'
       },
       {
         id: '4',
         type: 'assistant',
-        content: 'Sounds like he might be overwhelmed by open-ended questions. Some people freeze when there are too many options.',
-        timestamp: '9:44 AM'
+        content: "What's the excitement part?",
+        timestamp: '2:18 PM'
       },
       {
         id: '5',
         type: 'user',
-        content: 'So what do I do differently?',
-        timestamp: '9:45 AM'
+        content: 'I love being with her, it feels easy.',
+        timestamp: '2:19 PM'
       },
       {
         id: '6',
         type: 'assistant',
-        content: 'Try offering 2-3 specific options: "Would you rather hike, grab brunch, or stay in and watch movies?" It gives structure.',
-        timestamp: '9:46 AM'
+        content: 'And the scared part?',
+        timestamp: '2:20 PM'
       },
       {
         id: '7',
         type: 'user',
-        content: 'That makes sense. Less pressure.',
-        timestamp: '9:47 AM'
+        content: "What if it's too soon and we crash?",
+        timestamp: '2:21 PM'
       },
       {
         id: '8',
         type: 'assistant',
-        content: 'Exactly. You\'re making it easier for him to engage instead of shutting down.',
-        timestamp: '9:48 AM'
+        content: 'Valid concern. What would moving in symbolize for you—commitment, stability, risk?',
+        timestamp: '2:22 PM'
+      },
+      {
+        id: '9',
+        type: 'user',
+        content: 'Commitment. Like forever.',
+        timestamp: '2:23 PM'
+      },
+      {
+        id: '10',
+        type: 'assistant',
+        content: 'And for her?',
+        timestamp: '2:24 PM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'I think… closeness. She hates distance.',
+        timestamp: '2:25 PM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: "So you're bringing different meanings to the same step.",
+        timestamp: '2:26 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'Yeah, that sounds right.',
+        timestamp: '2:27 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'If you slowed the timeline but deepened closeness in other ways, how would that feel?',
+        timestamp: '2:28 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Better. Safer.',
+        timestamp: '2:29 PM'
+      },
+      {
+        id: '16',
+        type: 'assistant',
+        content: "Want me to help you phrase that to her so it doesn't sound like rejection?",
+        timestamp: '2:30 PM'
+      },
+      {
+        id: '17',
+        type: 'user',
+        content: 'Yes, please.',
+        timestamp: '2:31 PM'
       }
     ]
   },
