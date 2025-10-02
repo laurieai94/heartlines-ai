@@ -362,7 +362,7 @@ const LandingPage = ({
                         </span>
                       </h1>
                       
-                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl lg:leading-[1.25] lg:pb-[0.1em] xl:text-[56px] 2xl:text-[72px] 3xl:text-[88px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
+                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl lg:leading-[1.25] lg:pb-[0.1em] xl:text-[56px] 2xl:text-[72px] 3xl:text-[88px] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -411,7 +411,7 @@ const LandingPage = ({
                       </span>
                     </h1>
                     
-                    <h3 className="text-lg md:leading-[1.25] md:pb-[0.1em] lg:text-[28px] xl:text-[36px] 2xl:text-[44px] font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
+                    <h3 className="text-lg md:leading-[1.25] md:pb-[0.1em] lg:text-[28px] xl:text-[36px] 2xl:text-[44px] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap" style={{
                   animationDelay: '0.8s'
                 }}>
                       <span className="font-brand">heartlines</span> helps you connect.
