@@ -299,7 +299,7 @@ const LandingPage = ({
                 </Link>
                 <Link to="/signup">
                   <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
-                    Chat with Kai
+                    Get Started
                   </Button>
                 </Link>
               </div>
@@ -312,7 +312,7 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: 'clamp(60vh, 80vh, 100vh)'
+      minHeight: 'clamp(50vh, 65vh, 85vh)'
     }}>
         {/* Static background preserved */}
         
@@ -430,7 +430,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="py-4 md:py-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section id="how-it-works" className="pt-0 pb-4 md:pt-0 md:pb-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -487,7 +487,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-8 md:py-12 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Enhanced Background Gradient Overlays */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Main center glow with pink-to-orange gradient */}
