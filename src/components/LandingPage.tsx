@@ -424,7 +424,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="py-4 md:py-8 relative overflow-hidden">
+      <section id="how-it-works" className="py-4 md:py-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
