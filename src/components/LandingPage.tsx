@@ -75,7 +75,7 @@ const StepCard = ({
             group-hover:scale-110 group-hover:rotate-6
             transition-all duration-300
           ">
-            <div className="w-8 h-8 text-white flex items-center justify-center group-hover:animate-pulse">
+            <div className="w-8 h-8 text-white flex items-center justify-center group-hover:scale-110 group-hover:brightness-110 transition-all duration-300">
               {icon}
             </div>
           </div>
