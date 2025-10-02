@@ -13,6 +13,7 @@ import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
@@ -105,6 +106,7 @@ const LandingPage = ({
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollY } = useScrollDirection();
 
   // Ensure menu closes when user navigates away or clicks outside
   useEffect(() => {
@@ -238,7 +240,7 @@ const LandingPage = ({
         </div>}
 
       {/* Navigation */}
-      {showMarketingTopBar && <nav className="pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 backdrop-blur-xl border-b border-coral-400/20 shadow-lg">
+      {showMarketingTopBar && <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 sticky top-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`} style={{ willChange: 'transform' }}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
