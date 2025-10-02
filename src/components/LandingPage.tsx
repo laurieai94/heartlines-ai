@@ -481,10 +481,6 @@ const LandingPage = ({
             </div>
           </div>
 
-          {/* Swipeable Cards Section */}
-          <div className="mt-16">
-            <HowItWorksSwipe />
-          </div>
         </div>
       </section>
 
@@ -537,8 +533,12 @@ const LandingPage = ({
         </div>
       </section>
 
-
-
+      {/* HowItWorksSwipe Section - Standalone */}
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+        <div className="container mx-auto px-4 sm:px-6">
+          <HowItWorksSwipe />
+        </div>
+      </section>
 
 
       {/* Philosophy Section */}
