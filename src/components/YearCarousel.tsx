@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
@@ -80,6 +81,14 @@ export const YearCarousel = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
+  const autoplay = useMemo(() => 
+    Autoplay({ 
+      delay: 5000, 
+      stopOnInteraction: false,
+      stopOnMouseEnter: false
+    }), 
+  []);
+
   useEffect(() => {
     if (!api) return;
 
@@ -88,13 +97,6 @@ export const YearCarousel = () => {
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap());
     });
-
-    // Auto-play functionality
-    const interval = setInterval(() => {
-      api.scrollNext(); // Let loop: true handle the infinite wrapping
-    }, 5000); // 5 seconds per slide
-
-    return () => clearInterval(interval);
   }, [api]);
 
   return (
@@ -105,6 +107,7 @@ export const YearCarousel = () => {
           align: 'start',
           loop: true,
         }}
+        plugins={[autoplay]}
         className="w-full"
       >
         <CarouselContent>
