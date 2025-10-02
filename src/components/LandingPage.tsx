@@ -82,7 +82,7 @@ const StepCard = ({
         </div>
         
         {/* Description */}
-        <p className="text-white/90 sm:text-white/70 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light">
+        <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light">
           {description}
         </p>
       </div>
@@ -431,7 +431,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-xl md:text-4xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
+            <h2 className="text-3xl md:text-6xl lg:text-7xl font-brand font-semibold text-white/95 mb-2 md:mb-6">How It Works</h2>
             
           </div>
           
