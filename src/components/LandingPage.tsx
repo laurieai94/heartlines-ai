@@ -452,7 +452,7 @@ const LandingPage = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
               {[{
               step: "01",
-              title: "Make Your Profile",
+              title: "Build Your Profile",
               description: "Show your true vibe—how you act when calm, stressed, or hyped.",
               icon: <UserPlus className="w-5 h-5" />,
               iconName: "user-plus"
@@ -523,10 +523,6 @@ const LandingPage = ({
           subtitle: "Advice that adapts to you, not random clichés.",
           icon: <PersonalIcon />
         }, {
-          title: "Private by design",
-          subtitle: "Your data stays private—always yours, never sold.",
-          icon: <ShieldIcon />
-        }, {
           title: "No toxic positivity",
           subtitle: "Real support for real struggles, no sugarcoating.",
           icon: <HeartSupportIcon />
@@ -538,6 +534,10 @@ const LandingPage = ({
           title: "Not fight-free",
           subtitle: "Healthy conflict that makes love stronger, not weaker.",
           icon: <ConversationIcon />
+        }, {
+          title: "Private by design",
+          subtitle: "Your data stays private—always yours, never sold.",
+          icon: <ShieldIcon />
         }]} />
         </div>
       </section>
