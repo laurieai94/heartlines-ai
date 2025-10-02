@@ -470,5 +470,104 @@ export const demoConversations: DemoConversation[] = [
         timestamp: '8:35 PM'
       }
     ]
+  },
+  {
+    id: 'new-baby-closeness',
+    title: 'New Baby, Less Closeness',
+    theme: 'Parenthood & Connection',
+    userName: 'Marcus',
+    coachName: 'Kai',
+    messages: [
+      {
+        id: '1',
+        type: 'user',
+        content: 'Kai, I feel like I lost my wife since the baby came.',
+        timestamp: '9:15 PM'
+      },
+      {
+        id: '2',
+        type: 'assistant',
+        content: 'That\'s tough. What feels most different between you now?',
+        timestamp: '9:16 PM'
+      },
+      {
+        id: '3',
+        type: 'user',
+        content: 'We don\'t talk the same. We\'re always tired. No intimacy.',
+        timestamp: '9:17 PM'
+      },
+      {
+        id: '4',
+        type: 'assistant',
+        content: 'So the exhaustion is taking space away from connection. How does that land for you?',
+        timestamp: '9:18 PM'
+      },
+      {
+        id: '5',
+        type: 'user',
+        content: 'Exactly. I miss her. But I don\'t want to pressure her.',
+        timestamp: '9:19 PM'
+      },
+      {
+        id: '6',
+        type: 'assistant',
+        content: 'That\'s thoughtful. What would closeness look like for you right now—physical, emotional, or both?',
+        timestamp: '9:20 PM'
+      },
+      {
+        id: '7',
+        type: 'user',
+        content: 'Honestly… just time together. Even 15 minutes without the baby.',
+        timestamp: '9:21 PM'
+      },
+      {
+        id: '8',
+        type: 'assistant',
+        content: 'When was the last time you had that kind of moment?',
+        timestamp: '9:22 PM'
+      },
+      {
+        id: '9',
+        type: 'user',
+        content: 'Weeks ago. We\'re in survival mode.',
+        timestamp: '9:23 PM'
+      },
+      {
+        id: '10',
+        type: 'assistant',
+        content: 'Understandable. What small step could create a pocket of connection this week?',
+        timestamp: '9:24 PM'
+      },
+      {
+        id: '11',
+        type: 'user',
+        content: 'Maybe asking her if we can sit outside after bedtime. Just us.',
+        timestamp: '9:25 PM'
+      },
+      {
+        id: '12',
+        type: 'assistant',
+        content: 'That\'s gentle and doable. How would it feel to tell her, "I miss you, and I\'d love a few minutes together tonight"?',
+        timestamp: '9:26 PM'
+      },
+      {
+        id: '13',
+        type: 'user',
+        content: 'That feels honest without pushing.',
+        timestamp: '9:27 PM'
+      },
+      {
+        id: '14',
+        type: 'assistant',
+        content: 'Exactly. Connection starts with small signals of "I still choose you."',
+        timestamp: '9:28 PM'
+      },
+      {
+        id: '15',
+        type: 'user',
+        content: 'Yeah. I think I can say that.',
+        timestamp: '9:29 PM'
+      }
+    ]
   }
 ];

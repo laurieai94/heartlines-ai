@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
@@ -67,6 +67,16 @@ const slides: CarouselSlide[] = [
 ];
 
 export const YearCarousel = () => {
+  // Randomize slides order on component mount
+  const shuffledSlides = useMemo(() => {
+    const shuffled = [...slides];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }, []);
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -98,7 +108,7 @@ export const YearCarousel = () => {
         className="w-full"
       >
         <CarouselContent>
-          {slides.map((slide, index) => (
+          {shuffledSlides.map((slide, index) => (
             <CarouselItem key={index}>
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
