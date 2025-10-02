@@ -547,30 +547,6 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* CTA Band */}
-      <section className="py-16 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`${glassCard} p-8 md:p-12 text-center`}>
-            <h2 className="text-3xl md:text-4xl font-semibold text-white/95 mb-8">
-              Ready to love smarter?
-            </h2>
-            
-            <div className="flex flex-col gap-3 justify-center max-w-md mx-auto">
-              <Link to="/signup">
-                <Button className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full px-6 py-3 text-base md:text-lg font-medium motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5">
-                  Start free
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              
-              <Link to="/mission">
-                
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <SiteFooter />
     </div>;
