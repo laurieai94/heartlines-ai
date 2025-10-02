@@ -473,21 +473,21 @@ const LandingPage = ({
               step: "02",
               title: "Add Your Person",
               description: "Bring them in too, so Kai sees the full picture.",
-              secondaryText: "(Every story has two (+) main characters.)",
+              secondaryText: "(Every story has two (+) main characters)",
               icon: <Heart className="w-5 h-5" />,
               iconName: "heart"
             }, {
               step: "03",
               title: "Chat with Kai",
               description: "Spill it, vent it, practice it—then get advice that actually slaps.",
-              secondaryText: "(Less textbook therapy, more real talk.)",
+              secondaryText: "(Less textbook therapy, more real talk)",
               icon: <MessageCircleHeart className="w-5 h-5" />,
               iconName: "message-heart"
             }, {
               step: "04",
               title: "Try It IRL",
               description: "Test it out in the wild—less fights, more feels.",
-              secondaryText: "(Because the magic happens offline.)",
+              secondaryText: "(Because the magic happens offline)",
               icon: <Sparkles className="w-5 h-5" />,
               iconName: "sparkles"
             }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
@@ -537,27 +537,27 @@ const LandingPage = ({
           <Timeline stops={[
             {
               title: "Actually personal",
-              subtitle: "Advice that flexes with you, not recycled self-help quotes. (No generic \"love yourself\" BS.)",
+              subtitle: "Advice that flexes with you, not recycled self-help quotes. (No generic \"love yourself\" BS)",
               icon: <PersonalIcon />
             },
             {
               title: "No toxic positivity",
-              subtitle: "Real talk for real struggles—support without the sugarcoat. (Because \"good vibes only\" is a lie.)",
+              subtitle: "Real talk for real struggles—support without the sugarcoat. (Because \"good vibes only\" is a lie)",
               icon: <HeartSupportIcon />
             },
             {
               title: "Built for busy",
-              subtitle: "Quick moves that actually shift your relationship, even on a slammed day. (Zero fluff, just action.)",
+              subtitle: "Quick moves that actually shift your relationship, even on a slammed day. (Zero fluff, just action)",
               icon: <ClockIcon />
             },
             {
               title: "Not fight-free",
-              subtitle: "We don't erase conflict—we show you how to use it to grow stronger. (Healthy fights > silent scrolling.)",
+              subtitle: "We don't erase conflict—we show you how to use it to grow stronger. (Healthy fights > silent scrolling)",
               icon: <ConversationIcon />
             },
             {
               title: "Private by design",
-              subtitle: "Your convos stay yours—always encrypted, never sold. (Kai listens, Big Tech doesn't.)",
+              subtitle: "Your convos stay yours—always encrypted, never sold. (Kai listens, Big Tech doesn't)",
               icon: <ShieldIcon />
             }
           ]} />
