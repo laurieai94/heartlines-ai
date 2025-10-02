@@ -332,11 +332,11 @@ const LandingPage = ({
                     <div className="space-y-2 mb-1 md:mb-6 max-w-4xl">
                       <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                          Relationships<br className="md:hidden" /> aren't rom-coms.
+                          Relationships aren't rom-coms.
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-[28px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
+                      <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-[28px] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
