@@ -17,6 +17,7 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
+import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
 // Clean StepCard Component - Mobile Style
@@ -487,35 +488,52 @@ const LandingPage = ({
         </div>
       </section>
 
-      {/* Why It's Different Section */}
-      <section className="py-12 md:py-20 relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-xl md:text-4xl font-semibold text-white/95 mb-2 md:mb-6">Why It's Different</h2>
+      {/* Why It's Different Section - Vertical Timeline */}
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+        {/* Soft Glow Behind Timeline */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-coral-400/10 to-pink-400/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          {/* Headline */}
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand text-white mb-4">
+              Why We're Different
+            </h2>
+            <p className="text-lg md:text-xl text-white/80 font-light">
+              Connection, not perfection.
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 max-w-4xl mx-auto">
-            {[{
-            title: "No toxic positivity — conflict happens, we help.",
-            icon: <CircleSlash className="w-6 h-6" aria-hidden="true" />
-          }, {
-            title: "Actually personal — not horoscope-generic.",
-            icon: <Sparkles className="w-6 h-6" aria-hidden="true" />
-          }, {
-            title: "Built for busy — tiny, high-impact actions.",
-            icon: <Bolt className="w-6 h-6" aria-hidden="true" />
-          }, {
-            title: "Private by design — your convo stays yours.",
-            icon: <Shield className="w-6 h-6" aria-hidden="true" />
-          }].map((item, index) => <article key={index} className={`${glassCard} p-4 group motion-safe:hover:-translate-y-0.5 motion-safe:hover:scale-[1.02] motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:shadow-lg hover:shadow-coral-400/10 motion-reduce:transform-none motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-coral-300/60 focus-visible:outline-none text-left relative overflow-hidden`} tabIndex={0} role="article" aria-label={item.title}>
-                <div className="flex items-start gap-3 relative z-10">
-                  <div className="w-8 h-8 bg-gradient-to-r from-coral-400/20 to-pink-400/20 rounded-lg flex items-center justify-center border border-coral-300/30 text-coral-400 group-hover:scale-110 transition-transform shadow-sm flex-shrink-0 mt-0.5">
-                    {item.icon}
-                  </div>
-                  <p className="font-medium text-white/95 text-sm md:text-base leading-relaxed">{item.title}</p>
-                </div>
-              </article>)}
-          </div>
+          {/* Timeline Component */}
+          <Timeline 
+            stops={[
+              {
+                title: "Actually personal",
+                subtitle: "Advice that adapts to you, not random clichés.",
+                icon: <PersonalIcon />
+              },
+              {
+                title: "Private by design",
+                subtitle: "Your data stays private—always yours, never sold.",
+                icon: <ShieldIcon />
+              },
+              {
+                title: "No toxic positivity",
+                subtitle: "Real support for real struggles, no sugarcoating.",
+                icon: <HeartSupportIcon />
+              },
+              {
+                title: "Built for busy",
+                subtitle: "Quick actions you can try today that actually matter.",
+                icon: <ClockIcon />
+              },
+              {
+                title: "Not fight-free",
+                subtitle: "Healthy conflict that makes love stronger, not weaker.",
+                icon: <ConversationIcon />
+              }
+            ]}
+          />
         </div>
       </section>
 
