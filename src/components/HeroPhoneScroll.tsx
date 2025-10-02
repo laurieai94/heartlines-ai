@@ -129,7 +129,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      <div className="relative flex items-start justify-center z-20 pt-8 pb-0 px-4 sm:p-2 lg:p-4">
+      <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-4 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
@@ -154,9 +154,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
-                <Avatar className="w-8 h-8 mr-2 ring-2 ring-burgundy-400/40">
+                <Avatar className="w-7 h-7 mr-2 ring-2 ring-burgundy-400/40">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                   <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                     <Heart className="w-4 h-4" />
@@ -164,22 +164,22 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 </Avatar>
               </FlameIconHalo>
               <div>
-                <h3 className="text-white font-semibold text-sm">{currentConversation.coachName || BRAND.coach.name}</h3>
-                <p className="text-white/70 text-xs">{currentConversation.theme}</p>
+                <h3 className="text-white font-semibold text-xs">{currentConversation.coachName || BRAND.coach.name}</h3>
+                <p className="text-white/70 text-[11px]">{currentConversation.theme}</p>
               </div>
             </div>
 
             {/* Messages area */}
             <div 
               ref={messagesRef}
-              className="flex-1 p-1.5 space-y-1 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
+              className="flex-1 p-1 space-y-0.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
               {visibleMessages.map((message) => (
-                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div key={message.id} className={`flex gap-1.5 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
-                     <Avatar className="w-6 h-6 flex-shrink-0">
+                     <Avatar className="w-5 h-5 flex-shrink-0">
                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                        <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                          <Heart className="w-3 h-3" />
@@ -195,7 +195,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                      {message.content}
                    </ChatBubble>
                    {message.type === 'user' && (
-                     <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
+                     <Avatar className="w-5 h-5 flex-shrink-0 ring-1 ring-coral-400/40">
                        <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                          {currentConversation.userName?.[0] || 'Y'}
@@ -207,8 +207,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
               {/* Typing indicators */}
               {isTyping && typingSide === 'assistant' && (
-                <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
-                  <Avatar className="w-6 h-6 flex-shrink-0">
+                <div className="flex gap-1.5 items-end justify-start animate-fade-in" aria-live="polite">
+                  <Avatar className="w-5 h-5 flex-shrink-0">
                      <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
                      <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                        <Heart className="w-3 h-3" />
@@ -226,7 +226,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               )}
 
               {isTyping && typingSide === 'user' && (
-                <div className="flex gap-2 items-end justify-end animate-fade-in" aria-live="polite">
+                <div className="flex gap-1.5 items-end justify-end animate-fade-in" aria-live="polite">
                   <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white shadow-lg shadow-black/30 max-w-[86%] px-2.5 py-2 rounded-2xl text-[13px] leading-snug">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce"></div>
@@ -234,7 +234,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/80 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                   <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
+                   <Avatar className="w-5 h-5 flex-shrink-0 ring-1 ring-coral-400/40">
                      <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                        {currentConversation.userName?.[0] || 'Y'}
@@ -246,16 +246,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1.5">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-1 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-1.5 py-0.5 flex items-center">
                 <input 
                   type="text" 
                   placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   </svg>
                 </button>
