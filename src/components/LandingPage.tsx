@@ -19,7 +19,7 @@ import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 
-// Elegant StepCard Component with Refined Glassmorphism
+// Elegant StepCard Component with Pink-to-Orange Gradient Pizzazz
 const StepCard = ({
   step,
   title,
@@ -45,27 +45,55 @@ const StepCard = ({
       role="article" 
       aria-label={title}
     >
-      {/* Floating Card with Enhanced Mobile Glassmorphism */}
-      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between border border-white/30 sm:border-white/10 shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02] hover:shadow-primary/20 hover:from-white/25 hover:via-white/20 hover:to-white/15 sm:hover:from-white/[0.12] sm:hover:via-white/[0.08] sm:hover:to-white/[0.05] hover:-translate-y-2 transition-all duration-500">
+      {/* Floating Card with Vibrant Gradient Border */}
+      <div className="relative z-10 backdrop-blur-xl rounded-3xl p-8 md:p-10 h-full flex flex-col justify-between 
+        border-2 border-transparent
+        bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02]
+        shadow-2xl shadow-pink-500/10
+        hover:shadow-orange-500/20 hover:from-white/25 hover:via-white/20 hover:to-white/15 sm:hover:from-white/[0.12] sm:hover:via-white/[0.08] sm:hover:to-white/[0.05]
+        hover:-translate-y-2 transition-all duration-500
+        before:absolute before:inset-0 before:rounded-3xl before:p-[2px]
+        before:bg-gradient-to-br before:from-pink-500 before:via-orange-500 before:to-pink-600
+        before:-z-10 before:opacity-30 sm:before:opacity-20
+        before:group-hover:opacity-60 before:transition-opacity before:duration-500
+      ">
         
-        {/* Minimal Step Indicator */}
+        {/* Animated gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-orange-500/5 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+        
+        {/* Step Indicator with Gradient */}
         <div className="absolute top-6 right-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/20 sm:from-primary/20 sm:to-primary/10 border border-primary/40 sm:border-primary/30 backdrop-blur-sm">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full 
+            bg-gradient-to-br from-pink-500 via-orange-500 to-pink-600
+            border border-white/30 shadow-lg shadow-pink-500/30
+            group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-orange-500/40
+            transition-all duration-300
+          ">
             <span className="text-white text-sm font-medium">{step}</span>
           </div>
         </div>
         
         {/* Content */}
         <div className="relative z-10 space-y-6">
-          {/* Icon with Elegant Glow */}
-          <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary/30 to-primary/20 sm:from-primary/20 sm:to-primary/10 shadow-lg shadow-primary/20 group-hover:shadow-primary/40 group-hover:scale-110 transition-all duration-500 border border-primary/30 sm:border-primary/20">
+          {/* Icon with Vibrant Gradient Background */}
+          <div className="inline-flex p-4 rounded-2xl 
+            bg-gradient-to-br from-pink-500/80 via-orange-500/70 to-pink-600/80
+            backdrop-blur-sm border border-white/30
+            shadow-lg shadow-pink-500/20
+            group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-orange-500/30
+            transition-all duration-500
+          ">
             <div className="w-8 h-8 text-white drop-shadow-lg flex items-center justify-center">
               {icon}
             </div>
           </div>
           
-          {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light">
+          {/* Title with Gradient Hover Effect */}
+          <h3 className="text-2xl md:text-3xl font-playfair text-white leading-tight font-light
+            group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-orange-300
+            group-hover:bg-clip-text group-hover:text-transparent
+            transition-all duration-300
+          ">
             {title}
           </h3>
         </div>
@@ -76,8 +104,8 @@ const StepCard = ({
         </p>
       </div>
       
-      {/* Subtle Glow Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+      {/* Vibrant Gradient Glow Effect */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-pink-500/10 via-orange-500/10 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
     </article>
   );
 };
@@ -414,11 +442,11 @@ const LandingPage = ({
 
       {/* How It Works Section - Playful 4-Step Flow */}
       <section id="how-it-works" className="py-6 md:py-12 relative overflow-hidden">
-        {/* Background Ambient Orbs */}
+        {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-coral-400/5 to-pink-400/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-peach-400/5 to-coral-400/5 rounded-full blur-3xl"></div>
-          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/5 to-peach-400/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-orange-500/15 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-3/4 left-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6">
@@ -429,11 +457,11 @@ const LandingPage = ({
           
           {/* 4-Step Cards */}
           <div className="relative max-w-6xl mx-auto">
-            {/* Desktop Connector Line */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-coral-400/20 to-transparent transform -translate-y-1/2">
-              <div className="absolute left-1/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute left-2/4 w-2 h-2 bg-pink-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute left-3/4 w-2 h-2 bg-coral-400/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+            {/* Desktop Connector Line with Vibrant Gradient */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-pink-500/30 to-transparent transform -translate-y-1/2 rounded-full shadow-lg shadow-pink-500/20">
+              <div className="absolute left-1/4 w-3 h-3 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse"></div>
+              <div className="absolute left-2/4 w-3 h-3 bg-gradient-to-br from-orange-500 to-pink-600 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-orange-500/50 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute left-3/4 w-3 h-3 bg-gradient-to-br from-pink-600 to-orange-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-pink-500/50 animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
