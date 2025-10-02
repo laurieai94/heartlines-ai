@@ -216,8 +216,6 @@
     min-height: -webkit-fill-available;
     /* Prevent viewport displacement */
     position: relative;
-    /* Emergency background fallback for coaching pages */
-    background-color: hsl(350 100% 15%);
   }
 
   #root {
