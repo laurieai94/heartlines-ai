@@ -25,6 +25,7 @@ const StepCard = ({
   step,
   title,
   description,
+  secondaryText,
   icon,
   iconName,
   index
@@ -32,6 +33,7 @@ const StepCard = ({
   step: string;
   title: string;
   description: string;
+  secondaryText?: string;
   icon: React.ReactNode;
   iconName: string;
   index: number;
@@ -77,10 +79,18 @@ const StepCard = ({
         </div>
         
         {/* Description */}
-        <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 relative z-10 font-light
-          group-hover:text-white transition-colors duration-300">
-          {description}
-        </p>
+        <div className="relative z-10">
+          <p className="text-pink-100/90 sm:text-pink-200/80 text-base md:text-lg leading-relaxed mt-4 font-light
+            group-hover:text-white transition-colors duration-300">
+            {description}
+          </p>
+          {secondaryText && (
+            <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base leading-relaxed mt-2 font-light italic
+              group-hover:text-white/70 transition-colors duration-300">
+              {secondaryText}
+            </p>
+          )}
+        </div>
       </div>
     </article>;
 };
@@ -453,28 +463,32 @@ const LandingPage = ({
               {[{
               step: "01",
               title: "Build Your Profile",
-              description: "Show your true vibe—how you act when calm, stressed, or hyped.",
+              description: "Show how you really vibe—calm, stressed, or full chaos.",
+              secondaryText: "(No fake bios here.)",
               icon: <UserPlus className="w-5 h-5" />,
               iconName: "user-plus"
             }, {
               step: "02",
               title: "Add Your Person",
-              description: "Drop in their vibe too, so Kai gets the full picture.",
+              description: "Bring them in too, so Kai sees the full picture.",
+              secondaryText: "(Every story has (at least) two main characters.)",
               icon: <Heart className="w-5 h-5" />,
               iconName: "heart"
             }, {
               step: "03",
               title: "Chat with Kai",
-              description: "Spill the tea, practice convos, and get advice that hits.",
+              description: "Spill it, vent it, practice it—then get advice that actually slaps.",
+              secondaryText: "(Less textbook therapy, more real talk.)",
               icon: <MessageCircleHeart className="w-5 h-5" />,
               iconName: "message-heart"
             }, {
               step: "04",
-              title: "Try the Move IRL",
-              description: "Take small steps that spark real change.",
+              title: "Try It IRL",
+              description: "Test it out in the wild—less fights, more feels.",
+              secondaryText: "(Because the magic happens offline.)",
               icon: <Sparkles className="w-5 h-5" />,
               iconName: "sparkles"
-            }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} icon={item.icon} iconName={item.iconName} index={index} />)}
+            }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
             </div>
           </div>
 
