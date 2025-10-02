@@ -24,7 +24,7 @@ const narrativeSlides = [
   },
   {
     id: 3,
-    content: "The 2 a.m. fights about nothing\nthat feel like everything.",
+    content: "The 2 a.m. fights about nothing that feel like everything.",
     highlight: "2 a.m. fights about nothing"
   },
   {
