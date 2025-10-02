@@ -327,14 +327,14 @@ const LandingPage = ({
                 <div className="grid md:grid-cols-2 gap-4 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-0 mt-8 md:mt-0 max-w-full">
-                    <div className="space-y-2 mb-1 md:mb-6">
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl lg:leading-[1.3] lg:pb-[0.15em] xl:text-[80px] 2xl:text-[100px] 3xl:text-[120px] font-playfair font-normal leading-tight animate-fade-in">
+                    <div className="space-y-2 mb-1 md:mb-6 max-w-4xl">
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-[64px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           Relationships<br className="md:hidden" /> aren't rom-coms.
                         </span>
                       </h1>
                       
-                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl lg:leading-[1.25] lg:pb-[0.1em] xl:text-[56px] 2xl:text-[72px] 3xl:text-[88px] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap">
+                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-[40px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
