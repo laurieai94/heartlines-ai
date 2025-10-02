@@ -92,7 +92,7 @@ const HowItWorksSwipe = () => {
   return (
     <div className="max-w-5xl mx-auto px-4">
       {/* Single Interactive Card */}
-      <Card className="relative overflow-hidden backdrop-blur-xl border border-white/30 sm:border-white/10 rounded-3xl p-8 md:p-12 min-h-[320px] shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02] hover:shadow-primary/20 transition-all duration-500">
+      <Card className="relative overflow-hidden backdrop-blur-xl border border-white/30 sm:border-white/10 rounded-3xl p-6 md:p-8 lg:p-12 min-h-[320px] shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/20 via-white/15 to-white/10 sm:from-white/[0.08] sm:via-white/[0.05] sm:to-white/[0.02] hover:shadow-primary/20 transition-all duration-500">
         <Carousel 
           setApi={setApi}
           className="w-full"
@@ -104,12 +104,12 @@ const HowItWorksSwipe = () => {
           <CarouselContent>
             {narrativeSlides.map((slide) => (
               <CarouselItem key={slide.id}>
-                <div className="flex items-center justify-center min-h-[240px] p-6">
+                <div className="flex items-center justify-center min-h-[280px] md:min-h-[240px] p-4 md:p-6">
                   <div className="text-center max-w-3xl">
                     {slide.isCTA ? (
                       // CTA Slide
                       <div className="space-y-6">
-                        <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-light leading-tight">
+                        <h2 className="text-white text-4xl md:text-4xl lg:text-5xl font-light leading-tight">
                           Messy, real, and
                           <br />
                           <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">
@@ -126,7 +126,7 @@ const HowItWorksSwipe = () => {
                       </div>
                     ) : (
                       // Regular Text Slide
-                      <p className="text-white text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed whitespace-pre-line">
+                      <p className="text-white text-3xl md:text-3xl lg:text-4xl font-light leading-relaxed whitespace-pre-line">
                         {slide.content.split('\n').map((line, lineIndex) => {
                           const isHighlighted = slide.highlight && line.includes(slide.highlight);
                           if (isHighlighted) {
@@ -171,18 +171,18 @@ const HowItWorksSwipe = () => {
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full backdrop-blur-md bg-white/20 sm:bg-white/[0.08] border border-white/30 sm:border-white/20 hover:bg-white/30 sm:hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full backdrop-blur-md bg-white/20 sm:bg-white/[0.08] border border-white/30 sm:border-white/20 hover:bg-white/30 sm:hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+          <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-white/70 group-hover:text-white transition-colors" />
         </button>
         
         <button
           onClick={scrollNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full backdrop-blur-md bg-white/20 sm:bg-white/[0.08] border border-white/30 sm:border-white/20 hover:bg-white/30 sm:hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full backdrop-blur-md bg-white/20 sm:bg-white/[0.08] border border-white/30 sm:border-white/20 hover:bg-white/30 sm:hover:bg-white/[0.15] hover:scale-110 transition-all duration-300 group shadow-lg"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+          <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-white/70 group-hover:text-white transition-colors" />
         </button>
       </Card>
     </div>
