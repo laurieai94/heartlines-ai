@@ -203,7 +203,7 @@ const ProfileBuilder = ({
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && (
-            <div className="max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+            <div className="my-6 md:my-0 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <Button
                 variant="glass"
                 onClick={goToCoach}
