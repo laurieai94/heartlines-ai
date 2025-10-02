@@ -262,3 +262,39 @@ html {
     background: rgba(128, 0, 32, 0.8);
   }
 }
+
+/* Footer mobile and tablet consistency */
+@media (max-width: 768px) {
+  footer {
+    /* Ensure proper stacking and spacing on mobile */
+    contain: layout;
+  }
+  
+  footer .grid {
+    /* Force single column on mobile */
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  footer .grid {
+    /* Maintain 3-column layout on tablet */
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Timeline z-index mobile reinforcement */
+@media (max-width: 768px) {
+  .timeline-line-mobile {
+    z-index: -1 !important;
+    /* Ensure line stays behind all content */
+    isolation: isolate;
+  }
+  
+  .timeline-card-mobile {
+    z-index: 10 !important;
+    /* Ensure cards appear in front */
+    position: relative;
+    isolation: isolate;
+  }
+}
