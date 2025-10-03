@@ -1,5 +1,4 @@
 import React from 'react';
-import { LazySection } from '../LazySection';
 
 interface TimelineStop {
   title: string;
@@ -95,61 +94,62 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       {/* Timeline Stops */}
       <div className="space-y-6 md:space-y-8">
         {stops.map((stop, index) => (
-          <LazySection 
-            key={index}
-            threshold={0.2}
-            rootMargin="50px"
-          >
             <div 
-              className="relative animate-fade-in"
-              style={{
-                animationDelay: `${index * 0.15}s`
-              }}
+              key={index}
+              className="relative"
             >
-              {/* Center Dot - Hidden */}
-              <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
-                style={{
-                  boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
-                }}
-              />
+              {/* Connection line with gradient */}
+              {index < stops.length - 1 && (
+                <div 
+                  className="absolute left-8 top-24 w-0.5 h-32 bg-gradient-to-b from-primary/30 via-primary/20 to-transparent"
+                  style={{
+                    boxShadow: '0 0 10px rgba(255, 112, 147, 0.3)'
+                  }}
+                />
+              )}
 
-              {/* Card with Enhanced Hover Effects */}
-              <div className={`
-                relative mx-auto max-w-md z-10
-                glass-burgundy-solid rounded-2xl p-3 md:p-4
-                border border-coral-400/20
-                hover:border-pink-400/40
-                group hover:-translate-y-2 hover:scale-105
-                transition-all duration-500 ease-out
-                hover:shadow-2xl hover:shadow-pink-400/30
-                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-500
-              `}>
-                {/* Icon with Pink-Orange Gradient Background */}
-                <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
-                    {stop.icon}
+              {/* Timeline Stop Card */}
+              <div className="flex items-start gap-6 group">
+                {/* Icon container with glow effect */}
+                <div className="relative flex-shrink-0">
+                  <div 
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 
+                               flex items-center justify-center backdrop-blur-sm border border-primary/30
+                               transition-all duration-500 group-hover:scale-110 group-hover:border-primary/50
+                               group-hover:shadow-[0_0_30px_rgba(255,112,147,0.4)]"
+                  >
+                    <div className="w-8 h-8 text-primary transition-transform duration-500 group-hover:scale-110">
+                      {stop.icon}
+                    </div>
                   </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
-                  {stop.title}
-                </h3>
-
-                {/* Subtitle */}
-                <div className="text-center">
-                  <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
-                    {stop.subtitle.split('(')[0].trim()}
-                  </p>
-                  {stop.subtitle.includes('(') && (
-                    <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
-                      ({stop.subtitle.split('(')[1]}
+                {/* Content card with enhanced hover effects */}
+                <div 
+                  className="flex-1 p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50
+                             transition-all duration-500 
+                             group-hover:bg-card/80 group-hover:border-primary/30
+                             group-hover:shadow-[0_20px_60px_-15px_rgba(255,112,147,0.3)]
+                             group-hover:scale-[1.02] group-hover:-translate-y-1
+                             relative overflow-hidden"
+                >
+                  {/* Gradient overlay on hover */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  />
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-semibold mb-2 text-foreground transition-colors duration-300 group-hover:text-primary">
+                      {stop.title}
+                    </h3>
+                    <p className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground/80">
+                      {stop.subtitle}
                     </p>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
-          </LazySection>
         ))}
       </div>
     </div>
