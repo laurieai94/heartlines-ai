@@ -246,8 +246,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1.5">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-1 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 px-3 py-1.5">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-1.5 py-1 flex items-center">
                 <input 
                   type="text" 
                   placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
