@@ -138,13 +138,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(260px, min(52vw, min(52svh, 52dvh) * 9/16), 380px)',
+              width: 'clamp(300px, min(58vw, min(58svh, 58dvh) * 9/16), 420px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(52vh, 700px)'
+              maxHeight: 'min(58vh, 750px)'
             }}
           >
             {/* Status bar */}
-            <div className="bg-burgundy-800 px-6 py-1 flex justify-between items-center text-white text-xs">
+            <div className="bg-burgundy-800 px-6 py-0.5 flex justify-between items-center text-white text-xs">
               <span>9:41</span>
               <div className="flex items-center gap-1">
                 <div className="w-4 h-2 border border-white/50 rounded-sm">
@@ -154,7 +154,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-2 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
@@ -246,8 +246,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1.5">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-1 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-0.5 flex items-center">
                 <input 
                   type="text" 
                   placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
@@ -266,32 +266,46 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       </div>
 
       {/* Progress bar indicator */}
-      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 mb-16 sm:mb-20 md:mb-24 px-4">
-        <div className="flex gap-1">
-          {demoConversations.map((conv, index) => (
-            <button
-              key={conv.id}
-              onClick={() => {
-                setIsLoopActive(false);
-                setCurrentConversationIndex(index);
-              }}
-              className="flex-1 group flex flex-col items-center gap-1.5"
-              aria-label={`View conversation ${index + 1}: ${conv.title}`}
-            >
-              <div className={`text-[10px] sm:text-xs text-center transition-all duration-500 mb-1 px-0.5 ${
-                index === currentConversationIndex 
-                  ? 'text-white font-medium opacity-100' 
-                  : 'text-white/40 opacity-0 group-hover:opacity-100'
-              }`}>
+      <div className="w-full max-w-[340px] sm:max-w-[400px] mx-auto mt-6 mb-16 sm:mb-20 md:mb-24 px-4">
+        <div className="flex flex-col gap-2">
+          {/* Text labels above */}
+          <div className="flex gap-2 justify-between">
+            {demoConversations.map((conv, index) => (
+              <div 
+                key={`label-${conv.id}`}
+                className={`text-[9px] sm:text-[10px] text-center transition-all duration-300 flex-1 ${
+                  index === currentConversationIndex 
+                    ? 'text-coral-300 font-medium opacity-100' 
+                    : 'text-white/50 opacity-60'
+                }`}
+              >
                 {conv.title}
               </div>
-              <div className={`h-1 w-full rounded-full transition-all duration-500 ${
-                index === currentConversationIndex 
-                  ? 'bg-gradient-to-r from-coral-400 to-coral-500 shadow-lg shadow-coral-400/30' 
-                  : 'bg-white/20 group-hover:bg-white/40'
-              }`} />
-            </button>
-          ))}
+            ))}
+          </div>
+          
+          {/* Single continuous line with segments */}
+          <div className="relative h-0.5 bg-white/20 rounded-full overflow-hidden">
+            <div className="absolute inset-0 flex">
+              {demoConversations.map((conv, index) => (
+                <button
+                  key={conv.id}
+                  onClick={() => {
+                    setIsLoopActive(false);
+                    setCurrentConversationIndex(index);
+                  }}
+                  className="flex-1 h-full group relative"
+                  aria-label={`View conversation ${index + 1}: ${conv.title}`}
+                >
+                  <div className={`absolute inset-0 transition-all duration-500 ${
+                    index === currentConversationIndex 
+                      ? 'bg-gradient-to-r from-coral-400 to-coral-500' 
+                      : 'bg-transparent group-hover:bg-white/30'
+                  }`} />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
