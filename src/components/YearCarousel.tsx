@@ -83,6 +83,7 @@ export const YearCarousel = () => {
       delay: 5000, 
       stopOnInteraction: false,
       stopOnMouseEnter: true,
+      stopOnFocusIn: false,
       playOnInit: true
     })
   );
@@ -108,14 +109,16 @@ export const YearCarousel = () => {
           align: 'center',
           loop: true,
           skipSnaps: false,
-          duration: 20
+          duration: 30,
+          dragFree: false,
+          containScroll: 'trimSnaps'
         }}
         plugins={[autoplay.current]}
         className="w-full"
       >
         <CarouselContent>
           {shuffledSlides.map((slide, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={`${slide.year}-${index}`}>
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
                 <img
