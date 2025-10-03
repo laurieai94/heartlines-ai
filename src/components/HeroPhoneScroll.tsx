@@ -269,19 +269,29 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       <div className="w-full max-w-[340px] sm:max-w-[400px] mx-auto mt-6 mb-16 sm:mb-20 md:mb-24 px-4">
         <div className="flex flex-col gap-2">
           {/* Text labels above */}
-          <div className="flex gap-2 justify-between">
-            {demoConversations.map((conv, index) => (
-              <div 
-                key={`label-${conv.id}`}
-              className={`text-[9px] sm:text-[10px] text-center transition-all duration-500 flex-1 whitespace-nowrap ${
-                index === currentConversationIndex 
-                  ? 'text-coral-300 font-medium opacity-100' 
-                  : 'text-white/50 opacity-0'
-              }`}
-              >
-                {conv.title}
-              </div>
-            ))}
+          <div className="relative h-4">
+            {demoConversations.map((conv, index) => {
+              const segmentWidth = 100 / demoConversations.length;
+              const leftPosition = segmentWidth * index;
+              
+              return (
+                <div
+                  key={`label-${conv.id}`}
+                  className={`absolute text-[9px] sm:text-[10px] whitespace-nowrap transition-all duration-500 ${
+                    index === currentConversationIndex 
+                      ? 'text-coral-300 font-medium opacity-100' 
+                      : 'text-white/50 opacity-0'
+                  }`}
+                  style={{
+                    left: `${leftPosition}%`,
+                    width: `${segmentWidth}%`,
+                    textAlign: 'center',
+                  }}
+                >
+                  {conv.title}
+                </div>
+              );
+            })}
           </div>
           
           {/* Single continuous line with segments */}
