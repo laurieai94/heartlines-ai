@@ -273,11 +273,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             {demoConversations.map((conv, index) => (
               <div 
                 key={`label-${conv.id}`}
-                className={`text-[9px] sm:text-[10px] text-center transition-all duration-300 flex-1 ${
-                  index === currentConversationIndex 
-                    ? 'text-coral-300 font-medium opacity-100' 
-                    : 'text-white/50 opacity-60'
-                }`}
+              className={`text-[9px] sm:text-[10px] text-center transition-all duration-500 flex-1 whitespace-nowrap ${
+                index === currentConversationIndex 
+                  ? 'text-coral-300 font-medium opacity-100' 
+                  : 'text-white/50 opacity-0'
+              }`}
               >
                 {conv.title}
               </div>
