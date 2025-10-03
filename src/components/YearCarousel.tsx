@@ -1,4 +1,5 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
+import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
@@ -77,6 +78,10 @@ export const YearCarousel = () => {
     return shuffled;
   }, []);
 
+  const autoplay = useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -88,13 +93,6 @@ export const YearCarousel = () => {
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap());
     });
-
-    // Auto-play functionality
-    const interval = setInterval(() => {
-      api.scrollNext(); // Let loop: true handle the infinite wrapping
-    }, 5000); // 5 seconds per slide
-
-    return () => clearInterval(interval);
   }, [api]);
 
   return (
@@ -105,6 +103,7 @@ export const YearCarousel = () => {
           align: 'start',
           loop: true,
         }}
+        plugins={[autoplay.current]}
         className="w-full"
       >
         <CarouselContent>
