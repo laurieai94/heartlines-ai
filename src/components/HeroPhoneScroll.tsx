@@ -170,8 +170,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
-              {visibleMessages.map((message) => (
-                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {visibleMessages.map((message, idx) => (
+                <div key={`${currentConversationIndex}-${message.id}-${idx}`} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
                      <Avatar className="w-6 h-6 flex-shrink-0">

@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
@@ -14,12 +14,13 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
-import SiteFooter from "./SiteFooter";
-import HowItWorksSwipe from "./HowItWorksSwipe";
-import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
+
+// Lazy load below-the-fold components for better initial load
+const SiteFooter = lazy(() => import("./SiteFooter"));
+const HowItWorksSwipe = lazy(() => import("./HowItWorksSwipe"));
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -105,7 +106,6 @@ const LandingPage = ({
     user
   } = useAuth();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-  const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScrollDirection();
 
@@ -149,42 +149,7 @@ const LandingPage = ({
     label: 'Plans',
     icon: CreditCard
   }];
-  const datingProfiles = [{
-    name: "Emma",
-    age: 28,
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-    bio: "Photographer & dog mom"
-  }, {
-    name: "Jake",
-    age: 31,
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-    bio: "Chef & weekend surfer"
-  }, {
-    name: "Zoe",
-    age: 24,
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
-    bio: "Designer & music lover"
-  }, {
-    name: "Chris",
-    age: 33,
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    bio: "Teacher & rock climber"
-  }, {
-    name: "Lily",
-    age: 27,
-    photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=400&fit=crop&crop=face",
-    bio: "Writer & coffee enthusiast"
-  }, {
-    name: "Alex",
-    age: 30,
-    photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face",
-    bio: "Engineer & marathon runner"
-  }, {
-    name: "Maya",
-    age: 25,
-    photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face",
-    bio: "Artist & yoga instructor"
-  }];
+  
   useEffect(() => {
     // Only run minimal timers for full marketing page
     if (!isEmbedded) {
@@ -193,16 +158,10 @@ const LandingPage = ({
         // Show floating button after page is stable
         const timer = setTimeout(() => {
           setShowFloatingButton(true);
-        }, 2000);
-
-        // Start profile rotation after initial render - slower updates
-        const profileTimer = setInterval(() => {
-          setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
-        }, 4000); // Slower rotation to reduce repaints
+        }, 3000); // Increased delay to prioritize critical rendering
 
         return () => {
           clearTimeout(timer);
-          clearInterval(profileTimer);
         };
       };
       let cleanup: (() => void) | undefined;
@@ -212,12 +171,12 @@ const LandingPage = ({
         (window as any).requestIdleCallback(() => {
           cleanup = deferredSetup();
         }, {
-          timeout: 2000
+          timeout: 3000
         });
       } else {
         setTimeout(() => {
           cleanup = deferredSetup();
-        }, 1000);
+        }, 2000);
       }
       return () => {
         cleanup?.();
@@ -555,14 +514,18 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-        <div className="container mx-auto px-4 sm:px-6">
-          <HowItWorksSwipe />
-        </div>
-      </section>
+      <Suspense fallback={<div className="py-16 md:py-24 bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900" />}>
+        <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+          <div className="container mx-auto px-4 sm:px-6">
+            <HowItWorksSwipe />
+          </div>
+        </section>
+      </Suspense>
 
       {/* Footer */}
-      <SiteFooter />
+      <Suspense fallback={<div className="py-8 bg-burgundy-900" />}>
+        <SiteFooter />
+      </Suspense>
     </div>;
 };
 export default LandingPage;
