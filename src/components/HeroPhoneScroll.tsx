@@ -23,7 +23,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [typingSide, setTypingSide] = useState<'assistant' | 'user' | null>(null);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isLoopActive, setIsLoopActive] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const currentConversation = demoConversations[currentConversationIndex];
   
@@ -46,6 +48,33 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     setIsLoopActive(true);
   }, [currentConversationIndex]);
 
+  // Only start animations when component is in viewport
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isInView) {
+            setIsInView(true);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Start when 30% of component is visible
+        rootMargin: '0px'
+      }
+    );
+    
+    observer.observe(containerRef.current);
+    
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [isInView]);
+
   // Auto-scroll to bottom when new messages appear
   useEffect(() => {
     if (messagesRef.current) {
@@ -54,6 +83,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   }, [visibleMessages, isTyping]);
 
   useEffect(() => {
+    if (!isInView) return;
+    
     let timeoutId: NodeJS.Timeout;
     
     const showNextMessage = () => {
@@ -125,10 +156,10 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentMessageIndex, isLoopActive, currentConversation, currentConversationIndex]);
+  }, [currentMessageIndex, isLoopActive, currentConversation, currentConversationIndex, isInView]);
 
   return (
-    <div className={`relative ${className}`} style={style}>
+    <div ref={containerRef} className={`relative ${className}`} style={style}>
       <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
