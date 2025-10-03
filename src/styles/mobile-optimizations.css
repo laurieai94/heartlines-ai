@@ -50,10 +50,16 @@ html, body, #root {
     min-height: 100dvh;
     min-height: -webkit-fill-available;
     position: relative;
-    /* Prevent layout shifts and scroll displacement */
-    contain: layout style;
+    /* Allow natural overflow for landing pages */
+    overflow: visible;
+    /* GPU acceleration for performance */
     transform: translateZ(0);
     backface-visibility: hidden;
+  }
+  
+  /* Dashboard-specific containment */
+  .dashboard-container {
+    contain: layout style;
   }
   
   /* iOS Safari specific fixes */
