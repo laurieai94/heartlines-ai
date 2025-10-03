@@ -18,6 +18,14 @@ html, body, #root {
   overscroll-behavior: none;
 }
 
+/* Landing pages need natural scroll behavior */
+.landing-page-scroll {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  height: auto !important;
+  min-height: 100vh;
+}
+
 /* Mobile viewport and performance optimizations */
 @media (max-width: 768px) {
   /* Prevent viewport jumping on keyboard show/hide */
@@ -30,6 +38,8 @@ html, body, #root {
     min-height: 100dvh;
     min-height: -webkit-fill-available;
     overflow-x: hidden;
+    /* Allow vertical scroll, prevent horizontal */
+    overflow-y: auto;
     /* Critical: Prevent white screen on overscroll */
     overscroll-behavior: none !important;
     overscroll-behavior-y: none !important;

@@ -9,7 +9,7 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="min-h-screen questionnaire-bg">
+    <div className="min-h-screen overflow-y-auto landing-page-scroll questionnaire-bg">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>

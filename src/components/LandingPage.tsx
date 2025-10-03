@@ -224,7 +224,7 @@ const LandingPage = ({
       };
     }
   }, [isEmbedded]);
-  return <div className="min-h-screen relative overflow-x-hidden bg-burgundy-900">
+  return <div className="min-h-screen relative overflow-x-hidden overflow-y-auto landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
       {/* Code-like Background Elements */}
