@@ -275,10 +275,17 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                 setIsLoopActive(false);
                 setCurrentConversationIndex(index);
               }}
-              className="flex-1 group"
+              className="flex-1 group flex flex-col items-center gap-1.5"
               aria-label={`View conversation ${index + 1}: ${conv.title}`}
             >
-              <div className={`h-1 rounded-full transition-all duration-500 ${
+              <div className={`text-[10px] sm:text-xs text-center transition-all duration-500 mb-1 px-0.5 ${
+                index === currentConversationIndex 
+                  ? 'text-white font-medium opacity-100' 
+                  : 'text-white/40 opacity-0 group-hover:opacity-100'
+              }`}>
+                {conv.title}
+              </div>
+              <div className={`h-1 w-full rounded-full transition-all duration-500 ${
                 index === currentConversationIndex 
                   ? 'bg-gradient-to-r from-coral-400 to-coral-500 shadow-lg shadow-coral-400/30' 
                   : 'bg-white/20 group-hover:bg-white/40'
