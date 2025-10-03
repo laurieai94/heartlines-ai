@@ -44,7 +44,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950 backdrop-blur-md border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-lg md:supports-[backdrop-filter]:bg-white/10">
-      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:px-3 md:py-3 transition-transform duration-200 ease-out will-change-transform">
+      <div className="w-full px-1 py-2 md:max-w-5xl md:mx-auto md:px-3 lg:py-3 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Stacked */}
         {(isMobile && !isTablet) && (
           <div className="flex flex-col gap-2">
