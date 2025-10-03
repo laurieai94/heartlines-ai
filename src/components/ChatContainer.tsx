@@ -125,31 +125,10 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Track keyboard visibility for auto-scroll
+  // Track typing state without interfering with iOS keyboard behavior
   useEffect(() => {
-    if (isKeyboardVisible && chatHistory.length > 0) {
-      setTimeout(() => {
-        scrollToBottom('smooth');
-      }, 100);
-    }
-  }, [isKeyboardVisible, chatHistory.length, scrollToBottom]);
-
-  // Auto-scroll when user starts typing
-  useEffect(() => {
-    const wasTyping = prevUserTypingRef.current;
-    const isNowTyping = userTyping;
-    
-    // Only scroll when user starts typing (transition from false to true)
-    if (!wasTyping && isNowTyping) {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          scrollToBottom('smooth');
-        }, 50);
-      });
-    }
-    
     prevUserTypingRef.current = userTyping;
-  }, [userTyping, scrollToBottom]);
+  }, [userTyping]);
 
 
   // Enhanced touch detection for immediate header reveal
