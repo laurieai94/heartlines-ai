@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SplashScreen from '@/components/SplashScreen';
 import LandingPage from '@/components/LandingPage';
 
-const SPLASH_DURATION = 1800; // 1.8 seconds
+const SPLASH_DURATION = 2000; // 2.0 seconds
 const FADE_OUT_DURATION = 300; // 0.3 seconds
 
 const FirstVisitSplash: React.FC = () => {

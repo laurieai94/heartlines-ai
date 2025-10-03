@@ -130,7 +130,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   return (
     <div className={`relative ${className}`} style={style}>
       <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
-        <div className="relative animate-fade-in max-[640px]:scale-[0.85] max-[560px]:scale-[0.80]">
+        <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
@@ -138,9 +138,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(220px, min(48vw, min(48svh, 48dvh) * 9/16), 340px)',
+              width: 'clamp(260px, min(52vw, min(52svh, 52dvh) * 9/16), 380px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(48vh, 650px)'
+              maxHeight: 'min(52vh, 700px)'
             }}
           >
             {/* Status bar */}
