@@ -171,7 +171,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             style={{
               width: 'clamp(300px, min(58vw, min(58svh, 58dvh) * 9/16), 420px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(58vh, 750px)'
+              maxHeight: 'min(max(75vh, 600px), 750px)'
             }}
           >
             {/* Status bar */}
