@@ -79,7 +79,12 @@ export const YearCarousel = () => {
   }, []);
 
   const autoplay = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: false })
+    Autoplay({ 
+      delay: 5000, 
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      playOnInit: true
+    })
   );
 
   const [api, setApi] = useState<CarouselApi>();
@@ -100,8 +105,10 @@ export const YearCarousel = () => {
       <Carousel
         setApi={setApi}
         opts={{
-          align: 'start',
+          align: 'center',
           loop: true,
+          skipSnaps: false,
+          duration: 20
         }}
         plugins={[autoplay.current]}
         className="w-full"
