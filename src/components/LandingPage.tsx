@@ -488,7 +488,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-8 md:py-12 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-6 md:py-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Enhanced Background Gradient Overlays */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Main center glow with pink-to-orange gradient */}
@@ -514,7 +514,7 @@ const LandingPage = ({
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-8 md:mb-10">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               Why We're Different
             </h2>

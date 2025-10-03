@@ -81,7 +81,7 @@ export const ConversationIcon = () => (
 
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
-    <div className="relative w-full max-w-4xl mx-auto px-4 py-8">
+    <div className="relative w-full max-w-4xl mx-auto px-4 py-4">
       {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
       <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden -z-10">
         <div 
@@ -93,7 +93,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       </div>
 
       {/* Timeline Stops */}
-      <div className="space-y-8 md:space-y-12">
+      <div className="space-y-6 md:space-y-8">
         {stops.map((stop, index) => (
           <LazySection 
             key={index}
@@ -116,7 +116,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
               {/* Card with Enhanced Hover Effects */}
               <div className={`
                 relative mx-auto max-w-md z-10
-                glass-burgundy-solid rounded-2xl p-4 md:p-5
+                glass-burgundy-solid rounded-2xl p-3.5 md:p-4
                 border border-coral-400/20
                 hover:border-pink-400/40
                 group hover:-translate-y-1 hover:translate-x-0.5
