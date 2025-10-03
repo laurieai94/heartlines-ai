@@ -291,7 +291,7 @@
     }
     
     .pb-safe-minimal {
-      padding-bottom: 0;
+      padding-bottom: calc(0.25rem + max(env(safe-area-inset-bottom), 8px));
     }
     
     [data-onboarding-nudge] {

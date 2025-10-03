@@ -22,7 +22,7 @@ html, body, #root {
 @media (max-width: 768px) {
   /* Prevent viewport jumping on keyboard show/hide */
   html {
-    height: 100%;
+    height: auto;
     min-height: 100vh;
   }
   
