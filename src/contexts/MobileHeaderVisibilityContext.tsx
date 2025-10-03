@@ -20,11 +20,13 @@ export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibil
 
   // Force visible function for emergency situations
   const forceVisible = useCallback(() => {
+    console.log('🔥 Force visible triggered');
     setVisible(true);
   }, []);
 
   // Enhanced setVisible (keeping original signature)
   const enhancedSetVisible = useCallback((value: boolean | ((prev: boolean) => boolean)) => {
+    console.log('📱 Mobile header visibility changed:', value);
     setVisible(value);
   }, [visible]);
 

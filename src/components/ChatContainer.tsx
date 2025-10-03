@@ -84,11 +84,11 @@ const ChatContainer = ({
       const isScrollingUpNow = scrollDelta < -2;
       const isScrollingDownNow = scrollDelta > 5;
       
-      // Reset isScrollingUp when near top (20px threshold)
-      if (currentScrollTop < 20) {
+      // Reset isScrollingUp when near top (50px threshold)
+      if (currentScrollTop < 50) {
         setIsScrollingUp(false);
       } else if (isScrollingUpNow && !isTablet) {
-        // Show carrot immediately on scroll up
+        // Show carrot on scroll up
         setIsScrollingUp(true);
       } else if (isScrollingDownNow) {
         // Hide carrot on downward scroll
