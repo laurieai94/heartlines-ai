@@ -210,10 +210,6 @@ html, body, #root {
     box-shadow: none !important;
   }
 
-  /* Mobile coach interface stretching */
-  .mobile-coach-stretch {
-    height: 100%;
-  }
 
 /* CSS-only smooth scrolling for better performance */
 html {

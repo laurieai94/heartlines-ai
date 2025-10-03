@@ -8,10 +8,6 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
-import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
-import { useViewport } from '@/contexts/ViewportContext';
-import NavigationPullTab from './NavigationPullTab';
-import { BurgundyNavCarrot } from './BurgundyNavCarrot';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -36,23 +32,10 @@ const ChatContainer = ({
   onNewConversation = () => {},
   onOpenSidebar
 }: ChatContainerProps) => {
-  const { isMobile, isTablet } = useOptimizedMobile();
-  const { visible: headerVisible, setVisible: setHeaderVisible, forceVisible } = useMobileHeaderVisibility();
-  const { isKeyboardVisible } = useViewport();
-  
-  // Simple references for scroll management
+  const { isMobile } = useOptimizedMobile();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-  const [isScrollingUp, setIsScrollingUp] = useState(false);
   const prevChatLengthRef = useRef(chatHistory.length);
-  const prevUserTypingRef = useRef(userTyping);
-  const carrotResetFnRef = useRef<(() => void) | null>(null);
-  
-  // Scroll tracking for carrot management
-  const lastScrollTopRef = useRef(0);
-  const touchStartYRef = useRef(0);
-  
-  // Carrot appears immediately when scrolling up with keyboard visible
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -65,44 +48,14 @@ const ChatContainer = ({
     });
   }, []);
 
-  // Enhanced scroll handler with carrot state management
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    const currentScrollTop = viewport.scrollTop;
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
-    const scrollDelta = currentScrollTop - lastScrollTopRef.current;
     
-    // Desktop scroll-to-bottom button
-    if (!isMobile) {
-      setShowScrollToBottom(scrollFromBottom > 100);
-    }
-    
-    // Simplified mobile logic - carrot appears at 20px scroll threshold
-    if (isMobile) {
-      const isScrollingUpNow = scrollDelta < -2;
-      const isScrollingDownNow = scrollDelta > 5;
-      
-      // Reset isScrollingUp when near top (50px threshold)
-      if (currentScrollTop < 50) {
-        setIsScrollingUp(false);
-      } else if (isScrollingUpNow && !isTablet) {
-        // Show carrot on scroll up
-        setIsScrollingUp(true);
-      } else if (isScrollingDownNow) {
-        // Hide carrot on downward scroll
-        setIsScrollingUp(false);
-      }
-      
-      // Show header on upward scroll
-      if (scrollDelta < -2) {
-        setHeaderVisible(true);
-      }
-    }
-    
-    lastScrollTopRef.current = currentScrollTop;
-  }, [isMobile, isTablet, setHeaderVisible, isScrollingUp]);
+    setShowScrollToBottom(scrollFromBottom > 100);
+  }, []);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -125,76 +78,13 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Track typing state without interfering with iOS keyboard behavior
-  useEffect(() => {
-    prevUserTypingRef.current = userTyping;
-  }, [userTyping]);
-
-
-  // Enhanced touch detection for immediate header reveal
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (!isMobile) return;
-    
-    const touch = e.touches[0];
-    if (touch) {
-      touchStartYRef.current = touch.clientY;
-      
-      // If touching near top of screen, immediately show header  
-      if (touch.clientY < 150) {
-        forceVisible();
-      }
-    }
-  }, [isMobile, forceVisible, isKeyboardVisible]);
-
-  // Immediate upward swipe detection
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isMobile) return;
-    
-    if (touchStartYRef.current > 0) {
-      const touch = e.touches[0];
-      const deltaY = touch.clientY - touchStartYRef.current;
-      
-      // Show header immediately on downward swipe (pulling down)
-      if (deltaY > 15) {
-        forceVisible();
-        // Also trigger scroll up state for carrot if scrolled down
-        if (viewportRef.current && viewportRef.current.scrollTop > 50) {
-          setIsScrollingUp(true);
-        }
-        // Prevent further processing
-        touchStartYRef.current = 0;
-      }
-    }
-  }, [isMobile, forceVisible]);
-
-  // Handle navigation open - reset carrot and scroll to top
-  const handleOpenNavigation = useCallback(() => {
-    setIsScrollingUp(false);
-    scrollToBottom('auto');
-    onOpenSidebar?.();
-  }, [onOpenSidebar, scrollToBottom]);
 
   return (
-    <div className="flex-1 relative bg-burgundy-950 md:min-h-0">
-      {/* Pull tab for navigation access when keyboard is active */}
-      <NavigationPullTab onOpenNavigation={onOpenSidebar} />
-      
-      {/* Burgundy carrot navigation for scroll up scenarios */}
-      <BurgundyNavCarrot 
-        isScrollingUp={isScrollingUp} 
-        onOpenNavigation={handleOpenNavigation}
-        scrollPosition={lastScrollTopRef.current}
-      />
-      
+    <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full"
-        style={isMobile ? { 
-          WebkitOverflowScrolling: 'touch' as any,
-        } : undefined}
+        className="h-full w-full"
         onScroll={handleScroll}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
         role="log"
         aria-live="polite"
         aria-label="Chat conversation history"
@@ -293,6 +183,17 @@ const ChatContainer = ({
         </div>
       </ScrollArea>
 
+      {/* Scroll to bottom button */}
+      {showScrollToBottom && (
+        <Button
+          onClick={() => scrollToBottom('smooth')}
+          className="fixed bottom-24 right-4 md:right-8 rounded-full w-12 h-12 shadow-lg z-10"
+          size="icon"
+          variant="secondary"
+        >
+          <ArrowDown className="w-5 h-5" />
+        </Button>
+      )}
     </div>
   );
 };
