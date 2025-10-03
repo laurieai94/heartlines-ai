@@ -22,7 +22,8 @@ html, body, #root {
 @media (max-width: 768px) {
   /* Prevent viewport jumping on keyboard show/hide */
   html {
-    height: auto;
+    /* Fixed height for proper iOS behavior */
+    height: 100%;
     min-height: 100vh;
   }
   
