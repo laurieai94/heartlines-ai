@@ -224,6 +224,24 @@ const LandingPage = ({
       };
     }
   }, [isEmbedded]);
+
+  // Ensure navigation is visible on mobile page load
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768;
+      
+      if (isMobile) {
+        // Force immediate scroll to top on mount
+        window.scrollTo(0, 0);
+        
+        // Prevent browser from restoring previous scroll position
+        if ('scrollRestoration' in window.history) {
+          window.history.scrollRestoration = 'manual';
+        }
+      }
+    }
+  }, []);
+
   return <div className="min-h-screen relative overflow-x-hidden overflow-y-auto landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
