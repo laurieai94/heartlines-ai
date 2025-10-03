@@ -4,6 +4,7 @@ import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
@@ -99,17 +100,25 @@ useChatEffects({
   currentConversationId: currentConversationId || null
 });
 
+  const { isMobile } = useOptimizedMobile();
+
   return (
-    <ChatLayout 
-      userName={userName} 
-      onNewConversation={handleNewConversation} 
-      onOpenSidebar={onOpenSidebar}
-      conversations={conversations}
-      currentConversationId={currentConversationId}
-      loading={historyLoading}
-      onLoadConversation={onLoadConversation}
-      onDeleteConversation={onDeleteConversation}
-    >
+    <div style={isMobile ? {
+      overscrollBehavior: 'none',
+      overscrollBehaviorY: 'none',
+      height: '100%',
+      background: 'hsl(var(--burgundy-950))'
+    } : undefined}>
+      <ChatLayout 
+        userName={userName} 
+        onNewConversation={handleNewConversation} 
+        onOpenSidebar={onOpenSidebar}
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        loading={historyLoading}
+        onLoadConversation={onLoadConversation}
+        onDeleteConversation={onDeleteConversation}
+      >
       <MemoizedChatContainer
         chatHistory={chatHistory}
         loading={loading}
@@ -136,6 +145,7 @@ useChatEffects({
         onUserTypingChange={setUserTyping}
       />
     </ChatLayout>
+    </div>
   );
 };
 
