@@ -290,9 +290,9 @@
       padding-bottom: calc(1.5rem + max(env(safe-area-inset-bottom), 20px));
     }
     
-  .pb-safe-minimal {
-    padding-bottom: 0;
-  }
+    .pb-safe-minimal {
+      padding-bottom: calc(0.25rem + max(env(safe-area-inset-bottom), 8px));
+    }
     
     [data-onboarding-nudge] {
       margin-bottom: calc(2rem + max(env(safe-area-inset-bottom), 16px));
