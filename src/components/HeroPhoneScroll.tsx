@@ -138,9 +138,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(340px, 85vw, 420px)',
+              width: 'clamp(300px, min(58vw, min(58svh, 58dvh) * 9/16), 420px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(85vh, 750px)'
+              maxHeight: 'min(58vh, 750px)'
             }}
           >
             {/* Status bar */}

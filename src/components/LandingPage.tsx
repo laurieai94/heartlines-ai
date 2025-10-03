@@ -224,25 +224,6 @@ const LandingPage = ({
       };
     }
   }, [isEmbedded]);
-
-  // Ensure page starts at top on mobile (prevent nav cutoff)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Check if mobile
-      const isMobile = window.innerWidth < 768;
-      
-      if (isMobile) {
-        // Force immediate scroll to top on mount
-        window.scrollTo(0, 0);
-        
-        // Also set scroll restoration to manual to prevent browser from restoring scroll position
-        if ('scrollRestoration' in window.history) {
-          window.history.scrollRestoration = 'manual';
-        }
-      }
-    }
-  }, []); // Empty dependency array = run once on mount
-
   return <div className="min-h-screen relative overflow-x-hidden overflow-y-auto landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
