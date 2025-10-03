@@ -30,13 +30,12 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
     }, 120);
   }, []);
 
-  // Simplified shouldShow logic - persistent until pressed or navigation opened
+  // Simplified shouldShow logic - appears immediately on scroll up
   const shouldShow = isDashboardRoute &&
                     isMobile && 
                     !isTablet && 
                     isScrollingUp && 
-                    !navigationOpened && 
-                    scrollPosition > 75;
+                    scrollPosition > 20;
   
   if (!shouldShow) {
     return null;
@@ -63,7 +62,7 @@ export const BurgundyNavCarrot = ({ isScrollingUp, onOpenNavigation, onResetAvai
 
   return (
     <div 
-      className={`fixed bottom-32 left-1/2 transform -translate-x-1/2 z-[999] 
+      className={`fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[999]
                   bg-red-900 rounded-full p-3 shadow-lg cursor-pointer 
                   transition-all duration-300
                   ${isAnimating ? 'translate-y-[-200px] opacity-0' : 'hover:scale-105'}

@@ -26,7 +26,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
     }, 100);
   }, []);
 
-  // Enhanced visibility logic - show more often, not just when keyboard is visible
+  // Show when keyboard is visible OR header is hidden
   const shouldShow = isDashboardRoute && isMobile && (isKeyboardVisible || !visible);
   
   if (!shouldShow) {
@@ -45,7 +45,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
 
   return (
     <div 
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary backdrop-blur-md rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-300 border-b-4 border-primary-foreground/40 animate-pulse hover:animate-none"
+      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-200 border-b-4 border-primary-foreground/40"
       onTouchStart={handleTouchStart}
       onClick={(e) => {
         e.preventDefault();

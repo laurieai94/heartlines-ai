@@ -79,19 +79,19 @@ const ChatContainer = ({
       setShowScrollToBottom(scrollFromBottom > 100);
     }
     
-    // Simplified mobile logic - persistent carrot until pressed or at top
+    // Simplified mobile logic - carrot appears at 20px scroll threshold
     if (isMobile) {
       const isScrollingUpNow = scrollDelta < -2;
       const isScrollingDownNow = scrollDelta > 5;
       
-      // Reset isScrollingUp only when at top or scrolling significantly down
-      if (currentScrollTop < 50) {
+      // Reset isScrollingUp when near top (20px threshold)
+      if (currentScrollTop < 20) {
         setIsScrollingUp(false);
       } else if (isScrollingUpNow && !isTablet) {
         // Show carrot immediately on scroll up
         setIsScrollingUp(true);
       } else if (isScrollingDownNow) {
-        // Hide carrot only on significant downward scroll
+        // Hide carrot on downward scroll
         setIsScrollingUp(false);
       }
       
