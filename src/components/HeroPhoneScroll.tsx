@@ -303,10 +303,10 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                   setIsLoopActive(false);
                   setCurrentConversationIndex(index);
                 }}
-                className="flex-1 h-0.5 rounded-full group relative transition-all duration-500"
+                className="flex-1 h-8 rounded-full group relative transition-all duration-500 flex items-center"
                 aria-label={`View conversation ${index + 1}: ${conv.title}`}
               >
-                <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+                <div className={`absolute inset-x-0 h-0.5 top-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ${
                   index === currentConversationIndex 
                     ? 'bg-gradient-to-r from-coral-400 to-coral-500' 
                     : 'bg-white/20 group-hover:bg-white/40'
