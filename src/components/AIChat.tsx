@@ -100,16 +100,17 @@ useChatEffects({
 });
 
   return (
-    <ChatLayout 
-      userName={userName} 
-      onNewConversation={handleNewConversation} 
-      onOpenSidebar={onOpenSidebar}
-      conversations={conversations}
-      currentConversationId={currentConversationId}
-      loading={historyLoading}
-      onLoadConversation={onLoadConversation}
-      onDeleteConversation={onDeleteConversation}
-    >
+    <div style={{ overscrollBehavior: 'none', overscrollBehaviorY: 'none' }} className="h-full">
+      <ChatLayout 
+        userName={userName} 
+        onNewConversation={handleNewConversation} 
+        onOpenSidebar={onOpenSidebar}
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        loading={historyLoading}
+        onLoadConversation={onLoadConversation}
+        onDeleteConversation={onDeleteConversation}
+      >
       <MemoizedChatContainer
         chatHistory={chatHistory}
         loading={loading}
@@ -136,6 +137,7 @@ useChatEffects({
         onUserTypingChange={setUserTyping}
       />
     </ChatLayout>
+    </div>
   );
 };
 

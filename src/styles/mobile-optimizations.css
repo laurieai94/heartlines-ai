@@ -210,10 +210,18 @@ html, body, #root {
     box-shadow: none !important;
   }
 
-  /* Mobile coach interface stretching */
+  /* Mobile coach interface stretching and overscroll prevention */
   .mobile-coach-stretch {
     min-height: 100vh !important;
     min-height: 100dvh !important;
+    overscroll-behavior: none !important;
+    overscroll-behavior-y: none !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .mobile-coach-stretch * {
+    overscroll-behavior: none !important;
+    overscroll-behavior-y: none !important;
   }
 
 /* CSS-only smooth scrolling for better performance */
