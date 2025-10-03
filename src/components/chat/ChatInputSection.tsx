@@ -164,13 +164,15 @@ export const ChatInputSection = ({
     };
   }, []);
 
-  // Show starters immediately for authenticated users with empty chats - but not if profile is required
+  // Show starters only if user hasn't sent any messages yet
+  const hasUserMessages = chatHistory.some(msg => msg.type === 'user');
+  
   const shouldShowStarters = 
-    accessLevel !== 'profile-required' && (
-      (chatHistory.length === 0 && user) || // Show immediately for empty chats when authenticated
-      (chatHistory.length === 0 && isConfigured && isHistoryLoaded) || // Fallback logic
-      (showStarters && isConfigured && isHistoryLoaded) // Explicit show
-    );
+    accessLevel !== 'profile-required' && 
+    !hasUserMessages && // Only show if no user messages yet
+    isConfigured && 
+    isHistoryLoaded &&
+    !!user; // Must be authenticated
 
   // Calculate profile completion for the nudge (memoized to prevent excessive calculation)
   const profileCompletion = useMemo(() => {
