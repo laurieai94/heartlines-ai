@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SplashScreen from '@/components/SplashScreen';
 import LandingPage from '@/components/LandingPage';
 
-const SPLASH_DURATION = 2000; // 2.0 seconds
+const SPLASH_DURATION = 2500; // 2.5 seconds
 const FADE_OUT_DURATION = 300; // 0.3 seconds
 
 const FirstVisitSplash: React.FC = () => {
@@ -45,20 +45,23 @@ const FirstVisitSplash: React.FC = () => {
     return null;
   }
 
-  // Show splash for first-time visitors
-  if (showSplash) {
-    return (
-      <div className={isFadingOut ? 'animate-fade-out' : ''}>
-        <SplashScreen 
-          showWordmark={true}
-          wordmarkSize="lg"
-        />
-      </div>
-    );
-  }
-
-  // Show landing page
-  return <LandingPage />;
+  // Render landing page in background while splash is showing
+  return (
+    <>
+      {/* Landing page loads in background */}
+      <LandingPage />
+      
+      {/* Splash overlay - only visible during first visit */}
+      {showSplash && (
+        <div className={`fixed inset-0 z-50 ${isFadingOut ? 'animate-fade-out' : ''}`}>
+          <SplashScreen 
+            showWordmark={true}
+            wordmarkSize="lg"
+          />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default FirstVisitSplash;
