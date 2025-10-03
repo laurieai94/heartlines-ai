@@ -298,7 +298,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
       {/* Progress bar indicator */}
       <div className="w-full max-w-[340px] sm:max-w-[400px] mx-auto mt-6 mb-16 sm:mb-20 md:mb-24 px-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
           {/* Text labels above */}
           <div className="relative h-4">
             {demoConversations.map((conv, index) => {
