@@ -83,7 +83,7 @@ export const YearCarousel = () => {
 
   const autoplay = useMemo(() => 
     Autoplay({ 
-      delay: 5000, 
+      delay: 4000, 
       stopOnInteraction: false,
       stopOnMouseEnter: false
     }), 
@@ -104,8 +104,11 @@ export const YearCarousel = () => {
       <Carousel
         setApi={setApi}
         opts={{
-          align: 'start',
+          align: 'center',
           loop: true,
+          dragFree: false,
+          skipSnaps: false,
+          duration: 25
         }}
         plugins={[autoplay]}
         className="w-full"
