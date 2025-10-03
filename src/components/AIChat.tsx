@@ -4,7 +4,6 @@ import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
-import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useChatEffects } from "./chat/ChatEffects";
 import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
@@ -100,15 +99,8 @@ useChatEffects({
   currentConversationId: currentConversationId || null
 });
 
-  const { isMobile } = useOptimizedMobile();
-
   return (
-    <div style={isMobile ? {
-      overscrollBehavior: 'none',
-      overscrollBehaviorY: 'none',
-      height: '100%',
-      background: 'hsl(var(--burgundy-950))'
-    } : undefined}>
+    <div style={{ overscrollBehavior: 'none', overscrollBehaviorY: 'none' }} className="h-full">
       <ChatLayout 
         userName={userName} 
         onNewConversation={handleNewConversation} 
