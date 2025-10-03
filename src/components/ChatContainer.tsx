@@ -175,7 +175,7 @@ const ChatContainer = ({
   }, [onOpenSidebar, scrollToBottom]);
 
   return (
-    <div className="flex-1 min-h-0 relative bg-burgundy-950">
+    <div className="flex-1 relative bg-burgundy-950 md:min-h-0">
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
