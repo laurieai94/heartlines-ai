@@ -75,7 +75,7 @@ const Pricing = () => {
         
         <div className="container mx-auto px-4 py-6 lg:pt-12">
           {/* Header Section */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
