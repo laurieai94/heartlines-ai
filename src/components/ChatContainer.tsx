@@ -118,6 +118,21 @@ const ChatContainer = ({
     prevChatLengthRef.current = chatHistory.length;
   }, [chatHistory.length, scrollToBottom]);
 
+  // Auto-scroll when user finishes typing and sends message
+  useEffect(() => {
+    const wasTyping = prevUserTypingRef.current;
+    const isTypingNow = userTyping;
+    
+    // When user stops typing (likely sent a message), scroll to bottom
+    if (wasTyping && !isTypingNow) {
+      requestAnimationFrame(() => {
+        scrollToBottom('smooth');
+      });
+    }
+    
+    prevUserTypingRef.current = userTyping;
+  }, [userTyping, scrollToBottom]);
+
   // Initial scroll when history loads
   useEffect(() => {
     if (isHistoryLoaded) {
@@ -179,16 +194,9 @@ const ChatContainer = ({
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
-      {/* Burgundy carrot navigation for scroll up scenarios */}
-      <BurgundyNavCarrot 
-        isScrollingUp={isScrollingUp} 
-        onOpenNavigation={handleOpenNavigation}
-        scrollPosition={lastScrollTopRef.current}
-      />
-      
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full"
+        className="h-full w-full"
         style={isMobile ? { 
           WebkitOverflowScrolling: 'touch' as any,
         } : undefined}

@@ -194,7 +194,7 @@ const DashboardContent = ({
   return (
     <div className="flex-1 overflow-hidden md:min-h-0 md:max-h-full">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full">
-        <div className={`mt-0 h-full overflow-auto p-0 ${activeTab === 'profile' ? 'no-scrollbar' : ''}`}>
+        <div className={`mt-0 h-full ${activeTab === 'coach' ? 'overflow-hidden' : 'overflow-auto'} p-0 ${activeTab === 'profile' ? 'no-scrollbar' : ''}`}>
           {renderActiveTabContent}
         </div>
       </Tabs>
