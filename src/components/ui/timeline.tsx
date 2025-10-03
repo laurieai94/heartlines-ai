@@ -1,4 +1,5 @@
 import React from 'react';
+import { LazySection } from '../LazySection';
 
 interface TimelineStop {
   title: string;
@@ -81,78 +82,74 @@ export const ConversationIcon = () => (
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 py-8">
+      {/* Vertical Timeline Line with Enhanced Pink-Orange Gradient Glow */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-2 -translate-x-1/2 overflow-hidden -z-10">
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-pink-400 via-coral-400 via-orange-400 to-pink-400 rounded-full opacity-100"
+          style={{
+            boxShadow: '0 0 30px hsl(var(--pink-400) / 1), 0 0 50px hsl(var(--coral-400) / 0.9), 0 0 80px hsl(var(--orange-400) / 0.7)'
+          }}
+        />
+      </div>
+
       {/* Timeline Stops */}
-      <div className="space-y-8 md:space-y-10">
+      <div className="space-y-8 md:space-y-12">
         {stops.map((stop, index) => (
-          <div 
+          <LazySection 
             key={index}
-            className="relative"
+            threshold={0.2}
+            rootMargin="50px"
           >
-            {/* Timeline Stop Card with Glass Morphism */}
-            <div className="flex items-start gap-6 group">
-              {/* Icon container with enhanced glow */}
-              <div className="relative flex-shrink-0">
-                <div 
-                  className="w-20 h-20 rounded-3xl bg-burgundy-900/60 backdrop-blur-md
-                             flex items-center justify-center
-                             border-2 border-transparent bg-clip-padding
-                             relative overflow-hidden
-                             transition-all duration-500 
-                             group-hover:scale-110 
-                             group-hover:shadow-[0_0_40px_rgba(255,132,80,0.6),0_0_60px_rgba(255,107,157,0.4)]
-                             before:absolute before:inset-0 before:rounded-3xl before:p-[2px] 
-                             before:bg-gradient-to-br before:from-pink-400 before:via-coral-400 before:to-orange-400
-                             before:-z-10 before:transition-opacity before:duration-500
-                             after:absolute after:inset-[2px] after:rounded-3xl after:bg-burgundy-900/60 after:backdrop-blur-md after:-z-10"
-                >
-                  <div className="w-10 h-10 relative z-10 transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+            <div 
+              className="relative animate-fade-in"
+              style={{
+                animationDelay: `${index * 0.15}s`
+              }}
+            >
+              {/* Center Dot - Hidden */}
+              <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
+                style={{
+                  boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
+                }}
+              />
+
+              {/* Card with Enhanced Hover Effects */}
+              <div className={`
+                relative mx-auto max-w-md z-10
+                glass-burgundy-solid rounded-2xl p-4 md:p-5
+                border border-coral-400/20
+                hover:border-pink-400/40
+                group hover:-translate-y-1 hover:translate-x-0.5
+                transition-all duration-300 ease-out
+                hover:shadow-2xl hover:shadow-pink-400/30
+                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-300
+              `}>
+                {/* Icon with Pink-Orange Gradient Background */}
+                <div className="flex justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
                     {stop.icon}
                   </div>
                 </div>
-              </div>
 
-              {/* Content card with glass morphism and animated gradient border */}
-              <div 
-                className="flex-1 p-8 rounded-3xl bg-burgundy-900/40 backdrop-blur-xl
-                           border-2 border-transparent bg-clip-padding
-                           relative overflow-hidden
-                           transition-all duration-500 
-                           group-hover:scale-[1.02] group-hover:-translate-y-2
-                           group-hover:shadow-[0_25px_80px_-20px_rgba(255,132,80,0.5),0_25px_80px_-20px_rgba(255,107,157,0.4)]
-                           before:absolute before:inset-0 before:rounded-3xl before:p-[2px] 
-                           before:bg-gradient-to-br before:from-pink-400 before:via-coral-400 before:to-orange-400
-                           before:-z-10 before:opacity-60 before:transition-opacity before:duration-500
-                           before:group-hover:opacity-100
-                           after:absolute after:inset-[2px] after:rounded-3xl after:bg-burgundy-900/40 after:backdrop-blur-xl after:-z-10"
-              >
-                {/* Animated gradient overlay on hover */}
-                <div 
-                  className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-coral-400/10 to-orange-400/10 
-                             opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
-                             animate-gradient"
-                />
-                
-                {/* Inner glow effect */}
-                <div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(circle at 50% 0%, rgba(255, 132, 80, 0.15), transparent 70%)'
-                  }}
-                />
-                
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-semibold mb-3 text-white transition-all duration-300 
-                                 group-hover:drop-shadow-[0_0_12px_rgba(255,132,80,0.6)]">
-                    {stop.title}
-                  </h3>
-                  <p className="text-white/90 text-lg leading-relaxed transition-colors duration-300 
-                                group-hover:text-white">
-                    {stop.subtitle}
+                {/* Title */}
+                <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
+                  {stop.title}
+                </h3>
+
+                {/* Subtitle */}
+                <div className="text-center">
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
+                    {stop.subtitle.split('(')[0].trim()}
                   </p>
+                  {stop.subtitle.includes('(') && (
+                    <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
+                      ({stop.subtitle.split('(')[1]}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
+          </LazySection>
         ))}
       </div>
     </div>

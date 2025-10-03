@@ -9,7 +9,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="robots" content="index, follow" />
     <title>heartlines</title>
-    <!-- Optimized font loading for performance with font-display swap -->
+    <!-- Optimized font loading for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&family=Shrikhand&display=swap">
@@ -25,10 +25,7 @@
     <link rel="dns-prefetch" href="https://api.anthropic.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://billing.stripe.com">
-    
-    <!-- Preload critical above-the-fold images -->
     <link rel="preload" as="image" href="/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="/src/assets/elderly-couple-living-room.png" fetchpriority="high" />
     <meta name="description" content="Your relationship intelligence companion">
     <meta name="author" content="Lovable" />
     <link rel="icon" type="image/png" sizes="32x32" href="/heartlines-icon.png">
@@ -65,8 +62,8 @@
     </script>
   </head>
 
-  <body style="overscroll-behavior: none; overscroll-behavior-y: none; background-color: #4d0010; margin: 0; padding: 0;">
-    <div id="root" style="overscroll-behavior: none; height: 100%; width: 100%;"></div>
+  <body>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,7 +1,7 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
-import Autoplay from 'embla-carousel-autoplay';
+import { useEffect, useState, useMemo } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
@@ -78,18 +78,16 @@ export const YearCarousel = () => {
     return shuffled;
   }, []);
 
-  const autoplay = useRef(
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  const autoplay = useMemo(() => 
     Autoplay({ 
       delay: 5000, 
       stopOnInteraction: false,
-      stopOnMouseEnter: true,
-      stopOnFocusIn: false,
-      playOnInit: true
-    })
-  );
-
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+      stopOnMouseEnter: false
+    }), 
+  []);
 
   useEffect(() => {
     if (!api) return;
@@ -106,19 +104,15 @@ export const YearCarousel = () => {
       <Carousel
         setApi={setApi}
         opts={{
-          align: 'center',
+          align: 'start',
           loop: true,
-          skipSnaps: false,
-          duration: 30,
-          dragFree: false,
-          containScroll: 'trimSnaps'
         }}
-        plugins={[autoplay.current]}
+        plugins={[autoplay]}
         className="w-full"
       >
         <CarouselContent>
           {shuffledSlides.map((slide, index) => (
-            <CarouselItem key={`${slide.year}-${index}`}>
+            <CarouselItem key={index}>
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
                 <img
@@ -126,8 +120,6 @@ export const YearCarousel = () => {
                   alt={slide.alt}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading={index === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  fetchPriority={index === 0 ? 'high' : 'low'}
                 />
                 
                 {/* Gradient Overlay */}

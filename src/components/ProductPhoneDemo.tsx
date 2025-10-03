@@ -22,8 +22,9 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   const currentConversation = demoConversations[currentConversationIndex];
 
-  // Reset only index when conversation changes, keep messages for infinite scroll
+  // Reset animation when conversation changes
   useEffect(() => {
+    setVisibleMessages([]);
     setCurrentIndex(0);
     setIsTyping(false);
     setIsTransitioning(false);
@@ -31,19 +32,18 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
 
   useEffect(() => {
     if (currentIndex >= currentConversation.messages.length) {
-      // Continue to next conversation without clearing messages
-      const timer = setTimeout(() => {
-        setCurrentConversationIndex(prev => 
-          prev === demoConversations.length - 1 ? 0 : prev + 1
-        );
+      setTimeout(() => {
+        setVisibleMessages([]);
+        setCurrentIndex(0);
+        setIsTyping(false);
       }, 3000);
-      return () => clearTimeout(timer);
+      return;
     }
 
     const currentMessage = currentConversation.messages[currentIndex];
     const isAIMessage = currentMessage.type === 'assistant';
     
-    const delay = currentIndex === 0 ? 750 : (isAIMessage ? 1875 : 1350);
+    const delay = currentIndex === 0 ? 1000 : (isAIMessage ? 2500 : 1800);
     
     const timer = setTimeout(() => {
       if (isAIMessage) {
@@ -52,7 +52,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
           setIsTyping(false);
           setVisibleMessages(prev => [...prev, currentMessage]);
           setCurrentIndex(prev => prev + 1);
-        }, 900);
+        }, 1200);
       } else {
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentIndex(prev => prev + 1);
@@ -60,7 +60,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [currentIndex, visibleMessages.length, currentConversation, currentConversationIndex]);
+  }, [currentIndex, visibleMessages.length, currentConversation]);
 
   const handlePrevConversation = () => {
     setIsTransitioning(true);
@@ -215,30 +215,23 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
         </button>
       </div>
 
-      {/* Progress bar */}
-      <div className="max-w-md mx-auto px-4 mt-6">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs text-white/70">
-            <span>{currentConversation.title}</span>
-            <span>{currentConversationIndex + 1} / {demoConversations.length}</span>
-          </div>
-          <div 
-            className="w-full h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer relative"
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const percentage = x / rect.width;
-              const newIndex = Math.floor(percentage * demoConversations.length);
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-6">
+        {demoConversations.map((conv, index) => (
+          <button
+            key={conv.id}
+            onClick={() => {
               setIsTransitioning(true);
-              setTimeout(() => setCurrentConversationIndex(Math.min(newIndex, demoConversations.length - 1)), 200);
+              setTimeout(() => setCurrentConversationIndex(index), 200);
             }}
-          >
-            <div 
-              className="h-full bg-gradient-to-r from-coral-400 to-pink-500 transition-all duration-500 ease-out rounded-full"
-              style={{ width: `${((currentConversationIndex + 1) / demoConversations.length) * 100}%` }}
-            />
-          </div>
-        </div>
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentConversationIndex 
+                ? 'w-8 bg-coral-400' 
+                : 'w-2 bg-white/30 hover:bg-white/50'
+            }`}
+            aria-label={`View conversation ${index + 1}: ${conv.title}`}
+          />
+        ))}
       </div>
 
       {/* Floating Elements */}

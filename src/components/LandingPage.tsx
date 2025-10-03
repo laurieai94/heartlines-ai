@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Heart, Users, Target, Sparkles, ArrowRight, MessageCircle, Brain, Phone, MessageSquare, Menu, User, Home, CreditCard, Settings, UserPlus, MessageCircleHeart, CircleSlash, Bolt, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
@@ -14,13 +14,12 @@ import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
+import SiteFooter from "./SiteFooter";
+import HowItWorksSwipe from "./HowItWorksSwipe";
+import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import { YearCarousel } from "./YearCarousel";
 import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
-
-// Lazy load below-the-fold components for better initial load
-const SiteFooter = lazy(() => import("./SiteFooter"));
-const HowItWorksSwipe = lazy(() => import("./HowItWorksSwipe"));
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -106,6 +105,7 @@ const LandingPage = ({
     user
   } = useAuth();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScrollDirection();
 
@@ -149,7 +149,42 @@ const LandingPage = ({
     label: 'Plans',
     icon: CreditCard
   }];
-  
+  const datingProfiles = [{
+    name: "Emma",
+    age: 28,
+    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+    bio: "Photographer & dog mom"
+  }, {
+    name: "Jake",
+    age: 31,
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+    bio: "Chef & weekend surfer"
+  }, {
+    name: "Zoe",
+    age: 24,
+    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
+    bio: "Designer & music lover"
+  }, {
+    name: "Chris",
+    age: 33,
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    bio: "Teacher & rock climber"
+  }, {
+    name: "Lily",
+    age: 27,
+    photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=400&fit=crop&crop=face",
+    bio: "Writer & coffee enthusiast"
+  }, {
+    name: "Alex",
+    age: 30,
+    photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face",
+    bio: "Engineer & marathon runner"
+  }, {
+    name: "Maya",
+    age: 25,
+    photo: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face",
+    bio: "Artist & yoga instructor"
+  }];
   useEffect(() => {
     // Only run minimal timers for full marketing page
     if (!isEmbedded) {
@@ -158,10 +193,16 @@ const LandingPage = ({
         // Show floating button after page is stable
         const timer = setTimeout(() => {
           setShowFloatingButton(true);
-        }, 3000); // Increased delay to prioritize critical rendering
+        }, 2000);
+
+        // Start profile rotation after initial render - slower updates
+        const profileTimer = setInterval(() => {
+          setCurrentProfile(prev => (prev + 1) % datingProfiles.length);
+        }, 4000); // Slower rotation to reduce repaints
 
         return () => {
           clearTimeout(timer);
+          clearInterval(profileTimer);
         };
       };
       let cleanup: (() => void) | undefined;
@@ -171,12 +212,12 @@ const LandingPage = ({
         (window as any).requestIdleCallback(() => {
           cleanup = deferredSetup();
         }, {
-          timeout: 3000
+          timeout: 2000
         });
       } else {
         setTimeout(() => {
           cleanup = deferredSetup();
-        }, 2000);
+        }, 1000);
       }
       return () => {
         cleanup?.();
@@ -291,11 +332,11 @@ const LandingPage = ({
                     <div className="space-y-2 mb-1 md:mb-6 max-w-4xl">
                       <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-[48px] font-playfair font-normal leading-tight animate-fade-in">
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                          Relationships<br className="sm:hidden" /> <span className="whitespace-nowrap">aren't rom-coms.</span>
+                          Relationships<br className="md:hidden" /> aren't rom-coms.
                         </span>
                       </h1>
                       
-                      <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-[28px] font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap">
+                      <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-[28px] font-playfair font-normal leading-tight animate-fade-in text-white/90">
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
                     </div>
@@ -322,7 +363,7 @@ const LandingPage = ({
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-center self-center">
-                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-95 origin-center relative z-10">
+                    <div className="w-full max-w-md xl:max-w-lg 2xl:max-w-xl md:scale-100 xl:scale-110 2xl:scale-125 scale-110 sm:scale-95 origin-center relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                     </div>
                   </div>
@@ -390,7 +431,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="pt-8 pb-4 md:pt-12 md:pb-8 lg:pt-16 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section id="how-it-works" className="pt-0 pb-4 md:pt-0 md:pb-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -447,7 +488,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="pt-8 pb-4 md:pt-12 md:pb-8 lg:pt-16 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-8 md:py-12 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Enhanced Background Gradient Overlays */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Main center glow with pink-to-orange gradient */}
@@ -473,7 +514,7 @@ const LandingPage = ({
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
-          <div className="text-center mb-8 md:mb-10">
+          <div className="text-center mb-12 md:mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               Why We're Different
             </h2>
@@ -514,18 +555,14 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <Suspense fallback={<div className="py-16 md:py-24 bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900" />}>
-        <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
-          <div className="container mx-auto px-4 sm:px-6">
-            <HowItWorksSwipe />
-          </div>
-        </section>
-      </Suspense>
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+        <div className="container mx-auto px-4 sm:px-6">
+          <HowItWorksSwipe />
+        </div>
+      </section>
 
       {/* Footer */}
-      <Suspense fallback={<div className="py-8 bg-burgundy-900" />}>
-        <SiteFooter />
-      </Suspense>
+      <SiteFooter />
     </div>;
 };
 export default LandingPage;

@@ -196,15 +196,7 @@ const ChatContainer = ({
   }, [onOpenSidebar, scrollToBottom]);
 
   return (
-    <div className="flex-1 min-h-0 relative bg-burgundy-950"
-      style={isMobile ? {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden'
-      } : undefined}>
+    <div className="flex-1 min-h-0 relative bg-burgundy-950">
       {/* Pull tab for navigation access when keyboard is active */}
       <NavigationPullTab onOpenNavigation={onOpenSidebar} />
       
@@ -217,11 +209,9 @@ const ChatContainer = ({
       
       <ScrollArea 
         viewportRef={viewportRef}
-        className="h-full overflow-hidden"
+        className="h-full"
         style={isMobile ? { 
           WebkitOverflowScrolling: 'touch' as any,
-          overscrollBehavior: 'none',
-          overscrollBehaviorY: 'none'
         } : undefined}
         onScroll={handleScroll}
         onTouchStart={handleTouchStart}

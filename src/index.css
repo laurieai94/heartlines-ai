@@ -1,24 +1,4 @@
 /* Optimized font loading - moved to HTML preload for better performance */
-/* Font display swap for better performance - prevents FOIT (Flash of Invisible Text) */
-@font-face {
-  font-family: 'Inter';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Playfair Display';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Shrikhand';
-  font-display: swap;
-}
 
 @tailwind base;
 @tailwind components;

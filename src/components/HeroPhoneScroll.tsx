@@ -37,21 +37,19 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     return undefined; // No avatar for generic "You"
   };
 
-  // Reset only message index when conversation changes, keep messages for infinite scroll
+  // Reset when conversation changes
   useEffect(() => {
+    setVisibleMessages([]);
     setCurrentMessageIndex(0);
     setIsTyping(false);
     setTypingSide(null);
     setIsLoopActive(true);
   }, [currentConversationIndex]);
 
-  // Auto-scroll to bottom smoothly when new messages appear
+  // Auto-scroll to bottom when new messages appear
   useEffect(() => {
     if (messagesRef.current) {
-      messagesRef.current.scrollTo({
-        top: messagesRef.current.scrollHeight,
-        behavior: 'smooth'
-      });
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   }, [visibleMessages, isTyping]);
 
@@ -60,12 +58,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     
     const showNextMessage = () => {
       if (currentMessageIndex >= currentConversation.messages.length) {
-        // Move to next conversation after 3 seconds, keeping messages visible
+        // Reset and cycle to next conversation after 6 seconds
         timeoutId = setTimeout(() => {
+          setVisibleMessages([]);
+          setCurrentMessageIndex(0);
+          setIsTyping(false);
+          setIsLoopActive(false);
           setCurrentConversationIndex(prev => 
             prev === demoConversations.length - 1 ? 0 : prev + 1
           );
-        }, 3000);
+        }, 6000);
         return;
       }
       
@@ -75,7 +77,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('assistant');
         
-        const typingTime = 1350 + (currentMessage.content.length * 26);
+        const typingTime = 1400 + (currentMessage.content.length * 28);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -87,7 +89,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         setIsTyping(true);
         setTypingSide('user');
         
-        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 300), 800);
+        const typingTime = Math.min(Math.max(400 + (currentMessage.content.length * 10), 400), 700);
         
         timeoutId = setTimeout(() => {
           setIsTyping(false);
@@ -106,15 +108,18 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
     } else if (currentMessageIndex === 0) {
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
-      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 2400;
+      const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 1900;
       timeoutId = setTimeout(showNextMessage, delay);
     } else {
-      // Continue to next conversation
       timeoutId = setTimeout(() => {
+        setVisibleMessages([]);
+        setCurrentMessageIndex(0);
+        setIsTyping(false);
+        setTypingSide(null);
         setCurrentConversationIndex(prev => 
           prev === demoConversations.length - 1 ? 0 : prev + 1
         );
-      }, 3000);
+      }, 6000);
     }
 
     return () => {
@@ -124,8 +129,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div className={`relative ${className}`} style={style}>
-      <div className="relative flex items-start justify-center z-20 p-0 sm:p-2 lg:p-4">
-        <div className="relative animate-fade-in max-[640px]:scale-[0.94] max-[560px]:scale-[0.90] max-[480px]:scale-[0.85]">
+      <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
+        <div className="relative animate-fade-in max-[640px]:scale-[0.85] max-[560px]:scale-[0.80]">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
           
           <div className="absolute inset-0 bg-white/8 backdrop-blur-xl border border-white/20 rounded-[2.5rem] shadow-2xl ring-1 ring-white/10"></div>
@@ -133,9 +138,9 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(260px, min(55vw, min(75svh, 75dvh) * 9/16), 320px)',
+              width: 'clamp(220px, min(48vw, min(48svh, 48dvh) * 9/16), 340px)',
               aspectRatio: '9/16',
-              maxHeight: 'min(75vh, 700px)'
+              maxHeight: 'min(48vh, 650px)'
             }}
           >
             {/* Status bar */}
@@ -170,8 +175,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               className="flex-1 p-2 space-y-1.5 bg-gradient-to-br from-burgundy-900/40 to-burgundy-800/40 backdrop-blur-sm overflow-y-auto no-scrollbar"
               aria-live="polite"
             >
-              {visibleMessages.map((message, idx) => (
-                <div key={`${currentConversationIndex}-${message.id}-${idx}`} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {visibleMessages.map((message) => (
+                <div key={message.id} className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
                      <Avatar className="w-6 h-6 flex-shrink-0">
@@ -260,29 +265,26 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="max-w-md mx-auto px-4 mt-6">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs text-white/70">
-            <span>{currentConversation.title}</span>
-            <span>{currentConversationIndex + 1} / {demoConversations.length}</span>
-          </div>
-          <div 
-            className="w-full h-2 bg-white/20 rounded-full overflow-hidden cursor-pointer relative"
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const percentage = x / rect.width;
-              const newIndex = Math.floor(percentage * demoConversations.length);
-              setIsLoopActive(false);
-              setCurrentConversationIndex(Math.min(newIndex, demoConversations.length - 1));
-            }}
-          >
-            <div 
-              className="h-full bg-gradient-to-r from-coral-400 to-pink-500 transition-all duration-500 ease-out rounded-full"
-              style={{ width: `${((currentConversationIndex + 1) / demoConversations.length) * 100}%` }}
-            />
-          </div>
+      {/* Progress bar indicator */}
+      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 mb-8 sm:mb-12 px-4">
+        <div className="flex gap-1">
+          {demoConversations.map((conv, index) => (
+            <button
+              key={conv.id}
+              onClick={() => {
+                setIsLoopActive(false);
+                setCurrentConversationIndex(index);
+              }}
+              className="flex-1 group"
+              aria-label={`View conversation ${index + 1}: ${conv.title}`}
+            >
+              <div className={`h-1 rounded-full transition-all duration-500 ${
+                index === currentConversationIndex 
+                  ? 'bg-gradient-to-r from-coral-400 to-coral-500 shadow-lg shadow-coral-400/30' 
+                  : 'bg-white/20 group-hover:bg-white/40'
+              }`} />
+            </button>
+          ))}
         </div>
       </div>
     </div>
