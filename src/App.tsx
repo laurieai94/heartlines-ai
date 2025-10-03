@@ -10,8 +10,8 @@ import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shel
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-// Import LandingPage directly for immediate rendering (critical path)
-import LandingPage from "@/components/LandingPage";
+// Import FirstVisitSplash for session-based splash screen
+import FirstVisitSplash from "@/components/FirstVisitSplash";
 // Lazy load non-critical components
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 const AuthCallback = React.lazy(() => import("@/pages/AuthCallback"));
@@ -31,10 +31,10 @@ const AppContent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public landing page - direct load for immediate rendering */}
+        {/* Public landing page - with first-visit splash */}
         <Route path="/" element={
           <ErrorBoundary>
-            <LandingPage />
+            <FirstVisitSplash />
           </ErrorBoundary>
         } />
         
