@@ -246,16 +246,16 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             </div>
 
             {/* Input area */}
-            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-2">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1.5 flex items-center">
+            <div className="bg-gradient-to-r from-burgundy-700/20 to-burgundy-600/20 backdrop-blur-md border-t border-white/10 p-1.5">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-1 flex items-center">
                 <input 
                   type="text" 
                   placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
-                  className="flex-1 bg-transparent text-white placeholder-white/50 text-sm focus:outline-none"
+                  className="flex-1 bg-transparent text-white placeholder-white/50 text-xs focus:outline-none"
                   disabled
                 />
-                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <button className="bg-gradient-to-r from-coral-400 to-pink-500 w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   </svg>
                 </button>
@@ -266,7 +266,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       </div>
 
       {/* Progress bar indicator */}
-      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 mb-8 sm:mb-12 px-4">
+      <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto mt-4 mb-16 sm:mb-20 md:mb-24 px-4">
         <div className="flex gap-1">
           {demoConversations.map((conv, index) => (
             <button
