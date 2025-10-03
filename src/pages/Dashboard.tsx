@@ -102,7 +102,7 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <div className="h-[100dvh] overflow-hidden overscroll-none" style={{ overscrollBehavior: 'none', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+          <div className="h-[100dvh] overflow-hidden overscroll-none" style={{ overscrollBehavior: 'none' }}>
             {/* Main Dashboard Content - This gets blurred when modals are open */}
             <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
               {/* Ambient glow for chat interface separation */}
