@@ -294,27 +294,25 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             })}
           </div>
           
-          {/* Single continuous line with segments */}
-          <div className="relative h-0.5 bg-white/20 rounded-full overflow-hidden">
-            <div className="absolute inset-0 flex">
-              {demoConversations.map((conv, index) => (
-                <button
-                  key={conv.id}
-                  onClick={() => {
-                    setIsLoopActive(false);
-                    setCurrentConversationIndex(index);
-                  }}
-                  className="flex-1 h-full group relative"
-                  aria-label={`View conversation ${index + 1}: ${conv.title}`}
-                >
-                  <div className={`absolute inset-0 transition-all duration-500 ${
-                    index === currentConversationIndex 
-                      ? 'bg-gradient-to-r from-coral-400 to-coral-500' 
-                      : 'bg-transparent group-hover:bg-white/30'
-                  }`} />
-                </button>
-              ))}
-            </div>
+          {/* Five distinct segments with gaps */}
+          <div className="flex gap-1.5">
+            {demoConversations.map((conv, index) => (
+              <button
+                key={conv.id}
+                onClick={() => {
+                  setIsLoopActive(false);
+                  setCurrentConversationIndex(index);
+                }}
+                className="flex-1 h-0.5 rounded-full group relative transition-all duration-500"
+                aria-label={`View conversation ${index + 1}: ${conv.title}`}
+              >
+                <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+                  index === currentConversationIndex 
+                    ? 'bg-gradient-to-r from-coral-400 to-coral-500' 
+                    : 'bg-white/20 group-hover:bg-white/40'
+                }`} />
+              </button>
+            ))}
           </div>
         </div>
       </div>
