@@ -351,11 +351,10 @@ const LandingPage = ({
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in" style={{
                         fontSize: 'clamp(1.875rem, 5vw, 6.5rem)'
                       }}>
-                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                          <span className="block sm:inline">Relationships</span>
-                          <span className="hidden sm:inline"> </span>
-                          <span className="block sm:inline">aren't rom-coms.</span>
-                        </span>
+                      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
+                        <span className="block">Relationships</span>
+                        <span className="block">aren't rom-coms.</span>
+                      </span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap inline-block" style={{
