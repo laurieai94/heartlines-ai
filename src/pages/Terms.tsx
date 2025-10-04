@@ -101,12 +101,74 @@ const Terms = () => {
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Disclaimer</h2>
-              <p className="questionnaire-text-muted leading-relaxed">
-                {BRAND.name} provides relationship coaching and insights powered by AI technology. While we strive to provide 
-                helpful guidance, our service is not a substitute for professional therapy or medical advice. If you are 
-                experiencing serious relationship issues or mental health concerns, please consult with a licensed professional.
-              </p>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Important Safety Information and Disclaimers</h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">Professional Limitations</h3>
+                  <p className="questionnaire-text-muted leading-relaxed">
+                    {BRAND.name} provides AI-powered relationship coaching and insights. Our service is NOT:
+                  </p>
+                  <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4 mt-2">
+                    <li>A substitute for professional therapy, counseling, or medical advice</li>
+                    <li>Equipped to handle crisis situations or emergencies</li>
+                    <li>Able to diagnose mental health conditions</li>
+                    <li>A replacement for emergency services or crisis intervention</li>
+                  </ul>
+                </div>
+
+                <div className="bg-coral-500/10 border-2 border-coral-400/30 rounded-lg p-5">
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">Crisis Resources - Available 24/7</h3>
+                  <p className="questionnaire-text-muted leading-relaxed mb-4 font-semibold">
+                    If you are in crisis or experiencing thoughts of self-harm, suicide, or are in immediate danger, please contact these services immediately:
+                  </p>
+                  <ul className="questionnaire-text-muted space-y-3 ml-2">
+                    <li><strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988 (Available 24/7)</li>
+                    <li><strong>Crisis Text Line:</strong> Text HOME to 741741 (Available 24/7)</li>
+                    <li><strong>National Domestic Violence Hotline:</strong> 1-800-799-7233 (Available 24/7)</li>
+                    <li><strong>RAINN Sexual Assault Hotline:</strong> 1-800-656-4673 (Available 24/7)</li>
+                    <li><strong>Emergency Services:</strong> Call 911 for immediate physical danger</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">When to Seek Professional Help</h3>
+                  <p className="questionnaire-text-muted leading-relaxed mb-3">
+                    Please consult with a licensed mental health professional if you experience:
+                  </p>
+                  <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4">
+                    <li>Thoughts of self-harm or suicide</li>
+                    <li>Domestic violence, abuse, or situations where you feel unsafe</li>
+                    <li>Severe anxiety, depression, or other mental health concerns</li>
+                    <li>Relationship issues requiring professional therapeutic intervention</li>
+                    <li>Trauma that requires specialized treatment</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">What Kai Can and Cannot Do</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="questionnaire-text font-semibold mb-2">Kai CAN provide:</p>
+                      <ul className="list-disc list-inside questionnaire-text-muted space-y-1 ml-4">
+                        <li>Relationship guidance and communication coaching</li>
+                        <li>Emotional support and perspective</li>
+                        <li>Evidence-based relationship strategies</li>
+                        <li>Help with everyday relationship challenges</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="questionnaire-text font-semibold mb-2">Kai CANNOT provide:</p>
+                      <ul className="list-disc list-inside questionnaire-text-muted space-y-1 ml-4">
+                        <li>Crisis intervention or emergency services</li>
+                        <li>Professional therapy or clinical treatment</li>
+                        <li>Medical or psychiatric diagnosis</li>
+                        <li>Legal advice for domestic situations</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Card>
 
             <Card className="questionnaire-card p-6">
