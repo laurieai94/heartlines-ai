@@ -11,18 +11,20 @@
   overscroll-behavior: none; /* Prevent white screen on overscroll */
 }
 
-/* Critical: Prevent white screen on ALL scroll areas */
-[data-radix-scroll-area-viewport],
-.overflow-auto,
-.overflow-y-auto,
-.ios-optimized [data-radix-scroll-area-viewport],
-.ios-optimized .overflow-auto,
-.ios-optimized .overflow-y-auto {
+/* Selective overscroll prevention - only for modals and fixed elements */
+[role="dialog"],
+[data-questionnaire-modal],
+[data-radix-scroll-area-viewport] {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none !important;
-  overscroll-behavior-y: none !important;
-  overscroll-behavior-x: none !important;
+  overscroll-behavior: none;
   touch-action: pan-y;
+}
+
+/* Allow natural scrolling for dashboard content */
+.dashboard-container,
+[data-profile-container] {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: auto;
 }
 
 /* Performance optimizations */

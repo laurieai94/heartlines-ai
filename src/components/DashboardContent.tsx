@@ -138,8 +138,8 @@ const DashboardContent = ({
         );
       case "profile":
         return (
-          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0">
-            <ProfileBuilder 
+          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0 overflow-y-auto h-full">
+            <ProfileBuilder
               onProfileUpdate={onProfileUpdate}
               initialProfiles={temporaryProfiles}
               initialDemographics={temporaryDemographics}
@@ -192,9 +192,9 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className="flex-1 min-h-0 overflow-hidden dashboard-container">
-      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col overflow-hidden">
-        <div className="flex-1 min-h-0 overflow-hidden">
+    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container">
+      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
+        <div className="flex-1 min-h-0">
           {renderActiveTabContent}
         </div>
       </Tabs>
