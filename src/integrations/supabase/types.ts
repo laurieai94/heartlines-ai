@@ -125,39 +125,6 @@ export type Database = {
         }
         Relationships: []
       }
-      crisis_logs: {
-        Row: {
-          created_at: string | null
-          crisis_types: string[]
-          detected_at: string
-          id: string
-          reviewed: boolean | null
-          reviewer_notes: string | null
-          severity: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string | null
-          crisis_types: string[]
-          detected_at?: string
-          id?: string
-          reviewed?: boolean | null
-          reviewer_notes?: string | null
-          severity: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string | null
-          crisis_types?: string[]
-          detected_at?: string
-          id?: string
-          reviewed?: boolean | null
-          reviewer_notes?: string | null
-          severity?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       onboarding_status: {
         Row: {
           created_at: string

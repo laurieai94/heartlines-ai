@@ -5,61 +5,6 @@ import { getCorsHeaders } from '../_shared/cors.ts'
 
 const anthropicApiKey = Deno.env.get('ANTHROPIC_API_KEY')
 
-// Crisis keyword detection (Layer 2: Backend Content Monitoring)
-const crisisPatterns = {
-  suicide: /\b(kill myself|suicide|want to die|end it all|not worth living|better off dead|no reason to live)\b/i,
-  selfHarm: /\b(hurt myself|cut myself|harm myself|self harm|self-harm)\b/i,
-  abuse: /\b(hits me|beats me|afraid of (him|her|them)|controls everything|won't let me|threatens me)\b/i,
-  emergency: /\b(right now|tonight|today|going to)\b/i
-};
-
-function detectCrisisContent(message: string): { 
-  hasCrisis: boolean; 
-  severity: 'high' | 'medium' | 'low' | null;
-  types: string[];
-} {
-  const types: string[] = [];
-  let severity: 'high' | 'medium' | 'low' | null = null;
-  
-  if (crisisPatterns.suicide.test(message)) {
-    types.push('suicide');
-    severity = 'high';
-  }
-  if (crisisPatterns.selfHarm.test(message)) {
-    types.push('self-harm');
-    severity = severity === 'high' ? 'high' : 'medium';
-  }
-  if (crisisPatterns.abuse.test(message)) {
-    types.push('abuse');
-    severity = severity ? severity : 'medium';
-  }
-  if (crisisPatterns.emergency.test(message) && types.length > 0) {
-    severity = 'high'; // Escalate if timing words present
-  }
-  
-  return {
-    hasCrisis: types.length > 0,
-    severity,
-    types
-  };
-}
-
-function buildCrisisResourcesMessage(severity: 'high' | 'medium' | 'low', types: string[]): string {
-  const urgentPrefix = severity === 'high' 
-    ? "🚨 **If you're in immediate danger, please call 911 or go to your nearest emergency room.**\n\n"
-    : "";
-    
-  const resources = types.includes('suicide') || types.includes('self-harm')
-    ? "**988 Suicide & Crisis Lifeline:** Call or text 988 (available 24/7)\n**Crisis Text Line:** Text HOME to 741741\n\n"
-    : "";
-    
-  const abuseResources = types.includes('abuse')
-    ? "**National Domestic Violence Hotline:** 1-800-799-7233 (24/7)\n**SMS:** Text START to 88788\n\n"
-    : "";
-    
-  return `${urgentPrefix}I hear that you're going through something really difficult. While I'm here to support you, I'm not equipped to help with crisis situations. Please reach out to these resources:\n\n${resources}${abuseResources}These are confidential services with trained professionals who can help right now.`;
-}
-
 serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
@@ -111,32 +56,6 @@ serve(async (req) => {
     }
 
     console.log('Processing chat request...')
-
-    // Detect crisis content in user message (Layer 2)
-    const crisisDetection = detectCrisisContent(userMessage);
-
-    // Log concerning conversations (with privacy considerations)
-    if (crisisDetection.hasCrisis) {
-      console.log(`Crisis content detected for user ${user.id}:`, {
-        severity: crisisDetection.severity,
-        types: crisisDetection.types,
-        timestamp: new Date().toISOString()
-      });
-      
-      // Log to database for review (no message content stored)
-      try {
-        await supabaseService
-          .from('crisis_logs')
-          .insert({
-            user_id: user.id,
-            severity: crisisDetection.severity,
-            crisis_types: crisisDetection.types,
-            detected_at: new Date().toISOString()
-          });
-      } catch (logError) {
-        console.error('Failed to log crisis detection:', logError);
-      }
-    }
 
     // Check for account override first
     const { data: userWithEmail } = await supabaseService.auth.getUser(token);
@@ -208,11 +127,6 @@ serve(async (req) => {
       { role: 'user', content: userMessage }
     ]
 
-    // Enhance system prompt if crisis detected (Layer 2)
-    const enhancedSystemPrompt = crisisDetection.hasCrisis
-      ? `${systemPrompt}\n\n**CRITICAL SAFETY OVERRIDE:** The user's message contains potential crisis indicators (${crisisDetection.types.join(', ')}). You MUST acknowledge their pain empathetically AND immediately refer them to crisis resources. Do not attempt to provide therapeutic intervention. Your response should validate their feelings briefly, then clearly direct them to professional help.`
-      : systemPrompt;
-
     console.log('Calling Anthropic API with Claude 4...')
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -226,7 +140,7 @@ serve(async (req) => {
         model: 'claude-opus-4-1-20250805',
         max_tokens: 400,
         messages: messages,
-        system: enhancedSystemPrompt
+        system: systemPrompt
       })
     })
 
@@ -296,14 +210,8 @@ serve(async (req) => {
         console.error('Error incrementing message usage:', usageErr);
       }
       
-      // Prepend crisis resources to AI response if detected (Layer 2)
-      const aiResponse = data.content[0].text;
-      const finalResponse = crisisDetection.hasCrisis
-        ? `${buildCrisisResourcesMessage(crisisDetection.severity!, crisisDetection.types)}\n\n---\n\n${aiResponse}`
-        : aiResponse;
-
       return new Response(
-        JSON.stringify({ response: finalResponse }),
+        JSON.stringify({ response: data.content[0].text }),
         { 
           headers: { 
             ...corsHeaders,
