@@ -358,7 +358,7 @@ const LandingPage = ({
                         </span>
                       </h1>
                       
-                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
+                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap" style={{
                         fontSize: 'clamp(1.25rem, 3.5vw, 4rem)'
                       }}>
                         <span className="font-brand">heartlines</span> helps you connect.
