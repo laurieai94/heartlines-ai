@@ -109,7 +109,7 @@ const QuestionnaireLayout = ({
 
   return <MobileProfileBoundary>
     <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
-      <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[98dvh] sm:max-h-[70dvh] flex flex-col'} ${
+      <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[90dvh] sm:max-h-[70dvh] flex flex-col'} ${
         // Force desktop styling on tablet and above
         isTabletDesktop 
           ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
@@ -120,7 +120,7 @@ const QuestionnaireLayout = ({
           : 'before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl before:bg-gradient-to-br before:from-white/3 before:to-transparent before:pointer-events-none'
       } animate-scale-in`}>
         
-        <div ref={scrollContainerRef} data-scroll-container className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-safe no-scrollbar touch-pan-y" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', overflowAnchor: 'none' as any, touchAction: 'pan-y' }}>
+        <div ref={scrollContainerRef} data-scroll-container className="flex-1 min-h-0 overflow-y-auto overscroll-contain no-scrollbar touch-pan-y" style={{ scrollPaddingTop: `${headerHeight}px`, overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', overflowAnchor: 'none' as any, touchAction: 'pan-y' }}>
           {/* Sticky header and navigation - always visible, responsive design */}
           <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
@@ -141,7 +141,7 @@ const QuestionnaireLayout = ({
           />
           
           {/* Minimal bottom padding */}
-          <div className="pb-6 sm:pb-10" />
+          <div className="pb-20 sm:pb-10" />
         </div>
 
         <CleanQuestionnaireFooter 
