@@ -307,7 +307,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               return (
                 <div
                   key={`label-${conv.id}`}
-                  className={`absolute text-[11px] sm:text-xs whitespace-nowrap transition-all duration-500 ${
+                  className={`absolute text-xs sm:text-sm whitespace-nowrap transition-all duration-500 ${
                     index === currentConversationIndex 
                       ? 'text-coral-300 font-medium opacity-100' 
                       : 'text-white/50 opacity-0'
