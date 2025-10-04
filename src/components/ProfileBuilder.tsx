@@ -203,7 +203,7 @@ const ProfileBuilder = ({
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && (
-            <div className="my-8 md:my-0 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+            <div className="my-10 md:my-0 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <Button
                 variant="glass"
                 onClick={goToCoach}
@@ -229,7 +229,7 @@ const ProfileBuilder = ({
         </div>
 
       {/* Main Content Area - Scrollable */}
-      <div className="space-y-3 md:space-y-4 lg:space-y-6">
+      <div className="space-y-6 md:space-y-4 lg:space-y-6">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
         {!canUnlockCoaching && (
           <div className="px-3 md:px-4 lg:px-6">
@@ -240,7 +240,7 @@ const ProfileBuilder = ({
           </div>
         )}
         {/* Responsive Two-Card Layout */}
-        <div className="grid md:grid-cols-2 gap-2 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-1 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
           {/* Your Profile Card */}
           <MemoizedProfileCard
             title="Your Profile"
