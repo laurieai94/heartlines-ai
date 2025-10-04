@@ -349,7 +349,7 @@ const LandingPage = ({
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-0 mt-8 md:mt-0 max-w-full">
                     <div className="space-y-2 mb-1 md:mb-6 max-w-4xl">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in" style={{
-                        fontSize: 'clamp(1.875rem, 3vw, 3.5rem)'
+                        fontSize: 'clamp(1.875rem, 4.5vw, 5rem)'
                       }}>
                         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
                           <span className="block sm:inline">Relationships</span>
@@ -359,7 +359,7 @@ const LandingPage = ({
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90" style={{
-                        fontSize: 'clamp(1.25rem, 2vw, 2rem)'
+                        fontSize: 'clamp(1.25rem, 3vw, 3rem)'
                       }}>
                         <span className="font-brand">heartlines</span> helps you connect.
                       </h3>
@@ -369,7 +369,7 @@ const LandingPage = ({
                     <div className="hidden md:flex items-center gap-4">
                       {user ? <>
                           <Link to="/signup">
-                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
+                            <Button size="lg" variant="glass" className="px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
                               Chat with Kai
                               <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
