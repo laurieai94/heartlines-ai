@@ -101,12 +101,63 @@ const Terms = () => {
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Disclaimer</h2>
-              <p className="questionnaire-text-muted leading-relaxed">
-                {BRAND.name} provides relationship coaching and insights powered by AI technology. While we strive to provide 
-                helpful guidance, our service is not a substitute for professional therapy or medical advice. If you are 
-                experiencing serious relationship issues or mental health concerns, please consult with a licensed professional.
-              </p>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Disclaimer & Safety Information</h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold questionnaire-text mb-3">Professional Limitations</h3>
+                  <p className="questionnaire-text-muted leading-relaxed">
+                    {BRAND.name} provides relationship coaching and insights powered by AI technology. While we strive to provide 
+                    helpful guidance, our service is <strong>not a substitute for professional therapy, crisis intervention, or medical advice</strong>. 
+                    Kai is an AI coach, not a licensed therapist, crisis counselor, or medical professional.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold questionnaire-text mb-3">When to Seek Professional Help</h3>
+                  <p className="questionnaire-text-muted leading-relaxed mb-3">
+                    If you are experiencing serious mental health concerns, relationship violence, trauma, or abuse, 
+                    please consult with a licensed mental health professional or crisis counselor.
+                  </p>
+                </div>
+
+                <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-red-200 mb-3">Crisis Resources - Available 24/7</h3>
+                  <ul className="space-y-3 text-red-100">
+                    <li className="leading-relaxed">
+                      <strong>988 Suicide & Crisis Lifeline:</strong> Call or text <strong>988</strong> for free, confidential support 
+                      if you're thinking about suicide or self-harm
+                    </li>
+                    <li className="leading-relaxed">
+                      <strong>National Domestic Violence Hotline:</strong> Call <strong>1-800-799-7233</strong> or text START to <strong>88788</strong> 
+                      for support with relationship abuse or violence
+                    </li>
+                    <li className="leading-relaxed">
+                      <strong>Crisis Text Line:</strong> Text <strong>HOME</strong> to <strong>741741</strong> to reach a crisis counselor
+                    </li>
+                    <li className="leading-relaxed">
+                      <strong>RAINN Sexual Assault Hotline:</strong> Call <strong>1-800-656-4673</strong> for support with sexual assault or abuse
+                    </li>
+                    <li className="leading-relaxed">
+                      <strong>Immediate Danger:</strong> If you are in immediate physical danger, call <strong>911</strong>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold questionnaire-text mb-3">What Kai Can and Cannot Do</h3>
+                  <p className="questionnaire-text-muted leading-relaxed mb-3">
+                    <strong>Kai can help with:</strong> Relationship communication patterns, understanding attachment styles, 
+                    exploring relationship dynamics, navigating conflicts, building emotional awareness, and developing healthier 
+                    relationship skills.
+                  </p>
+                  <p className="questionnaire-text-muted leading-relaxed">
+                    <strong>Kai cannot help with:</strong> Active mental health crises, suicide risk assessment, 
+                    diagnosing mental health conditions, crisis intervention for abuse or violence, or replacing professional 
+                    therapy or medical treatment.
+                  </p>
+                </div>
+              </div>
             </Card>
 
             <Card className="questionnaire-card p-6">
