@@ -169,7 +169,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           <div 
             className="relative bg-burgundy-900 border-2 border-white/20 rounded-[2.5rem] shadow-2xl ring-2 ring-white/10 overflow-hidden transition-all duration-500 animate-scale-in flex flex-col"
             style={{
-              width: 'clamp(300px, 25vw, 340px)',
+              width: 'clamp(280px, 22vw, 310px)',
               aspectRatio: '9/16'
             }}
           >
