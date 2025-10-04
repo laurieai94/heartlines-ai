@@ -11,25 +11,18 @@
   overscroll-behavior: none; /* Prevent white screen on overscroll */
 }
 
-/* Allow natural scrolling on landing pages, prevent white screen on modals */
+/* Critical: Prevent white screen on ALL scroll areas */
 [data-radix-scroll-area-viewport],
-.ios-optimized [data-radix-scroll-area-viewport] {
+.overflow-auto,
+.overflow-y-auto,
+.ios-optimized [data-radix-scroll-area-viewport],
+.ios-optimized .overflow-auto,
+.ios-optimized .overflow-y-auto {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none;
-  touch-action: pan-y;
-}
-
-/* Landing pages can scroll naturally */
-.landing-page-scroll {
-  overscroll-behavior-y: auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* Prevent overscroll on specific contexts (modals, questionnaires) */
-.modal-scroll,
-.questionnaire-scroll {
   overscroll-behavior: none !important;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important;
+  touch-action: pan-y;
 }
 
 /* Performance optimizations */
