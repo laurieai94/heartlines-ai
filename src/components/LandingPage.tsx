@@ -344,7 +344,7 @@ const LandingPage = ({
               <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-coral-400/15 to-burgundy-400/15 rounded-full blur-xl backdrop-blur-sm"></div>
               
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
-                <div className="grid md:grid-cols-2 gap-4 md:gap-12 xl:gap-16 2xl:gap-20 items-center min-h-[50vh] md:min-h-[90vh]">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-0 mt-8 md:mt-0 max-w-full">
                     <div className="space-y-2 mb-1 md:mb-6 max-w-4xl">
@@ -387,9 +387,7 @@ const LandingPage = ({
 
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-center self-center">
-                    <div className="w-full origin-center relative z-10" style={{
-                      transform: 'scale(clamp(1, calc(0.8 + (100vw - 768px) / 1152 * 0.4), 1.2))'
-                    }}>
+                    <div className="w-full relative z-10">
                       <HeroPhoneScroll className="animate-fade-in w-full h-full" />
                     </div>
                   </div>
