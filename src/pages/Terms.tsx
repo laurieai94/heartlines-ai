@@ -101,11 +101,30 @@ const Terms = () => {
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Disclaimer</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Safety & Crisis Resources</h2>
+              <p className="questionnaire-text-muted leading-relaxed mb-4">
+                {BRAND.name} is an AI-powered relationship coaching service and is NOT a substitute for professional 
+                mental health care, crisis intervention, or emergency services.
+              </p>
+              
+              <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 mb-4">
+                <h3 className="text-lg font-semibold text-red-200 mb-2">⚠️ Important Safety Information</h3>
+                <p className="text-red-100/80 text-sm leading-relaxed mb-3">
+                  If you are experiencing thoughts of suicide, self-harm, abuse, or any crisis situation:
+                </p>
+                <ul className="list-none space-y-2 text-red-100/90 text-sm">
+                  <li><strong>Immediate Danger:</strong> Call 911 or go to your nearest emergency room</li>
+                  <li><strong>Suicide/Crisis:</strong> Call or text 988 (Suicide & Crisis Lifeline)</li>
+                  <li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>
+                  <li><strong>Domestic Violence:</strong> Call 1-800-799-7233 (National DV Hotline)</li>
+                </ul>
+              </div>
+              
               <p className="questionnaire-text-muted leading-relaxed">
-                {BRAND.name} provides relationship coaching and insights powered by AI technology. While we strive to provide 
-                helpful guidance, our service is not a substitute for professional therapy or medical advice. If you are 
-                experiencing serious relationship issues or mental health concerns, please consult with a licensed professional.
+                Our AI coaching is designed to support healthy relationship development and is not equipped to 
+                handle crisis situations, provide diagnosis, or replace professional therapy. If you are 
+                experiencing serious relationship issues, mental health concerns, or any form of abuse, 
+                please consult with a licensed professional immediately.
               </p>
             </Card>
 

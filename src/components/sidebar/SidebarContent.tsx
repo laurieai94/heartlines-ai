@@ -1,7 +1,7 @@
 
 import KaiIntroCard from './KaiIntroCard';
 import SafeSpaceCard from './SafeSpaceCard';
-
+import SafetyResourcesCard from './SafetyResourcesCard';
 import APIKeyInput from '../APIKeyInput';
 
 interface SidebarContentProps {
@@ -17,7 +17,7 @@ const SidebarContent = ({
     <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl ring-1 ring-white/5 p-4 space-y-3">
       <KaiIntroCard />
       <SafeSpaceCard />
-      
+      <SafetyResourcesCard />
 
       <div className="animate-slide-up" style={{animationDelay: '0.6s'}}>
         <APIKeyInput onSupabaseConfigured={onSupabaseConfigured} isConfigured={isConfigured} />

@@ -28,6 +28,10 @@ const SiteFooter = () => {
       label: "Mission",
       icon: Target
     }, {
+      to: "/safety",
+      label: "Safety Resources",
+      icon: Shield
+    }, {
       to: "/privacy-and-security",
       label: "Privacy",
       icon: Shield

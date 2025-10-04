@@ -9,6 +9,7 @@ import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
 import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
 import MemoizedChatInputSection from "./chat/MemoizedChatInputSection";
+import SafetyEducationModal from "./chat/SafetyEducationModal";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -100,17 +101,19 @@ useChatEffects({
 });
 
   return (
-    <ChatLayout 
-      userName={userName} 
-      onNewConversation={handleNewConversation} 
-      onOpenSidebar={onOpenSidebar}
-      conversations={conversations}
-      currentConversationId={currentConversationId}
-      loading={historyLoading}
-      onLoadConversation={onLoadConversation}
-      onDeleteConversation={onDeleteConversation}
-    >
-      <MemoizedChatContainer
+    <>
+      <SafetyEducationModal />
+      <ChatLayout 
+        userName={userName} 
+        onNewConversation={handleNewConversation} 
+        onOpenSidebar={onOpenSidebar}
+        conversations={conversations}
+        currentConversationId={currentConversationId}
+        loading={historyLoading}
+        onLoadConversation={onLoadConversation}
+        onDeleteConversation={onDeleteConversation}
+      >
+        <MemoizedChatContainer
         chatHistory={chatHistory}
         loading={loading}
         userName={userName}
@@ -135,7 +138,8 @@ useChatEffects({
         onCloseStarters={onCloseStarters}
         onUserTypingChange={setUserTyping}
       />
-    </ChatLayout>
+      </ChatLayout>
+    </>
   );
 };
 

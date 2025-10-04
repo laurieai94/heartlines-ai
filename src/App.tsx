@@ -24,6 +24,7 @@ const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 const Terms = React.lazy(() => import("@/pages/Terms"));
 const Contact = React.lazy(() => import("@/pages/Contact"));
+const SafetyResources = React.lazy(() => import("@/pages/SafetyResources"));
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -102,6 +103,11 @@ const AppContent = () => {
         <Route path="/contact" element={
           <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
             <Contact />
+          </Suspense>
+        } />
+        <Route path="/safety" element={
+          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+            <SafetyResources />
           </Suspense>
         } />
         <Route path="*" element={

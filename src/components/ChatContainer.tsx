@@ -8,6 +8,7 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
+import CrisisResourcesButton from './chat/CrisisResourcesButton';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -194,6 +195,9 @@ const ChatContainer = ({
           <ArrowDown className="w-5 h-5" />
         </Button>
       )}
+
+      {/* Crisis Resources Button (Layer 1) */}
+      <CrisisResourcesButton />
     </div>
   );
 };
