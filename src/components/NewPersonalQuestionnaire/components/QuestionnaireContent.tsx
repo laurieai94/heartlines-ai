@@ -79,7 +79,7 @@ const QuestionnaireContent = ({
   );
 
   return (
-    <div className={`pt-2 md:pt-6 lg:pt-8 pb-1 space-y-2 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
+    <div className={`pt-0 md:pt-6 lg:pt-8 pb-1 space-y-2 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         {/* Section 1: The Basics */}
         {currentSection === 1 && (
           <WhoYouAre

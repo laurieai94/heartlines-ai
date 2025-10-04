@@ -46,7 +46,7 @@ const PartnerQuestionnaireContent = ({
   );
 
   return (
-    <div className={`py-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
+    <div className={`pt-0 pb-1 space-y-3 ${isTabletDesktop ? 'px-8' : 'px-1'}`}>
         {currentSection === 1 && (
           <div id="partner-section-1" data-section="1">
             <Suspense fallback={<SectionSkeleton />}>

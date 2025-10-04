@@ -108,7 +108,7 @@ const QuestionnaireLayout = ({
   // Component renders normally
 
   return <MobileProfileBoundary>
-    <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-2 sm:p-4'}`}>
+    <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-center justify-center p-1 sm:p-4'}`}>
       <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[90dvh] sm:max-h-[70dvh] flex flex-col'} ${
         // Force desktop styling on tablet and above
         isTabletDesktop 

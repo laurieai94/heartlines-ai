@@ -51,7 +51,7 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   };
   
   return (
-    <div className="bg-white/[0.02] backdrop-blur-sm border-b border-white/[0.06] px-3 py-1.5 sm:px-4 sm:py-3 flex-shrink-0">
+    <div className="bg-white/[0.02] backdrop-blur-sm border-b border-white/[0.06] px-3 py-1 sm:px-4 sm:py-3 flex-shrink-0">
       <div className="flex items-center justify-between mb-1 sm:mb-2">
         <div className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-md flex items-center justify-center">
