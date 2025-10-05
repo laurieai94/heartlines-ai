@@ -244,7 +244,7 @@ const LandingPage = ({
     }
   }, []);
 
-  return <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
+  return <div className="h-screen relative overflow-x-hidden overflow-y-auto landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
       {/* Code-like Background Elements */}
