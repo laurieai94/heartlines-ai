@@ -207,6 +207,7 @@
     touch-action: manipulation;
     overscroll-behavior: none; /* Critical: Prevent white screen */
     overflow-x: hidden;
+    overflow-y: auto; /* Enable document-level scrolling for sticky positioning */
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     /* Better scroll performance on mobile */
