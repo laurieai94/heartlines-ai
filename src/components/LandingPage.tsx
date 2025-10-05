@@ -244,7 +244,7 @@ const LandingPage = ({
     }
   }, []);
 
-  return <div className="h-screen relative overflow-x-hidden overflow-y-auto landing-page-scroll bg-burgundy-900">
+  return <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
       {/* Static background preserved */}
 
       {/* Code-like Background Elements */}
@@ -329,7 +329,9 @@ const LandingPage = ({
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
       {/* Full-Bleed Year Carousel - Above the Fold */}
-      <YearCarousel />
+      <div className={showMarketingTopBar ? '' : 'pt-16'}>
+        <YearCarousel />
+      </div>
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
