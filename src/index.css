@@ -293,10 +293,6 @@
       padding-bottom: calc(1.5rem + max(env(safe-area-inset-bottom), 20px));
     }
     
-    .pb-safe-minimal {
-      padding-bottom: 0;
-    }
-    
     [data-onboarding-nudge] {
       margin-bottom: calc(2rem + max(env(safe-area-inset-bottom), 16px));
     }
