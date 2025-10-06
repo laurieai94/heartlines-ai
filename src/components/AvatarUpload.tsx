@@ -47,9 +47,9 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
   };
 
   const isCompact = size === 'compact';
-  const avatarSize = isCompact ? 'w-16 h-16' : 'w-24 h-24';
+  const avatarSize = isCompact ? 'w-14 h-14' : 'w-24 h-24';
   const buttonSize = isCompact ? 'sm' : 'sm';
-  const layout = isCompact ? 'flex-row items-center gap-3' : 'flex-col items-center gap-4';
+  const layout = isCompact ? 'flex-row items-center gap-2' : 'flex-col items-center gap-4';
 
   return (
     <div className={`flex ${layout}`}>

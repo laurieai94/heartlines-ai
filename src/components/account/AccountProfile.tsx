@@ -88,15 +88,15 @@ const AccountProfile = () => {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>;
   }
-  return <div className={`${isMobile ? 'space-y-2' : 'space-y-2.5'} touch-manipulation`}>
+  return <div className={`${isMobile ? 'space-y-3' : 'space-y-2.5'} touch-manipulation`}>
       {/* Avatar Upload */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardContent className={isMobile ? 'p-2' : 'pt-2.5 p-2.5'}>
-          <div className={`${isMobile ? 'flex items-center gap-2' : 'flex items-center gap-3 pt-2.5'}`}>
+        <CardContent className={isMobile ? 'p-3' : 'pt-2.5 p-2.5'}>
+          <div className={`${isMobile ? 'flex items-center gap-3' : 'flex items-center gap-3 pt-2.5'}`}>
             <AvatarUpload currentAvatarUrl={profile?.avatar_url} onAvatarUpdate={handleAvatarUpdate} userName={profile?.name || user?.email || undefined} size="compact" />
             <div className="flex-1 min-w-0">
-              <h4 className={`text-white font-medium ${isMobile ? 'text-sm mb-0.5' : 'text-base mb-0.5'}`}>Profile Pic</h4>
-              <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-sm'}`}>
+              <h4 className={`text-white font-medium ${isMobile ? 'text-base mb-1' : 'text-base mb-0.5'}`}>Profile Pic</h4>
+              <p className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
                 Lookin' fresh? Update your pic.
               </p>
             </div>
@@ -106,42 +106,42 @@ const AccountProfile = () => {
 
       {/* Basic Information */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>Basic Info</CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>Basic Info</CardTitle>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
             Your personal details and contact information
           </CardDescription>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'p-2 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-3'}`}>
+        <CardContent className={`${isMobile ? 'p-3 pt-0 space-y-3' : 'p-2.5 pt-0 space-y-3'}`}>
           {/* Email (read-only) */}
-          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
-            <Label htmlFor="email" className={`text-white flex items-center gap-1 ${isMobile ? 'text-[13px]' : 'text-sm'}`}>
-              <Mail className={isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
+          <div className={isMobile ? 'space-y-1.5' : 'space-y-1.5'}>
+            <Label htmlFor="email" className={`text-white flex items-center gap-1.5 ${isMobile ? 'text-sm' : 'text-sm'}`}>
+              <Mail className={isMobile ? 'h-3.5 w-3.5' : 'h-3.5 w-3.5'} />
               Email
             </Label>
-            <Input id="email" type="email" value={user?.email || ''} disabled className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${isMobile ? 'text-[13px] h-8' : 'text-sm'}`} />
-            <p className={`text-white/50 ${isMobile ? 'text-[11px]' : 'text-xs'}`}>
+            <Input id="email" type="email" value={user?.email || ''} disabled className={`bg-white/5 border-white/20 text-white/60 cursor-not-allowed touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm'}`} />
+            <p className={`text-white/50 ${isMobile ? 'text-xs' : 'text-xs'}`}>
               Email cannot be changed. Contact support if needed.
             </p>
           </div>
 
           {/* Name */}
-          <div className={isMobile ? 'space-y-1' : 'space-y-1.5'}>
-            <Label htmlFor="name" className={`text-white ${isMobile ? 'text-[13px]' : 'text-sm'}`}>
+          <div className={isMobile ? 'space-y-1.5' : 'space-y-1.5'}>
+            <Label htmlFor="name" className={`text-white ${isMobile ? 'text-sm' : 'text-sm'}`}>
               Display Name
             </Label>
-            <Input id="name" type="text" value={formData.name} onChange={e => handleInputChange('name', e.target.value)} placeholder="Enter your display name" className={`bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 touch-manipulation ${isMobile ? 'text-[13px] h-8' : 'text-sm'}`} />
+            <Input id="name" type="text" value={formData.name} onChange={e => handleInputChange('name', e.target.value)} placeholder="Enter your display name" className={`bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-pink-400/50 focus:ring-pink-400/20 touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm'}`} />
           </div>
 
           {/* Save Button */}
-          {hasChanges && <div className={`flex justify-end ${isMobile ? 'pt-2' : 'pt-3'}`}>
+          {hasChanges && <div className={`flex justify-end ${isMobile ? 'pt-1' : 'pt-3'}`}>
               <Button onClick={e => {
             if (isMobile && e.currentTarget) {
               simulateHapticFeedback(e.currentTarget, 'medium');
             }
             handleSave();
-          }} disabled={saving} className={`questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1 h-7' : 'text-sm py-1.5'}`}>
-                <Save className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+          }} disabled={saving} className={`questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 px-6' : 'text-sm py-1.5'}`}>
+                <Save className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
                 {saving ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>}
@@ -150,22 +150,22 @@ const AccountProfile = () => {
 
       {/* Reset Password */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             Reset Password
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
             Send a reset link to {user?.email}
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'medium');
           }
           handlePasswordReset();
-        }} disabled={sendingReset} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'}`}>
-            <Key className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+        }} disabled={sendingReset} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+            <Key className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             {sendingReset ? 'Sending...' : 'Reset Your Password'}
           </Button>
         </CardContent>
@@ -173,22 +173,22 @@ const AccountProfile = () => {
 
       {/* View Personal Profile */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             Personal Profile
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
             Access your complete personal profile and questionnaire
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'light');
           }
           navigate('/profile');
-        }} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'}`}>
-            <User className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+        }} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+            <User className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             View Personal Profile
           </Button>
         </CardContent>
@@ -196,22 +196,22 @@ const AccountProfile = () => {
 
       {/* Sign Out */}
       <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
-        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
-          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+        <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-base' : 'text-base'}`}>
             Sign Out
           </CardTitle>
-          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
             Sign out of your account
           </CardDescription>
         </CardHeader>
-        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
+        <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
           <Button onClick={e => {
           if (isMobile && e.currentTarget) {
             simulateHapticFeedback(e.currentTarget, 'medium');
           }
           signOut();
-        }} className={`w-full bg-burgundy-600 hover:bg-burgundy-600 text-white touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'}`}>
-            <LogOut className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+        }} className={`w-full bg-burgundy-600 hover:bg-burgundy-600 text-white touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11' : 'text-sm py-2'}`}>
+            <LogOut className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3.5 w-3.5'}`} />
             Sign Out
           </Button>
         </CardContent>
