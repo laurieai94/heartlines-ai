@@ -261,10 +261,12 @@ const ProfileBuilder = ({
             progressColor="text-orange-300" 
             benefitColor="text-orange-300"
             optionalPillImage={
-              <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
-                <Sparkles className="w-3 h-3" />
-                First Step: 4 Qs
-              </span>
+              !canUnlockCoaching ? (
+                <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" />
+                  First Step: 4 Qs
+                </span>
+              ) : undefined
             }
             motivationText="The realer you, the smarter Kai"
           />
