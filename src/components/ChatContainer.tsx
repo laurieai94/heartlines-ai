@@ -102,7 +102,7 @@ const ChatContainer = ({
         <div 
           className="pt-2 md:px-4 md:pt-3 md:pb-2"
           style={{
-            paddingBottom: showCenteredNudge && !isMobile ? '16px' : '4px',
+            paddingBottom: '8px',
             paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
             paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
