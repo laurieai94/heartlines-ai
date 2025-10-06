@@ -41,14 +41,17 @@ const DashboardContent = ({
   const [conversationStarter, setConversationStarter] = useState("");
   const { forceVisible, setNavigationOpened } = useMobileHeaderVisibility();
   
-  // Performance monitoring for tab switches
+  // Performance monitoring for tab switches and force header visible
   useEffect(() => {
     if (activeTab === 'profile') {
       performanceMonitor.mark('profile-chunk-load');
     } else if (activeTab === 'insights') {
       performanceMonitor.mark('insights-chunk-load');
+    } else if (activeTab === 'coach') {
+      // Force header visible when entering coach tab
+      forceVisible();
     }
-  }, [activeTab]);
+  }, [activeTab, forceVisible]);
 
   // Handle new conversation
   const handleNewConversation = useCallback(() => {

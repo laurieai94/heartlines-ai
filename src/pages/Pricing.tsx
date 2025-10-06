@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,12 @@ const Pricing = () => {
     user
   } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
+  const { forceVisible } = useMobileHeaderVisibility();
+
+  // Force header visible on mount
+  useEffect(() => {
+    forceVisible();
+  }, [forceVisible]);
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
       toast.error("Please sign in", {
