@@ -14,6 +14,16 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
   
   const { profileData, updateField, handleMultiSelect, saveData } = usePersonalProfileData();
 
+  // Flush pending updates on unmount
+  useEffect(() => {
+    return () => {
+      // Force immediate sync when component unmounts
+      if ((saveData as any).flush) {
+        (saveData as any).flush();
+      }
+    };
+  }, [saveData]);
+
   const handleComplete = async () => {
     try {
       await saveData(profileData);

@@ -10,6 +10,7 @@ const ProfileForm = lazy(() => import("@/components/ProfileForm"));
 const Demographics = lazy(() => import("@/components/Demographics"));
 const ProfileCompletionOptions = lazy(() => import("@/components/ProfileCompletionOptions"));
 import MemoizedProfileCard from "@/components/ProfileBuilder/MemoizedProfileCard";
+import ProfileAnswersDisplay from "@/components/ProfileBuilder/ProfileAnswersDisplay";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
@@ -330,6 +331,21 @@ const ProfileBuilder = ({
             </Collapsible>
           </div>
         </div>
+
+        {/* Display filled answers */}
+        {yourProfileCompletion > 0 && (
+          <ProfileAnswersDisplay 
+            profileData={personalProfileData} 
+            profileType="personal"
+          />
+        )}
+        
+        {partnerProfileCompletion > 0 && (
+          <ProfileAnswersDisplay 
+            profileData={partnerProfileData} 
+            profileType="partner"
+          />
+        )}
 
         {/* Collapsible Tips Section */}
         <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-24" />}>

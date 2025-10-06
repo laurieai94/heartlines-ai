@@ -123,7 +123,7 @@ const STORAGE_CONFIG = {
   }
 };
 
-const DEBOUNCE_MS = 2000;
+const DEBOUNCE_MS = 500; // Reduced for faster data persistence
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
@@ -649,8 +649,18 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       const toSync = { ...pendingUpdates.current };
       pendingUpdates.current = {};
       syncToDatabase(toSync);
-    }, 2000);
+    }, DEBOUNCE_MS);
   }, [cloneProfile, saveToStorage, syncToDatabase]);
+
+  // Add flush method to updateProfile for immediate execution
+  (updateProfile as any).flush = () => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      const toSync = { ...pendingUpdates.current };
+      pendingUpdates.current = {};
+      syncToDatabase(toSync);
+    }
+  };
 
   // Update single field
   const updateField = useCallback((field: string, value: any) => {
@@ -685,7 +695,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const toSync = { ...pendingUpdates.current };
         pendingUpdates.current = {};
         syncToDatabase(toSync);
-      }, 2000);
+      }, DEBOUNCE_MS);
       
       return newProfile;
     });

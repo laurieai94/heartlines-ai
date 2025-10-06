@@ -10,7 +10,17 @@ interface NewPartnerProfileProps {
 }
 
 const NewPartnerProfile = ({ onComplete, onClose, isModal = false }: NewPartnerProfileProps) => {
-  const { profileData, updateField, handleMultiSelect } = usePartnerProfileData();
+  const { profileData, updateField, handleMultiSelect, saveProfile } = usePartnerProfileData();
+
+  // Flush pending updates on unmount
+  useEffect(() => {
+    return () => {
+      // Force immediate sync when component unmounts
+      if ((saveProfile as any).flush) {
+        (saveProfile as any).flush();
+      }
+    };
+  }, [saveProfile]);
 
   const handleComplete = async (skipPopup?: boolean) => {
     try {
