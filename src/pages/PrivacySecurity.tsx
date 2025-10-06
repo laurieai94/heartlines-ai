@@ -41,7 +41,7 @@ const PrivacySecurity = () => {
     icon: <Lock className="w-8 h-8 text-coral-400" />,
     title: "Client-Side Encryption",
     description: "Your data is encrypted on your device using AES-256-GCM before it ever reaches our servers. Your encryption key never leaves your browser.",
-    highlight: "End-to-end protection"
+    highlight: "Client-side protection"
   }, {
     icon: <Database className="w-8 h-8 text-coral-400" />,
     title: "Data Retention You Control",
@@ -217,6 +217,15 @@ const PrivacySecurity = () => {
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-300">
                   Yes, you can disable encryption in your privacy settings. When disabled, future conversations will be stored in plain text (still protected by RLS), but previously encrypted conversations will remain encrypted unless you choose to decrypt them during the transition.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="encryption-type" className="border-white/20">
+                <AccordionTrigger className="text-white hover:text-coral-300">
+                  What type of encryption do you use?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  We use client-side AES-256-GCM encryption, meaning your data is encrypted in your browser before being stored. This is different from end-to-end encryption (E2EE), which typically involves a recipient with their own decryption key. Our encryption protects your data from server breaches and unauthorized database access, but like all web applications, it requires trusting that our JavaScript code hasn't been compromised.
                 </AccordionContent>
               </AccordionItem>
 
