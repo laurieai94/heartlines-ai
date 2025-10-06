@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "./usePersonalProfileData";
 import { usePartnerProfileData } from "./usePartnerProfileData";
@@ -97,16 +97,22 @@ export const useProgressiveAccess = () => {
   const incompleteSections = chatReadiness.incompleteSections;
   const detailedProgress = chatReadiness.overallProgress;
   
+  // Track last known access level to prevent flickering
+  const lastAccessLevelRef = useRef<AccessLevel>('signup-required');
+  
   // Memoized access level calculation
   const accessLevel = useMemo((): AccessLevel => {
     if (!user) {
+      lastAccessLevelRef.current = 'signup-required';
       return 'signup-required';
     }
     
     if (!hasPersonalProfileForChat) {
+      lastAccessLevelRef.current = 'profile-required';
       return 'profile-required';
     }
     
+    lastAccessLevelRef.current = 'full-access';
     return 'full-access';
   }, [user, hasPersonalProfileForChat]);
 

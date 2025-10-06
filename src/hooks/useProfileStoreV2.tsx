@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef, useDeferredValue, startTransition } from 'react';
+import { useState, useEffect, useCallback, useRef, useDeferredValue } from 'react';
+import { flushSync } from 'react-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePerformanceSafeguards } from './usePerformanceSafeguards';
@@ -500,12 +501,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                   return;
                 }
                 
-                // Use startTransition for non-urgent profile updates
-                startTransition(() => {
+                // Use flushSync for synchronous updates to prevent UI flickering
+                flushSync(() => {
                   setProfile(finalProfile);
                   saveToStorage(finalProfile);
-                  setIsSyncing(false);
                 });
+                setIsSyncing(false);
               } catch (dbError) {
                 setIsSyncing(false);
               }

@@ -58,6 +58,10 @@ export const ChatInputSection = ({
   // Stable completion state with debouncing to prevent UI flickering
   const [stableCompletion, setStableCompletion] = useState(0);
   const completionDebounceRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Stable access level with debouncing to prevent nudge flickering
+  const [stableAccessLevel, setStableAccessLevel] = useState(accessLevel);
+  const accessLevelDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { 
     messages_used, 
     message_limit, 
@@ -207,6 +211,31 @@ export const ChatInputSection = ({
     };
   }, [profileCompletion, stableCompletion]);
 
+  // Debounce access level changes to prevent nudge flickering
+  useEffect(() => {
+    if (accessLevelDebounceRef.current) {
+      clearTimeout(accessLevelDebounceRef.current);
+    }
+    
+    // Change to 'full-access' immediately (user completed profile)
+    // Change to 'profile-required' only after 3 seconds (might be temporary glitch)
+    if (accessLevel === 'full-access') {
+      setStableAccessLevel(accessLevel);
+    } else if (accessLevel === 'profile-required') {
+      accessLevelDebounceRef.current = setTimeout(() => {
+        setStableAccessLevel(accessLevel);
+      }, 3000);
+    } else {
+      setStableAccessLevel(accessLevel);
+    }
+    
+    return () => {
+      if (accessLevelDebounceRef.current) {
+        clearTimeout(accessLevelDebounceRef.current);
+      }
+    };
+  }, [accessLevel]);
+
   // Use native iOS keyboard behavior instead of fighting it
 
   return (
@@ -220,7 +249,7 @@ export const ChatInputSection = ({
         )}
         
         {/* Profile completion nudge - show for incomplete profiles */}
-        {accessLevel === 'profile-required' && user && (
+        {stableAccessLevel === 'profile-required' && user && stableCompletion < 100 && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
             <OnboardingStepNudge
               completion={stableCompletion}
