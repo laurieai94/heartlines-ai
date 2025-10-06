@@ -209,66 +209,66 @@ const PrivacySecurity = () => {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">FAQs</h2>
             
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="encryption" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+            <Accordion type="single" collapsible className="space-y-3">
+              <AccordionItem value="encryption" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   What happens if I lose my device or clear my browser data?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   If encryption is enabled and you lose your encryption key (stored locally), your encrypted conversations cannot be recovered—this is by design for maximum security. We recommend creating local backups before enabling encryption. You can download backups anytime from your privacy settings.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="disable" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="disable" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   Can I disable encryption after enabling it?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   Yes, you can disable encryption in your privacy settings. When disabled, future conversations will be stored in plain text (still protected by RLS), but previously encrypted conversations will remain encrypted unless you choose to decrypt them during the transition.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="encryption-type" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="encryption-type" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   What type of encryption do you use?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   We use client-side AES-256-GCM encryption, meaning your data is encrypted in your browser before being stored. This is different from end-to-end encryption (E2EE), which typically involves a recipient with their own decryption key. Our encryption protects your data from server breaches and unauthorized database access, but like all web applications, it requires trusting that our JavaScript code hasn't been compromised.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="anthropic" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="anthropic" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   What data does Anthropic receive when I chat with the AI?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   When you chat with our AI coach, your message content is sent to Anthropic's API to generate responses. Anthropic processes this data according to their privacy policy. We send only the necessary conversation context—no personal identifying information like your name, email, or profile data.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="delete" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="delete" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   How do I delete my conversations or account?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   You can delete individual conversations anytime from the chat sidebar. To delete all your data or your entire account, visit your privacy settings. Account deletion removes all your data permanently and cannot be undone.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="compliance" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="compliance" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   Is heartlines HIPAA compliant?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   heartlines is not HIPAA compliant and should not be used to store or discuss protected health information (PHI). While we implement strong privacy and security measures, the platform is designed for relationship coaching and personal growth, not medical or therapeutic purposes.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="contact" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
+              <AccordionItem value="contact" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
                   How can I report a security vulnerability?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-300">
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                   If you discover a security vulnerability, please contact us immediately through our privacy settings page. We take security reports seriously and will respond promptly to investigate and address any issues.
                 </AccordionContent>
               </AccordionItem>
