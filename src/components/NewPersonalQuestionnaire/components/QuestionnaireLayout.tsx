@@ -109,7 +109,7 @@ const QuestionnaireLayout = ({
 
   return <MobileProfileBoundary>
     <div className={`${isModal ? 'w-full h-full' : 'fixed inset-0 bg-transparent z-50 flex items-start sm:items-center justify-center p-0 sm:p-4'}`}>
-      <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[100dvh] sm:max-h-[70dvh] flex flex-col'} ${
+      <div className={`${isModal ? 'w-full h-full flex flex-col' : 'w-full max-w-5xl max-h-[90dvh] sm:max-h-[70dvh] flex flex-col'} ${
         // Force desktop styling on tablet and above
         isTabletDesktop 
           ? 'border-white/20 rounded-3xl bg-gradient-to-br from-burgundy-900/95 to-burgundy-800/90 backdrop-blur-2xl shadow-2xl shadow-black/30 ring-1 ring-white/10'
@@ -141,7 +141,7 @@ const QuestionnaireLayout = ({
           />
           
           {/* Minimal bottom padding */}
-          <div className="pb-safe-minimal sm:pb-6" />
+          <div className="pb-20 sm:pb-10" />
         </div>
 
         <CleanQuestionnaireFooter 
