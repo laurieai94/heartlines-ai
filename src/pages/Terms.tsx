@@ -27,7 +27,7 @@ const Terms = () => {
           onSignInClick={handleSignInClick}
         />
         
-        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
