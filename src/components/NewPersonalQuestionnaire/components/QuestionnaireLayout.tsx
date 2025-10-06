@@ -5,6 +5,7 @@ import SectionNavigation from "./SectionNavigation";
 import QuestionnaireHeader from "./QuestionnaireHeader";
 import QuestionnaireContent from "./QuestionnaireContent";
 import CleanQuestionnaireFooter from "./CleanQuestionnaireFooter";
+import WelcomeBanner from "./WelcomeBanner";
 import MobileProfileBoundary from "@/components/MobileProfileBoundary";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useGlobalResize } from '@/hooks/useGlobalResize';
@@ -124,6 +125,8 @@ const QuestionnaireLayout = ({
           {/* Sticky header and navigation - always visible, responsive design */}
           <div ref={stickyHeaderRef} data-sticky-header className={isTabletDesktop ? 'sticky top-0 z-20 backdrop-blur-sm' : 'sticky top-0 z-20 backdrop-blur-sm'}>
             <QuestionnaireHeader overallProgress={overallProgress} onClose={onClose} profileData={profileData} />
+            
+            <WelcomeBanner overallProgress={overallProgress} />
 
             <div className="hidden md:block bg-burgundy-800/20 backdrop-blur-sm border-b border-white/[0.08] px-3 py-1 sm:px-4 sm:py-2 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-burgundy-700/15 to-transparent"></div>
