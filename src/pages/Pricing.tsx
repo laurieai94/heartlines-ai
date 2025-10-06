@@ -64,22 +64,17 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return (
-    <div className="min-h-screen bg-burgundy-900">
+  return <div className="min-h-screen bg-burgundy-900">
       <div className="relative z-10">
-        <SimpleHeader 
-          user={user} 
-          activeTab="plans" 
-          onSignInClick={() => navigate('/signin')} 
-        />
+        <SimpleHeader user={user} activeTab="plans" onSignInClick={() => navigate('/signin')} />
         
-        <div className="container mx-auto px-4 pt-20 pb-6 lg:pt-24">
+        <div className="container mx-auto px-4 py-6 lg:pt-12">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
               Choose Your Growth Plan
             </h1>
-            <p className="text-lg questionnaire-text-muted font-light max-w-2xl mx-auto mb-4 hidden sm:block">Every connection starts with you. Pick the plan that fits your journey.</p>
+            
             {/* Trust Badges - Inline */}
             <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
@@ -100,8 +95,8 @@ const Pricing = () => {
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
             {pricingPlans.map(plan => {
-              const IconComponent = plan.icon;
-              return <Card key={plan.id} className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
+            const IconComponent = plan.icon;
+            return <Card key={plan.id} className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
                   {plan.popular && <Badge className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-6 sm:px-6 lg:px-8 py-1 rounded-full border border-white/10 shadow-neon text-xs sm:text-sm font-medium whitespace-nowrap z-40">
                       Most Popular
                     </Badge>}
@@ -140,7 +135,7 @@ const Pricing = () => {
                     </Button>
                   </CardContent>
                 </Card>;
-            })}
+          })}
           </div>
 
           {/* FAQ Section */}
@@ -149,16 +144,14 @@ const Pricing = () => {
               FAQs
             </h2>
             <Accordion type="single" collapsible className="w-full space-y-3">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="questionnaire-card border-none">
+              {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="questionnaire-card border-none">
                   <AccordionTrigger className="questionnaire-text text-sm font-medium px-4 py-3 hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
                     {faq.answer}
                   </AccordionContent>
-                </AccordionItem>
-              ))}
+                </AccordionItem>)}
             </Accordion>
           </div>
 
@@ -166,7 +159,6 @@ const Pricing = () => {
 
         <SiteFooter />
       </div>
-    </div>
-  );
+    </div>;
 };
 export default Pricing;
