@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { usePersonalProfileData } from './usePersonalProfileData';
 import { usePartnerProfileData } from './usePartnerProfileData';
 import { profileCompletionCache } from '@/utils/calculationCache';
@@ -16,7 +16,7 @@ export const useOptimizedProfileCompletion = () => {
     partner: 0
   });
 
-  const calculateYourCompletion = () => {
+  const calculateYourCompletion = useCallback(() => {
     // Return last known completion if data isn't ready yet (optimistic update)
     if (!personalReady || !personalData || Object.keys(personalData).length === 0) {
       return lastKnownCompletion.current.personal;
@@ -29,9 +29,9 @@ export const useOptimizedProfileCompletion = () => {
     // Update last known completion
     lastKnownCompletion.current.personal = completion;
     return completion;
-  };
+  }, [personalReady, personalData]);
 
-  const calculatePartnerCompletion = () => {
+  const calculatePartnerCompletion = useCallback(() => {
     // Return last known completion if data isn't ready yet (optimistic update)
     if (!partnerReady || !partnerData || Object.keys(partnerData).length === 0) {
       return lastKnownCompletion.current.partner;
@@ -44,7 +44,7 @@ export const useOptimizedProfileCompletion = () => {
     // Update last known completion
     lastKnownCompletion.current.partner = completion;
     return completion;
-  };
+  }, [partnerReady, partnerData]);
 
   return {
     calculateYourCompletion,

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useDeferredValue } from 'react';
+import { useState, useEffect, useCallback, useRef, useDeferredValue, startTransition } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePerformanceSafeguards } from './usePerformanceSafeguards';
@@ -451,6 +451,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               try {
                 const dbProfile = await loadFromDatabase();
                 
+                // Skip merge if profiles are identical (excluding lastUpdated)
+                const localCopy = { ...localProfile };
+                const dbCopy = { ...dbProfile };
+                delete (localCopy as any).lastUpdated;
+                delete (dbCopy as any).lastUpdated;
+                
+                if (JSON.stringify(localCopy) === JSON.stringify(dbCopy)) {
+                  setIsSyncing(false);
+                  return;
+                }
+                
                 // Smart field-by-field merge that preserves user's recent edits
                 const now = Date.now();
                 const finalProfile = { ...dbProfile };
@@ -478,12 +489,23 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                   }
                 });
                 
-                // Use React transition for non-urgent updates
-                setTimeout(() => {
+                // Check if finalProfile is meaningfully different from current profile
+                const currentCopy = { ...profile };
+                const finalCopy = { ...finalProfile };
+                delete (currentCopy as any).lastUpdated;
+                delete (finalCopy as any).lastUpdated;
+                
+                if (JSON.stringify(currentCopy) === JSON.stringify(finalCopy)) {
+                  setIsSyncing(false);
+                  return;
+                }
+                
+                // Use startTransition for non-urgent profile updates
+                startTransition(() => {
                   setProfile(finalProfile);
                   saveToStorage(finalProfile);
                   setIsSyncing(false);
-                }, 0);
+                });
               } catch (dbError) {
                 setIsSyncing(false);
               }

@@ -191,13 +191,13 @@ export const ChatInputSection = ({
     }
     
     // If completion is increasing or staying same, update immediately
-    // If decreasing, wait 3 seconds to confirm it's stable
+    // If decreasing, wait 5 seconds to confirm it's stable
     if (profileCompletion >= stableCompletion) {
       setStableCompletion(profileCompletion);
     } else {
       completionDebounceRef.current = setTimeout(() => {
         setStableCompletion(profileCompletion);
-      }, 3000);
+      }, 5000);
     }
     
     return () => {
