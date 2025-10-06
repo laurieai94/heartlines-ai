@@ -275,7 +275,7 @@ const PrivacySecurity = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/account?tab=security">
-                <Button variant="outline" className="border-burgundy-300/50 text-burgundy-200 hover:bg-burgundy-300/10 hover:border-burgundy-200 rounded-full text-lg px-8 py-6">
+                <Button className="bg-burgundy-600 text-white rounded-full text-lg px-8 py-6">
                   <Settings className="w-5 h-5 mr-2" />
                   Manage Privacy Settings
                 </Button>
