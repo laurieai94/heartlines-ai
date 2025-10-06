@@ -277,11 +277,8 @@ const ProfileBuilder = ({
                 <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
                   <p>• No AI training on your conversations</p>
                   <p>• Only you and Kai see your profiles</p>
-                  <p>
-                  </p>
                   <p>• Your encryption key never leaves your device</p>
                   <p>• Optional anonymous analytics only</p>
-                  <p>• You control your data completely</p>
                   <p>• Choose how long to keep your data</p>
                   <p>• Download backups anytime you want</p>
                   <p>• Delete your data or account anytime</p>
