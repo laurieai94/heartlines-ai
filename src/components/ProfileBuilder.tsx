@@ -295,7 +295,7 @@ const ProfileBuilder = ({
 
 
         {/* Privacy Banner - Clean Collapsible */}
-        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 -mt-4 md:-mt-6 lg:-mt-8">
+        <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-1 md:py-3 lg:py-4 -mt-6 md:-mt-6 lg:-mt-8">
           <div className="rounded-xl ring-1 ring-white/20 bg-gradient-to-r from-white/8 via-white/5 to-white/8 backdrop-blur-sm shadow-lg shadow-white/5">
             <Collapsible>
               <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 text-sm text-white/90 hover:bg-white/5 transition-colors rounded-xl">
