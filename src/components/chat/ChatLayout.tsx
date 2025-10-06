@@ -36,8 +36,8 @@ export const ChatLayout = ({
     setIsSidebarOpen(true);
   };
   return (
-    <div className="h-full flex flex-col md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-0 lg:pt-0 md:pb-0 lg:pb-6">
-      <div className="flex-1 flex md:min-h-0 md:max-h-full">
+    <div className="h-full max-h-full flex flex-col bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-0 lg:pt-0 md:pb-0 lg:pb-6">
+      <div className="flex-1 flex min-h-0 max-h-full">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
           {/* Gradient frame and ambient glow - desktop only */}
