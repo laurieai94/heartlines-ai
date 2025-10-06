@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SignInButton from "./SignInButton";
@@ -40,8 +39,8 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
       <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto px-4 sm:px-6 xl:px-8 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+            <Popover>
+              <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
                   size="icon"
@@ -49,35 +48,30 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent 
+              </PopoverTrigger>
+              <PopoverContent 
                 align="start" 
-                className="w-8 z-[60] border-0 shadow-2xl rounded-xl py-0.5 px-0"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(349 67% 25% / 0.15), hsl(349 67% 20% / 0.12), hsl(349 67% 15% / 0.15))',
-                  backdropFilter: 'blur(20px)',
-                  color: 'white'
-                }}
+                className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
                   const isActive = activeTab === item.value;
                   return (
-                    <DropdownMenuItem
+                    <button
                       key={item.value}
                       onClick={() => handleNavigation(item)}
-                      className={`relative flex items-center justify-center mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                      className={`w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive 
                           ? 'text-white font-semibold bg-white/15' 
-                          : 'text-white font-medium hover:bg-white/10'
+                          : 'text-white/90 font-medium hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <IconComponent className="h-4 w-4 flex-shrink-0" />
-                    </DropdownMenuItem>
+                      <IconComponent className="h-5 w-5 flex-shrink-0" />
+                    </button>
                   );
                 })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </PopoverContent>
+            </Popover>
           </div>
           
           <div className="flex items-center">
