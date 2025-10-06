@@ -125,6 +125,39 @@ export type Database = {
         }
         Relationships: []
       }
+      crisis_logs: {
+        Row: {
+          created_at: string | null
+          crisis_types: string[]
+          detected_at: string
+          id: string
+          reviewed: boolean | null
+          reviewer_notes: string | null
+          severity: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          crisis_types: string[]
+          detected_at?: string
+          id?: string
+          reviewed?: boolean | null
+          reviewer_notes?: string | null
+          severity: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          crisis_types?: string[]
+          detected_at?: string
+          id?: string
+          reviewed?: boolean | null
+          reviewer_notes?: string | null
+          severity?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       onboarding_status: {
         Row: {
           created_at: string
@@ -182,6 +215,30 @@ export type Database = {
           phone_number?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      signup_cap: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_enabled: boolean
+          max_users: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean
+          max_users?: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean
+          max_users?: number
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -356,6 +413,30 @@ export type Database = {
           output_tokens?: number
           total_tokens?: number | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      waitlist: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          name: string | null
+          notified: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          name?: string | null
+          notified?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string | null
+          notified?: boolean | null
         }
         Relationships: []
       }

@@ -82,6 +82,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         data: name ? { name } : {}
       }
     });
+    
+    // Check for signup cap error
+    if (error?.message?.includes('SIGNUP_CAP_REACHED')) {
+      return { 
+        error: { 
+          message: 'We\'re at capacity for our private preview! We\'re currently at 50 users. Check back soon or contact us for early access.',
+          name: 'SignupCapReached',
+          status: 429
+        } as any
+      };
+    }
+    
     return { error };
   };
 
