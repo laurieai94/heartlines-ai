@@ -195,7 +195,7 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className="flex-1 min-h-0 overflow-hidden dashboard-container">
+    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container no-scrollbar">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
         <div className="flex-1 min-h-0">
           {renderActiveTabContent}

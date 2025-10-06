@@ -90,7 +90,7 @@ const ChatContainer = ({
   const showCenteredNudge = accessLevel === 'profile-required' && chatHistory.length === 0;
 
   return (
-    <div className={`flex-1 overflow-hidden relative bg-burgundy-950 ${showCenteredNudge ? 'min-h-[500px] md:min-h-[600px]' : 'min-h-0'}`}>
+    <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
       <ScrollArea 
         viewportRef={viewportRef}
         className="h-full w-full"
@@ -102,7 +102,7 @@ const ChatContainer = ({
         <div 
           className="pt-2 md:px-4 md:pt-3 md:pb-2"
           style={{
-            paddingBottom: '8px',
+            paddingBottom: '4px',
             paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
             paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
@@ -111,7 +111,7 @@ const ChatContainer = ({
             
             {/* Centered Onboarding Nudge - shown when profile incomplete */}
             {showCenteredNudge && (
-              <div className="flex items-center justify-center min-h-[calc(100vh-280px)] md:min-h-[calc(100vh-240px)]">
+              <div className="flex items-center justify-center min-h-[50vh] md:min-h-[60vh]">
                 <OnboardingStepNudge
                   completion={profileCompletion}
                   onStartProfile={onStartProfile}
@@ -199,7 +199,7 @@ const ChatContainer = ({
               <span className="sr-only">{userName || 'User'} is typing...</span>
             </div>
             
-            <div className="h-4 md:h-6" />
+            <div className="h-2 md:h-4" />
           </div>
         </div>
       </ScrollArea>
