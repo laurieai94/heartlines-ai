@@ -21,21 +21,21 @@ const ProfileTips = () => {
       {showDetails && (
         <div className="mt-4 space-y-3 animate-fade-in">
           <Card className="p-3 md:p-4 lg:p-5 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
-            <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2 md:mb-3">Profile Building Tips</h3>
+            <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2 md:mb-3">🌟 Profile Tips</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-xs md:text-sm">Be honest</h4>
-                    <p className="text-pink-200/80 text-xs md:text-xs">The AI only works with real data, not aspirational answers</p>
+                    <h4 className="font-semibold text-white text-xs md:text-sm">Keep it 100</h4>
+                    <p className="text-pink-200/80 text-xs md:text-xs">Kai's only as smart as the real you — not the "best self" version.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">"Not sure yet" is okay</h4>
-                    <p className="text-pink-200/80 text-xs">Profiles improve as you learn more about each other</p>
+                    <h4 className="font-semibold text-white text-sm">"IDK yet" works</h4>
+                    <p className="text-pink-200/80 text-xs">Your profile grows as you do (and as you figure things out).</p>
                   </div>
                 </div>
               </div>
@@ -43,15 +43,15 @@ const ProfileTips = () => {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">Start with core questions</h4>
-                    <p className="text-pink-200/80 text-xs">Get immediate value, then expand sections over time</p>
+                    <h4 className="font-semibold text-white text-sm">Start small</h4>
+                    <p className="text-pink-200/80 text-xs">Answer the core Qs first → unlock value right away.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">Update as you grow</h4>
-                    <p className="text-pink-200/80 text-xs">Relationships evolve, and so should your profiles</p>
+                    <h4 className="font-semibold text-white text-sm">Evolve over time</h4>
+                    <p className="text-pink-200/80 text-xs">Love changes, people change — your profile should too.</p>
                   </div>
                 </div>
               </div>
