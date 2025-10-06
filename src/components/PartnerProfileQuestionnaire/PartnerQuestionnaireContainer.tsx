@@ -153,7 +153,7 @@ const PartnerQuestionnaireContainer = ({
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto no-scrollbar">
+        <div className="flex-1 overflow-y-auto scrollbar-sleek">
           <PartnerQuestionnaireContent
             currentSection={currentSection}
             profileData={profileData}

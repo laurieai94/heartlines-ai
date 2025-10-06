@@ -12,9 +12,6 @@ interface ChatContainerProps {
   userTyping: boolean;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
-  accessLevel?: string;
-  profileCompletion?: number;
-  onStartProfile?: () => void;
 }
 
 // Memoize ChatContainer to prevent unnecessary re-renders on parent state changes
@@ -27,8 +24,6 @@ const MemoizedChatContainer = React.memo(ChatContainer, (prevProps, nextProps) =
     prevProps.conversationStarter === nextProps.conversationStarter &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
     prevProps.userTyping === nextProps.userTyping &&
-    prevProps.accessLevel === nextProps.accessLevel &&
-    prevProps.profileCompletion === nextProps.profileCompletion &&
     prevProps.chatHistory.length === nextProps.chatHistory.length &&
     // Deep check chat history content changes
     prevProps.chatHistory.every((msg, index) => {

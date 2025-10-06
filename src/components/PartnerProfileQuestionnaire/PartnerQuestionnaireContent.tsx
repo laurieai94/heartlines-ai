@@ -44,7 +44,7 @@ const PartnerQuestionnaireContent = ({
   return (
     <div 
       ref={contentRef}
-      className="flex-1 overflow-y-auto bg-black/5 no-scrollbar"
+      className="flex-1 overflow-y-auto bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
     >
       <div className="px-1.5 pt-2 pb-1 md:pt-6 lg:pt-8">
         {/* Prominent Opening Note - only show on section 1 and hide on small screens */}

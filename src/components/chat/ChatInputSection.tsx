@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, useMemo } from 'react';
 import AIChatInput from '../AIChatInput';
 import ProgressiveAccessWrapper from '../ProgressiveAccessWrapper';
 import ConversationStarters from '../ConversationStarters';
+import OnboardingStepNudge from '../OnboardingStepNudge';
 import { ChatMessage } from '@/types/AIInsights';
 import { useProgressiveAccess } from '@/hooks/useProgressiveAccess';
 import { useNavigation } from '@/contexts/NavigationContext';
@@ -191,6 +192,16 @@ export const ChatInputSection = ({
           </div>
         )}
         
+        {/* Profile completion nudge - show for incomplete profiles */}
+        {accessLevel === 'profile-required' && user && (
+          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
+            <OnboardingStepNudge
+              completion={profileCompletion}
+              onStartProfile={() => goToProfile('chat')}
+            />
+          </div>
+        )}
+        
         <div className="md:max-w-[54rem] md:mx-auto md:px-12">
           <ProgressiveAccessWrapper action="chat">
             <AIChatInput
@@ -199,11 +210,11 @@ export const ChatInputSection = ({
               disabled={(!user && accessLevel !== 'profile-required') || !isConfigured || !canInteract || !isHistoryLoaded || atLimit}
               readOnly={(accessLevel === 'profile-required' && !!user) || atLimit}
               showProfileGlow={false}
-              placeholder={
+                placeholder={
                 !user 
                   ? "Sign in to start chatting…" 
                   : accessLevel === 'profile-required' 
-                    ? "Complete your profile to start chatting with Kai"
+                    ? ""
                     : atLimit
                     ? "You've reached your monthly message limit. Click to upgrade and continue."
                     : chatHistory.length === 0 ? "What's up?" : ""

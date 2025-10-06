@@ -12,7 +12,7 @@ import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target,
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { User } from '@supabase/supabase-js';
 
 interface DashboardHeaderProps {
@@ -29,15 +29,10 @@ interface DashboardHeaderProps {
 const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user, activeTab, onValueChange, onSignInClick, onOpenProfile }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const { isMobile } = useOptimizedMobile();
-  const { visible, setVisible } = useMobileHeaderVisibility();
+  const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
-
-  // Force header visible when tab changes
-  useEffect(() => {
-    setVisible(true);
-  }, [activeTab, setVisible]);
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {

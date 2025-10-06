@@ -8,7 +8,6 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
-import OnboardingStepNudge from "./OnboardingStepNudge";
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -20,9 +19,6 @@ interface ChatContainerProps {
   userTyping: boolean;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
-  accessLevel?: string;
-  profileCompletion?: number;
-  onStartProfile?: () => void;
 }
 
 const ChatContainer = ({ 
@@ -34,10 +30,7 @@ const ChatContainer = ({
   isHistoryLoaded,
   userTyping,
   onNewConversation = () => {},
-  onOpenSidebar,
-  accessLevel,
-  profileCompletion = 0,
-  onStartProfile = () => {}
+  onOpenSidebar
 }: ChatContainerProps) => {
   const { isMobile } = useOptimizedMobile();
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -86,9 +79,6 @@ const ChatContainer = ({
   }, [isHistoryLoaded, scrollToBottom]);
 
 
-  // Show centered nudge when profile incomplete and no chat history
-  const showCenteredNudge = accessLevel === 'profile-required' && chatHistory.length === 0;
-
   return (
     <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
       <ScrollArea 
@@ -109,26 +99,6 @@ const ChatContainer = ({
         >
           <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
             
-            {/* Centered Onboarding Nudge - shown when profile incomplete */}
-            {showCenteredNudge && (
-              <>
-                {/* Top spacer to simulate previous messages */}
-                <div className="h-[78vh] md:h-[84.5vh]" />
-                
-                {/* Nudge positioned like a chat message */}
-                <div className="flex items-center justify-center py-8 md:py-12">
-                  <OnboardingStepNudge
-                    completion={profileCompletion}
-                    onStartProfile={onStartProfile}
-                    className="max-w-md w-full scale-105 md:scale-110"
-                  />
-                </div>
-                
-                {/* Bottom spacer to maintain chat-like appearance */}
-                <div className="h-[39vh] md:h-[32.5vh]" />
-              </>
-            )}
-
             {/* Chat Messages */}
             {chatHistory.map((message, index) => {
               const isUser = message.type === 'user';

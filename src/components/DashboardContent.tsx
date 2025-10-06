@@ -41,17 +41,14 @@ const DashboardContent = ({
   const [conversationStarter, setConversationStarter] = useState("");
   const { forceVisible, setNavigationOpened } = useMobileHeaderVisibility();
   
-  // Performance monitoring for tab switches and force header visible
+  // Performance monitoring for tab switches
   useEffect(() => {
     if (activeTab === 'profile') {
       performanceMonitor.mark('profile-chunk-load');
     } else if (activeTab === 'insights') {
       performanceMonitor.mark('insights-chunk-load');
-    } else if (activeTab === 'coach') {
-      // Force header visible when entering coach tab
-      forceVisible();
     }
-  }, [activeTab, forceVisible]);
+  }, [activeTab]);
 
   // Handle new conversation
   const handleNewConversation = useCallback(() => {
@@ -141,7 +138,7 @@ const DashboardContent = ({
         );
       case "profile":
         return (
-          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0 overflow-y-auto h-full no-scrollbar">
+          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0 overflow-y-auto h-full">
             <ProfileBuilder
               onProfileUpdate={onProfileUpdate}
               initialProfiles={temporaryProfiles}
@@ -195,7 +192,7 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container no-scrollbar">
+    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
         <div className="flex-1 min-h-0">
           {renderActiveTabContent}

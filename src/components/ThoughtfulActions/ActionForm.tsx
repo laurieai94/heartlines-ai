@@ -64,7 +64,7 @@ const ActionForm = ({ profiles, demographicsData, onClose, onSubmit }: ActionFor
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar bg-white">
+      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-sleek bg-white">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Create Custom Action</h2>

@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
 interface MobileHeaderVisibilityContextType {
   visible: boolean;
@@ -18,13 +17,6 @@ interface MobileHeaderVisibilityProviderProps {
 export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibilityProviderProps) => {
   const [visible, setVisible] = useState(true);
   const [navigationOpened, setNavigationOpened] = useState(false);
-  const location = useLocation();
-
-  // Force header visible on route changes
-  useEffect(() => {
-    console.log('🚀 Route changed, forcing header visible:', location.pathname);
-    setVisible(true);
-  }, [location.pathname]);
 
   // Force visible function for emergency situations
   const forceVisible = useCallback(() => {
