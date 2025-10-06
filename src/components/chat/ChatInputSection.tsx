@@ -62,6 +62,11 @@ export const ChatInputSection = ({
   // Stable access level with debouncing to prevent nudge flickering
   const [stableAccessLevel, setStableAccessLevel] = useState(accessLevel);
   const accessLevelDebounceRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Track if profile was ever completed to prevent nudge from reappearing
+  const [profileEverCompleted, setProfileEverCompleted] = useState(() => {
+    return localStorage.getItem('profile_completed') === 'true';
+  });
   const { 
     messages_used, 
     message_limit, 
@@ -198,6 +203,12 @@ export const ChatInputSection = ({
     // If decreasing, wait 5 seconds to confirm it's stable
     if (profileCompletion >= stableCompletion) {
       setStableCompletion(profileCompletion);
+      
+      // Mark profile as completed once it reaches 100% - never show nudge again
+      if (profileCompletion >= 100) {
+        setProfileEverCompleted(true);
+        localStorage.setItem('profile_completed', 'true');
+      }
     } else {
       completionDebounceRef.current = setTimeout(() => {
         setStableCompletion(profileCompletion);
@@ -249,7 +260,7 @@ export const ChatInputSection = ({
         )}
         
         {/* Profile completion nudge - show for incomplete profiles */}
-        {stableAccessLevel === 'profile-required' && user && stableCompletion < 100 && (
+        {stableAccessLevel === 'profile-required' && user && stableCompletion < 100 && !profileEverCompleted && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
             <OnboardingStepNudge
               completion={stableCompletion}
