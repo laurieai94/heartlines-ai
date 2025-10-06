@@ -14,7 +14,7 @@ const ProfileTips = () => {
         onClick={() => setShowDetails(!showDetails)}
         className="w-full text-pink-200/80 hover:text-white text-xs md:text-sm py-2 hover:bg-white/10"
       >
-        {showDetails ? 'Hide ' : ''}Profile Building Tips
+        {showDetails ? 'Hide ' : ''}Tips
         <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
       </Button>
       
