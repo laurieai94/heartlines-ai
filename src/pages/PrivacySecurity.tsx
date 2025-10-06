@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, Menu, User } from 'lucide-react';
+import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, Menu, User, Home, CreditCard } from 'lucide-react';
 import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
@@ -27,7 +27,7 @@ const PrivacySecurity = () => {
   const navItems = [{
     to: '/',
     label: 'Home',
-    icon: User
+    icon: Home
   }, {
     to: '/profile',
     label: 'Profile',
@@ -43,7 +43,7 @@ const PrivacySecurity = () => {
   }, {
     to: '/plans',
     label: 'Plans',
-    icon: Settings
+    icon: CreditCard
   }];
   const features = [{
     icon: <Lock className="w-8 h-8 text-coral-400" />,
@@ -135,7 +135,7 @@ const PrivacySecurity = () => {
         </section>
 
         {/* Key Features */}
-        <section className="px-6 py-8">
+        <section className="px-6 py-16 lg:py-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((feature, index) => <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20 text-white">
