@@ -1,5 +1,6 @@
 import React from 'react';
 import { LazySection } from '../LazySection';
+import { Skeleton } from './skeleton';
 
 interface TimelineStop {
   title: string;
@@ -79,6 +80,12 @@ export const ConversationIcon = () => (
   </svg>
 );
 
+const CardSkeleton = () => (
+  <div className="relative mx-auto max-w-md">
+    <Skeleton className="h-[240px] rounded-2xl bg-white/5 border border-white/10" />
+  </div>
+);
+
 export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 py-4">
@@ -99,6 +106,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
             key={index}
             threshold={0.2}
             rootMargin="50px"
+            fallback={<CardSkeleton />}
           >
             <div 
               className="relative animate-fade-in"
