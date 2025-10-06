@@ -25,17 +25,25 @@ const PrivacySecurity = () => {
     }
   }, []);
   const navItems = [{
+    to: '/',
     label: 'Home',
-    path: '/'
+    icon: User
   }, {
-    label: 'Mission',
-    path: '/mission'
+    to: '/profile',
+    label: 'Profile',
+    icon: User
   }, {
-    label: 'Pricing',
-    path: '/pricing'
+    to: '/coach',
+    label: 'Coach',
+    icon: MessageSquare
   }, {
-    label: 'Privacy Settings',
-    path: '/privacy-and-security'
+    to: '/account',
+    label: 'My Account',
+    icon: Settings
+  }, {
+    to: '/plans',
+    label: 'Plans',
+    icon: Settings
   }];
   const features = [{
     icon: <Lock className="w-8 h-8 text-coral-400" />,
@@ -62,20 +70,20 @@ const PrivacySecurity = () => {
       {/* Background effects */}
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-burgundy-900/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 backdrop-blur-xl shadow-lg">
+        <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto px-4 sm:px-6 xl:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left: Hamburger Menu */}
             <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" aria-label="Open menu">
-                  <Menu className="h-6 w-6" />
+                <Button variant="ghost" className="text-white/50 hover:text-white/80 glass-burgundy hover:bg-burgundy-400/10 p-3 rounded-xl transition-all duration-200" aria-label="Open menu">
+                  <Menu className="w-8 h-8" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="w-56 bg-burgundy-800/95 backdrop-blur-md border-white/20 text-white">
-                <div className="flex flex-col gap-2">
-                  {navItems.map(item => <Link key={item.path} to={item.path} className="px-4 py-2 text-sm hover:bg-white/10 rounded-md transition-colors" onClick={() => setIsMenuOpen(false)}>
-                      {item.label}
+              <PopoverContent side="bottom" align="start" className="w-16 p-2 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-xl rounded-xl z-50" onInteractOutside={() => setIsMenuOpen(false)} onEscapeKeyDown={() => setIsMenuOpen(false)}>
+                <div className="flex flex-col">
+                  {navItems.map(item => <Link key={item.to} to={item.to} title={item.label} className="text-white/70 hover:text-coral-200 hover:bg-burgundy-400/10 transition-all duration-200 p-2.5 font-light rounded-lg backdrop-blur-sm border border-transparent hover:border-coral-400/30 flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
+                      <item.icon className="w-5 h-5" />
                     </Link>)}
                 </div>
               </PopoverContent>
@@ -84,14 +92,14 @@ const PrivacySecurity = () => {
             {/* Right: Sign In & Get Started */}
             <div className="flex items-center gap-3">
               <Link to="/signin">
-                <Button variant="ghost" className="hidden sm:flex h-10 w-10 rounded-full p-0 hover:bg-white/10">
+                <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
                   <User className="h-5 w-5" style={{
                   color: '#ffc0cb'
                 }} />
                 </Button>
               </Link>
-              <Link to="/get-started">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium px-6 sm:px-8">
+              <Link to="/signup">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                   Get Started
                 </Button>
               </Link>
@@ -275,7 +283,7 @@ const PrivacySecurity = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/account?tab=security">
-                <Button className="bg-burgundy-600 text-white rounded-full text-lg px-8 py-6">
+                <Button className="bg-burgundy-600 text-white rounded-full text-lg px-8 py-6 hover:bg-burgundy-600">
                   <Settings className="w-5 h-5 mr-2" />
                   Manage Privacy Settings
                 </Button>
