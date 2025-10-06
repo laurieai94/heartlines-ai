@@ -50,8 +50,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             <div className="space-y-1">
               {onOpenProfile && (
                 <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20"
+                  className="w-full justify-start bg-transparent text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20 transition-colors duration-200"
                   onClick={() => {
                     onOpenProfile();
                     setShowUserMenu(false);
@@ -63,8 +62,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               )}
               
               <Button
-                variant="ghost"
-                className="w-full justify-start text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20"
+                className="w-full justify-start bg-transparent text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20 transition-colors duration-200"
                 onClick={() => {
                   window.location.href = '/account';
                   setShowUserMenu(false);
@@ -75,8 +73,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               </Button>
               
               <Button
-                variant="ghost"
-                className="w-full justify-start text-rose-300 hover:text-rose-200 hover:bg-rose-400/15 focus-visible:ring-2 focus-visible:ring-rose-300/30"
+                className="w-full justify-start bg-transparent text-rose-300 hover:text-rose-200 hover:bg-rose-400/15 focus-visible:ring-2 focus-visible:ring-rose-300/30 transition-colors duration-200"
                 onClick={handleSignOut}
               >
                 <LogOut className="mr-2 h-4 w-4" />
