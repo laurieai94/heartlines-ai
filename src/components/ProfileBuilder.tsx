@@ -249,8 +249,7 @@ const ProfileBuilder = ({
             description="Just 4 required questions" 
             benefits={[
               { icon: <Star className="w-3 h-3 text-orange-300" />, text: "4 Qs, big feels" },
-              { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Deep dive if you're down" },
-              { icon: <Clock className="w-3 h-3 text-orange-300" />, text: "Done before your latte's cold" }
+              { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Deep dive if you're down" }
             ]}
             onStartProfile={handleStartPersonalProfile} 
             buttonText="Keep It Real" 
