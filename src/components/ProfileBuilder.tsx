@@ -313,10 +313,16 @@ const ProfileBuilder = ({
                 <ChevronDown className="w-4 h-4 text-white/60 transition-transform duration-200" />
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
-                <div className="pl-10 space-y-1 text-sm text-white/80">
+                <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
+                  <p>• No AI training on your conversations</p>
                   <p>• Only you and Kai see your profiles</p>
-                  <p>• Everything is encrypted and secure</p>  
+                  <p>• Everything is encrypted and secure</p>
+                  <p>• Your encryption key never leaves your device</p>
+                  <p>• Optional anonymous analytics only</p>
                   <p>• You control your data completely</p>
+                  <p>• Choose how long to keep your data</p>
+                  <p>• Download backups anytime you want</p>
+                  <p>• Delete your data or account anytime</p>
                   <Link 
                     to="/privacy-and-security"
                     className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
