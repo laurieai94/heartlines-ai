@@ -31,6 +31,8 @@ export const useProgressiveAccess = () => {
   const partnerStorage = usePartnerProfileData();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [blockingAction, setBlockingAction] = useState<string>('');
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [upgradeReason, setUpgradeReason] = useState<'limit-reached' | 'near-limit' | 'upgrade'>('upgrade');
 
   // Memoized profile completion calculation
   const profileCompletion = useMemo(() => {
@@ -134,6 +136,15 @@ export const useProgressiveAccess = () => {
     setBlockingAction('');
   };
 
+  const openUpgradeModal = useCallback((reason: 'limit-reached' | 'near-limit' | 'upgrade' = 'upgrade') => {
+    setUpgradeReason(reason);
+    setShowUpgradeModal(true);
+  }, []);
+
+  const closeUpgradeModal = useCallback(() => {
+    setShowUpgradeModal(false);
+  }, []);
+
   // Memoized coaching unlock capability
   const canUnlockCoaching = useMemo(() => {
     const completed = personalStorage.profileData ? getCompletedRequiredFieldsCount(personalStorage.profileData as ProfileData) : 0;
@@ -160,6 +171,10 @@ export const useProgressiveAccess = () => {
     incompleteSections,
     detailedProgress,
     canUnlockCoaching,
-    canUnlockPartnerCoaching
+    canUnlockPartnerCoaching,
+    showUpgradeModal,
+    upgradeReason,
+    openUpgradeModal,
+    closeUpgradeModal
   };
 };

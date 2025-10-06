@@ -15,6 +15,9 @@ import { toast } from '@/hooks/use-toast';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
+import { UpgradeModal } from '@/components/modals/UpgradeModal';
+import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -46,7 +49,14 @@ export const ChatInputSection = ({
   onCloseStarters = () => {},
   onUserTypingChange = () => {}
 }: ChatInputSectionProps) => {
-  const { accessLevel, missingFieldsForChat } = useProgressiveAccess();
+  const { 
+    accessLevel, 
+    missingFieldsForChat, 
+    showUpgradeModal, 
+    upgradeReason, 
+    openUpgradeModal, 
+    closeUpgradeModal 
+  } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
@@ -83,8 +93,10 @@ export const ChatInputSection = ({
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
-  const nearLimit = usagePercentage >= 80 && !atLimit && !subscribed;
+  const nearLimit = usagePercentage >= 80 && usagePercentage < 90 && !atLimit && !subscribed;
+  const criticalLimit = usagePercentage >= 90 && !atLimit && !subscribed;
   const nextTier = subscription_tier?.toLowerCase() === 'grow' ? 'thrive' : 'grow';
+  const messagesRemaining = message_limit - messages_used;
 
   // Refocus the chat input after successful auth
   useEffect(() => {
@@ -128,7 +140,7 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
-  // Show near-limit toast once per session
+  // Show near-limit toast once per session (80-89%)
   useEffect(() => {
     if (nearLimit && !localStorage.getItem('nearLimitToastShown')) {
       localStorage.setItem('nearLimitToastShown', '1');
@@ -138,14 +150,14 @@ export const ChatInputSection = ({
         action: (
           <Button 
             size="sm" 
-            onClick={() => upgrade(nextTier as 'grow' | 'thrive')}
+            onClick={() => openUpgradeModal('near-limit')}
           >
             Upgrade
           </Button>
         ),
       });
     }
-  }, [nearLimit, messages_used, message_limit, nextTier, upgrade]);
+  }, [nearLimit, messages_used, message_limit, openUpgradeModal]);
 
   // Handle user typing with debouncing
   const handleUserTyping = (typing: boolean) => {
@@ -252,6 +264,31 @@ export const ChatInputSection = ({
   return (
     <div className="flex-shrink-0 sticky bottom-0 md:pb-safe">
       <div className="px-0 pt-1 pb-0 md:px-4 md:py-5 md:pt-8">
+        {/* Critical 90% usage warning banner */}
+        {criticalLimit && (
+          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
+            <Alert className="bg-coral-500/20 border-coral-400/50 backdrop-blur-sm">
+              <AlertCircle className="h-5 w-5 text-coral-400" />
+              <AlertDescription className="flex items-center justify-between gap-4">
+                <div className="flex-1">
+                  <span className="font-semibold questionnaire-text">Running low on messages!</span>
+                  <p className="text-sm questionnaire-text-muted mt-1">
+                    Only {messagesRemaining} message{messagesRemaining !== 1 ? 's' : ''} left this month. 
+                    Upgrade now to keep the conversation going.
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => openUpgradeModal('near-limit')}
+                  className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white flex-shrink-0"
+                >
+                  Upgrade
+                </Button>
+              </AlertDescription>
+            </Alert>
+          </div>
+        )}
+
         {/* Conversation Starters - show for complete profiles with empty chats */}
         {shouldShowStarters && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
@@ -291,11 +328,7 @@ export const ChatInputSection = ({
                 if (!user) openAuthModalFromChat();
                 else if (accessLevel === 'profile-required') goToProfile('chat');
                 else if (atLimit) {
-                  if (subscription_tier?.toLowerCase() === 'thrive') {
-                    manageSubscription();
-                  } else {
-                    upgrade(nextTier as 'grow' | 'thrive');
-                  }
+                  openUpgradeModal('limit-reached');
                 }
               }}
               onTypingChange={handleUserTyping}
@@ -312,6 +345,14 @@ export const ChatInputSection = ({
         )}
       </div>
       <SignUpModal isOpen={authOpen} onClose={() => { setAuthOpen(false); logEvent('auth_modal_dismissed'); }} blockingAction="chat" />
+      <UpgradeModal 
+        open={showUpgradeModal}
+        onOpenChange={closeUpgradeModal}
+        currentTier={subscription_tier?.toLowerCase() || 'freemium'}
+        messagesUsed={messages_used}
+        messageLimit={message_limit}
+        reason={upgradeReason}
+      />
     </div>
   );
 };

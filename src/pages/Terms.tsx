@@ -23,7 +23,7 @@ const Terms = () => {
       <div className="min-h-screen bg-burgundy-900 flex flex-col">
         <SimpleHeader 
           user={user}
-          activeTab="terms"
+          activeTab="home"
           onSignInClick={handleSignInClick}
         />
         
