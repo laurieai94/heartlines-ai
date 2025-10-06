@@ -20,7 +20,6 @@ html, body, #root {
 
 /* Landing pages need natural scroll behavior */
 .landing-page-scroll {
-  overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
   height: auto !important;
   min-height: 100vh;
