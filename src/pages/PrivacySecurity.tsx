@@ -8,13 +8,11 @@ import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Downloa
 import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
-
 const PrivacySecurity = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   useEffect(() => {
     document.title = 'Privacy & Security - RealTalk | Your data, your control';
-    
+
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
@@ -26,43 +24,41 @@ const PrivacySecurity = () => {
       document.head.appendChild(meta);
     }
   }, []);
-
-  const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Mission', path: '/mission' },
-    { label: 'Pricing', path: '/pricing' },
-    { label: 'Privacy Settings', path: '/privacy' },
-  ];
-
-  const features = [
-    {
-      icon: <Lock className="w-8 h-8 text-coral-400" />,
-      title: "Client-Side Encryption",
-      description: "Your data is encrypted on your device using AES-256-GCM before it ever reaches our servers. Your encryption key never leaves your browser.",
-      highlight: "End-to-end protection"
-    },
-    {
-      icon: <Database className="w-8 h-8 text-coral-400" />,
-      title: "Data Retention You Control",
-      description: "Choose how long to keep your conversation history: 30 days, 90 days, 1 year, or forever. Change this anytime in your privacy settings.",
-      highlight: "30/90/365/Forever options"
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-coral-400" />,
-      title: "Row-Level Security",
-      description: "Our Supabase backend enforces Row-Level Security on all user data tables. Only you can access your profiles and conversations.",
-      highlight: "Database-level protection"
-    },
-    {
-      icon: <Eye className="w-8 h-8 text-coral-400" />,
-      title: "Anonymous Analytics",
-      description: "Completely optional usage analytics help us improve the app without collecting personal content. Toggle this in privacy settings.",
-      highlight: "Fully opt-in"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-burgundy-900">
+  const navItems = [{
+    label: 'Home',
+    path: '/'
+  }, {
+    label: 'Mission',
+    path: '/mission'
+  }, {
+    label: 'Pricing',
+    path: '/pricing'
+  }, {
+    label: 'Privacy Settings',
+    path: '/privacy'
+  }];
+  const features = [{
+    icon: <Lock className="w-8 h-8 text-coral-400" />,
+    title: "Client-Side Encryption",
+    description: "Your data is encrypted on your device using AES-256-GCM before it ever reaches our servers. Your encryption key never leaves your browser.",
+    highlight: "End-to-end protection"
+  }, {
+    icon: <Database className="w-8 h-8 text-coral-400" />,
+    title: "Data Retention You Control",
+    description: "Choose how long to keep your conversation history: 30 days, 90 days, 1 year, or forever. Change this anytime in your privacy settings.",
+    highlight: "30/90/365/Forever options"
+  }, {
+    icon: <Shield className="w-8 h-8 text-coral-400" />,
+    title: "Row-Level Security",
+    description: "Our Supabase backend enforces Row-Level Security on all user data tables. Only you can access your profiles and conversations.",
+    highlight: "Database-level protection"
+  }, {
+    icon: <Eye className="w-8 h-8 text-coral-400" />,
+    title: "Anonymous Analytics",
+    description: "Completely optional usage analytics help us improve the app without collecting personal content. Toggle this in privacy settings.",
+    highlight: "Fully opt-in"
+  }];
+  return <div className="min-h-screen bg-burgundy-900">
       {/* Background effects */}
 
       {/* Navigation */}
@@ -72,30 +68,15 @@ const PrivacySecurity = () => {
             {/* Left: Hamburger Menu */}
             <Popover open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-white/10"
-                  aria-label="Open menu"
-                >
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" aria-label="Open menu">
                   <Menu className="h-6 w-6" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent 
-                align="start" 
-                className="w-56 bg-burgundy-800/95 backdrop-blur-md border-white/20 text-white"
-              >
+              <PopoverContent align="start" className="w-56 bg-burgundy-800/95 backdrop-blur-md border-white/20 text-white">
                 <div className="flex flex-col gap-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="px-4 py-2 text-sm hover:bg-white/10 rounded-md transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
+                  {navItems.map(item => <Link key={item.path} to={item.path} className="px-4 py-2 text-sm hover:bg-white/10 rounded-md transition-colors" onClick={() => setIsMenuOpen(false)}>
                       {item.label}
-                    </Link>
-                  ))}
+                    </Link>)}
                 </div>
               </PopoverContent>
             </Popover>
@@ -103,17 +84,14 @@ const PrivacySecurity = () => {
             {/* Right: Sign In & Get Started */}
             <div className="flex items-center gap-3">
               <Link to="/signin">
-                <Button
-                  variant="ghost"
-                  className="hidden sm:flex h-10 w-10 rounded-full p-0 hover:bg-white/10"
-                >
-                  <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
+                <Button variant="ghost" className="hidden sm:flex h-10 w-10 rounded-full p-0 hover:bg-white/10">
+                  <User className="h-5 w-5" style={{
+                  color: '#ffc0cb'
+                }} />
                 </Button>
               </Link>
               <Link to="/get-started">
-                <Button
-                  className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium px-6 sm:px-8"
-                >
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium px-6 sm:px-8">
                   Get Started
                 </Button>
               </Link>
@@ -152,8 +130,7 @@ const PrivacySecurity = () => {
         <section className="px-6 py-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => (
-                <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20 text-white">
+              {features.map((feature, index) => <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20 text-white">
                   <CardHeader className="text-center">
                     <div className="flex justify-center mb-4">
                       {feature.icon}
@@ -166,8 +143,7 @@ const PrivacySecurity = () => {
                   <CardContent>
                     <CardDescription className="text-gray-300 text-center">{feature.description}</CardDescription>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </section>
@@ -214,7 +190,7 @@ const PrivacySecurity = () => {
         {/* FAQ */}
         <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">FAQs</h2>
             
             <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="encryption" className="border-white/20">
@@ -298,8 +274,6 @@ const PrivacySecurity = () => {
 
         <SiteFooter />
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PrivacySecurity;
