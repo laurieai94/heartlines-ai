@@ -58,8 +58,7 @@ html, body, #root {
     position: relative;
     /* Allow natural overflow for landing pages */
     overflow: visible;
-    /* GPU acceleration for performance */
-    transform: translateZ(0);
+    /* Transform removed - was breaking fixed positioning for navigation */
     backface-visibility: hidden;
   }
   
