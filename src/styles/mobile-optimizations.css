@@ -38,11 +38,18 @@ html, body, #root {
     min-height: -webkit-fill-available;
     overflow-x: hidden;
     /* Allow vertical scroll, prevent horizontal */
-    overflow-y: auto;
+    overflow-y: scroll;
     /* Critical: Prevent white screen on overscroll */
     overscroll-behavior: none !important;
     overscroll-behavior-y: none !important;
     overscroll-behavior-x: none !important;
+    /* Hide scrollbar on mobile */
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
+  }
+
+  body::-webkit-scrollbar {
+    display: none !important; /* Chrome/Safari/Edge */
   }
   
   #root {

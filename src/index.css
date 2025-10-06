@@ -18,6 +18,15 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: none;
   touch-action: pan-y;
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+[role="dialog"]::-webkit-scrollbar,
+[data-questionnaire-modal]::-webkit-scrollbar,
+[data-radix-scroll-area-viewport]::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
 }
 
 /* Allow natural scrolling for dashboard content */
@@ -195,6 +204,13 @@
     /* iOS Safari specific viewport fix */
     height: 100%;
     height: -webkit-fill-available;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
   }
 
   body {
@@ -207,7 +223,7 @@
     touch-action: manipulation;
     overscroll-behavior: none; /* Critical: Prevent white screen */
     overflow-x: hidden;
-    overflow-y: auto; /* Enable document-level scrolling for sticky positioning */
+    overflow-y: scroll; /* Enable document-level scrolling for sticky positioning */
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     /* Better scroll performance on mobile */
@@ -219,6 +235,13 @@
     min-height: -webkit-fill-available;
     /* Prevent viewport displacement */
     position: relative;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
   }
 
   #root {
@@ -229,6 +252,13 @@
     position: relative;
     transform: translateZ(0);
     backface-visibility: hidden;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  #root::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
   }
 
   /* Mobile optimizations - prevent overscroll */
