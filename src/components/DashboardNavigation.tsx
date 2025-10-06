@@ -16,7 +16,7 @@ const DashboardNavigation = ({ activeTab, onValueChange, compact = false }: Dash
       'home': '/',
       'profile': '/profile',
       'insights': '/coach',
-      'privacy': '/privacy'
+      'privacy': '/privacy-and-security'
     };
     
     navigate(pathMap[value] || '/');

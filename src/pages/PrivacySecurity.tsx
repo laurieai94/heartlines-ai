@@ -35,7 +35,7 @@ const PrivacySecurity = () => {
     path: '/pricing'
   }, {
     label: 'Privacy Settings',
-    path: '/privacy'
+    path: '/privacy-and-security'
   }];
   const features = [{
     icon: <Lock className="w-8 h-8 text-coral-400" />,

@@ -41,12 +41,12 @@ const AppContent = () => {
         {/* Authenticated app routes protected by AuthGuard inside Dashboard */}
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/coach" element={<Dashboard />} />
-        <Route path="/privacy" element={<Dashboard />} />
         <Route path="/company" element={<Dashboard />} />
         
         {/* Legacy redirects */}
         <Route path="/insights" element={<Navigate to="/coach" replace />} />
         <Route path="/dashboard" element={<Navigate to="/profile" replace />} />
+        <Route path="/privacy" element={<Navigate to="/privacy-and-security" replace />} />
         
         {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={

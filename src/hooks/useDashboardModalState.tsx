@@ -12,7 +12,7 @@ export const useDashboardModalState = () => {
     if (pathname.includes('/coach')) return 'insights';
     if (pathname.includes('/practice')) return 'conversation';
     if (pathname.includes('/profile')) return 'profile';
-    if (pathname.includes('/privacy')) return 'privacy';
+    if (pathname.includes('/privacy-and-security')) return 'privacy';
     return 'home'; // default
   };
 
@@ -22,7 +22,7 @@ export const useDashboardModalState = () => {
       case 'insights': return '/coach';
       case 'conversation': return '/practice';
       case 'profile': return '/profile';
-      case 'privacy': return '/privacy';
+      case 'privacy': return '/privacy-and-security';
       default: return '/';
     }
   };
