@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Save, User, Mail, Key } from 'lucide-react';
+import { Save, User, Mail, Key, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,7 +13,8 @@ import AvatarUpload from '@/components/AvatarUpload';
 const AccountProfile = () => {
   const {
     user,
-    resetPassword
+    resetPassword,
+    signOut
   } = useAuth();
   const {
     profile,
@@ -189,6 +190,29 @@ const AccountProfile = () => {
         }} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'}`}>
             <User className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
             View Personal Profile
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Sign Out */}
+      <Card className={`bg-white/10 backdrop-blur-sm border border-white/20 ${isMobile ? 'rounded-lg' : ''}`}>
+        <CardHeader className={isMobile ? 'p-2 pb-1' : 'p-2.5'}>
+          <CardTitle className={`text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
+            Sign Out
+          </CardTitle>
+          <CardDescription className={`text-white/60 ${isMobile ? 'text-xs leading-tight' : 'text-sm'}`}>
+            Sign out of your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className={isMobile ? 'p-2 pt-0' : 'p-2.5 pt-0'}>
+          <Button onClick={e => {
+          if (isMobile && e.currentTarget) {
+            simulateHapticFeedback(e.currentTarget, 'medium');
+          }
+          signOut();
+        }} className={`w-full bg-burgundy-600 hover:bg-burgundy-600 text-white touch-manipulation touch-feedback ${isMobile ? 'text-[13px] py-1.5 h-8' : 'text-sm py-2'}`}>
+            <LogOut className={`mr-1 ${isMobile ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'}`} />
+            Sign Out
           </Button>
         </CardContent>
       </Card>

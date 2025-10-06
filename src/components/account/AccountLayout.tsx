@@ -76,7 +76,7 @@ const AccountLayout = () => {
         } animate-fade-in touch-manipulation`}>
           <div className={`text-center ${isMobile ? 'mb-3' : 'mb-5'}`}>
             <h1 className={`font-brand text-white ${
-              isMobile ? 'text-2xl mb-0.5' : 'text-4xl mb-1'
+              isMobile ? 'text-3xl mb-0.5' : 'text-5xl mb-1'
             }`}>My Account</h1>
             <p className={`text-white/70 ${
               isMobile ? 'text-[10px] leading-tight' : 'text-xs'
