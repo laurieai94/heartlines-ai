@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useRef } from "react";
@@ -27,7 +27,7 @@ const OnboardingStepNudge = ({
   };
   return (
     <div 
-      className={`flex flex-col items-center gap-2.5 ${className} ${
+      className={`backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-4 shadow-lg shadow-coral-500/30 flex flex-col items-center gap-3 ${className} ${
         isMobile ? 'touch-action-manipulation' : ''
       }`}
       data-onboarding-nudge
@@ -42,7 +42,7 @@ const OnboardingStepNudge = ({
             <span className="text-xs font-semibold text-white">1</span>
           }
         </div>
-        <h3 className="text-white font-bold text-sm">
+        <h3 className="text-white font-extrabold text-base tracking-tight">
           So close → Kai's almost unlocked
         </h3>
       </div>
@@ -52,14 +52,14 @@ const OnboardingStepNudge = ({
         onClick={handleButtonClick} 
         onTouchStart={isMobile ? handleButtonTouch : undefined}
         variant="glass" 
-        size="sm" 
-        className={`bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-md h-8 px-4 text-xs ${
-          isMobile ? 'min-h-[36px] touch-action-manipulation active:scale-95' : ''
+        className={`bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-lg shadow-coral-500/30 h-10 px-6 text-sm ${
+          isMobile ? 'min-h-[40px] touch-action-manipulation active:scale-95' : ''
         }`}
       >
-        <span className="font-medium">
+        <span className="font-semibold">
           Finish profile
         </span>
+        <ArrowRight className="w-4 h-4" />
       </Button>
     </div>
   );
