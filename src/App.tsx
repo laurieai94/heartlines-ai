@@ -9,6 +9,7 @@ import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shel
 // Removed disabled performance imports
 import SplashScreen from "@/components/SplashScreen";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Import FirstVisitSplash for session-based splash screen
 import FirstVisitSplash from "@/components/FirstVisitSplash";
@@ -30,6 +31,7 @@ const AppContent = () => {
   
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Public landing page - with first-visit splash */}
         <Route path="/" element={

@@ -4,6 +4,7 @@ import ProductionErrorBoundary from './ProductionErrorBoundary';
 import { LoadingState } from './loading';
 import { ResourceMonitor } from './ResourceMonitor';
 import { Toaster } from './ui/toaster';
+import { ScrollToTop } from './ScrollToTop';
 
 // Lazy load pages for better performance
 const LandingPage = React.lazy(() => import('@/components/LandingPage'));
@@ -21,6 +22,7 @@ const ProductionApp: React.FC = () => {
   return (
     <ProductionErrorBoundary level="app" name="ProductionApp">
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen">
           <Suspense fallback={<LoadingState variant="spinner" message="Loading..." fullScreen />}>
             <Routes>
