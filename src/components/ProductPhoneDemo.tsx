@@ -126,7 +126,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
             </div>
 
             {/* Chat Messages */}
-            <div className="flex-1 px-4 py-4 space-y-3 h-[450px] overflow-y-auto">
+            <div className="flex-1 px-4 py-4 space-y-3 h-[450px] overflow-y-auto no-scrollbar">
               {visibleMessages.map((message) => (
                 <div key={message.id} className="animate-fade-in">
                   <div className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>

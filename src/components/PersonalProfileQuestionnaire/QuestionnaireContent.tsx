@@ -21,7 +21,7 @@ const QuestionnaireContent = ({
   sectionReadiness
 }: QuestionnaireContentProps) => {
   return (
-    <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+    <div className="bg-black/5 no-scrollbar">
       <div className="px-4 py-8 space-y-8">
         <div id="section-1">
           <QuestionnaireSection1 
