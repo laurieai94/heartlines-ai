@@ -244,23 +244,8 @@ const LandingPage = ({
     }
   }, []);
 
-  return <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
-      {/* Static background preserved */}
-
-      {/* Code-like Background Elements */}
-      {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
-          <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
-            {`const love = { understanding: true, growth: infinite }`}
-          </div>
-          <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
-            {`if (relationship.status === 'complicated') { ai.help() }`}
-          </div>
-          <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
-            {`return personalized.advice.filter(advice => advice.isRelevant)`}
-          </div>
-        </div>}
-
-      {/* Navigation */}
+  return <>
+      {/* Navigation - Outside main container for proper fixed positioning */}
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`} style={{ willChange: 'transform' }}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-1.5">
@@ -326,6 +311,23 @@ const LandingPage = ({
             </div>
           </div>
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
+
+      {/* Main container */}
+      <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
+      {/* Static background preserved */}
+
+      {/* Code-like Background Elements */}
+      {!isEmbedded && <div className="absolute inset-0 overflow-hidden opacity-5">
+          <div className="absolute top-20 left-10 font-mono text-xs text-pink-200">
+            {`const love = { understanding: true, growth: infinite }`}
+          </div>
+          <div className="absolute top-1/3 right-20 font-mono text-xs text-coral-200">
+            {`if (relationship.status === 'complicated') { ai.help() }`}
+          </div>
+          <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
+            {`return personalized.advice.filter(advice => advice.isRelevant)`}
+          </div>
+        </div>}
 
       {/* Full-Bleed Year Carousel - Above the Fold */}
       <div className={showMarketingTopBar ? 'pt-16' : 'pt-16'}>
@@ -587,6 +589,7 @@ const LandingPage = ({
 
       {/* Footer */}
       <SiteFooter />
-    </div>;
+    </div>
+  </>;
 };
 export default LandingPage;
