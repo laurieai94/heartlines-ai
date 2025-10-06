@@ -278,9 +278,8 @@ const ProfileBuilder = ({
                   <p>• No AI training on your conversations</p>
                   <p>• Only you and Kai see your profiles</p>
                   <p>• Your encryption key never leaves your device</p>
-                  <p>• Optional anonymous analytics only</p>
                   <p>• Choose how long to keep your data</p>
-                  <p>• Download backups anytime you want</p>
+                  <p>• Optional anonymous analytics only</p>
                   <p>• Delete your data or account anytime</p>
                   <Link to="/privacy-and-security" className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group" aria-label="Learn more about our privacy and security practices">
                     <span>Learn More</span>
