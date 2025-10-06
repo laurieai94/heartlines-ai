@@ -134,8 +134,8 @@ const PartnerQuestionnaireLayout = ({
                onSectionComplete={() => {}} 
              />
              
-             {/* Minimal bottom padding */}
-             <div className="pb-20 sm:pb-10" />
+              {/* Minimal bottom padding */}
+              <div className="pb-4 sm:pb-10" />
            </div>
 
            <CleanPartnerFooter 
