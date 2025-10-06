@@ -113,7 +113,7 @@ const PrivacySecurity = () => {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="px-6 py-20 lg:py-28">
+        <section className="px-6 py-12 lg:py-16">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30">
               <Shield className="w-5 h-5 text-coral-400" />
@@ -135,7 +135,7 @@ const PrivacySecurity = () => {
         </section>
 
         {/* Key Features */}
-        <section className="px-6 py-16 lg:py-20">
+        <section className="px-6 py-8 lg:py-12">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((feature, index) => <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20 text-white">
