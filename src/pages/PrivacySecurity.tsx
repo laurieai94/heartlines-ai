@@ -214,7 +214,7 @@ const PrivacySecurity = () => {
         {/* FAQ */}
         <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-thin text-white mb-12 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">Frequently Asked Questions</h2>
             
             <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="encryption" className="border-white/20">
