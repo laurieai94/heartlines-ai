@@ -102,7 +102,7 @@ const ChatContainer = ({
         <div 
           className="pt-2 md:px-4 md:pt-3 md:pb-2"
           style={{
-            paddingBottom: '4px',
+            paddingBottom: showCenteredNudge && !isMobile ? '16px' : '4px',
             paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
             paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
           }}
@@ -199,7 +199,7 @@ const ChatContainer = ({
               <span className="sr-only">{userName || 'User'} is typing...</span>
             </div>
             
-            <div className="h-2 md:h-4" />
+            <div className="h-4 md:h-6" />
           </div>
         </div>
       </ScrollArea>
