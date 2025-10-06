@@ -26,7 +26,6 @@ export const pricingPlans: PricingPlan[] = [
     messages: 50,
     icon: Sprout,
     features: [
-      "50 messages a month",
       "Quick insights into your patterns + relationships",
       "Try before you commit\" energy"
     ],
@@ -44,7 +43,6 @@ export const pricingPlans: PricingPlan[] = [
     messages: 150,
     icon: Heart,
     features: [
-      "150 messages each month",
       "Coaching for self-reflection + relationships",
       "Role play critical convos",
       "Progress check-ins to track your growth"
@@ -63,7 +61,6 @@ export const pricingPlans: PricingPlan[] = [
     messages: 300,
     icon: Flower,
     features: [
-      "300 messages a month (~10/day)",
       "Unlimited scenarios (self-talk, dating, relationships)",
       "Advanced insights + personal analytics",
       "Custom goals for your growth journey"

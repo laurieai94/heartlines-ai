@@ -194,7 +194,17 @@ const AccountSubscription = () => {
               </CardHeader>
               
               <CardContent className={`${isMobile ? 'p-1.5 pt-0 space-y-1' : 'p-2.5 pt-0 space-y-1.5'}`}>
-                <ul className={`${isMobile ? 'space-y-1.5' : 'space-y-2'}`}>
+                {/* Prominent Message Count */}
+                <div className={`text-center ${isMobile ? 'py-1.5' : 'py-2'} border-y border-white/10`}>
+                  <p className={`font-bold text-pink-400 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
+                    {plan.messages}
+                  </p>
+                  <p className={`text-white/60 ${isMobile ? 'text-[11px]' : 'text-xs'}`}>
+                    messages per month
+                  </p>
+                </div>
+
+                <ul className={`${isMobile ? 'space-y-2.5' : 'space-y-3'}`}>
                   {plan.features.map((feature, index) => <li key={index} className={`flex items-center gap-2 text-white/80 ${isMobile ? 'text-xs leading-relaxed' : 'text-sm'}`}>
                       <Check className={`text-green-400 ${isMobile ? 'h-2 w-2 flex-shrink-0' : 'h-3 w-3'}`} />
                       {feature}
