@@ -27,7 +27,7 @@ const OnboardingStepNudge = ({
   };
   return (
     <div 
-      className={`backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-4 shadow-lg shadow-coral-500/30 flex flex-col items-center gap-3 ${className} ${
+      className={`backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg shadow-coral-500/30 flex flex-col items-center gap-3 md:gap-4 lg:gap-5 ${className} ${
         isMobile ? 'touch-action-manipulation' : ''
       }`}
       data-onboarding-nudge
@@ -36,13 +36,13 @@ const OnboardingStepNudge = ({
       }}
     >
       <div className="flex items-center gap-2.5">
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-coral-400/20 to-peach-400/20 flex items-center justify-center border border-white/20">
+        <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-gradient-to-br from-coral-400/20 to-peach-400/20 flex items-center justify-center border border-white/20">
           {completion > 0 ? 
-            <CheckCircle className="w-4 h-4 text-coral-300" /> : 
-            <span className="text-xs font-semibold text-white">1</span>
+            <CheckCircle className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-coral-300" /> : 
+            <span className="text-xs md:text-sm lg:text-base font-semibold text-white">1</span>
           }
         </div>
-        <h3 className="text-white font-extrabold text-base tracking-tight">
+        <h3 className="text-white font-extrabold text-base md:text-lg lg:text-xl tracking-tight">
           So close → Kai's almost unlocked
         </h3>
       </div>
@@ -52,14 +52,14 @@ const OnboardingStepNudge = ({
         onClick={handleButtonClick} 
         onTouchStart={isMobile ? handleButtonTouch : undefined}
         variant="glass" 
-        className={`bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-lg shadow-coral-500/30 h-10 px-6 text-sm ${
+        className={`bg-gradient-to-r from-coral-500 to-peach-500 text-white hover:from-coral-600 hover:to-peach-600 border-0 shadow-lg shadow-coral-500/30 h-10 md:h-12 lg:h-14 px-6 md:px-8 lg:px-10 text-sm md:text-base lg:text-lg ${
           isMobile ? 'min-h-[40px] touch-action-manipulation active:scale-95' : ''
         }`}
       >
         <span className="font-semibold">
           Finish profile
         </span>
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" />
       </Button>
     </div>
   );
