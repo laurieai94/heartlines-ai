@@ -120,7 +120,7 @@ const PrivacySecurity = () => {
               <span className="text-sm font-light text-white/90 tracking-wide">Privacy & Security</span>
             </div>
             
-            <h1 className="text-5xl lg:text-6xl font-thin text-white mb-8 leading-tight">
+            <h1 className="text-5xl lg:text-6xl font-brand text-white mb-8 leading-tight">
               Your privacy.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
