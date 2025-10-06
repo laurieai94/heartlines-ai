@@ -113,7 +113,7 @@ const ChatContainer = ({
             {showCenteredNudge && (
               <>
                 {/* Top spacer to simulate previous messages */}
-                <div className="h-32 md:h-40" />
+                <div className="h-[60vh] md:h-[65vh]" />
                 
                 {/* Nudge positioned like a chat message */}
                 <div className="flex items-center justify-center py-8 md:py-12">
@@ -125,7 +125,7 @@ const ChatContainer = ({
                 </div>
                 
                 {/* Bottom spacer to maintain chat-like appearance */}
-                <div className="h-48 md:h-64" />
+                <div className="h-[30vh] md:h-[25vh]" />
               </>
             )}
 
