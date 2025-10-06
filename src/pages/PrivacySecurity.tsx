@@ -156,34 +156,43 @@ const PrivacySecurity = () => {
               <p className="text-lg text-gray-300 font-light">A transparent look at how we protect your information at every step</p>
             </div>
 
-            <div className="space-y-8">
-              {/* Step 1 */}
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-2">Encryption on Your Device</h3>
-                  <p className="text-gray-300">When encryption is enabled, your messages are encrypted using AES-256-GCM in your browser before being sent to our servers. Your encryption key is generated locally and never transmitted.</p>
-                </div>
-              </div>
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="step1" className="border-white/20">
+                <AccordionTrigger className="text-white hover:text-coral-300">
+                  <div className="flex items-center gap-6">
+                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">1</div>
+                    <span className="text-xl font-semibold text-left">Encryption on Your Device</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300 pl-[4.5rem]">
+                  When encryption is enabled, your messages are encrypted using AES-256-GCM in your browser before being sent to our servers. Your encryption key is generated locally and never transmitted.
+                </AccordionContent>
+              </AccordionItem>
 
-              {/* Step 2 */}
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-2">Secure Storage</h3>
-                  <p className="text-gray-300">Encrypted data is stored in our Supabase database with Row-Level Security enforced. Only your authenticated user ID can access your data—not even our team can read encrypted conversations.</p>
-                </div>
-              </div>
+              <AccordionItem value="step2" className="border-white/20">
+                <AccordionTrigger className="text-white hover:text-coral-300">
+                  <div className="flex items-center gap-6">
+                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">2</div>
+                    <span className="text-xl font-semibold text-left">Secure Storage</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300 pl-[4.5rem]">
+                  Encrypted data is stored in our Supabase database with Row-Level Security enforced. Only your authenticated user ID can access your data—not even our team can read encrypted conversations.
+                </AccordionContent>
+              </AccordionItem>
 
-              {/* Step 3 */}
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-2">AI Processing</h3>
-                  <p className="text-gray-300">When you chat with our AI coach, messages are sent to Anthropic's API via our secure Edge Functions. These functions run server-side with API keys never exposed to your browser.</p>
-                </div>
-              </div>
-            </div>
+              <AccordionItem value="step3" className="border-white/20">
+                <AccordionTrigger className="text-white hover:text-coral-300">
+                  <div className="flex items-center gap-6">
+                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">3</div>
+                    <span className="text-xl font-semibold text-left">AI Processing</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300 pl-[4.5rem]">
+                  When you chat with our AI coach, messages are sent to Anthropic's API via our secure Edge Functions. These functions run server-side with API keys never exposed to your browser.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
 
