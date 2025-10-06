@@ -111,13 +111,22 @@ const ChatContainer = ({
             
             {/* Centered Onboarding Nudge - shown when profile incomplete */}
             {showCenteredNudge && (
-              <div className="flex items-center justify-center min-h-[50vh] md:min-h-[60vh]">
-                <OnboardingStepNudge
-                  completion={profileCompletion}
-                  onStartProfile={onStartProfile}
-                  className="max-w-md w-full scale-105 md:scale-110"
-                />
-              </div>
+              <>
+                {/* Top spacer to simulate previous messages */}
+                <div className="h-32 md:h-40" />
+                
+                {/* Nudge positioned like a chat message */}
+                <div className="flex items-center justify-center py-8 md:py-12">
+                  <OnboardingStepNudge
+                    completion={profileCompletion}
+                    onStartProfile={onStartProfile}
+                    className="max-w-md w-full scale-105 md:scale-110"
+                  />
+                </div>
+                
+                {/* Bottom spacer to maintain chat-like appearance */}
+                <div className="h-48 md:h-64" />
+              </>
             )}
 
             {/* Chat Messages */}
