@@ -249,10 +249,10 @@ const PrivacySecurity = () => {
 
               <AccordionItem value="compliance" className="border-white/20">
                 <AccordionTrigger className="text-white hover:text-coral-300">
-                  Is RealTalk HIPAA compliant?
+                  Is heartlines HIPAA compliant?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-300">
-                  RealTalk is not HIPAA compliant and should not be used to store or discuss protected health information (PHI). While we implement strong privacy and security measures, the platform is designed for relationship coaching and personal growth, not medical or therapeutic purposes.
+                  heartlines is not HIPAA compliant and should not be used to store or discuss protected health information (PHI). While we implement strong privacy and security measures, the platform is designed for relationship coaching and personal growth, not medical or therapeutic purposes.
                 </AccordionContent>
               </AccordionItem>
 
