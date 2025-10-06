@@ -105,10 +105,9 @@ const PrivacySecurity = () => {
               <Link to="/signin">
                 <Button
                   variant="ghost"
-                  className="hidden sm:flex text-white hover:bg-white/10 gap-2"
+                  className="hidden sm:flex h-10 w-10 rounded-full p-0 hover:bg-white/10"
                 >
-                  <User className="h-4 w-4" />
-                  <span>Sign in</span>
+                  <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
                 </Button>
               </Link>
               <Link to="/get-started">

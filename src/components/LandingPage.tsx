@@ -284,9 +284,8 @@ const LandingPage = ({
             <div className="hidden md:flex items-center gap-3 mr-6">
               {user ? <>
                   <Link to="/profile">
-                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 transition-all duration-200">
-                      <User className="w-4 h-4 mr-2" />
-                    Sign in
+                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                      <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
                     </Button>
                   </Link>
                   <Link to="/signup">
@@ -296,8 +295,8 @@ const LandingPage = ({
                   </Link>
                 </> : <>
                   <Link to="/signin">
-                    <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-burgundy-400/10 transition-all duration-200">
-                      Sign In
+                    <Button variant="ghost" className="h-10 w-10 rounded-full p-0 hover:bg-burgundy-400/10 transition-all duration-200">
+                      <User className="h-5 w-5" style={{ color: '#ffc0cb' }} />
                     </Button>
                   </Link>
                   <Link to="/signup">
