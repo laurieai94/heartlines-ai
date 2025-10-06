@@ -54,6 +54,10 @@ export const ChatInputSection = ({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { calculateYourCompletion } = useOptimizedProfileCompletion();
+  
+  // Stable completion state with debouncing to prevent UI flickering
+  const [stableCompletion, setStableCompletion] = useState(0);
+  const completionDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { 
     messages_used, 
     message_limit, 
@@ -179,6 +183,29 @@ export const ChatInputSection = ({
     if (accessLevel !== 'profile-required') return 0;
     return calculateYourCompletion();
   }, [accessLevel, calculateYourCompletion]);
+  
+  // Debounce completion changes to prevent UI flickering
+  useEffect(() => {
+    if (completionDebounceRef.current) {
+      clearTimeout(completionDebounceRef.current);
+    }
+    
+    // If completion is increasing or staying same, update immediately
+    // If decreasing, wait 3 seconds to confirm it's stable
+    if (profileCompletion >= stableCompletion) {
+      setStableCompletion(profileCompletion);
+    } else {
+      completionDebounceRef.current = setTimeout(() => {
+        setStableCompletion(profileCompletion);
+      }, 3000);
+    }
+    
+    return () => {
+      if (completionDebounceRef.current) {
+        clearTimeout(completionDebounceRef.current);
+      }
+    };
+  }, [profileCompletion, stableCompletion]);
 
   // Use native iOS keyboard behavior instead of fighting it
 
@@ -196,7 +223,7 @@ export const ChatInputSection = ({
         {accessLevel === 'profile-required' && user && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
             <OnboardingStepNudge
-              completion={profileCompletion}
+              completion={stableCompletion}
               onStartProfile={() => goToProfile('chat')}
             />
           </div>

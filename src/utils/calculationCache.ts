@@ -56,9 +56,24 @@ class CalculationCache<T> {
   clear() {
     this.cache.clear();
   }
+
+  // Manual cache invalidation for specific keys
+  invalidate(key: string) {
+    this.cache.delete(key);
+  }
+
+  // Manual cache set for warming after data updates
+  set(key: string, input: any, value: T) {
+    const inputHash = this.hashInput(input);
+    this.cache.set(key, {
+      value,
+      timestamp: Date.now(),
+      inputHash
+    });
+  }
 }
 
 // Global cache instances for different calculation types
-export const profileCompletionCache = new CalculationCache<number>(60000); // 1 minute
+export const profileCompletionCache = new CalculationCache<number>(600000); // 10 minutes
 export const validationCache = new CalculationCache<boolean>(30000); // 30 seconds
 export const requirementCache = new CalculationCache<any>(120000); // 2 minutes

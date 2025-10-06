@@ -125,6 +125,8 @@ const STORAGE_CONFIG = {
 
 const DEBOUNCE_MS = 500; // Reduced for faster data persistence
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
+const RECENT_MODIFICATION_THRESHOLD = 10000; // 10 seconds
+
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
   const config = STORAGE_CONFIG[profileType];
@@ -139,6 +141,9 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   
   const debounceTimer = useRef<NodeJS.Timeout>();
   const pendingUpdates = useRef<Partial<PersonalProfileV2 | PartnerProfileV2>>({});
+  
+  // Track recently modified fields to protect them during merge
+  const recentlyModifiedFields = useRef<Map<string, number>>(new Map());
 
   // SIMPLIFIED: Removed complex instance tracking for performance
 
@@ -336,6 +341,22 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           saveToStorage(preservedProfile);
           return preservedProfile;
         });
+        
+        // Warm the completion cache with fresh data
+        const { profileCompletionCache } = await import('@/utils/calculationCache');
+        const { calculateProgress } = await import('@/components/NewPersonalQuestionnaire/utils/validation');
+        const { calculatePartnerProgress } = await import('@/components/NewPartnerProfile/utils/partnerValidation');
+        
+        const finalData = { ...defaultProfile, ...(data as any), version: '2.0' };
+        const completion = profileType === 'personal' 
+          ? calculateProgress(finalData as any)
+          : calculatePartnerProgress(finalData as any);
+        
+        profileCompletionCache.set(
+          profileType === 'personal' ? 'personal' : 'partner',
+          finalData,
+          completion
+        );
       }
     } catch (error: any) {
       // Safe error logging without object serialization
@@ -430,11 +451,32 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               try {
                 const dbProfile = await loadFromDatabase();
                 
-                // Merge local and remote, preferring newer data
-                const localTime = new Date(localProfile.lastUpdated || 0).getTime();
-                const dbTime = new Date(dbProfile.lastUpdated || 0).getTime();
+                // Smart field-by-field merge that preserves user's recent edits
+                const now = Date.now();
+                const finalProfile = { ...dbProfile };
                 
-                const finalProfile = dbTime > localTime ? dbProfile : localProfile;
+                Object.keys(localProfile).forEach(key => {
+                  const localValue = localProfile[key as keyof typeof localProfile];
+                  const dbValue = dbProfile[key as keyof typeof dbProfile];
+                  
+                  // Always preserve recently modified fields (within last 10 seconds)
+                  const modTime = recentlyModifiedFields.current.get(key);
+                  if (modTime && (now - modTime) < RECENT_MODIFICATION_THRESHOLD) {
+                    (finalProfile as any)[key] = localValue;
+                    return;
+                  }
+                  
+                  // Preserve non-empty local values over empty db values
+                  if (Array.isArray(localValue)) {
+                    if (localValue.length > 0 && (!dbValue || (Array.isArray(dbValue) && dbValue.length === 0))) {
+                      (finalProfile as any)[key] = localValue;
+                    }
+                  } else if (typeof localValue === 'string') {
+                    if (localValue.trim() && (!dbValue || (typeof dbValue === 'string' && !dbValue.trim()))) {
+                      (finalProfile as any)[key] = localValue;
+                    }
+                  }
+                });
                 
                 // Use React transition for non-urgent updates
                 setTimeout(() => {
@@ -664,6 +706,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Update single field
   const updateField = useCallback((field: string, value: any) => {
+    // Mark field as recently modified
+    recentlyModifiedFields.current.set(field, Date.now());
     updateProfile({ [field]: value } as any);
   }, [updateProfile]);
 
