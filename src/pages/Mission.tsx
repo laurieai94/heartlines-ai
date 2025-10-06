@@ -27,7 +27,7 @@ const Mission = () => {
       <div className="min-h-screen bg-burgundy-900 flex flex-col">
         <SimpleHeader 
           user={user}
-          activeTab="mission"
+          activeTab="home"
           onSignInClick={handleSignInClick}
         />
         
