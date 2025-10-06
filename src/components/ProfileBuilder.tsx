@@ -278,9 +278,8 @@ const ProfileBuilder = ({
             description="" 
             benefits={[
               { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual POV magic" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Convo hacks unlocked" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Tips for both hearts" }
-            ]} 
+              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Hacks unlocked" }
+            ]}
             onStartProfile={handleStartPartnerProfile} 
             buttonText="Add Player 2" 
             iconElement={
