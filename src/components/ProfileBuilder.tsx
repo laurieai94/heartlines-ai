@@ -71,25 +71,32 @@ const ProfileBuilder = ({
   } = useOptimizedProfileCompletion();
 
   // Get actual personal profile data for accurate progress calculation
-  const { profileData: personalProfileData } = usePersonalProfileData();
-  const { profileData: partnerProfileData } = usePartnerProfileData();
-  
+  const {
+    profileData: personalProfileData
+  } = usePersonalProfileData();
+  const {
+    profileData: partnerProfileData
+  } = usePartnerProfileData();
+
   // Helper function for getting initials
   const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toUpperCase() || null;
-  
+
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || (personalProfileData as any)?.name || '';
-  
+
   // Get user's first initial for icon
   const userInitial = getInitial(userName);
-  
+
   // Memoized completion calculations for better performance
   const yourProfileCompletion = useMemo(() => calculateYourCompletion(), [calculateYourCompletion]);
-  
   const partnerProfileCompletion = useMemo(() => calculatePartnerCompletion(), [calculatePartnerCompletion]);
-  
+
   // Memoized requirement calculations
-  const { completedRequiredFields, totalRequiredFields, canUnlockCoaching } = useMemo(() => {
+  const {
+    completedRequiredFields,
+    totalRequiredFields,
+    canUnlockCoaching
+  } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
     return {
@@ -98,15 +105,17 @@ const ProfileBuilder = ({
       canUnlockCoaching: completed >= total
     };
   }, [personalProfileData]);
-  
+
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerProfileData?.partnerName);
 
   // Navigation hook for coaching
-  const { goToCoach } = useNavigation();
-  
+  const {
+    goToCoach
+  } = useNavigation();
+
   // Mobile optimizations removed for better performance
-  
+
   // Memoized handlers to prevent unnecessary re-renders
   const handleRefresh = useCallback(async () => {
     // Refresh profile data
@@ -114,14 +123,12 @@ const ProfileBuilder = ({
       onProfileUpdate(temporaryProfiles, temporaryDemographics);
     }
   }, [onProfileUpdate, temporaryProfiles, temporaryDemographics]);
-  
   const handleStartPersonalProfile = useCallback(() => {
     // Call the callback to open the questionnaire modal in Dashboard
     if (onOpenQuestionnaire) {
       onOpenQuestionnaire();
     }
   }, [onOpenQuestionnaire]);
-  
   const handleStartPartnerProfile = useCallback(() => {
     // Call the callback to open the partner questionnaire modal in Dashboard
     if (onOpenPartnerQuestionnaire) {
@@ -182,39 +189,31 @@ const ProfileBuilder = ({
     // This would need to be handled by the parent component
   };
   // Use consolidated mobile optimization hook
-  const { isMobile: isMobileDevice } = useOptimizedMobile();
-  
+  const {
+    isMobile: isMobileDevice
+  } = useOptimizedMobile();
+
   // Add touch event listeners for pull-to-refresh - DISABLED for performance
   useEffect(() => {
     // No mobile optimizations - they were causing freezing
     return () => {};
   }, []);
-
-  return (
-    <div className="flex flex-col min-h-dvh" data-profile-container>
+  return <div className="flex flex-col min-h-dvh" data-profile-container>
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4"
-           style={{ paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined }}>
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4" style={{
+      paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
+    }}>
         {/* Main Header - Responsive */}
         <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
-          {canUnlockCoaching && (
-            <div className="my-10 md:my-0 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-              <Button
-                variant="glass"
-                onClick={goToCoach}
-                className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
-              >
+          {canUnlockCoaching && <div className="my-10 md:my-0 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+              <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20">
                 <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-coaching-glow">
-                  <AvatarImage 
-                    src={BRAND.coach.avatarSrc} 
-                    alt={BRAND.coach.name}
-                    className="object-cover" 
-                  />
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white font-bold text-sm">
                     {BRAND.coach.name.charAt(0)}
                   </AvatarFallback>
@@ -224,75 +223,37 @@ const ProfileBuilder = ({
                   <MessageSquare className="w-4 h-4" />
                 </span>
               </Button>
-            </div>
-          )}
+            </div>}
         </div>
 
       {/* Main Content Area - Scrollable */}
       <div className="space-y-6 md:space-y-4 lg:space-y-6">
         {/* Step 1 Nudge - Only show if 4 required questions aren't complete */}
-        {!canUnlockCoaching && (
-          <div className="px-3 md:px-4 lg:px-6">
-            <OnboardingStepNudge 
-              completion={Math.round((completedRequiredFields / totalRequiredFields) * 100)}
-              onStartProfile={handleStartPersonalProfile}
-            />
-          </div>
-        )}
+        {!canUnlockCoaching && <div className="px-3 md:px-4 lg:px-6">
+            <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
+          </div>}
         {/* Responsive Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-5 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-5 -mt-4 md:mt-0" data-profile-cards-container>
           {/* Your Profile Card */}
-          <MemoizedProfileCard
-            title="Your Profile"
-            subheader="The real you → real advice"
-            completion={yourProfileCompletion} 
-            description="Just 4 required questions" 
-            benefits={[
-              { icon: <Star className="w-3 h-3 text-orange-300" />, text: "4 Qs, big feels" },
-              { icon: <Search className="w-3 h-3 text-orange-300" />, text: "Deep dive if you're down" }
-            ]}
-            onStartProfile={handleStartPersonalProfile} 
-            buttonText="Keep It Real" 
-            iconElement={
-              userInitial 
-                ? <span className="text-white font-bold text-base leading-none">{userInitial}</span>
-                : <Heart className="w-5 h-5 text-white" />
-            }
-            progressColor="text-orange-300" 
-            benefitColor="text-orange-300"
-            optionalPillImage={
-              !canUnlockCoaching ? (
-                <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
+          <MemoizedProfileCard title="Your Profile" subheader="The real you → real advice" completion={yourProfileCompletion} description="Just 4 required questions" benefits={[{
+            icon: <Star className="w-3 h-3 text-orange-300" />,
+            text: "4 Qs, big feels"
+          }, {
+            icon: <Search className="w-3 h-3 text-orange-300" />,
+            text: "Deep dive if you're down"
+          }]} onStartProfile={handleStartPersonalProfile} buttonText="Keep It Real" iconElement={userInitial ? <span className="text-white font-bold text-base leading-none">{userInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" optionalPillImage={!canUnlockCoaching ? <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
                   First Step: 4 Qs
-                </span>
-              ) : undefined
-            }
-            motivationText="The realer you, the smarter Kai"
-          />
+                </span> : undefined} motivationText="The realer you, the smarter Kai" />
 
           {/* Partner Profile Card */}
-        <MemoizedProfileCard
-          title="Your Person" 
-          subheader="See your story from both POVs"
-            completion={partnerProfileCompletion} 
-            description="" 
-            benefits={[
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Dual POV magic" },
-              { icon: <Star className="w-3 h-3 text-pink-300" />, text: "Hacks unlocked" }
-            ]}
-            onStartProfile={handleStartPartnerProfile} 
-            buttonText="Add Player 2" 
-            iconElement={
-              partnerInitial 
-                ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span>
-                : <Heart className="w-5 h-5 text-white" />
-            }
-            progressColor="text-pink-300" 
-            benefitColor="text-pink-300"
-            optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>}
-            motivationText="Bring your +1 for hotter takes"
-          />
+        <MemoizedProfileCard title="Your Person" subheader="See your story from both POVs" completion={partnerProfileCompletion} description="" benefits={[{
+            icon: <Star className="w-3 h-3 text-pink-300" />,
+            text: "Dual POV magic"
+          }, {
+            icon: <Star className="w-3 h-3 text-pink-300" />,
+            text: "Hacks unlocked"
+          }]} onStartProfile={handleStartPartnerProfile} buttonText="Add Player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>} motivationText="Bring your +1 for hotter takes" />
         </div>
 
 
@@ -316,18 +277,15 @@ const ProfileBuilder = ({
                 <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
                   <p>• No AI training on your conversations</p>
                   <p>• Only you and Kai see your profiles</p>
-                  <p>• Everything is encrypted and secure</p>
+                  <p>
+                  </p>
                   <p>• Your encryption key never leaves your device</p>
                   <p>• Optional anonymous analytics only</p>
                   <p>• You control your data completely</p>
                   <p>• Choose how long to keep your data</p>
                   <p>• Download backups anytime you want</p>
                   <p>• Delete your data or account anytime</p>
-                  <Link 
-                    to="/privacy-and-security"
-                    className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group"
-                    aria-label="Learn more about our privacy and security practices"
-                  >
+                  <Link to="/privacy-and-security" className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group" aria-label="Learn more about our privacy and security practices">
                     <span>Learn More</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                   </Link>
@@ -344,20 +302,15 @@ const ProfileBuilder = ({
       </div>
 
       {/* Modals for partner profile only */}
-      {showDemographics && (
-        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
+      {showDemographics && <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
           <Demographics profileType={activeProfileType} onComplete={handleDemographicsComplete} onClose={handleDemographicsClose} initialData={temporaryDemographics[activeProfileType]} />
-        </Suspense>
-      )}
+        </Suspense>}
 
-      {showForm && (
-        <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
+      {showForm && <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
           <ProfileForm profileType={activeProfileType} onClose={() => setShowForm(false)} onComplete={handleProfileComplete} initialProfiles={temporaryProfiles} initialDemographics={temporaryDemographics} />
-        </Suspense>
-      )}
+        </Suspense>}
 
       </div>
-    </div>
-  );
+    </div>;
 };
 export default ProfileBuilder;
