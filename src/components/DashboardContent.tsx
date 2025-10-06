@@ -138,7 +138,7 @@ const DashboardContent = ({
         );
       case "profile":
         return (
-          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0 overflow-y-auto h-full">
+          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 -mt-2 md:mt-0 overflow-y-auto h-full scrollbar-hide">
             <ProfileBuilder
               onProfileUpdate={onProfileUpdate}
               initialProfiles={temporaryProfiles}
@@ -192,7 +192,7 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container">
+    <div className="flex-1 min-h-0 overflow-y-auto dashboard-container scrollbar-hide">
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
         <div className="flex-1 min-h-0">
           {renderActiveTabContent}
