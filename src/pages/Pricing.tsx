@@ -68,7 +68,7 @@ const Pricing = () => {
       <div className="relative z-10">
         <SimpleHeader user={user} activeTab="plans" onSignInClick={() => navigate('/signin')} />
         
-        <div className="container mx-auto px-4 py-6 lg:pt-12">
+        <div className="container mx-auto px-4 pt-20 pb-6 lg:pt-24">
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
