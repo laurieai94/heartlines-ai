@@ -111,7 +111,7 @@ const ChatContainer = ({
             
             {/* Centered Onboarding Nudge - shown when profile incomplete */}
             {showCenteredNudge && (
-              <div className="flex items-center justify-center min-h-[50vh] md:min-h-[60vh]">
+              <div className="flex items-center justify-center py-8 md:py-12">
                 <OnboardingStepNudge
                   completion={profileCompletion}
                   onStartProfile={onStartProfile}
