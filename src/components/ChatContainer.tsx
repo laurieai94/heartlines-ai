@@ -90,7 +90,7 @@ const ChatContainer = ({
   const showCenteredNudge = accessLevel === 'profile-required' && chatHistory.length === 0;
 
   return (
-    <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
+    <div className={`flex-1 overflow-hidden relative bg-burgundy-950 ${showCenteredNudge ? 'min-h-[500px] md:min-h-[600px]' : 'min-h-0'}`}>
       <ScrollArea 
         viewportRef={viewportRef}
         className="h-full w-full"
