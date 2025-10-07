@@ -1,7 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import BrandMark from '@/components/BrandMark';
-import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
+import PhoneLockup from '@/components/Brand/PhoneLockup';
 import LoadingSpinner from './LoadingSpinner';
 
 interface ProductionSplashScreenProps {
@@ -33,16 +32,12 @@ const ProductionSplashScreen: React.FC<ProductionSplashScreenProps> = ({
       className
     )}>
       <div className="text-center space-y-6">
-        {/* Brand Mark */}
-        <BrandMark size="lg" className="mx-auto" />
-        
-        {/* Wordmark */}
-        {showWordmark && (
-          <HeartlinesWordmark 
-            size={wordmarkSize} 
-            className="text-white/90" 
-          />
-        )}
+        {/* Phone Lockup */}
+        <PhoneLockup 
+          size={wordmarkSize} 
+          showTagline={showWordmark}
+          className="mx-auto"
+        />
         
         {/* Title or Message */}
         {titleText ? (

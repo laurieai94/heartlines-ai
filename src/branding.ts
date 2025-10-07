@@ -5,8 +5,11 @@ export const BRAND = {
   iconSrc: "/heartlines-icon.png",
   // Backward compatibility - defaults to icon
   logoSrc: "/heartlines-icon.png",
+  // Phone + wordmark + tagline lockup
+  phoneLockupSrc: "/lovable-uploads/heartlines-phone-lockup.png",
   name: "heartlines",
   alt: "heartlines logo",
+  tagline: "powered by laurie ai",
   coach: {
     name: "Kai",
     avatarSrc: "/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png"

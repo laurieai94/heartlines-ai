@@ -1,4 +1,5 @@
 import React from "react";
+import PhoneLockup from "@/components/Brand/PhoneLockup";
 
 interface SplashScreenProps {
   message?: string;
@@ -33,19 +34,18 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         {/* Left line */}
         {showWordmark && <div className="w-12 sm:w-24 md:w-40 lg:w-64 h-px bg-white/40 origin-left animate-line-left-sequence motion-reduce:hidden" />}
         
-        {/* Text */}
+        {/* Phone Lockup or Text */}
         <div className="text-center">
           {showWordmark && (
-            <h1 
-              className="font-brand font-normal tracking-wide text-white opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
+            <div 
+              className="opacity-0 animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100"
               style={{ 
-                fontSize: wordmarkSizeClasses[wordmarkSize],
                 animationDelay: '900ms', 
                 animationFillMode: 'forwards' 
               }}
             >
-              {titleText}
-            </h1>
+              <PhoneLockup size={wordmarkSize} showTagline={true} />
+            </div>
           )}
           {message && (
             <p 
