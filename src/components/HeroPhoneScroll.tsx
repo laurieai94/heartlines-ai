@@ -6,6 +6,11 @@ import { Heart } from "lucide-react";
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
+import sarahAvatar from '@/assets/money-woman-avatar.png';
+import mayaAvatar from '@/assets/millennial-african-american-woman.png';
+import alexAvatar from '@/assets/gay-man-avatar.png';
+import jordanAvatar from '@/assets/moving-in-avatar.png';
+import marcusAvatar from '@/assets/new-dad-avatar.png';
 
 interface HeroPhoneScrollProps {
   className?: string;
@@ -20,52 +25,37 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isLoopActive, setIsLoopActive] = useState(false);
   const [isInView, setIsInView] = useState(false);
-  const [loadedAvatars, setLoadedAvatars] = useState<Record<string, string>>({});
   const messagesRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentConversation = demoConversations[currentConversationIndex];
   
-  // Avatar mapping - lazy loaded
-  const avatarMap: Record<string, () => Promise<{ default: string }>> = {
-    'Sarah': () => import('@/assets/money-woman-avatar.png'),
-    'Maya': () => import('@/assets/millennial-african-american-woman.png'),
-    'Alex': () => import('@/assets/gay-man-avatar.png'),
-    'Jordan': () => import('@/assets/moving-in-avatar.png'),
-    'Marcus': () => import('@/assets/new-dad-avatar.png'),
+  // Avatar mapping - static imports for instant loading
+  const avatarMap: Record<string, string> = {
+    'Sarah': sarahAvatar,
+    'Maya': mayaAvatar,
+    'Alex': alexAvatar,
+    'Jordan': jordanAvatar,
+    'Marcus': marcusAvatar,
   };
 
   // Get the appropriate avatar based on userName
   const getUserAvatar = () => {
-    return loadedAvatars[currentConversation.userName] || undefined;
+    return avatarMap[currentConversation.userName];
   };
 
-  // Preload critical images on mount
+  // Preload ALL critical images on mount for instant loading
   useEffect(() => {
     preloadCriticalImages([
       BRAND.coach.avatarSrc,
-      BRAND.phoneLockupSrc
+      BRAND.phoneLockupSrc,
+      sarahAvatar,
+      mayaAvatar,
+      alexAvatar,
+      jordanAvatar,
+      marcusAvatar
     ]);
   }, []);
-
-  // Lazy load user avatar for current conversation
-  useEffect(() => {
-    const userName = currentConversation.userName;
-    if (!userName || loadedAvatars[userName] || !avatarMap[userName]) return;
-
-    avatarMap[userName]().then((module) => {
-      setLoadedAvatars(prev => ({ ...prev, [userName]: module.default }));
-    });
-
-    // Preload next conversation's avatar
-    const nextIndex = (currentConversationIndex + 1) % demoConversations.length;
-    const nextUserName = demoConversations[nextIndex]?.userName;
-    if (nextUserName && !loadedAvatars[nextUserName] && avatarMap[nextUserName]) {
-      avatarMap[nextUserName]().then((module) => {
-        setLoadedAvatars(prev => ({ ...prev, [nextUserName]: module.default }));
-      });
-    }
-  }, [currentConversationIndex, currentConversation.userName, loadedAvatars]);
 
   // Reset when conversation changes
   useEffect(() => {
@@ -268,7 +258,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                        <AvatarImage 
                          src={getUserAvatar()} 
                          alt={currentConversation.userName || 'You'} 
-                         loading="lazy"
+                         loading={visibleMessages.indexOf(message) === 0 ? "eager" : "lazy"}
+                         fetchPriority={visibleMessages.indexOf(message) === 0 ? "high" : "auto"}
                        />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                          {currentConversation.userName?.[0] || 'Y'}
