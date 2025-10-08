@@ -113,24 +113,14 @@ export const HeroCarousel: React.FC = () => {
           {/* Dark Gradient Overlay for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-          {/* Heartlines Wordmark - Top Right */}
+          {/* Heartlines Watermark - Top Right */}
           <div className="absolute top-4 right-8 md:right-16 z-10">
-            <HeartlinesWordmark size="lg" className="text-white italic drop-shadow-lg" />
+            <span className="text-4xl font-brand text-white drop-shadow-lg">heartlines</span>
           </div>
 
-          {/* Year Number with Gradient - Bottom Left */}
+          {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-12 left-8 md:left-16 right-8 md:right-16 z-10">
-            <h2
-              className="text-7xl md:text-8xl font-brand leading-none mb-2 w-fit"
-              style={{
-                background: "linear-gradient(90deg, #F97066 0%, #ec4899 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                MozBackgroundClip: "text",
-                MozTextFillColor: "transparent",
-                backgroundClip: "text"
-              } as React.CSSProperties}
-            >
+            <h2 className="text-7xl md:text-8xl font-brand leading-none mb-2 text-[#F97066]">
               {slide.year}
             </h2>
             
