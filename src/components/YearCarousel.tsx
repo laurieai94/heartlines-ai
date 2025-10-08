@@ -153,9 +153,9 @@ export const YearCarousel = () => {
         plugins={[autoplay]}
         className="w-full"
       >
-        <CarouselContent>
+        <CarouselContent className="ml-0">
           {shuffledSlides.map((slide, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} className="pl-0">
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Loading Placeholder */}
                 {!imagesLoaded.has(index) && (
