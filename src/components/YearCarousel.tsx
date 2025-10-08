@@ -173,7 +173,7 @@ export const YearCarousel = () => {
                     <h2 className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-8xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl leading-none">
                       {slide.year}
                     </h2>
-                    <p className="text-white font-playfair text-lg md:text-xl lg:text-2xl font-normal drop-shadow-lg">
+                    <p className="text-white font-glacial text-lg md:text-xl lg:text-2xl font-normal drop-shadow-lg">
                       Love, but make it last.
                     </p>
                   </div>

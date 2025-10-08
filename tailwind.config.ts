@@ -98,6 +98,7 @@ export default {
 				serif: ['Crimson Text', 'Georgia', 'Times New Roman', 'serif'],
 				brand: ['Shrikhand', 'Inter', 'system-ui', 'sans-serif'],
 				playfair: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
+				glacial: ['Glacial Indifference', 'Inter', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
