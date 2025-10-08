@@ -317,7 +317,7 @@ const LandingPage = ({
       
       {/* Persistent Heartlines Watermark - Top Right */}
       <div className="fixed top-20 right-4 md:right-8 z-40 pointer-events-none">
-        <span className="font-brand text-2xl md:text-3xl text-white/30 drop-shadow-lg">
+        <span className="font-brand text-2xl md:text-3xl text-white drop-shadow-lg">
           heartlines
         </span>
       </div>
