@@ -136,16 +136,18 @@ export const YearCarousel = () => {
         opts={{
           align: 'start',
           loop: true,
-          dragFree: false,
+          watchDrag: false,
           skipSnaps: false,
-          duration: 800
+          duration: 800,
+          containScroll: 'trimSnaps',
+          slidesToScroll: 1
         }}
         plugins={[autoplay]}
         className="w-full"
       >
         <CarouselContent className="ml-0">
           {shuffledSlides.map((slide, index) => (
-            <CarouselItem key={index} className="pl-0">
+            <CarouselItem key={index} className="pl-0 basis-full">
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
                 <img
