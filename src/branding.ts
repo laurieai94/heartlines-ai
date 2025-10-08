@@ -6,7 +6,7 @@ export const BRAND = {
   // Backward compatibility - defaults to icon
   logoSrc: "/heartlines-icon.png",
   // Phone + wordmark + tagline lockup
-  phoneLockupSrc: "/lovable-uploads/heartlines-phone-lockup.png",
+  phoneLockupSrc: "/lovable-uploads/heartlines-phone-lockup-new.png",
   name: "heartlines",
   alt: "heartlines logo",
   tagline: "powered by laurie ai",
