@@ -155,7 +155,7 @@ export const YearCarousel = () => {
           loop: true,
           dragFree: false,
           skipSnaps: false,
-          duration: 25
+          duration: 800
         }}
         plugins={[autoplay]}
         className="w-full"
