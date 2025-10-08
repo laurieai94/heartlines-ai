@@ -6,6 +6,10 @@ import alexAvatar from '@/assets/gay-man-avatar.png';
 import jordanAvatar from '@/assets/moving-in-avatar.png';
 import marcusAvatar from '@/assets/new-dad-avatar.png';
 
+// Import first two carousel images as critical resources
+import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.png';
+import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
+
 export const CRITICAL_IMAGES = [
   BRAND.coach.avatarSrc,
   BRAND.phoneLockupSrc,
@@ -13,7 +17,10 @@ export const CRITICAL_IMAGES = [
   mayaAvatar,
   alexAvatar,
   jordanAvatar,
-  marcusAvatar
+  marcusAvatar,
+  // First two carousel images for immediate hero display
+  warmGatheringImage,
+  elderlyCouplePrideLivingRoomImage
 ] as const;
 
 export type CriticalImage = typeof CRITICAL_IMAGES[number];

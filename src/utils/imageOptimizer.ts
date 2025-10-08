@@ -74,7 +74,7 @@ export const createResponsiveImageSources = (baseSrc: string) => {
   };
 };
 
-// Preload critical images
+// Preload critical images with improved prioritization
 export const preloadCriticalImages = (imageSources: string[]) => {
   if (typeof window === 'undefined') return;
   
@@ -83,9 +83,29 @@ export const preloadCriticalImages = (imageSources: string[]) => {
     link.rel = 'preload';
     link.as = 'image';
     link.href = src;
-    if (index === 0) {
+    // High priority for first 2 images only
+    if (index === 0 || index === 1) {
       link.fetchPriority = 'high';
     }
+    document.head.appendChild(link);
+  });
+};
+
+// Generate blur-up placeholder from full image URL
+export const getBlurPlaceholder = (src: string): string => {
+  // For now, return empty string - in production, this would return a base64 tiny blur image
+  // This can be enhanced with build-time image processing
+  return '';
+};
+
+// Add DNS prefetch for external image domains
+export const prefetchImageDomains = (domains: string[]) => {
+  if (typeof window === 'undefined') return;
+  
+  domains.forEach(domain => {
+    const link = document.createElement('link');
+    link.rel = 'dns-prefetch';
+    link.href = domain;
     document.head.appendChild(link);
   });
 };

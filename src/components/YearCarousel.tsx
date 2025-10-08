@@ -122,7 +122,9 @@ export const YearCarousel = () => {
                   src={slide.image}
                   alt={slide.alt}
                   className="absolute inset-0 w-full h-full object-cover"
-                  loading={index === 0 ? 'eager' : 'lazy'}
+                  loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
+                  fetchPriority={index === 0 ? 'high' : 'low'}
+                  decoding="async"
                 />
                 
                 {/* Gradient Overlay */}
