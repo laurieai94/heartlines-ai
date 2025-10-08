@@ -1,5 +1,4 @@
 import React from 'react';
-import { LazySection } from '../LazySection';
 
 interface TimelineStop {
   title: string;
@@ -95,61 +94,56 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
       {/* Timeline Stops */}
       <div className="space-y-6 md:space-y-8">
         {stops.map((stop, index) => (
-          <LazySection 
+          <div 
             key={index}
-            threshold={0.2}
-            rootMargin="50px"
+            className="relative animate-fade-in"
+            style={{
+              animationDelay: `${index * 0.15}s`
+            }}
           >
-            <div 
-              className="relative animate-fade-in"
+            {/* Center Dot - Hidden */}
+            <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
               style={{
-                animationDelay: `${index * 0.15}s`
+                boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
               }}
-            >
-              {/* Center Dot - Hidden */}
-              <div className="hidden absolute left-1/2 top-8 w-5 h-5 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-pink-400 via-coral-400 to-orange-400 rounded-full border-4 border-burgundy-900 z-10 group-hover:scale-125 transition-transform duration-300"
-                style={{
-                  boxShadow: '0 0 15px hsl(var(--pink-400) / 0.6), 0 0 30px hsl(var(--coral-400) / 0.4), 0 0 45px hsl(var(--orange-400) / 0.2)'
-                }}
-              />
+            />
 
-              {/* Card with Enhanced Hover Effects */}
-              <div className={`
-                relative mx-auto max-w-md z-10
-                glass-burgundy-solid rounded-2xl p-3.5 md:p-4
-                border border-coral-400/20
-                hover:border-pink-400/40
-                group hover:-translate-y-1 hover:translate-x-0.5
-                transition-all duration-300 ease-out
-                hover:shadow-2xl hover:shadow-pink-400/30
-                before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-300
-              `}>
-                {/* Icon with Pink-Orange Gradient Background */}
-                <div className="flex justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
-                  <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
-                    {stop.icon}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
-                  {stop.title}
-                </h3>
-
-                {/* Subtitle */}
-                <div className="text-center">
-                  <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
-                    {stop.subtitle.split('(')[0].trim()}
-                  </p>
-                  {stop.subtitle.includes('(') && (
-                    <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
-                      ({stop.subtitle.split('(')[1]}
-                    </p>
-                  )}
+            {/* Card with Enhanced Hover Effects */}
+            <div className={`
+              relative mx-auto max-w-md z-10
+              glass-burgundy-solid rounded-2xl p-3.5 md:p-4
+              border border-coral-400/20
+              hover:border-pink-400/40
+              group hover:-translate-y-1 hover:translate-x-0.5
+              transition-all duration-300 ease-out
+              hover:shadow-2xl hover:shadow-pink-400/30
+              before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-pink-500/0 before:via-coral-400/0 before:to-orange-400/0 before:opacity-0 hover:before:opacity-10 before:transition-opacity before:duration-300
+            `}>
+              {/* Icon with Pink-Orange Gradient Background */}
+              <div className="flex justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
+                <div className="p-3 bg-gradient-to-br from-pink-400/25 via-coral-400/20 to-orange-400/25 rounded-2xl backdrop-blur-sm group-hover:shadow-lg group-hover:shadow-pink-400/20 transition-shadow duration-300">
+                  {stop.icon}
                 </div>
               </div>
+
+              {/* Title */}
+              <h3 className="text-white text-xl md:text-2xl font-bold text-center mb-2 leading-tight">
+                {stop.title}
+              </h3>
+
+              {/* Subtitle */}
+              <div className="text-center">
+                <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
+                  {stop.subtitle.split('(')[0].trim()}
+                </p>
+                {stop.subtitle.includes('(') && (
+                  <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
+                    ({stop.subtitle.split('(')[1]}
+                  </p>
+                )}
+              </div>
             </div>
-          </LazySection>
+          </div>
         ))}
       </div>
     </div>
