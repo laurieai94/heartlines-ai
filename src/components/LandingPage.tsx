@@ -316,7 +316,7 @@ const LandingPage = ({
       <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
       
       {/* Persistent Heartlines Watermark - Top Right */}
-      <div className="fixed top-28 right-4 md:right-6 z-40 pointer-events-none">
+      <div className="fixed top-28 right-6 md:right-10 z-40 pointer-events-none">
         <span className="font-brand text-2xl md:text-3xl text-white drop-shadow-lg">
           heartlines
         </span>
