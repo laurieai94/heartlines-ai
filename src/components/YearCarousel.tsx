@@ -12,6 +12,9 @@ import elderlyCouplePrideImage from '@/assets/elderly-couple-pride-living-room.w
 import elderlyCoupleVintageImage from '@/assets/elderly-couple-vintage-living-room.webp';
 import elderlyAsianCoupleImage from '@/assets/elderly-asian-couple-modern-apartment.webp';
 import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
+import elderlyFriendsCatsImage from '@/assets/elderly-friends-cats-city-apartment.webp';
+import elderlyWomenPeaceRetroImage from '@/assets/elderly-women-peace-retro-living-room.webp';
+import elderlyCoupleWarmVintageImage from '@/assets/elderly-couple-warm-vintage-living-room.webp';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -65,6 +68,21 @@ const slides: CarouselSlide[] = [
     year: '2093',
     image: elderlyManPortraitImage,
     alt: 'Elderly man holding a framed memory in his living room'
+  },
+  {
+    year: '2054',
+    image: elderlyFriendsCatsImage,
+    alt: 'Elderly friends sharing warmth with their beloved cats in a cozy city apartment'
+  },
+  {
+    year: '2069',
+    image: elderlyWomenPeaceRetroImage,
+    alt: 'Two elderly women in their vibrant retro living room decorated with peace symbols and colorful memories'
+  },
+  {
+    year: '2082',
+    image: elderlyCoupleWarmVintageImage,
+    alt: 'Elderly couple sharing warm smiles in their vintage living room filled with decades of love'
   }
 ];
 
