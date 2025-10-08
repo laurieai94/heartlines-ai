@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
+import { BRAND } from "@/branding";
 import image2016 from "@/assets/hero-carousel/elderly-native-american-women.webp";
 import image2018 from "@/assets/hero-carousel/joyful-heritage-living-room.webp";
 import image2020 from "@/assets/hero-carousel/cowboys-with-wheelchair.webp";
@@ -115,7 +116,11 @@ export const HeroCarousel: React.FC = () => {
 
           {/* Heartlines Watermark - Top Right */}
           <div className="absolute top-4 right-8 md:right-16 z-50">
-            <span className="text-4xl font-brand text-white drop-shadow-lg">heartlines</span>
+            <img 
+              src={BRAND.wordmarkSrc} 
+              alt="heartlines" 
+              className="h-10 md:h-12 drop-shadow-2xl"
+            />
           </div>
 
           {/* Year Number - Bottom Left */}
