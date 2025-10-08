@@ -17,7 +17,7 @@ import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
-
+import HeroCarousel from "./HeroCarousel";
 import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
@@ -326,9 +326,11 @@ const LandingPage = ({
           </div>
           <div className="absolute bottom-1/3 left-1/4 font-mono text-xs text-pink-200">
             {`return personalized.advice.filter(advice => advice.isRelevant)`}
-          </div>
-        </div>}
+        </div>
+      </div>}
 
+      {/* Full-Bleed Hero Carousel */}
+      <HeroCarousel />
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
