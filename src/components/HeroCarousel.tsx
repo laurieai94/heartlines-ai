@@ -114,15 +114,6 @@ export const HeroCarousel: React.FC = () => {
           {/* Dark Gradient Overlay for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-          {/* Heartlines Watermark - Top Right */}
-          <div className="absolute top-4 right-8 md:right-16 z-50">
-            <img 
-              src={BRAND.wordmarkSrc} 
-              alt="heartlines" 
-              className="h-10 md:h-12 drop-shadow-2xl"
-            />
-          </div>
-
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-12 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 className="text-7xl md:text-8xl font-brand leading-none mb-2 text-[#F97066]">
@@ -136,6 +127,15 @@ export const HeroCarousel: React.FC = () => {
           </div>
         </div>
       ))}
+      
+      {/* Heartlines Watermark - Always visible, outside slide loop */}
+      <div className="absolute top-4 right-8 md:right-16 z-50">
+        <img 
+          src={BRAND.wordmarkSrc} 
+          alt="heartlines" 
+          className="h-10 md:h-12 drop-shadow-2xl"
+        />
+      </div>
     </div>
   );
 };
