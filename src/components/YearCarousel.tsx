@@ -143,9 +143,9 @@ export const YearCarousel = () => {
           slidesToScroll: 1
         }}
         plugins={[autoplay]}
-        className="w-full"
+        className="w-full [&_.overflow-hidden]:pointer-events-none [&_.overflow-hidden]:touch-none"
       >
-        <CarouselContent className="!ml-0 pointer-events-none">
+        <CarouselContent className="!ml-0">
           {shuffledSlides.map((slide, index) => (
             <CarouselItem key={index} className="!pl-0 basis-full">
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
