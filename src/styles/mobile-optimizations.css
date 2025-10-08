@@ -87,7 +87,7 @@ html, body, #root {
   }
   
   /* Optimize touch targets */
-  button, [role="button"], a {
+  button:not([data-header-element]), [role="button"]:not([data-header-element]), a:not([data-header-element]) {
     min-height: 44px;
     min-width: 44px;
     /* Hardware acceleration */
