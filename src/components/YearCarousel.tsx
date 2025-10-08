@@ -151,7 +151,7 @@ export const YearCarousel = () => {
       <Carousel
         setApi={setApi}
         opts={{
-          align: 'center',
+          align: 'start',
           loop: true,
           dragFree: false,
           skipSnaps: false,
