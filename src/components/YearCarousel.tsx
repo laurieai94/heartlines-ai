@@ -99,7 +99,6 @@ export const YearCarousel = () => {
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0]));
   const preloadTriggered = useRef(false);
 
   // Preload all carousel images in parallel after mount
@@ -110,22 +109,6 @@ export const YearCarousel = () => {
     // Preload all images in parallel
     const imageUrls = shuffledSlides.map(slide => slide.image);
     preloadCriticalImages(imageUrls);
-
-    // Track loaded images with error handling and timeout fallback
-    imageUrls.forEach((src, index) => {
-      const img = new Image();
-      
-      const markAsLoaded = () => {
-        setImagesLoaded(prev => new Set([...prev, index]));
-      };
-      
-      img.onload = markAsLoaded;
-      img.onerror = markAsLoaded; // Show image even if there's an error
-      img.src = src;
-      
-      // Fallback: mark as loaded after 3 seconds regardless
-      setTimeout(markAsLoaded, 3000);
-    });
   }, [shuffledSlides]);
 
   const autoplay = useMemo(() => 
@@ -164,18 +147,11 @@ export const YearCarousel = () => {
           {shuffledSlides.map((slide, index) => (
             <CarouselItem key={index} className="pl-0">
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
-                {/* Loading Placeholder */}
-                {!imagesLoaded.has(index) && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-950 animate-pulse" />
-                )}
-                
                 {/* Image */}
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                    imagesLoaded.has(index) ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className="absolute inset-0 w-full h-full object-cover"
                   loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"
