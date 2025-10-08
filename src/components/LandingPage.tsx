@@ -17,7 +17,7 @@ import { useScrollDirection } from '@/hooks/useScrollDirection';
 import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
-import { YearCarousel } from "./YearCarousel";
+import { YearCarouselSimple } from "./YearCarouselSimple";
 import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
@@ -331,7 +331,7 @@ const LandingPage = ({
 
       {/* Full-Bleed Year Carousel - Above the Fold */}
       <div className={showMarketingTopBar ? 'pt-16' : 'pt-16'}>
-        <YearCarousel />
+        <YearCarouselSimple />
       </div>
 
       {/* Hero Section - Locked layout with flame background */}
