@@ -3,13 +3,9 @@ import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart } from "lucide-react";
-import MayaAvatar from '@/assets/millennial-african-american-woman.png';
-import AlexAvatar from '@/assets/gay-man-avatar.png';
-import SarahAvatar from '@/assets/money-woman-avatar.png';
-import JordanAvatar from '@/assets/moving-in-avatar.png';
-import MarcusAvatar from '@/assets/new-dad-avatar.png';
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
+import { preloadCriticalImages } from '@/utils/imageOptimizer';
 
 interface HeroPhoneScrollProps {
   className?: string;
@@ -24,20 +20,52 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isLoopActive, setIsLoopActive] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [loadedAvatars, setLoadedAvatars] = useState<Record<string, string>>({});
   const messagesRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentConversation = demoConversations[currentConversationIndex];
   
+  // Avatar mapping - lazy loaded
+  const avatarMap: Record<string, () => Promise<{ default: string }>> = {
+    'Sarah': () => import('@/assets/money-woman-avatar.png'),
+    'Maya': () => import('@/assets/millennial-african-american-woman.png'),
+    'Alex': () => import('@/assets/gay-man-avatar.png'),
+    'Jordan': () => import('@/assets/moving-in-avatar.png'),
+    'Marcus': () => import('@/assets/new-dad-avatar.png'),
+  };
+
   // Get the appropriate avatar based on userName
   const getUserAvatar = () => {
-    if (currentConversation.userName === 'Sarah') return SarahAvatar;
-    if (currentConversation.userName === 'Maya') return MayaAvatar;
-    if (currentConversation.userName === 'Alex') return AlexAvatar;
-    if (currentConversation.userName === 'Jordan') return JordanAvatar;
-    if (currentConversation.userName === 'Marcus') return MarcusAvatar;
-    return undefined; // No avatar for generic "You"
+    return loadedAvatars[currentConversation.userName] || undefined;
   };
+
+  // Preload critical images on mount
+  useEffect(() => {
+    preloadCriticalImages([
+      BRAND.coach.avatarSrc,
+      BRAND.phoneLockupSrc
+    ]);
+  }, []);
+
+  // Lazy load user avatar for current conversation
+  useEffect(() => {
+    const userName = currentConversation.userName;
+    if (!userName || loadedAvatars[userName] || !avatarMap[userName]) return;
+
+    avatarMap[userName]().then((module) => {
+      setLoadedAvatars(prev => ({ ...prev, [userName]: module.default }));
+    });
+
+    // Preload next conversation's avatar
+    const nextIndex = (currentConversationIndex + 1) % demoConversations.length;
+    const nextUserName = demoConversations[nextIndex]?.userName;
+    if (nextUserName && !loadedAvatars[nextUserName] && avatarMap[nextUserName]) {
+      avatarMap[nextUserName]().then((module) => {
+        setLoadedAvatars(prev => ({ ...prev, [nextUserName]: module.default }));
+      });
+    }
+  }, [currentConversationIndex, currentConversation.userName, loadedAvatars]);
 
   // Reset when conversation changes
   useEffect(() => {
@@ -187,7 +215,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
             <div className="bg-gradient-to-r from-burgundy-700/30 to-burgundy-600/20 backdrop-blur-md border-b border-white/10 px-2 py-1.5 flex items-center">
               <FlameIconHalo intensity="subtle" size="sm" animated={true}>
                 <Avatar className="w-9 h-9 mr-3 ring-2 ring-burgundy-400/40">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
+                  <AvatarImage 
+                    src={BRAND.coach.avatarSrc} 
+                    alt={BRAND.coach.name} 
+                    loading="eager" 
+                    fetchPriority="high"
+                    decoding="async" 
+                  />
                   <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white font-semibold">
                     <Heart className="w-4 h-4" />
                   </AvatarFallback>
@@ -210,7 +244,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                   {message.type === 'assistant' && (
                    <FlameIconHalo intensity="subtle" size="sm" animated={false}>
                      <Avatar className="w-6 h-6 flex-shrink-0">
-                       <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
+                       <AvatarImage 
+                         src={BRAND.coach.avatarSrc} 
+                         alt={BRAND.coach.name} 
+                         loading="lazy" 
+                         decoding="async" 
+                       />
                        <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                          <Heart className="w-3 h-3" />
                        </AvatarFallback>
@@ -226,7 +265,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                    </ChatBubble>
                    {message.type === 'user' && (
                      <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                       <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
+                       <AvatarImage 
+                         src={getUserAvatar()} 
+                         alt={currentConversation.userName || 'You'} 
+                         loading="lazy"
+                       />
                        <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                          {currentConversation.userName?.[0] || 'Y'}
                        </AvatarFallback>
@@ -239,7 +282,12 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               {isTyping && typingSide === 'assistant' && (
                 <div className="flex gap-2 items-end justify-start animate-fade-in" aria-live="polite">
                   <Avatar className="w-6 h-6 flex-shrink-0">
-                     <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} loading="eager" decoding="async" />
+                     <AvatarImage 
+                       src={BRAND.coach.avatarSrc} 
+                       alt={BRAND.coach.name} 
+                       loading="lazy" 
+                       decoding="async" 
+                     />
                      <AvatarFallback className="bg-gradient-to-r from-burgundy-500 to-burgundy-600 text-white text-xs">
                        <Heart className="w-3 h-3" />
                      </AvatarFallback>
@@ -265,7 +313,11 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                     </div>
                   </div>
                    <Avatar className="w-6 h-6 flex-shrink-0 ring-2 ring-coral-400/40">
-                     <AvatarImage src={getUserAvatar()} alt={currentConversation.userName || 'You'} />
+                     <AvatarImage 
+                       src={getUserAvatar()} 
+                       alt={currentConversation.userName || 'You'} 
+                       loading="lazy"
+                     />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                        {currentConversation.userName?.[0] || 'Y'}
                      </AvatarFallback>
