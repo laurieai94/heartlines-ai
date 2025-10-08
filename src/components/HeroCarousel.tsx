@@ -114,7 +114,7 @@ export const HeroCarousel: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
           {/* Heartlines Watermark - Top Right */}
-          <div className="absolute top-4 right-8 md:right-16 z-10">
+          <div className="absolute top-4 right-8 md:right-16 z-50">
             <span className="text-4xl font-brand text-white drop-shadow-lg">heartlines</span>
           </div>
 
