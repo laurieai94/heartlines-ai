@@ -514,6 +514,16 @@ const LandingPage = ({
               iconName: "sparkles"
             }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
             </div>
+
+            {/* Get Started CTA */}
+            <div className="mt-12 md:mt-16 text-center">
+              <Link to="/signup">
+                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border border-white/20 font-light text-lg md:text-xl">
+                  <Sparkles className="w-5 h-5 md:w-6 md:w-6 mr-2" />
+                  Get Started
+                </Button>
+              </Link>
+            </div>
           </div>
 
         </div>
