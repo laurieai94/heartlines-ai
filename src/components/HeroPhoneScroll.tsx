@@ -307,7 +307,8 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                      <AvatarImage 
                        src={getUserAvatar()} 
                        alt={currentConversation.userName || 'You'} 
-                       loading="lazy"
+                       loading="eager"
+                       decoding="async"
                      />
                      <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white text-xs">
                        {currentConversation.userName?.[0] || 'Y'}
