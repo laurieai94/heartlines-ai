@@ -123,7 +123,7 @@ export const HeroCarousel: React.FC = () => {
             <h2
               className="text-7xl md:text-8xl font-brand leading-none mb-2"
               style={{
-                background: "linear-gradient(90deg, #E94B8C 0%, #F97066 50%, #FFB347 100%)",
+                background: "linear-gradient(90deg, #E94B8C 0%, #F97066 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text"
