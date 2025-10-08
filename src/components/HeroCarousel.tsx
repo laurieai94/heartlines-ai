@@ -64,7 +64,7 @@ export const HeroCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden pointer-events-none">
+    <div className="relative h-screen w-full overflow-hidden pointer-events-none -mt-20">
       {slides.map((slide, index) => (
         <div
           key={slide.year}
@@ -84,12 +84,12 @@ export const HeroCarousel: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
           {/* Heartlines Wordmark - Top Right */}
-          <div className="absolute top-8 right-8 md:right-16 z-10">
+          <div className="absolute top-4 right-8 md:right-16 z-10">
             <HeartlinesWordmark size="lg" className="text-white italic" />
           </div>
 
           {/* Year Number with Gradient - Bottom Left */}
-          <div className="absolute bottom-12 md:bottom-20 left-8 md:left-16 z-10">
+          <div className="absolute bottom-6 md:bottom-12 left-8 md:left-16 z-10">
             <h2
               className="text-7xl md:text-8xl font-brand leading-none mb-2"
               style={{
