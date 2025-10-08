@@ -141,15 +141,11 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
     
     if (!isMobile) return;
 
-    // More responsive scroll-based visibility logic
-    if (scrollDirection === 'up' && scrollTop > 50) { // Reduced from 100px
+    // Keep header always visible - no hiding on scroll down
+    if (scrollDirection === 'up' && scrollTop > 50) {
       setVisible(true);
-    } else if (scrollDirection === 'down' && scrollTop > 150) { // Reduced from 200px
-      // Only hide if not currently pulling and not near top
-      if (!isPulling && scrollTop > 100) {
-        setVisible(false);
-      }
     }
+    // Removed the scroll-down hiding logic
   };
 
   return {

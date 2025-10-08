@@ -68,13 +68,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
           : 'pl-4 pr-2 py-3' // Normal padding on other pages
       }`}>
         
-        {/* Mobile Navigation - Hide in coach mode when scrolling */}
+        {/* Mobile Navigation - Always visible */}
         <div className={`flex items-center justify-between md:hidden transition-all duration-150 ${
           isCoachMode ? 'min-h-[44px]' : 'min-h-[56px]'
-        } ${
-          isMobile && isCoachMode && !visible 
-            ? '-translate-y-full opacity-0 pointer-events-none' 
-            : 'translate-y-0 opacity-100 pointer-events-auto'
         }`}>
           <div className={`flex items-center ${isCoachMode ? 'gap-2' : 'gap-3'}`}>
             <Popover>
