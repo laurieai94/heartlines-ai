@@ -274,7 +274,7 @@ const LandingPage = ({
                     </Button>
                   </Link>
                   <Link to="/signup">
-                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                     Chat with Kai
                     </Button>
                   </Link>
@@ -285,7 +285,7 @@ const LandingPage = ({
                     </Button>
                   </Link>
                   <Link to="/signup">
-                    <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                       Chat with Kai
                     </Button>
                   </Link>
@@ -303,7 +303,7 @@ const LandingPage = ({
                   </Button>
                 </Link>
                 <Link to="/signup">
-                  <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
+                  <Button className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
                     Get Started
                   </Button>
                 </Link>
@@ -432,7 +432,7 @@ const LandingPage = ({
                           </Button>
                         </Link>
                         <Link to="/profile">
-                          <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in">
+                          <Button className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in">
                             Open Dashboard
                             <ArrowRight className="w-5 h-5 ml-3" />
                           </Button>
