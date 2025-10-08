@@ -18,6 +18,7 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import HeroCarousel from "./HeroCarousel";
+import { FloatingCTAButton } from "./FloatingCTAButton";
 import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
@@ -515,21 +516,6 @@ const LandingPage = ({
             </div>
           </div>
 
-          {/* CTA after How It Works */}
-          <div className="mt-12 md:mt-16 text-center">
-            <div className="inline-block px-8 py-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 shadow-2xl">
-              <h3 className="text-2xl md:text-3xl font-brand text-white mb-4">
-                Start Building Your Profile
-              </h3>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-6 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 font-light">
-                  Get Started
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -597,21 +583,6 @@ const LandingPage = ({
               icon: <ShieldIcon />
             }
           ]} />
-
-          {/* CTA after Why We're Different */}
-          <div className="mt-12 md:mt-16 text-center">
-            <div className="inline-block px-8 py-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 shadow-2xl">
-              <h3 className="text-2xl md:text-3xl font-brand text-white mb-4">
-                Experience Real Relationship Support
-              </h3>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-6 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 font-light">
-                  Get Started
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -624,6 +595,7 @@ const LandingPage = ({
 
       {/* Footer */}
       <SiteFooter />
+      <FloatingCTAButton />
     </div>
   </>;
 };

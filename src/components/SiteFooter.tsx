@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Target } from "lucide-react";
 import { BRAND } from "@/branding";
-import { Button } from "@/components/ui/button";
 const SiteFooter = () => {
   const footerSections = [{
     title: "App",
@@ -44,22 +43,6 @@ const SiteFooter = () => {
   }];
   return <footer className="py-12 bg-black/50 backdrop-blur-sm border-t border-white/10">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Pre-Footer CTA Banner */}
-        <div className="mb-12 text-center py-8 px-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10">
-          <h3 className="text-2xl md:text-3xl font-brand text-white mb-3">
-            Ready to strengthen your connection?
-          </h3>
-          <p className="text-white/70 text-base mb-6 max-w-xl mx-auto">
-            Join couples who are building healthier relationships with AI-powered coaching
-          </p>
-          <Link to="/signup">
-            <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 font-light">
-              Chat with Kai Now
-              <MessageSquare className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
-        </div>
-
         {/* Mobile Layout: Brand on top, then 2 columns */}
         <div className="md:hidden mb-8">
           {/* Brand Section - Full Width */}
