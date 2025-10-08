@@ -16,37 +16,37 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    year: "2016",
+    year: "2057",
     image: image2016,
     tagline: "Love, but make it last."
   },
   {
-    year: "2018",
+    year: "2063",
     image: image2018,
     tagline: "Love, but make it last."
   },
   {
-    year: "2020",
+    year: "2067",
     image: image2020,
     tagline: "Love, but make it last."
   },
   {
-    year: "2022",
+    year: "2073",
     image: image2022,
     tagline: "Love, but make it last."
   },
   {
-    year: "2024",
+    year: "2079",
     image: image2024,
     tagline: "Love, but make it last."
   },
   {
-    year: "2025",
+    year: "2085",
     image: image2025,
     tagline: "Love, but make it last."
   },
   {
-    year: "2027",
+    year: "2091",
     image: image2027,
     tagline: "Love, but make it last."
   }
@@ -91,7 +91,7 @@ export const HeroCarousel: React.FC = () => {
           {/* Year Number with Gradient - Bottom Left */}
           <div className="absolute bottom-12 md:bottom-20 left-8 md:left-16 z-10">
             <h2
-              className="text-8xl md:text-9xl font-bold leading-none mb-2"
+              className="text-8xl md:text-9xl font-brand leading-none mb-2"
               style={{
                 background: "linear-gradient(90deg, #E94B8C 0%, #F97066 50%, #FFB347 100%)",
                 WebkitBackgroundClip: "text",
