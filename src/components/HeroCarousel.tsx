@@ -91,7 +91,7 @@ export const HeroCarousel: React.FC = () => {
           {/* Year Number with Gradient - Bottom Left */}
           <div className="absolute bottom-12 md:bottom-20 left-8 md:left-16 z-10">
             <h2
-              className="text-8xl md:text-9xl font-brand leading-none mb-2"
+              className="text-7xl md:text-8xl font-brand leading-none mb-2"
               style={{
                 background: "linear-gradient(90deg, #E94B8C 0%, #F97066 50%, #FFB347 100%)",
                 WebkitBackgroundClip: "text",
