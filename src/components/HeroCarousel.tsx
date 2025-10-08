@@ -106,12 +106,12 @@ export const HeroCarousel: React.FC = () => {
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-contain"
+            className="absolute inset-0 w-full h-full object-cover"
             loading={index < 2 ? "eager" : "lazy"}
           />
 
           {/* Dark Gradient Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
           {/* Heartlines Wordmark - Top Right */}
           <div className="absolute top-4 right-8 md:right-16 z-10">
