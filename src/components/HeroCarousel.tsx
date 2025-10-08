@@ -126,7 +126,9 @@ export const HeroCarousel: React.FC = () => {
                 background: "linear-gradient(90deg, #E94B8C 0%, #F97066 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                backgroundClip: "text"
+                backgroundClip: "text",
+                color: "transparent",
+                display: "inline-block"
               }}
             >
               {slide.year}
