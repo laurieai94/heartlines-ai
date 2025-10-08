@@ -7,6 +7,11 @@ import image2022 from "@/assets/hero-carousel/warm-gathering-diverse-souls.webp"
 import image2024 from "@/assets/hero-carousel/manos-unidas.webp";
 import image2025 from "@/assets/hero-carousel/warm-embrace-pride.webp";
 import image2027 from "@/assets/hero-carousel/couple-on-couch.webp";
+import imageAsianCouple from "@/assets/hero-carousel/asian-couple-serene-moment.webp";
+import imageFramedMemory from "@/assets/hero-carousel/man-with-treasured-memory.webp";
+import imageFriendsCats from "@/assets/hero-carousel/friends-cats-city-view.webp";
+import imageRetroPeace from "@/assets/hero-carousel/retro-peace-living-room.webp";
+import imageVintageHome from "@/assets/hero-carousel/warm-smiles-vintage-home.webp";
 
 interface Slide {
   year: string;
@@ -31,8 +36,18 @@ const slides: Slide[] = [
     tagline: "Love, but make it last."
   },
   {
+    year: "2071",
+    image: imageAsianCouple,
+    tagline: "Love, but make it last."
+  },
+  {
     year: "2073",
     image: image2022,
+    tagline: "Love, but make it last."
+  },
+  {
+    year: "2077",
+    image: imageFramedMemory,
     tagline: "Love, but make it last."
   },
   {
@@ -41,13 +56,28 @@ const slides: Slide[] = [
     tagline: "Love, but make it last."
   },
   {
+    year: "2083",
+    image: imageFriendsCats,
+    tagline: "Love, but make it last."
+  },
+  {
     year: "2085",
     image: image2025,
     tagline: "Love, but make it last."
   },
   {
+    year: "2088",
+    image: imageRetroPeace,
+    tagline: "Love, but make it last."
+  },
+  {
     year: "2091",
     image: image2027,
+    tagline: "Love, but make it last."
+  },
+  {
+    year: "2094",
+    image: imageVintageHome,
     tagline: "Love, but make it last."
   }
 ];
