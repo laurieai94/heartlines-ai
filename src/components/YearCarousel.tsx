@@ -111,13 +111,20 @@ export const YearCarousel = () => {
     const imageUrls = shuffledSlides.map(slide => slide.image);
     preloadCriticalImages(imageUrls);
 
-    // Track loaded images
+    // Track loaded images with error handling and timeout fallback
     imageUrls.forEach((src, index) => {
       const img = new Image();
-      img.onload = () => {
+      
+      const markAsLoaded = () => {
         setImagesLoaded(prev => new Set([...prev, index]));
       };
+      
+      img.onload = markAsLoaded;
+      img.onerror = markAsLoaded; // Show image even if there's an error
       img.src = src;
+      
+      // Fallback: mark as loaded after 3 seconds regardless
+      setTimeout(markAsLoaded, 3000);
     });
   }, [shuffledSlides]);
 
