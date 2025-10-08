@@ -7,8 +7,8 @@ import jordanAvatar from '@/assets/moving-in-avatar.png';
 import marcusAvatar from '@/assets/new-dad-avatar.png';
 
 // Import first two carousel images as critical resources
-import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.png';
-import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
+import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.webp';
+import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.webp';
 
 export const CRITICAL_IMAGES = [
   BRAND.coach.avatarSrc,

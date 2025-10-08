@@ -3,15 +3,15 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import type { CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
-import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
-import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
-import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
-import elderlyManPortraitImage from '@/assets/elderly-man-portrait.png';
-import elderlyCouplCozyLivingRoomImage from '@/assets/elderly-couple-cozy-living-room.png';
-import elderlyCoupleVintageLivingRoomImage from '@/assets/elderly-couple-vintage-living-room.png';
-import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.png';
-import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.png';
-import elderlyNativeAmericanWomenImage from '@/assets/elderly-native-american-women.png';
+import elderlyNativeAmericanWomenImage from '@/assets/elderly-native-american-women.webp';
+import elderlyHeritageImage from '@/assets/elderly-couple-heritage-living-room.webp';
+import elderlyCowboysSouthwesternImage from '@/assets/elderly-cowboys-southwestern-living-room.webp';
+import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.webp';
+import elderlyCowboysHandsImage from '@/assets/elderly-cowboys-hands-together.webp';
+import elderlyCouplePrideImage from '@/assets/elderly-couple-pride-living-room.webp';
+import elderlyCoupleVintageImage from '@/assets/elderly-couple-vintage-living-room.webp';
+import elderlyAsianCoupleImage from '@/assets/elderly-asian-couple-modern-apartment.webp';
+import elderlyManPortraitImage from '@/assets/elderly-man-portrait.webp';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
 
 interface CarouselSlide {
@@ -23,48 +23,48 @@ interface CarouselSlide {
 const slides: CarouselSlide[] = [
   {
     year: '2056',
-    image: warmGatheringImage,
-    alt: 'Warm gathering of three diverse souls in a cozy living room adorned with cultural art, symbols of unity, and shared memories'
+    image: elderlyNativeAmericanWomenImage,
+    alt: 'Two elderly Native American women sharing a warm moment together on their couch, surrounded by traditional art and cultural treasures'
   },
   {
     year: '2061',
-    image: elderlyCouplePrideLivingRoomImage,
-    alt: 'Elderly couple in their wood-paneled living room with Progress Pride flag and vintage furniture'
+    image: elderlyHeritageImage,
+    alt: 'Joyful moment in a heritage-inspired living room with cultural art and warm memories'
   },
   {
     year: '2063',
-    image: elderlyCoupleRetroImage,
-    alt: 'Elderly couple in their retro 1970s living room with peace signs and lava lamps'
+    image: elderlyCowboysSouthwesternImage,
+    alt: 'Two elderly cowboys in their southwestern-style living room with desert art and memories'
   },
   {
     year: '2067',
-    image: elderlyCoupleNycImage,
-    alt: 'Elderly couple in their cozy NYC apartment with their cats'
+    image: warmGatheringImage,
+    alt: 'Warm gathering of diverse souls in a cozy living room adorned with cultural art and symbols of unity'
   },
   {
     year: '2075',
-    image: elderlyCouplCozyLivingRoomImage,
-    alt: 'Elderly couple in their cozy living room with warm lighting and plants'
+    image: elderlyCowboysHandsImage,
+    alt: 'Manos unidas en el hogar - hands joined together in a warm home filled with memories'
   },
   {
     year: '2078',
-    image: elderlyManPortraitImage,
-    alt: 'Elderly man holding a portrait photo in his living room'
+    image: elderlyCouplePrideImage,
+    alt: 'Warm embrace in nostalgic space with Progress Pride flag and vintage furniture'
   },
   {
     year: '2092',
-    image: elderlyCoupleImage,
-    alt: 'Elderly couple in their living room, still together after decades'
+    image: elderlyCoupleVintageImage,
+    alt: 'Elderly couple in their vintage wood-paneled living room with family photos and warm memories'
   },
   {
     year: '2087',
-    image: elderlyCoupleVintageLivingRoomImage,
-    alt: 'Elderly couple in their vintage 1970s wood-paneled living room with family photos and warm memories'
+    image: elderlyAsianCoupleImage,
+    alt: 'Elderly Asian couple in their modern apartment, still together after decades'
   },
   {
     year: '2093',
-    image: elderlyNativeAmericanWomenImage,
-    alt: 'Two elderly Native American women sharing a warm moment together on their couch, surrounded by traditional art and cultural treasures'
+    image: elderlyManPortraitImage,
+    alt: 'Elderly man holding a framed memory in his living room'
   }
 ];
 
