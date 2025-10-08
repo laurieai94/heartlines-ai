@@ -250,7 +250,7 @@
     min-height: -webkit-fill-available;
     /* Prevent scroll displacement */
     position: relative;
-    transform: translateZ(0);
+    will-change: transform;
     backface-visibility: hidden;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
