@@ -1,7 +1,8 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { preloadCriticalImages } from '@/utils/imageOptimizer';
 import elderlyCoupleImage from '@/assets/elderly-couple-living-room.png';
 import elderlyCoupleRetroImage from '@/assets/elderly-couple-retro-room.png';
 import elderlyCoupleNycImage from '@/assets/elderly-couple-nyc-apartment.png';
@@ -80,6 +81,27 @@ export const YearCarousel = () => {
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0]));
+  const preloadTriggered = useRef(false);
+
+  // Preload all carousel images in parallel after mount
+  useEffect(() => {
+    if (preloadTriggered.current) return;
+    preloadTriggered.current = true;
+
+    // Preload all images in parallel
+    const imageUrls = shuffledSlides.map(slide => slide.image);
+    preloadCriticalImages(imageUrls);
+
+    // Track loaded images
+    imageUrls.forEach((src, index) => {
+      const img = new Image();
+      img.onload = () => {
+        setImagesLoaded(prev => new Set([...prev, index]));
+      };
+      img.src = src;
+    });
+  }, [shuffledSlides]);
 
   const autoplay = useMemo(() => 
     Autoplay({ 
@@ -117,11 +139,18 @@ export const YearCarousel = () => {
           {shuffledSlides.map((slide, index) => (
             <CarouselItem key={index}>
               <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
+                {/* Loading Placeholder */}
+                {!imagesLoaded.has(index) && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-950 animate-pulse" />
+                )}
+                
                 {/* Image */}
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                    imagesLoaded.has(index) ? 'opacity-100' : 'opacity-0'
+                  }`}
                   loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"
