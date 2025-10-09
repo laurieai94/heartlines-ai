@@ -110,31 +110,33 @@ useChatEffects({
       onLoadConversation={onLoadConversation}
       onDeleteConversation={onDeleteConversation}
     >
-      <MemoizedChatContainer
-        chatHistory={chatHistory}
-        loading={loading}
-        userName={userName}
-        isConfigured={isConfigured}
-        conversationStarter={conversationStarter}
-        isHistoryLoaded={isHistoryLoaded}
-        userTyping={userTyping}
-        onNewConversation={handleNewConversation}
-        onOpenSidebar={onOpenSidebar}
-      />
+      <div className="flex flex-col h-full min-h-0">
+        <MemoizedChatContainer
+          chatHistory={chatHistory}
+          loading={loading}
+          userName={userName}
+          isConfigured={isConfigured}
+          conversationStarter={conversationStarter}
+          isHistoryLoaded={isHistoryLoaded}
+          userTyping={userTyping}
+          onNewConversation={handleNewConversation}
+          onOpenSidebar={onOpenSidebar}
+        />
 
-      <MemoizedChatInputSection
-        onSendMessage={sendMessage}
-        loading={loading}
-        userName={userName}
-        partnerName={partnerName}
-        chatHistory={chatHistory}
-        isConfigured={isConfigured}
-        canInteract={canInteract}
-        isHistoryLoaded={isHistoryLoaded}
-        showStarters={showStarters}
-        onCloseStarters={onCloseStarters}
-        onUserTypingChange={setUserTyping}
-      />
+        <MemoizedChatInputSection
+          onSendMessage={sendMessage}
+          loading={loading}
+          userName={userName}
+          partnerName={partnerName}
+          chatHistory={chatHistory}
+          isConfigured={isConfigured}
+          canInteract={canInteract}
+          isHistoryLoaded={isHistoryLoaded}
+          showStarters={showStarters}
+          onCloseStarters={onCloseStarters}
+          onUserTypingChange={setUserTyping}
+        />
+      </div>
     </ChatLayout>
   );
 };
