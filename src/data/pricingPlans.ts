@@ -43,6 +43,7 @@ export const pricingPlans: PricingPlan[] = [
     messages: 150,
     icon: Heart,
     features: [
+      "Access to Kai's evidence-based tools (CBT, EFT, DBT)",
       "Coaching for self-reflection + relationships",
       "Role play critical convos",
       "Progress check-ins to track your growth"
@@ -61,6 +62,7 @@ export const pricingPlans: PricingPlan[] = [
     messages: 300,
     icon: Flower,
     features: [
+      "Access to Kai's evidence-based tools (CBT, EFT, DBT)",
       "Unlimited scenarios (self-talk, dating, relationships)",
       "Advanced insights + personal analytics",
       "Custom goals for your growth journey"
@@ -79,6 +81,7 @@ export const pricingPlans: PricingPlan[] = [
     messages: 0,
     icon: Sparkles,
     features: [
+      "Access to Kai's evidence-based tools (CBT, EFT, DBT)",
       "Unlimited messages per month",
       "All Thrive features included",
       "Priority support",
