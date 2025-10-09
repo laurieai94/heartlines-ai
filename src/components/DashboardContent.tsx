@@ -138,7 +138,7 @@ const DashboardContent = ({
         );
       case "profile":
         return (
-          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 pt-12 md:pt-14 lg:pt-16 overflow-y-auto h-full scrollbar-hide">
+          <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 pt-10 md:pt-12 lg:pt-14 overflow-y-auto h-full scrollbar-hide">
             <ProfileBuilder
               onProfileUpdate={onProfileUpdate}
               initialProfiles={temporaryProfiles}
