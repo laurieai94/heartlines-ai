@@ -223,7 +223,7 @@
     touch-action: manipulation;
     overscroll-behavior: none; /* Critical: Prevent white screen */
     overflow-x: hidden;
-    overflow-y: scroll; /* Enable document-level scrolling for sticky positioning */
+    overflow-y: hidden; /* Fixed layout for chat interface */
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     /* Better scroll performance on mobile */
@@ -266,6 +266,7 @@
     html, body {
       overscroll-behavior-y: none !important;
       overscroll-behavior-x: none !important;
+      overflow-y: hidden; /* No page scroll on mobile - components handle their own scroll */
     }
     
     body {
