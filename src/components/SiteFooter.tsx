@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Target } from "lucide-react";
 import { BRAND } from "@/branding";
+import BrandLogo from "@/components/BrandLogo";
 const SiteFooter = () => {
   const footerSections = [{
     title: "App",
@@ -47,9 +48,7 @@ const SiteFooter = () => {
         <div className="md:hidden mb-8">
           {/* Brand Section - Full Width */}
           <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
-            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
-            
+            <BrandLogo kind="wordmark" className="mx-auto" width={120} height={40} />
           </div>
 
           {/* App & Company - Two Columns */}
@@ -72,8 +71,7 @@ const SiteFooter = () => {
         <div className="hidden md:grid md:grid-cols-3 gap-6 md:gap-8 mb-8">
           {/* Brand Section */}
           <div className="text-left">
-            <h3 className="text-xl font-semibold text-white mb-1 font-brand">{BRAND.name}</h3>
-            <p className="text-white/50 text-xs mb-3">powered by laurie ai</p>
+            <BrandLogo kind="wordmark" width={120} height={40} className="mb-3" />
             <p className="text-white/70 text-sm leading-relaxed">
               AI-powered relationship coaching for modern love.
             </p>
