@@ -206,11 +206,11 @@ const ProfileBuilder = ({
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-8 md:space-y-10 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
-          {canUnlockCoaching && <div className="my-12 md:mt-20 md:mb-10 lg:mt-28 lg:mb-12 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+          {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20">
                 <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-coaching-glow">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
