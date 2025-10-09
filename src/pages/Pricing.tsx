@@ -64,7 +64,7 @@ const Pricing = () => {
       setLoading(null);
     }
   };
-  return <div className="min-h-screen bg-burgundy-900">
+  return <div className="min-h-screen bg-burgundy-900 overflow-y-auto">
       <div className="relative z-10">
         <SimpleHeader user={user} activeTab="plans" onSignInClick={() => navigate('/signin')} />
         

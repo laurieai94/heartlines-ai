@@ -48,7 +48,7 @@ export const pricingPlans: PricingPlan[] = [
       "Progress check-ins to track your growth"
     ],
     buttonText: "Let's Grow",
-    popular: true,
+    popular: false,
     tier: "grow"
   },
   {
@@ -66,7 +66,7 @@ export const pricingPlans: PricingPlan[] = [
       "Custom goals for your growth journey"
     ],
     buttonText: "Go All In",
-    popular: false,
+    popular: true,
     tier: "thrive"
   },
   {
@@ -85,7 +85,7 @@ export const pricingPlans: PricingPlan[] = [
       "Advanced AI capabilities"
     ],
     buttonText: "Go Unlimited",
-    popular: true,
+    popular: false,
     tier: "unlimited"
   }
 ];
