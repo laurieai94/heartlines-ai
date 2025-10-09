@@ -202,11 +202,11 @@ const ProfileBuilder = ({
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
       
-      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-1 md:pt-2 lg:pt-4" style={{
+      <div className="space-y-6 md:space-y-7 lg:space-y-10 pb-6 md:pb-12 lg:pb-16 pb-safe pt-6 md:pt-8 lg:pt-12" style={{
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
+        <div className="text-center space-y-8 md:space-y-10 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
