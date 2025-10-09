@@ -155,7 +155,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             
           </div>
           
-          <div className="flex items-center">
+          <div className="flex items-center md:mt-2 lg:mt-3">
             <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={onOpenProfile} />
           </div>
         </div>
