@@ -56,7 +56,7 @@ export const ChatHeader = ({
                     {/* Mobile Kai Avatar */}
                     <div className="relative">
                       <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-md w-8 h-8 border border-white/20">
-                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
+                        <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                           <Heart className="w-4 h-4" />
                         </AvatarFallback>
@@ -140,10 +140,7 @@ export const ChatHeader = ({
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
                 <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 border-2 border-white/20">
-                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" onError={e => {
-                    // Avatar image failed to load, use fallback
-                    e.currentTarget.style.display = 'none';
-                  }} />
+                  <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
                     <Heart className="w-4 h-4" />
                   </AvatarFallback>
