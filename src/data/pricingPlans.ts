@@ -30,7 +30,7 @@ export const pricingPlans: PricingPlan[] = [
       "Quick insights into your patterns + relationships",
       "Try before you commit\" energy"
     ],
-    buttonText: "Get Started Free",
+    buttonText: "Start Growing Free",
     popular: false,
     tier: "freemium"
   },
@@ -48,7 +48,7 @@ export const pricingPlans: PricingPlan[] = [
       "Role play critical convos",
       "Progress check-ins to track your growth"
     ],
-    buttonText: "Let's Grow",
+    buttonText: "Keep Growing",
     popular: false,
     tier: "grow"
   },
@@ -66,7 +66,7 @@ export const pricingPlans: PricingPlan[] = [
       "Advanced insights + personal analytics",
       "Custom goals for your growth journey"
     ],
-    buttonText: "Go All In",
+    buttonText: "Start Thriving",
     popular: true,
     tier: "thrive"
   },
@@ -85,7 +85,7 @@ export const pricingPlans: PricingPlan[] = [
       "Priority support",
       "Advanced AI capabilities"
     ],
-    buttonText: "Go Unlimited",
+    buttonText: "Grow Unlimited",
     popular: false,
     tier: "unlimited"
   }
