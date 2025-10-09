@@ -122,7 +122,7 @@ const DashboardContent = ({
         return <DashboardHome />;
       case "coach":
         return (
-          <div className="h-full flex flex-col mobile-coach-stretch pt-16 md:pt-[72px] lg:pt-20">
+          <div className="h-full flex flex-col mobile-coach-stretch">
             <AIChat 
               profiles={temporaryProfiles}
               demographicsData={temporaryDemographics}
