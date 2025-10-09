@@ -206,7 +206,7 @@ const ProfileBuilder = ({
       paddingBottom: isMobileDevice ? 'calc(1.5rem + env(safe-area-inset-bottom, 20px))' : undefined
     }}>
         {/* Main Header - Responsive */}
-        <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4 mb-4 md:mb-6 lg:mb-8">
+        <div className="text-center space-y-4 md:space-y-5 lg:space-y-6 flex-shrink-0 px-2 md:px-4">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
