@@ -16,7 +16,7 @@ export const useSubscription = () => {
     subscribed: false,
     subscription_tier: null,
     subscription_end: null,
-    message_limit: 50, // Default free tier
+    message_limit: 25, // Default free tier
     messages_used: 0
   });
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,8 @@ export const useSubscription = () => {
     switch (tier?.toLowerCase()) {
       case 'grow': return 150;
       case 'thrive': return 300;
-      default: return 50; // free tier
+      case 'unlimited': return 0; // 0 = unlimited
+      default: return 25; // free tier
     }
   };
 
@@ -73,7 +74,7 @@ export const useSubscription = () => {
     }
   }, [user]);
 
-  const upgrade = async (tier: 'grow' | 'thrive') => {
+  const upgrade = async (tier: 'grow' | 'thrive' | 'unlimited') => {
     if (!user) return;
 
     try {

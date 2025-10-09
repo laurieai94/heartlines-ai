@@ -59,7 +59,7 @@ serve(async (req) => {
         .single();
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || 'begin';
-      const messageLimit = tier === 'grow' ? 150 : tier === 'thrive' ? 300 : 50;
+      const messageLimit = tier === 'grow' ? 150 : tier === 'thrive' ? 300 : tier === 'unlimited' ? 0 : 25;
       const messagesUsed = usageData?.current_month_usage || 0;
 
       return new Response(JSON.stringify({
@@ -107,7 +107,7 @@ serve(async (req) => {
       return new Response(JSON.stringify({ 
         subscribed: false, 
         subscription_tier: "begin",
-        message_limit: 50,
+        message_limit: 25,
         messages_used: 0 
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -127,7 +127,7 @@ serve(async (req) => {
     const hasActiveSub = subscriptions.data.length > 0;
     let subscriptionTier = "begin";
     let subscriptionEnd = null;
-    let messageLimit = 50;
+    let messageLimit = 25;
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
@@ -137,12 +137,15 @@ serve(async (req) => {
       const price = subscription.items.data[0].price;
       const amount = price.unit_amount || 0;
       
-      if (amount === 1500) {
+      if (amount === 1900) {
         subscriptionTier = "grow";
         messageLimit = 150;
-      } else if (amount === 2900) {
+      } else if (amount === 3900) {
         subscriptionTier = "thrive";
         messageLimit = 300;
+      } else if (amount === 5900) {
+        subscriptionTier = "unlimited";
+        messageLimit = 0; // unlimited
       }
       
       logStep("Active subscription found", { 

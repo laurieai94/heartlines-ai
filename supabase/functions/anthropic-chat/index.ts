@@ -95,14 +95,15 @@ serve(async (req) => {
         switch (tier?.toLowerCase()) {
           case 'grow': return 150;
           case 'thrive': return 300;
-          default: return 50; // free tier
+          case 'unlimited': return 0; // 0 = unlimited
+          default: return 25; // free tier
         }
       };
 
       const messageLimit = getMessageLimit(tier);
       
-      // Check if user has exceeded their limit
-      if (currentUsage >= messageLimit) {
+      // Check if user has exceeded their limit (skip check for unlimited)
+      if (messageLimit > 0 && currentUsage >= messageLimit) {
         console.log(`User ${user.id} has exceeded message limit: ${currentUsage}/${messageLimit}`);
         return new Response(
           JSON.stringify({ 

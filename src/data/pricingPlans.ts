@@ -1,4 +1,4 @@
-import { Sprout, Heart, Flower, LucideIcon } from "lucide-react";
+import { Sprout, Heart, Flower, Sparkles, LucideIcon } from "lucide-react";
 
 export interface PricingPlan {
   id: string;
@@ -12,7 +12,7 @@ export interface PricingPlan {
   features: string[];
   buttonText: string;
   popular: boolean;
-  tier: 'freemium' | 'grow' | 'thrive';
+  tier: 'freemium' | 'grow' | 'thrive' | 'unlimited';
 }
 
 export const pricingPlans: PricingPlan[] = [
@@ -23,7 +23,7 @@ export const pricingPlans: PricingPlan[] = [
     period: "month",
     description: "Start small, spark awareness",
     tagline: "From first steps to stronger bonds",
-    messages: 50,
+    messages: 25,
     icon: Sprout,
     features: [
       "Quick insights into your patterns + relationships",
@@ -36,7 +36,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "grow",
     name: "Grow",
-    price: "$15",
+    price: "$19",
     period: "month",
     description: "Your relationship's gym membership",
     tagline: "Build momentum in your relationship",
@@ -54,7 +54,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "thrive",
     name: "Thrive",
-    price: "$29",
+    price: "$39",
     period: "month",
     description: "Go all in for deeper love + growth",
     tagline: "Turn insights into transformation",
@@ -68,5 +68,24 @@ export const pricingPlans: PricingPlan[] = [
     buttonText: "Go All In",
     popular: false,
     tier: "thrive"
+  },
+  {
+    id: "unlimited",
+    name: "Unlimited",
+    price: "$59",
+    period: "month",
+    description: "Unlimited growth, unlimited possibilities",
+    tagline: "No limits on your journey",
+    messages: 0,
+    icon: Sparkles,
+    features: [
+      "Unlimited messages per month",
+      "All Thrive features included",
+      "Priority support",
+      "Advanced AI capabilities"
+    ],
+    buttonText: "Go Unlimited",
+    popular: true,
+    tier: "unlimited"
   }
 ];

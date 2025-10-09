@@ -33,8 +33,8 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id, email: user.email });
 
     const { tier } = await req.json();
-    if (!tier || !["grow", "thrive"].includes(tier)) {
-      throw new Error("Invalid subscription tier. Must be 'grow' or 'thrive'");
+    if (!tier || !["grow", "thrive", "unlimited"].includes(tier)) {
+      throw new Error("Invalid subscription tier. Must be 'grow', 'thrive', or 'unlimited'");
     }
     logStep("Tier validated", { tier });
 
@@ -51,8 +51,9 @@ serve(async (req) => {
 
     // Pricing configuration
     const pricing = {
-      grow: { amount: 1500, name: "Grow Plan" }, // $15.00
-      thrive: { amount: 2900, name: "Thrive Plan" } // $29.00
+      grow: { amount: 1900, name: "Grow Plan" }, // $19.00
+      thrive: { amount: 3900, name: "Thrive Plan" }, // $39.00
+      unlimited: { amount: 5900, name: "Unlimited Plan" } // $59.00
     };
 
     const session = await stripe.checkout.sessions.create({
@@ -64,7 +65,7 @@ serve(async (req) => {
             currency: "usd",
             product_data: { 
               name: pricing[tier as keyof typeof pricing].name,
-              description: tier === "grow" ? "150 messages per month" : "300 messages per month"
+              description: tier === "grow" ? "150 messages per month" : tier === "thrive" ? "300 messages per month" : "Unlimited messages per month"
             },
             unit_amount: pricing[tier as keyof typeof pricing].amount,
             recurring: { interval: "month" },
