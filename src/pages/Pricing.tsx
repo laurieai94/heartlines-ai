@@ -96,7 +96,7 @@ const Pricing = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
             {pricingPlans.map(plan => {
             const IconComponent = plan.icon;
-            return <Card key={plan.id} className={`questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
+            return <Card key={plan.id} className={`flex flex-col questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
                   {plan.popular && <Badge className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-6 sm:px-6 lg:px-8 py-1 rounded-full border border-white/10 shadow-neon text-xs sm:text-sm font-medium whitespace-nowrap z-40">
                       Most Popular
                     </Badge>}
@@ -115,7 +115,7 @@ const Pricing = () => {
                     </p>
                   </CardHeader>
 
-                  <CardContent className="space-y-4 p-4 pt-0">
+                  <CardContent className="flex-1 flex flex-col space-y-4 p-4 pt-0">
                     <div className="text-center py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
                       <div className="text-lg font-light questionnaire-text">
                         {plan.messages} messages
@@ -130,9 +130,11 @@ const Pricing = () => {
                         </li>)}
                     </ul>
 
-                    <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
-                      {loading === plan.tier ? "Loading..." : plan.buttonText}
-                    </Button>
+                    <div className="mt-auto">
+                      <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
+                        {loading === plan.tier ? "Loading..." : plan.buttonText}
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>;
           })}
