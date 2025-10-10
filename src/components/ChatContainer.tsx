@@ -180,10 +180,8 @@ const ChatContainer = ({
           aria-label="Chat conversation history"
         >
           {/* Mobile: Header inside scroll for sticky behavior */}
-          {isMobilePhone && (
-            <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
-          )}
-          <div 
+          <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
+          <div
             className="pt-2 md:pt-3 md:px-4 md:pb-2"
             style={{
               paddingBottom: '4px',

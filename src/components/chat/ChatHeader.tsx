@@ -43,11 +43,11 @@ export const ChatHeader = ({
   };
 
   return (
-    <div className="sticky top-0 z-50 shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
+    <div className="sticky top-0 z-[60] shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Stacked */}
         {(isMobile && !isTablet) && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 bg-red-500"> {/* DEBUG: Remove after confirming visibility */}
             {/* Top row - Kai info left, New Chat button right */}
             <div className="flex items-center justify-between">
               <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
