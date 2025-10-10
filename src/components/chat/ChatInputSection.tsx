@@ -263,7 +263,7 @@ export const ChatInputSection = ({
 
   return (
     <div className={`flex-shrink-0 mobile-chat-input-container md:relative z-40 bg-burgundy-900 md:bg-transparent ${isKeyboardVisible ? 'relative' : 'fixed bottom-0 left-0 right-0'} md:bottom-auto md:left-auto md:right-auto`}>
-      <div className={`px-0 pt-1 md:px-4 md:py-5 md:pt-8 ${isKeyboardVisible ? 'pb-2' : 'pb-safe'}`}>
+      <div className={`px-0 pt-1 md:px-4 md:py-5 md:pt-8 ${isKeyboardVisible ? 'pb-2' : 'pb-[max(1rem,env(safe-area-inset-bottom))]'}`}>
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">

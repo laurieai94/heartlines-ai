@@ -172,7 +172,7 @@ const ChatContainer = ({
         /* Mobile: Fixed header + scrollable content */
         <div className="flex flex-col h-full">
           {/* Simple Kai Header - Mobile Only */}
-          <div className="flex-shrink-0 pt-12 px-4 py-3 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10">
+          <div className="flex-shrink-0 pt-14 px-4 py-3 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10">
             <div className="flex items-center gap-2">
               <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                 <AvatarImage 
@@ -203,7 +203,7 @@ const ChatContainer = ({
             aria-label="Chat conversation history"
           >
             <div
-              className="pt-2 pb-4"
+              className="pt-2 pb-24"
               style={{
                 paddingLeft: 'max(4px, env(safe-area-inset-left))',
                 paddingRight: 'max(4px, env(safe-area-inset-right))'
