@@ -187,7 +187,7 @@ const ChatContainer = ({
             aria-label="Chat conversation history"
           >
             <div
-              className="pt-2 pb-20"
+              className="pt-2 pb-4"
               style={{
                 paddingLeft: 'max(4px, env(safe-area-inset-left))',
                 paddingRight: 'max(4px, env(safe-area-inset-right))'
