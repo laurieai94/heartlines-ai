@@ -44,7 +44,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-40 shrink-0 bg-burgundy-950 border-b border-white/10 pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
-      <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-2 lg:py-3 transition-transform duration-200 ease-out will-change-transform">
+      <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Stacked */}
         {(isMobile && !isTablet) && (
           <div className="flex flex-col gap-2">
@@ -138,19 +138,19 @@ export const ChatHeader = ({
             <div className="flex items-center gap-3">
               {/* Kai Avatar */}
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-lg animate-pulse"></div>
-                <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 border-2 border-white/20">
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
+                <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                   <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                    <Heart className="w-4 h-4" />
+                    <Heart className="w-4 h-4 md:w-6 md:h-6" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-full border border-white animate-pulse shadow-sm"></div>
               </div>
               
               {/* Kai Info */}
               <div>
-                <h3 className="text-white font-semibold text-sm">Kai</h3>
+                <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg">Kai</h3>
                 <div className="flex items-center gap-1">
                   <span className="text-white/70 text-sm">Your AI Relationship Coach</span>
                   <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
