@@ -171,42 +171,41 @@ const ChatContainer = ({
       {isMobilePhone ? (
         /* Mobile: Fixed header + scrollable content */
         <div className="flex flex-col h-full">
-          {/* Simple Kai Header - Mobile Only */}
-          <div className="flex-shrink-0 pt-14 px-4 py-3 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
-                <AvatarImage 
-                  src={BRAND.coach.avatarSrc} 
-                  alt={BRAND.coach.name} 
-                  className="object-cover"
-                  loading="eager" 
-                />
-                <AvatarFallback className="text-white">
-                  <Heart className="w-4 h-4" />
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
-                <span className="text-white/70 text-xs">Your AI Relationship Coach</span>
-              </div>
+          {/* Fixed Kai Header - Mobile Only */}
+          <div className="fixed top-12 left-0 right-0 z-40 h-16 px-4 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2">
+            <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
+              <AvatarImage 
+                src={BRAND.coach.avatarSrc} 
+                alt={BRAND.coach.name} 
+                className="object-cover"
+                loading="eager" 
+              />
+              <AvatarFallback className="text-white">
+                <Heart className="w-4 h-4" />
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
+              <span className="text-white/70 text-xs">Your AI Relationship Coach</span>
             </div>
           </div>
           
-          {/* Scrollable Messages */}
+          {/* Scrollable Messages - with top margin to clear both headers */}
           <div 
             ref={viewportRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto mobile-chat-scroll"
+            className="flex-1 overflow-y-auto mobile-chat-scroll mt-28"
             style={{ WebkitOverflowScrolling: 'touch' }}
             role="log"
             aria-live="polite"
             aria-label="Chat conversation history"
           >
             <div
-              className="pt-2 pb-24"
+              className="pt-2"
               style={{
                 paddingLeft: 'max(4px, env(safe-area-inset-left))',
-                paddingRight: 'max(4px, env(safe-area-inset-right))'
+                paddingRight: 'max(4px, env(safe-area-inset-right))',
+                paddingBottom: '80px'
               }}
             >
               <div role="list" aria-label="Chat messages">
