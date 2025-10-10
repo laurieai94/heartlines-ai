@@ -3,6 +3,7 @@ import { ReactNode, useState, Suspense, lazy } from 'react';
 import { ChatHeader } from './ChatHeader';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Menu } from 'lucide-react';
 
 // Lazy load the sidebar for better performance
 const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
@@ -37,6 +38,17 @@ export const ChatLayout = ({
   };
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
+      {/* Mobile only: Hamburger navigation */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-burgundy-900 px-4 py-3 flex items-center border-b border-white/10">
+        <button 
+          onClick={handleOpenSidebar}
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+          aria-label="Open menu"
+        >
+          <Menu className="w-6 h-6 text-white" />
+        </button>
+      </div>
+
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
         <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">

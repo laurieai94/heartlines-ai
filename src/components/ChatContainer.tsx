@@ -167,30 +167,35 @@ const ChatContainer = ({
   );
 
   return (
-    <div className="flex-1 min-h-0 max-h-[calc(100%-80px)] md:max-h-none relative bg-burgundy-950">
+    <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
-        /* Native scroll for mobile phones - better performance */
-        <div 
-          ref={viewportRef}
-          onScroll={handleScroll}
-          className="h-full w-full overflow-y-auto mobile-chat-scroll"
-          style={{ WebkitOverflowScrolling: 'touch' }}
-          role="log"
-          aria-live="polite"
-          aria-label="Chat conversation history"
-        >
-          {/* Mobile: Header inside scroll for sticky behavior */}
-          <ChatHeader isMobilePhone={isMobilePhone} userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
-          <div
-            className="pt-2 md:pt-3 md:px-4 md:pb-2"
-            style={{
-              paddingBottom: '4px',
-              paddingLeft: 'max(4px, env(safe-area-inset-left))',
-              paddingRight: 'max(4px, env(safe-area-inset-right))'
-            }}
+        /* Mobile: Fixed header + scrollable content */
+        <div className="flex flex-col h-full">
+          {/* Fixed Chat Header */}
+          <div className="flex-shrink-0 pt-12">
+            <ChatHeader isMobilePhone={isMobilePhone} userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
+          </div>
+          
+          {/* Scrollable Messages */}
+          <div 
+            ref={viewportRef}
+            onScroll={handleScroll}
+            className="flex-1 overflow-y-auto mobile-chat-scroll"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+            role="log"
+            aria-live="polite"
+            aria-label="Chat conversation history"
           >
-            <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
-              {renderMessages()}
+            <div
+              className="pt-2 pb-20"
+              style={{
+                paddingLeft: 'max(4px, env(safe-area-inset-left))',
+                paddingRight: 'max(4px, env(safe-area-inset-right))'
+              }}
+            >
+              <div role="list" aria-label="Chat messages">
+                {renderMessages()}
+              </div>
             </div>
           </div>
         </div>
