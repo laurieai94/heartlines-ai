@@ -8,6 +8,7 @@ import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
+import { ChatHeader } from './chat/ChatHeader';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -178,8 +179,12 @@ const ChatContainer = ({
           aria-live="polite"
           aria-label="Chat conversation history"
         >
+          {/* Mobile: Header inside scroll for sticky behavior */}
+          {isMobilePhone && (
+            <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
+          )}
           <div 
-            className="pt-[68px] md:pt-3 md:px-4 md:pb-2"
+            className="pt-2 md:pt-3 md:px-4 md:pb-2"
             style={{
               paddingBottom: '4px',
               paddingLeft: 'max(4px, env(safe-area-inset-left))',
