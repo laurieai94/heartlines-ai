@@ -167,7 +167,7 @@ const ChatContainer = ({
   );
 
   return (
-    <div className="flex-1 min-h-0 relative bg-burgundy-950">
+    <div className="flex-1 min-h-0 max-h-[calc(100%-80px)] md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
         /* Native scroll for mobile phones - better performance */
         <div 
