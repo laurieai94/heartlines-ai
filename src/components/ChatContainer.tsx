@@ -171,9 +171,25 @@ const ChatContainer = ({
       {isMobilePhone ? (
         /* Mobile: Fixed header + scrollable content */
         <div className="flex flex-col h-full">
-          {/* Fixed Chat Header */}
-          <div className="flex-shrink-0 pt-12">
-            <ChatHeader isMobilePhone={isMobilePhone} userName={userName} onNewConversation={onNewConversation} onOpenSidebar={onOpenSidebar} />
+          {/* Simple Kai Header - Mobile Only */}
+          <div className="flex-shrink-0 pt-12 px-4 py-3 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
+                <AvatarImage 
+                  src={BRAND.coach.avatarSrc} 
+                  alt={BRAND.coach.name} 
+                  className="object-cover"
+                  loading="eager" 
+                />
+                <AvatarFallback className="text-white">
+                  <Heart className="w-4 h-4" />
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
+                <span className="text-white/70 text-xs">Your AI Relationship Coach</span>
+              </div>
+            </div>
           </div>
           
           {/* Scrollable Messages */}

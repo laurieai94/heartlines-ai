@@ -48,7 +48,7 @@ export const ChatHeader = ({
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
-        {(isMobilePhone ?? (isMobile && !isTablet)) && (
+        {false && (isMobilePhone ?? (isMobile && !isTablet)) && (
           <div className="flex items-center justify-between gap-2">
             {/* Left section: Kai avatar + name + subtitle with info button */}
             <div className="flex items-center gap-2">
