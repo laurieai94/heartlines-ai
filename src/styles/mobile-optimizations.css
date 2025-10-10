@@ -37,6 +37,8 @@ html, body, #root {
   
   /* Mobile chat container - native scroll */
   .mobile-chat-scroll {
+    height: 100%;
+    max-height: 100dvh;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     overscroll-behavior: contain;
