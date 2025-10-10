@@ -14,12 +14,14 @@ interface ChatHeaderProps {
   userName?: string;
   onNewConversation: () => void;
   onOpenSidebar?: () => void;
+  isMobilePhone?: boolean;
 }
 
 export const ChatHeader = ({
   userName,
   onNewConversation,
-  onOpenSidebar
+  onOpenSidebar,
+  isMobilePhone
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   const { isMobile, isTablet, simulateHapticFeedback } = useOptimizedMobile();
@@ -46,8 +48,8 @@ export const ChatHeader = ({
     <div className="sticky top-0 z-[60] shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Stacked */}
-        {(isMobile && !isTablet) && (
-          <div className="flex flex-col gap-2 bg-red-500"> {/* DEBUG: Remove after confirming visibility */}
+        {(isMobilePhone ?? (isMobile && !isTablet)) && (
+          <div className="flex flex-col gap-2">
             {/* Top row - Kai info left, New Chat button right */}
             <div className="flex items-center justify-between">
               <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
@@ -135,7 +137,7 @@ export const ChatHeader = ({
         )}
 
         {/* Desktop Layout - Single row */}
-        {(!isMobile || isTablet) && (
+        {!(isMobilePhone ?? (isMobile && !isTablet)) && (
           <div className="flex items-center justify-between gap-2 md:gap-3 md:max-w-3xl lg:max-w-4xl md:mx-auto">
             {/* Desktop: Full Kai section - aligned with chat messages */}
             <div className="flex items-center gap-3">
