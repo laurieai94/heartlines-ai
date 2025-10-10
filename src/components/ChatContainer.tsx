@@ -172,7 +172,7 @@ const ChatContainer = ({
         /* Mobile: Fixed header + scrollable content */
         <div className="flex flex-col h-full">
           {/* Fixed Kai Header - Mobile Only */}
-          <div className="fixed top-12 left-0 right-0 z-40 h-16 px-4 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2">
+          <div className="fixed left-0 right-0 z-40 h-16 px-4 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2" style={{ top: 'calc(env(safe-area-inset-top) + 3rem)' }}>
             <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
               <AvatarImage 
                 src={BRAND.coach.avatarSrc} 
@@ -194,8 +194,11 @@ const ChatContainer = ({
           <div 
             ref={viewportRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto mobile-chat-scroll mt-28"
-            style={{ WebkitOverflowScrolling: 'touch' }}
+            className="flex-1 overflow-y-auto mobile-chat-scroll"
+            style={{ 
+              marginTop: 'calc(env(safe-area-inset-top) + 7rem)',
+              WebkitOverflowScrolling: 'touch' 
+            }}
             role="log"
             aria-live="polite"
             aria-label="Chat conversation history"
