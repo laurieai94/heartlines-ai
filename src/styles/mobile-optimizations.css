@@ -71,11 +71,6 @@ html, body, #root {
     contain: layout style paint;
   }
   
-  /* Prevent layout shift when keyboard appears */
-  .mobile-chat-input-container {
-    position: relative;
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
-  }
 }
 
 /* Mobile viewport and performance optimizations */
