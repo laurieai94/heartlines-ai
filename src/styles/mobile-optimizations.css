@@ -45,6 +45,14 @@ html, body, #root {
     touch-action: pan-y;
     /* Optimize chat message rendering */
     contain: layout style;
+    
+    /* Hide scrollbar but keep functionality */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .mobile-chat-scroll::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/iOS */
   }
   
   .mobile-chat-scroll > div {

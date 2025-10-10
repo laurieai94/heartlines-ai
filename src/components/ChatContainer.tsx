@@ -166,7 +166,7 @@ const ChatContainer = ({
   );
 
   return (
-    <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
+    <div className="flex-1 min-h-0 relative bg-burgundy-950">
       {isMobilePhone ? (
         /* Native scroll for mobile phones - better performance */
         <div 
@@ -179,7 +179,7 @@ const ChatContainer = ({
           aria-label="Chat conversation history"
         >
           <div 
-            className="pt-[72px] md:pt-3 md:px-4 md:pb-2"
+            className="pt-2 md:pt-3 md:px-4 md:pb-2"
             style={{
               paddingBottom: '4px',
               paddingLeft: 'max(4px, env(safe-area-inset-left))',
