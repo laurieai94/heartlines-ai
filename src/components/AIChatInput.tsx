@@ -57,16 +57,10 @@ const AIChatInput = ({
     onSendMessage(currentMessage.trim());
     setCurrentMessage("");
     
-    // Keep focus in the textarea after sending - strengthen for mobile
+    // Let iOS handle keyboard naturally - don't force refocus
     requestAnimationFrame(() => {
       if (textareaRef.current) {
-        textareaRef.current.focus({ preventScroll: true } as any);
-        // Additional focus attempt for mobile keyboards
-        setTimeout(() => {
-          if (textareaRef.current) {
-            textareaRef.current.focus({ preventScroll: true } as any);
-          }
-        }, 50);
+        textareaRef.current.focus();
       }
     });
   };
@@ -184,13 +178,6 @@ const AIChatInput = ({
         onClick={sendMessage}
         onPointerDown={(e) => e.preventDefault()}
         onMouseDown={(e) => e.preventDefault()}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          // Immediately re-focus textarea on mobile
-          if (textareaRef.current) {
-            textareaRef.current.focus();
-          }
-        }}
         className={`rounded-2xl w-8 h-8 md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
             ? 'brand-gradient-soft' 

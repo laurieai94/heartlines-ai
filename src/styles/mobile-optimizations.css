@@ -25,6 +25,38 @@ html, body, #root {
   min-height: 100vh;
 }
 
+/* Mobile coach tab stretching */
+@media (max-width: 768px) {
+  .mobile-coach-stretch {
+    height: calc(100dvh - 4rem);
+    max-height: calc(100dvh - 4rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Mobile chat container - native scroll */
+  .mobile-chat-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    /* Optimize chat message rendering */
+    contain: layout style;
+  }
+  
+  .mobile-chat-scroll > div {
+    /* Add containment to chat messages */
+    contain: layout style paint;
+  }
+  
+  /* Prevent layout shift when keyboard appears */
+  .mobile-chat-input-container {
+    position: relative;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
 /* Mobile viewport and performance optimizations */
 @media (max-width: 768px) {
   /* Prevent viewport jumping on keyboard show/hide */
@@ -116,6 +148,18 @@ html, body, #root {
   .complex-layout {
     content-visibility: auto;
     contain-intrinsic-size: 200px;
+  }
+  
+  /* Disable expensive effects on mobile for better performance */
+  .md\:backdrop-blur-xl,
+  .md\:backdrop-blur-md {
+    backdrop-filter: none !important;
+  }
+  
+  /* Optimize button rendering on mobile */
+  button {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 }
 

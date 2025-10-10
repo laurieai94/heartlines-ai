@@ -262,7 +262,7 @@ export const ChatInputSection = ({
   // Use native iOS keyboard behavior instead of fighting it
 
   return (
-    <div className="flex-shrink-0">
+    <div className="flex-shrink-0 mobile-chat-input-container">
       <div className="px-0 pt-1 pb-safe md:px-4 md:py-5 md:pt-8">
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (

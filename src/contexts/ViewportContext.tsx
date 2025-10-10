@@ -31,11 +31,18 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Simplified viewport handling - single listener only
+    // Use visualViewport API for more reliable keyboard detection on iOS Safari
+    const visualViewport = window.visualViewport;
+    
     const handleResize = () => {
-      const newHeight = window.innerHeight;
-      const heightDiff = height - newHeight;
-      const isKeyboardNowVisible = heightDiff > 150; // Threshold for keyboard detection
+      // Prefer visualViewport for accurate mobile viewport measurement
+      const newHeight = visualViewport ? visualViewport.height : window.innerHeight;
+      const windowHeight = window.innerHeight;
+      
+      // More reliable keyboard detection using visualViewport
+      const isKeyboardNowVisible = visualViewport 
+        ? (windowHeight - visualViewport.height) > 150
+        : false;
       
       setHeight(newHeight);
       
@@ -53,11 +60,20 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    // Use single event listener with passive flag for better performance
-    window.addEventListener('resize', handleResize, { passive: true });
+    // Listen to visualViewport resize events if available (better for mobile)
+    if (visualViewport) {
+      visualViewport.addEventListener('resize', handleResize, { passive: true } as any);
+    } else {
+      // Fallback to window resize for older browsers
+      window.addEventListener('resize', handleResize, { passive: true });
+    }
     
     return () => {
-      window.removeEventListener('resize', handleResize);
+      if (visualViewport) {
+        visualViewport.removeEventListener('resize', handleResize);
+      } else {
+        window.removeEventListener('resize', handleResize);
+      }
     };
   }, [height, isKeyboardVisible, keyboardListeners]);
 

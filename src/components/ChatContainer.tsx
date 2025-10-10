@@ -32,9 +32,10 @@ const ChatContainer = ({
   onNewConversation = () => {},
   onOpenSidebar
 }: ChatContainerProps) => {
-  const { isMobile } = useOptimizedMobile();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const { isMobile, isTablet } = useOptimizedMobile();
+  const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
 
   // Simple scroll to bottom function
@@ -78,110 +79,142 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
+  // Render chat messages (shared between mobile and desktop)
+  const renderMessages = () => (
+    <>
+      {/* Chat Messages */}
+      {chatHistory.map((message, index) => {
+        const isUser = message.type === 'user';
+        const prevMessage = index > 0 ? chatHistory[index - 1] : null;
+        const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
+        
+        // Group consecutive messages from the same sender within 5 minutes
+        const isFirstInGroup = !prevMessage || 
+          prevMessage.type !== message.type || 
+          (new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime()) > 300000;
+        
+        const isLastInGroup = !nextMessage || 
+          nextMessage.type !== message.type || 
+          (nextMessage ? new Date(nextMessage.timestamp).getTime() - new Date(message.timestamp).getTime() : 0) > 300000;
+
+        return (
+          <div key={message.id}>
+            <AIChatMessage 
+              message={message} 
+              userName={userName}
+              isFirstInGroup={isFirstInGroup}
+              isLastInGroup={isLastInGroup}
+            />
+          </div>
+        );
+      })}
+      
+      {/* Typing indicator - only show when loading */}
+      {loading && (
+        <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
+          <div className="relative flex-shrink-0">
+            <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
+              <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
+              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                <Heart className="w-4 h-4 md:w-6 md:h-6" />
+              </AvatarFallback>
+            </Avatar>
+          </div>
+          <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+            <div className="flex gap-1 md:gap-1.5">
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                animationDelay: '0.1s'
+              }}></div>
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                animationDelay: '0.2s'
+              }}></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* User typing indicator - always rendered to prevent height changes */}
+      <div 
+        className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end transition-opacity duration-200 ${userTyping ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+        aria-live="polite"
+        aria-hidden={!userTyping}
+      >
+        <div className={`bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+          <div className="flex gap-1 md:gap-1.5">
+            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
+            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+              animationDelay: '0.1s'
+            }}></div>
+            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+              animationDelay: '0.2s'
+            }}></div>
+          </div>
+        </div>
+        <div className="relative flex-shrink-0">
+          <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
+            <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+              {userName ? userName[0]?.toUpperCase() : 'U'}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+        <span className="sr-only">{userName || 'User'} is typing...</span>
+      </div>
+      
+      <div className="h-2 md:h-4" />
+    </>
+  );
 
   return (
     <div className="flex-1 min-h-0 overflow-hidden relative bg-burgundy-950">
-      <ScrollArea 
-        viewportRef={viewportRef}
-        className="h-full w-full"
-        onScroll={handleScroll}
-        role="log"
-        aria-live="polite"
-        aria-label="Chat conversation history"
-      >
+      {isMobilePhone ? (
+        /* Native scroll for mobile phones - better performance */
         <div 
-          className="pt-2 md:px-4 md:pt-3 md:pb-2"
-          style={{
-            paddingBottom: '4px',
-            paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
-            paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
-          }}
+          ref={viewportRef}
+          onScroll={handleScroll}
+          className="h-full w-full overflow-y-auto mobile-chat-scroll"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+          role="log"
+          aria-live="polite"
+          aria-label="Chat conversation history"
         >
-          <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
-            
-            {/* Chat Messages */}
-            {chatHistory.map((message, index) => {
-              const isUser = message.type === 'user';
-              const prevMessage = index > 0 ? chatHistory[index - 1] : null;
-              const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
-              
-              // Group consecutive messages from the same sender within 5 minutes
-              const isFirstInGroup = !prevMessage || 
-                prevMessage.type !== message.type || 
-                (new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime()) > 300000;
-              
-              const isLastInGroup = !nextMessage || 
-                nextMessage.type !== message.type || 
-                (nextMessage ? new Date(nextMessage.timestamp).getTime() - new Date(message.timestamp).getTime() : 0) > 300000;
-
-              return (
-                <div key={message.id}>
-                  <AIChatMessage 
-                    message={message} 
-                    userName={userName}
-                    isFirstInGroup={isFirstInGroup}
-                    isLastInGroup={isLastInGroup}
-                  />
-                </div>
-              );
-            })}
-            
-            {/* Typing indicator - only show when loading */}
-            {loading && (
-              <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
-                <div className="relative flex-shrink-0">
-                  <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                    <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                      <Heart className="w-4 h-4 md:w-6 md:h-6" />
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-                <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
-                  <div className="flex gap-1 md:gap-1.5">
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
-                      animationDelay: '0.1s'
-                    }}></div>
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
-                      animationDelay: '0.2s'
-                    }}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* User typing indicator - always rendered to prevent height changes */}
-            <div 
-              className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end transition-opacity duration-200 ${userTyping ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
-              aria-live="polite"
-              aria-hidden={!userTyping}
-            >
-              <div className={`bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
-                <div className="flex gap-1 md:gap-1.5">
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-                    animationDelay: '0.1s'
-                  }}></div>
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-                    animationDelay: '0.2s'
-                  }}></div>
-                </div>
-              </div>
-              <div className="relative flex-shrink-0">
-                <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
-                  <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-                    {userName ? userName[0]?.toUpperCase() : 'U'}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <span className="sr-only">{userName || 'User'} is typing...</span>
+          <div 
+            className="pt-2 md:px-4 md:pt-3 md:pb-2"
+            style={{
+              paddingBottom: '4px',
+              paddingLeft: 'max(4px, env(safe-area-inset-left))',
+              paddingRight: 'max(4px, env(safe-area-inset-right))'
+            }}
+          >
+            <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
+              {renderMessages()}
             </div>
-            
-            <div className="h-2 md:h-4" />
           </div>
         </div>
-      </ScrollArea>
+      ) : (
+        /* ScrollArea for tablets and desktop */
+        <ScrollArea 
+          viewportRef={viewportRef}
+          className="h-full w-full"
+          onScroll={handleScroll}
+          role="log"
+          aria-live="polite"
+          aria-label="Chat conversation history"
+        >
+          <div 
+            className="pt-2 md:px-4 md:pt-3 md:pb-2"
+            style={{
+              paddingBottom: '4px',
+              paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
+              paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
+            }}
+          >
+            <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
+              {renderMessages()}
+            </div>
+          </div>
+        </ScrollArea>
+      )}
 
       {/* Scroll to bottom button */}
       {showScrollToBottom && (
