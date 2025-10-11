@@ -23,7 +23,6 @@ export const ChatHeader = ({
   onOpenSidebar,
   isMobilePhone
 }: ChatHeaderProps) => {
-  const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   const { isMobile, isTablet, simulateHapticFeedback } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
 
@@ -124,7 +123,7 @@ export const ChatHeader = ({
               <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg">Kai</h3>
               <div className="flex items-center gap-1">
                 <span className="text-white/70 text-sm">Your AI Relationship Coach</span>
-                <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
+                <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="ghost" size="sm" aria-label="About Kai" className="h-4 w-4 p-0 rounded-full bg-white/10 hover:bg-white/30 text-white/70 hover:text-white transition-all duration-200 ml-1">
                       <Info className="w-2.5 h-2.5" />

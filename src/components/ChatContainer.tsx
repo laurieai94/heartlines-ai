@@ -278,14 +278,14 @@ const ChatContainer = ({
           aria-label="Chat conversation history"
         >
           <div 
-            className="pt-2 md:px-4 md:pt-3 md:pb-2"
+            className="pt-2 md:pt-3 md:pb-2"
             style={{
               paddingBottom: '4px',
-              paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '16px',
-              paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '16px'
+              paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
+              paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '0'
             }}
           >
-            <div className="md:space-y-3 md:max-w-[54rem] md:mx-auto md:pl-12 md:pr-4" role="list" aria-label="Chat messages">
+            <div role="list" aria-label="Chat messages">
               {renderMessages()}
             </div>
           </div>
