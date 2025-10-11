@@ -130,6 +130,18 @@ const ChatContainer = ({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
+  // Auto-scroll to bottom when keyboard opens on mobile (only if user has scrolled away)
+  useEffect(() => {
+    if (!isMobilePhone || !isKeyboardVisible) return;
+    
+    // Small delay to ensure keyboard animation has started
+    const timer = setTimeout(() => {
+      scrollToBottom('smooth');
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, [isKeyboardVisible, isMobilePhone, scrollToBottom]);
+
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
     <>
