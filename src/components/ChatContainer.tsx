@@ -169,10 +169,13 @@ const ChatContainer = ({
   return (
     <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
-        /* Mobile: Fixed header + scrollable content */
-        <div className="flex flex-col h-full">
-          {/* Fixed Kai Header - Mobile Only */}
-          <div className="fixed left-0 right-0 z-40 h-16 px-4 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2" style={{ top: 'calc(env(safe-area-inset-top) + 3rem)' }}>
+        /* Mobile: Single flex container with sticky header */
+        <div className="flex flex-col h-full relative">
+          {/* Sticky Kai Header */}
+          <div 
+            className="sticky z-40 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2 px-4 h-16"
+            style={{ top: 'calc(env(safe-area-inset-top) + 3rem)' }}
+          >
             <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
               <AvatarImage 
                 src={BRAND.coach.avatarSrc} 
@@ -190,26 +193,23 @@ const ChatContainer = ({
             </div>
           </div>
           
-          {/* Scrollable Messages - with top margin to clear both headers */}
+          {/* Scrollable Messages - takes remaining space */}
           <div 
             ref={viewportRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto mobile-chat-scroll"
+            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1 pb-24"
             style={{ 
-              marginTop: 'calc(env(safe-area-inset-top) + 7rem)',
-              WebkitOverflowScrolling: 'touch',
-              overscrollBehavior: 'contain'
+              paddingTop: '0.5rem',
+              overscrollBehavior: 'auto'
             }}
             role="log"
             aria-live="polite"
             aria-label="Chat conversation history"
           >
             <div
-              className="pt-2"
               style={{
                 paddingLeft: 'max(4px, env(safe-area-inset-left))',
-                paddingRight: 'max(4px, env(safe-area-inset-right))',
-                paddingBottom: '80px'
+                paddingRight: 'max(4px, env(safe-area-inset-right))'
               }}
             >
               <div role="list" aria-label="Chat messages">

@@ -91,35 +91,6 @@ export const ChatInputSection = ({
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
 
-  // Track visual viewport offset for iOS keyboard
-  const [viewportOffset, setViewportOffset] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.visualViewport) return;
-    
-    let lastHeight = window.visualViewport.height;
-    
-    const handleViewportResize = () => {
-      const viewport = window.visualViewport!;
-      const currentHeight = viewport.height;
-      
-      // Only update if height changed by more than 100px (keyboard threshold)
-      // This prevents scroll events from triggering repositioning
-      if (Math.abs(currentHeight - lastHeight) > 100) {
-        const offset = window.innerHeight - viewport.height;
-        setViewportOffset(offset);
-        lastHeight = currentHeight;
-      }
-    };
-    
-    // Only listen to resize, NOT scroll
-    window.visualViewport.addEventListener('resize', handleViewportResize);
-    
-    return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportResize);
-    };
-  }, []);
-
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
   const nearLimit = usagePercentage >= 80 && usagePercentage < 90 && !atLimit && !subscribed;
@@ -292,10 +263,9 @@ export const ChatInputSection = ({
 
   return (
     <div 
-      className="flex-shrink-0 fixed md:relative left-0 right-0 md:bottom-auto md:left-auto md:right-auto z-40 bg-burgundy-900 md:bg-transparent h-auto md:h-auto"
-      style={{ 
-        bottom: isMobilePhone ? `${viewportOffset}px` : 0 
-      }}
+      className={`flex-shrink-0 z-40 bg-burgundy-900 md:bg-transparent h-auto ${
+        isMobilePhone ? 'sticky bottom-0 left-0 right-0' : 'md:relative md:bottom-auto'
+      }`}
     >
       <div className="px-0 pt-2 pb-safe md:px-4 md:py-5 md:pt-8">
         {/* Critical 90% usage warning banner */}
