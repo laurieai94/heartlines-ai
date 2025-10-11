@@ -91,27 +91,33 @@ export const ChatLayout = ({
         </div>
       </div>
 
-      {/* Site Navigation Sheet - Mobile only */}
-      <Sheet open={isNavOpen} onOpenChange={setIsNavOpen}>
-        <SheetContent side="left" className="bg-burgundy-950/95 backdrop-blur-xl border border-white/10 shadow-2xl ring-1 ring-white/5 sm:max-w-xs p-0">
-          <div className="p-6 space-y-2">
-            <h2 className="text-white font-semibold text-lg mb-4">Navigation</h2>
-            {navigationItems.map((item) => (
+      {/* Site Navigation Popover - Mobile only - matches main site style */}
+      {isNavOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-[59] md:hidden"
+          onClick={() => setIsNavOpen(false)}
+        />
+      )}
+      <div className={`fixed top-14 left-4 z-[60] md:hidden transition-all duration-200 ${isNavOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+        <div className="w-16 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2">
+          {navigationItems.map((item) => {
+            const IconComponent = item.icon;
+            return (
               <button
                 key={item.label}
                 onClick={() => {
                   item.onClick();
                   setIsNavOpen(false);
                 }}
-                className="w-full flex items-center gap-3 p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition-colors"
+                className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
+                aria-label={item.label}
               >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
+                <IconComponent className="h-5 w-5 flex-shrink-0" />
               </button>
-            ))}
-          </div>
-        </SheetContent>
-      </Sheet>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
