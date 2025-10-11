@@ -32,13 +32,13 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
   return (
     <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
       <div 
-        className={`flex ${isMobile ? 'gap-2' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+        className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
         role="listitem"
         aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
       >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
-        <div className={`relative w-10 h-10 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
+        <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
           {/* Subtle glow for avatars */}
           {!isMobile && (
             <div className={`absolute inset-0 rounded-full blur-md opacity-30 ${
@@ -46,7 +46,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             }`}></div>
           )}
           
-          <Avatar className={`relative z-10 shadow-lg w-10 h-10 md:w-8 md:h-8 md:border-2 md:border-white ${
+          <Avatar className={`relative z-10 shadow-lg w-6 h-6 md:w-8 md:h-8 md:border-2 md:border-white ${
             isUser 
               ? 'bg-gradient-to-br from-pink-400 to-orange-400' 
               : 'bg-gradient-to-br from-purple-500 to-pink-500'
@@ -55,7 +55,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
               <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
-                {userName ? userName.charAt(0).toUpperCase() : <User className="w-5 h-5 md:w-4 md:h-4" />}
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
               </AvatarFallback>
             ) : (
               <>
@@ -68,7 +68,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
                   
                 />
                 <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm md:text-xs font-medium">
-                  <Heart className="w-5 h-5 md:w-4 md:h-4" />
+                  <Heart className="w-4 h-4 md:w-4 md:h-4" />
                 </AvatarFallback>
               </>
             )}
