@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ChatHeader } from './ChatHeader';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from 'lucide-react';
 
 // Lazy load the sidebar for better performance
@@ -34,7 +36,6 @@ export const ChatLayout = ({
 }: ChatLayoutProps) => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isNavOpen, setIsNavOpen] = useState(false);
   
   const handleOpenSidebar = () => {
     onOpenSidebar?.();
@@ -53,13 +54,38 @@ export const ChatLayout = ({
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
       <div className="md:hidden fixed top-safe left-0 right-0 z-50 bg-burgundy-900 px-4 h-12 flex items-center border-b border-white/10">
-        <button 
-          onClick={() => setIsNavOpen(true)}
-          className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-          aria-label="Open site navigation"
-        >
-          <Menu className="w-6 h-6 text-white" />
-        </button>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-8 w-8 text-white bg-transparent hover:bg-white/10"
+              aria-label="Open site navigation"
+            >
+              <Menu className="w-6 h-6" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent 
+            align="start" 
+            side="bottom"
+            sideOffset={8}
+            className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
+          >
+            {navigationItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
+                  aria-label={item.label}
+                >
+                  <IconComponent className="h-5 w-5 flex-shrink-0" />
+                </button>
+              );
+            })}
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Mobile only: Chat Header below navigation bar */}
@@ -91,33 +117,6 @@ export const ChatLayout = ({
         </div>
       </div>
 
-      {/* Site Navigation Popover - Mobile only - matches main site style */}
-      {isNavOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-[59] md:hidden"
-          onClick={() => setIsNavOpen(false)}
-        />
-      )}
-      <div className={`fixed top-14 left-4 z-[60] md:hidden transition-all duration-200 ${isNavOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-        <div className="w-16 bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2">
-          {navigationItems.map((item) => {
-            const IconComponent = item.icon;
-            return (
-              <button
-                key={item.label}
-                onClick={() => {
-                  item.onClick();
-                  setIsNavOpen(false);
-                }}
-                className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
-                aria-label={item.label}
-              >
-                <IconComponent className="h-5 w-5 flex-shrink-0" />
-              </button>
-            );
-          })}
-        </div>
-      </div>
 
       {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
