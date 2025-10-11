@@ -197,7 +197,8 @@ const ChatContainer = ({
             className="flex-1 overflow-y-auto mobile-chat-scroll"
             style={{ 
               marginTop: 'calc(env(safe-area-inset-top) + 7rem)',
-              WebkitOverflowScrolling: 'touch' 
+              WebkitOverflowScrolling: 'touch',
+              overscrollBehavior: 'contain'
             }}
             role="log"
             aria-live="polite"

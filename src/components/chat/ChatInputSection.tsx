@@ -97,19 +97,26 @@ export const ChatInputSection = ({
   useEffect(() => {
     if (typeof window === 'undefined' || !window.visualViewport) return;
     
-    const handleViewportChange = () => {
+    let lastHeight = window.visualViewport.height;
+    
+    const handleViewportResize = () => {
       const viewport = window.visualViewport!;
-      // Calculate how much the viewport has been pushed up
-      const offset = window.innerHeight - viewport.height - viewport.offsetTop;
-      setViewportOffset(offset);
+      const currentHeight = viewport.height;
+      
+      // Only update if height changed by more than 100px (keyboard threshold)
+      // This prevents scroll events from triggering repositioning
+      if (Math.abs(currentHeight - lastHeight) > 100) {
+        const offset = window.innerHeight - viewport.height;
+        setViewportOffset(offset);
+        lastHeight = currentHeight;
+      }
     };
     
-    window.visualViewport.addEventListener('resize', handleViewportChange);
-    window.visualViewport.addEventListener('scroll', handleViewportChange);
+    // Only listen to resize, NOT scroll
+    window.visualViewport.addEventListener('resize', handleViewportResize);
     
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
+      window.visualViewport?.removeEventListener('resize', handleViewportResize);
     };
   }, []);
 
