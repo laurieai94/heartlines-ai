@@ -283,7 +283,7 @@ const ChatContainer = ({
       )}
 
       {/* Scroll to top button - mobile only */}
-      {showScrollToTop && isMobilePhone && isKeyboardVisible && (
+      {showScrollToTop && isMobilePhone && (
         <Button
           onClick={() => scrollToTop('smooth')}
           className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-10"
