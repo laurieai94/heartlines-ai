@@ -30,11 +30,12 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
 
   
   return (
-    <div 
-      className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
-      role="listitem"
-      aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
-    >
+    <div className={`${isMobile ? 'px-3' : ''}`}>
+      <div 
+        className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} ${isMobile ? (isLastInGroup ? 'mb-3' : 'mb-1') : 'mb-2 md:mb-3'} ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
+        role="listitem"
+        aria-label={`${isUser ? (userName || 'User') : 'Kai'} message at ${formatTime(message.timestamp)}`}
+      >
       {/* Avatar Container - Show only for first message in group on mobile */}
       <div className="flex-shrink-0">
         <div className={`relative w-6 h-6 md:w-8 md:h-8 ${isMobile && !isFirstInGroup ? 'invisible' : ''}`}>
@@ -102,6 +103,7 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
           </p>
         )}
       </div>
+    </div>
     </div>
   );
 });
