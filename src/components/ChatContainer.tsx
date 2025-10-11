@@ -73,17 +73,19 @@ const ChatContainer = ({
     
     const viewport = viewportRef.current;
     
-    // Show "scroll to top" button when scrolled down from top on mobile
-    if (isMobilePhone) {
-      setShowScrollToTop(viewport.scrollTop > 100);
-    }
-    
-    // Track scroll direction for pull-to-reveal
+    // Track scroll direction
     const prevScrollTop = viewport.dataset.prevScrollTop 
       ? parseInt(viewport.dataset.prevScrollTop) 
       : viewport.scrollTop;
     const scrollDirection = viewport.scrollTop > prevScrollTop ? 'down' : 'up';
     viewport.dataset.prevScrollTop = viewport.scrollTop.toString();
+    
+    // Show "scroll to top" button only when scrolling UP and away from top (mobile only)
+    if (isMobilePhone) {
+      const isScrolledAway = viewport.scrollTop > 100;
+      const isMovingUp = scrollDirection === 'up';
+      setShowScrollToTop(isScrolledAway && isMovingUp);
+    }
     
     // Enable pull-to-reveal navigation on mobile
     if (isMobilePhone) {
