@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { ChatHeader } from './chat/ChatHeader';
+import { usePullToReveal } from '@/hooks/usePullToReveal';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -38,6 +39,10 @@ const ChatContainer = ({
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
+  
+  const { handleScroll: handlePullScroll } = usePullToReveal({
+    enabled: isMobilePhone
+  });
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -57,7 +62,19 @@ const ChatContainer = ({
     const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
     
     setShowScrollToBottom(scrollFromBottom > 100);
-  }, []);
+    
+    // Track scroll direction for pull-to-reveal
+    const prevScrollTop = viewport.dataset.prevScrollTop 
+      ? parseInt(viewport.dataset.prevScrollTop) 
+      : viewport.scrollTop;
+    const scrollDirection = viewport.scrollTop > prevScrollTop ? 'down' : 'up';
+    viewport.dataset.prevScrollTop = viewport.scrollTop.toString();
+    
+    // Enable pull-to-reveal navigation on mobile
+    if (isMobilePhone) {
+      handlePullScroll(viewport.scrollTop, scrollDirection);
+    }
+  }, [isMobilePhone, handlePullScroll]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -206,8 +223,8 @@ const ChatContainer = ({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: '10rem', // Space for input + keyboard safety
-              overscrollBehavior: 'contain' // Prevent scroll chaining
+              paddingBottom: '8rem', // Space for input (reduced for better spacing)
+              overscrollBehavior: 'auto' // Allow pull-to-reveal navigation
             }}
             role="log"
             aria-live="polite"
