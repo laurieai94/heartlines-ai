@@ -53,7 +53,7 @@ export const ChatHeader = ({
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
+                <Avatar className="w-6 h-6 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -63,10 +63,10 @@ export const ChatHeader = ({
                     fetchPriority="high" 
                   />
                   <AvatarFallback className="text-white">
-                    <Heart className="w-5 h-5" />
+                    <Heart className="w-3 h-3" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-950">
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-burgundy-950">
                   <div className="w-full h-full rounded-full bg-green-400 animate-pulse" />
                 </div>
               </div>
