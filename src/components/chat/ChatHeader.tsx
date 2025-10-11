@@ -48,11 +48,11 @@ export const ChatHeader = ({
       <div className="w-full py-2 md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center justify-between gap-4 px-4 py-3">
+          <div className="flex items-center justify-between gap-2 px-4 py-3">
             {/* Left: Kai avatar + name */}
-            <div className="flex items-center gap-2 flex-1 min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
-                <Avatar className="w-6 h-6 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
+                <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
                     alt={BRAND.coach.name} 
@@ -62,16 +62,16 @@ export const ChatHeader = ({
                     fetchPriority="high" 
                   />
                   <AvatarFallback className="text-white">
-                    <Heart className="w-3 h-3" />
+                    <Heart className="w-4 h-4" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-burgundy-950">
+                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-950">
                   <div className="w-full h-full rounded-full bg-green-400 animate-pulse" />
                 </div>
               </div>
               
               <div className="flex flex-col min-w-0">
-                <h3 className="text-white font-semibold text-base leading-tight truncate">Kai</h3>
+                <h3 className="text-white font-semibold text-sm leading-tight truncate">Kai</h3>
                 <span className="text-white/70 text-xs leading-tight truncate">Your AI Relationship Coach</span>
               </div>
             </div>
