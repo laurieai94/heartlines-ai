@@ -46,7 +46,7 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-950 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
-      <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
+      <div className="w-full px-1 py-2 md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
           <div className="flex items-center justify-between gap-4 px-4 py-3">
@@ -106,7 +106,7 @@ export const ChatHeader = ({
 
         {/* Desktop Layout - Single row */}
         {!(isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center gap-2 md:gap-3 md:max-w-3xl lg:max-w-4xl md:mx-auto">
+          <div className="flex items-center gap-2 md:gap-3 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6">
             {/* Kai Avatar - Far Left */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
