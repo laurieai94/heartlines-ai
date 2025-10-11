@@ -235,32 +235,11 @@ const ChatContainer = ({
         <div 
           className="fixed inset-0 flex flex-col"
           style={{ 
-            top: 'calc(env(safe-area-inset-top) + 3rem)', // Account for hamburger menu
-            height: 'calc(100dvh - env(safe-area-inset-top) - 3rem)',
+            top: 'calc(env(safe-area-inset-top) + 3.5rem)', // Account for ChatHeader
+            height: 'calc(100dvh - env(safe-area-inset-top) - 3.5rem)',
             zIndex: 1
           }}
         >
-          {/* Kai Header */}
-          <div 
-            className="flex-shrink-0 z-40 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2 px-4 h-16"
-          >
-            <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
-              <AvatarImage 
-                src={BRAND.coach.avatarSrc} 
-                alt={BRAND.coach.name} 
-                className="object-cover"
-                loading="eager" 
-              />
-              <AvatarFallback className="text-white">
-                <Heart className="w-4 h-4" />
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
-              <span className="text-white/70 text-xs">Your AI Relationship Coach</span>
-            </div>
-          </div>
-          
           {/* Scrollable Messages - fills remaining space */}
           <div 
             ref={viewportRef}
