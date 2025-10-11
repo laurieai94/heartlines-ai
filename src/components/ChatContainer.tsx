@@ -169,12 +169,18 @@ const ChatContainer = ({
   return (
     <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
-        /* Mobile: Single flex container with sticky header */
-        <div className="flex flex-col h-full relative">
-          {/* Sticky Kai Header */}
+        /* Mobile: Fixed height container with absolute input positioning */
+        <div 
+          className="fixed inset-0 flex flex-col"
+          style={{ 
+            top: 'calc(env(safe-area-inset-top) + 3rem)', // Account for hamburger menu
+            height: 'calc(100dvh - env(safe-area-inset-top) - 3rem)',
+            zIndex: 1
+          }}
+        >
+          {/* Kai Header */}
           <div 
-            className="sticky z-40 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2 px-4 h-16"
-            style={{ top: 'calc(env(safe-area-inset-top) + 3rem)' }}
+            className="flex-shrink-0 z-40 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 flex items-center gap-2 px-4 h-16"
           >
             <Avatar className="w-9 h-9 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
               <AvatarImage 
@@ -193,14 +199,15 @@ const ChatContainer = ({
             </div>
           </div>
           
-          {/* Scrollable Messages - takes remaining space */}
+          {/* Scrollable Messages - fills remaining space */}
           <div 
             ref={viewportRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1 pb-24"
+            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              overscrollBehavior: 'auto'
+              paddingBottom: '10rem', // Space for input + keyboard safety
+              overscrollBehavior: 'contain' // Prevent scroll chaining
             }}
             role="log"
             aria-live="polite"
