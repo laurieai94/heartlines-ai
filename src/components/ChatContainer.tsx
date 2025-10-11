@@ -3,7 +3,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
 import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
@@ -35,7 +35,7 @@ const ChatContainer = ({
   onOpenSidebar
 }: ChatContainerProps) => {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
@@ -55,13 +55,26 @@ const ChatContainer = ({
     });
   }, []);
 
+  // Scroll to top of chat
+  const scrollToTop = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    viewport.scrollTo({
+      top: 0,
+      behavior
+    });
+  }, []);
+
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    const scrollFromBottom = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
     
-    setShowScrollToBottom(scrollFromBottom > 100);
+    // Show "scroll to top" button when scrolled down from top on mobile
+    if (isMobilePhone) {
+      setShowScrollToTop(viewport.scrollTop > 100);
+    }
     
     // Track scroll direction for pull-to-reveal
     const prevScrollTop = viewport.dataset.prevScrollTop 
@@ -267,15 +280,16 @@ const ChatContainer = ({
         </ScrollArea>
       )}
 
-      {/* Scroll to bottom button */}
-      {showScrollToBottom && (
+      {/* Scroll to top button - mobile only */}
+      {showScrollToTop && isMobilePhone && (
         <Button
-          onClick={() => scrollToBottom('smooth')}
-          className="fixed bottom-24 right-4 md:right-8 rounded-full w-12 h-12 shadow-lg z-10"
+          onClick={() => scrollToTop('smooth')}
+          className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-10"
           size="icon"
           variant="secondary"
+          aria-label="Scroll to top"
         >
-          <ArrowDown className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5" />
         </Button>
       )}
     </div>
