@@ -15,13 +15,15 @@ interface ChatHeaderProps {
   onNewConversation: () => void;
   onOpenSidebar?: () => void;
   isMobilePhone?: boolean;
+  onOpenMenu?: () => void;
 }
 
 export const ChatHeader = ({
   userName,
   onNewConversation,
   onOpenSidebar,
-  isMobilePhone
+  isMobilePhone,
+  onOpenMenu
 }: ChatHeaderProps) => {
   const [isKaiInfoOpen, setIsKaiInfoOpen] = useState(false);
   const { isMobile, isTablet, simulateHapticFeedback } = useOptimizedMobile();
@@ -48,12 +50,29 @@ export const ChatHeader = ({
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
-        {false && (isMobilePhone ?? (isMobile && !isTablet)) && (
+        {(isMobilePhone ?? (isMobile && !isTablet)) && (
           <div className="flex items-center justify-between gap-2">
-            {/* Left section: Kai avatar + name + subtitle with info button */}
-            <div className="flex items-center gap-2">
-              {/* Avatar with online indicator */}
-              <div className="relative">
+            {/* Left: Hamburger for site navigation */}
+            {onOpenMenu && (
+              <Button 
+                onClick={() => {
+                  if (isMobile) {
+                    simulateHapticFeedback(document.body as HTMLElement, 'light');
+                  }
+                  onOpenMenu();
+                }}
+                variant="ghost" 
+                size="icon"
+                className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg flex-shrink-0"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="w-5 h-5" />
+              </Button>
+            )}
+
+            {/* Center: Kai avatar + name */}
+            <div className="flex items-center gap-2 flex-1 min-w-0">
+              <div className="relative flex-shrink-0">
                 <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
@@ -72,17 +91,16 @@ export const ChatHeader = ({
                 </div>
               </div>
               
-              {/* Name and subtitle with info icon */}
-              <div className="flex flex-col">
-                <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
+              <div className="flex flex-col min-w-0">
+                <h3 className="text-white font-semibold text-base leading-tight truncate">Kai</h3>
                 <div className="flex items-center gap-1">
-                  <span className="text-white/70 text-xs leading-tight">Your AI Relationship Coach</span>
+                  <span className="text-white/70 text-xs leading-tight truncate">Your AI Relationship Coach</span>
                   <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
                     <PopoverTrigger asChild>
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        className="h-auto w-auto p-0 hover:bg-transparent min-h-[24px] min-w-[24px]"
+                        className="h-auto w-auto p-0 hover:bg-transparent min-h-[24px] min-w-[24px] flex-shrink-0"
                         aria-label="Learn more about Kai"
                       >
                         <Info className="w-3 h-3 text-white/60 hover:text-white/80" />
@@ -90,7 +108,7 @@ export const ChatHeader = ({
                     </PopoverTrigger>
                     <PopoverContent 
                       side="bottom" 
-                      align="start"
+                      align="center"
                       sideOffset={8}
                       avoidCollisions
                       collisionPadding={16}
@@ -121,32 +139,16 @@ export const ChatHeader = ({
               </div>
             </div>
 
-            {/* Right section: Labeled action buttons */}
-            <div className="flex items-center gap-1">
-              {/* Chats button */}
-              {onOpenSidebar && (
-                <Button 
-                  onClick={handleOpenSidebar}
-                  variant="ghost" 
-                  className="flex flex-col items-center gap-0.5 min-w-[44px] min-h-[44px] px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
-                  aria-label="Open chat history"
-                >
-                  <Menu className="w-4 h-4" />
-                  <span className="text-[10px] font-medium leading-tight">Chats</span>
-                </Button>
-              )}
-              
-              {/* New button */}
-              <Button 
-                onClick={handleNewConversation}
-                variant="ghost" 
-                className="flex flex-col items-center gap-0.5 min-w-[44px] min-h-[44px] px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
-                aria-label="Start new conversation"
-              >
-                <Plus className="w-4 h-4" />
-                <span className="text-[10px] font-medium leading-tight">New</span>
-              </Button>
-            </div>
+            {/* Right: Plus button for new chat */}
+            <Button 
+              onClick={handleNewConversation}
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg flex-shrink-0"
+              aria-label="Start new conversation"
+            >
+              <Plus className="w-5 h-5" />
+            </Button>
           </div>
         )}
 
