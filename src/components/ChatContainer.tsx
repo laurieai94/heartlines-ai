@@ -83,8 +83,17 @@ const ChatContainer = ({
     // Show "scroll to top" button only when scrolling UP and away from top (mobile only)
     if (isMobilePhone) {
       const isScrolledAway = viewport.scrollTop > 100;
-      const isMovingUp = scrollDirection === 'up';
-      setShowScrollToTop(isScrolledAway && isMovingUp);
+      
+      if (scrollDirection === 'down') {
+        // Hide immediately when scrolling down
+        setShowScrollToTop(false);
+      } else if (scrollDirection === 'up' && isScrolledAway) {
+        // Show only when scrolling up and away from top
+        setShowScrollToTop(true);
+      } else if (viewport.scrollTop <= 100) {
+        // Hide when near the top
+        setShowScrollToTop(false);
+      }
     }
     
     // Enable pull-to-reveal navigation on mobile
