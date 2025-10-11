@@ -49,7 +49,7 @@ export const ChatHeader = ({
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center justify-between gap-2 px-4 py-3">
+          <div className="flex items-center justify-between gap-4 px-2 py-3">
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <div className="relative flex-shrink-0">
