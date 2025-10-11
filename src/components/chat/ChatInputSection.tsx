@@ -89,6 +89,29 @@ export const ChatInputSection = ({
   
   // Mobile optimization hooks - distinguish between mobile phones and tablets
   const { isMobile, isTablet } = useOptimizedMobile();
+  const isMobilePhone = isMobile && !isTablet;
+
+  // Track visual viewport offset for iOS keyboard
+  const [viewportOffset, setViewportOffset] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.visualViewport) return;
+    
+    const handleViewportChange = () => {
+      const viewport = window.visualViewport!;
+      // Calculate how much the viewport has been pushed up
+      const offset = window.innerHeight - viewport.height - viewport.offsetTop;
+      setViewportOffset(offset);
+    };
+    
+    window.visualViewport.addEventListener('resize', handleViewportChange);
+    window.visualViewport.addEventListener('scroll', handleViewportChange);
+    
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleViewportChange);
+      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
+    };
+  }, []);
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -261,7 +284,12 @@ export const ChatInputSection = ({
   // Use native iOS keyboard behavior instead of fighting it
 
   return (
-    <div className="flex-shrink-0 fixed md:relative bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-auto z-40 bg-burgundy-900 md:bg-transparent h-auto md:h-auto">
+    <div 
+      className="flex-shrink-0 fixed md:relative left-0 right-0 md:bottom-auto md:left-auto md:right-auto z-40 bg-burgundy-900 md:bg-transparent h-auto md:h-auto"
+      style={{ 
+        bottom: isMobilePhone ? `${viewportOffset}px` : 0 
+      }}
+    >
       <div className="px-0 pt-2 pb-safe md:px-4 md:py-5 md:pt-8">
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
