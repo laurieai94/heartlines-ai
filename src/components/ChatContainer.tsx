@@ -10,6 +10,7 @@ import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { ChatHeader } from './chat/ChatHeader';
 import { usePullToReveal } from '@/hooks/usePullToReveal';
+import { useViewport } from '@/contexts/ViewportContext';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -39,6 +40,7 @@ const ChatContainer = ({
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
+  const { isKeyboardVisible } = useViewport();
   
   const { handleScroll: handlePullScroll } = usePullToReveal({
     enabled: isMobilePhone
@@ -281,7 +283,7 @@ const ChatContainer = ({
       )}
 
       {/* Scroll to top button - mobile only */}
-      {showScrollToTop && isMobilePhone && (
+      {showScrollToTop && isMobilePhone && isKeyboardVisible && (
         <Button
           onClick={() => scrollToTop('smooth')}
           className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-10"
