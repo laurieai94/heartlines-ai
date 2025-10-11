@@ -235,8 +235,8 @@ const ChatContainer = ({
         <div 
           className="fixed inset-0 flex flex-col"
           style={{ 
-            top: 'calc(env(safe-area-inset-top) + 6.5rem)', // Account for site nav bar + ChatHeader
-            height: 'calc(100dvh - env(safe-area-inset-top) - 6.5rem)',
+            top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
+            height: 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 1
           }}
         >
