@@ -29,7 +29,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-4'}`}>
         {/* AI Coach Avatar */}
-        <div className="relative">
+        <div className={`relative ${!isMobile ? 'ml-4' : ''}`}>
           <Avatar className={`bg-gradient-to-br from-coral-400 to-pink-500 ${
             isMobile ? 'w-10 h-10 border-2' : 'w-16 h-16 border-4'
           } border-white ${isMobile ? 'shadow-md' : 'shadow-lg'}`}>
