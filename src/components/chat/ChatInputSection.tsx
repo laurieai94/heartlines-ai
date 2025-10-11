@@ -264,11 +264,10 @@ export const ChatInputSection = ({
   return (
     <div 
       className={`flex-shrink-0 z-50 bg-burgundy-900 md:bg-transparent h-auto ${
-        isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
+        isMobilePhone ? 'fixed bottom-0 left-0 right-0' : 'md:relative md:bottom-auto'
       }`}
       style={isMobilePhone ? {
-        bottom: 'calc(env(safe-area-inset-bottom) + 0.75rem)',
-        paddingBottom: '0.5rem'
+        paddingBottom: 'env(safe-area-inset-bottom)'
       } : undefined}
     >
       <div className="px-0 pt-2 pb-safe md:px-4 md:py-5 md:pt-8">
