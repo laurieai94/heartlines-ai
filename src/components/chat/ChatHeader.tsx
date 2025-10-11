@@ -46,11 +46,36 @@ export const ChatHeader = ({
   return (
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-950 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full py-2 md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
-        {/* Mobile Layout - Single row */}
+        {/* Mobile Layout - Vertical stack */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center justify-between gap-4 px-4 py-3">
-            {/* Left: Kai avatar + name */}
-            <div className="flex items-center gap-2 flex-1 min-w-0">
+          <div className="flex flex-col gap-2 px-4 py-3">
+            {/* Top row: Navigation buttons */}
+            <div className="flex items-center justify-between">
+              {onOpenSidebar && (
+                <Button 
+                  onClick={handleOpenSidebar}
+                  variant="ghost" 
+                  size="icon"
+                  className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                  aria-label="Open chat history"
+                >
+                  <Menu className="w-5 h-5" />
+                </Button>
+              )}
+              
+              <Button 
+                onClick={handleNewConversation}
+                variant="ghost" 
+                size="icon"
+                className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                aria-label="Start new conversation"
+              >
+                <Plus className="w-5 h-5" />
+              </Button>
+            </div>
+
+            {/* Bottom row: Kai info aligned beneath hamburger */}
+            <div className="flex items-center gap-2">
               <div className="relative flex-shrink-0">
                 <Avatar className="w-6 h-6 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 
@@ -74,31 +99,6 @@ export const ChatHeader = ({
                 <h3 className="text-white font-semibold text-base leading-tight truncate">Kai</h3>
                 <span className="text-white/70 text-xs leading-tight truncate">Your AI Relationship Coach</span>
               </div>
-            </div>
-
-            {/* Right: Hamburger (chat history) + Plus (new chat) */}
-            <div className="flex items-center gap-1 flex-shrink-0">
-              {onOpenSidebar && (
-                <Button 
-                  onClick={handleOpenSidebar}
-                  variant="ghost" 
-                  size="icon"
-                  className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
-                  aria-label="Open chat history"
-                >
-                  <Menu className="w-5 h-5" />
-                </Button>
-              )}
-              
-              <Button 
-                onClick={handleNewConversation}
-                variant="ghost" 
-                size="icon"
-                className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
-                aria-label="Start new conversation"
-              >
-                <Plus className="w-5 h-5" />
-              </Button>
             </div>
           </div>
         )}
