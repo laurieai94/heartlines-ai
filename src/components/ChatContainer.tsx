@@ -237,7 +237,7 @@ const ChatContainer = ({
           style={{ 
             top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
             height: 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
-            zIndex: 1
+            zIndex: 10
           }}
         >
           
