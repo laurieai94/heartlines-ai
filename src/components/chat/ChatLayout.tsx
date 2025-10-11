@@ -1,9 +1,10 @@
 
 import { ReactNode, useState, Suspense, lazy } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChatHeader } from './ChatHeader';
 import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Menu } from 'lucide-react';
+import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from 'lucide-react';
 
 // Lazy load the sidebar for better performance
 const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
@@ -31,22 +32,44 @@ export const ChatLayout = ({
   onLoadConversation,
   onDeleteConversation
 }: ChatLayoutProps) => {
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  
   const handleOpenSidebar = () => {
     onOpenSidebar?.();
     setIsSidebarOpen(true);
   };
+
+  const navigationItems = [
+    { label: 'Home', icon: Home, onClick: () => navigate('/') },
+    { label: 'Profile', icon: UserIcon, onClick: () => navigate('/profile') },
+    { label: 'Coach', icon: MessageSquare, onClick: () => navigate('/coach') },
+    { label: 'Plans', icon: CreditCard, onClick: () => navigate('/plans') },
+    { label: 'My Account', icon: Settings, onClick: () => navigate('/account') },
+  ];
+
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
-      {/* Mobile only: Hamburger navigation */}
+      {/* Mobile only: Site navigation bar */}
       <div className="md:hidden fixed top-safe left-0 right-0 z-50 bg-burgundy-900 px-4 h-12 flex items-center border-b border-white/10">
         <button 
-          onClick={handleOpenSidebar}
+          onClick={() => setIsNavOpen(true)}
           className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-          aria-label="Open menu"
+          aria-label="Open site navigation"
         >
           <Menu className="w-6 h-6 text-white" />
         </button>
+      </div>
+
+      {/* Mobile only: Chat Header below navigation bar */}
+      <div className="md:hidden mt-12">
+        <ChatHeader 
+          userName={userName} 
+          onNewConversation={onNewConversation} 
+          onOpenSidebar={handleOpenSidebar}
+          isMobilePhone={true}
+        />
       </div>
 
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
@@ -67,6 +90,28 @@ export const ChatLayout = ({
           </div>
         </div>
       </div>
+
+      {/* Site Navigation Sheet - Mobile only */}
+      <Sheet open={isNavOpen} onOpenChange={setIsNavOpen}>
+        <SheetContent side="left" className="bg-burgundy-950/95 backdrop-blur-xl border border-white/10 shadow-2xl ring-1 ring-white/5 sm:max-w-xs p-0">
+          <div className="p-6 space-y-2">
+            <h2 className="text-white font-semibold text-lg mb-4">Navigation</h2>
+            {navigationItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => {
+                  item.onClick();
+                  setIsNavOpen(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition-colors"
+              >
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {/* Chat History Sidebar - Lazy loaded */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>

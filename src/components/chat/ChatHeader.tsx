@@ -48,12 +48,11 @@ export const ChatHeader = ({
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-950/95 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
       <div className="w-full px-1 py-2 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-3 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
-        {false && (isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center justify-between gap-2">
-            {/* Left section: Kai avatar + name + subtitle with info button */}
-            <div className="flex items-center gap-2">
-              {/* Avatar with online indicator */}
-              <div className="relative">
+        {(isMobilePhone ?? (isMobile && !isTablet)) && (
+          <div className="flex items-center justify-between gap-2 px-4 py-3">
+            {/* Left: Kai avatar + name */}
+            <div className="flex items-center gap-2 flex-1 min-w-0">
+              <div className="relative flex-shrink-0">
                 <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 
                     src={BRAND.coach.avatarSrc} 
@@ -72,79 +71,34 @@ export const ChatHeader = ({
                 </div>
               </div>
               
-              {/* Name and subtitle with info icon */}
-              <div className="flex flex-col">
-                <h3 className="text-white font-semibold text-base leading-tight">Kai</h3>
-                <div className="flex items-center gap-1">
-                  <span className="text-white/70 text-xs leading-tight">Your AI Relationship Coach</span>
-                  <Popover open={isKaiInfoOpen} onOpenChange={setIsKaiInfoOpen}>
-                    <PopoverTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="h-auto w-auto p-0 hover:bg-transparent min-h-[24px] min-w-[24px]"
-                        aria-label="Learn more about Kai"
-                      >
-                        <Info className="w-3 h-3 text-white/60 hover:text-white/80" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent 
-                      side="bottom" 
-                      align="start"
-                      sideOffset={8}
-                      avoidCollisions
-                      collisionPadding={16}
-                      className="w-72 p-4 max-w-[calc(100vw-32px)] bg-burgundy-950/95 backdrop-blur-xl border border-white/15 shadow-2xl rounded-2xl z-[70]"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
-                            <Heart className="w-4 h-4 text-white" />
-                          </div>
-                          <h3 className="font-semibold text-white text-lg">Meet Kai</h3>
-                        </div>
-                        <div className="space-y-3">
-                          <p className="text-sm text-white/90 leading-relaxed">
-                            Your AI relationship coach, trained in PhD-level psychology and real-world clinical care.
-                          </p>
-                          <p className="text-sm text-white/80 leading-relaxed">
-                            Grounded in evidence-based and trauma-informed practices, Kai helps you build healthier relationships — whether you're solo, partnered, or somewhere in between.
-                          </p>
-                          <p className="text-sm text-white/80 leading-relaxed">
-                            <span className="text-coral-300 font-medium">LGBTQ+ inclusive</span> and designed for real life, Kai meets you where you are.
-                          </p>
-                        </div>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+              <div className="flex flex-col min-w-0">
+                <h3 className="text-white font-semibold text-base leading-tight truncate">Kai</h3>
+                <span className="text-white/70 text-xs leading-tight truncate">Your AI Relationship Coach</span>
               </div>
             </div>
 
-            {/* Right section: Labeled action buttons */}
-            <div className="flex items-center gap-1">
-              {/* Chats button */}
+            {/* Right: Hamburger (chat history) + Plus (new chat) */}
+            <div className="flex items-center gap-1 flex-shrink-0">
               {onOpenSidebar && (
                 <Button 
                   onClick={handleOpenSidebar}
                   variant="ghost" 
-                  className="flex flex-col items-center gap-0.5 min-w-[44px] min-h-[44px] px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                  size="icon"
+                  className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
                   aria-label="Open chat history"
                 >
-                  <Menu className="w-4 h-4" />
-                  <span className="text-[10px] font-medium leading-tight">Chats</span>
+                  <Menu className="w-5 h-5" />
                 </Button>
               )}
               
-              {/* New button */}
               <Button 
                 onClick={handleNewConversation}
                 variant="ghost" 
-                className="flex flex-col items-center gap-0.5 min-w-[44px] min-h-[44px] px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
+                size="icon"
+                className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg"
                 aria-label="Start new conversation"
               >
-                <Plus className="w-4 h-4" />
-                <span className="text-[10px] font-medium leading-tight">New</span>
+                <Plus className="w-5 h-5" />
               </Button>
             </div>
           </div>
