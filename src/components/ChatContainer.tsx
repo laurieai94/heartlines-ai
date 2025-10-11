@@ -37,6 +37,7 @@ const ChatContainer = ({
 }: ChatContainerProps) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [lastScrollDirection, setLastScrollDirection] = useState<'up' | 'down'>('down');
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
@@ -77,28 +78,34 @@ const ChatContainer = ({
     const prevScrollTop = viewport.dataset.prevScrollTop 
       ? parseInt(viewport.dataset.prevScrollTop) 
       : viewport.scrollTop;
-    const scrollDirection = viewport.scrollTop > prevScrollTop ? 'down' : 'up';
-    viewport.dataset.prevScrollTop = viewport.scrollTop.toString();
+    const currentScrollTop = viewport.scrollTop;
+    const scrollDirection = currentScrollTop > prevScrollTop ? 'down' : 'up';
+    viewport.dataset.prevScrollTop = currentScrollTop.toString();
     
     // Show "scroll to top" button only when scrolling UP and away from top (mobile only)
     if (isMobilePhone) {
-      const isScrolledAway = viewport.scrollTop > 100;
+      const isScrolledAway = currentScrollTop > 100;
+      const isNearBottom = currentScrollTop + viewport.clientHeight >= viewport.scrollHeight - 50;
       
-      if (scrollDirection === 'down') {
-        // Hide immediately when scrolling down
+      // Force hide if near bottom or scrolling down
+      if (scrollDirection === 'down' || isNearBottom) {
         setShowScrollToTop(false);
-      } else if (scrollDirection === 'up' && isScrolledAway) {
-        // Show only when scrolling up and away from top
+        setLastScrollDirection('down');
+      } 
+      // Show only if scrolling up AND away from top AND not at bottom
+      else if (scrollDirection === 'up' && isScrolledAway && !isNearBottom) {
         setShowScrollToTop(true);
-      } else if (viewport.scrollTop <= 100) {
-        // Hide when near the top
+        setLastScrollDirection('up');
+      } 
+      // Hide when near the top
+      else if (currentScrollTop <= 100) {
         setShowScrollToTop(false);
       }
     }
     
     // Enable pull-to-reveal navigation on mobile
     if (isMobilePhone) {
-      handlePullScroll(viewport.scrollTop, scrollDirection);
+      handlePullScroll(currentScrollTop, scrollDirection);
     }
   }, [isMobilePhone, handlePullScroll]);
 
