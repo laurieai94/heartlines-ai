@@ -267,7 +267,7 @@ export const ChatInputSection = ({
         isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
       }`}
       style={isMobilePhone ? {
-        bottom: 'calc(env(safe-area-inset-bottom) + 0.25rem)',
+        bottom: 'env(safe-area-inset-bottom)',
         paddingBottom: '0.5rem'
       } : undefined}
     >
