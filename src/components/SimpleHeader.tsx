@@ -44,7 +44,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white h-8 w-8 bg-transparent hover:bg-white/10"
+                  className="text-white hover:text-white h-8 w-8 bg-white/5 hover:bg-white/15 hover:backdrop-blur-md hover:border hover:border-white/20 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
