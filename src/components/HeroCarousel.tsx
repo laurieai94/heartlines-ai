@@ -112,7 +112,7 @@ export const HeroCarousel: React.FC = () => {
           />
 
           {/* Year Number - Bottom Left */}
-          <div className="absolute bottom-6 md:bottom-12 left-8 md:left-16 right-8 md:right-16 z-10">
+          <div className="absolute bottom-16 md:bottom-24 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 className="text-7xl md:text-8xl font-brand leading-none mb-2 text-[#F97066]">
               {slide.year}
             </h2>
