@@ -31,6 +31,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     isReady,
     isSyncing,
     updateField: rawUpdateField,
+    updateFieldImmediate: rawUpdateFieldImmediate,
     handleMultiSelect: rawHandleMultiSelect,
     saveData
   } = useProfileStoreV2('partner');
@@ -97,6 +98,7 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
     isReady,
     isSyncing,
     updateField: normalizedUpdateField,
+    updateFieldImmediate: rawUpdateFieldImmediate,
     handleMultiSelect: normalizedHandleMultiSelect,
     saveProfile: saveData
   };

@@ -124,7 +124,7 @@ const STORAGE_CONFIG = {
   }
 };
 
-const DEBOUNCE_MS = 500; // Reduced for faster data persistence
+const DEBOUNCE_MS = 300; // Reduced for faster data persistence
 const IN_TAB_PROFILE_UPDATE_EVENT = 'profile:updated';
 const RECENT_MODIFICATION_THRESHOLD = 10000; // 10 seconds
 
@@ -612,6 +612,56 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     };
   }, [config.storageKey, defaultProfile, profileType, profile]);
 
+  // Save immediately when tab loses focus or page becomes hidden
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+        const toSync = { ...pendingUpdates.current };
+        pendingUpdates.current = {};
+        if (Object.keys(toSync).length > 0) {
+          syncToDatabase(toSync);
+        }
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+        const toSync = { ...pendingUpdates.current };
+        pendingUpdates.current = {};
+        if (Object.keys(toSync).length > 0) {
+          syncToDatabase(toSync);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [syncToDatabase]);
+
+  // Periodic auto-save every 3 seconds if there are pending changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Object.keys(pendingUpdates.current).length > 0) {
+        if (debounceTimer.current) {
+          clearTimeout(debounceTimer.current);
+        }
+        
+        const toSync = { ...pendingUpdates.current };
+        pendingUpdates.current = {};
+        syncToDatabase(toSync);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [syncToDatabase]);
+
   // Clear profile data
   const clearProfile = useCallback(async () => {
     try {
@@ -734,6 +784,28 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     updateProfile({ [field]: value } as any);
   }, [updateProfile]);
 
+  // Update single field with immediate database sync (for blur events)
+  const updateFieldImmediate = useCallback((field: string, value: any) => {
+    recentlyModifiedFields.current.set(field, Date.now());
+    const updates = { [field]: value } as any;
+    const clonedUpdates = cloneProfile(updates);
+    
+    // Optimistic update
+    setProfile(prev => {
+      const updated = { ...prev, ...clonedUpdates };
+      saveToStorage(updated);
+      return updated;
+    });
+
+    // Clear any pending debounce timer
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    // Immediate sync to database
+    syncToDatabase(clonedUpdates);
+  }, [cloneProfile, saveToStorage, syncToDatabase]);
+
   // Handle multi-select with functional updates to prevent stale state
   const handleMultiSelect = useCallback((field: string, value: string) => {
     console.log(`[ProfileStore] Multi-select ${field}:`, value);
@@ -774,6 +846,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     isReady,
     isSyncing: isSyncing || false,
     updateField,
+    updateFieldImmediate,
     handleMultiSelect,
     saveData: updateProfile,
     clearProfile,

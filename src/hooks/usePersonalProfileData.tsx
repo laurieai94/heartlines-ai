@@ -78,6 +78,7 @@ export const usePersonalProfileData = () => {
     isSyncing: v2Store.isSyncing,
     saveData: v2Store.saveData,
     updateField: normalizedUpdateField,
+    updateFieldImmediate: v2Store.updateFieldImmediate,
     handleMultiSelect: normalizedHandleMultiSelect
   };
 };
