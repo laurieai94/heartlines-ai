@@ -248,8 +248,7 @@ const ChatContainer = ({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: '8rem', // Space for input (reduced for better spacing)
-              overscrollBehavior: 'auto' // Allow pull-to-reveal navigation
+              paddingBottom: '8rem' // Space for input (reduced for better spacing)
             }}
             role="log"
             aria-live="polite"

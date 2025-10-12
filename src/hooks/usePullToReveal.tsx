@@ -32,7 +32,7 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
 
   // Track if user is at top of scroll area
   const updateScrollPosition = (scrollTop: number) => {
-    isAtTopRef.current = scrollTop <= 10;
+    isAtTopRef.current = scrollTop === 0;
     
     // Auto-show header when at top
     if (isAtTopRef.current && !visible) {
@@ -52,9 +52,8 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: Date.now()
       };
       
-      // Expanded touch area for easier pull-to-reveal access
-      const isInTopArea = touch.clientY < 150; // Increased from 100px
-      if (isInTopArea || isAtTopRef.current) {
+      // Only reset when at scroll top
+      if (isAtTopRef.current) {
         setIsPulling(false);
         setPullDistance(0);
       }
@@ -74,16 +73,16 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: currentTime
       };
 
-      // Expanded area and more responsive activation
-      const isInTopArea = startY < 150; // Increased touch area
+      // Only capture touches when at exact scroll top with minimum pull
       const isPullingDown = deltaY > 0;
       
-      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+      // ONLY intercept if scroll position is exactly 0 and significant pull
+      if (isAtTopRef.current && isPullingDown && deltaY > 15) {
         setIsPulling(true);
         setPullDistance(Math.min(deltaY, threshold * 2));
         
-        // More responsive header reveal - show earlier
-        if (deltaY > threshold / 3 && !visible) { // Reduced from threshold/2
+        // Show header after sufficient pull
+        if (deltaY > threshold / 2 && !visible) {
           setVisible(true);
         }
       }
@@ -102,13 +101,12 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const deltaTime = touchMoveRef.current.time - touchStartRef.current.time;
       const velocity = deltaTime > 0 ? deltaY / deltaTime : 0;
 
-      const isInTopArea = startY < 150; // Consistent expanded area
       const isPullingDown = deltaY > 0;
       const exceededThreshold = deltaY > threshold;
       const exceededVelocity = velocity > velocityThreshold;
 
-      // Reveal header if pull was significant enough
-      if ((isInTopArea || isAtTopRef.current) && isPullingDown) {
+      // Only reveal if truly at top
+      if (isAtTopRef.current && isPullingDown) {
         if (exceededThreshold || exceededVelocity) {
           setVisible(true);
         }

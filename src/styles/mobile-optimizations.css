@@ -41,8 +41,8 @@ html, body, #root {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     overflow-x: hidden;
-    /* Allow iOS rubber band - feels native */
-    overscroll-behavior-y: auto;
+    /* Prevent overscroll entirely - let pull-to-reveal handle header visibility */
+    overscroll-behavior-y: none;
     /* Prevent horizontal overscroll */
     overscroll-behavior-x: none;
     touch-action: pan-y;
