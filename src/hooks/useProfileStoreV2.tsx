@@ -145,6 +145,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   
   // Track recently modified fields to protect them during merge
   const recentlyModifiedFields = useRef<Map<string, number>>(new Map());
+  const intentionallyDeletedFields = useRef<Set<string>>(new Set());
 
   // SIMPLIFIED: Removed complex instance tracking for performance
 
@@ -478,6 +479,16 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                     return;
                   }
                   
+                  // Preserve intentionally deleted fields (keep them empty)
+                  if (intentionallyDeletedFields.current.has(key)) {
+                    const isEmpty = localValue === '' || localValue === null || localValue === undefined ||
+                                    (Array.isArray(localValue) && localValue.length === 0);
+                    if (isEmpty) {
+                      (finalProfile as any)[key] = localValue;
+                      return;
+                    }
+                  }
+                  
                   // Preserve non-empty local values over empty db values
                   if (Array.isArray(localValue)) {
                     if (localValue.length > 0 && (!dbValue || (Array.isArray(dbValue) && dbValue.length === 0))) {
@@ -656,6 +667,16 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const toSync = { ...pendingUpdates.current };
         pendingUpdates.current = {};
         syncToDatabase(toSync);
+        
+        // Clear old deletion markers after successful sync
+        const now = Date.now();
+        const recentThreshold = 5000; // 5 seconds
+        intentionallyDeletedFields.current.forEach(field => {
+          const modTime = recentlyModifiedFields.current.get(field);
+          if (!modTime || (now - modTime) > recentThreshold) {
+            intentionallyDeletedFields.current.delete(field);
+          }
+        });
       }
     }, 3000);
 
@@ -745,6 +766,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const updateProfile = useCallback((updates: Partial<PersonalProfileV2 | PartnerProfileV2>) => {
     const clonedUpdates = cloneProfile(updates);
     
+    // Track intentional deletions
+    Object.entries(clonedUpdates).forEach(([field, value]) => {
+      const isEmpty = value === '' || value === null || value === undefined || 
+                      (Array.isArray(value) && value.length === 0);
+      if (isEmpty) {
+        intentionallyDeletedFields.current.add(field);
+      } else {
+        intentionallyDeletedFields.current.delete(field);
+      }
+    });
+    
     // Optimistic update
     setProfile(prev => {
       const updated = { ...prev, ...clonedUpdates };
@@ -781,12 +813,32 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const updateField = useCallback((field: string, value: any) => {
     // Mark field as recently modified
     recentlyModifiedFields.current.set(field, Date.now());
+    
+    // Track intentional deletions
+    const isEmpty = value === '' || value === null || value === undefined || 
+                    (Array.isArray(value) && value.length === 0);
+    if (isEmpty) {
+      intentionallyDeletedFields.current.add(field);
+    } else {
+      intentionallyDeletedFields.current.delete(field);
+    }
+    
     updateProfile({ [field]: value } as any);
   }, [updateProfile]);
 
   // Update single field with immediate database sync (for blur events)
   const updateFieldImmediate = useCallback((field: string, value: any) => {
     recentlyModifiedFields.current.set(field, Date.now());
+    
+    // Track intentional deletions
+    const isEmpty = value === '' || value === null || value === undefined || 
+                    (Array.isArray(value) && value.length === 0);
+    if (isEmpty) {
+      intentionallyDeletedFields.current.add(field);
+    } else {
+      intentionallyDeletedFields.current.delete(field);
+    }
+    
     const updates = { [field]: value } as any;
     const clonedUpdates = cloneProfile(updates);
     
