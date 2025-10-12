@@ -236,8 +236,8 @@ const Auth = () => {
   return <div className="min-h-screen questionnaire-bg auth-page-scroll">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 min-h-screen">
@@ -283,7 +283,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-64 pb-8' : 'py-8'}`}>
+        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-64 pb-8' : 'pt-4 pb-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
