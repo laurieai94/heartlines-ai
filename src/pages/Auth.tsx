@@ -252,7 +252,7 @@ const Auth = () => {
         </div>}
 
         {/* Progress Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-64 sm:top-64 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
+        {isSignUp && <div className="absolute top-56 sm:top-56 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
             <div className="p-3 sm:p-4 rounded-xl glass-burgundy shadow-lg">
               <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                 {/* Step 1 - active */}
@@ -284,7 +284,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-start sm:items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-96 pb-8' : 'pt-12 pb-8'}`}>
+        <div className={`flex items-start sm:items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-80 pb-8' : 'pt-12 pb-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
