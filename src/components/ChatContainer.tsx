@@ -91,21 +91,14 @@ const ChatContainer = ({
     const scrollDirection = currentScrollTop > prevScrollTop ? 'down' : 'up';
     viewport.dataset.prevScrollTop = currentScrollTop.toString();
     
-    // Show "scroll to top" button logic (mobile only)
+    // Show arrow instantly when scrolling up on mobile (simple & responsive)
     if (isMobilePhone) {
-      const scrolledDown = currentScrollTop > 200; // At least 200px scrolled down
-      const isNearTop = currentScrollTop < 100; // Within 100px of top
-      const isNearBottom = currentScrollTop + viewport.clientHeight >= viewport.scrollHeight - 50;
+      const isAtTop = currentScrollTop <= 50;
       
-      // Show button when scrolled down significantly AND scrolling up
-      if (scrollDirection === 'up' && scrolledDown && !isNearTop && !isNearBottom) {
+      if (scrollDirection === 'up' && !isAtTop) {
         setShowScrollToTop(true);
-        setLastScrollDirection('up');
-      } 
-      // Hide when scrolling down or near top/bottom
-      else if (scrollDirection === 'down' || isNearTop || isNearBottom) {
+      } else if (scrollDirection === 'down' || isAtTop) {
         setShowScrollToTop(false);
-        setLastScrollDirection(scrollDirection);
       }
     }
   }, [isMobilePhone]);
@@ -298,7 +291,7 @@ const ChatContainer = ({
           onClick={revealNavigationAndScrollTop}
           className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
                      bg-red-900 hover:bg-red-800 text-white
-                     transition-all duration-150 animate-in fade-in-0 slide-in-from-bottom-2"
+                     transition-all duration-100 animate-in fade-in-0 slide-in-from-bottom-1"
           size="icon"
           aria-label="Show navigation"
         >
