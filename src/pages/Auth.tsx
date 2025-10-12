@@ -244,10 +244,10 @@ const Auth = () => {
       <div className="relative z-10 min-h-screen">
         {/* Header - Only show during sign-up - Absolutely positioned */}
         {isSignUp && <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center">
-          <PhoneLockup 
-            size="md"
-            showTagline={true}
-            className="mx-auto"
+          <img 
+            src={BRAND.signUpLogoSrc}
+            alt="heartlines logo"
+            className="w-48 mx-auto"
           />
         </div>}
 
