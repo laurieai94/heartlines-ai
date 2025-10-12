@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
 import { ChatHeader } from './chat/ChatHeader';
-import { usePullToReveal } from '@/hooks/usePullToReveal';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 
@@ -44,10 +43,6 @@ const ChatContainer = ({
   const prevChatLengthRef = useRef(chatHistory.length);
   const { isKeyboardVisible } = useViewport();
   const { forceVisible } = useMobileHeaderVisibility();
-  
-  const { handleScroll: handlePullScroll } = usePullToReveal({
-    enabled: isMobilePhone
-  });
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -96,32 +91,24 @@ const ChatContainer = ({
     const scrollDirection = currentScrollTop > prevScrollTop ? 'down' : 'up';
     viewport.dataset.prevScrollTop = currentScrollTop.toString();
     
-    // Show "scroll to top" button only when scrolling UP and away from top (mobile only)
+    // Show "scroll to top" button logic (mobile only)
     if (isMobilePhone) {
-      const isScrolledAway = currentScrollTop > 100;
+      const scrolledDown = currentScrollTop > 200; // At least 200px scrolled down
+      const isNearTop = currentScrollTop < 100; // Within 100px of top
       const isNearBottom = currentScrollTop + viewport.clientHeight >= viewport.scrollHeight - 50;
       
-      // Force hide if near bottom or scrolling down
-      if (scrollDirection === 'down' || isNearBottom) {
-        setShowScrollToTop(false);
-        setLastScrollDirection('down');
-      } 
-      // Show only if scrolling up AND away from top AND not at bottom
-      else if (scrollDirection === 'up' && isScrolledAway && !isNearBottom) {
+      // Show button when scrolled down significantly AND scrolling up
+      if (scrollDirection === 'up' && scrolledDown && !isNearTop && !isNearBottom) {
         setShowScrollToTop(true);
         setLastScrollDirection('up');
       } 
-      // Hide when near the top
-      else if (currentScrollTop <= 100) {
+      // Hide when scrolling down or near top/bottom
+      else if (scrollDirection === 'down' || isNearTop || isNearBottom) {
         setShowScrollToTop(false);
+        setLastScrollDirection(scrollDirection);
       }
     }
-    
-    // Enable pull-to-reveal navigation on mobile
-    if (isMobilePhone) {
-      handlePullScroll(currentScrollTop, scrollDirection);
-    }
-  }, [isMobilePhone, handlePullScroll]);
+  }, [isMobilePhone]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -311,7 +298,7 @@ const ChatContainer = ({
           onClick={revealNavigationAndScrollTop}
           className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
                      bg-red-900 hover:bg-red-800 text-white
-                     transition-all duration-200 animate-in fade-in zoom-in-95"
+                     transition-all duration-150 animate-in fade-in-0 slide-in-from-bottom-2"
           size="icon"
           aria-label="Show navigation"
         >
