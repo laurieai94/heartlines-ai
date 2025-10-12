@@ -284,7 +284,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-52 pb-8' : 'pt-4 pb-8'}`}>
+        <div className={`flex items-start sm:items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-52 pb-8' : 'pt-12 pb-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
@@ -356,7 +356,7 @@ const Auth = () => {
             </> : <>
           {!isSignUp && <div className="text-center mb-4">
             <PhoneLockup 
-              size="sm"
+              size="md"
               showTagline={true}
               className="mx-auto"
             />
