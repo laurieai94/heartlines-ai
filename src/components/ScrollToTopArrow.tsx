@@ -54,9 +54,8 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
         const isScrollingUp = currentScrollTop < previousScrollTop;
         const isAtTop = currentScrollTop <= 10;
 
-        // When user reaches top, disable arrow until new activity
+        // When user reaches top, hide arrow
         if (isAtTop) {
-          hasNewActivityRef.current = false;
           button.style.opacity = '0';
           button.style.pointerEvents = 'none';
           button.style.transform = 'translateY(10px)';
@@ -64,14 +63,8 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
           return;
         }
 
-        // CRITICAL: Only respond if user is actually scrolling
-        if (!userIsScrollingRef.current) {
-          lastScrollTopRef.current = currentScrollTop;
-          return; // Ignore programmatic scrolls
-        }
-
-        // Show arrow only if user is scrolling up AND there's been new chat activity
-        if (isScrollingUp && hasNewActivityRef.current) {
+        // Show arrow when scrolling up and not near the top
+        if (isScrollingUp && currentScrollTop > 100) {
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
