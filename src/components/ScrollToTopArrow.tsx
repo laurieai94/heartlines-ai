@@ -29,14 +29,17 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
 
       rafIdRef.current = requestAnimationFrame(() => {
         const currentScrollTop = scrollContainer.scrollTop;
+        const previousScrollTop = lastScrollTopRef.current;
+        const isScrollingUp = currentScrollTop < previousScrollTop;
         const isScrolledDown = currentScrollTop > 50;
+        const isAtTop = currentScrollTop <= 10;
 
-        // Show arrow whenever scrolled down, hide when at top
-        if (isScrolledDown) {
+        // Show arrow instantly when scrolling up (and not at top) or when scrolled down
+        if ((isScrollingUp && !isAtTop) || isScrolledDown) {
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
-        } else {
+        } else if (isAtTop) {
           button.style.opacity = '0';
           button.style.pointerEvents = 'none';
           button.style.transform = 'translateY(10px)';
