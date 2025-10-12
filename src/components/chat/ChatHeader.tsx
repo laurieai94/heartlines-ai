@@ -9,6 +9,7 @@ import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { cn } from "@/lib/utils";
+import { ProfileCompletionBadge } from "./ProfileCompletionBadge";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -120,7 +121,10 @@ export const ChatHeader = ({
             
             {/* Kai Info - Center, aligned with messages */}
             <div className="flex-1">
-              <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg">Kai</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg">Kai</h3>
+                <ProfileCompletionBadge />
+              </div>
               <div className="flex items-center gap-1">
                 <span className="text-white/70 text-sm">Your AI Relationship Coach</span>
                 <Popover>
