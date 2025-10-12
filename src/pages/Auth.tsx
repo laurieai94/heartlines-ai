@@ -244,7 +244,7 @@ const Auth = () => {
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
-          <div className="w-full flex flex-col items-center space-y-3 sm:space-y-6 md:space-y-8 pt-4 sm:pt-8 md:pt-10 px-4">
+          <div className="w-full flex flex-col items-center space-y-2 sm:space-y-6 md:space-y-8 pt-4 sm:pt-8 md:pt-10 px-4">
             {/* Logo */}
             <div className="text-center">
               <img 
@@ -289,7 +289,7 @@ const Auth = () => {
         )}
 
         {/* Form container - centered and flexible */}
-        <div className={`flex-1 flex items-center justify-center px-4 ${isSignUp ? 'pt-2 pb-6 sm:py-8 md:py-12' : 'py-8 sm:py-12'}`}>
+        <div className={`flex-1 flex items-center justify-center px-4 ${isSignUp ? 'pt-1 pb-6 sm:py-8 md:py-12' : 'py-8 sm:py-12'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
