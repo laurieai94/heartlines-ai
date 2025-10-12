@@ -112,6 +112,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
             
           </div>
           
+          {/* User avatar on the right side */}
+          <div className="flex items-center">
+            <SignInButton 
+              user={user} 
+              onSignInClick={onSignInClick} 
+              onOpenProfile={onOpenProfile} 
+            />
+          </div>
         </div>
 
         {/* Desktop Navigation - Hidden on mobile */}
