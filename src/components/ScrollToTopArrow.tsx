@@ -16,6 +16,8 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
   const userIsScrollingRef = useRef(false);
   const touchEndTimeoutRef = useRef<number>();
   const hasNewActivityRef = useRef(true);
+  const isProgrammaticScrollRef = useRef(false);
+  const prevChatLengthRef = useRef(chatHistory.length);
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const { forceVisible } = useMobileHeaderVisibility();
@@ -63,11 +65,21 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
           return;
         }
 
-        // Show arrow when scrolling up and not near the top
-        if (isScrollingUp && currentScrollTop > 100) {
+        // Show arrow ONLY when user manually scrolls up (not programmatic)
+        if (isScrollingUp && 
+            currentScrollTop > 100 && 
+            userIsScrollingRef.current && 
+            !isProgrammaticScrollRef.current) {
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
+        }
+
+        // Hide arrow when scrolling down
+        if (!isScrollingUp && currentScrollTop > 100) {
+          button.style.opacity = '0';
+          button.style.pointerEvents = 'none';
+          button.style.transform = 'translateY(10px)';
         }
 
         lastScrollTopRef.current = currentScrollTop;
@@ -96,7 +108,19 @@ export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTo
   useEffect(() => {
     if (!isMobilePhone) return;
     
-    // Set flag to true when chat history changes (new message sent/received)
+    const hasNewMessage = chatHistory.length > prevChatLengthRef.current;
+    
+    if (hasNewMessage) {
+      // Mark as programmatic scroll for next 1 second
+      isProgrammaticScrollRef.current = true;
+      
+      // Clear flag after auto-scroll completes
+      setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+      }, 1000);
+    }
+    
+    prevChatLengthRef.current = chatHistory.length;
     hasNewActivityRef.current = true;
   }, [chatHistory.length, isMobilePhone]);
 
