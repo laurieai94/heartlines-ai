@@ -44,6 +44,9 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
     if (!enabled || !isMobile) return;
 
     const handleTouchStart = (e: TouchEvent) => {
+      // Early exit if not at top - prevents any processing
+      if (!isAtTopRef.current) return;
+      
       const touch = e.touches[0];
       if (!touch) return;
 
@@ -52,14 +55,14 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
         time: Date.now()
       };
       
-      // Only reset when at scroll top
-      if (isAtTopRef.current) {
-        setIsPulling(false);
-        setPullDistance(0);
-      }
+      setIsPulling(false);
+      setPullDistance(0);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      // Early exit if not at top - prevents any processing
+      if (!isAtTopRef.current) return;
+      
       const touch = e.touches[0];
       if (!touch || !touchStartRef.current) return;
 
@@ -77,7 +80,7 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const isPullingDown = deltaY > 0;
       
       // ONLY intercept if scroll position is exactly 0 and significant pull
-      if (isAtTopRef.current && isPullingDown && deltaY > 15) {
+      if (isPullingDown && deltaY > 15) {
         setIsPulling(true);
         setPullDistance(Math.min(deltaY, threshold * 2));
         
@@ -89,6 +92,13 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
     };
 
     const handleTouchEnd = () => {
+      // Early exit if not at top - prevents any processing
+      if (!isAtTopRef.current) {
+        touchStartRef.current = null;
+        touchMoveRef.current = null;
+        return;
+      }
+      
       if (!touchStartRef.current || !touchMoveRef.current) {
         setIsPulling(false);
         setPullDistance(0);
@@ -106,7 +116,7 @@ export const usePullToReveal = (options: PullToRevealOptions = {}) => {
       const exceededVelocity = velocity > velocityThreshold;
 
       // Only reveal if truly at top
-      if (isAtTopRef.current && isPullingDown) {
+      if (isPullingDown) {
         if (exceededThreshold || exceededVelocity) {
           setVisible(true);
         }

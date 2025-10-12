@@ -11,6 +11,7 @@ import { BRAND } from "@/branding";
 import { ChatHeader } from './chat/ChatHeader';
 import { usePullToReveal } from '@/hooks/usePullToReveal';
 import { useViewport } from '@/contexts/ViewportContext';
+import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -42,6 +43,7 @@ const ChatContainer = ({
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
   const { isKeyboardVisible } = useViewport();
+  const { forceVisible } = useMobileHeaderVisibility();
   
   const { handleScroll: handlePullScroll } = usePullToReveal({
     enabled: isMobilePhone
@@ -68,6 +70,18 @@ const ChatContainer = ({
       behavior
     });
   }, []);
+
+  // Reveal navigation and scroll to top
+  const revealNavigationAndScrollTop = useCallback(() => {
+    forceVisible(); // Show the header/navigation
+    scrollToTop('smooth'); // Scroll chat to top
+    
+    // Also scroll page to top to fully reveal header
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [forceVisible, scrollToTop]);
 
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
@@ -294,11 +308,12 @@ const ChatContainer = ({
       {/* Scroll to top button - mobile only */}
       {showScrollToTop && isMobilePhone && (
         <Button
-          onClick={() => scrollToTop('smooth')}
-          className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-10"
+          onClick={revealNavigationAndScrollTop}
+          className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
+                     bg-red-900 hover:bg-red-800 text-white
+                     transition-all duration-200 animate-in fade-in zoom-in-95"
           size="icon"
-          variant="secondary"
-          aria-label="Scroll to top"
+          aria-label="Show navigation"
         >
           <ArrowUp className="w-5 h-5" />
         </Button>
