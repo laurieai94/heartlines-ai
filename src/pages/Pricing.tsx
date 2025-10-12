@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import { ToastAction } from "@/components/ui/toast";
 import SimpleHeader from "@/components/SimpleHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 const faqs = [{
@@ -32,7 +33,15 @@ const Pricing = () => {
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
       toast.error("Please sign in", {
-        description: "You need to sign in to subscribe to a plan."
+        description: "You need to sign in to subscribe to a plan.",
+        action: (
+          <ToastAction 
+            altText="Go to sign in" 
+            onClick={() => navigate('/signin')}
+          >
+            Sign In
+          </ToastAction>
+        ),
       });
       return;
     }
