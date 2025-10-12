@@ -2,9 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
-import { Button } from '@/components/ui/button';
-import { ArrowUp } from 'lucide-react';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
+import { ScrollToTopArrow } from './ScrollToTopArrow';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Heart } from "lucide-react";
 import { BRAND } from "@/branding";
@@ -36,23 +35,11 @@ const ChatContainer = ({
   onOpenSidebar
 }: ChatContainerProps) => {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
-  const [lastScrollDirection, setLastScrollDirection] = useState<'up' | 'down'>('down');
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
   const { isKeyboardVisible } = useViewport();
   const { forceVisible } = useMobileHeaderVisibility();
-
-  // Debug device detection
-  useEffect(() => {
-    console.log('📱 Device detection:', {
-      isMobile,
-      isTablet,
-      isMobilePhone,
-      windowWidth: window.innerWidth
-    });
-  }, [isMobile, isTablet, isMobilePhone]);
 
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -88,41 +75,6 @@ const ChatContainer = ({
     });
   }, [forceVisible, scrollToTop]);
 
-  const handleScroll = useCallback(() => {
-    if (!viewportRef.current) return;
-    
-    const viewport = viewportRef.current;
-    
-    // Track scroll direction
-    const prevScrollTop = viewport.dataset.prevScrollTop 
-      ? parseInt(viewport.dataset.prevScrollTop) 
-      : viewport.scrollTop;
-    const currentScrollTop = viewport.scrollTop;
-    const scrollDirection = currentScrollTop > prevScrollTop ? 'down' : 'up';
-    viewport.dataset.prevScrollTop = currentScrollTop.toString();
-    
-    console.log('📜 Scroll event:', {
-      isMobilePhone,
-      currentScrollTop,
-      scrollDirection,
-      isAtTop: currentScrollTop <= 50
-    });
-    
-    // Show arrow instantly when scrolling up on mobile (simple & responsive)
-    if (isMobilePhone) {
-      const isAtTop = currentScrollTop <= 50;
-      
-      if (scrollDirection === 'up' && !isAtTop) {
-        console.log('✅ Showing arrow!');
-        setShowScrollToTop(true);
-      } else if (scrollDirection === 'down' || isAtTop) {
-        console.log('❌ Hiding arrow');
-        setShowScrollToTop(false);
-      }
-    } else {
-      console.log('⚠️ Not mobile phone, skipping arrow logic');
-    }
-  }, [isMobilePhone]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -259,7 +211,6 @@ const ChatContainer = ({
           {/* Scrollable Messages - fills remaining space */}
           <div 
             ref={viewportRef}
-            onScroll={handleScroll}
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
@@ -286,7 +237,6 @@ const ChatContainer = ({
         <ScrollArea 
           viewportRef={viewportRef}
           className="h-full w-full"
-          onScroll={handleScroll}
           role="log"
           aria-live="polite"
           aria-label="Chat conversation history"
@@ -306,30 +256,8 @@ const ChatContainer = ({
         </ScrollArea>
       )}
 
-      {/* Scroll to top button - mobile only */}
-      {(() => {
-        console.log('🔘 Button render check:', {
-          showScrollToTop,
-          isMobilePhone,
-          willRender: showScrollToTop && isMobilePhone
-        });
-        
-        return showScrollToTop && isMobilePhone && (
-          <Button
-            onClick={() => {
-              console.log('🎯 Arrow button clicked!');
-              revealNavigationAndScrollTop();
-            }}
-            className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
-                       bg-red-900 hover:bg-red-800 text-white
-                       transition-all duration-100 animate-in fade-in-0 slide-in-from-bottom-1"
-            size="icon"
-            aria-label="Show navigation"
-          >
-            <ArrowUp className="w-5 h-5" />
-          </Button>
-        );
-      })()}
+      {/* Scroll to top arrow - handles its own logic */}
+      <ScrollToTopArrow scrollContainerRef={viewportRef} />
     </div>
   );
 };
