@@ -58,7 +58,7 @@ const AccountLayout = () => {
   }, []);
 
   return (
-    <div className={`bg-burgundy-900 ${isMobile ? 'account-mobile' : ''}`}>
+    <div className={`bg-burgundy-900 min-h-screen ${isMobile ? 'account-mobile' : ''}`}>
       {/* Animated background elements - deferred for performance */}
       {showBackgroundEffects && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -67,7 +67,7 @@ const AccountLayout = () => {
         </div>
       )}
 
-      <div className={`relative z-10 container mx-auto pt-16 ${
+      <div className={`relative z-10 container mx-auto pt-16 pb-20 ${
         isMobile ? 'px-4 py-3' : 'px-4 py-4'
       } max-w-3xl scroll-container`}>
 

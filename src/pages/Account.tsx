@@ -78,7 +78,7 @@ const Account = () => {
       goToCoach={handleGoToCoachAccount} 
       goToPartner={handleGoToPartnerAccount}
     >
-      <div className="min-h-screen min-h-dvh bg-burgundy-900 mobile-optimized">
+      <div className="min-h-screen min-h-dvh bg-burgundy-900 mobile-optimized account-page-scroll">
         <DashboardHeader
           accessLevel={accessLevel}
           profileCompletion={profileCompletion}
