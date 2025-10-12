@@ -1,5 +1,5 @@
 import React from "react";
-import ChatContainer from "../ChatContainer";
+import ChatContainer, { ChatContainerRef } from "../ChatContainer";
 import { ChatMessage } from "@/types/AIInsights";
 
 interface MemoizedChatContainerProps {
@@ -19,22 +19,27 @@ interface MemoizedChatContainerProps {
 }
 
 // Memoize ChatContainer to prevent unnecessary re-renders
-export const MemoizedChatContainer = React.memo(ChatContainer, (prevProps, nextProps) => {
-  return (
-    prevProps.loading === nextProps.loading &&
-    prevProps.userName === nextProps.userName &&
-    prevProps.isConfigured === nextProps.isConfigured &&
-    prevProps.conversationStarter === nextProps.conversationStarter &&
-    prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
-    prevProps.userTyping === nextProps.userTyping &&
-    prevProps.profileCompletion === nextProps.profileCompletion &&
-    prevProps.showProfileNudge === nextProps.showProfileNudge &&
-    prevProps.chatHistory.length === nextProps.chatHistory.length &&
-    prevProps.chatHistory.every((msg, index) => 
-      msg.id === nextProps.chatHistory[index]?.id &&
-      msg.content === nextProps.chatHistory[index]?.content
-    )
-  );
-});
+export const MemoizedChatContainer = React.memo(
+  React.forwardRef<ChatContainerRef, MemoizedChatContainerProps>((props, ref) => {
+    return <ChatContainer {...props} ref={ref} />;
+  }),
+  (prevProps, nextProps) => {
+    return (
+      prevProps.loading === nextProps.loading &&
+      prevProps.userName === nextProps.userName &&
+      prevProps.isConfigured === nextProps.isConfigured &&
+      prevProps.conversationStarter === nextProps.conversationStarter &&
+      prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&
+      prevProps.userTyping === nextProps.userTyping &&
+      prevProps.profileCompletion === nextProps.profileCompletion &&
+      prevProps.showProfileNudge === nextProps.showProfileNudge &&
+      prevProps.chatHistory.length === nextProps.chatHistory.length &&
+      prevProps.chatHistory.every((msg, index) => 
+        msg.id === nextProps.chatHistory[index]?.id &&
+        msg.content === nextProps.chatHistory[index]?.content
+      )
+    );
+  }
+);
 
 MemoizedChatContainer.displayName = 'MemoizedChatContainer';

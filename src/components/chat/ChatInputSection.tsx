@@ -35,6 +35,7 @@ interface ChatInputSectionProps {
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
   onHeightChange?: (height: number) => void;
+  onInputFocus?: () => void;
 }
 
 export const ChatInputSection = ({
@@ -49,7 +50,8 @@ export const ChatInputSection = ({
   showStarters = false,
   onCloseStarters = () => {},
   onUserTypingChange = () => {},
-  onHeightChange = () => {}
+  onHeightChange = () => {},
+  onInputFocus = () => {}
 }: ChatInputSectionProps) => {
   const { 
     accessLevel, 
@@ -375,6 +377,7 @@ export const ChatInputSection = ({
               }
               inputRef={inputRef}
               onInputFocus={() => { 
+                onInputFocus();
                 if (!user) openAuthModalFromChat();
                 else if (accessLevel === 'profile-required') goToProfile('chat');
                 else if (atLimit) {

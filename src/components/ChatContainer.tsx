@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import AIChatMessage from './AIChatMessage';
 import { ChatMessage } from '@/types/AIInsights';
@@ -11,6 +11,11 @@ import { ChatHeader } from './chat/ChatHeader';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
 import OnboardingStepNudge from './OnboardingStepNudge';
+
+export interface ChatContainerRef {
+  scrollToBottom: (behavior?: 'auto' | 'smooth') => void;
+  scrollToBottomIfScrolledUp: () => void;
+}
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -28,7 +33,7 @@ interface ChatContainerProps {
   inputSectionHeight?: number;
 }
 
-const ChatContainer = ({ 
+const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({ 
   chatHistory, 
   loading, 
   userName, 
@@ -42,7 +47,7 @@ const ChatContainer = ({
   onCompleteProfile,
   showProfileNudge = false,
   inputSectionHeight
-}: ChatContainerProps) => {
+}, ref) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useOptimizedMobile();
@@ -87,6 +92,31 @@ const ChatContainer = ({
       behavior: 'smooth'
     });
   }, [forceVisible, scrollToTop]);
+
+  // Smart scroll to bottom only if user has scrolled up
+  const scrollToBottomIfScrolledUp = useCallback(() => {
+    if (!viewportRef.current) return;
+    
+    const viewport = viewportRef.current;
+    const scrollTop = viewport.scrollTop;
+    const scrollHeight = viewport.scrollHeight;
+    const clientHeight = viewport.clientHeight;
+    
+    // Calculate if user is near bottom (within 100px tolerance)
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+    const isNearBottom = distanceFromBottom < 100;
+    
+    // Only scroll if user has scrolled away from bottom
+    if (!isNearBottom) {
+      scrollToBottom('smooth');
+    }
+  }, [scrollToBottom]);
+
+  // Expose methods via ref
+  useImperativeHandle(ref, () => ({
+    scrollToBottom,
+    scrollToBottomIfScrolledUp
+  }), [scrollToBottom, scrollToBottomIfScrolledUp]);
 
 
   // Auto-scroll to bottom on new messages with double RAF
@@ -318,6 +348,8 @@ const ChatContainer = ({
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
     </div>
   );
-};
+});
+
+ChatContainer.displayName = 'ChatContainer';
 
 export default ChatContainer;

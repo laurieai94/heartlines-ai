@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChatMessage, ProfileData, DemographicsData } from "@/types/AIInsights";
 import { UseProfileGoalsReturn } from "@/hooks/useProfileGoals";
 import { useUserProfile } from "@/hooks/useUserProfile";
@@ -11,6 +10,8 @@ import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
 import MemoizedChatInputSection from "./chat/MemoizedChatInputSection";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { ChatContainerRef } from "./ChatContainer";
+import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -63,6 +64,9 @@ const AIChat = ({
   const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
+  const { isMobile, isTablet } = useOptimizedMobile();
+  const isMobilePhone = isMobile && !isTablet;
+  const chatContainerRef = useRef<ChatContainerRef>(null);
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -83,6 +87,12 @@ const AIChat = ({
       onNewConversation();
     }
   }, [onNewConversation, setChatHistory]);
+
+  // Handle input focus - scroll to bottom if scrolled up (mobile only)
+  const handleInputFocus = useCallback(() => {
+    if (!isMobilePhone) return;
+    chatContainerRef.current?.scrollToBottomIfScrolledUp();
+  }, [isMobilePhone]);
 
   // Mark history as loaded only when both canInteract is true and history loading is complete
   useEffect(() => {
@@ -117,6 +127,7 @@ useChatEffects({
     >
       <div className="flex flex-col h-full min-h-0">
         <MemoizedChatContainer
+          ref={chatContainerRef}
           chatHistory={chatHistory}
           loading={loading}
           userName={userName}
@@ -145,6 +156,7 @@ useChatEffects({
           onCloseStarters={onCloseStarters}
           onUserTypingChange={setUserTyping}
           onHeightChange={setInputSectionHeight}
+          onInputFocus={handleInputFocus}
         />
       </div>
     </ChatLayout>
