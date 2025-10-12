@@ -421,7 +421,7 @@ const Auth = () => {
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className={`${isSignUp ? 'mt-3' : 'mt-4'} text-center`}>
+              <div className="mt-4 text-center">
                 <p className="text-white/70 text-xs">
                   {isSignUp ? 'Already have an account?' : 'Need an account?'}
                   {' '}
