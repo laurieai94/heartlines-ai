@@ -11,9 +11,9 @@ const FirstVisitSplash: React.FC = () => {
   const [isChecking, setIsChecking] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   
-  // Load critical resources with min 1s display, max 5s timeout
+  // Load critical resources with min 3s display, max 5s timeout
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: 1000,
+    minDisplayTime: 3000,
     maxTimeout: 5000
   });
 
