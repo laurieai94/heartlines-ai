@@ -285,7 +285,7 @@ const Auth = () => {
 
         {/* Centered card container */}
         <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-80 pb-8' : 'pt-2 sm:pt-8 pb-8'}`}>
-          <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
+          <div className="questionnaire-card p-3 sm:p-4 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
@@ -421,7 +421,7 @@ const Auth = () => {
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className={`${isSignUp ? 'mt-3' : 'mt-4'} text-center`}>
+              <div className={`${isSignUp ? 'mt-2' : 'mt-2'} text-center`}>
                 <p className="text-white/70 text-xs">
                   {isSignUp ? 'Already have an account?' : 'Need an account?'}
                   {' '}
@@ -439,7 +439,7 @@ const Auth = () => {
                 </p>
                 
                 {/* Back to Home button */}
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto mt-0.5 transition-none">
+                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto mt-0 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
                   Back to Home
                 </Button>
