@@ -284,7 +284,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-start sm:items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-72 pb-8' : 'pt-12 pb-8'}`}>
+        <div className={`flex items-start sm:items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-96 pb-8' : 'pt-12 pb-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
@@ -439,7 +439,7 @@ const Auth = () => {
                 </p>
                 
                 {/* Back to Home button */}
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent active:text-white/80 text-xs py-1 h-auto mt-1.5 transition-none">
+                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto mt-1.5 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
                   Back to Home
                 </Button>
