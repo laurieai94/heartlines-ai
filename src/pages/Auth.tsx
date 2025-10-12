@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 import PhoneLockup from '@/components/Brand/PhoneLockup';
@@ -20,6 +20,7 @@ const Auth = () => {
     resetPassword
   } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const [isSignUp, setIsSignUp] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -156,8 +157,14 @@ const Auth = () => {
         } = await signIn(formData.email, formData.password);
         if (error) throw error;
         logEvent('auth_signin_completed');
-        // Navigate to coach page for sign-in
-        navigate('/coach');
+        
+        // Check for return path in localStorage or location state
+        const intendedReturn = localStorage.getItem('intended_plan_return');
+        const locationState = location.state as { returnTo?: string } | null;
+        const returnTo = locationState?.returnTo || intendedReturn || '/coach';
+        
+        // Navigate to the intended destination
+        navigate(returnTo);
       }
     } catch (error: any) {
       setFormErrors([getErrorMessage(error)]);

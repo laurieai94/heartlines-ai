@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,14 +30,41 @@ const Pricing = () => {
     user
   } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
+  // Auto-trigger checkout if user just signed in with intended plan
+  useEffect(() => {
+    if (user) {
+      const intendedPlanTier = localStorage.getItem('intended_plan_tier');
+      const returnPath = localStorage.getItem('intended_plan_return');
+      
+      if (intendedPlanTier && returnPath === '/plans') {
+        // Clear the stored values
+        localStorage.removeItem('intended_plan_tier');
+        localStorage.removeItem('intended_plan_return');
+        
+        // Find the plan and trigger checkout
+        const plan = pricingPlans.find(p => p.tier === intendedPlanTier);
+        if (plan && plan.tier !== 'freemium') {
+          // Small delay to ensure user sees they're signed in
+          setTimeout(() => {
+            handlePlanSelect(plan);
+          }, 500);
+        }
+      }
+    }
+  }, [user]);
+
   const handlePlanSelect = async (plan: typeof pricingPlans[0]) => {
     if (!user) {
+      // Store the intended plan tier in localStorage
+      localStorage.setItem('intended_plan_tier', plan.tier);
+      localStorage.setItem('intended_plan_return', '/plans');
+      
       toast.error("Please sign in", {
-        description: "You need to sign in to subscribe to a plan.",
+        description: "Sign in to continue with your subscription.",
         action: (
           <ToastAction 
             altText="Go to sign in" 
-            onClick={() => navigate('/signin')}
+            onClick={() => navigate('/signin', { state: { returnTo: '/plans', planTier: plan.tier } })}
           >
             Sign In
           </ToastAction>
