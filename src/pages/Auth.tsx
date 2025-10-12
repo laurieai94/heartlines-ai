@@ -252,7 +252,7 @@ const Auth = () => {
         </div>}
 
         {/* Progress Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-56 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
+        {isSignUp && <div className="absolute top-44 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
             <div className="p-3 sm:p-4 rounded-xl glass-burgundy shadow-lg">
               <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                 {/* Step 1 - active */}
