@@ -217,10 +217,19 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     const migrationSentinel = batchedStorage.getItem(`${config.storageKey}_migrated`);
     
     try {
-      // Try new format first
+      // Try new format first (with metadata)
       const v2Data = batchedStorage.getItem(config.storageKey);
       if (v2Data) {
         const parsed = JSON.parse(v2Data);
+        
+        // Check if it's new format with metadata
+        if (parsed.profile && Array.isArray(parsed.deletionMarkers)) {
+          // Restore deletion markers
+          intentionallyDeletedFields.current = new Set(parsed.deletionMarkers);
+          return { ...defaultProfile, ...parsed.profile };
+        }
+        
+        // Old format (direct profile object)
         return { ...defaultProfile, ...parsed };
       }
     } catch (error) {
@@ -290,12 +299,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
       try {
-        const toSave = { ...data, lastUpdated: new Date().toISOString() };
-        batchedStorage.setItem(config.storageKey, JSON.stringify(toSave));
+        const metadata = {
+          profile: { ...data, lastUpdated: new Date().toISOString() },
+          deletionMarkers: Array.from(intentionallyDeletedFields.current),
+          lastSaved: new Date().toISOString()
+        };
+        
+        batchedStorage.setItem(config.storageKey, JSON.stringify(metadata));
         setLastSaved(new Date());
         // Broadcast to other hook instances in this tab
         window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
-          detail: { profileType, storageKey: config.storageKey, lastUpdated: toSave.lastUpdated }
+          detail: { profileType, storageKey: config.storageKey, lastUpdated: metadata.profile.lastUpdated }
         }));
       } catch (error) {
         // Silently handle storage errors
@@ -338,6 +352,8 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             if (prev[key] !== undefined) {
               preservedProfile[key] = prev[key];
             }
+            // Clear deletion marker for successfully synced fields
+            intentionallyDeletedFields.current.delete(key);
           });
           
           saveToStorage(preservedProfile);
@@ -487,6 +503,21 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                       (finalProfile as any)[key] = localValue;
                       return;
                     }
+                  }
+                  
+                  // Also preserve empty local values when deletion marker exists and DB has value
+                  // This catches the case where deletion marker was restored from storage
+                  const isEmpty = localValue === '' || localValue === null || localValue === undefined ||
+                                  (Array.isArray(localValue) && localValue.length === 0);
+                  const dbHasValue = dbValue && (
+                    (typeof dbValue === 'string' && dbValue.trim()) ||
+                    (Array.isArray(dbValue) && dbValue.length > 0)
+                  );
+                  
+                  if (isEmpty && dbHasValue && intentionallyDeletedFields.current.has(key)) {
+                    // User intentionally deleted this - keep it empty
+                    (finalProfile as any)[key] = localValue;
+                    return;
                   }
                   
                   // Preserve non-empty local values over empty db values
