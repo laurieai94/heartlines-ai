@@ -125,6 +125,9 @@ export const HeroCarousel: React.FC = () => {
               {slide.tagline}
             </p>
           </div>
+
+          {/* Bottom separator section */}
+          <div className="absolute bottom-0 left-0 right-0 h-20 md:h-24 bg-gradient-to-b from-transparent via-[#7C2D2D]/80 to-[#5A1F1F] z-[5]" />
         </div>
       ))}
       
