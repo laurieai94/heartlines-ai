@@ -237,7 +237,7 @@ const Auth = () => {
         {/* Header - Only show during sign-up */}
         {isSignUp && <div className="text-center mb-6">
             <PhoneLockup 
-              size="md"
+              size="lg"
               showTagline={true}
               className="mx-auto"
             />
@@ -344,7 +344,7 @@ const Auth = () => {
             </> : <>
               {!isSignUp && <div className="text-center mb-4">
                   <PhoneLockup 
-                    size="md"
+                    size="lg"
                     showTagline={true}
                     className="mx-auto"
                   />
