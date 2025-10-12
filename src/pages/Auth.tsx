@@ -233,7 +233,7 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-safe pb-20 min-h-screen flex flex-col justify-center max-w-md">
+      <div className="relative z-10 w-full px-4 pt-safe pb-20 min-h-screen flex flex-col justify-center items-center">
         {/* Header - Only show during sign-up */}
         {isSignUp && <div className="text-center mb-6">
             <PhoneLockup 
@@ -244,7 +244,7 @@ const Auth = () => {
           </div>}
 
         {/* Progress Header - Only show during sign-up */}
-        {isSignUp && <div className="mb-8 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 max-w-sm mx-auto w-full">
+        {isSignUp && <div className="mb-8 p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg sticky top-4 z-20 w-full max-w-sm">
             <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
               {/* Step 1 - active */}
               <div className="flex items-center justify-center gap-1 sm:gap-1.5">
@@ -273,7 +273,7 @@ const Auth = () => {
             </div>
           </div>}
 
-      <div className="questionnaire-card p-4 sm:p-5 animate-fade-in max-w-sm mx-auto w-full">
+      <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
