@@ -241,50 +241,55 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 min-h-screen">
-        {/* Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center">
-          <img 
-            src={BRAND.signUpLogoSrc}
-            alt="heartlines logo"
-            className="w-48 mx-auto"
-          />
-        </div>}
-
-        {/* Progress Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-52 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
-            <div className="p-3 sm:p-4 rounded-xl glass-burgundy shadow-lg">
-              <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
-                {/* Step 1 - active */}
-                <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{
+      <div className="relative z-10 min-h-screen flex flex-col">
+        {/* Top section with logo and progress - only during sign-up */}
+        {isSignUp && (
+          <div className="w-full flex flex-col items-center space-y-4 sm:space-y-6 md:space-y-8 pt-6 sm:pt-8 md:pt-10 px-4">
+            {/* Logo */}
+            <div className="text-center">
+              <img 
+                src={BRAND.signUpLogoSrc}
+                alt="heartlines logo"
+                className="w-48 mx-auto"
+              />
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="w-full max-w-sm">
+              <div className="p-3 sm:p-4 rounded-xl glass-burgundy shadow-lg">
+                <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
+                  {/* Step 1 - active */}
+                  <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{
+                  background: 'var(--gradient-primary-button)'
+                }}>1</div>
+                    <span className="text-white text-[12px] sm:text-[13px] leading-tight font-medium whitespace-nowrap">Join Free</span>
+                  </div>
+                  {/* Step 2 */}
+                  <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
+                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Build Profiles</span>
+                  </div>
+                  {/* Step 3 */}
+                  <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
+                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
+                  </div>
+                </div>
+                
+                {/* Progress Bar */}
+                <div className="w-full bg-white/10 rounded-full h-1">
+                  <div className="h-1 rounded-full w-1/3" style={{
                 background: 'var(--gradient-primary-button)'
-              }}>1</div>
-                  <span className="text-white text-[12px] sm:text-[13px] leading-tight font-medium whitespace-nowrap">Join Free</span>
+              }}></div>
                 </div>
-                {/* Step 2 */}
-                <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
-                  <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Build Profiles</span>
-                </div>
-                {/* Step 3 */}
-                <div className="flex items-center justify-center gap-1 sm:gap-1.5">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
-                  <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
-                </div>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="w-full bg-white/10 rounded-full h-1">
-                <div className="h-1 rounded-full w-1/3" style={{
-              background: 'var(--gradient-primary-button)'
-            }}></div>
               </div>
             </div>
-          </div>}
+          </div>
+        )}
 
-        {/* Centered card container */}
-        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-64 sm:pt-80 pb-8' : 'pt-2 sm:pt-8 pb-8'}`}>
+        {/* Form container - centered and flexible */}
+        <div className={`flex-1 flex items-center justify-center px-4 ${isSignUp ? 'py-6 sm:py-8 md:py-12' : 'py-8 sm:py-12'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
