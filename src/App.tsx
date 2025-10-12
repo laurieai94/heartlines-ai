@@ -52,62 +52,62 @@ const AppContent = () => {
         
         {/* Non-critical routes can be lazy */}
         <Route path="/mission" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Mission />
           </Suspense>
         } />
         <Route path="/privacy-and-security" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <PrivacySecurity />
           </Suspense>
         } />
         <Route path="/plans" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Pricing />
           </Suspense>
         } />
         <Route path="/billing/success" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <BillingSuccess />
           </Suspense>
         } />
         <Route path="/auth/callback" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <AuthCallback />
           </Suspense>
         } />
         <Route path="/signin" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Auth />
           </Suspense>
         } />
         <Route path="/signup" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Auth />
           </Suspense>
         } />
         <Route path="/get-started" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <GetStarted />
           </Suspense>
         } />
         <Route path="/account" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Account />
           </Suspense>
         } />
         <Route path="/terms" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Terms />
           </Suspense>
         } />
         <Route path="/contact" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <Contact />
           </Suspense>
         } />
         <Route path="*" element={
-          <Suspense fallback={<SplashScreen titleText="heartlines loading..." />}>
+          <Suspense fallback={<div />}>
             <NotFound />
           </Suspense>
         } />
