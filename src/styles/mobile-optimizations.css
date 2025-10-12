@@ -291,6 +291,21 @@ html, body, #root {
   .mobile-chat-input:focus {
     caret-color: #ffffff !important;
     -webkit-text-fill-color: white !important;
+    scroll-margin-bottom: 20px;
+    scroll-snap-align: center;
+  }
+
+  /* Ensure chat input container stays visible above keyboard */
+  .mobile-chat-input-container {
+    transition: transform 0.1s ease-out;
+    -webkit-transition: transform 0.1s ease-out;
+  }
+}
+
+/* Ensure chat input stays visible above keyboard */
+@supports (height: 100dvh) {
+  .mobile-chat-input-container {
+    max-height: 100dvh;
   }
 }
 

@@ -36,6 +36,7 @@ const AIChatInput = ({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = inputRef ?? internalRef;
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const sendMessage = () => {
     if (!currentMessage.trim()) return;
@@ -87,10 +88,47 @@ const AIChatInput = ({
     }
   };
 
+  // Ensure input stays visible on mobile when typing
+  const ensureVisible = () => {
+    if (window.innerWidth >= 768) return; // Desktop only
+    
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (textareaRef.current && document.activeElement === textareaRef.current) {
+        textareaRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }
+    }, 100);
+  };
+
+  // Handle focus to scroll input into view on mobile
+  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    onInputFocus?.();
+    
+    // On mobile, scroll input into view after keyboard starts appearing
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 150); // Wait for keyboard animation to start
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
     setCurrentMessage(newValue);
     adjustTextareaHeight();
+    ensureVisible(); // Keep input visible while typing
     
     // Handle typing indicator
     if (onTypingChange) {
@@ -125,11 +163,14 @@ const AIChatInput = ({
     adjustTextareaHeight();
   }, [currentMessage]);
 
-  // Cleanup typing timeout on unmount
+  // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
+      }
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
     };
   }, []);
@@ -147,7 +188,7 @@ const AIChatInput = ({
           value={currentMessage}
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
-          onFocus={onInputFocus}
+          onFocus={handleFocus}
           onClick={() => onInputFocus?.()}
           placeholder={placeholder ?? (readOnly ? "👤 Complete your profile to start chatting..." : (chatHistory.length === 0 ? "What's up?" : ""))}
           readOnly={readOnly || disabled}

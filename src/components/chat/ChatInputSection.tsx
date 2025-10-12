@@ -90,6 +90,9 @@ export const ChatInputSection = ({
   // Mobile optimization hooks - distinguish between mobile phones and tablets
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
+  
+  // Track keyboard height for mobile positioning
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
@@ -259,7 +262,27 @@ export const ChatInputSection = ({
     };
   }, [accessLevel]);
 
-  // Use native iOS keyboard behavior instead of fighting it
+  // Track keyboard height using Visual Viewport API for smooth positioning
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    const updateKeyboardHeight = () => {
+      if (window.visualViewport) {
+        const viewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
+        const calculatedKeyboardHeight = Math.max(0, windowHeight - viewportHeight);
+        setKeyboardHeight(calculatedKeyboardHeight);
+      }
+    };
+    
+    window.visualViewport?.addEventListener('resize', updateKeyboardHeight);
+    window.visualViewport?.addEventListener('scroll', updateKeyboardHeight);
+    
+    return () => {
+      window.visualViewport?.removeEventListener('resize', updateKeyboardHeight);
+      window.visualViewport?.removeEventListener('scroll', updateKeyboardHeight);
+    };
+  }, [isMobilePhone]);
 
   return (
     <div 
@@ -267,8 +290,11 @@ export const ChatInputSection = ({
         isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
       }`}
       style={isMobilePhone ? {
-        bottom: '0',
-        paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)'
+        bottom: `${keyboardHeight}px`,
+        paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.375rem)',
+        transition: 'bottom 0.1s ease-out',
+        willChange: 'transform',
+        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.3)'
       } : undefined}
     >
       <div className="px-0 md:px-4 md:pt-2 md:py-5 md:pt-8">
