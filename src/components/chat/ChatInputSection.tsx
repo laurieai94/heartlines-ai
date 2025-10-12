@@ -267,11 +267,10 @@ export const ChatInputSection = ({
         isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
       }`}
       style={isMobilePhone ? {
-        bottom: 'env(safe-area-inset-bottom)',
-        paddingBottom: '0.5rem'
+        bottom: 'env(safe-area-inset-bottom)'
       } : undefined}
     >
-      <div className="px-0 pt-2 pb-safe md:px-4 md:py-5 md:pt-8">
+      <div className="px-0 md:px-4 md:pt-2 md:py-5 md:pt-8">
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
