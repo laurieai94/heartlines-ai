@@ -257,7 +257,7 @@ const ChatContainer = ({
       )}
 
       {/* Scroll to top arrow - handles its own logic */}
-      <ScrollToTopArrow scrollContainerRef={viewportRef} />
+      <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
     </div>
   );
 };

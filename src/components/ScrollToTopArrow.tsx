@@ -2,17 +2,20 @@ import { ArrowUp } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
+import { ChatMessage } from '@/types/AIInsights';
 
 interface ScrollToTopArrowProps {
   scrollContainerRef: React.RefObject<HTMLDivElement>;
+  chatHistory: ChatMessage[];
 }
 
-export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) => {
+export const ScrollToTopArrow = ({ scrollContainerRef, chatHistory }: ScrollToTopArrowProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const lastScrollTopRef = useRef(0);
   const rafIdRef = useRef<number>();
   const userIsScrollingRef = useRef(false);
   const touchEndTimeoutRef = useRef<number>();
+  const hasNewActivityRef = useRef(true);
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const { forceVisible } = useMobileHeaderVisibility();
@@ -51,21 +54,27 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
         const isScrollingUp = currentScrollTop < previousScrollTop;
         const isAtTop = currentScrollTop <= 10;
 
+        // When user reaches top, disable arrow until new activity
+        if (isAtTop) {
+          hasNewActivityRef.current = false;
+          button.style.opacity = '0';
+          button.style.pointerEvents = 'none';
+          button.style.transform = 'translateY(10px)';
+          lastScrollTopRef.current = currentScrollTop;
+          return;
+        }
+
         // CRITICAL: Only respond if user is actually scrolling
         if (!userIsScrollingRef.current) {
           lastScrollTopRef.current = currentScrollTop;
           return; // Ignore programmatic scrolls
         }
 
-        // Show arrow instantly when user scrolls up (and not at top)
-        if (isScrollingUp && !isAtTop) {
+        // Show arrow only if user is scrolling up AND there's been new chat activity
+        if (isScrollingUp && hasNewActivityRef.current) {
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
-        } else if (isAtTop) {
-          button.style.opacity = '0';
-          button.style.pointerEvents = 'none';
-          button.style.transform = 'translateY(10px)';
         }
 
         lastScrollTopRef.current = currentScrollTop;
@@ -89,6 +98,14 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
       }
     };
   }, [isMobilePhone, scrollContainerRef]);
+
+  // Track when new messages arrive (chat engagement)
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    // Set flag to true when chat history changes (new message sent/received)
+    hasNewActivityRef.current = true;
+  }, [chatHistory.length, isMobilePhone]);
 
   const handleClick = () => {
     if (!scrollContainerRef.current) return;
