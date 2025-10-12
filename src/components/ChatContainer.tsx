@@ -25,6 +25,7 @@ interface ChatContainerProps {
   profileCompletion?: number;
   onCompleteProfile?: () => void;
   showProfileNudge?: boolean;
+  inputSectionHeight?: number;
 }
 
 const ChatContainer = ({ 
@@ -39,23 +40,28 @@ const ChatContainer = ({
   onOpenSidebar,
   profileCompletion = 100,
   onCompleteProfile,
-  showProfileNudge = false
+  showProfileNudge = false,
+  inputSectionHeight
 }: ChatContainerProps) => {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const prevChatLengthRef = useRef(chatHistory.length);
   const { isKeyboardVisible } = useViewport();
   const { forceVisible } = useMobileHeaderVisibility();
 
-  // Simple scroll to bottom function
+  // Enhanced scroll to bottom with buffer
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
     
     const viewport = viewportRef.current;
-    viewport.scrollTo({
-      top: viewport.scrollHeight,
-      behavior
+    requestAnimationFrame(() => {
+      const scrollTarget = viewport.scrollHeight - viewport.clientHeight + 10;
+      viewport.scrollTo({
+        top: scrollTarget,
+        behavior
+      });
     });
   }, []);
 
@@ -83,14 +89,16 @@ const ChatContainer = ({
   }, [forceVisible, scrollToTop]);
 
 
-  // Auto-scroll to bottom on new messages
+  // Auto-scroll to bottom on new messages with double RAF
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
     
     if (hasNewMessage || chatHistory.length <= 1) {
-      // Always scroll to bottom on new messages
+      // Double RAF ensures DOM is fully updated
       requestAnimationFrame(() => {
-        scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
+        requestAnimationFrame(() => {
+          scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
+        });
       });
     }
     
@@ -116,6 +124,33 @@ const ChatContainer = ({
     return () => clearTimeout(timer);
   }, [isKeyboardVisible, isMobilePhone, scrollToBottom]);
 
+  // Intersection Observer failsafe - ensure last message is visible
+  useEffect(() => {
+    if (!isMobilePhone || chatHistory.length === 0) return;
+    if (!lastMessageRef.current || !viewportRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // If last message is less than 90% visible, scroll it into view
+        if (entry.intersectionRatio < 0.9) {
+          requestAnimationFrame(() => {
+            scrollToBottom('smooth');
+          });
+        }
+      },
+      {
+        root: viewportRef.current,
+        threshold: 0.9
+      }
+    );
+
+    observer.observe(lastMessageRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [chatHistory.length, isMobilePhone, scrollToBottom]);
+
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
     <>
@@ -135,6 +170,7 @@ const ChatContainer = ({
         const isUser = message.type === 'user';
         const prevMessage = index > 0 ? chatHistory[index - 1] : null;
         const nextMessage = index < chatHistory.length - 1 ? chatHistory[index + 1] : null;
+        const isLastMessage = index === chatHistory.length - 1;
         
         // Group consecutive messages from the same sender within 5 minutes
         const isFirstInGroup = !prevMessage || 
@@ -146,7 +182,11 @@ const ChatContainer = ({
           (nextMessage ? new Date(nextMessage.timestamp).getTime() - new Date(message.timestamp).getTime() : 0) > 300000;
 
         return (
-          <div key={message.id}>
+          <div 
+            key={message.id} 
+            ref={isLastMessage ? lastMessageRef : null}
+            data-message-id={message.id}
+          >
             <AIChatMessage 
               message={message} 
               userName={userName}
@@ -232,7 +272,7 @@ const ChatContainer = ({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: isKeyboardVisible ? '8rem' : '16rem' // Reduce padding when keyboard is visible
+              paddingBottom: `${(inputSectionHeight || 280) + 24}px`
             }}
             role="log"
             aria-live="polite"

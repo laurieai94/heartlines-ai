@@ -14,6 +14,7 @@ interface ChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
+  onHeightChange?: (height: number) => void;
 }
 
 // Memoized ChatInputSection to prevent unnecessary re-renders

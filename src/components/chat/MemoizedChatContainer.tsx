@@ -15,6 +15,7 @@ interface MemoizedChatContainerProps {
   profileCompletion?: number;
   onCompleteProfile?: () => void;
   showProfileNudge?: boolean;
+  inputSectionHeight?: number;
 }
 
 // Memoize ChatContainer to prevent unnecessary re-renders

@@ -58,6 +58,7 @@ const AIChat = ({
 }: AIChatProps) => {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const [userTyping, setUserTyping] = useState(false);
+  const [inputSectionHeight, setInputSectionHeight] = useState(280);
   const { profile } = useUserProfile();
   const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
@@ -128,6 +129,7 @@ useChatEffects({
           profileCompletion={profileCompletion}
           onCompleteProfile={() => goToProfile('chat')}
           showProfileNudge={accessLevel === 'profile-required' && !!user && profileCompletion < 100}
+          inputSectionHeight={inputSectionHeight}
         />
 
         <MemoizedChatInputSection
@@ -142,6 +144,7 @@ useChatEffects({
           showStarters={showStarters}
           onCloseStarters={onCloseStarters}
           onUserTypingChange={setUserTyping}
+          onHeightChange={setInputSectionHeight}
         />
       </div>
     </ChatLayout>

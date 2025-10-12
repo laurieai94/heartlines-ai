@@ -34,6 +34,7 @@ interface ChatInputSectionProps {
   showStarters?: boolean;
   onCloseStarters?: () => void;
   onUserTypingChange?: (typing: boolean) => void;
+  onHeightChange?: (height: number) => void;
 }
 
 export const ChatInputSection = ({
@@ -47,7 +48,8 @@ export const ChatInputSection = ({
   isHistoryLoaded,
   showStarters = false,
   onCloseStarters = () => {},
-  onUserTypingChange = () => {}
+  onUserTypingChange = () => {},
+  onHeightChange = () => {}
 }: ChatInputSectionProps) => {
   const { 
     accessLevel, 
@@ -62,6 +64,7 @@ export const ChatInputSection = ({
   const [authOpen, setAuthOpen] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const typingDebounceRef = useRef<NodeJS.Timeout | null>(null);
   const { calculateYourCompletion } = useOptimizedProfileCompletion();
   
@@ -284,8 +287,31 @@ export const ChatInputSection = ({
     };
   }, [isMobilePhone]);
 
+  // Measure and report height changes
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const height = entry.target.getBoundingClientRect().height;
+        onHeightChange(height);
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+    
+    // Initial measurement
+    const initialHeight = containerRef.current.getBoundingClientRect().height;
+    onHeightChange(initialHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [onHeightChange]);
+
   return (
     <div 
+      ref={containerRef}
       className={`flex-shrink-0 z-50 bg-burgundy-900 md:bg-transparent h-auto ${
         isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
       }`}
