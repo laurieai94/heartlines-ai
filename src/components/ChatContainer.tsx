@@ -55,6 +55,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const prevChatLengthRef = useRef(chatHistory.length);
   const { isKeyboardVisible } = useViewport();
   const { forceVisible } = useMobileHeaderVisibility();
+  const userIsScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Enhanced scroll to bottom with buffer
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -119,11 +121,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   }), [scrollToBottom, scrollToBottomIfScrolledUp]);
 
 
-  // Auto-scroll to bottom on new messages with double RAF
+  // Auto-scroll to bottom ONLY for new AI messages
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
+    const lastMessage = chatHistory[chatHistory.length - 1];
+    const isAIMessage = lastMessage?.type === 'ai';
     
-    if (hasNewMessage || chatHistory.length <= 1) {
+    // Only auto-scroll if it's a new AI message (not user's own message)
+    if ((hasNewMessage && isAIMessage) || chatHistory.length <= 1) {
       // Double RAF ensures DOM is fully updated
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -142,27 +147,47 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     }
   }, [isHistoryLoaded, scrollToBottom]);
 
-  // Auto-scroll to bottom when keyboard opens on mobile (only if user has scrolled away)
+  // Track user manual scrolling
   useEffect(() => {
-    if (!isMobilePhone || !isKeyboardVisible) return;
+    if (!isMobilePhone || !viewportRef.current) return;
     
-    // Small delay to ensure keyboard animation has started
-    const timer = setTimeout(() => {
-      scrollToBottom('smooth');
-    }, 100);
+    const viewport = viewportRef.current;
     
-    return () => clearTimeout(timer);
-  }, [isKeyboardVisible, isMobilePhone, scrollToBottom]);
+    const handleTouchStart = () => {
+      userIsScrollingRef.current = true;
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+    
+    const handleTouchEnd = () => {
+      // Keep flag true for 2 seconds to prevent auto-scroll interference
+      scrollTimeoutRef.current = setTimeout(() => {
+        userIsScrollingRef.current = false;
+      }, 2000);
+    };
+    
+    viewport.addEventListener('touchstart', handleTouchStart, { passive: true });
+    viewport.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    return () => {
+      viewport.removeEventListener('touchstart', handleTouchStart);
+      viewport.removeEventListener('touchend', handleTouchEnd);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [isMobilePhone]);
 
-  // Intersection Observer failsafe - ensure last message is visible
+  // Intersection Observer failsafe - ensure last message is visible (but not during manual scroll)
   useEffect(() => {
     if (!isMobilePhone || chatHistory.length === 0) return;
     if (!lastMessageRef.current || !viewportRef.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // If last message is less than 90% visible, scroll it into view
-        if (entry.intersectionRatio < 0.9) {
+        // Only auto-scroll if user is NOT manually scrolling
+        if (entry.intersectionRatio < 0.9 && !userIsScrollingRef.current) {
           requestAnimationFrame(() => {
             scrollToBottom('smooth');
           });
