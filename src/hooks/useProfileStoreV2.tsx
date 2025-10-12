@@ -346,14 +346,22 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         setProfile(prev => {
           const serverProfile = { ...defaultProfile, ...(data as any), version: '2.0' };
           
-          // Preserve local changes that were just made
+          // Start with server data
           const preservedProfile = { ...serverProfile };
+          
+          // Override with the exact values we just sent (not prev which may be stale)
           Object.keys(updates).forEach(key => {
-            if (prev[key] !== undefined) {
-              preservedProfile[key] = prev[key];
-            }
-            // Clear deletion marker for successfully synced fields
+            preservedProfile[key] = updates[key]; // Use NEW value from updates, not old value from prev
             intentionallyDeletedFields.current.delete(key);
+          });
+          
+          // Also protect any fields modified in the last 5 seconds
+          const now = Date.now();
+          recentlyModifiedFields.current.forEach((timestamp, field) => {
+            if (now - timestamp < 5000 && prev[field as keyof typeof prev] !== undefined) {
+              // Keep local version if modified recently
+              preservedProfile[field as keyof typeof preservedProfile] = prev[field as keyof typeof prev];
+            }
           });
           
           saveToStorage(preservedProfile);
@@ -463,6 +471,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
             try {
               setIsSyncing(true);
               const dbProfile = await loadFromDatabase();
+              
+              // Check if we have recent local modifications
+              const now = Date.now();
+              let hasRecentChanges = false;
+              recentlyModifiedFields.current.forEach((timestamp) => {
+                if (now - timestamp < 5000) {
+                  hasRecentChanges = true;
+                }
+              });
                 
               // Skip merge if profiles are identical (excluding lastUpdated)
               const localCopy = { ...localProfile };
@@ -470,13 +487,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               delete (localCopy as any).lastUpdated;
               delete (dbCopy as any).lastUpdated;
               
-              if (JSON.stringify(localCopy) === JSON.stringify(dbCopy)) {
+              // Skip merge if identical OR if user just made changes
+              if (JSON.stringify(localCopy) === JSON.stringify(dbCopy) || hasRecentChanges) {
                 setIsSyncing(false);
                 return;
               }
               
               // Smart field-by-field merge that preserves user's recent edits
-              const now = Date.now();
               const finalProfile = { ...dbProfile };
               
               Object.keys(localProfile).forEach(key => {
@@ -591,11 +608,25 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         const parsed = JSON.parse(json);
         const currentTs = new Date((profile as any).lastUpdated || 0).getTime();
         const incomingTs = new Date(parsed.lastUpdated || 0).getTime();
+        
+        // Only apply if incoming is newer AND no recent local modifications
         if (incomingTs > currentTs) {
-          const merged = { ...parsed, version: '2.0' } as any;
-          setProfile(merged);
-          setLastSaved(new Date());
-          setIsReady(true);
+          const now = Date.now();
+          let hasRecentChanges = false;
+          
+          recentlyModifiedFields.current.forEach((timestamp) => {
+            if (now - timestamp < 5000) {
+              hasRecentChanges = true;
+            }
+          });
+          
+          // Don't overwrite if user just made changes
+          if (!hasRecentChanges) {
+            const merged = { ...parsed, version: '2.0' } as any;
+            setProfile(merged);
+            setLastSaved(new Date());
+            setIsReady(true);
+          }
         }
       } catch (e) {
         // Silently handle parsing errors
