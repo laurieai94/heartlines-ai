@@ -242,16 +242,16 @@ const Auth = () => {
 
       <div className="relative z-10 min-h-screen">
         {/* Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20 text-center">
+        {isSignUp && <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center">
             <PhoneLockup 
-              size="lg"
+              size="md"
               showTagline={true}
               className="mx-auto"
             />
           </div>}
 
         {/* Progress Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-32 sm:top-36 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
+        {isSignUp && <div className="absolute top-44 sm:top-48 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
             <div className="p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg">
               <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                 {/* Step 1 - active */}
@@ -283,7 +283,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-72 pb-8' : 'py-8'}`}>
+        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-64 pb-8' : 'py-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
