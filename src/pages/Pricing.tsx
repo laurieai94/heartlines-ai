@@ -43,7 +43,7 @@ const Pricing = () => {
         
         // Find the plan and trigger checkout
         const plan = pricingPlans.find(p => p.tier === intendedPlanTier);
-        if (plan && plan.tier !== 'freemium') {
+        if (plan) {
           // Small delay to ensure user sees they're signed in
           setTimeout(() => {
             handlePlanSelect(plan);
@@ -60,7 +60,9 @@ const Pricing = () => {
       localStorage.setItem('intended_plan_return', '/plans');
       
       toast.error("Please sign in", {
-        description: "Sign in to continue with your subscription.",
+        description: plan.tier === "freemium" 
+          ? "Sign in to start your free coaching journey."
+          : "Sign in to continue with your subscription.",
         action: (
           <ToastAction 
             altText="Go to sign in" 
@@ -72,8 +74,14 @@ const Pricing = () => {
       });
       return;
     }
+    
+    // User is signed in - handle plan selection
     if (plan.tier === "freemium") {
-      navigate("/");
+      // For free plan, navigate to coach with welcome message
+      toast.success("Welcome to Begin!", {
+        description: "You have 25 free messages to start your journey."
+      });
+      navigate("/coach");
       return;
     }
     setLoading(plan.tier);
