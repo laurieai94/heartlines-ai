@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 import { BRAND } from '@/branding';
+import PhoneLockup from '@/components/Brand/PhoneLockup';
 const Auth = () => {
   const {
     user,
@@ -243,20 +244,15 @@ const Auth = () => {
       <div className="relative z-10 min-h-screen">
         {/* Header - Only show during sign-up - Absolutely positioned */}
         {isSignUp && <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center">
-          <div className="flex flex-col items-center gap-1">
-            <img
-              src={BRAND.wordmarkSrc}
-              alt="heartlines"
-              className="h-8 w-auto"
-            />
-            <p className="text-white/70 text-xs font-light tracking-wide">
-              {BRAND.tagline}
-            </p>
-          </div>
+          <PhoneLockup 
+            size="sm"
+            showTagline={true}
+            className="mx-auto"
+          />
         </div>}
 
         {/* Progress Header - Only show during sign-up - Absolutely positioned */}
-        {isSignUp && <div className="absolute top-20 sm:top-24 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
+        {isSignUp && <div className="absolute top-24 sm:top-28 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm px-4">
             <div className="p-4 sm:p-5 rounded-xl glass-burgundy shadow-lg">
               <div className="grid grid-cols-3 gap-1 sm:gap-1.5 items-center mb-2">
                 {/* Step 1 - active */}
@@ -288,7 +284,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-44 pb-8' : 'pt-4 pb-8'}`}>
+        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-52 pb-8' : 'pt-4 pb-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
@@ -359,16 +355,11 @@ const Auth = () => {
                 </form>}
             </> : <>
           {!isSignUp && <div className="text-center mb-4">
-            <div className="flex flex-col items-center gap-1">
-              <img
-                src={BRAND.wordmarkSrc}
-                alt="heartlines"
-                className="h-8 w-auto"
-              />
-              <p className="text-white/70 text-xs font-light tracking-wide">
-                {BRAND.tagline}
-              </p>
-            </div>
+            <PhoneLockup 
+              size="sm"
+              showTagline={true}
+              className="mx-auto"
+            />
           </div>}
 
           <form onSubmit={handleSubmit} className="space-y-3">
