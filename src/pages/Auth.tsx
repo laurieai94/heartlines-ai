@@ -283,7 +283,7 @@ const Auth = () => {
           </div>}
 
         {/* Centered card container */}
-        <div className="flex items-center justify-center min-h-screen px-4 py-8">
+        <div className={`flex items-center justify-center min-h-screen px-4 ${isSignUp ? 'pt-72 pb-8' : 'py-8'}`}>
           <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
