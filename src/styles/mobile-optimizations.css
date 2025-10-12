@@ -20,9 +20,27 @@ html, body, #root {
 
 /* Landing pages need natural scroll behavior */
 .landing-page-scroll {
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch !important;
   height: auto !important;
-  min-height: 100vh;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+}
+
+/* Mobile-specific landing page scroll override */
+@media (max-width: 768px) {
+  html:has(.landing-page-scroll),
+  body:has(.landing-page-scroll) {
+    overflow: visible !important;
+    position: relative !important;
+    height: auto !important;
+  }
+  
+  #root:has(.landing-page-scroll) {
+    overflow: visible !important;
+    height: auto !important;
+  }
 }
 
 /* Mobile coach tab stretching */
