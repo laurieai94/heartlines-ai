@@ -1,50 +1,37 @@
-import { useMemo, useRef, useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { usePersonalProfileData } from './usePersonalProfileData';
 import { usePartnerProfileData } from './usePartnerProfileData';
 import { profileCompletionCache } from '@/utils/calculationCache';
 import { calculateProgress } from '@/components/NewPersonalQuestionnaire/utils/validation';
 import { calculatePartnerProgress } from '@/components/NewPartnerProfile/utils/partnerValidation';
 
-// Optimized hook that caches expensive completion calculations
+// Streamlined hook for instant completion calculations
 export const useOptimizedProfileCompletion = () => {
-  const { profileData: personalData, isReady: personalReady } = usePersonalProfileData();
-  const { profileData: partnerData, isReady: partnerReady } = usePartnerProfileData();
-  
-  // Track last known completion to prevent temporary drops to 0%
-  const lastKnownCompletion = useRef<{ personal: number; partner: number }>({
-    personal: 0,
-    partner: 0
-  });
+  const { profileData: personalData } = usePersonalProfileData();
+  const { profileData: partnerData } = usePartnerProfileData();
 
+  // Memoized calculations - only recalculate when data changes
   const calculateYourCompletion = useCallback(() => {
-    // Return last known completion if data isn't ready yet (optimistic update)
-    if (!personalReady || !personalData || Object.keys(personalData).length === 0) {
-      return lastKnownCompletion.current.personal;
+    if (!personalData || Object.keys(personalData).length === 0) {
+      return 0;
     }
     
-    const completion = profileCompletionCache.get('personal', personalData, () => {
+    // Use cache for fast lookups
+    return profileCompletionCache.get('personal', personalData, () => {
       return calculateProgress(personalData as any);
     });
-    
-    // Update last known completion
-    lastKnownCompletion.current.personal = completion;
-    return completion;
-  }, [personalReady, personalData]);
+  }, [personalData]);
 
   const calculatePartnerCompletion = useCallback(() => {
-    // Return last known completion if data isn't ready yet (optimistic update)
-    if (!partnerReady || !partnerData || Object.keys(partnerData).length === 0) {
-      return lastKnownCompletion.current.partner;
+    if (!partnerData || Object.keys(partnerData).length === 0) {
+      return 0;
     }
     
-    const completion = profileCompletionCache.get('partner', partnerData, () => {
+    // Use cache for fast lookups
+    return profileCompletionCache.get('partner', partnerData, () => {
       return calculatePartnerProgress(partnerData as any);
     });
-    
-    // Update last known completion
-    lastKnownCompletion.current.partner = completion;
-    return completion;
-  }, [partnerReady, partnerData]);
+  }, [partnerData]);
 
   return {
     calculateYourCompletion,

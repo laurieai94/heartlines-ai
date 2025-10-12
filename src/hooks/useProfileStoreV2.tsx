@@ -444,125 +444,109 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return defaultProfile;
   }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
 
-  // Initialize and load data with performance optimizations
+  // Initialize and load data with instant local-first approach
   useEffect(() => {
     const initialize = async () => {
-      setIsLoading(true);
-      
       try {
-        // Load from localStorage first (instant) - use requestIdleCallback for non-critical work
+        // INSTANT: Load from localStorage first and mark ready immediately
         const localProfile = loadFromStorage();
         setProfile(localProfile);
-        setIsReady(true);
-        setIsLoading(false); // UI can render immediately with local data
+        setIsReady(true); // Mark ready instantly for UI
+        setIsLoading(false); // Remove loading state immediately
         
-        // SIMPLIFIED: Always sync to database when user is present
+        // Background sync to database (non-blocking)
         if (user) {
-          // Use requestIdleCallback to defer database operations
-          const deferredSync = () => {
-            setIsSyncing(true);
+          // Use requestIdleCallback to defer database operations to idle time
+          const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
             
-            // Use requestIdleCallback for better performance
-            const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-            
-            idleCallback(async () => {
-              try {
-                const dbProfile = await loadFromDatabase();
+          idleCallback(async () => {
+            try {
+              setIsSyncing(true);
+              const dbProfile = await loadFromDatabase();
                 
-                // Skip merge if profiles are identical (excluding lastUpdated)
-                const localCopy = { ...localProfile };
-                const dbCopy = { ...dbProfile };
-                delete (localCopy as any).lastUpdated;
-                delete (dbCopy as any).lastUpdated;
+              // Skip merge if profiles are identical (excluding lastUpdated)
+              const localCopy = { ...localProfile };
+              const dbCopy = { ...dbProfile };
+              delete (localCopy as any).lastUpdated;
+              delete (dbCopy as any).lastUpdated;
+              
+              if (JSON.stringify(localCopy) === JSON.stringify(dbCopy)) {
+                setIsSyncing(false);
+                return;
+              }
+              
+              // Smart field-by-field merge that preserves user's recent edits
+              const now = Date.now();
+              const finalProfile = { ...dbProfile };
+              
+              Object.keys(localProfile).forEach(key => {
+                const localValue = localProfile[key as keyof typeof localProfile];
+                const dbValue = dbProfile[key as keyof typeof dbProfile];
                 
-                if (JSON.stringify(localCopy) === JSON.stringify(dbCopy)) {
-                  setIsSyncing(false);
+                // Always preserve recently modified fields (within last 10 seconds)
+                const modTime = recentlyModifiedFields.current.get(key);
+                if (modTime && (now - modTime) < RECENT_MODIFICATION_THRESHOLD) {
+                  (finalProfile as any)[key] = localValue;
                   return;
                 }
                 
-                // Smart field-by-field merge that preserves user's recent edits
-                const now = Date.now();
-                const finalProfile = { ...dbProfile };
-                
-                Object.keys(localProfile).forEach(key => {
-                  const localValue = localProfile[key as keyof typeof localProfile];
-                  const dbValue = dbProfile[key as keyof typeof dbProfile];
-                  
-                  // Always preserve recently modified fields (within last 10 seconds)
-                  const modTime = recentlyModifiedFields.current.get(key);
-                  if (modTime && (now - modTime) < RECENT_MODIFICATION_THRESHOLD) {
-                    (finalProfile as any)[key] = localValue;
-                    return;
-                  }
-                  
-                  // Preserve intentionally deleted fields (keep them empty)
-                  if (intentionallyDeletedFields.current.has(key)) {
-                    const isEmpty = localValue === '' || localValue === null || localValue === undefined ||
-                                    (Array.isArray(localValue) && localValue.length === 0);
-                    if (isEmpty) {
-                      (finalProfile as any)[key] = localValue;
-                      return;
-                    }
-                  }
-                  
-                  // Also preserve empty local values when deletion marker exists and DB has value
-                  // This catches the case where deletion marker was restored from storage
+                // Preserve intentionally deleted fields (keep them empty)
+                if (intentionallyDeletedFields.current.has(key)) {
                   const isEmpty = localValue === '' || localValue === null || localValue === undefined ||
                                   (Array.isArray(localValue) && localValue.length === 0);
-                  const dbHasValue = dbValue && (
-                    (typeof dbValue === 'string' && dbValue.trim()) ||
-                    (Array.isArray(dbValue) && dbValue.length > 0)
-                  );
-                  
-                  if (isEmpty && dbHasValue && intentionallyDeletedFields.current.has(key)) {
-                    // User intentionally deleted this - keep it empty
+                  if (isEmpty) {
                     (finalProfile as any)[key] = localValue;
                     return;
                   }
-                  
-                  // Preserve non-empty local values over empty db values
-                  if (Array.isArray(localValue)) {
-                    if (localValue.length > 0 && (!dbValue || (Array.isArray(dbValue) && dbValue.length === 0))) {
-                      (finalProfile as any)[key] = localValue;
-                    }
-                  } else if (typeof localValue === 'string') {
-                    if (localValue.trim() && (!dbValue || (typeof dbValue === 'string' && !dbValue.trim()))) {
-                      (finalProfile as any)[key] = localValue;
-                    }
-                  }
-                });
+                }
                 
-                // Check if finalProfile is meaningfully different from current profile
-                const currentCopy = { ...profile };
-                const finalCopy = { ...finalProfile };
-                delete (currentCopy as any).lastUpdated;
-                delete (finalCopy as any).lastUpdated;
+                // Also preserve empty local values when deletion marker exists and DB has value
+                const isEmpty = localValue === '' || localValue === null || localValue === undefined ||
+                                (Array.isArray(localValue) && localValue.length === 0);
+                const dbHasValue = dbValue && (
+                  (typeof dbValue === 'string' && dbValue.trim()) ||
+                  (Array.isArray(dbValue) && dbValue.length > 0)
+                );
                 
-                if (JSON.stringify(currentCopy) === JSON.stringify(finalCopy)) {
-                  setIsSyncing(false);
+                if (isEmpty && dbHasValue && intentionallyDeletedFields.current.has(key)) {
+                  // User intentionally deleted this - keep it empty
+                  (finalProfile as any)[key] = localValue;
                   return;
                 }
                 
-                // Use flushSync for synchronous updates to prevent UI flickering
-                flushSync(() => {
-                  setProfile(finalProfile);
-                  saveToStorage(finalProfile);
-                });
+                // Preserve non-empty local values over empty db values
+                if (Array.isArray(localValue)) {
+                  if (localValue.length > 0 && (!dbValue || (Array.isArray(dbValue) && dbValue.length === 0))) {
+                    (finalProfile as any)[key] = localValue;
+                  }
+                } else if (typeof localValue === 'string') {
+                  if (localValue.trim() && (!dbValue || (typeof dbValue === 'string' && !dbValue.trim()))) {
+                    (finalProfile as any)[key] = localValue;
+                  }
+                }
+              });
+              
+              // Check if finalProfile is meaningfully different from current profile
+              const currentCopy = { ...profile };
+              const finalCopy = { ...finalProfile };
+              delete (currentCopy as any).lastUpdated;
+              delete (finalCopy as any).lastUpdated;
+              
+              if (JSON.stringify(currentCopy) === JSON.stringify(finalCopy)) {
                 setIsSyncing(false);
-              } catch (dbError) {
-                setIsSyncing(false);
+                return;
               }
-            }, { timeout: isMobileDevice ? 8000 : 5000 }); // Longer timeout for mobile devices
-          };
-          
-          // Use requestIdleCallback if available, with mobile-optimized timeouts
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(deferredSync, { timeout: isMobileDevice ? 4000 : 2000 });
-          } else {
-            setTimeout(deferredSync, isMobileDevice ? 200 : 50);
-          }
-        } else {
-          console.log(`[ProfileV2-${profileType}] Skipping database sync (no user or non-primary instance)`);
+              
+              // Use flushSync for synchronous updates to prevent UI flickering
+              flushSync(() => {
+                setProfile(finalProfile);
+                saveToStorage(finalProfile);
+              });
+              setIsSyncing(false);
+            } catch (dbError) {
+              setIsSyncing(false);
+            }
+          });
         }
       } catch (error) {
         safeLog.error(`Initialization error for ${profileType}:`, error);

@@ -15,18 +15,26 @@ interface ProfileBuilderProps {
   onOpenPartnerQuestionnaire?: () => void;
 }
 
-// Memoize ProfileBuilder to prevent unnecessary re-renders
+// Enhanced memo with granular comparison - only re-render on significant changes
 const MemoizedProfileBuilder = React.memo(ProfileBuilder, (prevProps, nextProps) => {
-  // Only re-render if profiles or demographics data actually changes
+  // Check if profiles actually changed (shallow comparison is faster)
   const profilesChanged = 
-    prevProps.initialProfiles?.your?.length !== nextProps.initialProfiles?.your?.length ||
-    prevProps.initialProfiles?.partner?.length !== nextProps.initialProfiles?.partner?.length;
+    prevProps.initialProfiles?.your !== nextProps.initialProfiles?.your ||
+    prevProps.initialProfiles?.partner !== nextProps.initialProfiles?.partner;
   
+  // Check if demographics actually changed
   const demographicsChanged = 
     prevProps.initialDemographics?.your !== nextProps.initialDemographics?.your ||
     prevProps.initialDemographics?.partner !== nextProps.initialDemographics?.partner;
   
-  return !profilesChanged && !demographicsChanged;
+  // Check if callbacks changed (they shouldn't if properly memoized)
+  const callbacksChanged =
+    prevProps.onOpenQuestionnaire !== nextProps.onOpenQuestionnaire ||
+    prevProps.onOpenPartnerQuestionnaire !== nextProps.onOpenPartnerQuestionnaire ||
+    prevProps.onProfileUpdate !== nextProps.onProfileUpdate;
+  
+  // Only re-render if something actually changed
+  return !profilesChanged && !demographicsChanged && !callbacksChanged;
 });
 
 MemoizedProfileBuilder.displayName = 'MemoizedProfileBuilder';

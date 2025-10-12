@@ -13,7 +13,7 @@ interface PendingOperation {
 class BatchedStorageManager {
   private pendingWrites: Map<string, PendingOperation> = new Map();
   private debounceTimer: number | null = null;
-  private readonly DEBOUNCE_MS = 400; // 400ms debounce for batching
+  private readonly DEBOUNCE_MS = 1000; // 1000ms for better batching
   private readCache: Map<string, string | null> = new Map();
   private isInitialized = false;
 

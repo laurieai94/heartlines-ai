@@ -1,14 +1,13 @@
-import { useState, Suspense, lazy, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { toast } from "sonner";
-import { Heart, Target, Lightbulb, Star, Search, Lock, Clock, MessageSquare, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
+import { Heart, Star, Search, Lock, MessageSquare, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BRAND } from "@/branding";
-// Lazy load heavy components to reduce initial bundle size
-const ProfileForm = lazy(() => import("@/components/ProfileForm"));
-const Demographics = lazy(() => import("@/components/Demographics"));
-const ProfileCompletionOptions = lazy(() => import("@/components/ProfileCompletionOptions"));
+// Direct imports for instant loading - no lazy loading
+import ProfileForm from "@/components/ProfileForm";
+import Demographics from "@/components/Demographics";
 import MemoizedProfileCard from "@/components/ProfileBuilder/MemoizedProfileCard";
 import { useProgressiveAccess } from "@/hooks/useProgressiveAccess";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
@@ -20,10 +19,7 @@ import OnboardingStepNudge from "@/components/OnboardingStepNudge";
 import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/components/NewPersonalQuestionnaire/utils/requirements';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
-// Mobile optimizations removed for performance
-
-// Lazy load secondary components to reduce initial bundle size
-const ProfileTips = lazy(() => import("@/components/ProfileBuilder/ProfileTips"));
+import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -291,20 +287,29 @@ const ProfileBuilder = ({
           </div>
         </div>
 
-        {/* Collapsible Tips Section */}
-        <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-xl h-24" />}>
-          <ProfileTips />
-        </Suspense>
+        {/* Tips Section - Instant render */}
+        <ProfileTips />
       </div>
 
-      {/* Modals for partner profile only */}
-      {showDemographics && <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
-          <Demographics profileType={activeProfileType} onComplete={handleDemographicsComplete} onClose={handleDemographicsClose} initialData={temporaryDemographics[activeProfileType]} />
-        </Suspense>}
+      {/* Modals - Instant render without Suspense */}
+      {showDemographics && (
+        <Demographics 
+          profileType={activeProfileType} 
+          onComplete={handleDemographicsComplete} 
+          onClose={handleDemographicsClose} 
+          initialData={temporaryDemographics[activeProfileType]} 
+        />
+      )}
 
-      {showForm && <Suspense fallback={<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>}>
-          <ProfileForm profileType={activeProfileType} onClose={() => setShowForm(false)} onComplete={handleProfileComplete} initialProfiles={temporaryProfiles} initialDemographics={temporaryDemographics} />
-        </Suspense>}
+      {showForm && (
+        <ProfileForm 
+          profileType={activeProfileType} 
+          onClose={() => setShowForm(false)} 
+          onComplete={handleProfileComplete} 
+          initialProfiles={temporaryProfiles} 
+          initialDemographics={temporaryDemographics} 
+        />
+      )}
 
       </div>
     </div>;
