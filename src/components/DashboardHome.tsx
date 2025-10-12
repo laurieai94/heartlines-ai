@@ -4,7 +4,7 @@ import SplashScreen from "@/components/SplashScreen";
 const LandingPage = lazy(() => import("@/components/LandingPage"));
 
 function DashboardHomeFallback() {
-  return <SplashScreen titleText="heartlines loading..." />;
+  return <SplashScreen titleText="heartlines loading..." wordmarkSize="lg" />;
 }
 
 export default function DashboardHome() {

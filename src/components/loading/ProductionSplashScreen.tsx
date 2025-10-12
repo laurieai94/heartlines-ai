@@ -16,7 +16,7 @@ const ProductionSplashScreen: React.FC<ProductionSplashScreenProps> = ({
   message = "loading...",
   titleText,
   showWordmark = true,
-  wordmarkSize = 'md',
+  wordmarkSize = 'lg',
   messageSize = 'md',
   className
 }) => {

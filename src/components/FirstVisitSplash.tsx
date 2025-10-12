@@ -71,7 +71,7 @@ const FirstVisitSplash: React.FC = () => {
         <div className={`fixed inset-0 z-40 ${isFadingOut ? 'animate-fade-out' : ''}`}>
           <SplashScreen 
             showWordmark={true}
-            wordmarkSize="lg"
+            wordmarkSize="xl"
           />
         </div>
       )}
