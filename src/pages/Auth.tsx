@@ -9,7 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
-import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
+import PhoneLockup from '@/components/Brand/PhoneLockup';
 const Auth = () => {
   const {
     user,
@@ -236,9 +236,10 @@ const Auth = () => {
       <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
         {/* Header - Only show during sign-up */}
         {isSignUp && <div className="text-center mb-6">
-            <HeartlinesWordmark 
-              className="text-white mx-auto" 
-              size="lg"
+            <PhoneLockup 
+              size="md"
+              showTagline={true}
+              className="mx-auto"
             />
           </div>}
 
@@ -342,7 +343,11 @@ const Auth = () => {
                 </form>}
             </> : <>
               {!isSignUp && <div className="text-center mb-4">
-                  <HeartlinesWordmark size="lg" className="text-white font-brand mx-auto whitespace-nowrap" />
+                  <PhoneLockup 
+                    size="md"
+                    showTagline={true}
+                    className="mx-auto"
+                  />
                 </div>}
 
           <form onSubmit={handleSubmit} className="space-y-3">
