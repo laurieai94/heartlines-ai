@@ -11,6 +11,8 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const lastScrollTopRef = useRef(0);
   const rafIdRef = useRef<number>();
+  const userIsScrollingRef = useRef(false);
+  const touchEndTimeoutRef = useRef<number>();
   const { isMobile, isTablet } = useOptimizedMobile();
   const isMobilePhone = isMobile && !isTablet;
   const { forceVisible } = useMobileHeaderVisibility();
@@ -20,6 +22,22 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
 
     const scrollContainer = scrollContainerRef.current;
     const button = buttonRef.current;
+
+    // Track when user starts touching
+    const handleTouchStart = () => {
+      userIsScrollingRef.current = true;
+      if (touchEndTimeoutRef.current) {
+        clearTimeout(touchEndTimeoutRef.current);
+      }
+    };
+
+    // Track when user stops touching (with delay for momentum)
+    const handleTouchEnd = () => {
+      // Keep flag true for 300ms to catch momentum scrolling
+      touchEndTimeoutRef.current = window.setTimeout(() => {
+        userIsScrollingRef.current = false;
+      }, 300);
+    };
 
     // Direct DOM manipulation for instant response
     const handleScroll = () => {
@@ -31,11 +49,16 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
         const currentScrollTop = scrollContainer.scrollTop;
         const previousScrollTop = lastScrollTopRef.current;
         const isScrollingUp = currentScrollTop < previousScrollTop;
-        const isScrolledDown = currentScrollTop > 50;
         const isAtTop = currentScrollTop <= 10;
 
-        // Show arrow instantly when scrolling up (and not at top) or when scrolled down
-        if ((isScrollingUp && !isAtTop) || isScrolledDown) {
+        // CRITICAL: Only respond if user is actually scrolling
+        if (!userIsScrollingRef.current) {
+          lastScrollTopRef.current = currentScrollTop;
+          return; // Ignore programmatic scrolls
+        }
+
+        // Show arrow instantly when user scrolls up (and not at top)
+        if (isScrollingUp && !isAtTop) {
           button.style.opacity = '1';
           button.style.pointerEvents = 'auto';
           button.style.transform = 'translateY(0)';
@@ -49,13 +72,20 @@ export const ScrollToTopArrow = ({ scrollContainerRef }: ScrollToTopArrowProps) 
       });
     };
 
-    // Add scroll listener with passive for performance
+    // Add event listeners
+    scrollContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+    scrollContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
     scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
+      scrollContainer.removeEventListener('touchstart', handleTouchStart);
+      scrollContainer.removeEventListener('touchend', handleTouchEnd);
       scrollContainer.removeEventListener('scroll', handleScroll);
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
+      }
+      if (touchEndTimeoutRef.current) {
+        clearTimeout(touchEndTimeoutRef.current);
       }
     };
   }, [isMobilePhone, scrollContainerRef]);
