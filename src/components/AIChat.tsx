@@ -9,6 +9,8 @@ import { useChatMessageHandler } from "./chat/ChatMessageHandler";
 import { ChatLayout } from "./chat/ChatLayout";
 import { MemoizedChatContainer } from "./chat/MemoizedChatContainer";
 import MemoizedChatInputSection from "./chat/MemoizedChatInputSection";
+import { useNavigation } from "@/contexts/NavigationContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface AIChatProps {
   profiles: ProfileData;
@@ -57,7 +59,9 @@ const AIChat = ({
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const [userTyping, setUserTyping] = useState(false);
   const { profile } = useUserProfile();
-  const { canInteract } = useProgressiveAccess();
+  const { canInteract, accessLevel, profileCompletion } = useProgressiveAccess();
+  const { goToProfile } = useNavigation();
+  const { user } = useAuth();
 
   const userName = demographicsData.your?.name || profile?.name || '';
   const partnerName = demographicsData.partner?.name || '';
@@ -121,6 +125,9 @@ useChatEffects({
           userTyping={userTyping}
           onNewConversation={handleNewConversation}
           onOpenSidebar={onOpenSidebar}
+          profileCompletion={profileCompletion}
+          onCompleteProfile={() => goToProfile('chat')}
+          showProfileNudge={accessLevel === 'profile-required' && !!user && profileCompletion < 100}
         />
 
         <MemoizedChatInputSection

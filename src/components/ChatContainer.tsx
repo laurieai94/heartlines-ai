@@ -10,6 +10,7 @@ import { BRAND } from "@/branding";
 import { ChatHeader } from './chat/ChatHeader';
 import { useViewport } from '@/contexts/ViewportContext';
 import { useMobileHeaderVisibility } from '@/contexts/MobileHeaderVisibilityContext';
+import OnboardingStepNudge from './OnboardingStepNudge';
 
 interface ChatContainerProps {
   chatHistory: ChatMessage[];
@@ -21,6 +22,9 @@ interface ChatContainerProps {
   userTyping: boolean;
   onNewConversation?: () => void;
   onOpenSidebar?: () => void;
+  profileCompletion?: number;
+  onCompleteProfile?: () => void;
+  showProfileNudge?: boolean;
 }
 
 const ChatContainer = ({ 
@@ -32,7 +36,10 @@ const ChatContainer = ({
   isHistoryLoaded,
   userTyping,
   onNewConversation = () => {},
-  onOpenSidebar
+  onOpenSidebar,
+  profileCompletion = 100,
+  onCompleteProfile,
+  showProfileNudge = false
 }: ChatContainerProps) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useOptimizedMobile();
@@ -112,6 +119,17 @@ const ChatContainer = ({
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
     <>
+      {/* Profile completion nudge - centered when chat is empty */}
+      {showProfileNudge && chatHistory.length === 0 && !loading && (
+        <div className="flex-1 flex items-center justify-center px-4 py-8">
+          <OnboardingStepNudge 
+            completion={profileCompletion}
+            onStartProfile={onCompleteProfile || (() => {})}
+            variant="centered"
+          />
+        </div>
+      )}
+
       {/* Chat Messages */}
       {chatHistory.map((message, index) => {
         const isUser = message.type === 'user';
