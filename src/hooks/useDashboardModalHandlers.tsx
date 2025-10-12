@@ -71,25 +71,18 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     modalStates.setShowQuestionnaireModal(false);
     modalStates.setQuestionnaireOrigin(null);
     
-    // If opened from chat, go directly back to chat without popup
-    if (modalStates.questionnaireOrigin === 'chat') {
-      modalStates.setSuppressPersonalCompletionPopup(true);
-      modalStates.setActiveTab("insights");
-      // Focus chat input after a brief delay
-      setTimeout(() => {
-        const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
-        if (chatInput) {
-          chatInput.focus();
-        }
-      }, 100);
-    } else if (modalStates.suppressPersonalCompletionPopup) {
-      // User has completed profile before, go directly to coach
-      modalStates.setActiveTab("insights");
-    } else {
-      // First time completion from header, show modal and mark as seen
-      modalStates.setSuppressPersonalCompletionPopup(true);
-      modalStates.setShowPersonalCompletionOptions(true);
-    }
+    // Always go directly to coach when completing from questionnaire
+    // The "Unlock coaching" button makes the user's intent clear
+    modalStates.setSuppressPersonalCompletionPopup(true);
+    modalStates.setActiveTab("insights");
+    
+    // Focus chat input after a brief delay
+    setTimeout(() => {
+      const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
+      if (chatInput) {
+        chatInput.focus();
+      }
+    }, 100);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
