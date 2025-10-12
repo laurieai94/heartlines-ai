@@ -44,6 +44,16 @@ const ChatContainer = ({
   const { isKeyboardVisible } = useViewport();
   const { forceVisible } = useMobileHeaderVisibility();
 
+  // Debug device detection
+  useEffect(() => {
+    console.log('📱 Device detection:', {
+      isMobile,
+      isTablet,
+      isMobilePhone,
+      windowWidth: window.innerWidth
+    });
+  }, [isMobile, isTablet, isMobilePhone]);
+
   // Simple scroll to bottom function
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
     if (!viewportRef.current) return;
@@ -91,15 +101,26 @@ const ChatContainer = ({
     const scrollDirection = currentScrollTop > prevScrollTop ? 'down' : 'up';
     viewport.dataset.prevScrollTop = currentScrollTop.toString();
     
+    console.log('📜 Scroll event:', {
+      isMobilePhone,
+      currentScrollTop,
+      scrollDirection,
+      isAtTop: currentScrollTop <= 50
+    });
+    
     // Show arrow instantly when scrolling up on mobile (simple & responsive)
     if (isMobilePhone) {
       const isAtTop = currentScrollTop <= 50;
       
       if (scrollDirection === 'up' && !isAtTop) {
+        console.log('✅ Showing arrow!');
         setShowScrollToTop(true);
       } else if (scrollDirection === 'down' || isAtTop) {
+        console.log('❌ Hiding arrow');
         setShowScrollToTop(false);
       }
+    } else {
+      console.log('⚠️ Not mobile phone, skipping arrow logic');
     }
   }, [isMobilePhone]);
 
@@ -286,18 +307,29 @@ const ChatContainer = ({
       )}
 
       {/* Scroll to top button - mobile only */}
-      {showScrollToTop && isMobilePhone && (
-        <Button
-          onClick={revealNavigationAndScrollTop}
-          className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
-                     bg-red-900 hover:bg-red-800 text-white
-                     transition-all duration-100 animate-in fade-in-0 slide-in-from-bottom-1"
-          size="icon"
-          aria-label="Show navigation"
-        >
-          <ArrowUp className="w-5 h-5" />
-        </Button>
-      )}
+      {(() => {
+        console.log('🔘 Button render check:', {
+          showScrollToTop,
+          isMobilePhone,
+          willRender: showScrollToTop && isMobilePhone
+        });
+        
+        return showScrollToTop && isMobilePhone && (
+          <Button
+            onClick={() => {
+              console.log('🎯 Arrow button clicked!');
+              revealNavigationAndScrollTop();
+            }}
+            className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg z-[999] 
+                       bg-red-900 hover:bg-red-800 text-white
+                       transition-all duration-100 animate-in fade-in-0 slide-in-from-bottom-1"
+            size="icon"
+            aria-label="Show navigation"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </Button>
+        );
+      })()}
     </div>
   );
 };
