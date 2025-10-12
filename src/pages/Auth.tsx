@@ -415,13 +415,13 @@ const Auth = () => {
                   </p>)}
               </div>}
 
-            <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm">
+            <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm -mb-3">
               {isSubmitting ? 'Processing...' : isSignUp ? 'Create Account' : 'Sign In'}
             </Button>
           </form>
 
               {/* Toggle between sign up and sign in */}
-              <div className="mt-2 text-center">
+              <div className="mt-1.5 text-center">
                 <p className="text-white/70 text-xs">
                   {isSignUp ? 'Already have an account?' : 'Need an account?'}
                   {' '}
