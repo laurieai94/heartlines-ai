@@ -448,7 +448,7 @@ const Auth = () => {
                 </p>
                 
                 {/* Back to Home button */}
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 active:text-white/80 text-xs py-1 h-auto mt-3 transition-none">
+                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 active:text-white/80 text-xs py-1 h-auto mt-1.5 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
                   Back to Home
                 </Button>
