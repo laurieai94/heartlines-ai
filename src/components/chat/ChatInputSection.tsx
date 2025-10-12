@@ -304,6 +304,15 @@ export const ChatInputSection = ({
           </div>
         )}
         
+        {/* Profile completion nudge - show for incomplete profiles */}
+        {stableAccessLevel === 'profile-required' && user && stableCompletion < 100 && !profileEverCompleted && (
+          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12 flex justify-center">
+            <OnboardingStepNudge
+              completion={stableCompletion}
+              onStartProfile={() => goToProfile('chat')}
+            />
+          </div>
+        )}
         
         <div className="md:max-w-[54rem] md:mx-auto md:px-12">
           <ProgressiveAccessWrapper action="chat">

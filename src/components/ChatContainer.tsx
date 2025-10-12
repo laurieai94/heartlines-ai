@@ -198,36 +198,42 @@ const ChatContainer = ({
   return (
     <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
-        /* Mobile: Full-screen container */
+        /* Mobile: Fixed height container with absolute input positioning */
         <div 
           className="fixed inset-0 flex flex-col"
           style={{ 
-            top: 'calc(env(safe-area-inset-top) + 7rem)',
+            top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
             height: 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10
           }}
         >
-          {/* Scrollable Messages */}
+          
+          {/* Scrollable Messages - fills remaining space */}
           <div 
             ref={viewportRef}
-            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch"
+            className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: '18rem',
-              paddingLeft: 'max(8px, env(safe-area-inset-left))',
-              paddingRight: 'max(8px, env(safe-area-inset-right))'
+              paddingBottom: '20rem' // Space for input with all UI elements (alerts, nudges, safe areas)
             }}
             role="log"
             aria-live="polite"
             aria-label="Chat conversation history"
           >
-            <div role="list" aria-label="Chat messages">
-              {renderMessages()}
+            <div
+              style={{
+                paddingLeft: 'max(4px, env(safe-area-inset-left))',
+                paddingRight: 'max(4px, env(safe-area-inset-right))'
+              }}
+            >
+              <div role="list" aria-label="Chat messages">
+                {renderMessages()}
+              </div>
             </div>
           </div>
         </div>
       ) : (
-        /* Desktop: Full-height ScrollArea */
+        /* ScrollArea for tablets and desktop */
         <ScrollArea 
           viewportRef={viewportRef}
           className="h-full w-full"
@@ -236,7 +242,12 @@ const ChatContainer = ({
           aria-label="Chat conversation history"
         >
           <div 
-            className="pt-3 pb-2 px-4 md:px-8 lg:px-12"
+            className="pt-2 md:pt-3 md:pb-2"
+            style={{
+              paddingBottom: '4px',
+              paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
+              paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '0'
+            }}
           >
             <div role="list" aria-label="Chat messages">
               {renderMessages()}
@@ -245,7 +256,7 @@ const ChatContainer = ({
         </ScrollArea>
       )}
 
-      {/* Scroll to top arrow */}
+      {/* Scroll to top arrow - handles its own logic */}
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
     </div>
   );
