@@ -95,7 +95,7 @@ export const HeroCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden pointer-events-none -mt-20">
+    <div className="relative h-screen w-full overflow-hidden -mt-20">
       {slides.map((slide, index) => (
         <div
           key={slide.year}
@@ -110,9 +110,6 @@ export const HeroCarousel: React.FC = () => {
             className="absolute inset-0 w-full h-full object-contain"
             loading={index < 2 ? "eager" : "lazy"}
           />
-
-          {/* Dark Gradient Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-6 md:bottom-12 left-8 md:left-16 right-8 md:right-16 z-10">
