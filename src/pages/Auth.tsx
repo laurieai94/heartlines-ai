@@ -353,9 +353,9 @@ const Auth = () => {
                   </Button>
                 </form>}
             </> : <>
-              {!isSignUp && <div className="text-center mb-4">
+              {!isSignUp && <div className="text-center mb-2">
                   <PhoneLockup 
-                    size="lg"
+                    size="md"
                     showTagline={true}
                     className="mx-auto"
                   />
@@ -438,7 +438,7 @@ const Auth = () => {
                 </p>
                 
                 {/* Back to Home button */}
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:text-white/80 hover:bg-white/5 text-xs py-1 h-auto mt-3">
+                <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 active:text-white/80 text-xs py-1 h-auto mt-3 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
                   Back to Home
                 </Button>
