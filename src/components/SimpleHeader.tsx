@@ -50,7 +50,8 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
-                align="start" 
+                align="start"
+                sideOffset={8}
                 className="w-56 p-2 max-w-[calc(100vw-32px)] z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
               >
                 {navigationItems.map((item) => {
