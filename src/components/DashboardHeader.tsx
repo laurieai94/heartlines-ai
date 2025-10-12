@@ -87,7 +87,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </PopoverTrigger>
               <PopoverContent 
                 align="start" 
-                className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
+                className="w-16 z-[60] bg-burgundy-800 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -100,10 +100,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       className={`w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive 
                           ? 'text-white font-semibold bg-white/15' 
-                          : 'text-white/90 font-medium hover:bg-white/10 hover:text-white'
+                          : 'text-white font-medium hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <IconComponent className="h-5 w-5 flex-shrink-0" />
+                      <IconComponent className="h-5 w-5 flex-shrink-0 text-white" strokeWidth={2} />
                     </button>
                   );
                 })}
@@ -138,7 +138,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               </PopoverTrigger>
               <PopoverContent 
                 align="start" 
-                className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
+                className="w-16 z-[60] bg-burgundy-800 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -151,10 +151,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       className={`w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive 
                           ? 'text-white font-semibold bg-white/15' 
-                          : 'text-white/90 font-medium hover:bg-white/10 hover:text-white'
+                          : 'text-white font-medium hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <IconComponent className="h-5 w-5 flex-shrink-0" />
+                      <IconComponent className="h-5 w-5 flex-shrink-0 text-white" strokeWidth={2} />
                     </button>
                   );
                 })}
