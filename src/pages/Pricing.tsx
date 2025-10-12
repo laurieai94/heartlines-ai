@@ -59,19 +59,8 @@ const Pricing = () => {
       localStorage.setItem('intended_plan_tier', plan.tier);
       localStorage.setItem('intended_plan_return', '/plans');
       
-      toast.error("Please sign in", {
-        description: plan.tier === "freemium" 
-          ? "Sign in to start your free coaching journey."
-          : "Sign in to continue with your subscription.",
-        action: (
-          <ToastAction 
-            altText="Go to sign in" 
-            onClick={() => navigate('/signin', { state: { returnTo: '/plans', planTier: plan.tier } })}
-          >
-            Sign In
-          </ToastAction>
-        ),
-      });
+      // Immediately navigate to sign-in page
+      navigate('/signin', { state: { returnTo: '/plans', planTier: plan.tier } });
       return;
     }
     
