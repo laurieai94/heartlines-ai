@@ -226,14 +226,14 @@ const Auth = () => {
       setIsSubmitting(false);
     }
   };
-  return <div className="min-h-screen questionnaire-bg">
+  return <div className="min-h-screen questionnaire-bg auth-page-scroll">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-coral-400/20 rounded-full blur-3xl animate-gradient-shift"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl animate-gradient-shift-reverse"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-safe pb-safe min-h-screen flex flex-col justify-center max-w-md">
+      <div className="relative z-10 container mx-auto px-4 pt-safe pb-20 min-h-screen flex flex-col justify-center max-w-md">
         {/* Header - Only show during sign-up */}
         {isSignUp && <div className="text-center mb-6">
             <PhoneLockup 
