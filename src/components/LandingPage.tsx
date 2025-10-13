@@ -360,14 +360,14 @@ const LandingPage = ({
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] md:pr-4 lg:pr-6 xl:pr-8">
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
-                        fontSize: 'clamp(1.875rem, 4.5vw, 5.5rem)'
+                        fontSize: 'clamp(1.875rem, 4.5vw, 4.5rem)'
                       }}>
                         <span className="block">Relationships</span>
                         <span className="block whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
-                        fontSize: 'clamp(0.5rem, 3.5vw, 2.75rem)',
+                        fontSize: 'clamp(0.5rem, 3.5vw, 2.25rem)',
                         animationDelay: '0.2s'
                       }}>
                         <span className="font-brand">heartlines</span> helps you connect.
@@ -479,7 +479,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">How It Works</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">How It Works</h2>
             
           </div>
           
@@ -559,7 +559,7 @@ const LandingPage = ({
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
           <div className="text-center mb-8 md:mb-10">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               Why We're Different
             </h2>
             <p className="text-lg md:text-xl text-white/90 font-light">
