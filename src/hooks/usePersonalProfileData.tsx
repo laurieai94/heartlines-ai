@@ -62,9 +62,8 @@ export const usePersonalProfileData = () => {
   // Wrap updateField to normalize field names (removed excessive logging)
   const normalizedUpdateField = (field: string, value: any) => {
     const normalizedField = normalizeFieldName(field);
-    v2Store.updateField(normalizedField, value);
     
-    // Invalidate caches immediately when required fields change
+    // Invalidate caches BEFORE updating for immediate responsiveness
     const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
     if (requiredFields.includes(normalizedField)) {
       try {
@@ -76,6 +75,8 @@ export const usePersonalProfileData = () => {
         // Cache modules not ready yet
       }
     }
+    
+    v2Store.updateField(normalizedField, value);
   };
 
   // Wrap handleMultiSelect to normalize field names (removed excessive logging)

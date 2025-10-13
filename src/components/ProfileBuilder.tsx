@@ -95,7 +95,18 @@ const ProfileBuilder = ({
   } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
-    console.log('[ProfileBuilder] Completion check:', { completed, total, canUnlock: completed >= total });
+    console.log('[ProfileBuilder] Completion check:', { 
+      completed, 
+      total, 
+      canUnlock: completed >= total,
+      fields: {
+        name: !!personalProfileData?.name,
+        pronouns: !!personalProfileData?.pronouns,
+        relationshipStatus: !!personalProfileData?.relationshipStatus,
+        loveLanguage: !!personalProfileData?.loveLanguage,
+        attachmentStyle: !!personalProfileData?.attachmentStyle
+      }
+    });
     return {
       completedRequiredFields: completed,
       totalRequiredFields: total,
@@ -107,7 +118,8 @@ const ProfileBuilder = ({
     personalProfileData?.relationshipStatus,
     personalProfileData?.loveLanguage,
     personalProfileData?.attachmentStyle,
-    (personalProfileData as any)?._updateTimestamp
+    (personalProfileData as any)?._updateTimestamp,
+    personalProfileData
   ]);
 
   // Get partner's first initial for icon

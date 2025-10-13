@@ -156,7 +156,12 @@ export const useProgressiveAccess = () => {
   const canUnlockCoaching = useMemo(() => {
     const completed = personalStorage.profileData ? getCompletedRequiredFieldsCount(personalStorage.profileData as ProfileData) : 0;
     const total = getTotalRequiredFieldsCount();
-    console.log('[useProgressiveAccess] Coaching unlock check:', { completed, total, canUnlock: completed >= total });
+    console.log('[useProgressiveAccess] Coaching unlock check:', { 
+      completed, 
+      total, 
+      canUnlock: completed >= total,
+      profileData: personalStorage.profileData 
+    });
     return completed >= total;
   }, [
     personalStorage.profileData?.name,
@@ -164,7 +169,9 @@ export const useProgressiveAccess = () => {
     personalStorage.profileData?.relationshipStatus,
     personalStorage.profileData?.loveLanguage,
     personalStorage.profileData?.attachmentStyle,
-    (personalStorage.profileData as any)?._updateTimestamp
+    (personalStorage.profileData as any)?._updateTimestamp,
+    personalStorage.profileData,
+    personalStorage.isReady
   ]);
 
   // Memoized partner coaching unlock capability

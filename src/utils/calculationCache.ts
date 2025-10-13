@@ -98,7 +98,7 @@ class CalculationCache<T> {
   }
 }
 
-// Shorter TTLs for more responsive validation
-export const profileCompletionCache = new CalculationCache<number>(5000); // 5 seconds for immediate updates
-export const validationCache = new CalculationCache<boolean>(3000); // 3 seconds for immediate updates
-export const requirementCache = new CalculationCache<any>(5000); // 5 seconds for immediate updates
+// Instant responsiveness for profile completion checks
+export const profileCompletionCache = new CalculationCache<number>(1000); // 1 second for instant updates
+export const validationCache = new CalculationCache<boolean>(500); // 0.5 seconds for instant updates
+export const requirementCache = new CalculationCache<any>(1000); // 1 second for instant updates

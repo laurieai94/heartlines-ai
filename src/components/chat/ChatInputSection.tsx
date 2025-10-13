@@ -207,57 +207,37 @@ export const ChatInputSection = ({
     isHistoryLoaded &&
     !!user; // Must be authenticated
 
-  // Calculate profile completion for the nudge (memoized to prevent excessive calculation)
+  // Calculate profile completion for the nudge - instant updates, no debouncing
   const profileCompletion = useMemo(() => {
     if (accessLevel !== 'profile-required') return 0;
     return calculateYourCompletion();
   }, [accessLevel, calculateYourCompletion]);
   
-  // Debounce completion changes to prevent UI flickering
+  // Update stable completion immediately without debouncing for instant feedback
   useEffect(() => {
-    if (completionDebounceRef.current) {
-      clearTimeout(completionDebounceRef.current);
-    }
+    setStableCompletion(profileCompletion);
     
-    // If completion is increasing or staying same, update immediately
-    // If decreasing, wait 5 seconds to confirm it's stable
-    if (profileCompletion >= stableCompletion) {
-      setStableCompletion(profileCompletion);
-      
-      // Mark profile as completed once it reaches 100% - never show nudge again
-      if (profileCompletion >= 100) {
-        setProfileEverCompleted(true);
-        localStorage.setItem('profile_completed', 'true');
-      }
-    } else {
-      completionDebounceRef.current = setTimeout(() => {
-        setStableCompletion(profileCompletion);
-      }, 5000);
+    // Mark profile as completed once it reaches 100%
+    if (profileCompletion >= 100) {
+      setProfileEverCompleted(true);
+      localStorage.setItem('profile_completed', 'true');
     }
-    
-    return () => {
-      if (completionDebounceRef.current) {
-        clearTimeout(completionDebounceRef.current);
-      }
-    };
-  }, [profileCompletion, stableCompletion]);
+  }, [profileCompletion]);
 
-  // Debounce access level changes to prevent nudge flickering
+  // Update access level immediately for instant locking/unlocking
   useEffect(() => {
     if (accessLevelDebounceRef.current) {
       clearTimeout(accessLevelDebounceRef.current);
     }
     
-    // Change to 'full-access' immediately (user completed profile)
-    // Change to 'profile-required' only after 3 seconds (might be temporary glitch)
-    if (accessLevel === 'full-access') {
+    // Apply all access level changes immediately for instant responsiveness
+    if (accessLevel === 'full-access' || accessLevel === 'profile-required') {
       setStableAccessLevel(accessLevel);
-    } else if (accessLevel === 'profile-required') {
+    } else {
+      // Only debounce for signup-required to avoid auth flickering
       accessLevelDebounceRef.current = setTimeout(() => {
         setStableAccessLevel(accessLevel);
-      }, 3000);
-    } else {
-      setStableAccessLevel(accessLevel);
+      }, 1000);
     }
     
     return () => {
