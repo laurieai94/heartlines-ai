@@ -568,11 +568,6 @@ const LandingPage = ({
           {/* Timeline */}
           <Timeline stops={[
             {
-              title: "Actually personal",
-              subtitle: "Advice that flexes with you, not recycled self-help quotes. (No generic \"love yourself\" BS)",
-              icon: <PersonalIcon />
-            },
-            {
               title: "Queer- and trauma-informed",
               subtitle: "For every identity and story—no binaries, no filters. (Built for how real people love)",
               icon: <InclusiveIcon />
@@ -588,7 +583,7 @@ const LandingPage = ({
               icon: <ClockIcon />
             },
             {
-              title: "Not fight-free",
+              title: "Tough talks welcome",
               subtitle: "We don't erase conflict—we show you how to use it to grow stronger. (Healthy fights > silent scrolling)",
               icon: <ConversationIcon />
             },
