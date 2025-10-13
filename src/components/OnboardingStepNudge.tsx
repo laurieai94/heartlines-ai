@@ -40,7 +40,10 @@ const OnboardingStepNudge = ({
       {/* Premium button with shimmer effect */}
       <div className="relative group">
         {/* Button glow */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-60 blur-lg group-hover:opacity-80 transition-opacity duration-300" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-60 md:opacity-80 blur-lg group-hover:opacity-80 md:group-hover:opacity-95 transition-opacity duration-300" />
+        
+        {/* Backdrop for better contrast on desktop/tablet */}
+        {isCentered && <div className="absolute -inset-4 md:-inset-6 bg-black/40 md:bg-black/50 rounded-3xl blur-xl" />}
         
         <Button 
           ref={buttonRef}
@@ -55,7 +58,9 @@ const OnboardingStepNudge = ({
             isMobile ? 'min-h-[44px] touch-action-manipulation' : ''
           }`}
           style={{
-            boxShadow: '0 6px 24px rgba(255, 107, 157, 0.4), 0 3px 12px rgba(255, 138, 80, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+            boxShadow: isCentered && !isMobile 
+              ? '0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 107, 157, 0.3)'
+              : '0 6px 24px rgba(255, 107, 157, 0.4), 0 3px 12px rgba(255, 138, 80, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
           }}
         >
           {/* Shimmer overlay */}
