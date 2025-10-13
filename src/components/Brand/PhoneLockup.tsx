@@ -15,10 +15,10 @@ const PhoneLockup: React.FC<PhoneLockupProps> = ({
   onClick 
 }) => {
   const sizeClasses = {
-    sm: "w-32",
-    md: "w-48",
-    lg: "w-64",
-    xl: "w-80"
+    sm: "w-32 md:w-[147px]",
+    md: "w-48 md:w-[221px]",
+    lg: "w-64 md:w-[294px]",
+    xl: "w-80 md:w-[368px]"
   };
 
   return (

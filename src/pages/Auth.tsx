@@ -250,7 +250,7 @@ const Auth = () => {
               <img 
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
-                className="w-48 mx-auto"
+                className="w-48 md:w-[221px] mx-auto"
               />
             </div>
             
