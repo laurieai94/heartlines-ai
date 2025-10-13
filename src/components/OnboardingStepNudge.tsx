@@ -39,7 +39,7 @@ const OnboardingStepNudge = ({
     >
       {/* Ambient glow background */}
       <div className="absolute inset-0 -z-10 opacity-30 blur-2xl">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-coral-400/30 via-pink-500/20 to-transparent rounded-full animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-coral-400/30 via-pink-500/20 to-transparent rounded-full animate-slow-pulse" />
       </div>
 
       {/* Premium progress indicator */}
@@ -64,14 +64,14 @@ const OnboardingStepNudge = ({
             {completion > 0 ? 
               <CheckCircle 
                 className={`${isCentered ? 'w-5 h-5 md:w-6 md:h-6' : 'w-4 h-4'} text-white drop-shadow-lg`}
-                style={{ animation: 'bounceGentle 3s ease-in-out infinite' }}
+                style={{ animation: 'bounceGentle 8s ease-in-out infinite' }}
               /> : 
               <span className={`${isCentered ? 'text-lg md:text-xl' : 'text-base'} font-bold text-white drop-shadow-lg`}>1</span>
             }
             
             {/* Sparkle accent */}
             <Sparkles 
-              className={`absolute ${isCentered ? '-top-0.5 -right-0.5 w-3 h-3' : '-top-0.5 -right-0.5 w-2.5 h-2.5'} text-white animate-pulse`}
+              className={`absolute ${isCentered ? '-top-0.5 -right-0.5 w-3 h-3' : '-top-0.5 -right-0.5 w-2.5 h-2.5'} text-white animate-slow-pulse`}
               style={{ filter: 'drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))' }}
             />
           </div>
