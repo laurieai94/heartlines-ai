@@ -290,7 +290,8 @@ const Auth = () => {
 
         {/* Form container - centered and flexible */}
         <div className={`flex-1 flex items-center justify-center px-4 ${isSignUp ? 'pt-1 pb-6 sm:py-6 md:py-8' : 'py-8 sm:py-12'}`}>
-          <div className="questionnaire-card p-4 sm:p-5 animate-fade-in w-full max-w-sm">
+          <div className="w-full max-w-sm mx-auto">
+            <div className="questionnaire-card p-4 sm:p-5 animate-fade-in">
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
@@ -450,6 +451,7 @@ const Auth = () => {
                 </Button>
               </div>
             </>}
+            </div>
           </div>
         </div>
       </div>
