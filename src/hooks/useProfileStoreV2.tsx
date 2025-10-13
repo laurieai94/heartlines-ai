@@ -322,6 +322,20 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         
         batchedStorage.setItem(config.storageKey, JSON.stringify(metadata));
         setLastSaved(new Date());
+        
+        // CRITICAL: Clear all caches immediately when saving to localStorage
+        try {
+          const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
+          profileCompletionCache?.clear();
+          validationCache?.clear();
+          requirementCache?.clear();
+        } catch (e) {
+          // Cache module not ready yet
+        }
+        
+        // Dispatch event for immediate UI update
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+        
         // Broadcast to other hook instances in this tab
         window.dispatchEvent(new CustomEvent(IN_TAB_PROFILE_UPDATE_EVENT, {
           detail: { profileType, storageKey: config.storageKey, lastUpdated: metadata.profile.lastUpdated }

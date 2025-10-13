@@ -33,6 +33,20 @@ export const useProgressiveAccess = () => {
   const [blockingAction, setBlockingAction] = useState<string>('');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [upgradeReason, setUpgradeReason] = useState<'limit-reached' | 'near-limit' | 'upgrade'>('upgrade');
+  const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
+
+  // Listen for profile required field updates to force re-calculation
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      setProfileUpdateCounter(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    
+    return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    };
+  }, []);
 
   // Memoized profile completion calculation
   const profileCompletion = useMemo(() => {
@@ -40,7 +54,7 @@ export const useProgressiveAccess = () => {
       return 0;
     }
     return calculateProgressOptimized(personalStorage.profileData as ProfileData);
-  }, [personalStorage.profileData]);
+  }, [personalStorage.profileData, profileUpdateCounter]);
 
   // Memoized chat readiness computation
   const chatReadiness = useMemo(() => {
@@ -92,7 +106,7 @@ export const useProgressiveAccess = () => {
       incompleteSections,
       overallProgress
     };
-  }, [personalStorage.profileData]);
+  }, [personalStorage.profileData, profileUpdateCounter]);
 
   const hasPersonalProfileForChat = chatReadiness.isComplete;
   const missingFieldsForChat = chatReadiness.missingFields;
@@ -171,7 +185,8 @@ export const useProgressiveAccess = () => {
     personalStorage.profileData?.attachmentStyle,
     (personalStorage.profileData as any)?._updateTimestamp,
     personalStorage.profileData,
-    personalStorage.isReady
+    personalStorage.isReady,
+    profileUpdateCounter
   ]);
 
   // Memoized partner coaching unlock capability

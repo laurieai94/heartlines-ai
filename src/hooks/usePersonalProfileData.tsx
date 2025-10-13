@@ -77,11 +77,16 @@ export const usePersonalProfileData = () => {
         // Cache modules not ready yet
       }
       
-      // Dispatch event to force immediate UI update
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
-      
       // Use immediate update for required fields (no debounce)
       v2Store.updateFieldImmediate(normalizedField, value);
+      
+      // Force immediate event dispatch for UI updates
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      
+      // Secondary dispatch to ensure React picks up the change
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      }, 0);
     } else {
       // Use debounced update for optional fields
       v2Store.updateField(normalizedField, value);
