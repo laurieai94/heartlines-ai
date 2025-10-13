@@ -94,21 +94,23 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
+    // Close modal first, then navigate after a brief delay to avoid race conditions
     modalStates.setShowQuestionnaireModal(false);
     modalStates.setQuestionnaireOrigin(null);
-    
-    // Always go directly to coach when completing from questionnaire
-    // The "Unlock coaching" button makes the user's intent clear
     modalStates.setSuppressPersonalCompletionPopup(true);
-    modalStates.setActiveTab("insights");
     
-    // Focus chat input after a brief delay
+    // Delayed navigation to ensure modal closes properly
     setTimeout(() => {
-      const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
-      if (chatInput) {
-        chatInput.focus();
-      }
-    }, 100);
+      modalStates.setActiveTab("insights");
+      
+      // Focus chat input after navigation
+      setTimeout(() => {
+        const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
+        if (chatInput) {
+          chatInput.focus();
+        }
+      }, 100);
+    }, 50);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
