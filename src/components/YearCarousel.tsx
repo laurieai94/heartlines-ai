@@ -162,11 +162,6 @@ export const YearCarousel = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
                 
-                {/* Heartlines Branding */}
-                <div className="absolute top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-10">
-                  <HeartlinesWordmark className="text-white" size="lg" />
-                </div>
-                
                 {/* Year Text */}
                 <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-8 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
                   <div className="flex flex-col gap-2 md:gap-3 mb-4 md:mb-10 lg:mb-14 xl:mb-20 2xl:mb-24">
@@ -182,6 +177,11 @@ export const YearCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
+        
+        {/* Fixed Heartlines Watermark */}
+        <div className="absolute top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-20 pointer-events-none">
+          <HeartlinesWordmark className="text-white drop-shadow-lg" size="lg" />
+        </div>
       </Carousel>
 
     </section>
