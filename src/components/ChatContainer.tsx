@@ -209,8 +209,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
     <>
-      {/* Profile completion nudge - centered when chat is empty */}
-      {showProfileNudge && chatHistory.length === 0 && !loading && (
+      {/* Profile completion nudge - always centered when profile needs completion */}
+      {showProfileNudge && !loading && (
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <OnboardingStepNudge 
             completion={profileCompletion}
