@@ -151,7 +151,7 @@ export const Timeline: React.FC<TimelineProps> = ({ stops }) => {
                   {stop.subtitle.split('(')[0].trim()}
                 </p>
                 {stop.subtitle.includes('(') && (
-                  <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-brand font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
+                  <p className="text-pink-100/60 sm:text-pink-200/50 text-sm md:text-base font-light italic group-hover:text-white/70 transition-colors duration-300 mt-1">
                     ({stop.subtitle.split('(')[1]}
                   </p>
                 )}
