@@ -19,7 +19,7 @@ import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import HeroCarousel from "./HeroCarousel";
 import { FloatingCTAButton } from "./FloatingCTAButton";
-import { Timeline, PersonalIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
+import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
 
@@ -571,6 +571,11 @@ const LandingPage = ({
               title: "Actually personal",
               subtitle: "Advice that flexes with you, not recycled self-help quotes. (No generic \"love yourself\" BS)",
               icon: <PersonalIcon />
+            },
+            {
+              title: "Queer- and trauma-informed",
+              subtitle: "For every identity and story—no binaries, no filters.",
+              icon: <InclusiveIcon />
             },
             {
               title: "No toxic positivity",
