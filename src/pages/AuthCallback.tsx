@@ -18,6 +18,10 @@ const AuthCallback = () => {
           return;
         }
 
+        // Get redirect destination from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectPath = urlParams.get('redirect') || '/profile';
+
         // Transfer any temporary data to the user's account
         try {
           await transferToUserAccount();
@@ -29,13 +33,15 @@ const AuthCallback = () => {
         logEvent("login_success");
         
         // Redirect to profiles page for email confirmations
-        const redirectUrl = '/profile';
+        const redirectUrl = redirectPath;
         
         // Redirect with a clean URL
         window.location.replace(redirectUrl);
       } catch (error) {
         console.error('Callback processing error:', error);
-        window.location.replace('/profile');
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectPath = urlParams.get('redirect') || '/profile';
+        window.location.replace(redirectPath);
       }
     };
 
