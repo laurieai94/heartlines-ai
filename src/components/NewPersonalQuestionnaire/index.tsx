@@ -25,6 +25,10 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
   }, [saveData]);
 
   const handleComplete = async () => {
+    console.log('[Questionnaire] Completing with profile data:', profileData);
+    console.log('[Questionnaire] Name field value:', profileData.name);
+    console.log('[Questionnaire] Name is empty?:', !profileData.name || profileData.name.trim() === '');
+    
     try {
       await saveData(profileData);
       
@@ -33,6 +37,8 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
         completedAt: new Date().toISOString(),
         profileSource: 'personal-questionnaire'
       };
+      
+      console.log('[Questionnaire] Sending completion data:', completedData);
       
       onComplete({
         type: 'personal',

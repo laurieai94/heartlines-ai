@@ -44,6 +44,32 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal questionnaire completed with data:', questionnaireData);
     
+    // CRITICAL: Validate that ALL required fields have actual values
+    const completionData = questionnaireData.completionData || {};
+    const requiredFields = {
+      name: completionData.name,
+      pronouns: completionData.pronouns,
+      relationshipStatus: completionData.relationshipStatus,
+      loveLanguage: completionData.loveLanguage,
+      attachmentStyle: completionData.attachmentStyle
+    };
+    
+    // Check each required field for actual values
+    const missingFields: string[] = [];
+    if (!requiredFields.name || requiredFields.name.trim() === '') missingFields.push('name');
+    if (!requiredFields.pronouns || requiredFields.pronouns.trim() === '') missingFields.push('pronouns');
+    if (!requiredFields.relationshipStatus || requiredFields.relationshipStatus.trim() === '') missingFields.push('relationship status');
+    if (!requiredFields.loveLanguage || !Array.isArray(requiredFields.loveLanguage) || requiredFields.loveLanguage.length === 0) missingFields.push('love language');
+    if (!requiredFields.attachmentStyle || requiredFields.attachmentStyle.trim() === '') missingFields.push('attachment style');
+    
+    if (missingFields.length > 0) {
+      console.error('[Validation] Cannot complete - missing required fields:', missingFields);
+      toast.error(`Please complete these required fields: ${missingFields.join(', ')}`);
+      return; // Block completion and keep modal open
+    }
+    
+    console.log('[Validation] All required fields present:', requiredFields);
+    
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     

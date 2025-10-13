@@ -105,18 +105,25 @@ export const useProgressiveAccess = () => {
   // Memoized access level calculation
   const accessLevel = useMemo((): AccessLevel => {
     if (!user) {
+      console.log('[Access] No user - signup required');
       lastAccessLevelRef.current = 'signup-required';
       return 'signup-required';
     }
     
     if (!hasPersonalProfileForChat) {
+      console.log('[Access] Profile incomplete - profile required', {
+        hasPersonalProfileForChat,
+        missingFields: missingFieldsForChat,
+        profileData: personalStorage.profileData
+      });
       lastAccessLevelRef.current = 'profile-required';
       return 'profile-required';
     }
     
+    console.log('[Access] Full access granted');
     lastAccessLevelRef.current = 'full-access';
     return 'full-access';
-  }, [user, hasPersonalProfileForChat]);
+  }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData]);
 
   // Memoized permission checker
   const checkInteractionPermission = useCallback((action: string): boolean => {
