@@ -127,7 +127,7 @@ const OnboardingStepNudge = ({
           
           <span className="relative z-10 flex items-center gap-2">
             <Sparkles className={`${isCentered ? 'w-4 h-4' : 'w-3.5 h-3.5'}`} />
-            Finish profile
+            Finish profile to unlock Kai
           </span>
         </Button>
       </div>
