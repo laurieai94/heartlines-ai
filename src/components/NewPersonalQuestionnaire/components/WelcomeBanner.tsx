@@ -35,7 +35,7 @@ const WelcomeBanner = ({ overallProgress }: WelcomeBannerProps) => {
   if (isDismissed || !isVisible) return null;
 
   return (
-    <div className="bg-rose-900/20 border-b border-white/10 px-4 py-3 animate-in fade-in duration-300">
+    <div className="bg-rose-900/20 border-b border-white/10 px-4 py-3 animate-in fade-in duration-300 shadow-[0_0_15px_rgba(251,207,232,0.15)]">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 flex-1">
           <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
