@@ -211,7 +211,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     <>
       {/* Profile completion nudge - always centered when profile needs completion */}
       {showProfileNudge && !loading && (
-        <div className="absolute inset-0 flex items-center justify-center px-4 py-8 pointer-events-none">
+        <div className="absolute inset-0 md:bottom-[180px] flex items-center justify-center px-4 py-8 pointer-events-none">
           <div className="pointer-events-auto">
             <OnboardingStepNudge 
               completion={profileCompletion}
@@ -357,7 +357,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           aria-label="Chat conversation history"
         >
           <div 
-            className={`pt-2 md:pt-3 ${showProfileNudge ? 'md:pb-48' : 'md:pb-2'}`}
+            className={`pt-2 md:pt-3 ${showProfileNudge ? 'md:pb-64' : 'md:pb-2'}`}
             style={{
               paddingBottom: '4px',
               paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
