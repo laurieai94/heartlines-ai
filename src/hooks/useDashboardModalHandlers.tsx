@@ -44,21 +44,6 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   const handleQuestionnaireComplete = (questionnaireData: any) => {
     console.log('Personal questionnaire completed with data:', questionnaireData);
     
-    // VALIDATION GATE: Don't allow completion if required fields are missing
-    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
-    const hasAllRequired = requiredFields.every(field => {
-      const value = questionnaireData.completionData?.[field];
-      if (typeof value === 'string') return value && value.trim() !== '';
-      if (Array.isArray(value)) return value && value.length > 0;
-      return !!value;
-    });
-    
-    if (!hasAllRequired) {
-      console.warn('[Validation] Cannot complete - missing required fields');
-      toast.error('Please fill in all required fields (name, pronouns, relationship status, love language, attachment style)');
-      return; // DON'T close modal or navigate
-    }
-    
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     
