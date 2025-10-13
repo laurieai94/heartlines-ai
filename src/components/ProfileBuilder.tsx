@@ -116,13 +116,13 @@ const ProfileBuilder = ({
       canUnlockCoaching: completed >= total
     };
   }, [
-    personalProfileData?.name,
-    personalProfileData?.pronouns,
-    personalProfileData?.relationshipStatus,
+    personalProfileData?.name?.trim() || null,
+    personalProfileData?.pronouns?.trim() || null,
+    personalProfileData?.relationshipStatus?.trim() || null,
     personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle,
+    personalProfileData?.attachmentStyle?.trim() || null,
     (personalProfileData as any)?._updateTimestamp,
-    personalProfileData
+    completionKey
   ]);
 
   // Update key when completion status changes to force re-mount of critical UI

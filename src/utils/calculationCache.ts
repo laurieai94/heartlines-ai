@@ -38,7 +38,7 @@ class CalculationCache<T> {
       input.partnerAttachmentStyle,
       // Include timestamp to force recalculation on updates
       input.lastUpdated
-    ].filter(v => v !== undefined && v !== null).join('|');
+    ].map(v => v === '' ? 'EMPTY' : (v === undefined || v === null ? 'NULL' : v)).join('|');
     
     return `${keyCount}:${samples}`;
   }
