@@ -315,7 +315,7 @@ export const ChatInputSection = ({
     <div 
       ref={containerRef}
       className={`flex-shrink-0 z-50 bg-burgundy-900 md:bg-transparent h-auto ${
-        isMobilePhone ? 'fixed left-0 right-0' : 'md:relative md:bottom-auto'
+        isMobilePhone ? 'fixed left-0 right-0' : 'md:sticky md:bottom-0'
       }`}
       style={isMobilePhone ? {
         bottom: `${keyboardHeight}px`,
@@ -323,7 +323,9 @@ export const ChatInputSection = ({
         transition: 'bottom 0.1s ease-out',
         willChange: 'transform',
         boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.3)'
-      } : undefined}
+      } : {
+        paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+      }}
     >
       <div className="px-0 md:px-4 md:pt-2 md:py-5 md:pt-8">
         {/* Critical 90% usage warning banner */}

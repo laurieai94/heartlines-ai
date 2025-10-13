@@ -357,9 +357,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           aria-label="Chat conversation history"
         >
           <div 
-            className={`pt-2 md:pt-3 ${showProfileNudge ? 'md:pb-64' : 'md:pb-2'}`}
+            className={`pt-2 md:pt-3 pb-4 md:pb-6 ${showProfileNudge ? 'md:pb-64' : ''}`}
             style={{
-              paddingBottom: '4px',
               paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
               paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '0'
             }}
