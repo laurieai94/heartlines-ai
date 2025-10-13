@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { BRAND } from "@/branding";
 import BrandMark from "./BrandMark";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
+import { useAnimation } from "@/contexts/AnimationContext";
 import ProductPhoneDemo from "./ProductPhoneDemo";
 import HeroPhoneScroll from "./HeroPhoneScroll";
 import FlameDivider from "./FlameDivider";
@@ -107,6 +108,7 @@ const LandingPage = ({
     user
   } = useAuth();
   const navigate = useNavigate();
+  const { setKaiAnimationStarted } = useAnimation();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [currentProfile, setCurrentProfile] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -397,7 +399,10 @@ const LandingPage = ({
                   {/* Right Column - Mobile Chat Interface (Always Right, Always Visible Above Fold) */}
                   <div className="relative flex justify-center md:justify-end items-center self-center">
                     <div className="relative z-10 max-w-[320px] md:ml-auto md:mr-8 lg:mr-16 xl:mr-24 2xl:mr-32">
-                      <HeroPhoneScroll className="animate-fade-in" />
+                      <HeroPhoneScroll 
+                        className="animate-fade-in"
+                        onAnimationStart={(started) => setKaiAnimationStarted(started)}
+                      />
                     </div>
                   </div>
                 </div>

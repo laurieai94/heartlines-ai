@@ -15,9 +15,10 @@ import marcusAvatar from '@/assets/new-dad-avatar.png';
 interface HeroPhoneScrollProps {
   className?: string;
   style?: React.CSSProperties;
+  onAnimationStart?: (started: boolean) => void;
 }
 
-const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style }) => {
+const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style, onAnimationStart }) => {
   const [currentConversationIndex, setCurrentConversationIndex] = useState(0);
   const [visibleMessages, setVisibleMessages] = useState<typeof demoConversations[0]['messages']>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -25,6 +26,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isLoopActive, setIsLoopActive] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [hasStartedAnimation, setHasStartedAnimation] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -155,6 +157,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
         showNextMessage();
       }, 2000);
     } else if (currentMessageIndex === 0) {
+      setHasStartedAnimation(true);
       timeoutId = setTimeout(showNextMessage, 800);
     } else if (currentMessageIndex < currentConversation.messages.length) {
       const delay = currentConversation.messages[currentMessageIndex - 1]?.type === 'user' ? 1000 : 1900;
@@ -175,6 +178,13 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [currentMessageIndex, isLoopActive, currentConversation, currentConversationIndex, isInView]);
+
+  // Notify parent when animation starts
+  useEffect(() => {
+    if (hasStartedAnimation && onAnimationStart) {
+      onAnimationStart(true);
+    }
+  }, [hasStartedAnimation, onAnimationStart]);
 
   return (
     <div ref={containerRef} className={`relative ${className}`} style={style}>

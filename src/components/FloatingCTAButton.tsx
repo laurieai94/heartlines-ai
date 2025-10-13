@@ -1,21 +1,21 @@
 import { MessageSquare } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useScrollDirection } from '@/hooks/useScrollDirection';
+import { useAnimation } from '@/contexts/AnimationContext';
 import { useState, useEffect } from 'react';
 
 export const FloatingCTAButton = () => {
   const location = useLocation();
-  const { scrollY } = useScrollDirection();
+  const { kaiAnimationStarted } = useAnimation();
   const [isVisible, setIsVisible] = useState(false);
 
   // Only show on landing page
   const isLandingPage = location.pathname === '/';
 
   useEffect(() => {
-    // Show button when Kai animation becomes visible (~400px)
-    setIsVisible(scrollY > 400);
-  }, [scrollY]);
+    // Show button when Kai animation starts (first message begins)
+    setIsVisible(kaiAnimationStarted);
+  }, [kaiAnimationStarted]);
 
   if (!isLandingPage) return null;
 

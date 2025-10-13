@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AnimationProvider } from "@/contexts/AnimationContext";
 import Dashboard from "@/pages/Dashboard"; // Synchronous import for faster shell
 // Removed disabled performance imports
 import SplashScreen from "@/components/SplashScreen";
@@ -127,12 +128,14 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => (
   <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <AppContent />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <AnimationProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <AppContent />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </AnimationProvider>
   </AuthProvider>
 );
 
