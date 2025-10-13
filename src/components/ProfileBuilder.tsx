@@ -95,6 +95,7 @@ const ProfileBuilder = ({
   } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
+    console.log('[ProfileBuilder] Completion check:', { completed, total, canUnlock: completed >= total, personalProfileData });
     return {
       completedRequiredFields: completed,
       totalRequiredFields: total,
@@ -231,15 +232,15 @@ const ProfileBuilder = ({
         {/* Responsive Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-4 -mt-4 md:mt-4 lg:mt-6" data-profile-cards-container>
           {/* Your Profile Card */}
-          <MemoizedProfileCard title="Your Profile" subheader="The real you → real advice" completion={yourProfileCompletion} description="Just 4 required questions" benefits={[{
+          <MemoizedProfileCard title="Your Profile" subheader="The real you → real advice" completion={yourProfileCompletion} description="Just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
-            text: "4 Qs, big feels"
+            text: "5 Qs, big feels"
           }, {
             icon: <Search className="w-3 h-3 text-orange-300" />,
             text: "Deep dive if you're down"
           }]} onStartProfile={handleStartPersonalProfile} buttonText="Keep It Real" iconElement={userInitial ? <span className="text-white font-bold text-base leading-none">{userInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" optionalPillImage={!canUnlockCoaching ? <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
-                  First Step: 4 Qs
+                  First Step: 5 Qs
                 </span> : undefined} motivationText="The realer you, the smarter Kai" />
 
           {/* Partner Profile Card */}

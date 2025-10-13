@@ -71,24 +71,36 @@ export const getCompletedRequiredFieldsCount = (profileData: ProfileData): numbe
   let completed = 0;
   
   // Section 1 required fields
-  completed += SECTION_REQUIREMENTS[1].required.filter(field => 
-    isFieldComplete(profileData[field])
-  ).length;
+  const section1Fields = SECTION_REQUIREMENTS[1].required.filter(field => {
+    const isComplete = isFieldComplete(profileData[field]);
+    console.log(`[Requirements] Section 1 - ${field}:`, profileData[field], 'Complete:', isComplete);
+    return isComplete;
+  });
+  completed += section1Fields.length;
   
   // Section 2 required field (relationshipStatus)
-  if (isFieldComplete(profileData.relationshipStatus)) {
+  const relationshipStatusComplete = isFieldComplete(profileData.relationshipStatus);
+  console.log('[Requirements] Section 2 - relationshipStatus:', profileData.relationshipStatus, 'Complete:', relationshipStatusComplete);
+  if (relationshipStatusComplete) {
     completed += 1;
   }
   
   // Section 3 required fields  
-  completed += SECTION_REQUIREMENTS[3].required.filter(field => 
-    isFieldComplete(profileData[field])
-  ).length;
+  const section3Fields = SECTION_REQUIREMENTS[3].required.filter(field => {
+    const isComplete = isFieldComplete(profileData[field]);
+    console.log(`[Requirements] Section 3 - ${field}:`, profileData[field], 'Complete:', isComplete);
+    return isComplete;
+  });
+  completed += section3Fields.length;
   
   // Section 4 required fields
-  completed += SECTION_REQUIREMENTS[4].required.filter(field => 
-    isFieldComplete(profileData[field])
-  ).length;
+  const section4Fields = SECTION_REQUIREMENTS[4].required.filter(field => {
+    const isComplete = isFieldComplete(profileData[field]);
+    console.log(`[Requirements] Section 4 - ${field}:`, profileData[field], 'Complete:', isComplete);
+    return isComplete;
+  });
+  completed += section4Fields.length;
   
+  console.log('[Requirements] Total completed:', completed, 'of', getTotalRequiredFieldsCount());
   return completed;
 };
