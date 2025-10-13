@@ -316,7 +316,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: `${(inputSectionHeight || 280) + 24}px`
+              paddingBottom: `${(inputSectionHeight || 280) + 24 + (showProfileNudge ? 100 : 0)}px`
             }}
             role="log"
             aria-live="polite"
