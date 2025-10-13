@@ -578,7 +578,7 @@ const LandingPage = ({
               icon: <InclusiveIcon />
             },
             {
-              title: "No toxic positivity",
+              title: "Real talk only",
               subtitle: "Real talk for real struggles—support without the sugarcoat. (Because \"good vibes only\" is a lie)",
               icon: <HeartSupportIcon />
             },
