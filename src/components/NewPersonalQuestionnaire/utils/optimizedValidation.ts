@@ -31,7 +31,20 @@ export const validateSectionOptimized = (section: number, profileData: ProfileDa
 };
 
 // Optimized progress calculation with global caching
-export const calculateProgressOptimized = (profileData: ProfileData): number => {
+export const calculateProgressOptimized = (profileData: ProfileData, skipCache = false): number => {
+  // Force fresh calculation when skipCache is true
+  if (skipCache) {
+    try {
+      const totalApplicable = getTotalRequiredFieldsCount();
+      const totalCompleted = getCompletedRequiredFieldsCount(profileData);
+      const progress = totalApplicable > 0 ? Math.round((totalCompleted / totalApplicable) * 100) : 0;
+      return progress;
+    } catch (error) {
+      console.error('Progress calculation error:', error);
+      return 0;
+    }
+  }
+  
   return profileCompletionCache.get('personal-progress', profileData, () => {
     try {
       // Get total applicable fields count based on relationship status

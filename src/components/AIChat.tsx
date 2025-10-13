@@ -139,7 +139,11 @@ useChatEffects({
           onOpenSidebar={onOpenSidebar}
           profileCompletion={profileCompletion}
           onCompleteProfile={() => goToProfile('chat')}
-          showProfileNudge={accessLevel === 'profile-required' && !!user && profileCompletion < 100}
+          showProfileNudge={(() => {
+            const shouldShowNudge = accessLevel === 'profile-required' && !!user && profileCompletion < 100;
+            console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge });
+            return shouldShowNudge;
+          })()}
           inputSectionHeight={inputSectionHeight}
         />
 

@@ -53,7 +53,11 @@ export const useProgressiveAccess = () => {
     if (!personalStorage.profileData || Object.keys(personalStorage.profileData).length === 0) {
       return 0;
     }
-    return calculateProgressOptimized(personalStorage.profileData as ProfileData);
+    // Force bypass cache when profileUpdateCounter changes to ensure fresh data
+    const skipCache = profileUpdateCounter > 0;
+    const result = calculateProgressOptimized(personalStorage.profileData as ProfileData, skipCache);
+    console.log('[useProgressiveAccess] Profile completion:', result, 'skipCache:', skipCache);
+    return result;
   }, [personalStorage.profileData, profileUpdateCounter]);
 
   // Memoized chat readiness computation
