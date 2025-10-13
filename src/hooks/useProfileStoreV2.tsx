@@ -368,14 +368,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           saveToStorage(preservedProfile);
           
           // Warm the cache with the new values to ensure immediate validation updates
-          profileCompletionCache.clear();
-          validationCache.clear();
+          try {
+            profileCompletionCache?.clear();
+            validationCache?.clear();
+          } catch (e) {
+            // Cache not ready yet, skip clearing
+          }
           
           return preservedProfile;
         });
         
         // Warm the completion cache with fresh data
-        const { profileCompletionCache } = await import('@/utils/calculationCache');
         const { calculateProgress } = await import('@/components/NewPersonalQuestionnaire/utils/validation');
         const { calculatePartnerProgress } = await import('@/components/NewPartnerProfile/utils/partnerValidation');
         
@@ -867,8 +870,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     recentlyModifiedFields.current.set(field, Date.now());
     
     // Clear validation caches when data changes
-    profileCompletionCache.clear();
-    validationCache.clear();
+    try {
+      profileCompletionCache?.clear();
+      validationCache?.clear();
+    } catch (e) {
+      // Silently handle if cache not ready
+    }
     
     // Track intentional deletions
     const isEmpty = value === '' || value === null || value === undefined || 
@@ -919,8 +926,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     console.log(`[ProfileStore] Multi-select ${field}:`, value);
     
     // Clear validation caches when data changes
-    profileCompletionCache.clear();
-    validationCache.clear();
+    try {
+      profileCompletionCache?.clear();
+      validationCache?.clear();
+    } catch (e) {
+      // Silently handle if cache not ready
+    }
     
     // Use functional update to get fresh state
     setProfile(currentProfile => {
