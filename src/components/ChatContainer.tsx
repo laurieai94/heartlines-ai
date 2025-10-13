@@ -211,12 +211,14 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
     <>
       {/* Profile completion nudge - always centered when profile needs completion */}
       {showProfileNudge && !loading && (
-        <div className="flex-1 flex items-center justify-center px-4 py-8">
-          <OnboardingStepNudge 
-            completion={profileCompletion}
-            onStartProfile={onCompleteProfile || (() => {})}
-            variant="centered"
-          />
+        <div className="absolute inset-0 flex items-center justify-center px-4 py-8 pointer-events-none">
+          <div className="pointer-events-auto">
+            <OnboardingStepNudge 
+              completion={profileCompletion}
+              onStartProfile={onCompleteProfile || (() => {})}
+              variant="centered"
+            />
+          </div>
         </div>
       )}
 
