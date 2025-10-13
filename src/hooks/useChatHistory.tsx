@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChatMessage } from "@/types/AIInsights";
-import { PrivacyManager } from "@/utils/encryption";
 import { chatReliabilityQueue } from "@/utils/chatQueue";
 import { logError, logInfo, logWarn } from '@/utils/productionLogger';
 import { batchedStorage } from "@/utils/batchedStorage";
@@ -111,19 +110,8 @@ export const useChatHistory = () => {
         messages.find(m => m.type === 'user')?.content.substring(0, 50) + '...' || 
         'New Conversation';
 
-      // Prepare messages for storage (encrypt if enabled)
-      let messagesToStore = messages;
-      let messagesForDB = JSON.stringify(messages);
-      
-      if (PrivacyManager.isEncryptionEnabled()) {
-        try {
-          const encryptedMessages = await PrivacyManager.encrypt(messages);
-          messagesForDB = JSON.stringify([{ role: 'system', content: `[ENCRYPTED:${encryptedMessages}]` }]);
-          messagesToStore = [{ id: 0, type: 'ai', content: `[ENCRYPTED:${encryptedMessages}]`, timestamp: new Date().toISOString() }] as ChatMessage[];
-        } catch (error) {
-          logWarn('Encryption failed, storing as plaintext', error);
-        }
-      }
+      // Prepare messages for storage
+      const messagesForDB = JSON.stringify(messages);
 
       const conversationData = {
         id: currentConversationId || crypto.randomUUID(),
@@ -170,7 +158,7 @@ export const useChatHistory = () => {
       
       const conversationForStorage = {
         ...conversationData,
-        messages: messagesToStore // Use encrypted version if enabled
+        messages: messages
       };
 
       if (currentConversationId) {
@@ -235,23 +223,8 @@ export const useChatHistory = () => {
     if (conversation) {
       setCurrentConversationId(conversationId);
       
-      // Check if messages are encrypted
-      const rawMessages = conversation.messages;
-      let messages: ChatMessage[] = [];
-      
-      if (Array.isArray(rawMessages) && rawMessages.length === 1 && 
-          rawMessages[0].content && rawMessages[0].content.startsWith('[ENCRYPTED:')) {
-        try {
-          const encryptedData = rawMessages[0].content.replace('[ENCRYPTED:', '').replace(']', '');
-          const decryptedMessages = await PrivacyManager.decrypt(encryptedData);
-          messages = convertToMessages(decryptedMessages);
-        } catch (error) {
-          console.warn('Failed to decrypt conversation, may be corrupted:', error);
-          return [];
-        }
-      } else {
-        messages = convertToMessages(rawMessages);
-      }
+      // Load and convert messages
+      const messages = convertToMessages(conversation.messages);
       
       // Save decrypted messages to sessionStorage for quick recovery
       sessionStorage.setItem('current_chat', JSON.stringify({
