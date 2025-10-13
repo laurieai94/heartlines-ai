@@ -118,7 +118,7 @@ export const HeroCarousel: React.FC = () => {
             </h2>
             
             {/* Tagline */}
-            <p className="text-white text-xl md:text-2xl font-serif tracking-wide drop-shadow-lg">
+            <p className="text-white text-xl md:text-2xl font-sans tracking-wide drop-shadow-lg">
               {slide.tagline}
             </p>
           </div>
