@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/utils/analytics";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 
 const AuthCallback = () => {
   const { transferToUserAccount } = useTemporaryProfile();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleAuthCallback = async () => {
@@ -14,7 +16,7 @@ const AuthCallback = () => {
         
         if (error) {
           console.error('Auth callback error:', error);
-          window.location.replace('/');
+          navigate('/', { replace: true });
           return;
         }
 
@@ -36,12 +38,12 @@ const AuthCallback = () => {
         const redirectUrl = redirectPath;
         
         // Redirect with a clean URL
-        window.location.replace(redirectUrl);
+        navigate(redirectUrl, { replace: true });
       } catch (error) {
         console.error('Callback processing error:', error);
         const urlParams = new URLSearchParams(window.location.search);
         const redirectPath = urlParams.get('redirect') || '/profile';
-        window.location.replace(redirectPath);
+        navigate(redirectPath, { replace: true });
       }
     };
 
