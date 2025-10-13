@@ -357,8 +357,8 @@ const LandingPage = ({
               <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center min-h-[50vh] md:min-h-[90vh]">
                   {/* Left Column - Hero Copy (Always Left) */}
-                  <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-0 mt-8 md:mt-0 max-w-full">
-                    <div className="space-y-2 mb-1 md:mb-6 max-w-5xl">
+                  <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] md:pr-8 lg:pr-12 xl:pr-16">
+                    <div className="space-y-2 mb-1 md:mb-6 max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm" style={{
                         fontSize: 'clamp(1.875rem, 5vw, 6.5rem)'
                       }}>
@@ -366,7 +366,7 @@ const LandingPage = ({
                         <span className="block">aren't rom-coms.</span>
                       </h1>
                       
-                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap" style={{
+                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap overflow-hidden text-ellipsis max-w-full" style={{
                         fontSize: 'clamp(0.65rem, 4vw, 2.75rem)',
                         animationDelay: '0.2s'
                       }}>
