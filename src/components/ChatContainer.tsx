@@ -209,19 +209,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   // Render chat messages (shared between mobile and desktop)
   const renderMessages = () => (
     <>
-      {/* Profile completion nudge - always centered when profile needs completion */}
-      {showProfileNudge && !loading && (
-        <div className="absolute inset-0 md:bottom-[180px] flex items-center justify-center px-4 py-8 pointer-events-none">
-          <div className="pointer-events-auto">
-            <OnboardingStepNudge 
-              completion={profileCompletion}
-              onStartProfile={onCompleteProfile || (() => {})}
-              variant="centered"
-            />
-          </div>
-        </div>
-      )}
-
       {/* Chat Messages */}
       {chatHistory.map((message, index) => {
         const isUser = message.type === 'user';
@@ -372,6 +359,29 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
 
       {/* Scroll to top arrow - handles its own logic */}
       <ScrollToTopArrow scrollContainerRef={viewportRef} chatHistory={chatHistory} />
+      
+      {/* Fixed profile completion nudge - floats above scrolling messages */}
+      {showProfileNudge && !loading && (
+        <div 
+          className="fixed left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          style={{
+            top: isMobilePhone 
+              ? 'calc(50vh - 2rem)' // Center in mobile viewport
+              : '50%', // Center in desktop viewport
+            transform: isMobilePhone 
+              ? 'translate(-50%, -50%)' 
+              : 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="pointer-events-auto">
+            <OnboardingStepNudge 
+              completion={profileCompletion}
+              onStartProfile={onCompleteProfile || (() => {})}
+              variant="centered"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 });
