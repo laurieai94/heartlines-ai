@@ -13,8 +13,8 @@ export const FloatingCTAButton = () => {
   const isLandingPage = location.pathname === '/';
 
   useEffect(() => {
-    // Show button after scrolling past 200px
-    setIsVisible(scrollY > 200);
+    // Show button after scrolling past hero/carousel section (~800px)
+    setIsVisible(scrollY > 800);
   }, [scrollY]);
 
   if (!isLandingPage) return null;
