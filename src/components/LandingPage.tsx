@@ -574,7 +574,7 @@ const LandingPage = ({
             },
             {
               title: "Queer- and trauma-informed",
-              subtitle: "For every identity and story—no binaries, no filters.",
+              subtitle: "For every identity and story—no binaries, no filters. (Built for how real people love)",
               icon: <InclusiveIcon />
             },
             {
