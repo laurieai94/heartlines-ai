@@ -353,7 +353,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           // Override with the exact values we just sent (not prev which may be stale)
           Object.keys(updates).forEach(key => {
             preservedProfile[key] = updates[key]; // Use NEW value from updates, not old value from prev
-            intentionallyDeletedFields.current.delete(key);
+            // Keep deletion marker if the value is still empty (deletion confirmed)
+            const isEmpty = updates[key] === '' || updates[key] === null || updates[key] === undefined ||
+                            (Array.isArray(updates[key]) && updates[key].length === 0);
+            if (!isEmpty) {
+              // Only remove deletion marker if user filled in a value
+              intentionallyDeletedFields.current.delete(key);
+            }
           });
           
           // Also protect any fields modified in the last 5 seconds
@@ -378,18 +384,26 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           return preservedProfile;
         });
         
-        // Warm the completion cache with fresh data
+        // Warm the completion cache with the merged profile (not raw DB data)
+        // This ensures deletions are properly reflected in the cache
         const { calculateProgress } = await import('@/components/NewPersonalQuestionnaire/utils/validation');
         const { calculatePartnerProgress } = await import('@/components/NewPartnerProfile/utils/partnerValidation');
         
-        const finalData = { ...defaultProfile, ...(data as any), version: '2.0' };
+        // Get current profile state which has correct merged values including deletions
+        const currentState = await new Promise<typeof defaultProfile>(resolve => {
+          setProfile(current => {
+            resolve(current);
+            return current;
+          });
+        });
+        
         const completion = profileType === 'personal' 
-          ? calculateProgress(finalData as any)
-          : calculatePartnerProgress(finalData as any);
+          ? calculateProgress(currentState as any)
+          : calculatePartnerProgress(currentState as any);
         
         profileCompletionCache.set(
           profileType === 'personal' ? 'personal' : 'partner',
-          finalData,
+          currentState,
           completion
         );
       }
@@ -522,6 +536,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
                                   (Array.isArray(localValue) && localValue.length === 0);
                   if (isEmpty) {
                     (finalProfile as any)[key] = localValue;
+                    
+                    // Clean up old deletion markers (if field has been empty for >30 seconds, we can trust it)
+                    const modTime = recentlyModifiedFields.current.get(key);
+                    if (modTime && (now - modTime) > 30000) {
+                      intentionallyDeletedFields.current.delete(key);
+                    }
+                    
                     return;
                   }
                 }
