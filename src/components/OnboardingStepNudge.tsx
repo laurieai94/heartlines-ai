@@ -40,22 +40,22 @@ const OnboardingStepNudge = ({
       {/* Premium button with shimmer effect */}
       <div className="relative group">
         {/* Button glow */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-60 blur-lg group-hover:opacity-80 transition-opacity duration-300" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
         
         <Button 
           ref={buttonRef}
           onClick={handleButtonClick} 
           variant="glass" 
           size={isCentered ? 'lg' : 'default'}
-          className={`relative bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 text-white border-0 font-semibold tracking-wide overflow-hidden ${
+          className={`relative bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 text-white border-2 border-white/40 font-semibold tracking-wide overflow-hidden backdrop-blur-sm ${
             isCentered 
               ? 'h-10 md:h-11 px-6 md:px-8 text-sm md:text-base rounded-full' 
               : 'h-9 px-5 text-sm rounded-full'
-          } transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+          } transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-2xl ${
             isMobile ? 'min-h-[44px] touch-action-manipulation' : ''
           }`}
           style={{
-            boxShadow: '0 6px 24px rgba(255, 107, 157, 0.4), 0 3px 12px rgba(255, 138, 80, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+            boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
           }}
         >
           {/* Shimmer overlay */}
