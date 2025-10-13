@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { usePersonalProfileData } from "../../hooks/usePersonalProfileData";
 import QuestionnaireLayout from "./components/QuestionnaireLayout";
 
@@ -24,7 +24,7 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     };
   }, [saveData]);
 
-  const handleComplete = async () => {
+  const handleComplete = useCallback(async () => {
     console.log('[Questionnaire] Completing with profile data:', profileData);
     console.log('[Questionnaire] Name field value:', profileData.name);
     console.log('[Questionnaire] Name is empty?:', !profileData.name || profileData.name.trim() === '');
@@ -48,14 +48,14 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
     } catch (error) {
       console.error('Error completing questionnaire:', error);
     }
-  };
+  }, [profileData, saveData, onComplete]);
 
   // Set the auto-complete callback after we have access to handleComplete
   useEffect(() => {
     if (!autoCompleteCallback) {
       setAutoCompleteCallback(() => handleComplete);
     }
-  }, [autoCompleteCallback, handleComplete]);
+  }, [autoCompleteCallback]);
 
 
   return (
