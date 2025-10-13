@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { usePerformanceSafeguards } from './usePerformanceSafeguards';
 import { safeLog } from '@/utils/safeLogging';
 import { batchedStorage } from '@/utils/batchedStorage';
+import { profileCompletionCache, validationCache } from '@/utils/calculationCache';
 
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
@@ -365,6 +366,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           });
           
           saveToStorage(preservedProfile);
+          
+          // Warm the cache with the new values to ensure immediate validation updates
+          profileCompletionCache.clear();
+          validationCache.clear();
+          
           return preservedProfile;
         });
         
@@ -860,6 +866,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     // Mark field as recently modified
     recentlyModifiedFields.current.set(field, Date.now());
     
+    // Clear validation caches when data changes
+    profileCompletionCache.clear();
+    validationCache.clear();
+    
     // Track intentional deletions
     const isEmpty = value === '' || value === null || value === undefined || 
                     (Array.isArray(value) && value.length === 0);
@@ -907,6 +917,10 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   // Handle multi-select with functional updates to prevent stale state
   const handleMultiSelect = useCallback((field: string, value: string) => {
     console.log(`[ProfileStore] Multi-select ${field}:`, value);
+    
+    // Clear validation caches when data changes
+    profileCompletionCache.clear();
+    validationCache.clear();
     
     // Use functional update to get fresh state
     setProfile(currentProfile => {

@@ -21,15 +21,24 @@ class CalculationCache<T> {
     const keys = Object.keys(input);
     const keyCount = keys.length;
     
-    // Sample a few critical fields for uniqueness instead of serializing everything
+    // Include ALL required fields for accurate cache keys
     const samples = [
       input.name,
-      input.relationshipStatus,
-      input.attachmentStyle,
-      input.partnerName,
+      input.pronouns, // Required for section 1
       input.age,
-      Array.isArray(input.gender) ? input.gender.join(',') : input.gender
-    ].filter(Boolean).join('|');
+      input.relationshipStatus,
+      input.loveLanguage ? (Array.isArray(input.loveLanguage) ? input.loveLanguage.join(',') : input.loveLanguage) : '',
+      input.attachmentStyle,
+      Array.isArray(input.gender) ? input.gender.join(',') : input.gender,
+      Array.isArray(input.orientation) ? input.orientation.join(',') : input.orientation,
+      // Partner fields
+      input.partnerName,
+      input.partnerPronouns,
+      input.partnerLoveLanguage ? (Array.isArray(input.partnerLoveLanguage) ? input.partnerLoveLanguage.join(',') : input.partnerLoveLanguage) : '',
+      input.partnerAttachmentStyle,
+      // Include timestamp to force recalculation on updates
+      input.lastUpdated
+    ].filter(v => v !== undefined && v !== null).join('|');
     
     return `${keyCount}:${samples}`;
   }
@@ -89,7 +98,7 @@ class CalculationCache<T> {
   }
 }
 
-// Global cache instances with longer TTLs for better performance
-export const profileCompletionCache = new CalculationCache<number>(300000); // 5 minutes (was 10)
-export const validationCache = new CalculationCache<boolean>(60000); // 1 minute (was 30s)
-export const requirementCache = new CalculationCache<any>(300000); // 5 minutes (was 2)
+// Shorter TTLs for more responsive validation
+export const profileCompletionCache = new CalculationCache<number>(5000); // 5 seconds for immediate updates
+export const validationCache = new CalculationCache<boolean>(3000); // 3 seconds for immediate updates
+export const requirementCache = new CalculationCache<any>(5000); // 5 seconds for immediate updates
