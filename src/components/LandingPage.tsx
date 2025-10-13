@@ -363,7 +363,7 @@ const LandingPage = ({
                         fontSize: 'clamp(1.875rem, 5vw, 6.5rem)'
                       }}>
                         <span className="block">Relationships</span>
-                        <span className="block">aren't rom-coms.</span>
+                        <span className="block whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
