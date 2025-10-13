@@ -373,10 +373,14 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           
           saveToStorage(preservedProfile);
           
-          // Warm the cache with the new values to ensure immediate validation updates
+          // Clear all caches immediately to ensure validation updates
+          profileCompletionCache?.clear();
+          validationCache?.clear();
+          
+          // Also clear requirement cache
           try {
-            profileCompletionCache?.clear();
-            validationCache?.clear();
+            const { requirementCache } = require('@/utils/calculationCache');
+            requirementCache?.clear();
           } catch (e) {
             // Cache not ready yet, skip clearing
           }

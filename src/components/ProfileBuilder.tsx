@@ -95,13 +95,19 @@ const ProfileBuilder = ({
   } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
-    console.log('[ProfileBuilder] Completion check:', { completed, total, canUnlock: completed >= total, personalProfileData });
+    console.log('[ProfileBuilder] Completion check:', { completed, total, canUnlock: completed >= total });
     return {
       completedRequiredFields: completed,
       totalRequiredFields: total,
       canUnlockCoaching: completed >= total
     };
-  }, [personalProfileData]);
+  }, [
+    personalProfileData?.name,
+    personalProfileData?.pronouns,
+    personalProfileData?.relationshipStatus,
+    personalProfileData?.loveLanguage,
+    personalProfileData?.attachmentStyle
+  ]);
 
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerProfileData?.partnerName);

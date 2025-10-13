@@ -149,8 +149,15 @@ export const useProgressiveAccess = () => {
   const canUnlockCoaching = useMemo(() => {
     const completed = personalStorage.profileData ? getCompletedRequiredFieldsCount(personalStorage.profileData as ProfileData) : 0;
     const total = getTotalRequiredFieldsCount();
+    console.log('[useProgressiveAccess] Coaching unlock check:', { completed, total, canUnlock: completed >= total });
     return completed >= total;
-  }, [personalStorage.profileData]);
+  }, [
+    personalStorage.profileData?.name,
+    personalStorage.profileData?.pronouns,
+    personalStorage.profileData?.relationshipStatus,
+    personalStorage.profileData?.loveLanguage,
+    personalStorage.profileData?.attachmentStyle
+  ]);
 
   // Memoized partner coaching unlock capability
   const canUnlockPartnerCoaching = useMemo(() => {
