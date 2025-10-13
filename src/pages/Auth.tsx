@@ -244,13 +244,13 @@ const Auth = () => {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-8">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
-          <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4">
+          <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-6 sm:mb-8">
             {/* Logo */}
             <div className="text-center">
               <img 
                 src={BRAND.signUpLogoSrc}
                 alt="heartlines logo"
-                className="w-48 md:w-[221px] mx-auto"
+                className="w-[211px] md:w-[243px] mx-auto"
               />
             </div>
             
