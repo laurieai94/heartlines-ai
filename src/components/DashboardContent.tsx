@@ -122,7 +122,7 @@ const DashboardContent = ({
         return <DashboardHome />;
       case "coach":
         return (
-          <div className="h-full max-h-full flex flex-col mobile-coach-stretch">
+          <div className="flex-1 min-h-0 flex flex-col mobile-coach-stretch">
             <AIChat 
               profiles={temporaryProfiles}
               demographicsData={temporaryDemographics}
@@ -192,11 +192,11 @@ const DashboardContent = ({
   ]);
 
   return (
-    <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide ${
-      activeTab === 'coach' || activeTab === 'insights' 
-        ? 'overflow-hidden h-[100dvh] md:h-[calc(100vh-5rem)] md:pt-20 lg:pt-24' 
-        : 'pt-16 md:pt-16 overflow-y-auto'
-    }`}>
+        <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide ${
+          activeTab === 'coach' || activeTab === 'insights' 
+            ? 'overflow-hidden flex flex-col' 
+            : 'pt-16 md:pt-16 overflow-y-auto'
+        }`}>
       <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
         <div className="flex-1 min-h-0">
           {renderActiveTabContent}
