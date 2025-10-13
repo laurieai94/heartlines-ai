@@ -896,12 +896,33 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       }
     });
     
-    // Optimistic update
-    setProfile(prev => {
-      const updated = { ...prev, ...clonedUpdates };
-      saveToStorage(updated);
-      return updated;
-    });
+    // Check if any required field is being updated
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    const hasRequiredField = Object.keys(clonedUpdates).some(key => 
+      requiredFields.includes(key) || key === '_updateTimestamp'
+    );
+    
+    // Optimistic update - use flushSync for required fields to force immediate re-render
+    if (hasRequiredField) {
+      flushSync(() => {
+        setProfile(prev => {
+          const updated = { ...prev, ...clonedUpdates };
+          saveToStorage(updated);
+          return updated;
+        });
+      });
+      
+      // Broadcast immediate update for UI components
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { fields: Object.keys(clonedUpdates), timestamp: Date.now() }
+      }));
+    } else {
+      setProfile(prev => {
+        const updated = { ...prev, ...clonedUpdates };
+        saveToStorage(updated);
+        return updated;
+      });
+    }
 
     // Accumulate pending updates
     Object.assign(pendingUpdates.current, clonedUpdates);
@@ -996,12 +1017,27 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     const clonedUpdates = cloneProfile(updates as any);
     
-    // Optimistic update
-    setProfile(prev => {
-      const updated = { ...prev, ...clonedUpdates };
-      saveToStorage(updated);
-      return updated;
-    });
+    // Optimistic update - use flushSync for required fields to force immediate re-render
+    if (requiredFields.includes(field)) {
+      flushSync(() => {
+        setProfile(prev => {
+          const updated = { ...prev, ...clonedUpdates };
+          saveToStorage(updated);
+          return updated;
+        });
+      });
+      
+      // Broadcast immediate update for UI components
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { field, value, timestamp: Date.now() }
+      }));
+    } else {
+      setProfile(prev => {
+        const updated = { ...prev, ...clonedUpdates };
+        saveToStorage(updated);
+        return updated;
+      });
+    }
 
     // Clear any pending debounce timer
     if (debounceTimer.current) {
@@ -1030,29 +1066,43 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
     
     // Use functional update to get fresh state
-    setProfile(currentProfile => {
-      const current = (currentProfile as any)[field] as string[] || [];
-      const updated = current.includes(value)
-        ? current.filter(item => item !== value)
-        : [...current, value];
+    // Wrap in flushSync for required fields to force immediate re-render
+    if (requiredFields.includes(field)) {
+      let updatedArray: string[] = [];
       
-      // Safe logging without object serialization
-      safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
+      flushSync(() => {
+        setProfile(currentProfile => {
+          const current = (currentProfile as any)[field] as string[] || [];
+          const updated = current.includes(value)
+            ? current.filter(item => item !== value)
+            : [...current, value];
+          
+          updatedArray = updated;
+          
+          safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
+          
+          const newProfile = {
+            ...currentProfile,
+            [field]: updated,
+            _updateTimestamp: Date.now()
+          };
+          
+          saveToStorage(newProfile);
+          
+          return newProfile;
+        });
+      });
       
-      // For required fields, add timestamp to force React re-renders
-      const newProfile = requiredFields.includes(field)
-        ? { ...currentProfile, [field]: updated, _updateTimestamp: Date.now() }
-        : { ...currentProfile, [field]: updated };
-      
-      // Immediate storage update
-      saveToStorage(newProfile);
+      // Broadcast immediate update for UI components
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { field, value, timestamp: Date.now() }
+      }));
       
       // Trigger timeout-based database sync
       pendingUpdates.current = { 
         ...pendingUpdates.current, 
-        [field]: updated,
-        ...(requiredFields.includes(field) ? { _updateTimestamp: Date.now() } : {})
-      };
+        [field]: updatedArray
+      } as any;
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
@@ -1061,9 +1111,36 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         pendingUpdates.current = {};
         syncToDatabase(toSync);
       }, DEBOUNCE_MS);
-      
-      return newProfile;
-    });
+    } else {
+      setProfile(currentProfile => {
+        const current = (currentProfile as any)[field] as string[] || [];
+        const updated = current.includes(value)
+          ? current.filter(item => item !== value)
+          : [...current, value];
+        
+        safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
+        
+        const newProfile = { ...currentProfile, [field]: updated };
+        
+        saveToStorage(newProfile);
+        
+        // Trigger timeout-based database sync
+        pendingUpdates.current = { 
+          ...pendingUpdates.current, 
+          [field]: updated
+        } as any;
+        if (debounceTimer.current) {
+          clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(() => {
+          const toSync = { ...pendingUpdates.current };
+          pendingUpdates.current = {};
+          syncToDatabase(toSync);
+        }, DEBOUNCE_MS);
+        
+        return newProfile;
+      });
+    }
   }, [saveToStorage, syncToDatabase]);
 
   return {

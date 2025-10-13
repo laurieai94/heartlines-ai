@@ -130,6 +130,20 @@ const ProfileBuilder = ({
     setCompletionKey(prev => prev + 1);
   }, [canUnlockCoaching]);
 
+  // Listen for required field updates to force immediate UI update
+  useEffect(() => {
+    const handleRequiredFieldUpdate = () => {
+      console.log('[ProfileBuilder] Required field updated - forcing re-calculation');
+      setCompletionKey(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
+    
+    return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
+    };
+  }, []);
+
   // Get partner's first initial for icon
   const partnerInitial = getInitial(partnerProfileData?.partnerName);
 
