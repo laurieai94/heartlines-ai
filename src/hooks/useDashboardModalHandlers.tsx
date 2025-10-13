@@ -70,6 +70,14 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     console.log('[Validation] All required fields present:', requiredFields);
     
+    // CRITICAL: Close modal IMMEDIATELY after validation passes (optimistic UI)
+    console.log('[Complete] Closing modal immediately with flushSync');
+    flushSync(() => {
+      modalStates.setShowQuestionnaireModal(false);
+      modalStates.setQuestionnaireOrigin(null);
+      modalStates.setSuppressPersonalCompletionPopup(true);
+    });
+    
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     
@@ -109,14 +117,6 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     setTimeout(() => {
       window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
     }, 0);
-    
-    // CRITICAL: Use flushSync to force immediate state update before navigation
-    console.log('[Complete] Closing modal with flushSync');
-    flushSync(() => {
-      modalStates.setShowQuestionnaireModal(false);
-      modalStates.setQuestionnaireOrigin(null);
-      modalStates.setSuppressPersonalCompletionPopup(true);
-    });
     
     // Store completion flag to prevent modal from reopening during navigation
     sessionStorage.setItem('questionnaire-completing', 'true');
