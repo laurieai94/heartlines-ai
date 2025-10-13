@@ -187,6 +187,11 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
 
   const handleQuestionnaireClose = () => {
     console.log('Closing questionnaire modal');
+    
+    // CRITICAL: Clear completion flag to ensure nudge shows correctly
+    sessionStorage.removeItem('questionnaire-completing');
+    console.log('[Close] Cleared questionnaire-completing flag');
+    
     modalStates.setShowQuestionnaireModal(false);
     modalStates.setQuestionnaireOrigin(null);
   };
