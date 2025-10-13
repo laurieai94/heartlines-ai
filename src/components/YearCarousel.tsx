@@ -148,12 +148,12 @@ export const YearCarousel = () => {
         <CarouselContent className="!ml-0">
           {shuffledSlides.map((slide, index) => (
             <CarouselItem key={index} className="!pl-0 basis-full">
-              <div className="relative h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
+              <div className="relative h-[70vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] w-full">
                 {/* Image */}
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="absolute inset-0 w-full h-full object-contain"
+                  className="absolute inset-0 w-full h-full object-contain object-[center_20%]"
                   loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"
@@ -168,8 +168,8 @@ export const YearCarousel = () => {
                 </div>
                 
                 {/* Year Text */}
-                <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-16 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
-                  <div className="flex flex-col gap-2 md:gap-3 mb-8 md:mb-10 lg:mb-14 xl:mb-20 2xl:mb-24">
+                <div className="absolute inset-0 flex items-end justify-start pl-8 md:pl-16 lg:pl-24 pr-4 md:pr-24 lg:pr-32 pb-8 md:pb-20 lg:pb-24 xl:pb-32 2xl:pb-40">
+                  <div className="flex flex-col gap-2 md:gap-3 mb-4 md:mb-10 lg:mb-14 xl:mb-20 2xl:mb-24">
                     <h2 className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-8xl bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl leading-none">
                       {slide.year}
                     </h2>
