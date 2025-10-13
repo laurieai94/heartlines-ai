@@ -22,12 +22,12 @@ export const FloatingCTAButton = () => {
   return (
     <Link to="/signup">
       <Button
-        className={`fixed right-4 bottom-24 md:bottom-4 z-50 bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-6 py-3 md:py-4 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border border-white/20 font-light ${
+        className={`fixed right-4 bottom-32 md:bottom-28 lg:bottom-4 z-50 bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 md:px-6 py-3 md:py-4 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border border-white/20 font-light ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
         <MessageSquare className="w-5 h-5 md:mr-2" />
-        <span className="hidden md:inline text-base">Chat with Kai</span>
+        <span className="text-sm md:text-base">Chat with Kai</span>
       </Button>
     </Link>
   );
