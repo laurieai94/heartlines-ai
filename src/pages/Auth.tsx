@@ -300,14 +300,15 @@ const Auth = () => {
                   We've sent you a verification link. Click it to activate your account.
                 </p>
                 
-                <button 
+                <Button 
                   onClick={handleResendVerification} 
                   disabled={isResendingVerification || resendCooldown > 0}
-                  className="questionnaire-button-secondary w-full"
+                  variant="ghost"
+                  className="w-full bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm rounded-full transition-all duration-300"
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   {isResendingVerification ? 'Sending...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Email'}
-                </button>
+                </Button>
               </div>
               <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
