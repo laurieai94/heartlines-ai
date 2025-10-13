@@ -1,6 +1,6 @@
-
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { toast } from 'sonner';
+import { flushSync } from 'react-dom';
 
 interface ModalStates {
   setActiveTab: (tab: string) => void;
@@ -94,23 +94,33 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // Close modal first, then navigate after a brief delay to avoid race conditions
-    modalStates.setShowQuestionnaireModal(false);
-    modalStates.setQuestionnaireOrigin(null);
-    modalStates.setSuppressPersonalCompletionPopup(true);
+    // CRITICAL: Use flushSync to force immediate state update before navigation
+    console.log('[Complete] Closing modal with flushSync');
+    flushSync(() => {
+      modalStates.setShowQuestionnaireModal(false);
+      modalStates.setQuestionnaireOrigin(null);
+      modalStates.setSuppressPersonalCompletionPopup(true);
+    });
     
-    // Delayed navigation to ensure modal closes properly
+    // Store completion flag to prevent modal from reopening during navigation
+    sessionStorage.setItem('questionnaire-completing', 'true');
+    
+    // Longer delay to ensure modal is fully closed and state is settled
     setTimeout(() => {
+      console.log('[Complete] Navigating to insights tab');
       modalStates.setActiveTab("insights");
       
-      // Focus chat input after navigation
+      // Clear completion flag and focus chat input
       setTimeout(() => {
+        sessionStorage.removeItem('questionnaire-completing');
+        console.log('[Complete] Completion flow finished');
+        
         const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
         if (chatInput) {
           chatInput.focus();
         }
-      }, 100);
-    }, 50);
+      }, 150);
+    }, 150);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {

@@ -28,7 +28,11 @@ export const useDashboardModalState = () => {
   };
 
   const [activeTab, setActiveTabState] = useState(() => getTabFromPath(location.pathname));
-  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
+  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(() => {
+    // Don't open modal if completion is in progress
+    const isCompleting = sessionStorage.getItem('questionnaire-completing');
+    return isCompleting ? false : false;
+  });
   const [showPartnerQuestionnaireModal, setShowPartnerQuestionnaireModal] = useState(false);
   const [showPersonalCompletionOptions, setShowPersonalCompletionOptions] = useState(false);
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
