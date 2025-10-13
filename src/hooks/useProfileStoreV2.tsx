@@ -10,7 +10,7 @@ import { profileCompletionCache, validationCache } from '@/utils/calculationCach
 // Global instance tracking to prevent conflicts
 const HOOK_INSTANCES = new Map<string, number>();
 const DB_CACHE = new Map<string, { data: any; timestamp: number; ttl: number }>();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 30 * 1000; // 30 seconds
 
 export type ProfileType = 'personal' | 'partner';
 
@@ -930,16 +930,21 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Update single field
   const updateField = useCallback((field: string, value: any) => {
+    // FIRST: Clear caches immediately for required fields
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    if (requiredFields.includes(field)) {
+      try {
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        const { requirementCache } = require('@/utils/calculationCache');
+        requirementCache?.clear();
+      } catch (e) {
+        // Silently handle if cache not ready
+      }
+    }
+    
     // Mark field as recently modified
     recentlyModifiedFields.current.set(field, Date.now());
-    
-    // Clear validation caches when data changes
-    try {
-      profileCompletionCache?.clear();
-      validationCache?.clear();
-    } catch (e) {
-      // Silently handle if cache not ready
-    }
     
     // Track intentional deletions
     const isEmpty = value === '' || value === null || value === undefined || 
@@ -951,7 +956,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
     
     // For required fields, add timestamp to force React re-renders
-    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
     const updates = requiredFields.includes(field) 
       ? { [field]: value, _updateTimestamp: Date.now() } 
       : { [field]: value };
@@ -961,6 +965,19 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Update single field with immediate database sync (for blur events)
   const updateFieldImmediate = useCallback((field: string, value: any) => {
+    // FIRST: Clear caches immediately for required fields
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    if (requiredFields.includes(field)) {
+      try {
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        const { requirementCache } = require('@/utils/calculationCache');
+        requirementCache?.clear();
+      } catch (e) {
+        // Silently handle if cache not ready
+      }
+    }
+    
     recentlyModifiedFields.current.set(field, Date.now());
     
     // Track intentional deletions
@@ -973,7 +990,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
     
     // For required fields, add timestamp to force React re-renders
-    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
     const updates = requiredFields.includes(field) 
       ? { [field]: value, _updateTimestamp: Date.now() } 
       : { [field]: value };
@@ -1000,12 +1016,17 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const handleMultiSelect = useCallback((field: string, value: string) => {
     console.log(`[ProfileStore] Multi-select ${field}:`, value);
     
-    // Clear validation caches when data changes
-    try {
-      profileCompletionCache?.clear();
-      validationCache?.clear();
-    } catch (e) {
-      // Silently handle if cache not ready
+    // FIRST: Clear caches immediately for required fields
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    if (requiredFields.includes(field)) {
+      try {
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        const { requirementCache } = require('@/utils/calculationCache');
+        requirementCache?.clear();
+      } catch (e) {
+        // Silently handle if cache not ready
+      }
     }
     
     // Use functional update to get fresh state
@@ -1019,7 +1040,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
       
       // For required fields, add timestamp to force React re-renders
-      const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
       const newProfile = requiredFields.includes(field)
         ? { ...currentProfile, [field]: updated, _updateTimestamp: Date.now() }
         : { ...currentProfile, [field]: updated };

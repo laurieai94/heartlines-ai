@@ -59,12 +59,14 @@ export const usePersonalProfileData = () => {
   // Merge with defaults to ensure all fields exist
   const mergedProfileData = { ...defaultProfileData, ...v2Store.profileData } as ExtendedProfileData;
 
-  // Wrap updateField to normalize field names (removed excessive logging)
+  // Wrap updateField to normalize field names with immediate updates for required fields
   const normalizedUpdateField = (field: string, value: any) => {
     const normalizedField = normalizeFieldName(field);
     
-    // Invalidate caches BEFORE updating for immediate responsiveness
+    // List of required fields that need instant updates
     const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    
+    // Invalidate caches BEFORE updating for immediate responsiveness
     if (requiredFields.includes(normalizedField)) {
       try {
         const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
@@ -74,9 +76,13 @@ export const usePersonalProfileData = () => {
       } catch (e) {
         // Cache modules not ready yet
       }
+      
+      // Use immediate update for required fields (no debounce)
+      v2Store.updateFieldImmediate(normalizedField, value);
+    } else {
+      // Use debounced update for optional fields
+      v2Store.updateField(normalizedField, value);
     }
-    
-    v2Store.updateField(normalizedField, value);
   };
 
   // Wrap handleMultiSelect to normalize field names (removed excessive logging)
