@@ -25,11 +25,12 @@ const Mission = () => {
       </Helmet>
       
       <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-rose-900 flex flex-col">
-        <SimpleHeader 
-          user={user}
-          activeTab="home"
-          onSignInClick={handleSignInClick}
-        />
+      <SimpleHeader 
+        user={user}
+        activeTab="home"
+        onSignInClick={handleSignInClick}
+        hideSignInButton={true}
+      />
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}

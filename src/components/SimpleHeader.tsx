@@ -13,9 +13,10 @@ interface SimpleHeaderProps {
   user: User | null;
   activeTab: string;
   onSignInClick: () => void;
+  hideSignInButton?: boolean;
 }
 
-const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => {
+const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false }: SimpleHeaderProps) => {
   const navigate = useNavigate();
 
   const navigationItems = [
@@ -77,7 +78,9 @@ const SimpleHeader = ({ user, activeTab, onSignInClick }: SimpleHeaderProps) => 
           </div>
           
           <div className="flex items-center">
-            <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={() => navigate('/profile')} />
+            {!hideSignInButton && (
+              <SignInButton user={user} onSignInClick={onSignInClick} onOpenProfile={() => navigate('/profile')} />
+            )}
           </div>
         </div>
       </div>
