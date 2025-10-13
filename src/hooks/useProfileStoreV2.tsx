@@ -227,11 +227,20 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
         if (parsed.profile && Array.isArray(parsed.deletionMarkers)) {
           // Restore deletion markers
           intentionallyDeletedFields.current = new Set(parsed.deletionMarkers);
-          return { ...defaultProfile, ...parsed.profile };
+          // Preserve _updateTimestamp from storage
+          return { 
+            ...defaultProfile, 
+            ...parsed.profile,
+            ...(parsed.profile._updateTimestamp ? { _updateTimestamp: parsed.profile._updateTimestamp } : {})
+          };
         }
         
-        // Old format (direct profile object)
-        return { ...defaultProfile, ...parsed };
+        // Old format (direct profile object) - preserve _updateTimestamp if present
+        return { 
+          ...defaultProfile, 
+          ...parsed,
+          ...(parsed._updateTimestamp ? { _updateTimestamp: parsed._updateTimestamp } : {})
+        };
       }
     } catch (error) {
       // Silent fail
@@ -301,7 +310,12 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
       try {
         const metadata = {
-          profile: { ...data, lastUpdated: new Date().toISOString() },
+          profile: { 
+            ...data, 
+            lastUpdated: new Date().toISOString(),
+            // Explicitly preserve _updateTimestamp (client-only field)
+            ...((data as any)._updateTimestamp ? { _updateTimestamp: (data as any)._updateTimestamp } : {})
+          },
           deletionMarkers: Array.from(intentionallyDeletedFields.current),
           lastSaved: new Date().toISOString()
         };
@@ -350,9 +364,24 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
           // Start with server data
           const preservedProfile = { ...serverProfile };
           
+          // PRESERVE _updateTimestamp from previous state (client-only field)
+          if ((prev as any)._updateTimestamp) {
+            (preservedProfile as any)._updateTimestamp = (prev as any)._updateTimestamp;
+          }
+          
+          // Track if any required fields were updated
+          const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+          let hasRequiredFieldUpdate = false;
+          
           // Override with the exact values we just sent (not prev which may be stale)
           Object.keys(updates).forEach(key => {
             preservedProfile[key] = updates[key]; // Use NEW value from updates, not old value from prev
+            
+            // Track required field updates
+            if (requiredFields.includes(key)) {
+              hasRequiredFieldUpdate = true;
+            }
+            
             // Keep deletion marker if the value is still empty (deletion confirmed)
             const isEmpty = updates[key] === '' || updates[key] === null || updates[key] === undefined ||
                             (Array.isArray(updates[key]) && updates[key].length === 0);
@@ -361,6 +390,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               intentionallyDeletedFields.current.delete(key);
             }
           });
+          
+          // If required fields were updated, ensure fresh timestamp
+          if (hasRequiredFieldUpdate) {
+            (preservedProfile as any)._updateTimestamp = Date.now();
+          }
           
           // Also protect any fields modified in the last 5 seconds
           const now = Date.now();
@@ -522,6 +556,11 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               
               // Smart field-by-field merge that preserves user's recent edits
               const finalProfile = { ...dbProfile };
+              
+              // PRESERVE _updateTimestamp from local profile (client-only field)
+              if ((localProfile as any)._updateTimestamp) {
+                (finalProfile as any)._updateTimestamp = (localProfile as any)._updateTimestamp;
+              }
               
               Object.keys(localProfile).forEach(key => {
                 const localValue = localProfile[key as keyof typeof localProfile];
