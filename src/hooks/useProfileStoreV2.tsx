@@ -911,7 +911,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       intentionallyDeletedFields.current.delete(field);
     }
     
-    updateProfile({ [field]: value } as any);
+    // For required fields, add timestamp to force React re-renders
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    const updates = requiredFields.includes(field) 
+      ? { [field]: value, _updateTimestamp: Date.now() } 
+      : { [field]: value };
+    
+    updateProfile(updates as any);
   }, [updateProfile]);
 
   // Update single field with immediate database sync (for blur events)
@@ -927,8 +933,13 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       intentionallyDeletedFields.current.delete(field);
     }
     
-    const updates = { [field]: value } as any;
-    const clonedUpdates = cloneProfile(updates);
+    // For required fields, add timestamp to force React re-renders
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    const updates = requiredFields.includes(field) 
+      ? { [field]: value, _updateTimestamp: Date.now() } 
+      : { [field]: value };
+    
+    const clonedUpdates = cloneProfile(updates as any);
     
     // Optimistic update
     setProfile(prev => {
@@ -968,13 +979,21 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       // Safe logging without object serialization
       safeLog.multiSelect('ProfileStore', field, current.includes(value) ? 'remove' : 'add', value);
       
-      const newProfile = { ...currentProfile, [field]: updated };
+      // For required fields, add timestamp to force React re-renders
+      const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+      const newProfile = requiredFields.includes(field)
+        ? { ...currentProfile, [field]: updated, _updateTimestamp: Date.now() }
+        : { ...currentProfile, [field]: updated };
       
       // Immediate storage update
       saveToStorage(newProfile);
       
       // Trigger timeout-based database sync
-      pendingUpdates.current = { ...pendingUpdates.current, [field]: updated };
+      pendingUpdates.current = { 
+        ...pendingUpdates.current, 
+        [field]: updated,
+        ...(requiredFields.includes(field) ? { _updateTimestamp: Date.now() } : {})
+      };
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }

@@ -106,7 +106,8 @@ const ProfileBuilder = ({
     personalProfileData?.pronouns,
     personalProfileData?.relationshipStatus,
     personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle
+    personalProfileData?.attachmentStyle,
+    (personalProfileData as any)?._updateTimestamp
   ]);
 
   // Get partner's first initial for icon

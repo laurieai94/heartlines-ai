@@ -156,7 +156,8 @@ export const useProgressiveAccess = () => {
     personalStorage.profileData?.pronouns,
     personalStorage.profileData?.relationshipStatus,
     personalStorage.profileData?.loveLanguage,
-    personalStorage.profileData?.attachmentStyle
+    personalStorage.profileData?.attachmentStyle,
+    (personalStorage.profileData as any)?._updateTimestamp
   ]);
 
   // Memoized partner coaching unlock capability
