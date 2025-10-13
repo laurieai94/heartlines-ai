@@ -366,8 +366,8 @@ const LandingPage = ({
                         <span className="block">aren't rom-coms.</span>
                       </h1>
                       
-                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 whitespace-nowrap overflow-hidden text-ellipsis max-w-full" style={{
-                        fontSize: 'clamp(0.65rem, 4vw, 2.75rem)',
+                      <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
+                        fontSize: 'clamp(0.5rem, 3.5vw, 2.75rem)',
                         animationDelay: '0.2s'
                       }}>
                         <span className="font-brand">heartlines</span> helps you connect.
