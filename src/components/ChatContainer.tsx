@@ -222,18 +222,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         </div>
       )}
 
-      {/* Gradient mask to fade messages behind button - desktop/tablet only */}
-      {showProfileNudge && !loading && (
-        <div 
-          className="hidden md:block absolute inset-0 pointer-events-none z-10"
-          style={{
-            background: 'radial-gradient(ellipse 600px 400px at center, rgba(76, 16, 30, 0.95) 0%, rgba(76, 16, 30, 0.7) 30%, transparent 60%)',
-          }}
-        />
-      )}
-
       {/* Chat Messages */}
-      <div className="relative">
       {chatHistory.map((message, index) => {
         const isUser = message.type === 'user';
         const prevMessage = index > 0 ? chatHistory[index - 1] : null;
@@ -318,7 +307,6 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       </div>
       
       <div className="h-2 md:h-4" />
-      </div>
     </>
   );
 
