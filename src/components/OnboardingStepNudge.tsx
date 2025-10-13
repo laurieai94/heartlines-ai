@@ -61,13 +61,7 @@ const OnboardingStepNudge = ({
               boxShadow: '0 0 20px rgba(255, 107, 157, 0.5), 0 0 40px rgba(255, 138, 80, 0.3), inset 0 2px 8px rgba(255, 255, 255, 0.2)'
             }}
           >
-            {completion > 0 ? 
-              <CheckCircle 
-                className={`${isCentered ? 'w-5 h-5 md:w-6 md:h-6' : 'w-4 h-4'} text-white drop-shadow-lg`}
-                style={{ animation: 'bounceGentle 8s ease-in-out infinite' }}
-              /> : 
-              <span className={`${isCentered ? 'text-lg md:text-xl' : 'text-base'} font-bold text-white drop-shadow-lg`}>1</span>
-            }
+            <span className={`${isCentered ? 'text-lg md:text-xl' : 'text-base'} font-bold text-white drop-shadow-lg`}>1</span>
             
             {/* Sparkle accent */}
             <Sparkles 
