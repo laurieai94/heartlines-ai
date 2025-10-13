@@ -94,6 +94,22 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
+    // CRITICAL: Force immediate cache clear and profile update event
+    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+    try {
+      const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
+      profileCompletionCache?.clear();
+      validationCache?.clear();
+      requirementCache?.clear();
+    } catch (e) {
+      console.error('Cache clear error:', e);
+    }
+    
+    // Multiple dispatches to ensure all listeners catch it
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+    }, 0);
+    
     // CRITICAL: Use flushSync to force immediate state update before navigation
     console.log('[Complete] Closing modal with flushSync');
     flushSync(() => {
@@ -104,6 +120,9 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     // Store completion flag to prevent modal from reopening during navigation
     sessionStorage.setItem('questionnaire-completing', 'true');
+    if (typeof window !== 'undefined' && (window as any).user?.id) {
+      sessionStorage.setItem(`questionnaire-completed-${(window as any).user.id}`, Date.now().toString());
+    }
     
     // Longer delay to ensure modal is fully closed and state is settled
     setTimeout(() => {

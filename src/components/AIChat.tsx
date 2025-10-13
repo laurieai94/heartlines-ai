@@ -140,8 +140,14 @@ useChatEffects({
           profileCompletion={profileCompletion}
           onCompleteProfile={() => goToProfile('chat')}
           showProfileNudge={(() => {
+            const isCompleting = sessionStorage.getItem('questionnaire-completing');
+            if (isCompleting) {
+              console.log('[AIChat] Questionnaire completing - hiding nudge');
+              return false;
+            }
+            
             const shouldShowNudge = accessLevel === 'profile-required' && !!user && profileCompletion < 100;
-            console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge });
+            console.log('[AIChat] Nudge logic:', { accessLevel, hasUser: !!user, profileCompletion, shouldShowNudge, isCompleting });
             return shouldShowNudge;
           })()}
           inputSectionHeight={inputSectionHeight}

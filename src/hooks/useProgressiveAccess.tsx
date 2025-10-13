@@ -38,7 +38,13 @@ export const useProgressiveAccess = () => {
   // Listen for profile required field updates to force re-calculation
   useEffect(() => {
     const handleProfileUpdate = () => {
+      console.log('[useProgressiveAccess] Profile update event - forcing recalculation');
       setProfileUpdateCounter(prev => prev + 1);
+      
+      // Force React to process this state update immediately
+      setTimeout(() => {
+        setProfileUpdateCounter(prev => prev + 1);
+      }, 0);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);

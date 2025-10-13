@@ -59,6 +59,13 @@ const Dashboard = () => {
 
   // Auto-open Personal Questionnaire only for brand-new signups
   useEffect(() => {
+    // PREVENT LOOP: Don't auto-open if we're completing questionnaire
+    const isCompleting = sessionStorage.getItem('questionnaire-completing');
+    if (isCompleting) {
+      console.log('[Dashboard] Questionnaire completing - skipping auto-open');
+      return;
+    }
+    
     // PREVENT LOOP: Don't auto-open if we're on the coach/insights tab
     // The user explicitly chose to go there, so don't interrupt
     if (activeTab === 'insights') {
