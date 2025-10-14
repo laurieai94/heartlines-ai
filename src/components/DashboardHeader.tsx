@@ -7,7 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Crown, Menu, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
+import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
+import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
@@ -82,7 +83,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                     isCoachMode ? 'h-7 w-7' : 'h-8 w-8'
                   }`}
                 >
-                  <Menu className={isCoachMode ? 'h-4 w-4' : 'h-5 w-5'} />
+                  <FlipPhoneIcon className={isCoachMode ? 'h-4 w-4' : 'h-5 w-5'} />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
@@ -135,7 +136,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                   size="icon"
                   className="text-white hover:text-white h-8 w-8 bg-white/5 hover:bg-white/15 hover:backdrop-blur-md hover:border hover:border-white/20 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <Menu className="h-5 w-5" />
+                  <FlipPhoneIcon className="h-5 w-5" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 

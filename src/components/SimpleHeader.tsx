@@ -4,7 +4,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
+import { Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
+import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import SignInButton from "./SignInButton";
 import type { User } from '@supabase/supabase-js';
@@ -47,7 +48,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
                   size="icon"
                   className="text-white hover:text-white h-8 w-8 bg-white/5 hover:bg-white/15 hover:backdrop-blur-md hover:border hover:border-white/20 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <Menu className="h-5 w-5" />
+                  <FlipPhoneIcon className="h-5 w-5" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
