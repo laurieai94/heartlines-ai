@@ -400,7 +400,7 @@ const LandingPage = ({
                 </div>
                 
                 <span className="relative z-10 flex items-center gap-2">
-                  Get started
+                  Get Started
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Button>
@@ -490,7 +490,7 @@ const LandingPage = ({
                       </div>
                       
                       <span className="relative z-10 flex items-center">
-                        Let's get real
+                        Get Started
                         <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
                       </span>
                     </Button>
@@ -647,7 +647,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                    Talk it out with Kai
+                    Get Started
                   </span>
                 </Button>
               </div>
@@ -748,7 +748,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Heart className="w-5 h-5 md:w-6 md:h-6" />
-                    Find clarity, not chaos
+                    Get Started
                   </span>
                 </Button>
               </div>
