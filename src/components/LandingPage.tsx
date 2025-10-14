@@ -316,7 +316,7 @@ const LandingPage = ({
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
                       style={{
                         boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
                       }}
@@ -332,9 +332,7 @@ const LandingPage = ({
                         />
                       </div>
                       
-                      <span className="relative z-10">
-                        Chat with Kai
-                      </span>
+                      <MessageSquare className="relative z-10 w-5 h-5" />
                     </Button>
                   </div>
                 </> : <>
@@ -348,7 +346,7 @@ const LandingPage = ({
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-4 py-2 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
                       style={{
                         boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
                       }}
@@ -364,9 +362,7 @@ const LandingPage = ({
                         />
                       </div>
                       
-                      <span className="relative z-10">
-                        Chat with Kai
-                      </span>
+                      <MessageSquare className="relative z-10 w-5 h-5" />
                     </Button>
                   </div>
                 </>}
@@ -503,9 +499,8 @@ const LandingPage = ({
                 </div>
                         </> : <>
                           <div onClick={handleTalkToKai} className="cursor-pointer">
-                            <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                              Chat with Kai
-                              <ArrowRight className="w-5 h-5 ml-2" />
+                            <Button size="lg" variant="glass" className="p-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
+                              <MessageSquare className="w-5 h-5" />
                             </Button>
                           </div>
                         </>}
@@ -555,9 +550,8 @@ const LandingPage = ({
                           <ArrowRight className="w-5 h-5 ml-3" />
                         </Button>
                       </> : <>
-                        <Button onClick={handleTalkToKai} size="lg" variant="glass" className="px-8 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in cursor-pointer">
-                          Chat with Kai
-                          <ArrowRight className="w-5 h-5 ml-3" />
+                        <Button onClick={handleTalkToKai} size="lg" variant="glass" className="p-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in cursor-pointer">
+                          <MessageSquare className="w-5 h-5" />
                         </Button>
                       </>}
                   </div>
