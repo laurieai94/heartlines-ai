@@ -46,12 +46,28 @@ const CleanQuestionnaireFooter = ({
   const totalRequiredFields = getTotalRequiredFieldsCount();
   const completedRequiredFields = getCompletedRequiredFieldsCount(profileData);
   
+  // Read from localStorage directly to ensure we check latest data
+  const getLatestProfileData = () => {
+    try {
+      const stored = localStorage.getItem('personal_profile_v2');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return parsed.profile || parsed;
+      }
+    } catch (e) {
+      console.error('[Footer] Error reading profile data:', e);
+    }
+    return profileData;
+  };
+  
+  const latestData = getLatestProfileData();
+  
   // Additional validation: Check that required fields actually have non-empty values
-  const hasValidName = profileData.name && profileData.name.trim() !== '';
-  const hasValidPronouns = profileData.pronouns && profileData.pronouns.trim() !== '';
-  const hasValidRelationship = profileData.relationshipStatus && profileData.relationshipStatus.trim() !== '';
-  const hasValidLoveLanguage = Array.isArray(profileData.loveLanguage) && profileData.loveLanguage.length > 0;
-  const hasValidAttachment = profileData.attachmentStyle && profileData.attachmentStyle.trim() !== '';
+  const hasValidName = latestData.name && latestData.name.trim() !== '';
+  const hasValidPronouns = latestData.pronouns && latestData.pronouns.trim() !== '';
+  const hasValidRelationship = latestData.relationshipStatus && latestData.relationshipStatus.trim() !== '';
+  const hasValidLoveLanguage = Array.isArray(latestData.loveLanguage) && latestData.loveLanguage.length > 0;
+  const hasValidAttachment = latestData.attachmentStyle && latestData.attachmentStyle.trim() !== '';
   
   const hasActualData = hasValidName && hasValidPronouns && hasValidRelationship && 
                         hasValidLoveLanguage && hasValidAttachment;

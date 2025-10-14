@@ -34,8 +34,8 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
         (saveData as any).flush();
       }
       
-      // Wait for flush to complete and UI to sync
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for flush to complete and batched storage to sync
+      await new Promise(resolve => setTimeout(resolve, 150));
       
       // Re-read fresh data from localStorage to ensure we have latest values
       const freshData = (() => {
@@ -53,6 +53,14 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
       
       console.log('[Questionnaire] AFTER flush - freshData:', JSON.stringify(freshData, null, 2));
       console.log('[Questionnaire] Fresh name value:', freshData.name);
+      
+      // Force React state sync by dispatching update event
+      window.dispatchEvent(new CustomEvent('profile:forceReload', { 
+        detail: { freshData } 
+      }));
+      
+      // Wait for React state to sync
+      await new Promise(resolve => setTimeout(resolve, 50));
       
       const completedData = {
         ...freshData,
