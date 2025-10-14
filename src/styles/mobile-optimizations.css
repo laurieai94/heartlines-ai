@@ -41,6 +41,32 @@ html, body, #root {
     overflow: visible !important;
     height: auto !important;
   }
+  
+  /* Fallback for browsers without :has() support */
+  html.landing-page-active,
+  body.landing-page-active {
+    overflow: visible !important;
+    position: relative !important;
+    height: auto !important;
+  }
+  
+  #root.landing-page-active {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  
+  /* Ensure Heartlines logo stays fixed on mobile */
+  .heartlines-logo-fixed {
+    position: fixed !important;
+    top: 3rem !important;
+    right: 1.5rem !important;
+    z-index: 9999 !important;
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+    will-change: transform !important;
+    pointer-events: none !important;
+    isolation: isolate !important;
+  }
 }
 
 /* Auth pages need natural scroll behavior on mobile */
