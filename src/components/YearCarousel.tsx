@@ -179,7 +179,7 @@ export const YearCarousel = () => {
         </CarouselContent>
         
         {/* Fixed Heartlines Watermark */}
-        <div className="absolute top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-20 pointer-events-none">
+        <div className="fixed top-8 right-8 md:top-12 md:right-16 lg:top-16 lg:right-24 z-20 pointer-events-none">
           <HeartlinesWordmark className="text-white drop-shadow-lg" size="lg" />
         </div>
       </Carousel>
