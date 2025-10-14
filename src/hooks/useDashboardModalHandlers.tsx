@@ -42,10 +42,21 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   };
 
   const handleQuestionnaireComplete = (questionnaireData: any) => {
-    console.log('Personal questionnaire completed with data:', questionnaireData);
+    console.log('[Handler] Personal questionnaire completed with data:', questionnaireData);
     
-    // CRITICAL: Validate that ALL required fields have actual values
+    // Extract completion data
     const completionData = questionnaireData.completionData || {};
+    
+    // Log what we received
+    console.log('[Handler] Validation check - received fields:', {
+      name: completionData.name,
+      pronouns: completionData.pronouns,
+      relationshipStatus: completionData.relationshipStatus,
+      loveLanguage: completionData.loveLanguage,
+      attachmentStyle: completionData.attachmentStyle
+    });
+    
+    // CRITICAL: Validate required fields
     const requiredFields = {
       name: completionData.name,
       pronouns: completionData.pronouns,
@@ -54,21 +65,37 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       attachmentStyle: completionData.attachmentStyle
     };
     
-    // Check each required field for actual values
+    // Check each required field
     const missingFields: string[] = [];
-    if (!requiredFields.name || requiredFields.name.trim() === '') missingFields.push('name');
-    if (!requiredFields.pronouns || requiredFields.pronouns.trim() === '') missingFields.push('pronouns');
-    if (!requiredFields.relationshipStatus || requiredFields.relationshipStatus.trim() === '') missingFields.push('relationship status');
-    if (!requiredFields.loveLanguage || !Array.isArray(requiredFields.loveLanguage) || requiredFields.loveLanguage.length === 0) missingFields.push('love language');
-    if (!requiredFields.attachmentStyle || requiredFields.attachmentStyle.trim() === '') missingFields.push('attachment style');
+    if (!requiredFields.name || requiredFields.name.trim() === '') {
+      missingFields.push('name');
+      console.error('[Validation] Missing name:', requiredFields.name);
+    }
+    if (!requiredFields.pronouns || requiredFields.pronouns.trim() === '') {
+      missingFields.push('pronouns');
+      console.error('[Validation] Missing pronouns:', requiredFields.pronouns);
+    }
+    if (!requiredFields.relationshipStatus || requiredFields.relationshipStatus.trim() === '') {
+      missingFields.push('relationship status');
+      console.error('[Validation] Missing relationshipStatus:', requiredFields.relationshipStatus);
+    }
+    if (!requiredFields.loveLanguage || !Array.isArray(requiredFields.loveLanguage) || requiredFields.loveLanguage.length === 0) {
+      missingFields.push('love language');
+      console.error('[Validation] Missing loveLanguage:', requiredFields.loveLanguage);
+    }
+    if (!requiredFields.attachmentStyle || requiredFields.attachmentStyle.trim() === '') {
+      missingFields.push('attachment style');
+      console.error('[Validation] Missing attachmentStyle:', requiredFields.attachmentStyle);
+    }
     
     if (missingFields.length > 0) {
-      console.error('[Validation] Cannot complete - missing required fields:', missingFields);
+      console.error('[Validation] BLOCKING completion - missing required fields:', missingFields);
+      console.error('[Validation] Full completion data:', completionData);
       toast.error(`Please complete these required fields: ${missingFields.join(', ')}`);
       return; // Block completion and keep modal open
     }
     
-    console.log('[Validation] All required fields present:', requiredFields);
+    console.log('[Validation] ✅ All required fields present - proceeding with completion');
     
     // CRITICAL: Close modal IMMEDIATELY after validation passes (optimistic UI)
     console.log('[Complete] Closing modal immediately with flushSync');

@@ -1157,6 +1157,26 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     }
   }, [saveToStorage, syncToDatabase]);
 
+  const flush = useCallback(() => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = undefined;
+    }
+    
+    if (Object.keys(pendingUpdates.current).length > 0) {
+      const toSync = { ...pendingUpdates.current };
+      pendingUpdates.current = {};
+      
+      const updatedProfile = { ...profile, ...toSync };
+      saveToStorage(updatedProfile);
+      syncToDatabase(toSync);
+      
+      return toSync;
+    }
+    
+    return {};
+  }, [profile, saveToStorage, syncToDatabase]);
+
   return {
     profileData: profile,
     isLoading,
@@ -1167,6 +1187,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     handleMultiSelect,
     saveData: updateProfile,
     clearProfile,
-    lastSaved
+    lastSaved,
+    flush
   };
 };

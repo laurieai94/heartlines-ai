@@ -25,28 +25,54 @@ const NewPersonalQuestionnaire = ({ onComplete, onClose, isModal = false }: NewP
   }, [saveData]);
 
   const handleComplete = useCallback(async () => {
-    console.log('[Questionnaire] Completing with profile data:', profileData);
-    console.log('[Questionnaire] Name field value:', profileData.name);
-    console.log('[Questionnaire] Name is empty?:', !profileData.name || profileData.name.trim() === '');
+    console.log('[Questionnaire] Starting completion flow...');
     
     try {
-      await saveData(profileData);
+      // STEP 1: Flush all pending debounced updates immediately
+      if ((saveData as any).flush) {
+        console.log('[Questionnaire] Flushing pending updates...');
+        (saveData as any).flush();
+      }
       
+      // STEP 2: Wait for storage to sync
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // STEP 3: Read fresh data directly from localStorage
+      let freshData = profileData;
+      try {
+        const stored = localStorage.getItem('personal_profile_v2');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          freshData = parsed.profile || parsed || profileData;
+          console.log('[Questionnaire] Fresh data from localStorage:', {
+            name: freshData.name,
+            pronouns: freshData.pronouns,
+            relationshipStatus: freshData.relationshipStatus,
+            loveLanguage: freshData.loveLanguage,
+            attachmentStyle: freshData.attachmentStyle
+          });
+        }
+      } catch (e) {
+        console.error('[Questionnaire] Error reading localStorage:', e);
+      }
+      
+      // STEP 4: Build completion data with fresh values
       const completedData = {
-        ...profileData,
+        ...freshData,
         completedAt: new Date().toISOString(),
         profileSource: 'personal-questionnaire'
       };
       
       console.log('[Questionnaire] Sending completion data:', completedData);
       
+      // STEP 5: Pass fresh data to validation
       onComplete({
         type: 'personal',
         completionData: completedData,
         nextStep: 'start-coaching'
       });
     } catch (error) {
-      console.error('Error completing questionnaire:', error);
+      console.error('[Questionnaire] Error completing questionnaire:', error);
     }
   }, [profileData, saveData, onComplete]);
 
