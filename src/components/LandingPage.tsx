@@ -715,14 +715,14 @@ const LandingPage = ({
           {/* Timeline */}
           <Timeline stops={[
             {
-              title: "Queer- and trauma-informed",
-              subtitle: "For every identity and story—no binaries, no filters. (Built for how real people love)",
-              icon: <InclusiveIcon />
-            },
-            {
               title: "Real talk only",
               subtitle: "Real talk for real struggles—support without the sugarcoat. (Because \"good vibes only\" is a lie)",
               icon: <HeartSupportIcon />
+            },
+            {
+              title: "Queer- and trauma-informed",
+              subtitle: "For every identity and story—no binaries, no filters. (Built for how real people love)",
+              icon: <InclusiveIcon />
             },
             {
               title: "Built for busy",
