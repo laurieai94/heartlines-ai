@@ -16,8 +16,8 @@ const Terms = () => {
   return (
     <>
       <Helmet>
-        <title>Terms of Service - {BRAND.name}</title>
-        <meta name="description" content="Read the terms of service for using heartlines AI-powered relationship coaching platform." />
+        <title>terms of service - {BRAND.name}</title>
+        <meta name="description" content="read the terms of service for using heartlines ai-powered relationship coaching platform." />
       </Helmet>
       
       <div className="min-h-screen bg-burgundy-900 flex flex-col">
@@ -35,135 +35,135 @@ const Terms = () => {
                 <FileText className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4">Terms of Service</h1>
+            <h1 className="text-4xl font-bold questionnaire-text mb-4">terms of service</h1>
             <p className="text-lg questionnaire-text-muted">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
 
           {/* Terms Content */}
           <div className="space-y-8">
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">1. Acceptance of Terms</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">1. acceptance of terms</h2>
               <p className="questionnaire-text-muted leading-relaxed">
-                By accessing and using {BRAND.name}, you accept and agree to be bound by the terms and provision of this agreement. 
-                If you do not agree to these terms, please do not use our service.
+                by accessing and using {BRAND.name}, you accept and agree to be bound by the terms and provision of this agreement. 
+                if you do not agree to these terms, please do not use our service.
               </p>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">2. Description of Service</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">2. description of service</h2>
               <p className="questionnaire-text-muted leading-relaxed mb-4">
-                {BRAND.name} provides AI-powered relationship coaching and insights to help users improve their relationships. 
-                Our service includes:
+                {BRAND.name} provides ai-powered relationship coaching and insights to help users improve their relationships. 
+                our service includes:
               </p>
               <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4">
-                <li>Personalized relationship insights and coaching</li>
-                <li>AI-powered conversation practice</li>
-                <li>Profile building and partner matching</li>
-                <li>Privacy-focused data storage</li>
+                <li>personalized relationship insights and coaching</li>
+                <li>ai-powered conversation practice</li>
+                <li>profile building and partner matching</li>
+                <li>privacy-focused data storage</li>
               </ul>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">3. User Responsibilities</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">3. user responsibilities</h2>
               <p className="questionnaire-text-muted leading-relaxed mb-4">
-                As a user of {BRAND.name}, you agree to:
+                as a user of {BRAND.name}, you agree to:
               </p>
               <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4">
-                <li>Provide accurate information during registration</li>
-                <li>Keep your account credentials secure</li>
-                <li>Use the service in a lawful and respectful manner</li>
-                <li>Not share or misuse content from the platform</li>
+                <li>provide accurate information during registration</li>
+                <li>keep your account credentials secure</li>
+                <li>use the service in a lawful and respectful manner</li>
+                <li>not share or misuse content from the platform</li>
               </ul>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">4. Privacy and Data</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">4. privacy and data</h2>
               <p className="questionnaire-text-muted leading-relaxed">
-                Your privacy is important to us. All personal data is encrypted and stored securely. 
-                We do not share your personal information with third parties without your consent. 
-                Please review our Privacy Policy for detailed information about how we handle your data.
+                your privacy is important to us. all personal data is encrypted and stored securely. 
+                we do not share your personal information with third parties without your consent. 
+                please review our privacy policy for detailed information about how we handle your data.
               </p>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">5. Subscription and Payments</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">5. subscription and payments</h2>
               <p className="questionnaire-text-muted leading-relaxed mb-4">
                 {BRAND.name} offers both free and premium subscription tiers:
               </p>
               <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4">
-                <li>Free tier: Basic access to profile building and limited AI coaching</li>
-                <li>Premium tier: Full access to all features including unlimited AI coaching</li>
-                <li>Subscriptions renew automatically unless canceled</li>
-                <li>Refunds are available within 7 days of purchase</li>
+                <li>free tier: basic access to profile building and limited ai coaching</li>
+                <li>premium tier: full access to all features including unlimited ai coaching</li>
+                <li>subscriptions renew automatically unless canceled</li>
+                <li>refunds are available within 7 days of purchase</li>
               </ul>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. Important Safety Information and Disclaimers</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">6. important safety information and disclaimers</h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-semibold questionnaire-text mb-3">Professional Limitations</h3>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">professional limitations</h3>
                   <p className="questionnaire-text-muted leading-relaxed">
-                    {BRAND.name} provides AI-powered relationship coaching and insights. Our service is NOT:
+                    {BRAND.name} provides ai-powered relationship coaching and insights. our service is not:
                   </p>
                   <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4 mt-2">
-                    <li>A substitute for professional therapy, counseling, or medical advice</li>
-                    <li>Equipped to handle crisis situations or emergencies</li>
-                    <li>Able to diagnose mental health conditions</li>
-                    <li>A replacement for emergency services or crisis intervention</li>
+                    <li>a substitute for professional therapy, counseling, or medical advice</li>
+                    <li>equipped to handle crisis situations or emergencies</li>
+                    <li>able to diagnose mental health conditions</li>
+                    <li>a replacement for emergency services or crisis intervention</li>
                   </ul>
                 </div>
 
                 <div className="bg-coral-500/10 border-2 border-coral-400/30 rounded-lg p-5">
-                  <h3 className="text-xl font-semibold questionnaire-text mb-3">Crisis Resources - Available 24/7</h3>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">crisis resources - available 24/7</h3>
                   <p className="questionnaire-text-muted leading-relaxed mb-4 font-semibold">
-                    If you are in crisis or experiencing thoughts of self-harm, suicide, or are in immediate danger, please contact these services immediately:
+                    if you are in crisis or experiencing thoughts of self-harm, suicide, or are in immediate danger, please contact these services immediately:
                   </p>
                   <ul className="questionnaire-text-muted space-y-3 ml-2">
-                    <li><strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988 (Available 24/7)</li>
-                    <li><strong>Crisis Text Line:</strong> Text HOME to 741741 (Available 24/7)</li>
-                    <li><strong>National Domestic Violence Hotline:</strong> 1-800-799-7233 (Available 24/7)</li>
-                    <li><strong>RAINN Sexual Assault Hotline:</strong> 1-800-656-4673 (Available 24/7)</li>
-                    <li><strong>Emergency Services:</strong> Call 911 for immediate physical danger</li>
+                    <li><strong>988 suicide & crisis lifeline:</strong> call or text 988 (available 24/7)</li>
+                    <li><strong>crisis text line:</strong> text home to 741741 (available 24/7)</li>
+                    <li><strong>national domestic violence hotline:</strong> 1-800-799-7233 (available 24/7)</li>
+                    <li><strong>rainn sexual assault hotline:</strong> 1-800-656-4673 (available 24/7)</li>
+                    <li><strong>emergency services:</strong> call 911 for immediate physical danger</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold questionnaire-text mb-3">When to Seek Professional Help</h3>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">when to seek professional help</h3>
                   <p className="questionnaire-text-muted leading-relaxed mb-3">
-                    Please consult with a licensed mental health professional if you experience:
+                    please consult with a licensed mental health professional if you experience:
                   </p>
                   <ul className="list-disc list-inside questionnaire-text-muted space-y-2 ml-4">
-                    <li>Thoughts of self-harm or suicide</li>
-                    <li>Domestic violence, abuse, or situations where you feel unsafe</li>
-                    <li>Severe anxiety, depression, or other mental health concerns</li>
-                    <li>Relationship issues requiring professional therapeutic intervention</li>
-                    <li>Trauma that requires specialized treatment</li>
+                    <li>thoughts of self-harm or suicide</li>
+                    <li>domestic violence, abuse, or situations where you feel unsafe</li>
+                    <li>severe anxiety, depression, or other mental health concerns</li>
+                    <li>relationship issues requiring professional therapeutic intervention</li>
+                    <li>trauma that requires specialized treatment</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold questionnaire-text mb-3">What Kai Can and Cannot Do</h3>
+                  <h3 className="text-xl font-semibold questionnaire-text mb-3">what kai can and cannot do</h3>
                   <div className="space-y-3">
                     <div>
-                      <p className="questionnaire-text font-semibold mb-2">Kai CAN provide:</p>
+                      <p className="questionnaire-text font-semibold mb-2">kai can provide:</p>
                       <ul className="list-disc list-inside questionnaire-text-muted space-y-1 ml-4">
-                        <li>Relationship guidance and communication coaching</li>
-                        <li>Emotional support and perspective</li>
-                        <li>Evidence-based relationship strategies</li>
-                        <li>Help with everyday relationship challenges</li>
+                        <li>relationship guidance and communication coaching</li>
+                        <li>emotional support and perspective</li>
+                        <li>evidence-based relationship strategies</li>
+                        <li>help with everyday relationship challenges</li>
                       </ul>
                     </div>
                     <div>
-                      <p className="questionnaire-text font-semibold mb-2">Kai CANNOT provide:</p>
+                      <p className="questionnaire-text font-semibold mb-2">kai cannot provide:</p>
                       <ul className="list-disc list-inside questionnaire-text-muted space-y-1 ml-4">
-                        <li>Crisis intervention or emergency services</li>
-                        <li>Professional therapy or clinical treatment</li>
-                        <li>Medical or psychiatric diagnosis</li>
-                        <li>Legal advice for domestic situations</li>
+                        <li>crisis intervention or emergency services</li>
+                        <li>professional therapy or clinical treatment</li>
+                        <li>medical or psychiatric diagnosis</li>
+                        <li>legal advice for domestic situations</li>
                       </ul>
                     </div>
                   </div>
@@ -172,7 +172,7 @@ const Terms = () => {
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">7. Limitation of Liability</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">7. limitation of liability</h2>
               <p className="questionnaire-text-muted leading-relaxed">
                 {BRAND.name} and its affiliates shall not be liable for any direct, indirect, incidental, special, or 
                 consequential damages resulting from the use or inability to use our service.
@@ -180,17 +180,17 @@ const Terms = () => {
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">8. Changes to Terms</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">8. changes to terms</h2>
               <p className="questionnaire-text-muted leading-relaxed">
-                We reserve the right to modify these terms at any time. Changes will be posted on this page with an 
-                updated revision date. Continued use of the service after changes constitutes acceptance of the new terms.
+                we reserve the right to modify these terms at any time. changes will be posted on this page with an 
+                updated revision date. continued use of the service after changes constitutes acceptance of the new terms.
               </p>
             </Card>
 
             <Card className="questionnaire-card p-6">
-              <h2 className="text-2xl font-semibold questionnaire-text mb-4">9. Contact Information</h2>
+              <h2 className="text-2xl font-semibold questionnaire-text mb-4">9. contact information</h2>
               <p className="questionnaire-text-muted leading-relaxed">
-                If you have questions about these Terms of Service, please contact us through our Contact page.
+                if you have questions about these terms of service, please contact us through our contact page.
               </p>
             </Card>
           </div>

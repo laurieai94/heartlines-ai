@@ -263,17 +263,17 @@ const Auth = () => {
                     <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0" style={{
                   background: 'var(--gradient-primary-button)'
                 }}>1</div>
-                    <span className="text-white text-[12px] sm:text-[13px] leading-tight font-medium whitespace-nowrap">Join Free</span>
+                    <span className="text-white text-[12px] sm:text-[13px] leading-tight font-medium whitespace-nowrap">join free</span>
                   </div>
                   {/* Step 2 */}
                   <div className="flex items-center justify-center gap-1 sm:gap-1.5">
                     <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">2</div>
-                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Build Profiles</span>
+                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">build profiles</span>
                   </div>
                   {/* Step 3 */}
                   <div className="flex items-center justify-center gap-1 sm:gap-1.5">
                     <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/15 text-white/60 text-[11px] sm:text-xs font-semibold flex items-center justify-center flex-shrink-0">3</div>
-                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">Chat w/ Kai</span>
+                    <span className="text-white/70 text-[12px] sm:text-[13px] leading-tight whitespace-nowrap">chat w/ kai</span>
                   </div>
                 </div>
                 
@@ -295,9 +295,9 @@ const Auth = () => {
           {showEmailVerification ? <div className="text-center space-y-4">
               <div className="questionnaire-card p-6">
                 <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
-                <h3 className="questionnaire-text font-semibold mb-2">Check your email!</h3>
+                <h3 className="questionnaire-text font-semibold mb-2">check your email!</h3>
                 <p className="questionnaire-text-muted text-sm mb-4">
-                  We've sent you a verification link. Click it to activate your account.
+                  we've sent you a verification link. click it to activate your account.
                 </p>
                 
                 <Button 
@@ -307,20 +307,20 @@ const Auth = () => {
                   className="w-full bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm rounded-full transition-all duration-300"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  {isResendingVerification ? 'Sending...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Email'}
+                  {isResendingVerification ? 'sending...' : resendCooldown > 0 ? `resend in ${resendCooldown}s` : 'resend email'}
                 </Button>
               </div>
               <Button onClick={() => navigate('/')} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
+                back to home
               </Button>
             </div> : showForgotPassword ? <>
               <div className="text-center mb-4">
                 <h1 className="text-2xl font-bold text-white mb-2">
-                  {resetEmailSent ? 'Check your email' : 'Reset password'}
+                  {resetEmailSent ? 'check your email' : 'reset password'}
                 </h1>
                 {resetEmailSent && <p className="text-white/70 text-sm">
-                    We've sent a password reset link to <strong>{formData.email}</strong>
+                    we've sent a password reset link to <strong>{formData.email}</strong>
                   </p>}
               </div>
 
@@ -332,14 +332,14 @@ const Auth = () => {
               setFormErrors([]);
             }} variant="ghost" className="text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
                     <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Sign In
+                    back to sign in
                   </Button>
                 </div> : <form onSubmit={handleResetPassword} className="space-y-3">
                   <div className="space-y-1">
                     <Label htmlFor="reset-email" className="text-white text-sm">
-                      Email
+                      email
                     </Label>
-                    <Input id="reset-email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="Drop your email" required />
+                    <Input id="reset-email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" required />
                   </div>
 
                   {formErrors.length > 0 && <div className="p-3 rounded-lg bg-red-500/20 border border-red-400/30">
@@ -349,7 +349,7 @@ const Auth = () => {
                     </div>}
 
                   <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm">
-                    {isSubmitting ? 'Sending...' : 'Send Reset Link'}
+                    {isSubmitting ? 'sending...' : 'send reset link'}
                   </Button>
 
                   <Button onClick={() => {
@@ -357,7 +357,7 @@ const Auth = () => {
               setFormErrors([]);
             }} variant="ghost" className="w-full text-white/60 hover:text-white/80 hover:bg-white/5 text-sm">
                     <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Sign In
+                    back to sign in
                   </Button>
                 </form>}
             </> : <>
@@ -372,21 +372,21 @@ const Auth = () => {
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-white text-sm">
-                Email
+                email
               </Label>
               <div className="relative">
-                  <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="Drop your email" className={isEmailValid() ? 'pr-12' : ''} required />
+                  <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" className={isEmailValid() ? 'pr-12' : ''} required />
                 {isEmailValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
               </div>
             </div>
 
             <div className="space-y-1">
               <Label htmlFor="password" className="text-white text-sm">
-                Password
+                password
               </Label>
               <div className="space-y-2">
                 <div className="relative">
-                  <Input id="password" type={showPassword ? 'text' : 'password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="Keep it secret" pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined} title={isSignUp ? getPasswordPolicyText() : undefined} className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Input id="password" type={showPassword ? 'text' : 'password'} value={formData.password} onChange={e => handleInputChange('password', e.target.value)} placeholder="keep it secret" pattern={isSignUp ? "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" : undefined} title={isSignUp ? getPasswordPolicyText() : undefined} className={isPasswordValid() ? 'pr-20' : 'pr-12'} required />
                   <Button type="button" variant="ghost" size="sm" onClick={() => setShowPassword(!showPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
@@ -398,17 +398,17 @@ const Auth = () => {
                </div>
                {!isSignUp && <div className="text-left">
                   <button type="button" onClick={() => setShowForgotPassword(true)} className="text-xs text-coral-400 hover:text-coral-300 underline">
-                    Locked out?
+                    locked out?
                   </button>
                  </div>}
              </div>
 
             {isSignUp && validatePasswordPolicy(formData.password).isValid && <div className="space-y-1">
                 <Label htmlFor="confirmPassword" className="text-white text-sm">
-                  Confirm Password
+                  confirm password
                 </Label>
                 <div className="relative">
-                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={e => handleInputChange('confirmPassword', e.target.value)} placeholder="Confirm your password" className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'} required />
+                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={e => handleInputChange('confirmPassword', e.target.value)} placeholder="confirm your password" className={isConfirmPasswordValid() ? 'pr-20' : 'pr-12'} required />
                   <Button type="button" variant="ghost" size="sm" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-8 top-0 h-full px-3 text-white/60 hover:text-white hover:bg-transparent">
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
@@ -423,14 +423,14 @@ const Auth = () => {
               </div>}
 
             <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm -mb-3">
-              {isSubmitting ? 'Processing...' : isSignUp ? 'Create Account' : 'Sign In'}
+              {isSubmitting ? 'processing...' : isSignUp ? 'create account' : 'sign in'}
             </Button>
           </form>
 
               {/* Toggle between sign up and sign in */}
               <div className="mt-4 text-center">
                 <p className="text-white/70 text-xs">
-                  {isSignUp ? 'Already have an account?' : 'Need an account?'}
+                  {isSignUp ? 'already have an account?' : 'need an account?'}
                   {' '}
                   <button type="button" onClick={() => {
                 setIsSignUp(!isSignUp);
@@ -441,14 +441,14 @@ const Auth = () => {
                   confirmPassword: ''
                 });
               }} className="text-coral-400 hover:text-coral-300 underline font-medium">
-                    {isSignUp ? 'Sign In' : 'Sign Up'}
+                    {isSignUp ? 'sign in' : 'sign up'}
                   </button>
                 </p>
                 
                 {/* Back to Home button */}
                 <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:bg-transparent hover:text-white/60 active:text-white/80 text-xs py-1 h-auto -mt-2 md:mt-1.5 transition-none">
                   <ArrowLeft className="h-3 w-3 mr-1" />
-                  Back to Home
+                  back to home
                 </Button>
               </div>
             </>}

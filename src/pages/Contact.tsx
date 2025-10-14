@@ -89,10 +89,10 @@ const Contact = () => {
                 <Mail className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold questionnaire-text mb-4 font-brand">Let's Connect</h1>
+            <h1 className="text-4xl font-bold questionnaire-text mb-4 font-brand">let's connect</h1>
             <p className="text-xl questionnaire-text-muted max-w-2xl mx-auto">
-              Got questions, feedback, or ideas?<br />
-              Drop us a note — we actually read these.
+              got questions, feedback, or ideas?<br />
+              drop us a note — we actually read these.
             </p>
           </div>
 
@@ -103,13 +103,13 @@ const Contact = () => {
                 <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-filter backdrop-blur-sm">
                   <MessageSquare className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-2xl font-semibold questionnaire-text">Send us a message</h2>
+                <h2 className="text-2xl font-semibold questionnaire-text">send us a message</h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium questionnaire-text-muted mb-2">
-                    Name
+                    name
                   </label>
                   <Input
                     id="name"
@@ -119,13 +119,13 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input placeholder:text-[#ff6b9d]/80"
-                    placeholder="What should we call you?"
+                    placeholder="what should we call you?"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium questionnaire-text-muted mb-2">
-                    Email
+                    email
                   </label>
                   <Input
                     id="email"
@@ -135,13 +135,13 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input placeholder:text-[#ff6b9d]/80"
-                    placeholder="Your email"
+                    placeholder="your email"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium questionnaire-text-muted mb-2">
-                    Subject
+                    subject
                   </label>
                   <Input
                     id="subject"
@@ -151,13 +151,13 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input placeholder:text-[#ff6b9d]/80"
-                    placeholder="What's up?"
+                    placeholder="what's up?"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium questionnaire-text-muted mb-2">
-                    Message
+                    message
                   </label>
                   <Textarea
                     id="message"
@@ -166,7 +166,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="questionnaire-input min-h-[150px] placeholder:text-[#ff6b9d]/80"
-                    placeholder="Spill the details..."
+                    placeholder="spill the details..."
                   />
                 </div>
 
@@ -175,7 +175,7 @@ const Contact = () => {
                   disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
                 >
-                  {isSubmitting ? "Sending..." : "Send ✈️"}
+                  {isSubmitting ? "sending..." : "send ✈️"}
                 </Button>
               </form>
             </Card>
@@ -183,23 +183,23 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="space-y-6">
               <Card className="questionnaire-card p-6">
-                <h3 className="text-xl font-semibold questionnaire-text mb-4">Support</h3>
+                <h3 className="text-xl font-semibold questionnaire-text mb-4">support</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  Need help? Reach out here and we'll get back within 1–2 days.
+                  need help? reach out here and we'll get back within 1–2 days.
                 </p>
               </Card>
 
               <Card className="questionnaire-card p-6">
-                <h3 className="text-xl font-semibold questionnaire-text mb-4">Feedback</h3>
+                <h3 className="text-xl font-semibold questionnaire-text mb-4">feedback</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  We're always leveling up heartlines. Share your thoughts and help us make it better for everyone.
+                  we're always leveling up heartlines. share your thoughts and help us make it better for everyone.
                 </p>
               </Card>
 
               <Card className="questionnaire-card p-6">
-                <h3 className="text-xl font-semibold questionnaire-text mb-4">Partnerships</h3>
+                <h3 className="text-xl font-semibold questionnaire-text mb-4">partnerships</h3>
                 <p className="questionnaire-text-muted leading-relaxed mb-4">
-                  Want to collab? Pop "Partnership" in the subject line and let's chat.
+                  want to collab? pop "partnership" in the subject line and let's chat.
                 </p>
               </Card>
             </div>

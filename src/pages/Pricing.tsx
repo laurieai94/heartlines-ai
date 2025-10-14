@@ -12,17 +12,17 @@ import { ToastAction } from "@/components/ui/toast";
 import SimpleHeader from "@/components/SimpleHeader";
 import { pricingPlans } from "@/data/pricingPlans";
 const faqs = [{
-  question: "Can I change or cancel my plan anytime?",
-  answer: "Yep. No contracts, no weird fine print. Cancel, upgrade, or downgrade whenever you want."
+  question: "can i change or cancel my plan anytime?",
+  answer: "yep. no contracts, no weird fine print. cancel, upgrade, or downgrade whenever you want."
 }, {
-  question: "What happens to unused messages?",
-  answer: "They don't roll over — but think of it as a nudge to keep checking in with yourself (and others). Growth happens in the using, not the saving. 😊"
+  question: "what happens to unused messages?",
+  answer: "they don't roll over — but think of it as a nudge to keep checking in with yourself (and others). growth happens in the using, not the saving. 😊"
 }, {
-  question: "Is my data secure and private?",
-  answer: "Totally. Everything's encrypted and locked down. Your convos = your business, not ours."
+  question: "is my data secure and private?",
+  answer: "totally. everything's encrypted and locked down. your convos = your business, not ours."
 }, {
-  question: "Do you offer refunds?",
-  answer: "Yup. We've got a 14-day money-back guarantee. If it's not your vibe, no stress."
+  question: "do you offer refunds?",
+  answer: "yup. we've got a 14-day money-back guarantee. if it's not your vibe, no stress."
 }];
 const Pricing = () => {
   const navigate = useNavigate();
@@ -67,8 +67,8 @@ const Pricing = () => {
     // User is signed in - handle plan selection
     if (plan.tier === "freemium") {
       // For free plan, navigate to coach with welcome message
-      toast.success("Welcome to Begin!", {
-        description: "You have 25 free messages to start your journey."
+      toast.success("welcome to begin!", {
+        description: "you have 25 free messages to start your journey."
       });
       navigate("/coach");
       return;
@@ -89,8 +89,8 @@ const Pricing = () => {
       window.open(data.url, '_blank');
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      toast.error("Error", {
-        description: "Failed to create checkout session. Please try again."
+      toast.error("error", {
+        description: "failed to create checkout session. please try again."
       });
     } finally {
       setLoading(null);
@@ -104,22 +104,22 @@ const Pricing = () => {
           {/* Header Section */}
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-5xl font-brand questionnaire-text mb-3">
-              Choose Your Growth Plan
+              choose your growth plan
             </h1>
             
             {/* Trust Badges - Inline */}
             <div className="flex flex-wrap justify-center items-center gap-4 text-xs questionnaire-text-muted">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-4 w-4" />
-                <span>Your data, your rules</span>
+                <span>your data, your rules</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Heart className="h-4 w-4" />
-                <span>Break up anytime</span>
+                <span>break up anytime</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Users className="h-4 w-4" />
-                <span>Built for humans, not rom-coms</span>
+                <span>built for humans, not rom-coms</span>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ const Pricing = () => {
             const IconComponent = plan.icon;
             return <Card key={plan.id} className={`flex flex-col questionnaire-card rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 ${plan.popular ? 'ring-2 ring-coral-400/50 scale-[1.02] questionnaire-card-glow' : ''}`}>
                   {plan.popular && <Badge className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-coral-400 to-pink-400 text-white px-6 sm:px-6 lg:px-8 py-1 rounded-full border border-white/10 shadow-neon text-xs sm:text-sm font-medium whitespace-nowrap z-40">
-                      Most Popular
+                      most popular
                     </Badge>}
                   
                   <CardHeader className="text-center pb-3 p-4">
@@ -164,7 +164,7 @@ const Pricing = () => {
 
                     <div className="mt-auto">
                       <Button variant="ghost" onClick={() => handlePlanSelect(plan)} disabled={loading === plan.tier} className={`w-full rounded-full py-3 text-sm mt-6 ${plan.popular ? 'questionnaire-button-primary' : 'questionnaire-button-secondary'}`}>
-                        {loading === plan.tier ? "Loading..." : plan.buttonText}
+                        {loading === plan.tier ? "loading..." : plan.buttonText}
                       </Button>
                     </div>
                   </CardContent>
@@ -175,7 +175,7 @@ const Pricing = () => {
           {/* FAQ Section */}
           <div className="max-w-3xl mx-auto mb-8">
             <h2 className="text-2xl font-brand questionnaire-text text-center mb-6">
-              FAQs
+              faqs
             </h2>
             <Accordion type="single" collapsible className="w-full space-y-3">
               {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="questionnaire-card border-none">
