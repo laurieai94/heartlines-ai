@@ -14,15 +14,15 @@ export default function LandingPageFallback() {
           <BrandMark size="lg" className="mx-auto mb-8" />
           
           <h1 className="text-4xl lg:text-6xl font-thin text-white mb-6 leading-tight">
-            Your relationship isn't a rom-com.
+            your relationship isn't a rom-com.
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-              Real growth needs real tools.
+              real growth needs real tools.
             </span>
           </h1>
           
           <p className="text-xl text-gray-300 mb-12 leading-relaxed font-light max-w-3xl mx-auto">
-            Modern love is complicated, you're both busy, and sometimes you need help figuring out how to show up for each other.
+            modern love is complicated, you're both busy, and sometimes you need help figuring out how to show up for each other.
           </p>
           
           <Link to="/signup">

@@ -451,7 +451,7 @@ const LandingPage = ({
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
                         fontSize: 'clamp(2.25rem, 4vw, 3.75rem)'
                       }}>
-                        Relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
+                        relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
@@ -489,7 +489,7 @@ const LandingPage = ({
                       </div>
                       
                       <span className="relative z-10 flex items-center">
-                        Let's get real
+                        let's get real
                         <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
                       </span>
                     </Button>
@@ -525,7 +525,7 @@ const LandingPage = ({
                   <div className="space-y-4 mb-6">
                     <h1 className="text-3xl md:leading-[1.3] md:pb-[0.15em] lg:text-[48px] xl:text-[64px] 2xl:text-[80px] font-playfair font-normal leading-tight animate-fade-in">
                       <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm">
-                        Modern love is messy.
+                        modern love is messy.
                       </span>
                     </h1>
                     
@@ -583,7 +583,7 @@ const LandingPage = ({
 
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">How It Works</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">how it works</h2>
             
           </div>
           
@@ -592,30 +592,30 @@ const LandingPage = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
               {[{
               step: "01",
-              title: "Build Your Profile",
-              description: "Show how you really vibe—calm, stressed, or full chaos.",
-              secondaryText: "(No fake bios here.)",
+              title: "build your profile",
+              description: "show how you really vibe—calm, stressed, or full chaos.",
+              secondaryText: "(no fake bios here.)",
               icon: <UserPlus className="w-5 h-5" />,
               iconName: "user-plus"
             }, {
               step: "02",
-              title: "Add Your Person",
-              description: "Bring them in too, so Kai sees the full picture.",
-              secondaryText: "(Every story has two (+) main characters)",
+              title: "add your person",
+              description: "bring them in too, so kai sees the full picture.",
+              secondaryText: "(every story has two (+) main characters)",
               icon: <Heart className="w-5 h-5" />,
               iconName: "heart"
             }, {
               step: "03",
-              title: "Chat with Kai",
-              description: "Spill it, vent it, practice it—then get advice that actually slaps.",
-              secondaryText: "(Less textbook therapy, more real talk)",
+              title: "chat with kai",
+              description: "spill it, vent it, practice it—then get advice that actually slaps.",
+              secondaryText: "(less textbook therapy, more real talk)",
               icon: <MessageCircleHeart className="w-5 h-5" />,
               iconName: "message-heart"
             }, {
               step: "04",
-              title: "Try It IRL",
-              description: "Test it out in the wild—less fights, more feels.",
-              secondaryText: "(Because the magic happens offline)",
+              title: "try it irl",
+              description: "test it out in the wild—less fights, more feels.",
+              secondaryText: "(because the magic happens offline)",
               icon: <Sparkles className="w-5 h-5" />,
               iconName: "sparkles"
             }].map((item, index) => <StepCard key={index} step={item.step} title={item.title} description={item.description} secondaryText={item.secondaryText} icon={item.icon} iconName={item.iconName} index={index} />)}
@@ -646,7 +646,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                    Talk it out with Kai
+                    talk it out with kai
                   </span>
                 </Button>
               </div>
@@ -685,7 +685,7 @@ const LandingPage = ({
           {/* Headline with Gradient */}
           <div className="text-center mb-8 md:mb-10">
             <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
-              Why We're Different
+              why we're different
             </h2>
             <p className="text-lg md:text-xl text-white/90 font-light">
               
@@ -695,28 +695,28 @@ const LandingPage = ({
           {/* Timeline */}
           <Timeline stops={[
             {
-              title: "Real talk only",
-              subtitle: "Real talk for real struggles—support without the sugarcoat. (Because \"good vibes only\" is a lie)",
+              title: "real talk only",
+              subtitle: "real talk for real struggles—support without the sugarcoat. (because \"good vibes only\" is a lie)",
               icon: <HeartSupportIcon />
             },
             {
-              title: "Queer- and trauma-informed",
-              subtitle: "For every identity and story—no binaries, no filters. (Built for how real people love)",
+              title: "queer- and trauma-informed",
+              subtitle: "for every identity and story—no binaries, no filters. (built for how real people love)",
               icon: <InclusiveIcon />
             },
             {
-              title: "Built for busy",
-              subtitle: "Quick moves that actually shift your relationship, even on a slammed day. (Zero fluff, just action)",
+              title: "built for busy",
+              subtitle: "quick moves that actually shift your relationship, even on a slammed day. (zero fluff, just action)",
               icon: <ClockIcon />
             },
             {
-              title: "Tough talks welcome",
-              subtitle: "We don't erase conflict—we show you how to use it to grow stronger. (Healthy fights > silent scrolling)",
+              title: "tough talks welcome",
+              subtitle: "we don't erase conflict—we show you how to use it to grow stronger. (healthy fights > silent scrolling)",
               icon: <ConversationIcon />
             },
             {
-              title: "Private by design",
-              subtitle: "Your convos stay yours—always encrypted, never sold. (Kai listens, Big Tech doesn't)",
+              title: "private by design",
+              subtitle: "your convos stay yours—always encrypted, never sold. (kai listens, big tech doesn't)",
               icon: <ShieldIcon />
             }
           ]} />
@@ -747,7 +747,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Heart className="w-5 h-5 md:w-6 md:h-6" />
-                    Find clarity, not chaos
+                    find clarity, not chaos
                   </span>
                 </Button>
               </div>
