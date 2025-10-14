@@ -14,43 +14,43 @@ import {
 const narrativeSlides = [
   {
     id: 1,
-    content: "Dating apps taught us how to swipe.\nBut what happens after the first date?",
-    highlight: "Dating apps taught us how to swipe."
+    content: "dating apps taught us how to swipe.\nbut what happens after the first date?",
+    highlight: "dating apps taught us how to swipe."
   },
   {
     id: 2,
-    content: "Nobody prepped us for the hard part.",
-    highlight: "Nobody prepped us for the hard part."
+    content: "nobody prepped us for the hard part.",
+    highlight: "nobody prepped us for the hard part."
   },
   {
     id: 3,
-    content: "The 2 a.m. fights about nothing that feel like everything.",
+    content: "the 2 a.m. fights about nothing that feel like everything.",
     highlight: "2 a.m. fights about nothing"
   },
   {
     id: 4,
-    content: "The weekends ruined by\nthe same argument on repeat.",
+    content: "the weekends ruined by\nthe same argument on repeat.",
     highlight: "same argument on repeat"
   },
   {
     id: 5,
-    content: "The love that's real—\nbut sometimes so hard.",
+    content: "the love that's real—\nbut sometimes so hard.",
     highlight: "love that's real"
   },
   {
     id: 6,
-    content: "That's where heartlines comes in.",
+    content: "that's where heartlines comes in.",
     highlight: "heartlines",
     specialHighlight: "brand"
   },
   {
     id: 7,
-    content: "Not to \"fix\" your relationship.",
+    content: "not to \"fix\" your relationship.",
     highlight: "\"fix\""
   },
   {
     id: 8,
-    content: "But to help you feel more connected—",
+    content: "but to help you feel more connected—",
     highlight: "feel more connected"
   },
   {
@@ -110,7 +110,7 @@ const HowItWorksSwipe = () => {
                       // CTA Slide
                       <div className="space-y-6">
                         <h2 className="text-white text-xl md:text-3xl lg:text-4xl font-light leading-relaxed md:leading-relaxed">
-                          Messy, real, and
+                          messy, real, and
                           <br className="md:hidden" />
                           {' '}
                           <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">
@@ -122,7 +122,7 @@ const HowItWorksSwipe = () => {
                           className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium px-8 py-3 text-lg border-0"
                           size="lg"
                         >
-                          Get Started
+                          get started
                         </Button>
                       </div>
                     ) : (
