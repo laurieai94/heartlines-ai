@@ -492,7 +492,7 @@ const LandingPage = ({
                       </div>
                       
                       <span className="relative z-10 flex items-center">
-                        Get Started
+                        Let's get real 👀
                         <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
                       </span>
                     </Button>
