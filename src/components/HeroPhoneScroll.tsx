@@ -188,7 +188,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
           
           <Button 
             size="sm"
-            className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-2 sm:p-2.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200 font-medium"
+            className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-2 sm:p-2.5 md:p-3.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200 font-medium"
             style={{
               boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
             }}
@@ -204,7 +204,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               />
             </div>
             
-            <MessageSquare className="relative z-10 w-4 h-4 sm:w-5 sm:h-5" />
+            <MessageSquare className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </Button>
         </div>
       </Link>

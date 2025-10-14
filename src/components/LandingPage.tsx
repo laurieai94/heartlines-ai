@@ -316,7 +316,7 @@ const LandingPage = ({
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-3 md:p-4 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
                       style={{
                         boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
                       }}
@@ -332,7 +332,7 @@ const LandingPage = ({
                         />
                       </div>
                       
-                      <MessageSquare className="relative z-10 w-5 h-5" />
+                      <MessageSquare className="relative z-10 w-5 h-5 md:w-6 md:h-6" />
                     </Button>
                   </div>
                 </> : <>
@@ -450,7 +450,7 @@ const LandingPage = ({
                   <div className="text-left w-full self-center md:pt-0 px-4 sm:px-6 lg:px-8 xl:px-0 mt-8 md:mt-0 md:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] md:pr-4 lg:pr-6 xl:pr-8">
                     <div className="space-y-2 mb-1 md:mb-6">
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
-                        fontSize: 'clamp(1.875rem, 4.5vw, 4.5rem)'
+                        fontSize: 'clamp(2.25rem, 4.5vw, 4.5rem)'
                       }}>
                         Relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
@@ -498,8 +498,8 @@ const LandingPage = ({
                 </div>
                         </> : <>
                           <div onClick={handleTalkToKai} className="cursor-pointer">
-                            <Button size="lg" variant="glass" className="p-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                              <MessageSquare className="w-5 h-5" />
+                            <Button size="lg" variant="glass" className="p-4 md:p-5 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
+                              <MessageSquare className="w-5 h-5 md:w-7 md:h-7" />
                             </Button>
                           </div>
                         </>}
