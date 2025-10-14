@@ -88,7 +88,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-56 p-2 max-w-[calc(100vw-32px)] z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
+                className="w-16 p-2 z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -98,14 +98,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
-                      className={`w-full flex items-center justify-start gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
+                      title={item.label}
+                      className={`w-full flex items-center justify-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive 
-                          ? 'text-white font-semibold bg-white/15' 
-                          : 'text-white font-medium hover:bg-white/10 hover:text-white'
+                          ? 'text-white bg-white/15' 
+                          : 'text-white/80 hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <IconComponent className="h-5 w-5 flex-shrink-0" strokeWidth={2} />
-                      <span className="text-sm">{item.label}</span>
+                      <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
                   );
                 })}
@@ -141,7 +141,7 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverContent 
                 align="start"
                 sideOffset={8}
-                className="w-56 p-2 max-w-[calc(100vw-32px)] z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
+                className="w-16 p-2 z-[60] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl"
               >
                 {navigationItems.map((item) => {
                   const IconComponent = item.icon;
@@ -151,14 +151,14 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                       key={item.value}
                       onMouseEnter={() => handleTabHover(item.value)}
                       onClick={() => handleNavigation(item)}
-                      className={`w-full flex items-center justify-start gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
+                      title={item.label}
+                      className={`w-full flex items-center justify-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive 
-                          ? 'text-white font-semibold bg-white/15' 
-                          : 'text-white font-medium hover:bg-white/10 hover:text-white'
+                          ? 'text-white bg-white/15' 
+                          : 'text-white/80 hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <IconComponent className="h-5 w-5 flex-shrink-0" strokeWidth={2} />
-                      <span className="text-sm">{item.label}</span>
+                      <IconComponent className="h-6 w-6" strokeWidth={2} />
                     </button>
                   );
                 })}
