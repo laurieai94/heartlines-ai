@@ -19,7 +19,7 @@ import SiteFooter from "./SiteFooter";
 import HowItWorksSwipe from "./HowItWorksSwipe";
 import FrostedHeartShowcase from "./FrostedHeartShowcase";
 import HeroCarousel from "./HeroCarousel";
-import { FloatingCTAButton } from "./FloatingCTAButton";
+
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
@@ -639,7 +639,7 @@ const LandingPage = ({
 
       {/* Footer */}
       <SiteFooter />
-      <FloatingCTAButton />
+      
     </div>
   </>;
 };
