@@ -14,6 +14,19 @@ import { PerformanceOptimizedApp } from '@/components/PerformanceOptimizedApp'
 // Production optimizations component
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   const { isEmergencyMode } = useProductionOptimizations();
+  
+  // Mobile diagnostics
+  React.useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      console.log('[Mobile] App initializing', {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        userAgent: navigator.userAgent
+      });
+    }
+  }, []);
+  
   return <>{children}</>;
 };
 

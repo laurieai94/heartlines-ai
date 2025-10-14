@@ -137,30 +137,30 @@ const HowItWorksSwipe = () => {
                             if (slide.specialHighlight === "brand") {
                               // For brand highlight: heartlines is white, rest has gradient
                               return (
-                                <React.Fragment key={lineIndex}>
+                                <span key={lineIndex}>
                                   <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[0]}</span>
                                   <span className="text-white font-brand">{slide.highlight}</span>
                                   <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{parts[1]}</span>
                                   {lineIndex < lines.length - 1 && <br />}
-                                </React.Fragment>
+                                </span>
                               );
                             }
                             // Regular gradient highlight
                             return (
-                              <React.Fragment key={lineIndex}>
+                              <span key={lineIndex}>
                                 {parts[0]}
                                 <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent font-medium">{slide.highlight}</span>
                                 {parts[1]}
                                 {lineIndex < lines.length - 1 && <br />}
-                              </React.Fragment>
+                              </span>
                             );
                           }
                           
                           return (
-                            <React.Fragment key={lineIndex}>
+                            <span key={lineIndex}>
                               {line}
                               {lineIndex < lines.length - 1 && <br />}
-                            </React.Fragment>
+                            </span>
                           );
                         })}
                       </p>

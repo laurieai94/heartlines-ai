@@ -11,10 +11,11 @@ const FirstVisitSplash: React.FC = () => {
   const [isChecking, setIsChecking] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   
-  // Load critical resources with min 3s display, max 5s timeout
+  // Load critical resources - faster on mobile
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: 3000,
-    maxTimeout: 5000
+    minDisplayTime: isMobile ? 1000 : 3000, // 1s on mobile, 3s on desktop
+    maxTimeout: isMobile ? 2000 : 5000 // 2s timeout on mobile, 5s on desktop
   });
 
   useEffect(() => {
@@ -54,6 +55,19 @@ const FirstVisitSplash: React.FC = () => {
       clearTimeout(hideTimer);
     };
   }, [showSplash, resourcesLoading]);
+
+  // Emergency timeout - force show page if splash hangs on mobile
+  useEffect(() => {
+    if (!showSplash) return;
+    
+    const emergencyTimeout = setTimeout(() => {
+      console.warn('[Mobile] Emergency timeout - forcing page load');
+      setShowSplash(false);
+      sessionStorage.setItem('homepage_visited', 'true');
+    }, isMobile ? 3000 : 8000); // 3s on mobile, 8s on desktop
+    
+    return () => clearTimeout(emergencyTimeout);
+  }, [showSplash, isMobile]);
 
   // During initial check, show nothing to prevent flash
   if (isChecking) {
