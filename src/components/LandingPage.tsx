@@ -316,7 +316,7 @@ const LandingPage = ({
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-4 md:p-5 lg:p-6 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 md:px-7 lg:px-8 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
                       style={{
                         boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
                       }}
@@ -332,7 +332,7 @@ const LandingPage = ({
                         />
                       </div>
                       
-                      <MessageSquare className="relative z-10 w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
+                      <span className="relative z-10 text-sm md:text-base font-medium">get started</span>
                     </Button>
                   </div>
                 </> : <>
@@ -346,7 +346,7 @@ const LandingPage = ({
                     <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <Button 
-                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white p-4 md:p-5 lg:p-6 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 md:px-7 lg:px-8 py-2.5 md:py-3 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-300"
                       style={{
                         boxShadow: '0 0 40px rgba(255, 107, 157, 0.45), 0 6px 24px rgba(255, 107, 157, 0.55), 0 3px 12px rgba(255, 138, 80, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
                       }}
@@ -362,7 +362,7 @@ const LandingPage = ({
                         />
                       </div>
                       
-                      <MessageSquare className="relative z-10 w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
+                      <span className="relative z-10 text-sm md:text-base font-medium">get started</span>
                     </Button>
                   </div>
                 </>}
@@ -399,9 +399,8 @@ const LandingPage = ({
                   />
                 </div>
                 
-                <span className="relative z-10 flex items-center gap-2">
-                  Get started
-                  <ArrowRight className="w-4 h-4" />
+                <span className="relative z-10">
+                  get started
                 </span>
               </Button>
             </div>
