@@ -468,12 +468,36 @@ const LandingPage = ({
                     
                     <div className="hidden md:flex items-center gap-4">
                       {user ? <>
-                          <Link to="/signup">
-                            <Button size="lg" variant="glass" className="px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
-                              Get Started
-                              <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
-                            </Button>
-                          </Link>
+                <Link to="/signup">
+                  <div className="relative group inline-block">
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Button 
+                      size="lg"
+                      className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-6 py-4 text-base lg:text-lg xl:text-xl rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-500 transform hover:scale-105 font-light animate-fade-in"
+                      style={{
+                        boxShadow: '0 0 50px rgba(255, 107, 157, 0.5), 0 8px 28px rgba(255, 107, 157, 0.55), 0 4px 14px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)'
+                      }}
+                    >
+                      {/* Shimmer overlay */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div 
+                          className="absolute inset-0 animate-shimmer"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                            backgroundSize: '200% 100%'
+                          }}
+                        />
+                      </div>
+                      
+                      <span className="relative z-10 flex items-center">
+                        Get Started
+                        <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
+                      </span>
+                    </Button>
+                  </div>
+                </Link>
                         </> : <>
                           <Link to="/signup">
                             <Button size="lg" variant="glass" className="px-6 py-4 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light animate-fade-in">
