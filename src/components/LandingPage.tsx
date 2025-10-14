@@ -332,11 +332,34 @@ const LandingPage = ({
                 }} />
                   </Button>
                 </Link>
-                <Link to="/signup">
-                  <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full transition-all duration-200">
+            <Link to="/signup">
+              <div className="relative group inline-block">
+                {/* Glow effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <Button 
+                  className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white font-medium text-xs px-3 py-1.5 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200"
+                  style={{
+                    boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                  }}
+                >
+                  {/* Shimmer overlay */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div 
+                      className="absolute inset-0 animate-shimmer"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        backgroundSize: '200% 100%'
+                      }}
+                    />
+                  </div>
+                  
+                  <span className="relative z-10">
                     Get Started
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
+              </div>
+            </Link>
               </div>
             </div>
           </div>
