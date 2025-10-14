@@ -3,41 +3,41 @@ import { User, MessageSquare, Settings, Shield, CreditCard, FileText, Mail, Targ
 import { BRAND } from "@/branding";
 const SiteFooter = () => {
   const footerSections = [{
-    title: "App",
+    title: "app",
     links: [{
       to: "/profile",
-      label: "Profile",
+      label: "profile",
       icon: User
     }, {
       to: "/coach",
-      label: "Coach",
+      label: "coach",
       icon: MessageSquare
     }, {
       to: "/account",
-      label: "Account",
+      label: "account",
       icon: Settings
     }, {
       to: "/plans",
-      label: "Plans",
+      label: "plans",
       icon: CreditCard
     }]
   }, {
-    title: "Company",
+    title: "company",
     links: [{
       to: "/mission",
-      label: "Mission",
+      label: "mission",
       icon: Target
     }, {
       to: "/privacy-and-security",
-      label: "Privacy",
+      label: "privacy",
       icon: Shield
     }, {
       to: "/terms",
-      label: "Terms",
+      label: "terms",
       icon: FileText
     }, {
       to: "/contact",
-      label: "Contact",
+      label: "contact",
       icon: Mail
     }]
   }];
@@ -104,9 +104,9 @@ const SiteFooter = () => {
         {/* Bottom Section */}
         <div className="pt-8 border-t border-white/10">
           <div className="text-center">
-            <p className="text-white/70 text-sm mb-4">Built by humans figuring it out too</p>
+            <p className="text-white/70 text-sm mb-4">built by humans figuring it out too</p>
             <p className="text-white/50 text-xs">
-              © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
+              © {new Date().getFullYear()} {BRAND.name}. all rights reserved.
             </p>
           </div>
         </div>
