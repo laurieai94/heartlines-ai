@@ -22,6 +22,7 @@ import { FloatingCTAButton } from "./FloatingCTAButton";
 import { Timeline, PersonalIcon, InclusiveIcon, ShieldIcon, HeartSupportIcon, ClockIcon, ConversationIcon } from "./ui/timeline";
 import elderlyCoupleCouch from "@/assets/elderly-couple-couch.jpg";
 import SimpleHeader from "./SimpleHeader";
+import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 
 // Clean StepCard Component - Mobile Style
 const StepCard = ({
@@ -313,11 +314,13 @@ const LandingPage = ({
           </div>
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
-      {/* Persistent Heartlines Watermark - Top Right */}
+      {/* Persistent Heartlines Logo - Top Right */}
       <div className="fixed top-28 right-6 md:right-10 z-40 pointer-events-none">
-        <span className="font-brand text-2xl md:text-3xl text-white drop-shadow-lg">
-          heartlines
-        </span>
+        <img 
+          src={heartlinesLogo} 
+          alt="heartlines" 
+          className="h-12 md:h-16 drop-shadow-lg"
+        />
       </div>
 
       {/* Main container */}
