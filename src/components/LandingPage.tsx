@@ -319,7 +319,7 @@ const LandingPage = ({
         <img 
           src={heartlinesLogo} 
           alt="heartlines" 
-          className="h-75 md:h-100 drop-shadow-lg"
+          className="h-36 md:h-50 drop-shadow-lg"
         />
       </div>
 
