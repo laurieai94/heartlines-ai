@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { trackAuthFlow } from '@/utils/analytics';
 import { 
   Carousel,
@@ -119,10 +119,25 @@ const HowItWorksSwipe = () => {
                         </h2>
                         <Button 
                           onClick={handleGetStartedClick}
-                          className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium px-8 py-3 text-lg border-0"
+                          variant="glass"
                           size="lg"
+                          className="group relative overflow-hidden p-4 md:p-5 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light"
                         >
-                          get started
+                          {/* Shimmer overlay */}
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div 
+                              className="absolute inset-0 animate-shimmer"
+                              style={{
+                                background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                                backgroundSize: '200% 100%'
+                              }}
+                            />
+                          </div>
+                          
+                          <span className="relative z-10 flex items-center gap-2">
+                            <ArrowRight className="w-5 h-5" />
+                            get started
+                          </span>
                         </Button>
                       </div>
                     ) : (
