@@ -16,8 +16,25 @@ export const useOptimizedProfileCompletion = () => {
       return 0;
     }
     
-    // Use cache for fast lookups
-    return profileCompletionCache.get('personal', personalData, () => {
+    // Create stable hash using only completion-relevant fields
+    const stableData = {
+      name: personalData.name,
+      pronouns: personalData.pronouns,
+      age: personalData.age,
+      orientation: personalData.orientation,
+      gender: personalData.gender,
+      relationshipStatus: personalData.relationshipStatus,
+      loveLanguage: personalData.loveLanguage,
+      conflictStyle: personalData.conflictStyle,
+      communicationResponse: personalData.communicationResponse,
+      selfAwareness: personalData.selfAwareness,
+      heartbreakBetrayal: personalData.heartbreakBetrayal,
+      familyStructure: personalData.familyStructure,
+      attachmentStyle: personalData.attachmentStyle
+    };
+    
+    // Use cache for fast lookups with stable data
+    return profileCompletionCache.get('personal', stableData, () => {
       return calculateProgress(personalData as any);
     });
   }, [personalData]);

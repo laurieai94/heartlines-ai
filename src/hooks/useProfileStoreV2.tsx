@@ -635,8 +635,25 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
               const finalCopy = { ...finalProfile };
               delete (currentCopy as any).lastUpdated;
               delete (finalCopy as any).lastUpdated;
+              delete (currentCopy as any)._updateTimestamp;
+              delete (finalCopy as any)._updateTimestamp;
               
-              if (JSON.stringify(currentCopy) === JSON.stringify(finalCopy)) {
+              // Deep comparison to prevent unnecessary re-renders
+              const currentString = JSON.stringify(currentCopy);
+              const finalString = JSON.stringify(finalCopy);
+              
+              if (currentString === finalString) {
+                setIsSyncing(false);
+                return;
+              }
+              
+              // Additional check: if only metadata changed, skip update
+              const hasRealChanges = Object.keys(finalCopy).some(key => {
+                if (key.startsWith('_')) return false; // Skip internal metadata
+                return JSON.stringify(currentCopy[key]) !== JSON.stringify(finalCopy[key]);
+              });
+              
+              if (!hasRealChanges) {
                 setIsSyncing(false);
                 return;
               }

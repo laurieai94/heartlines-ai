@@ -28,6 +28,7 @@ const OnboardingStepNudge = ({
 
   return (
     <div 
+      key={`nudge-${completion}`}
       className={`flex flex-col items-center ${isCentered ? 'gap-3 md:gap-4' : 'gap-2'} ${className} ${
         isMobile ? 'touch-action-manipulation' : ''
       } animate-fade-in`}
