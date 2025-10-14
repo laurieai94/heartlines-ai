@@ -542,10 +542,33 @@ const LandingPage = ({
             {/* Get Started CTA */}
             <div className="mt-12 md:mt-16 text-center">
               <Link to="/signup">
-                <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border border-white/20 font-light text-lg md:text-xl">
-                  <Sparkles className="w-5 h-5 md:w-6 md:w-6 mr-2" />
-                  Get Started
-                </Button>
+                <div className="relative group inline-block">
+                  {/* Glow effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <Button 
+                    className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl"
+                    style={{
+                      boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                    }}
+                  >
+                    {/* Shimmer overlay */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div 
+                        className="absolute inset-0 animate-shimmer"
+                        style={{
+                          background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                          backgroundSize: '200% 100%'
+                        }}
+                      />
+                    </div>
+                    
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
+                      Get Started
+                    </span>
+                  </Button>
+                </div>
               </Link>
             </div>
           </div>
@@ -621,10 +644,33 @@ const LandingPage = ({
           {/* Closer Starts Here CTA */}
           <div className="mt-12 md:mt-16 text-center">
             <Link to="/signup">
-              <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border border-white/20 font-light text-lg md:text-xl">
-                <Heart className="w-5 h-5 md:w-6 md:h-6 mr-2" />
-                Closer Starts Here
-              </Button>
+              <div className="relative group inline-block">
+                {/* Glow effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <Button 
+                  className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl"
+                  style={{
+                    boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  }}
+                >
+                  {/* Shimmer overlay */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div 
+                      className="absolute inset-0 animate-shimmer"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        backgroundSize: '200% 100%'
+                      }}
+                    />
+                  </div>
+                  
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Heart className="w-5 h-5 md:w-6 md:h-6" />
+                    Closer Starts Here
+                  </span>
+                </Button>
+              </div>
             </Link>
           </div>
         </div>
