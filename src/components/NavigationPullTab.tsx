@@ -65,7 +65,7 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
         minHeight: '44px'
       }}
     >
-      <FlipPhoneIcon className="w-8 h-8 text-primary-foreground drop-shadow-lg" />
+      <FlipPhoneIcon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 xl:h-12 xl:w-12 text-primary-foreground drop-shadow-lg" />
       <div className="sr-only">Tap to show navigation</div>
       {/* Enhanced arrow pointer */}
       <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-primary drop-shadow-md"></div>
