@@ -452,8 +452,7 @@ const LandingPage = ({
                       <h1 className="font-playfair font-normal leading-tight animate-fade-in text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400 drop-shadow-sm overflow-visible" style={{
                         fontSize: 'clamp(1.875rem, 4.5vw, 4.5rem)'
                       }}>
-                        <span className="block">Relationships</span>
-                        <span className="block whitespace-nowrap">aren't rom-coms.</span>
+                        Relationships <span className="whitespace-nowrap">aren't rom-coms.</span>
                       </h1>
                       
                       <h3 className="font-playfair font-normal leading-tight animate-fade-in text-white/90 md:whitespace-nowrap max-w-full" style={{
