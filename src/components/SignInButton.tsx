@@ -45,41 +45,41 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
-          <div className="space-y-1">
-            <div className="space-y-1">
-              {onOpenProfile && (
-                <Button
-                  className="w-full justify-start bg-transparent text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20 transition-colors duration-200"
-                  onClick={() => {
-                    onOpenProfile();
-                    setShowUserMenu(false);
-                  }}
-                >
-                  <UserCircle className="mr-2 h-4 w-4" />
-                  View Profile
-                </Button>
-              )}
-              
+        <PopoverContent className="w-52 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
+          <div className="flex flex-col gap-1">
+            {onOpenProfile && (
               <Button
-                className="w-full justify-start bg-transparent text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/20 transition-colors duration-200"
+                className="w-full justify-start px-3 py-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
                 onClick={() => {
-                  window.location.href = '/account';
+                  onOpenProfile();
                   setShowUserMenu(false);
                 }}
               >
-                <Settings className="mr-2 h-4 w-4" />
-                Account Settings
+                <UserCircle className="mr-3 h-5 w-5" />
+                <span className="text-sm font-medium">View Profile</span>
               </Button>
-              
-              <Button
-                className="w-full justify-start bg-transparent text-rose-300 hover:text-rose-200 hover:bg-rose-400/15 focus-visible:ring-2 focus-visible:ring-rose-300/30 transition-colors duration-200"
-                onClick={handleSignOut}
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign out
-              </Button>
-            </div>
+            )}
+            
+            <Button
+              className="w-full justify-start px-3 py-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
+              onClick={() => {
+                window.location.href = '/account';
+                setShowUserMenu(false);
+              }}
+            >
+              <Settings className="mr-3 h-5 w-5" />
+              <span className="text-sm font-medium">Account Settings</span>
+            </Button>
+            
+            <div className="h-px bg-white/10 my-1" />
+            
+            <Button
+              className="w-full justify-start px-3 py-2.5 h-auto bg-transparent text-rose-300 hover:text-white hover:bg-rose-500/20 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-rose-400/40 transition-all duration-200 rounded-xl"
+              onClick={handleSignOut}
+            >
+              <LogOut className="mr-3 h-5 w-5" />
+              <span className="text-sm font-medium">Sign out</span>
+            </Button>
           </div>
         </PopoverContent>
       </Popover>
