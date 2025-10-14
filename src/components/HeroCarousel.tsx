@@ -126,7 +126,7 @@ export const HeroCarousel: React.FC = () => {
       ))}
       
       {/* Heartlines Watermark - Always visible, outside slide loop */}
-      <div className="fixed top-4 right-4 md:right-8 z-50">
+      <div className="absolute top-4 right-4 md:right-8 z-50">
         <img 
           src={BRAND.wordmarkSrc} 
           alt="heartlines" 
