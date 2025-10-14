@@ -193,10 +193,6 @@ const DashboardContent = ({
 
   return (
     <div className={`flex-1 min-h-0 dashboard-container scrollbar-hide ${
-      activeTab === 'coach' 
-        ? '' 
-        : 'dashboard-page-scroll'
-    } ${
       activeTab === 'coach' || activeTab === 'insights' 
         ? 'overflow-hidden h-[100dvh] md:h-[calc(100vh-5rem)] md:pt-20 lg:pt-24' 
         : 'pt-16 md:pt-16 overflow-y-auto'
