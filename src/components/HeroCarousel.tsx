@@ -124,12 +124,12 @@ export const HeroCarousel: React.FC = () => {
             </p>
           </div>
 
-          {/* Heartlines Logo - Bottom Right */}
-          <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10">
+          {/* Heartlines Logo - Top Left */}
+          <div className="absolute top-8 left-8 md:top-12 md:left-12 z-10">
             <img 
               src={heartlinesLogo} 
               alt="heartlines" 
-              className="h-8 md:h-10 drop-shadow-2xl"
+              className="h-20 md:h-25 drop-shadow-2xl"
             />
           </div>
         </div>
