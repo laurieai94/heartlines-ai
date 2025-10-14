@@ -6,7 +6,8 @@ import { ChatConversation } from "@/hooks/useChatHistory";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Menu, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from 'lucide-react';
+import { Home, User as UserIcon, MessageSquare, CreditCard, Settings } from 'lucide-react';
+import FlipPhoneIcon from '@/components/icons/FlipPhoneIcon';
 
 // Lazy load the sidebar for better performance
 const ChatHistorySidebar = lazy(() => import('./ChatHistorySidebar').then(m => ({ default: m.ChatHistorySidebar })));
@@ -59,10 +60,10 @@ export const ChatLayout = ({
             <Button 
               variant="ghost" 
               size="icon"
-              className="h-8 w-8 text-white bg-transparent hover:bg-white/10"
+              className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200"
               aria-label="Open site navigation"
             >
-              <Menu className="w-6 h-6" />
+              <FlipPhoneIcon className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-12 lg:w-12 xl:h-13 xl:w-13 2xl:h-14 2xl:w-14" />
             </Button>
           </PopoverTrigger>
           <PopoverContent 
