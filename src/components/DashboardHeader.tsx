@@ -63,10 +63,10 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   
   return (
     <div className={`w-full fixed top-0 left-0 right-0 z-50 bg-burgundy-900 ${isCoachMode ? 'hidden md:block' : ''} ${compact ? 'mb-1 sm:mb-2' : activeTab === 'plans' ? 'mb-1 sm:mb-2 md:mb-6 lg:mb-10' : 'mb-1 sm:mb-2 md:mb-6'}`} style={{ transform: 'none', isolation: 'isolate' }}>
-      <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
+      <div className={`max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto sm:px-6 xl:px-8 relative ${
         isCoachMode 
           ? 'pl-1 pr-3 py-2' // Compact padding with more right breathing room on coach page
-          : 'pl-4 pr-4 py-3' // Balanced padding on other pages
+          : 'pl-4 pr-2 sm:pr-4 py-3' // Match homepage padding on mobile, balanced on larger screens
       }`}>
         
         {/* Mobile Navigation - Always visible */}
