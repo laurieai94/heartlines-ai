@@ -315,11 +315,11 @@ const LandingPage = ({
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
       {/* Persistent Heartlines Logo - Top Right */}
-      <div className="fixed top-28 right-6 md:right-10 z-40 pointer-events-none">
+      <div className="fixed top-28 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
         <img 
           src={heartlinesLogo} 
           alt="heartlines" 
-          className="h-36 md:h-50 drop-shadow-lg"
+          className="h-43 md:h-60 drop-shadow-lg"
         />
       </div>
 
