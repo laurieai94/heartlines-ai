@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
 import { BRAND } from "@/branding";
+import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import image2016 from "@/assets/hero-carousel/elderly-native-american-women.webp";
 import image2018 from "@/assets/hero-carousel/joyful-heritage-living-room.webp";
 import image2020 from "@/assets/hero-carousel/cowboys-with-wheelchair.webp";
@@ -122,17 +123,17 @@ export const HeroCarousel: React.FC = () => {
               {slide.tagline}
             </p>
           </div>
+
+          {/* Heartlines Logo - Bottom Right */}
+          <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10">
+            <img 
+              src={heartlinesLogo} 
+              alt="heartlines" 
+              className="h-8 md:h-10 drop-shadow-2xl"
+            />
+          </div>
         </div>
       ))}
-      
-      {/* Heartlines Watermark - Always visible, outside slide loop */}
-      <div className="fixed top-4 right-4 md:right-8 z-50">
-        <img 
-          src={BRAND.phoneLockupSrc} 
-          alt="heartlines" 
-          className="h-16 md:h-20 drop-shadow-2xl"
-        />
-      </div>
     </div>
   );
 };
