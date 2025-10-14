@@ -27,7 +27,7 @@ export default function LandingPageFallback() {
           
           <Link to="/signup">
             <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-10 py-7 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light">
-              Get Started - It's Free
+              get started - it's free
               <ArrowRight className="w-6 h-6 ml-3" />
             </Button>
           </Link>

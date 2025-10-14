@@ -541,10 +541,10 @@ const LandingPage = ({
                     {user ? <>
                         <Button onClick={handleTalkToKai} variant="outline" className="border-burgundy-400/30 text-white hover:bg-burgundy-400/10 px-8 py-4 text-base rounded-full transition-all duration-300 animate-fade-in cursor-pointer">
                           <User className="w-5 h-5 mr-2" />
-                          View Profile
+                          view profile
                         </Button>
                         <Button onClick={handleTalkToKai} className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 py-4 text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border-0 font-light backdrop-blur-sm animate-fade-in cursor-pointer">
-                          Open Dashboard
+                          open dashboard
                           <ArrowRight className="w-5 h-5 ml-3" />
                         </Button>
                       </> : <>
