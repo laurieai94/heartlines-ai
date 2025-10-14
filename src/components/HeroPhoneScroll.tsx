@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import ChatBubble from './ChatBubble';
 import { BRAND } from '@/branding';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { Heart } from "lucide-react";
+import { Link } from 'react-router-dom';
 import FlameIconHalo from './FlameIconHalo';
 import { demoConversations } from '@/data/demoConversations';
 import { preloadCriticalImages } from '@/utils/imageOptimizer';
@@ -178,6 +180,37 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
 
   return (
     <div ref={containerRef} className={`relative ${className}`} style={style}>
+      {/* Floating Chat CTA Button */}
+      <Link to="/signup" className="absolute top-0 right-0 z-30 transform translate-x-2 -translate-y-2 sm:translate-x-4 sm:-translate-y-4">
+        <div className="relative group inline-block">
+          {/* Glow effect */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-md group-hover:opacity-100 transition-opacity duration-300" />
+          
+          <Button 
+            size="sm"
+            className="relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/40 backdrop-blur-sm overflow-hidden transition-all duration-200 font-medium"
+            style={{
+              boxShadow: '0 0 30px rgba(255, 107, 157, 0.4), 0 4px 16px rgba(255, 107, 157, 0.5), 0 2px 8px rgba(255, 138, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+            }}
+          >
+            {/* Shimmer overlay */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div 
+                className="absolute inset-0 animate-shimmer"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                  backgroundSize: '200% 100%'
+                }}
+              />
+            </div>
+            
+            <span className="relative z-10 whitespace-nowrap">
+              Chat with Kai
+            </span>
+          </Button>
+        </div>
+      </Link>
+
       <div className="relative flex items-start justify-center z-20 pt-4 pb-0 px-0 sm:p-2 lg:p-4">
         <div className="relative animate-fade-in">
           <div className="absolute inset-0 bg-gradient-radial from-white/8 via-white/3 to-transparent blur-2xl scale-110 rounded-[3rem]"></div>
