@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { trackAuthFlow } from '@/utils/analytics';
 import { 
   Carousel,
@@ -119,9 +119,11 @@ const HowItWorksSwipe = () => {
                         </h2>
                         <Button 
                           onClick={handleGetStartedClick}
-                          variant="glass"
                           size="lg"
-                          className="group relative overflow-hidden p-4 md:p-5 text-base rounded-full transition-all duration-500 transform hover:scale-105 font-light"
+                          className="group relative bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full shadow-2xl hover:shadow-coral-500/50 transition-all duration-300 transform hover:scale-105 border-2 border-white/40 backdrop-blur-sm overflow-hidden font-light text-lg md:text-xl"
+                          style={{
+                            boxShadow: '0 0 60px rgba(255, 107, 157, 0.5), 0 8px 32px rgba(255, 107, 157, 0.6), 0 4px 16px rgba(255, 138, 80, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                          }}
                         >
                           {/* Shimmer overlay */}
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -134,8 +136,7 @@ const HowItWorksSwipe = () => {
                             />
                           </div>
                           
-                          <span className="relative z-10 flex items-center gap-2">
-                            <ArrowRight className="w-5 h-5" />
+                          <span className="relative z-10">
                             get started
                           </span>
                         </Button>
