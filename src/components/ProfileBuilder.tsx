@@ -239,7 +239,7 @@ const ProfileBuilder = ({
     }}>
         {/* Main Header - Responsive */}
         <div className="text-center space-y-8 md:space-y-10 lg:space-y-12 flex-shrink-0 px-2 md:px-4">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">Let's Get to Know Your Situationship</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">let's get to know your situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
           {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
@@ -251,7 +251,7 @@ const ProfileBuilder = ({
                   </AvatarFallback>
                 </Avatar>
                 <span className="flex items-center gap-1">
-                  Unlock Coaching with {BRAND.coach.name}
+                  unlock coaching with {BRAND.coach.name}
                   <MessageSquare className="w-4 h-4" />
                 </span>
               </Button>
@@ -267,25 +267,25 @@ const ProfileBuilder = ({
         {/* Responsive Two-Card Layout */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-3 lg:gap-4 max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-3 lg:py-4 -mt-4 md:mt-4 lg:mt-6" data-profile-cards-container>
           {/* Your Profile Card */}
-          <MemoizedProfileCard title="Your Profile" subheader="The real you → real advice" completion={yourProfileCompletion} description="Just 5 required questions" benefits={[{
+          <MemoizedProfileCard title="your profile" subheader="the real you → real advice" completion={yourProfileCompletion} description="just 5 required questions" benefits={[{
             icon: <Star className="w-3 h-3 text-orange-300" />,
-            text: "5 Qs, big feels"
+            text: "5 qs, big feels"
           }, {
             icon: <Search className="w-3 h-3 text-orange-300" />,
-            text: "Deep dive if you're down"
-          }]} onStartProfile={handleStartPersonalProfile} buttonText="Keep It Real" iconElement={userInitial ? <span className="text-white font-bold text-base leading-none">{userInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" optionalPillImage={!canUnlockCoaching ? <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
+            text: "deep dive if you're down"
+          }]} onStartProfile={handleStartPersonalProfile} buttonText="keep it real" iconElement={userInitial ? <span className="text-white font-bold text-base leading-none">{userInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-orange-300" benefitColor="text-orange-300" optionalPillImage={!canUnlockCoaching ? <span className="bg-orange-400/20 text-orange-300 px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
-                  First Step: 5 Qs
-                </span> : undefined} motivationText="The realer you, the smarter Kai" />
+                  first step: 5 qs
+                </span> : undefined} motivationText="the realer you, the smarter kai" />
 
           {/* Partner Profile Card */}
-        <MemoizedProfileCard title="Your Person" subheader="See your story from both POVs" completion={partnerProfileCompletion} description="" benefits={[{
+        <MemoizedProfileCard title="your person" subheader="see your story from both povs" completion={partnerProfileCompletion} description="" benefits={[{
             icon: <Star className="w-3 h-3 text-pink-300" />,
-            text: "Dual POV magic"
+            text: "dual pov magic"
           }, {
             icon: <Star className="w-3 h-3 text-pink-300" />,
-            text: "Hacks unlocked"
-          }]} onStartProfile={handleStartPartnerProfile} buttonText="Add Player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">Optional</span>} motivationText="Bring your +1 for hotter takes" />
+            text: "hacks unlocked"
+          }]} onStartProfile={handleStartPartnerProfile} buttonText="add player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">optional</span>} motivationText="bring your +1 for hotter takes" />
         </div>
 
 
@@ -301,20 +301,20 @@ const ProfileBuilder = ({
                       <Lock className="w-3.5 h-3.5 text-white/80" />
                     </div>
                   </div>
-                  <span className="font-medium text-white">Private by design</span>
+                  <span className="font-medium text-white">private by design</span>
                 </div>
                 <ChevronDown className="w-4 h-4 text-white/60 transition-transform duration-200" />
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
                 <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
-                  <p>• No AI training on your conversations</p>
-                  <p>• Only you and Kai see your profiles</p>
-                  <p>• Your encryption key never leaves your device</p>
-                  <p>• Choose how long to keep your data</p>
-                  <p>• Optional anonymous analytics only</p>
-                  <p>• Delete your data or account anytime</p>
+                  <p>• no ai training on your conversations</p>
+                  <p>• only you and kai see your profiles</p>
+                  <p>• your encryption key never leaves your device</p>
+                  <p>• choose how long to keep your data</p>
+                  <p>• optional anonymous analytics only</p>
+                  <p>• delete your data or account anytime</p>
                   <Link to="/privacy-and-security" className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group" aria-label="Learn more about our privacy and security practices">
-                    <span>Learn More</span>
+                    <span>learn more</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
