@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useReducer } from "react";
 import { toast } from "sonner";
 import { Heart, Star, Search, Lock, MessageSquare, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -50,6 +50,9 @@ const ProfileBuilder = ({
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
   const [showPartnerCompletionOptions, setShowPartnerCompletionOptions] = useState(false);
+  
+  // Force update hook for profile completion changes
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   // Use centralized progress tracking and temporary profile data
   const {
@@ -87,9 +90,6 @@ const ProfileBuilder = ({
   const yourProfileCompletion = useMemo(() => calculateYourCompletion(), [calculateYourCompletion]);
   const partnerProfileCompletion = useMemo(() => calculatePartnerCompletion(), [calculatePartnerCompletion]);
 
-  // Track completion changes to force re-renders
-  const [completionKey, setCompletionKey] = useState(0);
-
   // Memoized requirement calculations
   const {
     completedRequiredFields,
@@ -121,20 +121,14 @@ const ProfileBuilder = ({
     personalProfileData?.relationshipStatus?.trim() || null,
     personalProfileData?.loveLanguage,
     personalProfileData?.attachmentStyle?.trim() || null,
-    (personalProfileData as any)?._updateTimestamp,
-    completionKey
+    (personalProfileData as any)?._updateTimestamp
   ]);
-
-  // Update key when completion status changes to force re-mount of critical UI
-  useEffect(() => {
-    setCompletionKey(prev => prev + 1);
-  }, [canUnlockCoaching]);
 
   // Listen for required field updates to force immediate UI update
   useEffect(() => {
     const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - forcing re-calculation');
-      setCompletionKey(prev => prev + 1);
+      console.log('[ProfileBuilder] Required field updated - forcing re-render');
+      forceUpdate();
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
@@ -248,7 +242,7 @@ const ProfileBuilder = ({
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-brand text-white">Let's Get to Know Your Situationship</h1>
           
           {/* Unlock Coaching Button - Only show when ready */}
-          {canUnlockCoaching && <div key={`coaching-unlock-${completionKey}`} className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+          {canUnlockCoaching && <div className="my-10 md:mt-16 md:mb-8 lg:mt-24 lg:mb-10 max-w-sm md:max-w-md lg:max-w-lg mx-auto">
               <Button variant="glass" onClick={goToCoach} className="w-auto h-12 px-6 rounded-full font-semibold text-white transition-all duration-300 glass-cta bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20">
                 <Avatar className="w-8 h-8 ring-2 ring-white/30 animate-coaching-glow">
                   <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" />
@@ -267,7 +261,7 @@ const ProfileBuilder = ({
       {/* Main Content Area - Scrollable */}
       <div className="space-y-3 md:space-y-4 lg:space-y-6">
         {/* Step 1 Nudge - Only show if 5 required questions aren't complete */}
-        {!canUnlockCoaching && <div key={`coaching-locked-${completionKey}`} className="px-3 md:px-4 lg:px-6">
+        {!canUnlockCoaching && <div className="px-3 md:px-4 lg:px-6">
             <OnboardingStepNudge completion={Math.round(completedRequiredFields / totalRequiredFields * 100)} onStartProfile={handleStartPersonalProfile} />
           </div>}
         {/* Responsive Two-Card Layout */}

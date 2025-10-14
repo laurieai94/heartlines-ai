@@ -97,21 +97,25 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     console.log('[Validation] ✅ All required fields present - proceeding with completion');
     
-    // CRITICAL: Close modal IMMEDIATELY after validation passes (optimistic UI)
-    console.log('[Complete] Closing modal immediately with flushSync');
+    // STEP 1: Close modal IMMEDIATELY (optimistic UI)
+    console.log('[Complete] Closing modal immediately');
     flushSync(() => {
       modalStates.setShowQuestionnaireModal(false);
       modalStates.setQuestionnaireOrigin(null);
       modalStates.setSuppressPersonalCompletionPopup(true);
     });
     
+    // STEP 2: Clear session flag immediately to prevent reopening
+    sessionStorage.removeItem('questionnaire-completing');
+    
+    // STEP 3: Merge and save data
     const existingProfile = temporaryProfiles.your[0] || {};
     const existingDemographics = temporaryDemographics.your || {};
     
     const mergedData = {
       ...existingProfile,
       ...existingDemographics,
-      ...questionnaireData.completionData,
+      ...completionData,
       completedAt: new Date().toISOString(),
       profileSource: 'personal-questionnaire'
     };
@@ -129,8 +133,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // CRITICAL: Force immediate cache clear and profile update event
-    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+    // STEP 4: Single cache clear and profile update event
     try {
       const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
       profileCompletionCache?.clear();
@@ -140,33 +143,28 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       console.error('Cache clear error:', e);
     }
     
-    // Multiple dispatches to ensure all listeners catch it
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
-    }, 0);
+    // Single event dispatch after data is saved
+    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
     
-    // Store completion flag to prevent modal from reopening during navigation
-    sessionStorage.setItem('questionnaire-completing', 'true');
+    // STEP 5: Store completion marker
     if (typeof window !== 'undefined' && (window as any).user?.id) {
       sessionStorage.setItem(`questionnaire-completed-${(window as any).user.id}`, Date.now().toString());
     }
     
-    // Longer delay to ensure modal is fully closed and state is settled
+    // STEP 6: Navigate after brief delay to ensure modal close animation completes
     setTimeout(() => {
       console.log('[Complete] Navigating to insights tab');
       modalStates.setActiveTab("insights");
       
-      // Clear completion flag and focus chat input
+      // Focus chat input after navigation settles
       setTimeout(() => {
-        sessionStorage.removeItem('questionnaire-completing');
-        console.log('[Complete] Completion flow finished');
-        
         const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
         if (chatInput) {
           chatInput.focus();
         }
-      }, 150);
-    }, 150);
+        console.log('[Complete] Completion flow finished');
+      }, 100);
+    }, 50);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
