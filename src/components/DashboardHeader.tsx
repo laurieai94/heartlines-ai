@@ -79,11 +79,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className={`text-white hover:text-white bg-white/5 hover:bg-white/15 hover:backdrop-blur-md hover:border hover:border-white/20 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white ${
-                    isCoachMode ? 'h-7 w-7' : 'h-8 w-8'
-                  }`}
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <FlipPhoneIcon className={isCoachMode ? 'h-4 w-4' : 'h-5 w-5'} />
+                  <FlipPhoneIcon className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16 2xl:h-18 2xl:w-18" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
@@ -134,9 +132,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white hover:text-white h-8 w-8 bg-white/5 hover:bg-white/15 hover:backdrop-blur-md hover:border hover:border-white/20 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <FlipPhoneIcon className="h-5 w-5" />
+                  <FlipPhoneIcon className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16 2xl:h-18 2xl:w-18" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
