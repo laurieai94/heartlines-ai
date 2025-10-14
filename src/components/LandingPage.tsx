@@ -314,13 +314,13 @@ const LandingPage = ({
           </div>
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
 
-          {/* Persistent Heartlines Logo - Top Right */}
-          <div className="fixed top-8 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
-            <img 
-              src={heartlinesLogo} 
-              alt="heartlines" 
-              className="h-16 sm:h-20 md:h-32 lg:h-40 xl:h-48 drop-shadow-lg"
-            />
+      {/* Persistent Heartlines Logo - Top Right */}
+      <div className="fixed top-12 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
+        <img 
+          src={heartlinesLogo} 
+          alt="heartlines" 
+          className="h-43 md:h-60 drop-shadow-lg"
+        />
       </div>
 
       {/* Main container */}
