@@ -400,8 +400,9 @@ const LandingPage = ({
                     />
                   </div>
                   
-                  <span className="relative z-10">
-                    Get Started
+                  <span className="relative z-10 flex items-center gap-2">
+                    Build your profile
+                    <ArrowRight className="w-4 h-4" />
                   </span>
                 </Button>
               </div>
@@ -760,7 +761,7 @@ const LandingPage = ({
                   
                   <span className="relative z-10 flex items-center gap-2">
                     <Heart className="w-5 h-5 md:w-6 md:h-6" />
-                    Closer Starts Here
+                    Find clarity, not chaos
                   </span>
                 </Button>
               </div>
