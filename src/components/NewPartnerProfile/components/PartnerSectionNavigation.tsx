@@ -10,9 +10,9 @@ interface PartnerSectionNavigationProps {
 
 const getSectionTitle = (section: number): string => {
   switch (section) {
-    case 1: return "The Basics";
-    case 2: return "How They Operate";
-    case 3: return "Their Foundation";
+    case 1: return "the basics";
+    case 2: return "how they operate";
+    case 3: return "their foundation";
     default: return "";
   }
 };

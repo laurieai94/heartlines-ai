@@ -91,14 +91,14 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
           </div>
           <div className="flex-1 min-w-0">
             <Label htmlFor="partnerName" className="text-sm font-semibold text-white mb-2 block">
-              What should we call them? <span className="text-red-400">*</span>
+              what should we call them? <span className="text-red-400">*</span>
             </Label>
             <Input
               id="partnerName"
               type="text"
               value={profileData.partnerName || ''}
               onChange={(e) => updateField('partnerName', e.target.value)}
-              placeholder="Their name"
+              placeholder="their name"
               className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-sm p-3 h-auto font-medium w-full"
             />
           </div>
@@ -107,11 +107,11 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
           <Label className="text-sm font-semibold text-white mb-2 block">
-            What pronouns do they use? <span className="text-red-400">*</span>
+            what pronouns do they use? <span className="text-red-400">*</span>
           </Label>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
-            <span>So we refer to them right</span>
+            <span>so we refer to them right</span>
           </div>
           
           {/* Pronoun buttons */}
@@ -129,7 +129,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
                 value={customPronoun}
                 onChange={(e) => handleCustomPronounChange(e.target.value)}
                 onBlur={handleCustomPronounBlur}
-                placeholder="Enter their pronouns"
+                placeholder="enter their pronouns"
                 className="questionnaire-button-secondary border-0 text-white placeholder:text-gray-300 text-xs p-2 h-auto font-medium"
               />
             </div>

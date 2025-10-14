@@ -68,14 +68,14 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
           </div>
           <div className="flex-1 min-w-0">
             <Label htmlFor="name" className="questionnaire-label-mobile">
-              What should we call you? <span className="text-red-400">*</span>
+              what should we call you? <span className="text-red-400">*</span>
             </Label>
             <Input
               id="name"
               type="text"
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
-              placeholder="Your name"
+              placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
           </div>
@@ -84,11 +84,11 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
           <Label className="questionnaire-label-mobile">
-            What pronouns do you use? <span className="text-red-400">*</span>
+            what pronouns do you use? <span className="text-red-400">*</span>
           </Label>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
-            <span>So we can refer to you correctly</span>
+            <span>so we can refer to you correctly</span>
           </div>
           
           {/* Pronoun buttons */}
@@ -102,7 +102,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
           {(profileData.pronouns === 'Other' || customPronoun) && (
             <div className="mt-3">
               <Label className="text-sm font-medium text-white mb-2 block">
-                Please specify your pronouns:
+                please specify your pronouns:
               </Label>
               <Input
                 value={customPronoun}
