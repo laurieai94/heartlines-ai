@@ -45,7 +45,18 @@ const CleanQuestionnaireFooter = ({
   // Enable button when all required fields are complete (not all sections)
   const totalRequiredFields = getTotalRequiredFieldsCount();
   const completedRequiredFields = getCompletedRequiredFieldsCount(profileData);
-  const canComplete = completedRequiredFields >= totalRequiredFields;
+  
+  // Additional validation: Check that required fields actually have non-empty values
+  const hasValidName = profileData.name && profileData.name.trim() !== '';
+  const hasValidPronouns = profileData.pronouns && profileData.pronouns.trim() !== '';
+  const hasValidRelationship = profileData.relationshipStatus && profileData.relationshipStatus.trim() !== '';
+  const hasValidLoveLanguage = Array.isArray(profileData.loveLanguage) && profileData.loveLanguage.length > 0;
+  const hasValidAttachment = profileData.attachmentStyle && profileData.attachmentStyle.trim() !== '';
+  
+  const hasActualData = hasValidName && hasValidPronouns && hasValidRelationship && 
+                        hasValidLoveLanguage && hasValidAttachment;
+  
+  const canComplete = completedRequiredFields >= totalRequiredFields && hasActualData;
   
   // Section navigation logic
   const isCurrentSectionValid = validateSection(currentSection, profileData);
