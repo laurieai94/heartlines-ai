@@ -401,7 +401,7 @@ const LandingPage = ({
                   </div>
                   
                   <span className="relative z-10 flex items-center gap-2">
-                    Build your profile
+                    Get started
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 </Button>
@@ -659,7 +659,7 @@ const LandingPage = ({
                     
                     <span className="relative z-10 flex items-center gap-2">
                       <Sparkles className="w-5 h-5 md:w-6 md:w-6" />
-                      Get Started
+                      Talk it out with Kai
                     </span>
                   </Button>
                 </div>
