@@ -3,14 +3,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Heart, Plus, Menu, Info, Home, User as UserIcon, MessageSquare, CreditCard, Settings } from "lucide-react";
+import { Heart, Plus, Menu, Info } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { BRAND } from "@/branding";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { cn } from "@/lib/utils";
-import FlipPhoneIcon from "@/components/icons/FlipPhoneIcon";
 
 interface ChatHeaderProps {
   userName?: string;
@@ -27,15 +25,6 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   const { isMobile, isTablet, simulateHapticFeedback } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
-  const navigate = useNavigate();
-
-  const navigationItems = [
-    { label: 'Home', icon: Home, onClick: () => navigate('/') },
-    { label: 'Profile', icon: UserIcon, onClick: () => navigate('/profile') },
-    { label: 'Coach', icon: MessageSquare, onClick: () => navigate('/coach') },
-    { label: 'Plans', icon: CreditCard, onClick: () => navigate('/plans') },
-    { label: 'My Account', icon: Settings, onClick: () => navigate('/account') },
-  ];
 
   // Enhanced mobile button handlers with haptic feedback
   const handleNewConversation = () => {
@@ -60,44 +49,8 @@ export const ChatHeader = ({
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
           <div className="flex items-center justify-between gap-2 pl-1 pr-4 py-3">
-            {/* Left: Phone Navigation Icon */}
-            <div className="flex-shrink-0">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="icon"
-                    className="h-10 w-10 text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 touch-manipulation active:scale-95 transition-all rounded-lg p-0"
-                    aria-label="Open site navigation"
-                  >
-                    <FlipPhoneIcon className="h-10 w-10" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent 
-                  align="start" 
-                  side="bottom"
-                  sideOffset={8}
-                  className="w-16 z-[80] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
-                >
-                  {navigationItems.map((item) => {
-                    const IconComponent = item.icon;
-                    return (
-                      <button
-                        key={item.label}
-                        onClick={item.onClick}
-                        className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
-                        aria-label={item.label}
-                      >
-                        <IconComponent className="h-5 w-5 flex-shrink-0" />
-                      </button>
-                    );
-                  })}
-                </PopoverContent>
-              </Popover>
-            </div>
-
-            {/* Center: Kai avatar + name */}
-            <div className="flex items-center gap-2 min-w-0 flex-1">
+            {/* Left: Kai avatar + name */}
+            <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
                 <Avatar className="w-10 h-10 border-2 border-white/20 shadow-md bg-gradient-to-br from-coral-400 to-pink-500">
                   <AvatarImage 

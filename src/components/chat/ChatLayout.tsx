@@ -53,8 +53,44 @@ export const ChatLayout = ({
 
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
-      {/* Mobile only: Chat Header */}
-      <div className="md:hidden">
+      {/* Mobile only: Site navigation bar */}
+      <div className="md:hidden fixed top-safe left-0 right-0 z-50 bg-burgundy-900 px-4 h-12 flex items-center border-b border-white/10">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200"
+              aria-label="Open site navigation"
+            >
+              <FlipPhoneIcon className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-14 xl:w-14" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent 
+            align="start" 
+            side="bottom"
+            sideOffset={8}
+            className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
+          >
+            {navigationItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
+                  aria-label={item.label}
+                >
+                  <IconComponent className="h-5 w-5 flex-shrink-0" />
+                </button>
+              );
+            })}
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      {/* Mobile only: Chat Header below navigation bar */}
+      <div className="md:hidden mt-12">
         <ChatHeader 
           userName={userName} 
           onNewConversation={onNewConversation} 
