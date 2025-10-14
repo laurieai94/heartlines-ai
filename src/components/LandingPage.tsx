@@ -247,6 +247,15 @@ const LandingPage = ({
   }, []);
 
   return <>
+      {/* Persistent Heartlines Logo - Top Right */}
+      <div className="fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none isolate">
+        <img 
+          src={heartlinesLogo} 
+          alt="heartlines" 
+          className="h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
+        />
+      </div>
+
       {/* Navigation - Outside main container for proper fixed positioning */}
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`} style={{ willChange: 'transform' }}>
           <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl 3xl:max-w-8xl mx-auto flex justify-between items-center">
@@ -313,15 +322,6 @@ const LandingPage = ({
             </div>
           </div>
         </nav> : <SimpleHeader user={user} activeTab="home" onSignInClick={() => navigate('/signin')} />}
-
-      {/* Persistent Heartlines Logo - Top Right */}
-      <div className="fixed top-12 right-6 md:right-12 xl:right-14 z-40 pointer-events-none">
-        <img 
-          src={heartlinesLogo} 
-          alt="heartlines" 
-          className="h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
-        />
-      </div>
 
       {/* Main container */}
       <div className="min-h-screen relative overflow-x-hidden landing-page-scroll bg-burgundy-900">
