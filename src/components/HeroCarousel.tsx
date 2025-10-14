@@ -25,62 +25,62 @@ const slides: Slide[] = [
   {
     year: "2057",
     image: image2016,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2063",
     image: image2018,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2067",
     image: image2020,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2071",
     image: imageAsianCouple,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2073",
     image: image2022,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2077",
     image: imageFramedMemory,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2079",
     image: image2024,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2083",
     image: imageFriendsCats,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2085",
     image: image2025,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2088",
     image: imageRetroPeace,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2091",
     image: image2027,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   },
   {
     year: "2094",
     image: imageVintageHome,
-    tagline: "Love, but make it last."
+    tagline: "stronger relationships start here"
   }
 ];
 
@@ -115,8 +115,15 @@ export const HeroCarousel: React.FC = () => {
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-20 md:bottom-32 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 
-              className="text-7xl md:text-8xl font-brand leading-none mb-2 bg-gradient-to-r from-[#ff8a50] via-[#ff7a70] to-[#ff6b9d] bg-clip-text text-transparent"
-              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))' }}
+              className="text-7xl md:text-8xl font-brand leading-none mb-2"
+              style={{
+                background: 'linear-gradient(135deg, #ff8a50 0%, #ff7a70 50%, #ff6b9d 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                filter: 'drop-shadow(0 2px 4px rgba(255, 138, 80, 0.4))'
+              }}
             >
               {slide.year}
             </h2>
