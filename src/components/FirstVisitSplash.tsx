@@ -82,8 +82,8 @@ const FirstVisitSplash: React.FC = () => {
       
       {/* Splash overlay - only visible during first visit */}
       {showSplash && (
-        <div className={`fixed inset-0 z-40 ${isFadingOut ? 'animate-fade-out' : ''}`}>
-          <SplashScreen 
+        <div className={`fixed inset-0 z-50 ${isFadingOut ? 'animate-fade-out' : ''}`}>
+          <SplashScreen
             showWordmark={true}
             wordmarkSize="xl"
           />
