@@ -44,11 +44,8 @@ const Mission = () => {
           {/* 2. What heartlines Is */}
           <section className="animate-slide-up animation-delay-200">
             <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed text-center max-w-3xl mx-auto">
-                heartlines helps people navigate the complexity of connection — romantic, personal, and internal — with empathy, reflection, and zero judgment.
-                it's a space for growth, honesty, and care.
-                a space where love — for others and yourself — isn't idealized, it's understood.
-              </p>
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed text-center max-w-3xl mx-auto">stronger relationships start here.
+the ai relationship coach for messy, modern love.</p>
             </div>
           </section>
 
