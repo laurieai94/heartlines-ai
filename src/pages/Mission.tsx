@@ -70,20 +70,22 @@ const Mission = () => {
                 </div>
                 
                 {/* Empty line spacer */}
-                <div className="h-4"></div>
+                <div className="h-6"></div>
                 
-                {/* Statement lines with heartlines accent */}
-                <div className="flex flex-col items-center mb-6 space-y-2">
+                {/* Statement line with heartlines accent - standalone */}
+                <div className="flex justify-center mb-3">
                   <p className="text-xl md:text-2xl text-white font-semibold text-center px-6 py-3 bg-white/10 border-l-4 border-coral-500">
                     heartlines chooses real.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-medium text-center">
-                    real conversations. real feelings. real growth.
-                  </p>
                 </div>
+
+                {/* Supporting tagline - no border, medium weight */}
+                <p className="text-lg md:text-xl text-white/90 font-medium text-center mb-6">
+                  real conversations. real feelings. real growth.
+                </p>
                 
                 {/* Empty line spacer */}
-                <div className="h-4"></div>
+                <div className="h-6"></div>
                 
                 {/* Final lines */}
                 <div className="text-center space-y-2 max-w-2xl mx-auto">
