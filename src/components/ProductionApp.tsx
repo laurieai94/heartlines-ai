@@ -11,7 +11,6 @@ const LandingPage = React.lazy(() => import('@/components/LandingPage'));
 const Dashboard = React.lazy(() => import('@/pages/Dashboard'));
 const Auth = React.lazy(() => import('@/pages/Auth'));
 const AuthCallback = React.lazy(() => import('@/pages/AuthCallback'));
-const GetStarted = React.lazy(() => import('@/pages/GetStarted'));
 const Mission = React.lazy(() => import('@/pages/Mission'));
 const Pricing = React.lazy(() => import('@/pages/Pricing'));
 const Account = React.lazy(() => import('@/pages/Account'));
@@ -32,14 +31,6 @@ const ProductionApp: React.FC = () => {
                 element={
                   <ProductionErrorBoundary level="page" name="Dashboard">
                     <Dashboard />
-                  </ProductionErrorBoundary>
-                } 
-              />
-              <Route 
-                path="/get-started" 
-                element={
-                  <ProductionErrorBoundary level="page" name="GetStarted">
-                    <GetStarted />
                   </ProductionErrorBoundary>
                 } 
               />

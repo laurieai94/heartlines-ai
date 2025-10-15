@@ -21,7 +21,6 @@ const Pricing = React.lazy(() => import("@/pages/Pricing"));
 const BillingSuccess = React.lazy(() => import("@/pages/BillingSuccess"));
 const Account = React.lazy(() => import("@/pages/Account"));
 const Auth = React.lazy(() => import("@/pages/Auth"));
-const GetStarted = React.lazy(() => import("@/pages/GetStarted"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 const Terms = React.lazy(() => import("@/pages/Terms"));
 const Contact = React.lazy(() => import("@/pages/Contact"));
@@ -84,11 +83,6 @@ const AppContent = () => {
         <Route path="/signup" element={
           <Suspense fallback={<div />}>
             <Auth />
-          </Suspense>
-        } />
-        <Route path="/get-started" element={
-          <Suspense fallback={<div />}>
-            <GetStarted />
           </Suspense>
         } />
         <Route path="/account" element={
