@@ -873,26 +873,6 @@
     animation: slow-pulse 6s ease-in-out infinite;
   }
 
-  @keyframes globe-rotate {
-    0% { 
-      background-position: 0% 0; 
-    }
-    100% { 
-      background-position: 400% 0; 
-    }
-  }
-
-  .animate-globe-rotate {
-    animation: globe-rotate 40s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .animate-globe-rotate {
-      animation-play-state: paused;
-    }
-  }
-
-
   /* Premium gradient text */
   .text-gradient-brand {
     background: linear-gradient(135deg, hsl(var(--coral-400)) 0%, hsl(var(--pink-500)) 100%);
