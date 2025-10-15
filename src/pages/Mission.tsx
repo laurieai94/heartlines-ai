@@ -7,6 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import Globe from "@/components/Globe";
 
 const Mission = () => {
   const {
@@ -51,11 +52,14 @@ const Mission = () => {
                 hover:shadow-2xl hover:shadow-pink-500/20
                 transition-all duration-500 ease-out">
                 
-                {/* Header with gradient */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
-                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
-                  🌍 our moment
-                </h2>
+                {/* Header with globe */}
+                <div className="flex flex-col items-center justify-center gap-4 mb-8">
+                  <Globe size="lg" glowIntensity="medium" rotationSpeed={50} />
+                  <h2 className="text-3xl md:text-4xl font-brand text-center
+                    bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
+                    our moment
+                  </h2>
+                </div>
                 
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
@@ -63,7 +67,7 @@ const Mission = () => {
                 {/* Opening line */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    ai isn't going anywhere. and neither are your feelings.
+                    ai isn't going anywhere. and neither is your need to feel something real.
                   </p>
                 </div>
 
