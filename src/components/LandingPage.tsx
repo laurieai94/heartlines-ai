@@ -108,6 +108,9 @@ const LandingPage = ({
   const {
     user
   } = useAuth();
+  const [isSplashActive, setIsSplashActive] = useState(() => {
+    return !sessionStorage.getItem('homepage_visited');
+  });
   const navigate = useNavigate();
   const [showFloatingButton, setShowFloatingButton] = useState(false);
 
@@ -273,15 +276,31 @@ const LandingPage = ({
     };
   }, []);
 
+  // Check for splash screen completion
+  useEffect(() => {
+    const checkSplash = () => {
+      const hasVisited = sessionStorage.getItem('homepage_visited');
+      if (hasVisited) {
+        setIsSplashActive(false);
+      }
+    };
+    
+    const interval = setInterval(checkSplash, 100);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return <>
       {/* Persistent Heartlines Logo - Top Right */}
-      <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none isolate">
-        <img 
-          src={heartlinesLogo} 
-          alt="heartlines" 
-          className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
-        />
-      </div>
+      {!isSplashActive && (
+        <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none isolate">
+          <img 
+            src={heartlinesLogo} 
+            alt="heartlines" 
+            className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
+          />
+        </div>
+      )}
 
       {/* Navigation - Outside main container for proper fixed positioning */}
       {showMarketingTopBar ? <nav className={`pl-4 pr-2 sm:px-6 xl:px-8 py-3 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-900 border-b border-coral-400/20 transition-all duration-300 ${scrollY > 50 ? 'backdrop-blur-2xl shadow-2xl shadow-burgundy-950/50' : 'backdrop-blur-xl shadow-lg'}`}>
