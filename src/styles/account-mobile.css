@@ -251,6 +251,11 @@
     scroll-behavior: auto;
     overscroll-behavior: contain;
   }
+
+  /* Thinner avatar ring on mobile - 25% reduction */
+  .account-mobile [class*="rounded-full"][class*="ring-"] {
+    --tw-ring-width: 0.19px !important;
+  }
 }
 
 /* Disable hover effects on mobile to prevent sticky states */
