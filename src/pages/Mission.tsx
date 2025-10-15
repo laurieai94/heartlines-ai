@@ -59,41 +59,27 @@ const Mission = () => {
                 {/* Dotted divider - 90s style with brand color */}
                 <div className="border-t-4 border-dotted border-coral-400/40 mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Opening lines */}
-                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                {/* Opening line */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light">
-                    ai is everywhere — and it's not going away.
-                  </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light">
-                    we can let it make us more distant, or we can make it help us get real again.
-                  </p>
-                </div>
-                
-                {/* Empty line spacer */}
-                <div className="h-6"></div>
-                
-                {/* Statement line with heartlines accent - standalone */}
-                <div className="flex justify-center mb-3">
-                  <p className="text-xl md:text-2xl text-white font-semibold text-center px-6 py-3 bg-white/10 border-l-4 border-coral-500">
-                    heartlines chooses real.
+                    ai isn't going anywhere. and neither are your feelings.
                   </p>
                 </div>
 
-                {/* Supporting tagline - no border, medium weight */}
-                <p className="text-lg md:text-xl text-white/90 font-medium text-center mb-6">
-                  real conversations. real feelings. real growth.
-                </p>
-                
-                {/* Empty line spacer */}
-                <div className="h-6"></div>
-                
-                {/* Final lines */}
-                <div className="text-center space-y-2 max-w-2xl mx-auto">
-                  <p className="text-base md:text-lg text-white/80 font-light">
-                    because love right now is complicated — between texts, burnout, and everyone pretending to be fine.
+                {/* Middle paragraph */}
+                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    we're surrounded by tech that makes it easy to scroll, ghost, and pretend we're fine.
                   </p>
-                  <p className="text-base md:text-lg text-white/80 font-light">
-                    we're building ai that helps you talk it out, not tune it out.
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    heartlines exists to do the opposite — to help you slow down, check in, and actually connect.
+                  </p>
+                </div>
+
+                {/* Closing statement */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    we're not fixing you. we're helping you figure yourself out — and show up better for the people who matter.
                   </p>
                 </div>
                 
