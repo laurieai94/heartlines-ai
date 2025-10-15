@@ -181,7 +181,7 @@ const Mission = () => {
                 {/* Introduction */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    heartlines is built by laurie ai — a company using ai to build stronger relationships, so we can build stronger communities.
+                    heartlines is built by laurie ai — an organization using ai to build stronger relationships, so we can build stronger communities.
                   </p>
                 </div>
 
