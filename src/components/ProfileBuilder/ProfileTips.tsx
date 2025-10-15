@@ -14,7 +14,7 @@ const ProfileTips = () => {
         onClick={() => setShowDetails(!showDetails)}
         className="w-full text-pink-200/80 hover:text-white text-xs md:text-sm py-2 hover:bg-white/10"
       >
-        {showDetails ? 'Hide ' : ''}Tips
+        {showDetails ? 'hide ' : ''}tips
         <ArrowRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showDetails ? 'rotate-90' : ''}`} />
       </Button>
       
@@ -23,21 +23,21 @@ const ProfileTips = () => {
           <Card className="p-3 md:p-4 lg:p-5 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
             <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2 md:mb-3 flex items-center gap-2">
               <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-orange-300" />
-              Profile Tips
+              profile tips
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-xs md:text-sm">Keep it 100</h4>
+                    <h4 className="font-semibold text-white text-xs md:text-sm">keep it 100</h4>
                     <p className="text-pink-200/80 text-xs md:text-xs">Kai's only as smart as the real you — not the "best self" version.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">"IDK yet" works</h4>
+                    <h4 className="font-semibold text-white text-sm">"idk yet" works</h4>
                     <p className="text-pink-200/80 text-xs">Your profile grows as you do (and as you figure things out).</p>
                   </div>
                 </div>
@@ -46,14 +46,14 @@ const ProfileTips = () => {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">Start small</h4>
+                    <h4 className="font-semibold text-white text-sm">start small</h4>
                     <p className="text-pink-200/80 text-xs">Answer the core Qs first → unlock value right away.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm">Evolve over time</h4>
+                    <h4 className="font-semibold text-white text-sm">evolve over time</h4>
                     <p className="text-pink-200/80 text-xs">Love changes, people change — your profile should too.</p>
                   </div>
                 </div>
