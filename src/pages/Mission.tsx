@@ -7,6 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import heartlinesPhone from "@/assets/heartlines-flip-phone.png";
 
 const Mission = () => {
   const { user } = useAuth();
@@ -24,7 +25,7 @@ const Mission = () => {
         <meta name="keywords" content="relationship coaching, ai coaching, healthy relationships, couples therapy, communication skills" />
       </Helmet>
       
-      <div className="min-h-screen bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-rose-900 flex flex-col">
+      <div className="min-h-screen bg-burgundy-900 flex flex-col">
       <SimpleHeader 
         user={user}
         activeTab="home"
@@ -35,21 +36,22 @@ const Mission = () => {
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
           <section className="text-center animate-fade-in">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-8 md:p-12 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-              <div className="flex justify-center mb-6">
-                <Heart className="w-16 h-16 text-white" fill="currentColor" />
-              </div>
-              <h1 className="text-5xl md:text-6xl font-playfair font-bold text-white mb-4">
+            <div className="flex flex-col items-center space-y-6 md:space-y-8">
+              <img 
+                src={heartlinesPhone} 
+                alt="Heartlines flip phone illustration" 
+                className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
+              />
+              
+              <h1 className="text-5xl md:text-6xl font-playfair font-bold text-white">
                 heartlines
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-3 font-light">
-                the ai relationship & self-growth coach for the modern world
-              </p>
-              <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 font-light">
-                modern love — and self-love — are messy. let's make them meaningful again.
+              
+              <p className="text-sm md:text-base text-white/60 font-light">
+                powered by <span className="font-medium">laurie ai</span>
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   onClick={() => navigate('/signup')}
                   className="glass-cta text-white font-medium hover:scale-105 transition-all duration-200"
@@ -65,18 +67,7 @@ const Mission = () => {
                   <MessageSquare className="w-4 h-4" />
                   meet kai
                 </Button>
-                <Button 
-                  onClick={() => window.scrollTo({ top: 400, behavior: 'smooth' })}
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm"
-                  size="lg"
-                >
-                  learn more
-                </Button>
               </div>
-
-              <p className="text-sm text-white/60 font-light">
-                powered by <span className="font-medium">laurie ai</span>
-              </p>
             </div>
           </section>
 
