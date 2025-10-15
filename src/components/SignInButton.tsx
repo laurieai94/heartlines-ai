@@ -76,7 +76,11 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                       setShowUserMenu(false);
                     }}
                   >
-                    <Settings className="h-5 w-5" />
+                    <CardAvatar className="scale-[0.35]">
+                      <span className="text-2xl font-bold uppercase text-white">
+                        {getUserInitial()}
+                      </span>
+                    </CardAvatar>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="left">
