@@ -41,11 +41,116 @@ const Mission = () => {
             </div>
           </section>
 
+          {/* 1.5. Our Moment - 90s Nostalgia with Heartlines Brand */}
+          <section className="animate-slide-up animation-delay-100">
+            <div className="relative">
+              {/* 90s-style chunky border with heartlines gradient glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#ff6b9d] via-coral-500 to-peach-400 rounded-[4px] opacity-75 blur-sm"></div>
+              
+              <div className="relative bg-burgundy-800 border-4 border-white/30 rounded-[4px] p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(255,107,157,0.15)]">
+                {/* Header with heartlines brand text effect */}
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8 tracking-tight" 
+                    style={{
+                      textShadow: '3px 3px 0px rgba(255, 107, 157, 0.5), -1px -1px 0px rgba(255, 138, 80, 0.5)'
+                    }}>
+                  🌍 our moment
+                </h2>
+                
+                {/* Dotted divider - 90s style with brand color */}
+                <div className="border-t-4 border-dotted border-coral-400/40 mb-8 max-w-2xl mx-auto"></div>
+                
+                {/* Opening line */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    ai isn't going anywhere. and neither are your feelings.
+                  </p>
+                </div>
+
+                {/* Middle paragraph */}
+                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    we're surrounded by tech that makes it easy to scroll, ghost, and pretend we're fine.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    heartlines exists to do the opposite — to help you slow down, check in, and actually connect.
+                  </p>
+                </div>
+
+                {/* Closing statement */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    we're not fixing you. we're helping you figure yourself out — and show up better for the people who matter.
+                  </p>
+                </div>
+                
+                {/* Bottom decorative element - heartlines brand colors */}
+                <div className="mt-8 flex justify-center gap-1">
+                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#ff6b9d' }}></div>
+                  <div className="w-3 h-3 bg-coral-500 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-peach-400 rounded-sm"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* 2. What heartlines Is */}
           <section className="animate-slide-up animation-delay-200">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed text-center max-w-3xl mx-auto">stronger relationships start here.
-the ai relationship coach for messy, modern love.</p>
+            <div className="relative">
+              {/* 90s-style chunky border with heartlines gradient glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#ff6b9d] via-coral-500 to-peach-400 rounded-[4px] opacity-75 blur-sm"></div>
+              
+              <div className="relative bg-burgundy-800 border-4 border-white/30 rounded-[4px] p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(255,107,157,0.15)]">
+                {/* Header with heartlines brand text effect */}
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8 tracking-tight" 
+                    style={{
+                      textShadow: '3px 3px 0px rgba(255, 107, 157, 0.5), -1px -1px 0px rgba(255, 138, 80, 0.5)'
+                    }}>
+                  💞 what heartlines is
+                </h2>
+                
+                {/* Dotted divider - 90s style with brand color */}
+                <div className="border-t-4 border-dotted border-coral-400/40 mb-8 max-w-2xl mx-auto"></div>
+                
+                {/* Opening line */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    heartlines is an ai coach built for the chaos of real relationships.
+                  </p>
+                </div>
+
+                {/* Middle paragraph */}
+                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    it's not therapy. it's not a dating app. it's the space in between —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    where you talk through the stuff you usually avoid, and start growing instead of spiraling.
+                  </p>
+                </div>
+
+                {/* Closing line */}
+                <div className="text-center mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    you'll learn to communicate, reflect, and build something healthy — with others and with yourself.
+                  </p>
+                </div>
+                
+                {/* Bottom decorative element - heartlines brand colors */}
+                <div className="mt-8 flex justify-center gap-1">
+                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#ff6b9d' }}></div>
+                  <div className="w-3 h-3 bg-coral-500 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-peach-400 rounded-sm"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 2.5. Love Belongs Here - Bright Highlight */}
+          <section className="animate-slide-up animation-delay-250">
+            <div className="bg-gradient-to-r from-[#ff6b9d] via-coral-500 to-peach-400 rounded-2xl p-6 md:p-8 shadow-[0_8px_24px_rgba(255,107,157,0.4)] hover:shadow-[0_12px_32px_rgba(255,107,157,0.5)] transition-all duration-300">
+              <p className="text-lg md:text-xl text-white font-medium text-center leading-relaxed">
+                love belongs here: queer, straight, trans, poly, monogamous, single, healing — whoever you are, you fit.
+              </p>
             </div>
           </section>
 
@@ -97,9 +202,6 @@ the ai relationship coach for messy, modern love.</p>
               </div>
             </div>
 
-            <p className="text-center text-white/80 text-lg font-light">
-              love belongs here: self-love, friendship, queer love, partnership, community love — all of it.
-            </p>
           </section>
 
           {/* 4. Our Vision (Accordion) */}
@@ -155,7 +257,10 @@ the ai relationship coach for messy, modern love.</p>
               <h2 className="text-3xl md:text-4xl font-playfair font-bold text-white text-center mb-6">
                 join the movement
               </h2>
-              
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed text-center max-w-3xl mx-auto mb-8">
+                when you invest in your growth with heartlines,
+                you're helping create a future where ai supports love, healing, and belonging — starting with you.
+              </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <Button onClick={() => navigate('/signup')} className="glass-cta text-white font-medium hover:scale-105 transition-all duration-200" size="lg">
