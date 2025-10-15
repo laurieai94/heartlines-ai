@@ -16,11 +16,11 @@ const AgeSelection = ({ selectedAge, onAgeSelect }: AgeSelectionProps) => {
     <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
       <div>
         <Label className="text-sm font-semibold text-white">
-          What's your age? <span className="text-red-400">*</span>
+          what's your age? <span className="text-red-400">*</span>
         </Label>
         <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal">
           <Calendar className="w-3 h-3 text-orange-300" />
-          <span>Different life stages = different relationship challenges</span>
+          <span>different life stages = different relationship challenges</span>
         </div>
       </div>
       <div className="grid grid-cols-4 gap-2">

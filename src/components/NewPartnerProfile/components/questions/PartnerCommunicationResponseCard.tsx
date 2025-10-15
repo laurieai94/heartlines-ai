@@ -21,12 +21,12 @@ const PartnerCommunicationResponseCard = ({
   const questionId = "partner-communication-response-question";
   return <QuestionCard questionId={questionId}>
       <Label className="text-sm font-semibold text-white mb-2 block">
-        When you speak up about what you need, how do they typically respond?
-        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        when you speak up about what you need, how do they typically respond?
+        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">select all that resonate</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <MessageSquare className="w-3 h-3 text-blue-300" />
-        <p className="text-white/70 text-xs">Think about their typical reaction to boundaries and needs.</p>
+        <p className="text-white/70 text-xs">think about their typical reaction to boundaries and needs.</p>
       </div>
       <MultiSelect options={PARTNER_COMMUNICATION_RESPONSE_OPTIONS} selectedValues={profileData.partnerCommunicationResponse} onToggle={value => handleMultiSelect('partnerCommunicationResponse', value)} />
     </QuestionCard>;

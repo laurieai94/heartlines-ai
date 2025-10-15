@@ -21,12 +21,12 @@ const PartnerFamilyDynamicCard = ({ profileData, handleMultiSelect, isComplete =
       questionId={questionId}
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        What was their family dynamic growing up? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        what was their family dynamic growing up? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">select all that resonate</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <Home className="w-3 h-3 text-green-300" />
         <p className="text-white/70 text-xs">
-          This literally programmed their relationship blueprints
+          this literally programmed their relationship blueprints
         </p>
       </div>
       <MultiSelect

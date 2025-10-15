@@ -47,11 +47,11 @@ const OrientationSelectionCard = ({
       questionId="question-orientation" 
     >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        What's your sexual orientation? <span className="text-red-400">*</span>
+        what's your sexual orientation? <span className="text-red-400">*</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <Compass className="w-3 h-3 text-pink-300" />
-        <span>Because heteronormative dating advice can stay in 2010</span>
+        <span>because heteronormative dating advice can stay in 2010</span>
       </div>
       <SingleSelect 
         options={orientationOptions} 

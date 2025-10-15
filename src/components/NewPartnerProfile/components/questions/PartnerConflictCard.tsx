@@ -21,12 +21,12 @@ const PartnerConflictCard = ({ profileData, handleMultiSelect, isComplete = fals
           questionId={questionId}
         >
       <Label className="text-sm font-semibold text-white mb-2 block">
-        How do they usually handle conflict? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        how do they usually handle conflict? <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">select all that resonate</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <Shield className="w-3 h-3 text-blue-300" />
         <p className="text-white/70 text-xs">
-          How they fight determines if your relationship will make it
+          how they fight determines if your relationship will make it
         </p>
       </div>
       <MultiSelect

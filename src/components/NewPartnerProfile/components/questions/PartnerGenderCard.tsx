@@ -22,13 +22,13 @@ const PartnerGenderCard = ({ profileData, handleMultiSelect, isComplete = false 
     >
       <div className="mb-2">
         <Label className="text-sm font-semibold text-white">
-          What's their gender identity? <span className="hidden sm:inline text-orange-400 text-xs font-normal">Select all that resonate</span>
+          what's their gender identity? <span className="hidden sm:inline text-orange-400 text-xs font-normal">select all that resonate</span>
         </Label>
       </div>
       <div className="hidden sm:flex items-center gap-2 mb-3">
         <User className="w-3 h-3 text-purple-300" />
         <p className="text-white/70 text-xs">
-          We know gender isn't just a checkbox
+          we know gender isn't just a checkbox
         </p>
       </div>
       <MultiSelect

@@ -46,9 +46,9 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   
   const getProfileTitle = () => {
     if (hasName) {
-      return `${profileData.name.trim()}'s Profile`;
+      return `${profileData.name.trim()}'s profile`;
     }
-    return "Your Profile";
+    return "your profile";
   };
   
   return (

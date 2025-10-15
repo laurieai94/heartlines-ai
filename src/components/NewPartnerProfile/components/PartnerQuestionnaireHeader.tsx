@@ -26,9 +26,9 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
   
   const getProfileTitle = () => {
     if (hasName) {
-      return `${profileData.partnerName.trim()}'s Profile`;
+      return `${profileData.partnerName.trim()}'s profile`;
     }
-    return "Partner Profile";
+    return "partner profile";
   };
   
   const handleRefresh = async () => {

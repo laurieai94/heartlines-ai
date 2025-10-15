@@ -19,12 +19,12 @@ const StressResponseQuestion = ({
   const isComplete = !!profileData.stressResponse?.length;
   return <QuestionCardSimple questionId="question-stress-response">
       <Label className="text-sm font-semibold text-white mb-2 block">
-        When life gets chaotic, where do you run?
-        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">Select all that resonate</span>
+        when life gets chaotic, where do you run?
+        <span className="hidden sm:inline text-orange-300 font-medium text-xs ml-2">select all that resonate</span>
       </Label>
       <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
         <Zap className="w-3 h-3 text-orange-300" />
-        <span>Stress patterns affect how you show up for people</span>
+        <span>stress patterns affect how you show up for people</span>
       </div>
       <MultiSelect options={stressResponseOptions} selectedValues={profileData.stressResponse || []} onToggle={value => handleMultiSelect('stressResponse', value)} />
     </QuestionCardSimple>;
