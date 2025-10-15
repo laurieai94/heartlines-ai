@@ -9,7 +9,7 @@ const NavAvatar = ({ children, className }: NavAvatarProps) => {
   const uniqueId = `nav-heart-${Math.random().toString(36).substr(2, 9)}`;
   
   return (
-    <div className={cn("relative w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-14 xl:h-14 flex items-center justify-center", className)}>
+    <div className={cn("relative w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:w-11 lg:w-12 lg:h-12 xl:w-14 xl:h-14 flex items-center justify-center", className)}>
       <svg
         viewBox="0 0 100 100"
         className="absolute inset-0 w-full h-full drop-shadow-md"
