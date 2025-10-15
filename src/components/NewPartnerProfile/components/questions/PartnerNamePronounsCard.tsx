@@ -71,7 +71,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
       );
     }
     return (
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold border border-white">
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold border border-white">
         {name.charAt(0).toLowerCase()}
       </div>
     );
