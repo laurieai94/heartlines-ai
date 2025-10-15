@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Shield, Lock, Database, Server, MessageSquare, Phone, Settings, Download, Eye, EyeOff, Key, CheckCircle, User, Home, CreditCard } from 'lucide-react';
+import { Shield, Database, Server, MessageSquare, Settings, Eye, User, Home, CreditCard } from 'lucide-react';
 import FlipPhoneIcon from '@/components/icons/FlipPhoneIcon';
 import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
@@ -17,11 +17,11 @@ const PrivacySecurity = () => {
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'learn how realtalk protects your privacy with client-side encryption, data retention controls, and secure backend infrastructure. your conversations stay private.');
+      metaDescription.setAttribute('content', 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'learn how realtalk protects your privacy with client-side encryption, data retention controls, and secure backend infrastructure. your conversations stay private.';
+      meta.content = 'learn how realtalk protects your privacy with row-level security, data retention controls, and secure backend infrastructure. your conversations stay private.';
       document.head.appendChild(meta);
     }
   }, []);
@@ -47,10 +47,10 @@ const PrivacySecurity = () => {
     icon: CreditCard
   }];
   const features = [{
-    icon: <Lock className="w-8 h-8 text-coral-400" />,
-    title: "client-side encryption",
-    description: "your data is encrypted on your device using aes-256-gcm before it ever reaches our servers. your encryption key never leaves your browser.",
-    highlight: "client-side protection"
+    icon: <Server className="w-8 h-8 text-coral-400" />,
+    title: "secure infrastructure",
+    description: "your data is stored in a secure supabase backend with industry-standard encryption at rest and in transit (https/tls). all communications are encrypted.",
+    highlight: "enterprise-grade security"
   }, {
     icon: <Database className="w-8 h-8 text-coral-400" />,
     title: "data retention you control",
@@ -130,7 +130,7 @@ const PrivacySecurity = () => {
             </h1>
             
             <p className="text-xl lg:text-2xl text-gray-300 mb-6 leading-relaxed font-light max-w-3xl mx-auto">
-              we believe your relationship data belongs to you. that's why we've built privacy and security into every layer of <HeartlinesWordmark size="sm" className="inline-block align-baseline text-white" />, from client-side encryption to database-level protection.
+              we believe your relationship data belongs to you. that's why we've built privacy and security into every layer of <HeartlinesWordmark size="sm" className="inline-block align-baseline text-white" />, from database-level security to full data control.
             </p>
           </div>
         </section>
@@ -170,11 +170,11 @@ const PrivacySecurity = () => {
                 <AccordionTrigger className="text-white hover:text-coral-300">
                   <div className="flex items-center gap-6">
                     <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">1</div>
-                    <span className="text-xl font-semibold text-left">encryption on your device</span>
+                    <span className="text-xl font-semibold text-left">secure data capture</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-300 pl-[4.5rem]">
-                  when encryption is enabled, your messages are encrypted using aes-256-gcm in your browser before being sent to our servers. your encryption key is generated locally and never transmitted.
+                  your profile data and preferences are collected through your browser and transmitted securely over https/tls to our backend. all network communications use encryption in transit.
                 </AccordionContent>
               </AccordionItem>
 
@@ -186,7 +186,7 @@ const PrivacySecurity = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-300 pl-[4.5rem]">
-                  encrypted data is stored in our supabase database with row-level security enforced. only your authenticated user id can access your data—not even our team can read encrypted conversations.
+                  your data is stored in our supabase database with row-level security (rls) enforced. only your authenticated user id can access your data—our team cannot view your profiles or conversations without your permission.
                 </AccordionContent>
               </AccordionItem>
 
@@ -211,30 +211,21 @@ const PrivacySecurity = () => {
             <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">faqs</h2>
             
             <Accordion type="single" collapsible className="space-y-3">
-              <AccordionItem value="encryption" className="questionnaire-card border-none">
+              <AccordionItem value="controls" className="questionnaire-card border-none">
                 <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
-                  what happens if i lose my device or clear my browser data?
+                  what privacy controls do i have?
                 </AccordionTrigger>
                 <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
-                  if encryption is enabled and you lose your encryption key (stored locally), your encrypted conversations cannot be recovered—this is by design for maximum security. we recommend creating local backups before enabling encryption. you can download backups anytime from your privacy settings.
+                  you can control data retention periods (30/90/365/forever days), opt out of anonymous usage analytics, and manage marketing email preferences. access these settings from your account page under privacy & security.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="disable" className="questionnaire-card border-none">
+              <AccordionItem value="protection" className="questionnaire-card border-none">
                 <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
-                  can i disable encryption after enabling it?
+                  how is my data protected?
                 </AccordionTrigger>
                 <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
-                  yes, you can disable encryption in your privacy settings. when disabled, future conversations will be stored in plain text (still protected by rls), but previously encrypted conversations will remain encrypted unless you choose to decrypt them during the transition.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="encryption-type" className="questionnaire-card border-none">
-                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
-                  what type of encryption do you use?
-                </AccordionTrigger>
-                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
-                  we use client-side aes-256-gcm encryption, meaning your data is encrypted in your browser before being stored. this is different from end-to-end encryption (e2ee), which typically involves a recipient with their own decryption key. our encryption protects your data from server breaches and unauthorized database access, but like all web applications, it requires trusting that our javascript code hasn't been compromised.
+                  all data is transmitted over https/tls and stored with encryption at rest in our supabase backend. row-level security (rls) policies ensure you can only access your own data. our infrastructure follows industry-standard security practices.
                 </AccordionContent>
               </AccordionItem>
 
@@ -252,7 +243,7 @@ const PrivacySecurity = () => {
                   how do i delete my conversations or account?
                 </AccordionTrigger>
                 <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
-                  you can delete individual conversations anytime from the chat sidebar. to delete all your data or your entire account, visit your privacy settings. account deletion removes all your data permanently and cannot be undone.
+                  you can delete individual conversations anytime from the chat sidebar. to delete all your data or your entire account, visit your account page. account deletion removes all your data permanently and cannot be undone.
                 </AccordionContent>
               </AccordionItem>
 
@@ -292,7 +283,6 @@ const PrivacySecurity = () => {
               <Link to="/">
                 <Button className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white rounded-full text-lg px-8 py-6">
                   get started free
-                  <Key className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             </div>
