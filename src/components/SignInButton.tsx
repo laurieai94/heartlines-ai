@@ -56,7 +56,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
                 }}
               >
                 <UserCircle className="mr-3 h-5 w-5" />
-                <span className="text-sm font-medium">View Profile</span>
+                <span className="text-sm font-medium">view profile</span>
               </Button>
             )}
             
@@ -68,7 +68,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               }}
             >
               <Settings className="mr-3 h-5 w-5" />
-              <span className="text-sm font-medium">Account Settings</span>
+              <span className="text-sm font-medium">account settings</span>
             </Button>
             
             <div className="h-px bg-white/10 my-1" />
@@ -78,7 +78,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
               onClick={handleSignOut}
             >
               <LogOut className="mr-3 h-5 w-5" />
-              <span className="text-sm font-medium">Sign out</span>
+              <span className="text-sm font-medium">sign out</span>
             </Button>
           </div>
         </PopoverContent>
