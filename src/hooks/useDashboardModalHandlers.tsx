@@ -1,6 +1,5 @@
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { toast } from 'sonner';
-import { flushSync } from 'react-dom';
 
 interface ModalStates {
   setActiveTab: (tab: string) => void;
@@ -97,13 +96,11 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     
     console.log('[Validation] ✅ All required fields present - proceeding with completion');
     
-    // STEP 1: Close modal IMMEDIATELY (optimistic UI)
-    console.log('[Complete] Closing modal immediately');
-    flushSync(() => {
-      modalStates.setShowQuestionnaireModal(false);
-      modalStates.setQuestionnaireOrigin(null);
-      modalStates.setSuppressPersonalCompletionPopup(true);
-    });
+    // STEP 1: Close modal smoothly
+    console.log('[Complete] Closing modal');
+    modalStates.setShowQuestionnaireModal(false);
+    modalStates.setQuestionnaireOrigin(null);
+    modalStates.setSuppressPersonalCompletionPopup(true);
     
     // STEP 2: Clear session flag immediately to prevent reopening
     sessionStorage.removeItem('questionnaire-completing');
@@ -151,20 +148,25 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
       sessionStorage.setItem(`questionnaire-completed-${(window as any).user.id}`, Date.now().toString());
     }
     
-    // STEP 6: Navigate after brief delay to ensure modal close animation completes
-    setTimeout(() => {
+    // STEP 6: Smart navigation - only if not already on coach page
+    const currentPath = window.location.pathname;
+    const isOnCoachPage = currentPath.includes('/coach');
+    
+    if (!isOnCoachPage) {
       console.log('[Complete] Navigating to insights tab');
       modalStates.setActiveTab("insights");
-      
-      // Focus chat input after navigation settles
-      setTimeout(() => {
-        const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
-        if (chatInput) {
-          chatInput.focus();
-        }
-        console.log('[Complete] Completion flow finished');
-      }, 100);
-    }, 50);
+    } else {
+      console.log('[Complete] Already on coach page, staying here');
+    }
+    
+    // Focus chat input after brief delay for DOM updates
+    setTimeout(() => {
+      const chatInput = document.querySelector('textarea[placeholder]') as HTMLTextAreaElement;
+      if (chatInput) {
+        chatInput.focus();
+      }
+      console.log('[Complete] Completion flow finished');
+    }, 100);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
