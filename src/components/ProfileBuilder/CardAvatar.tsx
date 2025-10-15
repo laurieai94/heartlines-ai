@@ -4,17 +4,43 @@ import FlameIconHalo from '@/components/FlameIconHalo';
 interface CardAvatarProps {
   children: React.ReactNode;
   className?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
+const CardAvatar = ({ children, className = "", size = 'md' }: CardAvatarProps) => {
   const reduceMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const uniqueId = `${useId()}-${Math.random().toString(36).substring(2, 9)}`;
+
+  const getSizeClasses = () => {
+    switch (size) {
+      case 'sm':
+        return {
+          container: 'w-10 h-10',
+          text: 'text-base',
+          halo: 'sm' as const
+        };
+      case 'lg':
+        return {
+          container: 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24',
+          text: 'text-3xl sm:text-4xl md:text-5xl',
+          halo: 'lg' as const
+        };
+      default:
+        return {
+          container: 'w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16',
+          text: 'text-xl sm:text-2xl md:text-3xl',
+          halo: 'md' as const
+        };
+    }
+  };
+
+  const sizeClasses = getSizeClasses();
 
   return (
     <div className={`relative ${className}`}>
       {/* Heart container with flame halo */}
-      <FlameIconHalo intensity="strong" size="md" animated={!reduceMotion}>
-        <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
+      <FlameIconHalo intensity="strong" size={sizeClasses.halo} animated={!reduceMotion}>
+        <div className={`relative ${sizeClasses.container} flex items-center justify-center group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300`}>
         <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden="true">
           <defs>
             {/* Warm molten gradient */}
@@ -80,7 +106,7 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
 
         {/* Foreground content (initials / icon) */}
         <div className="absolute inset-0 z-10 w-full h-full text-white flex items-center justify-center">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center font-semibold drop-shadow text-center -mt-1 sm:-mt-2 md:-mt-2.5">
+          <div className={`flex items-center justify-center font-semibold drop-shadow text-center ${sizeClasses.text}`}>
             {children}
           </div>
         </div>
