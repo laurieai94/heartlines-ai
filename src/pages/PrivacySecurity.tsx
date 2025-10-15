@@ -116,11 +116,6 @@ const PrivacySecurity = () => {
         {/* Hero Section */}
         <section className="px-6 py-12 lg:py-16">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-3 bg-coral-500/10 backdrop-blur-lg rounded-full px-6 py-3 mb-8 border border-coral-300/30">
-              <Shield className="w-5 h-5 text-coral-400" />
-              <span className="text-sm font-light text-white/90 tracking-wide">privacy & security</span>
-            </div>
-            
             <h1 className="text-5xl lg:text-6xl font-brand text-white mb-8 leading-tight">
               your privacy.
               <br />
