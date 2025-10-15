@@ -104,9 +104,11 @@ export const usePersonalProfileData = () => {
     isLoading: v2Store.isLoading,
     isReady: v2Store.isReady,
     isSyncing: v2Store.isSyncing,
+    lastSaved: v2Store.lastSaved,
     saveData: v2Store.saveData,
     updateField: normalizedUpdateField,
     updateFieldImmediate: v2Store.updateFieldImmediate,
-    handleMultiSelect: normalizedHandleMultiSelect
+    handleMultiSelect: normalizedHandleMultiSelect,
+    flush: v2Store.flush
   };
 };

@@ -6,6 +6,8 @@ import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import BrandLoadingText from "../BrandLoadingText";
+import SaveIndicator from "../SaveIndicator";
+import { useEffect } from "react";
 
 interface PersonalIdentityProps {
   profileType: 'your' | 'partner';
@@ -17,12 +19,30 @@ interface PersonalIdentityProps {
 const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSelect }: PersonalIdentityProps) => {
   const isPersonal = profileType === 'your';
   const { updateProfile } = useUserProfile();
-  const { profileData, isReady, updateField, handleMultiSelect: handlePersonalMultiSelect } = usePersonalProfileData();
+  const { 
+    profileData, 
+    isReady, 
+    isSyncing, 
+    lastSaved, 
+    updateField, 
+    updateFieldImmediate,
+    handleMultiSelect: handlePersonalMultiSelect,
+    flush 
+  } = usePersonalProfileData();
 
   // Use personal profile data if this is the personal profile
   const currentData = isPersonal ? profileData : formData;
   const currentUpdateField = isPersonal ? updateField : updateFormData;
   const currentHandleMultiSelect = isPersonal ? handlePersonalMultiSelect : handleMultiSelect;
+
+  // Flush pending updates on unmount
+  useEffect(() => {
+    return () => {
+      if (isPersonal && flush) {
+        flush();
+      }
+    };
+  }, [isPersonal, flush]);
 
   const handleAvatarUpdate = async (url: string) => {
     currentUpdateField('avatar_url', url);
@@ -79,14 +99,22 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
 
       {/* Name */}
       <div>
-        <Label htmlFor="name" className="text-base font-medium">
-          What should we call {isPersonal ? 'you' : 'them'}?
-          {isPersonal && <span className="text-red-500 ml-1">*</span>}
-        </Label>
+        <div className="flex items-center justify-between mb-1">
+          <Label htmlFor="name" className="text-base font-medium">
+            What should we call {isPersonal ? 'you' : 'them'}?
+            {isPersonal && <span className="text-red-500 ml-1">*</span>}
+          </Label>
+          {isPersonal && <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />}
+        </div>
         <Input
           id="name"
           value={currentData.name || ''}
           onChange={(e) => currentUpdateField('name', e.target.value)}
+          onBlur={(e) => {
+            if (isPersonal && updateFieldImmediate && e.target.value !== profileData.name) {
+              updateFieldImmediate('name', e.target.value);
+            }
+          }}
           placeholder={isPersonal ? "Enter your name or preferred name" : "Enter their name or preferred name"}
           className="mt-1"
         />
@@ -94,10 +122,13 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
 
       {/* Pronouns */}
       <div>
-        <Label className="text-base font-medium mb-3 block">
-          Pronouns
-          {isPersonal && <span className="text-red-500 ml-1">*</span>}
-        </Label>
+        <div className="flex items-center justify-between mb-3">
+          <Label className="text-base font-medium">
+            Pronouns
+            {isPersonal && <span className="text-red-500 ml-1">*</span>}
+          </Label>
+          {isPersonal && <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />}
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {pronounOptions.map((pronoun) => (
             <div key={pronoun} className="flex items-center space-x-2">
@@ -107,7 +138,14 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
                 name={`pronouns-${profileType}`}
                 value={pronoun}
                 checked={currentData.pronouns === pronoun}
-                onChange={(e) => currentUpdateField('pronouns', e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (isPersonal && updateFieldImmediate) {
+                    updateFieldImmediate('pronouns', value);
+                  } else {
+                    currentUpdateField('pronouns', value);
+                  }
+                }}
                 className="w-4 h-4 text-orange-500"
               />
               <Label htmlFor={`pronoun-${pronoun}-${profileType}`} className="text-sm">

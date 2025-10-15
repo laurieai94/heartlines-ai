@@ -4,6 +4,8 @@ import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
+import SaveIndicator from "@/components/SaveIndicator";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import { useState, useEffect } from "react";
 
 interface NamePronounsCardProps {
@@ -14,10 +16,18 @@ interface NamePronounsCardProps {
 
 const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
   const [customPronoun, setCustomPronoun] = useState('');
+  const { isSyncing, lastSaved, updateFieldImmediate, flush } = usePersonalProfileData();
 
   const primaryPronounOptions = [
     'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
   ];
+
+  // Flush on unmount
+  useEffect(() => {
+    return () => {
+      if (flush) flush();
+    };
+  }, [flush]);
 
   // Initialize custom pronoun if it exists and isn't a standard option
   useEffect(() => {
@@ -28,10 +38,10 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
-      updateField('pronouns', 'other');
+      updateFieldImmediate('pronouns', 'other');
       return;
     }
-    updateField('pronouns', pronoun);
+    updateFieldImmediate('pronouns', pronoun);
   };
 
   const handleCustomPronounChange = (value: string) => {
@@ -67,14 +77,22 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             {generateAvatar(profileData.name || '')}
           </div>
           <div className="flex-1 min-w-0">
-            <Label htmlFor="name" className="questionnaire-label-mobile">
-              what should we call you? <span className="text-red-400">*</span>
-            </Label>
+            <div className="flex items-center justify-between mb-1">
+              <Label htmlFor="name" className="questionnaire-label-mobile">
+                what should we call you? <span className="text-red-400">*</span>
+              </Label>
+              <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />
+            </div>
             <Input
               id="name"
               type="text"
               value={profileData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
+              onBlur={(e) => {
+                if (e.target.value !== profileData.name) {
+                  updateFieldImmediate('name', e.target.value);
+                }
+              }}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
@@ -83,9 +101,12 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
 
         {/* Right side: Pronouns */}
         <div className="flex flex-col">
-          <Label className="questionnaire-label-mobile">
-            what pronouns do you use? <span className="text-red-400">*</span>
-          </Label>
+          <div className="flex items-center justify-between mb-1">
+            <Label className="questionnaire-label-mobile">
+              what pronouns do you use? <span className="text-red-400">*</span>
+            </Label>
+            <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />
+          </div>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
             <span>so we can refer to you correctly</span>
