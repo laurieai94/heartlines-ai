@@ -285,7 +285,7 @@ const ProfileBuilder = ({
           }, {
             icon: <Star className="w-3 h-3 text-pink-300" />,
             text: "hacks unlocked"
-          }]} onStartProfile={handleStartPartnerProfile} buttonText="add player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-base leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">optional</span>} motivationText="bring your +1 for hotter takes" />
+          }]} onStartProfile={handleStartPartnerProfile} buttonText="add player 2" iconElement={partnerInitial ? <span className="text-white font-bold text-2xl sm:text-3xl leading-none">{partnerInitial}</span> : <Heart className="w-5 h-5 text-white" />} progressColor="text-pink-300" benefitColor="text-pink-300" optionalPillImage={<span className="bg-white/20 text-white/80 px-2 py-0.5 rounded-full text-xs font-medium">optional</span>} motivationText="bring your +1 for hotter takes" />
         </div>
 
 
