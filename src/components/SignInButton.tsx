@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import CardAvatar from "@/components/ProfileBuilder/CardAvatar";
+import NavAvatar from "@/components/NavAvatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/contexts/AuthContext";
@@ -38,11 +38,11 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
           variant="ghost"
           className="h-12 w-12 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
         >
-          <CardAvatar size="sm">
-            <span className="font-bold uppercase text-white">
+          <NavAvatar>
+            <span className="font-bold uppercase">
               {getUserInitial()}
             </span>
-          </CardAvatar>
+          </NavAvatar>
         </Button>
         </PopoverTrigger>
         <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
