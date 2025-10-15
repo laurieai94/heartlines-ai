@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import CardAvatar from "@/components/ProfileBuilder/CardAvatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/contexts/AuthContext";
@@ -36,13 +36,14 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+            className="h-10 w-10 rounded-full p-0 bg-white text-burgundy-900 hover:bg-gray-100 shadow-sm transition-all duration-300"
           >
-            <CardAvatar className="scale-75 sm:scale-100">
-              <span className="text-2xl sm:text-3xl font-bold uppercase">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src="" alt="User avatar" />
+              <AvatarFallback className="text-sm bg-gradient-to-br from-pink-500 to-coral-500 text-white">
                 {getUserInitial()}
-              </span>
-            </CardAvatar>
+              </AvatarFallback>
+            </Avatar>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
