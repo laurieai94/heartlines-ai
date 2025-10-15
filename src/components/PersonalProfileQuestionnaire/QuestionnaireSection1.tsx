@@ -39,7 +39,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     }
     return (
       <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
-        {name.charAt(0).toUpperCase()}
+        {name.charAt(0).toLowerCase()}
       </div>
     );
   };

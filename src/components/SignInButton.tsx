@@ -24,9 +24,9 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
 
   const getUserInitial = () => {
     if (user?.email) {
-      return user.email.charAt(0).toUpperCase();
+      return user.email.charAt(0).toLowerCase();
     }
-    return 'U';
+    return 'u';
   };
 
   if (user) {

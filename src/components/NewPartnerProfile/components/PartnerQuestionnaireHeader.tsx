@@ -13,7 +13,7 @@ interface PartnerQuestionnaireHeaderProps {
 
 const getInitial = (profileData: PartnerProfileData): string | null => {
   if (profileData.partnerName && profileData.partnerName.trim()) {
-    return profileData.partnerName.trim()[0].toUpperCase();
+    return profileData.partnerName.trim()[0].toLowerCase();
   }
   return null;
 };
@@ -54,14 +54,6 @@ const PartnerQuestionnaireHeader = ({ overallProgress, onClose, profileData }: P
     <div className="bg-white/[0.02] backdrop-blur-sm border-b border-white/[0.06] px-3 py-0.5 sm:px-4 sm:py-3 flex-shrink-0">
       <div className="flex items-center justify-between mb-0.5 sm:mb-2">
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-400 via-rose-500 to-pink-600 rounded-md flex items-center justify-center">
-            {hasName ? (
-              <span className="text-sm sm:text-sm font-bold text-white">{getInitial(profileData)}</span>
-            ) : (
-              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
-            )}
-          </div>
-          
           <div className="min-w-0">
             <h2 className="text-base sm:text-lg font-bold text-white truncate">{getProfileTitle()}</h2>
           </div>

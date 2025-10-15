@@ -78,7 +78,7 @@ const ProfileBuilder = ({
   } = usePartnerProfileData();
 
   // Helper function for getting initials
-  const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toUpperCase() || null;
+  const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toLowerCase() || null;
 
   // Get user's name for personalization
   const userName = temporaryDemographics.your?.name || (personalProfileData as any)?.name || '';

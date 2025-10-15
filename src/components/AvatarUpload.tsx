@@ -57,7 +57,7 @@ const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, userName, size = 'full
         <Avatar className={`${avatarSize} border-4 border-white shadow-2xl ring-4 ring-purple-200/50 bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500`}>
           <AvatarImage src={currentAvatarUrl} alt={userName || 'User'} />
           <AvatarFallback className="bg-gradient-to-br from-yellow-300 via-pink-400 to-coral-500 text-white text-2xl font-bold shadow-inner">
-            {userName ? userName.charAt(0).toUpperCase() : <User className={isCompact ? "w-6 h-6" : "w-8 h-8"} />}
+            {userName ? userName.charAt(0).toLowerCase() : <User className={isCompact ? "w-6 h-6" : "w-8 h-8"} />}
           </AvatarFallback>
         </Avatar>
         

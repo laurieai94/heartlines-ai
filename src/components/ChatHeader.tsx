@@ -19,7 +19,7 @@ const ChatHeader = ({ userName, partnerName, userAvatarUrl, hasProfiles }: ChatH
   const { isMobile } = useOptimizedMobile();
   
   const getUserInitials = () => {
-    return userName ? userName.charAt(0).toUpperCase() : 'U';
+    return userName ? userName.charAt(0).toLowerCase() : 'u';
   };
 
   return (
