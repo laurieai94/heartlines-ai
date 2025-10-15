@@ -13,11 +13,11 @@ const PartnerAgeSelection = ({ selectedAge, onAgeSelect }: PartnerAgeSelectionPr
   const [showUnderageModal, setShowUnderageModal] = useState(false);
   
   const ageOptions = [
-    'Under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
+    'under 18', '18-24', '25-29', '30-34', '35-39', '40-49', '50-60', '65+'
   ];
 
   const handleAgeSelect = (age: string) => {
-    if (age === 'Under 18') {
+    if (age === 'under 18') {
       setShowUnderageModal(true);
       return;
     }

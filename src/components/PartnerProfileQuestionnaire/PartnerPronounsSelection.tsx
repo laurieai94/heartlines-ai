@@ -10,7 +10,7 @@ interface PartnerPronounsSelectionProps {
 
 const PartnerPronounsSelection = ({ selectedPronouns, onPronounsSelect }: PartnerPronounsSelectionProps) => {
   const pronounsOptions = [
-    "She/her", "He/him", "They/them", "She/they", "He/they", "Other"
+    "she/her", "he/him", "they/them", "she/they", "he/they", "other"
   ];
 
   return (

@@ -20,20 +20,20 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
 
   // Initialize custom pronoun from saved data
   useEffect(() => {
-    const standardPronouns = ['She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'];
+    const standardPronouns = ['she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'];
     if (profileData.partnerPronouns && !standardPronouns.includes(profileData.partnerPronouns)) {
       setCustomPronoun(profileData.partnerPronouns);
     }
   }, [profileData.partnerPronouns]);
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'
+    'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
   ];
 
   // Helper function to check if pronouns are complete
   const isPronounsComplete = () => {
     if (!profileData.partnerPronouns) return false;
-    if (profileData.partnerPronouns === 'Other') {
+    if (profileData.partnerPronouns === 'other') {
       return customPronoun.trim().length > 0;
     }
     return true;
@@ -49,8 +49,8 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
   };
 
   const handlePronounSelect = (pronoun: string) => {
-    if (pronoun === 'Other') {
-      updateField('partnerPronouns', 'Other');
+    if (pronoun === 'other') {
+      updateField('partnerPronouns', 'other');
       setCustomPronoun("");
     } else {
       updateField('partnerPronouns', pronoun);
@@ -122,7 +122,7 @@ const PartnerNamePronounsCard = ({ profileData, updateField, isComplete = false 
           />
 
           {/* Custom pronoun input */}
-          {(profileData.partnerPronouns === 'Other' || (!['She/her', 'He/him', 'They/them', 'She/they', 'He/they'].includes(profileData.partnerPronouns || '') && profileData.partnerPronouns)) && (
+          {(profileData.partnerPronouns === 'other' || (!['she/her', 'he/him', 'they/them', 'she/they', 'he/they'].includes(profileData.partnerPronouns || '') && profileData.partnerPronouns)) && (
             <div className="mt-3 animate-fade-in">
               <Input
                 type="text"

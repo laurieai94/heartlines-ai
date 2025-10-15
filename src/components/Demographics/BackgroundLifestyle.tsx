@@ -11,15 +11,15 @@ const BackgroundLifestyle = ({ profileType = 'your', formData, updateFormData }:
   const isPersonal = profileType === 'your';
   
   const educationOptions = [
-    'High school or equivalent', 'Some college/university', "Associate's degree", "Bachelor's degree", "Master's degree", 'Doctoral degree', 'Trade/vocational training', 'Other', 'Prefer not to share'
+    'high school or equivalent', 'some college/university', "associate's degree", "bachelor's degree", "master's degree", 'doctoral degree', 'trade/vocational training', 'other', 'prefer not to share'
   ];
 
   const workOptions = [
-    'Student', 'Working full-time', 'Working part-time', 'Freelance/Contract work', 'Entrepreneur/Business owner', 'Stay-at-home parent', 'Between jobs', 'Retired', 'Unable to work', 'Other', 'Prefer not to share'
+    'student', 'working full-time', 'working part-time', 'freelance/contract work', 'entrepreneur/business owner', 'stay-at-home parent', 'between jobs', 'retired', 'unable to work', 'other', 'prefer not to share'
   ];
 
   const incomeOptions = [
-    'Under $30,000', '$30,000 - $50,000', '$50,000 - $75,000', '$75,000 - $100,000', '$100,000 - $150,000', '$150,000 - $250,000', 'Over $250,000', 'Prefer not to share'
+    'under $30,000', '$30,000 - $50,000', '$50,000 - $75,000', '$75,000 - $100,000', '$100,000 - $150,000', '$150,000 - $250,000', 'over $250,000', 'prefer not to share'
   ];
 
   return (

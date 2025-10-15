@@ -12,8 +12,8 @@ interface PartnerOrientationSelectionProps {
 
 const PartnerOrientationSelection = ({ selectedOrientations, selfDescribe, onOrientationSelect, onSelfDescribeChange }: PartnerOrientationSelectionProps) => {
   const orientationOptions = [
-    'Straight', 'Gay', 'Lesbian', 'Bisexual', 'Pansexual', 
-    'Queer', 'Asexual', 'Questioning', 'Not sure', 'Self-describe'
+    'straight', 'gay', 'lesbian', 'bisexual', 'pansexual', 
+    'queer', 'asexual', 'questioning', 'not sure', 'self-describe'
   ];
 
   return (
@@ -41,7 +41,7 @@ const PartnerOrientationSelection = ({ selectedOrientations, selfDescribe, onOri
         ))}
       </div>
       
-      {selectedOrientations.includes('Self-describe') && (
+      {selectedOrientations.includes('self-describe') && (
         <div className="mt-2">
           <Textarea
             value={selfDescribe}

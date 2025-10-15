@@ -16,19 +16,19 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
   const [customPronoun, setCustomPronoun] = useState('');
 
   const primaryPronounOptions = [
-    'She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'
+    'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
   ];
 
   // Initialize custom pronoun if it exists and isn't a standard option
   useEffect(() => {
-    if (profileData.pronouns && !['She/her', 'He/him', 'They/them', 'She/they', 'He/they', 'Other'].includes(profileData.pronouns)) {
+    if (profileData.pronouns && !['she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'].includes(profileData.pronouns)) {
       setCustomPronoun(profileData.pronouns);
     }
   }, [profileData.pronouns]);
 
   const handlePronounSelect = (pronoun: string) => {
-    if (pronoun === 'Other') {
-      updateField('pronouns', 'Other');
+    if (pronoun === 'other') {
+      updateField('pronouns', 'other');
       return;
     }
     updateField('pronouns', pronoun);
@@ -99,7 +99,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
           />
 
           {/* Custom pronoun input */}
-          {(profileData.pronouns === 'Other' || customPronoun) && (
+          {(profileData.pronouns === 'other' || customPronoun) && (
             <div className="mt-3">
               <Label className="text-sm font-medium text-white mb-2 block">
                 please specify your pronouns:

@@ -22,7 +22,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   if (!isReady) return null;
 
   const handleAgeSelect = (age: string) => {
-    if (age === 'Under 18') {
+    if (age === 'under 18') {
       setShowUnderageModal(true);
       return;
     }
@@ -44,13 +44,13 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
     );
   };
 
-  const basicPronouns = ['She/her', 'He/him', 'They/them', 'Ze/zir', 'Use my name'];
-  const morePronouns = ['Multiple sets', 'Other'];
+  const basicPronouns = ['she/her', 'he/him', 'they/them', 'ze/zir', 'use my name'];
+  const morePronouns = ['multiple sets', 'other'];
 
   const handlePronounSelect = (pronouns: string) => {
     updateField('pronouns', pronouns);
-    // If selecting "Other", keep the more options expanded
-    if (pronouns !== 'Other') {
+    // If selecting "other", keep the more options expanded
+    if (pronouns !== 'other') {
       setShowMorePronouns(false);
     }
   };
@@ -135,7 +135,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
                       key={pronouns}
                       onClick={() => handlePronounSelect(pronouns)}
                       className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                        profileData.pronouns === pronouns || (pronouns === 'Other' && profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.slice(0, -1).includes(profileData.pronouns))
+                        profileData.pronouns === pronouns || (pronouns === 'other' && profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.slice(0, -1).includes(profileData.pronouns))
                           ? 'questionnaire-button-selected'
                           : 'questionnaire-button-secondary'
                       }`}
@@ -147,7 +147,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
               )}
               
               {/* Custom pronouns input */}
-              {(profileData.pronouns === 'Other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns))) && (
+              {(profileData.pronouns === 'other' || (profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns))) && (
                 <div className="mt-1">
                   <Input
                     value={profileData.pronouns && !basicPronouns.includes(profileData.pronouns) && !morePronouns.includes(profileData.pronouns) ? profileData.pronouns : ''}

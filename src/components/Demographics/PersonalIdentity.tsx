@@ -37,19 +37,19 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
   };
 
   const pronounOptions = [
-    'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'ze/zir', 'Other', 'Prefer not to share'
+    'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'ze/zir', 'other', 'prefer not to share'
   ];
 
   const ageOptions = [
-    '18-22', '23-27', '28-32', '33-37', '38-42', '43-47', '48-52', '53-57', '58-62', '63+', 'Prefer not to share'
+    '18-22', '23-27', '28-32', '33-37', '38-42', '43-47', '48-52', '53-57', '58-62', '63+', 'prefer not to share'
   ];
 
   const orientationOptions = [
-    'Straight/Heterosexual', 'Gay/Lesbian', 'Bisexual', 'Pansexual', 'Queer', 'Asexual', 'Demisexual', 'Questioning/Exploring', 'Other', 'Prefer not to share'
+    'straight/heterosexual', 'gay/lesbian', 'bisexual', 'pansexual', 'queer', 'asexual', 'demisexual', 'questioning/exploring', 'other', 'prefer not to share'
   ];
 
   const genderOptions = [
-    'Woman', 'Man', 'Non-binary', 'Genderfluid', 'Transgender woman', 'Transgender man', 'Agender', 'Two-Spirit', 'Other', 'Prefer not to share'
+    'woman', 'man', 'non-binary', 'genderfluid', 'transgender woman', 'transgender man', 'agender', 'two-spirit', 'other', 'prefer not to share'
   ];
 
   // Don't render until data is ready for personal profiles

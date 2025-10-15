@@ -12,8 +12,8 @@ interface PartnerGenderSelectionProps {
 
 const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect, onSelfDescribeChange }: PartnerGenderSelectionProps) => {
   const genderOptions = [
-    'Woman', 'Man', 'Non-binary', 'Trans woman', 'Trans man', 
-    'Genderfluid', 'Questioning', 'Not sure', 'Self-describe'
+    'woman', 'man', 'non-binary', 'trans woman', 'trans man', 
+    'genderfluid', 'questioning', 'not sure', 'self-describe'
   ];
 
   return (
@@ -41,7 +41,7 @@ const PartnerGenderSelection = ({ selectedGenders, selfDescribe, onGenderSelect,
         ))}
       </div>
       
-      {selectedGenders.includes('Self-describe') && (
+      {selectedGenders.includes('self-describe') && (
         <div className="mt-2">
           <Textarea
             value={selfDescribe}

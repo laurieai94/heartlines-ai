@@ -11,25 +11,25 @@ interface PronounsSelectionProps {
 
 const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelectionProps) => {
   const [customPronouns, setCustomPronouns] = useState(
-    selectedPronouns && !['She/her', 'He/him', 'They/them', 'Ze/zir', 'Multiple sets', 'Use my name'].includes(selectedPronouns) 
+    selectedPronouns && !['she/her', 'he/him', 'they/them', 'ze/zir', 'multiple sets', 'use my name'].includes(selectedPronouns) 
       ? selectedPronouns 
       : ''
   );
 
   const pronounOptions = [
-    'She/her',
-    'He/him', 
-    'They/them',
-    'Ze/zir',
-    'Multiple sets',
-    'Use my name',
-    'Other'
+    'she/her',
+    'he/him', 
+    'they/them',
+    'ze/zir',
+    'multiple sets',
+    'use my name',
+    'other'
   ];
 
   const handleOptionSelect = (option: string) => {
-    if (option === 'Other') {
-      // Set the selection to 'Other' to show the input
-      onPronounsSelect('Other');
+    if (option === 'other') {
+      // Set the selection to 'other' to show the input
+      onPronounsSelect('other');
       return;
     }
     onPronounsSelect(option);
@@ -59,7 +59,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
             key={pronouns}
             onClick={() => handleOptionSelect(pronouns)}
             className={`p-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-              selectedPronouns === pronouns || (pronouns === 'Other' && customPronouns)
+              selectedPronouns === pronouns || (pronouns === 'other' && customPronouns)
                 ? 'questionnaire-button-selected'
                 : 'questionnaire-button-secondary'
             }`}
@@ -69,7 +69,7 @@ const PronounsSelection = ({ selectedPronouns, onPronounsSelect }: PronounsSelec
         ))}
       </div>
       
-      {(selectedPronouns === 'Other' || customPronouns) && (
+      {(selectedPronouns === 'other' || customPronouns) && (
         <div className="mt-1.5">
           <Label className="text-xs font-medium text-white mb-1 block">
             Please specify your pronouns:
