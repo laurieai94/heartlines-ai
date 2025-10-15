@@ -59,33 +59,39 @@ const Mission = () => {
                 {/* Dotted divider - 90s style with brand color */}
                 <div className="border-t-4 border-dotted border-coral-400/40 mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Three-line opening */}
+                {/* Opening lines */}
                 <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light">
-                    ai is here — and it's not going anywhere.
+                    ai is everywhere — and it's not going away.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light">
-                    we can let it divide us, or use it to bring us closer.
+                    we can let it make us more distant, or we can make it help us get real again.
                   </p>
                 </div>
                 
                 {/* Empty line spacer */}
                 <div className="h-4"></div>
                 
-                {/* Statement line with heartlines accent */}
-                <div className="flex justify-center mb-6">
+                {/* Statement lines with heartlines accent */}
+                <div className="flex flex-col items-center mb-6 space-y-2">
                   <p className="text-xl md:text-2xl text-white font-semibold text-center px-6 py-3 bg-white/10 border-l-4 border-coral-500">
-                    heartlines chooses connection.
+                    heartlines chooses real.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-medium text-center">
+                    real conversations. real feelings. real growth.
                   </p>
                 </div>
                 
-                {/* Final two lines */}
+                {/* Empty line spacer */}
+                <div className="h-4"></div>
+                
+                {/* Final lines */}
                 <div className="text-center space-y-2 max-w-2xl mx-auto">
                   <p className="text-base md:text-lg text-white/80 font-light">
-                    we believe love and empathy are acts of resistance —
+                    because love right now is complicated — between texts, burnout, and everyone pretending to be fine.
                   </p>
                   <p className="text-base md:text-lg text-white/80 font-light">
-                    and that ai, built with care, can help us rediscover what it means to be human.
+                    we're building ai that helps you talk it out, not tune it out.
                   </p>
                 </div>
                 
