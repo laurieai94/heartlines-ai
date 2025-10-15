@@ -36,7 +36,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="h-12 w-12 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+          className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-12 xl:w-12 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
         >
           <NavAvatar>
             <span className="font-bold uppercase">

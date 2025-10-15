@@ -9,7 +9,7 @@ const NavAvatar = ({ children, className }: NavAvatarProps) => {
   const uniqueId = `nav-heart-${Math.random().toString(36).substr(2, 9)}`;
   
   return (
-    <div className={cn("relative w-10 h-10 flex items-center justify-center", className)}>
+    <div className={cn("relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12 flex items-center justify-center", className)}>
       <svg
         viewBox="0 0 100 100"
         className="absolute inset-0 w-full h-full drop-shadow-md"
@@ -27,7 +27,7 @@ const NavAvatar = ({ children, className }: NavAvatarProps) => {
           className="transition-all duration-300"
         />
       </svg>
-      <div className="relative z-10 flex items-center justify-center text-white font-bold text-lg">
+      <div className="relative z-10 flex items-center justify-center text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl">
         {children}
       </div>
     </div>
