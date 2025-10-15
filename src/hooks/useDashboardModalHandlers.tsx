@@ -130,18 +130,23 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // STEP 4: Single cache clear and profile update event
-    try {
-      const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
-      profileCompletionCache?.clear();
-      validationCache?.clear();
-      requirementCache?.clear();
-    } catch (e) {
-      console.error('Cache clear error:', e);
-    }
-    
-    // Single event dispatch after data is saved
-    window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+    // STEP 4: Defer cache clear and profile updates to prevent render conflicts
+    requestAnimationFrame(() => {
+      // Clear caches after modal has time to unmount
+      try {
+        const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        requirementCache?.clear();
+        console.log('[Complete] Caches cleared successfully');
+      } catch (e) {
+        console.error('[Complete] Error clearing caches:', e);
+      }
+      
+      // Dispatch consolidated event for profile updates
+      console.log('[Complete] Dispatching profile:requiredFieldUpdated event');
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+    });
     
     // STEP 5: Store completion marker
     if (typeof window !== 'undefined' && (window as any).user?.id) {
@@ -166,7 +171,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
         chatInput.focus();
       }
       console.log('[Complete] Completion flow finished');
-    }, 100);
+    }, 200);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
