@@ -79,7 +79,7 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
 
         {/* Foreground content (initials / icon) */}
         <div className="absolute inset-0 z-10 w-full h-full text-white flex items-center justify-center">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center font-semibold drop-shadow text-center -mt-1">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center font-semibold drop-shadow text-center -mt-1 sm:-mt-2 md:-mt-2.5">
             {children}
           </div>
         </div>
