@@ -47,10 +47,6 @@ const Mission = () => {
                 heartlines
               </h1>
               
-              <p className="text-sm md:text-base text-white/60 font-light">
-                powered by <span className="font-medium">laurie ai</span>
-              </p>
-              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   onClick={() => navigate('/signup')}
