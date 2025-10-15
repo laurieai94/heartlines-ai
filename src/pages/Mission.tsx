@@ -8,17 +8,15 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import heartlinesPhone from "@/assets/heartlines-flip-phone.png";
-
 const Mission = () => {
-  const { user } = useAuth();
+  const {
+    user
+  } = useAuth();
   const navigate = useNavigate();
-
   const handleSignInClick = () => {
     navigate('/signup');
   };
-
-  return (
-    <>
+  return <>
       <Helmet>
         <title>our mission - heartlines | ai-powered relationship coaching</title>
         <meta name="description" content="empowering healthier relationships through ai-powered coaching and personalized insights. learn about our mission to make relationship guidance accessible to everyone." />
@@ -26,43 +24,19 @@ const Mission = () => {
       </Helmet>
       
       <div className="min-h-screen bg-burgundy-900 flex flex-col">
-      <SimpleHeader 
-        user={user}
-        activeTab="home"
-        onSignInClick={handleSignInClick}
-        hideSignInButton={true}
-      />
+      <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
           <section className="text-center animate-fade-in">
             <div className="flex flex-col items-center space-y-6 md:space-y-8">
-              <img 
-                src={heartlinesPhone} 
-                alt="Heartlines flip phone illustration" 
-                className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto"
-              />
+              <img src={heartlinesPhone} alt="Heartlines flip phone illustration" className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto" />
               
-              <h1 className="text-5xl md:text-6xl font-playfair font-bold text-white">
-                heartlines
-              </h1>
+              
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  onClick={() => navigate('/signup')}
-                  className="glass-cta text-white font-medium hover:scale-105 transition-all duration-200"
-                  size="lg"
-                >
-                  start free
-                </Button>
-                <Button 
-                  onClick={() => navigate('/coach')}
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm"
-                  size="lg"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  meet kai
-                </Button>
+                
+                
               </div>
             </div>
           </section>
@@ -190,18 +164,10 @@ const Mission = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-                <Button 
-                  onClick={() => navigate('/signup')}
-                  className="glass-cta text-white font-medium hover:scale-105 transition-all duration-200"
-                  size="lg"
-                >
+                <Button onClick={() => navigate('/signup')} className="glass-cta text-white font-medium hover:scale-105 transition-all duration-200" size="lg">
                   start free
                 </Button>
-                <Button 
-                  onClick={() => navigate('/coach')}
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm"
-                  size="lg"
-                >
+                <Button onClick={() => navigate('/coach')} className="bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 backdrop-blur-sm" size="lg">
                   <MessageSquare className="w-4 h-4" />
                   meet kai
                 </Button>
@@ -216,8 +182,6 @@ const Mission = () => {
 
         <SiteFooter />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Mission;
