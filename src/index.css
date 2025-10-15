@@ -266,12 +266,17 @@
     html, body {
       overscroll-behavior-y: none !important;
       overscroll-behavior-x: none !important;
-      overflow-y: hidden; /* No page scroll on mobile - components handle their own scroll */
+      /* Removed overflow-y: hidden to allow pages to scroll naturally on mobile */
     }
     
     body {
       /* Remove scroll momentum issues */
       -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Apply scroll restrictions only to specific dashboard containers if needed */
+    .dashboard-container {
+      overflow-y: hidden;
     }
   }
 
