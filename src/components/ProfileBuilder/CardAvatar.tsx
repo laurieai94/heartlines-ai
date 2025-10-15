@@ -8,7 +8,7 @@ interface CardAvatarProps {
 
 const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
   const reduceMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  const uniqueId = useId();
+  const uniqueId = `${useId()}-${Math.random().toString(36).substring(2, 9)}`;
 
   return (
     <div className={`relative ${className}`}>
