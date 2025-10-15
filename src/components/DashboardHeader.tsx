@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Crown, Home, User as UserIcon, MessageSquare, CreditCard, Target, Settings } from "lucide-react";
-import CardAvatar from "@/components/ProfileBuilder/CardAvatar";
+import FlipPhoneIcon from "./icons/FlipPhoneIcon";
 import { useNavigate } from "react-router-dom";
 import { useMobileHeaderVisibility } from "@/contexts/MobileHeaderVisibilityContext";
 import { useOptimizedMobile } from "@/hooks/useOptimizedMobile";
@@ -31,13 +31,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
   const { isMobile } = useOptimizedMobile();
   const { visible } = useMobileHeaderVisibility();
   const isCoachMode = activeTab === 'insights';
-  
-  const getUserInitial = () => {
-    if (user?.email) {
-      return user.email.charAt(0).toLowerCase();
-    }
-    return 'm'; // 'm' for menu as fallback
-  };
   
   const handleTabHover = (tabValue: string) => {
     if (tabValue === 'plans') {
@@ -86,13 +79,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200"
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <CardAvatar className="scale-75 sm:scale-90 md:scale-100">
-                    <span className="text-xl sm:text-2xl md:text-3xl font-bold uppercase text-white">
-                      {getUserInitial()}
-                    </span>
-                  </CardAvatar>
+            <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 xl:h-20 xl:w-20" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
@@ -143,13 +132,9 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200"
+                  className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <CardAvatar className="scale-75 sm:scale-90 md:scale-100">
-                    <span className="text-xl sm:text-2xl md:text-3xl font-bold uppercase text-white">
-                      {getUserInitial()}
-                    </span>
-                  </CardAvatar>
+                  <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 xl:h-20 xl:w-20" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
