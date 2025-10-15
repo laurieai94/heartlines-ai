@@ -7,7 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import heartlinesPhone from "@/assets/heartlines-flip-phone.png";
+import missionHeroBanner from "@/assets/mission-hero-banner.png";
 const Mission = () => {
   const {
     user
@@ -30,7 +30,7 @@ const Mission = () => {
           {/* 1. Hero Section */}
           <section className="text-center animate-fade-in">
             <div className="flex flex-col items-center space-y-6 md:space-y-8">
-              <img src={heartlinesPhone} alt="Heartlines flip phone illustration" className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto" />
+              <img src={missionHeroBanner} alt="Heartlines - stronger relationships start here, the ai relationship coach for messy, modern love" className="w-full max-w-4xl mx-auto rounded-lg" />
               
               
               
