@@ -41,6 +41,64 @@ const Mission = () => {
             </div>
           </section>
 
+          {/* 1.5. Our Moment - 90s Nostalgia with Heartlines Brand */}
+          <section className="animate-slide-up animation-delay-100">
+            <div className="relative">
+              {/* 90s-style chunky border with heartlines gradient glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#ff6b9d] via-coral-500 to-peach-400 rounded-[4px] opacity-75 blur-sm"></div>
+              
+              <div className="relative bg-burgundy-800 border-4 border-white/30 rounded-[4px] p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(255,107,157,0.15)]">
+                {/* Header with heartlines brand text effect */}
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8 tracking-tight" 
+                    style={{
+                      textShadow: '3px 3px 0px rgba(255, 107, 157, 0.5), -1px -1px 0px rgba(255, 138, 80, 0.5)'
+                    }}>
+                  🌍 our moment
+                </h2>
+                
+                {/* Dotted divider - 90s style with brand color */}
+                <div className="border-t-4 border-dotted border-coral-400/40 mb-8 max-w-2xl mx-auto"></div>
+                
+                {/* Three-line opening */}
+                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    ai is here — and it's not going anywhere.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light">
+                    we can let it divide us, or use it to bring us closer.
+                  </p>
+                </div>
+                
+                {/* Empty line spacer */}
+                <div className="h-4"></div>
+                
+                {/* Statement line with heartlines accent */}
+                <div className="flex justify-center mb-6">
+                  <p className="text-xl md:text-2xl text-white font-semibold text-center px-6 py-3 bg-white/10 border-l-4 border-coral-500">
+                    heartlines chooses connection.
+                  </p>
+                </div>
+                
+                {/* Final two lines */}
+                <div className="text-center space-y-2 max-w-2xl mx-auto">
+                  <p className="text-base md:text-lg text-white/80 font-light">
+                    we believe love and empathy are acts of quiet resistance —
+                  </p>
+                  <p className="text-base md:text-lg text-white/80 font-light">
+                    and that ai, built with care, can help us rediscover what it means to be human.
+                  </p>
+                </div>
+                
+                {/* Bottom decorative element - heartlines brand colors */}
+                <div className="mt-8 flex justify-center gap-1">
+                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#ff6b9d' }}></div>
+                  <div className="w-3 h-3 bg-coral-500 rounded-sm"></div>
+                  <div className="w-3 h-3 bg-peach-400 rounded-sm"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* 2. What heartlines Is */}
           <section className="animate-slide-up animation-delay-200">
             <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
