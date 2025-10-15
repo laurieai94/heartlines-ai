@@ -36,10 +36,10 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="h-12 w-12 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
+            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:h-16 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
           >
-            <CardAvatar size="sm">
-              <span className="font-bold uppercase">
+            <CardAvatar className="scale-75 sm:scale-90 md:scale-100">
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold uppercase text-white">
                 {getUserInitial()}
               </span>
             </CardAvatar>
