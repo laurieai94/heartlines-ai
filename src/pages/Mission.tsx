@@ -82,7 +82,7 @@ const Mission = () => {
                 {/* Final two lines */}
                 <div className="text-center space-y-2 max-w-2xl mx-auto">
                   <p className="text-base md:text-lg text-white/80 font-light">
-                    we believe love and empathy are acts of quiet resistance —
+                    we believe love and empathy are acts of resistance —
                   </p>
                   <p className="text-base md:text-lg text-white/80 font-light">
                     and that ai, built with care, can help us rediscover what it means to be human.
