@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import FlameIconHalo from '@/components/FlameIconHalo';
 
 interface CardAvatarProps {
@@ -8,6 +8,7 @@ interface CardAvatarProps {
 
 const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
   const reduceMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const uniqueId = useId();
 
   return (
     <div className={`relative ${className}`}>
@@ -17,7 +18,7 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
         <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden="true">
           <defs>
             {/* Warm molten gradient */}
-            <linearGradient id="lavaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id={`lavaGrad-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FFC76A">
                 {!reduceMotion && <animate attributeName="offset" values="0%;10%;0%" dur="7s" repeatCount="indefinite" />}
               </stop>
@@ -26,7 +27,7 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
             </linearGradient>
 
             {/* Liquid flame filter */}
-            <filter id="liquid" x="-20%" y="-20%" width="140%" height="140%">
+            <filter id={`liquid-${uniqueId}`} x="-20%" y="-20%" width="140%" height="140%">
               <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="1" seed="2" result="noise">
                 {!reduceMotion && <animate attributeName="baseFrequency" values="0.55;0.8;0.55" dur="6s" repeatCount="indefinite" />}
               </feTurbulence>
@@ -36,7 +37,7 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
             </filter>
 
             {/* Soft glow filter for outer stroke */}
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <filter id={`glow-${uniqueId}`} x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="2" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
@@ -52,15 +53,15 @@ const CardAvatar = ({ children, className = "" }: CardAvatarProps) => {
             stroke="white"
             strokeOpacity="0.5"
             strokeWidth="8"
-            filter="url(#glow)"
+            filter={`url(#glow-${uniqueId})`}
             opacity="0.55"
           />
 
           {/* Main heart with molten fill */}
           <path
             d="M100 162 C 92 154, 60 129, 44 110 C 22 83, 26 48, 54 36 C 71 28, 89 33, 100 47 C 111 33, 129 28, 146 36 C 174 48, 178 83, 156 110 C 140 129, 108 154, 100 162 Z"
-            fill="url(#lavaGrad)"
-            filter="url(#liquid)"
+            fill={`url(#lavaGrad-${uniqueId})`}
+            filter={`url(#liquid-${uniqueId})`}
             stroke="white"
             strokeWidth="3"
           />
