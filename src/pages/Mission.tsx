@@ -7,7 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import missionHeroBanner from "@/assets/mission-hero-banner.png";
+
 const Mission = () => {
   const {
     user
@@ -28,17 +28,13 @@ const Mission = () => {
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
-          <section className="text-center animate-fade-in">
-            <div className="flex flex-col items-center space-y-6 md:space-y-8">
-              <img src={missionHeroBanner} alt="Heartlines - stronger relationships start here, the ai relationship coach for messy, modern love" className="w-full max-w-4xl mx-auto rounded-lg" />
-              
-              
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                
-                
-              </div>
-            </div>
+          <section className="text-center animate-fade-in py-8 md:py-12">
+            <h1 
+              className="font-['Shrikhand'] text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-[#ff8a50] via-[#ff7a70] to-[#ff6b9d] bg-clip-text text-transparent leading-none"
+              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))' }}
+            >
+              our why
+            </h1>
           </section>
 
           {/* 1.5. Our Moment - 90s Nostalgia with Heartlines Brand */}
