@@ -38,6 +38,13 @@ export const useProgressiveAccess = () => {
   // Listen for profile required field updates to force re-calculation
   useEffect(() => {
     const handleProfileUpdate = () => {
+      // SAFETY: Ignore events if questionnaire is completing
+      const isCompleting = sessionStorage.getItem('questionnaire-completing');
+      if (isCompleting) {
+        console.log('[useProgressiveAccess] Ignoring update - questionnaire completing');
+        return;
+      }
+      
       console.log('[useProgressiveAccess] Profile update event - forcing recalculation');
       setProfileUpdateCounter(prev => prev + 1);
       

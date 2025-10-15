@@ -130,23 +130,23 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
     console.log('Saving complete questionnaire data:', { newProfiles, newDemographics });
     updateTemporaryProfile(newProfiles, newDemographics);
     
-    // STEP 4: Defer cache clear and profile updates to prevent render conflicts
-    requestAnimationFrame(() => {
-      // Clear caches after modal has time to unmount
+    // STEP 4: SIGNIFICANTLY DELAY cache clear and events to allow modal to fully unmount
+    setTimeout(() => {
+      // Clear caches after modal has had time to fully unmount
       try {
         const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
         profileCompletionCache?.clear();
         validationCache?.clear();
         requirementCache?.clear();
-        console.log('[Complete] Caches cleared successfully');
+        console.log('[Complete] Caches cleared after delay');
       } catch (e) {
         console.error('[Complete] Error clearing caches:', e);
       }
       
-      // Dispatch consolidated event for profile updates
+      // Dispatch event after modal has fully unmounted
       console.log('[Complete] Dispatching profile:requiredFieldUpdated event');
       window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
-    });
+    }, 500);
     
     // STEP 5: Store completion marker
     if (typeof window !== 'undefined' && (window as any).user?.id) {
@@ -171,7 +171,7 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
         chatInput.focus();
       }
       console.log('[Complete] Completion flow finished');
-    }, 200);
+    }, 300);
   };
 
   const handlePartnerQuestionnaireComplete = (questionnaireData: any, skipPopup = false) => {
