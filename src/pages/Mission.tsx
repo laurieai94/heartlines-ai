@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
-import { Heart, MessageSquare, Users, RefreshCw, Sparkles, Target, ChevronDown } from "lucide-react";
+import { Heart, MessageSquare } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
@@ -148,103 +148,6 @@ const Mission = () => {
                 love belongs here: queer, straight, trans, poly, monogamous, single, healing — whoever you are, you fit.
               </p>
             </div>
-          </section>
-
-          {/* 3. What heartlines Stands For */}
-          <section className="animate-slide-up animation-delay-400">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-white text-center mb-8">
-              💞 what heartlines stands for
-            </h2>
-            
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-                <div className="text-center">
-                  <MessageSquare className="w-10 h-10 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">communicate without fear</h3>
-                  <p className="text-sm text-white/70">
-                    learn how to express yourself clearly and calmly.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-                <div className="text-center">
-                  <Heart className="w-10 h-10 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">feel seen and supported</h3>
-                  <p className="text-sm text-white/70">
-                    find guidance that meets you where you are.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-                <div className="text-center">
-                  <RefreshCw className="w-10 h-10 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">break patterns, not people</h3>
-                  <p className="text-sm text-white/70">
-                    notice what repeats — and choose better next time.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[20px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:bg-white/15 transition-all duration-300">
-                <div className="text-center">
-                  <Sparkles className="w-10 h-10 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">grow in love, including self-love</h3>
-                  <p className="text-sm text-white/70">
-                    build relationships that last because they're honest.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </section>
-
-          {/* 4. Our Vision (Accordion) */}
-          <section className="animate-slide-up animation-delay-600">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="vision" className="border-white/15 bg-white/10 backdrop-blur-xl rounded-[20px] px-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
-                <AccordionTrigger className="text-2xl font-playfair text-white hover:text-white/90 py-6">
-                  our vision
-                </AccordionTrigger>
-                <AccordionContent className="text-white/80 text-lg leading-relaxed pb-6">
-                  when we build stronger relationships — with ourselves and each other — we build stronger communities.
-                  heartlines helps rebuild trust where it's been lost, communicate through difference, and rediscover what it means to care.
-                  the work of healing the world begins with the work of healing how we love — starting within.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </section>
-
-          {/* 5. Why Now */}
-          <section className="animate-slide-up animation-delay-800">
-            <div className="bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-[20px] p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_0_40px_rgba(233,141,138,0.15)] hover:bg-white/15 transition-all duration-300">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-white text-center mb-6">
-                why now
-              </h2>
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed text-center max-w-3xl mx-auto">
-                ai is here — and it's not going anywhere.
-                heartlines is proof that technology can care.
-                powered by laurie ai, we're using artificial intelligence not to replace humanity, but to help people rediscover it — one reflection, one conversation, one act of love at a time.
-              </p>
-            </div>
-          </section>
-
-          {/* 6. The Manifesto (Accordion) */}
-          <section className="animate-slide-up animation-delay-1000">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="manifesto" className="border-white/15 bg-white/10 backdrop-blur-xl rounded-[20px] px-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
-                <AccordionTrigger className="text-2xl font-playfair text-white hover:text-white/90 py-6">
-                  the manifesto
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-xl md:text-2xl leading-relaxed pb-6 space-y-2 font-light">
-                  <p>we're not building ai for engagement.</p>
-                  <p>we're building ai for empathy.</p>
-                  <p>because the future doesn't need smarter machines —</p>
-                  <p className="font-medium">it needs more connected humans.</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
           </section>
 
           {/* 7. Join the Movement */}
