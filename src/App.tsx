@@ -128,7 +128,7 @@ const queryClient = new QueryClient({
 const App: React.FC = () => (
   <AuthProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
+      <TooltipProvider delayDuration={500}>
         <Toaster />
         <AppContent />
       </TooltipProvider>
