@@ -303,7 +303,7 @@ const AccountSecurity = () => {
             <Button 
               onClick={() => setShowPasswordDialog(true)}
               variant="outline"
-              className={`w-full bg-white/5 border-white/20 text-white hover:bg-white/10 touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
+              className={`w-full bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
             >
               Change Password
             </Button>
@@ -329,7 +329,7 @@ const AccountSecurity = () => {
             <Button 
               onClick={() => setShowDeleteDialog(true)}
               variant="destructive"
-              className={`w-full bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
+              className={`w-full bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 hover:text-red-400 touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
             >
               Delete Account
             </Button>
