@@ -247,25 +247,30 @@ export const ChatInputSection = ({
     };
   }, [accessLevel]);
 
-  // Track keyboard height using Visual Viewport API for smooth positioning
+  // Optimized keyboard height tracking with throttling
   useEffect(() => {
     if (!isMobilePhone) return;
     
+    let throttleTimer: NodeJS.Timeout | null = null;
     const updateKeyboardHeight = () => {
-      if (window.visualViewport) {
-        const viewportHeight = window.visualViewport.height;
-        const windowHeight = window.innerHeight;
-        const calculatedKeyboardHeight = Math.max(0, windowHeight - viewportHeight);
-        setKeyboardHeight(calculatedKeyboardHeight);
-      }
+      if (throttleTimer) return;
+      
+      throttleTimer = setTimeout(() => {
+        if (window.visualViewport) {
+          const viewportHeight = window.visualViewport.height;
+          const windowHeight = window.innerHeight;
+          const calculatedKeyboardHeight = Math.max(0, windowHeight - viewportHeight);
+          setKeyboardHeight(calculatedKeyboardHeight);
+        }
+        throttleTimer = null;
+      }, 100);
     };
     
-    window.visualViewport?.addEventListener('resize', updateKeyboardHeight);
-    window.visualViewport?.addEventListener('scroll', updateKeyboardHeight);
+    window.visualViewport?.addEventListener('resize', updateKeyboardHeight, { passive: true });
     
     return () => {
+      if (throttleTimer) clearTimeout(throttleTimer);
       window.visualViewport?.removeEventListener('resize', updateKeyboardHeight);
-      window.visualViewport?.removeEventListener('scroll', updateKeyboardHeight);
     };
   }, [isMobilePhone]);
 

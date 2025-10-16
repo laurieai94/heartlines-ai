@@ -35,29 +35,29 @@ export const useProgressiveAccess = () => {
   const [upgradeReason, setUpgradeReason] = useState<'limit-reached' | 'near-limit' | 'upgrade'>('upgrade');
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
 
-  // Listen for profile required field updates to force re-calculation
+  // Throttled profile update listener to reduce re-renders
   useEffect(() => {
+    let throttleTimer: NodeJS.Timeout | null = null;
+    
     const handleProfileUpdate = () => {
       // SAFETY: Ignore events if questionnaire is completing
       const isCompleting = sessionStorage.getItem('questionnaire-completing');
-      if (isCompleting) {
-        console.log('[useProgressiveAccess] Ignoring update - questionnaire completing');
-        return;
-      }
+      if (isCompleting) return;
       
-      console.log('[useProgressiveAccess] Profile update event - forcing recalculation');
-      setProfileUpdateCounter(prev => prev + 1);
+      // Throttle updates to max once every 300ms
+      if (throttleTimer) return;
       
-      // Force React to process this state update immediately
-      setTimeout(() => {
+      throttleTimer = setTimeout(() => {
         setProfileUpdateCounter(prev => prev + 1);
-      }, 0);
+        throttleTimer = null;
+      }, 300);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+      if (throttleTimer) clearTimeout(throttleTimer);
     };
   }, []);
 
@@ -66,11 +66,8 @@ export const useProgressiveAccess = () => {
     if (!personalStorage.profileData || Object.keys(personalStorage.profileData).length === 0) {
       return 0;
     }
-    // Force bypass cache when profileUpdateCounter changes to ensure fresh data
     const skipCache = profileUpdateCounter > 0;
-    const result = calculateProgressOptimized(personalStorage.profileData as ProfileData, skipCache);
-    console.log('[useProgressiveAccess] Profile completion:', result, 'skipCache:', skipCache);
-    return result;
+    return calculateProgressOptimized(personalStorage.profileData as ProfileData, skipCache);
   }, [personalStorage.profileData, profileUpdateCounter]);
 
   // Memoized chat readiness computation
@@ -136,22 +133,15 @@ export const useProgressiveAccess = () => {
   // Memoized access level calculation
   const accessLevel = useMemo((): AccessLevel => {
     if (!user) {
-      console.log('[Access] No user - signup required');
       lastAccessLevelRef.current = 'signup-required';
       return 'signup-required';
     }
     
     if (!hasPersonalProfileForChat) {
-      console.log('[Access] Profile incomplete - profile required', {
-        hasPersonalProfileForChat,
-        missingFields: missingFieldsForChat,
-        profileData: personalStorage.profileData
-      });
       lastAccessLevelRef.current = 'profile-required';
       return 'profile-required';
     }
     
-    console.log('[Access] Full access granted');
     lastAccessLevelRef.current = 'full-access';
     return 'full-access';
   }, [user, hasPersonalProfileForChat, missingFieldsForChat, personalStorage.profileData]);
@@ -187,12 +177,6 @@ export const useProgressiveAccess = () => {
   const canUnlockCoaching = useMemo(() => {
     const completed = personalStorage.profileData ? getCompletedRequiredFieldsCount(personalStorage.profileData as ProfileData) : 0;
     const total = getTotalRequiredFieldsCount();
-    console.log('[useProgressiveAccess] Coaching unlock check:', { 
-      completed, 
-      total, 
-      canUnlock: completed >= total,
-      profileData: personalStorage.profileData 
-    });
     return completed >= total;
   }, [
     personalStorage.profileData?.name,

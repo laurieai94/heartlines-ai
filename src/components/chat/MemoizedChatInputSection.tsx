@@ -18,13 +18,11 @@ interface ChatInputSectionProps {
   onInputFocus?: () => void;
 }
 
-// Memoized ChatInputSection to prevent unnecessary re-renders
+// Memoized ChatInputSection with optimized comparison
 const MemoizedChatInputSection = React.memo(ChatInputSection, (prevProps, nextProps) => {
   // Only re-render if essential props change
   return (
     prevProps.loading === nextProps.loading &&
-    prevProps.userName === nextProps.userName &&
-    prevProps.partnerName === nextProps.partnerName &&
     prevProps.isConfigured === nextProps.isConfigured &&
     prevProps.canInteract === nextProps.canInteract &&
     prevProps.isHistoryLoaded === nextProps.isHistoryLoaded &&

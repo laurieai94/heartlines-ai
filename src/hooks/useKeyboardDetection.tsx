@@ -38,23 +38,29 @@ export const useKeyboardDetection = (): boolean => {
     }
 
     // Store initial viewport height
-    setInitialViewportHeight(window.visualViewport?.height || window.innerHeight);
+    const initHeight = window.visualViewport?.height || window.innerHeight;
+    setInitialViewportHeight(initHeight);
 
     // Add focus event listeners for immediate detection
     document.addEventListener('focusin', handleFocusIn, { passive: true });
     document.addEventListener('focusout', handleFocusOut, { passive: true });
 
+    // Throttle viewport changes to reduce overhead
+    let viewportThrottle: NodeJS.Timeout | null = null;
     const handleViewportChange = () => {
-      if (!window.visualViewport) {
-        // Fallback for browsers without visualViewport API
-        const currentHeight = window.innerHeight;
-        const heightDifference = initialViewportHeight - currentHeight;
-        setIsKeyboardVisible(heightDifference > 150); // 150px threshold for keyboard
-        return;
-      }
-
-      const heightRatio = window.visualViewport.height / initialViewportHeight;
-      setIsKeyboardVisible(heightRatio < 0.75); // Keyboard visible if viewport shrunk by more than 25%
+      if (viewportThrottle) return;
+      
+      viewportThrottle = setTimeout(() => {
+        if (!window.visualViewport) {
+          const currentHeight = window.innerHeight;
+          const heightDifference = initHeight - currentHeight;
+          setIsKeyboardVisible(heightDifference > 150);
+        } else {
+          const heightRatio = window.visualViewport.height / initHeight;
+          setIsKeyboardVisible(heightRatio < 0.75);
+        }
+        viewportThrottle = null;
+      }, 150);
     };
 
     // Use visualViewport API if available, otherwise use resize
@@ -67,13 +73,14 @@ export const useKeyboardDetection = (): boolean => {
     return () => {
       document.removeEventListener('focusin', handleFocusIn);
       document.removeEventListener('focusout', handleFocusOut);
+      if (viewportThrottle) clearTimeout(viewportThrottle);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener('resize', handleViewportChange);
       } else {
         window.removeEventListener('resize', handleViewportChange);
       }
     };
-  }, [isMobile, initialViewportHeight, handleFocusIn, handleFocusOut]);
+  }, [isMobile, handleFocusIn, handleFocusOut]);
 
   // Fallback to legacy detection
   return isKeyboardVisible;
