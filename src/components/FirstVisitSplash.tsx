@@ -11,11 +11,16 @@ const FirstVisitSplash: React.FC = () => {
   const [isChecking, setIsChecking] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   
-  // Load critical resources - faster on mobile
+  // Aggressive mobile optimization - faster everything
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  // Check if resources were previously loaded
+  const resourcesCached = typeof sessionStorage !== 'undefined' && 
+    sessionStorage.getItem('resources_loaded') === 'true';
+  
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: isMobile ? 1000 : 3000, // 1s on mobile, 3s on desktop
-    maxTimeout: isMobile ? 2000 : 5000 // 2s timeout on mobile, 5s on desktop
+    minDisplayTime: isMobile ? 500 : 2000, // 0.5s on mobile, 2s on desktop
+    maxTimeout: isMobile ? 1500 : 4000 // 1.5s timeout on mobile, 4s on desktop
   });
 
   useEffect(() => {
@@ -23,14 +28,19 @@ const FirstVisitSplash: React.FC = () => {
     const hasVisited = sessionStorage.getItem('homepage_visited');
     
     if (!hasVisited) {
-      // First visit - show splash
-      setShowSplash(true);
+      // First visit - show splash (but skip if resources cached)
+      setShowSplash(!resourcesCached);
       setIsChecking(false);
+      
+      // If resources cached, mark as visited immediately
+      if (resourcesCached) {
+        sessionStorage.setItem('homepage_visited', 'true');
+      }
     } else {
       // Returning visit - skip splash
       setIsChecking(false);
     }
-  }, []);
+  }, [resourcesCached]);
 
   // Hide splash only when resources are loaded
   useEffect(() => {
@@ -44,10 +54,11 @@ const FirstVisitSplash: React.FC = () => {
       setIsFadingOut(true);
     }, 0);
     
-    // Hide splash and mark as visited
+    // Hide splash and mark as visited + cache resources
     hideTimer = setTimeout(() => {
       setShowSplash(false);
       sessionStorage.setItem('homepage_visited', 'true');
+      sessionStorage.setItem('resources_loaded', 'true');
     }, FADE_OUT_DURATION);
     
     return () => {
@@ -56,15 +67,16 @@ const FirstVisitSplash: React.FC = () => {
     };
   }, [showSplash, resourcesLoading]);
 
-  // Emergency timeout - force show page if splash hangs on mobile
+  // Emergency timeout - force show page if splash hangs
   useEffect(() => {
     if (!showSplash) return;
     
     const emergencyTimeout = setTimeout(() => {
-      console.warn('[Mobile] Emergency timeout - forcing page load');
+      console.log('[FirstVisitSplash] Emergency timeout - forcing page load');
       setShowSplash(false);
       sessionStorage.setItem('homepage_visited', 'true');
-    }, isMobile ? 3000 : 8000); // 3s on mobile, 8s on desktop
+      sessionStorage.setItem('resources_loaded', 'true');
+    }, isMobile ? 2000 : 6000); // 2s on mobile, 6s on desktop
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);

@@ -17,7 +17,12 @@ export const useResourceLoader = (
     maxTimeout?: number; // Maximum time to wait (ms)
   } = {}
 ): UseResourceLoaderResult => {
-  const { minDisplayTime = 1000, maxTimeout = 5000 } = options;
+  // Mobile-optimized defaults: faster timeouts
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const { 
+    minDisplayTime = isMobile ? 500 : 1000, 
+    maxTimeout = isMobile ? 1500 : 5000 
+  } = options;
   
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -29,10 +34,10 @@ export const useResourceLoader = (
     const totalImages = imageSources.length;
     const startTime = Date.now();
 
-    // Timeout fallback
+    // Aggressive timeout fallback - force proceed on mobile
     const timeoutId = setTimeout(() => {
       if (isMounted) {
-        console.warn('Resource loading timeout - proceeding anyway');
+        console.log(`[ResourceLoader] Timeout after ${maxTimeout}ms - forcing proceed`);
         setIsLoading(false);
         setError(true);
       }
@@ -52,7 +57,7 @@ export const useResourceLoader = (
       
       if (allLoaded && minTimeElapsed) {
         const elapsed = Date.now() - startTime;
-        console.log(`All ${totalImages} critical resources loaded in ${elapsed}ms`);
+        console.log(`[ResourceLoader] All ${totalImages} resources loaded in ${elapsed}ms`);
         setIsLoading(false);
       }
     };
@@ -67,7 +72,6 @@ export const useResourceLoader = (
             loadedCount++;
             const newProgress = Math.round((loadedCount / totalImages) * 100);
             setProgress(newProgress);
-            console.log(`Loaded ${loadedCount}/${totalImages}: ${src}`);
             checkComplete();
           }
           resolve();
@@ -75,12 +79,11 @@ export const useResourceLoader = (
         
         img.onerror = () => {
           if (isMounted) {
-            console.error(`Failed to load image: ${src}`);
-            loadedCount++; // Count as loaded to not block indefinitely
+            console.log(`[ResourceLoader] Failed to load: ${src} - continuing anyway`);
+            loadedCount++; // Count as loaded to not block
             const newProgress = Math.round((loadedCount / totalImages) * 100);
             setProgress(newProgress);
-            setError(true);
-            checkComplete();
+            checkComplete(); // Continue even on error
           }
           resolve();
         };

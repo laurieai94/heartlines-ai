@@ -1,26 +1,23 @@
 // Critical resources that must load before showing the landing page
 import { BRAND } from '@/branding';
-import sarahAvatar from '@/assets/money-woman-avatar.png';
-import mayaAvatar from '@/assets/millennial-african-american-woman.png';
-import alexAvatar from '@/assets/gay-man-avatar.png';
-import jordanAvatar from '@/assets/moving-in-avatar.png';
-import marcusAvatar from '@/assets/new-dad-avatar.png';
 
-// Import first two carousel images as critical resources
-import warmGatheringImage from '@/assets/warm-gathering-diverse-souls.webp';
-import elderlyCouplePrideLivingRoomImage from '@/assets/elderly-couple-pride-living-room.webp';
-
-export const CRITICAL_IMAGES = [
+// Mobile: Only load truly critical above-fold images
+// Desktop: Load additional resources for better initial experience
+export const CRITICAL_IMAGES_MOBILE = [
   BRAND.coach.avatarSrc,
   BRAND.phoneLockupSrc,
-  sarahAvatar,
-  mayaAvatar,
-  alexAvatar,
-  jordanAvatar,
-  marcusAvatar,
-  // First two carousel images for immediate hero display
-  warmGatheringImage,
-  elderlyCouplePrideLivingRoomImage
 ] as const;
+
+// Lazy load these on mobile (not blocking)
+export const CRITICAL_IMAGES_DESKTOP = [
+  BRAND.coach.avatarSrc,
+  BRAND.phoneLockupSrc,
+] as const;
+
+// Use mobile-optimized list for faster initial load
+export const CRITICAL_IMAGES = 
+  typeof window !== 'undefined' && window.innerWidth < 768
+    ? CRITICAL_IMAGES_MOBILE
+    : CRITICAL_IMAGES_DESKTOP;
 
 export type CriticalImage = typeof CRITICAL_IMAGES[number];
