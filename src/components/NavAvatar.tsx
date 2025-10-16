@@ -6,9 +6,30 @@ interface NavAvatarProps {
 }
 
 const NavAvatar = ({ children, className }: NavAvatarProps) => {
+  const uniqueId = `nav-heart-${Math.random().toString(36).substr(2, 9)}`;
+  
   return (
-    <div className={cn("w-16 h-16 sm:w-18 sm:h-18 md:w-22 md:h-22 lg:w-24 lg:h-24 xl:w-28 xl:h-28 flex items-center justify-center rounded-full bg-gradient-to-br from-[#ff6b9d] to-[#ffc0cb] drop-shadow-md text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl", className)}>
-      {children}
+    <div className={cn("relative w-16 h-16 sm:w-18 sm:h-18 md:w-22 md:h-22 lg:w-24 lg:h-24 xl:w-28 xl:h-28 flex items-center justify-center", className)}>
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 w-full h-full drop-shadow-md"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id={uniqueId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ff6b9d" />
+            <stop offset="100%" stopColor="#ffc0cb" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M50,90 C50,90 10,60 10,40 C10,25 20,15 32,15 C40,15 46,20 50,27 C54,20 60,15 68,15 C80,15 90,25 90,40 C90,60 50,90 50,90 Z"
+          fill={`url(#${uniqueId})`}
+          className="transition-all duration-300"
+        />
+      </svg>
+      <div className="relative z-10 flex items-center justify-center text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
+        {children}
+      </div>
     </div>
   );
 };
