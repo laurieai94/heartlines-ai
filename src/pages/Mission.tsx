@@ -79,17 +79,13 @@ const Mission = () => {
                     we built tech to keep us connected, but somehow everyone feels more alone.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> helps you make space for real connection again. we help you talk it out, own your patterns, and do the real work.
+                    <span className="font-brand">heartlines</span> helps you make space for real connection again.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    we help you talk it out, own your patterns, and do the real work.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     come back to them — and yourself.
-                  </p>
-                </div>
-
-                {/* Closing statement */}
-                <div className="text-center max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we're not fixing you. we're helping you figure yourself out — and show up better for the people who matter.
                   </p>
                 </div>
               </div>
