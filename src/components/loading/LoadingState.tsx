@@ -22,7 +22,7 @@ const LoadingState: React.FC<LoadingStateProps> = ({
 }) => {
   const containerClasses = cn(
     'flex items-center justify-center',
-    fullScreen ? 'min-h-screen' : 'min-h-32',
+    fullScreen ? 'min-h-screen bg-burgundy-900' : 'min-h-32',
     className
   );
 
@@ -62,9 +62,12 @@ const LoadingState: React.FC<LoadingStateProps> = ({
   return (
     <div className={containerClasses}>
       <div className="text-center space-y-4">
-        <LoadingSpinner size={size} />
+        <LoadingSpinner size={size} color={fullScreen ? "white" : "primary"} />
         {message && (
-          <p className="text-sm text-muted-foreground animate-pulse">
+          <p className={cn(
+            "text-sm animate-pulse",
+            fullScreen ? "text-white/70" : "text-muted-foreground"
+          )}>
             {message}
           </p>
         )}

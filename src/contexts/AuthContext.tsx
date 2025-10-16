@@ -38,6 +38,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
+    // Safety timeout - prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      console.warn('[AuthContext] Auth initialization timeout after 5s - forcing load');
+      setLoading(false);
+    }, 5000);
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -54,8 +60,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             localStorage.setItem('force_new_chat_after_signin', 'true');
           }
           
+          clearTimeout(timeoutId);
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
+          clearTimeout(timeoutId);
           setLoading(false);
         }
       }
@@ -65,10 +73,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      clearTimeout(timeoutId);
+      setLoading(false);
+    }).catch((error) => {
+      logError('Failed to get session', error);
+      clearTimeout(timeoutId);
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {
