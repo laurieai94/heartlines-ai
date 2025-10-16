@@ -12,55 +12,55 @@ const securityFeatures: SecurityFeature[] = [
   {
     icon: Shield,
     name: "row-level security (rls)",
-    technical: "PostgreSQL RLS policies enforced on all tables. Database queries automatically filtered by auth.uid() = user_id.",
+    technical: "postgresql rls policies enforced on all tables. database queries automatically filtered by auth.uid() = user_id.",
     meaning: "even if someone hacked into our database, they could only see their own data. the database itself enforces this - it's not just app code that can be bypassed."
   },
   {
     icon: Lock,
     name: "encrypted transport (https/tls)",
-    technical: "TLS 1.2+ encryption for all data transmission. Supabase enforces HTTPS for all API calls with certificate pinning.",
+    technical: "tls 1.2+ encryption for all data transmission. supabase enforces https for all api calls with certificate pinning.",
     meaning: "your conversations can't be intercepted while traveling between your device and our servers - like sending a sealed letter instead of a postcard."
   },
   {
     icon: HardDrive,
     name: "encryption at rest",
-    technical: "Supabase provides AES-256 encryption for all stored data in PostgreSQL. Encryption keys managed separately from data.",
+    technical: "supabase provides aes-256 encryption for all stored data in postgresql. encryption keys managed separately from data.",
     meaning: "even if someone stole the physical hard drives, your data would be unreadable gibberish without the encryption keys that are stored separately."
   },
   {
     icon: Server,
     name: "secure edge functions",
-    technical: "API keys stored server-side in Supabase Edge Functions environment variables. Never exposed to client browser or network requests.",
+    technical: "api keys stored server-side in supabase edge functions environment variables. never exposed to client browser or network requests.",
     meaning: "your browser never sees the 'keys to the kingdom' - sensitive credentials stay on secure servers, not in your browser's memory where malicious scripts could access them."
   },
   {
     icon: Eye,
     name: "zero-knowledge architecture",
-    technical: "Anthropic API calls routed through Edge Functions with conversation context only. No PII (personally identifiable information) sent to AI models.",
-    meaning: "the AI coach receives your conversation content but not your name, email, or other identifying information. it knows what you're saying, not who you are."
+    technical: "anthropic api calls routed through edge functions with conversation context only. no pii (personally identifiable information) sent to ai models.",
+    meaning: "the ai coach receives your conversation content but not your name, email, or other identifying information. it knows what you're saying, not who you are."
   },
   {
     icon: Key,
     name: "authentication security",
-    technical: "Supabase Auth with JWT tokens, bcrypt password hashing (cost factor 10), automatic session rotation and refresh token management.",
+    technical: "supabase auth with jwt tokens, bcrypt password hashing (cost factor 10), automatic session rotation and refresh token management.",
     meaning: "your password is never stored - only a mathematical fingerprint that can verify but not reveal it. even we can't see your actual password."
   },
   {
     icon: Database,
     name: "isolated data storage",
-    technical: "Each user's data logically isolated via RLS policies. Multi-tenant architecture with user_id foreign keys and CASCADE delete constraints.",
+    technical: "each user's data logically isolated via rls policies. multi-tenant architecture with user_id foreign keys and cascade delete constraints.",
     meaning: "your data is in its own secure compartment. when you delete your account, everything associated with it is automatically removed from our systems."
   },
   {
     icon: Clock,
     name: "user-controlled retention",
-    technical: "Configurable retention policies (30/90/365 days or forever) stored in privacy settings. Automated cleanup jobs respect user preferences.",
+    technical: "configurable retention policies (30/90/365 days or forever) stored in privacy settings. automated cleanup jobs respect user preferences.",
     meaning: "you decide how long we keep your conversations - set it to 30 days and we automatically delete older chats. you're in control of your digital footprint."
   },
   {
     icon: Image,
     name: "secure file storage",
-    technical: "Supabase Storage with RLS policies on storage.objects table. Users can only upload/view files where user_id matches auth.uid().",
+    technical: "supabase storage with rls policies on storage.objects table. users can only upload/view files where user_id matches auth.uid().",
     meaning: "your profile picture is locked to your account - no one else can replace it or access it without your permission. same for any files you upload."
   }
 ];
@@ -123,7 +123,7 @@ export const SecurityDeepDive = () => {
         <div className="mt-16 text-center">
           <Card className="inline-block p-6 bg-burgundy-800/30 border-coral-500/20">
             <p className="text-sm text-coral-100/80 max-w-2xl">
-              <span className="font-semibold text-coral-400">transparency matters:</span> we're honest about our limitations too. heartlines is not HIPAA compliant and should not be used for medical advice. 
+              <span className="font-semibold text-coral-400">transparency matters:</span> we're honest about our limitations too. heartlines is not hipaa compliant and should not be used for medical advice. 
               for security concerns, contact us at <span className="text-coral-300">security@heartlines.ai</span>
             </p>
           </Card>

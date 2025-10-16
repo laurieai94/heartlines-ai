@@ -19,7 +19,7 @@ const flowSteps: FlowStep[] = [
       "complete your personal profile and questionnaire",
       "share your relationship goals and challenges",
       "upload optional profile photo to your secure storage",
-      "all entries saved with your unique user ID"
+      "all entries saved with your unique user id"
     ]
   },
   {
@@ -28,10 +28,10 @@ const flowSteps: FlowStep[] = [
     title: "secure transit",
     description: "your data travels through encrypted channels",
     details: [
-      "HTTPS/TLS 1.2+ encryption for all data in motion",
+      "https/tls 1.2+ encryption for all data in motion",
       "no plaintext transmission - ever",
       "certificate pinning prevents man-in-the-middle attacks",
-      "secure WebSocket connections for real-time features"
+      "secure websocket connections for real-time features"
     ]
   },
   {
@@ -40,21 +40,21 @@ const flowSteps: FlowStep[] = [
     title: "protected storage",
     description: "data lands in a fortress designed for privacy",
     details: [
-      "PostgreSQL database with row-level security (RLS)",
-      "AES-256 encryption at rest for all stored data",
-      "your data isolated from other users via RLS policies",
+      "postgresql database with row-level security (rls)",
+      "aes-256 encryption at rest for all stored data",
+      "your data isolated from other users via rls policies",
       "automatic backups with same encryption standards"
     ]
   },
   {
     icon: Sparkles,
     number: 4,
-    title: "AI processing",
+    title: "ai processing",
     description: "intelligent coaching without compromising privacy",
     details: [
       "conversations routed through secure edge functions",
-      "Anthropic API receives context only, not personal identifiers",
-      "AI responses generated based on conversation patterns",
+      "anthropic api receives context only, not personal identifiers",
+      "ai responses generated based on conversation patterns",
       "no training on your data - your conversations stay yours"
     ]
   },

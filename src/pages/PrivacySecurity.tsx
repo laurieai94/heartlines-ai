@@ -100,7 +100,7 @@ const PrivacySecurity = () => {
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
               your privacy, your control
             </h1>
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-8">
+            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">
               heartlines is built with privacy at its core. your conversations, your data, your rules.
             </p>
           </div>
