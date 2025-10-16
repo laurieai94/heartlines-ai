@@ -129,13 +129,15 @@ const Mission = () => {
                 {/* Middle paragraph */}
                 <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    this isn't therapy, and it's definitely not a swipe fest.
+                    heartlines is built for the chaos of real connection — the late-night overthinking, the "we need to talk" energy, the emotional hangovers.
                   </p>
+                  
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's the tool for people who want to stop spiraling and start understanding.
+                    it's not therapy. it's not a dating app.
                   </p>
+                  
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we built <span className="font-brand">heartlines</span> for the chaos — the "we need to talk" energy, the miscommunication, the emotional hangovers.
+                    it's the space in-between — where you stop spiraling and start understanding.
                   </p>
                 </div>
 
