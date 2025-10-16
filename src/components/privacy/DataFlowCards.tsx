@@ -78,10 +78,10 @@ export const DataFlowCards = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
             how your data flows
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-coral-100/80 max-w-3xl mx-auto">
             from the moment you type to when it's stored or deleted - complete transparency into your data's journey
           </p>
         </div>
@@ -113,19 +113,19 @@ export const DataFlowCards = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
+                  <h3 className="text-xl font-bold mb-2 text-coral-50">
                     {step.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm text-coral-100/90 mb-4">
                     {step.description}
                   </p>
 
                   {/* Details */}
                   <ul className="space-y-2">
                     {step.details.map((detail, idx) => (
-                      <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
+                      <li key={idx} className="text-xs text-coral-200/80 flex items-start gap-2">
                         <span className="text-coral-400 mt-1">•</span>
                         <span>{detail}</span>
                       </li>
@@ -139,7 +139,7 @@ export const DataFlowCards = () => {
 
         {/* Bottom Note */}
         <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-coral-100/80 max-w-2xl mx-auto">
             this isn't marketing speak - it's our actual technical implementation. every step above is enforced by code, not just policy.
           </p>
         </div>
