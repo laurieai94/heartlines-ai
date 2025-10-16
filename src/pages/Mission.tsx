@@ -36,7 +36,7 @@ const Mission = () => {
             >
               our why
             </h1>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2 mt-1 ml-[180px] md:ml-[220px] lg:ml-[280px] xl:ml-[360px]">
               <span className="font-glacial text-xl md:text-2xl lg:text-3xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                 powered laurie ai
               </span>
