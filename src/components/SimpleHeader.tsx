@@ -48,7 +48,7 @@ const SimpleHeader = ({ user, activeTab, onSignInClick, hideSignInButton = false
                   size="icon"
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
-                  <FlipPhoneIcon className="h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 xl:h-32 xl:w-32" />
+                  <FlipPhoneIcon className="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent 
