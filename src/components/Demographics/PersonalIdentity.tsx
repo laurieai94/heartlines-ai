@@ -6,7 +6,6 @@ import AvatarUpload from "../AvatarUpload";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import BrandLoadingText from "../BrandLoadingText";
-import SaveIndicator from "../SaveIndicator";
 import { useEffect } from "react";
 
 interface PersonalIdentityProps {
@@ -104,7 +103,6 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             What should we call {isPersonal ? 'you' : 'them'}?
             {isPersonal && <span className="text-red-500 ml-1">*</span>}
           </Label>
-          {isPersonal && <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />}
         </div>
         <Input
           id="name"
@@ -127,7 +125,6 @@ const PersonalIdentity = ({ profileType, formData, updateFormData, handleMultiSe
             Pronouns
             {isPersonal && <span className="text-red-500 ml-1">*</span>}
           </Label>
-          {isPersonal && <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {pronounOptions.map((pronoun) => (

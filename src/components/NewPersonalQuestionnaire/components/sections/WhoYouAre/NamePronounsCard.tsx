@@ -4,7 +4,6 @@ import { User, MessageSquare } from "lucide-react";
 import { ProfileData } from "../../../types";
 import QuestionCardSimple from "../../shared/QuestionCardSimple";
 import SingleSelect from "../../shared/SingleSelect";
-import SaveIndicator from "@/components/SaveIndicator";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import { useState, useEffect } from "react";
 
@@ -81,7 +80,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
               <Label htmlFor="name" className="questionnaire-label-mobile">
                 what should we call you? <span className="text-red-400">*</span>
               </Label>
-              <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />
             </div>
             <Input
               id="name"
@@ -105,7 +103,6 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             <Label className="questionnaire-label-mobile">
               what pronouns do you use? <span className="text-red-400">*</span>
             </Label>
-            <SaveIndicator isSyncing={isSyncing} lastSaved={lastSaved} />
           </div>
           <div className="hidden sm:flex items-center gap-2 text-xs text-white/70 font-normal mb-3">
             <MessageSquare className="w-3 h-3 text-blue-300" />
