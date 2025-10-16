@@ -137,12 +137,6 @@ export const DataFlowCards = () => {
           </div>
         </div>
 
-        {/* Bottom Note */}
-        <div className="mt-16 text-center">
-          <p className="text-sm text-coral-100/80 max-w-2xl mx-auto">
-            this isn't marketing speak - it's our actual technical implementation. every step above is enforced by code, not just policy.
-          </p>
-        </div>
       </div>
     </section>
   );
