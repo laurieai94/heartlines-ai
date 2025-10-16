@@ -242,7 +242,7 @@ const Mission = () => {
                 </div>
 
                 {/* CTAs with glass effect */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                <div className="flex flex-wrap gap-4 justify-center items-center mt-10">
                   <Button
                     size="lg"
                     variant="glass"
@@ -260,6 +260,16 @@ const Mission = () => {
                       transition-all duration-300"
                   >
                     chat with kai
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={() => navigate('/contact')}
+                    className="min-w-[200px] text-lg backdrop-blur-xl
+                      bg-white/10 border border-white/30 text-white
+                      hover:bg-white/20 hover:scale-105 hover:-translate-y-1
+                      transition-all duration-300"
+                  >
+                    build with us
                   </Button>
                 </div>
               </div>
