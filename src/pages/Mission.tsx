@@ -28,7 +28,7 @@ const Mission = () => {
       <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col">
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in py-8 md:py-12">
             <h1 
