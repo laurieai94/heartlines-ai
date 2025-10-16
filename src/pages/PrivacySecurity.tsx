@@ -9,6 +9,8 @@ import FlipPhoneIcon from '@/components/icons/FlipPhoneIcon';
 import { BRAND } from '@/branding';
 import SiteFooter from '@/components/SiteFooter';
 import HeartlinesWordmark from '@/components/Brand/HeartlinesWordmark';
+import { SecurityDeepDive } from '@/components/privacy/SecurityDeepDive';
+import { DataFlowCards } from '@/components/privacy/DataFlowCards';
 const PrivacySecurity = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
@@ -93,69 +95,22 @@ const PrivacySecurity = () => {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="px-6 py-12 lg:py-16">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-brand text-white mb-8 leading-tight">
-              your privacy.
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-400 to-pink-400">
-                your control.
-              </span>
+        <section className="px-6 py-20 lg:py-32 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
+              your privacy, your control
             </h1>
-            
-            <p className="text-xl lg:text-2xl text-gray-300 mb-6 leading-relaxed font-light max-w-3xl mx-auto">
-              we believe your relationship data belongs to you. that's why we've built privacy and security into every layer of <HeartlinesWordmark size="sm" className="inline-block align-baseline text-white" />, from database-level security to full data control.
+            <p className="text-xl lg:text-2xl text-muted-foreground mb-8">
+              heartlines is built with privacy at its core. your conversations, your data, your rules.
             </p>
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-thin text-white mb-6">how your data flows</h2>
-              <p className="text-lg text-gray-300 font-light">a transparent look at how we protect your information at every step</p>
-            </div>
+        {/* Security Deep Dive */}
+        <SecurityDeepDive />
 
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="step1" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">1</div>
-                    <span className="text-xl font-semibold text-left">secure data capture</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-300 pl-[4.5rem]">
-                  your profile data and preferences are collected through your browser and transmitted securely over https/tls to our backend. all network communications use encryption in transit.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="step2" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">2</div>
-                    <span className="text-xl font-semibold text-left">secure storage</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-300 pl-[4.5rem]">
-                  your data is stored in our supabase database with row-level security (rls) enforced. only your authenticated user id can access your data—our team cannot view your profiles or conversations without your permission.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="step3" className="border-white/20">
-                <AccordionTrigger className="text-white hover:text-coral-300">
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">3</div>
-                    <span className="text-xl font-semibold text-left">ai processing</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-300 pl-[4.5rem]">
-                  when you chat with our ai coach, messages are sent to anthropic's api via our secure edge functions. these functions run server-side with api keys never exposed to your browser.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </section>
+        {/* How Your Data Flows */}
+        <DataFlowCards />
 
         {/* FAQ */}
         <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
