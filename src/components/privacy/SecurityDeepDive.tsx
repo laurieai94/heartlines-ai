@@ -69,15 +69,6 @@ export const SecurityDeepDive = () => {
   return (
     <section className="relative px-6 py-16 lg:py-24 bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-burgundy-900">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-semibold tracking-wide mb-6 bg-gradient-to-r from-coral-300 via-coral-200 to-pink-200 bg-clip-text text-transparent leading-tight">
-            Security Built Into Every Layer
-          </h2>
-          <p className="text-xl text-coral-100/90 max-w-3xl mx-auto leading-relaxed">
-            we don't just talk about privacy. here's exactly how we protect you.
-          </p>
-        </div>
 
         {/* Security Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

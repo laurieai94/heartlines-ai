@@ -97,11 +97,11 @@ const PrivacySecurity = () => {
         {/* Hero Section */}
         <section className="px-6 py-20 lg:py-32 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="font-brand text-5xl lg:text-7xl mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
               your privacy, your control
             </h1>
-            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">we're obsessed with protecting your conversations and data. 
-here's exactly how we do it.</p>
+            <p className="text-xl lg:text-2xl text-coral-100/80 mb-4">we're obsessed with protecting your conversations and data.</p>
+            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">here's exactly how we do it.</p>
           </div>
         </section>
 
