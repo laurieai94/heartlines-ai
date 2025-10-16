@@ -153,7 +153,7 @@ export const YearCarousel = () => {
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="absolute inset-0 w-full h-full object-contain object-center md:object-[center_20%]"
+                  className="absolute inset-0 w-full h-full object-contain object-[center_20%]"
                   loading={index === 0 || index === 1 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"

@@ -23,8 +23,8 @@ const PhotoSplitBanner = ({
         <img 
           src={imageError ? millennial_couple : imageSrc} 
           alt={alt}
-          className={`w-full h-full object-contain md:object-cover object-center ${
-            align === 'right' ? 'md:object-[75%_center]' : 'md:object-[25%_center]'
+          className={`w-full h-full object-cover ${
+            align === 'right' ? 'object-[75%_center]' : 'object-[25%_center]'
           }`}
           loading="eager"
           decoding="async"
