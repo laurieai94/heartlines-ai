@@ -26,25 +26,26 @@ const DuckIcon = memo(({
       className={className}
       aria-label="Duck icon"
     >
-      {/* Duck outline - continuous path forming classic rubber duck silhouette */}
-      <path 
-        d="M 2.5 9 
-           L 4 8.5
-           C 4.5 8 5 7 6 6
-           C 7.5 4.5 9.5 4 11 5
-           C 12 5.5 12.5 6.5 13 8
-           C 13.5 9 14 10 15 11
-           C 16.5 12.5 18 13 19.5 13.5
-           C 20.5 13.8 21 13.5 21.5 12.5
-           C 22 11.5 22 10 21 9.5
-           L 20.5 13
-           C 20 15 18.5 16.5 16.5 17.5
-           C 14 18.5 11 18.5 8.5 17.5
-           C 6.5 16.8 5 15.5 4 14
-           C 3 12.5 2.5 11 2.5 9.5
-           Z"
-        fill="none"
-      />
+      {/* Head - round duck head */}
+      <circle cx="7" cy="10" r="3.5" fill="none" />
+      
+      {/* Beak - triangular beak pointing left */}
+      <path d="M 3.5 10 L 2 9.5 L 2 10.5 Z" fill="white" stroke="white" strokeWidth="2" />
+      
+      {/* Eye - small dot */}
+      <circle cx="7.5" cy="9.5" r="0.8" fill="white" stroke="none" />
+      
+      {/* Body - large rounded body */}
+      <ellipse cx="14" cy="14" rx="6.5" ry="5" fill="none" />
+      
+      {/* Neck connection - curved line from head to body */}
+      <path d="M 9.5 11.5 Q 11 12 12 13" fill="none" strokeWidth="2.5" />
+      
+      {/* Tail - small upward curve */}
+      <path d="M 20 14 Q 21 13 21.5 15" fill="none" strokeWidth="2.5" strokeLinecap="round" />
+      
+      {/* Bottom line - connecting body bottom */}
+      <path d="M 8 17 Q 14 19 20 16.5" fill="none" strokeWidth="2.5" />
     </svg>
   );
 });
