@@ -19,49 +19,31 @@ const DuckIcon = memo(({
       height={size} 
       viewBox="0 0 24 24" 
       fill="none" 
-      stroke="none"
+      stroke="white"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
       aria-label="Duck icon"
     >
-      {/* Body - rounded duck body shape */}
-      <ellipse cx="14" cy="14" rx="7" ry="5.5" fill={color} />
-      
-      {/* Head - round and distinct on the left */}
-      <circle cx="7" cy="9" r="4" fill={color} />
-      
-      {/* Neck connection - smooth transition */}
-      <ellipse cx="10" cy="11.5" rx="2.5" ry="3" fill={color} />
-      
-      {/* Beak - large, prominent, bright orange */}
+      {/* Duck outline - continuous path forming classic rubber duck silhouette */}
       <path 
-        d="M3 9 L1 8.5 L1 9.5 L3 10 Z" 
-        fill="#FF8C00" 
-        stroke="#FF6B00" 
-        strokeWidth="0.5"
-      />
-      
-      {/* Eye - large and prominent with bright highlight */}
-      <circle cx="8" cy="8.5" r="1.3" fill="white" />
-      <circle cx="8.3" cy="8.2" r="0.7" fill="#1a1a1a" />
-      <circle cx="8.5" cy="8" r="0.3" fill="white" opacity="0.9" />
-      
-      {/* Wing detail - curved line on body */}
-      <path 
-        d="M12 12 Q14 13 15 15" 
-        stroke={color} 
-        strokeWidth="1.5" 
-        fill="none" 
-        strokeLinecap="round"
-        opacity="0.3"
-      />
-      
-      {/* Tail - upward curved duck tail */}
-      <path 
-        d="M20 14 Q21.5 12 22 15" 
-        stroke={color} 
-        strokeWidth="2.5" 
-        fill="none" 
-        strokeLinecap="round"
+        d="M 2.5 9 
+           L 4 8.5
+           C 4.5 8 5 7 6 6
+           C 7.5 4.5 9.5 4 11 5
+           C 12 5.5 12.5 6.5 13 8
+           C 13.5 9 14 10 15 11
+           C 16.5 12.5 18 13 19.5 13.5
+           C 20.5 13.8 21 13.5 21.5 12.5
+           C 22 11.5 22 10 21 9.5
+           L 20.5 13
+           C 20 15 18.5 16.5 16.5 17.5
+           C 14 18.5 11 18.5 8.5 17.5
+           C 6.5 16.8 5 15.5 4 14
+           C 3 12.5 2.5 11 2.5 9.5
+           Z"
+        fill="none"
       />
     </svg>
   );
