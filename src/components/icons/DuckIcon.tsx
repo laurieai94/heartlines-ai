@@ -26,23 +26,37 @@ const DuckIcon = memo(({
       className={className}
       aria-label="Duck icon"
     >
-      {/* Duck body - rounded bottom */}
-      <ellipse cx="12" cy="16" rx="6" ry="4.5" />
+      {/* Duck body */}
+      <ellipse cx="13" cy="15" rx="7" ry="5" fill={color} opacity="0.9" />
       
       {/* Duck head */}
-      <circle cx="12" cy="8" r="3.5" />
+      <circle cx="9" cy="9" r="4" fill={color} />
       
-      {/* Neck connection */}
-      <path d="M10 11 C10 12, 11 13, 12 13 C13 13, 14 12, 14 11" />
+      {/* Duck beak - prominent triangle */}
+      <path d="M5 9 L2 8 L5 10 Z" fill={color} opacity="0.85" />
       
-      {/* Beak */}
-      <path d="M15 8 L17.5 8 L16.5 9 Z" fill={color} />
+      {/* Eye - larger and more visible */}
+      <circle cx="10" cy="8.5" r="1.2" fill="white" />
+      <circle cx="10.3" cy="8.3" r="0.6" fill="#000" opacity="0.8" />
       
-      {/* Eye */}
-      <circle cx="13" cy="7.5" r="0.8" fill={color} />
+      {/* Neck/back curve for definition */}
+      <path 
+        d="M9 13 Q11 12, 13 13" 
+        stroke={color} 
+        strokeWidth="2.5" 
+        fill="none"
+        opacity="0.7"
+      />
       
-      {/* Wing detail */}
-      <path d="M8 15 Q6 16, 7 17" />
+      {/* Tail accent */}
+      <path 
+        d="M19 15 Q21 14, 20 16" 
+        stroke={color} 
+        strokeWidth="2.5" 
+        fill="none" 
+        strokeLinecap="round"
+        opacity="0.7"
+      />
     </svg>
   );
 });
