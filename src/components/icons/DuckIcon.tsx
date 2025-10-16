@@ -26,37 +26,21 @@ const DuckIcon = memo(({
       className={className}
       aria-label="Duck icon"
     >
-      {/* Duck body */}
-      <ellipse cx="13" cy="15" rx="7" ry="5" fill={color} opacity="0.9" />
+      {/* Main body - single egg shape */}
+      <ellipse cx="12" cy="14" rx="8" ry="6" fill={color} opacity="0.95" />
       
-      {/* Duck head */}
-      <circle cx="9" cy="9" r="4" fill={color} />
+      {/* Head - positioned on top of body */}
+      <circle cx="8" cy="8" r="4.5" fill={color} />
       
-      {/* Duck beak - prominent triangle */}
-      <path d="M5 9 L2 8 L5 10 Z" fill={color} opacity="0.85" />
+      {/* Beak - MUCH larger and more prominent with orange color */}
+      <path d="M3.5 8 L0.5 7 L3.5 10 Z" fill="#FFA500" stroke={color} strokeWidth="0.5" />
       
-      {/* Eye - larger and more visible */}
-      <circle cx="10" cy="8.5" r="1.2" fill="white" />
-      <circle cx="10.3" cy="8.3" r="0.6" fill="#000" opacity="0.8" />
+      {/* Eye - larger with clear white highlight */}
+      <circle cx="9" cy="7.5" r="1.5" fill="white" />
+      <circle cx="9.5" cy="7" r="0.8" fill="#1a1a1a" />
       
-      {/* Neck/back curve for definition */}
-      <path 
-        d="M9 13 Q11 12, 13 13" 
-        stroke={color} 
-        strokeWidth="2.5" 
-        fill="none"
-        opacity="0.7"
-      />
-      
-      {/* Tail accent */}
-      <path 
-        d="M19 15 Q21 14, 20 16" 
-        stroke={color} 
-        strokeWidth="2.5" 
-        fill="none" 
-        strokeLinecap="round"
-        opacity="0.7"
-      />
+      {/* Simple tail bump for character */}
+      <path d="M19 14 Q20 12 21 14" stroke={color} strokeWidth="3" fill="none" strokeLinecap="round" />
     </svg>
   );
 });
