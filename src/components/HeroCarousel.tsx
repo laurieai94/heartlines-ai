@@ -105,7 +105,7 @@ export const HeroCarousel: React.FC = () => {
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-900 scale-[0.85] md:scale-100"
+            className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-900"
             loading={index < 2 ? "eager" : "lazy"}
           />
 
