@@ -317,12 +317,12 @@ const ProfileBuilder = ({
               </CollapsibleTrigger>
               <CollapsibleContent className="px-4 pb-3 pt-1">
                 <div className="pl-10 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1 text-sm text-white/80">
-                  <p>• no ai training on your conversations</p>
-                  <p>• only you and kai see your profiles</p>
-                  <p>• your encryption key never leaves your device</p>
-                  <p>• choose how long to keep your data</p>
-                  <p>• optional anonymous analytics only</p>
-                  <p>• delete your data or account anytime</p>
+                  <p>• no ai training on chats</p>
+                  <p>• your data = yours only</p>
+                  <p>• encrypted at rest + transit</p>
+                  <p>• row-level security on all data</p>
+                  <p>• choose history: 30 / 90 / 365 / forever</p>
+                  <p>• delete everything anytime, no hassle</p>
                   <Link to="/privacy-and-security" className="inline-flex items-center gap-1.5 mt-4 text-xs text-coral-400 hover:text-coral-300 transition-colors group" aria-label="Learn more about our privacy and security practices">
                     <span>learn more</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
