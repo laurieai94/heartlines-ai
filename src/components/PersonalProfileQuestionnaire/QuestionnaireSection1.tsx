@@ -30,16 +30,9 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   const generateAvatar = (name: string) => {
-    if (!name) {
-      return (
-        <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-8 h-8 text-white/60" />
-        </div>
-      );
-    }
     return (
-      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-4xl font-bold">
-        {name.charAt(0).toLowerCase()}
+      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white">
+        <User className="w-8 h-8" />
       </div>
     );
   };

@@ -43,10 +43,9 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
   };
 
   const generateAvatar = (name: string) => {
-    if (!name) return null;
     return (
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
-        {name.charAt(0).toLowerCase()}
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white">
+        <User className="w-6 h-6" />
       </div>
     );
   };
@@ -59,12 +58,8 @@ const PhotoUpload = ({ profilePhoto, name, onPhotoUpdate }: PhotoUploadProps) =>
           alt="Profile" 
           className="w-16 h-16 rounded-full object-cover border-2 border-white/20"
         />
-      ) : name ? (
-        generateAvatar(name)
       ) : (
-        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
-          <User className="w-6 h-6 text-white/60" />
-        </div>
+        generateAvatar(name)
       )}
       
       <div className="flex-1">
