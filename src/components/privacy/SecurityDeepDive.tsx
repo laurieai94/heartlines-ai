@@ -124,7 +124,7 @@ export const SecurityDeepDive = () => {
           <Card className="inline-block p-6 bg-burgundy-800/30 border-coral-500/20">
             <p className="text-sm text-coral-100/80 max-w-2xl">
               <span className="font-semibold text-coral-400">transparency matters:</span> we're honest about our limitations too. heartlines is not HIPAA compliant and should not be used for medical advice. 
-              for security concerns, contact us at <span className="text-coral-300">security@heartlines.app</span>
+              for security concerns, contact us at <span className="text-coral-300">security@heartlines.ai</span>
             </p>
           </Card>
         </div>
