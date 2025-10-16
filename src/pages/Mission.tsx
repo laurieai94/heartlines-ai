@@ -139,46 +139,6 @@ const Mission = () => {
             </div>
           </section>
 
-          {/* 2.5. Love Belongs Here - Ultra Fruity & Gay 🏳️‍🌈 */}
-          <section className="animate-slide-up animation-delay-250">
-            <div className="relative group">
-              {/* Rainbow animated glow - pride flag inspired */}
-              <div className="absolute -inset-2 bg-gradient-to-r 
-                from-pink-500/40 via-purple-500/40 to-cyan-500/40
-                rounded-3xl blur-2xl opacity-75 
-                group-hover:opacity-100 
-                animate-gradient
-                transition-all duration-500"></div>
-              
-              {/* Glass card with rainbow border accent */}
-              <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-10
-                bg-gradient-to-br from-pink-500/30 via-purple-500/20 to-cyan-500/30
-                border-2 border-white/30
-                hover:scale-[1.03] hover:-translate-y-1
-                hover:shadow-[0_20px_60px_rgba(236,72,153,0.4),0_0_100px_rgba(168,85,247,0.3)]
-                transition-all duration-500 ease-out">
-                
-                {/* Emoji hearts decoration */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex gap-2 text-3xl animate-bounce-gentle">
-                  💖 🏳️‍🌈 ✨
-                </div>
-                
-                {/* Main text with stronger gradient */}
-                <p className="text-xl md:text-2xl text-white font-medium text-center leading-relaxed
-                  drop-shadow-[0_2px_10px_rgba(236,72,153,0.5)]">
-                  love belongs here: queer, straight, trans, poly, monogamous, single, healing — 
-                  <span className="font-brand bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300 
-                    bg-clip-text text-transparent"> whoever you are, you fit.</span>
-                </p>
-                
-                {/* Bottom emoji decoration */}
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-2 text-2xl">
-                  🌈 💜 🌟
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Powered by Laurie AI */}
           <section className="animate-slide-up animation-delay-300">
             <div className="relative group">
