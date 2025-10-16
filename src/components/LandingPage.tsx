@@ -293,12 +293,17 @@ const LandingPage = ({
   return <>
       {/* Persistent Heartlines Logo - Top Right */}
       {!isSplashActive && (
-        <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[60] pointer-events-none isolate">
-          <img 
-            src={heartlinesLogo} 
-            alt="heartlines" 
-            className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
-          />
+        <div className="heartlines-logo-fixed fixed top-12 right-6 md:right-12 xl:right-14 z-[9999] pointer-events-none">
+          <div className="relative">
+            <img 
+              src={heartlinesLogo} 
+              alt="heartlines" 
+              className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
+            />
+            <p className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white/70 text-[10px] md:text-xs whitespace-nowrap">
+              powered by laurie ai
+            </p>
+          </div>
         </div>
       )}
 
