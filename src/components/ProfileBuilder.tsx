@@ -80,11 +80,14 @@ const ProfileBuilder = ({
   // Helper function for getting initials
   const getInitial = (name?: string) => name?.trim()?.charAt(0)?.toLowerCase() || null;
 
-  // Get user's name for personalization
-  const userName = temporaryDemographics.your?.name || (personalProfileData as any)?.name || '';
+  // Get user's name for personalization - prioritize V2 profile data (always up-to-date)
+  const userName = (personalProfileData as any)?.name || temporaryDemographics.your?.name || '';
 
   // Get user's first initial for icon
   const userInitial = getInitial(userName);
+  
+  // Get partner's name for personalization - prioritize V2 profile data
+  const partnerName = (partnerProfileData as any)?.partnerName || temporaryDemographics.partner?.name || '';
 
   // Memoized completion calculations for better performance
   const yourProfileCompletion = useMemo(() => calculateYourCompletion(), [calculateYourCompletion]);
@@ -131,15 +134,22 @@ const ProfileBuilder = ({
       forceUpdate();
     };
     
+    const handleProfileUpdate = () => {
+      console.log('[ProfileBuilder] Profile updated - forcing re-render for avatar');
+      forceUpdate();
+    };
+    
     window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
       window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
+      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     };
   }, []);
 
   // Get partner's first initial for icon
-  const partnerInitial = getInitial(partnerProfileData?.partnerName);
+  const partnerInitial = getInitial(partnerName);
 
   // Navigation hook for coaching
   const {
