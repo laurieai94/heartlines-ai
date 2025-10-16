@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import taglineImage from "@/assets/tagline-image.png";
 
 const Mission = () => {
   const {
@@ -35,6 +36,17 @@ const Mission = () => {
             >
               our why
             </h1>
+          </section>
+
+          {/* Tagline Image */}
+          <section className="text-center animate-fade-in animation-delay-50">
+            <div className="max-w-3xl mx-auto px-4">
+              <img 
+                src={taglineImage} 
+                alt="the ai relationship coach for messy, modern love"
+                className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
           </section>
 
           {/* 1.5. Our Moment */}
