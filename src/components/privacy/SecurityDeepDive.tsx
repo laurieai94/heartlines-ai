@@ -67,7 +67,7 @@ const securityFeatures: SecurityFeature[] = [
 
 export const SecurityDeepDive = () => {
   return (
-    <section className="relative px-6 py-16 lg:py-24 bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-burgundy-900">
+    <section className="relative px-6 py-8 lg:py-12 bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-burgundy-900">
       <div className="max-w-7xl mx-auto">
 
         {/* Security Features Grid */}

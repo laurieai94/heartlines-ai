@@ -95,7 +95,7 @@ const PrivacySecurity = () => {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="px-6 py-20 lg:py-32 text-center">
+        <section className="px-6 py-12 lg:py-16 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="font-brand text-5xl lg:text-7xl mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
               your privacy, your control
