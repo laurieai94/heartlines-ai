@@ -80,9 +80,9 @@ const Mission = () => {
                 
                 {/* Opening line */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                  ai isn't going anywhere.
-                </p>
+              <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed mb-4">
+                ai isn't going anywhere.
+              </p>
                 <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   and neither is your need to feel something real.
                 </p>
