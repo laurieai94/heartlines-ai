@@ -88,39 +88,18 @@ const AIChatInput = ({
     }
   };
 
-  // Ensure input stays visible on mobile when typing
-  const ensureVisible = () => {
-    if (window.innerWidth >= 768) return; // Desktop only
-    
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-    
-    scrollTimeoutRef.current = setTimeout(() => {
-      if (textareaRef.current && document.activeElement === textareaRef.current) {
-        textareaRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest'
-        });
-      }
-    }, 100);
-  };
-
   // Handle focus to scroll input into view on mobile
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     onInputFocus?.();
     
-    // On mobile, scroll input into view after keyboard starts appearing
-    if (window.innerWidth < 768) {
-      setTimeout(() => {
-        if (textareaRef.current) {
-          textareaRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-        }
-      }, 150); // Wait for keyboard animation to start
+    // On mobile, scroll input into view instantly for better responsiveness
+    if (window.innerWidth < 768 && textareaRef.current) {
+      requestAnimationFrame(() => {
+        textareaRef.current?.scrollIntoView({
+          behavior: 'instant',
+          block: 'center'
+        });
+      });
     }
   };
 
@@ -128,7 +107,6 @@ const AIChatInput = ({
     const newValue = e.target.value;
     setCurrentMessage(newValue);
     adjustTextareaHeight();
-    ensureVisible(); // Keep input visible while typing
     
     // Handle typing indicator
     if (onTypingChange) {
@@ -176,7 +154,7 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto ${readOnly ? 'group' : ''}`}>
+    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
           ? 'brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm' 

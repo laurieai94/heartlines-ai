@@ -18,13 +18,13 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
   // Only show on dashboard route
   const isDashboardRoute = location.pathname === '/';
 
-  // Haptic feedback simulation
-  const simulateHaptic = useCallback((element: HTMLElement) => {
-    element.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      element.style.transform = 'scale(1)';
-    }, 100);
-  }, []);
+  // Debounced forceVisible to prevent excessive re-renders
+  const debouncedForceVisible = useCallback(() => {
+    requestAnimationFrame(() => {
+      forceVisible();
+      onOpenNavigation?.();
+    });
+  }, [forceVisible, onOpenNavigation]);
 
   // Show when keyboard is visible OR header is hidden
   const shouldShow = isDashboardRoute && isMobile && (isKeyboardVisible || !visible);
@@ -33,29 +33,10 @@ const NavigationPullTab = ({ onOpenNavigation }: NavigationPullTabProps) => {
     return null;
   }
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const target = e.currentTarget as HTMLElement;
-    simulateHaptic(target);
-    // Enhanced pull tab interaction - force header visible
-    forceVisible();
-    onOpenNavigation?.();
-  };
-
   return (
     <div 
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[60] bg-primary rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:bg-primary/80 transition-all duration-200 border-b-4 border-primary-foreground/40"
-      onTouchStart={handleTouchStart}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const target = e.currentTarget as HTMLElement;
-        simulateHaptic(target);
-        // Enhanced pull tab clicked - force header visible
-        forceVisible();
-        onOpenNavigation?.();
-      }}
+      className="fixed top-0 left-1/2 transform -translate-x-1/2 z-[55] bg-primary rounded-b-3xl px-12 py-6 shadow-2xl cursor-pointer active:scale-95 border-b-4 border-primary-foreground/40"
+      onClick={debouncedForceVisible}
       style={{
         touchAction: 'manipulation',
         WebkitTouchCallout: 'none',

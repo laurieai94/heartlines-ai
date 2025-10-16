@@ -175,9 +175,10 @@ html, body, #root {
 
 /* Mobile viewport and performance optimizations */
 @media (max-width: 768px) {
-  /* Prevent body scroll on mobile - chat handles its own scrolling */
+  /* Allow natural scroll on html/body for better mobile experience */
   html, body {
-    overflow: hidden !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
     position: relative !important;
     width: 100% !important;
     height: 100dvh !important;

@@ -37,6 +37,7 @@ export const ChatLayout = ({
 }: ChatLayoutProps) => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isNavPopoverOpen, setIsNavPopoverOpen] = useState(false);
   
   const handleOpenSidebar = () => {
     onOpenSidebar?.();
@@ -54,13 +55,13 @@ export const ChatLayout = ({
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
-      <div className="md:hidden fixed top-safe left-0 right-0 z-50 bg-burgundy-900 pl-4 pr-4 py-3 flex items-center justify-end border-b border-white/10">
-        <Popover>
+      <div className="md:hidden fixed top-safe left-0 right-0 z-[45] bg-burgundy-900 pl-4 pr-4 py-3 flex items-center justify-end border-b border-white/10">
+        <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
           <PopoverTrigger asChild>
             <Button 
               variant="ghost" 
               size="icon"
-              className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200"
+              className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0"
               aria-label="Open site navigation"
             >
               <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 xl:h-20 xl:w-20" />
@@ -70,15 +71,18 @@ export const ChatLayout = ({
             align="end" 
             side="bottom"
             sideOffset={8}
-            className="w-16 z-[60] bg-burgundy-800/95 backdrop-blur-md border border-coral-400/20 shadow-2xl rounded-xl p-2"
+            className="w-16 z-[55] bg-burgundy-800/95 backdrop-blur-sm border border-coral-400/20 shadow-2xl rounded-xl p-2"
           >
             {navigationItems.map((item) => {
               const IconComponent = item.icon;
               return (
                 <button
                   key={item.label}
-                  onClick={item.onClick}
-                  className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer transition-all duration-200 text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
+                  onClick={() => {
+                    item.onClick();
+                    setIsNavPopoverOpen(false);
+                  }}
+                  className="w-full flex items-center justify-center p-2.5 rounded-lg cursor-pointer text-white/90 font-medium hover:bg-white/10 hover:text-white mb-1 last:mb-0"
                   aria-label={item.label}
                 >
                   <IconComponent className="h-5 w-5 flex-shrink-0" />

@@ -20,15 +20,19 @@ export const MobileHeaderVisibilityProvider = ({ children }: MobileHeaderVisibil
 
   // Force visible function for emergency situations
   const forceVisible = useCallback(() => {
-    console.log('🔥 Force visible triggered');
     setVisible(true);
   }, []);
 
-  // Enhanced setVisible (keeping original signature)
+  // Throttled setVisible to prevent excessive re-renders
+  const throttleRef = React.useRef<number | null>(null);
   const enhancedSetVisible = useCallback((value: boolean | ((prev: boolean) => boolean)) => {
-    console.log('📱 Mobile header visibility changed:', value);
-    setVisible(value);
-  }, [visible]);
+    if (throttleRef.current) return;
+    
+    throttleRef.current = window.requestAnimationFrame(() => {
+      setVisible(value);
+      throttleRef.current = null;
+    });
+  }, []);
 
   return (
     <MobileHeaderVisibilityContext.Provider value={{ visible, setVisible: enhancedSetVisible, forceVisible, navigationOpened, setNavigationOpened }}>
