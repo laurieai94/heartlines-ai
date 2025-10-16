@@ -93,7 +93,7 @@ export const HeroCarousel: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden -mt-20">
+    <div className="fixed top-0 left-0 h-screen w-full overflow-hidden z-0">
       {slides.map((slide, index) => (
         <div
           key={slide.year}
