@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import HeartlinesWordmark from "./Brand/HeartlinesWordmark";
-import { BRAND } from "@/branding";
-import heartlinesLogo from "@/assets/heartlines-logo-white.svg";
 import image2016 from "@/assets/hero-carousel/elderly-native-american-women.webp";
 import image2018 from "@/assets/hero-carousel/joyful-heritage-living-room.webp";
 import image2020 from "@/assets/hero-carousel/cowboys-with-wheelchair.webp";
@@ -133,15 +130,6 @@ export const HeroCarousel: React.FC = () => {
           </div>
         </div>
       ))}
-      
-      {/* Fixed Heartlines Logo - Top Left */}
-      <div className="fixed top-8 left-8 md:top-12 md:left-12 z-[100] pointer-events-none">
-        <img 
-          src={heartlinesLogo} 
-          alt="heartlines" 
-          className="h-20 md:h-25 drop-shadow-2xl"
-        />
-      </div>
     </div>
   );
 };
