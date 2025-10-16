@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
-import { Heart, MessageSquare } from "lucide-react";
+import { Heart, MessageSquare, Globe } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
 import DuckIcon from "@/components/icons/DuckIcon";
 import SiteFooter from "@/components/SiteFooter";
@@ -54,8 +54,13 @@ const Mission = () => {
                 
                 {/* Header with gradient */}
                 <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
-                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
-                  🌍 our moment
+                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
+                  flex items-center justify-center gap-3">
+                  <Globe 
+                    size={40} 
+                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                  />
+                  <span>our moment</span>
                 </h2>
                 
                 {/* Gradient divider */}
