@@ -16,13 +16,14 @@ const AuthCallback = () => {
         
         if (error) {
           console.error('Auth callback error:', error);
-          navigate('/', { replace: true });
+          navigate('/profile', { replace: true });
           return;
         }
 
-        // Get redirect destination from URL params
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectPath = urlParams.get('redirect') || '/profile';
+        // Get redirect destination from URL hash (more reliable than query params)
+        const hash = window.location.hash.substring(1); // Remove the '#'
+        const hashParams = new URLSearchParams(hash);
+        const redirectPath = hashParams.get('redirect') || '/profile';
 
         // Transfer any temporary data to the user's account
         try {
