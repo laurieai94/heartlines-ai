@@ -74,7 +74,7 @@ const Mission = () => {
                 </div>
 
                 {/* Middle paragraph */}
-                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
                     we built tech to keep us connected, but somehow everyone feels more alone.
                   </p>
