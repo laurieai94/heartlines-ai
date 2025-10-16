@@ -74,10 +74,10 @@ const flowSteps: FlowStep[] = [
 
 export const DataFlowCards = () => {
   return (
-    <section className="px-6 py-12 lg:py-16 bg-gradient-to-b from-burgundy-900 to-burgundy-950">
+    <section className="px-6 pt-6 pb-12 lg:pt-8 lg:pb-16 bg-gradient-to-b from-burgundy-900 to-burgundy-950">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
             how your data flows
           </h2>
