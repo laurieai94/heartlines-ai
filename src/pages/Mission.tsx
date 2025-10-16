@@ -253,23 +253,13 @@ const Mission = () => {
                   </Button>
                   <Button
                     size="lg"
-                    onClick={() => navigate('/coach')}
-                    className="min-w-[200px] text-lg backdrop-blur-xl
-                      bg-white/10 border border-white/30 text-white
-                      hover:bg-white/20 hover:scale-105 hover:-translate-y-1
-                      transition-all duration-300"
-                  >
-                    chat with kai
-                  </Button>
-                  <Button
-                    size="lg"
                     onClick={() => navigate('/contact')}
                     className="min-w-[200px] text-lg backdrop-blur-xl
                       bg-white/10 border border-white/30 text-white
                       hover:bg-white/20 hover:scale-105 hover:-translate-y-1
                       transition-all duration-300"
                   >
-                    build with us
+                    build community ai
                   </Button>
                 </div>
               </div>
