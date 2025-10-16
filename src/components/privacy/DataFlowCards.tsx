@@ -74,7 +74,7 @@ const flowSteps: FlowStep[] = [
 
 export const DataFlowCards = () => {
   return (
-    <section className="px-6 py-16 lg:py-24 bg-gradient-to-b from-burgundy-900 to-burgundy-950">
+    <section className="px-6 py-12 lg:py-16 bg-gradient-to-b from-burgundy-900 to-burgundy-950">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
