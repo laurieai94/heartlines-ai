@@ -243,54 +243,58 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
       
       {/* Typing indicator - only show when loading */}
       {loading && (
-        <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end`}>
-          <div className="relative flex-shrink-0">
-            <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-              <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
-              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                <Heart className="w-4 h-4 md:w-6 md:h-6" />
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
-            <div className="flex gap-1 md:gap-1.5">
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
-                animationDelay: '0.1s'
-              }}></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
-                animationDelay: '0.2s'
-              }}></div>
+        <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
+          <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end ${isMobile ? 'mb-3' : 'mb-2 md:mb-3'}`}>
+            <div className="relative flex-shrink-0">
+              <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
+                <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" />
+                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                  <Heart className="w-4 h-4 md:w-6 md:h-6" />
+                </AvatarFallback>
+              </Avatar>
+            </div>
+            <div className={`bg-white/10 backdrop-blur-sm px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+              <div className="flex gap-1 md:gap-1.5">
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce"></div>
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                  animationDelay: '0.1s'
+                }}></div>
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/60 rounded-full animate-bounce" style={{
+                  animationDelay: '0.2s'
+                }}></div>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* User typing indicator - always rendered to prevent height changes */}
-      <div 
-        className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end transition-opacity duration-200 ${userTyping ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
-        aria-live="polite"
-        aria-hidden={!userTyping}
-      >
-        <div className={`bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
-          <div className="flex gap-1 md:gap-1.5">
-            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
-            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-              animationDelay: '0.1s'
-            }}></div>
-            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
-              animationDelay: '0.2s'
-            }}></div>
+      <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
+        <div 
+          className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end justify-end transition-opacity duration-200 ${isMobile ? 'mb-3' : 'mb-2 md:mb-3'} ${userTyping ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+          aria-live="polite"
+          aria-hidden={!userTyping}
+        >
+          <div className={`bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-2 md:px-5 md:py-3 shadow-xl ${isMobile ? 'rounded-2xl' : 'rounded-3xl border border-white/10'}`}>
+            <div className="flex gap-1 md:gap-1.5">
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce"></div>
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                animationDelay: '0.1s'
+              }}></div>
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white/80 rounded-full animate-bounce" style={{
+                animationDelay: '0.2s'
+              }}></div>
+            </div>
           </div>
+          <div className="relative flex-shrink-0">
+            <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
+              <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
+                {userName ? userName[0]?.toUpperCase() : 'U'}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+          <span className="sr-only">{userName || 'User'} is typing...</span>
         </div>
-        <div className="relative flex-shrink-0">
-          <Avatar className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-coral-400 to-pink-500 border border-white/20">
-            <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
-              {userName ? userName[0]?.toUpperCase() : 'U'}
-            </AvatarFallback>
-          </Avatar>
-        </div>
-        <span className="sr-only">{userName || 'User'} is typing...</span>
       </div>
       
       <div className="h-2 md:h-4" />
