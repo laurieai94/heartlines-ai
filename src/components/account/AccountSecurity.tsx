@@ -29,9 +29,9 @@ const AccountSecurity = () => {
                 <Mail className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
-                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>Communication</CardTitle>
+                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>communication</CardTitle>
                 <CardDescription className={`${isMobile ? 'text-sm leading-snug' : 'text-sm'} text-white/60`}>
-                  Control how we communicate with you
+                  control how we communicate with you
                 </CardDescription>
               </div>
             </div>
@@ -40,10 +40,10 @@ const AccountSecurity = () => {
             <div className={`flex items-start justify-between touch-manipulation ${isMobile ? 'gap-3' : 'gap-4'}`}>
               <div className="flex-1 space-y-1">
                 <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
-                  Marketing Emails
+                  marketing emails
                 </p>
                 <p className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
-                  Receive updates about new features and improvements
+                  receive updates about new features and improvements
                 </p>
               </div>
               <Switch checked={settings.marketingEmails} onCheckedChange={checked => handleSettingChange('marketingEmails', checked)} className="touch-manipulation flex-shrink-0" />
@@ -59,9 +59,9 @@ const AccountSecurity = () => {
                 <Clock className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
-                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>Data Management</CardTitle>
+                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>data management</CardTitle>
                 <CardDescription className={`${isMobile ? 'text-sm leading-snug' : 'text-sm'} text-white/60`}>
-                  Configure data retention policies
+                  configure data retention policies
                 </CardDescription>
               </div>
             </div>
@@ -69,10 +69,10 @@ const AccountSecurity = () => {
           <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
             <div className={isMobile ? 'space-y-2' : 'space-y-1.5'}>
               <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
-                Data Retention Period
+                data retention period
               </p>
               <p className={`text-white/60 ${isMobile ? 'text-sm leading-snug mb-2' : 'text-sm mb-2'}`}>
-                How long should we keep your conversation history?
+                how long should we keep your conversation history?
               </p>
               <Select value={settings.dataRetention} onValueChange={value => handleSettingChange('dataRetention', value)}>
                 <SelectTrigger className={`w-full touch-manipulation text-white border-white/20 bg-white/5 ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}>
@@ -97,9 +97,9 @@ const AccountSecurity = () => {
                 <BarChart3 className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
               </div>
               <div>
-                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>Analytics</CardTitle>
+                <CardTitle className={`${isMobile ? 'text-base font-medium' : 'text-base font-medium'} text-white`}>analytics</CardTitle>
                 <CardDescription className={`${isMobile ? 'text-sm leading-snug' : 'text-sm'} text-white/60`}>
-                  Help us improve your experience
+                  help us improve your experience
                 </CardDescription>
               </div>
             </div>
@@ -108,10 +108,10 @@ const AccountSecurity = () => {
             <div className={`flex items-start justify-between touch-manipulation ${isMobile ? 'gap-3' : 'gap-4'}`}>
               <div className="flex-1 space-y-1">
                 <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
-                  Anonymous Usage Analytics
+                  anonymous usage analytics
                 </p>
                 <p className={`text-white/60 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
-                  Share anonymous usage data to help us improve the app
+                  share anonymous usage data to help us improve the app
                 </p>
               </div>
               <Switch checked={settings.anonymousUsage} onCheckedChange={checked => handleSettingChange('anonymousUsage', checked)} className="touch-manipulation flex-shrink-0" />

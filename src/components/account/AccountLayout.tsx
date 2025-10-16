@@ -77,10 +77,10 @@ const AccountLayout = () => {
           <div className={`text-center ${isMobile ? 'mb-4' : 'mb-5'}`}>
             <h1 className={`font-brand text-white ${
               isMobile ? 'text-3xl mb-1' : 'text-5xl mb-1'
-            }`}>My Account</h1>
+            }`}>my account</h1>
             <p className={`text-white/70 ${
               isMobile ? 'text-xs leading-snug' : 'text-xs'
-            }`}>Manage your profile, subscription, and security settings</p>
+            }`}>manage your profile, subscription, and security settings</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -102,7 +102,7 @@ const AccountLayout = () => {
               >
                 <User className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
                 <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
-                  Profile
+                  profile
                 </span>
               </TabsTrigger>
               <TabsTrigger 
@@ -120,7 +120,7 @@ const AccountLayout = () => {
               >
                 <CreditCard className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
                 <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
-                  Plans
+                  plans
                 </span>
               </TabsTrigger>
               <TabsTrigger 
@@ -138,7 +138,7 @@ const AccountLayout = () => {
               >
                 <Shield className={isMobile ? 'h-4 w-4' : 'h-4 w-4 mr-2'} />
                 <span className={isMobile ? 'sr-only' : 'inline text-sm'}>
-                  Security
+                  security
                 </span>
               </TabsTrigger>
             </TabsList>

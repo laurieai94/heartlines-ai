@@ -109,43 +109,6 @@ const PrivacySecurity = () => {
           </div>
         </section>
 
-        {/* Privacy Features */}
-        <section className="px-6 py-8 lg:py-12">
-          <div className="max-w-3xl mx-auto">
-            <Card className="p-8 md:p-12 bg-white/10 backdrop-blur-md border-white/20">
-              <h2 className="text-3xl lg:text-4xl font-thin text-white text-center mb-8">
-                private by design
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">no ai training on chats</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">your data = yours only</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">encrypted at rest + transit</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">row-level security on all data</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">choose history: 30 / 90 / 365 / forever</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-coral-400 text-xl mt-1">•</span>
-                  <p className="text-white text-lg">delete everything anytime, no hassle</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </section>
-
         {/* How It Works */}
         <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
           <div className="max-w-4xl mx-auto">
