@@ -131,17 +131,17 @@ export const HeroCarousel: React.FC = () => {
               {slide.tagline}
             </p>
           </div>
-
-          {/* Heartlines Logo - Top Left */}
-          <div className="absolute top-8 left-8 md:top-12 md:left-12 z-10">
-            <img 
-              src={heartlinesLogo} 
-              alt="heartlines" 
-              className="h-20 md:h-25 drop-shadow-2xl"
-            />
-          </div>
         </div>
       ))}
+      
+      {/* Fixed Heartlines Logo - Top Left */}
+      <div className="fixed top-8 left-8 md:top-12 md:left-12 z-[100] pointer-events-none">
+        <img 
+          src={heartlinesLogo} 
+          alt="heartlines" 
+          className="h-20 md:h-25 drop-shadow-2xl"
+        />
+      </div>
     </div>
   );
 };
