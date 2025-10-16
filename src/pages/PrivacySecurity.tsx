@@ -95,13 +95,13 @@ const PrivacySecurity = () => {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="px-6 py-20 lg:py-32 text-center">
+        <section className="px-6 py-24 lg:py-32 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
-              your privacy, your control
+            <h1 className="font-brand text-5xl lg:text-6xl font-bold mb-8 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent leading-tight">
+              Your Privacy, Your Control
             </h1>
-            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">
-              heartlines is built with privacy at its core. your conversations, your data, your rules.
+            <p className="text-xl lg:text-2xl text-coral-100/90 leading-relaxed tracking-wide font-light">
+              we're obsessed with protecting your conversations. here's exactly how we do it.
             </p>
           </div>
         </section>

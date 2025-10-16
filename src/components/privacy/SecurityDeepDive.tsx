@@ -70,11 +70,11 @@ export const SecurityDeepDive = () => {
     <section className="relative px-6 py-16 lg:py-24 bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-burgundy-900">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
-            security built into every layer
+        <div className="text-center mb-20">
+          <h2 className="font-brand text-4xl lg:text-5xl font-semibold tracking-wide mb-6 bg-gradient-to-r from-coral-300 via-coral-200 to-pink-200 bg-clip-text text-transparent leading-tight">
+            Security Built Into Every Layer
           </h2>
-          <p className="text-xl text-coral-100/80 max-w-3xl mx-auto">
+          <p className="text-xl text-coral-100/90 max-w-3xl mx-auto leading-relaxed">
             we don't just talk about privacy. here's exactly how we protect you.
           </p>
         </div>
@@ -84,20 +84,21 @@ export const SecurityDeepDive = () => {
           {securityFeatures.map((feature, index) => (
             <Card 
               key={index}
-              className="p-6 bg-burgundy-800/50 border-coral-500/20 hover:border-coral-400/40 transition-all duration-300 hover:scale-[1.02]"
+              className="p-8 bg-burgundy-800/50 border-coral-500/20 hover:border-coral-400/40 transition-all duration-500 hover:scale-[1.01] shadow-lg hover:shadow-2xl hover:shadow-coral-500/10 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon & Name */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-coral-500/10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 rounded-lg bg-coral-500/10">
                   <feature.icon className="w-6 h-6 text-coral-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-coral-50">
+                <h3 className="text-lg font-medium text-coral-50 tracking-wide">
                   {feature.name}
                 </h3>
               </div>
 
               {/* Technical Description */}
-              <div className="mb-4">
+              <div className="mb-6">
                 <div className="text-xs font-mono text-coral-300 mb-2 uppercase tracking-wider">
                   technical
                 </div>
@@ -111,7 +112,7 @@ export const SecurityDeepDive = () => {
                 <div className="text-xs font-mono text-pink-300 mb-2 uppercase tracking-wider">
                   what this means
                 </div>
-                <p className="text-sm text-coral-50/90 leading-relaxed">
+                <p className="text-sm text-coral-50/90 leading-relaxed font-light">
                   {feature.meaning}
                 </p>
               </div>
