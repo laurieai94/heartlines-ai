@@ -119,24 +119,33 @@ const Mission = () => {
                 {/* Opening line */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is an ai coach built for the chaos of real relationships.
+                    stronger relationships start here.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    the ai relationship coach for messy, modern love.
                   </p>
                 </div>
 
                 {/* Middle paragraph */}
-                <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    it's not therapy. it's not a dating app. it's the space in between —
+                    this isn't therapy, and it's definitely not a swipe fest.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    where you talk through the stuff you usually avoid, and start growing instead of spiraling.
+                    it's the tool for people who want to stop spiraling and start understanding.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    we built <span className="font-brand">heartlines</span> for the chaos — the "we need to talk" energy, the miscommunication, the emotional hangovers.
                   </p>
                 </div>
 
                 {/* Closing line */}
                 <div className="text-center max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    you'll learn to communicate, reflect, and build something healthy — with others and with yourself.
+                    you bring the feelings.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    we help you make sense of them.
                   </p>
                 </div>
               </div>
