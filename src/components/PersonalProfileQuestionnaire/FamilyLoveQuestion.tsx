@@ -28,7 +28,7 @@ const FamilyLoveQuestion = ({
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2 space-y-1">
       <div className="space-y-1">
         <Label className="text-sm font-semibold text-white">
           How was love typically shown? <span className="text-red-400">*</span>

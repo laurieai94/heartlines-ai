@@ -22,7 +22,7 @@ const QuestionnaireContent = ({
 }: QuestionnaireContentProps) => {
   return (
     <div className="bg-black/5 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-      <div className="px-4 py-8 space-y-8">
+      <div className="px-4 py-4 space-y-4">
         <div id="section-1">
           <QuestionnaireSection1 
             profileData={profileData}

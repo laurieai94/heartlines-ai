@@ -14,7 +14,7 @@ const RelationshipLengthSelector = ({ profileData, updateField }: RelationshipLe
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2.5 space-y-1.5">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-2 space-y-1">
       <div>
         <Label className="text-sm font-semibold text-white">
           How long have you been together? <span className="text-red-400">*</span>

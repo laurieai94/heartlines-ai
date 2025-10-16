@@ -63,7 +63,7 @@ const QuestionnaireSection3 = ({ profileData, updateField, handleMultiSelect, is
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2.5">
       {/* Stress Response */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-3">
         <div>

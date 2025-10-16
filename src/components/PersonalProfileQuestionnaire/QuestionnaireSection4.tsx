@@ -59,7 +59,7 @@ const QuestionnaireSection4 = ({
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2.5">
       <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/15 p-4 space-y-4">
         <div className="flex items-center gap-2 mb-2">
           <Heart className="w-4 h-4 text-rose-400" />

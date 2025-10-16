@@ -185,10 +185,10 @@ const AccountSecurity = () => {
   };
   
   return <>
-      <div className={`${isMobile ? 'account-mobile' : ''} ${isMobile ? 'space-y-3' : 'space-y-2.5'}`}>
+      <div className={`${isMobile ? 'account-mobile' : ''} ${isMobile ? 'space-y-2' : 'space-y-1.5'}`}>
         {/* Communication Preferences */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
-          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2' : 'p-2'}`}>
                 <Mail className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
@@ -201,7 +201,7 @@ const AccountSecurity = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
             <div className={`flex items-start justify-between touch-manipulation ${isMobile ? 'gap-3' : 'gap-4'}`}>
               <div className="flex-1 space-y-1">
                 <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
@@ -218,7 +218,7 @@ const AccountSecurity = () => {
 
         {/* Data Management */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
-          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2' : 'p-2'}`}>
                 <Clock className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
@@ -231,7 +231,7 @@ const AccountSecurity = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
             <div className={isMobile ? 'space-y-2' : 'space-y-1.5'}>
               <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
                 data retention period
@@ -256,7 +256,7 @@ const AccountSecurity = () => {
 
         {/* Analytics */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
-          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2' : 'p-2'}`}>
                 <BarChart3 className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
@@ -269,7 +269,7 @@ const AccountSecurity = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
             <div className={`flex items-start justify-between touch-manipulation ${isMobile ? 'gap-3' : 'gap-4'}`}>
               <div className="flex-1 space-y-1">
                 <p className={`font-medium ${isMobile ? 'text-sm' : 'text-sm'} text-white`}>
@@ -286,7 +286,7 @@ const AccountSecurity = () => {
 
         {/* Password Change */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-white/10 backdrop-blur-sm border border-white/20`}>
-          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-primary/10 ${isMobile ? 'p-2' : 'p-2'}`}>
                 <Key className={`text-pink-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
@@ -299,20 +299,20 @@ const AccountSecurity = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
             <Button 
               onClick={() => setShowPasswordDialog(true)}
               variant="outline"
               className={`w-full bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
             >
-              Change Password
+              change password
             </Button>
           </CardContent>
         </Card>
 
         {/* Danger Zone - Account Deletion */}
         <Card className={`${isMobile ? 'rounded-lg' : ''} bg-red-500/10 backdrop-blur-sm border border-red-500/30`}>
-          <CardHeader className={isMobile ? 'p-3 pb-2' : 'p-2.5'}>
+          <CardHeader className={isMobile ? 'p-2.5 pb-1.5' : 'p-2'}>
             <div className="flex items-center gap-2">
               <div className={`rounded-lg bg-red-500/10 ${isMobile ? 'p-2' : 'p-2'}`}>
                 <Trash2 className={`text-red-400 ${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} />
@@ -325,13 +325,13 @@ const AccountSecurity = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent className={isMobile ? 'p-3 pt-0' : 'p-2.5 pt-0'}>
+          <CardContent className={isMobile ? 'p-2.5 pt-0' : 'p-2 pt-0'}>
             <Button 
               onClick={() => setShowDeleteDialog(true)}
               variant="destructive"
               className={`w-full bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 hover:text-red-400 touch-manipulation ${isMobile ? 'text-sm h-11' : 'text-sm h-8'}`}
             >
-              Delete Account
+              delete account
             </Button>
           </CardContent>
         </Card>

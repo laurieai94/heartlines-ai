@@ -49,7 +49,7 @@ const QuestionnaireSection1 = ({ profileData, updateField, handleMultiSelect, is
   };
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1">
       <UnderageModal 
         isOpen={showUnderageModal} 
         onClose={() => setShowUnderageModal(false)} 

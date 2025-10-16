@@ -19,7 +19,7 @@ const QuestionnaireSection2 = ({ profileData, updateField, handleMultiSelect, is
   const hasRelationship = relationshipStatus && ['Talking to someone', 'Talking stage', 'In a relationship', 'In a relationship (official)', 'Engaged', 'Married', 'Domestic partnership'].includes(relationshipStatus);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2.5">
       <RelationshipStatusSelector 
         profileData={profileData}
         updateField={updateField}
