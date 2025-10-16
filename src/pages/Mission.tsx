@@ -40,7 +40,7 @@ const Mission = () => {
               <span className="font-glacial text-xl md:text-2xl lg:text-3xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                 powered laurie ai
               </span>
-              <DuckIcon className="w-5 h-5 lg:w-6 lg:h-6 text-coral-400" />
+              <DuckIcon className="w-6 h-6 lg:w-7 lg:h-7 text-coral-400 drop-shadow-[0_0_8px_rgba(255,132,80,0.4)]" />
             </div>
           </section>
 

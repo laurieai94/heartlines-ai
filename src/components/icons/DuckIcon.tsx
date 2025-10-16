@@ -19,28 +19,50 @@ const DuckIcon = memo(({
       height={size} 
       viewBox="0 0 24 24" 
       fill="none" 
-      stroke={color}
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      stroke="none"
       className={className}
       aria-label="Duck icon"
     >
-      {/* Main body - single egg shape */}
-      <ellipse cx="12" cy="14" rx="8" ry="6" fill={color} opacity="0.95" />
+      {/* Body - rounded duck body shape */}
+      <ellipse cx="14" cy="14" rx="7" ry="5.5" fill={color} />
       
-      {/* Head - positioned on top of body */}
-      <circle cx="8" cy="8" r="4.5" fill={color} />
+      {/* Head - round and distinct on the left */}
+      <circle cx="7" cy="9" r="4" fill={color} />
       
-      {/* Beak - MUCH larger and more prominent with orange color */}
-      <path d="M3.5 8 L0.5 7 L3.5 10 Z" fill="#FFA500" stroke={color} strokeWidth="0.5" />
+      {/* Neck connection - smooth transition */}
+      <ellipse cx="10" cy="11.5" rx="2.5" ry="3" fill={color} />
       
-      {/* Eye - larger with clear white highlight */}
-      <circle cx="9" cy="7.5" r="1.5" fill="white" />
-      <circle cx="9.5" cy="7" r="0.8" fill="#1a1a1a" />
+      {/* Beak - large, prominent, bright orange */}
+      <path 
+        d="M3 9 L1 8.5 L1 9.5 L3 10 Z" 
+        fill="#FF8C00" 
+        stroke="#FF6B00" 
+        strokeWidth="0.5"
+      />
       
-      {/* Simple tail bump for character */}
-      <path d="M19 14 Q20 12 21 14" stroke={color} strokeWidth="3" fill="none" strokeLinecap="round" />
+      {/* Eye - large and prominent with bright highlight */}
+      <circle cx="8" cy="8.5" r="1.3" fill="white" />
+      <circle cx="8.3" cy="8.2" r="0.7" fill="#1a1a1a" />
+      <circle cx="8.5" cy="8" r="0.3" fill="white" opacity="0.9" />
+      
+      {/* Wing detail - curved line on body */}
+      <path 
+        d="M12 12 Q14 13 15 15" 
+        stroke={color} 
+        strokeWidth="1.5" 
+        fill="none" 
+        strokeLinecap="round"
+        opacity="0.3"
+      />
+      
+      {/* Tail - upward curved duck tail */}
+      <path 
+        d="M20 14 Q21.5 12 22 15" 
+        stroke={color} 
+        strokeWidth="2.5" 
+        fill="none" 
+        strokeLinecap="round"
+      />
     </svg>
   );
 });
