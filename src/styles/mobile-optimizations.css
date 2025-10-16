@@ -33,7 +33,6 @@ html, body, #root {
   html:has(.landing-page-scroll),
   body:has(.landing-page-scroll) {
     overflow: visible !important;
-    position: relative !important;
     height: auto !important;
   }
   
@@ -46,7 +45,6 @@ html, body, #root {
   html.landing-page-active,
   body.landing-page-active {
     overflow: visible !important;
-    position: relative !important;
     height: auto !important;
   }
   
