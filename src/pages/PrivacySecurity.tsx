@@ -46,27 +46,6 @@ const PrivacySecurity = () => {
     label: 'plans',
     icon: CreditCard
   }];
-  const features = [{
-    icon: <Server className="w-8 h-8 text-coral-400" />,
-    title: "secure infrastructure",
-    description: "your data is stored in a secure supabase backend with industry-standard encryption at rest and in transit (https/tls). all communications are encrypted.",
-    highlight: "enterprise-grade security"
-  }, {
-    icon: <Database className="w-8 h-8 text-coral-400" />,
-    title: "data retention you control",
-    description: "choose how long to keep your conversation history: 30 days, 90 days, 1 year, or forever. change this anytime in your privacy settings.",
-    highlight: "30/90/365/forever options"
-  }, {
-    icon: <Shield className="w-8 h-8 text-coral-400" />,
-    title: "row-level security",
-    description: "our supabase backend enforces row-level security on all user data tables. only you can access your profiles and conversations.",
-    highlight: "database-level protection"
-  }, {
-    icon: <Eye className="w-8 h-8 text-coral-400" />,
-    title: "anonymous analytics",
-    description: "completely optional usage analytics help us improve the app without collecting personal content. toggle this in privacy settings.",
-    highlight: "fully opt-in"
-  }];
   return <div className="min-h-screen bg-burgundy-900">
       {/* Background effects */}
 
@@ -130,25 +109,40 @@ const PrivacySecurity = () => {
           </div>
         </section>
 
-        {/* Key Features */}
+        {/* Privacy Features */}
         <section className="px-6 py-8 lg:py-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20 text-white">
-                  <CardHeader className="text-center">
-                    <div className="flex justify-center mb-4">
-                      {feature.icon}
-                    </div>
-                    <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
-                    <div className="inline-block bg-coral-400/20 rounded-full px-3 py-1 text-xs text-coral-300 font-medium">
-                      {feature.highlight}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-gray-300 text-center">{feature.description}</CardDescription>
-                  </CardContent>
-                </Card>)}
-            </div>
+          <div className="max-w-3xl mx-auto">
+            <Card className="p-8 md:p-12 bg-white/10 backdrop-blur-md border-white/20">
+              <h2 className="text-3xl lg:text-4xl font-thin text-white text-center mb-8">
+                private by design
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">no ai training on chats</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">your data = yours only</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">encrypted at rest + transit</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">row-level security on all data</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">choose history: 30 / 90 / 365 / forever</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-coral-400 text-xl mt-1">•</span>
+                  <p className="text-white text-lg">delete everything anytime, no hassle</p>
+                </div>
+              </div>
+            </Card>
           </div>
         </section>
 
