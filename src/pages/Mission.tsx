@@ -8,7 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import taglineImage from "@/assets/tagline-image.png";
+
 
 const Mission = () => {
   const {
@@ -38,14 +38,15 @@ const Mission = () => {
             </h1>
           </section>
 
-          {/* Tagline Image */}
-          <section className="text-center animate-fade-in animation-delay-50">
-            <div className="max-w-3xl mx-auto px-4">
-              <img 
-                src={taglineImage} 
-                alt="the ai relationship coach for messy, modern love"
-                className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
-              />
+          {/* Brand Tagline */}
+          <section className="text-center animate-fade-in animation-delay-50 -mt-8">
+            <div className="space-y-2">
+              <h2 className="font-brand text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-white via-pink-200 to-white bg-clip-text text-transparent leading-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                heartlines
+              </h2>
+              <p className="text-lg md:text-xl text-white/70 font-light tracking-wide">
+                powered by laurie ai
+              </p>
             </div>
           </section>
 
