@@ -30,7 +30,7 @@ const Mission = () => {
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
           {/* 1. Hero Section */}
-          <section className="flex flex-col items-center animate-fade-in py-8 md:py-12">
+          <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
             <h1 
               className="font-brand text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient drop-shadow-[0_0_30px_rgba(255,107,157,0.5)]"
             >
@@ -46,7 +46,7 @@ const Mission = () => {
 
 
           {/* 1.5. Our Moment */}
-          <section className="animate-slide-up animation-delay-100">
+          <section className="animate-slide-up animation-delay-100 -mt-4">
             <div className="relative group">
               {/* Outer glow layer */}
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-coral-500/30 to-peach-400/30 
