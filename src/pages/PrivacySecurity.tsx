@@ -98,7 +98,7 @@ const PrivacySecurity = () => {
         <section className="px-6 pt-8 pb-4 lg:pt-12 lg:pb-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="font-brand text-5xl lg:text-7xl mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
-              your privacy, your control
+              your privacy, <br className="hidden lg:inline" />your control
             </h1>
             <p className="text-xl lg:text-2xl text-coral-100/80 mb-4">we're obsessed with protecting your conversations and data.</p>
             <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">here's exactly how we do it.</p>
