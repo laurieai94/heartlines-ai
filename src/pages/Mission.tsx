@@ -180,9 +180,12 @@ const Mission = () => {
                 </div>
 
                 {/* The Model */}
-                <div className="text-center space-y-6 mb-8 max-w-2xl mx-auto">
+                <div className="text-center space-y-8 mb-8 max-w-2xl mx-auto">
                   <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    <span className="font-medium text-white">here's the model:</span><br />
+                    <span className="font-medium text-white">here's the model:</span>
+                  </p>
+                  
+                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
                     we make for-profit products like heartlines that help people grow, heal, and connect. then we use part of that profit to create free or low-cost ai tools for the people and communities who are most often left behind —
                   </p>
 
@@ -213,14 +216,20 @@ const Mission = () => {
                     </ul>
                   </div>
 
+                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed mt-8">
+                    <span className="font-medium text-white">it's a cycle:</span> profit funds purpose, and purpose drives innovation.
+                  </p>
+                  
                   <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    <span className="font-medium text-white">it's a cycle:</span> profit funds purpose, and purpose drives innovation.<br />
                     when you invest in your own growth with heartlines, you help bring ai to people who've been excluded from it.
                   </p>
 
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    laurie ai exists to prove that when ai helps people connect, communities get stronger.<br />
-                    <span className="font-medium text-white">and that's the future we're here to build.</span>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed mt-6">
+                    laurie ai exists to prove that when ai helps people connect, communities get stronger.
+                  </p>
+                  
+                  <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
+                    and that's the future we're here to build.
                   </p>
                 </div>
 
