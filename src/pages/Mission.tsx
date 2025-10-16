@@ -27,7 +27,7 @@ const Mission = () => {
       <div className="landing-page-scroll min-h-screen bg-burgundy-900 flex flex-col">
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
           {/* 1. Hero Section */}
           <section className="text-center animate-fade-in py-8 md:py-12">
             <h1 
@@ -47,44 +47,60 @@ const Mission = () => {
               {/* Glass card */}
               <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
-                hover:-translate-y-2 hover:scale-[1.02]
+                border border-pink-400/30 shadow-inner shadow-white/5
+                hover:-translate-y-2 hover:scale-[1.02] hover:backdrop-blur-2xl
                 hover:shadow-2xl hover:shadow-pink-500/20
                 transition-all duration-500 ease-out">
                 
                 {/* Header with gradient */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8 tracking-wide
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
                   <Globe 
                     size={40} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 
+                               group-hover:scale-110 transition-transform duration-500" 
                   />
-                  <span>our moment</span>
+                  <span className="animate-fade-in">our moment</span>
                 </h2>
                 
                 {/* Gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto
+                  group-hover:via-pink-400/80 transition-all duration-500"></div>
                 
+                {/* Animated background orbs */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+                  <div className="absolute top-20 right-20 w-64 h-64 bg-pink-400/20 rounded-full blur-3xl animate-float"></div>
+                  <div className="absolute bottom-20 left-20 w-80 h-80 bg-coral-400/15 rounded-full blur-3xl animate-float" 
+                       style={{animationDelay: '2s'}}></div>
+                </div>
+
                 {/* Opening line */}
-                <div className="text-center mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    ai isn't going anywhere. and neither is your need to feel something real.
+                <div className="text-center mb-8 max-w-2xl mx-auto space-y-4">
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-loose tracking-wide">
+                    ai isn't going anywhere.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-loose tracking-wide">
+                    and neither is your need to feel something real.
                   </p>
                 </div>
 
                 {/* Middle paragraph */}
-                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                <div className="text-center space-y-5 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose animate-fade-in" 
+                     style={{animationDelay: '0.1s'}}>
                     we built tech to keep us connected, but somehow everyone feels more alone.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> helps you make space for real connection again.
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose animate-fade-in" 
+                     style={{animationDelay: '0.2s'}}>
+                    <span className="font-brand text-white font-medium">heartlines</span> helps you make space for real connection again.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose animate-fade-in" 
+                     style={{animationDelay: '0.3s'}}>
                     we help you talk it out, own your patterns, and do the real work.
                   </p>
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-loose animate-fade-in" 
+                     style={{animationDelay: '0.4s'}}>
                     come back to them — and yourself.
                   </p>
                 </div>
@@ -102,19 +118,27 @@ const Mission = () => {
               {/* Glass card */}
               <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
-                hover:-translate-y-2 hover:scale-[1.02]
+                border border-pink-400/30 shadow-inner shadow-white/5
+                hover:-translate-y-2 hover:scale-[1.02] hover:backdrop-blur-2xl
                 hover:shadow-2xl hover:shadow-pink-500/20
                 transition-all duration-500 ease-out">
                 
+                {/* Animated background orbs */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+                  <div className="absolute top-10 left-10 w-72 h-72 bg-coral-400/20 rounded-full blur-3xl animate-float"></div>
+                  <div className="absolute bottom-10 right-10 w-64 h-64 bg-pink-400/15 rounded-full blur-3xl animate-float" 
+                       style={{animationDelay: '3s'}}></div>
+                </div>
+                
                 {/* Header with gradient */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8 tracking-wide
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                   💞 what heartlines is
                 </h2>
                 
                 {/* Gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto
+                  group-hover:via-pink-400/80 transition-all duration-500"></div>
                 
                 {/* Opening line */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
@@ -162,23 +186,33 @@ const Mission = () => {
               {/* Glass container */}
               <div className="relative backdrop-blur-xl rounded-3xl p-8 md:p-12
                 bg-gradient-to-br from-white/20 via-white/15 to-white/10
-                border border-pink-400/20
-                hover:-translate-y-2 hover:scale-[1.01]
+                border border-pink-400/30 shadow-inner shadow-white/5
+                hover:-translate-y-2 hover:scale-[1.01] hover:backdrop-blur-2xl
                 transition-all duration-500 ease-out">
                 
+                {/* Animated background orbs */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+                  <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-peach-400/20 rounded-full blur-3xl animate-float" 
+                       style={{animationDelay: '1s'}}></div>
+                  <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-pink-400/15 rounded-full blur-3xl animate-float" 
+                       style={{animationDelay: '4s'}}></div>
+                </div>
+                
                 {/* Heading with gradient and duck icon */}
-                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
+                <h2 className="text-3xl md:text-4xl font-brand text-center mb-8 tracking-wide
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
                   <DuckIcon 
                     size={40} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 
+                               group-hover:scale-110 transition-transform duration-500" 
                   />
-                  <span>powered by laurie ai</span>
+                  <span>powered by <span className="font-medium text-white">laurie ai</span></span>
                 </h2>
                 
                 {/* Gradient divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto
+                  group-hover:via-pink-400/80 transition-all duration-500"></div>
                 
                 {/* Introduction */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
@@ -199,26 +233,30 @@ const Mission = () => {
 
                   {/* Who We Serve - Nested glass card */}
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 
-                    hover:bg-white/15 transition-all duration-300">
-                    <ul className="space-y-3 text-white/90 font-light text-base md:text-lg text-left">
-                      <li className="flex items-start gap-3 group/item">
+                    hover:bg-white/15 hover:border-white/30 transition-all duration-300">
+                    <ul className="space-y-4 text-white/90 font-light text-base md:text-lg text-left">
+                      <li className="flex items-start gap-3 group/item animate-fade-in" style={{animationDelay: '0.1s'}}>
                         <Heart className="w-5 h-5 text-pink-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
+                          group-hover/item:scale-110 group-hover/item:drop-shadow-[0_0_8px_rgba(255,107,157,0.6)]
+                          transition-all duration-300" />
                         <span>lgbtq+ organizations</span>
                       </li>
-                      <li className="flex items-start gap-3 group/item">
+                      <li className="flex items-start gap-3 group/item animate-fade-in" style={{animationDelay: '0.2s'}}>
                         <Heart className="w-5 h-5 text-coral-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
+                          group-hover/item:scale-110 group-hover/item:drop-shadow-[0_0_8px_rgba(255,132,80,0.6)]
+                          transition-all duration-300" />
                         <span>mental-health and trauma-informed groups</span>
                       </li>
-                      <li className="flex items-start gap-3 group/item">
+                      <li className="flex items-start gap-3 group/item animate-fade-in" style={{animationDelay: '0.3s'}}>
                         <Heart className="w-5 h-5 text-peach-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
+                          group-hover/item:scale-110 group-hover/item:drop-shadow-[0_0_8px_rgba(255,181,135,0.6)]
+                          transition-all duration-300" />
                         <span>inclusion-driven nonprofits</span>
                       </li>
-                      <li className="flex items-start gap-3 group/item">
+                      <li className="flex items-start gap-3 group/item animate-fade-in" style={{animationDelay: '0.4s'}}>
                         <Heart className="w-5 h-5 text-orange-300 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
+                          group-hover/item:scale-110 group-hover/item:drop-shadow-[0_0_8px_rgba(253,186,116,0.6)]
+                          transition-all duration-300" />
                         <span>anyone who deserves access to care but rarely gets it</span>
                       </li>
                     </ul>
