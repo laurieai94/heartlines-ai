@@ -56,13 +56,13 @@ const SignUpModal = ({
   const getActionMessage = () => {
     switch (blockingAction) {
       case 'chat':
-        return "Kai's ready when you are. Let's create your free account to start coaching with your personalized insights.";
+        return "kai's ready when you are. let's create your free account to start coaching with your personalized insights.";
       case 'practice':
-        return "Ready to practice real conversations? Create your free account to unlock conversation simulations.";
+        return "ready to practice real conversations? create your free account to unlock conversation simulations.";
       case 'actions':
-        return "Let's turn insights into action. Create your free account to access personalized relationship tools.";
+        return "let's turn insights into action. create your free account to access personalized relationship tools.";
       default:
-        return "Ready to get started with Kai? Create your free account to save your profile and unlock your tools.";
+        return "ready to get started with kai? create your free account to save your profile and unlock your tools.";
     }
   };
   const handleEmailAuth = async (e: React.FormEvent) => {
@@ -183,9 +183,9 @@ const SignUpModal = ({
                     ? "We've sent a verification link to your email. Click the link to activate your account."
                     : showForgotPassword
                     ? (resetEmailSent ? "We've sent a password reset link to your email." : "Enter your email to receive a password reset link.")
-                    : isSignUp 
-                    ? "Join thousands improving their relationships with personalized AI coaching."
-                    : "Pick up right where you left off with Kai."}
+                     : isSignUp 
+                     ? "join thousands improving their relationships with personalized ai coaching."
+                     : "pick up right where you left off with kai."}
                 </p>
               </div>
 

@@ -31,7 +31,7 @@ const ProfileTips = () => {
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
                     <h4 className="font-semibold text-white text-xs md:text-sm">keep it 100</h4>
-                    <p className="text-pink-200/80 text-xs md:text-xs">Kai's only as smart as the real you — not the "best self" version.</p>
+                    <p className="text-pink-200/80 text-xs md:text-xs">kai's only as smart as the real you — not the "best self" version.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

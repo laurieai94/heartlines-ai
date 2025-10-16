@@ -11,12 +11,12 @@ interface ChatBubbleProps {
 const ChatBubble = ({ children, isUser = false, className = '', variant = 'default' }: ChatBubbleProps) => {
   const getVariantStyles = () => {
     if (variant === 'kai') {
-      // Kai's messages - burgundy-tinted glass with white outline
+      // kai's messages - burgundy-tinted glass with white outline
       return 'bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 shadow-lg shadow-black/30';
     }
     
     if (variant === 'maya') {
-      // Maya's messages - subtle coral/pink glass gradient to differentiate from Kai
+      // maya's messages - subtle coral/pink glass gradient to differentiate from kai
       return 'bg-gradient-to-br from-coral-400/20 to-pink-500/30 backdrop-blur-sm text-white border-2 border-coral-400/40 shadow-lg shadow-coral-400/20';
     }
     

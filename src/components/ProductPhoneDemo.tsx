@@ -108,7 +108,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                   <FlameIconHalo intensity="medium" size="sm" animated={true}>
                     <div className="relative">
                       <Avatar className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 border border-white/20">
-                        <AvatarImage src={BRAND.coach.avatarSrc} alt="Kai" className="object-cover" loading="eager" decoding="async" />
+                        <AvatarImage src={BRAND.coach.avatarSrc} alt="kai" className="object-cover" loading="eager" decoding="async" />
                         <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
                           <Heart className="w-6 h-6" />
                         </AvatarFallback>
@@ -117,7 +117,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
                     </div>
                   </FlameIconHalo>
                   <div>
-                    <h3 className="text-white font-semibold text-sm">{currentConversation.coachName || 'Kai'}</h3>
+                    <h3 className="text-white font-semibold text-sm">{currentConversation.coachName || 'kai'}</h3>
                     <p className="text-white/70 text-xs">{currentConversation.theme}</p>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ const ProductPhoneDemo = ({ className = '', style, videoUrl }: ProductPhoneDemoP
             <div className="absolute bottom-0 left-0 right-0 px-4 py-4 bg-gradient-to-t from-black/20 to-transparent backdrop-blur-sm">
               <div className="flex gap-2 items-center">
                 <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-2.5 border border-white/20">
-                  <div className="text-white/50 text-sm">Chat with {currentConversation.coachName || 'Kai'}</div>
+                  <div className="text-white/50 text-sm">chat with {currentConversation.coachName || 'kai'}</div>
                 </div>
                 <div className="w-10 h-10 bg-gradient-to-r from-coral-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">

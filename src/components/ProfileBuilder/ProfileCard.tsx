@@ -37,7 +37,7 @@ const ProfileCard = ({
   progressColor,
   benefitColor,
   optionalPillImage,
-  motivationText = "The more real you are, the more real Kai gets"
+  motivationText = "the more real you are, the more real kai gets"
 }: ProfileCardProps) => {
   const [firstBenefit, ...remainingBenefits] = benefits;
   const cardRef = useRef<HTMLDivElement>(null);

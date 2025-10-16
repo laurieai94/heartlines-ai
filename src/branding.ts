@@ -13,7 +13,7 @@ export const BRAND = {
   alt: "heartlines logo",
   tagline: "powered by laurie ai",
   coach: {
-    name: "Kai",
+    name: "kai",
     avatarSrc: "/lovable-uploads/242d0015-a32d-4eaf-9252-c22dc3e01345.png"
   }
 };

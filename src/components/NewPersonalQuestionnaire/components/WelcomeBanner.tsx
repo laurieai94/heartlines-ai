@@ -40,7 +40,7 @@ const WelcomeBanner = ({ overallProgress }: WelcomeBannerProps) => {
         <div className="flex items-center gap-2.5 flex-1">
           <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
           <p className="text-sm text-white/90">
-            Welcome! Answer just 5 core questions to chat with Kai. You can always add more details later.
+            welcome! answer just 5 core questions to chat with kai. you can always add more details later.
           </p>
         </div>
         <Button

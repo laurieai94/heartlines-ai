@@ -101,7 +101,7 @@ const EnhancedQuestionnaireFooter = ({
     }
     
     if (overallProgress >= 75) {
-      return "🔥 You're so close! Just a few more questions to unlock Kai AI Coach!";
+      return "🔥 You're so close! Just a few more questions to unlock kai ai coach!";
     }
     
     if (overallProgress >= 50) {
@@ -208,7 +208,7 @@ const EnhancedQuestionnaireFooter = ({
             className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-3 px-8 py-3 text-base rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
           >
             <Sparkles className="w-5 h-5" />
-            Unlock Kai AI Coach
+            unlock kai ai coach
             <ArrowRight className="w-5 h-5" />
           </Button>
         </div>

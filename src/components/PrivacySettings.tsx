@@ -109,7 +109,7 @@ export const PrivacySettings = () => {
           <div className="space-y-1">
             <div className="text-sm font-medium text-white">Anonymous Usage Analytics</div>
             <div className="text-xs text-white/60">
-              Share anonymous usage patterns to help improve Kai
+              share anonymous usage patterns to help improve kai
             </div>
           </div>
           <Switch

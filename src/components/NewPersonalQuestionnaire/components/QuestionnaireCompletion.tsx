@@ -59,9 +59,9 @@ const QuestionnaireCompletion = ({
                   <MessageCircleHeart className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-white font-semibold mb-1">Meet Kai, Your AI Coach</h3>
+                  <h3 className="text-white font-semibold mb-1">meet kai, your ai coach</h3>
                   <p className="text-white/70 text-sm mb-3">
-                    Start your personalized coaching journey right away with insights tailored to your profile.
+                    start your personalized coaching journey right away with insights tailored to your profile.
                   </p>
                   <Button
                     onClick={onStartCoaching}

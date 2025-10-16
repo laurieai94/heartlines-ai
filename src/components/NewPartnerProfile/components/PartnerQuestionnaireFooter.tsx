@@ -49,11 +49,11 @@ const PartnerQuestionnaireFooter = ({
           className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white flex items-center gap-3 px-8 py-3 text-base rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100 font-semibold"
         >
           <Heart className="w-4 h-4" />
-          Unlock Kai AI Coach
+          unlock kai ai coach
         </Button>
         
         <p className="text-white/70 text-sm max-w-md">
-          You're ready to start your personalized relationship coaching journey with Kai!
+          you're ready to start your personalized relationship coaching journey with kai!
         </p>
       </div>
     </div>

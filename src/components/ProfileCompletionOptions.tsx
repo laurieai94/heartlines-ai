@@ -66,7 +66,7 @@ const ProfileCompletionOptions = ({
         <div className="space-y-4">
           {isPersonalCompletion ? <>
               <Button onClick={onStartChatting} className="w-full questionnaire-button-primary">
-                Start Coaching with Kai
+                start coaching with kai
               </Button>
               
               <Button onClick={onAddPartnerProfile} className="w-full questionnaire-button-secondary">
@@ -80,7 +80,7 @@ const ProfileCompletionOptions = ({
               </div>
             </> : <>
               <Button onClick={onStartChatting} className="w-full questionnaire-button-primary">
-                Start Coaching with Kai
+                start coaching with kai
               </Button>
               
               <Button onClick={onAddPartnerProfile} className="w-full questionnaire-button-secondary">

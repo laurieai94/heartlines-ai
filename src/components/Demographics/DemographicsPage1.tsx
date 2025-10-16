@@ -155,7 +155,7 @@ const DemographicsPage1 = ({ profileType, onComplete, initialData }: Demographic
             <div className="flex-1">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Let's get to know {isPersonal ? 'you' : 'your partner'} better!</h3>
               <p className="text-gray-700 mb-4">
-                This helps Kai understand {isPersonal ? 'your' : 'their'} background and give more personalized insights. 
+                this helps kai understand {isPersonal ? 'your' : 'their'} background and give more personalized insights. 
                 {!isPersonal && ' Don\'t worry if you don\'t know everything—just fill in what you can!'}
               </p>
               

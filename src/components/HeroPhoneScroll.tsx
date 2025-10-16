@@ -321,7 +321,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
                       <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                  <span className="sr-only">Kai is typing...</span>
+                  <span className="sr-only">kai is typing...</span>
                 </div>
               )}
 
@@ -355,7 +355,7 @@ const HeroPhoneScroll: React.FC<HeroPhoneScrollProps> = ({ className = '', style
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-2 py-0.5 sm:px-3 sm:py-1 md:px-4 md:py-1.5 flex items-center">
                 <input 
                   type="text" 
-                  placeholder={`Chat with ${currentConversation.coachName || 'Kai'}...`}
+                  placeholder={`chat with ${currentConversation.coachName || 'kai'}...`}
                   className="flex-1 bg-transparent text-white placeholder-white/50 text-xs sm:text-sm md:text-base focus:outline-none"
                   disabled
                 />
