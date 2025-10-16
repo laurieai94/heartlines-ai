@@ -193,7 +193,7 @@ const AccountSubscription = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className={`${isMobile ? 'p-3 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-1.5'}`}>
+              <CardContent className={`flex flex-col ${isMobile ? 'p-3 pt-0 space-y-2' : 'p-2.5 pt-0 space-y-1.5'}`}>
                 {/* Prominent Message Count */}
                 <div className={`text-center ${isMobile ? 'py-2.5' : 'py-2'} border-y border-white/10`}>
                   <p className={`font-bold text-pink-400 ${isMobile ? 'text-xl' : 'text-2xl'}`}>
@@ -204,14 +204,14 @@ const AccountSubscription = () => {
                   </p>
                 </div>
 
-                <ul className={`${isMobile ? 'space-y-2' : 'space-y-3'}`}>
+                <ul className={`flex-grow ${isMobile ? 'space-y-2' : 'space-y-3'}`}>
                   {plan.features.map((feature, index) => <li key={index} className={`flex items-start gap-2 text-white/80 ${isMobile ? 'text-sm leading-snug' : 'text-sm'}`}>
                       <Check className={`text-green-400 ${isMobile ? 'h-3.5 w-3.5 flex-shrink-0 mt-0.5' : 'h-3 w-3'}`} />
                       <span>{feature}</span>
                     </li>)}
                 </ul>
                 
-                {plan.current ? <Button disabled className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${isMobile ? 'text-sm h-11 mt-3' : 'text-sm py-1.5 mt-3'}`}>
+                {plan.current ? <Button disabled className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Check className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     current plan
                   </Button> : plan.tier ? <Button onClick={e => {
@@ -219,10 +219,10 @@ const AccountSubscription = () => {
                 simulateHapticFeedback(e.currentTarget, 'medium');
               }
               handleUpgrade(plan.tier as 'grow' | 'thrive');
-            }} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 mt-3' : 'text-sm py-1.5 mt-3'}`}>
+            }} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Zap className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     {upgrading === plan.tier ? 'processing...' : `upgrade to ${plan.name}`}
-                  </Button> : <Button disabled variant="outline" className={`w-full bg-white/5 border-white/20 text-white/60 touch-manipulation ${isMobile ? 'text-sm h-11 mt-3' : 'text-sm py-1.5 mt-3'}`}>
+                  </Button> : <Button disabled variant="outline" className={`w-full bg-white/5 border-white/20 text-white/60 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     current plan
                   </Button>}
               </CardContent>
