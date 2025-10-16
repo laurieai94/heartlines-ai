@@ -300,9 +300,6 @@ const LandingPage = ({
               alt="heartlines" 
               className="h-48 sm:h-52 md:h-56 lg:h-64 xl:h-72 drop-shadow-lg"
             />
-            <p className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white/70 text-[10px] md:text-xs whitespace-nowrap">
-              powered by laurie ai
-            </p>
           </div>
         </div>
       )}
