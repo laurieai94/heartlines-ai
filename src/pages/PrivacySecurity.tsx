@@ -95,14 +95,13 @@ const PrivacySecurity = () => {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="px-6 py-24 lg:py-32 text-center">
+        <section className="px-6 py-20 lg:py-32 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="font-brand text-5xl lg:text-6xl font-bold mb-8 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent leading-tight">
-              Your Privacy, Your Control
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
+              your privacy, your control
             </h1>
-            <p className="text-xl lg:text-2xl text-coral-100/90 leading-relaxed tracking-wide font-light">
-              we're obsessed with protecting your conversations. here's exactly how we do it.
-            </p>
+            <p className="text-xl lg:text-2xl text-coral-100/80 mb-8">we're obsessed with protecting your conversations and data. 
+here's exactly how we do it.</p>
           </div>
         </section>
 
@@ -111,6 +110,69 @@ const PrivacySecurity = () => {
 
         {/* How Your Data Flows */}
         <DataFlowCards />
+
+        {/* FAQ */}
+        <section className="px-6 py-16 bg-gradient-to-r from-coral-900/20 via-pink-900/15 to-coral-900/20 backdrop-blur-sm border-y border-coral-400/20">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-brand text-white mb-12 text-center">faqs</h2>
+            
+            <Accordion type="single" collapsible className="space-y-3">
+              <AccordionItem value="controls" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  what privacy controls do i have?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  you can control data retention periods (30/90/365/forever days), opt out of anonymous usage analytics, and manage marketing email preferences. access these settings from your account page under privacy & security.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="protection" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  how is my data protected?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  all data is transmitted over https/tls and stored with encryption at rest in our supabase backend. row-level security (rls) policies ensure you can only access your own data. our infrastructure follows industry-standard security practices.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="anthropic" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  what data does anthropic receive when i chat with the ai?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  when you chat with our ai coach, your message content is sent to anthropic's api to generate responses. anthropic processes this data according to their privacy policy. we send only the necessary conversation context—no personal identifying information like your name, email, or profile data.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="delete" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  how do i delete my conversations or account?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  you can delete individual conversations anytime from the chat sidebar. to delete all your data or your entire account, visit your account page. account deletion removes all your data permanently and cannot be undone.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="compliance" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  is heartlines hipaa compliant?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  heartlines is not hipaa compliant and should not be used to store or discuss protected health information (phi). while we implement strong privacy and security measures, the platform is designed for relationship coaching and personal growth, not medical or therapeutic purposes.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="contact" className="questionnaire-card border-none">
+                <AccordionTrigger className="text-white hover:text-coral-300 text-sm font-medium px-4 py-3 hover:no-underline">
+                  how can i report a security vulnerability?
+                </AccordionTrigger>
+                <AccordionContent className="questionnaire-text-muted text-xs leading-relaxed px-4 pb-4">
+                  if you discover a security vulnerability, please contact us immediately through our privacy settings page. we take security reports seriously and will respond promptly to investigate and address any issues.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="px-6 py-20">
