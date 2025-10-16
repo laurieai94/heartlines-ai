@@ -29,7 +29,7 @@ html, body, #root {
 }
 
 /* Mobile-specific landing page scroll override */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html:has(.landing-page-scroll),
   body:has(.landing-page-scroll) {
     overflow: visible !important;
@@ -78,7 +78,7 @@ html, body, #root {
 }
 
 /* Mobile-specific auth page scroll override */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html:has(.auth-page-scroll),
   body:has(.auth-page-scroll) {
     overflow: visible !important;
@@ -106,7 +106,7 @@ html, body, #root {
 }
 
 /* Mobile-specific account page scroll override */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html:has(.account-page-scroll),
   body:has(.account-page-scroll) {
     overflow: visible !important;
