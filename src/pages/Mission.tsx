@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BRAND } from "@/branding";
 import { Heart, MessageSquare } from "lucide-react";
 import SimpleHeader from "@/components/SimpleHeader";
+import DuckIcon from "@/components/icons/DuckIcon";
 import SiteFooter from "@/components/SiteFooter";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -192,23 +193,15 @@ const Mission = () => {
                 hover:-translate-y-2 hover:scale-[1.01]
                 transition-all duration-500 ease-out">
                 
-                {/* Logo with subtle glow */}
-                <div className="flex justify-center mb-8">
-                  <img 
-                    src={new URL('../assets/laurie-ai-logo.png', import.meta.url).href}
-                    alt="Laurie AI - glowing rubber duck logo" 
-                    className="w-32 h-32 object-contain 
-                      drop-shadow-[0_0_20px_rgba(255,107,157,0.4)]
-                      group-hover:scale-110 group-hover:drop-shadow-[0_0_30px_rgba(255,107,157,0.6)]
-                      transition-all duration-500"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* Heading with gradient */}
+                {/* Heading with gradient and duck icon */}
                 <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
-                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
-                  🌟 powered by laurie ai
+                  bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
+                  flex items-center justify-center gap-3">
+                  <DuckIcon 
+                    size={40} 
+                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                  />
+                  <span>powered by laurie ai</span>
                 </h2>
                 
                 {/* Gradient divider */}
