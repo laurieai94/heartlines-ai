@@ -79,7 +79,7 @@ const Mission = () => {
                     we're surrounded by tech that makes it easy to scroll, ghost, and pretend we're fine.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    heartlines exists to do the opposite — to help you slow down, check in, and actually connect.
+                    <span className="font-brand">heartlines</span> exists to do the opposite — to help you slow down, check in, and actually connect.
                   </p>
                 </div>
 
@@ -120,7 +120,7 @@ const Mission = () => {
                 {/* Opening line */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    heartlines is an ai coach built for the chaos of real relationships.
+                    <span className="font-brand">heartlines</span> is an ai coach built for the chaos of real relationships.
                   </p>
                 </div>
 
@@ -175,7 +175,7 @@ const Mission = () => {
                 {/* Introduction */}
                 <div className="text-center mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    heartlines is built by laurie ai — an organization using ai to build stronger relationships, so we can build stronger communities.
+                    <span className="font-brand">heartlines</span> is built by laurie ai — an organization using ai to build stronger relationships, so we can build stronger communities.
                   </p>
                 </div>
 
@@ -186,7 +186,7 @@ const Mission = () => {
                   </p>
                   
                   <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    we make for-profit products like heartlines that help people grow, heal, and connect. then we use part of that profit to create free or low-cost ai tools for the people and communities who are most often left behind —
+                    we make for-profit products like <span className="font-brand">heartlines</span> that help people grow, heal, and connect. then we use part of that profit to create free or low-cost ai tools for the people and communities who are most often left behind —
                   </p>
 
                   {/* Who We Serve - Nested glass card */}
@@ -221,7 +221,7 @@ const Mission = () => {
                   </p>
                   
                   <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    when you invest in your own growth with heartlines, you help bring ai to people who've been excluded from it.
+                    when you invest in your own growth with <span className="font-brand">heartlines</span>, you help bring ai to people who've been excluded from it.
                   </p>
 
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed mt-6">
@@ -241,7 +241,7 @@ const Mission = () => {
                     onClick={handleSignInClick}
                     className="glass-cta min-w-[200px] text-lg"
                   >
-                    start free
+                    get started
                   </Button>
                   <Button
                     size="lg"
@@ -251,7 +251,7 @@ const Mission = () => {
                       hover:bg-white/20 hover:scale-105 hover:-translate-y-1
                       transition-all duration-300"
                   >
-                    meet kai
+                    chat with kai
                   </Button>
                 </div>
               </div>
