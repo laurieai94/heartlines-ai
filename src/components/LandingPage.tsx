@@ -776,7 +776,7 @@ const LandingPage = ({
       </section>
 
       {/* HowItWorksSwipe Section - Standalone */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="pt-16 pb-8 md:pt-24 md:pb-12 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         <div className="container mx-auto px-4 sm:px-6">
           <HowItWorksSwipe />
         </div>
