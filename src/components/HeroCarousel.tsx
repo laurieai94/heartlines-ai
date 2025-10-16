@@ -105,14 +105,14 @@ export const HeroCarousel: React.FC = () => {
           <img
             src={slide.image}
             alt={`Year ${slide.year}`}
-            className="absolute inset-0 w-full h-full object-contain md:object-cover bg-burgundy-900"
+            className="absolute inset-0 w-full h-full object-cover object-[center_70%] md:object-cover md:object-center bg-burgundy-900"
             loading={index < 2 ? "eager" : "lazy"}
           />
 
           {/* Year Number - Bottom Left */}
           <div className="absolute bottom-20 md:bottom-32 left-8 md:left-16 right-8 md:right-16 z-10">
             <h2 
-              className="text-7xl md:text-8xl font-brand leading-none mb-2"
+              className="text-6xl md:text-8xl font-brand leading-none mb-2"
               style={{
                 background: 'linear-gradient(135deg, #ff8a50 0%, #ff7a70 50%, #ff6b9d 100%)',
                 WebkitBackgroundClip: 'text',
@@ -124,7 +124,7 @@ export const HeroCarousel: React.FC = () => {
             </h2>
             
             {/* Tagline */}
-            <p className="text-white text-xl md:text-2xl font-sans tracking-wide drop-shadow-lg">
+            <p className="text-white text-lg md:text-2xl font-sans tracking-wide drop-shadow-lg">
               {slide.tagline}
             </p>
           </div>
