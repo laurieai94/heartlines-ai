@@ -76,10 +76,13 @@ const Mission = () => {
                 {/* Middle paragraph */}
                 <div className="text-center space-y-2 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    we're surrounded by tech that makes it easy to scroll, ghost, and pretend we're fine.
+                    we built tech to keep us connected, but somehow everyone feels more alone.
                   </p>
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> exists to do the opposite — to help you slow down, check in, and actually connect.
+                    <span className="font-brand">heartlines</span> helps you make space for real connection again. we help you talk it out, own your patterns, and do the real work.
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    come back to them — and yourself.
                   </p>
                 </div>
 
