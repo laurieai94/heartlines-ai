@@ -30,15 +30,14 @@ const Mission = () => {
         
         <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
-          <section className="relative text-center animate-fade-in py-8 md:py-12">
+          <section className="flex flex-col items-end animate-fade-in py-8 md:py-12">
             <h1 
               className="font-brand text-6xl md:text-7xl lg:text-8xl xl:text-9xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient drop-shadow-[0_0_30px_rgba(255,107,157,0.5)]"
             >
               our why
             </h1>
-            {/* Powered by Laurie AI - absolutely positioned to the right */}
-            <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 items-center gap-2">
-              <span className="font-brand text-xl lg:text-2xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent whitespace-nowrap">
+            <div className="flex items-center gap-2 mt-1">
+              <span className="font-glacial text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
                 powered laurie ai
               </span>
               <DuckIcon className="w-6 h-6 lg:w-7 lg:h-7 text-coral-400" />
