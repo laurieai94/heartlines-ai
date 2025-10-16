@@ -74,7 +74,7 @@ export const SecurityDeepDive = () => {
           <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
             security built into every layer
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-coral-100/80 max-w-3xl mx-auto">
             we don't just talk about privacy. here's exactly how we protect you.
           </p>
         </div>
@@ -91,7 +91,7 @@ export const SecurityDeepDive = () => {
                 <div className="p-2 rounded-lg bg-coral-500/10">
                   <feature.icon className="w-6 h-6 text-coral-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="text-lg font-semibold text-coral-50">
                   {feature.name}
                 </h3>
               </div>
@@ -111,7 +111,7 @@ export const SecurityDeepDive = () => {
                 <div className="text-xs font-mono text-pink-300 mb-2 uppercase tracking-wider">
                   what this means
                 </div>
-                <p className="text-sm text-foreground/90 leading-relaxed">
+                <p className="text-sm text-coral-50/90 leading-relaxed">
                   {feature.meaning}
                 </p>
               </div>
@@ -122,7 +122,7 @@ export const SecurityDeepDive = () => {
         {/* Additional Context */}
         <div className="mt-16 text-center">
           <Card className="inline-block p-6 bg-burgundy-800/30 border-coral-500/20">
-            <p className="text-sm text-muted-foreground max-w-2xl">
+            <p className="text-sm text-coral-100/80 max-w-2xl">
               <span className="font-semibold text-coral-400">transparency matters:</span> we're honest about our limitations too. heartlines is not HIPAA compliant and should not be used for medical advice. 
               for security concerns, contact us at <span className="text-coral-300">security@heartlines.app</span>
             </p>
