@@ -71,7 +71,7 @@ export const SecurityDeepDive = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
+          <h2 className="font-brand text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-coral-400 via-coral-300 to-pink-300 bg-clip-text text-transparent">
             security built into every layer
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -101,7 +101,7 @@ export const SecurityDeepDive = () => {
                 <div className="text-xs font-mono text-coral-300 mb-2 uppercase tracking-wider">
                   technical
                 </div>
-                <p className="text-sm text-muted-foreground font-mono leading-relaxed">
+                <p className="text-sm text-coral-200/90 font-mono leading-relaxed">
                   {feature.technical}
                 </p>
               </div>
