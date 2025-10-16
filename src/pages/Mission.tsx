@@ -39,8 +39,8 @@ const Mission = () => {
           </section>
 
           {/* Brand Tagline */}
-          <section className="text-center animate-fade-in animation-delay-50 -mt-8">
-            <div className="max-w-xs mx-auto px-4">
+              <section className="text-center animate-fade-in animation-delay-50 -mt-4">
+                <div className="max-w-[128px] mx-auto px-4">
               <img 
                 src={taglineLockup} 
                 alt="the ai relationship coach for messy, modern love"
