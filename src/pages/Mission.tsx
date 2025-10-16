@@ -132,7 +132,7 @@ const Mission = () => {
                 {/* Middle paragraph */}
                 <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                    heartlines is built for the chaos of real connection — the late-night overthinking, the "we need to talk" energy, the emotional hangovers.
+                    <span className="font-brand">heartlines</span> is built for the chaos of real connection — the late-night overthinking, the "we need to talk" energy, the emotional hangovers.
                   </p>
                   
                   <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
