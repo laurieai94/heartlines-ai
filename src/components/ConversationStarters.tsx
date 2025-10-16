@@ -54,8 +54,8 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
   };
 
   return (
-    <div className="animate-fade-in">
-      <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20 shadow-lg">
+    <div className="animate-fade-in pointer-events-none">
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20 shadow-lg pointer-events-auto">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-medium text-white mb-2 text-center">

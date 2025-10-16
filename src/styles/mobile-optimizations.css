@@ -178,9 +178,16 @@ html, body, #root {
   /* Prevent body scroll on mobile - chat handles its own scrolling */
   html, body {
     overflow: hidden !important;
-    position: fixed !important;
+    position: relative !important;
     width: 100% !important;
     height: 100dvh !important;
+  }
+  
+  /* Ensure chat input is always clickable on mobile */
+  .mobile-chat-input-container {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    isolation: isolate !important;
   }
   
   #root {
