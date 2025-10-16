@@ -19,33 +19,28 @@ const DuckIcon = memo(({
       height={size} 
       viewBox="0 0 24 24" 
       fill="none" 
-      stroke="white"
-      strokeWidth="3"
+      stroke={color}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       aria-label="Duck icon"
     >
-      {/* Head - round duck head */}
-      <circle cx="7" cy="10" r="3.5" fill="none" />
+      {/* Main body - single egg shape */}
+      <ellipse cx="12" cy="14" rx="8" ry="6" fill={color} opacity="0.95" />
       
-      {/* Beak - triangular beak pointing left */}
-      <path d="M 3.5 10 L 2 9.5 L 2 10.5 Z" fill="white" stroke="white" strokeWidth="2" />
+      {/* Head - positioned on top of body */}
+      <circle cx="8" cy="8" r="4.5" fill={color} />
       
-      {/* Eye - small dot */}
-      <circle cx="7.5" cy="9.5" r="0.8" fill="white" stroke="none" />
+      {/* Beak - MUCH larger and more prominent with orange color */}
+      <path d="M3.5 8 L0.5 7 L3.5 10 Z" fill="#FFA500" stroke={color} strokeWidth="0.5" />
       
-      {/* Body - large rounded body */}
-      <ellipse cx="14" cy="14" rx="6.5" ry="5" fill="none" />
+      {/* Eye - larger with clear white highlight */}
+      <circle cx="9" cy="7.5" r="1.5" fill="white" />
+      <circle cx="9.5" cy="7" r="0.8" fill="#1a1a1a" />
       
-      {/* Neck connection - curved line from head to body */}
-      <path d="M 9.5 11.5 Q 11 12 12 13" fill="none" strokeWidth="2.5" />
-      
-      {/* Tail - small upward curve */}
-      <path d="M 20 14 Q 21 13 21.5 15" fill="none" strokeWidth="2.5" strokeLinecap="round" />
-      
-      {/* Bottom line - connecting body bottom */}
-      <path d="M 8 17 Q 14 19 20 16.5" fill="none" strokeWidth="2.5" />
+      {/* Simple tail bump for character */}
+      <path d="M19 14 Q20 12 21 14" stroke={color} strokeWidth="3" fill="none" strokeLinecap="round" />
     </svg>
   );
 });
