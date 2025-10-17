@@ -649,7 +649,7 @@ const LandingPage = ({
             </div>
 
             {/* Get Started CTA */}
-            <div className="mt-12 md:mt-16 mb-4 md:mb-6 text-center">
+            <div className="mt-12 md:mt-16 mb-8 md:mb-16 text-center">
               <div className="relative group inline-block cursor-pointer" onClick={handleTalkToKai}>
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-coral-400 via-pink-500 to-coral-500 rounded-full opacity-90 blur-xl group-hover:opacity-100 transition-opacity duration-300" />
