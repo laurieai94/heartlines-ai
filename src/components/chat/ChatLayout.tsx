@@ -64,7 +64,7 @@ export const ChatLayout = ({
               className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0"
               aria-label="Open site navigation"
             >
-              <FlipPhoneIcon className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 xl:h-20 xl:w-20" />
+              <FlipPhoneIcon className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-44 xl:w-44 2xl:h-48 2xl:w-48" />
             </Button>
           </PopoverTrigger>
           <PopoverContent 
