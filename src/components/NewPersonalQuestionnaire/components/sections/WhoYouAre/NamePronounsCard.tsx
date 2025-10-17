@@ -62,8 +62,26 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
       );
     }
     return (
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold border border-white">
-        {name.charAt(0).toLowerCase()}
+      <div className="relative w-20 h-20 flex items-center justify-center">
+        {/* Thin white heart outline */}
+        <svg 
+          viewBox="0 0 100 100" 
+          className="absolute inset-0 w-full h-full pointer-events-none" 
+          aria-hidden="true"
+        >
+          <path
+            d="M50 85 C 45 80, 30 68, 20 58 C 8 45, 10 26, 25 20 C 33 16, 42 18, 50 27 C 58 18, 67 16, 75 20 C 90 26, 92 45, 80 58 C 70 68, 55 80, 50 85 Z"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            opacity="0.9"
+          />
+        </svg>
+        
+        {/* Original circular avatar */}
+        <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg z-10">
+          {name.charAt(0).toLowerCase()}
+        </div>
       </div>
     );
   };
