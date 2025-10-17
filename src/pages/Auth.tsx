@@ -38,6 +38,7 @@ const Auth = () => {
   const [resendCooldown, setResendCooldown] = useState(0);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [isVerifiedFlow, setIsVerifiedFlow] = useState(false);
 
   // Check for mode parameter and route path on mount
   useEffect(() => {
@@ -54,21 +55,37 @@ const Auth = () => {
       }
     }
     
-    // Check if user just confirmed their email
-    const confirmed = searchParams.get('confirmed');
-    const expired = searchParams.get('expired');
+    // Check for verified email flow
+    const verified = searchParams.get('verified');
+    const emailParam = searchParams.get('email');
     
-    if (confirmed === 'true') {
-      // Show success message for email confirmation
-      const emailInput = document.getElementById('email') as HTMLInputElement;
-      if (emailInput) {
-        emailInput.focus();
+    if (verified === 'true') {
+      setIsVerifiedFlow(true);
+      setIsSignUp(false); // We're in sign-in mode
+      
+      // Pre-fill email if provided
+      if (emailParam) {
+        setFormData(prev => ({ ...prev, email: emailParam }));
       }
-    } else if (expired === 'true') {
-      // User was redirected here because verification link expired/was used
-      const emailInput = document.getElementById('email') as HTMLInputElement;
-      if (emailInput) {
-        emailInput.focus();
+      
+      // Auto-focus password field after a brief delay
+      setTimeout(() => {
+        const passwordInput = document.getElementById('password') as HTMLInputElement;
+        if (passwordInput) {
+          passwordInput.focus();
+        }
+      }, 300);
+    } else {
+      // Check if user just confirmed their email
+      const confirmed = searchParams.get('confirmed');
+      const expired = searchParams.get('expired');
+      
+      if (confirmed === 'true' || expired === 'true') {
+        // Focus email input
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        if (emailInput) {
+          emailInput.focus();
+        }
       }
     }
   }, [searchParams, location.pathname]);
@@ -393,7 +410,16 @@ const Auth = () => {
                 email
               </Label>
               <div className="relative">
-                  <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" className={isEmailValid() ? 'pr-12' : ''} required />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    value={formData.email} 
+                    onChange={e => handleInputChange('email', e.target.value)} 
+                    placeholder="drop your email" 
+                    className={isEmailValid() ? 'pr-12' : ''} 
+                    disabled={isVerifiedFlow}
+                    required 
+                  />
                 {isEmailValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
               </div>
             </div>
@@ -441,7 +467,7 @@ const Auth = () => {
               </div>}
 
             <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm -mb-3">
-              {isSubmitting ? 'processing...' : isSignUp ? 'create account' : 'sign in'}
+              {isSubmitting ? 'processing...' : isVerifiedFlow ? 'continue to heartlines' : isSignUp ? 'create account' : 'sign in'}
             </Button>
           </form>
 

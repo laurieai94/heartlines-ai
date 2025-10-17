@@ -19,7 +19,7 @@ const AuthCallback = () => {
         
         if (error) {
           console.error('Auth callback error:', error);
-          setLoadingMessage("Checking your account status...");
+          setLoadingMessage("Verifying your email status...");
           
           // Check if user is actually authenticated despite error
           const { data: { session } } = await supabase.auth.getSession();
@@ -37,13 +37,48 @@ const AuthCallback = () => {
             return;
           }
           
-          // No session - check if email is already verified
+          // Extract email from URL (it's often in the token_hash or access_token)
           const urlParams = new URLSearchParams(window.location.search);
           const hash = window.location.hash.substring(1);
           const hashParams = new URLSearchParams(hash);
           const redirectPath = hashParams.get('redirect') || urlParams.get('redirect') || '/profile';
           
-          // Redirect to signin with helpful message
+          // Try to extract email from the error or URL
+          let userEmail = '';
+          try {
+            // The token might contain email information
+            const tokenHash = hashParams.get('token_hash') || hashParams.get('access_token');
+            if (tokenHash) {
+              // Decode JWT to extract email (tokens are base64 encoded)
+              const parts = tokenHash.split('.');
+              if (parts.length >= 2) {
+                const payload = JSON.parse(atob(parts[1]));
+                userEmail = payload.email || '';
+              }
+            }
+          } catch (e) {
+            console.log('Could not extract email from token');
+          }
+          
+          // Check if this is a PKCE error (code verifier missing)
+          const isPKCEError = error.message?.includes('code verifier') || 
+                              error.message?.includes('invalid request');
+          
+          if (isPKCEError) {
+            // PKCE error means the email was likely verified but code verifier is missing
+            // (happens when clicking link in different browser/session)
+            // Redirect to verified sign-in flow
+            toast({
+              title: "Email verified!",
+              description: "Enter your password to continue",
+            });
+            
+            const emailParam = userEmail ? `&email=${encodeURIComponent(userEmail)}` : '';
+            navigate(`/signin?verified=true${emailParam}&redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
+            return;
+          }
+          
+          // Other errors - redirect to signin with error message
           toast({
             title: "Verification link used or expired",
             description: "Please sign in to continue. If you haven't confirmed your email yet, check your inbox for the verification link.",
