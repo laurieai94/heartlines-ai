@@ -26,7 +26,7 @@ export const pricingPlans: PricingPlan[] = [
     messages: 25,
     icon: Sprout,
     features: [
-      "access to kai's evidence-based tools (cbt, eft, dbt)",
+      "Kai's science-backed tools (CBT, EFT, DBT)",
       "quick insights into your patterns + relationships",
       "try before you commit\" energy"
     ],
