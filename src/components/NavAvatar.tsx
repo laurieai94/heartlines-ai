@@ -118,6 +118,7 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
           <div 
             className="text-white font-brand uppercase text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl pointer-events-auto"
             style={{
+              fontFamily: "'Shrikhand', cursive",
               textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3), 0 0 2px rgba(0,0,0,0.8)'
             }}
           >
