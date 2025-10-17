@@ -24,8 +24,8 @@ export const useSubscription = () => {
 
   const getMessageLimit = (tier: string | null): number => {
     switch (tier?.toLowerCase()) {
-      case 'grow': return 150;
-      case 'thrive': return 300;
+      case 'glow': return 150;
+      case 'vibe': return 300;
       case 'unlimited': return 0; // 0 = unlimited
       default: return 25; // free tier
     }
@@ -74,7 +74,7 @@ export const useSubscription = () => {
     }
   }, [user]);
 
-  const upgrade = async (tier: 'grow' | 'thrive' | 'unlimited') => {
+  const upgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
     if (!user) return;
 
     try {

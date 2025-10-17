@@ -124,8 +124,8 @@ const AccountUsageAnalytics = () => {
               {tokenAnalytics.last30Days.totalMessages <= 25 ? 
                 " Begin plan covers your usage." :
                 tokenAnalytics.last30Days.totalMessages <= 100 ?
-                " Grow plan suits your level." :
-                " Thrive plan gives you room to grow."
+                " Glow plan suits your level." :
+                " Vibe plan gives you room to grow."
               }
             </p>
           </div>

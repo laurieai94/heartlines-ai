@@ -69,16 +69,16 @@ const BillingSuccess = () => {
 
   const getPlanName = (tier: string) => {
     switch (tier) {
-      case 'grow': return 'Grow Plan';
-      case 'thrive': return 'Thrive Plan';
+      case 'glow': return 'Glow Plan';
+      case 'vibe': return 'Vibe Plan';
       default: return 'Your Plan';
     }
   };
 
   const getPlanEmoji = (tier: string) => {
     switch (tier) {
-      case 'grow': return '💬';
-      case 'thrive': return '🌟';
+      case 'glow': return '⚡';
+      case 'vibe': return '📻';
       default: return '✨';
     }
   };

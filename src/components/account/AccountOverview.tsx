@@ -31,16 +31,16 @@ const AccountOverview = () => {
 
   const getPlanColor = (tier: string | null) => {
     switch (tier?.toLowerCase()) {
-      case 'grow': return 'text-blue-400';
-      case 'thrive': return 'text-purple-400';
+      case 'glow': return 'text-blue-400';
+      case 'vibe': return 'text-purple-400';
       default: return 'text-gray-400';
     }
   };
 
   const getPlanName = (tier: string | null) => {
     switch (tier?.toLowerCase()) {
-      case 'grow': return 'Grow Plan';
-      case 'thrive': return 'Thrive Plan';
+      case 'glow': return 'Glow Plan';
+      case 'vibe': return 'Vibe Plan';
       default: return 'Free Plan';
     }
   };
@@ -109,7 +109,7 @@ const AccountOverview = () => {
             {!subscribed && (
               <Button 
                 size="sm"
-                onClick={() => upgrade('grow')}
+                onClick={() => upgrade('glow')}
                 className="questionnaire-button-primary text-xs py-1 px-2"
               >
                 <Zap className="h-3 w-3 mr-1" />

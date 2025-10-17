@@ -59,7 +59,7 @@ serve(async (req) => {
         .single();
 
       const tier = subData?.subscription_tier || usageData?.subscription_tier || 'begin';
-      const messageLimit = tier === 'grow' ? 150 : tier === 'thrive' ? 300 : tier === 'unlimited' ? 0 : 25;
+      const messageLimit = tier === 'glow' ? 150 : tier === 'vibe' ? 300 : tier === 'unlimited' ? 0 : 25;
       const messagesUsed = usageData?.current_month_usage || 0;
 
       return new Response(JSON.stringify({
@@ -138,10 +138,10 @@ serve(async (req) => {
       const amount = price.unit_amount || 0;
       
       if (amount === 1900) {
-        subscriptionTier = "grow";
+        subscriptionTier = "glow";
         messageLimit = 150;
       } else if (amount === 3900) {
-        subscriptionTier = "thrive";
+        subscriptionTier = "vibe";
         messageLimit = 300;
       } else if (amount === 5900) {
         subscriptionTier = "unlimited";

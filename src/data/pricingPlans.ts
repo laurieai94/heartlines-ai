@@ -1,4 +1,4 @@
-import { Sprout, Heart, Flower, Sparkles, LucideIcon } from "lucide-react";
+import { Sprout, Zap, Radio, Sparkles, LucideIcon } from "lucide-react";
 
 export interface PricingPlan {
   id: string;
@@ -12,7 +12,7 @@ export interface PricingPlan {
   features: string[];
   buttonText: string;
   popular: boolean;
-  tier: 'freemium' | 'grow' | 'thrive' | 'unlimited';
+  tier: 'freemium' | 'glow' | 'vibe' | 'unlimited';
 }
 
 export const pricingPlans: PricingPlan[] = [
@@ -35,57 +35,57 @@ export const pricingPlans: PricingPlan[] = [
     tier: "freemium"
   },
   {
-    id: "grow",
-    name: "grow",
+    id: "glow",
+    name: "glow",
     price: "$19",
     period: "month",
     description: "your relationship's gym membership",
     tagline: "build momentum in your relationship",
     messages: 150,
-    icon: Heart,
+    icon: Zap,
     features: [
       "coaching for self-reflection + relationships",
       "role play critical convos",
       "progress check-ins to track your growth"
     ],
-    buttonText: "keep growing",
+    buttonText: "keep glowing",
     popular: false,
-    tier: "grow"
+    tier: "glow"
   },
   {
-    id: "thrive",
-    name: "thrive",
+    id: "vibe",
+    name: "vibe",
     price: "$39",
     period: "month",
     description: "go all in for deeper love + growth",
     tagline: "turn insights into transformation",
     messages: 300,
-    icon: Flower,
+    icon: Radio,
     features: [
       "unlimited scenarios (self-talk, dating, relationships)",
       "advanced insights + personal analytics",
       "custom goals for your growth journey"
     ],
-    buttonText: "start thriving",
+    buttonText: "catch the vibe",
     popular: true,
-    tier: "thrive"
+    tier: "vibe"
   },
   {
     id: "unlimited",
     name: "unlimited",
     price: "$59",
     period: "month",
-    description: "unlimited growth, unlimited possibilities",
+    description: "love without limits",
     tagline: "no limits on your journey",
     messages: 0,
     icon: Sparkles,
     features: [
       "unlimited messages per month",
-      "all thrive features included",
+      "all vibe features included",
       "priority support",
       "advanced ai capabilities"
     ],
-    buttonText: "grow unlimited",
+    buttonText: "glow unlimited",
     popular: false,
     tier: "unlimited"
   }

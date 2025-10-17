@@ -150,7 +150,7 @@ const Pricing = () => {
                   <CardContent className="flex-1 flex flex-col space-y-4 p-4 pt-0">
                     <div className="text-center py-2 bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50">
                       <div className="text-lg font-light questionnaire-text">
-                        {plan.messages} messages
+                        {plan.messages === 0 ? '∞' : plan.messages} messages
                       </div>
                       <div className="text-xs questionnaire-text-muted">per month</div>
                     </div>

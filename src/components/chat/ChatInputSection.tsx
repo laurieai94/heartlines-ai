@@ -103,7 +103,7 @@ export const ChatInputSection = ({
   const atLimit = message_limit > 0 && messages_used >= message_limit;
   const nearLimit = usagePercentage >= 80 && usagePercentage < 90 && !atLimit && !subscribed;
   const criticalLimit = usagePercentage >= 90 && !atLimit && !subscribed;
-  const nextTier = subscription_tier?.toLowerCase() === 'grow' ? 'thrive' : 'grow';
+  const nextTier = subscription_tier?.toLowerCase() === 'glow' ? 'vibe' : 'glow';
   const messagesRemaining = message_limit - messages_used;
 
   // Refocus the chat input after successful auth

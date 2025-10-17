@@ -39,7 +39,7 @@ const AccountSubscription = () => {
     current: plan.tier === 'freemium' ? !subscribed && !subscription_tier : subscription_tier?.toLowerCase() === plan.tier,
     popular: plan.popular
   }));
-  const handleUpgrade = async (tier: 'grow' | 'thrive') => {
+  const handleUpgrade = async (tier: 'glow' | 'vibe') => {
     setUpgrading(tier);
     try {
       await upgrade(tier);
@@ -197,7 +197,7 @@ const AccountSubscription = () => {
                 {/* Prominent Message Count */}
                 <div className={`text-center ${isMobile ? 'py-2.5' : 'py-2'} border-y border-white/10`}>
                   <p className={`font-bold text-pink-400 ${isMobile ? 'text-xl' : 'text-2xl'}`}>
-                    {plan.messages}
+                    {plan.messages === 0 ? '∞' : plan.messages}
                   </p>
                   <p className={`text-white/60 ${isMobile ? 'text-xs' : 'text-xs'}`}>
                     messages per month
@@ -214,11 +214,11 @@ const AccountSubscription = () => {
                 {plan.current ? <Button disabled className={`w-full bg-green-500/20 text-green-400 border border-green-400/30 touch-manipulation ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Check className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     current plan
-                  </Button> : plan.tier ? <Button onClick={e => {
+                   </Button> : plan.tier ? <Button onClick={e => {
               if (isMobile && e.currentTarget) {
                 simulateHapticFeedback(e.currentTarget, 'medium');
               }
-              handleUpgrade(plan.tier as 'grow' | 'thrive');
+              handleUpgrade(plan.tier as 'glow' | 'vibe');
             }} disabled={upgrading === plan.tier} className={`w-full questionnaire-button-primary touch-manipulation touch-feedback ${isMobile ? 'text-sm h-11 mt-auto' : 'text-sm py-1.5 mt-auto'}`}>
                     <Zap className={`mr-2 ${isMobile ? 'h-4 w-4' : 'h-3 w-3'}`} />
                     {upgrading === plan.tier ? 'processing...' : `upgrade to ${plan.name}`}

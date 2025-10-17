@@ -27,10 +27,10 @@ export const UpgradeModal = ({
   const { upgrade } = useOptimizedSubscription();
   const [upgrading, setUpgrading] = useState<string | null>(null);
 
-  const growPlan = pricingPlans.find(p => p.tier === 'grow');
-  const thrivePlan = pricingPlans.find(p => p.tier === 'thrive');
+  const glowPlan = pricingPlans.find(p => p.tier === 'glow');
+  const vibePlan = pricingPlans.find(p => p.tier === 'vibe');
 
-  const handleUpgrade = async (tier: 'grow' | 'thrive') => {
+  const handleUpgrade = async (tier: 'glow' | 'vibe') => {
     setUpgrading(tier);
     try {
       await upgrade(tier);
@@ -51,12 +51,12 @@ export const UpgradeModal = ({
     }
   };
 
-  const getRecommendedTier = (): 'grow' | 'thrive' => {
-    // If user is at 80%+ usage on freemium, suggest Grow
-    // If user is already on Grow or at high usage, suggest Thrive
+  const getRecommendedTier = (): 'glow' | 'vibe' => {
+    // If user is at 80%+ usage on freemium, suggest Glow
+    // If user is already on Glow or at high usage, suggest Vibe
     const usagePercent = (messagesUsed / messageLimit) * 100;
-    if (currentTier === 'freemium' && usagePercent < 90) return 'grow';
-    return 'thrive';
+    if (currentTier === 'freemium' && usagePercent < 90) return 'glow';
+    return 'vibe';
   };
 
   const recommendedTier = getRecommendedTier();
@@ -99,12 +99,12 @@ export const UpgradeModal = ({
 
           {/* Pricing Plans */}
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Grow Plan */}
-            {growPlan && (
+            {/* Glow Plan */}
+            {glowPlan && (
               <Card className={`questionnaire-card p-6 relative ${
-                recommendedTier === 'grow' ? 'border-2 border-coral-400' : 'border-white/10'
+                recommendedTier === 'glow' ? 'border-2 border-coral-400' : 'border-white/10'
               }`}>
-                {recommendedTier === 'grow' && (
+                {recommendedTier === 'glow' && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-gradient-to-r from-coral-400 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
                       Recommended
@@ -113,29 +113,29 @@ export const UpgradeModal = ({
                 )}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                    <growPlan.icon className="w-6 h-6 text-coral-400" />
+                    <glowPlan.icon className="w-6 h-6 text-coral-400" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold questionnaire-text">{growPlan.name}</h3>
-                    <p className="text-sm questionnaire-text-muted">{growPlan.tagline}</p>
+                    <h3 className="text-2xl font-bold questionnaire-text">{glowPlan.name}</h3>
+                    <p className="text-sm questionnaire-text-muted">{glowPlan.tagline}</p>
                   </div>
                 </div>
                 
                 <div className="mb-4">
-                  <span className="text-4xl font-bold questionnaire-text">{growPlan.price}</span>
-                  <span className="questionnaire-text-muted">/{growPlan.period}</span>
+                  <span className="text-4xl font-bold questionnaire-text">{glowPlan.price}</span>
+                  <span className="questionnaire-text-muted">/{glowPlan.period}</span>
                 </div>
 
                 <div className="mb-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Zap className="w-5 h-5 text-coral-400" />
-                    <span className="font-semibold questionnaire-text">{growPlan.messages} messages/month</span>
+                    <span className="font-semibold questionnaire-text">{glowPlan.messages} messages/month</span>
                   </div>
-                  <p className="text-sm questionnaire-text-muted">{growPlan.description}</p>
+                  <p className="text-sm questionnaire-text-muted">{glowPlan.description}</p>
                 </div>
 
                 <ul className="space-y-2 mb-6">
-                  {growPlan.features.map((feature, idx) => (
+                  {glowPlan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-coral-400 flex-shrink-0 mt-0.5" />
                       <span className="text-sm questionnaire-text-muted">{feature}</span>
@@ -144,24 +144,24 @@ export const UpgradeModal = ({
                 </ul>
 
                 <Button
-                  onClick={() => handleUpgrade('grow')}
-                  disabled={upgrading !== null || currentTier === 'grow' || currentTier === 'thrive'}
+                  onClick={() => handleUpgrade('glow')}
+                  disabled={upgrading !== null || currentTier === 'glow' || currentTier === 'vibe'}
                   className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
                 >
-                  {upgrading === 'grow' ? 'Processing...' : 
-                   currentTier === 'grow' ? 'Current Plan' :
-                   currentTier === 'thrive' ? 'Downgrade Not Available' :
-                   'Upgrade to Grow'}
+                  {upgrading === 'glow' ? 'Processing...' : 
+                   currentTier === 'glow' ? 'Current Plan' :
+                   currentTier === 'vibe' ? 'Downgrade Not Available' :
+                   'Upgrade to Glow'}
                 </Button>
               </Card>
             )}
 
-            {/* Thrive Plan */}
-            {thrivePlan && (
+            {/* Vibe Plan */}
+            {vibePlan && (
               <Card className={`questionnaire-card p-6 relative ${
-                recommendedTier === 'thrive' ? 'border-2 border-coral-400' : 'border-white/10'
+                recommendedTier === 'vibe' ? 'border-2 border-coral-400' : 'border-white/10'
               }`}>
-                {recommendedTier === 'thrive' && (
+                {recommendedTier === 'vibe' && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-gradient-to-r from-coral-400 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
                       Recommended
@@ -170,29 +170,29 @@ export const UpgradeModal = ({
                 )}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                    <thrivePlan.icon className="w-6 h-6 text-coral-400" />
+                    <vibePlan.icon className="w-6 h-6 text-coral-400" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold questionnaire-text">{thrivePlan.name}</h3>
-                    <p className="text-sm questionnaire-text-muted">{thrivePlan.tagline}</p>
+                    <h3 className="text-2xl font-bold questionnaire-text">{vibePlan.name}</h3>
+                    <p className="text-sm questionnaire-text-muted">{vibePlan.tagline}</p>
                   </div>
                 </div>
                 
                 <div className="mb-4">
-                  <span className="text-4xl font-bold questionnaire-text">{thrivePlan.price}</span>
-                  <span className="questionnaire-text-muted">/{thrivePlan.period}</span>
+                  <span className="text-4xl font-bold questionnaire-text">{vibePlan.price}</span>
+                  <span className="questionnaire-text-muted">/{vibePlan.period}</span>
                 </div>
 
                 <div className="mb-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Zap className="w-5 h-5 text-coral-400" />
-                    <span className="font-semibold questionnaire-text">{thrivePlan.messages} messages/month</span>
+                    <span className="font-semibold questionnaire-text">{vibePlan.messages} messages/month</span>
                   </div>
-                  <p className="text-sm questionnaire-text-muted">{thrivePlan.description}</p>
+                  <p className="text-sm questionnaire-text-muted">{vibePlan.description}</p>
                 </div>
 
                 <ul className="space-y-2 mb-6">
-                  {thrivePlan.features.map((feature, idx) => (
+                  {vibePlan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-coral-400 flex-shrink-0 mt-0.5" />
                       <span className="text-sm questionnaire-text-muted">{feature}</span>
@@ -201,13 +201,13 @@ export const UpgradeModal = ({
                 </ul>
 
                 <Button
-                  onClick={() => handleUpgrade('thrive')}
-                  disabled={upgrading !== null || currentTier === 'thrive'}
+                  onClick={() => handleUpgrade('vibe')}
+                  disabled={upgrading !== null || currentTier === 'vibe'}
                   className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
                 >
-                  {upgrading === 'thrive' ? 'Processing...' : 
-                   currentTier === 'thrive' ? 'Current Plan' :
-                   'Upgrade to Thrive'}
+                  {upgrading === 'vibe' ? 'Processing...' : 
+                   currentTier === 'vibe' ? 'Current Plan' :
+                   'Upgrade to Vibe'}
                 </Button>
               </Card>
             )}

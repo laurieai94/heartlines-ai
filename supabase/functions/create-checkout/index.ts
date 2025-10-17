@@ -33,8 +33,8 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id, email: user.email });
 
     const { tier } = await req.json();
-    if (!tier || !["grow", "thrive", "unlimited"].includes(tier)) {
-      throw new Error("Invalid subscription tier. Must be 'grow', 'thrive', or 'unlimited'");
+    if (!tier || !["glow", "vibe", "unlimited"].includes(tier)) {
+      throw new Error("Invalid subscription tier. Must be 'glow', 'vibe', or 'unlimited'");
     }
     logStep("Tier validated", { tier });
 
@@ -51,8 +51,8 @@ serve(async (req) => {
 
     // Pricing configuration
     const pricing = {
-      grow: { amount: 1900, name: "Grow Plan" }, // $19.00
-      thrive: { amount: 3900, name: "Thrive Plan" }, // $39.00
+      glow: { amount: 1900, name: "Glow Plan" }, // $19.00
+      vibe: { amount: 3900, name: "Vibe Plan" }, // $39.00
       unlimited: { amount: 5900, name: "Unlimited Plan" } // $59.00
     };
 
@@ -65,7 +65,7 @@ serve(async (req) => {
             currency: "usd",
             product_data: { 
               name: pricing[tier as keyof typeof pricing].name,
-              description: tier === "grow" ? "150 messages per month" : tier === "thrive" ? "300 messages per month" : "Unlimited messages per month"
+              description: tier === "glow" ? "150 messages per month" : tier === "vibe" ? "300 messages per month" : "Unlimited messages per month"
             },
             unit_amount: pricing[tier as keyof typeof pricing].amount,
             recurring: { interval: "month" },
