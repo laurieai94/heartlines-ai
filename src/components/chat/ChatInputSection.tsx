@@ -386,7 +386,7 @@ export const ChatInputSection = ({
       <UpgradeModal 
         open={showUpgradeModal}
         onOpenChange={closeUpgradeModal}
-        currentTier={subscription_tier?.toLowerCase() || 'freemium'}
+        currentTier={subscription_tier?.toLowerCase() || 'begin'}
         messagesUsed={messages_used}
         messageLimit={message_limit}
         reason={upgradeReason}
