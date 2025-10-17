@@ -116,7 +116,7 @@ const Dashboard = () => {
     <AuthGuard>
       <NavigationProvider goToProfile={handleGoToProfile} goToCoach={handleGoToCoach} goToPartner={goToPartner}>
         <MobileHeaderVisibilityProvider>
-          <div className="h-[100dvh]">
+          <div className="h-[100dvh] bg-burgundy-900">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
             <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
               {/* Ambient glow for chat interface separation */}
