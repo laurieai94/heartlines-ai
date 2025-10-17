@@ -43,22 +43,6 @@ const AuthCallback = () => {
           const hashParams = new URLSearchParams(hash);
           const redirectPath = hashParams.get('redirect') || urlParams.get('redirect') || '/profile';
           
-          // Extract email using Supabase auth API
-          let userEmail = '';
-          try {
-            const accessToken = hashParams.get('access_token');
-            if (accessToken) {
-              // Use Supabase to get user info from the token
-              const { data: { user }, error: userError } = await supabase.auth.getUser(accessToken);
-              if (user && !userError) {
-                userEmail = user.email || '';
-                console.log('Extracted email from token:', userEmail);
-              }
-            }
-          } catch (e) {
-            console.error('Could not extract email from token:', e);
-          }
-          
           // Check if this is a PKCE error (code verifier missing)
           const isPKCEError = error.message?.includes('code verifier') || 
                               error.message?.includes('invalid request');
@@ -66,14 +50,13 @@ const AuthCallback = () => {
           if (isPKCEError) {
             // PKCE error means the email was likely verified but code verifier is missing
             // (happens when clicking link in different browser/session)
-            // Redirect to verified sign-in flow
+            // Redirect to verified sign-in flow without email (user knows which email they just verified)
             toast({
               title: "Email verified!",
-              description: "Enter your password to continue",
+              description: "Please sign in to continue",
             });
             
-            const emailParam = userEmail ? `&email=${encodeURIComponent(userEmail)}` : '';
-            navigate(`/signin?verified=true${emailParam}&redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
+            navigate(`/signin?verified=true&redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
             return;
           }
           

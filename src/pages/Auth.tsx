@@ -57,22 +57,16 @@ const Auth = () => {
     
     // Check for verified email flow
     const verified = searchParams.get('verified');
-    const emailParam = searchParams.get('email');
     
     if (verified === 'true') {
       setIsVerifiedFlow(true);
       setIsSignUp(false); // We're in sign-in mode
       
-      // Pre-fill email if provided
-      if (emailParam) {
-        setFormData(prev => ({ ...prev, email: emailParam }));
-      }
-      
-      // Auto-focus password field after a brief delay
+      // Auto-focus email field after a brief delay
       setTimeout(() => {
-        const passwordInput = document.getElementById('password') as HTMLInputElement;
-        if (passwordInput) {
-          passwordInput.focus();
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        if (emailInput) {
+          emailInput.focus();
         }
       }, 300);
     } else {
@@ -417,7 +411,6 @@ const Auth = () => {
                     onChange={e => handleInputChange('email', e.target.value)} 
                     placeholder="drop your email" 
                     className={isEmailValid() ? 'pr-12' : ''} 
-                    disabled={isVerifiedFlow}
                     required 
                   />
                 {isEmailValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
