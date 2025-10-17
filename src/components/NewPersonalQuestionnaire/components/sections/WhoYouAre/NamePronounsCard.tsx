@@ -13,9 +13,12 @@ interface NamePronounsCardProps {
   isComplete: boolean;
 }
 
-const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronounsCardProps) => {
+const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: NamePronounsCardProps) => {
   const [customPronoun, setCustomPronoun] = useState('');
-  const { isSyncing, lastSaved, updateFieldImmediate, flush } = usePersonalProfileData();
+  const { profileData: localData, isSyncing, lastSaved, updateFieldImmediate, flush } = usePersonalProfileData();
+  
+  // Use local hook data for display (always most up-to-date), fall back to prop data
+  const displayData = localData.pronouns ? localData : propData;
 
   const primaryPronounOptions = [
     'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
@@ -30,10 +33,10 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
 
   // Initialize custom pronoun if it exists and isn't a standard option
   useEffect(() => {
-    if (profileData.pronouns && !['she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'].includes(profileData.pronouns)) {
-      setCustomPronoun(profileData.pronouns);
+    if (displayData.pronouns && !['she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'].includes(displayData.pronouns)) {
+      setCustomPronoun(displayData.pronouns);
     }
-  }, [profileData.pronouns]);
+  }, [displayData.pronouns]);
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
@@ -73,7 +76,7 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
         {/* Left side: Name and Avatar */}
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0">
-            {generateAvatar(profileData.name || '')}
+            {generateAvatar(displayData.name || '')}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
@@ -84,10 +87,10 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
             <Input
               id="name"
               type="text"
-              value={profileData.name || ''}
+              value={displayData.name || ''}
               onChange={(e) => updateField('name', e.target.value)}
               onBlur={(e) => {
-                if (e.target.value !== profileData.name) {
+                if (e.target.value !== displayData.name) {
                   updateFieldImmediate('name', e.target.value);
                 }
               }}
@@ -112,12 +115,12 @@ const NamePronounsCard = ({ profileData, updateField, isComplete }: NamePronouns
           {/* Pronoun buttons */}
           <SingleSelect
             options={primaryPronounOptions}
-            selectedValue={profileData.pronouns || ''}
+            selectedValue={displayData.pronouns || ''}
             onSelect={handlePronounSelect}
           />
 
           {/* Custom pronoun input */}
-          {(profileData.pronouns === 'other' || customPronoun) && (
+          {(displayData.pronouns === 'other' || customPronoun) && (
             <div className="mt-3">
               <Label className="text-sm font-medium text-white mb-2 block">
                 please specify your pronouns:

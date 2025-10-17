@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { useInputStateTracking } from '@/hooks/useInputStateTracking';
 
 interface SingleSelectProps {
@@ -9,6 +9,11 @@ interface SingleSelectProps {
 
 const SingleSelect = memo(({ options, selectedValue, onSelect }: SingleSelectProps) => {
   const { trackSelection } = useInputStateTracking();
+
+  // Debug: Log when selected value changes
+  useEffect(() => {
+    console.log('[SingleSelect] Selected value:', selectedValue);
+  }, [selectedValue]);
 
   const handleSelect = (value: string) => {
     trackSelection(); // Prevent navigation conflicts during user input
