@@ -48,8 +48,7 @@ export const pricingPlans: PricingPlan[] = [
       "everything in begin",
       "2 partner profiles (track both sides)",
       "deeper self-reflection + coaching",
-      "role-play tough convos",
-      "growth check-ins"
+      "role-play tough convos"
     ],
     buttonText: "keep glowing",
     popular: false,
@@ -67,6 +66,7 @@ export const pricingPlans: PricingPlan[] = [
     features: [
       "everything in glow",
       "6 partner profiles",
+      "growth check-ins",
       "advanced insights"
     ],
     buttonText: "catch the vibe",
