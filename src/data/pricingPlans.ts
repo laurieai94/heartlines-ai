@@ -1,4 +1,4 @@
-import { Sprout, Zap, Radio, Sparkles, Heart, LucideIcon } from "lucide-react";
+import { Sprout, Zap, Radio, Infinity, Heart, LucideIcon } from "lucide-react";
 
 export interface PricingPlan {
   id: string;
@@ -81,7 +81,7 @@ export const pricingPlans: PricingPlan[] = [
     description: "love without limits",
     tagline: "no limits on your journey",
     messages: 0,
-    icon: Sparkles,
+    icon: Infinity,
     features: [
       "everything in vibe",
       "unlimited partner profiles",
