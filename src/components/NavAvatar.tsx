@@ -101,7 +101,7 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
           {/* Pink circle border around initial */}
           <svg 
             viewBox="0 0 100 100" 
-            className="absolute w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20"
+            className="absolute w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28"
             aria-hidden="true"
           >
             <circle
