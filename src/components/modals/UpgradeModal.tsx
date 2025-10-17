@@ -202,7 +202,7 @@ export const UpgradeModal = ({
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
-              className="text-white/60 hover:text-white text-sm"
+              className="text-white/60 hover:text-white hover:bg-white/10 text-sm"
             >
               Maybe Later
             </Button>
