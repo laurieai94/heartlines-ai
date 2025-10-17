@@ -11,18 +11,34 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import MobileErrorBoundary from '@/components/MobileErrorBoundary'
 import { PerformanceOptimizedApp } from '@/components/PerformanceOptimizedApp'
 
-// Production optimizations component
+// Production optimizations component with enhanced mobile diagnostics
 const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   const { isEmergencyMode } = useProductionOptimizations();
   
-  // Mobile diagnostics
+  // Enhanced mobile diagnostics
   React.useEffect(() => {
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
+      // Detect iOS version
+      const ua = navigator.userAgent;
+      const isIOS = /iPad|iPhone|iPod/.test(ua);
+      const iOSVersion = isIOS ? ua.match(/OS (\d+)_/) : null;
+      const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
+      
+      // Connection info
+      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      const connectionType = connection?.effectiveType || 'unknown';
+      
       console.log('[Mobile] App initializing', {
         width: window.innerWidth,
         height: window.innerHeight,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
+        isIOS,
+        iOSVersion: iOSVersion ? iOSVersion[1] : 'unknown',
+        browser: isSafari ? 'Safari' : 'Chrome/Other',
+        connectionType,
+        memory: (performance as any).memory ? `${Math.round((performance as any).memory.usedJSHeapSize / 1048576)}MB` : 'unknown',
+        orientation: window.screen?.orientation?.type || 'unknown'
       });
     }
   }, []);
@@ -30,18 +46,10 @@ const ProductionWrapper = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Safe mobile detection that won't break at module load
-const getErrorBoundary = () => {
-  if (typeof window === 'undefined') return ErrorBoundary;
-  return window.innerWidth < 768 ? MobileErrorBoundary : ErrorBoundary;
-};
-
-// Optimized app structure with safe error boundary detection
+// Optimized app structure - always use MobileErrorBoundary (handles both mobile and desktop)
 const AppWithBoundary = () => {
-  const ErrorBoundaryComponent = getErrorBoundary();
-  
   return (
-    <ErrorBoundaryComponent>
+    <MobileErrorBoundary>
       <PerformanceOptimizedApp>
         <ProductionWrapper>
           <MobileProvider>
@@ -51,7 +59,7 @@ const AppWithBoundary = () => {
           </MobileProvider>
         </ProductionWrapper>
       </PerformanceOptimizedApp>
-    </ErrorBoundaryComponent>
+    </MobileErrorBoundary>
   );
 };
 

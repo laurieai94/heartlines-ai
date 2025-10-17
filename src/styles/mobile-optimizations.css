@@ -175,10 +175,12 @@ html, body, #root {
 
 /* Mobile viewport and performance optimizations */
 @media (max-width: 768px) {
-  /* Allow natural scroll on html/body for better mobile experience */
+  /* iOS-safe scroll behavior - use overflow-y instead of overflow */
   html, body {
-    overflow: auto !important;
+    overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0); /* Force GPU acceleration on iOS */
     position: relative !important;
     width: 100% !important;
     height: 100dvh !important;

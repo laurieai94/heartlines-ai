@@ -13,15 +13,37 @@ interface AuthGuardProps {
 const AuthGuard = ({ children, fallbackPath = '/signin' }: AuthGuardProps) => {
   const { user, loading } = useAuth();
   const [showTimeout, setShowTimeout] = useState(false);
+  const [progressMessage, setProgressMessage] = useState('');
 
   useEffect(() => {
     if (loading) {
-      const timeoutId = setTimeout(() => {
-        console.warn('[AuthGuard] Loading timeout after 5s');
-        setShowTimeout(true);
+      // Extended timeout for mobile devices
+      const isMobile = window.innerWidth < 768;
+      const timeoutDuration = isMobile ? 12000 : 10000; // 12s for mobile, 10s for desktop
+      
+      // Progressive loading messages
+      const message5s = setTimeout(() => {
+        setProgressMessage('Still loading, please wait...');
       }, 5000);
       
-      return () => clearTimeout(timeoutId);
+      const message8s = setTimeout(() => {
+        setProgressMessage('Taking longer than usual...');
+        setShowTimeout(true); // Show retry button at 8s
+      }, 8000);
+      
+      const timeoutId = setTimeout(() => {
+        console.warn(`[AuthGuard] Loading timeout after ${timeoutDuration/1000}s`);
+        setShowTimeout(true);
+      }, timeoutDuration);
+      
+      return () => {
+        clearTimeout(message5s);
+        clearTimeout(message8s);
+        clearTimeout(timeoutId);
+      };
+    } else {
+      setProgressMessage('');
+      setShowTimeout(false);
     }
   }, [loading]);
 
@@ -53,8 +75,8 @@ const AuthGuard = ({ children, fallbackPath = '/signin' }: AuthGuardProps) => {
   }
 
   // Show loading while auth state is being determined
-  if (loading) {
-    return <LoadingState variant="spinner" message="Loading..." fullScreen />;
+  if (loading && !showTimeout) {
+    return <LoadingState variant="spinner" message={progressMessage || "Loading..."} fullScreen />;
   }
 
   // Redirect to auth if not authenticated

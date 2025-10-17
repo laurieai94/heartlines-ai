@@ -38,11 +38,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    // Safety timeout - prevent infinite loading
+    // Extended timeout for mobile - slow cellular connections need more time
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const timeoutDuration = isMobile ? 12000 : 10000; // 12s for mobile, 10s for desktop
+    
+    // Progress logging for mobile
+    const progressTimer = isMobile ? setTimeout(() => {
+      console.log('[AuthContext] Still loading auth on mobile (5s), please wait...');
+    }, 5000) : null;
+    
     const timeoutId = setTimeout(() => {
-      console.warn('[AuthContext] Auth initialization timeout after 5s - forcing load');
+      console.warn(`[AuthContext] Auth initialization timeout after ${timeoutDuration/1000}s - forcing load`);
       setLoading(false);
-    }, 5000);
+    }, timeoutDuration);
 
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -83,6 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     return () => {
       clearTimeout(timeoutId);
+      if (progressTimer) clearTimeout(progressTimer);
       subscription.unsubscribe();
     };
   }, []);

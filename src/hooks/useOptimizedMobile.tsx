@@ -59,7 +59,7 @@ const throttledUpdate = throttle(() => {
   } catch (error) {
     console.error('Error in throttled update:', error);
   }
-}, 100);
+}, 200); // Increased from 100ms to 200ms to reduce iOS Safari resize event storms
 
 // Single global event listener with safe initialization
 if (typeof window !== 'undefined') {
@@ -135,10 +135,16 @@ export function useOptimizedMobile() {
     // Add mobile optimization classes to body
     document.body.classList.add('mobile-optimized');
     
-    // iOS-specific optimizations
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if (isIOS) {
-      document.body.classList.add('ios-optimized');
+    // iOS-specific optimizations with safety check
+    try {
+      if (typeof navigator !== 'undefined' && navigator.userAgent) {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS) {
+          document.body.classList.add('ios-optimized');
+        }
+      }
+    } catch (error) {
+      console.error('Error detecting iOS:', error);
     }
     
     return () => {

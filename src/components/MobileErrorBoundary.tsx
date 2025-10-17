@@ -12,6 +12,8 @@ interface MobileErrorBoundaryProps {
 }
 
 class MobileErrorBoundary extends React.Component<MobileErrorBoundaryProps, MobileErrorBoundaryState> {
+  private stuckTimer: NodeJS.Timeout | null = null;
+  
   constructor(props: MobileErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -21,7 +23,39 @@ class MobileErrorBoundary extends React.Component<MobileErrorBoundaryProps, Mobi
     return { hasError: true, error };
   }
 
+  componentDidMount() {
+    // iOS-specific stuck state detection
+    if (typeof window !== 'undefined') {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      
+      if (isIOS) {
+        // If iOS device is stuck loading for >8 seconds, auto-trigger error boundary
+        this.stuckTimer = setTimeout(() => {
+          const isStillLoading = document.querySelector('[data-loading="true"]');
+          if (isStillLoading) {
+            console.error('[MobileErrorBoundary] iOS stuck state detected after 8s');
+            this.setState({
+              hasError: true,
+              error: new Error('iOS Safari appears to be stuck. Please try the solutions below.')
+            });
+          }
+        }, 8000);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.stuckTimer) {
+      clearTimeout(this.stuckTimer);
+    }
+  }
+
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Clear stuck timer if real error occurs
+    if (this.stuckTimer) {
+      clearTimeout(this.stuckTimer);
+    }
+    
     // Send error to analytics if available
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'exception', {
@@ -56,6 +90,17 @@ class MobileErrorBoundary extends React.Component<MobileErrorBoundaryProps, Mobi
               <p className="text-sm text-muted-foreground">
                 We're having trouble loading the page on your device.
               </p>
+              {/iPad|iPhone|iPod/.test(navigator.userAgent) && (
+                <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg text-left">
+                  <p className="font-semibold mb-2">iOS Safari troubleshooting:</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Clear Safari cache (Settings → Safari → Clear History)</li>
+                    <li>Close other open tabs</li>
+                    <li>Restart Safari</li>
+                    <li>Try in Private Browsing mode</li>
+                  </ul>
+                </div>
+              )}
             </div>
 
             <div className="space-y-3">

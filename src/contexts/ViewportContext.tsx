@@ -31,32 +31,44 @@ export function ViewportProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Use visualViewport API for more reliable keyboard detection on iOS Safari
-    const visualViewport = window.visualViewport;
+    // Detect iOS version for compatibility
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const iOSVersion = isIOS ? parseInt((ua.match(/OS (\d+)_/) || [])[1] || '0', 10) : 0;
+    const isLegacyIOS = isIOS && iOSVersion > 0 && iOSVersion < 13;
+    
+    // Use visualViewport API for iOS 13+ (more reliable keyboard detection)
+    // Fall back to window for older iOS or if visualViewport is unavailable
+    const visualViewport = !isLegacyIOS && window.visualViewport ? window.visualViewport : null;
     
     const handleResize = () => {
-      // Prefer visualViewport for accurate mobile viewport measurement
-      const newHeight = visualViewport ? visualViewport.height : window.innerHeight;
-      const windowHeight = window.innerHeight;
-      
-      // More reliable keyboard detection using visualViewport
-      const isKeyboardNowVisible = visualViewport 
-        ? (windowHeight - visualViewport.height) > 150
-        : false;
-      
-      setHeight(newHeight);
-      
-      if (isKeyboardNowVisible !== isKeyboardVisible) {
-        setIsKeyboardVisible(isKeyboardNowVisible);
+      try {
+        // Prefer visualViewport for accurate mobile viewport measurement
+        const newHeight = visualViewport ? visualViewport.height : window.innerHeight;
+        const windowHeight = window.innerHeight;
         
-        // Notify listeners only when keyboard state changes
-        keyboardListeners.forEach(callback => {
-          try {
-            callback(isKeyboardNowVisible);
-          } catch (error) {
-            // Silent error to prevent performance impact
-          }
-        });
+        // More reliable keyboard detection using visualViewport
+        const isKeyboardNowVisible = visualViewport 
+          ? (windowHeight - visualViewport.height) > 150
+          : false;
+        
+        setHeight(newHeight);
+        
+        if (isKeyboardNowVisible !== isKeyboardVisible) {
+          setIsKeyboardVisible(isKeyboardNowVisible);
+          
+          // Notify listeners only when keyboard state changes
+          keyboardListeners.forEach(callback => {
+            try {
+              callback(isKeyboardNowVisible);
+            } catch (error) {
+              // Silent error to prevent performance impact
+            }
+          });
+        }
+      } catch (error) {
+        // Fallback for iOS errors - just use window.innerHeight
+        setHeight(window.innerHeight);
       }
     };
 

@@ -76,7 +76,7 @@ const FirstVisitSplash: React.FC = () => {
       setShowSplash(false);
       sessionStorage.setItem('homepage_visited', 'true');
       sessionStorage.setItem('resources_loaded', 'true');
-    }, isMobile ? 2000 : 6000); // 2s on mobile, 6s on desktop
+    }, isMobile ? 3000 : 6000); // 3s on mobile (increased from 2s), 6s on desktop
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
