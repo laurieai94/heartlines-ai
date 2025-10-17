@@ -27,10 +27,12 @@ export const UpgradeModal = ({
   const { upgrade } = useOptimizedSubscription();
   const [upgrading, setUpgrading] = useState<string | null>(null);
 
-  const glowPlan = pricingPlans.find(p => p.tier === 'glow');
-  const vibePlan = pricingPlans.find(p => p.tier === 'vibe');
+  // Get all plans in display order
+  const allPlans = pricingPlans.filter(p => ['begin', 'glow', 'vibe', 'unlimited'].includes(p.id));
+  
+  const usagePercentage = (messagesUsed / messageLimit) * 100;
 
-  const handleUpgrade = async (tier: 'glow' | 'vibe') => {
+  const handleUpgrade = async (tier: 'glow' | 'vibe' | 'unlimited') => {
     setUpgrading(tier);
     try {
       await upgrade(tier);
@@ -43,33 +45,40 @@ export const UpgradeModal = ({
   const getReasonMessage = () => {
     switch (reason) {
       case 'limit-reached':
-        return `You've used all ${messageLimit} messages this month. Upgrade to continue your growth journey.`;
+        return `you've reached your ${messageLimit} message limit. upgrade to continue your journey.`;
       case 'near-limit':
-        return `You've used ${messagesUsed} of ${messageLimit} messages. Upgrade now to avoid interruptions.`;
+        return `you're using ${messagesUsed} of ${messageLimit} messages. upgrade to keep the conversation flowing.`;
       default:
-        return "Choose the plan that fits your relationship goals.";
+        return "choose the plan that matches your relationship goals.";
     }
   };
 
-  const getRecommendedTier = (): 'glow' | 'vibe' => {
-    // If user is at 80%+ usage on freemium, suggest Glow
-    // If user is already on Glow or at high usage, suggest Vibe
-    const usagePercent = (messagesUsed / messageLimit) * 100;
-    if (currentTier === 'freemium' && usagePercent < 90) return 'glow';
-    return 'vibe';
+  const getRecommendedTier = () => {
+    if (currentTier === 'unlimited') return null;
+    if (currentTier === 'vibe') return null;
+    if (usagePercentage > 80) return 'vibe';
+    return 'glow';
   };
 
   const recommendedTier = getRecommendedTier();
+  
+  const tierOrder = ['begin', 'glow', 'vibe', 'unlimited'];
+  const currentTierIndex = tierOrder.indexOf(currentTier);
+  
+  const canUpgradeTo = (planTier: string) => {
+    const planIndex = tierOrder.indexOf(planTier);
+    return planIndex > currentTierIndex;
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto questionnaire-card border-white/20">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto questionnaire-card border-white/20">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold questionnaire-text flex items-center gap-2">
+          <DialogTitle className="text-3xl font-light questionnaire-text flex items-center justify-center gap-2">
             <Sparkles className="w-8 h-8 text-coral-400" />
-            Upgrade Your Journey
+            upgrade your journey
           </DialogTitle>
-          <DialogDescription className="text-lg questionnaire-text-muted mt-2">
+          <DialogDescription className="text-base questionnaire-text-muted mt-2 text-center">
             {getReasonMessage()}
           </DialogDescription>
         </DialogHeader>
@@ -98,119 +107,95 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* Glow Plan */}
-            {glowPlan && (
-              <Card className={`questionnaire-card p-6 relative ${
-                recommendedTier === 'glow' ? 'border-2 border-coral-400' : 'border-white/10'
-              }`}>
-                {recommendedTier === 'glow' && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-coral-400 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Recommended
-                    </span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                    <glowPlan.icon className="w-6 h-6 text-coral-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold questionnaire-text">{glowPlan.name}</h3>
-                    <p className="text-sm questionnaire-text-muted">{glowPlan.tagline}</p>
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  <span className="text-4xl font-bold questionnaire-text">{glowPlan.price}</span>
-                  <span className="questionnaire-text-muted">/{glowPlan.period}</span>
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="w-5 h-5 text-coral-400" />
-                    <span className="font-semibold questionnaire-text">{glowPlan.messages} messages/month</span>
-                  </div>
-                  <p className="text-sm questionnaire-text-muted">{glowPlan.description}</p>
-                </div>
-
-                <ul className="space-y-2 mb-6">
-                  {glowPlan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-coral-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm questionnaire-text-muted">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  onClick={() => handleUpgrade('glow')}
-                  disabled={upgrading !== null || currentTier === 'glow' || currentTier === 'vibe'}
-                  className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
+            {allPlans.map((plan) => {
+              const isRecommended = plan.tier === recommendedTier;
+              const isCurrent = plan.tier === currentTier;
+              const canUpgrade = canUpgradeTo(plan.tier || '');
+              const isPopular = plan.tier === 'vibe';
+              
+              return (
+                <Card 
+                  key={plan.id}
+                  className={`questionnaire-card relative rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 flex flex-col ${
+                    isPopular ? 'questionnaire-card-glow ring-2 ring-coral-400/50' : ''
+                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50' : ''}`}
                 >
-                  {upgrading === 'glow' ? 'Processing...' : 
-                   currentTier === 'glow' ? 'Current Plan' :
-                   currentTier === 'vibe' ? 'Downgrade Not Available' :
-                   'Upgrade to Glow'}
-                </Button>
-              </Card>
-            )}
+                  {isPopular && (
+                    <div className="absolute -top-3 lg:-top-5 left-1/2 -translate-x-1/2 z-10">
+                      <span className="bg-gradient-to-r from-coral-400 to-pink-400 text-white px-6 sm:px-6 lg:px-8 py-1 rounded-full text-xs sm:text-sm font-semibold border border-white/10 shadow-neon whitespace-nowrap">
+                        most popular
+                      </span>
+                    </div>
+                  )}
+                  
+                  <div className="p-6 sm:p-8 flex-1 flex flex-col">
+                    {/* Icon */}
+                    <div className="mb-6 sm:mb-8">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-questionnaire-border flex items-center justify-center">
+                        <plan.icon className="w-7 h-7 sm:w-8 sm:h-8 text-coral-400" />
+                      </div>
+                    </div>
 
-            {/* Vibe Plan */}
-            {vibePlan && (
-              <Card className={`questionnaire-card p-6 relative ${
-                recommendedTier === 'vibe' ? 'border-2 border-coral-400' : 'border-white/10'
-              }`}>
-                {recommendedTier === 'vibe' && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-coral-400 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Recommended
-                    </span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                    <vibePlan.icon className="w-6 h-6 text-coral-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold questionnaire-text">{vibePlan.name}</h3>
-                    <p className="text-sm questionnaire-text-muted">{vibePlan.tagline}</p>
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  <span className="text-4xl font-bold questionnaire-text">{vibePlan.price}</span>
-                  <span className="questionnaire-text-muted">/{vibePlan.period}</span>
-                </div>
+                    {/* Plan Name */}
+                    <h3 className="text-xl font-light questionnaire-text mb-2 text-center">
+                      {plan.name}
+                    </h3>
 
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="w-5 h-5 text-coral-400" />
-                    <span className="font-semibold questionnaire-text">{vibePlan.messages} messages/month</span>
+                    {/* Price */}
+                    <div className="mb-2 text-center">
+                      <span className="text-4xl font-thin questionnaire-text">{plan.price}</span>
+                    </div>
+                    <p className="questionnaire-text-muted text-sm mb-4 text-center">
+                      per {plan.period}
+                    </p>
+
+                    {/* Description */}
+                    <p className="questionnaire-text-muted text-sm leading-tight mb-6 text-center">
+                      {plan.description}
+                    </p>
+
+                    {/* Message Count Badge */}
+                    <div className="mb-6 sm:mb-8">
+                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-questionnaire-border/50 p-3 sm:p-4 text-center">
+                        <div className="text-2xl sm:text-3xl font-light questionnaire-text mb-1">
+                          {plan.messages === 0 ? '∞' : plan.messages}
+                        </div>
+                        <div className="questionnaire-text-muted text-xs">
+                          messages per month
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Features */}
+                    <ul className="space-y-3 mb-6 sm:mb-8 flex-1">
+                      {plan.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-coral-400 flex-shrink-0 mt-1" />
+                          <span className="text-sm questionnaire-text-muted leading-relaxed">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA Button */}
+                    <Button
+                      onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
+                      disabled={upgrading !== null || isCurrent || !canUpgrade}
+                      className={`w-full rounded-full ${
+                        isPopular || isRecommended 
+                          ? 'questionnaire-button-primary' 
+                          : 'questionnaire-button-secondary'
+                      }`}
+                    >
+                      {upgrading === plan.tier ? 'processing...' : 
+                       isCurrent ? 'current plan' :
+                       !canUpgrade ? 'not available' :
+                       `upgrade to ${plan.name.toLowerCase()}`}
+                    </Button>
                   </div>
-                  <p className="text-sm questionnaire-text-muted">{vibePlan.description}</p>
-                </div>
-
-                <ul className="space-y-2 mb-6">
-                  {vibePlan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-coral-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm questionnaire-text-muted">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  onClick={() => handleUpgrade('vibe')}
-                  disabled={upgrading !== null || currentTier === 'vibe'}
-                  className="w-full bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
-                >
-                  {upgrading === 'vibe' ? 'Processing...' : 
-                   currentTier === 'vibe' ? 'Current Plan' :
-                   'Upgrade to Vibe'}
-                </Button>
-              </Card>
-            )}
+                </Card>
+              );
+            })}
           </div>
 
           <div className="text-center pt-4">
