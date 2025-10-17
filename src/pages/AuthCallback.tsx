@@ -43,21 +43,20 @@ const AuthCallback = () => {
           const hashParams = new URLSearchParams(hash);
           const redirectPath = hashParams.get('redirect') || urlParams.get('redirect') || '/profile';
           
-          // Try to extract email from the error or URL
+          // Extract email using Supabase auth API
           let userEmail = '';
           try {
-            // The token might contain email information
-            const tokenHash = hashParams.get('token_hash') || hashParams.get('access_token');
-            if (tokenHash) {
-              // Decode JWT to extract email (tokens are base64 encoded)
-              const parts = tokenHash.split('.');
-              if (parts.length >= 2) {
-                const payload = JSON.parse(atob(parts[1]));
-                userEmail = payload.email || '';
+            const accessToken = hashParams.get('access_token');
+            if (accessToken) {
+              // Use Supabase to get user info from the token
+              const { data: { user }, error: userError } = await supabase.auth.getUser(accessToken);
+              if (user && !userError) {
+                userEmail = user.email || '';
+                console.log('Extracted email from token:', userEmail);
               }
             }
           } catch (e) {
-            console.log('Could not extract email from token');
+            console.error('Could not extract email from token:', e);
           }
           
           // Check if this is a PKCE error (code verifier missing)
