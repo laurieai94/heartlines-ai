@@ -72,7 +72,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto questionnaire-bg-modal border-white/20 rounded-3xl">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-7 h-7 text-coral-400" />
