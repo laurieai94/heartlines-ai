@@ -26,8 +26,8 @@ export const pricingPlans: PricingPlan[] = [
     messages: 25,
     icon: Sprout,
     features: [
-      "Kai's science-backed tools (CBT, EFT, DBT)",
-      "quick insights into your patterns + relationships",
+      "kai's science-backed tools (CBT, EFT, DBT)",
+      "quick insights into your dating + relationship patterns",
       "try before you commit\" energy"
     ],
     buttonText: "start growing free",
