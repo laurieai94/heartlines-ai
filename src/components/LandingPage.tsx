@@ -452,7 +452,7 @@ const LandingPage = ({
 
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
-      minHeight: 'clamp(50vh, 65vh, 85vh)'
+      minHeight: 'clamp(40vh, 50vh, 65vh)'
     }}>
         {/* Static background preserved */}
         
@@ -596,7 +596,7 @@ const LandingPage = ({
       </section>
 
       {/* How It Works Section - Playful 4-Step Flow */}
-      <section id="how-it-works" className="pt-12 pb-8 md:pt-12 md:pb-16 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section id="how-it-works" className="pt-8 pb-6 md:pt-8 md:pb-10 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Background Ambient Orbs with Vibrant Gradients */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-pink-500/15 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -609,7 +609,7 @@ const LandingPage = ({
         </div>
 
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-4 md:mb-16">
+          <div className="text-center mb-3 md:mb-8">
             <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">how it works</h2>
             
           </div>
@@ -684,7 +684,7 @@ const LandingPage = ({
       </section>
 
       {/* Why It's Different Section - Vertical Timeline */}
-      <section className="py-6 md:py-8 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
+      <section className="py-4 md:py-6 relative overflow-hidden bg-gradient-to-br from-burgundy-900 via-burgundy-800 to-burgundy-900">
         {/* Enhanced Background Gradient Overlays */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Main center glow with pink-to-orange gradient */}
@@ -710,7 +710,7 @@ const LandingPage = ({
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Headline with Gradient */}
-          <div className="text-center mb-8 md:mb-10">
+          <div className="text-center mb-4 md:mb-6">
             <h2 className="text-4xl md:text-5xl lg:text-6xl 2xl:text-6xl font-brand mb-4 bg-gradient-to-r from-pink-400 via-coral-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               why we're different
             </h2>
