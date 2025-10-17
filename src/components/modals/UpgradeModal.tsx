@@ -72,7 +72,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto questionnaire-bg-modal border-white/20 rounded-3xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-7 h-7 text-coral-400" />
@@ -85,7 +85,7 @@ export const UpgradeModal = ({
 
         <div className="mt-4 space-y-3">
           {/* Current Usage */}
-          <Card className="bg-white/5 p-3 border-white/10">
+          <Card className="questionnaire-card p-3">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">Current Plan</p>
@@ -117,7 +117,7 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`bg-white/5 relative rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 flex flex-col ${
+                  className={`questionnaire-card relative rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 flex flex-col ${
                     isPopular ? 'ring-2 ring-coral-400/50' : ''
                   } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50' : ''}`}
                 >
