@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { User, LogOut, UserCircle, Settings, Heart } from "lucide-react";
+import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavAvatar from "@/components/NavAvatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -34,6 +34,20 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
     setShowUserMenu(false);
   };
 
+  const getInitialFromProfile = () => {
+    // Priority 1: Profile name from questionnaire
+    if (profileData?.name && profileData.name.trim()) {
+      return profileData.name.trim().charAt(0).toUpperCase();
+    }
+    // Priority 2: Email (legacy fallback)
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    // Priority 3: No initial available
+    return null;
+  };
+
+  const initial = getInitialFromProfile();
 
   if (user) {
     // Show user avatar/menu for authenticated users
@@ -44,7 +58,7 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
           variant="ghost"
           className="h-8 w-8 sm:h-9 sm:w-9 md:h-11 md:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full p-0 bg-transparent hover:bg-transparent shadow-none transition-all duration-300"
         >
-          <NavAvatar icon={Heart} />
+          <NavAvatar>{initial}</NavAvatar>
         </Button>
         </PopoverTrigger>
         <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
