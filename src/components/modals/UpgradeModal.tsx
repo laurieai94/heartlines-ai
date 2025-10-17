@@ -76,7 +76,7 @@ export const UpgradeModal = ({
         <DialogHeader>
           <DialogTitle className="text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-7 h-7 text-coral-400" />
-            upgrade your journey
+            you've been opening up (big fan of that) — time to go deeper?
           </DialogTitle>
           <DialogDescription className="text-sm text-white/70 mt-2 text-center">
             {getReasonMessage()}
