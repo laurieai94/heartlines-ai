@@ -45,7 +45,7 @@ export const UpgradeModal = ({
   const getReasonMessage = () => {
     switch (reason) {
       case 'limit-reached':
-        return "your free messages are used up — continue your journey with more.";
+        return "your free messages are done, but your story's just getting started.";
       case 'near-limit':
         return `you're using ${messagesUsed} of ${messageLimit} messages. upgrade to keep the conversation flowing.`;
       default:
