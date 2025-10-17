@@ -157,12 +157,12 @@ export const UpgradeModal = ({
 
                     {/* Message Count Badge */}
                     <div className="mb-4">
-                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-2 sm:p-3 text-center">
-                        <div className="text-xl sm:text-2xl font-light text-white mb-0.5">
+                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-3 sm:p-4 text-center">
+                        <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
-                        <div className="text-white/60 text-[10px]">
-                          messages per month
+                        <div className="text-xs text-white/50 mt-1">
+                          per month
                         </div>
                       </div>
                     </div>
@@ -181,16 +181,16 @@ export const UpgradeModal = ({
                     <Button
                       onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
                       disabled={upgrading !== null || isCurrent || !canUpgrade}
-                      className={`w-full rounded-full text-sm ${
+                      className={`w-full rounded-full text-sm font-semibold ${
                         isPopular || isRecommended 
-                          ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600' 
+                          ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
                           : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                       }`}
                     >
                       {upgrading === plan.tier ? 'processing...' : 
                        isCurrent ? 'current plan' :
                        !canUpgrade ? 'not available' :
-                       `upgrade to ${plan.name.toLowerCase()}`}
+                       plan.buttonText}
                     </Button>
                   </div>
                 </Card>
