@@ -60,7 +60,6 @@ export const ChatLayout = ({
           <PopoverTrigger asChild>
             <Button 
               variant="ghost" 
-              size="icon"
               className="text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0"
               aria-label="Open site navigation"
             >

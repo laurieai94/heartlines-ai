@@ -78,7 +78,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  size="icon"
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
             <FlipPhoneIcon className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-44 xl:w-44 2xl:h-48 2xl:w-48" />
@@ -131,7 +130,6 @@ const DashboardHeader = ({ accessLevel, profileCompletion, compact = false, user
               <PopoverTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  size="icon"
                   className="text-white hover:text-white bg-transparent hover:bg-transparent border-0 hover:border-0 p-0 transition-all duration-200 [&_svg]:text-white [&_svg]:hover:text-white"
                 >
                   <FlipPhoneIcon className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-44 xl:w-44 2xl:h-48 2xl:w-48" />
