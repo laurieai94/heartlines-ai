@@ -26,11 +26,12 @@ export const pricingPlans: PricingPlan[] = [
     messages: 25,
     icon: Sprout,
     features: [
-      "kai's science-backed tools (CBT, EFT, DBT)",
-      "quick insights into your dating + relationship patterns",
-      "try before you commit\" energy"
+      "kai's science-backed tools",
+      "dating + relationship insights",
+      "1 partner profile",
+      "\"try before you commit\" vibes"
     ],
-    buttonText: "start growing free",
+    buttonText: "start free",
     popular: false,
     tier: "freemium"
   },
@@ -44,9 +45,11 @@ export const pricingPlans: PricingPlan[] = [
     messages: 150,
     icon: Zap,
     features: [
-      "coaching for self-reflection + relationships",
-      "role play critical convos",
-      "progress check-ins to track your growth"
+      "everything in begin",
+      "2 partner profiles (track both sides)",
+      "deeper self-reflection + coaching",
+      "role-play tough convos",
+      "growth check-ins"
     ],
     buttonText: "keep glowing",
     popular: false,
@@ -57,14 +60,14 @@ export const pricingPlans: PricingPlan[] = [
     name: "vibe",
     price: "$39",
     period: "month",
-    description: "go all in for deeper love + growth",
+    description: "dive deeper into connection",
     tagline: "turn insights into transformation",
     messages: 300,
     icon: Heart,
     features: [
-      "unlimited scenarios (self-talk, dating, relationships)",
-      "advanced insights + personal analytics",
-      "custom goals for your growth journey"
+      "everything in glow",
+      "6 partner profiles",
+      "advanced insights"
     ],
     buttonText: "catch the vibe",
     popular: true,
@@ -80,10 +83,10 @@ export const pricingPlans: PricingPlan[] = [
     messages: 0,
     icon: Sparkles,
     features: [
-      "unlimited messages per month",
-      "all vibe features included",
-      "priority support",
-      "advanced ai capabilities"
+      "everything in vibe",
+      "unlimited partner profiles",
+      "talk anytime, as much as you need",
+      "priority support when it matters most"
     ],
     buttonText: "glow unlimited",
     popular: false,
