@@ -19,7 +19,7 @@ const FirstVisitSplash: React.FC = () => {
     sessionStorage.getItem('resources_loaded') === 'true';
   
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: isMobile ? 500 : 2000, // 0.5s on mobile, 2s on desktop
+    minDisplayTime: 3000, // 3s for both mobile and desktop
     maxTimeout: isMobile ? 1500 : 4000 // 1.5s timeout on mobile, 4s on desktop
   });
 
@@ -76,7 +76,7 @@ const FirstVisitSplash: React.FC = () => {
       setShowSplash(false);
       sessionStorage.setItem('homepage_visited', 'true');
       sessionStorage.setItem('resources_loaded', 'true');
-    }, isMobile ? 3000 : 6000); // 3s on mobile (increased from 2s), 6s on desktop
+    }, isMobile ? 5000 : 8000); // 5s on mobile, 8s on desktop - buffer above 3s minDisplayTime
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
