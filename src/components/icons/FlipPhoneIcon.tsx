@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import flipPhone from '@/assets/flip-phone-new.png';
+import flipPhone from '@/assets/flip-phone.svg';
 
 interface FlipPhoneIconProps {
   className?: string;
