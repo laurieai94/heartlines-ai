@@ -43,8 +43,8 @@ class ChunkErrorBoundary extends Component<
   }
 }
 
-// Lazy load heavy modal components
-const NewPartnerProfile = React.lazy(() => import("@/components/NewPartnerProfile"));
+// Lazy load heavy modal components (except NewPartnerProfile for faster loading)
+import NewPartnerProfile from "@/components/NewPartnerProfile";
 const ProfileCompletionOptions = React.lazy(() => import("@/components/ProfileCompletionOptions"));
 
 interface DashboardModalsProps {
@@ -152,17 +152,11 @@ const DashboardModals = ({
           />
           
           <div className="relative z-10 w-full h-[92dvh] max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-            <Suspense fallback={
-              <div className="questionnaire-modal-card w-full h-full flex items-center justify-center">
-                <BrandLoadingText text="profile loading..." color="light" />
-              </div>
-            }>
-              <NewPartnerProfile 
-                onComplete={onPartnerQuestionnaireComplete} 
-                onClose={onPartnerQuestionnaireClose} 
-                isModal={true} 
-              />
-            </Suspense>
+            <NewPartnerProfile 
+              onComplete={onPartnerQuestionnaireComplete} 
+              onClose={onPartnerQuestionnaireClose} 
+              isModal={true} 
+            />
           </div>
         </div>
       )}
