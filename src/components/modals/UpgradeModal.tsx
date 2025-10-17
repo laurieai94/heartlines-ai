@@ -19,7 +19,7 @@ interface UpgradeModalProps {
 export const UpgradeModal = ({
   open,
   onOpenChange,
-  currentTier = 'freemium',
+  currentTier = 'begin',
   messagesUsed = 0,
   messageLimit = 50,
   reason = 'upgrade'
@@ -88,11 +88,11 @@ export const UpgradeModal = ({
           <Card className="questionnaire-card p-3">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-white/60">Current Plan</p>
-                <p className="text-lg font-semibold text-white capitalize">{currentTier}</p>
+                <p className="text-xs text-white/60">current plan</p>
+                <p className="text-lg font-semibold text-white">{currentTier}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-white/60">Messages Used</p>
+                <p className="text-xs text-white/60">messages used</p>
                 <p className="text-lg font-semibold text-white">
                   {messagesUsed} / {messageLimit}
                 </p>
@@ -204,7 +204,7 @@ export const UpgradeModal = ({
               onClick={() => onOpenChange(false)}
               className="text-white/60 hover:text-white hover:bg-white/10 text-sm"
             >
-              Maybe Later
+              maybe later
             </Button>
           </div>
         </div>
