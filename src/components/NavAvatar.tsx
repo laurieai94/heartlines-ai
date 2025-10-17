@@ -98,6 +98,23 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
 
         {/* Initial overlay */}
         <div className="absolute inset-0 z-20 flex items-center justify-center isolate pointer-events-none">
+          {/* Pink circle border around initial */}
+          <svg 
+            viewBox="0 0 100 100" 
+            className="absolute w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20"
+            aria-hidden="true"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="#FF6F98"
+              strokeWidth="2"
+              opacity="0.8"
+            />
+          </svg>
+          
           <div 
             className="text-white font-brand uppercase text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl pointer-events-auto"
             style={{
