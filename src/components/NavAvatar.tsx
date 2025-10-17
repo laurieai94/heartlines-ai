@@ -97,12 +97,22 @@ const NavAvatar = ({ children, icon: Icon, className }: NavAvatarProps) => {
         </svg>
 
         {/* Initial overlay */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <div className="text-white font-brand uppercase text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl drop-shadow-lg -mt-1 sm:-mt-1.5 md:-mt-2">
+        <div className="absolute inset-0 z-20 flex items-center justify-center isolate pointer-events-none">
+          <div 
+            className="text-white font-brand uppercase text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl pointer-events-auto"
+            style={{
+              textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3), 0 0 2px rgba(0,0,0,0.8)'
+            }}
+          >
             {children}
           </div>
           {Icon && (
-            <Icon className="w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-white drop-shadow-lg" />
+            <Icon 
+              className="w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-white"
+              style={{
+                filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.5)) drop-shadow(0 0 20px rgba(255,255,255,0.3))'
+              }}
+            />
           )}
         </div>
       </div>
