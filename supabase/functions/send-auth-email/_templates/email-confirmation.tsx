@@ -53,17 +53,17 @@ export const EmailConfirmationEmail = ({
           target="_blank"
           style={button}
         >
-          Confirm Email Address
+          Build Yr Profile →
         </Link>
+        
+        <Text style={importantNote}>
+          ⚠️ <strong>Important:</strong> This link can only be used once and expires in 24 hours. Don't open it in multiple tabs or browsers.
+        </Text>
         
         <Text style={text}>
           Or, copy and paste this confirmation code:
         </Text>
         <code style={code}>{token}</code>
-        
-        <Text style={smallText}>
-          This confirmation link will expire in 24 hours.
-        </Text>
         
         <Text style={smallText}>
           If you didn't create a heartlines account, you can safely ignore this email.
@@ -191,6 +191,17 @@ const stepNumber = {
 
 const smallText = {
   color: '#94a3b8',
+  fontSize: '14px',
+  lineHeight: '20px',
+  margin: '16px 0',
+}
+
+const importantNote = {
+  backgroundColor: '#2d1f1f',
+  border: '1px solid #8B0000',
+  borderRadius: '8px',
+  padding: '16px',
+  color: '#fca5a5',
   fontSize: '14px',
   lineHeight: '20px',
   margin: '16px 0',

@@ -53,6 +53,24 @@ const Auth = () => {
         setIsSignUp(false);
       }
     }
+    
+    // Check if user just confirmed their email
+    const confirmed = searchParams.get('confirmed');
+    const expired = searchParams.get('expired');
+    
+    if (confirmed === 'true') {
+      // Show success message for email confirmation
+      const emailInput = document.getElementById('email') as HTMLInputElement;
+      if (emailInput) {
+        emailInput.focus();
+      }
+    } else if (expired === 'true') {
+      // User was redirected here because verification link expired/was used
+      const emailInput = document.getElementById('email') as HTMLInputElement;
+      if (emailInput) {
+        emailInput.focus();
+      }
+    }
   }, [searchParams, location.pathname]);
 
   // Redirect if already authenticated
