@@ -104,7 +104,7 @@ export const ChatLayout = ({
 
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
-        <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
+        <div className="flex-1 flex flex-col relative w-full md:min-h-0 md:max-h-full">
           {/* Gradient frame and ambient glow - desktop only */}
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 md:rounded-2xl lg:rounded-3xl blur-xl -z-10 hidden md:block"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10 hidden md:block"></div>
