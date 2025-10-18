@@ -47,7 +47,14 @@ const CleanQuestionnaireFooter = ({
 
   // Listen for profile updates to force re-validation
   useEffect(() => {
-    const handleProfileUpdate = () => {
+    const handleProfileUpdate = (e: Event) => {
+      const detail = (e as CustomEvent).detail || {};
+      console.log('[Footer] Received profile:requiredFieldUpdated event:', detail);
+      
+      // Force read from localStorage to verify
+      const freshData = readFreshProfileData();
+      console.log('[Footer] Fresh data after event:', { name: freshData.name, pronouns: freshData.pronouns });
+      
       setUpdateTrigger(prev => prev + 1);
     };
     

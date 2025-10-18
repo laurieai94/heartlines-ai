@@ -1048,17 +1048,33 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     const clonedUpdates = cloneProfile(updates as any);
     
+    let updatedProfile: PersonalProfileV2 | PartnerProfileV2;
+    
     // Optimistic update - use flushSync for required fields to force immediate re-render
     if (requiredFields.includes(field)) {
       flushSync(() => {
         setProfile(prev => {
-          const updated = { ...prev, ...clonedUpdates };
-          saveToStorage(updated);
-          return updated;
+          updatedProfile = { ...prev, ...clonedUpdates };
+          return updatedProfile;
         });
       });
       
-      // Broadcast immediate update for UI components
+      // CRITICAL: Save to storage AFTER flushSync, BEFORE event dispatch
+      saveToStorage(updatedProfile!);
+      
+      // Add extra safety: Force synchronous localStorage write for required fields
+      try {
+        const storageData = {
+          profile: updatedProfile,
+          deletionMarkers: Array.from(intentionallyDeletedFields.current)
+        };
+        localStorage.setItem(config.storageKey, JSON.stringify(storageData));
+        console.log(`[ProfileV2-${profileType}] IMMEDIATE localStorage write for ${field}:`, value);
+      } catch (e) {
+        console.error(`[ProfileV2-${profileType}] Failed immediate write:`, e);
+      }
+      
+      // Broadcast immediate update for UI components AFTER storage is saved
       window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
         detail: { field, value, timestamp: Date.now() }
       }));
@@ -1077,7 +1093,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
     // Immediate sync to database
     syncToDatabase(clonedUpdates);
-  }, [cloneProfile, saveToStorage, syncToDatabase]);
+  }, [cloneProfile, saveToStorage, syncToDatabase, config.storageKey, profileType]);
 
   // Handle multi-select with functional updates to prevent stale state
   const handleMultiSelect = useCallback((field: string, value: string) => {
