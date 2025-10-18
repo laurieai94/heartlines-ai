@@ -43,7 +43,8 @@ export const SECTION_REQUIREMENTS: Record<number, SectionRequirements> = {
 // Helper function to check if a field value is complete
 export const isFieldComplete = (value: any): boolean => {
   if (typeof value === 'string') {
-    return value && value.trim() !== '';
+    const trimmed = value.trim();
+    return trimmed !== '' && trimmed.length > 0;
   } else if (Array.isArray(value)) {
     return value && value.length > 0;
   }

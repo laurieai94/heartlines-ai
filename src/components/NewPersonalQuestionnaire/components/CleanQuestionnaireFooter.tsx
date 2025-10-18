@@ -26,6 +26,10 @@ const CleanQuestionnaireFooter = ({
   } = useNavigation();
   const overallProgress = calculateProgress(profileData);
 
+  // Explicit check for critical required fields
+  const hasValidName = profileData.name && profileData.name.trim() !== '';
+  const hasValidPronouns = profileData.pronouns && profileData.pronouns.trim() !== '';
+
   // Section completion status
   const sectionCompletions = [{
     name: "the basics",
@@ -42,7 +46,9 @@ const CleanQuestionnaireFooter = ({
   }];
 
   // Show unlock coaching after 5 required questions are answered
-  const canUnlockCoaching = areRequiredFieldsComplete(1, profileData) && 
+  const canUnlockCoaching = hasValidName &&
+                           hasValidPronouns &&
+                           areRequiredFieldsComplete(1, profileData) && 
                            areRequiredFieldsComplete(2, profileData) && 
                            areRequiredFieldsComplete(3, profileData) && 
                            areRequiredFieldsComplete(4, profileData);
