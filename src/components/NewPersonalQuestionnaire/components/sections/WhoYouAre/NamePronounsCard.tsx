@@ -106,11 +106,18 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
               id="name"
               type="text"
               value={displayData.name || ''}
-              onChange={(e) => updateField('name', e.target.value)}
-              onBlur={(e) => {
-                if (e.target.value !== displayData.name) {
-                  updateFieldImmediate('name', e.target.value);
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value === '') {
+                  // Immediately persist empty strings (deletions)
+                  updateFieldImmediate('name', '');
+                } else {
+                  updateField('name', value);
                 }
+              }}
+              onBlur={(e) => {
+                // Always persist on blur to ensure changes are saved
+                updateFieldImmediate('name', e.target.value);
               }}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
