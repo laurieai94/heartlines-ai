@@ -20,6 +20,8 @@ import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
 import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
+import { useAuth } from '@/contexts/AuthContext';
+
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -46,6 +48,7 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
+  const { user } = useAuth();
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
@@ -53,6 +56,30 @@ const ProfileBuilder = ({
   
   // Force update hook for profile completion changes
   const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+  // On mount, verify we're not loading data from a different user
+  useEffect(() => {
+    const lastUserId = localStorage.getItem('heartlines_last_user_id');
+    const currentUserId = user?.id;
+    
+    if (lastUserId && currentUserId && lastUserId !== currentUserId) {
+      // Data contamination detected! Clear everything
+      console.warn('[ProfileBuilder] Detected data from different user, clearing...');
+      Object.keys(localStorage).forEach((key) => {
+        if (
+          key.includes('profile') ||
+          key.includes('questionnaire') ||
+          key.includes('_personal_') ||
+          key.includes('_partner_')
+        ) {
+          localStorage.removeItem(key);
+        }
+      });
+      
+      // Force reload to get fresh data
+      window.location.reload();
+    }
+  }, [user?.id]);
 
   // Use centralized progress tracking and temporary profile data
   const {

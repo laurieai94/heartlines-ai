@@ -59,6 +59,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(session?.user ?? null);
         
         if (event === 'SIGNED_IN') {
+          // Clean up stale data when a new user signs in (including after email confirmation)
+          const lastUserId = localStorage.getItem('heartlines_last_user_id');
+          
+          if (session?.user && lastUserId && lastUserId !== session.user.id) {
+            console.log('[AuthContext] New user detected on SIGNED_IN, cleaning up stale data');
+            cleanupAuthState();
+          }
+          
           // Check if user has been away from coach for more than 12 hours
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
           const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
@@ -71,6 +79,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           clearTimeout(timeoutId);
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
+          // Clean up on sign out
+          cleanupAuthState();
           clearTimeout(timeoutId);
           setLoading(false);
         }
@@ -97,6 +107,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {
+    // ALWAYS clean up before sign-up to prevent stale data from previous sessions
+    // This is especially important if the user previously had an account that was deleted
+    cleanupAuthState();
+    
     const redirectUrl = `${window.location.origin}/auth/callback#redirect=/profile`;
     
     const { error } = await supabase.auth.signUp({

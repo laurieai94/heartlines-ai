@@ -4,6 +4,9 @@
  * and data contamination when accounts are deleted/recreated
  */
 export const cleanupAuthState = () => {
+  console.log('[Cleanup] Starting auth state cleanup...');
+  let removedCount = 0;
+  
   // Remove all Supabase auth keys from localStorage
   Object.keys(localStorage).forEach((key) => {
     if (
@@ -45,8 +48,11 @@ export const cleanupAuthState = () => {
       key === 'intended_plan_return'
     ) {
       localStorage.removeItem(key);
+      removedCount++;
     }
   });
+  
+  console.log(`[Cleanup] Removed ${removedCount} localStorage keys`);
 
   // Remove from sessionStorage if available
   if (typeof sessionStorage !== 'undefined') {
@@ -66,8 +72,11 @@ export const cleanupAuthState = () => {
   if (typeof window !== 'undefined' && (window as any).batchedStorage) {
     try {
       (window as any).batchedStorage.clearCache();
+      console.log('[Cleanup] Cleared batched storage cache');
     } catch (err) {
       // Silent fail if batched storage not available
     }
   }
+  
+  console.log('[Cleanup] Auth state cleanup complete');
 };
