@@ -99,6 +99,40 @@ export const usePersonalProfileData = () => {
     v2Store.handleMultiSelect(normalizedField, value);
   };
 
+  // Wrap updateFieldImmediate to also handle cache clearing for required fields
+  const normalizedUpdateFieldImmediate = (field: string, value: any) => {
+    const normalizedField = normalizeFieldName(field);
+    
+    // List of required fields that need cache invalidation
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    
+    // Invalidate caches for required fields
+    if (requiredFields.includes(normalizedField)) {
+      try {
+        const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        requirementCache?.clear();
+      } catch (e) {
+        // Cache modules not ready yet
+      }
+      
+      // Update immediately
+      v2Store.updateFieldImmediate(normalizedField, value);
+      
+      // Force immediate event dispatch for UI updates
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      
+      // Secondary dispatch to ensure React picks up the change
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      }, 0);
+    } else {
+      // For non-required fields, just update immediately
+      v2Store.updateFieldImmediate(normalizedField, value);
+    }
+  };
+
   return {
     profileData: mergedProfileData,
     isLoading: v2Store.isLoading,
@@ -107,7 +141,7 @@ export const usePersonalProfileData = () => {
     lastSaved: v2Store.lastSaved,
     saveData: v2Store.saveData,
     updateField: normalizedUpdateField,
-    updateFieldImmediate: v2Store.updateFieldImmediate,
+    updateFieldImmediate: normalizedUpdateFieldImmediate,
     handleMultiSelect: normalizedHandleMultiSelect,
     flush: v2Store.flush
   };
