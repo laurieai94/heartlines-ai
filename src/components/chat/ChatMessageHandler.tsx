@@ -5,6 +5,7 @@ import { UseProfileGoalsReturn } from '@/hooks/useProfileGoals';
 import { AICoachEngine } from '../AICoachEngine';
 import { useConversationTopics } from '@/hooks/useConversationTopics';
 import { useOptimizedSubscription } from '@/hooks/useOptimizedSubscription';
+import { logger } from '@/utils/productionLogger';
 
 interface ChatMessageHandlerProps {
   profiles: ProfileData;
@@ -110,7 +111,7 @@ export const useChatMessageHandler = ({
       try {
         await refreshSubscription();
       } catch (err) {
-        console.warn('Failed to refresh subscription after message:', err);
+        logger.warn('Failed to refresh subscription after message', err, { component: 'ChatMessageHandler' });
       }
 
       if (speakResponseRef.current) {
@@ -118,7 +119,7 @@ export const useChatMessageHandler = ({
       }
       
     } catch (error) {
-      console.error('Error generating AI response:', error);
+      logger.error('Error generating AI response', error instanceof Error ? error : new Error(String(error)), { component: 'ChatMessageHandler' });
       const errorMessage: ChatMessage = {
         id: generateMessageId(),
         type: 'ai',

@@ -101,49 +101,28 @@ const ProfileBuilder = ({
   } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
-    console.log('[ProfileBuilder] Completion check:', { 
-      completed, 
-      total, 
-      canUnlock: completed >= total,
-      fields: {
-        name: !!personalProfileData?.name,
-        pronouns: !!personalProfileData?.pronouns,
-        relationshipStatus: !!personalProfileData?.relationshipStatus,
-        loveLanguage: !!personalProfileData?.loveLanguage,
-        attachmentStyle: !!personalProfileData?.attachmentStyle
-      }
-    });
     return {
       completedRequiredFields: completed,
       totalRequiredFields: total,
       canUnlockCoaching: completed >= total
     };
   }, [
-    personalProfileData?.name?.trim() || null,
-    personalProfileData?.pronouns?.trim() || null,
-    personalProfileData?.relationshipStatus?.trim() || null,
+    personalProfileData?.name,
+    personalProfileData?.pronouns,
+    personalProfileData?.relationshipStatus,
     personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle?.trim() || null,
-    (personalProfileData as any)?._updateTimestamp
+    personalProfileData?.attachmentStyle
   ]);
 
   // Listen for required field updates to force immediate UI update
   useEffect(() => {
-    const handleRequiredFieldUpdate = () => {
-      console.log('[ProfileBuilder] Required field updated - forcing re-render');
-      forceUpdate();
-    };
-    
     const handleProfileUpdate = () => {
-      console.log('[ProfileBuilder] Profile updated - forcing re-render for avatar');
       forceUpdate();
     };
     
-    window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
-      window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
       window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     };
   }, []);
@@ -234,12 +213,6 @@ const ProfileBuilder = ({
   const {
     isMobile: isMobileDevice
   } = useOptimizedMobile();
-
-  // Add touch event listeners for pull-to-refresh - DISABLED for performance
-  useEffect(() => {
-    // No mobile optimizations - they were causing freezing
-    return () => {};
-  }, []);
   return <div className="flex flex-col min-h-dvh" data-profile-container>
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}
