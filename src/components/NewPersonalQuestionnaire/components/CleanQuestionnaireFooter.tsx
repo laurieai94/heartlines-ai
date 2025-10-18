@@ -30,12 +30,31 @@ const CleanQuestionnaireFooter = ({
   // Read live data directly from hook to avoid stale prop issues
   const { profileData: liveProfileData } = usePersonalProfileData();
   
+  // Helper to read fresh data directly from storage, bypassing React state
+  const readFreshProfileData = (): ProfileData => {
+    try {
+      const stored = localStorage.getItem('personal_profile_v2');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return parsed;
+      }
+    } catch (e) {
+      console.error('[Footer] Failed to read from storage:', e);
+    }
+    return liveProfileData; // Fallback to hook data
+  };
+  
   // Force re-render when profile updates via event system
   const [updateTrigger, setUpdateTrigger] = useState(0);
 
   useEffect(() => {
     const handleProfileUpdate = () => {
+      // Force immediate re-read by incrementing trigger
       setUpdateTrigger(prev => prev + 1);
+      
+      // Also log the fresh data for debugging
+      const fresh = readFreshProfileData();
+      console.log('[Footer] Event fired - Fresh name:', fresh.name);
     };
     
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
@@ -44,49 +63,60 @@ const CleanQuestionnaireFooter = ({
 
   const overallProgress = calculateProgress(profileData);
 
-  // Explicit check for critical required fields - use live data from hook
+  // Explicit check for critical required fields - read fresh from storage
   const hasValidName = useMemo(() => {
-    const isValid = liveProfileData.name && liveProfileData.name.trim() !== '';
-    console.log('[Footer] Name:', liveProfileData.name, 'Valid:', isValid);
+    const freshData = readFreshProfileData();
+    const isValid = freshData.name && freshData.name.trim() !== '';
+    console.log('[Footer] Name:', freshData.name, 'Valid:', isValid);
     return isValid;
-  }, [liveProfileData.name, updateTrigger]);
+  }, [updateTrigger]); // Only depend on updateTrigger
   
   const hasValidPronouns = useMemo(() => {
-    const isValid = liveProfileData.pronouns && liveProfileData.pronouns.trim() !== '';
-    console.log('[Footer] Pronouns:', liveProfileData.pronouns, 'Valid:', isValid);
+    const freshData = readFreshProfileData();
+    const isValid = freshData.pronouns && freshData.pronouns.trim() !== '';
+    console.log('[Footer] Pronouns:', freshData.pronouns, 'Valid:', isValid);
     return isValid;
-  }, [liveProfileData.pronouns, updateTrigger]);
+  }, [updateTrigger]); // Only depend on updateTrigger
 
-  // Section completion status - use live data from hook
-  const sectionCompletions = [{
-    name: "the basics",
-    isComplete: validateSection(1, liveProfileData)
-  }, {
-    name: "your situationship",
-    isComplete: validateSection(2, liveProfileData)
-  }, {
-    name: "how you operate",
-    isComplete: validateSection(3, liveProfileData)
-  }, {
-    name: "your foundation",
-    isComplete: validateSection(4, liveProfileData)
-  }];
+  // Section completion status - use fresh data
+  const sectionCompletions = useMemo(() => {
+    const freshData = readFreshProfileData();
+    return [{
+      name: "the basics",
+      isComplete: validateSection(1, freshData)
+    }, {
+      name: "your situationship",
+      isComplete: validateSection(2, freshData)
+    }, {
+      name: "how you operate",
+      isComplete: validateSection(3, freshData)
+    }, {
+      name: "your foundation",
+      isComplete: validateSection(4, freshData)
+    }];
+  }, [updateTrigger]);
 
-  // Show unlock coaching after 5 required questions are answered - use live data
-  const canUnlockCoaching = hasValidName &&
-                           hasValidPronouns &&
-                           areRequiredFieldsComplete(1, liveProfileData) && 
-                           areRequiredFieldsComplete(2, liveProfileData) && 
-                           areRequiredFieldsComplete(3, liveProfileData) && 
-                           areRequiredFieldsComplete(4, liveProfileData);
+  // Show unlock coaching after 5 required questions are answered - use fresh data
+  const canUnlockCoaching = useMemo(() => {
+    const freshData = readFreshProfileData();
+    return hasValidName &&
+           hasValidPronouns &&
+           areRequiredFieldsComplete(1, freshData) && 
+           areRequiredFieldsComplete(2, freshData) && 
+           areRequiredFieldsComplete(3, freshData) && 
+           areRequiredFieldsComplete(4, freshData);
+  }, [hasValidName, hasValidPronouns, updateTrigger]);
   
   console.log('[Footer] Can unlock coaching:', canUnlockCoaching);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
-  // Section navigation logic - use live data
-  const isCurrentSectionValid = validateSection(currentSection, liveProfileData);
+  // Section navigation logic - use fresh data
+  const isCurrentSectionValid = useMemo(() => {
+    const freshData = readFreshProfileData();
+    return validateSection(currentSection, freshData);
+  }, [currentSection, updateTrigger]);
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
