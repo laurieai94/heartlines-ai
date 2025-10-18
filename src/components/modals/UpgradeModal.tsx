@@ -72,20 +72,20 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl p-6 sm:p-8">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-light text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-7 h-7 text-coral-400" />
+          <DialogTitle className="text-xl font-light text-white flex items-center justify-center gap-2">
+            <Sparkles className="w-6 h-6 text-coral-400" />
             you've been opening up (big fan of that) — time to go deeper?
           </DialogTitle>
-          <DialogDescription className="text-sm text-white/70 mt-2 text-center">
+          <DialogDescription className="text-sm text-white/70 mt-1 text-center">
             {getReasonMessage()}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="mt-4 space-y-3">
+        <div className="mt-4 space-y-2">
           {/* Current Usage */}
-          <Card className="questionnaire-card p-3 border border-white/20">
+          <Card className="questionnaire-card p-2.5 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -98,7 +98,7 @@ export const UpgradeModal = ({
                 </p>
               </div>
             </div>
-            <div className="mt-2 w-full bg-white/10 rounded-full h-2">
+            <div className="mt-1.5 w-full bg-white/10 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-coral-400 to-pink-500 h-2 rounded-full transition-all"
                 style={{ width: `${Math.min((messagesUsed / messageLimit) * 100, 100)}%` }}
@@ -107,7 +107,7 @@ export const UpgradeModal = ({
           </Card>
 
           {/* Pricing Plans */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-7xl mx-auto items-stretch">
             {allPlans.map((plan) => {
               const isRecommended = plan.tier === recommendedTier;
               const isCurrent = plan.tier === currentTier;
@@ -129,24 +129,24 @@ export const UpgradeModal = ({
                     </div>
                   )}
                   
-                  <div className="p-4 sm:p-5 pb-6 sm:pb-8 flex-1 flex flex-col">
+                  <div className="p-3 sm:p-4 pb-5 sm:pb-6 flex-1 flex flex-col">
                     {/* Icon */}
-                    <div className="mb-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
-                        <plan.icon className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
+                    <div className="mb-3">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
+                        <plan.icon className="w-4 h-4 sm:w-5 sm:h-5 text-coral-400" />
                       </div>
                     </div>
 
                     {/* Plan Name */}
-                    <h3 className="text-lg font-light text-white mb-1 text-center">
+                    <h3 className="text-base font-light text-white mb-1 text-center">
                       {plan.name}
                     </h3>
 
                     {/* Price */}
                     <div className="mb-1 text-center">
-                      <span className="text-3xl font-thin text-white">{plan.price}</span>
+                      <span className="text-2xl font-thin text-white">{plan.price}</span>
                     </div>
-                    <p className="text-white/60 text-xs mb-3 text-center">
+                    <p className="text-white/60 text-xs mb-2 text-center">
                       per {plan.period}
                     </p>
 
@@ -156,9 +156,9 @@ export const UpgradeModal = ({
                     </p>
 
                     {/* Message Count Badge */}
-                    <div className="mb-4">
-                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-3 sm:p-4 text-center">
-                        <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className="mb-3">
+                      <div className="bg-gradient-to-r from-coral-400/10 to-pink-400/10 rounded-lg border border-white/10 p-2.5 sm:p-3 text-center">
+                        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-coral-400 to-pink-400 bg-clip-text text-transparent">
                           {plan.messages === 0 ? '∞' : plan.messages}
                         </div>
                         <div className="text-xs text-white/50 mt-1">
@@ -168,7 +168,7 @@ export const UpgradeModal = ({
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-2 mb-4 flex-1">
+                    <ul className="space-y-1.5 mb-3 flex-1">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-coral-400 flex-shrink-0 mt-0.5" />
@@ -198,7 +198,7 @@ export const UpgradeModal = ({
             })}
           </div>
 
-          <div className="text-center pt-3">
+          <div className="text-center pt-2">
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
