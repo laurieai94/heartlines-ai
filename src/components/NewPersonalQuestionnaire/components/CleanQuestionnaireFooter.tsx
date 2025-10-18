@@ -1,3 +1,4 @@
+import { useState, useEffect, useMemo } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount, areRequiredFieldsComplete } from "../utils/requirements";
@@ -21,17 +22,33 @@ const CleanQuestionnaireFooter = ({
   onPreviousSection,
   onNextSection
 }: CleanQuestionnaireFooterProps) => {
-  const {
-    goToPartner
-  } = useNavigation();
+  const { goToPartner } = useNavigation();
   const overallProgress = calculateProgress(profileData);
 
-  // Explicit check for critical required fields
-  const hasValidName = profileData.name && profileData.name.trim() !== '';
-  const hasValidPronouns = profileData.pronouns && profileData.pronouns.trim() !== '';
+  // Add update trigger state for reactive validation
+  const [updateTrigger, setUpdateTrigger] = useState(0);
 
-  // Section completion status
-  const sectionCompletions = [{
+  // Listen for profile updates to force re-validation
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      setUpdateTrigger(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    return () => window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+  }, []);
+
+  // Explicit check for critical required fields - reactive with useMemo
+  const hasValidName = useMemo(() => {
+    return profileData.name && profileData.name.trim() !== '';
+  }, [profileData.name, updateTrigger]);
+
+  const hasValidPronouns = useMemo(() => {
+    return profileData.pronouns && profileData.pronouns.trim() !== '';
+  }, [profileData.pronouns, updateTrigger]);
+
+  // Section completion status - reactive with useMemo
+  const sectionCompletions = useMemo(() => [{
     name: "the basics",
     isComplete: validateSection(1, profileData)
   }, {
@@ -43,21 +60,26 @@ const CleanQuestionnaireFooter = ({
   }, {
     name: "your foundation",
     isComplete: validateSection(4, profileData)
-  }];
+  }], [profileData, updateTrigger]);
 
-  // Show unlock coaching after 5 required questions are answered
-  const canUnlockCoaching = hasValidName &&
-                           hasValidPronouns &&
-                           areRequiredFieldsComplete(1, profileData) && 
-                           areRequiredFieldsComplete(2, profileData) && 
-                           areRequiredFieldsComplete(3, profileData) && 
-                           areRequiredFieldsComplete(4, profileData);
+  // Show unlock coaching after 5 required questions are answered - reactive with useMemo
+  const canUnlockCoaching = useMemo(() => {
+    return hasValidName &&
+           hasValidPronouns &&
+           areRequiredFieldsComplete(1, profileData) && 
+           areRequiredFieldsComplete(2, profileData) && 
+           areRequiredFieldsComplete(3, profileData) && 
+           areRequiredFieldsComplete(4, profileData);
+  }, [hasValidName, hasValidPronouns, profileData, updateTrigger]);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
-  // Section navigation logic
-  const isCurrentSectionValid = validateSection(currentSection, profileData);
+  // Section navigation logic - reactive with useMemo
+  const isCurrentSectionValid = useMemo(() => {
+    return validateSection(currentSection, profileData);
+  }, [currentSection, profileData, updateTrigger]);
+
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;

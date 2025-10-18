@@ -99,6 +99,35 @@ export const usePersonalProfileData = () => {
     v2Store.handleMultiSelect(normalizedField, value);
   };
 
+  // Wrap updateFieldImmediate to normalize field names and dispatch events
+  const normalizedUpdateFieldImmediate = (field: string, value: any) => {
+    const normalizedField = normalizeFieldName(field);
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    
+    if (requiredFields.includes(normalizedField)) {
+      // Clear caches for immediate responsiveness
+      try {
+        const { profileCompletionCache, validationCache, requirementCache } = require('@/utils/calculationCache');
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        requirementCache?.clear();
+      } catch (e) {
+        // Cache modules not ready yet
+      }
+      
+      // Update store
+      v2Store.updateFieldImmediate(normalizedField, value);
+      
+      // Dispatch events for UI updates
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated'));
+      }, 0);
+    } else {
+      v2Store.updateFieldImmediate(normalizedField, value);
+    }
+  };
+
   return {
     profileData: mergedProfileData,
     isLoading: v2Store.isLoading,
@@ -107,7 +136,7 @@ export const usePersonalProfileData = () => {
     lastSaved: v2Store.lastSaved,
     saveData: v2Store.saveData,
     updateField: normalizedUpdateField,
-    updateFieldImmediate: v2Store.updateFieldImmediate,
+    updateFieldImmediate: normalizedUpdateFieldImmediate,
     handleMultiSelect: normalizedHandleMultiSelect,
     flush: v2Store.flush
   };
