@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { logError, logWarn } from '@/utils/productionLogger';
 import { cleanupAuthState } from '@/utils/authCleanup';
@@ -34,6 +35,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -157,12 +159,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         logWarn('Sign out error', err);
       }
       
-      // Force redirect to homepage with clean state
-      window.location.href = '/';
+      // Seamlessly navigate to homepage (no reload)
+      navigate('/', { replace: true });
     } catch (error) {
       logError('Sign out error', error);
-      // Still redirect even if cleanup fails
-      window.location.href = '/';
+      // Still navigate even if cleanup fails
+      navigate('/', { replace: true });
     }
   };
 
