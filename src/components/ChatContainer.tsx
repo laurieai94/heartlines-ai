@@ -241,8 +241,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         );
       })}
       
-      {/* Typing indicator - only show when loading */}
-      {loading && (
+      {/* Typing indicator - only show when loading and no recent AI message */}
+      {loading && chatHistory[chatHistory.length - 1]?.type !== 'ai' && (
         <div className={`${isMobile ? 'px-4' : 'md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6'}`}>
           <div className={`flex ${isMobile ? 'gap-1.5' : 'gap-3'} items-end ${isMobile ? 'mb-3' : 'mb-2 md:mb-3'}`}>
             <div className="relative flex-shrink-0">
