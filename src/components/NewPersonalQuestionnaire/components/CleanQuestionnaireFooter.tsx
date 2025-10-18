@@ -1,3 +1,4 @@
+import { useState, useEffect, useMemo } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount, areRequiredFieldsComplete } from "../utils/requirements";
@@ -24,11 +25,33 @@ const CleanQuestionnaireFooter = ({
   const {
     goToPartner
   } = useNavigation();
+  
+  // Force re-render when profile updates via event system
+  const [updateTrigger, setUpdateTrigger] = useState(0);
+
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      setUpdateTrigger(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    return () => window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+  }, []);
+
   const overallProgress = calculateProgress(profileData);
 
-  // Explicit check for critical required fields
-  const hasValidName = profileData.name && profileData.name.trim() !== '';
-  const hasValidPronouns = profileData.pronouns && profileData.pronouns.trim() !== '';
+  // Explicit check for critical required fields - recalculated on every update
+  const hasValidName = useMemo(() => {
+    const isValid = profileData.name && profileData.name.trim() !== '';
+    console.log('[Footer] Name:', profileData.name, 'Valid:', isValid);
+    return isValid;
+  }, [profileData.name, updateTrigger]);
+  
+  const hasValidPronouns = useMemo(() => {
+    const isValid = profileData.pronouns && profileData.pronouns.trim() !== '';
+    console.log('[Footer] Pronouns:', profileData.pronouns, 'Valid:', isValid);
+    return isValid;
+  }, [profileData.pronouns, updateTrigger]);
 
   // Section completion status
   const sectionCompletions = [{
@@ -52,6 +75,8 @@ const CleanQuestionnaireFooter = ({
                            areRequiredFieldsComplete(2, profileData) && 
                            areRequiredFieldsComplete(3, profileData) && 
                            areRequiredFieldsComplete(4, profileData);
+  
+  console.log('[Footer] Can unlock coaching:', canUnlockCoaching);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
