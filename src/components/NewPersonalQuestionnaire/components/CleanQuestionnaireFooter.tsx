@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
 import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount, areRequiredFieldsComplete } from "../utils/requirements";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import { Heart, UserPlus, ArrowLeft, ArrowRight } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -26,6 +27,9 @@ const CleanQuestionnaireFooter = ({
     goToPartner
   } = useNavigation();
   
+  // Read live data directly from hook to avoid stale prop issues
+  const { profileData: liveProfileData } = usePersonalProfileData();
+  
   // Force re-render when profile updates via event system
   const [updateTrigger, setUpdateTrigger] = useState(0);
 
@@ -40,49 +44,49 @@ const CleanQuestionnaireFooter = ({
 
   const overallProgress = calculateProgress(profileData);
 
-  // Explicit check for critical required fields - recalculated on every update
+  // Explicit check for critical required fields - use live data from hook
   const hasValidName = useMemo(() => {
-    const isValid = profileData.name && profileData.name.trim() !== '';
-    console.log('[Footer] Name:', profileData.name, 'Valid:', isValid);
+    const isValid = liveProfileData.name && liveProfileData.name.trim() !== '';
+    console.log('[Footer] Name:', liveProfileData.name, 'Valid:', isValid);
     return isValid;
-  }, [profileData.name, updateTrigger]);
+  }, [liveProfileData.name, updateTrigger]);
   
   const hasValidPronouns = useMemo(() => {
-    const isValid = profileData.pronouns && profileData.pronouns.trim() !== '';
-    console.log('[Footer] Pronouns:', profileData.pronouns, 'Valid:', isValid);
+    const isValid = liveProfileData.pronouns && liveProfileData.pronouns.trim() !== '';
+    console.log('[Footer] Pronouns:', liveProfileData.pronouns, 'Valid:', isValid);
     return isValid;
-  }, [profileData.pronouns, updateTrigger]);
+  }, [liveProfileData.pronouns, updateTrigger]);
 
-  // Section completion status
+  // Section completion status - use live data from hook
   const sectionCompletions = [{
     name: "the basics",
-    isComplete: validateSection(1, profileData)
+    isComplete: validateSection(1, liveProfileData)
   }, {
     name: "your situationship",
-    isComplete: validateSection(2, profileData)
+    isComplete: validateSection(2, liveProfileData)
   }, {
     name: "how you operate",
-    isComplete: validateSection(3, profileData)
+    isComplete: validateSection(3, liveProfileData)
   }, {
     name: "your foundation",
-    isComplete: validateSection(4, profileData)
+    isComplete: validateSection(4, liveProfileData)
   }];
 
-  // Show unlock coaching after 5 required questions are answered
+  // Show unlock coaching after 5 required questions are answered - use live data
   const canUnlockCoaching = hasValidName &&
                            hasValidPronouns &&
-                           areRequiredFieldsComplete(1, profileData) && 
-                           areRequiredFieldsComplete(2, profileData) && 
-                           areRequiredFieldsComplete(3, profileData) && 
-                           areRequiredFieldsComplete(4, profileData);
+                           areRequiredFieldsComplete(1, liveProfileData) && 
+                           areRequiredFieldsComplete(2, liveProfileData) && 
+                           areRequiredFieldsComplete(3, liveProfileData) && 
+                           areRequiredFieldsComplete(4, liveProfileData);
   
   console.log('[Footer] Can unlock coaching:', canUnlockCoaching);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
-  // Section navigation logic
-  const isCurrentSectionValid = validateSection(currentSection, profileData);
+  // Section navigation logic - use live data
+  const isCurrentSectionValid = validateSection(currentSection, liveProfileData);
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
