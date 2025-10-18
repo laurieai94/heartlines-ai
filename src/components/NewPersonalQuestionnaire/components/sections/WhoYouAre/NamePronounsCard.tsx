@@ -54,6 +54,9 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
   };
 
   const generateAvatar = (name: string) => {
+    const uniqueId = `personal-avatar-${Math.random().toString(36).substring(2, 9)}`;
+    const reduceMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    
     if (!name) {
       return (
         <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border-2 border-dashed border-white/20">
@@ -61,26 +64,75 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
         </div>
       );
     }
+    
     return (
       <div className="relative w-20 h-20 flex items-center justify-center">
-        {/* Thin white heart outline */}
-        <svg 
-          viewBox="0 0 100 100" 
-          className="absolute inset-0 w-full h-full pointer-events-none" 
-          aria-hidden="true"
-        >
+        <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden="true">
+          <defs>
+            {/* Clear glass gradient with subtle color */}
+            <linearGradient id={`clearGrad-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(255, 255, 255, 0.15)" />
+              <stop offset="50%" stopColor="rgba(255, 182, 193, 0.25)" />
+              <stop offset="100%" stopColor="rgba(255, 105, 180, 0.2)" />
+            </linearGradient>
+
+            {/* Liquid distortion filter for molten effect */}
+            <filter id={`liquid-${uniqueId}`} x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="1" seed="2" result="noise">
+                {!reduceMotion && <animate attributeName="baseFrequency" values="0.55;0.8;0.55" dur="6s" repeatCount="indefinite" />}
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale={reduceMotion ? 2 : 4} xChannelSelector="R" yChannelSelector="G">
+                {!reduceMotion && <animate attributeName="scale" values="2;5;2" dur="6s" repeatCount="indefinite" />}
+              </feDisplacementMap>
+            </filter>
+
+            {/* Soft glow filter */}
+            <filter id={`glow-${uniqueId}`} x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Outer glow stroke */}
           <path
-            d="M50 85 C 45 80, 30 68, 20 58 C 8 45, 10 26, 25 20 C 33 16, 42 18, 50 27 C 58 18, 67 16, 75 20 C 90 26, 92 45, 80 58 C 70 68, 55 80, 50 85 Z"
+            d="M100 162 C 92 154, 60 129, 44 110 C 22 83, 26 48, 54 36 C 71 28, 89 33, 100 47 C 111 33, 129 28, 146 36 C 174 48, 178 83, 156 110 C 140 129, 108 154, 100 162 Z"
             fill="none"
             stroke="white"
-            strokeWidth="1.5"
-            opacity="0.9"
+            strokeOpacity="0.6"
+            strokeWidth="6"
+            filter={`url(#glow-${uniqueId})`}
+          />
+
+          {/* Main heart with clear glass fill and liquid effect */}
+          <path
+            d="M100 162 C 92 154, 60 129, 44 110 C 22 83, 26 48, 54 36 C 71 28, 89 33, 100 47 C 111 33, 129 28, 146 36 C 174 48, 178 83, 156 110 C 140 129, 108 154, 100 162 Z"
+            fill={`url(#clearGrad-${uniqueId})`}
+            filter={`url(#liquid-${uniqueId})`}
+            stroke="white"
+            strokeWidth="2.5"
+            strokeOpacity="0.9"
+          />
+
+          {/* Inner dashed accent */}
+          <path
+            d="M100 150 C 94 144, 67 123, 54 108 C 37 88, 39 63, 58 55 C 69 50, 83 53, 92 65 C 101 53, 115 50, 126 55 C 145 63, 147 86, 133 105 C 121 121, 106 139, 100 150 Z"
+            fill="none"
+            stroke="white"
+            strokeDasharray="2,3"
+            strokeOpacity="0.4"
+            className={!reduceMotion ? 'animate-spin' : undefined}
+            style={{ animationDuration: '12s' }}
           />
         </svg>
-        
-        {/* Original circular avatar */}
-        <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg z-10">
-          {name.charAt(0).toLowerCase()}
+
+        {/* Initial centered */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-white text-4xl font-bold drop-shadow-lg -mt-1">
+            {name.charAt(0).toLowerCase()}
+          </span>
         </div>
       </div>
     );
