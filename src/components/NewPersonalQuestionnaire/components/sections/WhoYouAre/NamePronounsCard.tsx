@@ -106,7 +106,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
               id="name"
               type="text"
               value={displayData.name || ''}
-              onChange={(e) => updateFieldImmediate('name', e.target.value)}
+              onChange={(e) => updateFieldImmediate('name', e.target.value.trim())}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
