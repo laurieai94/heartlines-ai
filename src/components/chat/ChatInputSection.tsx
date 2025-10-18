@@ -298,7 +298,7 @@ export const ChatInputSection = ({
         {nearLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
             <Alert className="bg-burgundy-800/40 border-pink-400/30 backdrop-blur-sm">
-              <Sparkles className="h-5 w-5 text-pink-400" />
+              <Sparkles className="h-5 w-5 text-pink-300" />
               <AlertDescription className="space-y-3">
                 <div className="flex-1">
                   <span className="font-semibold questionnaire-text">you've been opening up (big fan of that) — time to go deeper?</span>
