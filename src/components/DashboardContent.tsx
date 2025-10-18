@@ -197,7 +197,7 @@ const DashboardContent = ({
         ? 'overflow-hidden h-full md:h-full flex flex-col' 
         : 'pt-16 md:pt-16 overflow-y-auto min-h-[100dvh]'
     }`}>
-      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex flex-col">
+      <Tabs value={activeTab} onValueChange={onValueChange} className="w-full h-full flex-1 flex flex-col">
         <div className="flex-1 min-h-0">
           {renderActiveTabContent}
         </div>
