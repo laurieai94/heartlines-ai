@@ -607,10 +607,11 @@
   .to-peach-50 { --tw-gradient-to: hsl(var(--peach-50)) !important; }
 
   /* Questionnaire premium styling */
-  .questionnaire-bg {
-    background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
-    min-height: 100vh;
-  }
+.questionnaire-bg {
+  background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
 
   .questionnaire-bg-modal {
     background: linear-gradient(135deg, hsl(var(--questionnaire-bg)) 0%, hsl(var(--questionnaire-bg-dark)) 100%);
