@@ -5,6 +5,7 @@ import { ProfileData } from "../types";
 import { refreshPersonalProfile } from "@/utils/globalRefresh";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 
 interface QuestionnaireHeaderProps {
   overallProgress: number;
@@ -12,18 +13,11 @@ interface QuestionnaireHeaderProps {
   profileData: ProfileData;
 }
 
-const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: QuestionnaireHeaderProps) => {
+const QuestionnaireHeader = ({ overallProgress, onClose, profileData: _propData }: QuestionnaireHeaderProps) => {
+  // Get live data directly from the hook for instant updates
+  const { profileData } = usePersonalProfileData();
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
-  const getInitial = () => {
-    if (profileData.name && profileData.name.trim()) {
-      return profileData.name.trim()[0].toLowerCase();
-    }
-    return null;
-  };
-
-  const hasName = profileData.name && profileData.name.trim();
   
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -45,6 +39,7 @@ const QuestionnaireHeader = ({ overallProgress, onClose, profileData }: Question
   };
   
   const getProfileTitle = () => {
+    const hasName = profileData.name && profileData.name.trim();
     if (hasName) {
       return `${profileData.name.trim()}'s profile`;
     }
