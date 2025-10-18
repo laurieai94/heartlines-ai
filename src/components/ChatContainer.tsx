@@ -308,8 +308,8 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
         <div 
           className="fixed inset-0 flex flex-col"
           style={{ 
-            top: 'calc(env(safe-area-inset-top) + 6rem)', // Optimized for nav bar + ChatHeader
-            height: 'calc(100dvh - env(safe-area-inset-top) - 6rem)',
+            top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
+            height: 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
             zIndex: 10
           }}
         >

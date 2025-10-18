@@ -1,19 +1,19 @@
 /**
  * Cleanup authentication state from browser storage
- * Only call this during explicit sign out - NOT on errors or token refresh failures
+ * Removes all Supabase-related keys to prevent auth limbo states
  */
 export const cleanupAuthState = () => {
-  // Only remove auth-specific keys, preserve other Supabase data
+  // Remove all Supabase auth keys from localStorage
   Object.keys(localStorage).forEach((key) => {
-    if (key.startsWith('supabase.auth.token') || key === 'sb-relqmhrzyqckoaebscgx-auth-token') {
+    if (key.startsWith('supabase.auth.') || key.includes('sb-')) {
       localStorage.removeItem(key);
     }
   });
 
-  // Same for sessionStorage
+  // Remove from sessionStorage if available
   if (typeof sessionStorage !== 'undefined') {
     Object.keys(sessionStorage).forEach((key) => {
-      if (key.startsWith('supabase.auth.token') || key === 'sb-relqmhrzyqckoaebscgx-auth-token') {
+      if (key.startsWith('supabase.auth.') || key.includes('sb-')) {
         sessionStorage.removeItem(key);
       }
     });
