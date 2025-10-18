@@ -148,6 +148,10 @@ html, body, #root {
     /* Remove containment - was blocking natural iOS behavior */
     contain: none;
     
+    /* Prevent white screen on keyboard open */
+    background: rgb(64, 13, 24) !important; /* burgundy-900 */
+    min-height: 100% !important;
+    
     /* Hide scrollbar but keep functionality */
     scrollbar-width: none !important; /* Firefox */
     -ms-overflow-style: none !important; /* IE/Edge */
@@ -191,6 +195,8 @@ html, body, #root {
     pointer-events: auto !important;
     touch-action: manipulation !important;
     isolation: isolate !important;
+    background: rgb(64, 13, 24) !important; /* burgundy-900 - prevent white screen */
+    will-change: transform;
   }
   
   #root {
@@ -329,10 +335,10 @@ html, body, #root {
     scroll-snap-align: center;
   }
 
-  /* Ensure chat input container stays visible above keyboard */
-  .mobile-chat-input-container {
-    transition: transform 0.1s ease-out;
-    -webkit-transition: transform 0.1s ease-out;
+  /* Ensure messages container has solid background */
+  [role="log"][aria-label="Chat conversation history"] {
+    background: rgb(64, 13, 24) !important; /* burgundy-900 */
+    min-height: 100%;
   }
 }
 

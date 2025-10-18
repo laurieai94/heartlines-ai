@@ -57,6 +57,25 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   const { forceVisible } = useMobileHeaderVisibility();
   const userIsScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const [viewportHeight, setViewportHeight] = useState(() => 
+    window.visualViewport?.height || window.innerHeight
+  );
+
+  // Track viewport height changes for keyboard detection
+  useEffect(() => {
+    if (!isMobilePhone) return;
+    
+    const handleViewportResize = () => {
+      if (window.visualViewport) {
+        setViewportHeight(window.visualViewport.height);
+      }
+    };
+    
+    window.visualViewport?.addEventListener('resize', handleViewportResize);
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleViewportResize);
+    };
+  }, [isMobilePhone]);
 
   // Enhanced scroll to bottom with buffer
   const scrollToBottom = useCallback((behavior: 'auto' | 'smooth' = 'smooth') => {
@@ -121,20 +140,23 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   }), [scrollToBottom, scrollToBottomIfScrolledUp]);
 
 
-  // Auto-scroll to bottom ONLY for new AI messages
+  // Auto-scroll to bottom for ALL new messages (user and AI)
   useEffect(() => {
     const hasNewMessage = prevChatLengthRef.current < chatHistory.length;
     const lastMessage = chatHistory[chatHistory.length - 1];
-    const isAIMessage = lastMessage?.type === 'ai';
+    const isUserMessage = lastMessage?.type === 'user';
     
-    // Only auto-scroll if it's a new AI message (not user's own message)
-    if ((hasNewMessage && isAIMessage) || chatHistory.length <= 1) {
+    // Auto-scroll for all new messages
+    if (hasNewMessage) {
       // Double RAF ensures DOM is fully updated
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          scrollToBottom(hasNewMessage ? 'smooth' : 'auto');
+          // Instant scroll for user messages, smooth for AI messages
+          scrollToBottom(isUserMessage ? 'auto' : 'smooth');
         });
       });
+    } else if (chatHistory.length <= 1) {
+      scrollToBottom('auto');
     }
     
     prevChatLengthRef.current = chatHistory.length;
@@ -278,13 +300,17 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
   return (
     <div className="flex-1 min-h-0 md:max-h-none relative bg-burgundy-950">
       {isMobilePhone ? (
-        /* Mobile: Fixed height container with absolute input positioning */
+        /* Mobile: Fixed height container with keyboard-aware positioning */
         <div 
           className="fixed inset-0 flex flex-col"
           style={{ 
             top: 'calc(env(safe-area-inset-top) + 7rem)', // Account for site nav bar (3rem/48px) + ChatHeader (4rem/64px)
-            height: 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
-            zIndex: 10
+            height: isMobilePhone && window.visualViewport
+              ? `${viewportHeight - 112}px` // 112px = 7rem converted to px
+              : 'calc(100dvh - env(safe-area-inset-top) - 7rem)',
+            zIndex: 10,
+            transition: 'height 0.2s ease-out',
+            background: 'rgb(64, 13, 24)' // burgundy-900 - prevent white screen
           }}
         >
           
@@ -294,7 +320,9 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: `${(inputSectionHeight || 280) + 80 + (showProfileNudge ? 200 : 0)}px`
+              paddingBottom: `${(inputSectionHeight || 280) + 40 + (showProfileNudge ? 200 : 0)}px`, // Reduced from 80 to 40 since keyboard handling is now in container height
+              background: 'rgb(64, 13, 24)', // burgundy-900 - prevent white screen
+              minHeight: '100%'
             }}
             role="log"
             aria-live="polite"
