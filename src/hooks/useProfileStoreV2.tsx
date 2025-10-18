@@ -1017,19 +1017,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Update single field with immediate database sync (for blur events)
   const updateFieldImmediate = useCallback((field: string, value: any) => {
-    // FIRST: Clear caches immediately for required fields
-    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
-    if (requiredFields.includes(field)) {
-      try {
-        profileCompletionCache?.clear();
-        validationCache?.clear();
-        const { requirementCache } = require('@/utils/calculationCache');
-        requirementCache?.clear();
-      } catch (e) {
-        // Silently handle if cache not ready
-      }
-    }
-    
     recentlyModifiedFields.current.set(field, Date.now());
     
     // Track intentional deletions
@@ -1041,50 +1028,15 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       intentionallyDeletedFields.current.delete(field);
     }
     
-    // For required fields, add timestamp to force React re-renders
-    const updates = requiredFields.includes(field) 
-      ? { [field]: value, _updateTimestamp: Date.now() } 
-      : { [field]: value };
-    
+    const updates = { [field]: value };
     const clonedUpdates = cloneProfile(updates as any);
     
-    let updatedProfile: PersonalProfileV2 | PartnerProfileV2;
-    
-    // Optimistic update - use flushSync for required fields to force immediate re-render
-    if (requiredFields.includes(field)) {
-      flushSync(() => {
-        setProfile(prev => {
-          updatedProfile = { ...prev, ...clonedUpdates };
-          return updatedProfile;
-        });
-      });
-      
-      // CRITICAL: Save to storage AFTER flushSync, BEFORE event dispatch
-      saveToStorage(updatedProfile!);
-      
-      // Add extra safety: Force synchronous localStorage write for required fields
-      try {
-        const storageData = {
-          profile: updatedProfile,
-          deletionMarkers: Array.from(intentionallyDeletedFields.current)
-        };
-        localStorage.setItem(config.storageKey, JSON.stringify(storageData));
-        console.log(`[ProfileV2-${profileType}] IMMEDIATE localStorage write for ${field}:`, value);
-      } catch (e) {
-        console.error(`[ProfileV2-${profileType}] Failed immediate write:`, e);
-      }
-      
-      // Broadcast immediate update for UI components AFTER storage is saved
-      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
-        detail: { field, value, timestamp: Date.now() }
-      }));
-    } else {
-      setProfile(prev => {
-        const updated = { ...prev, ...clonedUpdates };
-        saveToStorage(updated);
-        return updated;
-      });
-    }
+    // Simple immediate update
+    setProfile(prev => {
+      const updated = { ...prev, ...clonedUpdates };
+      saveToStorage(updated);
+      return updated;
+    });
 
     // Clear any pending debounce timer
     if (debounceTimer.current) {
@@ -1093,7 +1045,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
     // Immediate sync to database
     syncToDatabase(clonedUpdates);
-  }, [cloneProfile, saveToStorage, syncToDatabase, config.storageKey, profileType]);
+  }, [cloneProfile, saveToStorage, syncToDatabase]);
 
   // Handle multi-select with functional updates to prevent stale state
   const handleMultiSelect = useCallback((field: string, value: string) => {

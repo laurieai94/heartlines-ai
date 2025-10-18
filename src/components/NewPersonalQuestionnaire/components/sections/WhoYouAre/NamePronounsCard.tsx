@@ -45,10 +45,10 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
 
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
-      updateFieldImmediate('pronouns', 'other');
+      updateField('pronouns', 'other');
       return;
     }
-    updateFieldImmediate('pronouns', pronoun);
+    updateField('pronouns', pronoun);
   };
 
   const handleCustomPronounChange = (value: string) => {
@@ -111,7 +111,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
               id="name"
               type="text"
               value={displayData.name || ''}
-              onChange={(e) => updateFieldImmediate('name', e.target.value)}
+              onChange={(e) => updateField('name', e.target.value)}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
@@ -135,7 +135,6 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
             options={primaryPronounOptions}
             selectedValue={displayData.pronouns || ''}
             onSelect={handlePronounSelect}
-            allowDeselect={false}
           />
 
           {/* Custom pronoun input */}
