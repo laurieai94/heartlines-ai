@@ -58,11 +58,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Clean up auth state when user becomes null (signed out, session expired, or deleted)
-        if (!session?.user) {
-          cleanupAuthState();
-        }
-        
         if (event === 'SIGNED_IN') {
           // Check if user has been away from coach for more than 12 hours
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
