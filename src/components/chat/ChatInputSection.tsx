@@ -18,6 +18,7 @@ import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileComple
 import { UpgradeModal } from '@/components/modals/UpgradeModal';
 import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { UsageProgressBar } from './UsageProgressBar';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -105,6 +106,7 @@ export const ChatInputSection = ({
   const criticalLimit = usagePercentage >= 90 && !atLimit && !subscribed;
   const nextTier = subscription_tier?.toLowerCase() === 'glow' ? 'vibe' : 'glow';
   const messagesRemaining = message_limit - messages_used;
+  const showProgressBar = usagePercentage >= 85 && !atLimit && message_limit > 0;
 
   // Refocus the chat input after successful auth
   useEffect(() => {
@@ -148,24 +150,7 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
-  // Show near-limit toast once per session (80-89%)
-  useEffect(() => {
-    if (nearLimit && !localStorage.getItem('nearLimitToastShown')) {
-      localStorage.setItem('nearLimitToastShown', '1');
-      toast({
-        title: "Approaching message limit",
-        description: `${messages_used} of ${message_limit} messages used this month.`,
-        action: (
-          <Button 
-            size="sm" 
-            onClick={() => openUpgradeModal('near-limit')}
-          >
-            Upgrade
-          </Button>
-        ),
-      });
-    }
-  }, [nearLimit, messages_used, message_limit, openUpgradeModal]);
+  // Removed: near-limit toast replaced by persistent progress bar at 85%
 
   // Handle user typing with debouncing
   const handleUserTyping = (typing: boolean) => {
@@ -334,6 +319,17 @@ export const ChatInputSection = ({
               </AlertDescription>
             </Alert>
           </div>
+        )}
+
+        {/* Usage Progress Bar - 85%+ threshold (tablet & desktop only) */}
+        {showProgressBar && (
+          <UsageProgressBar
+            messagesUsed={messages_used}
+            messageLimit={message_limit}
+            usagePercentage={usagePercentage}
+            onUpgrade={() => openUpgradeModal('near-limit')}
+            tier={subscription_tier}
+          />
         )}
 
         {/* Conversation Starters - show for complete profiles with empty chats */}
