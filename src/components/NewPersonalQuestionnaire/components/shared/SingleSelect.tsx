@@ -17,7 +17,12 @@ const SingleSelect = memo(({ options, selectedValue, onSelect }: SingleSelectPro
 
   const handleSelect = (value: string) => {
     trackSelection(); // Prevent navigation conflicts during user input
-    onSelect(value);
+    // Toggle behavior: if clicking the same value, deselect it
+    if (selectedValue === value) {
+      onSelect(''); // Clear the selection
+    } else {
+      onSelect(value);
+    }
   };
   return (
     <div className="flex flex-wrap gap-1.5 w-full">

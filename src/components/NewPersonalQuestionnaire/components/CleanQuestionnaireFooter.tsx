@@ -32,6 +32,19 @@ const CleanQuestionnaireFooter = ({
   // Add update trigger state for reactive validation
   const [updateTrigger, setUpdateTrigger] = useState(0);
 
+  // Helper to bypass React state and read fresh data directly from storage
+  const readFreshProfileData = (): ProfileData => {
+    try {
+      const stored = localStorage.getItem('personal_profile_v2');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (e) {
+      console.error('[Footer] Failed to read from storage:', e);
+    }
+    return liveProfileData; // Fallback
+  };
+
   // Listen for profile updates to force re-validation
   useEffect(() => {
     const handleProfileUpdate = () => {
@@ -44,49 +57,56 @@ const CleanQuestionnaireFooter = ({
 
   // Explicit check for critical required fields - reactive with useMemo
   const hasValidName = useMemo(() => {
-    const isValid = liveProfileData.name && liveProfileData.name.trim() !== '';
-    console.log('[Footer] hasValidName check - name:', `"${liveProfileData.name}"`, 'valid:', isValid, 'trigger:', updateTrigger);
+    const freshData = readFreshProfileData();
+    const isValid = freshData.name && freshData.name.trim() !== '';
+    console.log('[Footer] hasValidName check - name:', `"${freshData.name}"`, 'valid:', isValid, 'trigger:', updateTrigger);
     return isValid;
-  }, [liveProfileData.name, updateTrigger]);
+  }, [updateTrigger]);
 
   const hasValidPronouns = useMemo(() => {
-    const isValid = liveProfileData.pronouns && liveProfileData.pronouns.trim() !== '';
-    console.log('[Footer] hasValidPronouns check - pronouns:', `"${liveProfileData.pronouns}"`, 'valid:', isValid, 'trigger:', updateTrigger);
+    const freshData = readFreshProfileData();
+    const isValid = freshData.pronouns && freshData.pronouns.trim() !== '';
+    console.log('[Footer] hasValidPronouns check - pronouns:', `"${freshData.pronouns}"`, 'valid:', isValid, 'trigger:', updateTrigger);
     return isValid;
-  }, [liveProfileData.pronouns, updateTrigger]);
+  }, [updateTrigger]);
 
   // Section completion status - reactive with useMemo
-  const sectionCompletions = useMemo(() => [{
-    name: "the basics",
-    isComplete: validateSection(1, liveProfileData)
-  }, {
-    name: "your situationship",
-    isComplete: validateSection(2, liveProfileData)
-  }, {
-    name: "how you operate",
-    isComplete: validateSection(3, liveProfileData)
-  }, {
-    name: "your foundation",
-    isComplete: validateSection(4, liveProfileData)
-  }], [liveProfileData, updateTrigger]);
+  const sectionCompletions = useMemo(() => {
+    const freshData = readFreshProfileData();
+    return [{
+      name: "the basics",
+      isComplete: validateSection(1, freshData)
+    }, {
+      name: "your situationship",
+      isComplete: validateSection(2, freshData)
+    }, {
+      name: "how you operate",
+      isComplete: validateSection(3, freshData)
+    }, {
+      name: "your foundation",
+      isComplete: validateSection(4, freshData)
+    }];
+  }, [updateTrigger]);
 
   // Show unlock coaching after 5 required questions are answered - reactive with useMemo
   const canUnlockCoaching = useMemo(() => {
+    const freshData = readFreshProfileData();
     return hasValidName &&
            hasValidPronouns &&
-           areRequiredFieldsComplete(1, liveProfileData) && 
-           areRequiredFieldsComplete(2, liveProfileData) && 
-           areRequiredFieldsComplete(3, liveProfileData) && 
-           areRequiredFieldsComplete(4, liveProfileData);
-  }, [hasValidName, hasValidPronouns, liveProfileData, updateTrigger]);
+           areRequiredFieldsComplete(1, freshData) && 
+           areRequiredFieldsComplete(2, freshData) && 
+           areRequiredFieldsComplete(3, freshData) && 
+           areRequiredFieldsComplete(4, freshData);
+  }, [hasValidName, hasValidPronouns, updateTrigger]);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
   // Section navigation logic - reactive with useMemo
   const isCurrentSectionValid = useMemo(() => {
-    return validateSection(currentSection, liveProfileData);
-  }, [currentSection, liveProfileData, updateTrigger]);
+    const freshData = readFreshProfileData();
+    return validateSection(currentSection, freshData);
+  }, [currentSection, updateTrigger]);
 
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
