@@ -531,6 +531,14 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        // Reset to default if no user
+        if (!user) {
+          setProfile(defaultProfile);
+          setIsReady(true);
+          setIsLoading(false);
+          return;
+        }
+        
         // INSTANT: Load from localStorage first and mark ready immediately
         const localProfile = loadFromStorage();
         setProfile(localProfile);
@@ -701,7 +709,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     return () => {
       clearTimeout(safetyTimeout);
     };
-  }, [user, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType, isReady]);
+  }, [user?.id, loadFromStorage, loadFromDatabase, saveToStorage, defaultProfile, profileType]);
 
   // Listen for in-tab and cross-tab profile updates to keep instances in sync
   useEffect(() => {
