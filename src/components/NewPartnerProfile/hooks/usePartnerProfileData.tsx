@@ -3,6 +3,7 @@ import { PartnerProfileData } from '../types';
 import { calculatePartnerProgress } from '../utils/partnerValidation';
 import { useProfileStoreV2 } from '@/hooks/useProfileStoreV2';
 import { safeLog, inspectObject } from '@/utils/safeLogging';
+import { profileCompletionCache } from '@/utils/calculationCache';
 
 const defaultPartnerProfileData: PartnerProfileData = {
   // Section 1: The Basics
@@ -69,6 +70,19 @@ export const usePartnerProfileData = (onAutoComplete?: () => void) => {
       normalizedValue = Array.isArray(value) ? value : (value ? [value] : []);
     } else if (stringFields.includes(field)) {
       normalizedValue = Array.isArray(value) ? (value[0] || '') : (value || '');
+    }
+    
+    // Clear validation cache when required fields change
+    const requiredFields: (keyof PartnerProfileData)[] = [
+      'partnerName', 'partnerPronouns', 'partnerLoveLanguage', 'partnerAttachmentStyle'
+    ];
+    
+    if (requiredFields.includes(field)) {
+      profileCompletionCache.clear();
+      // Notify listeners that a required field was updated
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', { 
+        detail: { profileType: 'partner', field } 
+      }));
     }
     
     // Safe logging without circular reference risk

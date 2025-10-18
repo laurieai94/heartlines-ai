@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { PartnerProfileData } from "../types";
 import { calculatePartnerProgress, validatePartnerSection } from "../utils/partnerValidation";
+import { useState, useEffect, useMemo } from "react";
 
 interface PartnerQuestionnaireFooterProps {
   profileData: PartnerProfileData;
@@ -16,8 +17,30 @@ const PartnerQuestionnaireFooter = ({
 }: PartnerQuestionnaireFooterProps) => {
   const overallProgress = calculatePartnerProgress(profileData);
   
-  // Check if minimum required fields are complete (name and pronouns)
-  const canComplete = !!profileData.partnerName?.trim() && !!profileData.partnerPronouns?.trim();
+  // Listen for profile updates to recalculate validation in real-time
+  const [validationKey, setValidationKey] = useState(0);
+
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      // Force re-validation by triggering state change
+      setValidationKey(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    
+    return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    };
+  }, []);
+  
+  // Check if all required fields are complete with real-time validation
+  const canComplete = useMemo(() => {
+    const hasName = !!profileData.partnerName?.trim();
+    const hasPronouns = !!profileData.partnerPronouns?.trim();
+    const hasLoveLanguage = profileData.partnerLoveLanguage?.length > 0;
+    const hasAttachmentStyle = !!profileData.partnerAttachmentStyle?.trim();
+    return hasName && hasPronouns && hasLoveLanguage && hasAttachmentStyle;
+  }, [profileData.partnerName, profileData.partnerPronouns, profileData.partnerLoveLanguage, profileData.partnerAttachmentStyle, validationKey]);
   
   // Get completion status for each section
   const sectionCompletions = [
