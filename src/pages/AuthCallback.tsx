@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/utils/analytics";
 import { useTemporaryProfile } from "@/hooks/useTemporaryProfile";
 import { useToast } from "@/hooks/use-toast";
+import { broadcastAuthSuccess } from "@/utils/authChannel";
 
 const AuthCallback = () => {
   const { transferToUserAccount } = useTemporaryProfile();
@@ -78,6 +79,10 @@ const AuthCallback = () => {
         const hashParams = new URLSearchParams(hash);
         const redirectPath = hashParams.get('redirect') || '/profile';
 
+        // Get current session to obtain user ID
+        const { data: { session } } = await supabase.auth.getSession();
+        const userId = session?.user?.id;
+
         // Transfer any temporary data to the user's account
         try {
           await transferToUserAccount();
@@ -88,7 +93,29 @@ const AuthCallback = () => {
         // Log successful login
         logEvent("login_success");
         
-        // Show success message
+        // Check if this is a new tab/window (opened from email)
+        const isNewTab = window.opener !== null;
+        
+        if (isNewTab && userId) {
+          // Broadcast success to the original tab
+          broadcastAuthSuccess(userId);
+          
+          // Show message to close this tab
+          setLoadingMessage("Email verified! You can close this tab and return to the original window.");
+          
+          // Try to close the tab after a short delay (only works if opened by script)
+          setTimeout(() => {
+            try {
+              window.close();
+            } catch (e) {
+              // If can't close, user will see the message above
+            }
+          }, 2000);
+          
+          return; // Don't navigate in this tab
+        }
+        
+        // Original tab flow - show success message and navigate
         toast({
           title: "Email confirmed!",
           description: "Welcome to heartlines. Let's build your profile.",

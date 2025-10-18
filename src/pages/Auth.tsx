@@ -11,6 +11,8 @@ import { logEvent } from '@/utils/analytics';
 import { validatePasswordPolicy, getPasswordPolicyText } from '@/utils/passwordPolicy';
 import { BRAND } from '@/branding';
 import PhoneLockup from '@/components/Brand/PhoneLockup';
+import { listenForAuthSuccess } from '@/utils/authChannel';
+import { toast } from '@/components/ui/sonner';
 const Auth = () => {
   const {
     user,
@@ -83,6 +85,26 @@ const Auth = () => {
       }
     }
   }, [searchParams, location.pathname]);
+
+  // Listen for auth success from other tabs (email verification)
+  useEffect(() => {
+    const cleanup = listenForAuthSuccess((userId) => {
+      console.log('Auth success received from another tab:', userId);
+      const redirectPath = searchParams.get("redirect") || "/profile";
+      
+      // Show success toast
+      toast.success("Email confirmed!", {
+        description: "Welcome to heartlines. Redirecting to your profile...",
+      });
+      
+      // Redirect this tab
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true });
+      }, 1000);
+    });
+
+    return cleanup;
+  }, [navigate, searchParams]);
 
   // Redirect if already authenticated
   if (user && !loading) {
