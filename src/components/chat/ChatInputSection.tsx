@@ -301,10 +301,7 @@ export const ChatInputSection = ({
               <Sparkles className="h-5 w-5 text-pink-300" />
               <AlertDescription className="space-y-3">
                 <div className="flex-1">
-                  <span className="font-semibold questionnaire-text">you've been opening up (big fan of that) — time to go deeper?</span>
-                  <p className="text-sm questionnaire-text-muted mt-1">
-                    your free messages are almost done, but your story's just getting started.
-                  </p>
+                  <span className="font-semibold questionnaire-text">you've outgrown your free plan 🌱 time to level up + keep growing.</span>
                 </div>
                 <div className="space-y-2">
                   <Progress value={usagePercentage} className="h-2" />
