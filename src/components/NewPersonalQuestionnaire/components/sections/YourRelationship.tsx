@@ -43,11 +43,11 @@ const YourRelationship = ({
     ? 'In a relationship (official)'
     : profileData.relationshipStatus;
 
-  const isSingle = ['On the apps', 'Single & actively dating', 'Single & taking a break', 'Single & taking a break from dating', 'Casually seeing people'].includes(profileData.relationshipStatus);
-  const isTalking = profileData.relationshipStatus === 'Talking stage' || profileData.relationshipStatus === 'Talking to someone';
-  const hasRelationship = ['In a relationship', 'In a relationship (official)', 'Engaged', 'Married', 'Domestic partnership'].includes(profileData.relationshipStatus);
-  const isSeparatedDivorced = profileData.relationshipStatus === 'Separated/Divorced';
-  const isWidowed = profileData.relationshipStatus === 'Widowed';
+  const isSingle = ['on the apps', 'single & taking a break from dating', 'single & living my best life', 'recently single', 'casually seeing people'].includes(profileData.relationshipStatus?.toLowerCase());
+  const isTalking = profileData.relationshipStatus?.toLowerCase() === 'talking stage' || profileData.relationshipStatus?.toLowerCase() === 'soft launching someone new';
+  const hasRelationship = ['in a relationship (official)', 'engaged', 'married', 'domestic partnership'].includes(profileData.relationshipStatus?.toLowerCase());
+  const isSeparatedDivorced = profileData.relationshipStatus?.toLowerCase() === 'separated/divorced';
+  const isWidowed = profileData.relationshipStatus?.toLowerCase() === 'widowed';
 
   // Section completion check
   const isSectionComplete = validateSection(2, profileData);
