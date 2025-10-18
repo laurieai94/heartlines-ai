@@ -97,9 +97,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {
-    // Clear any existing profile data before signup to ensure fresh start
-    cleanupAuthState();
-    
     const redirectUrl = `${window.location.origin}/auth/callback#redirect=/profile`;
     
     const { error } = await supabase.auth.signUp({

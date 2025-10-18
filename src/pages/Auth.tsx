@@ -38,6 +38,7 @@ const Auth = () => {
   const [resendCooldown, setResendCooldown] = useState(0);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [isVerifiedFlow, setIsVerifiedFlow] = useState(false);
 
   // Check for mode parameter and route path on mount
   useEffect(() => {
@@ -51,6 +52,34 @@ const Auth = () => {
       const mode = searchParams.get('mode');
       if (mode === 'signin') {
         setIsSignUp(false);
+      }
+    }
+    
+    // Check for verified email flow
+    const verified = searchParams.get('verified');
+    
+    if (verified === 'true') {
+      setIsVerifiedFlow(true);
+      setIsSignUp(false); // We're in sign-in mode
+      
+      // Auto-focus email field after a brief delay
+      setTimeout(() => {
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        if (emailInput) {
+          emailInput.focus();
+        }
+      }, 300);
+    } else {
+      // Check if user just confirmed their email
+      const confirmed = searchParams.get('confirmed');
+      const expired = searchParams.get('expired');
+      
+      if (confirmed === 'true' || expired === 'true') {
+        // Focus email input
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        if (emailInput) {
+          emailInput.focus();
+        }
       }
     }
   }, [searchParams, location.pathname]);
@@ -159,11 +188,34 @@ const Auth = () => {
         if (error) throw error;
         logEvent('auth_signin_completed');
         
+        // Get the current session to access user data
+        const { data: { session } } = await supabase.auth.getSession();
+        const currentUser = session?.user;
+
         // Check for return path in localStorage or location state
         const intendedReturn = localStorage.getItem('intended_plan_return');
         const locationState = location.state as { returnTo?: string } | null;
-        const returnTo = locationState?.returnTo || intendedReturn || '/coach';
-        
+
+        // Determine if this is the user's first login
+        let defaultDestination = '/coach'; // Default for returning users
+
+        if (currentUser) {
+          const userCreatedAt = new Date(currentUser.created_at);
+          const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+          const isBrandNew = userCreatedAt > twentyFourHoursAgo;
+          
+          const firstLoginKey = `first_login_completed_${currentUser.id}`;
+          const hasCompletedFirstLogin = localStorage.getItem(firstLoginKey);
+          
+          // If brand new user and hasn't completed first login, send to profile
+          if (isBrandNew && !hasCompletedFirstLogin) {
+            localStorage.setItem(firstLoginKey, 'true');
+            defaultDestination = '/profile';
+          }
+        }
+
+        const returnTo = locationState?.returnTo || intendedReturn || defaultDestination;
+
         // Navigate to the intended destination
         navigate(returnTo);
       }
@@ -375,7 +427,15 @@ const Auth = () => {
                 email
               </Label>
               <div className="relative">
-                  <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="drop your email" className={isEmailValid() ? 'pr-12' : ''} required />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    value={formData.email} 
+                    onChange={e => handleInputChange('email', e.target.value)} 
+                    placeholder="drop your email" 
+                    className={isEmailValid() ? 'pr-12' : ''} 
+                    required 
+                  />
                 {isEmailValid() && <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-400" />}
               </div>
             </div>
@@ -423,7 +483,7 @@ const Auth = () => {
               </div>}
 
             <Button type="submit" disabled={isSubmitting} className="w-full questionnaire-button-primary py-2 text-sm -mb-3">
-              {isSubmitting ? 'processing...' : isSignUp ? 'create account' : 'sign in'}
+              {isSubmitting ? 'processing...' : isVerifiedFlow ? 'continue to heartlines' : isSignUp ? 'create account' : 'sign in'}
             </Button>
           </form>
 
