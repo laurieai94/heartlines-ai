@@ -129,7 +129,7 @@ export const UpgradeModal = ({
                     </div>
                   )}
                   
-                  <div className="p-4 sm:p-5 flex-1 flex flex-col">
+                  <div className="p-4 sm:p-5 pb-6 sm:pb-8 flex-1 flex flex-col">
                     {/* Icon */}
                     <div className="mb-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-full bg-gradient-to-r from-coral-400/20 to-pink-400/20 border border-white/20 flex items-center justify-center">
@@ -181,7 +181,7 @@ export const UpgradeModal = ({
                     <Button
                       onClick={() => handleUpgrade(plan.tier as 'glow' | 'vibe' | 'unlimited')}
                       disabled={upgrading !== null || isCurrent || !canUpgrade}
-                      className={`w-full rounded-full text-sm font-semibold ${
+                      className={`w-full rounded-full text-sm font-semibold mt-auto ${
                         isPopular || isRecommended 
                           ? 'bg-gradient-to-r from-coral-400 to-pink-500 text-white hover:from-coral-500 hover:to-pink-600 shadow-lg' 
                           : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
