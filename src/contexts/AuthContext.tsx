@@ -55,30 +55,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('[AuthContext] Auth event:', event, session ? 'Session exists' : 'No session');
+        
         setSession(session);
         setUser(session?.user ?? null);
         
+        // Clear loading state for all auth events
+        if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') {
+          clearTimeout(timeoutId);
+          setLoading(false);
+        }
+        
+        // Handle SIGNED_IN event
         if (event === 'SIGNED_IN') {
-          // Check if user has been away from coach for more than 12 hours
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
           const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
           
           if (!lastSeenAt || parseInt(lastSeenAt) < twelveHoursAgo) {
-            // Set flag to force new conversation after signin
             localStorage.setItem('force_new_chat_after_signin', 'true');
           }
-          
-          clearTimeout(timeoutId);
-          setLoading(false);
-        } else if (event === 'SIGNED_OUT') {
-          clearTimeout(timeoutId);
-          setLoading(false);
+        }
+        
+        // Handle TOKEN_REFRESHED to ensure session stays active
+        if (event === 'TOKEN_REFRESHED') {
+          console.log('[AuthContext] Token refreshed successfully - session maintained');
         }
       }
     );
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        console.log('[AuthContext] Session recovered from storage - user stays signed in');
+      } else {
+        console.log('[AuthContext] No existing session found');
+      }
+      
       setSession(session);
       setUser(session?.user ?? null);
       clearTimeout(timeoutId);
