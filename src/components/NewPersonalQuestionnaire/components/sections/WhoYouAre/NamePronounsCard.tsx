@@ -135,6 +135,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
             options={primaryPronounOptions}
             selectedValue={displayData.pronouns || ''}
             onSelect={handlePronounSelect}
+            allowDeselect={false}
           />
 
           {/* Custom pronoun input */}
