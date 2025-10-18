@@ -60,7 +60,8 @@ export const ChatInputSection = ({
     showUpgradeModal, 
     upgradeReason, 
     openUpgradeModal, 
-    closeUpgradeModal 
+    closeUpgradeModal,
+    isTypingInChatRef
   } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
@@ -152,6 +153,9 @@ export const ChatInputSection = ({
 
   // Handle user typing with debouncing
   const handleUserTyping = (typing: boolean) => {
+    // Update typing flag to prevent profile calculations during chat input
+    isTypingInChatRef.current = typing;
+    
     if (typingDebounceRef.current) {
       clearTimeout(typingDebounceRef.current);
     }
@@ -164,10 +168,12 @@ export const ChatInputSection = ({
       typingDebounceRef.current = setTimeout(() => {
         setIsComposing(false);
         onUserTypingChange(false);
+        isTypingInChatRef.current = false;
       }, 2500);
     } else {
       setIsComposing(false);
       onUserTypingChange(false);
+      isTypingInChatRef.current = false;
     }
   };
 

@@ -122,7 +122,7 @@ const AIChatInput = ({
       if (isTyping) {
         typingTimeoutRef.current = setTimeout(() => {
           onTypingChange(false);
-        }, 3000);
+        }, 1500);
       }
     }
   };
