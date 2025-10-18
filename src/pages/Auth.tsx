@@ -188,11 +188,34 @@ const Auth = () => {
         if (error) throw error;
         logEvent('auth_signin_completed');
         
+        // Get the current session to access user data
+        const { data: { session } } = await supabase.auth.getSession();
+        const currentUser = session?.user;
+
         // Check for return path in localStorage or location state
         const intendedReturn = localStorage.getItem('intended_plan_return');
         const locationState = location.state as { returnTo?: string } | null;
-        const returnTo = locationState?.returnTo || intendedReturn || '/coach';
-        
+
+        // Determine if this is the user's first login
+        let defaultDestination = '/coach'; // Default for returning users
+
+        if (currentUser) {
+          const userCreatedAt = new Date(currentUser.created_at);
+          const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+          const isBrandNew = userCreatedAt > twentyFourHoursAgo;
+          
+          const firstLoginKey = `first_login_completed_${currentUser.id}`;
+          const hasCompletedFirstLogin = localStorage.getItem(firstLoginKey);
+          
+          // If brand new user and hasn't completed first login, send to profile
+          if (isBrandNew && !hasCompletedFirstLogin) {
+            localStorage.setItem(firstLoginKey, 'true');
+            defaultDestination = '/profile';
+          }
+        }
+
+        const returnTo = locationState?.returnTo || intendedReturn || defaultDestination;
+
         // Navigate to the intended destination
         navigate(returnTo);
       }
