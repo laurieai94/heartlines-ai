@@ -315,7 +315,7 @@ const Auth = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-coral-500/15 to-peach-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-start py-12 sm:py-16 sm:justify-center">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-8">
         {/* Top section with logo and progress - only during sign-up */}
         {isSignUp && (
           <div className="w-full flex flex-col items-center space-y-3 sm:space-y-4 px-4 mb-6 sm:mb-8">
