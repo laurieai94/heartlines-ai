@@ -6,6 +6,7 @@ import { Heart, UserPlus, ArrowLeft, ArrowRight } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { Button } from "@/components/ui/button";
+import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
   onComplete: () => void;
@@ -23,7 +24,10 @@ const CleanQuestionnaireFooter = ({
   onNextSection
 }: CleanQuestionnaireFooterProps) => {
   const { goToPartner } = useNavigation();
-  const overallProgress = calculateProgress(profileData);
+  
+  // Get live profile data directly from hook for real-time validation
+  const { profileData: liveProfileData } = usePersonalProfileData();
+  const overallProgress = calculateProgress(liveProfileData);
 
   // Add update trigger state for reactive validation
   const [updateTrigger, setUpdateTrigger] = useState(0);
@@ -40,45 +44,49 @@ const CleanQuestionnaireFooter = ({
 
   // Explicit check for critical required fields - reactive with useMemo
   const hasValidName = useMemo(() => {
-    return profileData.name && profileData.name.trim() !== '';
-  }, [profileData.name, updateTrigger]);
+    const isValid = liveProfileData.name && liveProfileData.name.trim() !== '';
+    console.log('[Footer] hasValidName check - name:', `"${liveProfileData.name}"`, 'valid:', isValid, 'trigger:', updateTrigger);
+    return isValid;
+  }, [liveProfileData.name, updateTrigger]);
 
   const hasValidPronouns = useMemo(() => {
-    return profileData.pronouns && profileData.pronouns.trim() !== '';
-  }, [profileData.pronouns, updateTrigger]);
+    const isValid = liveProfileData.pronouns && liveProfileData.pronouns.trim() !== '';
+    console.log('[Footer] hasValidPronouns check - pronouns:', `"${liveProfileData.pronouns}"`, 'valid:', isValid, 'trigger:', updateTrigger);
+    return isValid;
+  }, [liveProfileData.pronouns, updateTrigger]);
 
   // Section completion status - reactive with useMemo
   const sectionCompletions = useMemo(() => [{
     name: "the basics",
-    isComplete: validateSection(1, profileData)
+    isComplete: validateSection(1, liveProfileData)
   }, {
     name: "your situationship",
-    isComplete: validateSection(2, profileData)
+    isComplete: validateSection(2, liveProfileData)
   }, {
     name: "how you operate",
-    isComplete: validateSection(3, profileData)
+    isComplete: validateSection(3, liveProfileData)
   }, {
     name: "your foundation",
-    isComplete: validateSection(4, profileData)
-  }], [profileData, updateTrigger]);
+    isComplete: validateSection(4, liveProfileData)
+  }], [liveProfileData, updateTrigger]);
 
   // Show unlock coaching after 5 required questions are answered - reactive with useMemo
   const canUnlockCoaching = useMemo(() => {
     return hasValidName &&
            hasValidPronouns &&
-           areRequiredFieldsComplete(1, profileData) && 
-           areRequiredFieldsComplete(2, profileData) && 
-           areRequiredFieldsComplete(3, profileData) && 
-           areRequiredFieldsComplete(4, profileData);
-  }, [hasValidName, hasValidPronouns, profileData, updateTrigger]);
+           areRequiredFieldsComplete(1, liveProfileData) && 
+           areRequiredFieldsComplete(2, liveProfileData) && 
+           areRequiredFieldsComplete(3, liveProfileData) && 
+           areRequiredFieldsComplete(4, liveProfileData);
+  }, [hasValidName, hasValidPronouns, liveProfileData, updateTrigger]);
 
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
   // Section navigation logic - reactive with useMemo
   const isCurrentSectionValid = useMemo(() => {
-    return validateSection(currentSection, profileData);
-  }, [currentSection, profileData, updateTrigger]);
+    return validateSection(currentSection, liveProfileData);
+  }, [currentSection, liveProfileData, updateTrigger]);
 
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;

@@ -38,6 +38,11 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
     }
   }, [displayData.pronouns]);
 
+  // Debug logging for pronouns
+  useEffect(() => {
+    console.log('[NamePronounsCard] Current pronouns value:', displayData.pronouns);
+  }, [displayData.pronouns]);
+
   const handlePronounSelect = (pronoun: string) => {
     if (pronoun === 'other') {
       updateFieldImmediate('pronouns', 'other');
@@ -106,7 +111,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
               id="name"
               type="text"
               value={displayData.name || ''}
-              onChange={(e) => updateFieldImmediate('name', e.target.value.trim())}
+              onChange={(e) => updateFieldImmediate('name', e.target.value)}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
