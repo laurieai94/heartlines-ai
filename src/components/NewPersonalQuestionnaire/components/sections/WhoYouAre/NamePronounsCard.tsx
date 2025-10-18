@@ -17,8 +17,8 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
   const [customPronoun, setCustomPronoun] = useState('');
   const { profileData: localData, isSyncing, lastSaved, updateFieldImmediate, flush } = usePersonalProfileData();
   
-  // Use local hook data for display (always most up-to-date), fall back to prop data
-  const displayData = localData.pronouns ? localData : propData;
+  // Use local hook data for display (always most up-to-date)
+  const displayData = localData;
 
   const primaryPronounOptions = [
     'she/her', 'he/him', 'they/them', 'she/they', 'he/they', 'other'
@@ -106,12 +106,7 @@ const NamePronounsCard = ({ profileData: propData, updateField, isComplete }: Na
               id="name"
               type="text"
               value={displayData.name || ''}
-              onChange={(e) => updateField('name', e.target.value)}
-              onBlur={(e) => {
-                if (e.target.value !== displayData.name) {
-                  updateFieldImmediate('name', e.target.value);
-                }
-              }}
+              onChange={(e) => updateFieldImmediate('name', e.target.value)}
               placeholder="your name"
               className="questionnaire-input-mobile font-medium w-full"
             />
