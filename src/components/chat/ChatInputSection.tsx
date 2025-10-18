@@ -16,9 +16,8 @@ import { toast } from '@/hooks/use-toast';
 import { useOptimizedMobile } from '@/hooks/useOptimizedMobile';
 import { useOptimizedProfileCompletion } from '@/hooks/useOptimizedProfileCompletion';
 import { UpgradeModal } from '@/components/modals/UpgradeModal';
-import { AlertCircle, Sparkles } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Progress } from '@/components/ui/progress';
 
 // Prefetch the profile questionnaire for faster loading
 const NewPersonalQuestionnaire = lazy(() => import('@/components/NewPersonalQuestionnaire'));
@@ -60,8 +59,7 @@ export const ChatInputSection = ({
     showUpgradeModal, 
     upgradeReason, 
     openUpgradeModal, 
-    closeUpgradeModal,
-    isTypingInChatRef
+    closeUpgradeModal 
   } = useProgressiveAccess();
   const { goToProfile } = useNavigation();
   const { user } = useAuth();
@@ -103,7 +101,7 @@ export const ChatInputSection = ({
 
   // Compute limit states
   const atLimit = message_limit > 0 && messages_used >= message_limit;
-  const nearLimit = usagePercentage >= 85 && usagePercentage < 90 && !atLimit && !subscribed;
+  const nearLimit = usagePercentage >= 80 && usagePercentage < 90 && !atLimit && !subscribed;
   const criticalLimit = usagePercentage >= 90 && !atLimit && !subscribed;
   const nextTier = subscription_tier?.toLowerCase() === 'glow' ? 'vibe' : 'glow';
   const messagesRemaining = message_limit - messages_used;
@@ -150,12 +148,27 @@ export const ChatInputSection = ({
     onSendMessage(message);
   };
 
+  // Show near-limit toast once per session (80-89%)
+  useEffect(() => {
+    if (nearLimit && !localStorage.getItem('nearLimitToastShown')) {
+      localStorage.setItem('nearLimitToastShown', '1');
+      toast({
+        title: "Approaching message limit",
+        description: `${messages_used} of ${message_limit} messages used this month.`,
+        action: (
+          <Button 
+            size="sm" 
+            onClick={() => openUpgradeModal('near-limit')}
+          >
+            Upgrade
+          </Button>
+        ),
+      });
+    }
+  }, [nearLimit, messages_used, message_limit, openUpgradeModal]);
 
   // Handle user typing with debouncing
   const handleUserTyping = (typing: boolean) => {
-    // Update typing flag to prevent profile calculations during chat input
-    isTypingInChatRef.current = typing;
-    
     if (typingDebounceRef.current) {
       clearTimeout(typingDebounceRef.current);
     }
@@ -168,12 +181,10 @@ export const ChatInputSection = ({
       typingDebounceRef.current = setTimeout(() => {
         setIsComposing(false);
         onUserTypingChange(false);
-        isTypingInChatRef.current = false;
       }, 2500);
     } else {
       setIsComposing(false);
       onUserTypingChange(false);
-      isTypingInChatRef.current = false;
     }
   };
 
@@ -300,38 +311,6 @@ export const ChatInputSection = ({
       }}
     >
       <div className="px-0 md:px-4 md:pt-2 md:py-5 md:pt-8">
-        {/* 80% usage warning banner with progress */}
-        {nearLimit && (
-          <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
-            <Alert className="bg-burgundy-800/40 border-pink-400/30 backdrop-blur-sm">
-              <Sparkles className="h-5 w-5 text-pink-400" />
-              <AlertDescription className="space-y-3">
-                <div className="flex-1">
-                  <span className="font-semibold questionnaire-text">you've been opening up (big fan of that) — time to go deeper?</span>
-                  <p className="text-sm questionnaire-text-muted mt-1">
-                    your free messages are almost done, but your story's just getting started.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <Progress value={usagePercentage} className="h-2" />
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs questionnaire-text-muted">
-                      {messages_used} of {message_limit} messages this month
-                    </span>
-                    <Button
-                      size="sm"
-                      onClick={() => openUpgradeModal('near-limit')}
-                      className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-300 hover:to-pink-400 text-white"
-                    >
-                      Keep Going ✨
-                    </Button>
-                  </div>
-                </div>
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
-
         {/* Critical 90% usage warning banner */}
         {criticalLimit && (
           <div className="mb-2 md:mb-3 md:max-w-[54rem] md:mx-auto md:px-12">
@@ -407,7 +386,7 @@ export const ChatInputSection = ({
       <UpgradeModal 
         open={showUpgradeModal}
         onOpenChange={closeUpgradeModal}
-        currentTier={subscription_tier?.toLowerCase() || 'begin'}
+        currentTier={subscription_tier?.toLowerCase() || 'freemium'}
         messagesUsed={messages_used}
         messageLimit={message_limit}
         reason={upgradeReason}

@@ -8,13 +8,6 @@ export const useDataMigration = () => {
   // Migration function to move old localStorage data to new format
   const migrateOldData = () => {
     try {
-      // SECURITY: Only migrate if user is logged in to prevent cross-user contamination
-      const currentUserId = user?.id;
-      if (!currentUserId) {
-        console.log('[Migration] Skipping migration - no user logged in');
-        return false;
-      }
-
       const migrations: { oldKey: string; newKey: string }[] = [
         { oldKey: 'partner_profile_data', newKey: 'partner_profile_questionnaire' },
         { oldKey: 'personal_profile_data', newKey: 'personal_profile_questionnaire' },

@@ -2,19 +2,21 @@ import { BarChart3, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTokenAnalytics } from "@/hooks/useTokenAnalytics";
-import { useIsAdmin } from "@/hooks/useUserRole";
+import { useAuth } from "@/contexts/AuthContext";
 import { formatCost } from "@/utils/modelPricing";
 
 const AccountUsageAnalytics = () => {
-  // Check if current user is admin using database role
-  const { isAdmin, isLoading: isLoadingRole } = useIsAdmin();
+  const { user } = useAuth();
+  
+  // Check if current user is admin
+  const isAdmin = user?.email?.toLowerCase() === 'swortman1994@gmail.com';
   
   const { data: tokenAnalytics, isLoading } = useTokenAnalytics({ 
     enabled: isAdmin 
   });
 
-  // Don't render if not admin or still checking role
-  if (!isAdmin || isLoadingRole) {
+  // Don't render if not admin
+  if (!isAdmin) {
     return null;
   }
 

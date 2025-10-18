@@ -24,7 +24,6 @@ const Auth = React.lazy(() => import("@/pages/Auth"));
 const Mission = React.lazy(() => import("@/pages/Mission"));
 const Terms = React.lazy(() => import("@/pages/Terms"));
 const Contact = React.lazy(() => import("@/pages/Contact"));
-const AdminCostDashboard = React.lazy(() => import("@/pages/AdminCostDashboard"));
 
 const AppContent = () => {
   // Removed disabled performance functions to eliminate unnecessary calls
@@ -99,11 +98,6 @@ const AppContent = () => {
         <Route path="/contact" element={
           <Suspense fallback={<div />}>
             <Contact />
-          </Suspense>
-        } />
-        <Route path="/admin/costs" element={
-          <Suspense fallback={<div />}>
-            <AdminCostDashboard />
           </Suspense>
         } />
         <Route path="*" element={

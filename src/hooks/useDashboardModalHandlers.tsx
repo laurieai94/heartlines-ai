@@ -1,6 +1,5 @@
 import { useTemporaryProfile } from './useTemporaryProfile';
 import { toast } from 'sonner';
-import type { User } from '@supabase/supabase-js';
 
 interface ModalStates {
   setActiveTab: (tab: string) => void;
@@ -14,7 +13,6 @@ interface ModalStates {
   setSuppressPartnerCompletionPopup: (value: boolean) => void;
   suppressPersonalCompletionPopup: boolean;
   setSuppressPersonalCompletionPopup: (value: boolean) => void;
-  user: User | null;
 }
 
 export const useDashboardModalHandlers = (modalStates: ModalStates) => {
@@ -249,26 +247,8 @@ export const useDashboardModalHandlers = (modalStates: ModalStates) => {
   };
 
   const handlePersonalStartChatting = () => {
-    console.log('Starting chat after questionnaire completion');
+    console.log('Starting chat, navigating to coach');
     modalStates.setShowPersonalCompletionOptions(false);
-    
-    // Check if this is a first-time user
-    if (modalStates.user) {
-      const userCreatedAt = new Date(modalStates.user.created_at);
-      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-      const isBrandNew = userCreatedAt > twentyFourHoursAgo;
-      
-      const firstLoginKey = `first_login_completed_${modalStates.user.id}`;
-      const hasCompletedFirstLogin = localStorage.getItem(firstLoginKey);
-      
-      // If brand new user on first login, keep them on profile page
-      if (isBrandNew && !hasCompletedFirstLogin) {
-        console.log('First-time user - keeping on profile page');
-        return;
-      }
-    }
-    
-    // For returning users, navigate to coach as usual
     modalStates.setActiveTab("insights");
   };
 

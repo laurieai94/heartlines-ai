@@ -35,15 +35,12 @@ const WelcomeBanner = ({ overallProgress }: WelcomeBannerProps) => {
   if (isDismissed || !isVisible) return null;
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-rose-900/30 via-pink-900/25 to-rose-900/30 border-b-2 border-pink-400/30 px-4 py-4 shadow-[0_0_25px_rgba(251,207,232,0.25),0_4px_20px_rgba(236,72,153,0.15)] animate-slide-up">
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-rose-500/5 to-pink-500/10 animate-gradient-shift pointer-events-none" />
-      
-      <div className="relative flex items-center justify-between gap-3">
+    <div className="bg-rose-900/20 border-b border-white/10 px-4 py-3 animate-in fade-in duration-300 shadow-[0_0_15px_rgba(251,207,232,0.15)]">
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 flex-1">
-          <Sparkles className="w-5 h-5 text-pink-300 flex-shrink-0 animate-bounce-gentle" />
-          <p className="text-[15px] leading-relaxed text-white/95 font-medium">
-            welcome! answer just <span className="text-pink-200 font-semibold">5 core questions</span> to chat with kai. you can always add more details later.
+          <Sparkles className="w-4 h-4 text-pink-300 flex-shrink-0" />
+          <p className="text-sm text-white/90">
+            welcome! answer just 5 core questions to chat with kai. you can always add more details later.
           </p>
         </div>
         <Button

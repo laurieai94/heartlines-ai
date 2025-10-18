@@ -53,7 +53,7 @@ export const ChatLayout = ({
   ];
 
   return (
-    <div className="h-full md:h-[calc(100%-0.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-4 md:pt-2 lg:pt-2 md:pb-2">
+    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
       <div className="md:hidden fixed top-safe left-0 right-0 z-[45] bg-burgundy-900 pl-4 pr-4 py-3 flex items-center justify-end border-b border-white/10">
         <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
@@ -104,7 +104,7 @@ export const ChatLayout = ({
 
       <div className="flex-1 flex md:min-h-0 md:max-h-full">
         {/* Chat Section - Proportional Width */}
-        <div className="flex-1 flex flex-col relative w-full md:min-h-0 md:max-h-full">
+        <div className="flex-1 flex flex-col relative mx-auto w-full max-w-[1100px] xl:max-w-[1200px] 2xl:max-w-[1280px] md:min-h-0 md:max-h-full">
           {/* Gradient frame and ambient glow - desktop only */}
           <div className="absolute inset-0 bg-gradient-to-br from-coral-400/20 via-transparent to-burgundy-400/20 md:rounded-2xl lg:rounded-3xl blur-xl -z-10 hidden md:block"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:rounded-2xl lg:rounded-3xl -z-10 hidden md:block"></div>

@@ -112,22 +112,17 @@ const PERSONAL_LEGACY_MAPPINGS: Record<string, string> = {
   'goals': 'datingGoals'
 };
 
-// Generate user-specific storage keys to prevent cross-user data contamination
-const getStorageConfig = (userId: string | undefined, profileType: ProfileType) => {
-  const userPrefix = userId ? `user_${userId}_` : '';
-  
-  return {
-    personal: {
-      storageKey: `${userPrefix}personal_profile_v2`,
-      legacyKeys: ['personal_profile_questionnaire', 'newPersonalQuestionnaire', 'personalProfile', 'personal_profile_v2'],
-      dbType: 'your' as const
-    },
-    partner: {
-      storageKey: `${userPrefix}partner_profile_v2`, 
-      legacyKeys: ['partner_profile_questionnaire', 'newPartnerProfile', 'partnerProfile', 'partner_profile_v2'],
-      dbType: 'partner' as const
-    }
-  }[profileType];
+const STORAGE_CONFIG = {
+  personal: {
+    storageKey: 'personal_profile_v2',
+    legacyKeys: ['personal_profile_questionnaire', 'newPersonalQuestionnaire', 'personalProfile'],
+    dbType: 'your' as const
+  },
+  partner: {
+    storageKey: 'partner_profile_v2', 
+    legacyKeys: ['partner_profile_questionnaire', 'newPartnerProfile', 'partnerProfile'],
+    dbType: 'partner' as const
+  }
 };
 
 const DEBOUNCE_MS = 300; // Reduced for faster data persistence
@@ -136,11 +131,8 @@ const RECENT_MODIFICATION_THRESHOLD = 10000; // 10 seconds
 
 export const useProfileStoreV2 = (profileType: ProfileType) => {
   const { user } = useAuth();
-  const config = getStorageConfig(user?.id, profileType);
+  const config = STORAGE_CONFIG[profileType];
   const defaultProfile = profileType === 'personal' ? defaultPersonalProfile : defaultPartnerProfile;
-  
-  // Track user changes to clear state
-  const prevUserRef = useRef<string | undefined>(undefined);
   
   // SIMPLIFIED: Removed complex instance tracking and circuit breakers
   const [profile, setProfile] = useState<PersonalProfileV2 | PartnerProfileV2>(defaultProfile);
@@ -254,42 +246,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       // Silent fail
     }
 
-    // Migrate from old non-user-specific keys if present
-    if (user?.id) {
-      const oldKey = profileType === 'personal' ? 'personal_profile_v2' : 'partner_profile_v2';
-      try {
-        const oldData = batchedStorage.getItem(oldKey);
-        if (oldData) {
-          const parsed = JSON.parse(oldData);
-          if (parsed && Object.keys(parsed).length > 0) {
-            // Migrate data to new user-specific key
-            const migratedProfile = parsed.profile || parsed;
-            const fullProfile = { 
-              ...defaultProfile, 
-              ...migratedProfile,
-              lastUpdated: new Date().toISOString(),
-              version: '2.0'
-            };
-            
-            batchedStorage.setItem(config.storageKey, JSON.stringify({
-              profile: fullProfile,
-              deletionMarkers: parsed.deletionMarkers || [],
-              lastSaved: new Date().toISOString()
-            }));
-            
-            // Clean up old non-user-specific key
-            batchedStorage.removeItem(oldKey);
-            batchedStorage.removeItem(`${oldKey}_migrated`);
-            
-            safeLog.info(`Migrated ${profileType} profile from non-user-specific key`);
-            return fullProfile;
-          }
-        }
-      } catch (error) {
-        // Silent fail
-      }
-    }
-
     // Early exit if migration already completed
     if (migrationSentinel) {
       return defaultProfile;
@@ -348,7 +304,7 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
     
     safeLog.info(`No existing ${profileType} data found, using defaults`);
     return defaultProfile;
-  }, [config, defaultProfile, migrateLegacyData, profileType, user?.id]);
+  }, [config, defaultProfile, migrateLegacyData, profileType]);
 
   // Save to localStorage (immediate) + broadcast in-tab update
   const saveToStorage = useCallback((data: PersonalProfileV2 | PartnerProfileV2) => {
@@ -570,73 +526,6 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
     return defaultProfile;
   }, [user, config.dbType, defaultProfile, migrateLegacyData, profileType]);
-
-  // Detect user changes and clear state to prevent data leakage
-  useEffect(() => {
-    const currentUserId = user?.id;
-    
-    // Check if user ID changed (new login or different user)
-    if (currentUserId) {
-      const lastUserId = localStorage.getItem('heartlines_last_user_id');
-      
-      if (lastUserId && lastUserId !== currentUserId) {
-        // Different user detected! Clear all profile caches
-        safeLog.info(`[ProfileStore] User ID changed from ${lastUserId} to ${currentUserId}, clearing all profile caches`);
-        
-        // Clear ALL profile-related localStorage data to prevent contamination
-        Object.keys(localStorage).forEach((key) => {
-          if (
-            key.includes('_personal_profile_v2') ||
-            key.includes('_partner_profile_v2') ||
-            key === 'personal_profile_questionnaire' ||
-            key === 'partner_profile_questionnaire' ||
-            key === 'personal_profile_v2' ||
-            key === 'partner_profile_v2' ||
-            key.includes('_migrated')
-          ) {
-            localStorage.removeItem(key);
-          }
-        });
-      }
-      
-      // Store current user ID for next comparison
-      localStorage.setItem('heartlines_last_user_id', currentUserId);
-    } else {
-      // No user - remove tracking
-      localStorage.removeItem('heartlines_last_user_id');
-    }
-    
-    // If user changed (including logout), reset state completely
-    if (prevUserRef.current !== undefined && prevUserRef.current !== currentUserId) {
-      safeLog.info(`User changed from ${prevUserRef.current} to ${currentUserId}, clearing ${profileType} profile state`);
-      
-      // Clear state
-      setProfile(defaultProfile);
-      setIsReady(false);
-      setIsLoading(true);
-      setIsSyncing(false);
-      setLastSaved(null);
-      
-      // Clear pending updates
-      pendingUpdates.current = {};
-      recentlyModifiedFields.current.clear();
-      intentionallyDeletedFields.current.clear();
-      
-      // Clear debounce timer
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-      
-      // Clear DB cache for old user
-      if (prevUserRef.current) {
-        const oldCacheKey = `${prevUserRef.current}-${config.dbType}`;
-        DB_CACHE.delete(oldCacheKey);
-      }
-    }
-    
-    // Update previous user ref
-    prevUserRef.current = currentUserId;
-  }, [user?.id, profileType, defaultProfile, config.dbType]);
 
   // Initialize and load data with instant local-first approach
   useEffect(() => {

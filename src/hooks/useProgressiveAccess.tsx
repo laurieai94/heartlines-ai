@@ -34,7 +34,6 @@ export const useProgressiveAccess = () => {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [upgradeReason, setUpgradeReason] = useState<'limit-reached' | 'near-limit' | 'upgrade'>('upgrade');
   const [profileUpdateCounter, setProfileUpdateCounter] = useState(0);
-  const isTypingInChatRef = useRef(false);
 
   // Throttled profile update listener to reduce re-renders
   useEffect(() => {
@@ -62,12 +61,8 @@ export const useProgressiveAccess = () => {
     };
   }, []);
 
-  // Memoized profile completion calculation - skip when typing in chat
+  // Memoized profile completion calculation
   const profileCompletion = useMemo(() => {
-    // Don't recalculate while user is typing in chat to prevent lag
-    if (isTypingInChatRef.current) {
-      return 0;
-    }
     if (!personalStorage.profileData || Object.keys(personalStorage.profileData).length === 0) {
       return 0;
     }
@@ -218,7 +213,6 @@ export const useProgressiveAccess = () => {
     showUpgradeModal,
     upgradeReason,
     openUpgradeModal,
-    closeUpgradeModal,
-    isTypingInChatRef
+    closeUpgradeModal
   };
 };

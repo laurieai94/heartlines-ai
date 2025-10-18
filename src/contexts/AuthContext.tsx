@@ -19,25 +19,14 @@ interface AuthContextType {
   resetPassword: (email: string) => Promise<{ error: any }>;
 }
 
-// Create context with default values so it doesn't crash when used outside provider
-const defaultAuthContext: AuthContextType = {
-  user: null,
-  session: null,
-  loading: true,
-  signUp: async () => ({ error: new Error('Auth not initialized') }),
-  signUpWithEmail: async () => ({ error: new Error('Auth not initialized') }),
-  signIn: async () => ({ error: new Error('Auth not initialized') }),
-  signInWithEmail: async () => ({ error: new Error('Auth not initialized') }),
-  signInWithGoogle: async () => ({ error: new Error('Auth not initialized') }),
-  signOut: async () => {},
-  resendVerification: async () => ({ error: new Error('Auth not initialized') }),
-  resetPassword: async () => ({ error: new Error('Auth not initialized') })
-};
-
-const AuthContext = createContext<AuthContextType>(defaultAuthContext);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
 interface AuthProviderProps {
@@ -70,14 +59,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(session?.user ?? null);
         
         if (event === 'SIGNED_IN') {
-          // Clean up stale data when a new user signs in (including after email confirmation)
-          const lastUserId = localStorage.getItem('heartlines_last_user_id');
-          
-          if (session?.user && lastUserId && lastUserId !== session.user.id) {
-            console.log('[AuthContext] New user detected on SIGNED_IN, cleaning up stale data');
-            cleanupAuthState();
-          }
-          
           // Check if user has been away from coach for more than 12 hours
           const lastSeenAt = localStorage.getItem('coach_last_seen_at');
           const twelveHoursAgo = Date.now() - (12 * 60 * 60 * 1000);
@@ -90,8 +71,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           clearTimeout(timeoutId);
           setLoading(false);
         } else if (event === 'SIGNED_OUT') {
-          // Clean up on sign out
-          cleanupAuthState();
           clearTimeout(timeoutId);
           setLoading(false);
         }
@@ -118,10 +97,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signUp = async (email: string, password: string, name?: string) => {
-    // ALWAYS clean up before sign-up to prevent stale data from previous sessions
-    // This is especially important if the user previously had an account that was deleted
-    cleanupAuthState();
-    
     const redirectUrl = `${window.location.origin}/auth/callback#redirect=/profile`;
     
     const { error } = await supabase.auth.signUp({
@@ -152,17 +127,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       email,
       password
     });
-    
-    // Clean up any stale auth state on error to prevent data contamination
-    if (error) {
-      if (error.message.includes('Email not confirmed') || 
-          error.message.includes('Invalid login credentials') ||
-          error.message.includes('Email link is invalid') ||
-          error.message.includes('Token')) {
-        cleanupAuthState();
-      }
-    }
-    
     return { error };
   };
 
@@ -193,12 +157,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         logWarn('Sign out error', err);
       }
       
-      // Redirect to homepage - replace() doesn't add to history stack
-      window.location.replace('/');
+      // Force redirect to homepage with clean state
+      window.location.href = '/';
     } catch (error) {
       logError('Sign out error', error);
       // Still redirect even if cleanup fails
-      window.location.replace('/');
+      window.location.href = '/';
     }
   };
 

@@ -20,8 +20,6 @@ import { getCompletedRequiredFieldsCount, getTotalRequiredFieldsCount } from '@/
 import { useNavigation } from '@/contexts/NavigationContext';
 import { Button } from '@/components/ui/button';
 import ProfileTips from "@/components/ProfileBuilder/ProfileTips";
-import { useAuth } from '@/contexts/AuthContext';
-
 interface ProfileBuilderProps {
   onProfileUpdate?: (newProfiles: any, newDemographics: any) => void;
   initialProfiles?: {
@@ -48,7 +46,6 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
-  const { user } = useAuth();
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
@@ -56,32 +53,6 @@ const ProfileBuilder = ({
   
   // Force update hook for profile completion changes
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-  // On mount, verify we're not loading data from a different user
-  useEffect(() => {
-    if (!user?.id) return; // Skip if no user
-    
-    const lastUserId = localStorage.getItem('heartlines_last_user_id');
-    const currentUserId = user.id;
-    
-    if (lastUserId && currentUserId && lastUserId !== currentUserId) {
-      // Data contamination detected! Clear everything
-      console.warn('[ProfileBuilder] Detected data from different user, clearing...');
-      Object.keys(localStorage).forEach((key) => {
-        if (
-          key.includes('profile') ||
-          key.includes('questionnaire') ||
-          key.includes('_personal_') ||
-          key.includes('_partner_')
-        ) {
-          localStorage.removeItem(key);
-        }
-      });
-      
-      // Force reload to get fresh data
-      window.location.reload();
-    }
-  }, [user?.id]);
 
   // Use centralized progress tracking and temporary profile data
   const {
@@ -130,28 +101,49 @@ const ProfileBuilder = ({
   } = useMemo(() => {
     const completed = personalProfileData ? getCompletedRequiredFieldsCount(personalProfileData as any) : 0;
     const total = getTotalRequiredFieldsCount();
+    console.log('[ProfileBuilder] Completion check:', { 
+      completed, 
+      total, 
+      canUnlock: completed >= total,
+      fields: {
+        name: !!personalProfileData?.name,
+        pronouns: !!personalProfileData?.pronouns,
+        relationshipStatus: !!personalProfileData?.relationshipStatus,
+        loveLanguage: !!personalProfileData?.loveLanguage,
+        attachmentStyle: !!personalProfileData?.attachmentStyle
+      }
+    });
     return {
       completedRequiredFields: completed,
       totalRequiredFields: total,
       canUnlockCoaching: completed >= total
     };
   }, [
-    personalProfileData?.name,
-    personalProfileData?.pronouns,
-    personalProfileData?.relationshipStatus,
+    personalProfileData?.name?.trim() || null,
+    personalProfileData?.pronouns?.trim() || null,
+    personalProfileData?.relationshipStatus?.trim() || null,
     personalProfileData?.loveLanguage,
-    personalProfileData?.attachmentStyle
+    personalProfileData?.attachmentStyle?.trim() || null,
+    (personalProfileData as any)?._updateTimestamp
   ]);
 
   // Listen for required field updates to force immediate UI update
   useEffect(() => {
-    const handleProfileUpdate = () => {
+    const handleRequiredFieldUpdate = () => {
+      console.log('[ProfileBuilder] Required field updated - forcing re-render');
       forceUpdate();
     };
     
+    const handleProfileUpdate = () => {
+      console.log('[ProfileBuilder] Profile updated - forcing re-render for avatar');
+      forceUpdate();
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
     window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     
     return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleRequiredFieldUpdate);
       window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
     };
   }, []);
@@ -242,6 +234,12 @@ const ProfileBuilder = ({
   const {
     isMobile: isMobileDevice
   } = useOptimizedMobile();
+
+  // Add touch event listeners for pull-to-refresh - DISABLED for performance
+  useEffect(() => {
+    // No mobile optimizations - they were causing freezing
+    return () => {};
+  }, []);
   return <div className="flex flex-col min-h-dvh" data-profile-container>
       {/* Mobile optimization disabled for performance */}
       {/* Pull-to-refresh indicator removed - was causing freezing */}

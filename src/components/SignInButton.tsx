@@ -3,7 +3,7 @@ import { User, LogOut, UserCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavAvatar from "@/components/NavAvatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePersonalProfileData } from "@/hooks/usePersonalProfileData";
 import type { User as SupabaseUser } from '@supabase/supabase-js';
@@ -62,41 +62,61 @@ const SignInButton = ({ onSignInClick, user, onOpenProfile }: SignInButtonProps)
         </Button>
         </PopoverTrigger>
         <PopoverContent className="w-14 p-2 max-w-[calc(100vw-32px)] bg-white/15 backdrop-blur-xl border border-white/15 ring-1 ring-white/10 rounded-2xl shadow-2xl z-50" align="end">
-          <div className="flex flex-col gap-1">
-            {onOpenProfile && (
-              <Button
-                aria-label="View Profile"
-                className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
-                onClick={() => {
-                  onOpenProfile();
-                  setShowUserMenu(false);
-                }}
-              >
-                <UserCircle className="h-5 w-5" />
-              </Button>
-            )}
-            
-            <Button
-              aria-label="Account Settings"
-              className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
-              onClick={() => {
-                window.location.href = '/account';
-                setShowUserMenu(false);
-              }}
-            >
-              <Settings className="h-5 w-5" />
-            </Button>
-            
-            <div className="h-px bg-white/10 my-1" />
-            
-            <Button
-              aria-label="Sign Out"
-              className="w-full justify-center p-2.5 h-auto bg-transparent text-rose-300 hover:text-white hover:bg-rose-500/20 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-rose-400/40 transition-all duration-200 rounded-xl"
-              onClick={handleSignOut}
-            >
-              <LogOut className="h-5 w-5" />
-            </Button>
-          </div>
+          <TooltipProvider delayDuration={3000} skipDelayDuration={300}>
+            <div className="flex flex-col gap-1">
+              {onOpenProfile && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
+                      onClick={() => {
+                        onOpenProfile();
+                        setShowUserMenu(false);
+                      }}
+                    >
+                      <UserCircle className="h-5 w-5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left">
+                    <p>View Profile</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    className="w-full justify-center p-2.5 h-auto bg-transparent text-white hover:bg-white/15 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-white/30 transition-all duration-200 rounded-xl"
+                    onClick={() => {
+                      window.location.href = '/account';
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    <Settings className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  <p>Account Settings</p>
+                </TooltipContent>
+              </Tooltip>
+              
+              <div className="h-px bg-white/10 my-1" />
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    className="w-full justify-center p-2.5 h-auto bg-transparent text-rose-300 hover:text-white hover:bg-rose-500/20 hover:backdrop-blur-md focus-visible:ring-1 focus-visible:ring-rose-400/40 transition-all duration-200 rounded-xl"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  <p>Sign Out</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
         </PopoverContent>
       </Popover>
     );

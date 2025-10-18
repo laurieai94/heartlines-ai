@@ -2,11 +2,9 @@ import { useCallback, useMemo } from 'react';
 import { useProgressiveAccess } from './useProgressiveAccess';
 import { useDashboardModalState } from './useDashboardModalState';
 import { useDashboardModalHandlers } from './useDashboardModalHandlers';
-import { useAuth } from '@/contexts/AuthContext';
 
 export const useDashboardModals = () => {
   const modalState = useDashboardModalState();
-  const { user } = useAuth();
   
   const { 
     shouldShowSignUpModal, 
@@ -27,8 +25,7 @@ export const useDashboardModals = () => {
     suppressPartnerCompletionPopup: modalState.suppressPartnerCompletionPopup,
     setSuppressPartnerCompletionPopup: modalState.setSuppressPartnerCompletionPopup,
     suppressPersonalCompletionPopup: modalState.suppressPersonalCompletionPopup,
-    setSuppressPersonalCompletionPopup: modalState.setSuppressPersonalCompletionPopup,
-    user
+    setSuppressPersonalCompletionPopup: modalState.setSuppressPersonalCompletionPopup
   });
 
   // Add sign-in modal state management
