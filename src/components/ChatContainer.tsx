@@ -320,7 +320,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
             className="flex-1 overflow-y-auto -webkit-overflow-scrolling-touch px-1"
             style={{ 
               paddingTop: '0.5rem',
-              paddingBottom: `${(inputSectionHeight || 280) + 24 + (showProfileNudge ? 200 : 0)}px`
+              paddingBottom: `${(inputSectionHeight || 280) + 80 + (showProfileNudge ? 200 : 0)}px`
             }}
             role="log"
             aria-live="polite"
@@ -348,7 +348,7 @@ const ChatContainer = forwardRef<ChatContainerRef, ChatContainerProps>(({
           aria-label="Chat conversation history"
         >
           <div 
-            className={`pt-2 md:pt-3 pb-4 md:pb-6 ${showProfileNudge ? 'md:pb-64' : ''}`}
+            className={`pt-2 md:pt-3 pb-8 md:pb-12 ${showProfileNudge ? 'md:pb-64' : ''}`}
             style={{
               paddingLeft: isMobile ? 'max(4px, env(safe-area-inset-left))' : '0',
               paddingRight: isMobile ? 'max(4px, env(safe-area-inset-right))' : '0'
