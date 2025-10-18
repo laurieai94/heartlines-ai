@@ -48,15 +48,7 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
-  // Safe auth check - don't crash if outside provider
-  let user = null;
-  try {
-    const auth = useAuth();
-    user = auth.user;
-  } catch (e) {
-    // Not within AuthProvider, user will remain null
-  }
-  
+  const { user } = useAuth();
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');

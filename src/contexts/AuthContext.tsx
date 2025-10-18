@@ -19,14 +19,25 @@ interface AuthContextType {
   resetPassword: (email: string) => Promise<{ error: any }>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// Create context with default values so it doesn't crash when used outside provider
+const defaultAuthContext: AuthContextType = {
+  user: null,
+  session: null,
+  loading: true,
+  signUp: async () => ({ error: new Error('Auth not initialized') }),
+  signUpWithEmail: async () => ({ error: new Error('Auth not initialized') }),
+  signIn: async () => ({ error: new Error('Auth not initialized') }),
+  signInWithEmail: async () => ({ error: new Error('Auth not initialized') }),
+  signInWithGoogle: async () => ({ error: new Error('Auth not initialized') }),
+  signOut: async () => {},
+  resendVerification: async () => ({ error: new Error('Auth not initialized') }),
+  resetPassword: async () => ({ error: new Error('Auth not initialized') })
+};
+
+const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  return useContext(AuthContext);
 };
 
 interface AuthProviderProps {
