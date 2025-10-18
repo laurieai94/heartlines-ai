@@ -125,7 +125,7 @@ useChatEffects({
       onLoadConversation={onLoadConversation}
       onDeleteConversation={onDeleteConversation}
     >
-      <div className="flex flex-col h-full min-h-0 max-h-[100vh] md:max-h-[calc(100vh-5rem)]">
+      <div className="flex flex-col flex-1 h-full min-h-0">
         <MemoizedChatContainer
           ref={chatContainerRef}
           chatHistory={chatHistory}
