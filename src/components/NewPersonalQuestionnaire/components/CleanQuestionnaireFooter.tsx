@@ -5,6 +5,7 @@ import { Heart, UserPlus, ArrowLeft, ArrowRight } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect, useMemo } from "react";
 interface CleanQuestionnaireFooterProps {
   profileData: ProfileData;
   onComplete: () => void;
@@ -25,6 +26,22 @@ const CleanQuestionnaireFooter = ({
     goToPartner
   } = useNavigation();
   const overallProgress = calculateProgress(profileData);
+
+  // Listen for profile updates to recalculate validation in real-time
+  const [validationKey, setValidationKey] = useState(0);
+
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      // Force re-validation by triggering state change
+      setValidationKey(prev => prev + 1);
+    };
+    
+    window.addEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    
+    return () => {
+      window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
+    };
+  }, []);
 
   // Explicit check for critical required fields
   const hasValidName = profileData.name && profileData.name.trim() !== '';
@@ -56,8 +73,11 @@ const CleanQuestionnaireFooter = ({
   // Enable +your person button when all requirements are met
   const canComplete = canUnlockCoaching;
 
-  // Section navigation logic
-  const isCurrentSectionValid = validateSection(currentSection, profileData);
+  // Section navigation logic - force fresh validation on every render when required fields change
+  const isCurrentSectionValid = useMemo(() => {
+    return validateSection(currentSection, profileData);
+  }, [currentSection, profileData, validationKey]);
+  
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
