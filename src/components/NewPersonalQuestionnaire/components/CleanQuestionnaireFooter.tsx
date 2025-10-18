@@ -55,6 +55,15 @@ const CleanQuestionnaireFooter = ({
     return () => window.removeEventListener('profile:requiredFieldUpdated', handleProfileUpdate);
   }, []);
 
+  // Force initial validation check when component mounts with existing data
+  useEffect(() => {
+    // If we have profile data on mount but updateTrigger is 0, force a validation update
+    if (updateTrigger === 0 && liveProfileData.name) {
+      console.log('[Footer] Initial mount with existing data, forcing validation update');
+      setUpdateTrigger(1);
+    }
+  }, []); // Only run on mount
+
   // Explicit check for critical required fields - reactive with useMemo
   const hasValidName = useMemo(() => {
     const freshData = readFreshProfileData();
@@ -111,6 +120,12 @@ const CleanQuestionnaireFooter = ({
   const canGoNext = currentSection < 4 && isCurrentSectionValid;
   const canGoPrevious = currentSection > 1;
   const completedSections = sectionCompletions.filter(s => s.isComplete).length;
+  
+  // Debug logging
+  console.log('[Footer] canUnlockCoaching:', canUnlockCoaching, 'hasValidName:', hasValidName, 'hasValidPronouns:', hasValidPronouns);
+  console.log('[Footer] isCurrentSectionValid:', isCurrentSectionValid, 'currentSection:', currentSection);
+  console.log('[Footer] canGoNext:', canGoNext, 'canComplete:', canComplete);
+
   return <div className="bg-white/5 backdrop-blur-sm border-t border-white/15 px-3 py-3 sm:py-3 pb-safe flex-shrink-0">
       <div className="flex justify-between items-center max-w-4xl mx-auto">
         {/* Left side - Section Navigation */}
