@@ -1017,6 +1017,19 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
 
   // Update single field with immediate database sync (for blur events)
   const updateFieldImmediate = useCallback((field: string, value: any) => {
+    // FIRST: Clear caches immediately for required fields
+    const requiredFields = ['name', 'pronouns', 'relationshipStatus', 'loveLanguage', 'attachmentStyle'];
+    if (requiredFields.includes(field)) {
+      try {
+        profileCompletionCache?.clear();
+        validationCache?.clear();
+        const { requirementCache } = require('@/utils/calculationCache');
+        requirementCache?.clear();
+      } catch (e) {
+        // Silently handle if cache not ready
+      }
+    }
+    
     recentlyModifiedFields.current.set(field, Date.now());
     
     // Track intentional deletions
@@ -1028,15 +1041,34 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
       intentionallyDeletedFields.current.delete(field);
     }
     
-    const updates = { [field]: value };
+    // For required fields, add timestamp to force React re-renders
+    const updates = requiredFields.includes(field) 
+      ? { [field]: value, _updateTimestamp: Date.now() } 
+      : { [field]: value };
+    
     const clonedUpdates = cloneProfile(updates as any);
     
-    // Simple immediate update
-    setProfile(prev => {
-      const updated = { ...prev, ...clonedUpdates };
-      saveToStorage(updated);
-      return updated;
-    });
+    // Optimistic update - use flushSync for required fields to force immediate re-render
+    if (requiredFields.includes(field)) {
+      flushSync(() => {
+        setProfile(prev => {
+          const updated = { ...prev, ...clonedUpdates };
+          saveToStorage(updated);
+          return updated;
+        });
+      });
+      
+      // Broadcast immediate update for UI components
+      window.dispatchEvent(new CustomEvent('profile:requiredFieldUpdated', {
+        detail: { field, value, timestamp: Date.now() }
+      }));
+    } else {
+      setProfile(prev => {
+        const updated = { ...prev, ...clonedUpdates };
+        saveToStorage(updated);
+        return updated;
+      });
+    }
 
     // Clear any pending debounce timer
     if (debounceTimer.current) {

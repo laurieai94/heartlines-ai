@@ -5,10 +5,9 @@ interface SingleSelectProps {
   options: string[];
   selectedValue: string;
   onSelect: (value: string) => void;
-  allowDeselect?: boolean; // Control whether clicking selected value clears it
 }
 
-const SingleSelect = memo(({ options, selectedValue, onSelect, allowDeselect = true }: SingleSelectProps) => {
+const SingleSelect = memo(({ options, selectedValue, onSelect }: SingleSelectProps) => {
   const { trackSelection } = useInputStateTracking();
 
   // Debug: Log when selected value changes
@@ -18,14 +17,7 @@ const SingleSelect = memo(({ options, selectedValue, onSelect, allowDeselect = t
 
   const handleSelect = (value: string) => {
     trackSelection(); // Prevent navigation conflicts during user input
-    
-    // Only allow deselection if explicitly enabled
-    if (selectedValue === value && allowDeselect) {
-      onSelect(''); // Clear the selection
-    } else if (selectedValue !== value) {
-      onSelect(value); // Change selection
-    }
-    // If selectedValue === value and !allowDeselect, do nothing (keep selected)
+    onSelect(value);
   };
   return (
     <div className="flex flex-wrap gap-1.5 w-full">
