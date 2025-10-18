@@ -369,7 +369,7 @@ export const ChatInputSection = ({
                   : accessLevel === 'profile-required' 
                     ? ""
                     : atLimit
-                    ? "You've reached your monthly message limit. Click to upgrade and continue."
+                    ? "you've outgrown your free plan 🌱 click here to level up!"
                     : chatHistory.length === 0 ? "What's up?" : ""
               }
               inputRef={inputRef}
