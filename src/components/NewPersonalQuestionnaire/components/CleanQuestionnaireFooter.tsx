@@ -1,6 +1,6 @@
 import { ProfileData } from "../types";
 import { validateSection, calculateProgress } from "../utils/validation";
-import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount } from "../utils/requirements";
+import { getTotalRequiredFieldsCount, getCompletedRequiredFieldsCount, areRequiredFieldsComplete } from "../utils/requirements";
 import { Heart, UserPlus, ArrowLeft, ArrowRight } from "lucide-react";
 import { BRAND } from "@/branding";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -41,10 +41,11 @@ const CleanQuestionnaireFooter = ({
     isComplete: validateSection(4, profileData)
   }];
 
-  // Enable button when all required fields are complete (not all sections)
-  const totalRequiredFields = getTotalRequiredFieldsCount();
-  const completedRequiredFields = getCompletedRequiredFieldsCount(profileData);
-  const canComplete = completedRequiredFields >= totalRequiredFields;
+  // Enable button when all required fields across all sections are properly filled
+  const canComplete = areRequiredFieldsComplete(1, profileData) && 
+                     areRequiredFieldsComplete(2, profileData) && 
+                     areRequiredFieldsComplete(3, profileData) && 
+                     areRequiredFieldsComplete(4, profileData);
 
   // Section navigation logic
   const isCurrentSectionValid = validateSection(currentSection, profileData);
