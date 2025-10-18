@@ -199,6 +199,7 @@
 
   html {
     /* Prevent white screen on mobile overscroll */
+    background-color: hsl(350 100% 15%); /* burgundy-900 */
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
     /* iOS Safari specific viewport fix */
@@ -246,6 +247,7 @@
 
   #root {
     /* Ensure proper mobile layout without breaking scroll */
+    background-color: hsl(350 100% 15%); /* burgundy-900 - prevent white flashes */
     min-height: 100dvh;
     min-height: -webkit-fill-available;
     /* Prevent scroll displacement */
