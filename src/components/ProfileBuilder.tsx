@@ -48,7 +48,15 @@ const ProfileBuilder = ({
   onOpenQuestionnaire,
   onOpenPartnerQuestionnaire
 }: ProfileBuilderProps) => {
-  const { user } = useAuth();
+  // Safe auth check - don't crash if outside provider
+  let user = null;
+  try {
+    const auth = useAuth();
+    user = auth.user;
+  } catch (e) {
+    // Not within AuthProvider, user will remain null
+  }
+  
   const [showDemographics, setShowDemographics] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [activeProfileType, setActiveProfileType] = useState<'your' | 'partner'>('your');
@@ -59,8 +67,10 @@ const ProfileBuilder = ({
 
   // On mount, verify we're not loading data from a different user
   useEffect(() => {
+    if (!user?.id) return; // Skip if no user
+    
     const lastUserId = localStorage.getItem('heartlines_last_user_id');
-    const currentUserId = user?.id;
+    const currentUserId = user.id;
     
     if (lastUserId && currentUserId && lastUserId !== currentUserId) {
       // Data contamination detected! Clear everything
