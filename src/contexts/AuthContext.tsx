@@ -127,6 +127,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       email,
       password
     });
+    
+    // Clean up any stale auth state on error to prevent data contamination
+    if (error) {
+      if (error.message.includes('Email not confirmed') || 
+          error.message.includes('Invalid login credentials') ||
+          error.message.includes('Email link is invalid') ||
+          error.message.includes('Token')) {
+        cleanupAuthState();
+      }
+    }
+    
     return { error };
   };
 

@@ -575,6 +575,37 @@ export const useProfileStoreV2 = (profileType: ProfileType) => {
   useEffect(() => {
     const currentUserId = user?.id;
     
+    // Check if user ID changed (new login or different user)
+    if (currentUserId) {
+      const lastUserId = localStorage.getItem('heartlines_last_user_id');
+      
+      if (lastUserId && lastUserId !== currentUserId) {
+        // Different user detected! Clear all profile caches
+        safeLog.info(`[ProfileStore] User ID changed from ${lastUserId} to ${currentUserId}, clearing all profile caches`);
+        
+        // Clear ALL profile-related localStorage data to prevent contamination
+        Object.keys(localStorage).forEach((key) => {
+          if (
+            key.includes('_personal_profile_v2') ||
+            key.includes('_partner_profile_v2') ||
+            key === 'personal_profile_questionnaire' ||
+            key === 'partner_profile_questionnaire' ||
+            key === 'personal_profile_v2' ||
+            key === 'partner_profile_v2' ||
+            key.includes('_migrated')
+          ) {
+            localStorage.removeItem(key);
+          }
+        });
+      }
+      
+      // Store current user ID for next comparison
+      localStorage.setItem('heartlines_last_user_id', currentUserId);
+    } else {
+      // No user - remove tracking
+      localStorage.removeItem('heartlines_last_user_id');
+    }
+    
     // If user changed (including logout), reset state completely
     if (prevUserRef.current !== undefined && prevUserRef.current !== currentUserId) {
       safeLog.info(`User changed from ${prevUserRef.current} to ${currentUserId}, clearing ${profileType} profile state`);
