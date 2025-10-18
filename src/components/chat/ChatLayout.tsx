@@ -53,7 +53,7 @@ export const ChatLayout = ({
   ];
 
   return (
-    <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
+    <div className="h-full md:h-[calc(100%-0.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-4 md:pt-2 lg:pt-2 md:pb-2">
       {/* Mobile only: Site navigation bar */}
       <div className="md:hidden fixed top-safe left-0 right-0 z-[45] bg-burgundy-900 pl-4 pr-4 py-3 flex items-center justify-end border-b border-white/10">
         <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
