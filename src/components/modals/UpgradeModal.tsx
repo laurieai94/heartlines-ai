@@ -72,7 +72,7 @@ export const UpgradeModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl p-6 sm:p-8">
         <DialogHeader>
           <DialogTitle className="text-2xl font-light text-white flex items-center justify-center gap-2">
             <Sparkles className="w-7 h-7 text-coral-400" />
@@ -85,7 +85,7 @@ export const UpgradeModal = ({
 
         <div className="mt-4 space-y-3">
           {/* Current Usage */}
-          <Card className="questionnaire-card p-3">
+          <Card className="questionnaire-card p-3 border border-white/20">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-white/60">current plan</p>
@@ -117,9 +117,9 @@ export const UpgradeModal = ({
               return (
                 <Card 
                   key={plan.id}
-                  className={`questionnaire-card relative rounded-3xl shadow-3xl transition-all duration-300 hover:-translate-y-2 flex flex-col ${
-                    isPopular ? 'ring-2 ring-coral-400/50' : ''
-                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50' : ''}`}
+                  className={`questionnaire-card relative rounded-3xl shadow-3xl border border-white/20 transition-all duration-300 hover:-translate-y-2 flex flex-col ${
+                    isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''
+                  } ${isRecommended && !isPopular ? 'ring-2 ring-coral-400/50 border-coral-400/30' : ''}`}
                 >
                   {isPopular && (
                     <div className="absolute -top-2 lg:-top-3 left-1/2 -translate-x-1/2 z-10">
