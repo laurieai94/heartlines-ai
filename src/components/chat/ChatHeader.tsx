@@ -45,10 +45,10 @@ export const ChatHeader = ({
 
   return (
     <div className="sticky top-0 z-[70] shrink-0 bg-burgundy-900 backdrop-blur-md border-b border-white/10 shadow-lg md:pt-[env(safe-area-inset-top)] md:bg-white/10 md:backdrop-blur-md">
-      <div className="w-full py-0 md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
+      <div className="w-full py-2 md:px-0 md:py-4 lg:py-5 transition-transform duration-200 ease-out will-change-transform">
         {/* Mobile Layout - Single row */}
         {(isMobilePhone ?? (isMobile && !isTablet)) && (
-          <div className="flex items-center justify-between gap-2 px-4 py-2">
+          <div className="flex items-center justify-between gap-2 pl-1 pr-4 py-3">
             {/* Left: Kai avatar + name */}
             <div className="flex items-center gap-2 min-w-0">
               <div className="relative flex-shrink-0">
@@ -65,7 +65,7 @@ export const ChatHeader = ({
                     <Heart className="w-4 h-4" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-900">
+                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-burgundy-950">
                   <div className="w-full h-full rounded-full bg-green-400 animate-pulse" />
                 </div>
               </div>
@@ -108,7 +108,7 @@ export const ChatHeader = ({
           <div className="flex items-center gap-2 md:gap-3 md:max-w-3xl lg:max-w-4xl md:mx-auto md:px-6">
             {/* Kai Avatar - Far Left */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-coral-400/30 to-pink-400/30 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-xl animate-pulse"></div>
               <Avatar className="bg-gradient-to-br from-coral-400 to-pink-500 shadow-lg relative z-10 w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 border-3 border-white/20">
                 <AvatarImage src={BRAND.coach.avatarSrc} alt={BRAND.coach.name} className="object-cover" loading="eager" decoding="async" fetchPriority="high" />
                 <AvatarFallback className="bg-gradient-to-br from-coral-400 to-pink-500 text-white">
