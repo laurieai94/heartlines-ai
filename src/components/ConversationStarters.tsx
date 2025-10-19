@@ -55,7 +55,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
 
   return (
     <div className="animate-fade-in pointer-events-none">
-      <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20 shadow-lg pointer-events-auto">
+      <div className="bg-burgundy-900 md:bg-white/10 md:backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20 shadow-lg pointer-events-auto">
         {!selectedCategory ? (
           <>
             <h3 className="text-sm font-medium text-white mb-2 text-center">
@@ -66,7 +66,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 <div
                   key={index}
                   onClick={() => setSelectedCategory(category)}
-                  className="group cursor-pointer bg-white/10 hover:bg-white/20 rounded-lg p-2 border border-white/10 hover:border-white/30 transition-all duration-200"
+                  className="group cursor-pointer bg-burgundy-800/60 md:bg-white/10 hover:bg-burgundy-800 md:hover:bg-white/20 rounded-lg p-2 border border-white/10 hover:border-white/30 transition-all duration-200"
                 >
                   <h4 className="font-medium text-white text-xs group-hover:text-white/90 transition-colors text-center leading-tight">
                     {category}
@@ -82,7 +82,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className="p-1 hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
+                className="p-1 hover:bg-burgundy-800/60 md:hover:bg-white/10 rounded-lg transition-colors text-white hover:text-white"
               >
                 <ArrowLeft className="w-3 h-3" />
               </Button>
@@ -96,7 +96,7 @@ const ConversationStarters = ({ onStarterSelect }: ConversationStartersProps) =>
                   key={index}
                   variant="ghost"
                   onClick={() => handleQuickStarter(starter)}
-                  className="group text-white/80 hover:text-white hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border border-transparent hover:border-white/20"
+                  className="group text-white/80 hover:text-white hover:bg-burgundy-800/60 md:hover:bg-white/10 rounded-lg px-2 py-1 text-xs text-left justify-start h-auto whitespace-normal transition-all duration-200 border border-transparent hover:border-white/20"
                 >
                   <span className="leading-tight">{starter}</span>
                 </Button>
