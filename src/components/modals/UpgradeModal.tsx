@@ -74,13 +74,10 @@ export const UpgradeModal = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-burgundy-900 border-white/20 rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-xl font-light text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-6 h-6 text-coral-400" />
-            you've been opening up (big fan of that) — time to go deeper?
+          <DialogTitle className="text-xl sm:text-2xl font-light text-white flex items-center justify-center gap-2">
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-coral-400" />
+            time to dive deeper?
           </DialogTitle>
-          <DialogDescription className="text-sm text-white/70 mt-1 text-center">
-            {getReasonMessage()}
-          </DialogDescription>
         </DialogHeader>
 
         <div className="mt-4 space-y-2">

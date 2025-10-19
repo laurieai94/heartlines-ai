@@ -193,7 +193,7 @@ const AIChatInput = ({
             caretColor: '#ffffff !important',
             WebkitTextFillColor: 'white !important',
             color: 'white !important',
-            fontSize: '16px'
+            fontSize: window.innerWidth < 768 ? '14px' : '16px'
           }}
           rows={1}
         />
