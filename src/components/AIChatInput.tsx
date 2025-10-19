@@ -156,7 +156,7 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: '44px' }}>
+    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
           ? `brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm ${
@@ -183,7 +183,7 @@ const AIChatInput = ({
           autoComplete="off"
           spellCheck={true}
           enterKeyHint="send"
-          className="w-full bg-transparent border-0 px-3 py-1 md:px-4 md:py-[8px] text-sm resize-none min-h-[36px] md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none mobile-chat-input"
+          className={`w-full bg-transparent border-0 px-3 ${readOnly ? 'py-2' : 'py-1'} md:px-4 md:py-[8px] text-sm resize-none ${readOnly ? 'min-h-[44px]' : 'min-h-[36px]'} md:min-h-[36px] max-h-[60px] md:max-h-[60px] leading-[20px] text-left text-white placeholder:text-left placeholder:text-white/90 caret-white ring-0 focus:ring-0 focus-visible:ring-0 ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0 ring-transparent focus:ring-transparent focus-visible:ring-transparent outline-none focus:outline-none focus-visible:outline-none shadow-none focus:shadow-none focus-visible:shadow-none appearance-none mobile-chat-input`}
           style={{ 
             WebkitTapHighlightColor: 'transparent', 
             WebkitAppearance: 'none',
@@ -203,13 +203,13 @@ const AIChatInput = ({
         onClick={sendMessage}
         onPointerDown={(e) => e.preventDefault()}
         onMouseDown={(e) => e.preventDefault()}
-        className={`rounded-2xl w-8 h-8 md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+        className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
         }`}
       >
-        <Send className="w-2 h-2 md:w-3 md:h-3" />
+        <Send className={`${readOnly ? 'w-3 h-3' : 'w-2 h-2'} md:w-3 md:h-3`} />
       </Button>
     </div>
   );
