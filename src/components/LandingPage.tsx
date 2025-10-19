@@ -450,6 +450,9 @@ const LandingPage = ({
       {/* Full-Bleed Hero Carousel */}
       <HeroCarousel />
 
+      {/* Spacer between carousel and hero section - proportional across all screens */}
+      <div className="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28" aria-hidden="true" />
+
       {/* Hero Section - Locked layout with flame background */}
       <section className="relative overflow-hidden" style={{
       minHeight: 'clamp(40vh, 50vh, 65vh)'
