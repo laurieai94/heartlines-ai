@@ -356,8 +356,7 @@ export const ChatInputSection = ({
         )}
         
         <div className="md:max-w-[54rem] md:mx-auto md:px-12">
-          <div className="border border-white/10 backdrop-blur-sm rounded-3xl bg-burgundy-900/30 p-3 md:p-4">
-            <ProgressiveAccessWrapper action="chat">
+          <ProgressiveAccessWrapper action="chat">
             <AIChatInput
               onSendMessage={handleSend} 
               loading={loading}
@@ -389,7 +388,6 @@ export const ChatInputSection = ({
               chatHistory={chatHistory}
             />
           </ProgressiveAccessWrapper>
-          </div>
         </div>
         {!isConfigured && accessLevel === 'full-access' && (
           <p className="text-xs text-white/60 mt-2 text-center font-light">

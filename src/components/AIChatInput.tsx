@@ -156,16 +156,16 @@ const AIChatInput = ({
   }, []);
 
   return (
-    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text relative z-10 ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
+    <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `brand-gradient-soft border-2 border-white/25 backdrop-blur-xl shadow-2xl shadow-black/60 hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.7)] ${
+          ? `brand-gradient-soft border-2 border-white/25 backdrop-blur-xl shadow-2xl shadow-black/40 ${
               atLimit 
                 ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/25 shadow-2xl shadow-black/60 hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.7)]'
-      } transition-shadow duration-200`}>
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/25 shadow-2xl shadow-black/40'
+      }`}>
         <Textarea
           unstyled
           ref={textareaRef}
@@ -203,7 +203,7 @@ const AIChatInput = ({
         onClick={sendMessage}
         onPointerDown={(e) => e.preventDefault()}
         onMouseDown={(e) => e.preventDefault()}
-        className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 shadow-2xl shadow-black/70 hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] text-white focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-white/20 transition-shadow duration-200 ${
+        className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 shadow-2xl shadow-black/50 text-white focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-white/20 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
