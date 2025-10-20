@@ -119,9 +119,6 @@ const Dashboard = () => {
           <div className="h-[100dvh] bg-burgundy-900">
             {/* Main Dashboard Content - This gets blurred when modals are open */}
             <div className={`h-full flex flex-col relative bg-burgundy-900 ${isAnyModalOpen ? 'blur-sm' : ''} transition-all duration-300`}>
-              {/* Ambient glow for chat interface separation */}
-              <div className="absolute inset-0 bg-gradient-radial from-coral-500/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-
               {/* Background overlays removed for unified burgundy theme */}
 
               <DashboardHeader 
