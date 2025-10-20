@@ -55,7 +55,7 @@ export const ChatLayout = ({
   return (
     <div className="h-full md:h-[calc(100%-2rem)] lg:h-[calc(100%-2.5rem)] flex flex-col min-h-0 md:max-h-full bg-burgundy-900 md:bg-transparent px-0 md:px-0 lg:px-8 md:pt-4 lg:pt-6">
       {/* Mobile only: Site navigation bar */}
-      <div className="md:hidden fixed top-safe left-0 right-0 z-[45] bg-burgundy-900 pl-4 pr-4 py-3 flex items-center justify-end border-b border-white/10">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-[45] bg-burgundy-900 px-4 py-2 flex items-center justify-end border-b border-white/10">
         <Popover modal={false} open={isNavPopoverOpen} onOpenChange={setIsNavPopoverOpen}>
           <PopoverTrigger asChild>
             <Button 
@@ -93,7 +93,7 @@ export const ChatLayout = ({
       </div>
 
       {/* Mobile only: Chat Header below navigation bar */}
-      <div className="md:hidden mt-12">
+      <div className="md:hidden mt-[52px]">
         <ChatHeader 
           userName={userName} 
           onNewConversation={onNewConversation} 
