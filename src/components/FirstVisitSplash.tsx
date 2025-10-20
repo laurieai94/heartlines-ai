@@ -7,40 +7,37 @@ import { CRITICAL_IMAGES } from '@/config/criticalResources';
 const FADE_OUT_DURATION = 300; // 0.3 seconds
 
 const FirstVisitSplash: React.FC = () => {
-  const [showSplash, setShowSplash] = useState(false);
-  const [isChecking, setIsChecking] = useState(true);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  // Check immediately if this is a return visit - skip all loading logic if so
+  const hasVisited = typeof sessionStorage !== 'undefined' && 
+    sessionStorage.getItem('homepage_visited') === 'true';
   
-  // Aggressive mobile optimization - faster everything
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  
-  // Check if resources were previously loaded
   const resourcesCached = typeof sessionStorage !== 'undefined' && 
     sessionStorage.getItem('resources_loaded') === 'true';
   
+  // Early return for instant loading on return visits
+  if (hasVisited || resourcesCached) {
+    return <LandingPage />;
+  }
+  
+  // First visit only - proceed with splash screen logic
+  const [showSplash, setShowSplash] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
   const { isLoading: resourcesLoading } = useResourceLoader(CRITICAL_IMAGES, {
-    minDisplayTime: 3000, // 3s for both mobile and desktop
-    maxTimeout: isMobile ? 1500 : 4000 // 1.5s timeout on mobile, 4s on desktop
+    minDisplayTime: 3000,
+    maxTimeout: isMobile ? 1500 : 4000
   });
 
   useEffect(() => {
-    // Check if user has visited homepage in this session
+    // Mark as visited on first mount
     const hasVisited = sessionStorage.getItem('homepage_visited');
     
     if (!hasVisited) {
-      // First visit - show splash (but skip if resources cached)
-      setShowSplash(!resourcesCached);
-      setIsChecking(false);
-      
-      // If resources cached, mark as visited immediately
-      if (resourcesCached) {
-        sessionStorage.setItem('homepage_visited', 'true');
-      }
-    } else {
-      // Returning visit - skip splash
-      setIsChecking(false);
+      console.log('[FirstVisitSplash] First visit detected - showing splash');
     }
-  }, [resourcesCached]);
+  }, []);
 
   // Hide splash only when resources are loaded
   useEffect(() => {
@@ -80,11 +77,6 @@ const FirstVisitSplash: React.FC = () => {
     
     return () => clearTimeout(emergencyTimeout);
   }, [showSplash, isMobile]);
-
-  // During initial check, show nothing to prevent flash
-  if (isChecking) {
-    return null;
-  }
 
   // Render landing page in background while splash is showing
   return (
