@@ -93,7 +93,7 @@ export const ChatLayout = ({
       </div>
 
       {/* Mobile only: Chat Header below navigation bar */}
-      <div className="md:hidden mt-[52px]">
+      <div className="md:hidden">
         <ChatHeader 
           userName={userName} 
           onNewConversation={onNewConversation} 
@@ -114,7 +114,7 @@ export const ChatLayout = ({
             <div className="hidden md:block">
               <ChatHeader userName={userName} onNewConversation={onNewConversation} onOpenSidebar={handleOpenSidebar} />
             </div>
-            <div className="flex-1 flex flex-col min-h-0">
+            <div className="flex-1 flex flex-col min-h-0 pt-[116px] md:pt-0">
               {children}
             </div>
           </div>
