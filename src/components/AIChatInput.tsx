@@ -159,12 +159,12 @@ const AIChatInput = ({
     <div className={`flex gap-2 md:gap-3 items-center px-3 md:px-0 touch-action-manipulation pointer-events-auto cursor-text ${readOnly ? 'group' : ''}`} style={{ minHeight: (readOnly && window.innerWidth < 768) ? '52px' : '44px' }}>
       <div className={`flex-1 relative isolate rounded-2xl overflow-hidden ${
         readOnly 
-          ? `brand-gradient-soft md:border-2 md:border-white/20 md:backdrop-blur-sm ${
+          ? `brand-gradient-soft border-2 border-white/25 backdrop-blur-xl shadow-2xl shadow-black/40 ${
               atLimit 
-                ? 'shadow-xl shadow-coral-500/40 hover:shadow-2xl hover:shadow-pink-500/40 transition-all duration-300' 
+                ? 'shadow-coral-500/40 hover:shadow-pink-500/40 transition-all duration-300' 
                 : ''
             }` 
-          : 'bg-white/5 md:supports-[backdrop-filter]:backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] md:border-2 md:border-white/15'
+          : 'bg-burgundy-800/40 backdrop-blur-xl border-2 border-white/25 shadow-2xl shadow-black/40'
       }`}>
         <Textarea
           unstyled
@@ -203,7 +203,7 @@ const AIChatInput = ({
         onClick={sendMessage}
         onPointerDown={(e) => e.preventDefault()}
         onMouseDown={(e) => e.preventDefault()}
-        className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 shadow-lg text-white focus-visible:ring-0 focus-visible:ring-offset-0 ${
+        className={`rounded-2xl ${readOnly ? 'w-9 h-9' : 'w-8 h-8'} md:w-9 md:h-9 p-0 shadow-2xl shadow-black/50 text-white focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-white/20 ${
           readOnly 
             ? 'brand-gradient-soft' 
             : 'brand-gradient'
