@@ -54,8 +54,13 @@ const AIChatMessage = memo(({ message, userAvatarUrl, userName, isFirstInGroup =
             {isUser && userAvatarUrl ? (
               <AvatarImage src={userAvatarUrl} alt={userName || 'User'} className="object-cover" />
             ) : isUser ? (
-              <AvatarFallback className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-xs font-medium">
-                {userName ? userName.charAt(0).toLowerCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
+              <AvatarFallback 
+                className="bg-gradient-to-br from-pink-400 to-orange-400 text-white text-sm md:text-base font-medium uppercase"
+                style={{
+                  fontFamily: "'Shrikhand', cursive"
+                }}
+              >
+                {userName ? userName.charAt(0).toUpperCase() : <User className="w-4 h-4 md:w-4 md:h-4" />}
               </AvatarFallback>
             ) : (
               <>
