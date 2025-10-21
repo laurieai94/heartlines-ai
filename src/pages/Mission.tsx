@@ -43,7 +43,7 @@ const Mission = () => {
             </h1>
             <div className="flex items-center gap-2 mt-1 ml-[70px] md:ml-[110px] lg:ml-[160px] xl:ml-[230px]">
             <span className="font-glacial text-xl md:text-2xl lg:text-3xl text-white">
-              powered laurie ai
+              powered by laurie ai
             </span>
               <DuckIcon className="w-5 h-5 lg:w-6 lg:h-6 text-coral-400" />
             </div>
@@ -83,13 +83,13 @@ const Mission = () => {
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
                     <p className="text-base md:text-lg text-white/90 leading-loose">
-                      <span className="text-white font-medium">AI is here.</span>
+                      <span className="text-white font-medium">ai is here.</span>
                     </p>
                     <p className="text-base md:text-lg text-white/90 leading-loose">
-                      We can't stop it, and we can't ignore it.
+                      we can't stop it, and we can't ignore it.
                     </p>
                     <p className="text-base md:text-lg text-white/90 leading-loose">
-                      It's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, love, and connect.
+                      it's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, love, and connect.
                     </p>
                   </div>
                 </div>
@@ -105,8 +105,8 @@ const Mission = () => {
                         hover:bg-white/5 rounded-lg
                         group/button"
                     >
-                      <span className="group-data-[state=open]/button:hidden">Read More</span>
-                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <span className="group-data-[state=open]/button:hidden">read more</span>
+                      <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
                     </Button>
                   </CollapsibleTrigger>
@@ -123,18 +123,18 @@ const Mission = () => {
                       {/* Conflict Section */}
                       <div className="space-y-4 text-center">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          But somewhere between the progress and the code,<br />
+                          but somewhere between the progress and the code,<br />
                           <span className="text-white font-semibold">we lost something.</span>
                         </p>
 
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          We built machines to talk like us,<br />
+                          we built machines to talk like us,<br />
                           while forgetting to listen to each other.
                         </p>
 
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          Technology promised connection.<br />
-                          Instead, it left us scrolling for it —
+                          technology promised connection.<br />
+                          instead, it left us scrolling for it —
                         </p>
 
                         <p className="text-base md:text-lg text-white/80 leading-loose italic">
@@ -152,16 +152,16 @@ const Mission = () => {
                       {/* Call to Action */}
                       <div className="space-y-3 text-center">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          So <span className="text-white font-semibold">this is our moment</span> —
+                          so <span className="text-white font-semibold">this is our moment</span> —
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to build AI that <span className="text-white font-semibold">protects what's real.</span>
+                          to build ai that <span className="text-white font-semibold">protects what's real.</span>
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          To make <span className="text-white font-semibold">privacy sacred again.</span>
+                          to make <span className="text-white font-semibold">privacy sacred again.</span>
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          To make <span className="text-white font-semibold">community the center</span> of progress.
+                          to make <span className="text-white font-semibold">community the center</span> of progress.
                         </p>
                       </div>
 
@@ -175,7 +175,7 @@ const Mission = () => {
                       {/* Vision Section */}
                       <div className="border-l-2 border-rose-400/40 pl-6 space-y-3 text-left">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          To build technology that remembers where it came from:
+                          to build technology that remembers where it came from:
                         </p>
                         <p className="text-base md:text-lg text-white/80 italic leading-loose">
                           from classrooms that taught us how to think for ourselves,
@@ -188,7 +188,7 @@ const Mission = () => {
                         </p>
                         <div className="pt-4">
                           <p className="text-base md:text-lg text-white/90 leading-loose">
-                            Because progress means nothing
+                            because progress means nothing
                           </p>
                           <p className="text-base md:text-lg text-white/90 leading-loose">
                             if it forgets the people it was meant to serve.
@@ -248,8 +248,8 @@ const Mission = () => {
                         hover:bg-white/5 rounded-lg
                         group/button"
                     >
-                      <span className="group-data-[state=open]/button:hidden">Read More</span>
-                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <span className="group-data-[state=open]/button:hidden">read more</span>
+                      <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
                     </Button>
                   </CollapsibleTrigger>
@@ -404,57 +404,94 @@ const Mission = () => {
                         hover:bg-white/5 rounded-lg
                         group/button"
                     >
-                      <span className="group-data-[state=open]/button:hidden">Read More</span>
-                      <span className="group-data-[state=closed]/button:hidden">Show Less</span>
+                      <span className="group-data-[state=open]/button:hidden">read more</span>
+                      <span className="group-data-[state=closed]/button:hidden">show less</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]/button:rotate-180" />
                     </Button>
                   </CollapsibleTrigger>
                   
                   <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
-                    {/* Decorative gradient divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-coral-400/30 to-transparent mb-6 max-w-xs mx-auto mt-6"></div>
+                    <div className="max-w-2xl mx-auto space-y-6 mt-8">
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                    {/* What We Do */}
-                    <div className="max-w-2xl mx-auto mb-6">
-                      <div className="ml-8 border-l-2 border-pink-400/30 pl-6 space-y-4">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          we create tools that help people grow, heal, and connect —
+                      {/* Opening statement */}
+                      <div className="space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          laurie ai runs on a <span className="font-semibold text-white">simple idea</span>:
                         </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          then reinvest part of our profit to build purpose-built tools
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          for the people and communities too often left behind.
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          if ai can help people connect, it should also help communities thrive.
                         </p>
                       </div>
-                    </div>
 
-                    {/* Pull quote - The Cycle */}
-                    <div className="relative max-w-xl mx-auto mb-8">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-burgundy-600/40 via-rose-500/50 to-burgundy-700/40 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-xl rounded-2xl p-4 md:p-5
-                        bg-gradient-to-br from-burgundy-800/80 via-burgundy-700/70 to-rose-900/60
-                        border border-rose-400/60
-                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_0_30px_rgba(136,19,55,0.4)]">
-                        {/* Inner frosted overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-rose-200/10 to-transparent rounded-2xl pointer-events-none"></div>
-                        <Globe className="relative w-6 h-6 md:w-8 md:h-8 text-rose-300 mx-auto mb-3 
-                          drop-shadow-[0_0_25px_rgba(253,164,175,0.8)] 
-                          filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-white/95 font-normal leading-relaxed text-center">
-                          profit fuels purpose. purpose drives connection.
+                      {/* Business model explanation */}
+                      <div className="space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          we build for-profit apps like heartlines to fund what comes next —
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          partnering with nonprofits, educators, and local orgs
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          to create purpose-built ai for the communities that need it most.
                         </p>
                       </div>
-                    </div>
 
-                    {/* Closing */}
-                    <div className="text-center space-y-4 max-w-2xl mx-auto">
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        when ai helps people connect,
-                      </p>
-                      <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                        communities get stronger.
-                      </p>
+                      {/* Hybrid model */}
+                      <div className="space-y-2">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          it's a <span className="font-semibold text-white">hybrid model — part business, part mission</span> —
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          proving that tech can drive growth and give back.
+                        </p>
+                      </div>
+
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                      {/* How we work */}
+                      <div className="space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          we work directly with people who live the problems we're solving:
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          teachers, social workers, caregivers, and organizers
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          who know what their communities actually need.
+                        </p>
+                      </div>
+
+                      {/* Partnership approach */}
+                      <div className="border-l-2 border-pink-400/40 pl-6 space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          we bring the technology and resources.
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          they bring the insight and lived experience.
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          together, we build ai that starts small — <span className="font-semibold text-white">human, local, intentional.</span>
+                        </p>
+                      </div>
+
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                      {/* Closing statement */}
+                      <div className="border-l-2 border-coral-400/30 pl-6 space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          <span className="font-semibold text-white">profit fuels purpose. purpose drives connection.</span>
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          when ai helps people connect,
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          communities get stronger.
+                        </p>
+                      </div>
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
