@@ -736,23 +736,17 @@ const LandingPage = ({
                 <div className="space-y-4 mb-6 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
                     Kai's built for how we love now —<br />
-                    the apps, the almosts, the "wyd?"s that turn into something real, the relationships we grow through, the ones we fight for, and the everyday work of keeping love alive.
+                    the apps, the almosts, the "wyd?"s that turn into something real, and the everyday work of keeping love alive.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-white/90 font-medium leading-relaxed">
-                    Built on science, powered by empathy, designed for real life.
+                    Built on science, powered by empathy, made for real life.
                   </p>
                   
                   <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    She helps you understand yourself and what it takes to keep love healthy, intimate, and real.
-                  </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    The hard parts don't happen in therapy hours — they happen in texts, silences, and moments that can't wait.
-                  </p>
-                  
-                  <p className="text-base md:text-lg lg:text-xl text-pink-200/80 leading-relaxed">
-                    Kai's grounded in PhD-level psychology and evidence-based methods, helping you make sense of what you're feeling — one honest, human conversation at a time.
+                    Grounded in PhD-level psychology,<br />
+                    Kai helps you understand yourself and what it takes to keep love healthy, intimate, and real —<br />
+                    one honest, human conversation at a time.
                   </p>
                 </div>
                 
