@@ -82,15 +82,15 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
-                <p className="text-base md:text-lg text-white/90 leading-loose">
+                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
                 <div className="bg-coral-500/80 text-white font-semibold px-6 py-3 rounded-lg max-w-fit mx-auto">
-                  <p className="text-base md:text-lg leading-loose">
+                  <p className="text-lg md:text-xl leading-relaxed">
                     we can't stop it, and we can't ignore it.
                   </p>
                 </div>
-                <p className="text-base md:text-lg text-white/90 leading-loose">
+                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
                   it's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, work, love, and connect.
                 </p>
                   </div>
