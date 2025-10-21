@@ -128,17 +128,17 @@ const Mission = () => {
 
                     {/* Pull quote - Key message */}
                     <div className="relative max-w-xl mx-auto mb-8">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/30 via-coral-500/40 to-peach-400/30 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-md rounded-2xl p-4 md:p-5
-                        bg-gradient-to-br from-white/25 via-white/20 to-white/15
-                        border border-pink-400/50
-                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_0_20px_rgba(255,107,157,0.15)]">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-burgundy-600/40 via-rose-500/50 to-burgundy-700/40 rounded-2xl blur-lg"></div>
+                      <div className="relative backdrop-blur-xl rounded-2xl p-4 md:p-5
+                        bg-gradient-to-br from-burgundy-800/80 via-burgundy-700/70 to-rose-900/60
+                        border border-rose-400/60
+                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_0_30px_rgba(136,19,55,0.4)]">
                         {/* Inner frosted overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
-                        <Heart className="relative w-6 h-6 md:w-8 md:h-8 text-pink-400 mx-auto mb-3 
-                          drop-shadow-[0_0_20px_rgba(255,107,157,0.9)] 
+                        <div className="absolute inset-0 bg-gradient-to-b from-rose-200/10 to-transparent rounded-2xl pointer-events-none"></div>
+                        <Heart className="relative w-6 h-6 md:w-8 md:h-8 text-rose-300 mx-auto mb-3 
+                          drop-shadow-[0_0_25px_rgba(253,164,175,0.8)] 
                           filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-burgundy-900 font-normal leading-relaxed text-center">
+                        <p className="relative text-base md:text-lg text-white/95 font-normal leading-relaxed text-center">
                           empathy is still the highest form of intelligence
                         </p>
                       </div>
@@ -350,17 +350,17 @@ const Mission = () => {
 
                     {/* Pull quote - The Cycle */}
                     <div className="relative max-w-xl mx-auto mb-8">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-peach-400/30 via-coral-500/40 to-pink-500/30 rounded-2xl blur-lg"></div>
-                      <div className="relative backdrop-blur-md rounded-2xl p-4 md:p-5
-                        bg-gradient-to-br from-white/25 via-white/20 to-white/15
-                        border border-peach-400/50
-                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_0_20px_rgba(255,183,123,0.15)]">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-burgundy-600/40 via-rose-500/50 to-burgundy-700/40 rounded-2xl blur-lg"></div>
+                      <div className="relative backdrop-blur-xl rounded-2xl p-4 md:p-5
+                        bg-gradient-to-br from-burgundy-800/80 via-burgundy-700/70 to-rose-900/60
+                        border border-rose-400/60
+                        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_0_30px_rgba(136,19,55,0.4)]">
                         {/* Inner frosted overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
-                        <Globe className="relative w-6 h-6 md:w-8 md:h-8 text-peach-400 mx-auto mb-3 
-                          drop-shadow-[0_0_20px_rgba(255,183,123,0.9)] 
+                        <div className="absolute inset-0 bg-gradient-to-b from-rose-200/10 to-transparent rounded-2xl pointer-events-none"></div>
+                        <Globe className="relative w-6 h-6 md:w-8 md:h-8 text-rose-300 mx-auto mb-3 
+                          drop-shadow-[0_0_25px_rgba(253,164,175,0.8)] 
                           filter brightness-110" />
-                        <p className="relative text-base md:text-lg text-burgundy-900 font-normal leading-relaxed text-center">
+                        <p className="relative text-base md:text-lg text-white/95 font-normal leading-relaxed text-center">
                           profit fuels purpose. purpose drives connection.
                         </p>
                       </div>
