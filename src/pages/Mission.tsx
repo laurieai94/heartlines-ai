@@ -260,55 +260,92 @@ const Mission = () => {
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Context - The Chaos */}
+                      {/* Introduction */}
                       <div className="space-y-3">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          built for the chaos of real connection —
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          heartlines is built for how this generation loves—
                         </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          the overthinking, the late-night silence, the "we need to talk" moments.
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          through text, across time zones, in real time, in moments that don't wait for therapy appointments.
                         </p>
                       </div>
 
-                      {/* Philosophy */}
+                      {/* Laurie AI Context */}
+                      <div>
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          it's powered by <span className="font-semibold text-white">laurie ai</span>, an incubator creating human-first tech for connection and care.
+                        </p>
+                      </div>
+
+                      {/* Kai Introduction */}
+                      <div className="space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          with <span className="font-semibold text-white">kai</span>, your ai relationship coach, you can unpack what happened after an argument, get perspective before you text back, or learn why you keep falling into the same patterns.
+                        </p>
+                      </div>
+
+                      {/* Research-backed care */}
                       <div className="space-y-2">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          it's not about perfect communication.
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          it's grounded in <span className="font-semibold text-white">research-backed care</span>
                         </p>
-                        <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                          it's about honest conversation.
-                        </p>
-                      </div>
-
-                      {/* Decorative gradient divider */}
-                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
-
-                      {/* Audience */}
-                      <div className="space-y-3">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          for anyone who still believes love is worth understanding —
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          who wants to connect instead of drift,
-                        </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          to grow instead of give up.
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          that helps you navigate the hard parts of modern love without losing yourself.
                         </p>
                       </div>
 
                       {/* Decorative gradient divider */}
                       <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
 
-                      {/* Closing */}
+                      {/* What Kai helps with */}
+                      <div className="border-l-2 border-coral-400/40 pl-6 space-y-3">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          kai helps you:
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          figure out what you're feeling before you text back
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          find language that builds closeness instead of conflict
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          understand why you shut down, overthink, or over-explain
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          rebuild trust and intimacy after things get hard
+                        </p>
+                      </div>
+
+                      {/* For everyone */}
+                      <div>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          whether you're dating, in a situationship, living together, in the apps, or finding your way back to yourself, heartlines meets you where you are.
+                        </p>
+                      </div>
+
+                      {/* Decorative gradient divider */}
+                      <div className="h-px bg-gradient-to-r from-coral-400/30 to-transparent"></div>
+
+                      {/* Privacy & values */}
+                      <div className="space-y-2">
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          conversations are <span className="font-semibold text-white">private and encrypted</span>—your data <span className="font-semibold text-white">never trains outside models</span>. no judgment, no algorithms selling your emotions. <span className="font-semibold text-white">just guidance that feels human.</span>
+                        </p>
+                      </div>
+
+                      {/* Closing statement */}
                       <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          you bring the feelings.
+                        <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
+                          heartlines is the <span className="font-semibold text-white">space between dating apps and therapy</span> —
                         </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          we help you make sense of them —
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          a place to work on yourself and your relationships in real time,
                         </p>
-                        <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
-                          so you can grow together, not apart.
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          so love feels a little less confusing,
+                        </p>
+                        <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
+                          and a lot more real.
                         </p>
                       </div>
                     </div>
