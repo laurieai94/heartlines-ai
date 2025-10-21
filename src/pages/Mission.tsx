@@ -221,7 +221,7 @@ const Mission = () => {
                 {/* Header with gradient */}
                 <h2 className="text-3xl md:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent">
-                  💞 what heartlines is
+                  💞 what <span className="font-brand">heartlines</span> is
                 </h2>
                 
                 {/* Gradient divider */}
@@ -263,7 +263,7 @@ const Mission = () => {
                       {/* Introduction */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          heartlines is built for how this generation loves—
+                          <span className="font-brand">heartlines</span> is built for how this generation loves—
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
                           through text, across time zones, in real time, in moments that don't wait for therapy appointments.
@@ -319,7 +319,7 @@ const Mission = () => {
                       {/* For everyone */}
                       <div>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
-                          whether you're dating, in a situationship, living together, in the apps, or finding your way back to yourself, heartlines meets you where you are.
+                          whether you're dating, in a situationship, living together, in the apps, or finding your way back to yourself, <span className="font-brand">heartlines</span> meets you where you are.
                         </p>
                       </div>
 
@@ -336,7 +336,7 @@ const Mission = () => {
                       {/* Closing statement */}
                       <div className="border-l-2 border-peach-400/30 pl-6 space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          heartlines is the <span className="font-semibold text-white">space between dating apps and therapy</span> —
+                          <span className="font-brand">heartlines</span> is the <span className="font-semibold text-white">space between dating apps and therapy</span> —
                         </p>
                         <p className="text-base md:text-lg text-white/80 font-light leading-relaxed">
                           a place to work on yourself and your relationships in real time,
