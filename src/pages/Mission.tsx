@@ -33,11 +33,11 @@ const Mission = () => {
       
       <SimpleHeader user={user} activeTab="home" onSignInClick={handleSignInClick} hideSignInButton={true} />
         
-        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
           {/* 1. Hero Section */}
           <section className="flex flex-col items-center animate-fade-in pt-8 md:pt-12 pb-4 md:pb-6">
             <h1 
-              className="font-brand text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient-glow"
+              className="font-brand text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent leading-none animate-gradient-glow tracking-wide"
             >
               our why
             </h1>
@@ -61,17 +61,18 @@ const Mission = () => {
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
+                hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
                 hover:-translate-y-2 hover:scale-[1.02]
                 hover:shadow-2xl hover:shadow-pink-500/20
-                transition-all duration-500 ease-out">
+                transition-all duration-400 ease-out">
                 
                 {/* Header with gradient */}
                 <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
                   bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent
                   flex items-center justify-center gap-3">
                   <Globe 
-                    size={40} 
-                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0" 
+                    size={44} 
+                    className="text-coral-400 drop-shadow-[0_0_20px_rgba(255,132,80,0.6)] flex-shrink-0 animate-pulse" 
                   />
                   <span>our moment</span>
                 </h2>
@@ -82,10 +83,10 @@ const Mission = () => {
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto">
                   <div className="space-y-4">
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
                   ai is here.
                 </p>
-                <p className="text-lg md:text-xl text-white/95 font-semibold leading-relaxed">
+                <p className="text-xl md:text-xl text-white/95 font-semibold leading-relaxed">
                   we can't stop it, and we can't ignore it.
                 </p>
                   </div>
@@ -99,7 +100,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/5 rounded-lg
+                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -215,9 +216,10 @@ const Mission = () => {
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
+                hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
                 hover:-translate-y-2 hover:scale-[1.02]
                 hover:shadow-2xl hover:shadow-pink-500/20
-                transition-all duration-500 ease-out">
+                transition-all duration-400 ease-out">
                 
                 {/* Header with gradient */}
                 <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
@@ -230,10 +232,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-3">
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
                     stronger relationships start here.
                   </p>
-                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                  <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
                     the ai relationship coach for messy, modern love.
                   </p>
                 </div>
@@ -246,7 +248,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/5 rounded-lg
+                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
@@ -354,8 +356,9 @@ const Mission = () => {
               <div className="relative backdrop-blur-xl rounded-3xl p-6 md:p-8
                 bg-gradient-to-br from-white/25 via-white/20 to-white/15
                 border border-pink-400/30
+                hover:bg-gradient-to-br hover:from-white/30 hover:via-white/25 hover:to-white/20
                 hover:-translate-y-2 hover:scale-[1.01]
-                transition-all duration-500 ease-out">
+                transition-all duration-400 ease-out">
                 
                 {/* Heading with gradient and duck icon */}
                 <h2 className="text-3xl md:text-3xl lg:text-4xl font-brand text-center mb-8
@@ -373,10 +376,10 @@ const Mission = () => {
                 
                 {/* Preview content - always visible */}
                 <div className="text-center mb-6 max-w-2xl mx-auto space-y-4">
-            <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+            <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
               <span className="font-brand">heartlines</span> is built by laurie ai
             </p>
-            <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+            <p className="text-xl md:text-xl text-white/95 font-light leading-relaxed">
               ai for stronger relationships and stronger communities.
             </p>
                 </div>
@@ -389,7 +392,7 @@ const Mission = () => {
                       className="w-full flex items-center justify-center gap-2 py-4 mt-2 mb-2
                         text-white/70 hover:text-white font-light text-sm
                         transition-all duration-300
-                        hover:bg-white/5 rounded-lg
+                        hover:bg-white/10 hover:translate-y-[-1px] rounded-lg
                         group/button"
                     >
                       <span className="group-data-[state=open]/button:hidden">read more</span>
