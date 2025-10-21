@@ -428,7 +428,7 @@ const Mission = () => {
                       {/* Business model explanation */}
                       <div className="space-y-3">
                         <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                          we're building that vision here in seattle, starting in the neighborhoods where we live and work — partnering with local nonprofits, educators, and community orgs to create purpose-built ai for the people who need it most.
+                          we're building that vision here in <span className="font-semibold text-white">seattle</span>, starting in the neighborhoods where we live and work — partnering with local nonprofits, educators, and community orgs to create purpose-built ai for the people who need it most.
                         </p>
                       </div>
 
