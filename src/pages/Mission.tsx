@@ -199,6 +199,28 @@ const Mission = () => {
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
+
+                {/* CTAs with glass effect - Always visible */}
+                <div className="flex flex-wrap gap-4 justify-center items-center mt-6 mb-0">
+                  <Button
+                    size="lg"
+                    variant="glass"
+                    onClick={handleSignInClick}
+                    className="glass-cta min-w-[200px] text-lg"
+                  >
+                    get started
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={() => navigate('/contact')}
+                    className="min-w-[200px] text-lg backdrop-blur-xl
+                      bg-white/10 border border-white/30 text-white
+                      hover:bg-white/20 hover:scale-105 hover:-translate-y-1
+                      transition-all duration-300"
+                  >
+                    build community ai
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -479,28 +501,6 @@ const Mission = () => {
               </div>
             </div>
           </section>
-
-          {/* CTAs with glass effect - Always visible */}
-          <div className="flex flex-wrap gap-4 justify-center items-center mt-8 mb-8">
-            <Button
-              size="lg"
-              variant="glass"
-              onClick={handleSignInClick}
-              className="glass-cta min-w-[200px] text-lg"
-            >
-              get started
-            </Button>
-            <Button
-              size="lg"
-              onClick={() => navigate('/contact')}
-              className="min-w-[200px] text-lg backdrop-blur-xl
-                bg-white/10 border border-white/30 text-white
-                hover:bg-white/20 hover:scale-105 hover:-translate-y-1
-                transition-all duration-300"
-            >
-              build community ai
-            </Button>
-          </div>
         </main>
 
         <SiteFooter />
