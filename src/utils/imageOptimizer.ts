@@ -79,12 +79,16 @@ export const preloadCriticalImages = (imageSources: string[]) => {
   if (typeof window === 'undefined') return;
   
   imageSources.forEach((src, index) => {
+    // Prevent duplicate preloads
+    const existingPreload = document.querySelector(`link[rel="preload"][href="${src}"]`);
+    if (existingPreload) return;
+    
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
     link.href = src;
-    // High priority for first 2 images only
-    if (index === 0 || index === 1) {
+    // High priority for first 4 images (increased from 2)
+    if (index < 4) {
       link.fetchPriority = 'high';
     }
     document.head.appendChild(link);
