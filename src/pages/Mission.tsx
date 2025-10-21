@@ -124,7 +124,7 @@ const Mission = () => {
                       <div className="space-y-4 text-center">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
                           But somewhere between the progress and the code,<br />
-                          <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">we lost something.</span>
+                          <span className="text-white font-semibold">we lost something.</span>
                         </p>
 
                         <p className="text-base md:text-lg text-white/90 leading-loose">
@@ -152,16 +152,16 @@ const Mission = () => {
                       {/* Call to Action */}
                       <div className="space-y-3 text-center">
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          So <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">this is our moment</span> —
+                          So <span className="text-white font-semibold">this is our moment</span> —
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          to build AI that <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">protects what's real.</span>
+                          to build AI that <span className="text-white font-semibold">protects what's real.</span>
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          To make <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">privacy sacred again.</span>
+                          To make <span className="text-white font-semibold">privacy sacred again.</span>
                         </p>
                         <p className="text-base md:text-lg text-white/90 leading-loose">
-                          To make <span className="bg-gradient-to-r from-pink-400 via-coral-400 to-peach-400 bg-clip-text text-transparent font-medium">community the center</span> of progress.
+                          To make <span className="text-white font-semibold">community the center</span> of progress.
                         </p>
                       </div>
 
