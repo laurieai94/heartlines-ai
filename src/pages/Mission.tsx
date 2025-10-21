@@ -88,9 +88,6 @@ const Mission = () => {
                 <p className="text-lg md:text-xl text-white/95 font-semibold leading-relaxed">
                   we can't stop it, and we can't ignore it.
                 </p>
-                <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                  it's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, work, love, and connect.
-                </p>
                   </div>
                 </div>
 
@@ -119,6 +116,10 @@ const Mission = () => {
                           <div className="w-full border-t border-white/10"></div>
                         </div>
                       </div>
+
+                      <p className="text-base md:text-lg text-white/90 font-light leading-relaxed text-left">
+                        it's writing our emails, driving our cars, curating our feeds, even finishing our thoughts — shaping how we live, work, love, and connect.
+                      </p>
 
                       {/* Conflict Section */}
                       <div className="space-y-4 text-left">
