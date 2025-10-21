@@ -238,64 +238,46 @@ const Mission = () => {
                 {/* Gradient divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-pink-400/50 to-transparent mb-8 max-w-2xl mx-auto"></div>
                 
-                {/* Introduction */}
-                <div className="text-center mb-8 max-w-2xl mx-auto">
+                {/* Opening */}
+                <div className="text-center space-y-6 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
-                    <span className="font-brand">heartlines</span> is built by laurie ai — an organization using ai to build stronger relationships, so we can build stronger communities.
+                    <span className="font-brand">heartlines</span> is built by laurie ai —
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    using ai to build stronger relationships,
+                  </p>
+                  <p className="text-lg md:text-xl text-white/95 font-light leading-relaxed">
+                    so we can build stronger communities.
                   </p>
                 </div>
 
-                {/* The Model */}
-                <div className="text-center space-y-8 mb-8 max-w-2xl mx-auto">
-                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    <span className="font-medium text-white">here's the model:</span>
+                {/* What We Do */}
+                <div className="text-center space-y-6 mb-8 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    we create tools that help people grow, heal, and connect —
                   </p>
-                  
-                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    we make for-profit products like <span className="font-brand">heartlines</span> that help people grow, heal, and connect. then we use part of that profit to create free or low-cost ai tools for the people and communities who are most often left behind —
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    then reinvest part of our profit to build purpose-built tools
                   </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    for the people and communities too often left behind.
+                  </p>
+                </div>
 
-                  {/* Who We Serve - Nested glass card */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 
-                    hover:bg-white/15 transition-all duration-300">
-                    <ul className="space-y-3 text-white/90 font-light text-base md:text-lg text-left">
-                      <li className="flex items-start gap-3 group/item">
-                        <Heart className="w-5 h-5 text-pink-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
-                        <span>lgbtq+ organizations</span>
-                      </li>
-                      <li className="flex items-start gap-3 group/item">
-                        <Heart className="w-5 h-5 text-coral-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
-                        <span>mental-health and trauma-informed groups</span>
-                      </li>
-                      <li className="flex items-start gap-3 group/item">
-                        <Heart className="w-5 h-5 text-peach-400 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
-                        <span>inclusion-driven nonprofits</span>
-                      </li>
-                      <li className="flex items-start gap-3 group/item">
-                        <Heart className="w-5 h-5 text-orange-300 flex-shrink-0 mt-1 
-                          group-hover/item:scale-110 transition-transform duration-300" />
-                        <span>anyone who deserves access to care but rarely gets it</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed mt-8">
-                    <span className="font-medium text-white">it's a cycle:</span> profit funds purpose, and purpose drives innovation.
-                  </p>
-                  
-                  <p className="text-base md:text-lg text-white/90 font-light leading-relaxed">
-                    when you invest in your own growth with <span className="font-brand">heartlines</span>, you help bring ai to people who've been excluded from it.
-                  </p>
-
-                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed mt-6">
-                    laurie ai exists to prove that when ai helps people connect, communities get stronger.
-                  </p>
-                  
+                {/* The Cycle */}
+                <div className="text-center space-y-4 mb-8 max-w-2xl mx-auto">
                   <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                    and that's the future we're here to build.
+                    profit fuels purpose. purpose drives connection.
+                  </p>
+                </div>
+
+                {/* Closing */}
+                <div className="text-center space-y-4 max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    when ai helps people connect,
+                  </p>
+                  <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                    communities get stronger.
                   </p>
                 </div>
 
